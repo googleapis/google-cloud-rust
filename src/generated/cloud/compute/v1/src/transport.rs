@@ -227,12 +227,6 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -267,10 +261,13 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -343,10 +340,13 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -398,12 +398,6 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -439,10 +433,13 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -521,12 +518,6 @@ impl super::stub::Addresses for Addresses {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -561,10 +552,13 @@ impl super::stub::Addresses for Addresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -650,10 +644,13 @@ impl super::stub::Addresses for Addresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -735,10 +732,13 @@ impl super::stub::Addresses for Addresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -813,10 +813,13 @@ impl super::stub::Addresses for Addresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -868,12 +871,6 @@ impl super::stub::Addresses for Addresses {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -909,10 +906,13 @@ impl super::stub::Addresses for Addresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -998,10 +998,13 @@ impl super::stub::Addresses for Addresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1075,10 +1078,13 @@ impl super::stub::Addresses for Addresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1151,10 +1157,13 @@ impl super::stub::Addresses for Addresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1358,10 +1367,13 @@ impl super::stub::Advice for Advice {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1433,10 +1445,13 @@ impl super::stub::Advice for Advice {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1508,10 +1523,13 @@ impl super::stub::Advice for Advice {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1593,12 +1611,6 @@ impl super::stub::Autoscalers for Autoscalers {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -1633,10 +1645,13 @@ impl super::stub::Autoscalers for Autoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1722,10 +1737,13 @@ impl super::stub::Autoscalers for Autoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1807,10 +1825,13 @@ impl super::stub::Autoscalers for Autoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1885,10 +1906,13 @@ impl super::stub::Autoscalers for Autoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1940,12 +1964,6 @@ impl super::stub::Autoscalers for Autoscalers {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -1981,10 +1999,13 @@ impl super::stub::Autoscalers for Autoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2063,10 +2084,13 @@ impl super::stub::Autoscalers for Autoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2139,10 +2163,13 @@ impl super::stub::Autoscalers for Autoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2221,10 +2248,13 @@ impl super::stub::Autoscalers for Autoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2422,10 +2452,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2474,12 +2507,6 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -2514,10 +2541,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2593,10 +2623,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2663,10 +2696,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2738,10 +2774,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2819,10 +2858,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2881,10 +2923,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -2926,12 +2971,6 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -2961,10 +3000,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3010,12 +3052,6 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -3045,10 +3081,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3124,10 +3163,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3193,10 +3235,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3268,10 +3313,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3336,10 +3384,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3415,10 +3466,13 @@ impl super::stub::BackendBuckets for BackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3605,10 +3659,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3657,12 +3714,6 @@ impl super::stub::BackendServices for BackendServices {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -3697,10 +3748,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3776,10 +3830,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3846,10 +3903,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3921,10 +3981,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -3991,10 +4054,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
             .execute(builder, body, options)
@@ -4065,10 +4131,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4146,10 +4215,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4211,10 +4283,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4259,12 +4334,6 @@ impl super::stub::BackendServices for BackendServices {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -4294,10 +4363,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4343,12 +4415,6 @@ impl super::stub::BackendServices for BackendServices {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -4378,10 +4444,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4457,10 +4526,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4526,10 +4598,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4601,10 +4676,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4670,10 +4748,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4738,10 +4819,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -4817,10 +4901,13 @@ impl super::stub::BackendServices for BackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5021,10 +5108,13 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5100,10 +5190,13 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5169,10 +5262,13 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5217,12 +5313,6 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -5252,10 +5342,13 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5351,10 +5444,13 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5521,12 +5617,6 @@ impl super::stub::DiskTypes for DiskTypes {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -5561,10 +5651,13 @@ impl super::stub::DiskTypes for DiskTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5646,10 +5739,13 @@ impl super::stub::DiskTypes for DiskTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5701,12 +5797,6 @@ impl super::stub::DiskTypes for DiskTypes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -5742,10 +5832,13 @@ impl super::stub::DiskTypes for DiskTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5862,10 +5955,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -5911,12 +6007,6 @@ impl super::stub::Disks for Disks {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -5951,10 +6041,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6029,10 +6122,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6112,10 +6208,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6205,10 +6304,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6293,10 +6395,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6377,10 +6482,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6468,10 +6576,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6550,10 +6661,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6605,12 +6719,6 @@ impl super::stub::Disks for Disks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -6646,10 +6754,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6723,10 +6834,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6812,10 +6926,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6897,10 +7014,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -6986,10 +7106,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7063,10 +7186,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7152,10 +7278,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7231,10 +7360,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7307,10 +7439,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7411,10 +7546,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7500,10 +7638,13 @@ impl super::stub::Disks for Disks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7701,10 +7842,13 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7769,10 +7913,13 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7834,10 +7981,13 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7882,12 +8032,6 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -7917,10 +8061,13 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -7985,10 +8132,13 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8055,10 +8205,13 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8238,10 +8391,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8307,10 +8463,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8382,10 +8541,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8451,10 +8613,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8516,10 +8681,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8577,10 +8745,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8648,10 +8819,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8717,10 +8891,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8769,10 +8946,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8811,12 +8991,6 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                     .parent_id
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("parentId", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
@@ -8839,10 +9013,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8894,10 +9071,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -8967,10 +9147,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9036,10 +9219,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9109,10 +9295,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9171,10 +9360,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9244,10 +9436,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9309,10 +9504,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9374,10 +9572,13 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9566,10 +9767,13 @@ impl super::stub::Firewalls for Firewalls {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9640,10 +9844,13 @@ impl super::stub::Firewalls for Firewalls {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9702,10 +9909,13 @@ impl super::stub::Firewalls for Firewalls {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9747,12 +9957,6 @@ impl super::stub::Firewalls for Firewalls {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -9782,10 +9986,13 @@ impl super::stub::Firewalls for Firewalls {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9860,10 +10067,13 @@ impl super::stub::Firewalls for Firewalls {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -9935,10 +10145,13 @@ impl super::stub::Firewalls for Firewalls {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10013,10 +10226,13 @@ impl super::stub::Firewalls for Firewalls {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10186,12 +10402,6 @@ impl super::stub::ForwardingRules for ForwardingRules {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -10226,10 +10436,13 @@ impl super::stub::ForwardingRules for ForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10303,10 +10516,13 @@ impl super::stub::ForwardingRules for ForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10380,10 +10596,13 @@ impl super::stub::ForwardingRules for ForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10459,10 +10678,13 @@ impl super::stub::ForwardingRules for ForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10515,12 +10737,6 @@ impl super::stub::ForwardingRules for ForwardingRules {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -10556,10 +10772,13 @@ impl super::stub::ForwardingRules for ForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10633,10 +10852,13 @@ impl super::stub::ForwardingRules for ForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10710,10 +10932,13 @@ impl super::stub::ForwardingRules for ForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10787,10 +11012,13 @@ impl super::stub::ForwardingRules for ForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -10971,12 +11199,6 @@ impl super::stub::FutureReservations for FutureReservations {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -11011,10 +11233,13 @@ impl super::stub::FutureReservations for FutureReservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11088,10 +11313,13 @@ impl super::stub::FutureReservations for FutureReservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11165,10 +11393,13 @@ impl super::stub::FutureReservations for FutureReservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11241,10 +11472,13 @@ impl super::stub::FutureReservations for FutureReservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11320,10 +11554,13 @@ impl super::stub::FutureReservations for FutureReservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11376,12 +11613,6 @@ impl super::stub::FutureReservations for FutureReservations {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -11417,10 +11648,13 @@ impl super::stub::FutureReservations for FutureReservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11497,10 +11731,13 @@ impl super::stub::FutureReservations for FutureReservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11707,10 +11944,13 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11781,10 +12021,13 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11843,10 +12086,13 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -11888,12 +12134,6 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -11923,10 +12163,13 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12002,10 +12245,13 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12077,10 +12323,13 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12152,10 +12401,13 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12352,10 +12604,13 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12431,10 +12686,13 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12496,10 +12754,13 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12544,12 +12805,6 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -12579,10 +12834,13 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12658,10 +12916,13 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12733,10 +12994,13 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12802,10 +13066,13 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -12984,10 +13251,13 @@ impl super::stub::GlobalFrontendSettings for GlobalFrontendSettings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13061,10 +13331,13 @@ impl super::stub::GlobalFrontendSettings for GlobalFrontendSettings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13163,10 +13436,13 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13232,10 +13508,13 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13301,10 +13580,13 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13369,10 +13651,13 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13434,10 +13719,13 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13482,12 +13770,6 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -13517,10 +13799,13 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13556,7 +13841,6 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -13592,10 +13876,13 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13762,12 +14049,6 @@ impl super::stub::GlobalOperations for GlobalOperations {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -13802,10 +14083,13 @@ impl super::stub::GlobalOperations for GlobalOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -13876,10 +14160,13 @@ impl super::stub::GlobalOperations for GlobalOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
             .execute(builder, body, options)
@@ -13956,10 +14243,13 @@ impl super::stub::GlobalOperations for GlobalOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14001,12 +14291,6 @@ impl super::stub::GlobalOperations for GlobalOperations {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -14036,10 +14320,13 @@ impl super::stub::GlobalOperations for GlobalOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14111,10 +14398,13 @@ impl super::stub::GlobalOperations for GlobalOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14209,10 +14499,13 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
             .execute(builder, body, options)
@@ -14280,10 +14573,13 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14322,12 +14618,6 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
                     .parent_id
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("parentId", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
@@ -14350,10 +14640,13 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14452,10 +14745,13 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14520,10 +14816,13 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14585,10 +14884,13 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14633,12 +14935,6 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -14668,10 +14964,13 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14737,10 +15036,13 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -14910,12 +15212,6 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -14952,10 +15248,13 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15021,10 +15320,13 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15089,10 +15391,13 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15154,10 +15459,13 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15202,12 +15510,6 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -15237,10 +15539,13 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15306,10 +15611,13 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15479,12 +15787,6 @@ impl super::stub::HealthChecks for HealthChecks {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -15519,10 +15821,13 @@ impl super::stub::HealthChecks for HealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15598,10 +15903,13 @@ impl super::stub::HealthChecks for HealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15673,10 +15981,13 @@ impl super::stub::HealthChecks for HealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15735,10 +16046,13 @@ impl super::stub::HealthChecks for HealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15780,12 +16094,6 @@ impl super::stub::HealthChecks for HealthChecks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -15815,10 +16123,13 @@ impl super::stub::HealthChecks for HealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15894,10 +16205,13 @@ impl super::stub::HealthChecks for HealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -15962,10 +16276,13 @@ impl super::stub::HealthChecks for HealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16041,10 +16358,13 @@ impl super::stub::HealthChecks for HealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16255,10 +16575,13 @@ impl super::stub::Hosts for Hosts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16338,10 +16661,13 @@ impl super::stub::Hosts for Hosts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16398,12 +16724,6 @@ impl super::stub::Hosts for Hosts {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -16445,10 +16765,13 @@ impl super::stub::Hosts for Hosts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16656,10 +16979,13 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16731,10 +17057,13 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16796,10 +17125,13 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16844,12 +17176,6 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -16879,10 +17205,13 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -16958,10 +17287,13 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17026,10 +17358,13 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17105,10 +17440,13 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17309,10 +17647,13 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17388,10 +17729,13 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17453,10 +17797,13 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17501,12 +17848,6 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -17536,10 +17877,13 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17619,10 +17963,13 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17687,10 +18034,13 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17770,10 +18120,13 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -17976,10 +18329,13 @@ impl super::stub::ImageFamilyViews for ImageFamilyViews {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18094,10 +18450,13 @@ impl super::stub::ImageViews for ImageViews {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18149,12 +18508,6 @@ impl super::stub::ImageViews for ImageViews {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -18190,10 +18543,13 @@ impl super::stub::ImageViews for ImageViews {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18301,10 +18657,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18380,10 +18739,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18454,10 +18816,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18528,10 +18893,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18609,10 +18977,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18675,10 +19046,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18720,12 +19094,6 @@ impl super::stub::Images for Images {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -18755,10 +19123,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18833,10 +19204,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18908,10 +19282,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -18983,10 +19360,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19058,10 +19438,13 @@ impl super::stub::Images for Images {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19266,10 +19649,13 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19353,10 +19739,13 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19439,10 +19828,13 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19518,10 +19910,13 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19560,7 +19955,6 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -19601,10 +19995,13 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19812,10 +20209,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19865,12 +20265,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -19905,10 +20299,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -19983,10 +20380,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20060,10 +20460,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20138,10 +20541,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20216,10 +20622,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20294,10 +20703,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20370,10 +20782,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20449,10 +20864,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20505,12 +20923,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -20546,10 +20958,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20588,7 +21003,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -20627,10 +21041,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20670,7 +21087,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -20711,10 +21127,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20754,7 +21173,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -20795,10 +21213,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20872,10 +21293,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -20951,10 +21375,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21031,10 +21458,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21109,10 +21539,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21186,10 +21619,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21265,10 +21701,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21342,10 +21781,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21419,10 +21861,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21497,10 +21942,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21576,10 +22024,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21655,10 +22106,13 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21864,10 +22318,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -21916,12 +22373,6 @@ impl super::stub::InstanceGroups for InstanceGroups {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -21956,10 +22407,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22045,10 +22499,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22130,10 +22587,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22208,10 +22668,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22263,12 +22726,6 @@ impl super::stub::InstanceGroups for InstanceGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -22304,10 +22761,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22346,7 +22806,6 @@ impl super::stub::InstanceGroups for InstanceGroups {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -22385,10 +22844,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22462,10 +22924,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22539,10 +23004,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22615,10 +23083,13 @@ impl super::stub::InstanceGroups for InstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22821,10 +23292,13 @@ impl super::stub::InstanceSettings for InstanceSettings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -22911,10 +23385,13 @@ impl super::stub::InstanceSettings for InstanceSettings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23095,12 +23572,6 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -23135,10 +23606,13 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23214,10 +23688,13 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23289,10 +23766,13 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23358,10 +23838,13 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23423,10 +23906,13 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23471,12 +23957,6 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -23506,10 +23986,13 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23574,10 +24057,13 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23642,10 +24128,13 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23841,10 +24330,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23918,10 +24410,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -23995,10 +24490,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24044,12 +24542,6 @@ impl super::stub::Instances for Instances {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -24084,10 +24576,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24177,10 +24672,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24256,10 +24754,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24348,10 +24849,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24427,10 +24931,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24505,10 +25012,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24595,10 +25105,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24680,10 +25193,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24757,10 +25273,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24835,10 +25354,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -24926,10 +25448,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25011,10 +25536,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25104,10 +25632,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25180,10 +25711,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25267,10 +25801,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25322,12 +25859,6 @@ impl super::stub::Instances for Instances {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -25363,10 +25894,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25423,12 +25957,6 @@ impl super::stub::Instances for Instances {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -25470,10 +25998,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25547,10 +26078,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25624,10 +26158,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25701,10 +26238,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25790,10 +26330,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25879,10 +26422,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -25955,10 +26501,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
             .execute(builder, body, options)
@@ -26039,10 +26588,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26118,10 +26670,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26203,10 +26758,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26292,10 +26850,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26369,10 +26930,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26446,10 +27010,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26535,10 +27102,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26612,10 +27182,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26701,10 +27274,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26778,10 +27354,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26855,10 +27434,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -26932,10 +27514,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27011,10 +27596,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27100,10 +27688,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27178,10 +27769,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27267,10 +27861,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27344,10 +27941,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27439,10 +28039,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27531,10 +28134,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27607,10 +28213,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27709,10 +28318,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27787,10 +28399,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27864,10 +28479,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -27942,10 +28560,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28021,10 +28642,13 @@ impl super::stub::Instances for Instances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28230,10 +28854,13 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28306,10 +28933,13 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28383,10 +29013,13 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28468,10 +29101,13 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28524,12 +29160,6 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -28565,10 +29195,13 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28641,10 +29274,13 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28719,10 +29355,13 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -28903,12 +29542,6 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -28943,10 +29576,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29020,10 +29656,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29096,10 +29735,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29173,10 +29815,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29251,10 +29896,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29306,12 +29954,6 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -29347,10 +29989,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29423,10 +30068,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29500,10 +30148,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29576,10 +30227,13 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29777,10 +30431,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29845,10 +30502,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29916,10 +30576,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -29988,10 +30651,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30054,10 +30720,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30103,12 +30772,6 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -30138,10 +30801,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30210,10 +30876,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30280,10 +30949,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30350,10 +31022,13 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30524,12 +31199,6 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -30566,10 +31235,13 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30643,10 +31315,13 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30719,10 +31394,13 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30802,10 +31480,13 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30858,12 +31539,6 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -30899,10 +31574,13 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -30976,10 +31654,13 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31053,10 +31734,13 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31253,10 +31937,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31336,10 +32023,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31415,10 +32105,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31484,10 +32177,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31554,10 +32250,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31619,10 +32318,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31667,12 +32369,6 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -31702,10 +32398,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31797,10 +32496,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31865,10 +32567,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -31933,10 +32638,13 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32122,10 +32830,13 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32170,12 +32881,6 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -32205,10 +32910,13 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32306,10 +33014,13 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32355,12 +33066,6 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -32390,10 +33095,13 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32502,10 +33210,13 @@ impl super::stub::Interconnects for Interconnects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32577,10 +33288,13 @@ impl super::stub::Interconnects for Interconnects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32645,10 +33359,13 @@ impl super::stub::Interconnects for Interconnects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32713,10 +33430,13 @@ impl super::stub::Interconnects for Interconnects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32775,10 +33495,13 @@ impl super::stub::Interconnects for Interconnects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32820,12 +33543,6 @@ impl super::stub::Interconnects for Interconnects {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -32855,10 +33572,13 @@ impl super::stub::Interconnects for Interconnects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -32934,10 +33654,13 @@ impl super::stub::Interconnects for Interconnects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33009,10 +33732,95 @@ impl super::stub::Interconnects for Interconnects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn set_name(
+        &self,
+        req: crate::model::interconnects::SetNameRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_interconnect = try_match(
+                    Some(&req).map(|m| &m.interconnect).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/global/interconnects/{}/setName",
+                    var_project, var_interconnect,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/global/interconnects/{interconnect}/setName";
+
+                let resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/global/interconnects/{}",
+                    var_project, var_interconnect,
+                );
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = req
+                    .request_id
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.interconnect).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "interconnect",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.interconnects/setName")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
         );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33205,10 +34013,13 @@ impl super::stub::LicenseCodes for LicenseCodes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33286,10 +34097,13 @@ impl super::stub::LicenseCodes for LicenseCodes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33361,10 +34175,13 @@ impl super::stub::LicenseCodes for LicenseCodes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33429,10 +34246,13 @@ impl super::stub::LicenseCodes for LicenseCodes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33540,10 +34360,13 @@ impl super::stub::Licenses for Licenses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33614,10 +34437,13 @@ impl super::stub::Licenses for Licenses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33695,10 +34521,13 @@ impl super::stub::Licenses for Licenses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33757,10 +34586,13 @@ impl super::stub::Licenses for Licenses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33802,12 +34634,6 @@ impl super::stub::Licenses for Licenses {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -33837,10 +34663,13 @@ impl super::stub::Licenses for Licenses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33912,10 +34741,13 @@ impl super::stub::Licenses for Licenses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -33987,10 +34819,13 @@ impl super::stub::Licenses for Licenses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34077,10 +34912,13 @@ impl super::stub::Licenses for Licenses {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34277,10 +35115,13 @@ impl super::stub::MachineImages for MachineImages {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34352,10 +35193,13 @@ impl super::stub::MachineImages for MachineImages {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34433,10 +35277,13 @@ impl super::stub::MachineImages for MachineImages {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34498,10 +35345,13 @@ impl super::stub::MachineImages for MachineImages {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34543,12 +35393,6 @@ impl super::stub::MachineImages for MachineImages {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -34578,10 +35422,13 @@ impl super::stub::MachineImages for MachineImages {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34653,10 +35500,13 @@ impl super::stub::MachineImages for MachineImages {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34728,10 +35578,13 @@ impl super::stub::MachineImages for MachineImages {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34796,10 +35649,13 @@ impl super::stub::MachineImages for MachineImages {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -34969,12 +35825,6 @@ impl super::stub::MachineTypes for MachineTypes {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -35009,10 +35859,13 @@ impl super::stub::MachineTypes for MachineTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35094,10 +35947,13 @@ impl super::stub::MachineTypes for MachineTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35149,12 +36005,6 @@ impl super::stub::MachineTypes for MachineTypes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -35190,10 +36040,13 @@ impl super::stub::MachineTypes for MachineTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35298,10 +36151,13 @@ impl super::stub::ManagedRulesets for ManagedRulesets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35346,12 +36202,6 @@ impl super::stub::ManagedRulesets for ManagedRulesets {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -35381,10 +36231,13 @@ impl super::stub::ManagedRulesets for ManagedRulesets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35466,12 +36319,6 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -35506,10 +36353,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35583,10 +36433,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35659,10 +36512,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35736,10 +36592,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35815,10 +36674,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35871,12 +36733,6 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -35912,10 +36768,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -35989,10 +36848,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36065,10 +36927,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36141,10 +37006,13 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36326,12 +37194,6 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -36368,10 +37230,13 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36445,10 +37310,13 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36521,10 +37389,13 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36604,10 +37475,13 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36685,10 +37559,13 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36870,12 +37747,6 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -36910,10 +37781,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -36989,10 +37863,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37066,10 +37943,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37145,10 +38025,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37221,10 +38104,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37300,10 +38186,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37356,12 +38245,6 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -37397,10 +38280,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37439,7 +38325,6 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -37480,10 +38365,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37558,10 +38446,13 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37762,10 +38653,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37835,10 +38729,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37906,10 +38803,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -37958,12 +38858,6 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -38000,10 +38894,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38070,10 +38967,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38149,10 +39049,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38224,10 +39127,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38295,10 +39201,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38364,10 +39273,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38435,10 +39347,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38504,10 +39419,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38569,10 +39487,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38617,12 +39538,6 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -38652,10 +39567,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38731,10 +39649,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38803,10 +39724,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38873,10 +39797,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -38945,10 +39872,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39017,10 +39947,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39087,10 +40020,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39155,10 +40091,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39225,10 +40164,13 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39421,10 +40363,13 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39469,12 +40414,6 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -39504,10 +40443,13 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39616,10 +40558,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39685,10 +40630,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39763,10 +40711,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39837,10 +40788,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39905,10 +40859,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -39967,10 +40924,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40012,12 +40972,6 @@ impl super::stub::Networks for Networks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -40047,10 +41001,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40115,12 +41072,6 @@ impl super::stub::Networks for Networks {
                     .region
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("region", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -40156,10 +41107,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40234,10 +41188,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40313,10 +41270,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40392,10 +41352,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40471,10 +41434,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40550,10 +41516,13 @@ impl super::stub::Networks for Networks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40760,10 +41729,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40809,12 +41781,6 @@ impl super::stub::NodeGroups for NodeGroups {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -40849,10 +41815,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -40938,10 +41907,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41015,10 +41987,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41100,10 +42075,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41177,10 +42155,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41256,10 +42237,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41311,12 +42295,6 @@ impl super::stub::NodeGroups for NodeGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -41352,10 +42330,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41412,12 +42393,6 @@ impl super::stub::NodeGroups for NodeGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -41459,10 +42434,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41548,10 +42526,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41625,10 +42606,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41701,10 +42685,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41778,10 +42765,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41855,10 +42845,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -41931,10 +42924,13 @@ impl super::stub::NodeGroups for NodeGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42115,12 +43111,6 @@ impl super::stub::NodeTemplates for NodeTemplates {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -42155,10 +43145,13 @@ impl super::stub::NodeTemplates for NodeTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42244,10 +43237,13 @@ impl super::stub::NodeTemplates for NodeTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42329,10 +43325,13 @@ impl super::stub::NodeTemplates for NodeTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42406,10 +43405,13 @@ impl super::stub::NodeTemplates for NodeTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42484,10 +43486,13 @@ impl super::stub::NodeTemplates for NodeTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42539,12 +43544,6 @@ impl super::stub::NodeTemplates for NodeTemplates {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -42580,10 +43579,13 @@ impl super::stub::NodeTemplates for NodeTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42656,10 +43658,13 @@ impl super::stub::NodeTemplates for NodeTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42732,10 +43737,13 @@ impl super::stub::NodeTemplates for NodeTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -42913,12 +43921,6 @@ impl super::stub::NodeTypes for NodeTypes {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -42953,10 +43955,13 @@ impl super::stub::NodeTypes for NodeTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43038,10 +44043,13 @@ impl super::stub::NodeTypes for NodeTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43093,12 +44101,6 @@ impl super::stub::NodeTypes for NodeTypes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -43134,10 +44136,13 @@ impl super::stub::NodeTypes for NodeTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43231,10 +44236,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43300,10 +44308,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43377,10 +44388,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43446,10 +44460,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43511,10 +44528,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43574,10 +44594,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43643,10 +44666,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43695,10 +44721,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43737,12 +44766,6 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                     .parent_id
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("parentId", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
@@ -43765,10 +44788,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43817,10 +44843,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43864,12 +44893,6 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                     .parent_id
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("parentId", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
@@ -43892,10 +44915,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -43965,10 +44991,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44034,10 +45063,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44109,10 +45141,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44173,10 +45208,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44248,10 +45286,13 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44414,12 +45455,6 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -44454,10 +45489,13 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44531,10 +45569,13 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44607,10 +45648,13 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44686,10 +45730,13 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44742,12 +45789,6 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -44783,10 +45824,13 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44860,10 +45904,13 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -44936,10 +45983,13 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45143,10 +46193,13 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45191,12 +46244,6 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -45226,10 +46273,13 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45305,10 +46355,13 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45500,10 +46553,13 @@ impl super::stub::ProjectViews for ProjectViews {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45595,10 +46651,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45657,10 +46716,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45719,10 +46781,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45781,10 +46846,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45839,10 +46907,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45897,10 +46968,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -45942,12 +47016,6 @@ impl super::stub::Projects for Projects {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -45977,10 +47045,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46022,12 +47093,6 @@ impl super::stub::Projects for Projects {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -46057,10 +47122,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46119,10 +47187,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46181,10 +47252,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46243,10 +47317,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46308,10 +47385,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46370,10 +47450,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46432,10 +47515,13 @@ impl super::stub::Projects for Projects {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46622,10 +47708,13 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46691,10 +47780,13 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46759,10 +47851,13 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46825,10 +47920,13 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46874,12 +47972,6 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -46909,10 +48001,13 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -46978,10 +48073,13 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47047,10 +48145,13 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47221,12 +48322,6 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -47263,10 +48358,13 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47340,10 +48438,13 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47417,10 +48518,13 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47493,10 +48597,13 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47572,10 +48679,13 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47628,12 +48738,6 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -47669,10 +48773,13 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47746,10 +48853,13 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -47823,10 +48933,13 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48044,10 +49157,13 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48129,10 +49245,13 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48207,10 +49326,13 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48262,12 +49384,6 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -48303,10 +49419,13 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48385,10 +49504,13 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48461,10 +49583,13 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48543,10 +49668,13 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48752,10 +49880,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48828,10 +49959,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48905,10 +50039,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -48984,10 +50121,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49040,12 +50180,6 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -49081,10 +50215,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49137,12 +50274,6 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -49178,10 +50309,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49255,10 +50389,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49331,10 +50468,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49409,10 +50549,13 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49618,10 +50761,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49694,10 +50840,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49770,10 +50919,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49847,10 +50999,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49926,10 +51081,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -49982,12 +51140,6 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -50023,10 +51175,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50079,12 +51234,6 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -50120,10 +51269,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50197,10 +51349,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50273,10 +51428,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50352,10 +51510,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50430,10 +51591,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50507,10 +51671,13 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50691,12 +51858,6 @@ impl super::stub::RegionCommitments for RegionCommitments {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -50731,10 +51892,13 @@ impl super::stub::RegionCommitments for RegionCommitments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50816,10 +51980,13 @@ impl super::stub::RegionCommitments for RegionCommitments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50894,10 +52061,13 @@ impl super::stub::RegionCommitments for RegionCommitments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -50949,12 +52119,6 @@ impl super::stub::RegionCommitments for RegionCommitments {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -50990,10 +52154,13 @@ impl super::stub::RegionCommitments for RegionCommitments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51095,10 +52262,13 @@ impl super::stub::RegionCommitments for RegionCommitments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51280,12 +52450,6 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -51322,10 +52486,13 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51399,10 +52566,13 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51475,10 +52645,13 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51551,10 +52724,13 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51630,10 +52806,13 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51686,12 +52865,6 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -51727,10 +52900,13 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51804,10 +52980,13 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -51882,10 +53061,13 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52099,10 +53281,13 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52154,12 +53339,6 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -52195,10 +53374,13 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52305,10 +53487,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52384,10 +53569,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52473,10 +53661,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52561,10 +53752,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52645,10 +53839,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52736,10 +53933,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52818,10 +54018,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52873,12 +54076,6 @@ impl super::stub::RegionDisks for RegionDisks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -52914,10 +54111,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -52991,10 +54191,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53080,10 +54283,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53165,10 +54371,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53254,10 +54463,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53331,10 +54543,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53408,10 +54623,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53477,10 +54695,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53553,10 +54774,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53657,10 +54881,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53746,10 +54973,13 @@ impl super::stub::RegionDisks for RegionDisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -53931,12 +55161,6 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -53973,10 +55197,13 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54052,10 +55279,13 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54128,10 +55358,13 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54209,10 +55442,13 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54265,12 +55501,6 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -54306,10 +55536,13 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54383,10 +55616,13 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54459,10 +55695,13 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54643,12 +55882,6 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -54685,10 +55918,13 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54762,10 +55998,13 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54838,10 +56077,13 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54917,10 +56159,13 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -54973,12 +56218,6 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -55014,10 +56253,13 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55091,10 +56333,13 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55169,10 +56414,13 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55390,10 +56638,13 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55475,10 +56726,13 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55553,10 +56807,13 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55608,12 +56865,6 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -55649,10 +56900,13 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55738,10 +56992,13 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55814,10 +57071,13 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -55903,10 +57163,13 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56087,12 +57350,6 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -56127,10 +57384,13 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56216,10 +57476,13 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56301,10 +57564,13 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56377,10 +57643,13 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56455,10 +57724,13 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56510,12 +57782,6 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -56551,10 +57817,13 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56640,10 +57909,13 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56718,10 +57990,13 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -56939,10 +58214,13 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57026,10 +58304,13 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57112,10 +58393,13 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57191,10 +58475,13 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57234,7 +58521,6 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -57275,10 +58561,13 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57486,10 +58775,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57562,10 +58854,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57641,10 +58936,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57719,10 +59017,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57799,10 +59100,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57875,10 +59179,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -57951,10 +59258,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58030,10 +59340,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58086,12 +59399,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -58127,10 +59434,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58169,7 +59479,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -58210,10 +59519,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58253,7 +59565,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -58294,10 +59605,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58337,7 +59651,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -58376,10 +59689,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58453,10 +59769,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58530,10 +59849,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58610,10 +59932,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58688,10 +60013,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58767,10 +60095,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58846,10 +60177,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -58925,10 +60259,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59004,10 +60341,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59084,10 +60424,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59163,10 +60506,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59240,10 +60586,13 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59448,10 +60797,13 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59504,12 +60856,6 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -59545,10 +60891,13 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59587,7 +60936,6 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -59626,10 +60974,13 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59703,10 +61054,13 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59781,10 +61135,13 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -59990,10 +61347,13 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60066,10 +61426,13 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60145,10 +61508,13 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60201,12 +61567,6 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -60242,10 +61602,13 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60453,10 +61816,13 @@ impl super::stub::RegionInstances for RegionInstances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60662,10 +62028,13 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60738,10 +62107,13 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60817,10 +62189,13 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60902,10 +62277,13 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -60958,12 +62336,6 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -60999,10 +62371,13 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61077,10 +62452,13 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61155,10 +62533,13 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61364,10 +62745,13 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61440,10 +62824,13 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61517,10 +62904,13 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61596,10 +62986,13 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61652,12 +63045,6 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -61693,10 +63080,13 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61769,10 +63159,13 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61846,10 +63239,13 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -61924,10 +63320,13 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62133,10 +63532,13 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62210,10 +63612,13 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62287,10 +63692,13 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62363,10 +63771,13 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62442,10 +63853,13 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62498,12 +63912,6 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -62539,10 +63947,13 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62581,7 +63992,6 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
@@ -62622,10 +64032,13 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62835,10 +64248,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62914,10 +64330,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -62994,10 +64413,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63071,10 +64493,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63147,10 +64572,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63226,10 +64654,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63297,10 +64728,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63376,10 +64810,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63453,10 +64890,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63532,10 +64972,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63588,12 +65031,6 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -63629,10 +65066,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63706,10 +65146,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63785,10 +65228,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63865,10 +65311,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -63945,10 +65394,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64025,10 +65477,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64103,10 +65558,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64181,10 +65639,13 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64366,12 +65827,6 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -64408,10 +65863,13 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64485,10 +65943,13 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64561,10 +66022,13 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64640,10 +66104,13 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64696,12 +66163,6 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -64737,10 +66198,13 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -64815,10 +66279,13 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65032,10 +66499,13 @@ impl super::stub::RegionOperations for RegionOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
             .execute(builder, body, options)
@@ -65123,10 +66593,13 @@ impl super::stub::RegionOperations for RegionOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65178,12 +66651,6 @@ impl super::stub::RegionOperations for RegionOperations {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -65219,10 +66686,13 @@ impl super::stub::RegionOperations for RegionOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65304,10 +66774,13 @@ impl super::stub::RegionOperations for RegionOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65414,10 +66887,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65491,10 +66967,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65567,10 +67046,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65644,10 +67126,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65727,10 +67212,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65783,12 +67271,6 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -65824,10 +67306,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65904,10 +67389,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -65985,10 +67473,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66062,10 +67553,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66139,10 +67633,13 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66346,10 +67843,13 @@ impl super::stub::RegionSnapshotSettings for RegionSnapshotSettings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66437,10 +67937,13 @@ impl super::stub::RegionSnapshotSettings for RegionSnapshotSettings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66658,10 +68161,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66743,10 +68249,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66820,10 +68329,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66898,10 +68410,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -66953,12 +68468,6 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -66994,10 +68503,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67070,10 +68582,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67147,10 +68662,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67223,10 +68741,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67300,10 +68821,13 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67509,10 +69033,13 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67585,10 +69112,13 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67664,10 +69194,13 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67720,12 +69253,6 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -67761,10 +69288,13 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -67982,10 +69512,13 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68067,10 +69600,13 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68145,10 +69681,13 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68200,12 +69739,6 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -68241,10 +69774,13 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68280,7 +69816,6 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -68316,10 +69851,13 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68405,10 +69943,13 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68614,10 +70155,13 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68690,10 +70234,13 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68769,10 +70316,13 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68825,12 +70375,6 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -68866,10 +70410,13 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -68943,10 +70490,13 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69152,10 +70702,13 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69228,10 +70781,13 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69307,10 +70863,13 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69363,12 +70922,6 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -69404,10 +70957,13 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69481,10 +71037,13 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69560,10 +71119,13 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69637,10 +71199,13 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69846,10 +71411,13 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -69922,10 +71490,13 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70001,10 +71572,13 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70057,12 +71631,6 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -70098,10 +71666,13 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70319,10 +71890,13 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70404,10 +71978,13 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70482,10 +72059,13 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70537,12 +72117,6 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -70578,10 +72152,13 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70667,10 +72244,13 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70756,10 +72336,13 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -70841,10 +72424,13 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71028,12 +72614,6 @@ impl super::stub::RegionZones for RegionZones {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -71069,10 +72649,13 @@ impl super::stub::RegionZones for RegionZones {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71176,10 +72759,13 @@ impl super::stub::Regions for Regions {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71221,12 +72807,6 @@ impl super::stub::Regions for Regions {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -71256,10 +72836,13 @@ impl super::stub::Regions for Regions {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71364,10 +72947,13 @@ impl super::stub::ReliabilityRisks for ReliabilityRisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71412,12 +72998,6 @@ impl super::stub::ReliabilityRisks for ReliabilityRisks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -71447,10 +73027,13 @@ impl super::stub::ReliabilityRisks for ReliabilityRisks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71565,10 +73148,13 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71650,10 +73236,13 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71692,7 +73281,6 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -71731,10 +73319,13 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71816,10 +73407,13 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71900,10 +73494,13 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -71984,10 +73581,13 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72198,10 +73798,13 @@ impl super::stub::ReservationSlots for ReservationSlots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72281,10 +73884,13 @@ impl super::stub::ReservationSlots for ReservationSlots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72364,10 +73970,13 @@ impl super::stub::ReservationSlots for ReservationSlots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72424,12 +74033,6 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -72471,10 +74074,13 @@ impl super::stub::ReservationSlots for ReservationSlots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72556,10 +74162,13 @@ impl super::stub::ReservationSlots for ReservationSlots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72771,10 +74380,13 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72854,10 +74466,13 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72937,10 +74552,13 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -72978,7 +74596,6 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -73017,10 +74634,13 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73102,10 +74722,13 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73185,10 +74808,13 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73267,10 +74893,13 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73351,10 +74980,13 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73535,12 +75167,6 @@ impl super::stub::Reservations for Reservations {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -73575,10 +75201,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73664,10 +75293,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73749,10 +75381,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73826,10 +75461,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73904,10 +75542,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -73959,12 +75600,6 @@ impl super::stub::Reservations for Reservations {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -74000,10 +75635,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74077,10 +75715,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74166,10 +75807,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74242,10 +75886,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74318,10 +75965,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74423,10 +76073,13 @@ impl super::stub::Reservations for Reservations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74607,12 +76260,6 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -74647,10 +76294,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74724,10 +76374,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74800,10 +76453,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74877,10 +76533,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -74956,10 +76615,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75012,12 +76674,6 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -75053,10 +76709,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75133,10 +76792,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75209,10 +76871,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75285,10 +76950,13 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75496,10 +77164,13 @@ impl super::stub::RolloutPlans for RolloutPlans {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75571,10 +77242,13 @@ impl super::stub::RolloutPlans for RolloutPlans {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75633,10 +77307,13 @@ impl super::stub::RolloutPlans for RolloutPlans {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75678,12 +77355,6 @@ impl super::stub::RolloutPlans for RolloutPlans {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -75713,10 +77384,13 @@ impl super::stub::RolloutPlans for RolloutPlans {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75916,10 +77590,13 @@ impl super::stub::Rollouts for Rollouts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -75998,10 +77675,13 @@ impl super::stub::Rollouts for Rollouts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76076,10 +77756,13 @@ impl super::stub::Rollouts for Rollouts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76150,10 +77833,13 @@ impl super::stub::Rollouts for Rollouts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76195,12 +77881,6 @@ impl super::stub::Rollouts for Rollouts {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -76230,10 +77910,13 @@ impl super::stub::Rollouts for Rollouts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76313,10 +77996,13 @@ impl super::stub::Rollouts for Rollouts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76396,10 +78082,13 @@ impl super::stub::Rollouts for Rollouts {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76566,12 +78255,6 @@ impl super::stub::Routers for Routers {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -76606,10 +78289,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76695,10 +78381,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76773,10 +78462,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76851,10 +78543,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -76936,10 +78631,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77025,10 +78723,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77114,10 +78815,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77157,7 +78861,6 @@ impl super::stub::Routers for Routers {
             let builder = req.nat_name.iter().fold(builder, |builder, p| builder.query(&[("natName", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -77196,10 +78899,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77273,10 +78979,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77349,10 +79058,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77427,10 +79139,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77482,12 +79197,6 @@ impl super::stub::Routers for Routers {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -77523,10 +79232,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77569,7 +79281,6 @@ impl super::stub::Routers for Routers {
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
             let builder = req.peer.iter().fold(builder, |builder, p| builder.query(&[("peer", p)]));
             let builder = req.policy_applied.iter().fold(builder, |builder, p| builder.query(&[("policyApplied", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = req.route_type.iter().fold(builder, |builder, p| builder.query(&[("routeType", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
@@ -77609,10 +79320,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77651,7 +79365,6 @@ impl super::stub::Routers for Routers {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -77690,10 +79403,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77732,7 +79448,6 @@ impl super::stub::Routers for Routers {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -77771,10 +79486,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77860,10 +79578,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -77937,10 +79658,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78014,10 +79738,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78099,10 +79826,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78188,10 +79918,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78265,10 +79998,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78342,10 +80078,13 @@ impl super::stub::Routers for Routers {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78552,10 +80291,13 @@ impl super::stub::Routes for Routes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78626,10 +80368,13 @@ impl super::stub::Routes for Routes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78688,10 +80433,13 @@ impl super::stub::Routes for Routes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78733,12 +80481,6 @@ impl super::stub::Routes for Routes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -78768,10 +80510,13 @@ impl super::stub::Routes for Routes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -78843,10 +80588,13 @@ impl super::stub::Routes for Routes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79033,10 +80781,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79085,12 +80836,6 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -79125,10 +80870,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79204,10 +80952,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79279,10 +81030,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79348,10 +81102,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79417,10 +81174,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79465,12 +81225,6 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -79500,10 +81254,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79538,7 +81295,6 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -79569,10 +81325,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79660,10 +81419,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79733,10 +81495,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79802,10 +81567,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -79877,10 +81645,13 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80050,12 +81821,6 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -80090,10 +81855,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80167,10 +81935,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80244,10 +82015,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80321,10 +82095,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80400,10 +82177,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80456,12 +82236,6 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -80497,10 +82271,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80574,10 +82351,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80650,10 +82430,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80726,10 +82509,13 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80919,10 +82705,13 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -80996,10 +82785,13 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81195,10 +82987,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81269,10 +83064,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81350,10 +83148,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81412,10 +83213,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81457,12 +83261,6 @@ impl super::stub::Snapshots for Snapshots {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -81492,10 +83290,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81567,10 +83368,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81642,10 +83446,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81717,10 +83524,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81796,10 +83606,13 @@ impl super::stub::Snapshots for Snapshots {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -81969,12 +83782,6 @@ impl super::stub::SslCertificates for SslCertificates {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -82009,10 +83816,13 @@ impl super::stub::SslCertificates for SslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82088,10 +83898,13 @@ impl super::stub::SslCertificates for SslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82163,10 +83976,13 @@ impl super::stub::SslCertificates for SslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82228,10 +84044,13 @@ impl super::stub::SslCertificates for SslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82276,12 +84095,6 @@ impl super::stub::SslCertificates for SslCertificates {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -82311,10 +84124,13 @@ impl super::stub::SslCertificates for SslCertificates {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82484,12 +84300,6 @@ impl super::stub::SslPolicies for SslPolicies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -82524,10 +84334,13 @@ impl super::stub::SslPolicies for SslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82603,10 +84416,13 @@ impl super::stub::SslPolicies for SslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82678,10 +84494,13 @@ impl super::stub::SslPolicies for SslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82740,10 +84559,13 @@ impl super::stub::SslPolicies for SslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82785,12 +84607,6 @@ impl super::stub::SslPolicies for SslPolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -82820,10 +84636,13 @@ impl super::stub::SslPolicies for SslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82869,12 +84688,6 @@ impl super::stub::SslPolicies for SslPolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -82904,10 +84717,13 @@ impl super::stub::SslPolicies for SslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -82983,10 +84799,13 @@ impl super::stub::SslPolicies for SslPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83156,12 +84975,6 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -83196,10 +85009,13 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83272,10 +85088,13 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83327,12 +85146,6 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -83368,10 +85181,13 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83453,12 +85269,6 @@ impl super::stub::StoragePools for StoragePools {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -83493,10 +85303,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83582,10 +85395,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83667,10 +85483,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83744,10 +85563,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83822,10 +85644,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83877,12 +85702,6 @@ impl super::stub::StoragePools for StoragePools {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -83918,10 +85737,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -83960,7 +85782,6 @@ impl super::stub::StoragePools for StoragePools {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -83999,10 +85820,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84075,10 +85899,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84151,10 +85978,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84252,10 +86082,13 @@ impl super::stub::StoragePools for StoragePools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84436,12 +86269,6 @@ impl super::stub::Subnetworks for Subnetworks {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -84480,10 +86307,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84569,10 +86399,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84646,10 +86479,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84735,10 +86571,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84812,10 +86651,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84890,10 +86732,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -84946,12 +86791,6 @@ impl super::stub::Subnetworks for Subnetworks {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .views
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("views", p)]));
@@ -84990,10 +86829,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85039,12 +86881,6 @@ impl super::stub::Subnetworks for Subnetworks {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = req.service_project.iter().fold(builder, |builder, p| {
                     builder.query(&[("serviceProject", p)])
                 });
@@ -85077,10 +86913,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85172,10 +87011,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85248,10 +87090,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85325,10 +87170,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85401,10 +87249,13 @@ impl super::stub::Subnetworks for Subnetworks {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85612,10 +87463,13 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85687,10 +87541,13 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85752,10 +87609,13 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85800,12 +87660,6 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -85835,10 +87689,13 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -85914,10 +87771,13 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86087,12 +87947,6 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -86127,10 +87981,13 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86206,10 +88063,13 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86281,10 +88141,13 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86346,10 +88209,13 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86394,12 +88260,6 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -86429,10 +88289,13 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86508,10 +88371,13 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86577,10 +88443,13 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86750,12 +88619,6 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -86790,10 +88653,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86873,10 +88739,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -86952,10 +88821,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87017,10 +88889,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87065,12 +88940,6 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -87100,10 +88969,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87183,10 +89055,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87252,10 +89127,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87321,10 +89199,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87390,10 +89271,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87459,10 +89343,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87528,10 +89415,13 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87701,12 +89591,6 @@ impl super::stub::TargetInstances for TargetInstances {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -87741,10 +89625,13 @@ impl super::stub::TargetInstances for TargetInstances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87830,10 +89717,13 @@ impl super::stub::TargetInstances for TargetInstances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87915,10 +89805,13 @@ impl super::stub::TargetInstances for TargetInstances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -87993,10 +89886,13 @@ impl super::stub::TargetInstances for TargetInstances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88048,12 +89944,6 @@ impl super::stub::TargetInstances for TargetInstances {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -88089,10 +89979,13 @@ impl super::stub::TargetInstances for TargetInstances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88166,10 +90059,13 @@ impl super::stub::TargetInstances for TargetInstances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88242,10 +90138,13 @@ impl super::stub::TargetInstances for TargetInstances {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88451,10 +90350,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88528,10 +90430,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88580,12 +90485,6 @@ impl super::stub::TargetPools for TargetPools {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -88620,10 +90519,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88709,10 +90611,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88794,10 +90699,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88870,10 +90778,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -88948,10 +90859,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89003,12 +90917,6 @@ impl super::stub::TargetPools for TargetPools {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -89044,10 +90952,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89121,10 +91032,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89198,10 +91112,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89276,10 +91193,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89353,10 +91273,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89429,10 +91352,13 @@ impl super::stub::TargetPools for TargetPools {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89640,10 +91566,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89715,10 +91644,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89780,10 +91712,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89828,12 +91763,6 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -89863,10 +91792,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -89932,10 +91864,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90001,10 +91936,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90070,10 +92008,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90139,10 +92080,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90208,10 +92152,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90276,10 +92223,13 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90449,12 +92399,6 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -90489,10 +92433,13 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90568,10 +92515,13 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90643,10 +92593,13 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90708,10 +92661,13 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90756,12 +92712,6 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -90791,10 +92741,13 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90860,10 +92813,13 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90929,10 +92885,13 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -90997,10 +92956,13 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91170,12 +93132,6 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -91210,10 +93166,13 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91287,10 +93246,13 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91363,10 +93325,13 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91442,10 +93407,13 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91498,12 +93466,6 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -91539,10 +93501,13 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91616,10 +93581,13 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91797,12 +93765,6 @@ impl super::stub::UrlMaps for UrlMaps {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -91837,10 +93799,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91915,10 +93880,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -91989,10 +93957,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92051,10 +94022,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92130,10 +94104,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92175,12 +94152,6 @@ impl super::stub::UrlMaps for UrlMaps {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -92210,10 +94181,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92288,10 +94262,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92363,10 +94340,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92441,10 +94421,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92516,10 +94499,13 @@ impl super::stub::UrlMaps for UrlMaps {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92689,12 +94675,6 @@ impl super::stub::VpnGateways for VpnGateways {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -92729,10 +94709,13 @@ impl super::stub::VpnGateways for VpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92818,10 +94801,13 @@ impl super::stub::VpnGateways for VpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92903,10 +94889,13 @@ impl super::stub::VpnGateways for VpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -92979,10 +94968,13 @@ impl super::stub::VpnGateways for VpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93057,10 +95049,13 @@ impl super::stub::VpnGateways for VpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93112,12 +95107,6 @@ impl super::stub::VpnGateways for VpnGateways {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -93153,10 +95142,13 @@ impl super::stub::VpnGateways for VpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93230,10 +95222,13 @@ impl super::stub::VpnGateways for VpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93306,10 +95301,13 @@ impl super::stub::VpnGateways for VpnGateways {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93487,12 +95485,6 @@ impl super::stub::VpnTunnels for VpnTunnels {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
-                let builder = req
                     .service_project_number
                     .iter()
                     .fold(builder, |builder, p| {
@@ -93527,10 +95519,13 @@ impl super::stub::VpnTunnels for VpnTunnels {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93616,10 +95611,13 @@ impl super::stub::VpnTunnels for VpnTunnels {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93701,10 +95699,13 @@ impl super::stub::VpnTunnels for VpnTunnels {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93779,10 +95780,13 @@ impl super::stub::VpnTunnels for VpnTunnels {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93834,12 +95838,6 @@ impl super::stub::VpnTunnels for VpnTunnels {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -93875,10 +95873,13 @@ impl super::stub::VpnTunnels for VpnTunnels {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -93952,10 +95953,13 @@ impl super::stub::VpnTunnels for VpnTunnels {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -94161,10 +96165,13 @@ impl super::stub::WireGroups for WireGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -94237,10 +96244,13 @@ impl super::stub::WireGroups for WireGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -94307,10 +96317,13 @@ impl super::stub::WireGroups for WireGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -94346,7 +96359,6 @@ impl super::stub::WireGroups for WireGroups {
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
             let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
             let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
@@ -94380,10 +96392,13 @@ impl super::stub::WireGroups for WireGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -94461,10 +96476,13 @@ impl super::stub::WireGroups for WireGroups {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -94667,10 +96685,13 @@ impl super::stub::ZoneOperations for ZoneOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
             .execute(builder, body, options)
@@ -94758,10 +96779,13 @@ impl super::stub::ZoneOperations for ZoneOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -94813,12 +96837,6 @@ impl super::stub::ZoneOperations for ZoneOperations {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -94854,10 +96872,13 @@ impl super::stub::ZoneOperations for ZoneOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -94939,10 +96960,13 @@ impl super::stub::ZoneOperations for ZoneOperations {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -95049,10 +97073,13 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -95125,10 +97152,13 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -95204,10 +97234,13 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -95260,12 +97293,6 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -95301,10 +97328,13 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -95378,10 +97408,13 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -95579,10 +97612,13 @@ impl super::stub::Zones for Zones {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
@@ -95624,12 +97660,6 @@ impl super::stub::Zones for Zones {
                     .page_token
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-                let builder = req
-                    .return_partial_success
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("returnPartialSuccess", p)])
-                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -95659,10 +97689,13 @@ impl super::stub::Zones for Zones {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json")])
+            .query(&[("$apiVersion", "2026-09-01")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }

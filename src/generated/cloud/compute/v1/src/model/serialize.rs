@@ -6365,6 +6365,20 @@ impl serde::ser::Serialize
         if !self.machine_types.is_empty() {
             state.serialize_entry("machineTypes", &self.machine_types)?;
         }
+        if self.rank.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("rank", &__With(&self.rank))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -6614,11 +6628,40 @@ impl serde::ser::Serialize for super::CapacityHistoryRequestInstanceProperties {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.disks.is_empty() {
+            state.serialize_entry("disks", &self.disks)?;
+        }
+        if !self.guest_accelerators.is_empty() {
+            state.serialize_entry("guestAccelerators", &self.guest_accelerators)?;
+        }
         if self.machine_type.is_some() {
             state.serialize_entry("machineType", &self.machine_type)?;
         }
         if self.scheduling.is_some() {
             state.serialize_entry("scheduling", &self.scheduling)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CapacityHistoryRequestInstancePropertiesAttachedDisk {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -27994,6 +28037,32 @@ impl serde::ser::Serialize for super::InterconnectsGetMacsecConfigResponse {
         }
         if self.result.is_some() {
             state.serialize_entry("result", &self.result)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "interconnects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InterconnectsSetNameRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.current_name.is_some() {
+            state.serialize_entry("currentName", &self.current_name)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

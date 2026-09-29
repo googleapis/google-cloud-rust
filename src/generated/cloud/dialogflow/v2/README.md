@@ -17,6 +17,7 @@ The main types to work with this crate are the clients:
 
 - [Agents]: enabled by the `agents` feature.
 - [AnswerRecords]: enabled by the `answer-records` feature.
+- [CompanionAgents]: enabled by the `companion-agents` feature.
 - [Contexts]: enabled by the `contexts` feature.
 - [Conversations]: enabled by the `conversations` feature.
 - [ConversationDatasets]: enabled by the `conversation-datasets` feature.
@@ -56,6 +57,7 @@ The main types to work with this crate are the clients:
 [ring]: https://crates.io/crates/ring
 [Agents]: https://docs.rs/google-cloud-dialogflow-v2/1.16.0/google_cloud_dialogflow_v2/client/struct.Agents.html
 [AnswerRecords]: https://docs.rs/google-cloud-dialogflow-v2/1.16.0/google_cloud_dialogflow_v2/client/struct.AnswerRecords.html
+[CompanionAgents]: https://docs.rs/google-cloud-dialogflow-v2/1.16.0/google_cloud_dialogflow_v2/client/struct.CompanionAgents.html
 [Contexts]: https://docs.rs/google-cloud-dialogflow-v2/1.16.0/google_cloud_dialogflow_v2/client/struct.Contexts.html
 [Conversations]: https://docs.rs/google-cloud-dialogflow-v2/1.16.0/google_cloud_dialogflow_v2/client/struct.Conversations.html
 [ConversationDatasets]: https://docs.rs/google-cloud-dialogflow-v2/1.16.0/google_cloud_dialogflow_v2/client/struct.ConversationDatasets.html

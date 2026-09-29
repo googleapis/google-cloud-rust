@@ -387,6 +387,167 @@ impl<T: super::AnswerRecords> AnswerRecords for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::CompanionAgents].
+#[cfg(feature = "companion-agents")]
+#[async_trait::async_trait]
+pub trait CompanionAgents: std::fmt::Debug + Send + Sync {
+    async fn create_companion_agent(
+        &self,
+        req: crate::model::CreateCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompanionAgent>>;
+
+    async fn get_companion_agent(
+        &self,
+        req: crate::model::GetCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompanionAgent>>;
+
+    async fn update_companion_agent(
+        &self,
+        req: crate::model::UpdateCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompanionAgent>>;
+
+    async fn delete_companion_agent(
+        &self,
+        req: crate::model::DeleteCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn list_companion_agents(
+        &self,
+        req: crate::model::ListCompanionAgentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCompanionAgentsResponse>>;
+
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+}
+
+/// All implementations of [super::CompanionAgents] also implement [CompanionAgents].
+#[cfg(feature = "companion-agents")]
+#[async_trait::async_trait]
+impl<T: super::CompanionAgents> CompanionAgents for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_companion_agent(
+        &self,
+        req: crate::model::CreateCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompanionAgent>> {
+        T::create_companion_agent(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_companion_agent(
+        &self,
+        req: crate::model::GetCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompanionAgent>> {
+        T::get_companion_agent(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_companion_agent(
+        &self,
+        req: crate::model::UpdateCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompanionAgent>> {
+        T::update_companion_agent(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_companion_agent(
+        &self,
+        req: crate::model::DeleteCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_companion_agent(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_companion_agents(
+        &self,
+        req: crate::model::ListCompanionAgentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCompanionAgentsResponse>> {
+        T::list_companion_agents(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::Contexts].
 #[cfg(feature = "contexts")]
 #[async_trait::async_trait]
@@ -3227,6 +3388,30 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
     );
 
+    fn bidi_streaming_analyze_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::model::BidiStreamingAnalyzeContentRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::model::BidiStreamingAnalyzeContentResponse,
+        >,
+    );
+
+    fn streaming_reactive_companion_suggestions(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::model::StreamingReactiveCompanionSuggestionsRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::model::StreamingReactiveCompanionSuggestionsResponse,
+        >,
+    );
+
     async fn suggest_articles(
         &self,
         req: crate::model::SuggestArticlesRequest,
@@ -3340,6 +3525,36 @@ impl<T: super::Participants> Participants for T {
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
     ) {
         T::streaming_analyze_content(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn bidi_streaming_analyze_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::model::BidiStreamingAnalyzeContentRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::model::BidiStreamingAnalyzeContentResponse,
+        >,
+    ) {
+        T::bidi_streaming_analyze_content(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn streaming_reactive_companion_suggestions(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::model::StreamingReactiveCompanionSuggestionsRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::model::StreamingReactiveCompanionSuggestionsResponse,
+        >,
+    ) {
+        T::streaming_reactive_companion_suggestions(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

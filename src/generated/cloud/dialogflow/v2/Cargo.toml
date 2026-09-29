@@ -64,6 +64,8 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 agents = []
 # Enables `client::AnswerRecords` and all the types it depends on.
 answer-records = []
+# Enables `client::CompanionAgents` and all the types it depends on.
+companion-agents = []
 # Enables `client::Contexts` and all the types it depends on.
 contexts = []
 # Enables `client::Conversations` and all the types it depends on.
