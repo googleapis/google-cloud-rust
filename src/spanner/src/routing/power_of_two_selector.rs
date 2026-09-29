@@ -17,9 +17,6 @@
 //! Provides candidate selection algorithms to balance traffic load across multiple options
 //! while preferring lower-cost or lower-latency candidates.
 
-// TODO(location-aware-routing): Remove allow(dead_code) once integrated into LocationRouter and KeyRangeCache.
-#![allow(dead_code)]
-
 use rand::RngExt;
 use rand::rng;
 use std::cmp::Ordering;
@@ -122,7 +119,10 @@ impl PowerOfTwoSelector {
         let mut local_rng = rng();
         self.select_with_rng(candidates, score_lookup, &mut local_rng)
     }
+}
 
+#[cfg(test)]
+impl PowerOfTwoSelector {
     /// Selects a candidate reference from the given slice based on the scoring function.
     pub(crate) fn select<'a, T, S, F>(&self, candidates: &'a [T], score_lookup: F) -> Option<&'a T>
     where
