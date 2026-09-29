@@ -33,9 +33,9 @@ pub(crate) struct RetryOptions {
 impl Default for RetryOptions {
     fn default() -> Self {
         Self {
-            retry_policy: Arc::new(RetryableErrors.with_time_limit(Duration::from_secs(60))),
+            retry_policy: Arc::new(RetryableErrors.with_time_limit(Duration::from_secs(300))),
             backoff_policy: Arc::new(ExponentialBackoff::default()),
-            attempt_timeout: Some(Duration::from_secs(30)),
+            attempt_timeout: None,
         }
     }
 }
@@ -84,6 +84,15 @@ mod tests {
     use google_cloud_gax::error::rpc::Status;
     use http::HeaderMap;
     use test_case::test_case;
+
+    #[test]
+    fn default_retry_options() {
+        let options = RetryOptions::default();
+        assert_eq!(options.attempt_timeout, None);
+        let fmt = format!("{options:?}");
+        assert!(fmt.contains("RetryableErrors"), "{fmt}");
+        assert!(fmt.contains("ExponentialBackoff"), "{fmt}");
+    }
 
     #[test_case(Code::Aborted)]
     #[test_case(Code::Cancelled)]
