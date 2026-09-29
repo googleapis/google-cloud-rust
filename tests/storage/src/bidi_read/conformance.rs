@@ -48,8 +48,8 @@ pub async fn run() -> anyhow::Result<()> {
         &clients,
         BucketType::RegionalStandard { hns: false },
         async |bucket| {
-            test_read_post_stream_close(&clients, bucket).await?;
-            test_out_of_range(&clients, bucket).await?;
+            test_read_post_stream_close(&clients, bucket, false).await?;
+            test_out_of_range(&clients, bucket, false).await?;
             test_multiple_ranged_read(&clients, bucket, false).await
         },
     )
@@ -63,11 +63,15 @@ pub async fn run() -> anyhow::Result<()> {
     .await?;
 
     with_bucket(&clients, BucketType::ZonalRapid, async |bucket| {
+        test_read_post_stream_close(&clients, bucket, true).await?;
+        test_out_of_range(&clients, bucket, true).await?;
         test_multiple_ranged_read(&clients, bucket, true).await
     })
     .await?;
 
     with_bucket(&clients, BucketType::RegionalRapid, async |bucket| {
+        test_read_post_stream_close(&clients, bucket, false).await?;
+        test_out_of_range(&clients, bucket, false).await?;
         test_multiple_ranged_read(&clients, bucket, false).await
     })
     .await?;
@@ -359,9 +363,13 @@ async fn test_multiple_ranged_read(
     Ok(())
 }
 
-async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> anyhow::Result<()> {
+async fn test_read_post_stream_close(
+    clients: &Clients,
+    bucket_name: &str,
+    appendable: bool,
+) -> anyhow::Result<()> {
     println!("  test_read_post_stream_close ...");
-    let (payload, descriptor) = upload_and_open(clients, bucket_name, 100_000, false).await?;
+    let (payload, descriptor) = upload_and_open(clients, bucket_name, 100_000, appendable).await?;
 
     let mut reader = descriptor.read_range(ReadRange::head(100)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[0..100]);
@@ -409,9 +417,13 @@ async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> 
     Ok(())
 }
 
-async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Result<()> {
+async fn test_out_of_range(
+    clients: &Clients,
+    bucket_name: &str,
+    appendable: bool,
+) -> anyhow::Result<()> {
     println!("  test_out_of_range ...");
-    let (payload, descriptor) = upload_and_open(clients, bucket_name, 10_000, false).await?;
+    let (payload, descriptor) = upload_and_open(clients, bucket_name, 10_000, appendable).await?;
 
     let mut reader = descriptor.read_range(ReadRange::head(50)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[0..50]);
