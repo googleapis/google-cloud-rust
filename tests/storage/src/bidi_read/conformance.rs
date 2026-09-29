@@ -47,10 +47,10 @@ pub async fn run() -> anyhow::Result<()> {
     with_bucket(
         &clients,
         BucketType::RegionalStandard { hns: false },
-        async |bucket| {
-            test_read_post_stream_close(&clients, bucket, false).await?;
-            test_out_of_range(&clients, bucket, false).await?;
-            test_multiple_ranged_read(&clients, bucket, false).await
+        async |bucket, bucket_type| {
+            test_read_post_stream_close(&clients, bucket, bucket_type).await?;
+            test_out_of_range(&clients, bucket, bucket_type).await?;
+            test_multiple_ranged_read(&clients, bucket, bucket_type).await
         },
     )
     .await?;
@@ -58,22 +58,30 @@ pub async fn run() -> anyhow::Result<()> {
     with_bucket(
         &clients,
         BucketType::RegionalStandard { hns: true },
-        async |bucket| test_multiple_ranged_read(&clients, bucket, false).await,
+        async |bucket, bucket_type| test_multiple_ranged_read(&clients, bucket, bucket_type).await,
     )
     .await?;
 
-    with_bucket(&clients, BucketType::ZonalRapid, async |bucket| {
-        test_read_post_stream_close(&clients, bucket, true).await?;
-        test_out_of_range(&clients, bucket, true).await?;
-        test_multiple_ranged_read(&clients, bucket, true).await
-    })
+    with_bucket(
+        &clients,
+        BucketType::ZonalRapid,
+        async |bucket, bucket_type| {
+            test_read_post_stream_close(&clients, bucket, bucket_type).await?;
+            test_out_of_range(&clients, bucket, bucket_type).await?;
+            test_multiple_ranged_read(&clients, bucket, bucket_type).await
+        },
+    )
     .await?;
 
-    with_bucket(&clients, BucketType::RegionalRapid, async |bucket| {
-        test_read_post_stream_close(&clients, bucket, false).await?;
-        test_out_of_range(&clients, bucket, false).await?;
-        test_multiple_ranged_read(&clients, bucket, false).await
-    })
+    with_bucket(
+        &clients,
+        BucketType::RegionalRapid,
+        async |bucket, bucket_type| {
+            test_read_post_stream_close(&clients, bucket, bucket_type).await?;
+            test_out_of_range(&clients, bucket, bucket_type).await?;
+            test_multiple_ranged_read(&clients, bucket, bucket_type).await
+        },
+    )
     .await?;
 
     println!("\n=== Bidi Read Conformance Suite Completed Successfully ===\n");
@@ -154,17 +162,21 @@ impl BucketType {
     fn has_rapid_cache(self) -> bool {
         matches!(self, Self::RegionalRapid)
     }
+
+    fn is_appendable(self) -> bool {
+        matches!(self, Self::ZonalRapid)
+    }
 }
 
 /// Creates a bucket, runs `f` on it, and deletes the bucket even if `f` fails.
 async fn with_bucket<F>(clients: &Clients, bucket_type: BucketType, f: F) -> anyhow::Result<()>
 where
-    F: AsyncFnOnce(&str) -> anyhow::Result<()>,
+    F: AsyncFnOnce(&str, BucketType) -> anyhow::Result<()>,
 {
     let bucket_id = random_bucket_id();
     println!("\n### {}: {bucket_id}", bucket_type.label());
     let bucket = create_bucket(&clients.control, bucket_type, bucket_id).await?;
-    let result = f(&bucket.name).await;
+    let result = f(&bucket.name, bucket_type).await;
     cleanup_bucket(
         &clients.control,
         &bucket.name,
@@ -334,12 +346,17 @@ async fn write_appendable_object(
 async fn test_multiple_ranged_read(
     clients: &Clients,
     bucket_name: &str,
-    appendable: bool,
+    bucket_type: BucketType,
 ) -> anyhow::Result<()> {
-    println!("  test_multiple_ranged_read ...");
+    println!("  test_multiple_ranged_read ({}) ...", bucket_type.label());
     const KIB: u64 = 1024;
-    let (payload, descriptor) =
-        upload_and_open(clients, bucket_name, 512 * KIB as usize, appendable).await?;
+    let (payload, descriptor) = upload_and_open(
+        clients,
+        bucket_name,
+        512 * KIB as usize,
+        bucket_type.is_appendable(),
+    )
+    .await?;
 
     let ranges = [
         (0, 64 * KIB),
@@ -360,17 +377,21 @@ async fn test_multiple_ranged_read(
         assert_eq!(buf, &payload[start..end], "range {start}..{end}");
     }
 
-    println!("  test_multiple_ranged_read ok");
+    println!("  test_multiple_ranged_read ({}) ok", bucket_type.label());
     Ok(())
 }
 
 async fn test_read_post_stream_close(
     clients: &Clients,
     bucket_name: &str,
-    appendable: bool,
+    bucket_type: BucketType,
 ) -> anyhow::Result<()> {
-    println!("  test_read_post_stream_close ...");
-    let (payload, descriptor) = upload_and_open(clients, bucket_name, 100_000, appendable).await?;
+    println!(
+        "  test_read_post_stream_close ({}) ...",
+        bucket_type.label()
+    );
+    let (payload, descriptor) =
+        upload_and_open(clients, bucket_name, 100_000, bucket_type.is_appendable()).await?;
 
     let mut reader = descriptor.read_range(ReadRange::head(100)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[0..100]);
@@ -385,7 +406,7 @@ async fn test_read_post_stream_close(
     let mut reader = descriptor.read_range(ReadRange::segment(200, 50)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[200..250]);
 
-    println!("  test_read_post_stream_close ok");
+    println!("  test_read_post_stream_close ({}) ok", bucket_type.label());
     Ok(())
 }
 
@@ -421,10 +442,11 @@ async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> 
 async fn test_out_of_range(
     clients: &Clients,
     bucket_name: &str,
-    appendable: bool,
+    bucket_type: BucketType,
 ) -> anyhow::Result<()> {
-    println!("  test_out_of_range ...");
-    let (payload, descriptor) = upload_and_open(clients, bucket_name, 10_000, appendable).await?;
+    println!("  test_out_of_range ({}) ...", bucket_type.label());
+    let (payload, descriptor) =
+        upload_and_open(clients, bucket_name, 10_000, bucket_type.is_appendable()).await?;
 
     let mut reader = descriptor.read_range(ReadRange::head(50)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[0..50]);
@@ -450,7 +472,7 @@ async fn test_out_of_range(
         ),
     }
 
-    println!("  test_out_of_range ok");
+    println!("  test_out_of_range ({}) ok", bucket_type.label());
     Ok(())
 }
 
