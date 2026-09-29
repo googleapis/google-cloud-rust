@@ -568,12 +568,18 @@ impl TransactionRunner {
         let mut attempts: u32 = 0;
         let backoff = crate::transaction_retry_policy::default_retry_backoff();
         let deadline = self.timeout.map(|t| start_time + t);
-        let affinity = Arc::new(TransactionAffinity::new_read_write());
 
         let mut force_explicit_begin = false;
         loop {
             attempts += 1;
 
+            // Create a fresh affinity handle for each attempt. Each retry begins a new
+            // Spanner transaction (with lock priority carried in the request payload via
+            // `multiplexed_session_previous_transaction_id`, independent of the gRPC channel).
+            // A per-attempt affinity keeps all RPCs within the attempt pinned to the same
+            // channel, while allowing retries to avoid channels that began draining or
+            // became degraded during the previous attempt.
+            let affinity = Arc::new(TransactionAffinity::new_read_write());
             let mut current_tx_id = None;
             let attempt_result = async {
                 let mut builder = self.builder.clone().with_affinity(Arc::clone(&affinity));
@@ -620,6 +626,14 @@ impl TransactionRunner {
             }
             .await;
 
+            // Every exit path inside the `attempt_result` async block (`?` and `return`)
+            // returns only from that inner block, so execution always reaches this point
+            // before sleeping in `backoff_if_aborted` or returning from `run` (even when
+            // `work` fails with `Aborted` and skips `rollback()`, or if the user closure
+            // retains a cloned `ReadWriteTransaction`). If the `run` future itself is
+            // cancelled/dropped mid-attempt, dropping `affinity` releases the guard via RAII.
+            affinity.release_rw_guard();
+
             match attempt_result {
                 Ok(res) => return Ok(res),
                 Err((e, selector_opt)) => {
@@ -657,7 +671,10 @@ impl TransactionRunner {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::Error;
     use crate::batch_dml::BatchDml;
+    use crate::channel_pool::entry::{ChannelEntry, ChannelState};
+    use crate::channel_pool::scaler::sweep_draining_channels;
     use crate::key::KeySet;
     use crate::mutation::Mutation;
     use crate::read::ReadRequest;
@@ -667,7 +684,7 @@ mod tests {
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
     use gaxi::grpc::tonic::{Code, Response, Status};
-    use google_cloud_gax::error::rpc::Code as GaxCode;
+    use google_cloud_gax::error::rpc::{Code as GaxCode, Status as GaxStatus};
     use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -686,7 +703,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector as ProtoSelector;
     use std::net::SocketAddr;
     use std::sync::Mutex;
-    use std::sync::atomic::{AtomicUsize, Ordering};
+    use std::sync::atomic::{AtomicU32, AtomicUsize, Ordering};
     use std::sync::mpsc::channel as std_channel;
     use std::time::Duration as StdDuration;
     use tokio::spawn;
@@ -1305,10 +1322,7 @@ mod tests {
         assert!(res.is_err());
         let err = res.unwrap_err();
         if let Some(status) = err.status() {
-            assert_eq!(
-                status.code,
-                google_cloud_gax::error::rpc::Code::PermissionDenied
-            );
+            assert_eq!(status.code, GaxCode::PermissionDenied);
         } else {
             panic!("Expected GRPC error");
         }
@@ -1362,10 +1376,7 @@ mod tests {
         assert!(res.is_err());
         let err = res.unwrap_err();
         if let Some(status) = err.status() {
-            assert_eq!(
-                status.code,
-                google_cloud_gax::error::rpc::Code::PermissionDenied
-            );
+            assert_eq!(status.code, GaxCode::PermissionDenied);
         } else {
             panic!("Expected GRPC error");
         }
@@ -1504,7 +1515,7 @@ mod tests {
         assert!(res.is_err());
         let err = res.unwrap_err();
         if let Some(status) = err.status() {
-            assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Internal);
+            assert_eq!(status.code, GaxCode::Internal);
         } else {
             panic!("Expected GRPC error");
         }
@@ -2340,12 +2351,8 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn transaction_runner_reuses_affinity_across_aborted_retries() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use google_cloud_gax::error::rpc::{Code, Status};
-        use std::sync::Mutex;
-        use std::sync::atomic::{AtomicU32, Ordering};
-
+    async fn transaction_runner_creates_fresh_affinity_for_each_aborted_retry() -> anyhow::Result<()>
+    {
         let mut mock = create_session_mock();
         mock.expect_begin_transaction().once().returning(|_| {
             Ok(Response::new(v1::Transaction {
@@ -2371,11 +2378,11 @@ mod tests {
                 async move {
                     let current = attempts.fetch_add(1, Ordering::Relaxed);
                     if current == 0 {
-                        // First attempt: simulate pinning affinity to channel ID 42, then aborting
+                        // First attempt: simulate pinning affinity to channel ID 17, then aborting
                         transaction
                             .affinity()
                             .expect("affinity present")
-                            .set_entry_id(42);
+                            .set_entry_id(17);
                         captured_ids.lock().expect("mutex lock").push(
                             transaction
                                 .affinity()
@@ -2383,12 +2390,12 @@ mod tests {
                                 .pinned_entry_id(),
                         );
 
-                        let aborted_status = Status::default()
-                            .set_code(Code::Aborted)
+                        let aborted_status = GaxStatus::default()
+                            .set_code(GaxCode::Aborted)
                             .set_message("Transaction aborted");
-                        Err(crate::Error::service(aborted_status))
+                        Err(Error::service(aborted_status))
                     } else {
-                        // Second attempt: verify that the pinned entry ID 42 was retained!
+                        // Second attempt: verify that the new attempt starts with an unpinned affinity handle
                         captured_ids.lock().expect("mutex lock").push(
                             transaction
                                 .affinity()
@@ -2410,8 +2417,8 @@ mod tests {
         let captured_ids = captured_affinity_ids.lock().expect("mutex lock");
         assert_eq!(
             *captured_ids,
-            vec![Some(42), Some(42)],
-            "Retried attempt must retain the pinned channel affinity"
+            vec![Some(17), None],
+            "Retried attempt must start with a fresh, unpinned channel affinity handle"
         );
 
         Ok(())
@@ -2463,13 +2470,13 @@ mod tests {
         for (index, address) in addresses.iter().enumerate() {
             assert_eq!(
                 *address, first_address,
-                "RPC at index {index} must use the same channel as attempt 1 ({first_address})"
+                "RPC at index {index} must use the same channel ({first_address})"
             );
         }
     }
 
     #[tokio_test_no_panics]
-    async fn transaction_runner_aborted_retry_routes_all_attempts_to_same_channel()
+    async fn transaction_runner_aborted_retry_routes_statements_within_each_attempt_to_same_channel()
     -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let remote_addresses = Arc::new(Mutex::new(Vec::new()));
@@ -2592,7 +2599,13 @@ mod tests {
         assert_eq!(result.result, 1, "Expected update count of 1 on retry");
 
         let addresses = remote_addresses.lock().expect("mutex lock");
-        assert_all_rpcs_use_same_channel(&addresses, 5);
+        assert_eq!(
+            addresses.len(),
+            5,
+            "Expected 5 total RPCs across 2 attempts"
+        );
+        assert_all_rpcs_use_same_channel(&addresses[0..2], 2);
+        assert_all_rpcs_use_same_channel(&addresses[2..5], 3);
 
         Ok(())
     }
@@ -2847,7 +2860,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn transaction_runner_commit_aborted_retry_routes_all_attempts_to_same_channel()
+    async fn transaction_runner_commit_aborted_retry_routes_statements_within_each_attempt_to_same_channel()
     -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let remote_addresses = Arc::new(Mutex::new(Vec::new()));
@@ -3005,13 +3018,19 @@ mod tests {
         );
 
         let addresses = remote_addresses.lock().expect("mutex lock");
-        assert_all_rpcs_use_same_channel(&addresses, 6);
+        assert_eq!(
+            addresses.len(),
+            6,
+            "Expected 6 total RPCs across 2 attempts"
+        );
+        assert_all_rpcs_use_same_channel(&addresses[0..3], 3);
+        assert_all_rpcs_use_same_channel(&addresses[3..6], 3);
 
         Ok(())
     }
 
     #[tokio_test_no_panics]
-    async fn transaction_runner_multiple_aborted_retries_route_all_attempts_to_same_channel()
+    async fn transaction_runner_multiple_aborted_retries_route_statements_within_each_attempt_to_same_channel()
     -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let remote_addresses = Arc::new(Mutex::new(Vec::new()));
@@ -3208,14 +3227,20 @@ mod tests {
         );
 
         let addresses = remote_addresses.lock().expect("mutex lock");
-        assert_all_rpcs_use_same_channel(&addresses, 8);
+        assert_eq!(
+            addresses.len(),
+            8,
+            "Expected 8 total RPCs across 3 attempts"
+        );
+        assert_all_rpcs_use_same_channel(&addresses[0..2], 2);
+        assert_all_rpcs_use_same_channel(&addresses[2..5], 3);
+        assert_all_rpcs_use_same_channel(&addresses[5..8], 3);
 
         Ok(())
     }
 
     #[tokio_test_no_panics]
     async fn transaction_runner_rollback_on_user_error_uses_same_channel() -> anyhow::Result<()> {
-        use crate::Error;
         use crate::error::internal_error;
 
         let mut mock = create_session_mock();
@@ -3258,6 +3283,7 @@ mod tests {
         });
 
         let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+        let pool_client = database_client.clone();
 
         let runner = database_client.read_write_transaction().build().await?;
         let result = runner
@@ -3277,11 +3303,26 @@ mod tests {
         let addresses = remote_addresses.lock().expect("mutex lock");
         assert_all_rpcs_use_same_channel(&addresses, 2);
 
+        let total_active_rw: u32 = pool_client
+            .spanner
+            .channel_pool()
+            .inner
+            .active_entries
+            .read()
+            .expect("lock active_entries")
+            .iter()
+            .map(|entry| entry.active_rw_count())
+            .sum();
+        assert_eq!(
+            total_active_rw, 0,
+            "Non-aborted error and rollback must release the active RW guard on the channel"
+        );
+
         Ok(())
     }
 
     #[tokio_test_no_panics]
-    async fn transaction_runner_explicit_begin_aborted_retry_uses_same_channel()
+    async fn transaction_runner_explicit_begin_aborted_retry_routes_statements_within_each_attempt_to_same_channel()
     -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let remote_addresses = Arc::new(Mutex::new(Vec::new()));
@@ -3421,7 +3462,576 @@ mod tests {
         );
 
         let addresses = remote_addresses.lock().expect("mutex lock");
-        assert_all_rpcs_use_same_channel(&addresses, 6);
+        assert_eq!(
+            addresses.len(),
+            6,
+            "Expected 6 total RPCs across 2 attempts"
+        );
+        assert_all_rpcs_use_same_channel(&addresses[0..3], 3);
+        assert_all_rpcs_use_same_channel(&addresses[3..6], 3);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_releases_rw_guard_before_aborted_backoff() -> anyhow::Result<()> {
+        use crate::transaction_retry_policy::TransactionRetryPolicy;
+        use google_cloud_gax::retry_result::RetryResult;
+
+        struct GuardCheckRetryPolicy {
+            pinned_entry: Arc<Mutex<Option<Arc<ChannelEntry>>>>,
+            active_rw_counts_during_backoff: Arc<Mutex<Vec<u32>>>,
+        }
+
+        impl TransactionRetryPolicy for GuardCheckRetryPolicy {
+            fn on_abort(&self, error: Error, attempts: u32, _elapsed: StdDuration) -> RetryResult {
+                if let Some(entry) = self
+                    .pinned_entry
+                    .lock()
+                    .expect("lock pinned_entry")
+                    .as_ref()
+                {
+                    self.active_rw_counts_during_backoff
+                        .lock()
+                        .expect("lock active_rw_counts_during_backoff")
+                        .push(entry.active_rw_count());
+                }
+                if attempts < 3 {
+                    RetryResult::Continue(error)
+                } else {
+                    RetryResult::Exhausted(error)
+                }
+            }
+        }
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: Statement 1 (ExecuteStreamingSql) succeeds
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![11, 22, 33],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 1: Statement 2 (ExecuteSql) fails with Aborted (skips rollback)
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::new(Code::Aborted, "Aborted during work")));
+
+        // Attempt 2: Statement 1 (ExecuteStreamingSql) succeeds
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![44, 55, 66],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 2: Statement 2 (ExecuteSql) succeeds
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        row_type: Some(v1::StructType { fields: vec![] }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 2000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let pinned_entry_slot: Arc<Mutex<Option<Arc<ChannelEntry>>>> = Arc::new(Mutex::new(None));
+        let active_rw_counts_during_backoff = Arc::new(Mutex::new(Vec::new()));
+        // Retain cloned ReadWriteTransaction handles outside the closure to verify that
+        // `affinity.release_rw_guard()` releases the channel guard even when external
+        // `Arc<TransactionAffinity>` references remain alive.
+        let retained_transactions: Arc<Mutex<Vec<ReadWriteTransaction>>> =
+            Arc::new(Mutex::new(Vec::new()));
+
+        let policy = GuardCheckRetryPolicy {
+            pinned_entry: Arc::clone(&pinned_entry_slot),
+            active_rw_counts_during_backoff: Arc::clone(&active_rw_counts_during_backoff),
+        };
+
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(policy)
+            .build()
+            .await?;
+
+        let pinned_entry_slot_clone = Arc::clone(&pinned_entry_slot);
+        let retained_transactions_clone = Arc::clone(&retained_transactions);
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| {
+                let pinned_entry_slot_clone = Arc::clone(&pinned_entry_slot_clone);
+                let retained_transactions_clone = Arc::clone(&retained_transactions_clone);
+                async move {
+                    retained_transactions_clone
+                        .lock()
+                        .expect("lock retained_transactions")
+                        .push(transaction.clone());
+
+                    let mut result_set = transaction
+                        .execute_query(Statement::builder("SELECT 1").build())
+                        .await?;
+                    let _ = result_set.next().await.transpose()?;
+                    drop(result_set);
+
+                    let entry_id = transaction
+                        .affinity()
+                        .expect("affinity must be present")
+                        .pinned_entry_id()
+                        .expect("channel must be pinned after first statement");
+                    let entry = {
+                        let active_guard = transaction
+                            .context
+                            .client
+                            .spanner
+                            .channel_pool()
+                            .inner
+                            .active_entries
+                            .read()
+                            .expect("lock active_entries");
+                        active_guard
+                            .iter()
+                            .find(|candidate| candidate.id == entry_id)
+                            .map(Arc::clone)
+                            .expect("pinned entry must be in active_entries")
+                    };
+                    assert_eq!(
+                        entry.active_rw_count(),
+                        1,
+                        "Pinned channel entry must have active_rw_count == 1 while attempt is active"
+                    );
+                    *pinned_entry_slot_clone.lock().expect("lock pinned_entry") = Some(entry);
+
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1 on retry");
+        assert_eq!(
+            retained_transactions
+                .lock()
+                .expect("lock retained_transactions")
+                .len(),
+            2,
+            "Both attempts should have retained a cloned ReadWriteTransaction"
+        );
+
+        let counts = active_rw_counts_during_backoff
+            .lock()
+            .expect("lock active_rw_counts_during_backoff");
+        assert_eq!(
+            *counts,
+            vec![0],
+            "active_rw_count on the pinned channel must be decremented to 0 before backoff_if_aborted evaluates retry policy and sleeps, even when a cloned ReadWriteTransaction is retained"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_aborted_retry_bypasses_draining_channel_and_allows_scale_in()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+
+        // Attempt 1: Statement 1 (ExecuteStreamingSql) pins initial active channel
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![10, 20, 30],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 1: Statement 2 (ExecuteSql) runs on draining channel and fails with Aborted
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                Err(Status::new(
+                    Code::Aborted,
+                    "Transaction aborted on draining channel",
+                ))
+            });
+
+        // Attempt 2: Statement 1 (ExecuteStreamingSql) must select a fresh active channel
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![40, 50, 60],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 2: Statement 2 (ExecuteSql) succeeds on the new active channel
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                Ok(Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        row_type: Some(v1::StructType { fields: vec![] }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds on the new active channel
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 2000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+        let pool_client = database_client.clone();
+
+        let runner = database_client.read_write_transaction().build().await?;
+        let attempt_counter = Arc::new(AtomicUsize::new(0));
+        let drained_entry_slot: Arc<Mutex<Option<Arc<ChannelEntry>>>> = Arc::new(Mutex::new(None));
+        let attempt_2_entry_id_slot: Arc<Mutex<Option<u64>>> = Arc::new(Mutex::new(None));
+
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let drained_entry_slot_clone = Arc::clone(&drained_entry_slot);
+        let attempt_2_entry_id_slot_clone = Arc::clone(&attempt_2_entry_id_slot);
+
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| {
+                let attempt_counter_clone = Arc::clone(&attempt_counter_clone);
+                let drained_entry_slot_clone = Arc::clone(&drained_entry_slot_clone);
+                let attempt_2_entry_id_slot_clone = Arc::clone(&attempt_2_entry_id_slot_clone);
+                async move {
+                    let current_attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst);
+
+                    let mut result_set = transaction
+                        .execute_query(Statement::builder("SELECT 1").build())
+                        .await?;
+                    let _ = result_set.next().await.transpose()?;
+                    drop(result_set);
+
+                    let pinned_entry_id = transaction
+                        .affinity()
+                        .expect("affinity must be present")
+                        .pinned_entry_id()
+                        .expect("channel must be pinned after first statement");
+
+                    let pool = transaction.context.client.spanner.channel_pool();
+                    if current_attempt == 0 {
+                        // Locate the pinned channel entry from Attempt 1 and transition it to Draining
+                        let pinned_entry = {
+                            let mut active_write =
+                                pool.inner.active_entries.write().expect("lock active_entries");
+                            let entry = active_write
+                                .iter()
+                                .find(|candidate| candidate.id == pinned_entry_id)
+                                .map(Arc::clone)
+                                .expect("pinned entry must exist in active_entries");
+                            assert_eq!(
+                                entry.active_rw_count(),
+                                1,
+                                "Attempt 1 channel must have active_rw_count == 1 while active"
+                            );
+                            active_write.retain(|candidate| candidate.id != pinned_entry_id);
+                            entry
+                        };
+
+                        pinned_entry.set_state(ChannelState::Draining);
+                        pool.inner
+                            .draining_entries
+                            .write()
+                            .expect("lock draining_entries")
+                            .push(Arc::clone(&pinned_entry));
+                        *drained_entry_slot_clone.lock().expect("lock drained_entry") =
+                            Some(pinned_entry);
+                    } else {
+                        *attempt_2_entry_id_slot_clone
+                            .lock()
+                            .expect("lock attempt_2_entry_id") = Some(pinned_entry_id);
+                        let drained_entry = drained_entry_slot_clone
+                            .lock()
+                            .expect("lock drained_entry")
+                            .as_ref()
+                            .map(Arc::clone)
+                            .expect("drained_entry must be recorded from attempt 1");
+                        assert_eq!(
+                            drained_entry.active_rw_count(),
+                            0,
+                            "Draining channel from attempt 1 must have active_rw_count == 0 during attempt 2"
+                        );
+                    }
+
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1 on retry");
+
+        let drained_entry = drained_entry_slot
+            .lock()
+            .expect("lock drained_entry")
+            .as_ref()
+            .map(Arc::clone)
+            .expect("drained_entry must be populated");
+        let attempt_2_entry_id = attempt_2_entry_id_slot
+            .lock()
+            .expect("lock attempt_2_entry_id")
+            .expect("attempt 2 must have pinned an entry");
+
+        assert_ne!(
+            attempt_2_entry_id, drained_entry.id,
+            "Attempt 2 must not pin onto the draining channel from attempt 1"
+        );
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_eq!(
+            addresses.len(),
+            5,
+            "Expected 5 total RPCs across 2 attempts"
+        );
+        // Within Attempt 1, Statement 2 stayed on the draining channel (hard stickiness within attempt)
+        assert_all_rpcs_use_same_channel(&addresses[0..2], 2);
+        // Within Attempt 2, all 3 RPCs used the newly selected active channel
+        assert_all_rpcs_use_same_channel(&addresses[2..5], 3);
+        assert_ne!(
+            addresses[0], addresses[2],
+            "Attempt 2 must route to a different physical channel than the draining channel from attempt 1"
+        );
+
+        // Sweeping draining channels must now immediately close the drained channel
+        sweep_draining_channels(
+            &pool_client.spanner.channel_pool().inner,
+            StdDuration::from_millis(0),
+        );
+        assert!(
+            drained_entry.is_closed(),
+            "Drained channel from attempt 1 must transition to Closed on sweep"
+        );
+        assert_eq!(
+            pool_client.spanner.channel_pool().draining_channel_count(),
+            0,
+            "Draining channel pool must be empty after sweep"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_future_drop_releases_rw_guard_via_raii() -> anyhow::Result<()> {
+        use std::future::pending;
+        use tokio::sync::Notify;
+
+        let mut mock = create_session_mock();
+
+        // Statement 1 (ExecuteStreamingSql) succeeds and pins a channel
+        mock.expect_execute_streaming_sql().once().returning(|_| {
+            let metadata = v1::ResultSetMetadata {
+                row_type: Some(v1::StructType { fields: vec![] }),
+                transaction: Some(v1::Transaction {
+                    id: vec![21, 31, 41],
+                    ..Default::default()
+                }),
+                ..Default::default()
+            };
+            let partial_result_set = v1::PartialResultSet {
+                metadata: Some(metadata),
+                ..Default::default()
+            };
+            Ok(Response::from(adapt([Ok(partial_result_set)])))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+        let runner = database_client.read_write_transaction().build().await?;
+
+        let pinned_entry_slot: Arc<Mutex<Option<Arc<ChannelEntry>>>> = Arc::new(Mutex::new(None));
+        let channel_pinned_notify = Arc::new(Notify::new());
+
+        let pinned_entry_slot_clone = Arc::clone(&pinned_entry_slot);
+        let channel_pinned_notify_clone = Arc::clone(&channel_pinned_notify);
+
+        tokio::select! {
+            result = runner.run(|transaction: ReadWriteTransaction| {
+                let pinned_entry_slot_clone = Arc::clone(&pinned_entry_slot_clone);
+                let channel_pinned_notify_clone = Arc::clone(&channel_pinned_notify_clone);
+                async move {
+                    let mut result_set = transaction
+                        .execute_query(Statement::builder("SELECT 1").build())
+                        .await?;
+                    let _ = result_set.next().await.transpose()?;
+                    drop(result_set);
+
+                    let entry_id = transaction
+                        .affinity()
+                        .expect("affinity must be present")
+                        .pinned_entry_id()
+                        .expect("channel must be pinned after first statement");
+                    let entry = {
+                        let active_guard = transaction
+                            .context
+                            .client
+                            .spanner
+                            .channel_pool()
+                            .inner
+                            .active_entries
+                            .read()
+                            .expect("lock active_entries");
+                        active_guard
+                            .iter()
+                            .find(|candidate| candidate.id == entry_id)
+                            .map(Arc::clone)
+                            .expect("pinned entry must be in active_entries")
+                    };
+                    assert_eq!(
+                        entry.active_rw_count(),
+                        1,
+                        "Pinned channel entry must have active_rw_count == 1 while future is suspended mid-attempt"
+                    );
+                    *pinned_entry_slot_clone.lock().expect("lock pinned_entry") = Some(entry);
+                    channel_pinned_notify_clone.notify_one();
+
+                    pending::<Result<i64, Error>>().await
+                }
+            }) => {
+                panic!("runner.run future should have been cancelled before completing: {result:?}");
+            }
+            _ = channel_pinned_notify.notified() => {
+                // Exiting select! drops the in-flight `runner.run(...)` future mid-attempt
+            }
+        }
+
+        let pinned_entry = pinned_entry_slot
+            .lock()
+            .expect("lock pinned_entry")
+            .as_ref()
+            .map(Arc::clone)
+            .expect("pinned_entry must have been captured before cancellation");
+        assert_eq!(
+            pinned_entry.active_rw_count(),
+            0,
+            "Cancelling and dropping the TransactionRunner::run future mid-attempt must release the RW guard via RAII"
+        );
 
         Ok(())
     }

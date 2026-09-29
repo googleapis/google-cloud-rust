@@ -647,16 +647,52 @@ mod tests {
             "Read/Write affinity must hold rw_guard"
         );
 
-        // Reset clears the guard and decrements the active_rw_count
-        affinity.reset();
+        // Releasing the guard decrements active_rw_count to 0 and transitions the
+        // affinity handle to the terminal Released state so late calls cannot
+        // re-acquire a guard on the draining channel.
+        affinity.release_rw_guard();
         assert_eq!(
             channel_2.active_rw_count(),
             0,
-            "active_rw_count must decrement to 0 after affinity is reset"
+            "active_rw_count must decrement to 0 after release_rw_guard"
         );
         assert!(
             !affinity.has_rw_guard(),
-            "affinity must not hold rw_guard after reset"
+            "affinity must not hold rw_guard after release_rw_guard"
+        );
+
+        let _late_lease = pool
+            .resolve_affinity(&affinity)
+            .expect("late resolution on released affinity");
+        assert_eq!(
+            channel_2.active_rw_count(),
+            0,
+            "Late resolution on a released affinity must not re-acquire active_rw_count on draining channel 2"
+        );
+        assert!(
+            !affinity.has_rw_guard(),
+            "Released affinity must not re-acquire rw_guard"
+        );
+
+        // A new transaction attempt uses a fresh TransactionAffinity and selects active channel 1.
+        let retry_affinity = TransactionAffinity::new_read_write();
+        let next_lease = pool
+            .resolve_affinity(&retry_affinity)
+            .expect("new attempt resolution must select active channel 1");
+        assert_eq!(
+            next_lease.entry_id(),
+            1,
+            "New transaction attempt must select active channel 1 instead of draining channel 2"
+        );
+        assert_eq!(
+            channel_2.active_rw_count(),
+            0,
+            "Draining channel 2 active_rw_count must remain 0"
+        );
+        assert_eq!(
+            channel_1.active_rw_count(),
+            1,
+            "Active channel 1 active_rw_count must be 1"
         );
     }
 
