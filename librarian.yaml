@@ -651,7 +651,7 @@ libraries:
     version: 1.7.0
     copyright_year: "2025"
   - name: google-cloud-compute-v1
-    version: 3.6.0
+    version: 4.0.0
     copyright_year: "2025"
     keep:
       - src/errors.rs
