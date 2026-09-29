@@ -5844,6 +5844,16 @@ pub trait Interconnects: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Interconnects::set_name].
+    fn set_name(
+        &self,
+        _req: crate::model::interconnects::SetNameRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Interconnects::get_operation].
     fn get_operation(
         &self,

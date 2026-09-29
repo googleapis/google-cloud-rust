@@ -225,6 +225,57 @@ impl IngestionService {
         super::builder::ingestion_service::IngestEvents::new(self.inner.clone())
     }
 
+    /// Uploads a list of users to the provided destinations. Unlike
+    /// [IngestAudienceMembers][google.ads.datamanager.v1.IngestionService.IngestAudienceMembers]
+    /// (which adds users to specific advertiser audience lists for targeting),
+    /// `IngestUsers` ingests account level identity linkage data (for example,
+    /// user identifiers linked to mobile IDs) independent of specific audience
+    /// segments.
+    ///
+    /// This feature is only available to accounts on an allowlist.
+    ///
+    /// [google.ads.datamanager.v1.IngestionService.IngestAudienceMembers]: crate::client::IngestionService::ingest_audience_members
+    ///
+    /// # Example
+    /// ```
+    /// # use google_ads_datamanager_v1::client::IngestionService;
+    /// use google_ads_datamanager_v1::Result;
+    /// async fn sample(
+    ///    client: &IngestionService
+    /// ) -> Result<()> {
+    ///     let response = client.ingest_users()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn ingest_users(&self) -> super::builder::ingestion_service::IngestUsers {
+        super::builder::ingestion_service::IngestUsers::new(self.inner.clone())
+    }
+
+    /// Removes a list of users from the provided destinations.
+    ///
+    /// This feature is only available to accounts on an allowlist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_ads_datamanager_v1::client::IngestionService;
+    /// use google_ads_datamanager_v1::Result;
+    /// async fn sample(
+    ///    client: &IngestionService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_users()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn remove_users(&self) -> super::builder::ingestion_service::RemoveUsers {
+        super::builder::ingestion_service::RemoveUsers::new(self.inner.clone())
+    }
+
     /// Uploads a list of
     /// [AdEvent][google.ads.datamanager.v1.AdEvent] resources to Google
     /// Analytics.

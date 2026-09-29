@@ -98,6 +98,34 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn ingest_users(
+        &self,
+        req: crate::model::IngestUsersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IngestUsersResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IngestionService::ingest_users",
+            self.inner.ingest_users(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn remove_users(
+        &self,
+        req: crate::model::RemoveUsersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RemoveUsersResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IngestionService::remove_users",
+            self.inner.remove_users(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn ingest_ad_events(
         &self,
         req: crate::model::IngestAdEventsRequest,

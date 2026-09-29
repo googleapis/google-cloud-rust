@@ -54,6 +54,7 @@ impl std::fmt::Debug for super::Repository {
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("data_encryption_state", &self.data_encryption_state);
         debug_struct.field("internal_metadata", &self.internal_metadata);
+        debug_struct.field("end_user_auth_config", &self.end_user_auth_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -102,6 +103,28 @@ impl std::fmt::Debug for super::repository::WorkspaceCompilationOverrides {
         debug_struct.field("default_database", &self.default_database);
         debug_struct.field("schema_suffix", &self.schema_suffix);
         debug_struct.field("table_prefix", &self.table_prefix);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::repository::EndUserAuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndUserAuthConfig");
+        debug_struct.field("oauth_config", &self.oauth_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::OAuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OAuthConfig");
+        debug_struct.field("additional_oauth_scopes", &self.additional_oauth_scopes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1565,7 +1588,20 @@ impl std::fmt::Debug for super::InvocationConfig {
             &self.fully_refresh_incremental_tables_enabled,
         );
         debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("end_user_auth_config", &self.end_user_auth_config);
         debug_struct.field("query_priority", &self.query_priority);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::invocation_config::EndUserAuthenticationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndUserAuthenticationConfig");
+        debug_struct.field("user_email", &self.user_email);
+        debug_struct.field("oauth_config", &self.oauth_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
