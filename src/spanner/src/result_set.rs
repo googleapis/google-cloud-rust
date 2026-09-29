@@ -1837,13 +1837,13 @@ pub(crate) mod tests {
         ])
         .await;
 
-        let row = rs.next().await.unwrap().unwrap();
+        let row = rs
+            .next()
+            .await
+            .expect("row should exist")
+            .expect("row should be ok");
         assert_eq!(row.raw_values().len(), 1);
-        if let Some(prost_types::value::Kind::StringValue(ref s)) = row.raw_values()[0].0.kind {
-            assert_eq!(s, "hello world");
-        } else {
-            panic!("Expected StringValue");
-        }
+        assert_eq!(row.raw_values()[0].as_str(), Some("hello world"));
         assert!(rs.next().await.is_none());
     }
 
@@ -1873,18 +1873,15 @@ pub(crate) mod tests {
         ])
         .await;
 
-        let row = rs.next().await.unwrap().unwrap();
+        let row = rs
+            .next()
+            .await
+            .expect("row should exist")
+            .expect("row should be ok");
         assert_eq!(row.raw_values().len(), 1);
-        if let Some(prost_types::value::Kind::ListValue(ref l)) = row.raw_values()[0].0.kind {
-            assert_eq!(l.values.len(), 1);
-            if let Some(prost_types::value::Kind::StringValue(ref s)) = l.values[0].kind {
-                assert_eq!(s, "AB");
-            } else {
-                panic!("Expected StringValue");
-            }
-        } else {
-            panic!("Expected ListValue");
-        }
+        let list = row.raw_values()[0].as_list().expect("Expected ListValue");
+        assert_eq!(list.len(), 1);
+        assert_eq!(list.get(0).expect("element 0").as_str(), Some("AB"));
         assert!(rs.next().await.is_none());
     }
 

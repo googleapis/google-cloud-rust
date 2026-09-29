@@ -107,7 +107,7 @@ impl Row {
     /// * `Err(Error)` if the column name or index is invalid.
     pub fn try_is_null<I: ColumnIndex>(&self, index: I) -> crate::Result<bool> {
         let (_, value) = self.get_value(index)?;
-        Ok(value.kind() == crate::value::Kind::Null)
+        Ok(value.is_null())
     }
 
     /// Returns true if the value at the specified column name or index is null, panicking on error.
@@ -136,7 +136,8 @@ impl Row {
     ///
     /// Panics if the column name or index is invalid.
     pub fn is_null<I: ColumnIndex>(&self, index: I) -> bool {
-        self.try_is_null(index).unwrap()
+        self.try_is_null(index)
+            .expect("column not found or index out of range")
     }
 
     /// Retrieves a value from the row by column name or zero-based index.
@@ -211,7 +212,8 @@ impl Row {
     /// * The column name or index is invalid.
     /// * The column value is incompatible with type `T`.
     pub fn get<T: crate::from_value::FromValue, I: ColumnIndex>(&self, index: I) -> T {
-        self.try_get(index).unwrap()
+        self.try_get(index)
+            .expect("column not found or type mismatch")
     }
 
     fn get_value<I: ColumnIndex>(&self, index: I) -> crate::Result<(usize, &Value)> {
