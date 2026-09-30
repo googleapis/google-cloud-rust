@@ -97,7 +97,11 @@ pub async fn run_subscription_samples(
     subscription::enable_subscription_ordering::sample(&client, &project_id, topic_id, &id).await?;
 
     let (topic_admin, dead_letter_topic) = create_test_topic().await?;
-    let dead_letter_topic_id = dead_letter_topic.name.split("/").last().unwrap();
+    let dead_letter_topic_id = dead_letter_topic
+        .name
+        .split("/")
+        .last()
+        .ok_or_else(|| anyhow::anyhow!("invalid topic name: {}", dead_letter_topic.name))?;
     let id = random_subscription_id();
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     let result = subscription::create_dead_letter_subscription::sample(
