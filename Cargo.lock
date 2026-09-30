@@ -476,7 +476,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-test-utils",
  "google-cloud-wkt",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tracing",
 ]
@@ -492,7 +492,7 @@ dependencies = [
  "google-cloud-bigquery",
  "google-cloud-bigquery-v2",
  "humantime",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
 ]
 
@@ -1004,7 +1004,7 @@ dependencies = [
  "opentelemetry",
  "opentelemetry-http",
  "opentelemetry_sdk",
- "rand 0.10.2",
+ "rand 0.10.3",
  "thiserror",
  "tokio",
  "tracing",
@@ -3568,7 +3568,7 @@ dependencies = [
  "http",
  "mockall",
  "pin-project",
- "rand 0.10.2",
+ "rand 0.10.3",
  "serde",
  "serde_json",
  "static_assertions",
@@ -4879,7 +4879,7 @@ dependencies = [
  "prost",
  "prost-types",
  "pubsub-grpc-mock",
- "rand 0.10.2",
+ "rand 0.10.3",
  "serde",
  "serde_json",
  "serde_with",
@@ -5343,7 +5343,7 @@ dependencies = [
  "opentelemetry_sdk",
  "prost",
  "prost-types",
- "rand 0.10.2",
+ "rand 0.10.3",
  "rust_decimal",
  "rustls",
  "scoped-env",
@@ -5647,7 +5647,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "pretty_assertions",
- "rand 0.10.2",
+ "rand 0.10.3",
  "scoped-env",
  "serial_test",
  "test-case",
@@ -7211,7 +7211,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-type",
  "google-cloud-wkt",
- "rand 0.10.2",
+ "rand 0.10.3",
  "rust_decimal",
  "tokio",
 ]
@@ -7240,7 +7240,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-test-utils",
  "google-cloud-wkt",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tracing",
 ]
@@ -7343,7 +7343,7 @@ dependencies = [
  "opentelemetry-proto",
  "opentelemetry_sdk",
  "pretty_assertions",
- "rand 0.10.2",
+ "rand 0.10.3",
  "reqwest 0.13.5",
  "scoped-env",
  "serde",
@@ -7455,7 +7455,7 @@ dependencies = [
  "http-body-util",
  "prost",
  "prost-types",
- "rand 0.10.2",
+ "rand 0.10.3",
  "reqwest 0.13.5",
  "serde_json",
  "serial_test",
@@ -8509,7 +8509,7 @@ dependencies = [
  "humantime",
  "prost",
  "pubsub-grpc-mock",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tokio-stream",
  "tonic",
@@ -8526,7 +8526,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "jiff",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tracing",
 ]
@@ -8573,7 +8573,7 @@ dependencies = [
  "bytes",
  "getrandom 0.4.3",
  "lru-slab",
- "rand 0.10.2",
+ "rand 0.10.3",
  "rand_pcg",
  "ring",
  "rustc-hash",
@@ -8644,9 +8644,9 @@ dependencies = [
 
 [[package]]
 name = "rand"
-version = "0.10.2"
+version = "0.10.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7f5fa3a058cd35567ef9bfa5e75732bee0f9e4c55fa90477bef2dfcdbc4be80"
+checksum = "65c9fb96cbc91e3478eaae79a69fcd3f1ae4ad052e471fe6732fff548984b4af"
 dependencies = [
  "chacha20",
  "getrandom 0.4.3",
@@ -9494,7 +9494,7 @@ dependencies = [
  "crc32c",
  "google-cloud-auth",
  "google-cloud-storage",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tracing-subscriber",
  "uuid",
@@ -9511,7 +9511,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-storage",
  "libc",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tempfile",
  "tokio",
  "tracing-subscriber",
@@ -9548,7 +9548,7 @@ dependencies = [
  "google-cloud-storage",
  "humantime",
  "parse-size",
- "rand 0.10.2",
+ "rand 0.10.3",
  "test-case",
  "tokio",
  "tracing",
@@ -9571,7 +9571,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "http",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tempfile",
  "tokio",
  "tracing",
@@ -9591,7 +9591,7 @@ dependencies = [
  "google-cloud-storage",
  "http",
  "humantime",
- "rand 0.10.2",
+ "rand 0.10.3",
  "test-case",
  "tokio",
  "tracing",
@@ -9614,7 +9614,7 @@ dependencies = [
  "opentelemetry_sdk",
  "parse-size",
  "pin-project",
- "rand 0.10.2",
+ "rand 0.10.3",
  "regex",
  "tokio",
  "tokio-metrics",
@@ -9716,7 +9716,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
- "getrandom 0.4.3",
+ "getrandom 0.3.4",
  "once_cell",
  "rustix",
  "windows-sys 0.61.2",
