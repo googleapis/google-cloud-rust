@@ -249,6 +249,8 @@ where
                 self.persisted_size
             )));
         }
+        // TODO(#5716): Reject persisted_size exceeding the highest sent write offset to guard
+        // against concurrent writers on the same object generation.
 
         self.persisted_size = persisted_size;
 
