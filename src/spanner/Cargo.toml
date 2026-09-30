@@ -25,6 +25,9 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[package.metadata.docs.rs]
+features = ["time"]
+
 [features]
 default = ["builtin-metrics", "default-rustls-provider"]
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
@@ -33,6 +36,9 @@ default = ["builtin-metrics", "default-rustls-provider"]
 # default and call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
 unstable-stream         = ["dep:futures"]
+
+# Enables support for types from the `time` crate (`time::OffsetDateTime` and `time::Date`).
+time = ["wkt/time"]
 
 # Enables collecting and recording metrics on a caller-owned OpenTelemetry MeterProvider.
 # Pulls in only the lightweight OpenTelemetry API trait definitions and UUID generator.
@@ -68,6 +74,7 @@ google-cloud-gax                       = { workspace = true }
 google-cloud-spanner-admin-database-v1 = { workspace = true }
 google-cloud-spanner-admin-instance-v1 = { workspace = true }
 google-cloud-rpc                       = { workspace = true }
+google-cloud-type                      = { workspace = true }
 http.workspace                         = true
 prost.workspace                        = true
 prost-types.workspace                  = true
@@ -81,7 +88,7 @@ time                                   = { workspace = true, features = ["format
 tokio                                  = { workspace = true, features = ["time"] }
 tracing.workspace                      = true
 url.workspace                          = true
-wkt                                    = { workspace = true, features = ["time"] }
+wkt.workspace                          = true
 
 # Optional dependencies for built-in metrics
 google-cloud-api           = { workspace = true, optional = true }

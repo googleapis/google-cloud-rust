@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::types::Type;
+use std::collections::BTreeMap;
 use std::sync::Arc;
 
 /// Metadata about a [`ResultSet`](crate::result::ResultSet).
@@ -39,21 +41,25 @@ use std::sync::Arc;
 #[derive(Clone, Debug, PartialEq)]
 pub struct ResultSetMetadata {
     pub(crate) column_names: Arc<Vec<String>>,
-    pub(crate) column_types: Arc<Vec<crate::types::Type>>,
-    pub(crate) undeclared_parameters: Arc<std::collections::BTreeMap<String, crate::types::Type>>,
+    pub(crate) column_types: Arc<Vec<Type>>,
+    pub(crate) undeclared_parameters: Arc<BTreeMap<String, Type>>,
 }
 
 impl ResultSetMetadata {
     pub(crate) fn new(metadata: Option<crate::google::spanner::v1::ResultSetMetadata>) -> Self {
         let mut column_names = Vec::new();
         let mut column_types = Vec::new();
-        let mut undeclared_parameters = std::collections::BTreeMap::new();
+        let mut undeclared_parameters = BTreeMap::new();
 
         if let Some(m) = &metadata
             && let Some(undeclared) = &m.undeclared_parameters
         {
             for field in &undeclared.fields {
-                let param_type = field.r#type.clone().map(Into::into).unwrap_or_default();
+                let param_type = field
+                    .r#type
+                    .clone()
+                    .map(Type::from_proto)
+                    .unwrap_or_default();
                 undeclared_parameters.insert(field.name.clone(), param_type);
             }
         }
@@ -64,7 +70,7 @@ impl ResultSetMetadata {
             .flat_map(|r| r.fields.into_iter());
         for field in fields {
             column_names.push(field.name);
-            let column_type = field.r#type.map(Into::into).unwrap_or_default();
+            let column_type = field.r#type.map(Type::from_proto).unwrap_or_default();
             column_types.push(column_type);
         }
 

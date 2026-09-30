@@ -14,13 +14,19 @@
 
 pub use crate::types::{Type, TypeCode};
 use crate::value::Kind;
+use crate::value::SPANNER_DATE_FORMAT;
 use crate::value::Value;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use google_cloud_type::model::Date;
 use rust_decimal::Decimal;
 use serde_json::Value as JsonValue;
 use std::time::SystemTime;
-use time::{Date, OffsetDateTime};
+use time::Date as TimeDate;
+#[cfg(feature = "time")]
+use time::OffsetDateTime;
+#[cfg(feature = "time")]
+use time::format_description::well_known::Rfc3339;
 
 /// Represent failures in converting a Spanner Value to a Rust type.
 #[derive(thiserror::Error, Debug)]
@@ -326,44 +332,30 @@ impl FromValue for Decimal {
 
 impl FromValue for SystemTime {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Timestamp {
-            return Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
-                got: value.kind(),
-            });
-        }
-        match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
-                let dt = OffsetDateTime::parse(s, &time::format_description::well_known::Rfc3339)
-                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
-                Ok(dt.into())
-            }
-            Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
-            _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
-                got: value.kind(),
-            }),
-        }
+        let timestamp = wkt::Timestamp::from_value(value, type_)?;
+        Self::try_from(timestamp).map_err(|e| ConvertError::Convert(Box::new(e)))
     }
 }
 
+#[cfg(feature = "time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
 impl FromValue for OffsetDateTime {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         if type_.code() != TypeCode::Timestamp {
             return Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
+                want: Kind::String,
                 got: value.kind(),
             });
         }
         match &value.0.kind {
             Some(prost_types::value::Kind::StringValue(s)) => {
-                let dt = OffsetDateTime::parse(s, &time::format_description::well_known::Rfc3339)
-                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
-                Ok(dt)
+                let date_time =
+                    Self::parse(s, &Rfc3339).map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok(date_time)
             }
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
+                want: Kind::String,
                 got: value.kind(),
             }),
         }
@@ -372,8 +364,47 @@ impl FromValue for OffsetDateTime {
 
 impl FromValue for wkt::Timestamp {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        let dt = OffsetDateTime::from_value(value, type_)?;
-        wkt::Timestamp::try_from(dt).map_err(|e| ConvertError::Convert(Box::new(e)))
+        if type_.code() != TypeCode::Timestamp {
+            return Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            });
+        }
+        match &value.0.kind {
+            Some(prost_types::value::Kind::StringValue(s)) => {
+                Self::try_from(s.as_str()).map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
+            Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
+            _ => Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            }),
+        }
+    }
+}
+
+#[cfg(feature = "time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
+impl FromValue for TimeDate {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+        if type_.code() != TypeCode::Date {
+            return Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            });
+        }
+        match &value.0.kind {
+            Some(prost_types::value::Kind::StringValue(s)) => {
+                let date = Self::parse(s, SPANNER_DATE_FORMAT)
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok(date)
+            }
+            Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
+            _ => Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            }),
+        }
     }
 }
 
@@ -381,19 +412,22 @@ impl FromValue for Date {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         if type_.code() != TypeCode::Date {
             return Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
+                want: Kind::String,
                 got: value.kind(),
             });
         }
         match &value.0.kind {
             Some(prost_types::value::Kind::StringValue(s)) => {
-                let date = Date::parse(s, crate::value::SPANNER_DATE_FORMAT)
+                let date = TimeDate::parse(s, SPANNER_DATE_FORMAT)
                     .map_err(|e| ConvertError::Convert(Box::new(e)))?;
-                Ok(date)
+                Ok(Self::new()
+                    .set_year(date.year())
+                    .set_month(u8::from(date.month()) as i32)
+                    .set_day(date.day() as i32))
             }
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
+                want: Kind::String,
                 got: value.kind(),
             }),
         }
@@ -522,6 +556,8 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use serde_json::Value as JsonValue;
+    #[cfg(feature = "time")]
+    use time::Month;
 
     #[test]
     fn test_from_value_string() {
@@ -849,100 +885,122 @@ mod tests {
 
     #[test]
     fn test_from_value_date() {
-        let d = Date::from_calendar_date(2023, time::Month::October, 27).unwrap();
-        let v = d.to_value();
-        let res = Date::from_value(&v, &types::date()).unwrap();
-        assert_eq!(res, d);
+        let date = Date::new().set_year(2023).set_month(10).set_day(27);
+        let value = date.clone().to_value();
+        let result = Date::from_value(&value, &types::date()).expect("valid date conversion");
+        assert_eq!(result, date);
 
-        let v = "invalid date".to_string().to_value();
-        let err = Date::from_value(&v, &types::date()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let value = "invalid date".to_string().to_value();
+        let error = Date::from_value(&value, &types::date()).expect_err("invalid date should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
     }
 
+    #[cfg(feature = "time")]
+    #[test]
+    fn test_from_value_time_date() {
+        let date =
+            TimeDate::from_calendar_date(2023, Month::October, 27).expect("valid calendar date");
+        let value = date.to_value();
+        let result =
+            TimeDate::from_value(&value, &types::date()).expect("valid time date conversion");
+        assert_eq!(result, date);
+
+        let value = "invalid date".to_string().to_value();
+        let error =
+            TimeDate::from_value(&value, &types::date()).expect_err("invalid date should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
+    }
+
+    #[cfg(feature = "time")]
     #[test]
     fn test_from_value_timestamp() {
-        let dt = OffsetDateTime::parse(
-            "2023-10-27T10:00:00Z",
-            &time::format_description::well_known::Rfc3339,
-        )
-        .unwrap();
-        let v = dt.to_value();
-        let res = OffsetDateTime::from_value(&v, &types::timestamp()).unwrap();
-        assert_eq!(res, dt);
+        let date_time = OffsetDateTime::parse("2023-10-27T10:00:00Z", &Rfc3339)
+            .expect("valid timestamp format");
+        let value = date_time.to_value();
+        let result = OffsetDateTime::from_value(&value, &types::timestamp())
+            .expect("valid timestamp conversion");
+        assert_eq!(result, date_time);
 
-        let v = "invalid timestamp".to_string().to_value();
-        let err = OffsetDateTime::from_value(&v, &types::timestamp()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let value = "invalid timestamp".to_string().to_value();
+        let error = OffsetDateTime::from_value(&value, &types::timestamp())
+            .expect_err("invalid timestamp should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
     }
 
     #[test]
     fn test_from_value_null() {
         let v = Option::<i32>::None.to_value();
-        let res = Option::<i32>::from_value(&v, &types::int64()).unwrap();
+        let res = Option::<i32>::from_value(&v, &types::int64()).expect("valid none option");
         assert_eq!(res, None);
 
         let v = Option::<i32>::None.to_value();
-        let err = i32::from_value(&v, &types::int64()).unwrap_err();
+        let err = i32::from_value(&v, &types::int64()).expect_err("expected non-null error");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
     }
+
     #[test]
     fn test_from_value_system_time() {
-        let dt = OffsetDateTime::parse(
-            "2023-10-27T10:00:00Z",
-            &time::format_description::well_known::Rfc3339,
-        )
-        .unwrap();
-        let system_time: SystemTime = dt.into();
-        let v = system_time.to_value();
-        let res = SystemTime::from_value(&v, &types::timestamp()).unwrap();
-        let res_dt: OffsetDateTime = res.into();
-        assert_eq!(res_dt, dt);
+        let timestamp = wkt::Timestamp::clamp(1_698_400_800, 0);
+        let system_time = SystemTime::try_from(timestamp).expect("valid system time conversion");
+        let value = system_time.to_value();
+        let result = SystemTime::from_value(&value, &types::timestamp())
+            .expect("valid system time conversion");
+        assert_eq!(result, system_time);
 
-        let v = "invalid timestamp".to_string().to_value();
-        let err = SystemTime::from_value(&v, &types::timestamp()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let value = "invalid timestamp".to_string().to_value();
+        let error = SystemTime::from_value(&value, &types::timestamp())
+            .expect_err("invalid timestamp should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
     }
 
     #[test]
     fn test_from_value_wkt_timestamp() {
-        let dt = OffsetDateTime::parse(
-            "2023-10-27T10:00:00Z",
-            &time::format_description::well_known::Rfc3339,
-        )
-        .expect("valid date time parsing");
-        let wkt_ts = wkt::Timestamp::try_from(dt).expect("valid wkt timestamp conversion");
-        let v = dt.to_value();
-        let res = wkt::Timestamp::from_value(&v, &types::timestamp())
+        let timestamp = wkt::Timestamp::clamp(1_698_400_800, 0);
+        let value = timestamp.to_value();
+        let result = wkt::Timestamp::from_value(&value, &types::timestamp())
             .expect("valid wkt timestamp decoding");
-        assert_eq!(res, wkt_ts);
+        assert_eq!(result, timestamp);
 
-        let v = "invalid timestamp".to_string().to_value();
-        let err = wkt::Timestamp::from_value(&v, &types::timestamp()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let value = "invalid timestamp".to_string().to_value();
+        let error = wkt::Timestamp::from_value(&value, &types::timestamp())
+            .expect_err("invalid timestamp should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
     }
 
     #[test]
     fn test_from_value_type_mismatch() {
         let v = Decimal::from(42).to_value();
-        let err = Decimal::from_value(&v, &types::int64()).unwrap_err();
+        let err = Decimal::from_value(&v, &types::int64()).expect_err("type mismatch");
         assert!(format!("{}", err).contains("expected String, got String"));
 
         let v = SystemTime::now().to_value();
-        let err = SystemTime::from_value(&v, &types::string()).unwrap_err();
-        assert!(format!("{}", err).contains("expected String, got String")); // This might require adjustment as logic changed. In `SystemTime::from_value`, we check TypeCode first.
-
-        let v = OffsetDateTime::now_utc().to_value();
-        let err = OffsetDateTime::from_value(&v, &types::string()).unwrap_err();
+        let err = SystemTime::from_value(&v, &types::string()).expect_err("type mismatch");
         assert!(format!("{}", err).contains("expected String, got String"));
 
-        let v = Date::from_calendar_date(2023, time::Month::October, 27)
-            .unwrap()
+        #[cfg(feature = "time")]
+        {
+            let value = OffsetDateTime::now_utc().to_value();
+            let error =
+                OffsetDateTime::from_value(&value, &types::string()).expect_err("type mismatch");
+            assert!(format!("{}", error).contains("expected String, got String"));
+
+            let value = TimeDate::from_calendar_date(2023, Month::October, 27)
+                .expect("valid calendar date")
+                .to_value();
+            let error = TimeDate::from_value(&value, &types::string()).expect_err("type mismatch");
+            assert!(format!("{}", error).contains("expected String, got String"));
+        }
+
+        let date = Date::new()
+            .set_year(2023)
+            .set_month(10)
+            .set_day(27)
             .to_value();
-        let err = Date::from_value(&v, &types::string()).unwrap_err();
-        assert!(format!("{}", err).contains("expected String, got String"));
+        let error = Date::from_value(&date, &types::string()).expect_err("type mismatch");
+        assert!(format!("{}", error).contains("expected String, got String"));
 
         let v = vec![1u8].to_value();
-        let err = Vec::<u8>::from_value(&v, &types::string()).unwrap_err();
+        let err = Vec::<u8>::from_value(&v, &types::string()).expect_err("type mismatch");
         assert!(format!("{}", err).contains("expected String, got String"));
     }
 
@@ -975,34 +1033,55 @@ mod tests {
     fn test_from_value_null_errors() {
         let v_null = Option::<i32>::None.to_value();
 
-        let err = String::from_value(&v_null, &types::string()).unwrap_err();
+        let err = String::from_value(&v_null, &types::string())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = i64::from_value(&v_null, &types::int64()).unwrap_err();
+        let err = i64::from_value(&v_null, &types::int64())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = f64::from_value(&v_null, &types::float64()).unwrap_err();
+        let err = f64::from_value(&v_null, &types::float64())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = f32::from_value(&v_null, &types::float32()).unwrap_err();
+        let err = f32::from_value(&v_null, &types::float32())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = bool::from_value(&v_null, &types::bool()).unwrap_err();
+        let err = bool::from_value(&v_null, &types::bool())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = Decimal::from_value(&v_null, &types::numeric()).unwrap_err();
+        let err = Decimal::from_value(&v_null, &types::numeric())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = SystemTime::from_value(&v_null, &types::timestamp()).unwrap_err();
+        let err = SystemTime::from_value(&v_null, &types::timestamp())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = OffsetDateTime::from_value(&v_null, &types::timestamp()).unwrap_err();
+        let err = wkt::Timestamp::from_value(&v_null, &types::timestamp())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = Date::from_value(&v_null, &types::date()).unwrap_err();
+        #[cfg(feature = "time")]
+        {
+            let err = OffsetDateTime::from_value(&v_null, &types::timestamp())
+                .expect_err("expected non-null value, got null");
+            assert!(format!("{}", err).contains("expected non-null value, got null"));
+
+            let err = TimeDate::from_value(&v_null, &types::date())
+                .expect_err("expected non-null value, got null");
+            assert!(format!("{}", err).contains("expected non-null value, got null"));
+        }
+
+        let err = Date::from_value(&v_null, &types::date())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = Vec::<u8>::from_value(&v_null, &types::bytes()).unwrap_err();
+        let err = Vec::<u8>::from_value(&v_null, &types::bytes())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
     }
 
