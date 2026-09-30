@@ -17,5 +17,6 @@ pub mod dead_letter_delivery_attempt;
 pub mod error_listener;
 pub mod exactly_once;
 pub mod flow_settings;
+pub mod optimistic_subscribe;
 pub mod quickstart_subscriber;
 pub mod subscriber_stream;
