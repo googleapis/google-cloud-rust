@@ -1305,7 +1305,7 @@ impl DatabaseClientBuilder {
             self.database_name
         };
 
-        #[cfg(feature = "metrics")]
+        #[cfg(feature = "_internal-metrics")]
         let o11y = Arc::new(
             Observability::init(
                 &self.spanner.config,
@@ -1318,7 +1318,7 @@ impl DatabaseClientBuilder {
             )
             .await,
         );
-        #[cfg(not(feature = "metrics"))]
+        #[cfg(not(feature = "_internal-metrics"))]
         let o11y = Arc::new(
             Observability::init(
                 &self.spanner.config,
