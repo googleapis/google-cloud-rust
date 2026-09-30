@@ -1730,9 +1730,8 @@ pub struct ProductAttributes {
 
     /// Product Certifications, for example for energy efficiency labeling of
     /// products recorded in the [EU EPREL](https://eprel.ec.europa.eu/screen/home)
-    /// database. See the [Help
-    /// Center](https://support.google.com/merchants/answer/13528839)
-    /// article for more information.
+    /// database. For more information, see
+    /// [Certification](https://support.google.com/merchants/answer/13528839).
     pub certifications: std::vec::Vec<crate::model::ProductCertification>,
 
     /// Structured title, for algorithmically (AI)-generated titles.
@@ -1763,6 +1762,10 @@ pub struct ProductAttributes {
     /// minimum order values. Different minimum order values can be specified per
     /// country, service and surface. Maximum entries: 100.
     pub minimum_order_values: std::vec::Vec<crate::model::ProductMinimumOrderValue>,
+
+    /// The [warranty](https://support.google.com/merchants/answer/15957626) of
+    /// the product.
+    pub warranty: std::option::Option<crate::model::product_attributes::Warranty>,
 
     /// The [Vehicle Identification Number
     /// (VIN)](https://support.google.com/google-ads/answer/14154510) of the
@@ -1868,9 +1871,10 @@ pub struct ProductAttributes {
     /// information.
     pub vehicle_expenses: std::option::Option<google_shopping_type::model::Price>,
 
-    /// The [warranty](https://support.google.com/google-ads/answer/15957626) of
-    /// the vehicle.
-    pub warranty: std::option::Option<crate::model::product_attributes::Warranty>,
+    /// Optional. [Return
+    /// rules](https://support.google.com/merchants/answer/17081382) for the
+    /// product.
+    pub returns: std::vec::Vec<crate::model::product_attributes::Returns>,
 
     /// The display address of the property.
     pub display_address: std::option::Option<crate::model::product_attributes::DisplayAddress>,
@@ -1925,6 +1929,9 @@ pub struct ProductAttributes {
 
     /// The short title of the item.
     pub short_title: std::option::Option<std::string::String>,
+
+    /// The lease term of the property.
+    pub lease_term: std::option::Option<crate::model::product_attributes::LeaseTerm>,
 
     /// Optional. Contains user-, merchant-, and manufacturer-authored [questions
     /// and answers](https://support.google.com/merchants/answer/17085211) about
@@ -4912,6 +4919,39 @@ impl ProductAttributes {
         self
     }
 
+    /// Sets the value of [warranty][crate::model::ProductAttributes::warranty].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductAttributes;
+    /// use google_shopping_merchant_products_v1::model::product_attributes::Warranty;
+    /// let x = ProductAttributes::new().set_warranty(Warranty::default()/* use setters */);
+    /// ```
+    pub fn set_warranty<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::product_attributes::Warranty>,
+    {
+        self.warranty = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warranty][crate::model::ProductAttributes::warranty].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductAttributes;
+    /// use google_shopping_merchant_products_v1::model::product_attributes::Warranty;
+    /// let x = ProductAttributes::new().set_or_clear_warranty(Some(Warranty::default()/* use setters */));
+    /// let x = ProductAttributes::new().set_or_clear_warranty(None::<Warranty>);
+    /// ```
+    pub fn set_or_clear_warranty<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::product_attributes::Warranty>,
+    {
+        self.warranty = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [vin][crate::model::ProductAttributes::vin].
     ///
     /// # Example
@@ -5380,36 +5420,25 @@ impl ProductAttributes {
         self
     }
 
-    /// Sets the value of [warranty][crate::model::ProductAttributes::warranty].
+    /// Sets the value of [returns][crate::model::ProductAttributes::returns].
     ///
     /// # Example
     /// ```ignore,no_run
     /// # use google_shopping_merchant_products_v1::model::ProductAttributes;
-    /// use google_shopping_merchant_products_v1::model::product_attributes::Warranty;
-    /// let x = ProductAttributes::new().set_warranty(Warranty::default()/* use setters */);
+    /// use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+    /// let x = ProductAttributes::new()
+    ///     .set_returns([
+    ///         Returns::default()/* use setters */,
+    ///         Returns::default()/* use (different) setters */,
+    ///     ]);
     /// ```
-    pub fn set_warranty<T>(mut self, v: T) -> Self
+    pub fn set_returns<T, V>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::product_attributes::Warranty>,
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::product_attributes::Returns>,
     {
-        self.warranty = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [warranty][crate::model::ProductAttributes::warranty].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_shopping_merchant_products_v1::model::ProductAttributes;
-    /// use google_shopping_merchant_products_v1::model::product_attributes::Warranty;
-    /// let x = ProductAttributes::new().set_or_clear_warranty(Some(Warranty::default()/* use setters */));
-    /// let x = ProductAttributes::new().set_or_clear_warranty(None::<Warranty>);
-    /// ```
-    pub fn set_or_clear_warranty<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::product_attributes::Warranty>,
-    {
-        self.warranty = v.map(|x| x.into());
+        use std::iter::Iterator;
+        self.returns = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5825,6 +5854,39 @@ impl ProductAttributes {
         T: std::convert::Into<std::string::String>,
     {
         self.short_title = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [lease_term][crate::model::ProductAttributes::lease_term].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductAttributes;
+    /// use google_shopping_merchant_products_v1::model::product_attributes::LeaseTerm;
+    /// let x = ProductAttributes::new().set_lease_term(LeaseTerm::default()/* use setters */);
+    /// ```
+    pub fn set_lease_term<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::product_attributes::LeaseTerm>,
+    {
+        self.lease_term = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lease_term][crate::model::ProductAttributes::lease_term].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductAttributes;
+    /// use google_shopping_merchant_products_v1::model::product_attributes::LeaseTerm;
+    /// let x = ProductAttributes::new().set_or_clear_lease_term(Some(LeaseTerm::default()/* use setters */));
+    /// let x = ProductAttributes::new().set_or_clear_lease_term(None::<LeaseTerm>);
+    /// ```
+    pub fn set_or_clear_lease_term<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::product_attributes::LeaseTerm>,
+    {
+        self.lease_term = v.map(|x| x.into());
         self
     }
 
@@ -7488,11 +7550,16 @@ pub mod product_attributes {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Warranty {
-        /// The warranty duration in months.
+        /// The warranty duration in units. Default is in months, can be overridden
+        /// by the `duration_unit` field.
         pub duration: i64,
 
-        /// The warranty mileage.
+        /// The warranty mileage (only applies to vehicles).
         pub mileage: std::option::Option<crate::model::product_attributes::Mileage>,
+
+        /// The unit for the warranty duration. Assumed to be `MONTH` if
+        /// equal to `WARRANTY_DURATION_UNIT_UNSPECIFIED`.
+        pub duration_unit: crate::model::product_attributes::warranty::WarrantyDurationUnit,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7547,11 +7614,172 @@ pub mod product_attributes {
             self.mileage = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [duration_unit][crate::model::product_attributes::Warranty::duration_unit].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Warranty;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::warranty::WarrantyDurationUnit;
+        /// let x0 = Warranty::new().set_duration_unit(WarrantyDurationUnit::Month);
+        /// let x1 = Warranty::new().set_duration_unit(WarrantyDurationUnit::Year);
+        /// ```
+        pub fn set_duration_unit<
+            T: std::convert::Into<crate::model::product_attributes::warranty::WarrantyDurationUnit>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.duration_unit = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for Warranty {
         fn typename() -> &'static str {
             "type.googleapis.com/google.shopping.merchant.products.v1.ProductAttributes.Warranty"
+        }
+    }
+
+    /// Defines additional types related to [Warranty].
+    pub mod warranty {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The warranty duration unit of the product.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum WarrantyDurationUnit {
+            /// Indicates that the warranty duration unit is unspecified.
+            Unspecified,
+            /// Indicates that the warranty duration unit is month.
+            Month,
+            /// Indicates that the warranty duration unit is year.
+            Year,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [WarrantyDurationUnit::value] or
+            /// [WarrantyDurationUnit::name].
+            UnknownValue(warranty_duration_unit::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod warranty_duration_unit {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl WarrantyDurationUnit {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Month => std::option::Option::Some(1),
+                    Self::Year => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("WARRANTY_DURATION_UNIT_UNSPECIFIED")
+                    }
+                    Self::Month => std::option::Option::Some("MONTH"),
+                    Self::Year => std::option::Option::Some("YEAR"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for WarrantyDurationUnit {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for WarrantyDurationUnit {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for WarrantyDurationUnit {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Month,
+                    2 => Self::Year,
+                    _ => Self::UnknownValue(warranty_duration_unit::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for WarrantyDurationUnit {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "WARRANTY_DURATION_UNIT_UNSPECIFIED" => Self::Unspecified,
+                    "MONTH" => Self::Month,
+                    "YEAR" => Self::Year,
+                    _ => Self::UnknownValue(warranty_duration_unit::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for WarrantyDurationUnit {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Month => serializer.serialize_i32(1),
+                    Self::Year => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for WarrantyDurationUnit {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<WarrantyDurationUnit>::new(
+                    ".google.shopping.merchant.products.v1.ProductAttributes.Warranty.WarrantyDurationUnit"))
+            }
         }
     }
 
@@ -8302,6 +8530,1515 @@ pub mod product_attributes {
                     ".google.shopping.merchant.products.v1.ProductAttributes.PetPolicy.PetType",
                 ))
             }
+        }
+    }
+
+    /// The lease term of the property.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct LeaseTerm {
+        /// The type of lease term.
+        pub r#type: crate::model::product_attributes::lease_term::LeaseTermType,
+
+        /// The duration value of the lease term.
+        pub duration_value: std::option::Option<i64>,
+
+        /// The duration unit of the lease term.
+        pub duration_unit: crate::model::product_attributes::lease_term::DurationUnit,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl LeaseTerm {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [r#type][crate::model::product_attributes::LeaseTerm::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::LeaseTerm;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::lease_term::LeaseTermType;
+        /// let x0 = LeaseTerm::new().set_type(LeaseTermType::FixedTerm);
+        /// ```
+        pub fn set_type<
+            T: std::convert::Into<crate::model::product_attributes::lease_term::LeaseTermType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// Sets the value of [duration_value][crate::model::product_attributes::LeaseTerm::duration_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::LeaseTerm;
+        /// let x = LeaseTerm::new().set_duration_value(42);
+        /// ```
+        pub fn set_duration_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.duration_value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [duration_value][crate::model::product_attributes::LeaseTerm::duration_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::LeaseTerm;
+        /// let x = LeaseTerm::new().set_or_clear_duration_value(Some(42));
+        /// let x = LeaseTerm::new().set_or_clear_duration_value(None::<i32>);
+        /// ```
+        pub fn set_or_clear_duration_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.duration_value = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [duration_unit][crate::model::product_attributes::LeaseTerm::duration_unit].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::LeaseTerm;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::lease_term::DurationUnit;
+        /// let x0 = LeaseTerm::new().set_duration_unit(DurationUnit::Months);
+        /// let x1 = LeaseTerm::new().set_duration_unit(DurationUnit::Weeks);
+        /// ```
+        pub fn set_duration_unit<
+            T: std::convert::Into<crate::model::product_attributes::lease_term::DurationUnit>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.duration_unit = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for LeaseTerm {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.shopping.merchant.products.v1.ProductAttributes.LeaseTerm"
+        }
+    }
+
+    /// Defines additional types related to [LeaseTerm].
+    pub mod lease_term {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The type of lease term.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum LeaseTermType {
+            /// Unspecified lease term type.
+            Unspecified,
+            /// Fixed term.
+            FixedTerm,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [LeaseTermType::value] or
+            /// [LeaseTermType::name].
+            UnknownValue(lease_term_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod lease_term_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl LeaseTermType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::FixedTerm => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("LEASE_TERM_TYPE_UNSPECIFIED"),
+                    Self::FixedTerm => std::option::Option::Some("FIXED_TERM"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for LeaseTermType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for LeaseTermType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for LeaseTermType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::FixedTerm,
+                    _ => Self::UnknownValue(lease_term_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for LeaseTermType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "LEASE_TERM_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "FIXED_TERM" => Self::FixedTerm,
+                    _ => Self::UnknownValue(lease_term_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for LeaseTermType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::FixedTerm => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for LeaseTermType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<LeaseTermType>::new(
+                    ".google.shopping.merchant.products.v1.ProductAttributes.LeaseTerm.LeaseTermType"))
+            }
+        }
+
+        /// The unit of duration.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum DurationUnit {
+            /// Unspecified duration unit.
+            Unspecified,
+            /// Month.
+            Months,
+            /// Week.
+            Weeks,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [DurationUnit::value] or
+            /// [DurationUnit::name].
+            UnknownValue(duration_unit::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod duration_unit {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl DurationUnit {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Months => std::option::Option::Some(1),
+                    Self::Weeks => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("DURATION_UNIT_UNSPECIFIED"),
+                    Self::Months => std::option::Option::Some("MONTHS"),
+                    Self::Weeks => std::option::Option::Some("WEEKS"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for DurationUnit {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for DurationUnit {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for DurationUnit {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Months,
+                    2 => Self::Weeks,
+                    _ => Self::UnknownValue(duration_unit::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for DurationUnit {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "DURATION_UNIT_UNSPECIFIED" => Self::Unspecified,
+                    "MONTHS" => Self::Months,
+                    "WEEKS" => Self::Weeks,
+                    _ => Self::UnknownValue(duration_unit::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for DurationUnit {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Months => serializer.serialize_i32(1),
+                    Self::Weeks => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for DurationUnit {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<DurationUnit>::new(
+                    ".google.shopping.merchant.products.v1.ProductAttributes.LeaseTerm.DurationUnit"))
+            }
+        }
+    }
+
+    /// The returns of the product.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Returns {
+        /// The [CLDR territory
+        /// code](http://www.unicode.org/repos/cldr/tags/latest/common/main/en.xml)
+        /// of the countries to which an item can be returned.
+        pub countries: std::vec::Vec<std::string::String>,
+
+        /// The duration of the return window in days.
+        pub window_days: std::option::Option<i64>,
+
+        /// Special return window behavior.
+        pub window_type:
+            std::option::Option<crate::model::product_attributes::returns::ReturnWindowType>,
+
+        /// The condition the item must be in to be accepted.
+        pub item_conditions:
+            std::vec::Vec<crate::model::product_attributes::returns::ItemCondition>,
+
+        /// The physical methods by which the item can be returned.
+        pub methods: std::vec::Vec<crate::model::product_attributes::returns::ReturnMethod>,
+
+        /// The financial outcomes available for a return.
+        pub outcomes: std::vec::Vec<crate::model::product_attributes::returns::ReturnOutcome>,
+
+        /// The fixed cost out-of-pocket for a customer to return an item.
+        pub shipping_fee: std::option::Option<google_shopping_type::model::Price>,
+
+        /// The type of return shipping fee.
+        pub shipping_fee_type:
+            std::option::Option<crate::model::product_attributes::returns::ReturnShippingFeeType>,
+
+        /// The URL of the return policy.
+        pub policy_url: std::option::Option<std::string::String>,
+
+        /// The restocking fee charged to the customer.
+        pub restocking_fee_oneof:
+            std::option::Option<crate::model::product_attributes::returns::RestockingFeeOneof>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Returns {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [countries][crate::model::product_attributes::Returns::countries].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// let x = Returns::new().set_countries(["a", "b", "c"]);
+        /// ```
+        pub fn set_countries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.countries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [window_days][crate::model::product_attributes::Returns::window_days].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// let x = Returns::new().set_window_days(42);
+        /// ```
+        pub fn set_window_days<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.window_days = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [window_days][crate::model::product_attributes::Returns::window_days].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// let x = Returns::new().set_or_clear_window_days(Some(42));
+        /// let x = Returns::new().set_or_clear_window_days(None::<i32>);
+        /// ```
+        pub fn set_or_clear_window_days<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.window_days = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [window_type][crate::model::product_attributes::Returns::window_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::returns::ReturnWindowType;
+        /// let x0 = Returns::new().set_window_type(ReturnWindowType::FiniteReturnWindow);
+        /// let x1 = Returns::new().set_window_type(ReturnWindowType::NoReturns);
+        /// let x2 = Returns::new().set_window_type(ReturnWindowType::Lifetime);
+        /// ```
+        pub fn set_window_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::product_attributes::returns::ReturnWindowType>,
+        {
+            self.window_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [window_type][crate::model::product_attributes::Returns::window_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::returns::ReturnWindowType;
+        /// let x0 = Returns::new().set_or_clear_window_type(Some(ReturnWindowType::FiniteReturnWindow));
+        /// let x1 = Returns::new().set_or_clear_window_type(Some(ReturnWindowType::NoReturns));
+        /// let x2 = Returns::new().set_or_clear_window_type(Some(ReturnWindowType::Lifetime));
+        /// let x_none = Returns::new().set_or_clear_window_type(None::<ReturnWindowType>);
+        /// ```
+        pub fn set_or_clear_window_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::product_attributes::returns::ReturnWindowType>,
+        {
+            self.window_type = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [item_conditions][crate::model::product_attributes::Returns::item_conditions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::returns::ItemCondition;
+        /// let x = Returns::new().set_item_conditions([
+        ///     ItemCondition::New,
+        ///     ItemCondition::LikeNew,
+        ///     ItemCondition::Used,
+        /// ]);
+        /// ```
+        pub fn set_item_conditions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::product_attributes::returns::ItemCondition>,
+        {
+            use std::iter::Iterator;
+            self.item_conditions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [methods][crate::model::product_attributes::Returns::methods].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::returns::ReturnMethod;
+        /// let x = Returns::new().set_methods([
+        ///     ReturnMethod::ByMail,
+        ///     ReturnMethod::InStore,
+        ///     ReturnMethod::AtAKiosk,
+        /// ]);
+        /// ```
+        pub fn set_methods<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::product_attributes::returns::ReturnMethod>,
+        {
+            use std::iter::Iterator;
+            self.methods = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [outcomes][crate::model::product_attributes::Returns::outcomes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::returns::ReturnOutcome;
+        /// let x = Returns::new().set_outcomes([
+        ///     ReturnOutcome::Refund,
+        ///     ReturnOutcome::Exchange,
+        ///     ReturnOutcome::StoreCredit,
+        /// ]);
+        /// ```
+        pub fn set_outcomes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::product_attributes::returns::ReturnOutcome>,
+        {
+            use std::iter::Iterator;
+            self.outcomes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [shipping_fee][crate::model::product_attributes::Returns::shipping_fee].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_type::model::Price;
+        /// let x = Returns::new().set_shipping_fee(Price::default()/* use setters */);
+        /// ```
+        pub fn set_shipping_fee<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_shopping_type::model::Price>,
+        {
+            self.shipping_fee = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [shipping_fee][crate::model::product_attributes::Returns::shipping_fee].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_type::model::Price;
+        /// let x = Returns::new().set_or_clear_shipping_fee(Some(Price::default()/* use setters */));
+        /// let x = Returns::new().set_or_clear_shipping_fee(None::<Price>);
+        /// ```
+        pub fn set_or_clear_shipping_fee<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_shopping_type::model::Price>,
+        {
+            self.shipping_fee = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [shipping_fee_type][crate::model::product_attributes::Returns::shipping_fee_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::returns::ReturnShippingFeeType;
+        /// let x0 = Returns::new().set_shipping_fee_type(ReturnShippingFeeType::CustomerResponsibility);
+        /// let x1 = Returns::new().set_shipping_fee_type(ReturnShippingFeeType::DeductedFromRefund);
+        /// ```
+        pub fn set_shipping_fee_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::product_attributes::returns::ReturnShippingFeeType>,
+        {
+            self.shipping_fee_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [shipping_fee_type][crate::model::product_attributes::Returns::shipping_fee_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::returns::ReturnShippingFeeType;
+        /// let x0 = Returns::new().set_or_clear_shipping_fee_type(Some(ReturnShippingFeeType::CustomerResponsibility));
+        /// let x1 = Returns::new().set_or_clear_shipping_fee_type(Some(ReturnShippingFeeType::DeductedFromRefund));
+        /// let x_none = Returns::new().set_or_clear_shipping_fee_type(None::<ReturnShippingFeeType>);
+        /// ```
+        pub fn set_or_clear_shipping_fee_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::product_attributes::returns::ReturnShippingFeeType>,
+        {
+            self.shipping_fee_type = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [policy_url][crate::model::product_attributes::Returns::policy_url].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// let x = Returns::new().set_policy_url("example");
+        /// ```
+        pub fn set_policy_url<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.policy_url = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_url][crate::model::product_attributes::Returns::policy_url].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// let x = Returns::new().set_or_clear_policy_url(Some("example"));
+        /// let x = Returns::new().set_or_clear_policy_url(None::<String>);
+        /// ```
+        pub fn set_or_clear_policy_url<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.policy_url = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [restocking_fee_oneof][crate::model::product_attributes::Returns::restocking_fee_oneof].
+        ///
+        /// Note that all the setters affecting `restocking_fee_oneof` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_merchant_products_v1::model::product_attributes::returns::RestockingFeeOneof;
+        /// let x = Returns::new().set_restocking_fee_oneof(Some(RestockingFeeOneof::RestockingPercentageFee(42.0)));
+        /// ```
+        pub fn set_restocking_fee_oneof<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::product_attributes::returns::RestockingFeeOneof,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.restocking_fee_oneof = v.into();
+            self
+        }
+
+        /// The value of [restocking_fee_oneof][crate::model::product_attributes::Returns::restocking_fee_oneof]
+        /// if it holds a `RestockingFee`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn restocking_fee(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_shopping_type::model::Price>> {
+            #[allow(unreachable_patterns)]
+            self.restocking_fee_oneof.as_ref().and_then(|v| match v {
+                crate::model::product_attributes::returns::RestockingFeeOneof::RestockingFee(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [restocking_fee_oneof][crate::model::product_attributes::Returns::restocking_fee_oneof]
+        /// to hold a `RestockingFee`.
+        ///
+        /// Note that all the setters affecting `restocking_fee_oneof` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// use google_shopping_type::model::Price;
+        /// let x = Returns::new().set_restocking_fee(Price::default()/* use setters */);
+        /// assert!(x.restocking_fee().is_some());
+        /// assert!(x.restocking_percentage_fee().is_none());
+        /// ```
+        pub fn set_restocking_fee<
+            T: std::convert::Into<std::boxed::Box<google_shopping_type::model::Price>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.restocking_fee_oneof = std::option::Option::Some(
+                crate::model::product_attributes::returns::RestockingFeeOneof::RestockingFee(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [restocking_fee_oneof][crate::model::product_attributes::Returns::restocking_fee_oneof]
+        /// if it holds a `RestockingPercentageFee`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn restocking_percentage_fee(&self) -> std::option::Option<&f64> {
+            #[allow(unreachable_patterns)]
+            self.restocking_fee_oneof.as_ref().and_then(|v| match v {
+                crate::model::product_attributes::returns::RestockingFeeOneof::RestockingPercentageFee(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [restocking_fee_oneof][crate::model::product_attributes::Returns::restocking_fee_oneof]
+        /// to hold a `RestockingPercentageFee`.
+        ///
+        /// Note that all the setters affecting `restocking_fee_oneof` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_shopping_merchant_products_v1::model::product_attributes::Returns;
+        /// let x = Returns::new().set_restocking_percentage_fee(42.0);
+        /// assert!(x.restocking_percentage_fee().is_some());
+        /// assert!(x.restocking_fee().is_none());
+        /// ```
+        pub fn set_restocking_percentage_fee<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.restocking_fee_oneof = std::option::Option::Some(
+                crate::model::product_attributes::returns::RestockingFeeOneof::RestockingPercentageFee(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for Returns {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.shopping.merchant.products.v1.ProductAttributes.Returns"
+        }
+    }
+
+    /// Defines additional types related to [Returns].
+    pub mod returns {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Type of return window for the return policy.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ReturnWindowType {
+            /// The return window type is unspecified.
+            Unspecified,
+            /// Window with a fixed number of days. If this is set, the `window_days`
+            /// field must be set.
+            FiniteReturnWindow,
+            /// No returns accepted.
+            NoReturns,
+            /// Lifetime returns accepted.
+            Lifetime,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ReturnWindowType::value] or
+            /// [ReturnWindowType::name].
+            UnknownValue(return_window_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod return_window_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ReturnWindowType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::FiniteReturnWindow => std::option::Option::Some(1),
+                    Self::NoReturns => std::option::Option::Some(2),
+                    Self::Lifetime => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("RETURN_WINDOW_TYPE_UNSPECIFIED")
+                    }
+                    Self::FiniteReturnWindow => std::option::Option::Some("FINITE_RETURN_WINDOW"),
+                    Self::NoReturns => std::option::Option::Some("NO_RETURNS"),
+                    Self::Lifetime => std::option::Option::Some("LIFETIME"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ReturnWindowType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ReturnWindowType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ReturnWindowType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::FiniteReturnWindow,
+                    2 => Self::NoReturns,
+                    3 => Self::Lifetime,
+                    _ => Self::UnknownValue(return_window_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ReturnWindowType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "RETURN_WINDOW_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "FINITE_RETURN_WINDOW" => Self::FiniteReturnWindow,
+                    "NO_RETURNS" => Self::NoReturns,
+                    "LIFETIME" => Self::Lifetime,
+                    _ => Self::UnknownValue(return_window_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ReturnWindowType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::FiniteReturnWindow => serializer.serialize_i32(1),
+                    Self::NoReturns => serializer.serialize_i32(2),
+                    Self::Lifetime => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ReturnWindowType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReturnWindowType>::new(
+                    ".google.shopping.merchant.products.v1.ProductAttributes.Returns.ReturnWindowType"))
+            }
+        }
+
+        /// The physical method by which the item can be returned.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ReturnMethod {
+            /// The return method is unspecified.
+            Unspecified,
+            /// Customer returns the item by mail.
+            ByMail,
+            /// Customer returns the item in a store.
+            InStore,
+            /// Customer drops off the item at a kiosk.
+            AtAKiosk,
+            /// Customer drops off the item at a 3rd party partner location.
+            DropOffLocation,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ReturnMethod::value] or
+            /// [ReturnMethod::name].
+            UnknownValue(return_method::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod return_method {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ReturnMethod {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::ByMail => std::option::Option::Some(1),
+                    Self::InStore => std::option::Option::Some(2),
+                    Self::AtAKiosk => std::option::Option::Some(3),
+                    Self::DropOffLocation => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("RETURN_METHOD_UNSPECIFIED"),
+                    Self::ByMail => std::option::Option::Some("BY_MAIL"),
+                    Self::InStore => std::option::Option::Some("IN_STORE"),
+                    Self::AtAKiosk => std::option::Option::Some("AT_A_KIOSK"),
+                    Self::DropOffLocation => std::option::Option::Some("DROP_OFF_LOCATION"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ReturnMethod {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ReturnMethod {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ReturnMethod {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::ByMail,
+                    2 => Self::InStore,
+                    3 => Self::AtAKiosk,
+                    4 => Self::DropOffLocation,
+                    _ => Self::UnknownValue(return_method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ReturnMethod {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "RETURN_METHOD_UNSPECIFIED" => Self::Unspecified,
+                    "BY_MAIL" => Self::ByMail,
+                    "IN_STORE" => Self::InStore,
+                    "AT_A_KIOSK" => Self::AtAKiosk,
+                    "DROP_OFF_LOCATION" => Self::DropOffLocation,
+                    _ => Self::UnknownValue(return_method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ReturnMethod {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::ByMail => serializer.serialize_i32(1),
+                    Self::InStore => serializer.serialize_i32(2),
+                    Self::AtAKiosk => serializer.serialize_i32(3),
+                    Self::DropOffLocation => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ReturnMethod {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReturnMethod>::new(
+                    ".google.shopping.merchant.products.v1.ProductAttributes.Returns.ReturnMethod",
+                ))
+            }
+        }
+
+        /// The acceptable item condition for a return.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ItemCondition {
+            /// The item condition is unspecified.
+            Unspecified,
+            /// New condition.
+            New,
+            /// Like new condition.
+            LikeNew,
+            /// Used condition.
+            Used,
+            /// Only defective items are accepted.
+            DefectiveOnly,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ItemCondition::value] or
+            /// [ItemCondition::name].
+            UnknownValue(item_condition::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod item_condition {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ItemCondition {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::New => std::option::Option::Some(1),
+                    Self::LikeNew => std::option::Option::Some(2),
+                    Self::Used => std::option::Option::Some(3),
+                    Self::DefectiveOnly => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("ITEM_CONDITION_UNSPECIFIED"),
+                    Self::New => std::option::Option::Some("NEW"),
+                    Self::LikeNew => std::option::Option::Some("LIKE_NEW"),
+                    Self::Used => std::option::Option::Some("USED"),
+                    Self::DefectiveOnly => std::option::Option::Some("DEFECTIVE_ONLY"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ItemCondition {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ItemCondition {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ItemCondition {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::New,
+                    2 => Self::LikeNew,
+                    3 => Self::Used,
+                    4 => Self::DefectiveOnly,
+                    _ => Self::UnknownValue(item_condition::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ItemCondition {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "ITEM_CONDITION_UNSPECIFIED" => Self::Unspecified,
+                    "NEW" => Self::New,
+                    "LIKE_NEW" => Self::LikeNew,
+                    "USED" => Self::Used,
+                    "DEFECTIVE_ONLY" => Self::DefectiveOnly,
+                    _ => Self::UnknownValue(item_condition::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ItemCondition {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::New => serializer.serialize_i32(1),
+                    Self::LikeNew => serializer.serialize_i32(2),
+                    Self::Used => serializer.serialize_i32(3),
+                    Self::DefectiveOnly => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ItemCondition {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ItemCondition>::new(
+                    ".google.shopping.merchant.products.v1.ProductAttributes.Returns.ItemCondition",
+                ))
+            }
+        }
+
+        /// The financial outcome of a return.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ReturnOutcome {
+            /// The return outcome is unspecified.
+            Unspecified,
+            /// Customer receives a refund.
+            Refund,
+            /// Customer receives an exchange.
+            Exchange,
+            /// Customer receives store credit.
+            StoreCredit,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ReturnOutcome::value] or
+            /// [ReturnOutcome::name].
+            UnknownValue(return_outcome::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod return_outcome {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ReturnOutcome {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Refund => std::option::Option::Some(1),
+                    Self::Exchange => std::option::Option::Some(2),
+                    Self::StoreCredit => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("RETURN_OUTCOME_UNSPECIFIED"),
+                    Self::Refund => std::option::Option::Some("REFUND"),
+                    Self::Exchange => std::option::Option::Some("EXCHANGE"),
+                    Self::StoreCredit => std::option::Option::Some("STORE_CREDIT"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ReturnOutcome {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ReturnOutcome {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ReturnOutcome {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Refund,
+                    2 => Self::Exchange,
+                    3 => Self::StoreCredit,
+                    _ => Self::UnknownValue(return_outcome::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ReturnOutcome {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "RETURN_OUTCOME_UNSPECIFIED" => Self::Unspecified,
+                    "REFUND" => Self::Refund,
+                    "EXCHANGE" => Self::Exchange,
+                    "STORE_CREDIT" => Self::StoreCredit,
+                    _ => Self::UnknownValue(return_outcome::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ReturnOutcome {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Refund => serializer.serialize_i32(1),
+                    Self::Exchange => serializer.serialize_i32(2),
+                    Self::StoreCredit => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ReturnOutcome {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReturnOutcome>::new(
+                    ".google.shopping.merchant.products.v1.ProductAttributes.Returns.ReturnOutcome",
+                ))
+            }
+        }
+
+        /// The type of the return shipping fee.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ReturnShippingFeeType {
+            /// The return shipping fee type is unspecified.
+            Unspecified,
+            /// The customer is responsible for shipping costs.
+            CustomerResponsibility,
+            /// The shipping cost is deducted from the refund.
+            DeductedFromRefund,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ReturnShippingFeeType::value] or
+            /// [ReturnShippingFeeType::name].
+            UnknownValue(return_shipping_fee_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod return_shipping_fee_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ReturnShippingFeeType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::CustomerResponsibility => std::option::Option::Some(1),
+                    Self::DeductedFromRefund => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("RETURN_SHIPPING_FEE_TYPE_UNSPECIFIED")
+                    }
+                    Self::CustomerResponsibility => {
+                        std::option::Option::Some("CUSTOMER_RESPONSIBILITY")
+                    }
+                    Self::DeductedFromRefund => std::option::Option::Some("DEDUCTED_FROM_REFUND"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ReturnShippingFeeType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ReturnShippingFeeType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ReturnShippingFeeType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::CustomerResponsibility,
+                    2 => Self::DeductedFromRefund,
+                    _ => Self::UnknownValue(return_shipping_fee_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ReturnShippingFeeType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "RETURN_SHIPPING_FEE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "CUSTOMER_RESPONSIBILITY" => Self::CustomerResponsibility,
+                    "DEDUCTED_FROM_REFUND" => Self::DeductedFromRefund,
+                    _ => Self::UnknownValue(return_shipping_fee_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ReturnShippingFeeType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::CustomerResponsibility => serializer.serialize_i32(1),
+                    Self::DeductedFromRefund => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ReturnShippingFeeType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReturnShippingFeeType>::new(
+                    ".google.shopping.merchant.products.v1.ProductAttributes.Returns.ReturnShippingFeeType"))
+            }
+        }
+
+        /// The restocking fee charged to the customer.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum RestockingFeeOneof {
+            /// A flat restocking fee penalty.
+            RestockingFee(std::boxed::Box<google_shopping_type::model::Price>),
+            /// A percentage restocking fee penalty.
+            RestockingPercentageFee(f64),
         }
     }
 
@@ -11425,6 +13162,10 @@ pub struct ProductInstallment {
     /// Optional. Total amount the buyer has to pay, including interest.
     pub total_amount: std::option::Option<google_shopping_type::model::Price>,
 
+    /// Optional. The mileage allowance for the lease of the vehicle. Only
+    /// applicable to vehicle products.
+    pub mileage_allowance: std::option::Option<crate::model::product_attributes::Mileage>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11610,6 +13351,39 @@ impl ProductInstallment {
         self.total_amount = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [mileage_allowance][crate::model::ProductInstallment::mileage_allowance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductInstallment;
+    /// use google_shopping_merchant_products_v1::model::product_attributes::Mileage;
+    /// let x = ProductInstallment::new().set_mileage_allowance(Mileage::default()/* use setters */);
+    /// ```
+    pub fn set_mileage_allowance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::product_attributes::Mileage>,
+    {
+        self.mileage_allowance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mileage_allowance][crate::model::ProductInstallment::mileage_allowance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductInstallment;
+    /// use google_shopping_merchant_products_v1::model::product_attributes::Mileage;
+    /// let x = ProductInstallment::new().set_or_clear_mileage_allowance(Some(Mileage::default()/* use setters */));
+    /// let x = ProductInstallment::new().set_or_clear_mileage_allowance(None::<Mileage>);
+    /// ```
+    pub fn set_or_clear_mileage_allowance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::product_attributes::Mileage>,
+    {
+        self.mileage_allowance = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ProductInstallment {
@@ -11687,6 +13461,10 @@ impl wkt::message::Message for LoyaltyPoints {
 }
 
 /// A message that represents loyalty program.
+///
+/// For more information on loyalty programs, see
+/// [Overview of loyalty
+/// programs](/merchant/api/guides/loyalty/loyalty-programs).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoyaltyProgram {
@@ -12614,6 +14392,20 @@ pub struct ProductCertification {
     /// example "A+", "C", "gold". Maximum length is 2000 characters.
     pub certification_value: std::option::Option<std::string::String>,
 
+    /// Optional. URL to the certification document (eg.
+    /// `<https://www.example.com/document>`), for example, the product data sheet or
+    /// fiche required by UK's DESNZ or EU's EPREL. Maximum length is 2000
+    /// characters. For more information, see
+    /// [Certification](https://support.google.com/merchants/answer/13528839).
+    pub certification_document_link: std::option::Option<std::string::String>,
+
+    /// Optional. URL to the certification label (eg.
+    /// `<https://www.example.com/label>`), for example, the energy efficiency label
+    /// required by UK's DESNZ or EU's EPREL. Maximum length is 2000 characters.
+    /// For more information, see
+    /// [Certification](https://support.google.com/merchants/answer/13528839).
+    pub certification_label_link: std::option::Option<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12756,6 +14548,68 @@ impl ProductCertification {
         T: std::convert::Into<std::string::String>,
     {
         self.certification_value = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [certification_document_link][crate::model::ProductCertification::certification_document_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductCertification;
+    /// let x = ProductCertification::new().set_certification_document_link("example");
+    /// ```
+    pub fn set_certification_document_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.certification_document_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certification_document_link][crate::model::ProductCertification::certification_document_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductCertification;
+    /// let x = ProductCertification::new().set_or_clear_certification_document_link(Some("example"));
+    /// let x = ProductCertification::new().set_or_clear_certification_document_link(None::<String>);
+    /// ```
+    pub fn set_or_clear_certification_document_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.certification_document_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [certification_label_link][crate::model::ProductCertification::certification_label_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductCertification;
+    /// let x = ProductCertification::new().set_certification_label_link("example");
+    /// ```
+    pub fn set_certification_label_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.certification_label_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certification_label_link][crate::model::ProductCertification::certification_label_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_shopping_merchant_products_v1::model::ProductCertification;
+    /// let x = ProductCertification::new().set_or_clear_certification_label_link(Some("example"));
+    /// let x = ProductCertification::new().set_or_clear_certification_label_link(None::<String>);
+    /// ```
+    pub fn set_or_clear_certification_label_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.certification_label_link = v.map(|x| x.into());
         self
     }
 }
