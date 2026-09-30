@@ -12,25 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Client Feature Tests for Bidirectional Read.
-//!
-//! Validates client builder options, encodings, and request parameters
-//! such as `.compute_md5()`, `content-encoding: gzip`, and metadata matching.
-
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
 
-/// Runs all client feature regression tests for Bidirectional Read.
-pub async fn run(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    send(client, bucket_name).await?;
-    send_and_read(client, bucket_name).await?;
-    send_and_read_full(client, bucket_name).await?;
-    send_and_read_md5(client, bucket_name).await?;
-    send_and_read_gzip(client, bucket_name).await?;
+pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
+    let client = Storage::builder().build().await?;
+    send(&client, bucket_name).await?;
+    send_and_read(&client, bucket_name).await?;
+    send_and_read_full(&client, bucket_name).await?;
+    send_and_read_md5(&client, bucket_name).await?;
+    send_and_read_gzip(&client, bucket_name).await?;
     Ok(())
 }
 
-pub async fn send(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
+async fn send(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
     let write = client
         .write_object(
             bucket_name,
@@ -45,8 +40,10 @@ pub async fn send(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
     tracing::info!("open returns: {open:?}");
     let got = open.object();
     let mut want = write.clone();
+    // This field is a mismatch, but both `Some(false)` and `None` represent
+    // the same value.
     want.event_based_hold = want.event_based_hold.or(Some(false));
-    // Finalize time may differ sub-millisecond between JSON insert and gRPC open.
+    // There is a submillisecond difference, maybe rounding?
     want.finalize_time = got.finalize_time;
     assert_eq!(got, want);
 
@@ -78,7 +75,10 @@ pub async fn send_and_read(client: &Storage, bucket_name: &str) -> anyhow::Resul
     tracing::info!("reader: {:?}", reader);
     let got = descriptor.object();
     let mut want = write.clone();
+    // This field is a mismatch, but both `Some(false)` and `None` represent
+    // the same value.
     want.event_based_hold = want.event_based_hold.or(Some(false));
+    // There is a submillisecond difference, maybe rounding?
     want.finalize_time = got.finalize_time;
     assert_eq!(got, want);
 
@@ -159,12 +159,22 @@ pub async fn send_and_read_full(client: &Storage, bucket_name: &str) -> anyhow::
     Ok(())
 }
 
-/// Verifies that checksum validation succeeds for gzip-encoded objects over gRPC bidi read,
-/// because gRPC delivers raw compressed bytes directly without on-the-fly decompression.
+/// This test verifies the checksum validation behavior for gzip-encoded objects
+/// over the gRPC Bidi read stream.
+///
+/// Unlike the JSON REST API, which often transcodes (decompresses) gzip objects
+/// on the fly, the gRPC Bidi read stream delivers the raw, compressed bytes directly.
+/// Because no on-the-fly decompression occurs, the CRC32C checksum of the received
+/// chunks will naturally match the server's stored checksum of the compressed object.
+///
+/// We explicitly expect `RangeReader`'s automatic checksum validation to succeed
+/// without throwing a `ChecksumMismatch` error, proving that we do not need to
+/// bypass checksum validation for `content-encoding: gzip` objects in gRPC.
 pub async fn send_and_read_gzip(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
     use std::io::Write;
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
 
+    // Compress the payload
     let mut e = flate2::write::GzEncoder::new(Vec::new(), flate2::Compression::default());
     e.write_all(payload.as_bytes())?;
     let compressed_payload = e.finish()?;
@@ -198,6 +208,7 @@ pub async fn send_and_read_gzip(client: &Storage, bucket_name: &str) -> anyhow::
         tracing::info!("received {} bytes", r.len());
         data.extend_from_slice(&r);
     }
+    // Verify we received the EXACT compressed payload, meaning gRPC did not decompress it.
     assert_eq!(data, compressed_payload);
 
     Ok(())

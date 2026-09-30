@@ -15,8 +15,8 @@
 //! Bidirectional Read Integration Tests.
 //!
 //! Separated into two distinct test suites:
-//! - [conformance]: Formal cross-SDK conformance tests for Bidi Read sessions (Suite 1).
-//! - [features]: Client builder options, encodings, and backward-compatibility regression tests.
+//! - [conformance]: Cross-SDK conformance tests for bidi read sessions.
+//! - [features]: Client builder options, encodings, and regression tests.
 
 pub mod conformance;
 pub mod features;

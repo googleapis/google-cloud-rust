@@ -274,7 +274,9 @@ async fn disable_rapid_caches(control: &StorageControl, bucket_name: &str) {
         let cache = match cache {
             Ok(cache) => cache,
             Err(e) => {
-                eprintln!("Warning: failed to list rapid caches in {bucket_name} during teardown: {e:?}");
+                eprintln!(
+                    "Warning: failed to list rapid caches in {bucket_name} during teardown: {e:?}"
+                );
                 return;
             }
         };
@@ -420,10 +422,7 @@ async fn test_read_post_stream_close(
     let mut reader = descriptor.read_range(ReadRange::segment(200, 50)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[200..250]);
 
-    println!(
-        "SUCCESS: Read Post Stream Close ({})",
-        bucket_type.label()
-    );
+    println!("SUCCESS: Read Post Stream Close ({})", bucket_type.label());
     Ok(())
 }
 
