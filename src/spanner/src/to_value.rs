@@ -85,7 +85,7 @@ impl ToValue for Value {
 
 impl ToValue for JsonValue {
     fn to_value(&self) -> Value {
-        self.clone().into()
+        self.to_string().into()
     }
 }
 
