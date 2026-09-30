@@ -37,6 +37,7 @@ use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use http::HeaderMap;
+use std::fmt::{Debug, Formatter, Result as FmtResult};
 use std::sync::Arc;
 use std::time::Duration;
 use std::time::Instant;
@@ -51,6 +52,7 @@ use futures::Stream;
 /// per-request tags apply only to queries and reads, and are ignored by the
 /// `BatchWrite` RPC. Use [set_transaction_tag][BatchWriteTransactionBuilder::set_transaction_tag]
 /// to tag the transactions of a batch write.
+#[derive(Debug)]
 pub struct BatchWriteTransactionBuilder {
     client: DatabaseClient,
     transaction_tag: Option<String>,
@@ -225,6 +227,7 @@ impl BatchWriteTransactionBuilder {
 ///
 /// Batch writes are not guaranteed to be atomic across mutation groups.
 /// All mutations within a group are applied atomically.
+#[derive(Debug)]
 pub struct BatchWriteTransaction {
     session_name: String,
     client: DatabaseClient,
@@ -337,6 +340,18 @@ pub struct BatchWriteResponseStream {
     stream_started: bool,
     attempt_recorded: bool,
     operation_recorded: bool,
+}
+
+impl Debug for BatchWriteResponseStream {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        f.debug_struct("BatchWriteResponseStream")
+            .field("session_name", &self.session_name)
+            .field("transaction_tag", &self.transaction_tag)
+            .field("priority", &self.priority)
+            .field("total_count", &self.total_count)
+            .field("completed_count", &self.completed_count)
+            .finish_non_exhaustive()
+    }
 }
 
 impl BatchWriteResponseStream {
@@ -649,12 +664,13 @@ mod tests {
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::rpc::Status as ProtoStatus;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+    use std::fmt::Debug;
 
     #[test]
     fn traits() {
-        static_assertions::assert_impl_all!(BatchWriteTransactionBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(BatchWriteTransaction: Send, Sync);
-        static_assertions::assert_impl_all!(BatchWriteResponseStream: Send, Sync);
+        static_assertions::assert_impl_all!(BatchWriteTransactionBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(BatchWriteTransaction: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(BatchWriteResponseStream: Debug, Send, Sync);
     }
 
     pub(crate) async fn setup_db_client(

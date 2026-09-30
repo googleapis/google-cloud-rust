@@ -16,4 +16,5 @@
 
 pub use crate::result_set::ResultSet;
 pub use crate::result_set_metadata::ResultSetMetadata;
-pub use crate::row::Row;
+pub use crate::row::{ColumnIndex, Row, RowError};
+pub use crate::transaction_runner::TransactionResult;

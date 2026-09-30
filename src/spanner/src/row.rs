@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use std::error::Error as _;
+use std::fmt::{Debug, Display};
+
+use crate::Error;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::value::Value;
 
@@ -22,53 +26,120 @@ pub struct Row {
     pub(crate) metadata: ResultSetMetadata,
 }
 
-pub(crate) mod private {
+pub(crate) mod sealed {
+    use super::Row;
+
     /// A sealed trait to prevent external implementation of `ColumnIndex`.
-    pub trait Sealed {}
-    impl Sealed for usize {}
-    impl Sealed for &str {}
-    impl Sealed for String {}
+    pub trait ColumnIndex {
+        /// Returns the index of the column in the given row, if it exists.
+        fn index(&self, row: &Row) -> Option<usize>;
+    }
+
+    impl ColumnIndex for usize {
+        fn index(&self, _row: &Row) -> Option<usize> {
+            Some(*self)
+        }
+    }
+
+    impl ColumnIndex for &str {
+        fn index(&self, row: &Row) -> Option<usize> {
+            row.metadata
+                .column_names
+                .iter()
+                .position(|name| name == *self)
+        }
+    }
+
+    impl ColumnIndex for String {
+        fn index(&self, row: &Row) -> Option<usize> {
+            self.as_str().index(row)
+        }
+    }
+
+    impl ColumnIndex for &String {
+        fn index(&self, row: &Row) -> Option<usize> {
+            self.as_str().index(row)
+        }
+    }
 }
 
 /// A trait for types that can be used to index into a [`Row`].
 ///
+/// # Example
+/// ```
+/// # use google_cloud_spanner::result::{ColumnIndex, Row};
+/// fn print_column_value<I: ColumnIndex>(row: &Row, index: I) -> Result<(), google_cloud_spanner::Error> {
+///     let value: String = row.try_get(index)?;
+///     println!("Value: {value}");
+///     Ok(())
+/// }
+/// ```
+///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: private::Sealed + std::fmt::Debug {
-    /// Returns the index of the column in the given row, if it exists.
-    fn index(&self, row: &Row) -> Option<usize>;
-}
+/// Supported index types are `usize`, `&str`, `String`, and `&String`.
+pub trait ColumnIndex: sealed::ColumnIndex + Display + Debug {}
 
-impl ColumnIndex for usize {
-    fn index(&self, _row: &Row) -> Option<usize> {
-        Some(*self)
-    }
-}
-
-impl ColumnIndex for &str {
-    fn index(&self, row: &Row) -> Option<usize> {
-        row.metadata
-            .column_names
-            .iter()
-            .position(|name| name == *self)
-    }
-}
-
-impl ColumnIndex for String {
-    fn index(&self, row: &Row) -> Option<usize> {
-        self.as_str().index(row)
-    }
-}
+impl ColumnIndex for usize {}
+impl ColumnIndex for &str {}
+impl ColumnIndex for String {}
+impl ColumnIndex for &String {}
 
 /// Errors that can occur when getting a value from a [`Row`].
-#[derive(thiserror::Error, Debug)]
+#[derive(thiserror::Error, Clone, Debug, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum RowError {
-    /// The requested column name or index was not found in the row.
-    #[error("Could not find column with index: {0}")]
+    /// The requested column name was not found in the row.
+    #[error("could not find column: {0}")]
     ColumnNotFound(String),
     /// The requested column index was out of range.
-    #[error("Column index out of range: {index} (expected < {len})")]
-    IndexOutOfRange { index: usize, len: usize },
+    #[error("column index out of range: {index} (expected < {len})")]
+    IndexOutOfRange {
+        /// The index that was requested.
+        index: usize,
+        /// The total number of columns in the row.
+        len: usize,
+    },
+}
+
+impl RowError {
+    /// Extracts a `RowError` from a [`google_cloud_spanner::Error`][Error], if present.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::error::RowError;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 42 AS id").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let result: Result<i64, _> = row?.try_get("nonexistent_column");
+    ///     if let Err(error) = result {
+    ///         if let Some(row_error) = RowError::extract(&error) {
+    ///             match row_error {
+    ///                 RowError::ColumnNotFound(column) => println!("Column not found: {column}"),
+    ///                 RowError::IndexOutOfRange { index, len } => {
+    ///                     println!("Index {index} out of range (length {len})");
+    ///                 }
+    ///                 _ => {}
+    ///             }
+    ///         }
+    ///     }
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Row operations return [`Error`] with a source of [`RowError`] when a column lookup
+    /// fails or an index is out of bounds. This method downcasts the immediate error source.
+    pub fn extract(err: &Error) -> Option<&Self> {
+        err.source()
+            .and_then(|source| source.downcast_ref::<Self>())
+    }
 }
 
 impl Row {
@@ -136,7 +207,7 @@ impl Row {
     ///
     /// Panics if the column name or index is invalid.
     pub fn is_null<I: ColumnIndex>(&self, index: I) -> bool {
-        self.try_is_null(index).unwrap()
+        self.try_is_null(index).expect("invalid column index")
     }
 
     /// Retrieves a value from the row by column name or zero-based index.
@@ -167,8 +238,8 @@ impl Row {
     ///
     /// * `Ok(T)` if the value was successfully retrieved and converted to type `T`.
     /// * `Err(Error)` if:
-    ///     * The column name or index is invalid.
-    ///     * The column value is incompatible with type `T`.
+    ///     * The column name or index is invalid. The underlying [`RowError`] can be extracted using [`RowError::extract`].
+    ///     * The column value is incompatible with type `T`. The underlying [`ConvertError`][crate::error::ConvertError] can be extracted using [`ConvertError::extract`][crate::error::ConvertError::extract].
     pub fn try_get<T: crate::from_value::FromValue, I: ColumnIndex>(
         &self,
         index: I,
@@ -211,13 +282,14 @@ impl Row {
     /// * The column name or index is invalid.
     /// * The column value is incompatible with type `T`.
     pub fn get<T: crate::from_value::FromValue, I: ColumnIndex>(&self, index: I) -> T {
-        self.try_get(index).unwrap()
+        self.try_get(index)
+            .expect("column not found or type mismatch")
     }
 
     fn get_value<I: ColumnIndex>(&self, index: I) -> crate::Result<(usize, &Value)> {
         let idx = index
             .index(self)
-            .ok_or_else(|| crate::Error::deser(RowError::ColumnNotFound(format!("{:?}", index))))?;
+            .ok_or_else(|| crate::Error::deser(RowError::ColumnNotFound(format!("{index}"))))?;
         let value = self.values.get(idx).ok_or_else(|| {
             crate::Error::deser(RowError::IndexOutOfRange {
                 index: idx,
@@ -234,12 +306,14 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use rust_decimal::Decimal;
+    use std::collections::BTreeMap;
     use std::sync::Arc;
     use time::{Date, Month, OffsetDateTime};
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(Row: Clone, std::fmt::Debug, PartialEq, Send, Sync);
+        static_assertions::assert_impl_all!(Row: Clone, Debug, PartialEq, Send, Sync);
+        static_assertions::assert_impl_all!(RowError: Clone, Debug, PartialEq, Eq, Send, Sync);
     }
 
     #[test]
@@ -274,13 +348,13 @@ mod tests {
             types::interval(),
         ];
 
-        let d = Decimal::from_str_exact("123.456").unwrap();
-        let dt = Date::from_calendar_date(2023, Month::October, 27).unwrap();
+        let d = Decimal::from_str_exact("123.456").expect("valid decimal");
+        let dt = Date::from_calendar_date(2023, Month::October, 27).expect("valid date");
         let ts = OffsetDateTime::parse(
             "2023-10-27T10:00:00Z",
             &time::format_description::well_known::Rfc3339,
         )
-        .unwrap();
+        .expect("valid timestamp");
 
         let values = vec![
             "hello".to_string().to_value(),
@@ -309,50 +383,210 @@ mod tests {
         };
 
         // Test getting by valid index
-        assert_eq!(row.get::<String, _>(0), "hello");
-        assert_eq!(row.get::<i64, _>(1), 42);
-        assert_eq!(row.get::<f64, _>(2), 42.5);
-        assert!(row.get::<bool, _>(3));
-        assert_eq!(row.get::<Vec<u8>, _>(4), vec![1_u8, 2, 3]);
-        assert_eq!(row.get::<Decimal, _>(5), d);
-        assert_eq!(row.get::<Date, _>(6), dt);
-        assert_eq!(row.get::<OffsetDateTime, _>(7), ts);
-        assert_eq!(row.get::<f32, _>(8), 1.23_f32);
-        assert_eq!(row.get::<String, _>(9), "{\"key\":\"value\"}");
+        assert_eq!(
+            row.get::<String, _>(0),
+            "hello",
+            "expected string at index 0"
+        );
+        assert_eq!(row.get::<i64, _>(1), 42, "expected int64 at index 1");
+        assert_eq!(row.get::<f64, _>(2), 42.5, "expected float64 at index 2");
+        assert!(row.get::<bool, _>(3), "expected bool at index 3 to be true");
+        assert_eq!(
+            row.get::<Vec<u8>, _>(4),
+            vec![1_u8, 2, 3],
+            "expected bytes at index 4"
+        );
+        assert_eq!(row.get::<Decimal, _>(5), d, "expected numeric at index 5");
+        assert_eq!(row.get::<Date, _>(6), dt, "expected date at index 6");
+        assert_eq!(
+            row.get::<OffsetDateTime, _>(7),
+            ts,
+            "expected timestamp at index 7"
+        );
+        assert_eq!(
+            row.get::<f32, _>(8),
+            1.23_f32,
+            "expected float32 at index 8"
+        );
+        assert_eq!(
+            row.get::<String, _>(9),
+            "{\"key\":\"value\"}",
+            "expected json at index 9"
+        );
         assert_eq!(
             row.get::<String, _>(10),
-            "123e4567-e89b-12d3-a456-426614174000"
+            "123e4567-e89b-12d3-a456-426614174000",
+            "expected uuid at index 10"
         );
-        assert_eq!(row.get::<String, _>(11), "P1Y2M3D");
+        assert_eq!(
+            row.get::<String, _>(11),
+            "P1Y2M3D",
+            "expected interval at index 11"
+        );
 
         // Test getting by valid name
-        assert_eq!(row.get::<String, _>("col_string"), "hello");
-        assert_eq!(row.get::<i64, _>("col_int64"), 42);
-        assert_eq!(row.get::<f64, _>("col_float64"), 42.5);
-        assert!(row.get::<bool, _>("col_bool"));
-        assert_eq!(row.get::<Vec<u8>, _>("col_bytes"), vec![1_u8, 2, 3]);
-        assert_eq!(row.get::<Decimal, _>("col_numeric"), d);
-        assert_eq!(row.get::<Date, _>("col_date"), dt);
-        assert_eq!(row.get::<OffsetDateTime, _>("col_timestamp"), ts);
-        assert_eq!(row.get::<f32, _>("col_float32"), 1.23_f32);
-        assert_eq!(row.get::<String, _>("col_json"), "{\"key\":\"value\"}");
+        assert_eq!(
+            row.get::<String, _>("col_string"),
+            "hello",
+            "expected col_string by name"
+        );
+        assert_eq!(
+            row.get::<i64, _>("col_int64"),
+            42,
+            "expected col_int64 by name"
+        );
+        assert_eq!(
+            row.get::<f64, _>("col_float64"),
+            42.5,
+            "expected col_float64 by name"
+        );
+        assert!(
+            row.get::<bool, _>("col_bool"),
+            "expected col_bool by name to be true"
+        );
+        assert_eq!(
+            row.get::<Vec<u8>, _>("col_bytes"),
+            vec![1_u8, 2, 3],
+            "expected col_bytes by name"
+        );
+        assert_eq!(
+            row.get::<Decimal, _>("col_numeric"),
+            d,
+            "expected col_numeric by name"
+        );
+        assert_eq!(
+            row.get::<Date, _>("col_date"),
+            dt,
+            "expected col_date by name"
+        );
+        assert_eq!(
+            row.get::<OffsetDateTime, _>("col_timestamp"),
+            ts,
+            "expected col_timestamp by name"
+        );
+        assert_eq!(
+            row.get::<f32, _>("col_float32"),
+            1.23_f32,
+            "expected col_float32 by name"
+        );
+        assert_eq!(
+            row.get::<String, _>("col_json"),
+            "{\"key\":\"value\"}",
+            "expected col_json by name"
+        );
         assert_eq!(
             row.get::<String, _>("col_uuid"),
-            "123e4567-e89b-12d3-a456-426614174000"
+            "123e4567-e89b-12d3-a456-426614174000",
+            "expected col_uuid by name"
         );
-        assert_eq!(row.get::<String, _>("col_interval"), "P1Y2M3D");
+        assert_eq!(
+            row.get::<String, _>("col_interval"),
+            "P1Y2M3D",
+            "expected col_interval by name"
+        );
 
         // Test getting by invalid index
-        assert!(row.try_get::<String, _>(12).is_err());
+        assert!(
+            row.try_get::<String, _>(12).is_err(),
+            "expected error for index out of range"
+        );
 
         // Test getting by invalid name
-        assert!(row.try_get::<String, _>("col_invalid").is_err());
+        assert!(
+            row.try_get::<String, _>("col_invalid").is_err(),
+            "expected error for invalid column name"
+        );
 
         // Test getting mismatched type
-        assert!(row.try_get::<i64, _>(0).is_err());
-        assert!(row.try_get::<bool, _>(1).is_err());
+        assert!(
+            row.try_get::<i64, _>(0).is_err(),
+            "expected error for mismatched type i64"
+        );
+        assert!(
+            row.try_get::<bool, _>(1).is_err(),
+            "expected error for mismatched type bool"
+        );
 
         // int64 is encoded as a string, so getting it as a string is also possible.
-        assert_eq!(row.get::<String, _>(1), "42");
+        assert_eq!(
+            row.get::<String, _>(1),
+            "42",
+            "expected int64 converted to string"
+        );
+    }
+
+    #[test]
+    fn row_error_extract_and_derives() {
+        let metadata = ResultSetMetadata {
+            column_names: Arc::new(vec!["col0".to_string()]),
+            column_types: Arc::new(vec![types::string()]),
+            undeclared_parameters: Arc::new(BTreeMap::new()),
+        };
+        let row = Row {
+            values: vec!["val0".to_value()],
+            metadata,
+        };
+
+        let err_missing = row
+            .try_get::<String, _>("nonexistent")
+            .expect_err("column not found");
+        let extracted_missing = RowError::extract(&err_missing).expect("should extract RowError");
+        assert_eq!(
+            *extracted_missing,
+            RowError::ColumnNotFound("nonexistent".to_string()),
+            "expected ColumnNotFound variant"
+        );
+        assert_eq!(
+            extracted_missing.clone(),
+            *extracted_missing,
+            "expected cloned RowError to equal original"
+        );
+        assert_eq!(
+            extracted_missing.to_string(),
+            "could not find column: nonexistent",
+            "expected 'could not find column: nonexistent' display string"
+        );
+
+        let err_out_of_range = row.try_get::<String, _>(5).expect_err("index out of range");
+        let extracted_out_of_range =
+            RowError::extract(&err_out_of_range).expect("should extract RowError");
+        assert_eq!(
+            *extracted_out_of_range,
+            RowError::IndexOutOfRange { index: 5, len: 1 },
+            "expected IndexOutOfRange variant"
+        );
+    }
+
+    #[test]
+    fn generic_column_index_helper() {
+        fn fetch_value<I: ColumnIndex>(row: &Row, index: I) -> crate::Result<String> {
+            row.try_get(index)
+        }
+
+        let metadata = ResultSetMetadata {
+            column_names: Arc::new(vec!["username".to_string()]),
+            column_types: Arc::new(vec![types::string()]),
+            undeclared_parameters: Arc::new(BTreeMap::new()),
+        };
+        let row = Row {
+            values: vec!["alice".to_value()],
+            metadata,
+        };
+
+        let by_name = fetch_value(&row, "username").expect("fetch by string slice");
+        assert_eq!(by_name, "alice", "expected value fetched by name");
+
+        let by_string = fetch_value(&row, "username".to_string()).expect("fetch by String");
+        assert_eq!(by_string, "alice", "expected value fetched by owned String");
+
+        let owned_username = "username".to_string();
+        let by_borrowed_string = fetch_value(&row, &owned_username).expect("fetch by &String");
+        assert_eq!(
+            by_borrowed_string, "alice",
+            "expected value fetched by &String"
+        );
+
+        let by_index = fetch_value(&row, 0_usize).expect("fetch by usize");
+        assert_eq!(by_index, "alice", "expected value fetched by index");
     }
 }

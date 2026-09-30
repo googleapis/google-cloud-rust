@@ -244,6 +244,7 @@ impl Delete {
 }
 
 /// A builder for constructing `Write` mutations fluently.
+#[derive(Clone, Debug, PartialEq)]
 pub struct WriteBuilder {
     table: String,
     mutation_type: MutationType,
@@ -251,6 +252,7 @@ pub struct WriteBuilder {
     values: Vec<Value>,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum MutationType {
     Insert,
     Update,
@@ -302,6 +304,7 @@ impl WriteBuilder {
 }
 
 /// A binder that associates a column name with a value within a `WriteBuilder`.
+#[derive(Clone, Debug, PartialEq)]
 pub struct ValueBinder {
     builder: WriteBuilder,
     column: String,
@@ -533,8 +536,8 @@ mod tests {
         static_assertions::assert_impl_all!(Mutation: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(Write: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(Delete: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(WriteBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(ValueBinder: Send, Sync);
+        static_assertions::assert_impl_all!(WriteBuilder: Send, Sync, Clone, std::fmt::Debug);
+        static_assertions::assert_impl_all!(ValueBinder: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(MutationGroup: Send, Sync, Clone, std::fmt::Debug);
     }
 

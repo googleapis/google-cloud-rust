@@ -16,10 +16,12 @@
 
 use google_cloud_gax::error::Error;
 use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy};
-use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::time::Duration;
+
+pub use crate::transaction_retry_policy::{BasicTransactionRetryPolicy, TransactionRetryPolicy};
+pub use google_cloud_gax::retry_result::RetryResult;
 
 /// The retry policy the Spanner client applies to RPCs that do not configure
 /// their own. It decorates/extends [google_cloud_gax::retry_policy::Aip194Strict].
