@@ -1686,9 +1686,6 @@ libraries:
   - name: google-cloud-texttospeech-v1
     version: 1.16.0
     copyright_year: "2025"
-  - name: google-cloud-timeseriesinsights-v1
-    version: 1.13.0
-    copyright_year: "2025"
   - name: google-cloud-tpu-v2
     version: 1.15.0
     copyright_year: "2025"
