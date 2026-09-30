@@ -932,7 +932,7 @@ libraries:
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.19
+    version: 0.7.20
     copyright_year: "2025"
     output: src/gax-internal
     rust:
@@ -1279,7 +1279,7 @@ libraries:
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 1.5.0
+    version: 1.6.0
     copyright_year: "2025"
     output: src/pubsub
     rust:
