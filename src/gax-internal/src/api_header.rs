@@ -14,11 +14,11 @@
 
 //! Telemetry header helpers.
 
-#[cfg(any(test, feature = "_internal-grpc-client"))]
+#[cfg(feature = "_internal-grpc-client")]
 use google_cloud_gax::client_builder::internal::Extensions;
-#[cfg(any(test, feature = "_internal-grpc-client"))]
+#[cfg(feature = "_internal-grpc-client")]
 use google_cloud_gax::error::Error;
-#[cfg(any(test, feature = "_internal-grpc-client"))]
+#[cfg(feature = "_internal-grpc-client")]
 use http::HeaderValue;
 
 /// Generated libraries create one static instance of this struct and use it
@@ -84,7 +84,7 @@ impl XGoogApiClient {
 /// Precedence order:
 /// 1. Client-level `XGoogApiClient`
 /// 2. Default static header value
-#[cfg(any(test, feature = "_internal-grpc-client"))]
+#[cfg(feature = "_internal-grpc-client")]
 pub(crate) fn resolve_grpc_header_value(
     extensions: &Extensions,
     default_header: &'static str,
@@ -171,6 +171,7 @@ mod tests {
         );
     }
 
+    #[cfg(feature = "_internal-grpc-client")]
     #[test]
     fn test_resolve_grpc_default() {
         let extensions = Extensions::new();
@@ -182,6 +183,7 @@ mod tests {
         );
     }
 
+    #[cfg(feature = "_internal-grpc-client")]
     #[test]
     fn test_resolve_grpc_client_extension() {
         let mut extensions = Extensions::new();
