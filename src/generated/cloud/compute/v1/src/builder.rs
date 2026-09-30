@@ -252,24 +252,6 @@ pub mod accelerator_types {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::accelerator_types::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::accelerator_types::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::accelerator_types::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -528,24 +510,6 @@ pub mod accelerator_types {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::accelerator_types::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::accelerator_types::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::accelerator_types::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -792,24 +756,6 @@ pub mod addresses {
         /// Sets the value of [project][crate::model::addresses::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::addresses::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::addresses::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -1356,24 +1302,6 @@ pub mod addresses {
         /// Sets the value of [region][crate::model::addresses::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::addresses::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::addresses::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -2416,24 +2344,6 @@ pub mod autoscalers {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::autoscalers::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::autoscalers::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::autoscalers::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -2977,24 +2887,6 @@ pub mod autoscalers {
         /// Sets the value of [project][crate::model::autoscalers::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::autoscalers::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::autoscalers::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -3906,24 +3798,6 @@ pub mod backend_buckets {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::backend_buckets::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::backend_buckets::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::backend_buckets::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -4672,24 +4546,6 @@ pub mod backend_buckets {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::backend_buckets::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::backend_buckets::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -4855,24 +4711,6 @@ pub mod backend_buckets {
         /// Sets the value of [project][crate::model::backend_buckets::ListUsableRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::backend_buckets::ListUsableRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::backend_buckets::ListUsableRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -5964,24 +5802,6 @@ pub mod backend_services {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::backend_services::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::backend_services::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::backend_services::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -6892,24 +6712,6 @@ pub mod backend_services {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::backend_services::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::backend_services::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -7075,24 +6877,6 @@ pub mod backend_services {
         /// Sets the value of [project][crate::model::backend_services::ListUsableRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::backend_services::ListUsableRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::backend_services::ListUsableRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -8520,24 +8304,6 @@ pub mod cross_site_networks {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::cross_site_networks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::cross_site_networks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -9037,24 +8803,6 @@ pub mod disk_types {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::disk_types::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::disk_types::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::disk_types::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -9305,24 +9053,6 @@ pub mod disk_types {
         /// Sets the value of [project][crate::model::disk_types::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::disk_types::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::disk_types::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -9723,24 +9453,6 @@ pub mod disks {
         /// Sets the value of [project][crate::model::disks::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::disks::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::disks::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -10866,24 +10578,6 @@ pub mod disks {
         /// Sets the value of [project][crate::model::disks::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::disks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::disks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -12966,24 +12660,6 @@ pub mod external_vpn_gateways {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::external_vpn_gateways::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::external_vpn_gateways::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -14531,24 +14207,6 @@ pub mod firewall_policies {
             T: std::convert::Into<std::string::String>,
         {
             self.0.request.parent_id = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::firewall_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::firewall_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -16168,24 +15826,6 @@ pub mod firewalls {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::firewalls::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::firewalls::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -16888,24 +16528,6 @@ pub mod forwarding_rules {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::forwarding_rules::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::forwarding_rules::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::forwarding_rules::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -17475,24 +17097,6 @@ pub mod forwarding_rules {
         /// Sets the value of [region][crate::model::forwarding_rules::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::forwarding_rules::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::forwarding_rules::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -18289,24 +17893,6 @@ pub mod future_reservations {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::future_reservations::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::future_reservations::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::future_reservations::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -18993,24 +18579,6 @@ pub mod future_reservations {
         /// Sets the value of [project][crate::model::future_reservations::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::future_reservations::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::future_reservations::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -19831,24 +19399,6 @@ pub mod global_addresses {
         /// Sets the value of [project][crate::model::global_addresses::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::global_addresses::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_addresses::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -20869,24 +20419,6 @@ pub mod global_forwarding_rules {
         /// Sets the value of [project][crate::model::global_forwarding_rules::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::global_forwarding_rules::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_forwarding_rules::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -22498,24 +22030,6 @@ pub mod global_network_endpoint_groups {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::global_network_endpoint_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_network_endpoint_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -22691,24 +22205,6 @@ pub mod global_network_endpoint_groups {
         /// Sets the value of [project][crate::model::global_network_endpoint_groups::ListNetworkEndpointsRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::global_network_endpoint_groups::ListNetworkEndpointsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_network_endpoint_groups::ListNetworkEndpointsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -23028,24 +22524,6 @@ pub mod global_operations {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::global_operations::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_operations::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::global_operations::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -23362,24 +22840,6 @@ pub mod global_operations {
         /// Sets the value of [project][crate::model::global_operations::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::global_operations::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_operations::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -23848,24 +23308,6 @@ pub mod global_organization_operations {
             T: std::convert::Into<std::string::String>,
         {
             self.0.request.parent_id = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::global_organization_operations::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_organization_operations::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -24444,24 +23886,6 @@ pub mod global_public_delegated_prefixes {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::global_public_delegated_prefixes::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_public_delegated_prefixes::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -24927,24 +24351,6 @@ pub mod global_vm_extension_policies {
         /// Sets the value of [project][crate::model::global_vm_extension_policies::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::global_vm_extension_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_vm_extension_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -25499,24 +24905,6 @@ pub mod global_vm_extension_policies {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::global_vm_extension_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::global_vm_extension_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -25979,24 +25367,6 @@ pub mod health_checks {
         /// Sets the value of [project][crate::model::health_checks::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::health_checks::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::health_checks::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -26519,24 +25889,6 @@ pub mod health_checks {
         /// Sets the value of [project][crate::model::health_checks::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::health_checks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::health_checks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -27453,24 +26805,6 @@ pub mod hosts {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::hosts::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::hosts::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::hosts::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -28113,24 +27447,6 @@ pub mod http_health_checks {
         /// Sets the value of [project][crate::model::http_health_checks::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::http_health_checks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::http_health_checks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -29155,24 +28471,6 @@ pub mod https_health_checks {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::https_health_checks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::https_health_checks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -30072,24 +29370,6 @@ pub mod image_views {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::image_views::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::image_views::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -30947,24 +30227,6 @@ pub mod images {
         /// Sets the value of [project][crate::model::images::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::images::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::images::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -32267,24 +31529,6 @@ pub mod instance_group_manager_resize_requests {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::instance_group_manager_resize_requests::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_manager_resize_requests::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::instance_group_manager_resize_requests::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -32774,24 +32018,6 @@ pub mod instance_group_managers {
         /// Sets the value of [project][crate::model::instance_group_managers::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -33985,24 +33211,6 @@ pub mod instance_group_managers {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::instance_group_managers::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -34179,24 +33387,6 @@ pub mod instance_group_managers {
         /// Sets the value of [project][crate::model::instance_group_managers::ListErrorsRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::ListErrorsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::ListErrorsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -34385,24 +33575,6 @@ pub mod instance_group_managers {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::ListManagedInstancesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::ListManagedInstancesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::instance_group_managers::ListManagedInstancesRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -34585,24 +33757,6 @@ pub mod instance_group_managers {
         /// Sets the value of [project][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -36867,24 +36021,6 @@ pub mod instance_groups {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::instance_groups::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_groups::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::instance_groups::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -37431,24 +36567,6 @@ pub mod instance_groups {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::instance_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::instance_groups::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -37625,24 +36743,6 @@ pub mod instance_groups {
         /// Sets the value of [project][crate::model::instance_groups::ListInstancesRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instance_groups::ListInstancesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_groups::ListInstancesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -38776,24 +37876,6 @@ pub mod instance_templates {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::instance_templates::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_templates::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::instance_templates::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -39405,24 +38487,6 @@ pub mod instance_templates {
         /// Sets the value of [project][crate::model::instance_templates::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instance_templates::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instance_templates::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -40396,24 +39460,6 @@ pub mod instances {
         /// Sets the value of [project][crate::model::instances::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instances::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instances::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -42340,24 +41386,6 @@ pub mod instances {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::instances::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instances::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::instances::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -42532,24 +41560,6 @@ pub mod instances {
         /// Sets the value of [project][crate::model::instances::ListReferrersRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instances::ListReferrersRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instances::ListReferrersRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -48037,24 +47047,6 @@ pub mod instant_snapshot_groups {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::instant_snapshot_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instant_snapshot_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::instant_snapshot_groups::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -48572,24 +47564,6 @@ pub mod instant_snapshots {
         /// Sets the value of [project][crate::model::instant_snapshots::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instant_snapshots::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instant_snapshots::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -49234,24 +48208,6 @@ pub mod instant_snapshots {
         /// Sets the value of [project][crate::model::instant_snapshots::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::instant_snapshots::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::instant_snapshots::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -50429,24 +49385,6 @@ pub mod interconnect_attachment_groups {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::interconnect_attachment_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::interconnect_attachment_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -51116,24 +50054,6 @@ pub mod interconnect_attachments {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::interconnect_attachments::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::interconnect_attachments::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::interconnect_attachments::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -51705,24 +50625,6 @@ pub mod interconnect_attachments {
         /// Sets the value of [region][crate::model::interconnect_attachments::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::interconnect_attachments::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::interconnect_attachments::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -52977,24 +51879,6 @@ pub mod interconnect_groups {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::interconnect_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::interconnect_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -53704,24 +52588,6 @@ pub mod interconnect_locations {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::interconnect_locations::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::interconnect_locations::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -54019,24 +52885,6 @@ pub mod interconnect_remote_locations {
         /// Sets the value of [project][crate::model::interconnect_remote_locations::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::interconnect_remote_locations::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::interconnect_remote_locations::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -54741,24 +53589,6 @@ pub mod interconnects {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::interconnects::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::interconnects::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -55041,6 +53871,154 @@ pub mod interconnects {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for SetLabels {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Interconnects::set_name][crate::client::Interconnects::set_name] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::builder::interconnects::SetName;
+    /// # async fn sample() -> google_cloud_compute_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetName {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetName(RequestBuilder<crate::model::interconnects::SetNameRequest>);
+
+    impl SetName {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Interconnects>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::interconnects::SetNameRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_name(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `set_name`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Operation, crate::model::Operation>
+        {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_compute_v1::client::Interconnects::set_name::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            use google_cloud_lro::internal::PollerExt;
+            google_cloud_lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [interconnect][crate::model::interconnects::SetNameRequest::interconnect].
+        pub fn set_interconnect<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.interconnect = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::interconnects::SetNameRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::interconnects::SetNameRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::interconnects::SetNameRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::interconnects::SetNameRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterconnectsSetNameRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::interconnects::SetNameRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InterconnectsSetNameRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetName {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -56139,24 +55117,6 @@ pub mod licenses {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::licenses::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::licenses::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -57232,24 +56192,6 @@ pub mod machine_images {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::machine_images::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::machine_images::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -57871,24 +56813,6 @@ pub mod machine_types {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::machine_types::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::machine_types::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::machine_types::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -58142,24 +57066,6 @@ pub mod machine_types {
         /// Sets the value of [project][crate::model::machine_types::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::machine_types::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::machine_types::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -58462,24 +57368,6 @@ pub mod managed_rulesets {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::managed_rulesets::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::managed_rulesets::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -58725,24 +57613,6 @@ pub mod network_attachments {
         /// Sets the value of [project][crate::model::network_attachments::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::network_attachments::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_attachments::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -59393,24 +58263,6 @@ pub mod network_attachments {
         /// Sets the value of [region][crate::model::network_attachments::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::network_attachments::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_attachments::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -60082,24 +58934,6 @@ pub mod network_edge_security_services {
         /// Sets the value of [project][crate::model::network_edge_security_services::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::network_edge_security_services::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_edge_security_services::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -61031,24 +59865,6 @@ pub mod network_endpoint_groups {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::network_endpoint_groups::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_endpoint_groups::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::network_endpoint_groups::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -61919,24 +60735,6 @@ pub mod network_endpoint_groups {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::network_endpoint_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_endpoint_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::network_endpoint_groups::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -62117,24 +60915,6 @@ pub mod network_endpoint_groups {
         /// Sets the value of [project][crate::model::network_endpoint_groups::ListNetworkEndpointsRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::network_endpoint_groups::ListNetworkEndpointsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_endpoint_groups::ListNetworkEndpointsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -63122,24 +61902,6 @@ pub mod network_firewall_policies {
         /// Sets the value of [project][crate::model::network_firewall_policies::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::network_firewall_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_firewall_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -64176,24 +62938,6 @@ pub mod network_firewall_policies {
         /// Sets the value of [project][crate::model::network_firewall_policies::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::network_firewall_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_firewall_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -65676,24 +64420,6 @@ pub mod network_profiles {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::network_profiles::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::network_profiles::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -66604,24 +65330,6 @@ pub mod networks {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::networks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::networks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -66845,24 +65553,6 @@ pub mod networks {
             T: std::convert::Into<std::string::String>,
         {
             self.0.request.region = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::networks::ListPeeringRoutesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::networks::ListPeeringRoutesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -68048,24 +66738,6 @@ pub mod node_groups {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::node_groups::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::node_groups::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::node_groups::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -68871,24 +67543,6 @@ pub mod node_groups {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::node_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::node_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::node_groups::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -69063,24 +67717,6 @@ pub mod node_groups {
         /// Sets the value of [project][crate::model::node_groups::ListNodesRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::node_groups::ListNodesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::node_groups::ListNodesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -70229,24 +68865,6 @@ pub mod node_templates {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::node_templates::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::node_templates::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::node_templates::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -70894,24 +69512,6 @@ pub mod node_templates {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::node_templates::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::node_templates::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -71421,24 +70021,6 @@ pub mod node_types {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::node_types::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::node_types::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::node_types::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -71689,24 +70271,6 @@ pub mod node_types {
         /// Sets the value of [project][crate::model::node_types::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::node_types::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::node_types::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -72906,24 +71470,6 @@ pub mod organization_security_policies {
             self.0.request.parent_id = v.map(|x| x.into());
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::organization_security_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::organization_security_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -73153,24 +71699,6 @@ pub mod organization_security_policies {
             T: std::convert::Into<std::string::String>,
         {
             self.0.request.parent_id = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::organization_security_policies::ListPreconfiguredExpressionSetsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::organization_security_policies::ListPreconfiguredExpressionSetsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -74224,24 +72752,6 @@ pub mod packet_mirrorings {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::packet_mirrorings::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::packet_mirrorings::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::packet_mirrorings::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -74793,24 +73303,6 @@ pub mod packet_mirrorings {
         /// Sets the value of [region][crate::model::packet_mirrorings::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::packet_mirrorings::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::packet_mirrorings::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -75432,24 +73924,6 @@ pub mod preview_features {
         /// Sets the value of [project][crate::model::preview_features::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::preview_features::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::preview_features::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -76666,24 +75140,6 @@ pub mod projects {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::projects::GetXpnResourcesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::projects::GetXpnResourcesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -76843,24 +75299,6 @@ pub mod projects {
         /// Sets the value of [project][crate::model::projects::ListXpnHostsRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::projects::ListXpnHostsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::projects::ListXpnHostsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -78488,24 +76926,6 @@ pub mod public_advertised_prefixes {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::public_advertised_prefixes::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::public_advertised_prefixes::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -79099,24 +77519,6 @@ pub mod public_delegated_prefixes {
         /// Sets the value of [project][crate::model::public_delegated_prefixes::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::public_delegated_prefixes::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::public_delegated_prefixes::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -79811,24 +78213,6 @@ pub mod public_delegated_prefixes {
         /// Sets the value of [region][crate::model::public_delegated_prefixes::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::public_delegated_prefixes::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::public_delegated_prefixes::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -80795,24 +79179,6 @@ pub mod region_autoscalers {
         /// Sets the value of [region][crate::model::region_autoscalers::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_autoscalers::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_autoscalers::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -82017,24 +80383,6 @@ pub mod region_backend_buckets {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_backend_buckets::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_backend_buckets::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -82206,24 +80554,6 @@ pub mod region_backend_buckets {
         /// Sets the value of [region][crate::model::region_backend_buckets::ListUsableRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_backend_buckets::ListUsableRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_backend_buckets::ListUsableRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -83437,24 +81767,6 @@ pub mod region_backend_services {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_backend_services::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_backend_services::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -83626,24 +81938,6 @@ pub mod region_backend_services {
         /// Sets the value of [region][crate::model::region_backend_services::ListUsableRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_backend_services::ListUsableRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_backend_services::ListUsableRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -84635,24 +82929,6 @@ pub mod region_commitments {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::region_commitments::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_commitments::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::region_commitments::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -85063,24 +83339,6 @@ pub mod region_commitments {
         /// Sets the value of [region][crate::model::region_commitments::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_commitments::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_commitments::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -85598,24 +83856,6 @@ pub mod region_composite_health_checks {
         /// Sets the value of [project][crate::model::region_composite_health_checks::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_composite_health_checks::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_composite_health_checks::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -86255,24 +84495,6 @@ pub mod region_composite_health_checks {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_composite_health_checks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_composite_health_checks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -86905,24 +85127,6 @@ pub mod region_disk_types {
         /// Sets the value of [region][crate::model::region_disk_types::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_disk_types::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_disk_types::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -88097,24 +86301,6 @@ pub mod region_disks {
         /// Sets the value of [region][crate::model::region_disks::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_disks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_disks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -89904,24 +88090,6 @@ pub mod region_health_aggregation_policies {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::region_health_aggregation_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_health_aggregation_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::region_health_aggregation_policies::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -90485,24 +88653,6 @@ pub mod region_health_aggregation_policies {
         /// Sets the value of [region][crate::model::region_health_aggregation_policies::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_health_aggregation_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_health_aggregation_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -91087,24 +89237,6 @@ pub mod region_health_check_services {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::region_health_check_services::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_health_check_services::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::region_health_check_services::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -91656,24 +89788,6 @@ pub mod region_health_check_services {
         /// Sets the value of [region][crate::model::region_health_check_services::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_health_check_services::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_health_check_services::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -92599,24 +90713,6 @@ pub mod region_health_checks {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_health_checks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_health_checks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -93351,24 +91447,6 @@ pub mod region_health_sources {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::region_health_sources::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_health_sources::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::region_health_sources::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -93993,24 +92071,6 @@ pub mod region_health_sources {
         /// Sets the value of [region][crate::model::region_health_sources::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_health_sources::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_health_sources::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -95143,24 +93203,6 @@ pub mod region_instance_group_manager_resize_requests {
         /// Sets the value of [region][crate::model::region_instance_group_manager_resize_requests::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instance_group_manager_resize_requests::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_manager_resize_requests::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -96644,24 +94686,6 @@ pub mod region_instance_group_managers {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instance_group_managers::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_managers::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -96845,24 +94869,6 @@ pub mod region_instance_group_managers {
         /// Sets the value of [region][crate::model::region_instance_group_managers::ListErrorsRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instance_group_managers::ListErrorsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_managers::ListErrorsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -97050,24 +95056,6 @@ pub mod region_instance_group_managers {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instance_group_managers::ListManagedInstancesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_managers::ListManagedInstancesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -97251,24 +95239,6 @@ pub mod region_instance_group_managers {
         /// Sets the value of [region][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -99436,24 +97406,6 @@ pub mod region_instance_groups {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instance_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -99633,24 +97585,6 @@ pub mod region_instance_groups {
         /// Sets the value of [region][crate::model::region_instance_groups::ListInstancesRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instance_groups::ListInstancesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_groups::ListInstancesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -100595,24 +98529,6 @@ pub mod region_instance_templates {
         /// Sets the value of [region][crate::model::region_instance_templates::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instance_templates::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_templates::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -101694,24 +99610,6 @@ pub mod region_instant_snapshot_groups {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instant_snapshot_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instant_snapshot_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -102675,24 +100573,6 @@ pub mod region_instant_snapshots {
         /// Sets the value of [region][crate::model::region_instant_snapshots::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_instant_snapshots::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_instant_snapshots::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -104040,24 +101920,6 @@ pub mod region_network_endpoint_groups {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_network_endpoint_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_network_endpoint_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -104239,24 +102101,6 @@ pub mod region_network_endpoint_groups {
         /// Sets the value of [region][crate::model::region_network_endpoint_groups::ListNetworkEndpointsRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_network_endpoint_groups::ListNetworkEndpointsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_network_endpoint_groups::ListNetworkEndpointsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -105874,24 +103718,6 @@ pub mod region_network_firewall_policies {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_network_firewall_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_network_firewall_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -107227,24 +105053,6 @@ pub mod region_notification_endpoints {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::region_notification_endpoints::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_notification_endpoints::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::region_notification_endpoints::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -107798,24 +105606,6 @@ pub mod region_notification_endpoints {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_notification_endpoints::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_notification_endpoints::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -108365,24 +106155,6 @@ pub mod region_operations {
         /// Sets the value of [region][crate::model::region_operations::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_operations::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_operations::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -109322,24 +107094,6 @@ pub mod region_security_policies {
         /// Sets the value of [region][crate::model::region_security_policies::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_security_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_security_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -111143,24 +108897,6 @@ pub mod region_snapshots {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_snapshots::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_snapshots::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -112334,24 +110070,6 @@ pub mod region_ssl_certificates {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_ssl_certificates::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_ssl_certificates::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -113021,24 +110739,6 @@ pub mod region_ssl_policies {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_ssl_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_ssl_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -113182,24 +110882,6 @@ pub mod region_ssl_policies {
         /// Sets the value of [region][crate::model::region_ssl_policies::ListAvailableFeaturesRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_ssl_policies::ListAvailableFeaturesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_ssl_policies::ListAvailableFeaturesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -114030,24 +111712,6 @@ pub mod region_target_http_proxies {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_target_http_proxies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_target_http_proxies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -114875,24 +112539,6 @@ pub mod region_target_https_proxies {
         /// Sets the value of [region][crate::model::region_target_https_proxies::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_target_https_proxies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_target_https_proxies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -116043,24 +113689,6 @@ pub mod region_target_tcp_proxies {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_target_tcp_proxies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_target_tcp_proxies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -116728,24 +114356,6 @@ pub mod region_url_maps {
         /// Sets the value of [region][crate::model::region_url_maps::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::region_url_maps::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_url_maps::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -117459,24 +115069,6 @@ pub mod region_zones {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::region_zones::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::region_zones::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -117755,24 +115347,6 @@ pub mod regions {
         /// Sets the value of [project][crate::model::regions::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::regions::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::regions::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -118069,24 +115643,6 @@ pub mod reliability_risks {
         /// Sets the value of [project][crate::model::reliability_risks::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::reliability_risks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::reliability_risks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -118521,24 +116077,6 @@ pub mod reservation_blocks {
         /// Sets the value of [reservation][crate::model::reservation_blocks::ListRequest::reservation].
         pub fn set_reservation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.reservation = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::reservation_blocks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::reservation_blocks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -119613,24 +117151,6 @@ pub mod reservation_slots {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::reservation_slots::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::reservation_slots::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::reservation_slots::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -120470,24 +117990,6 @@ pub mod reservation_sub_blocks {
         /// Sets the value of [project][crate::model::reservation_sub_blocks::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::reservation_sub_blocks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::reservation_sub_blocks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -121333,24 +118835,6 @@ pub mod reservations {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::reservations::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::reservations::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::reservations::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -121990,24 +119474,6 @@ pub mod reservations {
         /// Sets the value of [project][crate::model::reservations::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::reservations::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::reservations::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -123035,24 +120501,6 @@ pub mod resource_policies {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::resource_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::resource_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::resource_policies::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -123700,24 +121148,6 @@ pub mod resource_policies {
         /// Sets the value of [region][crate::model::resource_policies::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::resource_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::resource_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -124726,24 +122156,6 @@ pub mod rollout_plans {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::rollout_plans::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::rollout_plans::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -125515,24 +122927,6 @@ pub mod rollouts {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::rollouts::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::rollouts::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -126126,24 +123520,6 @@ pub mod routers {
         /// Sets the value of [project][crate::model::routers::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::routers::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::routers::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -127050,24 +124426,6 @@ pub mod routers {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::routers::GetNatMappingInfoRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::routers::GetNatMappingInfoRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [router][crate::model::routers::GetNatMappingInfoRequest::router].
         pub fn set_router<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.router = v.into();
@@ -127547,24 +124905,6 @@ pub mod routers {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::routers::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::routers::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -127807,24 +125147,6 @@ pub mod routers {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::routers::ListBgpRoutesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::routers::ListBgpRoutesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [route_type][crate::model::routers::ListBgpRoutesRequest::route_type].
         pub fn set_route_type<T>(mut self, v: T) -> Self
         where
@@ -128018,24 +125340,6 @@ pub mod routers {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::routers::ListNamedSetsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::routers::ListNamedSetsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [router][crate::model::routers::ListNamedSetsRequest::router].
         pub fn set_router<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.router = v.into();
@@ -128210,24 +125514,6 @@ pub mod routers {
         /// Sets the value of [region][crate::model::routers::ListRoutePoliciesRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::routers::ListRoutePoliciesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::routers::ListRoutePoliciesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -129863,24 +127149,6 @@ pub mod routes {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::routes::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::routes::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -130426,24 +127694,6 @@ pub mod security_policies {
         /// Sets the value of [project][crate::model::security_policies::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::security_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::security_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -131075,24 +128325,6 @@ pub mod security_policies {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::security_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::security_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -131232,24 +128464,6 @@ pub mod security_policies {
         /// Sets the value of [project][crate::model::security_policies::ListPreconfiguredExpressionSetsRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::security_policies::ListPreconfiguredExpressionSetsRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::security_policies::ListPreconfiguredExpressionSetsRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -132179,24 +129393,6 @@ pub mod service_attachments {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::service_attachments::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::service_attachments::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::service_attachments::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -132862,24 +130058,6 @@ pub mod service_attachments {
         /// Sets the value of [region][crate::model::service_attachments::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::service_attachments::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::service_attachments::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -134304,24 +131482,6 @@ pub mod snapshots {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::snapshots::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::snapshots::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -135093,24 +132253,6 @@ pub mod ssl_certificates {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::ssl_certificates::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::ssl_certificates::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::ssl_certificates::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -135634,24 +132776,6 @@ pub mod ssl_certificates {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::ssl_certificates::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::ssl_certificates::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -135964,24 +133088,6 @@ pub mod ssl_policies {
         /// Sets the value of [project][crate::model::ssl_policies::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::ssl_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::ssl_policies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -136506,24 +133612,6 @@ pub mod ssl_policies {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::ssl_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::ssl_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -136659,24 +133747,6 @@ pub mod ssl_policies {
         /// Sets the value of [project][crate::model::ssl_policies::ListAvailableFeaturesRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::ssl_policies::ListAvailableFeaturesRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::ssl_policies::ListAvailableFeaturesRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -137144,24 +134214,6 @@ pub mod storage_pool_types {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::storage_pool_types::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::storage_pool_types::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::storage_pool_types::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -137420,24 +134472,6 @@ pub mod storage_pool_types {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::storage_pool_types::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::storage_pool_types::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::storage_pool_types::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -137686,24 +134720,6 @@ pub mod storage_pools {
         /// Sets the value of [project][crate::model::storage_pools::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::storage_pools::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::storage_pools::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -138349,24 +135365,6 @@ pub mod storage_pools {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::storage_pools::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::storage_pools::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::storage_pools::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -138535,24 +135533,6 @@ pub mod storage_pools {
         /// Sets the value of [project][crate::model::storage_pools::ListDisksRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::storage_pools::ListDisksRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::storage_pools::ListDisksRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -139248,24 +136228,6 @@ pub mod subnetworks {
         /// Sets the value of [project][crate::model::subnetworks::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::subnetworks::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::subnetworks::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -140111,24 +137073,6 @@ pub mod subnetworks {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::subnetworks::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::subnetworks::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [views][crate::model::subnetworks::ListRequest::views].
         pub fn set_views<T>(mut self, v: T) -> Self
         where
@@ -140311,24 +137255,6 @@ pub mod subnetworks {
         /// Sets the value of [project][crate::model::subnetworks::ListUsableRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::subnetworks::ListUsableRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::subnetworks::ListUsableRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -141511,24 +138437,6 @@ pub mod target_grpc_proxies {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::target_grpc_proxies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_grpc_proxies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -141991,24 +138899,6 @@ pub mod target_http_proxies {
         /// Sets the value of [project][crate::model::target_http_proxies::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::target_http_proxies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_http_proxies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -142533,24 +139423,6 @@ pub mod target_http_proxies {
         /// Sets the value of [project][crate::model::target_http_proxies::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::target_http_proxies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_http_proxies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -143166,24 +140038,6 @@ pub mod target_https_proxies {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::target_https_proxies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_https_proxies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::target_https_proxies::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -143705,24 +140559,6 @@ pub mod target_https_proxies {
         /// Sets the value of [project][crate::model::target_https_proxies::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::target_https_proxies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_https_proxies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -144938,24 +141774,6 @@ pub mod target_instances {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::target_instances::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_instances::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::target_instances::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -145501,24 +142319,6 @@ pub mod target_instances {
         /// Sets the value of [project][crate::model::target_instances::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::target_instances::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_instances::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -146415,24 +143215,6 @@ pub mod target_pools {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::target_pools::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_pools::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::target_pools::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -147075,24 +143857,6 @@ pub mod target_pools {
         /// Sets the value of [region][crate::model::target_pools::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::target_pools::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_pools::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -148481,24 +145245,6 @@ pub mod target_ssl_proxies {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::target_ssl_proxies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_ssl_proxies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -149653,24 +146399,6 @@ pub mod target_tcp_proxies {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::target_tcp_proxies::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_tcp_proxies::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::target_tcp_proxies::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -150192,24 +146920,6 @@ pub mod target_tcp_proxies {
         /// Sets the value of [project][crate::model::target_tcp_proxies::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::target_tcp_proxies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_tcp_proxies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -150918,24 +147628,6 @@ pub mod target_vpn_gateways {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::target_vpn_gateways::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_vpn_gateways::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::target_vpn_gateways::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -151489,24 +148181,6 @@ pub mod target_vpn_gateways {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::target_vpn_gateways::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::target_vpn_gateways::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -151976,24 +148650,6 @@ pub mod url_maps {
         /// Sets the value of [project][crate::model::url_maps::AggregatedListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::url_maps::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::url_maps::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -152648,24 +149304,6 @@ pub mod url_maps {
         /// Sets the value of [project][crate::model::url_maps::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::url_maps::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::url_maps::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -153441,24 +150079,6 @@ pub mod vpn_gateways {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::vpn_gateways::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::vpn_gateways::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::vpn_gateways::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -154085,24 +150705,6 @@ pub mod vpn_gateways {
             self.0.request.region = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::vpn_gateways::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::vpn_gateways::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -154676,24 +151278,6 @@ pub mod vpn_tunnels {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::vpn_tunnels::AggregatedListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::vpn_tunnels::AggregatedListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [service_project_number][crate::model::vpn_tunnels::AggregatedListRequest::service_project_number].
         pub fn set_service_project_number<T>(mut self, v: T) -> Self
         where
@@ -155243,24 +151827,6 @@ pub mod vpn_tunnels {
         /// Sets the value of [region][crate::model::vpn_tunnels::ListRequest::region].
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::vpn_tunnels::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::vpn_tunnels::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }
@@ -156101,24 +152667,6 @@ pub mod wire_groups {
             self.0.request.project = v.into();
             self
         }
-
-        /// Sets the value of [return_partial_success][crate::model::wire_groups::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::wire_groups::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -156749,24 +153297,6 @@ pub mod zone_operations {
         /// Sets the value of [project][crate::model::zone_operations::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::zone_operations::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::zone_operations::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
 
@@ -157441,24 +153971,6 @@ pub mod zone_vm_extension_policies {
             self
         }
 
-        /// Sets the value of [return_partial_success][crate::model::zone_vm_extension_policies::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::zone_vm_extension_policies::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [zone][crate::model::zone_vm_extension_policies::ListRequest::zone].
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
@@ -157974,24 +154486,6 @@ pub mod zones {
         /// Sets the value of [project][crate::model::zones::ListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [return_partial_success][crate::model::zones::ListRequest::return_partial_success].
-        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [return_partial_success][crate::model::zones::ListRequest::return_partial_success].
-        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
-        {
-            self.0.request.return_partial_success = v.map(|x| x.into());
             self
         }
     }

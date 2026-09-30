@@ -398,6 +398,8 @@ impl gaxi::prost::ToProto<InputAudioConfig> for crate::model::InputAudioConfig {
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             opt_out_conformer_model_migration: self.opt_out_conformer_model_migration.to_proto()?,
+            gemini_asr_config: self.gemini_asr_config.map(|v| v.to_proto()).transpose()?,
+            use_gemini_asr: self.use_gemini_asr.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -434,7 +436,9 @@ impl gaxi::prost::FromProto<crate::model::InputAudioConfig> for InputAudioConfig
                     .map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_opt_out_conformer_model_migration(self.opt_out_conformer_model_migration))
+            .set_opt_out_conformer_model_migration(self.opt_out_conformer_model_migration)
+            .set_or_clear_gemini_asr_config(self.gemini_asr_config.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_use_gemini_asr(self.use_gemini_asr.map(|v| v.cnv()).transpose()?))
     }
 }
 
@@ -641,6 +645,569 @@ impl gaxi::prost::FromProto<crate::model::TelephonyDtmfEvents> for TelephonyDtmf
                 .into_iter()
                 .map(crate::model::TelephonyDtmf::from),
         ))
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl gaxi::prost::ToProto<speech_to_text_config::gemini_asr_config::StartSensitivity>
+    for crate::model::speech_to_text_config::gemini_asr_config::StartSensitivity
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::speech_to_text_config::gemini_asr_config::StartSensitivity",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl gaxi::prost::ToProto<speech_to_text_config::gemini_asr_config::EndSensitivity>
+    for crate::model::speech_to_text_config::gemini_asr_config::EndSensitivity
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::speech_to_text_config::gemini_asr_config::EndSensitivity",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl gaxi::prost::ToProto<speech_to_text_config::GeminiAsrConfig>
+    for crate::model::speech_to_text_config::GeminiAsrConfig
+{
+    type Output = speech_to_text_config::GeminiAsrConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<speech_to_text_config::GeminiAsrConfig, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            model_id: self.model_id.to_proto()?,
+            silence_duration_ms: self.silence_duration_ms.to_proto()?,
+            prefix_padding_ms: self.prefix_padding_ms.to_proto()?,
+            start_of_speech_sensitivity: self.start_of_speech_sensitivity.to_proto()?,
+            end_of_speech_sensitivity: self.end_of_speech_sensitivity.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl gaxi::prost::FromProto<crate::model::speech_to_text_config::GeminiAsrConfig>
+    for speech_to_text_config::GeminiAsrConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::speech_to_text_config::GeminiAsrConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::speech_to_text_config::GeminiAsrConfig::new()
+            .set_model_id(self.model_id)
+            .set_silence_duration_ms(self.silence_duration_ms)
+            .set_prefix_padding_ms(self.prefix_padding_ms)
+            .set_start_of_speech_sensitivity(self.start_of_speech_sensitivity)
+            .set_end_of_speech_sensitivity(self.end_of_speech_sensitivity))
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl gaxi::prost::ToProto<SpeechToTextConfig> for crate::model::SpeechToTextConfig {
+    type Output = SpeechToTextConfig;
+    fn to_proto(self) -> std::result::Result<SpeechToTextConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            speech_model_variant: self.speech_model_variant.to_proto()?,
+            model: self.model.to_proto()?,
+            phrase_sets: self
+                .phrase_sets
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            audio_encoding: self.audio_encoding.to_proto()?,
+            sample_rate_hertz: self.sample_rate_hertz.to_proto()?,
+            language_code: self.language_code.to_proto()?,
+            enable_word_info: self.enable_word_info.to_proto()?,
+            use_timeout_based_endpointing: self.use_timeout_based_endpointing.to_proto()?,
+            gemini_asr_config: self.gemini_asr_config.map(|v| v.to_proto()).transpose()?,
+            use_gemini_asr: self.use_gemini_asr.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl gaxi::prost::FromProto<crate::model::SpeechToTextConfig> for SpeechToTextConfig {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::SpeechToTextConfig, gaxi::prost::ConvertError> {
+        Ok(crate::model::SpeechToTextConfig::new()
+            .set_speech_model_variant(self.speech_model_variant)
+            .set_model(self.model)
+            .set_phrase_sets(
+                self.phrase_sets
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_audio_encoding(self.audio_encoding)
+            .set_sample_rate_hertz(self.sample_rate_hertz)
+            .set_language_code(self.language_code)
+            .set_enable_word_info(self.enable_word_info)
+            .set_use_timeout_based_endpointing(self.use_timeout_based_endpointing)
+            .set_or_clear_gemini_asr_config(self.gemini_asr_config.map(|v| v.cnv()).transpose()?)
+            .set_use_gemini_asr(self.use_gemini_asr))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<CesToolSpec> for crate::model::CesToolSpec {
+    type Output = CesToolSpec;
+    fn to_proto(self) -> std::result::Result<CesToolSpec, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            ces_tool: self.ces_tool.to_proto()?,
+            confirmation_requirement: self.confirmation_requirement.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::CesToolSpec> for CesToolSpec {
+    fn cnv(self) -> std::result::Result<crate::model::CesToolSpec, gaxi::prost::ConvertError> {
+        Ok(crate::model::CesToolSpec::new()
+            .set_ces_tool(self.ces_tool)
+            .set_confirmation_requirement(self.confirmation_requirement))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<guidance_instruction::Action>
+    for crate::model::guidance_instruction::Action
+{
+    type Output = guidance_instruction::Action;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<guidance_instruction::Action, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            description: self.description.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::guidance_instruction::Action>
+    for guidance_instruction::Action
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::guidance_instruction::Action, gaxi::prost::ConvertError>
+    {
+        Ok(crate::model::guidance_instruction::Action::new().set_description(self.description))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<GuidanceInstruction> for crate::model::GuidanceInstruction {
+    type Output = GuidanceInstruction;
+    fn to_proto(self) -> std::result::Result<GuidanceInstruction, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            display_name: self.display_name.to_proto()?,
+            display_details: self.display_details.to_proto()?,
+            condition: self.condition.to_proto()?,
+            actions: self
+                .actions
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            trigger_event: self.trigger_event.to_proto()?,
+            disable_suggested_reply: self.disable_suggested_reply.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::GuidanceInstruction> for GuidanceInstruction {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::GuidanceInstruction, gaxi::prost::ConvertError> {
+        Ok(crate::model::GuidanceInstruction::new()
+            .set_display_name(self.display_name)
+            .set_display_details(self.display_details)
+            .set_condition(self.condition)
+            .set_actions(
+                self.actions
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_trigger_event(self.trigger_event)
+            .set_disable_suggested_reply(self.disable_suggested_reply))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<companion_agent::skill_config::SkillTriggerEvent>
+    for crate::model::companion_agent::skill_config::SkillTriggerEvent
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::companion_agent::skill_config::SkillTriggerEvent",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<companion_agent::skill_config::Config>
+    for crate::model::companion_agent::skill_config::Config
+{
+    type Output = companion_agent::skill_config::Config;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::GuidanceSkillConfig(v) => Ok(Self::Output::GuidanceSkillConfig((*v).to_proto()?)),
+            Self::TranslationSkillConfig(v) => {
+                Ok(Self::Output::TranslationSkillConfig((*v).to_proto()?))
+            }
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::companion_agent::skill_config::Config>
+    for companion_agent::skill_config::Config
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::companion_agent::skill_config::Config,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::companion_agent::skill_config::Config as T;
+        match self {
+            Self::GuidanceSkillConfig(v) => {
+                Ok(T::GuidanceSkillConfig(std::boxed::Box::new(v.cnv()?)))
+            }
+            Self::TranslationSkillConfig(v) => {
+                Ok(T::TranslationSkillConfig(std::boxed::Box::new(v.cnv()?)))
+            }
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<companion_agent::SkillConfig>
+    for crate::model::companion_agent::SkillConfig
+{
+    type Output = companion_agent::SkillConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<companion_agent::SkillConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            skill_triggering_event: self.skill_triggering_event.to_proto()?,
+            config: self.config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::companion_agent::SkillConfig>
+    for companion_agent::SkillConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::companion_agent::SkillConfig, gaxi::prost::ConvertError>
+    {
+        Ok(crate::model::companion_agent::SkillConfig::new()
+            .set_skill_triggering_event(self.skill_triggering_event)
+            .set_config(self.config.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<companion_agent::GuidanceSkillConfig>
+    for crate::model::companion_agent::GuidanceSkillConfig
+{
+    type Output = companion_agent::GuidanceSkillConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<companion_agent::GuidanceSkillConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            guidance_instructions: self
+                .guidance_instructions
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            overarching_guidance: self.overarching_guidance.to_proto()?,
+            knowledge_source: self.knowledge_source.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::companion_agent::GuidanceSkillConfig>
+    for companion_agent::GuidanceSkillConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::companion_agent::GuidanceSkillConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::companion_agent::GuidanceSkillConfig::new()
+            .set_guidance_instructions(
+                self.guidance_instructions
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_overarching_guidance(self.overarching_guidance)
+            .set_or_clear_knowledge_source(self.knowledge_source.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<companion_agent::KnowledgeSource>
+    for crate::model::companion_agent::KnowledgeSource
+{
+    type Output = companion_agent::KnowledgeSource;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<companion_agent::KnowledgeSource, gaxi::prost::ConvertError> {
+        Ok(Self::Output {})
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::companion_agent::KnowledgeSource>
+    for companion_agent::KnowledgeSource
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::companion_agent::KnowledgeSource,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::companion_agent::KnowledgeSource::new())
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<companion_agent::TranslationSkillConfig>
+    for crate::model::companion_agent::TranslationSkillConfig
+{
+    type Output = companion_agent::TranslationSkillConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<companion_agent::TranslationSkillConfig, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            agent_language_code: self.agent_language_code.to_proto()?,
+            customer_language_code: self.customer_language_code.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::companion_agent::TranslationSkillConfig>
+    for companion_agent::TranslationSkillConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::companion_agent::TranslationSkillConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::companion_agent::TranslationSkillConfig::new()
+            .set_agent_language_code(self.agent_language_code)
+            .set_customer_language_code(self.customer_language_code))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<companion_agent::TriggerEvent>
+    for crate::model::companion_agent::TriggerEvent
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::companion_agent::TriggerEvent",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<CompanionAgent> for crate::model::CompanionAgent {
+    type Output = CompanionAgent;
+    fn to_proto(self) -> std::result::Result<CompanionAgent, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
+            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+            toolset_tools: self
+                .toolset_tools
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ces_tool_specs: self
+                .ces_tool_specs
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            display_name: self.display_name.to_proto()?,
+            description: self.description.to_proto()?,
+            skill_configs: self
+                .skill_configs
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::CompanionAgent> for CompanionAgent {
+    fn cnv(self) -> std::result::Result<crate::model::CompanionAgent, gaxi::prost::ConvertError> {
+        Ok(crate::model::CompanionAgent::new()
+            .set_name(self.name)
+            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+            .set_toolset_tools(
+                self.toolset_tools
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_ces_tool_specs(
+                self.ces_tool_specs
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_display_name(self.display_name)
+            .set_description(self.description)
+            .set_skill_configs(
+                self.skill_configs
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ))
     }
 }
 
@@ -1379,6 +1946,229 @@ impl gaxi::prost::FromProto<crate::model::GeneratorSuggestion> for GeneratorSugg
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_suggestion(self.suggestion.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<GroundingMetadata> for crate::model::GroundingMetadata {
+    type Output = GroundingMetadata;
+    fn to_proto(self) -> std::result::Result<GroundingMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            web_search_queries: self
+                .web_search_queries
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            search_entry_point: self.search_entry_point.map(|v| v.to_proto()).transpose()?,
+            grounding_chunks: self
+                .grounding_chunks
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            grounding_supports: self
+                .grounding_supports
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::GroundingMetadata> for GroundingMetadata {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::GroundingMetadata, gaxi::prost::ConvertError> {
+        Ok(crate::model::GroundingMetadata::new()
+            .set_web_search_queries(
+                self.web_search_queries
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_or_clear_search_entry_point(self.search_entry_point.map(|v| v.cnv()).transpose()?)
+            .set_grounding_chunks(
+                self.grounding_chunks
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_grounding_supports(
+                self.grounding_supports
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<SearchEntryPoint> for crate::model::SearchEntryPoint {
+    type Output = SearchEntryPoint;
+    fn to_proto(self) -> std::result::Result<SearchEntryPoint, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            rendered_content: self.rendered_content.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::SearchEntryPoint> for SearchEntryPoint {
+    fn cnv(self) -> std::result::Result<crate::model::SearchEntryPoint, gaxi::prost::ConvertError> {
+        Ok(crate::model::SearchEntryPoint::new().set_rendered_content(self.rendered_content))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<grounding_chunk::Web> for crate::model::grounding_chunk::Web {
+    type Output = grounding_chunk::Web;
+    fn to_proto(self) -> std::result::Result<grounding_chunk::Web, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            uri: self.uri.to_proto()?,
+            title: self.title.to_proto()?,
+            domain: self.domain.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::Web> for grounding_chunk::Web {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::grounding_chunk::Web, gaxi::prost::ConvertError> {
+        Ok(crate::model::grounding_chunk::Web::new()
+            .set_uri(self.uri)
+            .set_title(self.title)
+            .set_domain(self.domain))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<grounding_chunk::RetrievedContext>
+    for crate::model::grounding_chunk::RetrievedContext
+{
+    type Output = grounding_chunk::RetrievedContext;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<grounding_chunk::RetrievedContext, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            uri: self.uri.to_proto()?,
+            title: self.title.to_proto()?,
+            text: self.text.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::RetrievedContext>
+    for grounding_chunk::RetrievedContext
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::grounding_chunk::RetrievedContext,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::grounding_chunk::RetrievedContext::new()
+            .set_uri(self.uri)
+            .set_title(self.title)
+            .set_text(self.text))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<grounding_chunk::ChunkType> for crate::model::grounding_chunk::ChunkType {
+    type Output = grounding_chunk::ChunkType;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Web(v) => Ok(Self::Output::Web((*v).to_proto()?)),
+            Self::RetrievedContext(v) => Ok(Self::Output::RetrievedContext((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::ChunkType>
+    for grounding_chunk::ChunkType
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::grounding_chunk::ChunkType, gaxi::prost::ConvertError>
+    {
+        use crate::model::grounding_chunk::ChunkType as T;
+        match self {
+            Self::Web(v) => Ok(T::Web(std::boxed::Box::new(v.cnv()?))),
+            Self::RetrievedContext(v) => Ok(T::RetrievedContext(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<GroundingChunk> for crate::model::GroundingChunk {
+    type Output = GroundingChunk;
+    fn to_proto(self) -> std::result::Result<GroundingChunk, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            chunk_type: self.chunk_type.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::GroundingChunk> for GroundingChunk {
+    fn cnv(self) -> std::result::Result<crate::model::GroundingChunk, gaxi::prost::ConvertError> {
+        Ok(crate::model::GroundingChunk::new()
+            .set_chunk_type(self.chunk_type.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<Segment> for crate::model::Segment {
+    type Output = Segment;
+    fn to_proto(self) -> std::result::Result<Segment, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            start_index: self.start_index.to_proto()?,
+            end_index: self.end_index.to_proto()?,
+            text: self.text.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::Segment> for Segment {
+    fn cnv(self) -> std::result::Result<crate::model::Segment, gaxi::prost::ConvertError> {
+        Ok(crate::model::Segment::new()
+            .set_start_index(self.start_index)
+            .set_end_index(self.end_index)
+            .set_text(self.text))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<GroundingSupport> for crate::model::GroundingSupport {
+    type Output = GroundingSupport;
+    fn to_proto(self) -> std::result::Result<GroundingSupport, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            segment: self.segment.map(|v| v.to_proto()).transpose()?,
+            grounding_chunk_indices: self
+                .grounding_chunk_indices
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::GroundingSupport> for GroundingSupport {
+    fn cnv(self) -> std::result::Result<crate::model::GroundingSupport, gaxi::prost::ConvertError> {
+        Ok(crate::model::GroundingSupport::new()
+            .set_or_clear_segment(self.segment.map(|v| v.cnv()).transpose()?)
+            .set_grounding_chunk_indices(
+                self.grounding_chunk_indices
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ))
     }
 }
 
@@ -3297,6 +4087,61 @@ impl gaxi::prost::FromProto<crate::model::DtmfParameters> for DtmfParameters {
 }
 
 #[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<AnalyzeContentResponse> for crate::model::AnalyzeContentResponse {
+    type Output = AnalyzeContentResponse;
+    fn to_proto(self) -> std::result::Result<AnalyzeContentResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            reply_text: self.reply_text.to_proto()?,
+            reply_audio: self.reply_audio.map(|v| v.to_proto()).transpose()?,
+            automated_agent_reply: self
+                .automated_agent_reply
+                .map(|v| v.to_proto())
+                .transpose()?,
+            message: self.message.map(|v| v.to_proto()).transpose()?,
+            human_agent_suggestion_results: self
+                .human_agent_suggestion_results
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            end_user_suggestion_results: self
+                .end_user_suggestion_results
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            dtmf_parameters: self.dtmf_parameters.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::AnalyzeContentResponse> for AnalyzeContentResponse {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::AnalyzeContentResponse, gaxi::prost::ConvertError> {
+        Ok(crate::model::AnalyzeContentResponse::new()
+            .set_reply_text(self.reply_text)
+            .set_or_clear_reply_audio(self.reply_audio.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_automated_agent_reply(
+                self.automated_agent_reply.map(|v| v.cnv()).transpose()?,
+            )
+            .set_or_clear_message(self.message.map(|v| v.cnv()).transpose()?)
+            .set_human_agent_suggestion_results(
+                self.human_agent_suggestion_results
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_end_user_suggestion_results(
+                self.end_user_suggestion_results
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_or_clear_dtmf_parameters(self.dtmf_parameters.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(feature = "participants")]
 impl gaxi::prost::ToProto<streaming_analyze_content_request::Config>
     for crate::model::streaming_analyze_content_request::Config
 {
@@ -3337,6 +4182,7 @@ impl gaxi::prost::ToProto<streaming_analyze_content_request::Input>
             Self::InputAudio(v) => Ok(Self::Output::InputAudio(v.to_proto()?)),
             Self::InputText(v) => Ok(Self::Output::InputText(v.to_proto()?)),
             Self::InputDtmf(v) => Ok(Self::Output::InputDtmf((*v).to_proto()?)),
+            Self::SuggestionInput(v) => Ok(Self::Output::SuggestionInput((*v).to_proto()?)),
         }
     }
 }
@@ -3356,6 +4202,7 @@ impl gaxi::prost::FromProto<crate::model::streaming_analyze_content_request::Inp
             Self::InputAudio(v) => Ok(T::InputAudio(v.cnv()?)),
             Self::InputText(v) => Ok(T::InputText(v.cnv()?)),
             Self::InputDtmf(v) => Ok(T::InputDtmf(std::boxed::Box::new(v.cnv()?))),
+            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -3627,6 +4474,230 @@ impl gaxi::prost::FromProto<crate::model::GenerateSuggestionsResponse>
     }
 }
 
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<ToolCallSuggestion> for crate::model::ToolCallSuggestion {
+    type Output = ToolCallSuggestion;
+    fn to_proto(self) -> std::result::Result<ToolCallSuggestion, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            tool_call_info: self.tool_call_info.map(|v| v.to_proto()).transpose()?,
+            text_update: self.text_update.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::ToolCallSuggestion> for ToolCallSuggestion {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::ToolCallSuggestion, gaxi::prost::ConvertError> {
+        Ok(crate::model::ToolCallSuggestion::new()
+            .set_or_clear_tool_call_info(self.tool_call_info.map(|v| v.cnv()).transpose()?)
+            .set_text_update(self.text_update))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<ToolCallEvents> for crate::model::ToolCallEvents {
+    type Output = ToolCallEvents;
+    fn to_proto(self) -> std::result::Result<ToolCallEvents, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            tool_call_suggestions: self
+                .tool_call_suggestions
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::ToolCallEvents> for ToolCallEvents {
+    fn cnv(self) -> std::result::Result<crate::model::ToolCallEvents, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ToolCallEvents::new().set_tool_call_suggestions(
+                self.tool_call_suggestions
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ),
+        )
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<companion_suggestion::guidance::KnowledgeSource>
+    for crate::model::companion_suggestion::guidance::KnowledgeSource
+{
+    type Output = companion_suggestion::guidance::KnowledgeSource;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<
+        companion_suggestion::guidance::KnowledgeSource,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(Self::Output {
+            knowledge_article_url: self.knowledge_article_url.to_proto()?,
+            knowledge_article_title: self.knowledge_article_title.to_proto()?,
+            knowledge_snippet: self.knowledge_snippet.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::companion_suggestion::guidance::KnowledgeSource>
+    for companion_suggestion::guidance::KnowledgeSource
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::companion_suggestion::guidance::KnowledgeSource,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::companion_suggestion::guidance::KnowledgeSource::new()
+                .set_knowledge_article_url(self.knowledge_article_url)
+                .set_knowledge_article_title(self.knowledge_article_title)
+                .set_knowledge_snippet(self.knowledge_snippet),
+        )
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<companion_suggestion::Guidance>
+    for crate::model::companion_suggestion::Guidance
+{
+    type Output = companion_suggestion::Guidance;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<companion_suggestion::Guidance, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            suggested_reply: self.suggested_reply.to_proto()?,
+            suggested_action: self.suggested_action.to_proto()?,
+            instruction_source: self.instruction_source.map(|v| v.to_proto()).transpose()?,
+            knowledge_sources: self
+                .knowledge_sources
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            explanation: self.explanation.to_proto()?,
+            grounding_metadata: self.grounding_metadata.map(|v| v.to_proto()).transpose()?,
+            tool_calls: self
+                .tool_calls
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            triggering_tool_call_answer_records: self
+                .triggering_tool_call_answer_records
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::companion_suggestion::Guidance>
+    for companion_suggestion::Guidance
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::companion_suggestion::Guidance, gaxi::prost::ConvertError>
+    {
+        Ok(crate::model::companion_suggestion::Guidance::new()
+            .set_suggested_reply(self.suggested_reply)
+            .set_suggested_action(self.suggested_action)
+            .set_or_clear_instruction_source(self.instruction_source.map(|v| v.cnv()).transpose()?)
+            .set_knowledge_sources(
+                self.knowledge_sources
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_explanation(self.explanation)
+            .set_or_clear_grounding_metadata(self.grounding_metadata.map(|v| v.cnv()).transpose()?)
+            .set_tool_calls(
+                self.tool_calls
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_triggering_tool_call_answer_records(
+                self.triggering_tool_call_answer_records
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ))
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<CompanionSuggestion> for crate::model::CompanionSuggestion {
+    type Output = CompanionSuggestion;
+    fn to_proto(self) -> std::result::Result<CompanionSuggestion, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            guidances: self
+                .guidances
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::CompanionSuggestion> for CompanionSuggestion {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::CompanionSuggestion, gaxi::prost::ConvertError> {
+        Ok(crate::model::CompanionSuggestion::new().set_guidances(
+            self.guidances
+                .into_iter()
+                .map(|v| v.cnv())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        ))
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<GenerateCompanionSuggestionsResponse>
+    for crate::model::GenerateCompanionSuggestionsResponse
+{
+    type Output = GenerateCompanionSuggestionsResponse;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<GenerateCompanionSuggestionsResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            companion_suggestion: self
+                .companion_suggestion
+                .map(|v| v.to_proto())
+                .transpose()?,
+            answer_record: self.answer_record.to_proto()?,
+            latest_message: self.latest_message.to_proto()?,
+            suggestion_index: self.suggestion_index.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::GenerateCompanionSuggestionsResponse>
+    for GenerateCompanionSuggestionsResponse
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::GenerateCompanionSuggestionsResponse,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::GenerateCompanionSuggestionsResponse::new()
+            .set_or_clear_companion_suggestion(
+                self.companion_suggestion.map(|v| v.cnv()).transpose()?,
+            )
+            .set_answer_record(self.answer_record)
+            .set_latest_message(self.latest_message)
+            .set_suggestion_index(self.suggestion_index))
+    }
+}
+
 #[cfg(feature = "participants")]
 impl gaxi::prost::ToProto<SuggestSmartRepliesResponse>
     for crate::model::SuggestSmartRepliesResponse
@@ -3859,6 +4930,9 @@ impl gaxi::prost::ToProto<suggestion_result::SuggestionResponse>
             Self::GenerateSuggestionsResponse(v) => {
                 Ok(Self::Output::GenerateSuggestionsResponse((*v).to_proto()?))
             }
+            Self::GenerateCompanionSuggestionsResponse(v) => Ok(
+                Self::Output::GenerateCompanionSuggestionsResponse((*v).to_proto()?),
+            ),
         }
     }
 }
@@ -3891,6 +4965,9 @@ impl gaxi::prost::FromProto<crate::model::suggestion_result::SuggestionResponse>
             Self::GenerateSuggestionsResponse(v) => Ok(T::GenerateSuggestionsResponse(
                 std::boxed::Box::new(v.cnv()?),
             )),
+            Self::GenerateCompanionSuggestionsResponse(v) => Ok(
+                T::GenerateCompanionSuggestionsResponse(std::boxed::Box::new(v.cnv()?)),
+            ),
         }
     }
 }
@@ -3982,6 +5059,41 @@ impl gaxi::prost::FromProto<crate::model::MessageAnnotation> for MessageAnnotati
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_contain_entities(self.contain_entities))
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<suggestion_input::Action> for crate::model::suggestion_input::Action {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::suggestion_input::Action",
+            ))
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<SuggestionInput> for crate::model::SuggestionInput {
+    type Output = SuggestionInput;
+    fn to_proto(self) -> std::result::Result<SuggestionInput, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            answer_record: self.answer_record.to_proto()?,
+            parameters: self.parameters.map(|v| v.to_proto()).transpose()?,
+            action: self.action.to_proto()?,
+            send_time: self.send_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::SuggestionInput> for SuggestionInput {
+    fn cnv(self) -> std::result::Result<crate::model::SuggestionInput, gaxi::prost::ConvertError> {
+        Ok(crate::model::SuggestionInput::new()
+            .set_answer_record(self.answer_record)
+            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?)
+            .set_action(self.action)
+            .set_or_clear_send_time(self.send_time.map(|v| v.cnv()).transpose()?))
     }
 }
 
@@ -4313,6 +5425,12 @@ impl gaxi::prost::ToProto<knowledge_assist_debug_info::QueryGenerationDebugInfo>
             prompt_token_count: self.prompt_token_count.to_proto()?,
             candidates_token_count: self.candidates_token_count.to_proto()?,
             total_token_count: self.total_token_count.to_proto()?,
+            thinking_level: self.thinking_level.to_proto()?,
+            thinking_budget_tokens: self.thinking_budget_tokens.to_proto()?,
+            similarity_to_last_query: self.similarity_to_last_query.to_proto()?,
+            similarity_to_last_query_threshold: self
+                .similarity_to_last_query_threshold
+                .to_proto()?,
         })
     }
 }
@@ -4331,7 +5449,11 @@ impl gaxi::prost::FromProto<crate::model::knowledge_assist_debug_info::QueryGene
             crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo::new()
                 .set_prompt_token_count(self.prompt_token_count)
                 .set_candidates_token_count(self.candidates_token_count)
-                .set_total_token_count(self.total_token_count),
+                .set_total_token_count(self.total_token_count)
+                .set_thinking_level(self.thinking_level)
+                .set_thinking_budget_tokens(self.thinking_budget_tokens)
+                .set_similarity_to_last_query(self.similarity_to_last_query)
+                .set_similarity_to_last_query_threshold(self.similarity_to_last_query_threshold),
         )
     }
 }
@@ -4794,6 +5916,686 @@ impl gaxi::prost::FromProto<crate::model::KnowledgeAssistAnswer> for KnowledgeAs
                     .map(|v| v.cnv())
                     .transpose()?,
             ))
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<streaming_reactive_companion_suggestions_request::Input>
+    for crate::model::streaming_reactive_companion_suggestions_request::Input
+{
+    type Output = streaming_reactive_companion_suggestions_request::Input;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::TextInput(v) => Ok(Self::Output::TextInput(v.to_proto()?)),
+            Self::CancelReactiveQuery(v) => Ok(Self::Output::CancelReactiveQuery((*v).to_proto()?)),
+            Self::SuggestionInput(v) => Ok(Self::Output::SuggestionInput((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::streaming_reactive_companion_suggestions_request::Input>
+    for streaming_reactive_companion_suggestions_request::Input
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::streaming_reactive_companion_suggestions_request::Input,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::streaming_reactive_companion_suggestions_request::Input as T;
+        match self {
+            Self::TextInput(v) => Ok(T::TextInput(v.cnv()?)),
+            Self::CancelReactiveQuery(v) => {
+                Ok(T::CancelReactiveQuery(std::boxed::Box::new(v.cnv()?)))
+            }
+            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<StreamingReactiveCompanionSuggestionsRequest>
+    for crate::model::StreamingReactiveCompanionSuggestionsRequest
+{
+    type Output = StreamingReactiveCompanionSuggestionsRequest;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<StreamingReactiveCompanionSuggestionsRequest, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            participant: self.participant.to_proto()?,
+            input: self.input.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::StreamingReactiveCompanionSuggestionsRequest>
+    for StreamingReactiveCompanionSuggestionsRequest
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::StreamingReactiveCompanionSuggestionsRequest,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::StreamingReactiveCompanionSuggestionsRequest::new()
+                .set_participant(self.participant)
+                .set_input(self.input.map(|v| v.cnv()).transpose()?),
+        )
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<CancelQuery> for crate::model::CancelQuery {
+    type Output = CancelQuery;
+    fn to_proto(self) -> std::result::Result<CancelQuery, gaxi::prost::ConvertError> {
+        Ok(Self::Output {})
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::CancelQuery> for CancelQuery {
+    fn cnv(self) -> std::result::Result<crate::model::CancelQuery, gaxi::prost::ConvertError> {
+        Ok(crate::model::CancelQuery::new())
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<streaming_reactive_companion_suggestions_response::ReactiveModeResponse>
+    for crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse
+{
+    type Output = streaming_reactive_companion_suggestions_response::ReactiveModeResponse;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<
+        streaming_reactive_companion_suggestions_response::ReactiveModeResponse,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(Self::Output {
+            response: self.response.to_proto()?,
+            grounding_metadata: self.grounding_metadata.map(|v| v.to_proto()).transpose()?,
+            tool_calls: self
+                .tool_calls
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl
+    gaxi::prost::FromProto<
+        crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse,
+    > for streaming_reactive_companion_suggestions_response::ReactiveModeResponse
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse::new()
+                .set_response(self.response)
+                .set_or_clear_grounding_metadata(self.grounding_metadata.map(|v| v.cnv()).transpose()?)
+                .set_tool_calls(self.tool_calls.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<streaming_reactive_companion_suggestions_response::Response>
+    for crate::model::streaming_reactive_companion_suggestions_response::Response
+{
+    type Output = streaming_reactive_companion_suggestions_response::Response;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::ResponseChunk(v) => Ok(Self::Output::ResponseChunk(v.to_proto()?)),
+            Self::Status(v) => Ok(Self::Output::Status((*v).to_proto()?)),
+            Self::ReactiveModeFinalResponse(v) => {
+                Ok(Self::Output::ReactiveModeFinalResponse((*v).to_proto()?))
+            }
+            Self::IntermediateToolCallEvents(v) => {
+                Ok(Self::Output::IntermediateToolCallEvents((*v).to_proto()?))
+            }
+        }
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl
+    gaxi::prost::FromProto<
+        crate::model::streaming_reactive_companion_suggestions_response::Response,
+    > for streaming_reactive_companion_suggestions_response::Response
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::streaming_reactive_companion_suggestions_response::Response,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::streaming_reactive_companion_suggestions_response::Response as T;
+        match self {
+            Self::ResponseChunk(v) => Ok(T::ResponseChunk(v.cnv()?)),
+            Self::Status(v) => Ok(T::Status(std::boxed::Box::new(v.cnv()?))),
+            Self::ReactiveModeFinalResponse(v) => {
+                Ok(T::ReactiveModeFinalResponse(std::boxed::Box::new(v.cnv()?)))
+            }
+            Self::IntermediateToolCallEvents(v) => Ok(T::IntermediateToolCallEvents(
+                std::boxed::Box::new(v.cnv()?),
+            )),
+        }
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::ToProto<StreamingReactiveCompanionSuggestionsResponse>
+    for crate::model::StreamingReactiveCompanionSuggestionsResponse
+{
+    type Output = StreamingReactiveCompanionSuggestionsResponse;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<StreamingReactiveCompanionSuggestionsResponse, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            is_final: self.is_final.to_proto()?,
+            answer_record: self.answer_record.to_proto()?,
+            text_message_id: self.text_message_id.to_proto()?,
+            send_time: self.send_time.map(|v| v.to_proto()).transpose()?,
+            response: self.response.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::StreamingReactiveCompanionSuggestionsResponse>
+    for StreamingReactiveCompanionSuggestionsResponse
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::StreamingReactiveCompanionSuggestionsResponse,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::StreamingReactiveCompanionSuggestionsResponse::new()
+                .set_is_final(self.is_final)
+                .set_answer_record(self.answer_record)
+                .set_text_message_id(self.text_message_id)
+                .set_or_clear_send_time(self.send_time.map(|v| v.cnv()).transpose()?)
+                .set_response(self.response.map(|v| v.cnv()).transpose()?),
+        )
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::config::VoiceSessionConfig>
+    for crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig
+{
+    type Output = bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<
+        bidi_streaming_analyze_content_request::config::VoiceSessionConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(Self::Output {
+            input_audio_encoding: self.input_audio_encoding.to_proto()?,
+            input_audio_sample_rate_hertz: self.input_audio_sample_rate_hertz.to_proto()?,
+            output_audio_encoding: self.output_audio_encoding.to_proto()?,
+            output_audio_sample_rate_hertz: self.output_audio_sample_rate_hertz.to_proto()?,
+            enable_cx_proactive_processing: self.enable_cx_proactive_processing.to_proto()?,
+            enable_streaming_synthesize: self.enable_streaming_synthesize.to_proto()?,
+            gemini_asr_config: self.gemini_asr_config.map(|v| v.to_proto()).transpose()?,
+            use_gemini_asr: self.use_gemini_asr.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl
+    gaxi::prost::FromProto<
+        crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig,
+    > for bidi_streaming_analyze_content_request::config::VoiceSessionConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::new()
+                .set_input_audio_encoding(self.input_audio_encoding)
+                .set_input_audio_sample_rate_hertz(self.input_audio_sample_rate_hertz)
+                .set_output_audio_encoding(self.output_audio_encoding)
+                .set_output_audio_sample_rate_hertz(self.output_audio_sample_rate_hertz)
+                .set_enable_cx_proactive_processing(self.enable_cx_proactive_processing)
+                .set_enable_streaming_synthesize(self.enable_streaming_synthesize)
+                .set_or_clear_gemini_asr_config(
+                    self.gemini_asr_config.map(|v| v.cnv()).transpose()?,
+                )
+                .set_or_clear_use_gemini_asr(self.use_gemini_asr.map(|v| v.cnv()).transpose()?),
+        )
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::config::Config>
+    for crate::model::bidi_streaming_analyze_content_request::config::Config
+{
+    type Output = bidi_streaming_analyze_content_request::config::Config;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::VoiceSessionConfig(v) => Ok(Self::Output::VoiceSessionConfig((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request::config::Config>
+    for bidi_streaming_analyze_content_request::config::Config
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_request::config::Config,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::bidi_streaming_analyze_content_request::config::Config as T;
+        match self {
+            Self::VoiceSessionConfig(v) => {
+                Ok(T::VoiceSessionConfig(std::boxed::Box::new(v.cnv()?)))
+            }
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::Config>
+    for crate::model::bidi_streaming_analyze_content_request::Config
+{
+    type Output = bidi_streaming_analyze_content_request::Config;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<
+        bidi_streaming_analyze_content_request::Config,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(Self::Output {
+            participant: self.participant.to_proto()?,
+            initial_virtual_agent_parameters: self
+                .initial_virtual_agent_parameters
+                .map(|v| v.to_proto())
+                .transpose()?,
+            initial_virtual_agent_query_params: self
+                .initial_virtual_agent_query_params
+                .map(|v| v.to_proto())
+                .transpose()?,
+            config: self.config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request::Config>
+    for bidi_streaming_analyze_content_request::Config
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_request::Config,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::bidi_streaming_analyze_content_request::Config::new()
+                .set_participant(self.participant)
+                .set_or_clear_initial_virtual_agent_parameters(
+                    self.initial_virtual_agent_parameters
+                        .map(|v| v.cnv())
+                        .transpose()?,
+                )
+                .set_or_clear_initial_virtual_agent_query_params(
+                    self.initial_virtual_agent_query_params
+                        .map(|v| v.cnv())
+                        .transpose()?,
+                )
+                .set_config(self.config.map(|v| v.cnv()).transpose()?),
+        )
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::turn_input::MainContent>
+    for crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent
+{
+    type Output = bidi_streaming_analyze_content_request::turn_input::MainContent;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Text(v) => Ok(Self::Output::Text(v.to_proto()?)),
+            Self::Intent(v) => Ok(Self::Output::Intent(v.to_proto()?)),
+            Self::Event(v) => Ok(Self::Output::Event(v.to_proto()?)),
+            Self::SuggestionInput(v) => Ok(Self::Output::SuggestionInput((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl
+    gaxi::prost::FromProto<
+        crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent,
+    > for bidi_streaming_analyze_content_request::turn_input::MainContent
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent as T;
+        match self {
+            Self::Text(v) => Ok(T::Text(v.cnv()?)),
+            Self::Intent(v) => Ok(T::Intent(v.cnv()?)),
+            Self::Event(v) => Ok(T::Event(v.cnv()?)),
+            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::TurnInput>
+    for crate::model::bidi_streaming_analyze_content_request::TurnInput
+{
+    type Output = bidi_streaming_analyze_content_request::TurnInput;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<
+        bidi_streaming_analyze_content_request::TurnInput,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(Self::Output {
+            virtual_agent_parameters: self
+                .virtual_agent_parameters
+                .map(|v| v.to_proto())
+                .transpose()?,
+            main_content: self.main_content.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request::TurnInput>
+    for bidi_streaming_analyze_content_request::TurnInput
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_request::TurnInput,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::bidi_streaming_analyze_content_request::TurnInput::new()
+                .set_or_clear_virtual_agent_parameters(
+                    self.virtual_agent_parameters.map(|v| v.cnv()).transpose()?,
+                )
+                .set_main_content(self.main_content.map(|v| v.cnv()).transpose()?),
+        )
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::input::Input>
+    for crate::model::bidi_streaming_analyze_content_request::input::Input
+{
+    type Output = bidi_streaming_analyze_content_request::input::Input;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Audio(v) => Ok(Self::Output::Audio(v.to_proto()?)),
+            Self::Dtmf(v) => Ok(Self::Output::Dtmf((*v).to_proto()?)),
+            Self::Turn(v) => Ok(Self::Output::Turn((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request::input::Input>
+    for bidi_streaming_analyze_content_request::input::Input
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_request::input::Input,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::bidi_streaming_analyze_content_request::input::Input as T;
+        match self {
+            Self::Audio(v) => Ok(T::Audio(v.cnv()?)),
+            Self::Dtmf(v) => Ok(T::Dtmf(std::boxed::Box::new(v.cnv()?))),
+            Self::Turn(v) => Ok(T::Turn(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::Input>
+    for crate::model::bidi_streaming_analyze_content_request::Input
+{
+    type Output = bidi_streaming_analyze_content_request::Input;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<bidi_streaming_analyze_content_request::Input, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            input: self.input.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request::Input>
+    for bidi_streaming_analyze_content_request::Input
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_request::Input,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::bidi_streaming_analyze_content_request::Input::new()
+                .set_input(self.input.map(|v| v.cnv()).transpose()?),
+        )
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::Request>
+    for crate::model::bidi_streaming_analyze_content_request::Request
+{
+    type Output = bidi_streaming_analyze_content_request::Request;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Config(v) => Ok(Self::Output::Config((*v).to_proto()?)),
+            Self::Input(v) => Ok(Self::Output::Input((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request::Request>
+    for bidi_streaming_analyze_content_request::Request
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_request::Request,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::bidi_streaming_analyze_content_request::Request as T;
+        match self {
+            Self::Config(v) => Ok(T::Config(std::boxed::Box::new(v.cnv()?))),
+            Self::Input(v) => Ok(T::Input(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<BidiStreamingAnalyzeContentRequest>
+    for crate::model::BidiStreamingAnalyzeContentRequest
+{
+    type Output = BidiStreamingAnalyzeContentRequest;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<BidiStreamingAnalyzeContentRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            request: self.request.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::BidiStreamingAnalyzeContentRequest>
+    for BidiStreamingAnalyzeContentRequest
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::BidiStreamingAnalyzeContentRequest,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::BidiStreamingAnalyzeContentRequest::new()
+            .set_request(self.request.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_response::BargeInSignal>
+    for crate::model::bidi_streaming_analyze_content_response::BargeInSignal
+{
+    type Output = bidi_streaming_analyze_content_response::BargeInSignal;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<
+        bidi_streaming_analyze_content_response::BargeInSignal,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(Self::Output {})
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_response::BargeInSignal>
+    for bidi_streaming_analyze_content_response::BargeInSignal
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_response::BargeInSignal,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::bidi_streaming_analyze_content_response::BargeInSignal::new())
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_response::TurnComplete>
+    for crate::model::bidi_streaming_analyze_content_response::TurnComplete
+{
+    type Output = bidi_streaming_analyze_content_response::TurnComplete;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<
+        bidi_streaming_analyze_content_response::TurnComplete,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(Self::Output {})
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_response::TurnComplete>
+    for bidi_streaming_analyze_content_response::TurnComplete
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_response::TurnComplete,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::bidi_streaming_analyze_content_response::TurnComplete::new())
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<bidi_streaming_analyze_content_response::Response>
+    for crate::model::bidi_streaming_analyze_content_response::Response
+{
+    type Output = bidi_streaming_analyze_content_response::Response;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::RecognitionResult(v) => Ok(Self::Output::RecognitionResult((*v).to_proto()?)),
+            Self::BargeInSignal(v) => Ok(Self::Output::BargeInSignal((*v).to_proto()?)),
+            Self::AnalyzeContentResponse(v) => {
+                Ok(Self::Output::AnalyzeContentResponse((*v).to_proto()?))
+            }
+            Self::TurnComplete(v) => Ok(Self::Output::TurnComplete((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_response::Response>
+    for bidi_streaming_analyze_content_response::Response
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::bidi_streaming_analyze_content_response::Response,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::bidi_streaming_analyze_content_response::Response as T;
+        match self {
+            Self::RecognitionResult(v) => Ok(T::RecognitionResult(std::boxed::Box::new(v.cnv()?))),
+            Self::BargeInSignal(v) => Ok(T::BargeInSignal(std::boxed::Box::new(v.cnv()?))),
+            Self::AnalyzeContentResponse(v) => {
+                Ok(T::AnalyzeContentResponse(std::boxed::Box::new(v.cnv()?)))
+            }
+            Self::TurnComplete(v) => Ok(T::TurnComplete(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::ToProto<BidiStreamingAnalyzeContentResponse>
+    for crate::model::BidiStreamingAnalyzeContentResponse
+{
+    type Output = BidiStreamingAnalyzeContentResponse;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<BidiStreamingAnalyzeContentResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            response: self.response.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "participants")]
+impl gaxi::prost::FromProto<crate::model::BidiStreamingAnalyzeContentResponse>
+    for BidiStreamingAnalyzeContentResponse
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::BidiStreamingAnalyzeContentResponse,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::BidiStreamingAnalyzeContentResponse::new()
+            .set_response(self.response.map(|v| v.cnv()).transpose()?))
     }
 }
 
@@ -5502,6 +7304,1034 @@ impl gaxi::prost::FromProto<crate::model::SessionEntityType> for SessionEntityTy
 
 #[cfg(any(
     feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::ExtensionTool> for crate::model::tool::ExtensionTool {
+    type Output = tool::ExtensionTool;
+    fn to_proto(self) -> std::result::Result<tool::ExtensionTool, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::ExtensionTool> for tool::ExtensionTool {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::ExtensionTool, gaxi::prost::ConvertError> {
+        Ok(crate::model::tool::ExtensionTool::new().set_name(self.name))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::FunctionTool> for crate::model::tool::FunctionTool {
+    type Output = tool::FunctionTool;
+    fn to_proto(self) -> std::result::Result<tool::FunctionTool, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            input_schema: self.input_schema.map(|v| v.to_proto()).transpose()?,
+            output_schema: self.output_schema.map(|v| v.to_proto()).transpose()?,
+            method_type: self.method_type.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::FunctionTool> for tool::FunctionTool {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::FunctionTool, gaxi::prost::ConvertError> {
+        Ok(crate::model::tool::FunctionTool::new()
+            .set_or_clear_input_schema(self.input_schema.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_output_schema(self.output_schema.map(|v| v.cnv()).transpose()?)
+            .set_method_type(self.method_type))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::open_api_tool::Schema>
+    for crate::model::tool::open_api_tool::Schema
+{
+    type Output = tool::open_api_tool::Schema;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::TextSchema(v) => Ok(Self::Output::TextSchema(v.to_proto()?)),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::open_api_tool::Schema>
+    for tool::open_api_tool::Schema
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::open_api_tool::Schema, gaxi::prost::ConvertError>
+    {
+        use crate::model::tool::open_api_tool::Schema as T;
+        match self {
+            Self::TextSchema(v) => Ok(T::TextSchema(v.cnv()?)),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::OpenApiTool> for crate::model::tool::OpenApiTool {
+    type Output = tool::OpenApiTool;
+    fn to_proto(self) -> std::result::Result<tool::OpenApiTool, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            authentication: self.authentication.map(|v| v.to_proto()).transpose()?,
+            tls_config: self.tls_config.map(|v| v.to_proto()).transpose()?,
+            service_directory_config: self
+                .service_directory_config
+                .map(|v| v.to_proto())
+                .transpose()?,
+            schema: self.schema.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::OpenApiTool> for tool::OpenApiTool {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::OpenApiTool, gaxi::prost::ConvertError> {
+        Ok(crate::model::tool::OpenApiTool::new()
+            .set_or_clear_authentication(self.authentication.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_tls_config(self.tls_config.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_service_directory_config(
+                self.service_directory_config.map(|v| v.cnv()).transpose()?,
+            )
+            .set_schema(self.schema.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::connector_tool::action::entity_operation::OperationType>
+    for crate::model::tool::connector_tool::action::entity_operation::OperationType
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::tool::connector_tool::action::entity_operation::OperationType",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::connector_tool::action::EntityOperation>
+    for crate::model::tool::connector_tool::action::EntityOperation
+{
+    type Output = tool::connector_tool::action::EntityOperation;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<tool::connector_tool::action::EntityOperation, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            entity_id: self.entity_id.to_proto()?,
+            operation: self.operation.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::connector_tool::action::EntityOperation>
+    for tool::connector_tool::action::EntityOperation
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::tool::connector_tool::action::EntityOperation,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::tool::connector_tool::action::EntityOperation::new()
+                .set_entity_id(self.entity_id)
+                .set_operation(self.operation),
+        )
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::connector_tool::action::ActionSpec>
+    for crate::model::tool::connector_tool::action::ActionSpec
+{
+    type Output = tool::connector_tool::action::ActionSpec;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::ConnectionActionId(v) => Ok(Self::Output::ConnectionActionId(v.to_proto()?)),
+            Self::EntityOperation(v) => Ok(Self::Output::EntityOperation((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::connector_tool::action::ActionSpec>
+    for tool::connector_tool::action::ActionSpec
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::tool::connector_tool::action::ActionSpec,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::tool::connector_tool::action::ActionSpec as T;
+        match self {
+            Self::ConnectionActionId(v) => Ok(T::ConnectionActionId(v.cnv()?)),
+            Self::EntityOperation(v) => Ok(T::EntityOperation(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::connector_tool::Action>
+    for crate::model::tool::connector_tool::Action
+{
+    type Output = tool::connector_tool::Action;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<tool::connector_tool::Action, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            input_fields: self
+                .input_fields
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            output_fields: self
+                .output_fields
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            action_spec: self.action_spec.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::connector_tool::Action>
+    for tool::connector_tool::Action
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::connector_tool::Action, gaxi::prost::ConvertError>
+    {
+        Ok(crate::model::tool::connector_tool::Action::new()
+            .set_input_fields(
+                self.input_fields
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_output_fields(
+                self.output_fields
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_action_spec(self.action_spec.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::ConnectorTool> for crate::model::tool::ConnectorTool {
+    type Output = tool::ConnectorTool;
+    fn to_proto(self) -> std::result::Result<tool::ConnectorTool, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            actions: self
+                .actions
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::ConnectorTool> for tool::ConnectorTool {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::ConnectorTool, gaxi::prost::ConvertError> {
+        Ok(crate::model::tool::ConnectorTool::new()
+            .set_name(self.name)
+            .set_actions(
+                self.actions
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::authentication::ApiKeyConfig>
+    for crate::model::tool::authentication::ApiKeyConfig
+{
+    type Output = tool::authentication::ApiKeyConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<tool::authentication::ApiKeyConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            key_name: self.key_name.to_proto()?,
+            api_key: self.api_key.to_proto()?,
+            secret_version_for_api_key: self.secret_version_for_api_key.to_proto()?,
+            request_location: self.request_location.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::authentication::ApiKeyConfig>
+    for tool::authentication::ApiKeyConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::tool::authentication::ApiKeyConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::tool::authentication::ApiKeyConfig::new()
+            .set_key_name(self.key_name)
+            .set_api_key(self.api_key)
+            .set_secret_version_for_api_key(self.secret_version_for_api_key)
+            .set_request_location(self.request_location))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::authentication::o_auth_config::OauthGrantType>
+    for crate::model::tool::authentication::o_auth_config::OauthGrantType
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::tool::authentication::o_auth_config::OauthGrantType",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::authentication::OAuthConfig>
+    for crate::model::tool::authentication::OAuthConfig
+{
+    type Output = tool::authentication::OAuthConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<tool::authentication::OAuthConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            oauth_grant_type: self.oauth_grant_type.to_proto()?,
+            client_id: self.client_id.to_proto()?,
+            client_secret: self.client_secret.to_proto()?,
+            secret_version_for_client_secret: self.secret_version_for_client_secret.to_proto()?,
+            token_endpoint: self.token_endpoint.to_proto()?,
+            scopes: self
+                .scopes
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::authentication::OAuthConfig>
+    for tool::authentication::OAuthConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::tool::authentication::OAuthConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::tool::authentication::OAuthConfig::new()
+            .set_oauth_grant_type(self.oauth_grant_type)
+            .set_client_id(self.client_id)
+            .set_client_secret(self.client_secret)
+            .set_secret_version_for_client_secret(self.secret_version_for_client_secret)
+            .set_token_endpoint(self.token_endpoint)
+            .set_scopes(
+                self.scopes
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::authentication::service_agent_auth_config::ServiceAgentAuth>
+    for crate::model::tool::authentication::service_agent_auth_config::ServiceAgentAuth
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::tool::authentication::service_agent_auth_config::ServiceAgentAuth",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::authentication::ServiceAgentAuthConfig>
+    for crate::model::tool::authentication::ServiceAgentAuthConfig
+{
+    type Output = tool::authentication::ServiceAgentAuthConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<tool::authentication::ServiceAgentAuthConfig, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            service_agent_auth: self.service_agent_auth.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::authentication::ServiceAgentAuthConfig>
+    for tool::authentication::ServiceAgentAuthConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::tool::authentication::ServiceAgentAuthConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::tool::authentication::ServiceAgentAuthConfig::new()
+                .set_service_agent_auth(self.service_agent_auth),
+        )
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::authentication::BearerTokenConfig>
+    for crate::model::tool::authentication::BearerTokenConfig
+{
+    type Output = tool::authentication::BearerTokenConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<tool::authentication::BearerTokenConfig, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            token: self.token.to_proto()?,
+            secret_version_for_token: self.secret_version_for_token.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::authentication::BearerTokenConfig>
+    for tool::authentication::BearerTokenConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::tool::authentication::BearerTokenConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::tool::authentication::BearerTokenConfig::new()
+            .set_token(self.token)
+            .set_secret_version_for_token(self.secret_version_for_token))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::authentication::RequestLocation>
+    for crate::model::tool::authentication::RequestLocation
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::tool::authentication::RequestLocation",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::authentication::AuthConfig>
+    for crate::model::tool::authentication::AuthConfig
+{
+    type Output = tool::authentication::AuthConfig;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::ApiKeyConfig(v) => Ok(Self::Output::ApiKeyConfig((*v).to_proto()?)),
+            Self::OauthConfig(v) => Ok(Self::Output::OauthConfig((*v).to_proto()?)),
+            Self::ServiceAgentAuthConfig(v) => {
+                Ok(Self::Output::ServiceAgentAuthConfig((*v).to_proto()?))
+            }
+            Self::BearerTokenConfig(v) => Ok(Self::Output::BearerTokenConfig((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::authentication::AuthConfig>
+    for tool::authentication::AuthConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::tool::authentication::AuthConfig,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::tool::authentication::AuthConfig as T;
+        match self {
+            Self::ApiKeyConfig(v) => Ok(T::ApiKeyConfig(std::boxed::Box::new(v.cnv()?))),
+            Self::OauthConfig(v) => Ok(T::OauthConfig(std::boxed::Box::new(v.cnv()?))),
+            Self::ServiceAgentAuthConfig(v) => {
+                Ok(T::ServiceAgentAuthConfig(std::boxed::Box::new(v.cnv()?)))
+            }
+            Self::BearerTokenConfig(v) => Ok(T::BearerTokenConfig(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::Authentication> for crate::model::tool::Authentication {
+    type Output = tool::Authentication;
+    fn to_proto(self) -> std::result::Result<tool::Authentication, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            auth_config: self.auth_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::Authentication> for tool::Authentication {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::Authentication, gaxi::prost::ConvertError> {
+        Ok(crate::model::tool::Authentication::new()
+            .set_auth_config(self.auth_config.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::tls_config::CaCert> for crate::model::tool::tls_config::CACert {
+    type Output = tool::tls_config::CaCert;
+    fn to_proto(self) -> std::result::Result<tool::tls_config::CaCert, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            display_name: self.display_name.to_proto()?,
+            cert: self.cert.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::tls_config::CACert> for tool::tls_config::CaCert {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::tls_config::CACert, gaxi::prost::ConvertError>
+    {
+        Ok(crate::model::tool::tls_config::CACert::new()
+            .set_display_name(self.display_name)
+            .set_cert(self.cert))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::TlsConfig> for crate::model::tool::TLSConfig {
+    type Output = tool::TlsConfig;
+    fn to_proto(self) -> std::result::Result<tool::TlsConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            ca_certs: self
+                .ca_certs
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::TLSConfig> for tool::TlsConfig {
+    fn cnv(self) -> std::result::Result<crate::model::tool::TLSConfig, gaxi::prost::ConvertError> {
+        Ok(crate::model::tool::TLSConfig::new().set_ca_certs(
+            self.ca_certs
+                .into_iter()
+                .map(|v| v.cnv())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::ServiceDirectoryConfig>
+    for crate::model::tool::ServiceDirectoryConfig
+{
+    type Output = tool::ServiceDirectoryConfig;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<tool::ServiceDirectoryConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            service: self.service.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::ServiceDirectoryConfig>
+    for tool::ServiceDirectoryConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::ServiceDirectoryConfig, gaxi::prost::ConvertError>
+    {
+        Ok(crate::model::tool::ServiceDirectoryConfig::new().set_service(self.service))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::ConfirmationRequirement>
+    for crate::model::tool::ConfirmationRequirement
+{
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::tool::ConfirmationRequirement",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::MethodType> for crate::model::tool::MethodType {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::tool::MethodType",
+            ))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<tool::Specification> for crate::model::tool::Specification {
+    type Output = tool::Specification;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::ExtensionSpec(v) => Ok(Self::Output::ExtensionSpec((*v).to_proto()?)),
+            Self::FunctionSpec(v) => Ok(Self::Output::FunctionSpec((*v).to_proto()?)),
+            Self::ConnectorSpec(v) => Ok(Self::Output::ConnectorSpec((*v).to_proto()?)),
+            Self::OpenApiSpec(v) => Ok(Self::Output::OpenApiSpec((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::tool::Specification> for tool::Specification {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::tool::Specification, gaxi::prost::ConvertError> {
+        use crate::model::tool::Specification as T;
+        match self {
+            Self::ExtensionSpec(v) => Ok(T::ExtensionSpec(std::boxed::Box::new(v.cnv()?))),
+            Self::FunctionSpec(v) => Ok(T::FunctionSpec(std::boxed::Box::new(v.cnv()?))),
+            Self::ConnectorSpec(v) => Ok(T::ConnectorSpec(std::boxed::Box::new(v.cnv()?))),
+            Self::OpenApiSpec(v) => Ok(T::OpenApiSpec(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::ToProto<Tool> for crate::model::Tool {
+    type Output = Tool;
+    fn to_proto(self) -> std::result::Result<Tool, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            tool_key: self.tool_key.to_proto()?,
+            display_name: self.display_name.to_proto()?,
+            description: self.description.to_proto()?,
+            action_confirmation_requirement: self
+                .action_confirmation_requirement
+                .into_iter()
+                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
+            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+            satisfies_pzs: self.satisfies_pzs.map(|v| v.to_proto()).transpose()?,
+            satisfies_pzi: self.satisfies_pzi.map(|v| v.to_proto()).transpose()?,
+            specification: self.specification.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+    feature = "tools",
+))]
+impl gaxi::prost::FromProto<crate::model::Tool> for Tool {
+    fn cnv(self) -> std::result::Result<crate::model::Tool, gaxi::prost::ConvertError> {
+        Ok(crate::model::Tool::new()
+            .set_name(self.name)
+            .set_tool_key(self.tool_key)
+            .set_display_name(self.display_name)
+            .set_description(self.description)
+            .set_action_confirmation_requirement(
+                self.action_confirmation_requirement
+                    .into_iter()
+                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            )
+            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_satisfies_pzs(self.satisfies_pzs.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_satisfies_pzi(self.satisfies_pzi.map(|v| v.cnv()).transpose()?)
+            .set_specification(self.specification.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -5613,6 +8443,7 @@ impl gaxi::prost::ToProto<tool_call_result::Error> for crate::model::tool_call_r
     fn to_proto(self) -> std::result::Result<tool_call_result::Error, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             message: self.message.to_proto()?,
+            retryable: self.retryable.to_proto()?,
         })
     }
 }
@@ -5628,7 +8459,9 @@ impl gaxi::prost::FromProto<crate::model::tool_call_result::Error> for tool_call
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::tool_call_result::Error, gaxi::prost::ConvertError> {
-        Ok(crate::model::tool_call_result::Error::new().set_message(self.message))
+        Ok(crate::model::tool_call_result::Error::new()
+            .set_message(self.message)
+            .set_retryable(self.retryable))
     }
 }
 
@@ -5747,6 +8580,42 @@ impl gaxi::prost::FromProto<crate::model::ToolCallResult> for ToolCallResult {
             .set_answer_record(self.answer_record)
             .set_source(self.source.map(|v| v.cnv()).transpose()?)
             .set_result(self.result.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl gaxi::prost::ToProto<ToolsetTool> for crate::model::ToolsetTool {
+    type Output = ToolsetTool;
+    fn to_proto(self) -> std::result::Result<ToolsetTool, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            toolset: self.toolset.to_proto()?,
+            operation_id: self.operation_id.to_proto()?,
+            confirmation_requirement: self.confirmation_requirement.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl gaxi::prost::FromProto<crate::model::ToolsetTool> for ToolsetTool {
+    fn cnv(self) -> std::result::Result<crate::model::ToolsetTool, gaxi::prost::ConvertError> {
+        Ok(crate::model::ToolsetTool::new()
+            .set_toolset(self.toolset)
+            .set_operation_id(self.operation_id)
+            .set_confirmation_requirement(self.confirmation_requirement))
     }
 }
 

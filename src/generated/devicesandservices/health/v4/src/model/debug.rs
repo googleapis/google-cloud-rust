@@ -698,6 +698,19 @@ impl std::fmt::Debug for super::HeartRateVariability {
             "standard_deviation_milliseconds",
             &self.standard_deviation_milliseconds,
         );
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::heart_rate_variability::HeartRateVariabilityMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HeartRateVariabilityMetadata");
+        debug_struct.field("high_frequency_power", &self.high_frequency_power);
+        debug_struct.field("low_frequency_power", &self.low_frequency_power);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

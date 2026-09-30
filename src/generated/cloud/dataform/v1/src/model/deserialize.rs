@@ -122,6 +122,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Repository {
             __kms_key_name,
             __data_encryption_state,
             __internal_metadata,
+            __end_user_auth_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -180,6 +181,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Repository {
                             "data_encryption_state" => Ok(__FieldTag::__data_encryption_state),
                             "internalMetadata" => Ok(__FieldTag::__internal_metadata),
                             "internal_metadata" => Ok(__FieldTag::__internal_metadata),
+                            "endUserAuthConfig" => Ok(__FieldTag::__end_user_auth_config),
+                            "end_user_auth_config" => Ok(__FieldTag::__end_user_auth_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -348,6 +351,17 @@ impl<'de> serde::de::Deserialize<'de> for super::Repository {
                             }
                             result.internal_metadata =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__end_user_auth_config => {
+                            if !fields.insert(__FieldTag::__end_user_auth_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_user_auth_config",
+                                ));
+                            }
+                            result.end_user_auth_config =
+                                map.next_value::<std::option::Option<
+                                    crate::model::repository::EndUserAuthConfig,
+                                >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -723,6 +737,165 @@ impl<'de> serde::de::Deserialize<'de> for super::repository::WorkspaceCompilatio
                             result.table_prefix = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::repository::EndUserAuthConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __oauth_config,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EndUserAuthConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "oauthConfig" => Ok(__FieldTag::__oauth_config),
+                            "oauth_config" => Ok(__FieldTag::__oauth_config),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::repository::EndUserAuthConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EndUserAuthConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__oauth_config => {
+                            if !fields.insert(__FieldTag::__oauth_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oauth_config",
+                                ));
+                            }
+                            result.oauth_config =
+                                map.next_value::<std::option::Option<crate::model::OAuthConfig>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::OAuthConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __additional_oauth_scopes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OAuthConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "additionalOauthScopes" => Ok(__FieldTag::__additional_oauth_scopes),
+                            "additional_oauth_scopes" => Ok(__FieldTag::__additional_oauth_scopes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::OAuthConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OAuthConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__additional_oauth_scopes => {
+                            if !fields.insert(__FieldTag::__additional_oauth_scopes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_oauth_scopes",
+                                ));
+                            }
+                            result.additional_oauth_scopes = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -12556,6 +12729,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InvocationConfig {
             __transitive_dependents_included,
             __fully_refresh_incremental_tables_enabled,
             __service_account,
+            __end_user_auth_config,
             __query_priority,
             Unknown(std::string::String),
         }
@@ -12601,6 +12775,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InvocationConfig {
                             }
                             "serviceAccount" => Ok(__FieldTag::__service_account),
                             "service_account" => Ok(__FieldTag::__service_account),
+                            "endUserAuthConfig" => Ok(__FieldTag::__end_user_auth_config),
+                            "end_user_auth_config" => Ok(__FieldTag::__end_user_auth_config),
                             "queryPriority" => Ok(__FieldTag::__query_priority),
                             "query_priority" => Ok(__FieldTag::__query_priority),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -12686,6 +12862,16 @@ impl<'de> serde::de::Deserialize<'de> for super::InvocationConfig {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__end_user_auth_config => {
+                            if !fields.insert(__FieldTag::__end_user_auth_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_user_auth_config",
+                                ));
+                            }
+                            result.end_user_auth_config = map.next_value::<std::option::Option<
+                                crate::model::invocation_config::EndUserAuthenticationConfig,
+                            >>()?;
+                        }
                         __FieldTag::__query_priority => {
                             if !fields.insert(__FieldTag::__query_priority) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -12695,6 +12881,99 @@ impl<'de> serde::de::Deserialize<'de> for super::InvocationConfig {
                             result.query_priority = map.next_value::<std::option::Option<
                                 crate::model::invocation_config::QueryPriority,
                             >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::invocation_config::EndUserAuthenticationConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __user_email,
+            __oauth_config,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EndUserAuthenticationConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "userEmail" => Ok(__FieldTag::__user_email),
+                            "user_email" => Ok(__FieldTag::__user_email),
+                            "oauthConfig" => Ok(__FieldTag::__oauth_config),
+                            "oauth_config" => Ok(__FieldTag::__oauth_config),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::invocation_config::EndUserAuthenticationConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EndUserAuthenticationConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__user_email => {
+                            if !fields.insert(__FieldTag::__user_email) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_email",
+                                ));
+                            }
+                            result.user_email = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__oauth_config => {
+                            if !fields.insert(__FieldTag::__oauth_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oauth_config",
+                                ));
+                            }
+                            result.oauth_config =
+                                map.next_value::<std::option::Option<crate::model::OAuthConfig>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

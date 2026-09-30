@@ -147,6 +147,9 @@ pub struct Repository {
     /// format of this field is a JSON string.
     pub internal_metadata: std::option::Option<std::string::String>,
 
+    /// Optional. Includes configuration options for end user authentication.
+    pub end_user_auth_config: std::option::Option<crate::model::repository::EndUserAuthConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -482,6 +485,39 @@ impl Repository {
         T: std::convert::Into<std::string::String>,
     {
         self.internal_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_user_auth_config][crate::model::Repository::end_user_auth_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use google_cloud_dataform_v1::model::repository::EndUserAuthConfig;
+    /// let x = Repository::new().set_end_user_auth_config(EndUserAuthConfig::default()/* use setters */);
+    /// ```
+    pub fn set_end_user_auth_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::EndUserAuthConfig>,
+    {
+        self.end_user_auth_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_user_auth_config][crate::model::Repository::end_user_auth_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use google_cloud_dataform_v1::model::repository::EndUserAuthConfig;
+    /// let x = Repository::new().set_or_clear_end_user_auth_config(Some(EndUserAuthConfig::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_end_user_auth_config(None::<EndUserAuthConfig>);
+    /// ```
+    pub fn set_or_clear_end_user_auth_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::EndUserAuthConfig>,
+    {
+        self.end_user_auth_config = v.map(|x| x.into());
         self
     }
 }
@@ -983,6 +1019,104 @@ pub mod repository {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dataform.v1.Repository.WorkspaceCompilationOverrides"
         }
+    }
+
+    /// Includes configuration options for repository end user authentication.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EndUserAuthConfig {
+        /// Optional. OAuth configuration for repository end user authentication.
+        pub oauth_config: std::option::Option<crate::model::OAuthConfig>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EndUserAuthConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [oauth_config][crate::model::repository::EndUserAuthConfig::oauth_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::repository::EndUserAuthConfig;
+        /// use google_cloud_dataform_v1::model::OAuthConfig;
+        /// let x = EndUserAuthConfig::new().set_oauth_config(OAuthConfig::default()/* use setters */);
+        /// ```
+        pub fn set_oauth_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OAuthConfig>,
+        {
+            self.oauth_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [oauth_config][crate::model::repository::EndUserAuthConfig::oauth_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::repository::EndUserAuthConfig;
+        /// use google_cloud_dataform_v1::model::OAuthConfig;
+        /// let x = EndUserAuthConfig::new().set_or_clear_oauth_config(Some(OAuthConfig::default()/* use setters */));
+        /// let x = EndUserAuthConfig::new().set_or_clear_oauth_config(None::<OAuthConfig>);
+        /// ```
+        pub fn set_or_clear_oauth_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OAuthConfig>,
+        {
+            self.oauth_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for EndUserAuthConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.Repository.EndUserAuthConfig"
+        }
+    }
+}
+
+/// OAuth configuration for end user authentication.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OAuthConfig {
+    /// Optional. Additional OAuth scopes to use for BigQuery executions.
+    /// Scopes always in use:
+    /// `<https://www.googleapis.com/auth/bigquery>`
+    pub additional_oauth_scopes: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OAuthConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [additional_oauth_scopes][crate::model::OAuthConfig::additional_oauth_scopes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::OAuthConfig;
+    /// let x = OAuthConfig::new().set_additional_oauth_scopes(["a", "b", "c"]);
+    /// ```
+    pub fn set_additional_oauth_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.additional_oauth_scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for OAuthConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.OAuthConfig"
     }
 }
 
@@ -12078,6 +12212,11 @@ pub struct InvocationConfig {
     /// Optional. The service account to run workflow invocations under.
     pub service_account: std::string::String,
 
+    /// Optional. Configuration for end user authentication.
+    /// Note that this should not be set when `service_account` is used.
+    pub end_user_auth_config:
+        std::option::Option<crate::model::invocation_config::EndUserAuthenticationConfig>,
+
     /// Optional. Specifies the priority for query execution in BigQuery.
     /// More information can be found at
     /// <https://cloud.google.com/bigquery/docs/running-queries#queries>.
@@ -12185,6 +12324,39 @@ impl InvocationConfig {
         self
     }
 
+    /// Sets the value of [end_user_auth_config][crate::model::InvocationConfig::end_user_auth_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// use google_cloud_dataform_v1::model::invocation_config::EndUserAuthenticationConfig;
+    /// let x = InvocationConfig::new().set_end_user_auth_config(EndUserAuthenticationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_end_user_auth_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::invocation_config::EndUserAuthenticationConfig>,
+    {
+        self.end_user_auth_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_user_auth_config][crate::model::InvocationConfig::end_user_auth_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// use google_cloud_dataform_v1::model::invocation_config::EndUserAuthenticationConfig;
+    /// let x = InvocationConfig::new().set_or_clear_end_user_auth_config(Some(EndUserAuthenticationConfig::default()/* use setters */));
+    /// let x = InvocationConfig::new().set_or_clear_end_user_auth_config(None::<EndUserAuthenticationConfig>);
+    /// ```
+    pub fn set_or_clear_end_user_auth_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::invocation_config::EndUserAuthenticationConfig>,
+    {
+        self.end_user_auth_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [query_priority][crate::model::InvocationConfig::query_priority].
     ///
     /// # Example
@@ -12231,6 +12403,77 @@ impl wkt::message::Message for InvocationConfig {
 pub mod invocation_config {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Includes configuration options for end user authentication.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EndUserAuthenticationConfig {
+        /// Output only. Email address of the user to run workflow invocations under.
+        pub user_email: std::string::String,
+
+        /// Optional. OAuth configuration for end user authentication.
+        pub oauth_config: std::option::Option<crate::model::OAuthConfig>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EndUserAuthenticationConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [user_email][crate::model::invocation_config::EndUserAuthenticationConfig::user_email].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::invocation_config::EndUserAuthenticationConfig;
+        /// let x = EndUserAuthenticationConfig::new().set_user_email("example");
+        /// ```
+        pub fn set_user_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.user_email = v.into();
+            self
+        }
+
+        /// Sets the value of [oauth_config][crate::model::invocation_config::EndUserAuthenticationConfig::oauth_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::invocation_config::EndUserAuthenticationConfig;
+        /// use google_cloud_dataform_v1::model::OAuthConfig;
+        /// let x = EndUserAuthenticationConfig::new().set_oauth_config(OAuthConfig::default()/* use setters */);
+        /// ```
+        pub fn set_oauth_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OAuthConfig>,
+        {
+            self.oauth_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [oauth_config][crate::model::invocation_config::EndUserAuthenticationConfig::oauth_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::invocation_config::EndUserAuthenticationConfig;
+        /// use google_cloud_dataform_v1::model::OAuthConfig;
+        /// let x = EndUserAuthenticationConfig::new().set_or_clear_oauth_config(Some(OAuthConfig::default()/* use setters */));
+        /// let x = EndUserAuthenticationConfig::new().set_or_clear_oauth_config(None::<OAuthConfig>);
+        /// ```
+        pub fn set_or_clear_oauth_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OAuthConfig>,
+        {
+            self.oauth_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for EndUserAuthenticationConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.InvocationConfig.EndUserAuthenticationConfig"
+        }
+    }
 
     /// Types of priority for query execution in BigQuery.
     ///

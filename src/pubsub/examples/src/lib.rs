@@ -96,6 +96,25 @@ pub async fn run_subscription_samples(
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     subscription::enable_subscription_ordering::sample(&client, &project_id, topic_id, &id).await?;
 
+    let (topic_admin, dead_letter_topic) = create_test_topic().await?;
+    let dead_letter_topic_id = dead_letter_topic
+        .name
+        .split("/")
+        .last()
+        .ok_or_else(|| anyhow::anyhow!("invalid topic name: {}", dead_letter_topic.name))?;
+    let id = random_subscription_id();
+    subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
+    let result = subscription::create_dead_letter_subscription::sample(
+        &client,
+        &project_id,
+        topic_id,
+        &id,
+        dead_letter_topic_id,
+    )
+    .await;
+    let _ = cleanup_test_topic(&topic_admin, &dead_letter_topic.name).await;
+    result?;
+
     // Await the result of the slow subscriber examples.
     while let Some(task) = slow_tasks.join_next().await {
         task??;
@@ -121,6 +140,10 @@ pub async fn run_schema_samples(schema_names: &mut Vec<String>) -> anyhow::Resul
     schema::list_schema_revisions::sample(&client, &project, &id).await?;
     schema::delete_schema::sample(&client, &project, &id).await?;
 
+    let id = random_schema_id();
+    schema_names.push(format!("projects/{project}/schemas/{id}"));
+    schema::create_proto_schema::sample(&client, &project, &id).await?;
+
     Ok(())
 }
 
@@ -133,7 +156,9 @@ pub async fn run_publisher_samples(topic_names: &mut Vec<String>) -> anyhow::Res
     topic::create_topic::sample(&topic_admin, &project, &topic_id).await?;
 
     publisher::quickstart_publisher::sample(&project, &topic_id).await?;
+    publisher::publish_custom_attributes::sample(&project, &topic_id).await?;
     publisher::publish_with_batch_settings::sample(&project, &topic_id).await?;
+    publisher::publish_with_error_handler::sample(&project, &topic_id).await?;
     publisher::publish_with_ordering_keys::sample(&project, &topic_id).await?;
     publisher::publish_with_retry_settings::sample(&project, &topic_id).await?;
     publisher::resume_publish_with_ordering_keys::sample(&project, &topic_id).await?;
