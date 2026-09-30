@@ -13,6 +13,7 @@
 // limitations under the License.
 
 // [START pubsub_quickstart_subscriber]
+// [START pubsub_subscriber_async_pull]
 use google_cloud_pubsub::client::Subscriber;
 use std::time::Duration;
 
@@ -39,4 +40,5 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
     println!("done listening for messages");
     Ok(())
 }
+// [END pubsub_subscriber_async_pull]
 // [END pubsub_quickstart_subscriber]
