@@ -57,23 +57,20 @@ struct PendingRequest {
 impl PendingRequest {
     fn new(
         kind: PendingKind,
-        request: BidiWriteObjectRequest,
+        target_offset: i64,
         sender: oneshot::Sender<crate::Result<BidiWriteObjectResponse>>,
     ) -> Self {
         Self {
             kind,
-            target_offset: request.write_offset,
+            target_offset,
             sender,
         }
     }
 
     /// Returns `true` when `response` confirms this request completed.
     ///
-    /// A flush is satisfied once the service acknowledges the target offset on an unfinalized
-    /// object. A finalize additionally requires a *finalized* object resource: the first message of
-    /// a reconnected create or handle-less takeover stream also carries a resource, and only
-    /// `finalize_time` tells the two apart. Without that check a reconnect handshake could complete
-    /// the caller's `finalize()` with an object that was never finalized.
+    /// Once `persisted_size` reaches `target_offset`, a [`PendingKind::Flush`] is satisfied by an
+    /// unfinalized response and a [`PendingKind::Finalize`] is satisfied by a finalized response.
     fn is_satisfied(&self, response: &BidiWriteObjectResponse, persisted_size: i64) -> bool {
         if persisted_size < self.target_offset {
             return false;
@@ -186,7 +183,7 @@ where
                 assert!(req.flush, "flush must be true for Flush intents");
                 self.pending_requests.push_back(PendingRequest::new(
                     PendingKind::Flush,
-                    req.clone(),
+                    req.write_offset,
                     sender,
                 ));
                 req
@@ -200,7 +197,7 @@ where
                 self.finalized = true;
                 self.pending_requests.push_back(PendingRequest::new(
                     PendingKind::Finalize,
-                    req.clone(),
+                    req.write_offset,
                     sender,
                 ));
                 req
@@ -223,7 +220,7 @@ where
                 }
                 return None;
             }
-            Err(e) => return Some(Err(Error::io(e))),
+            Err(e) => return Some(Err(to_gax_error(e))),
         };
         if let Err(e) = self.handle_response_success(response) {
             return Some(Err(e));
@@ -262,10 +259,9 @@ where
         while let Some(front) = self.pending_requests.front()
             && front.is_satisfied(&response, persisted_size)
         {
-            let request = self
-                .pending_requests
-                .pop_front()
-                .expect("front() just returned a request");
+            let Some(request) = self.pending_requests.pop_front() else {
+                break;
+            };
             request.complete(Ok(response.clone()));
             matched = true;
         }
@@ -772,18 +768,33 @@ mod tests {
 
         // Acknowledge 10 bytes first so worker.persisted_size = 10.
         response_tx.send(Ok(persisted_size_response(10))).await?;
+        tokio::task::yield_now().await;
+
+        let (intent, mut flush_rx) = flush_intent(10);
+        tx.send(intent).await?;
+        let _ = request_rx.recv().await.unwrap();
 
         // Act.
         // Send a response with write_status: None (e.g. write_handle refresh only). It must not be
-        // treated as persisted_size = 0 (which would fail the regression check).
+        // treated as persisted_size = 0 (which would fail the regression check) and must not
+        // satisfy the pending flush.
         response_tx
             .send(Ok(BidiWriteObjectResponse {
                 write_status: None,
                 ..Default::default()
             }))
             .await?;
+        tokio::task::yield_now().await;
 
         // Assert.
+        assert!(matches!(
+            flush_rx.try_recv(),
+            Err(oneshot::error::TryRecvError::Empty)
+        ));
+
+        response_tx.send(Ok(persisted_size_response(10))).await?;
+        flush_rx.await??;
+
         drop(tx);
         tokio::task::yield_now().await;
         drop(response_tx);
