@@ -38,7 +38,9 @@ use std::time::Duration;
 
 /// Runs the bidi read conformance tests against each supported bucket type.
 pub async fn run() -> anyhow::Result<()> {
-    println!("\n=== Running Bidi Read Conformance Suite ===");
+    println!("\n========================================================");
+    println!(" Running Bidi Read Conformance Integration Test Suite");
+    println!("========================================================");
 
     let clients = Clients::new().await?;
 
@@ -84,7 +86,7 @@ pub async fn run() -> anyhow::Result<()> {
     )
     .await?;
 
-    println!("\n=== Bidi Read Conformance Suite Completed Successfully ===\n");
+    println!("\n>>> All Bidi Read Conformance integration tests completed successfully! <<<\n");
     Ok(())
 }
 
@@ -174,7 +176,10 @@ where
     F: AsyncFnOnce(&str, BucketType) -> anyhow::Result<()>,
 {
     let bucket_id = random_bucket_id();
-    println!("\n### {}: {bucket_id}", bucket_type.label());
+    println!("\n========================================================");
+    println!(" Testing Bucket Type: {}", bucket_type.label());
+    println!(" Bucket: {bucket_id}");
+    println!("========================================================");
     let bucket = create_bucket(&clients.control, bucket_type, bucket_id).await?;
     let result = f(&bucket.name, bucket_type).await;
     cleanup_bucket(
@@ -225,7 +230,7 @@ async fn create_bucket(
             .set_zone(&zone)
             .set_cache_type("rapid-cache-ultra");
 
-        println!("attaching rapid-cache-ultra in {zone} (this can take a minute or more)...");
+        println!("Attaching rapid-cache-ultra in {zone} (this can take a minute or more)...");
         let attached = control
             .create_rapid_cache()
             .set_parent(&bucket.name)
@@ -237,6 +242,7 @@ async fn create_bucket(
             cleanup_bucket(control, &bucket.name, true).await;
             return Err(e.into());
         }
+        println!("SUCCESS: attached rapid-cache-ultra in {zone}");
     }
 
     Ok(bucket)
@@ -255,7 +261,7 @@ async fn cleanup_bucket(control: &StorageControl, bucket_name: &str, has_rapid_c
         Err(e) => Err(e),
     };
     if let Err(e) = result {
-        println!("  cleanup: failed to delete bucket {bucket_name}: {e:?}");
+        eprintln!("Warning: failed to delete bucket {bucket_name} during teardown: {e:?}");
     }
 }
 
@@ -268,11 +274,11 @@ async fn disable_rapid_caches(control: &StorageControl, bucket_name: &str) {
         let cache = match cache {
             Ok(cache) => cache,
             Err(e) => {
-                println!("  cleanup: failed to list rapid caches in {bucket_name}: {e:?}");
+                eprintln!("Warning: failed to list rapid caches in {bucket_name} during teardown: {e:?}");
                 return;
             }
         };
-        println!("  cleanup: disabling rapid cache {}", cache.name);
+        println!("Disabling rapid cache {}...", cache.name);
         let result = control
             .disable_rapid_cache()
             .set_name(&cache.name)
@@ -283,10 +289,12 @@ async fn disable_rapid_caches(control: &StorageControl, bucket_name: &str) {
         if let Err(e) = result
             && !format!("{e:?}").contains("neither result nor error set in LRO result")
         {
-            println!(
-                "  cleanup: failed to disable rapid cache {}: {e:?}",
+            eprintln!(
+                "Warning: failed to disable rapid cache {}: {e:?}",
                 cache.name
             );
+        } else {
+            println!("SUCCESS: disabled rapid cache {}", cache.name);
         }
     }
 }
@@ -348,7 +356,10 @@ async fn test_multiple_ranged_read(
     bucket_name: &str,
     bucket_type: BucketType,
 ) -> anyhow::Result<()> {
-    println!("  test_multiple_ranged_read ({}) ...", bucket_type.label());
+    println!(
+        "\n--- Testing Multiple Ranged Read ({}) ---",
+        bucket_type.label()
+    );
     const KIB: u64 = 1024;
     let (payload, descriptor) = upload_and_open(
         clients,
@@ -377,7 +388,10 @@ async fn test_multiple_ranged_read(
         assert_eq!(buf, &payload[start..end], "range {start}..{end}");
     }
 
-    println!("  test_multiple_ranged_read ({}) ok", bucket_type.label());
+    println!(
+        "SUCCESS: Multiple Ranged Read ({}) -> 4 concurrent ranges verified",
+        bucket_type.label()
+    );
     Ok(())
 }
 
@@ -387,7 +401,7 @@ async fn test_read_post_stream_close(
     bucket_type: BucketType,
 ) -> anyhow::Result<()> {
     println!(
-        "  test_read_post_stream_close ({}) ...",
+        "\n--- Testing Read Post Stream Close ({}) ---",
         bucket_type.label()
     );
     let (payload, descriptor) =
@@ -406,12 +420,15 @@ async fn test_read_post_stream_close(
     let mut reader = descriptor.read_range(ReadRange::segment(200, 50)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[200..250]);
 
-    println!("  test_read_post_stream_close ({}) ok", bucket_type.label());
+    println!(
+        "SUCCESS: Read Post Stream Close ({})",
+        bucket_type.label()
+    );
     Ok(())
 }
 
 async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> {
-    println!("  test_non_existent_bucket_read ...");
+    println!("\n--- Testing Non-Existent Bucket Read ---");
     let non_existent_bucket = format!(
         "projects/_/buckets/non-existent-bucket-{}",
         random_bucket_id()
@@ -435,7 +452,7 @@ async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> 
     };
     assert_is_not_found(&err);
 
-    println!("  test_non_existent_bucket_read ok");
+    println!("SUCCESS: expected NotFound or PermissionDenied received for non-existent bucket");
     Ok(())
 }
 
@@ -444,7 +461,10 @@ async fn test_out_of_range(
     bucket_name: &str,
     bucket_type: BucketType,
 ) -> anyhow::Result<()> {
-    println!("  test_out_of_range ({}) ...", bucket_type.label());
+    println!(
+        "\n--- Testing Out Of Range Read ({}) ---",
+        bucket_type.label()
+    );
     let (payload, descriptor) =
         upload_and_open(clients, bucket_name, 10_000, bucket_type.is_appendable()).await?;
 
@@ -472,7 +492,10 @@ async fn test_out_of_range(
         ),
     }
 
-    println!("  test_out_of_range ({}) ok", bucket_type.label());
+    println!(
+        "SUCCESS: Out Of Range Read ({}) -> expected OutOfRange or InvalidArgument received",
+        bucket_type.label()
+    );
     Ok(())
 }
 
