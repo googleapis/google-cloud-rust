@@ -185,7 +185,7 @@ mod tests {
         let ts = datetime!(2026-03-09 18:00:00 UTC);
 
         // 1. OffsetDateTime
-        #[cfg(feature = "time")]
+        #[cfg(feature = "unstable-time")]
         {
             let read = TimestampBound::read_timestamp(ts);
             assert!(matches!(
@@ -234,7 +234,7 @@ mod tests {
         let ts = datetime!(2026-03-09 18:00:00 UTC);
 
         // 1. OffsetDateTime
-        #[cfg(feature = "time")]
+        #[cfg(feature = "unstable-time")]
         {
             let min_read = TimestampBound::min_read_timestamp(ts);
             assert!(matches!(

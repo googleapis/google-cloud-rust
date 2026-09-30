@@ -26,7 +26,7 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [package.metadata.docs.rs]
-features = ["time"]
+features = ["unstable-time"]
 
 [features]
 default = ["builtin-metrics", "default-rustls-provider"]
@@ -38,7 +38,7 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 unstable-stream         = ["dep:futures"]
 
 # Enables support for types from the `time` crate (`time::OffsetDateTime` and `time::Date`).
-time = ["wkt/time"]
+unstable-time = ["wkt/time"]
 
 # Enables collecting and recording metrics on a caller-owned OpenTelemetry MeterProvider.
 # Pulls in only the lightweight OpenTelemetry API trait definitions and UUID generator.

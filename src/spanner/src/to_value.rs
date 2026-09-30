@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(feature = "time")]
+#[cfg(feature = "unstable-time")]
 use crate::value::SPANNER_DATE_FORMAT;
 use crate::value::SPANNER_TIMESTAMP_FORMAT;
 pub use crate::value::Value;
@@ -23,7 +23,7 @@ use prost_types::Value as ProtoValue;
 use rust_decimal::Decimal;
 use serde_json::Value as JsonValue;
 use std::time::SystemTime;
-#[cfg(feature = "time")]
+#[cfg(feature = "unstable-time")]
 use time::Date as TimeDate;
 use time::OffsetDateTime;
 
@@ -190,16 +190,16 @@ impl From<SystemTime> for Value {
     }
 }
 
-#[cfg(feature = "time")]
-#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
+#[cfg(feature = "unstable-time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl ToValue for OffsetDateTime {
     fn to_value(&self) -> Value {
         (*self).into()
     }
 }
 
-#[cfg(feature = "time")]
-#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
+#[cfg(feature = "unstable-time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl From<OffsetDateTime> for Value {
     fn from(date_time: OffsetDateTime) -> Self {
         format_timestamp(date_time)
@@ -243,16 +243,16 @@ impl From<Date> for Value {
     }
 }
 
-#[cfg(feature = "time")]
-#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
+#[cfg(feature = "unstable-time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl ToValue for TimeDate {
     fn to_value(&self) -> Value {
         (*self).into()
     }
 }
 
-#[cfg(feature = "time")]
-#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
+#[cfg(feature = "unstable-time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl From<TimeDate> for Value {
     fn from(date: TimeDate) -> Self {
         let string_value = date
@@ -394,9 +394,9 @@ mod tests {
     use crate::value::Kind;
     use std::str::FromStr;
     use std::time::Duration;
-    #[cfg(feature = "time")]
+    #[cfg(feature = "unstable-time")]
     use time::Month;
-    #[cfg(feature = "time")]
+    #[cfg(feature = "unstable-time")]
     use time::format_description::well_known::Rfc3339;
 
     #[test]
@@ -456,7 +456,7 @@ mod tests {
         let v: Value = d.into();
         assert_eq!(v.as_string(), "123.456");
 
-        #[cfg(feature = "time")]
+        #[cfg(feature = "unstable-time")]
         {
             let date_time = OffsetDateTime::parse("2023-10-27T10:00:00Z", &Rfc3339)
                 .expect("valid RFC 3339 format");
@@ -597,7 +597,7 @@ mod tests {
 
     #[test]
     fn test_to_value_decimal() {
-        let d = Decimal::from_str("123.456").unwrap();
+        let d = Decimal::from_str("123.456").expect("valid decimal");
         let v = d.to_value();
         assert_eq!(v.kind(), Kind::String);
         assert_eq!(v.as_string(), "123.456");
@@ -611,7 +611,7 @@ mod tests {
         assert_eq!(value.as_string(), "2023-10-27");
     }
 
-    #[cfg(feature = "time")]
+    #[cfg(feature = "unstable-time")]
     #[test]
     fn test_to_value_time_date() {
         let date =
@@ -629,7 +629,7 @@ mod tests {
         assert_eq!(value.as_string(), "2023-10-27T10:00:00.000000000Z");
     }
 
-    #[cfg(feature = "time")]
+    #[cfg(feature = "unstable-time")]
     #[test]
     fn test_to_value_offset_date_time() {
         let date_time = OffsetDateTime::parse("2023-10-27T10:00:00Z", &Rfc3339)

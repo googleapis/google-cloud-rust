@@ -25,7 +25,7 @@
 use google_cloud_spanner::statement::Statement;
 use google_cloud_spanner::types;
 use google_cloud_spanner::value::{Date, Timestamp};
-#[cfg(feature = "time")]
+#[cfg(feature = "unstable-time")]
 use time::OffsetDateTime;
 
 #[test]
@@ -43,7 +43,7 @@ fn external_uses_typed_param_constructors() {
 
     assert!(statement.sql().contains("SELECT @ts, @s, @n, @d"));
 
-    #[cfg(feature = "time")]
+    #[cfg(feature = "unstable-time")]
     {
         let statement = Statement::builder("SELECT @ts")
             .add_typed_param("ts", OffsetDateTime::now_utc(), types::timestamp())

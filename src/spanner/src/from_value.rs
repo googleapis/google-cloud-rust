@@ -23,9 +23,9 @@ use rust_decimal::Decimal;
 use serde_json::Value as JsonValue;
 use std::time::SystemTime;
 use time::Date as TimeDate;
-#[cfg(feature = "time")]
+#[cfg(feature = "unstable-time")]
 use time::OffsetDateTime;
-#[cfg(feature = "time")]
+#[cfg(feature = "unstable-time")]
 use time::format_description::well_known::Rfc3339;
 
 /// Represent failures in converting a Spanner Value to a Rust type.
@@ -337,8 +337,8 @@ impl FromValue for SystemTime {
     }
 }
 
-#[cfg(feature = "time")]
-#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
+#[cfg(feature = "unstable-time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl FromValue for OffsetDateTime {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         if type_.code() != TypeCode::Timestamp {
@@ -383,8 +383,8 @@ impl FromValue for wkt::Timestamp {
     }
 }
 
-#[cfg(feature = "time")]
-#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
+#[cfg(feature = "unstable-time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl FromValue for TimeDate {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         if type_.code() != TypeCode::Date {
@@ -556,7 +556,7 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use serde_json::Value as JsonValue;
-    #[cfg(feature = "time")]
+    #[cfg(feature = "unstable-time")]
     use time::Month;
 
     #[test]
@@ -895,7 +895,7 @@ mod tests {
         assert!(format!("{}", error).contains("cannot convert value"));
     }
 
-    #[cfg(feature = "time")]
+    #[cfg(feature = "unstable-time")]
     #[test]
     fn test_from_value_time_date() {
         let date =
@@ -911,7 +911,7 @@ mod tests {
         assert!(format!("{}", error).contains("cannot convert value"));
     }
 
-    #[cfg(feature = "time")]
+    #[cfg(feature = "unstable-time")]
     #[test]
     fn test_from_value_timestamp() {
         let date_time = OffsetDateTime::parse("2023-10-27T10:00:00Z", &Rfc3339)
@@ -977,7 +977,7 @@ mod tests {
         let err = SystemTime::from_value(&v, &types::string()).expect_err("type mismatch");
         assert!(format!("{}", err).contains("expected String, got String"));
 
-        #[cfg(feature = "time")]
+        #[cfg(feature = "unstable-time")]
         {
             let value = OffsetDateTime::now_utc().to_value();
             let error =
@@ -1065,7 +1065,7 @@ mod tests {
             .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        #[cfg(feature = "time")]
+        #[cfg(feature = "unstable-time")]
         {
             let err = OffsetDateTime::from_value(&v_null, &types::timestamp())
                 .expect_err("expected non-null value, got null");
