@@ -14,8 +14,11 @@
 
 //! Telemetry header helpers.
 
+#[cfg(any(test, feature = "_internal-grpc-client"))]
 use google_cloud_gax::client_builder::internal::Extensions;
+#[cfg(any(test, feature = "_internal-grpc-client"))]
 use google_cloud_gax::error::Error;
+#[cfg(any(test, feature = "_internal-grpc-client"))]
 use http::HeaderValue;
 
 /// Generated libraries create one static instance of this struct and use it
