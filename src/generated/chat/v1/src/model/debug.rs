@@ -1938,6 +1938,8 @@ impl std::fmt::Debug for super::User {
         let mut debug_struct = f.debug_struct("User");
         debug_struct.field("name", &self.name);
         debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("avatar_url", &self.avatar_url);
+        debug_struct.field("email", &self.email);
         debug_struct.field("domain_id", &self.domain_id);
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("is_anonymous", &self.is_anonymous);

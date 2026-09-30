@@ -16227,6 +16227,8 @@ impl<'de> serde::de::Deserialize<'de> for super::User {
         enum __FieldTag {
             __name,
             __display_name,
+            __avatar_url,
+            __email,
             __domain_id,
             __type,
             __is_anonymous,
@@ -16253,6 +16255,9 @@ impl<'de> serde::de::Deserialize<'de> for super::User {
                             "name" => Ok(__FieldTag::__name),
                             "displayName" => Ok(__FieldTag::__display_name),
                             "display_name" => Ok(__FieldTag::__display_name),
+                            "avatarUrl" => Ok(__FieldTag::__avatar_url),
+                            "avatar_url" => Ok(__FieldTag::__avatar_url),
+                            "email" => Ok(__FieldTag::__email),
                             "domainId" => Ok(__FieldTag::__domain_id),
                             "domain_id" => Ok(__FieldTag::__domain_id),
                             "type" => Ok(__FieldTag::__type),
@@ -16300,6 +16305,26 @@ impl<'de> serde::de::Deserialize<'de> for super::User {
                                 ));
                             }
                             result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__avatar_url => {
+                            if !fields.insert(__FieldTag::__avatar_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for avatar_url",
+                                ));
+                            }
+                            result.avatar_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__email => {
+                            if !fields.insert(__FieldTag::__email) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for email",
+                                ));
+                            }
+                            result.email = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
