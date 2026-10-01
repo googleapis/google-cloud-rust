@@ -3580,7 +3580,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.19"
+version = "0.7.20"
 dependencies = [
  "anyhow",
  "bytes",
@@ -4859,7 +4859,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-pubsub"
-version = "1.5.0"
+version = "1.6.0"
 dependencies = [
  "anyhow",
  "async-trait",

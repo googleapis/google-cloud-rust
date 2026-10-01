@@ -1007,11 +1007,32 @@ mod tests {
     #[test]
     fn test_from_value_wrong_kind() {
         let v_bool = true.to_value();
-        let err = String::from_value(&v_bool, &types::string()).unwrap_err();
+        let err = String::from_value(&v_bool, &types::string())
+            .expect_err("expected non-string kind mismatch for String");
         assert!(format!("{}", err).contains("expected String, got Bool"));
 
+        let err = wkt::Timestamp::from_value(&v_bool, &types::timestamp())
+            .expect_err("expected non-string kind mismatch for wkt::Timestamp");
+        assert!(format!("{}", err).contains("expected String, got Bool"));
+
+        let err = Date::from_value(&v_bool, &types::date())
+            .expect_err("expected non-string kind mismatch for Date");
+        assert!(format!("{}", err).contains("expected String, got Bool"));
+
+        #[cfg(feature = "unstable-time")]
+        {
+            let err = OffsetDateTime::from_value(&v_bool, &types::timestamp())
+                .expect_err("expected non-string kind mismatch for OffsetDateTime");
+            assert!(format!("{}", err).contains("expected String, got Bool"));
+
+            let err = TimeDate::from_value(&v_bool, &types::date())
+                .expect_err("expected non-string kind mismatch for TimeDate");
+            assert!(format!("{}", err).contains("expected String, got Bool"));
+        }
+
         let v_string = "hello".to_value();
-        let err = i64::from_value(&v_string, &types::int64()).unwrap_err();
+        let err = i64::from_value(&v_string, &types::int64())
+            .expect_err("expected cannot convert value for i64");
         assert!(format!("{}", err).contains("cannot convert value"));
 
         let v_struct = crate::value::Value(prost_types::Value {
@@ -1019,13 +1040,16 @@ mod tests {
                 prost_types::Struct::default(),
             )),
         });
-        let err = i64::from_value(&v_struct, &types::int64()).unwrap_err();
+        let err = i64::from_value(&v_struct, &types::int64())
+            .expect_err("expected non-string kind mismatch for i64");
         assert!(format!("{}", err).contains("expected String, got Struct"));
 
-        let err = f64::from_value(&v_bool, &types::float64()).unwrap_err();
+        let err = f64::from_value(&v_bool, &types::float64())
+            .expect_err("expected non-number kind mismatch for f64");
         assert!(format!("{}", err).contains("expected Number, got Bool"));
 
-        let err = bool::from_value(&v_string, &types::bool()).unwrap_err();
+        let err = bool::from_value(&v_string, &types::bool())
+            .expect_err("expected non-bool kind mismatch for bool");
         assert!(format!("{}", err).contains("expected Bool, got String"));
     }
 

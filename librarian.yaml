@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.46.1-0.20260929215235-3cd1be3ebbc4
+version: v0.46.1-0.20260930150914-7e63426757f3
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: d8abdeb2286c02f034de76d9837c369d09b1c620
-    sha256: b9e1d8d761b871052312e3b51cddd10e8ee7526312e5d82b97156cbb3753f543
+    commit: da8155727f763f9bbb349065742b200e5554f347
+    sha256: ae7e05c32cb1623c09a01ed58adfc5e06b90eadd8e0ec2be557b270d44a17505
   googleapis:
-    commit: 5d2a5100759be0b6fe5a1d3ce5e025d53d8283f4
-    sha256: 8b90727f378e5efd1fea9ea5592854dc9c3285e03fc96fcaf3027d97e9094c7d
+    commit: 93d6085996d0b4ff7e7e86ca9945d5524bb380d1
+    sha256: 2271ff64a808d6a9089d0f410d28fc9ce4dd35ffe6e1c2cf79dd9a8578ddc871
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -932,7 +932,7 @@ libraries:
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.19
+    version: 0.7.20
     copyright_year: "2025"
     output: src/gax-internal
     rust:
@@ -1279,7 +1279,7 @@ libraries:
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 1.5.0
+    version: 1.6.0
     copyright_year: "2025"
     output: src/pubsub
     rust:
@@ -1685,9 +1685,6 @@ libraries:
     skip_release: true
   - name: google-cloud-texttospeech-v1
     version: 1.16.0
-    copyright_year: "2025"
-  - name: google-cloud-timeseriesinsights-v1
-    version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-tpu-v2
     version: 1.15.0

@@ -46,21 +46,17 @@ pub struct ResultSetMetadata {
 }
 
 impl ResultSetMetadata {
-    pub(crate) fn new(metadata: Option<crate::google::spanner::v1::ResultSetMetadata>) -> Self {
+    pub(crate) fn new(mut metadata: Option<crate::google::spanner::v1::ResultSetMetadata>) -> Self {
         let mut column_names = Vec::new();
         let mut column_types = Vec::new();
         let mut undeclared_parameters = BTreeMap::new();
 
-        if let Some(m) = &metadata
-            && let Some(undeclared) = &m.undeclared_parameters
+        if let Some(m) = &mut metadata
+            && let Some(undeclared) = m.undeclared_parameters.take()
         {
-            for field in &undeclared.fields {
-                let param_type = field
-                    .r#type
-                    .clone()
-                    .map(Type::from_proto)
-                    .unwrap_or_default();
-                undeclared_parameters.insert(field.name.clone(), param_type);
+            for field in undeclared.fields {
+                let param_type = field.r#type.map(Type::from_proto).unwrap_or_default();
+                undeclared_parameters.insert(field.name, param_type);
             }
         }
 
@@ -134,6 +130,15 @@ mod tests {
                     },
                 ],
             }),
+            undeclared_parameters: Some(spanner_v1::StructType {
+                fields: vec![spanner_v1::struct_type::Field {
+                    name: "p1".to_string(),
+                    r#type: Some(spanner_v1::Type {
+                        code: spanner_v1::TypeCode::Bool.into(),
+                        ..Default::default()
+                    }),
+                }],
+            }),
             ..Default::default()
         };
 
@@ -151,6 +156,14 @@ mod tests {
         assert_eq!(
             metadata.column_types()[1].code(),
             crate::types::TypeCode::Int64
+        );
+        assert_eq!(metadata.undeclared_parameters().len(), 1);
+        assert_eq!(
+            metadata
+                .undeclared_parameters()
+                .get("p1")
+                .map(|parameter_type| parameter_type.code()),
+            Some(crate::types::TypeCode::Bool)
         );
     }
 }

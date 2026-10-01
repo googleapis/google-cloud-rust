@@ -215,14 +215,9 @@ impl ToValue for wkt::Timestamp {
 impl From<wkt::Timestamp> for Value {
     fn from(timestamp: wkt::Timestamp) -> Self {
         let nanos = timestamp.seconds() as i128 * 1_000_000_000 + timestamp.nanos() as i128;
-        if let Ok(date_time) = OffsetDateTime::from_unix_timestamp_nanos(nanos) {
-            return format_timestamp(date_time);
-        }
-        Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::StringValue(String::from(
-                timestamp,
-            ))),
-        })
+        let date_time = OffsetDateTime::from_unix_timestamp_nanos(nanos)
+            .expect("wkt::Timestamp range 0001-01-01..=9999-12-31 is guaranteed within OffsetDateTime range");
+        format_timestamp(date_time)
     }
 }
 
@@ -645,6 +640,16 @@ mod tests {
         let value = timestamp.to_value();
         assert_eq!(value.kind(), Kind::String);
         assert_eq!(value.as_string(), "2023-10-27T10:00:00.000000000Z");
+
+        let min_timestamp = wkt::Timestamp::clamp(wkt::Timestamp::MIN_SECONDS, 0);
+        let value = min_timestamp.to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_string(), "0001-01-01T00:00:00.000000000Z");
+
+        let max_timestamp = wkt::Timestamp::clamp(wkt::Timestamp::MAX_SECONDS, 999_999_999);
+        let value = max_timestamp.to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_string(), "9999-12-31T23:59:59.999999999Z");
     }
 
     #[test]
