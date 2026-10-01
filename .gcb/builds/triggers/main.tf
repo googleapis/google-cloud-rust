@@ -40,6 +40,8 @@ locals {
     "--cfg google_cloud_unstable_grpc_server_streaming",
     "--cfg google_cloud_unstable_tracing",
     "--cfg google_cloud_unstable_grpc_rust",
+    "--cfg google_cloud_unstable_bigquery_arrow",
+    "--cfg google_cloud_unstable_bigquery_storage_read",
   ])
 
   tokio_unstable_flags = "--cfg tokio_unstable"
