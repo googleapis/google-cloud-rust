@@ -24,16 +24,32 @@
 
 use google_cloud_spanner::statement::Statement;
 use google_cloud_spanner::types;
+use google_cloud_spanner::value::{Date, Timestamp};
+#[cfg(feature = "unstable-time")]
+use time::OffsetDateTime;
 
 #[test]
 fn external_uses_typed_param_constructors() {
-    let stmt = Statement::builder("SELECT @ts, @s, @n")
-        .add_typed_param("ts", time::OffsetDateTime::now_utc(), types::timestamp())
+    let statement = Statement::builder("SELECT @ts, @s, @n, @d")
+        .add_typed_param("ts", Timestamp::clamp(1_700_000_000, 0), types::timestamp())
         .add_typed_param("s", "hello".to_string(), types::string())
         .add_typed_param("n", 42i64, types::int64())
+        .add_typed_param(
+            "d",
+            Date::new().set_year(2025).set_month(1).set_day(1),
+            types::date(),
+        )
         .build();
 
-    assert!(stmt.sql().contains("SELECT @ts, @s, @n"));
+    assert!(statement.sql().contains("SELECT @ts, @s, @n, @d"));
+
+    #[cfg(feature = "unstable-time")]
+    {
+        let statement = Statement::builder("SELECT @ts")
+            .add_typed_param("ts", OffsetDateTime::now_utc(), types::timestamp())
+            .build();
+        assert!(statement.sql().contains("SELECT @ts"));
+    }
 }
 
 #[test]

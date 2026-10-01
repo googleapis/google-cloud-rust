@@ -23,9 +23,9 @@ use wkt::Timestamp;
 /// ```
 /// # use google_cloud_spanner::client::Spanner;
 /// # use google_cloud_spanner::transaction::TimestampBound;
-/// # async fn test_doc() -> Result<(), google_cloud_spanner::Error> {
-/// let client = Spanner::builder().build().await.unwrap();
-/// let db = client.database_client("projects/p/instances/i/databases/d").build().await.unwrap();
+/// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+/// let client = Spanner::builder().build().await?;
+/// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
 ///
 /// let tx = db.single_use().set_timestamp_bound(TimestampBound::strong()).build();
 /// # Ok(())
@@ -178,7 +178,9 @@ mod tests {
     use super::*;
     use std::fmt::Debug;
     use std::time::Duration as StdDuration;
+    use std::time::SystemTime;
     use time::macros::datetime;
+    use wkt::Timestamp;
 
     #[test]
     fn test_auto_traits() {
@@ -197,28 +199,31 @@ mod tests {
         let ts = datetime!(2026-03-09 18:00:00 UTC);
 
         // 1. OffsetDateTime
-        let try_read = TimestampBound::try_read_timestamp(ts).expect("valid OffsetDateTime");
-        assert!(matches!(
-            try_read.0,
-            ReadOnlyTimestampBound::ReadTimestamp(ref t) if t.seconds() == ts.unix_timestamp() && t.nanos() == ts.nanosecond() as i32
-        ));
+        #[cfg(feature = "unstable-time")]
+        {
+            let try_read = TimestampBound::try_read_timestamp(ts).expect("valid OffsetDateTime");
+            assert!(matches!(
+                try_read.0,
+                ReadOnlyTimestampBound::ReadTimestamp(ref t) if t.seconds() == ts.unix_timestamp() && t.nanos() == ts.nanosecond() as i32
+            ));
+        }
 
         // 2. wkt::Timestamp
-        let wkt_ts = Timestamp::try_from(ts).expect("valid wkt timestamp");
-        let read = TimestampBound::read_timestamp(wkt_ts);
+        let timestamp = Timestamp::clamp(ts.unix_timestamp(), ts.nanosecond() as i32);
+        let read = TimestampBound::read_timestamp(timestamp);
         assert!(matches!(
             read.0,
             ReadOnlyTimestampBound::ReadTimestamp(ref t) if t.seconds() == ts.unix_timestamp() && t.nanos() == ts.nanosecond() as i32
         ));
 
-        let try_read = TimestampBound::try_read_timestamp(wkt_ts).expect("valid wkt timestamp");
+        let try_read = TimestampBound::try_read_timestamp(timestamp).expect("valid wkt timestamp");
         assert!(matches!(
             try_read.0,
             ReadOnlyTimestampBound::ReadTimestamp(ref t) if t.seconds() == ts.unix_timestamp() && t.nanos() == ts.nanosecond() as i32
         ));
 
         // 3. SystemTime
-        let system_time = std::time::SystemTime::from(ts);
+        let system_time = SystemTime::from(ts);
         let try_read = TimestampBound::try_read_timestamp(system_time).expect("valid SystemTime");
         assert!(matches!(
             try_read.0,
@@ -231,30 +236,33 @@ mod tests {
         let ts = datetime!(2026-03-09 18:00:00 UTC);
 
         // 1. OffsetDateTime
-        let try_min_read =
-            TimestampBound::try_min_read_timestamp(ts).expect("valid OffsetDateTime");
-        assert!(matches!(
-            try_min_read.0,
-            ReadOnlyTimestampBound::MinReadTimestamp(ref t) if t.seconds() == ts.unix_timestamp() && t.nanos() == ts.nanosecond() as i32
-        ));
+        #[cfg(feature = "unstable-time")]
+        {
+            let try_min_read =
+                TimestampBound::try_min_read_timestamp(ts).expect("valid OffsetDateTime");
+            assert!(matches!(
+                try_min_read.0,
+                ReadOnlyTimestampBound::MinReadTimestamp(ref t) if t.seconds() == ts.unix_timestamp() && t.nanos() == ts.nanosecond() as i32
+            ));
+        }
 
         // 2. wkt::Timestamp
-        let wkt_ts = Timestamp::try_from(ts).expect("valid wkt timestamp");
-        let min_read = TimestampBound::min_read_timestamp(wkt_ts);
+        let timestamp = Timestamp::clamp(ts.unix_timestamp(), ts.nanosecond() as i32);
+        let min_read = TimestampBound::min_read_timestamp(timestamp);
         assert!(matches!(
             min_read.0,
             ReadOnlyTimestampBound::MinReadTimestamp(ref t) if t.seconds() == ts.unix_timestamp() && t.nanos() == ts.nanosecond() as i32
         ));
 
         let try_min_read =
-            TimestampBound::try_min_read_timestamp(wkt_ts).expect("valid wkt timestamp");
+            TimestampBound::try_min_read_timestamp(timestamp).expect("valid wkt timestamp");
         assert!(matches!(
             try_min_read.0,
             ReadOnlyTimestampBound::MinReadTimestamp(ref t) if t.seconds() == ts.unix_timestamp() && t.nanos() == ts.nanosecond() as i32
         ));
 
         // 3. SystemTime
-        let system_time = std::time::SystemTime::from(ts);
+        let system_time = SystemTime::from(ts);
         let try_min_read =
             TimestampBound::try_min_read_timestamp(system_time).expect("valid SystemTime");
         assert!(matches!(
@@ -317,7 +325,7 @@ mod tests {
 
     #[test]
     fn test_out_of_range() {
-        let out_of_range_time = std::time::SystemTime::UNIX_EPOCH
+        let out_of_range_time = SystemTime::UNIX_EPOCH
             .checked_sub(StdDuration::from_secs(100_000_000_000))
             .expect("valid SystemTime");
         assert!(
