@@ -46,6 +46,7 @@ use std::time::{Duration, Instant};
 /// # Ok(())
 /// # }
 /// ```
+#[derive(Debug)]
 pub struct BatchReadOnlyTransactionBuilder {
     inner: MultiUseReadOnlyTransactionBuilder,
 }
@@ -500,9 +501,9 @@ pub(crate) mod tests {
 
     #[test]
     fn auto_traits() {
-        assert_impl_all!(BatchReadOnlyTransactionBuilder: Send, Sync);
-        assert_impl_all!(BatchReadOnlyTransaction: Send, Sync, Debug);
-        assert_impl_all!(Partition: Send, Sync, Debug);
+        assert_impl_all!(BatchReadOnlyTransactionBuilder: Debug, Send, Sync);
+        assert_impl_all!(BatchReadOnlyTransaction: Debug, Send, Sync);
+        assert_impl_all!(Partition: Debug, Send, Sync);
     }
 
     #[test]

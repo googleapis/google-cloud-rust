@@ -32,6 +32,7 @@ use std::sync::{Arc, Mutex};
 use wkt::Duration;
 
 /// A builder for [WriteOnlyTransaction].
+#[derive(Debug)]
 pub struct WriteOnlyTransactionBuilder {
     client: DatabaseClient,
     transaction_tag: Option<String>,
@@ -355,6 +356,7 @@ impl WriteOnlyTransactionBuilder {
 /// A write-only transaction.
 ///
 /// A write-only transaction can be used to execute blind writes.
+#[derive(Debug)]
 pub struct WriteOnlyTransaction {
     pub(crate) session_name: String,
     client: DatabaseClient,
@@ -618,8 +620,14 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::Transaction;
     use spanner_grpc_mock::google::spanner::v1::commit_response::CommitStats;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
+    use std::fmt::Debug;
     use std::time::Duration as StdDuration;
-    use wkt::Duration;
+
+    #[test]
+    fn auto_traits() {
+        static_assertions::assert_impl_all!(WriteOnlyTransactionBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(WriteOnlyTransaction: Debug, Send, Sync);
+    }
 
     pub(crate) async fn setup_db_client(
         mock: spanner_grpc_mock::MockSpanner,
