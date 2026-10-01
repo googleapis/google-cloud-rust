@@ -1180,6 +1180,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
             __sustainability_incentives,
             __video_links,
             __minimum_order_values,
+            __warranty,
             __vin,
             __model,
             __trim,
@@ -1200,7 +1201,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
             __vehicle_price_type,
             __vehicle_mandatory_inspection_included,
             __vehicle_expenses,
-            __warranty,
+            __returns,
             __display_address,
             __latitude,
             __longitude,
@@ -1217,6 +1218,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
             __specialty_housing_type,
             __product_fee,
             __short_title,
+            __lease_term,
             __questions_and_answers,
             __popularity_rank,
             __item_group_title,
@@ -1455,6 +1457,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
                             "video_links" => Ok(__FieldTag::__video_links),
                             "minimumOrderValues" => Ok(__FieldTag::__minimum_order_values),
                             "minimum_order_values" => Ok(__FieldTag::__minimum_order_values),
+                            "warranty" => Ok(__FieldTag::__warranty),
                             "vin" => Ok(__FieldTag::__vin),
                             "model" => Ok(__FieldTag::__model),
                             "trim" => Ok(__FieldTag::__trim),
@@ -1497,7 +1500,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
                             }
                             "vehicleExpenses" => Ok(__FieldTag::__vehicle_expenses),
                             "vehicle_expenses" => Ok(__FieldTag::__vehicle_expenses),
-                            "warranty" => Ok(__FieldTag::__warranty),
+                            "returns" => Ok(__FieldTag::__returns),
                             "displayAddress" => Ok(__FieldTag::__display_address),
                             "display_address" => Ok(__FieldTag::__display_address),
                             "latitude" => Ok(__FieldTag::__latitude),
@@ -1527,6 +1530,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
                             "product_fee" => Ok(__FieldTag::__product_fee),
                             "shortTitle" => Ok(__FieldTag::__short_title),
                             "short_title" => Ok(__FieldTag::__short_title),
+                            "leaseTerm" => Ok(__FieldTag::__lease_term),
+                            "lease_term" => Ok(__FieldTag::__lease_term),
                             "questionsAndAnswers" => Ok(__FieldTag::__questions_and_answers),
                             "questions_and_answers" => Ok(__FieldTag::__questions_and_answers),
                             "popularityRank" => Ok(__FieldTag::__popularity_rank),
@@ -2542,6 +2547,15 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__warranty => {
+                            if !fields.insert(__FieldTag::__warranty) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for warranty",
+                                ));
+                            }
+                            result.warranty = map.next_value::<std::option::Option<crate::model::product_attributes::Warranty>>()?
+                                ;
+                        }
                         __FieldTag::__vin => {
                             if !fields.insert(__FieldTag::__vin) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -2755,14 +2769,17 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
                             result.vehicle_expenses = map.next_value::<std::option::Option<google_shopping_type::model::Price>>()?
                                 ;
                         }
-                        __FieldTag::__warranty => {
-                            if !fields.insert(__FieldTag::__warranty) {
+                        __FieldTag::__returns => {
+                            if !fields.insert(__FieldTag::__returns) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for warranty",
+                                    "multiple values for returns",
                                 ));
                             }
-                            result.warranty = map.next_value::<std::option::Option<crate::model::product_attributes::Warranty>>()?
-                                ;
+                            result.returns = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::product_attributes::Returns>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__display_address => {
                             if !fields.insert(__FieldTag::__display_address) {
@@ -2979,6 +2996,17 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductAttributes {
                             }
                             result.short_title =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__lease_term => {
+                            if !fields.insert(__FieldTag::__lease_term) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lease_term",
+                                ));
+                            }
+                            result.lease_term =
+                                map.next_value::<std::option::Option<
+                                    crate::model::product_attributes::LeaseTerm,
+                                >>()?;
                         }
                         __FieldTag::__questions_and_answers => {
                             if !fields.insert(__FieldTag::__questions_and_answers) {
@@ -3866,6 +3894,7 @@ impl<'de> serde::de::Deserialize<'de> for super::product_attributes::Warranty {
         enum __FieldTag {
             __duration,
             __mileage,
+            __duration_unit,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3888,6 +3917,8 @@ impl<'de> serde::de::Deserialize<'de> for super::product_attributes::Warranty {
                         match value {
                             "duration" => Ok(__FieldTag::__duration),
                             "mileage" => Ok(__FieldTag::__mileage),
+                            "durationUnit" => Ok(__FieldTag::__duration_unit),
+                            "duration_unit" => Ok(__FieldTag::__duration_unit),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3940,6 +3971,14 @@ impl<'de> serde::de::Deserialize<'de> for super::product_attributes::Warranty {
                             }
                             result.mileage = map.next_value::<std::option::Option<crate::model::product_attributes::Mileage>>()?
                                 ;
+                        }
+                        __FieldTag::__duration_unit => {
+                            if !fields.insert(__FieldTag::__duration_unit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration_unit",
+                                ));
+                            }
+                            result.duration_unit = map.next_value::<std::option::Option<crate::model::product_attributes::warranty::WarrantyDurationUnit>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4365,6 +4404,379 @@ impl<'de> serde::de::Deserialize<'de> for super::product_attributes::PetPolicy {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::product_attributes::LeaseTerm {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __type,
+            __duration_value,
+            __duration_unit,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LeaseTerm")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "type" => Ok(__FieldTag::__type),
+                            "durationValue" => Ok(__FieldTag::__duration_value),
+                            "duration_value" => Ok(__FieldTag::__duration_value),
+                            "durationUnit" => Ok(__FieldTag::__duration_unit),
+                            "duration_unit" => Ok(__FieldTag::__duration_unit),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::product_attributes::LeaseTerm;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LeaseTerm")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::product_attributes::lease_term::LeaseTermType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__duration_value => {
+                            if !fields.insert(__FieldTag::__duration_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.duration_value = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__duration_unit => {
+                            if !fields.insert(__FieldTag::__duration_unit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration_unit",
+                                ));
+                            }
+                            result.duration_unit = map
+                                .next_value::<std::option::Option<
+                                    crate::model::product_attributes::lease_term::DurationUnit,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::product_attributes::Returns {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __restocking_fee,
+            __restocking_percentage_fee,
+            __countries,
+            __window_days,
+            __window_type,
+            __item_conditions,
+            __methods,
+            __outcomes,
+            __shipping_fee,
+            __shipping_fee_type,
+            __policy_url,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Returns")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "restockingFee" => Ok(__FieldTag::__restocking_fee),
+                            "restocking_fee" => Ok(__FieldTag::__restocking_fee),
+                            "restockingPercentageFee" => {
+                                Ok(__FieldTag::__restocking_percentage_fee)
+                            }
+                            "restocking_percentage_fee" => {
+                                Ok(__FieldTag::__restocking_percentage_fee)
+                            }
+                            "countries" => Ok(__FieldTag::__countries),
+                            "windowDays" => Ok(__FieldTag::__window_days),
+                            "window_days" => Ok(__FieldTag::__window_days),
+                            "windowType" => Ok(__FieldTag::__window_type),
+                            "window_type" => Ok(__FieldTag::__window_type),
+                            "itemConditions" => Ok(__FieldTag::__item_conditions),
+                            "item_conditions" => Ok(__FieldTag::__item_conditions),
+                            "methods" => Ok(__FieldTag::__methods),
+                            "outcomes" => Ok(__FieldTag::__outcomes),
+                            "shippingFee" => Ok(__FieldTag::__shipping_fee),
+                            "shipping_fee" => Ok(__FieldTag::__shipping_fee),
+                            "shippingFeeType" => Ok(__FieldTag::__shipping_fee_type),
+                            "shipping_fee_type" => Ok(__FieldTag::__shipping_fee_type),
+                            "policyUrl" => Ok(__FieldTag::__policy_url),
+                            "policy_url" => Ok(__FieldTag::__policy_url),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::product_attributes::Returns;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Returns")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__restocking_fee => {
+                            if !fields.insert(__FieldTag::__restocking_fee) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for restocking_fee",
+                                ));
+                            }
+                            if result.restocking_fee_oneof.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `restocking_fee_oneof`, a oneof with full ID .google.shopping.merchant.products.v1.ProductAttributes.Returns.restocking_fee, latest field was restockingFee",
+                                ));
+                            }
+                            result.restocking_fee_oneof = std::option::Option::Some(
+                                crate::model::product_attributes::returns::RestockingFeeOneof::RestockingFee(
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_shopping_type::model::Price>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__restocking_percentage_fee => {
+                            if !fields.insert(__FieldTag::__restocking_percentage_fee) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for restocking_percentage_fee",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.restocking_fee_oneof.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `restocking_fee_oneof`, a oneof with full ID .google.shopping.merchant.products.v1.ProductAttributes.Returns.restocking_percentage_fee, latest field was restockingPercentageFee",
+                                ));
+                            }
+                            result.restocking_fee_oneof = std::option::Option::Some(
+                                crate::model::product_attributes::returns::RestockingFeeOneof::RestockingPercentageFee(
+                                    map.next_value::<__With>()?.0.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__countries => {
+                            if !fields.insert(__FieldTag::__countries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for countries",
+                                ));
+                            }
+                            result.countries = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__window_days => {
+                            if !fields.insert(__FieldTag::__window_days) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for window_days",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.window_days = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__window_type => {
+                            if !fields.insert(__FieldTag::__window_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for window_type",
+                                ));
+                            }
+                            result.window_type = map.next_value::<std::option::Option<
+                                crate::model::product_attributes::returns::ReturnWindowType,
+                            >>()?;
+                        }
+                        __FieldTag::__item_conditions => {
+                            if !fields.insert(__FieldTag::__item_conditions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for item_conditions",
+                                ));
+                            }
+                            result.item_conditions = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::product_attributes::returns::ItemCondition,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__methods => {
+                            if !fields.insert(__FieldTag::__methods) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for methods",
+                                ));
+                            }
+                            result.methods = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::product_attributes::returns::ReturnMethod,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__outcomes => {
+                            if !fields.insert(__FieldTag::__outcomes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for outcomes",
+                                ));
+                            }
+                            result.outcomes = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::product_attributes::returns::ReturnOutcome,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shipping_fee => {
+                            if !fields.insert(__FieldTag::__shipping_fee) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shipping_fee",
+                                ));
+                            }
+                            result.shipping_fee = map.next_value::<std::option::Option<google_shopping_type::model::Price>>()?
+                                ;
+                        }
+                        __FieldTag::__shipping_fee_type => {
+                            if !fields.insert(__FieldTag::__shipping_fee_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shipping_fee_type",
+                                ));
+                            }
+                            result.shipping_fee_type = map.next_value::<std::option::Option<
+                                crate::model::product_attributes::returns::ReturnShippingFeeType,
+                            >>()?;
+                        }
+                        __FieldTag::__policy_url => {
+                            if !fields.insert(__FieldTag::__policy_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for policy_url",
+                                ));
+                            }
+                            result.policy_url =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5201,6 +5613,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductInstallment {
             __credit_type,
             __annual_percentage_rate,
             __total_amount,
+            __mileage_allowance,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5230,6 +5643,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductInstallment {
                             "annual_percentage_rate" => Ok(__FieldTag::__annual_percentage_rate),
                             "totalAmount" => Ok(__FieldTag::__total_amount),
                             "total_amount" => Ok(__FieldTag::__total_amount),
+                            "mileageAllowance" => Ok(__FieldTag::__mileage_allowance),
+                            "mileage_allowance" => Ok(__FieldTag::__mileage_allowance),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5327,6 +5742,15 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductInstallment {
                                 ));
                             }
                             result.total_amount = map.next_value::<std::option::Option<google_shopping_type::model::Price>>()?
+                                ;
+                        }
+                        __FieldTag::__mileage_allowance => {
+                            if !fields.insert(__FieldTag::__mileage_allowance) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mileage_allowance",
+                                ));
+                            }
+                            result.mileage_allowance = map.next_value::<std::option::Option<crate::model::product_attributes::Mileage>>()?
                                 ;
                         }
                         __FieldTag::Unknown(key) => {
@@ -6145,6 +6569,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductCertification {
             __certification_name,
             __certification_code,
             __certification_value,
+            __certification_document_link,
+            __certification_label_link,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6173,6 +6599,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductCertification {
                             "certification_code" => Ok(__FieldTag::__certification_code),
                             "certificationValue" => Ok(__FieldTag::__certification_value),
                             "certification_value" => Ok(__FieldTag::__certification_value),
+                            "certificationDocumentLink" => {
+                                Ok(__FieldTag::__certification_document_link)
+                            }
+                            "certification_document_link" => {
+                                Ok(__FieldTag::__certification_document_link)
+                            }
+                            "certificationLabelLink" => Ok(__FieldTag::__certification_label_link),
+                            "certification_label_link" => {
+                                Ok(__FieldTag::__certification_label_link)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6233,6 +6669,24 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductCertification {
                                 ));
                             }
                             result.certification_value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__certification_document_link => {
+                            if !fields.insert(__FieldTag::__certification_document_link) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for certification_document_link",
+                                ));
+                            }
+                            result.certification_document_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__certification_label_link => {
+                            if !fields.insert(__FieldTag::__certification_label_link) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for certification_label_link",
+                                ));
+                            }
+                            result.certification_label_link =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
