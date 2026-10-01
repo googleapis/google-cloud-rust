@@ -123,6 +123,631 @@ impl ::prost::Name for AgentCoachingInstruction {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Tool {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub tool_key: ::prost::alloc::string::String,
+    #[prost(string, tag = "19")]
+    pub display_name: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, enumeration(tool::ConfirmationRequirement)", tag = "17")]
+    pub action_confirmation_requirement: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        i32,
+    >,
+    #[prost(message, optional, tag = "5")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "6")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(bool, optional, tag = "14")]
+    pub satisfies_pzs: ::core::option::Option<bool>,
+    #[prost(bool, optional, tag = "15")]
+    pub satisfies_pzi: ::core::option::Option<bool>,
+    #[prost(oneof = "tool::Specification", tags = "4, 13, 18, 20")]
+    pub specification: ::core::option::Option<tool::Specification>,
+}
+/// Nested message and enum types in `Tool`.
+pub mod tool {
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct ExtensionTool {
+        #[prost(string, tag = "1")]
+        pub name: ::prost::alloc::string::String,
+    }
+    impl ::prost::Name for ExtensionTool {
+        const NAME: &'static str = "ExtensionTool";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.Tool.ExtensionTool".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ExtensionTool".into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct FunctionTool {
+        #[prost(message, optional, tag = "1")]
+        pub input_schema: ::core::option::Option<::prost_types::Struct>,
+        #[prost(message, optional, tag = "2")]
+        pub output_schema: ::core::option::Option<::prost_types::Struct>,
+        #[prost(enumeration = "MethodType", tag = "4")]
+        pub method_type: i32,
+    }
+    impl ::prost::Name for FunctionTool {
+        const NAME: &'static str = "FunctionTool";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.Tool.FunctionTool".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.FunctionTool".into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct OpenApiTool {
+        #[prost(message, optional, tag = "2")]
+        pub authentication: ::core::option::Option<Authentication>,
+        #[prost(message, optional, tag = "3")]
+        pub tls_config: ::core::option::Option<TlsConfig>,
+        #[prost(message, optional, tag = "4")]
+        pub service_directory_config: ::core::option::Option<ServiceDirectoryConfig>,
+        #[prost(oneof = "open_api_tool::Schema", tags = "1")]
+        pub schema: ::core::option::Option<open_api_tool::Schema>,
+    }
+    /// Nested message and enum types in `OpenApiTool`.
+    pub mod open_api_tool {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+        pub enum Schema {
+            #[prost(string, tag = "1")]
+            TextSchema(::prost::alloc::string::String),
+        }
+    }
+    impl ::prost::Name for OpenApiTool {
+        const NAME: &'static str = "OpenApiTool";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.Tool.OpenApiTool".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.OpenApiTool".into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ConnectorTool {
+        #[prost(string, tag = "1")]
+        pub name: ::prost::alloc::string::String,
+        #[prost(message, repeated, tag = "2")]
+        pub actions: ::prost::alloc::vec::Vec<connector_tool::Action>,
+    }
+    /// Nested message and enum types in `ConnectorTool`.
+    pub mod connector_tool {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct Action {
+            #[prost(string, repeated, tag = "2")]
+            pub input_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+            #[prost(string, repeated, tag = "3")]
+            pub output_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+            #[prost(oneof = "action::ActionSpec", tags = "4, 5")]
+            pub action_spec: ::core::option::Option<action::ActionSpec>,
+        }
+        /// Nested message and enum types in `Action`.
+        pub mod action {
+            #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+            pub struct EntityOperation {
+                #[prost(string, tag = "1")]
+                pub entity_id: ::prost::alloc::string::String,
+                #[prost(enumeration = "entity_operation::OperationType", tag = "2")]
+                pub operation: i32,
+            }
+            /// Nested message and enum types in `EntityOperation`.
+            pub mod entity_operation {
+                #[derive(
+                    Clone,
+                    Copy,
+                    Debug,
+                    PartialEq,
+                    Eq,
+                    Hash,
+                    PartialOrd,
+                    Ord,
+                    ::prost::Enumeration
+                )]
+                #[repr(i32)]
+                pub enum OperationType {
+                    Unspecified = 0,
+                    List = 1,
+                    Get = 2,
+                    Create = 3,
+                    Update = 4,
+                    Delete = 5,
+                }
+                impl OperationType {
+                    /// String value of the enum field names used in the ProtoBuf definition.
+                    ///
+                    /// The values are not transformed in any way and thus are considered stable
+                    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+                    pub fn as_str_name(&self) -> &'static str {
+                        match self {
+                            Self::Unspecified => "OPERATION_TYPE_UNSPECIFIED",
+                            Self::List => "LIST",
+                            Self::Get => "GET",
+                            Self::Create => "CREATE",
+                            Self::Update => "UPDATE",
+                            Self::Delete => "DELETE",
+                        }
+                    }
+                    /// Creates an enum from field names used in the ProtoBuf definition.
+                    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                        match value {
+                            "OPERATION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                            "LIST" => Some(Self::List),
+                            "GET" => Some(Self::Get),
+                            "CREATE" => Some(Self::Create),
+                            "UPDATE" => Some(Self::Update),
+                            "DELETE" => Some(Self::Delete),
+                            _ => None,
+                        }
+                    }
+                }
+            }
+            impl ::prost::Name for EntityOperation {
+                const NAME: &'static str = "EntityOperation";
+                const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+                fn full_name() -> ::prost::alloc::string::String {
+                    "google.cloud.dialogflow.v2.Tool.ConnectorTool.Action.EntityOperation"
+                        .into()
+                }
+                fn type_url() -> ::prost::alloc::string::String {
+                    "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ConnectorTool.Action.EntityOperation"
+                        .into()
+                }
+            }
+            #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+            pub enum ActionSpec {
+                #[prost(string, tag = "4")]
+                ConnectionActionId(::prost::alloc::string::String),
+                #[prost(message, tag = "5")]
+                EntityOperation(EntityOperation),
+            }
+        }
+        impl ::prost::Name for Action {
+            const NAME: &'static str = "Action";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.Tool.ConnectorTool.Action".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ConnectorTool.Action"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for ConnectorTool {
+        const NAME: &'static str = "ConnectorTool";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.Tool.ConnectorTool".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ConnectorTool".into()
+        }
+    }
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct Authentication {
+        #[prost(oneof = "authentication::AuthConfig", tags = "1, 2, 3, 4")]
+        pub auth_config: ::core::option::Option<authentication::AuthConfig>,
+    }
+    /// Nested message and enum types in `Authentication`.
+    pub mod authentication {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct ApiKeyConfig {
+            #[prost(string, tag = "1")]
+            pub key_name: ::prost::alloc::string::String,
+            #[prost(string, tag = "2")]
+            pub api_key: ::prost::alloc::string::String,
+            #[prost(string, tag = "4")]
+            pub secret_version_for_api_key: ::prost::alloc::string::String,
+            #[prost(enumeration = "RequestLocation", tag = "3")]
+            pub request_location: i32,
+        }
+        impl ::prost::Name for ApiKeyConfig {
+            const NAME: &'static str = "ApiKeyConfig";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.Tool.Authentication.ApiKeyConfig".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication.ApiKeyConfig"
+                    .into()
+            }
+        }
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct OAuthConfig {
+            #[prost(enumeration = "o_auth_config::OauthGrantType", tag = "1")]
+            pub oauth_grant_type: i32,
+            #[prost(string, tag = "2")]
+            pub client_id: ::prost::alloc::string::String,
+            #[prost(string, tag = "3")]
+            pub client_secret: ::prost::alloc::string::String,
+            #[prost(string, tag = "6")]
+            pub secret_version_for_client_secret: ::prost::alloc::string::String,
+            #[prost(string, tag = "4")]
+            pub token_endpoint: ::prost::alloc::string::String,
+            #[prost(string, repeated, tag = "5")]
+            pub scopes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+        }
+        /// Nested message and enum types in `OAuthConfig`.
+        pub mod o_auth_config {
+            #[derive(
+                Clone,
+                Copy,
+                Debug,
+                PartialEq,
+                Eq,
+                Hash,
+                PartialOrd,
+                Ord,
+                ::prost::Enumeration
+            )]
+            #[repr(i32)]
+            pub enum OauthGrantType {
+                Unspecified = 0,
+                ClientCredential = 1,
+            }
+            impl OauthGrantType {
+                /// String value of the enum field names used in the ProtoBuf definition.
+                ///
+                /// The values are not transformed in any way and thus are considered stable
+                /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+                pub fn as_str_name(&self) -> &'static str {
+                    match self {
+                        Self::Unspecified => "OAUTH_GRANT_TYPE_UNSPECIFIED",
+                        Self::ClientCredential => "CLIENT_CREDENTIAL",
+                    }
+                }
+                /// Creates an enum from field names used in the ProtoBuf definition.
+                pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                    match value {
+                        "OAUTH_GRANT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                        "CLIENT_CREDENTIAL" => Some(Self::ClientCredential),
+                        _ => None,
+                    }
+                }
+            }
+        }
+        impl ::prost::Name for OAuthConfig {
+            const NAME: &'static str = "OAuthConfig";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.Tool.Authentication.OAuthConfig".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication.OAuthConfig"
+                    .into()
+            }
+        }
+        #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct ServiceAgentAuthConfig {
+            #[prost(
+                enumeration = "service_agent_auth_config::ServiceAgentAuth",
+                tag = "1"
+            )]
+            pub service_agent_auth: i32,
+        }
+        /// Nested message and enum types in `ServiceAgentAuthConfig`.
+        pub mod service_agent_auth_config {
+            #[derive(
+                Clone,
+                Copy,
+                Debug,
+                PartialEq,
+                Eq,
+                Hash,
+                PartialOrd,
+                Ord,
+                ::prost::Enumeration
+            )]
+            #[repr(i32)]
+            pub enum ServiceAgentAuth {
+                Unspecified = 0,
+                IdToken = 1,
+                AccessToken = 2,
+            }
+            impl ServiceAgentAuth {
+                /// String value of the enum field names used in the ProtoBuf definition.
+                ///
+                /// The values are not transformed in any way and thus are considered stable
+                /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+                pub fn as_str_name(&self) -> &'static str {
+                    match self {
+                        Self::Unspecified => "SERVICE_AGENT_AUTH_UNSPECIFIED",
+                        Self::IdToken => "ID_TOKEN",
+                        Self::AccessToken => "ACCESS_TOKEN",
+                    }
+                }
+                /// Creates an enum from field names used in the ProtoBuf definition.
+                pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                    match value {
+                        "SERVICE_AGENT_AUTH_UNSPECIFIED" => Some(Self::Unspecified),
+                        "ID_TOKEN" => Some(Self::IdToken),
+                        "ACCESS_TOKEN" => Some(Self::AccessToken),
+                        _ => None,
+                    }
+                }
+            }
+        }
+        impl ::prost::Name for ServiceAgentAuthConfig {
+            const NAME: &'static str = "ServiceAgentAuthConfig";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.Tool.Authentication.ServiceAgentAuthConfig"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication.ServiceAgentAuthConfig"
+                    .into()
+            }
+        }
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct BearerTokenConfig {
+            #[prost(string, tag = "1")]
+            pub token: ::prost::alloc::string::String,
+            #[prost(string, tag = "2")]
+            pub secret_version_for_token: ::prost::alloc::string::String,
+        }
+        impl ::prost::Name for BearerTokenConfig {
+            const NAME: &'static str = "BearerTokenConfig";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.Tool.Authentication.BearerTokenConfig".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication.BearerTokenConfig"
+                    .into()
+            }
+        }
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum RequestLocation {
+            Unspecified = 0,
+            Header = 1,
+            QueryString = 2,
+        }
+        impl RequestLocation {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "REQUEST_LOCATION_UNSPECIFIED",
+                    Self::Header => "HEADER",
+                    Self::QueryString => "QUERY_STRING",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "REQUEST_LOCATION_UNSPECIFIED" => Some(Self::Unspecified),
+                    "HEADER" => Some(Self::Header),
+                    "QUERY_STRING" => Some(Self::QueryString),
+                    _ => None,
+                }
+            }
+        }
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+        pub enum AuthConfig {
+            #[prost(message, tag = "1")]
+            ApiKeyConfig(ApiKeyConfig),
+            #[prost(message, tag = "2")]
+            OauthConfig(OAuthConfig),
+            #[prost(message, tag = "3")]
+            ServiceAgentAuthConfig(ServiceAgentAuthConfig),
+            #[prost(message, tag = "4")]
+            BearerTokenConfig(BearerTokenConfig),
+        }
+    }
+    impl ::prost::Name for Authentication {
+        const NAME: &'static str = "Authentication";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.Tool.Authentication".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication".into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct TlsConfig {
+        #[prost(message, repeated, tag = "1")]
+        pub ca_certs: ::prost::alloc::vec::Vec<tls_config::CaCert>,
+    }
+    /// Nested message and enum types in `TLSConfig`.
+    pub mod tls_config {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct CaCert {
+            #[prost(string, tag = "1")]
+            pub display_name: ::prost::alloc::string::String,
+            #[prost(bytes = "bytes", tag = "2")]
+            pub cert: ::prost::bytes::Bytes,
+        }
+        impl ::prost::Name for CaCert {
+            const NAME: &'static str = "CACert";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.Tool.TLSConfig.CACert".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.TLSConfig.CACert"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for TlsConfig {
+        const NAME: &'static str = "TLSConfig";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.Tool.TLSConfig".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.TLSConfig".into()
+        }
+    }
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct ServiceDirectoryConfig {
+        #[prost(string, tag = "1")]
+        pub service: ::prost::alloc::string::String,
+    }
+    impl ::prost::Name for ServiceDirectoryConfig {
+        const NAME: &'static str = "ServiceDirectoryConfig";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.Tool.ServiceDirectoryConfig".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ServiceDirectoryConfig"
+                .into()
+        }
+    }
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum ConfirmationRequirement {
+        Unspecified = 0,
+        Required = 1,
+        NotRequired = 2,
+    }
+    impl ConfirmationRequirement {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "CONFIRMATION_REQUIREMENT_UNSPECIFIED",
+                Self::Required => "REQUIRED",
+                Self::NotRequired => "NOT_REQUIRED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CONFIRMATION_REQUIREMENT_UNSPECIFIED" => Some(Self::Unspecified),
+                "REQUIRED" => Some(Self::Required),
+                "NOT_REQUIRED" => Some(Self::NotRequired),
+                _ => None,
+            }
+        }
+    }
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum MethodType {
+        Unspecified = 0,
+        Get = 1,
+        Post = 2,
+        Put = 3,
+        Delete = 4,
+        Patch = 5,
+    }
+    impl MethodType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "METHOD_TYPE_UNSPECIFIED",
+                Self::Get => "GET",
+                Self::Post => "POST",
+                Self::Put => "PUT",
+                Self::Delete => "DELETE",
+                Self::Patch => "PATCH",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "METHOD_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "GET" => Some(Self::Get),
+                "POST" => Some(Self::Post),
+                "PUT" => Some(Self::Put),
+                "DELETE" => Some(Self::Delete),
+                "PATCH" => Some(Self::Patch),
+                _ => None,
+            }
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Specification {
+        #[deprecated]
+        #[prost(message, tag = "4")]
+        ExtensionSpec(ExtensionTool),
+        #[prost(message, tag = "13")]
+        FunctionSpec(FunctionTool),
+        #[prost(message, tag = "18")]
+        ConnectorSpec(ConnectorTool),
+        #[prost(message, tag = "20")]
+        OpenApiSpec(OpenApiTool),
+    }
+}
+impl ::prost::Name for Tool {
+    const NAME: &'static str = "Tool";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.Tool".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.Tool".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct CesToolSpec {
+    #[prost(string, tag = "1")]
+    pub ces_tool: ::prost::alloc::string::String,
+    #[prost(enumeration = "tool::ConfirmationRequirement", tag = "2")]
+    pub confirmation_requirement: i32,
+}
+impl ::prost::Name for CesToolSpec {
+    const NAME: &'static str = "CesToolSpec";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.CesToolSpec".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CesToolSpec".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ToolCall {
     #[prost(string, tag = "9")]
     pub tool_display_name: ::prost::alloc::string::String,
@@ -223,6 +848,8 @@ pub mod tool_call_result {
     pub struct Error {
         #[prost(string, tag = "1")]
         pub message: ::prost::alloc::string::String,
+        #[prost(bool, tag = "2")]
+        pub retryable: bool,
     }
     impl ::prost::Name for Error {
         const NAME: &'static str = "Error";
@@ -263,6 +890,25 @@ impl ::prost::Name for ToolCallResult {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.cloud.dialogflow.v2.ToolCallResult".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ToolsetTool {
+    #[prost(string, tag = "1")]
+    pub toolset: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub operation_id: ::prost::alloc::string::String,
+    #[prost(enumeration = "tool::ConfirmationRequirement", tag = "3")]
+    pub confirmation_requirement: i32,
+}
+impl ::prost::Name for ToolsetTool {
+    const NAME: &'static str = "ToolsetTool";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.ToolsetTool".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ToolsetTool".into()
     }
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
@@ -560,6 +1206,12 @@ pub struct InputAudioConfig {
     pub phrase_sets: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(bool, tag = "26")]
     pub opt_out_conformer_model_migration: bool,
+    #[prost(message, optional, tag = "30")]
+    pub gemini_asr_config: ::core::option::Option<
+        speech_to_text_config::GeminiAsrConfig,
+    >,
+    #[prost(bool, optional, tag = "31")]
+    pub use_gemini_asr: ::core::option::Option<bool>,
 }
 impl ::prost::Name for InputAudioConfig {
     const NAME: &'static str = "InputAudioConfig";
@@ -706,6 +1358,149 @@ impl ::prost::Name for TelephonyDtmfEvents {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.cloud.dialogflow.v2.TelephonyDtmfEvents".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct SpeechToTextConfig {
+    #[prost(enumeration = "SpeechModelVariant", tag = "1")]
+    pub speech_model_variant: i32,
+    #[prost(string, tag = "2")]
+    pub model: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "4")]
+    pub phrase_sets: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(enumeration = "AudioEncoding", tag = "6")]
+    pub audio_encoding: i32,
+    #[prost(int32, tag = "7")]
+    pub sample_rate_hertz: i32,
+    #[prost(string, tag = "8")]
+    pub language_code: ::prost::alloc::string::String,
+    #[prost(bool, tag = "9")]
+    pub enable_word_info: bool,
+    #[prost(bool, tag = "11")]
+    pub use_timeout_based_endpointing: bool,
+    #[prost(message, optional, tag = "15")]
+    pub gemini_asr_config: ::core::option::Option<
+        speech_to_text_config::GeminiAsrConfig,
+    >,
+    #[prost(bool, tag = "16")]
+    pub use_gemini_asr: bool,
+}
+/// Nested message and enum types in `SpeechToTextConfig`.
+pub mod speech_to_text_config {
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct GeminiAsrConfig {
+        #[prost(string, tag = "1")]
+        pub model_id: ::prost::alloc::string::String,
+        #[prost(int32, tag = "2")]
+        pub silence_duration_ms: i32,
+        #[prost(int32, tag = "3")]
+        pub prefix_padding_ms: i32,
+        #[prost(enumeration = "gemini_asr_config::StartSensitivity", tag = "4")]
+        pub start_of_speech_sensitivity: i32,
+        #[prost(enumeration = "gemini_asr_config::EndSensitivity", tag = "5")]
+        pub end_of_speech_sensitivity: i32,
+    }
+    /// Nested message and enum types in `GeminiAsrConfig`.
+    pub mod gemini_asr_config {
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum StartSensitivity {
+            Unspecified = 0,
+            High = 1,
+            Low = 2,
+        }
+        impl StartSensitivity {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "START_SENSITIVITY_UNSPECIFIED",
+                    Self::High => "START_SENSITIVITY_HIGH",
+                    Self::Low => "START_SENSITIVITY_LOW",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "START_SENSITIVITY_UNSPECIFIED" => Some(Self::Unspecified),
+                    "START_SENSITIVITY_HIGH" => Some(Self::High),
+                    "START_SENSITIVITY_LOW" => Some(Self::Low),
+                    _ => None,
+                }
+            }
+        }
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum EndSensitivity {
+            Unspecified = 0,
+            High = 1,
+            Low = 2,
+        }
+        impl EndSensitivity {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "END_SENSITIVITY_UNSPECIFIED",
+                    Self::High => "END_SENSITIVITY_HIGH",
+                    Self::Low => "END_SENSITIVITY_LOW",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "END_SENSITIVITY_UNSPECIFIED" => Some(Self::Unspecified),
+                    "END_SENSITIVITY_HIGH" => Some(Self::High),
+                    "END_SENSITIVITY_LOW" => Some(Self::Low),
+                    _ => None,
+                }
+            }
+        }
+    }
+    impl ::prost::Name for GeminiAsrConfig {
+        const NAME: &'static str = "GeminiAsrConfig";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.SpeechToTextConfig.GeminiAsrConfig".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SpeechToTextConfig.GeminiAsrConfig"
+                .into()
+        }
+    }
+}
+impl ::prost::Name for SpeechToTextConfig {
+    const NAME: &'static str = "SpeechToTextConfig";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.SpeechToTextConfig".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SpeechToTextConfig".into()
     }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -931,6 +1726,381 @@ impl OutputAudioEncoding {
             "OUTPUT_AUDIO_ENCODING_ALAW" => Some(Self::Alaw),
             _ => None,
         }
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GuidanceInstruction {
+    #[prost(string, tag = "1")]
+    pub display_name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub display_details: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub condition: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag = "4")]
+    pub actions: ::prost::alloc::vec::Vec<guidance_instruction::Action>,
+    #[prost(enumeration = "companion_agent::TriggerEvent", tag = "6")]
+    pub trigger_event: i32,
+    #[prost(bool, tag = "7")]
+    pub disable_suggested_reply: bool,
+}
+/// Nested message and enum types in `GuidanceInstruction`.
+pub mod guidance_instruction {
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct Action {
+        #[prost(string, tag = "1")]
+        pub description: ::prost::alloc::string::String,
+    }
+    impl ::prost::Name for Action {
+        const NAME: &'static str = "Action";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.GuidanceInstruction.Action".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GuidanceInstruction.Action"
+                .into()
+        }
+    }
+}
+impl ::prost::Name for GuidanceInstruction {
+    const NAME: &'static str = "GuidanceInstruction";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.GuidanceInstruction".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GuidanceInstruction".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CompanionAgent {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "3")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, repeated, tag = "4")]
+    pub toolset_tools: ::prost::alloc::vec::Vec<ToolsetTool>,
+    #[prost(message, repeated, tag = "5")]
+    pub ces_tool_specs: ::prost::alloc::vec::Vec<CesToolSpec>,
+    #[prost(string, tag = "8")]
+    pub display_name: ::prost::alloc::string::String,
+    #[prost(string, tag = "9")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag = "7")]
+    pub skill_configs: ::prost::alloc::vec::Vec<companion_agent::SkillConfig>,
+}
+/// Nested message and enum types in `CompanionAgent`.
+pub mod companion_agent {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct SkillConfig {
+        #[prost(enumeration = "skill_config::SkillTriggerEvent", tag = "1")]
+        pub skill_triggering_event: i32,
+        #[prost(oneof = "skill_config::Config", tags = "2, 3")]
+        pub config: ::core::option::Option<skill_config::Config>,
+    }
+    /// Nested message and enum types in `SkillConfig`.
+    pub mod skill_config {
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum SkillTriggerEvent {
+            Unspecified = 0,
+            EndOfUtterance = 1,
+            CustomerMessage = 2,
+            AgentMessage = 3,
+        }
+        impl SkillTriggerEvent {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "SKILL_TRIGGER_EVENT_UNSPECIFIED",
+                    Self::EndOfUtterance => "END_OF_UTTERANCE",
+                    Self::CustomerMessage => "CUSTOMER_MESSAGE",
+                    Self::AgentMessage => "AGENT_MESSAGE",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "SKILL_TRIGGER_EVENT_UNSPECIFIED" => Some(Self::Unspecified),
+                    "END_OF_UTTERANCE" => Some(Self::EndOfUtterance),
+                    "CUSTOMER_MESSAGE" => Some(Self::CustomerMessage),
+                    "AGENT_MESSAGE" => Some(Self::AgentMessage),
+                    _ => None,
+                }
+            }
+        }
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum Config {
+            #[prost(message, tag = "2")]
+            GuidanceSkillConfig(super::GuidanceSkillConfig),
+            #[prost(message, tag = "3")]
+            TranslationSkillConfig(super::TranslationSkillConfig),
+        }
+    }
+    impl ::prost::Name for SkillConfig {
+        const NAME: &'static str = "SkillConfig";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.CompanionAgent.SkillConfig".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent.SkillConfig"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct GuidanceSkillConfig {
+        #[prost(message, repeated, tag = "2")]
+        pub guidance_instructions: ::prost::alloc::vec::Vec<super::GuidanceInstruction>,
+        #[prost(string, tag = "3")]
+        pub overarching_guidance: ::prost::alloc::string::String,
+        #[prost(message, optional, tag = "5")]
+        pub knowledge_source: ::core::option::Option<KnowledgeSource>,
+    }
+    impl ::prost::Name for GuidanceSkillConfig {
+        const NAME: &'static str = "GuidanceSkillConfig";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.CompanionAgent.GuidanceSkillConfig".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent.GuidanceSkillConfig"
+                .into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct KnowledgeSource {}
+    impl ::prost::Name for KnowledgeSource {
+        const NAME: &'static str = "KnowledgeSource";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.CompanionAgent.KnowledgeSource".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent.KnowledgeSource"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct TranslationSkillConfig {
+        #[prost(string, tag = "1")]
+        pub agent_language_code: ::prost::alloc::string::String,
+        #[prost(string, tag = "2")]
+        pub customer_language_code: ::prost::alloc::string::String,
+    }
+    impl ::prost::Name for TranslationSkillConfig {
+        const NAME: &'static str = "TranslationSkillConfig";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.CompanionAgent.TranslationSkillConfig".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent.TranslationSkillConfig"
+                .into()
+        }
+    }
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum TriggerEvent {
+        Unspecified = 0,
+        EndOfUtterance = 1,
+        CustomerMessage = 2,
+        AgentMessage = 3,
+    }
+    impl TriggerEvent {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "TRIGGER_EVENT_UNSPECIFIED",
+                Self::EndOfUtterance => "END_OF_UTTERANCE",
+                Self::CustomerMessage => "CUSTOMER_MESSAGE",
+                Self::AgentMessage => "AGENT_MESSAGE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TRIGGER_EVENT_UNSPECIFIED" => Some(Self::Unspecified),
+                "END_OF_UTTERANCE" => Some(Self::EndOfUtterance),
+                "CUSTOMER_MESSAGE" => Some(Self::CustomerMessage),
+                "AGENT_MESSAGE" => Some(Self::AgentMessage),
+                _ => None,
+            }
+        }
+    }
+}
+impl ::prost::Name for CompanionAgent {
+    const NAME: &'static str = "CompanionAgent";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.CompanionAgent".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GroundingMetadata {
+    #[prost(string, repeated, tag = "1")]
+    pub web_search_queries: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "2")]
+    pub search_entry_point: ::core::option::Option<SearchEntryPoint>,
+    #[prost(message, repeated, tag = "3")]
+    pub grounding_chunks: ::prost::alloc::vec::Vec<GroundingChunk>,
+    #[prost(message, repeated, tag = "4")]
+    pub grounding_supports: ::prost::alloc::vec::Vec<GroundingSupport>,
+}
+impl ::prost::Name for GroundingMetadata {
+    const NAME: &'static str = "GroundingMetadata";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.GroundingMetadata".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GroundingMetadata".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct SearchEntryPoint {
+    #[prost(string, tag = "1")]
+    pub rendered_content: ::prost::alloc::string::String,
+}
+impl ::prost::Name for SearchEntryPoint {
+    const NAME: &'static str = "SearchEntryPoint";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.SearchEntryPoint".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SearchEntryPoint".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct GroundingChunk {
+    #[prost(oneof = "grounding_chunk::ChunkType", tags = "1, 2")]
+    pub chunk_type: ::core::option::Option<grounding_chunk::ChunkType>,
+}
+/// Nested message and enum types in `GroundingChunk`.
+pub mod grounding_chunk {
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct Web {
+        #[prost(string, tag = "1")]
+        pub uri: ::prost::alloc::string::String,
+        #[prost(string, tag = "2")]
+        pub title: ::prost::alloc::string::String,
+        #[prost(string, tag = "3")]
+        pub domain: ::prost::alloc::string::String,
+    }
+    impl ::prost::Name for Web {
+        const NAME: &'static str = "Web";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.GroundingChunk.Web".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GroundingChunk.Web".into()
+        }
+    }
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct RetrievedContext {
+        #[prost(string, tag = "1")]
+        pub uri: ::prost::alloc::string::String,
+        #[prost(string, tag = "2")]
+        pub title: ::prost::alloc::string::String,
+        #[prost(string, tag = "3")]
+        pub text: ::prost::alloc::string::String,
+    }
+    impl ::prost::Name for RetrievedContext {
+        const NAME: &'static str = "RetrievedContext";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.GroundingChunk.RetrievedContext".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GroundingChunk.RetrievedContext"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+    pub enum ChunkType {
+        #[prost(message, tag = "1")]
+        Web(Web),
+        #[prost(message, tag = "2")]
+        RetrievedContext(RetrievedContext),
+    }
+}
+impl ::prost::Name for GroundingChunk {
+    const NAME: &'static str = "GroundingChunk";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.GroundingChunk".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GroundingChunk".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Segment {
+    #[prost(int32, tag = "1")]
+    pub start_index: i32,
+    #[prost(int32, tag = "2")]
+    pub end_index: i32,
+    #[prost(string, tag = "3")]
+    pub text: ::prost::alloc::string::String,
+}
+impl ::prost::Name for Segment {
+    const NAME: &'static str = "Segment";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.Segment".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.Segment".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct GroundingSupport {
+    #[prost(message, optional, tag = "1")]
+    pub segment: ::core::option::Option<Segment>,
+    #[prost(int32, repeated, packed = "false", tag = "2")]
+    pub grounding_chunk_indices: ::prost::alloc::vec::Vec<i32>,
+}
+impl ::prost::Name for GroundingSupport {
+    const NAME: &'static str = "GroundingSupport";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.GroundingSupport".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GroundingSupport".into()
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2798,6 +3968,33 @@ impl ::prost::Name for DtmfParameters {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AnalyzeContentResponse {
+    #[prost(string, tag = "1")]
+    pub reply_text: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub reply_audio: ::core::option::Option<OutputAudio>,
+    #[prost(message, optional, tag = "3")]
+    pub automated_agent_reply: ::core::option::Option<AutomatedAgentReply>,
+    #[prost(message, optional, tag = "5")]
+    pub message: ::core::option::Option<Message>,
+    #[prost(message, repeated, tag = "6")]
+    pub human_agent_suggestion_results: ::prost::alloc::vec::Vec<SuggestionResult>,
+    #[prost(message, repeated, tag = "7")]
+    pub end_user_suggestion_results: ::prost::alloc::vec::Vec<SuggestionResult>,
+    #[prost(message, optional, tag = "9")]
+    pub dtmf_parameters: ::core::option::Option<DtmfParameters>,
+}
+impl ::prost::Name for AnalyzeContentResponse {
+    const NAME: &'static str = "AnalyzeContentResponse";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.AnalyzeContentResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.AnalyzeContentResponse".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamingAnalyzeContentRequest {
     #[prost(string, tag = "1")]
     pub participant: ::prost::alloc::string::String,
@@ -2819,7 +4016,7 @@ pub struct StreamingAnalyzeContentRequest {
     pub enable_debugging_info: bool,
     #[prost(oneof = "streaming_analyze_content_request::Config", tags = "2, 3")]
     pub config: ::core::option::Option<streaming_analyze_content_request::Config>,
-    #[prost(oneof = "streaming_analyze_content_request::Input", tags = "5, 6, 9")]
+    #[prost(oneof = "streaming_analyze_content_request::Input", tags = "5, 6, 9, 27")]
     pub input: ::core::option::Option<streaming_analyze_content_request::Input>,
 }
 /// Nested message and enum types in `StreamingAnalyzeContentRequest`.
@@ -2831,7 +4028,7 @@ pub mod streaming_analyze_content_request {
         #[prost(message, tag = "3")]
         TextConfig(super::InputTextConfig),
     }
-    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Input {
         #[prost(bytes, tag = "5")]
         InputAudio(::prost::bytes::Bytes),
@@ -2839,6 +4036,8 @@ pub mod streaming_analyze_content_request {
         InputText(::prost::alloc::string::String),
         #[prost(message, tag = "9")]
         InputDtmf(super::TelephonyDtmfEvents),
+        #[prost(message, tag = "27")]
+        SuggestionInput(super::SuggestionInput),
     }
 }
 impl ::prost::Name for StreamingAnalyzeContentRequest {
@@ -2965,6 +4164,134 @@ impl ::prost::Name for GenerateSuggestionsResponse {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.cloud.dialogflow.v2.GenerateSuggestionsResponse"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ToolCallSuggestion {
+    #[prost(message, optional, tag = "1")]
+    pub tool_call_info: ::core::option::Option<generator_suggestion::ToolCallInfo>,
+    #[prost(string, tag = "2")]
+    pub text_update: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ToolCallSuggestion {
+    const NAME: &'static str = "ToolCallSuggestion";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.ToolCallSuggestion".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ToolCallSuggestion".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ToolCallEvents {
+    #[prost(message, repeated, tag = "1")]
+    pub tool_call_suggestions: ::prost::alloc::vec::Vec<ToolCallSuggestion>,
+}
+impl ::prost::Name for ToolCallEvents {
+    const NAME: &'static str = "ToolCallEvents";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.ToolCallEvents".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ToolCallEvents".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CompanionSuggestion {
+    #[prost(message, repeated, tag = "1")]
+    pub guidances: ::prost::alloc::vec::Vec<companion_suggestion::Guidance>,
+}
+/// Nested message and enum types in `CompanionSuggestion`.
+pub mod companion_suggestion {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Guidance {
+        #[prost(string, tag = "1")]
+        pub suggested_reply: ::prost::alloc::string::String,
+        #[prost(string, tag = "2")]
+        pub suggested_action: ::prost::alloc::string::String,
+        #[prost(message, optional, tag = "3")]
+        pub instruction_source: ::core::option::Option<super::GuidanceInstruction>,
+        #[prost(message, repeated, tag = "4")]
+        pub knowledge_sources: ::prost::alloc::vec::Vec<guidance::KnowledgeSource>,
+        #[prost(string, tag = "12")]
+        pub explanation: ::prost::alloc::string::String,
+        #[prost(message, optional, tag = "6")]
+        pub grounding_metadata: ::core::option::Option<super::GroundingMetadata>,
+        #[prost(message, repeated, tag = "7")]
+        pub tool_calls: ::prost::alloc::vec::Vec<super::ToolCallSuggestion>,
+        #[prost(string, repeated, tag = "11")]
+        pub triggering_tool_call_answer_records: ::prost::alloc::vec::Vec<
+            ::prost::alloc::string::String,
+        >,
+    }
+    /// Nested message and enum types in `Guidance`.
+    pub mod guidance {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct KnowledgeSource {
+            #[prost(string, tag = "1")]
+            pub knowledge_article_url: ::prost::alloc::string::String,
+            #[prost(string, tag = "2")]
+            pub knowledge_article_title: ::prost::alloc::string::String,
+            #[prost(string, tag = "3")]
+            pub knowledge_snippet: ::prost::alloc::string::String,
+        }
+        impl ::prost::Name for KnowledgeSource {
+            const NAME: &'static str = "KnowledgeSource";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.CompanionSuggestion.Guidance.KnowledgeSource"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.CompanionSuggestion.Guidance.KnowledgeSource"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for Guidance {
+        const NAME: &'static str = "Guidance";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.CompanionSuggestion.Guidance".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionSuggestion.Guidance"
+                .into()
+        }
+    }
+}
+impl ::prost::Name for CompanionSuggestion {
+    const NAME: &'static str = "CompanionSuggestion";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.CompanionSuggestion".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CompanionSuggestion".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GenerateCompanionSuggestionsResponse {
+    #[prost(message, optional, tag = "1")]
+    pub companion_suggestion: ::core::option::Option<CompanionSuggestion>,
+    #[prost(string, tag = "2")]
+    pub answer_record: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub latest_message: ::prost::alloc::string::String,
+    #[prost(int32, tag = "4")]
+    pub suggestion_index: i32,
+}
+impl ::prost::Name for GenerateCompanionSuggestionsResponse {
+    const NAME: &'static str = "GenerateCompanionSuggestionsResponse";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.GenerateCompanionSuggestionsResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GenerateCompanionSuggestionsResponse"
             .into()
     }
 }
@@ -3145,7 +4472,10 @@ impl ::prost::Name for SmartReplyAnswer {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestionResult {
-    #[prost(oneof = "suggestion_result::SuggestionResponse", tags = "1, 2, 8, 3, 4, 9")]
+    #[prost(
+        oneof = "suggestion_result::SuggestionResponse",
+        tags = "1, 2, 8, 3, 4, 9, 10"
+    )]
     pub suggestion_response: ::core::option::Option<
         suggestion_result::SuggestionResponse,
     >,
@@ -3166,6 +4496,10 @@ pub mod suggestion_result {
         SuggestSmartRepliesResponse(super::SuggestSmartRepliesResponse),
         #[prost(message, tag = "9")]
         GenerateSuggestionsResponse(super::GenerateSuggestionsResponse),
+        #[prost(message, tag = "10")]
+        GenerateCompanionSuggestionsResponse(
+            super::GenerateCompanionSuggestionsResponse,
+        ),
     }
 }
 impl ::prost::Name for SuggestionResult {
@@ -3227,6 +4561,72 @@ impl ::prost::Name for MessageAnnotation {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.cloud.dialogflow.v2.MessageAnnotation".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SuggestionInput {
+    #[prost(string, tag = "1")]
+    pub answer_record: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "4")]
+    pub parameters: ::core::option::Option<::prost_types::Struct>,
+    #[prost(enumeration = "suggestion_input::Action", tag = "5")]
+    pub action: i32,
+    #[prost(message, optional, tag = "7")]
+    pub send_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Nested message and enum types in `SuggestionInput`.
+pub mod suggestion_input {
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Action {
+        Unspecified = 0,
+        Cancel = 1,
+        Revise = 2,
+        Confirm = 3,
+    }
+    impl Action {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "ACTION_UNSPECIFIED",
+                Self::Cancel => "CANCEL",
+                Self::Revise => "REVISE",
+                Self::Confirm => "CONFIRM",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ACTION_UNSPECIFIED" => Some(Self::Unspecified),
+                "CANCEL" => Some(Self::Cancel),
+                "REVISE" => Some(Self::Revise),
+                "CONFIRM" => Some(Self::Confirm),
+                _ => None,
+            }
+        }
+    }
+}
+impl ::prost::Name for SuggestionInput {
+    const NAME: &'static str = "SuggestionInput";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.SuggestionInput".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SuggestionInput".into()
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -3498,7 +4898,7 @@ pub mod knowledge_assist_debug_info {
                 .into()
         }
     }
-    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct QueryGenerationDebugInfo {
         #[prost(int32, tag = "1")]
         pub prompt_token_count: i32,
@@ -3506,6 +4906,14 @@ pub mod knowledge_assist_debug_info {
         pub candidates_token_count: i32,
         #[prost(int32, tag = "3")]
         pub total_token_count: i32,
+        #[prost(string, tag = "4")]
+        pub thinking_level: ::prost::alloc::string::String,
+        #[prost(int32, tag = "5")]
+        pub thinking_budget_tokens: i32,
+        #[prost(float, tag = "6")]
+        pub similarity_to_last_query: f32,
+        #[prost(float, tag = "7")]
+        pub similarity_to_last_query_threshold: f32,
     }
     impl ::prost::Name for QueryGenerationDebugInfo {
         const NAME: &'static str = "QueryGenerationDebugInfo";
@@ -3861,6 +5269,334 @@ impl ::prost::Name for KnowledgeAssistAnswer {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.cloud.dialogflow.v2.KnowledgeAssistAnswer".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StreamingReactiveCompanionSuggestionsRequest {
+    #[prost(string, tag = "1")]
+    pub participant: ::prost::alloc::string::String,
+    #[prost(
+        oneof = "streaming_reactive_companion_suggestions_request::Input",
+        tags = "2, 3, 5"
+    )]
+    pub input: ::core::option::Option<
+        streaming_reactive_companion_suggestions_request::Input,
+    >,
+}
+/// Nested message and enum types in `StreamingReactiveCompanionSuggestionsRequest`.
+pub mod streaming_reactive_companion_suggestions_request {
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Input {
+        #[prost(string, tag = "2")]
+        TextInput(::prost::alloc::string::String),
+        #[prost(message, tag = "3")]
+        CancelReactiveQuery(super::CancelQuery),
+        #[prost(message, tag = "5")]
+        SuggestionInput(super::SuggestionInput),
+    }
+}
+impl ::prost::Name for StreamingReactiveCompanionSuggestionsRequest {
+    const NAME: &'static str = "StreamingReactiveCompanionSuggestionsRequest";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsRequest"
+            .into()
+    }
+}
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct CancelQuery {}
+impl ::prost::Name for CancelQuery {
+    const NAME: &'static str = "CancelQuery";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.CancelQuery".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CancelQuery".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StreamingReactiveCompanionSuggestionsResponse {
+    #[prost(bool, tag = "4")]
+    pub is_final: bool,
+    #[prost(string, tag = "5")]
+    pub answer_record: ::prost::alloc::string::String,
+    #[prost(string, tag = "8")]
+    pub text_message_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "9")]
+    pub send_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(
+        oneof = "streaming_reactive_companion_suggestions_response::Response",
+        tags = "1, 3, 6, 7"
+    )]
+    pub response: ::core::option::Option<
+        streaming_reactive_companion_suggestions_response::Response,
+    >,
+}
+/// Nested message and enum types in `StreamingReactiveCompanionSuggestionsResponse`.
+pub mod streaming_reactive_companion_suggestions_response {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ReactiveModeResponse {
+        #[prost(string, tag = "1")]
+        pub response: ::prost::alloc::string::String,
+        #[prost(message, optional, tag = "2")]
+        pub grounding_metadata: ::core::option::Option<super::GroundingMetadata>,
+        #[prost(message, repeated, tag = "3")]
+        pub tool_calls: ::prost::alloc::vec::Vec<super::ToolCallSuggestion>,
+    }
+    impl ::prost::Name for ReactiveModeResponse {
+        const NAME: &'static str = "ReactiveModeResponse";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsResponse.ReactiveModeResponse"
+                .into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsResponse.ReactiveModeResponse"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Response {
+        #[prost(string, tag = "1")]
+        ResponseChunk(::prost::alloc::string::String),
+        #[prost(message, tag = "3")]
+        Status(super::super::super::super::rpc::Status),
+        #[prost(message, tag = "6")]
+        ReactiveModeFinalResponse(ReactiveModeResponse),
+        #[prost(message, tag = "7")]
+        IntermediateToolCallEvents(super::ToolCallEvents),
+    }
+}
+impl ::prost::Name for StreamingReactiveCompanionSuggestionsResponse {
+    const NAME: &'static str = "StreamingReactiveCompanionSuggestionsResponse";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsResponse"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BidiStreamingAnalyzeContentRequest {
+    #[prost(oneof = "bidi_streaming_analyze_content_request::Request", tags = "1, 2")]
+    pub request: ::core::option::Option<bidi_streaming_analyze_content_request::Request>,
+}
+/// Nested message and enum types in `BidiStreamingAnalyzeContentRequest`.
+pub mod bidi_streaming_analyze_content_request {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Config {
+        #[prost(string, tag = "1")]
+        pub participant: ::prost::alloc::string::String,
+        #[prost(message, optional, tag = "3")]
+        pub initial_virtual_agent_parameters: ::core::option::Option<
+            ::prost_types::Struct,
+        >,
+        #[prost(message, optional, tag = "4")]
+        pub initial_virtual_agent_query_params: ::core::option::Option<
+            super::QueryParameters,
+        >,
+        #[prost(oneof = "config::Config", tags = "2")]
+        pub config: ::core::option::Option<config::Config>,
+    }
+    /// Nested message and enum types in `Config`.
+    pub mod config {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct VoiceSessionConfig {
+            #[prost(enumeration = "super::super::AudioEncoding", tag = "1")]
+            pub input_audio_encoding: i32,
+            #[prost(int32, tag = "2")]
+            pub input_audio_sample_rate_hertz: i32,
+            #[prost(enumeration = "super::super::OutputAudioEncoding", tag = "3")]
+            pub output_audio_encoding: i32,
+            #[prost(int32, tag = "4")]
+            pub output_audio_sample_rate_hertz: i32,
+            #[prost(bool, tag = "5")]
+            pub enable_cx_proactive_processing: bool,
+            #[prost(bool, tag = "23")]
+            pub enable_streaming_synthesize: bool,
+            #[prost(message, optional, tag = "24")]
+            pub gemini_asr_config: ::core::option::Option<
+                super::super::speech_to_text_config::GeminiAsrConfig,
+            >,
+            #[prost(bool, optional, tag = "25")]
+            pub use_gemini_asr: ::core::option::Option<bool>,
+        }
+        impl ::prost::Name for VoiceSessionConfig {
+            const NAME: &'static str = "VoiceSessionConfig";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Config.VoiceSessionConfig"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Config.VoiceSessionConfig"
+                    .into()
+            }
+        }
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+        pub enum Config {
+            #[prost(message, tag = "2")]
+            VoiceSessionConfig(VoiceSessionConfig),
+        }
+    }
+    impl ::prost::Name for Config {
+        const NAME: &'static str = "Config";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Config".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Config"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct TurnInput {
+        #[prost(message, optional, tag = "4")]
+        pub virtual_agent_parameters: ::core::option::Option<::prost_types::Struct>,
+        #[prost(oneof = "turn_input::MainContent", tags = "1, 2, 3, 6")]
+        pub main_content: ::core::option::Option<turn_input::MainContent>,
+    }
+    /// Nested message and enum types in `TurnInput`.
+    pub mod turn_input {
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum MainContent {
+            #[prost(string, tag = "1")]
+            Text(::prost::alloc::string::String),
+            #[prost(string, tag = "2")]
+            Intent(::prost::alloc::string::String),
+            #[prost(string, tag = "3")]
+            Event(::prost::alloc::string::String),
+            #[prost(message, tag = "6")]
+            SuggestionInput(super::super::SuggestionInput),
+        }
+    }
+    impl ::prost::Name for TurnInput {
+        const NAME: &'static str = "TurnInput";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.TurnInput"
+                .into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.TurnInput"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Input {
+        #[prost(oneof = "input::Input", tags = "1, 2, 3")]
+        pub input: ::core::option::Option<input::Input>,
+    }
+    /// Nested message and enum types in `Input`.
+    pub mod input {
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum Input {
+            #[prost(bytes, tag = "1")]
+            Audio(::prost::bytes::Bytes),
+            #[prost(message, tag = "2")]
+            Dtmf(super::super::TelephonyDtmfEvents),
+            #[prost(message, tag = "3")]
+            Turn(super::TurnInput),
+        }
+    }
+    impl ::prost::Name for Input {
+        const NAME: &'static str = "Input";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Input".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Input"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Request {
+        #[prost(message, tag = "1")]
+        Config(Config),
+        #[prost(message, tag = "2")]
+        Input(Input),
+    }
+}
+impl ::prost::Name for BidiStreamingAnalyzeContentRequest {
+    const NAME: &'static str = "BidiStreamingAnalyzeContentRequest";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BidiStreamingAnalyzeContentResponse {
+    #[prost(
+        oneof = "bidi_streaming_analyze_content_response::Response",
+        tags = "1, 2, 3, 4"
+    )]
+    pub response: ::core::option::Option<
+        bidi_streaming_analyze_content_response::Response,
+    >,
+}
+/// Nested message and enum types in `BidiStreamingAnalyzeContentResponse`.
+pub mod bidi_streaming_analyze_content_response {
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct BargeInSignal {}
+    impl ::prost::Name for BargeInSignal {
+        const NAME: &'static str = "BargeInSignal";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse.BargeInSignal"
+                .into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse.BargeInSignal"
+                .into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct TurnComplete {}
+    impl ::prost::Name for TurnComplete {
+        const NAME: &'static str = "TurnComplete";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse.TurnComplete"
+                .into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse.TurnComplete"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Response {
+        #[prost(message, tag = "1")]
+        RecognitionResult(super::StreamingRecognitionResult),
+        #[prost(message, tag = "2")]
+        BargeInSignal(BargeInSignal),
+        #[prost(message, tag = "3")]
+        AnalyzeContentResponse(super::AnalyzeContentResponse),
+        #[prost(message, tag = "4")]
+        TurnComplete(TurnComplete),
+    }
+}
+impl ::prost::Name for BidiStreamingAnalyzeContentResponse {
+    const NAME: &'static str = "BidiStreamingAnalyzeContentResponse";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse"
+            .into()
     }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

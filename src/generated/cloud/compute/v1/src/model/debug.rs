@@ -2663,6 +2663,7 @@ impl std::fmt::Debug for super::CapacityAdviceRequestInstanceFlexibilityPolicyIn
         debug_struct.field("disks", &self.disks);
         debug_struct.field("guest_accelerators", &self.guest_accelerators);
         debug_struct.field("machine_types", &self.machine_types);
+        debug_struct.field("rank", &self.rank);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2781,8 +2782,23 @@ impl std::fmt::Debug for super::CapacityHistoryRequest {
 impl std::fmt::Debug for super::CapacityHistoryRequestInstanceProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CapacityHistoryRequestInstanceProperties");
+        debug_struct.field("disks", &self.disks);
+        debug_struct.field("guest_accelerators", &self.guest_accelerators);
         debug_struct.field("machine_type", &self.machine_type);
         debug_struct.field("scheduling", &self.scheduling);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityHistoryRequestInstancePropertiesAttachedDisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("CapacityHistoryRequestInstancePropertiesAttachedDisk");
+        debug_struct.field("r#type", &self.r#type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12517,6 +12533,19 @@ impl std::fmt::Debug for super::InterconnectsGetMacsecConfigResponse {
         let mut debug_struct = f.debug_struct("InterconnectsGetMacsecConfigResponse");
         debug_struct.field("etag", &self.etag);
         debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "interconnects")]
+impl std::fmt::Debug for super::InterconnectsSetNameRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InterconnectsSetNameRequest");
+        debug_struct.field("current_name", &self.current_name);
+        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -27665,7 +27694,6 @@ impl std::fmt::Debug for super::accelerator_types::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -27697,7 +27725,6 @@ impl std::fmt::Debug for super::accelerator_types::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -27716,7 +27743,6 @@ impl std::fmt::Debug for super::addresses::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -27779,7 +27805,6 @@ impl std::fmt::Debug for super::addresses::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -27886,7 +27911,6 @@ impl std::fmt::Debug for super::autoscalers::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -27948,7 +27972,6 @@ impl std::fmt::Debug for super::autoscalers::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28029,7 +28052,6 @@ impl std::fmt::Debug for super::backend_buckets::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28120,7 +28142,6 @@ impl std::fmt::Debug for super::backend_buckets::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -28137,7 +28158,6 @@ impl std::fmt::Debug for super::backend_buckets::ListUsableRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -28243,7 +28263,6 @@ impl std::fmt::Debug for super::backend_services::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28361,7 +28380,6 @@ impl std::fmt::Debug for super::backend_services::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -28378,7 +28396,6 @@ impl std::fmt::Debug for super::backend_services::ListUsableRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -28525,7 +28542,6 @@ impl std::fmt::Debug for super::cross_site_networks::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -28560,7 +28576,6 @@ impl std::fmt::Debug for super::disk_types::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28592,7 +28607,6 @@ impl std::fmt::Debug for super::disk_types::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28627,7 +28641,6 @@ impl std::fmt::Debug for super::disks::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28756,7 +28769,6 @@ impl std::fmt::Debug for super::disks::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28973,7 +28985,6 @@ impl std::fmt::Debug for super::external_vpn_gateways::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29145,7 +29156,6 @@ impl std::fmt::Debug for super::firewall_policies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("parent_id", &self.parent_id);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29316,7 +29326,6 @@ impl std::fmt::Debug for super::firewalls::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29378,7 +29387,6 @@ impl std::fmt::Debug for super::forwarding_rules::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -29442,7 +29450,6 @@ impl std::fmt::Debug for super::forwarding_rules::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29508,7 +29515,6 @@ impl std::fmt::Debug for super::future_reservations::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -29585,7 +29591,6 @@ impl std::fmt::Debug for super::future_reservations::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -29661,7 +29666,6 @@ impl std::fmt::Debug for super::global_addresses::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29763,7 +29767,6 @@ impl std::fmt::Debug for super::global_forwarding_rules::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29922,7 +29925,6 @@ impl std::fmt::Debug for super::global_network_endpoint_groups::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29940,7 +29942,6 @@ impl std::fmt::Debug for super::global_network_endpoint_groups::ListNetworkEndpo
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29958,7 +29959,6 @@ impl std::fmt::Debug for super::global_operations::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -30044,7 +30044,6 @@ impl std::fmt::Debug for super::global_operations::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30104,7 +30103,6 @@ impl std::fmt::Debug for super::global_organization_operations::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("parent_id", &self.parent_id);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30162,7 +30160,6 @@ impl std::fmt::Debug for super::global_public_delegated_prefixes::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30195,7 +30192,6 @@ impl std::fmt::Debug for super::global_vm_extension_policies::AggregatedListRequ
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -30261,7 +30257,6 @@ impl std::fmt::Debug for super::global_vm_extension_policies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30297,7 +30292,6 @@ impl std::fmt::Debug for super::health_checks::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -30356,7 +30350,6 @@ impl std::fmt::Debug for super::health_checks::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30450,7 +30443,6 @@ impl std::fmt::Debug for super::hosts::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -30509,7 +30501,6 @@ impl std::fmt::Debug for super::http_health_checks::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30611,7 +30602,6 @@ impl std::fmt::Debug for super::https_health_checks::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30701,7 +30691,6 @@ impl std::fmt::Debug for super::image_views::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30805,7 +30794,6 @@ impl std::fmt::Debug for super::images::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30943,7 +30931,6 @@ impl std::fmt::Debug for super::instance_group_manager_resize_requests::ListRequ
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -30978,7 +30965,6 @@ impl std::fmt::Debug for super::instance_group_managers::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31104,7 +31090,6 @@ impl std::fmt::Debug for super::instance_group_managers::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31123,7 +31108,6 @@ impl std::fmt::Debug for super::instance_group_managers::ListErrorsRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31142,7 +31126,6 @@ impl std::fmt::Debug for super::instance_group_managers::ListManagedInstancesReq
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31161,7 +31144,6 @@ impl std::fmt::Debug for super::instance_group_managers::ListPerInstanceConfigsR
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31374,7 +31356,6 @@ impl std::fmt::Debug for super::instance_groups::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31436,7 +31417,6 @@ impl std::fmt::Debug for super::instance_groups::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31455,7 +31435,6 @@ impl std::fmt::Debug for super::instance_groups::ListInstancesRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
@@ -31551,7 +31530,6 @@ impl std::fmt::Debug for super::instance_templates::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31627,7 +31605,6 @@ impl std::fmt::Debug for super::instance_templates::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -31722,7 +31699,6 @@ impl std::fmt::Debug for super::instances::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31961,7 +31937,6 @@ impl std::fmt::Debug for super::instances::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -31980,7 +31955,6 @@ impl std::fmt::Debug for super::instances::ListReferrersRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -32562,7 +32536,6 @@ impl std::fmt::Debug for super::instant_snapshot_groups::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -32611,7 +32584,6 @@ impl std::fmt::Debug for super::instant_snapshots::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -32691,7 +32663,6 @@ impl std::fmt::Debug for super::instant_snapshots::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -32835,7 +32806,6 @@ impl std::fmt::Debug for super::interconnect_attachment_groups::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -32900,7 +32870,6 @@ impl std::fmt::Debug for super::interconnect_attachments::AggregatedListRequest 
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -32964,7 +32933,6 @@ impl std::fmt::Debug for super::interconnect_attachments::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33098,7 +33066,6 @@ impl std::fmt::Debug for super::interconnect_groups::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33172,7 +33139,6 @@ impl std::fmt::Debug for super::interconnect_locations::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33205,7 +33171,6 @@ impl std::fmt::Debug for super::interconnect_remote_locations::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33289,7 +33254,6 @@ impl std::fmt::Debug for super::interconnects::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33318,6 +33282,21 @@ impl std::fmt::Debug for super::interconnects::SetLabelsRequest {
         let mut debug_struct = f.debug_struct("SetLabelsRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "interconnects")]
+impl std::fmt::Debug for super::interconnects::SetNameRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetNameRequest");
+        debug_struct.field("interconnect", &self.interconnect);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -33451,7 +33430,6 @@ impl std::fmt::Debug for super::licenses::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33571,7 +33549,6 @@ impl std::fmt::Debug for super::machine_images::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33631,7 +33608,6 @@ impl std::fmt::Debug for super::machine_types::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -33663,7 +33639,6 @@ impl std::fmt::Debug for super::machine_types::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -33694,7 +33669,6 @@ impl std::fmt::Debug for super::managed_rulesets::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33712,7 +33686,6 @@ impl std::fmt::Debug for super::network_attachments::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -33793,7 +33766,6 @@ impl std::fmt::Debug for super::network_attachments::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33857,7 +33829,6 @@ impl std::fmt::Debug for super::network_edge_security_services::AggregatedListRe
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -33948,7 +33919,6 @@ impl std::fmt::Debug for super::network_endpoint_groups::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -34042,7 +34012,6 @@ impl std::fmt::Debug for super::network_endpoint_groups::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -34061,7 +34030,6 @@ impl std::fmt::Debug for super::network_endpoint_groups::ListNetworkEndpointsReq
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
@@ -34149,7 +34117,6 @@ impl std::fmt::Debug for super::network_firewall_policies::AggregatedListRequest
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -34282,7 +34249,6 @@ impl std::fmt::Debug for super::network_firewall_policies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -34432,7 +34398,6 @@ impl std::fmt::Debug for super::network_profiles::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -34533,7 +34498,6 @@ impl std::fmt::Debug for super::networks::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -34554,7 +34518,6 @@ impl std::fmt::Debug for super::networks::ListPeeringRoutesRequest {
         debug_struct.field("peering_name", &self.peering_name);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -34662,7 +34625,6 @@ impl std::fmt::Debug for super::node_groups::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -34759,7 +34721,6 @@ impl std::fmt::Debug for super::node_groups::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -34778,7 +34739,6 @@ impl std::fmt::Debug for super::node_groups::ListNodesRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -34891,7 +34851,6 @@ impl std::fmt::Debug for super::node_templates::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -34972,7 +34931,6 @@ impl std::fmt::Debug for super::node_templates::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35020,7 +34978,6 @@ impl std::fmt::Debug for super::node_types::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -35052,7 +35009,6 @@ impl std::fmt::Debug for super::node_types::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -35181,7 +35137,6 @@ impl std::fmt::Debug for super::organization_security_policies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("parent_id", &self.parent_id);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35212,7 +35167,6 @@ impl std::fmt::Debug
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("parent_id", &self.parent_id);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35301,7 +35255,6 @@ impl std::fmt::Debug for super::packet_mirrorings::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -35364,7 +35317,6 @@ impl std::fmt::Debug for super::packet_mirrorings::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35425,7 +35377,6 @@ impl std::fmt::Debug for super::preview_features::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35548,7 +35499,6 @@ impl std::fmt::Debug for super::projects::GetXpnResourcesRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35565,7 +35515,6 @@ impl std::fmt::Debug for super::projects::ListXpnHostsRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -35722,7 +35671,6 @@ impl std::fmt::Debug for super::public_advertised_prefixes::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35769,7 +35717,6 @@ impl std::fmt::Debug for super::public_delegated_prefixes::AggregatedListRequest
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -35847,7 +35794,6 @@ impl std::fmt::Debug for super::public_delegated_prefixes::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35940,7 +35886,6 @@ impl std::fmt::Debug for super::region_autoscalers::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36067,7 +36012,6 @@ impl std::fmt::Debug for super::region_backend_buckets::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36085,7 +36029,6 @@ impl std::fmt::Debug for super::region_backend_buckets::ListUsableRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36226,7 +36169,6 @@ impl std::fmt::Debug for super::region_backend_services::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36244,7 +36186,6 @@ impl std::fmt::Debug for super::region_backend_services::ListUsableRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36340,7 +36281,6 @@ impl std::fmt::Debug for super::region_commitments::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -36388,7 +36328,6 @@ impl std::fmt::Debug for super::region_commitments::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36424,7 +36363,6 @@ impl std::fmt::Debug for super::region_composite_health_checks::AggregatedListRe
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -36501,7 +36439,6 @@ impl std::fmt::Debug for super::region_composite_health_checks::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36564,7 +36501,6 @@ impl std::fmt::Debug for super::region_disk_types::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36692,7 +36628,6 @@ impl std::fmt::Debug for super::region_disks::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36868,7 +36803,6 @@ impl std::fmt::Debug for super::region_health_aggregation_policies::AggregatedLi
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -36931,7 +36865,6 @@ impl std::fmt::Debug for super::region_health_aggregation_policies::ListRequest 
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36980,7 +36913,6 @@ impl std::fmt::Debug for super::region_health_check_services::AggregatedListRequ
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -37043,7 +36975,6 @@ impl std::fmt::Debug for super::region_health_check_services::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37136,7 +37067,6 @@ impl std::fmt::Debug for super::region_health_checks::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37201,7 +37131,6 @@ impl std::fmt::Debug for super::region_health_sources::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -37278,7 +37207,6 @@ impl std::fmt::Debug for super::region_health_sources::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37391,7 +37319,6 @@ impl std::fmt::Debug for super::region_instance_group_manager_resize_requests::L
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37533,7 +37460,6 @@ impl std::fmt::Debug for super::region_instance_group_managers::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37552,7 +37478,6 @@ impl std::fmt::Debug for super::region_instance_group_managers::ListErrorsReques
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37571,7 +37496,6 @@ impl std::fmt::Debug for super::region_instance_group_managers::ListManagedInsta
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37590,7 +37514,6 @@ impl std::fmt::Debug for super::region_instance_group_managers::ListPerInstanceC
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37800,7 +37723,6 @@ impl std::fmt::Debug for super::region_instance_groups::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -37819,7 +37741,6 @@ impl std::fmt::Debug for super::region_instance_groups::ListInstancesRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -37913,7 +37834,6 @@ impl std::fmt::Debug for super::region_instance_templates::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38009,7 +37929,6 @@ impl std::fmt::Debug for super::region_instant_snapshot_groups::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38119,7 +38038,6 @@ impl std::fmt::Debug for super::region_instant_snapshots::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38259,7 +38177,6 @@ impl std::fmt::Debug for super::region_network_endpoint_groups::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38278,7 +38195,6 @@ impl std::fmt::Debug for super::region_network_endpoint_groups::ListNetworkEndpo
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38460,7 +38376,6 @@ impl std::fmt::Debug for super::region_network_firewall_policies::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38589,7 +38504,6 @@ impl std::fmt::Debug for super::region_notification_endpoints::AggregatedListReq
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -38652,7 +38566,6 @@ impl std::fmt::Debug for super::region_notification_endpoints::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38760,7 +38673,6 @@ impl std::fmt::Debug for super::region_operations::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38868,7 +38780,6 @@ impl std::fmt::Debug for super::region_security_policies::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39043,7 +38954,6 @@ impl std::fmt::Debug for super::region_snapshots::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39167,7 +39077,6 @@ impl std::fmt::Debug for super::region_ssl_certificates::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39229,7 +39138,6 @@ impl std::fmt::Debug for super::region_ssl_policies::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39247,7 +39155,6 @@ impl std::fmt::Debug for super::region_ssl_policies::ListAvailableFeaturesReques
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39325,7 +39232,6 @@ impl std::fmt::Debug for super::region_target_http_proxies::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39403,7 +39309,6 @@ impl std::fmt::Debug for super::region_target_https_proxies::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39513,7 +39418,6 @@ impl std::fmt::Debug for super::region_target_tcp_proxies::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39575,7 +39479,6 @@ impl std::fmt::Debug for super::region_url_maps::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39640,7 +39543,6 @@ impl std::fmt::Debug for super::region_zones::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39670,7 +39572,6 @@ impl std::fmt::Debug for super::regions::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39700,7 +39601,6 @@ impl std::fmt::Debug for super::reliability_risks::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -39753,7 +39653,6 @@ impl std::fmt::Debug for super::reservation_blocks::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("reservation", &self.reservation);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -39869,7 +39768,6 @@ impl std::fmt::Debug for super::reservation_slots::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("parent_name", &self.parent_name);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -39957,7 +39855,6 @@ impl std::fmt::Debug for super::reservation_sub_blocks::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("parent_name", &self.parent_name);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40041,7 +39938,6 @@ impl std::fmt::Debug for super::reservations::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40121,7 +40017,6 @@ impl std::fmt::Debug for super::reservations::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40220,7 +40115,6 @@ impl std::fmt::Debug for super::resource_policies::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40301,7 +40195,6 @@ impl std::fmt::Debug for super::resource_policies::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -40406,7 +40299,6 @@ impl std::fmt::Debug for super::rollout_plans::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -40480,7 +40372,6 @@ impl std::fmt::Debug for super::rollouts::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -40528,7 +40419,6 @@ impl std::fmt::Debug for super::routers::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40639,7 +40529,6 @@ impl std::fmt::Debug for super::routers::GetNatMappingInfoRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("router", &self.router);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40702,7 +40591,6 @@ impl std::fmt::Debug for super::routers::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -40724,7 +40612,6 @@ impl std::fmt::Debug for super::routers::ListBgpRoutesRequest {
         debug_struct.field("policy_applied", &self.policy_applied);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("route_type", &self.route_type);
         debug_struct.field("router", &self.router);
         if !self._unknown_fields.is_empty() {
@@ -40744,7 +40631,6 @@ impl std::fmt::Debug for super::routers::ListNamedSetsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("router", &self.router);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40763,7 +40649,6 @@ impl std::fmt::Debug for super::routers::ListRoutePoliciesRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("router", &self.router);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40933,7 +40818,6 @@ impl std::fmt::Debug for super::routes::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -40980,7 +40864,6 @@ impl std::fmt::Debug for super::security_policies::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41054,7 +40937,6 @@ impl std::fmt::Debug for super::security_policies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -41071,7 +40953,6 @@ impl std::fmt::Debug for super::security_policies::ListPreconfiguredExpressionSe
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -41150,7 +41031,6 @@ impl std::fmt::Debug for super::service_attachments::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41232,7 +41112,6 @@ impl std::fmt::Debug for super::service_attachments::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -41380,7 +41259,6 @@ impl std::fmt::Debug for super::snapshots::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -41455,7 +41333,6 @@ impl std::fmt::Debug for super::ssl_certificates::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41514,7 +41391,6 @@ impl std::fmt::Debug for super::ssl_certificates::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -41532,7 +41408,6 @@ impl std::fmt::Debug for super::ssl_policies::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41591,7 +41466,6 @@ impl std::fmt::Debug for super::ssl_policies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -41608,7 +41482,6 @@ impl std::fmt::Debug for super::ssl_policies::ListAvailableFeaturesRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -41641,7 +41514,6 @@ impl std::fmt::Debug for super::storage_pool_types::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41673,7 +41545,6 @@ impl std::fmt::Debug for super::storage_pool_types::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41692,7 +41563,6 @@ impl std::fmt::Debug for super::storage_pools::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41772,7 +41642,6 @@ impl std::fmt::Debug for super::storage_pools::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41790,7 +41659,6 @@ impl std::fmt::Debug for super::storage_pools::ListDisksRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("storage_pool", &self.storage_pool);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
@@ -41857,7 +41725,6 @@ impl std::fmt::Debug for super::subnetworks::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         debug_struct.field("views", &self.views);
         if !self._unknown_fields.is_empty() {
@@ -41956,7 +41823,6 @@ impl std::fmt::Debug for super::subnetworks::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("views", &self.views);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41974,7 +41840,6 @@ impl std::fmt::Debug for super::subnetworks::ListUsableRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project", &self.service_project);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -42096,7 +41961,6 @@ impl std::fmt::Debug for super::target_grpc_proxies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -42129,7 +41993,6 @@ impl std::fmt::Debug for super::target_http_proxies::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -42188,7 +42051,6 @@ impl std::fmt::Debug for super::target_http_proxies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -42236,7 +42098,6 @@ impl std::fmt::Debug for super::target_https_proxies::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -42295,7 +42156,6 @@ impl std::fmt::Debug for super::target_https_proxies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -42403,7 +42263,6 @@ impl std::fmt::Debug for super::target_instances::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -42465,7 +42324,6 @@ impl std::fmt::Debug for super::target_instances::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -42547,7 +42405,6 @@ impl std::fmt::Debug for super::target_pools::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -42625,7 +42482,6 @@ impl std::fmt::Debug for super::target_pools::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -42763,7 +42619,6 @@ impl std::fmt::Debug for super::target_ssl_proxies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -42870,7 +42725,6 @@ impl std::fmt::Debug for super::target_tcp_proxies::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -42929,7 +42783,6 @@ impl std::fmt::Debug for super::target_tcp_proxies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -42991,7 +42844,6 @@ impl std::fmt::Debug for super::target_vpn_gateways::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -43054,7 +42906,6 @@ impl std::fmt::Debug for super::target_vpn_gateways::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -43088,7 +42939,6 @@ impl std::fmt::Debug for super::url_maps::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -43162,7 +43012,6 @@ impl std::fmt::Debug for super::url_maps::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -43238,7 +43087,6 @@ impl std::fmt::Debug for super::vpn_gateways::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -43315,7 +43163,6 @@ impl std::fmt::Debug for super::vpn_gateways::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -43364,7 +43211,6 @@ impl std::fmt::Debug for super::vpn_tunnels::AggregatedListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -43427,7 +43273,6 @@ impl std::fmt::Debug for super::vpn_tunnels::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -43506,7 +43351,6 @@ impl std::fmt::Debug for super::wire_groups::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -43591,7 +43435,6 @@ impl std::fmt::Debug for super::zone_operations::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -43667,7 +43510,6 @@ impl std::fmt::Debug for super::zone_vm_extension_policies::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -43714,7 +43556,6 @@ impl std::fmt::Debug for super::zones::ListRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

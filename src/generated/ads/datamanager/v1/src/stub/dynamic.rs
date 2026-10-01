@@ -41,6 +41,18 @@ pub trait IngestionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::IngestEventsResponse>>;
 
+    async fn ingest_users(
+        &self,
+        req: crate::model::IngestUsersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IngestUsersResponse>>;
+
+    async fn remove_users(
+        &self,
+        req: crate::model::RemoveUsersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveUsersResponse>>;
+
     async fn ingest_ad_events(
         &self,
         req: crate::model::IngestAdEventsRequest,
@@ -91,6 +103,24 @@ impl<T: super::IngestionService> IngestionService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::IngestEventsResponse>> {
         T::ingest_events(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn ingest_users(
+        &self,
+        req: crate::model::IngestUsersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IngestUsersResponse>> {
+        T::ingest_users(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn remove_users(
+        &self,
+        req: crate::model::RemoveUsersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveUsersResponse>> {
+        T::remove_users(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

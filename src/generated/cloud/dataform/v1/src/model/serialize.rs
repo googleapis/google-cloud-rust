@@ -100,6 +100,9 @@ impl serde::ser::Serialize for super::Repository {
         if self.internal_metadata.is_some() {
             state.serialize_entry("internalMetadata", &self.internal_metadata)?;
         }
+        if self.end_user_auth_config.is_some() {
+            state.serialize_entry("endUserAuthConfig", &self.end_user_auth_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -198,6 +201,50 @@ impl serde::ser::Serialize for super::repository::WorkspaceCompilationOverrides 
         }
         if !self.table_prefix.is_empty() {
             state.serialize_entry("tablePrefix", &self.table_prefix)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::repository::EndUserAuthConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.oauth_config.is_some() {
+            state.serialize_entry("oauthConfig", &self.oauth_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::OAuthConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.additional_oauth_scopes.is_empty() {
+            state.serialize_entry("additionalOauthScopes", &self.additional_oauth_scopes)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3478,8 +3525,36 @@ impl serde::ser::Serialize for super::InvocationConfig {
         if !self.service_account.is_empty() {
             state.serialize_entry("serviceAccount", &self.service_account)?;
         }
+        if self.end_user_auth_config.is_some() {
+            state.serialize_entry("endUserAuthConfig", &self.end_user_auth_config)?;
+        }
         if self.query_priority.is_some() {
             state.serialize_entry("queryPriority", &self.query_priority)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::invocation_config::EndUserAuthenticationConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.user_email.is_empty() {
+            state.serialize_entry("userEmail", &self.user_email)?;
+        }
+        if self.oauth_config.is_some() {
+            state.serialize_entry("oauthConfig", &self.oauth_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

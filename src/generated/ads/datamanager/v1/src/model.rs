@@ -6915,6 +6915,357 @@ impl wkt::message::Message for IngestEventsResponse {
     }
 }
 
+/// Request to upload users to the provided destinations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IngestUsersRequest {
+    /// Required. The list of possible ingestion destinations.
+    pub destinations: std::vec::Vec<crate::model::Destination>,
+
+    /// Required. The list of users to ingest.
+    pub users: std::vec::Vec<crate::model::User>,
+
+    /// Optional. Encryption information about encryption keys which are used to
+    /// encrypt the data.
+    pub encryption_info: std::option::Option<crate::model::EncryptionInfo>,
+
+    /// Optional. If `true`, the request is validated but not executed.
+    pub validate_only: bool,
+
+    /// Required. The encoding type of the user identifiers. For encrypted user
+    /// identifiers, this only applies to the outer encoding.
+    pub encoding: crate::model::Encoding,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IngestUsersRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destinations][crate::model::IngestUsersRequest::destinations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestUsersRequest;
+    /// use google_ads_datamanager_v1::model::Destination;
+    /// let x = IngestUsersRequest::new()
+    ///     .set_destinations([
+    ///         Destination::default()/* use setters */,
+    ///         Destination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Destination>,
+    {
+        use std::iter::Iterator;
+        self.destinations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [users][crate::model::IngestUsersRequest::users].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestUsersRequest;
+    /// use google_ads_datamanager_v1::model::User;
+    /// let x = IngestUsersRequest::new()
+    ///     .set_users([
+    ///         User::default()/* use setters */,
+    ///         User::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_users<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::User>,
+    {
+        use std::iter::Iterator;
+        self.users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [encryption_info][crate::model::IngestUsersRequest::encryption_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestUsersRequest;
+    /// use google_ads_datamanager_v1::model::EncryptionInfo;
+    /// let x = IngestUsersRequest::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
+    /// ```
+    pub fn set_encryption_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_info][crate::model::IngestUsersRequest::encryption_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestUsersRequest;
+    /// use google_ads_datamanager_v1::model::EncryptionInfo;
+    /// let x = IngestUsersRequest::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
+    /// let x = IngestUsersRequest::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
+    /// ```
+    pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::IngestUsersRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestUsersRequest;
+    /// let x = IngestUsersRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [encoding][crate::model::IngestUsersRequest::encoding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestUsersRequest;
+    /// use google_ads_datamanager_v1::model::Encoding;
+    /// let x0 = IngestUsersRequest::new().set_encoding(Encoding::Hex);
+    /// let x1 = IngestUsersRequest::new().set_encoding(Encoding::Base64);
+    /// ```
+    pub fn set_encoding<T: std::convert::Into<crate::model::Encoding>>(mut self, v: T) -> Self {
+        self.encoding = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for IngestUsersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.IngestUsersRequest"
+    }
+}
+
+/// Response from the IngestUsersRequest.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IngestUsersResponse {
+    /// The generated request id of the Ingestion Request.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IngestUsersResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [request_id][crate::model::IngestUsersResponse::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestUsersResponse;
+    /// let x = IngestUsersResponse::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for IngestUsersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.IngestUsersResponse"
+    }
+}
+
+/// Request to remove users from the provided destinations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RemoveUsersRequest {
+    /// Required. The list of possible ingestion destinations.
+    pub destinations: std::vec::Vec<crate::model::Destination>,
+
+    /// Required. The individual bits of UserData that act as keys for the users to
+    /// remove.
+    pub user_data: std::vec::Vec<crate::model::UserData>,
+
+    /// Optional. Encryption information about encryption keys which are used to
+    /// encrypt the data.
+    pub encryption_info: std::option::Option<crate::model::EncryptionInfo>,
+
+    /// Optional. If `true`, the request is validated but not executed.
+    pub validate_only: bool,
+
+    /// Required. The encoding type of the user identifiers. For encrypted user
+    /// identifiers, this only applies to the outer encoding.
+    pub encoding: crate::model::Encoding,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RemoveUsersRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destinations][crate::model::RemoveUsersRequest::destinations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveUsersRequest;
+    /// use google_ads_datamanager_v1::model::Destination;
+    /// let x = RemoveUsersRequest::new()
+    ///     .set_destinations([
+    ///         Destination::default()/* use setters */,
+    ///         Destination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Destination>,
+    {
+        use std::iter::Iterator;
+        self.destinations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [user_data][crate::model::RemoveUsersRequest::user_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveUsersRequest;
+    /// use google_ads_datamanager_v1::model::UserData;
+    /// let x = RemoveUsersRequest::new()
+    ///     .set_user_data([
+    ///         UserData::default()/* use setters */,
+    ///         UserData::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_user_data<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UserData>,
+    {
+        use std::iter::Iterator;
+        self.user_data = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [encryption_info][crate::model::RemoveUsersRequest::encryption_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveUsersRequest;
+    /// use google_ads_datamanager_v1::model::EncryptionInfo;
+    /// let x = RemoveUsersRequest::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
+    /// ```
+    pub fn set_encryption_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_info][crate::model::RemoveUsersRequest::encryption_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveUsersRequest;
+    /// use google_ads_datamanager_v1::model::EncryptionInfo;
+    /// let x = RemoveUsersRequest::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
+    /// let x = RemoveUsersRequest::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
+    /// ```
+    pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::RemoveUsersRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveUsersRequest;
+    /// let x = RemoveUsersRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [encoding][crate::model::RemoveUsersRequest::encoding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveUsersRequest;
+    /// use google_ads_datamanager_v1::model::Encoding;
+    /// let x0 = RemoveUsersRequest::new().set_encoding(Encoding::Hex);
+    /// let x1 = RemoveUsersRequest::new().set_encoding(Encoding::Base64);
+    /// ```
+    pub fn set_encoding<T: std::convert::Into<crate::model::Encoding>>(mut self, v: T) -> Self {
+        self.encoding = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RemoveUsersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.RemoveUsersRequest"
+    }
+}
+
+/// Response from the RemoveUsersRequest.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RemoveUsersResponse {
+    /// The generated request id of the Ingestion Request.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RemoveUsersResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [request_id][crate::model::RemoveUsersResponse::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveUsersResponse;
+    /// let x = RemoveUsersResponse::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RemoveUsersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.RemoveUsersResponse"
+    }
+}
+
 /// Request to upload ad events.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -11725,6 +12076,100 @@ impl TermsOfService {
 impl wkt::message::Message for TermsOfService {
     fn typename() -> &'static str {
         "type.googleapis.com/google.ads.datamanager.v1.TermsOfService"
+    }
+}
+
+/// Represents a single user, containing identifiers like PII and mobile device
+/// IDs that all refer to the same user.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct User {
+    /// Required. Multiple pieces of user-provided data, used as the means of
+    /// identifying the user.
+    pub user_data: std::option::Option<crate::model::UserData>,
+
+    /// Required. Multiple mobile device ID strings to represent a single user.
+    pub mobile_data: std::option::Option<crate::model::MobileData>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl User {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_data][crate::model::User::user_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::User;
+    /// use google_ads_datamanager_v1::model::UserData;
+    /// let x = User::new().set_user_data(UserData::default()/* use setters */);
+    /// ```
+    pub fn set_user_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UserData>,
+    {
+        self.user_data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user_data][crate::model::User::user_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::User;
+    /// use google_ads_datamanager_v1::model::UserData;
+    /// let x = User::new().set_or_clear_user_data(Some(UserData::default()/* use setters */));
+    /// let x = User::new().set_or_clear_user_data(None::<UserData>);
+    /// ```
+    pub fn set_or_clear_user_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UserData>,
+    {
+        self.user_data = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mobile_data][crate::model::User::mobile_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::User;
+    /// use google_ads_datamanager_v1::model::MobileData;
+    /// let x = User::new().set_mobile_data(MobileData::default()/* use setters */);
+    /// ```
+    pub fn set_mobile_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MobileData>,
+    {
+        self.mobile_data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mobile_data][crate::model::User::mobile_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::User;
+    /// use google_ads_datamanager_v1::model::MobileData;
+    /// let x = User::new().set_or_clear_mobile_data(Some(MobileData::default()/* use setters */));
+    /// let x = User::new().set_or_clear_mobile_data(None::<MobileData>);
+    /// ```
+    pub fn set_or_clear_mobile_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MobileData>,
+    {
+        self.mobile_data = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for User {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.User"
     }
 }
 
@@ -20237,6 +20682,8 @@ pub enum ErrorReason {
     /// The destination does not have a custom variable with a name that matches
     /// the specified `variable`.
     CustomVariableNotFound,
+    /// Maximum number of users allowed per request is 10,000.
+    TooManyUsers,
     /// The
     /// [location_auto_detection_enabled][google.ads.datamanager.v1.Baseline.location_auto_detection_enabled]
     /// field of the request was set to `true`, but auto detection of baseline
@@ -20257,6 +20704,19 @@ pub enum ErrorReason {
     RequestTooOld,
     /// The conversion action was created too recently.
     ConversionActionTooRecentlyCreated,
+    /// The ad identifier does not belong to the account.
+    ///
+    /// For example, the [`gclid`][google.ads.datamanager.v1.AdIdentifiers.gclid]
+    /// isn't associated with the
+    /// [`operating_account`][google.ads.datamanager.v1.Destination.operating_account]
+    /// and
+    /// [`product_destination_id`][google.ads.datamanager.v1.Destination.product_destination_id]
+    /// of the destination.
+    ///
+    /// [google.ads.datamanager.v1.AdIdentifiers.gclid]: crate::model::AdIdentifiers::gclid
+    /// [google.ads.datamanager.v1.Destination.operating_account]: crate::model::Destination::operating_account
+    /// [google.ads.datamanager.v1.Destination.product_destination_id]: crate::model::Destination::product_destination_id
+    InvalidAdIdentifierForAccount,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ErrorReason::value] or
@@ -20414,12 +20874,14 @@ impl ErrorReason {
             Self::CustomVariableNotEnabled => std::option::Option::Some(118),
             Self::InvalidCustomVariableValue => std::option::Option::Some(119),
             Self::CustomVariableNotFound => std::option::Option::Some(120),
+            Self::TooManyUsers => std::option::Option::Some(121),
             Self::BaselineLocationAutoDetectionFailed => std::option::Option::Some(122),
             Self::InsightsMissingForDimension => std::option::Option::Some(123),
             Self::RequiredPrerequisiteLinkMissing => std::option::Option::Some(124),
             Self::InvalidRemoveAsOfTime => std::option::Option::Some(125),
             Self::RequestTooOld => std::option::Option::Some(126),
             Self::ConversionActionTooRecentlyCreated => std::option::Option::Some(127),
+            Self::InvalidAdIdentifierForAccount => std::option::Option::Some(128),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -20667,6 +21129,7 @@ impl ErrorReason {
                 std::option::Option::Some("INVALID_CUSTOM_VARIABLE_VALUE")
             }
             Self::CustomVariableNotFound => std::option::Option::Some("CUSTOM_VARIABLE_NOT_FOUND"),
+            Self::TooManyUsers => std::option::Option::Some("TOO_MANY_USERS"),
             Self::BaselineLocationAutoDetectionFailed => {
                 std::option::Option::Some("BASELINE_LOCATION_AUTO_DETECTION_FAILED")
             }
@@ -20680,6 +21143,9 @@ impl ErrorReason {
             Self::RequestTooOld => std::option::Option::Some("REQUEST_TOO_OLD"),
             Self::ConversionActionTooRecentlyCreated => {
                 std::option::Option::Some("CONVERSION_ACTION_TOO_RECENTLY_CREATED")
+            }
+            Self::InvalidAdIdentifierForAccount => {
+                std::option::Option::Some("INVALID_AD_IDENTIFIER_FOR_ACCOUNT")
             }
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -20823,12 +21289,14 @@ impl std::convert::From<i32> for ErrorReason {
             118 => Self::CustomVariableNotEnabled,
             119 => Self::InvalidCustomVariableValue,
             120 => Self::CustomVariableNotFound,
+            121 => Self::TooManyUsers,
             122 => Self::BaselineLocationAutoDetectionFailed,
             123 => Self::InsightsMissingForDimension,
             124 => Self::RequiredPrerequisiteLinkMissing,
             125 => Self::InvalidRemoveAsOfTime,
             126 => Self::RequestTooOld,
             127 => Self::ConversionActionTooRecentlyCreated,
+            128 => Self::InvalidAdIdentifierForAccount,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -21015,12 +21483,14 @@ impl std::convert::From<&str> for ErrorReason {
             "CUSTOM_VARIABLE_NOT_ENABLED" => Self::CustomVariableNotEnabled,
             "INVALID_CUSTOM_VARIABLE_VALUE" => Self::InvalidCustomVariableValue,
             "CUSTOM_VARIABLE_NOT_FOUND" => Self::CustomVariableNotFound,
+            "TOO_MANY_USERS" => Self::TooManyUsers,
             "BASELINE_LOCATION_AUTO_DETECTION_FAILED" => Self::BaselineLocationAutoDetectionFailed,
             "INSIGHTS_MISSING_FOR_DIMENSION" => Self::InsightsMissingForDimension,
             "REQUIRED_PREREQUISITE_LINK_MISSING" => Self::RequiredPrerequisiteLinkMissing,
             "INVALID_REMOVE_AS_OF_TIME" => Self::InvalidRemoveAsOfTime,
             "REQUEST_TOO_OLD" => Self::RequestTooOld,
             "CONVERSION_ACTION_TOO_RECENTLY_CREATED" => Self::ConversionActionTooRecentlyCreated,
+            "INVALID_AD_IDENTIFIER_FOR_ACCOUNT" => Self::InvalidAdIdentifierForAccount,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -21167,12 +21637,14 @@ impl serde::ser::Serialize for ErrorReason {
             Self::CustomVariableNotEnabled => serializer.serialize_i32(118),
             Self::InvalidCustomVariableValue => serializer.serialize_i32(119),
             Self::CustomVariableNotFound => serializer.serialize_i32(120),
+            Self::TooManyUsers => serializer.serialize_i32(121),
             Self::BaselineLocationAutoDetectionFailed => serializer.serialize_i32(122),
             Self::InsightsMissingForDimension => serializer.serialize_i32(123),
             Self::RequiredPrerequisiteLinkMissing => serializer.serialize_i32(124),
             Self::InvalidRemoveAsOfTime => serializer.serialize_i32(125),
             Self::RequestTooOld => serializer.serialize_i32(126),
             Self::ConversionActionTooRecentlyCreated => serializer.serialize_i32(127),
+            Self::InvalidAdIdentifierForAccount => serializer.serialize_i32(128),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

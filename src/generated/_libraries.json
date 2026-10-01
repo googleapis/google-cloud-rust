@@ -1763,15 +1763,6 @@
       "Product": "Cloud Text-to-Speech API"
     }
   ],
-  "google-cloud-timeseriesinsights-v1": [
-    {
-      "PkgName": "google-cloud-timeseriesinsights-v1",
-      "Language": "Rust",
-      "DocsURL": "https://docs.rs/google-cloud-timeseriesinsights-v1/latest",
-      "APIShortname": "timeseriesinsights",
-      "Product": "Timeseries Insights API"
-    }
-  ],
   "google-cloud-tpu-v2": [
     {
       "PkgName": "google-cloud-tpu-v2",

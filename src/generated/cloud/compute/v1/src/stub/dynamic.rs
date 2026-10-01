@@ -7443,6 +7443,12 @@ pub trait Interconnects: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
+    async fn set_name(
+        &self,
+        req: crate::model::interconnects::SetNameRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
@@ -7539,6 +7545,15 @@ impl<T: super::Interconnects> Interconnects for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::set_labels(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_name(
+        &self,
+        req: crate::model::interconnects::SetNameRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::set_name(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

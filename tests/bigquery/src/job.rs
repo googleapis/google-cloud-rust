@@ -53,7 +53,8 @@ pub async fn job_service() -> Result<()> {
         .list_jobs()
         .set_project_id(&project_id)
         .by_item()
-        .into_stream();
+        .into_stream()
+        .take(100);
     let items: Vec<_> = list.try_collect().await?;
     println!("LIST JOBS = {} entries", items.len());
 
@@ -79,7 +80,8 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
         .set_projection(Projection::Full)
         .set_max_creation_time(stale_deadline)
         .by_item()
-        .into_stream();
+        .into_stream()
+        .take(100);
     let items = list.collect::<Vec<_>>().await;
     println!("LIST JOBS = {} entries", items.len());
 
@@ -88,10 +90,7 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
         .filter_map(|v| {
             let v = v.ok()?;
             let job_ref = v.job_reference?;
-            if v.configuration
-                .is_some_and(|c| c.labels.get(INSTANCE_LABEL).is_some_and(|l| l == "true"))
-                && v.state == "DONE"
-            {
+            if v.user_email.starts_with("integration-test-runner@") && v.state == "DONE" {
                 Some(
                     client
                         .delete_job()
@@ -118,7 +117,6 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
 pub async fn job_service_poller() -> Result<()> {
     let project_id = project_id()?;
     let client = JobService::builder().build().await?;
-    cleanup_stale_jobs(&client, &project_id).await?;
 
     let job_id = random_job_id();
     println!("CREATING JOB (WITH POLLER) ID: {job_id}");
@@ -198,7 +196,6 @@ pub async fn job_service_poller_error() -> Result<()> {
 pub async fn job_service_poller_heavy() -> Result<()> {
     let project_id = project_id()?;
     let client = JobService::builder().build().await?;
-    cleanup_stale_jobs(&client, &project_id).await?;
 
     let job_id = random_job_id();
     println!("CREATING JOB (HEAVY POLLER) ID: {job_id}");

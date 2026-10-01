@@ -700,6 +700,9 @@ impl serde::ser::Serialize for super::ProductAttributes {
         if !self.minimum_order_values.is_empty() {
             state.serialize_entry("minimumOrderValues", &self.minimum_order_values)?;
         }
+        if self.warranty.is_some() {
+            state.serialize_entry("warranty", &self.warranty)?;
+        }
         if !self.vin.is_empty() {
             state.serialize_entry("vin", &self.vin)?;
         }
@@ -775,8 +778,8 @@ impl serde::ser::Serialize for super::ProductAttributes {
         if self.vehicle_expenses.is_some() {
             state.serialize_entry("vehicleExpenses", &self.vehicle_expenses)?;
         }
-        if self.warranty.is_some() {
-            state.serialize_entry("warranty", &self.warranty)?;
+        if !self.returns.is_empty() {
+            state.serialize_entry("returns", &self.returns)?;
         }
         if self.display_address.is_some() {
             state.serialize_entry("displayAddress", &self.display_address)?;
@@ -880,6 +883,9 @@ impl serde::ser::Serialize for super::ProductAttributes {
         }
         if self.short_title.is_some() {
             state.serialize_entry("shortTitle", &self.short_title)?;
+        }
+        if self.lease_term.is_some() {
+            state.serialize_entry("leaseTerm", &self.lease_term)?;
         }
         if !self.questions_and_answers.is_empty() {
             state.serialize_entry("questionsAndAnswers", &self.questions_and_answers)?;
@@ -1230,6 +1236,9 @@ impl serde::ser::Serialize for super::product_attributes::Warranty {
         if self.mileage.is_some() {
             state.serialize_entry("mileage", &self.mileage)?;
         }
+        if !wkt::internal::is_default(&self.duration_unit) {
+            state.serialize_entry("durationUnit", &self.duration_unit)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1349,6 +1358,117 @@ impl serde::ser::Serialize for super::product_attributes::PetPolicy {
         }
         if !self.pet_types.is_empty() {
             state.serialize_entry("petTypes", &self.pet_types)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::product_attributes::LeaseTerm {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if self.duration_value.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("durationValue", &__With(&self.duration_value))?;
+        }
+        if !wkt::internal::is_default(&self.duration_unit) {
+            state.serialize_entry("durationUnit", &self.duration_unit)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::product_attributes::Returns {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.restocking_fee() {
+            state.serialize_entry("restockingFee", value)?;
+        }
+        if let Some(value) = self.restocking_percentage_fee() {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("restockingPercentageFee", &__With(value))?;
+        }
+        if !self.countries.is_empty() {
+            state.serialize_entry("countries", &self.countries)?;
+        }
+        if self.window_days.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("windowDays", &__With(&self.window_days))?;
+        }
+        if self.window_type.is_some() {
+            state.serialize_entry("windowType", &self.window_type)?;
+        }
+        if !self.item_conditions.is_empty() {
+            state.serialize_entry("itemConditions", &self.item_conditions)?;
+        }
+        if !self.methods.is_empty() {
+            state.serialize_entry("methods", &self.methods)?;
+        }
+        if !self.outcomes.is_empty() {
+            state.serialize_entry("outcomes", &self.outcomes)?;
+        }
+        if self.shipping_fee.is_some() {
+            state.serialize_entry("shippingFee", &self.shipping_fee)?;
+        }
+        if self.shipping_fee_type.is_some() {
+            state.serialize_entry("shippingFeeType", &self.shipping_fee_type)?;
+        }
+        if self.policy_url.is_some() {
+            state.serialize_entry("policyUrl", &self.policy_url)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1661,6 +1781,9 @@ impl serde::ser::Serialize for super::ProductInstallment {
         if self.total_amount.is_some() {
             state.serialize_entry("totalAmount", &self.total_amount)?;
         }
+        if self.mileage_allowance.is_some() {
+            state.serialize_entry("mileageAllowance", &self.mileage_allowance)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1961,6 +2084,15 @@ impl serde::ser::Serialize for super::ProductCertification {
         }
         if self.certification_value.is_some() {
             state.serialize_entry("certificationValue", &self.certification_value)?;
+        }
+        if self.certification_document_link.is_some() {
+            state.serialize_entry(
+                "certificationDocumentLink",
+                &self.certification_document_link,
+            )?;
+        }
+        if self.certification_label_link.is_some() {
+            state.serialize_entry("certificationLabelLink", &self.certification_label_link)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

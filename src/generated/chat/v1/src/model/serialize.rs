@@ -4379,6 +4379,12 @@ impl serde::ser::Serialize for super::User {
         if !self.display_name.is_empty() {
             state.serialize_entry("displayName", &self.display_name)?;
         }
+        if !self.avatar_url.is_empty() {
+            state.serialize_entry("avatarUrl", &self.avatar_url)?;
+        }
+        if !self.email.is_empty() {
+            state.serialize_entry("email", &self.email)?;
+        }
         if !self.domain_id.is_empty() {
             state.serialize_entry("domainId", &self.domain_id)?;
         }
