@@ -112,8 +112,7 @@ impl<C> Worker<C> {
 
     /// Creates a [`Worker`] with a caller-provided [`ReplayBuffer`].
     ///
-    /// The transport uses this to seed the buffer with the payload sent in the opening request, and
-    /// tests use it to exercise the capacity limits without buffering
+    /// Tests use this to exercise the capacity limits without buffering
     /// [`DEFAULT_REPLAY_BUFFER_SIZE`][super::replay_buffer::DEFAULT_REPLAY_BUFFER_SIZE] bytes.
     pub fn with_replay_buffer(connector: Connector<C>, replay_buffer: ReplayBuffer) -> Self {
         Self {
@@ -801,6 +800,13 @@ mod tests {
                 .await?;
             let dispatched = request_rx.recv().await.expect("chunk must be dispatched");
             assert_eq!(dispatched.write_offset, i * chunk_len as i64);
+            // With `MIN_REPLAY_BUFFER_SIZE` the watermark is 1 byte, so the first append crosses
+            // it and carries the `flush + state_lookup` probe. Later appends do not repeat it
+            // while that probe is outstanding, which is what guarantees a server response is
+            // owed by the time the buffer is full.
+            let is_first = i == 0;
+            assert_eq!(dispatched.flush, is_first, "{dispatched:?}");
+            assert_eq!(dispatched.state_lookup, is_first, "{dispatched:?}");
         }
 
         // Queue a fourth append while the replay buffer is full (6 MiB >= 4 MiB + 1). Because the
