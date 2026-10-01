@@ -68,6 +68,7 @@ pub async fn run() -> anyhow::Result<()> {
     )
     .await?;
 
+    #[cfg(google_cloud_unstable_storage_bidi)]
     with_bucket(
         &clients,
         BucketType::ZonalRapid,
@@ -78,6 +79,11 @@ pub async fn run() -> anyhow::Result<()> {
         },
     )
     .await?;
+
+    #[cfg(not(google_cloud_unstable_storage_bidi))]
+    println!(
+        "\nSkipping Zonal Rapid conformance tests: `google_cloud_unstable_storage_bidi` cfg is not enabled"
+    );
 
     with_bucket(
         &clients,
@@ -142,7 +148,10 @@ impl Clients {
 
 #[derive(Clone, Copy, Debug)]
 enum BucketType {
-    RegionalStandard { hns: bool },
+    RegionalStandard {
+        hns: bool,
+    },
+    #[cfg_attr(not(google_cloud_unstable_storage_bidi), allow(dead_code))]
     ZonalRapid,
     RegionalRapid,
 }
