@@ -20,6 +20,8 @@
 //!
 //! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 // Public domain modules.
 
 /// Configuration types for the gRPC channel pool.
