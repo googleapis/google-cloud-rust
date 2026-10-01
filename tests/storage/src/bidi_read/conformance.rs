@@ -463,6 +463,12 @@ async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> 
     Ok(())
 }
 
+/// Verifies that an out-of-bounds read returns `OutOfRange` or `InvalidArgument`,
+/// while concurrent valid range reads on the same session succeed.
+///
+/// Both ranges are dispatched concurrently on the same `ObjectDescriptor` session:
+/// the valid range completes and yields the expected bytes, while the out-of-bounds range
+/// yields an `OutOfRange` / `InvalidArgument` error.
 async fn test_out_of_range(
     clients: &Clients,
     bucket_name: &str,
@@ -475,14 +481,22 @@ async fn test_out_of_range(
     let (payload, descriptor) =
         upload_and_open(clients, bucket_name, 10_000, bucket_type.is_appendable()).await?;
 
-    let mut reader = descriptor.read_range(ReadRange::head(50)).await;
-    assert_eq!(drain_reader(&mut reader).await?, &payload[0..50]);
+    let valid_fut = async {
+        let mut reader = descriptor.read_range(ReadRange::head(50)).await;
+        drain_reader(&mut reader).await
+    };
+    let oob_fut = async {
+        let mut oob_reader = descriptor
+            .read_range(ReadRange::segment(50_000, 1_000))
+            .await;
+        oob_reader.next().await
+    };
 
-    let mut oob_reader = descriptor
-        .read_range(ReadRange::segment(50_000, 1_000))
-        .await;
+    let (valid_res, oob_res) = tokio::join!(valid_fut, oob_fut);
 
-    match oob_reader.next().await {
+    assert_eq!(valid_res?, &payload[0..50]);
+
+    match oob_res {
         None => {
             panic!("expected OutOfRange or InvalidArgument error for out of range read, got None")
         }
