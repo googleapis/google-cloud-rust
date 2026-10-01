@@ -103,8 +103,8 @@ async fn test_execute_query() -> anyhow::Result<()> {
     let row = rs.next().await.expect("has row").expect("has valid row");
 
     // Assert 1 row, 1 column with value "1"
-    let val: &str = row.raw_values()[0].as_string();
-    assert_eq!(val, "1");
+    let val = row.raw_values()[0].as_str();
+    assert_eq!(val, Some("1"));
 
     assert!(rs.next().await.is_none());
 

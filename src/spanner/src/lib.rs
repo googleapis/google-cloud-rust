@@ -31,6 +31,8 @@
 //!   subject to SemVer-incompatible changes across OpenTelemetry minor releases.
 //! - `unstable-stream`: enable the (unstable) features to convert several types to
 //!   a `futures::Stream`.
+//! - `unstable-time`: enable support for types from the `time` crate (`time::OffsetDateTime`
+//!   and `time::Date`).
 //!
 //! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 

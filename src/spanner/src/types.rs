@@ -14,7 +14,7 @@
 
 use crate::generated::gapic_dataplane::model;
 use crate::generated::gapic_dataplane::model::TypeAnnotationCode;
-use crate::google::spanner::v1 as spanner_v1;
+use crate::google::spanner::v1::Type as ProtoType;
 use gaxi::prost::ConvertError;
 use std::sync::LazyLock;
 
@@ -116,14 +116,12 @@ impl From<Type> for model::Type {
     }
 }
 
-impl From<spanner_v1::Type> for Type {
-    fn from(value: spanner_v1::Type) -> Self {
+impl Type {
+    pub(crate) fn from_proto(value: ProtoType) -> Self {
         use gaxi::prost::FromProto;
         value.cnv().unwrap_or_default().into()
     }
-}
 
-impl Type {
     /// Returns the type code.
     pub fn code(&self) -> TypeCode {
         self.0.code.clone().into()

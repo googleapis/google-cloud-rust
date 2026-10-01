@@ -47,6 +47,9 @@ unstable-stream         = ["dep:futures"]
 # OpenTelemetry minor releases.
 unstable-metrics = ["_internal-metrics"]
 
+# Enables support for types from the `time` crate (`time::OffsetDateTime` and `time::Date`).
+unstable-time = ["wkt/time"]
+
 # Enabled by default. Includes the background Google Cloud Monitoring (GCM) export pipeline
 # that automatically publishes Spanner built-in request and latency metrics to Cloud Monitoring.
 #
@@ -80,6 +83,7 @@ google-cloud-gax                       = { workspace = true }
 google-cloud-spanner-admin-database-v1 = { workspace = true }
 google-cloud-spanner-admin-instance-v1 = { workspace = true }
 google-cloud-rpc                       = { workspace = true }
+google-cloud-type                      = { workspace = true }
 http.workspace                         = true
 prost.workspace                        = true
 prost-types.workspace                  = true
@@ -93,7 +97,7 @@ time                                   = { workspace = true, features = ["format
 tokio                                  = { workspace = true, features = ["time"] }
 tracing.workspace                      = true
 url.workspace                          = true
-wkt                                    = { workspace = true, features = ["time"] }
+wkt.workspace                          = true
 
 # Optional dependencies for built-in metrics
 google-cloud-api           = { workspace = true, optional = true }
