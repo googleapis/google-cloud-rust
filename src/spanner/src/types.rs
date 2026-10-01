@@ -144,6 +144,11 @@ impl Type {
         self.0.struct_type.as_deref()
     }
 
+    /// Returns the fully qualified name of the proto or enum type, or an empty string if not applicable.
+    pub fn proto_type_fqn(&self) -> &str {
+        &self.0.proto_type_fqn
+    }
+
     /// Safely reinterprets a reference to the inner model type as a reference to Type.
     /// Logical safety is guaranteed by #[repr(transparent)].
     pub(crate) fn from_ref(v: &model::Type) -> &Self {
@@ -277,6 +282,20 @@ pub fn pg_oid() -> Type {
 pub fn array(element_type: Type) -> Type {
     let mut t = create_type(TypeCode::Array);
     t.0.array_element_type = Some(Box::new(element_type.0));
+    t
+}
+
+/// Returns a `Type` representing `ENUM` (GoogleSQL) with the given fully qualified proto type name.
+pub fn enum_type(proto_type_fqn: impl Into<String>) -> Type {
+    let mut t = create_type(TypeCode::Enum);
+    t.0.proto_type_fqn = proto_type_fqn.into();
+    t
+}
+
+/// Returns a `Type` representing `PROTO` (GoogleSQL) with the given fully qualified proto type name.
+pub fn proto_type(proto_type_fqn: impl Into<String>) -> Type {
+    let mut t = create_type(TypeCode::Proto);
+    t.0.proto_type_fqn = proto_type_fqn.into();
     t
 }
 
