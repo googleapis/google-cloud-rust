@@ -473,4 +473,43 @@ mod tests {
             Hash
         );
     }
+
+    #[test]
+    fn proto_and_enum_types() {
+        let proto_column = proto_type("google.example.Customer");
+        assert_eq!(
+            proto_column.code(),
+            TypeCode::Proto,
+            "expected TypeCode::Proto for proto_type"
+        );
+        assert_eq!(
+            proto_column.proto_type_fqn(),
+            "google.example.Customer",
+            "expected fully qualified proto type name"
+        );
+
+        let enum_column = enum_type("google.example.CustomerStatus");
+        assert_eq!(
+            enum_column.code(),
+            TypeCode::Enum,
+            "expected TypeCode::Enum for enum_type"
+        );
+        assert_eq!(
+            enum_column.proto_type_fqn(),
+            "google.example.CustomerStatus",
+            "expected fully qualified enum type name"
+        );
+
+        // Non-proto/enum types should return an empty string
+        assert_eq!(
+            int64().proto_type_fqn(),
+            "",
+            "expected empty string for non-proto/enum types"
+        );
+        assert_eq!(
+            Type::default().proto_type_fqn(),
+            "",
+            "expected empty string for default Type"
+        );
+    }
 }

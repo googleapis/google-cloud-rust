@@ -834,6 +834,7 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use serde_json::Value as JsonValue;
+    use serde_json::json;
     #[cfg(feature = "unstable-time")]
     use time::Month;
 
@@ -912,6 +913,23 @@ mod tests {
 
         let error_i32 = i32::from_value(&invalid_int, &types::int64()).expect_err("invalid i32");
         assert!(format!("{error_i32}").contains("cannot convert value"));
+
+        let bool_value = true.to_value();
+        let error_kind_i64 = i64::from_value(&bool_value, &types::int64())
+            .expect_err("reading bool value as i64 must fail with KindMismatch");
+        assert_eq!(
+            error_kind_i64.to_string(),
+            "expected String, got Bool",
+            "expected KindMismatch error message for i64"
+        );
+
+        let error_kind_i32 = i32::from_value(&bool_value, &types::int64())
+            .expect_err("reading bool value as i32 must fail with KindMismatch");
+        assert_eq!(
+            error_kind_i32.to_string(),
+            "expected String, got Bool",
+            "expected KindMismatch error message for i32"
+        );
     }
 
     #[test]
@@ -956,14 +974,9 @@ mod tests {
         // f64 rejects STRING column even if it contains "NaN"
         let string_col_err =
             f64::from_value(&nan_val, &types::string()).expect_err("f64 must reject STRING column");
-        assert!(
-            matches!(
-                string_col_err,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Float64,
-                    got: TypeCode::String,
-                }
-            ),
+        assert_eq!(
+            string_col_err.to_string(),
+            "type mismatch, expected Float64, got String",
             "expected TypeMismatch when reading STRING column as f64"
         );
 
@@ -998,14 +1011,9 @@ mod tests {
         // f32 rejects STRING column
         let f32_str_err =
             f32::from_value(&nan_val, &types::string()).expect_err("f32 must reject STRING column");
-        assert!(
-            matches!(
-                f32_str_err,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Float32,
-                    got: TypeCode::String,
-                }
-            ),
+        assert_eq!(
+            f32_str_err.to_string(),
+            "type mismatch, expected Float32, got String",
             "expected TypeMismatch when reading STRING column as f32"
         );
 
@@ -1026,40 +1034,25 @@ mod tests {
         // String::from_value rejects FLOAT64 and FLOAT32 columns (even with non-finite string representation)
         let string_f64_nan_err = String::from_value(&nan_val, &types::float64())
             .expect_err("String must reject FLOAT64 column with NaN");
-        assert!(
-            matches!(
-                string_f64_nan_err,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Float64,
-                }
-            ),
+        assert_eq!(
+            string_f64_nan_err.to_string(),
+            "type mismatch, expected String, got Float64",
             "expected TypeMismatch when reading FLOAT64 column as String"
         );
 
         let string_f32_inf_err = String::from_value(&inf_val, &types::float32())
             .expect_err("String must reject FLOAT32 column with Infinity");
-        assert!(
-            matches!(
-                string_f32_inf_err,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Float32,
-                }
-            ),
+        assert_eq!(
+            string_f32_inf_err.to_string(),
+            "type mismatch, expected String, got Float32",
             "expected TypeMismatch when reading FLOAT32 column as String"
         );
 
         let string_f64_num_err = String::from_value(&42.5f64.to_value(), &types::float64())
             .expect_err("String must reject FLOAT64 column with NumberValue");
-        assert!(
-            matches!(
-                string_f64_num_err,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Float64,
-                }
-            ),
+        assert_eq!(
+            string_f64_num_err.to_string(),
+            "type mismatch, expected String, got Float64",
             "expected TypeMismatch when reading FLOAT64 NumberValue as String"
         );
     }
@@ -1210,16 +1203,6 @@ mod tests {
         // Wrong TypeCode test
         let err = Vec::<i64>::from_value(&int_array.to_value(), &types::int64())
             .expect_err("wrong type code should fail");
-        assert!(
-            matches!(
-                err,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Array,
-                    got: TypeCode::Int64,
-                }
-            ),
-            "expected TypeMismatch for array with int64 column type"
-        );
         assert_eq!(
             err.to_string(),
             "type mismatch, expected Array, got Int64",
@@ -1229,14 +1212,9 @@ mod tests {
         // Array element TypeMismatch test (ARRAY<STRING> column decoded as Vec<i64>)
         let err = Vec::<i64>::from_value(&str_array.to_value(), &types::array(types::string()))
             .expect_err("element type mismatch should fail");
-        assert!(
-            matches!(
-                err,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Int64,
-                    got: TypeCode::String,
-                }
-            ),
+        assert_eq!(
+            err.to_string(),
+            "type mismatch, expected Int64, got String",
             "expected TypeMismatch for array element type"
         );
 
@@ -1359,16 +1337,6 @@ mod tests {
         let decimal_value = Decimal::from(42).to_value();
         let decimal_error =
             Decimal::from_value(&decimal_value, &types::int64()).expect_err("type mismatch");
-        assert!(
-            matches!(
-                decimal_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Numeric,
-                    got: TypeCode::Int64,
-                }
-            ),
-            "expected TypeMismatch for Decimal with int64 column"
-        );
         assert_eq!(
             decimal_error.to_string(),
             "type mismatch, expected Numeric, got Int64",
@@ -1378,16 +1346,6 @@ mod tests {
         let system_time_value = SystemTime::now().to_value();
         let system_time_error = SystemTime::from_value(&system_time_value, &types::string())
             .expect_err("type mismatch");
-        assert!(
-            matches!(
-                system_time_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Timestamp,
-                    got: TypeCode::String,
-                }
-            ),
-            "expected TypeMismatch for SystemTime with string column"
-        );
         assert_eq!(
             system_time_error.to_string(),
             "type mismatch, expected Timestamp, got String",
@@ -1399,16 +1357,6 @@ mod tests {
             let value = OffsetDateTime::now_utc().to_value();
             let error =
                 OffsetDateTime::from_value(&value, &types::string()).expect_err("type mismatch");
-            assert!(
-                matches!(
-                    error,
-                    ConvertError::TypeMismatch {
-                        want: TypeCode::Timestamp,
-                        got: TypeCode::String,
-                    }
-                ),
-                "expected TypeMismatch for OffsetDateTime with string column"
-            );
             assert_eq!(
                 error.to_string(),
                 "type mismatch, expected Timestamp, got String",
@@ -1419,16 +1367,6 @@ mod tests {
                 .expect("valid calendar date")
                 .to_value();
             let error = TimeDate::from_value(&value, &types::string()).expect_err("type mismatch");
-            assert!(
-                matches!(
-                    error,
-                    ConvertError::TypeMismatch {
-                        want: TypeCode::Date,
-                        got: TypeCode::String,
-                    }
-                ),
-                "expected TypeMismatch for TimeDate with string column"
-            );
             assert_eq!(
                 error.to_string(),
                 "type mismatch, expected Date, got String",
@@ -1442,16 +1380,6 @@ mod tests {
             .set_day(27)
             .to_value();
         let error = Date::from_value(&date, &types::string()).expect_err("type mismatch");
-        assert!(
-            matches!(
-                error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Date,
-                    got: TypeCode::String,
-                }
-            ),
-            "expected TypeMismatch for Date with string column"
-        );
         assert_eq!(
             error.to_string(),
             "type mismatch, expected Date, got String",
@@ -1461,16 +1389,6 @@ mod tests {
         let bytes_value = vec![1u8].to_value();
         let bytes_error =
             Vec::<u8>::from_value(&bytes_value, &types::string()).expect_err("type mismatch");
-        assert!(
-            matches!(
-                bytes_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Bytes,
-                    got: TypeCode::String,
-                }
-            ),
-            "expected TypeMismatch for Vec<u8> with string column"
-        );
         assert_eq!(
             bytes_error.to_string(),
             "type mismatch, expected Bytes, got String",
@@ -1480,16 +1398,6 @@ mod tests {
         let bool_value = true.to_value();
         let bool_error =
             bool::from_value(&bool_value, &types::string()).expect_err("type mismatch");
-        assert!(
-            matches!(
-                bool_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Bool,
-                    got: TypeCode::String,
-                }
-            ),
-            "expected TypeMismatch for bool with string column"
-        );
         assert_eq!(
             bool_error.to_string(),
             "type mismatch, expected Bool, got String",
@@ -1499,16 +1407,6 @@ mod tests {
         let int64_value = 42i64.to_value();
         let int64_error =
             i64::from_value(&int64_value, &types::string()).expect_err("type mismatch");
-        assert!(
-            matches!(
-                int64_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Int64,
-                    got: TypeCode::String,
-                }
-            ),
-            "expected TypeMismatch for i64 with string column"
-        );
         assert_eq!(
             int64_error.to_string(),
             "type mismatch, expected Int64, got String",
@@ -1517,16 +1415,6 @@ mod tests {
 
         let int32_error =
             i32::from_value(&int64_value, &types::string()).expect_err("type mismatch");
-        assert!(
-            matches!(
-                int32_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Int64,
-                    got: TypeCode::String,
-                }
-            ),
-            "expected TypeMismatch for i32 with string column"
-        );
         assert_eq!(
             int32_error.to_string(),
             "type mismatch, expected Int64, got String",
@@ -1539,14 +1427,9 @@ mod tests {
         });
         let error_optional_null = Option::<i64>::from_value(&null_value, &types::string())
             .expect_err("Option<i64> must reject STRING column even on NULL");
-        assert!(
-            matches!(
-                error_optional_null,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Int64,
-                    got: TypeCode::String,
-                }
-            ),
+        assert_eq!(
+            error_optional_null.to_string(),
+            "type mismatch, expected Int64, got String",
             "expected TypeMismatch for Option<i64> on null STRING column"
         );
         let optional_int64_null = Option::<i64>::from_value(&null_value, &types::int64())
@@ -1556,14 +1439,9 @@ mod tests {
         // Option<String> rejects non-string types even on NULL
         let error_null_string_on_int = Option::<String>::from_value(&null_value, &types::int64())
             .expect_err("Option<String> must reject INT64 column even on NULL");
-        assert!(
-            matches!(
-                error_null_string_on_int,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Int64,
-                }
-            ),
+        assert_eq!(
+            error_null_string_on_int.to_string(),
+            "type mismatch, expected String, got Int64",
             "expected TypeMismatch for Option<String> on null INT64 column"
         );
 
@@ -1596,97 +1474,62 @@ mod tests {
         // Option<String> rejects ENUM even on NULL
         let error_null_string_on_enum = Option::<String>::from_value(&null_value, &enum_type)
             .expect_err("Option<String> must reject ENUM column even on NULL");
-        assert!(
-            matches!(
-                error_null_string_on_enum,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Enum,
-                }
-            ),
+        assert_eq!(
+            error_null_string_on_enum.to_string(),
+            "type mismatch, expected String, got Enum",
             "expected TypeMismatch for Option<String> on null ENUM column"
         );
 
         // Option<String> rejects non-text wire types even on NULL
         let error_null_float = Option::<String>::from_value(&null_value, &types::float64())
             .expect_err("Option<String> must reject FLOAT64 column even on NULL");
-        assert!(
-            matches!(
-                error_null_float,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Float64,
-                }
-            ),
+        assert_eq!(
+            error_null_float.to_string(),
+            "type mismatch, expected String, got Float64",
             "expected TypeMismatch for Option<String> on null FLOAT64 column"
         );
 
         let error_null_bool = Option::<String>::from_value(&null_value, &types::bool())
             .expect_err("Option<String> must reject BOOL column even on NULL");
-        assert!(
-            matches!(
-                error_null_bool,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Bool,
-                }
-            ),
+        assert_eq!(
+            error_null_bool.to_string(),
+            "type mismatch, expected String, got Bool",
             "expected TypeMismatch for Option<String> on null BOOL column"
         );
 
         // String::from_value rejects non-string types with TypeMismatch
         let error_string_int = String::from_value(&int64_value, &types::int64())
             .expect_err("String::from_value rejects INT64 column");
-        assert!(
-            matches!(
-                error_string_int,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Int64,
-                }
-            ),
+        assert_eq!(
+            error_string_int.to_string(),
+            "type mismatch, expected String, got Int64",
             "expected TypeMismatch for INT64 column"
         );
 
         let test_bytes_value = vec![1u8, 2, 3].to_value();
         let error_string_bytes = String::from_value(&test_bytes_value, &types::bytes())
             .expect_err("String::from_value rejects BYTES column");
-        assert!(
-            matches!(
-                error_string_bytes,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Bytes,
-                }
-            ),
+        assert_eq!(
+            error_string_bytes.to_string(),
+            "type mismatch, expected String, got Bytes",
             "expected TypeMismatch for BYTES column"
         );
 
         // String::from_value rejects non-text wire types like BOOL and FLOAT64 with TypeMismatch
         let error_string_bool = String::from_value(&bool_value, &types::bool())
             .expect_err("String::from_value rejects BOOL column");
-        assert!(
-            matches!(
-                error_string_bool,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Bool,
-                }
-            ),
+        assert_eq!(
+            error_string_bool.to_string(),
+            "type mismatch, expected String, got Bool",
             "expected TypeMismatch for BOOL column"
         );
 
         let float_value = 42.5f64.to_value();
         let error_string_float = String::from_value(&float_value, &types::float64())
             .expect_err("String::from_value rejects FLOAT64 column");
-        assert!(
-            matches!(
-                error_string_float,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Float64,
-                }
-            ),
+        assert_eq!(
+            error_string_float.to_string(),
+            "type mismatch, expected String, got Float64",
             "expected TypeMismatch for FLOAT64 column"
         );
 
@@ -1694,14 +1537,9 @@ mod tests {
         let enum_value = 3i64.to_value();
         let error_string_enum = String::from_value(&enum_value, &enum_type)
             .expect_err("String::from_value rejects ENUM column");
-        assert!(
-            matches!(
-                error_string_enum,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Enum,
-                }
-            ),
+        assert_eq!(
+            error_string_enum.to_string(),
+            "type mismatch, expected String, got Enum",
             "expected TypeMismatch for ENUM column as String"
         );
 
@@ -2322,6 +2160,38 @@ mod tests {
     }
 
     #[test]
+    fn from_value_json_float_strings() {
+        // Valid numeric string representations (as sent by Spanner wire format for floats)
+        let numeric_string_value = "42.5".to_string().to_value();
+        let json_from_float64 = JsonValue::from_value(&numeric_string_value, &types::float64())
+            .expect("valid float64 string to JsonValue");
+        assert_eq!(
+            json_from_float64,
+            json!(42.5),
+            "expected 42.5 JsonValue number from FLOAT64 string"
+        );
+
+        let json_from_float32 = JsonValue::from_value(&numeric_string_value, &types::float32())
+            .expect("valid float32 string to JsonValue");
+        assert_eq!(
+            json_from_float32,
+            json!(42.5),
+            "expected 42.5 JsonValue number from FLOAT32 string"
+        );
+
+        // Invalid numeric string in float column
+        let invalid_string_value = "not_a_float".to_string().to_value();
+        let error_invalid_string = JsonValue::from_value(&invalid_string_value, &types::float64())
+            .expect_err("invalid float string to JsonValue must fail");
+        assert!(
+            error_invalid_string
+                .to_string()
+                .contains("cannot convert value"),
+            "expected conversion failure for invalid float string"
+        );
+    }
+
+    #[test]
     fn test_from_value_json_option_wrapping() {
         // Option<JsonValue> for a non-null value
         let v = "hello".to_value();
@@ -2724,14 +2594,9 @@ mod tests {
         ));
         let extracted_from_type_conversion = ConvertError::extract(&type_conversion_error)
             .expect("should extract ConvertError from RowError::TypeConversion");
-        assert!(
-            matches!(
-                extracted_from_type_conversion,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Int64,
-                    got: TypeCode::String,
-                }
-            ),
+        assert_eq!(
+            extracted_from_type_conversion.to_string(),
+            "type mismatch, expected Int64, got String",
             "expected TypeMismatch extracted from TypeConversion"
         );
 
@@ -2842,24 +2707,30 @@ mod tests {
         let convert_error = ConvertError::custom(original_error);
 
         // Verify downcasting via ConvertError::Convert variant pattern matching
-        match &convert_error {
-            ConvertError::Convert(shared_error) => {
-                let downcasted_from_shared =
-                    (**shared_error).downcast_ref::<CustomValidationError>();
-                assert_eq!(
-                    downcasted_from_shared,
-                    Some(&CustomValidationError { code: 404 }),
-                    "expected downcast_ref on SharedError to recover CustomValidationError"
-                );
+        let extract_shared = |error: &ConvertError| match error {
+            ConvertError::Convert(shared) => Some(Arc::clone(shared)),
+            _ => None,
+        };
+        let shared_error =
+            extract_shared(&convert_error).expect("expected ConvertError::Convert variant");
+        let downcasted_from_shared = (*shared_error).downcast_ref::<CustomValidationError>();
+        assert_eq!(
+            downcasted_from_shared,
+            Some(&CustomValidationError { code: 404 }),
+            "expected downcast_ref on SharedError to recover CustomValidationError"
+        );
 
-                let wrong_type_error = (**shared_error).downcast_ref::<IoError>();
-                assert!(
-                    wrong_type_error.is_none(),
-                    "expected downcast_ref to return None for non-matching type"
-                );
-            }
-            _ => panic!("expected ConvertError::Convert variant"),
-        }
+        let wrong_type_error = (*shared_error).downcast_ref::<IoError>();
+        assert!(
+            wrong_type_error.is_none(),
+            "expected downcast_ref to return None for non-matching type"
+        );
+
+        let non_convert_error = ConvertError::NotNull;
+        assert!(
+            extract_shared(&non_convert_error).is_none(),
+            "expected None for non-Convert variant"
+        );
     }
 
     #[test]
@@ -2868,53 +2739,33 @@ mod tests {
 
         let decimal_error = Decimal::from_value(&bool_value, &types::numeric())
             .expect_err("Decimal must reject bool wire kind with KindMismatch");
-        assert!(
-            matches!(
-                decimal_error,
-                ConvertError::KindMismatch {
-                    want: Kind::String,
-                    got: Kind::Bool,
-                }
-            ),
+        assert_eq!(
+            decimal_error.to_string(),
+            "expected String, got Bool",
             "expected KindMismatch for Decimal on bool kind"
         );
 
         let float32_error = f32::from_value(&bool_value, &types::float32())
             .expect_err("f32 must reject bool wire kind with KindMismatch");
-        assert!(
-            matches!(
-                float32_error,
-                ConvertError::KindMismatch {
-                    want: Kind::Number,
-                    got: Kind::Bool,
-                }
-            ),
+        assert_eq!(
+            float32_error.to_string(),
+            "expected Number, got Bool",
             "expected KindMismatch for f32 on bool kind"
         );
 
         let bytes_error = Vec::<u8>::from_value(&bool_value, &types::bytes())
             .expect_err("Vec<u8> must reject bool wire kind with KindMismatch");
-        assert!(
-            matches!(
-                bytes_error,
-                ConvertError::KindMismatch {
-                    want: Kind::String,
-                    got: Kind::Bool,
-                }
-            ),
+        assert_eq!(
+            bytes_error.to_string(),
+            "expected String, got Bool",
             "expected KindMismatch for Vec<u8> on bool kind"
         );
 
         let array_error = Vec::<String>::from_value(&bool_value, &types::array(types::string()))
             .expect_err("Vec<T> must reject bool wire kind with KindMismatch");
-        assert!(
-            matches!(
-                array_error,
-                ConvertError::KindMismatch {
-                    want: Kind::List,
-                    got: Kind::Bool,
-                }
-            ),
+        assert_eq!(
+            array_error.to_string(),
+            "expected List, got Bool",
             "expected KindMismatch for Vec<T> on bool kind"
         );
     }
@@ -2951,28 +2802,18 @@ mod tests {
         let string_value = "hello".to_string().to_value();
         let array_error = String::from_value(&string_value, &array_type)
             .expect_err("String::from_value must reject Array column type");
-        assert!(
-            matches!(
-                array_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Array,
-                }
-            ),
+        assert_eq!(
+            array_error.to_string(),
+            "type mismatch, expected String, got Array",
             "expected TypeMismatch when reading Array column as String"
         );
 
         let struct_type = types::create_type(TypeCode::Struct);
         let struct_error = String::from_value(&string_value, &struct_type)
             .expect_err("String::from_value must reject Struct column type");
-        assert!(
-            matches!(
-                struct_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Struct,
-                }
-            ),
+        assert_eq!(
+            struct_error.to_string(),
+            "type mismatch, expected String, got Struct",
             "expected TypeMismatch when reading Struct column as String"
         );
     }

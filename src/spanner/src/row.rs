@@ -652,14 +652,9 @@ mod tests {
             .expect_err("reading INT64 column as String must fail with TypeConversion error");
         let convert_err = ConvertError::extract(&err_int_as_string)
             .expect("should extract ConvertError::TypeMismatch");
-        assert!(
-            matches!(
-                convert_err,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Int64,
-                }
-            ),
+        assert_eq!(
+            convert_err.to_string(),
+            "type mismatch, expected String, got Int64",
             "expected TypeMismatch when reading INT64 column as String"
         );
 
@@ -672,7 +667,7 @@ mod tests {
     }
 
     #[test]
-    fn test_row_get_enum() {
+    fn row_get_enum() {
         let column_names = vec!["col_enum".to_string()];
         let column_types = vec![types::enum_type("customer.Priority")];
         let values = vec![3_i64.to_value()];
@@ -715,14 +710,9 @@ mod tests {
             .expect_err("reading ENUM column as String must fail");
         let convert_error = ConvertError::extract(&string_error)
             .expect("should extract ConvertError from string_error");
-        assert!(
-            matches!(
-                convert_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::String,
-                    got: TypeCode::Enum,
-                }
-            ),
+        assert_eq!(
+            convert_error.to_string(),
+            "type mismatch, expected String, got Enum",
             "expected TypeMismatch when reading ENUM column as String"
         );
 
@@ -820,12 +810,6 @@ mod tests {
             .try_get::<String, _>("nonexistent")
             .expect_err("column not found");
         let extracted_missing = RowError::extract(&err_missing).expect("should extract RowError");
-        match extracted_missing {
-            RowError::ColumnNotFound(column) => {
-                assert_eq!(column, "nonexistent", "expected 'nonexistent' column name");
-            }
-            other => panic!("expected ColumnNotFound variant, got {other:?}"),
-        }
         let cloned_missing = extracted_missing.clone();
         assert_eq!(
             cloned_missing.to_string(),
@@ -837,17 +821,25 @@ mod tests {
             "Could not find column: 'nonexistent'",
             "expected 'Could not find column: \\'nonexistent\\'' display string"
         );
+        assert_eq!(
+            extracted_missing.to_string(),
+            RowError::column_not_found("nonexistent").to_string(),
+            "expected ColumnNotFound display to match constructor"
+        );
 
-        let err_out_of_range = row.try_get::<String, _>(5).expect_err("index out of range");
+        let error_out_of_range = row.try_get::<String, _>(5).expect_err("index out of range");
         let extracted_out_of_range =
-            RowError::extract(&err_out_of_range).expect("should extract RowError");
-        match extracted_out_of_range {
-            RowError::IndexOutOfRange { index, len } => {
-                assert_eq!(*index, 5, "expected index 5");
-                assert_eq!(*len, 1, "expected len 1");
-            }
-            other => panic!("expected IndexOutOfRange variant, got {other:?}"),
-        }
+            RowError::extract(&error_out_of_range).expect("should extract RowError");
+        assert_eq!(
+            extracted_out_of_range.to_string(),
+            "Column index out of range: 5 (expected < 1)",
+            "expected 'Column index out of range: 5 (expected < 1)' display string"
+        );
+        assert_eq!(
+            extracted_out_of_range.to_string(),
+            RowError::index_out_of_range(5, 1).to_string(),
+            "expected IndexOutOfRange display to match constructor"
+        );
 
         let unrelated_error = Error::deser(ConvertError::NotNull);
         assert!(
@@ -1040,27 +1032,6 @@ mod tests {
             .expect_err("reading string column as i64 should fail");
         let extracted_row_error =
             RowError::extract(&error).expect("should extract RowError::TypeConversion");
-        match extracted_row_error {
-            RowError::TypeConversion {
-                column,
-                type_code,
-                source,
-            } => {
-                assert_eq!(column, "col_string", "expected 'col_string' column");
-                assert_eq!(*type_code, TypeCode::String, "expected TypeCode::String");
-                assert!(
-                    matches!(
-                        source,
-                        ConvertError::TypeMismatch {
-                            want: TypeCode::Int64,
-                            got: TypeCode::String,
-                        }
-                    ),
-                    "expected TypeMismatch inner source"
-                );
-            }
-            other => panic!("expected TypeConversion variant, got {other:?}"),
-        }
         let cloned_row_error = extracted_row_error.clone();
         assert_eq!(
             cloned_row_error.to_string(),
@@ -1075,14 +1046,9 @@ mod tests {
 
         let extracted_convert_error =
             ConvertError::extract(&error).expect("should extract inner ConvertError");
-        assert!(
-            matches!(
-                extracted_convert_error,
-                ConvertError::TypeMismatch {
-                    want: TypeCode::Int64,
-                    got: TypeCode::String,
-                }
-            ),
+        assert_eq!(
+            extracted_convert_error.to_string(),
+            "type mismatch, expected Int64, got String",
             "expected inner TypeMismatch error"
         );
 
@@ -1100,27 +1066,12 @@ mod tests {
             .expect_err("reading unnamed string column as i64 should fail");
         let extracted_unnamed =
             RowError::extract(&unnamed_error).expect("should extract RowError for unnamed column");
-        match extracted_unnamed {
-            RowError::TypeConversion {
-                column,
-                type_code,
-                source,
-            } => {
-                assert_eq!(column, "0", "expected column index '0'");
-                assert_eq!(*type_code, TypeCode::String, "expected TypeCode::String");
-                assert!(
-                    matches!(
-                        source,
-                        ConvertError::TypeMismatch {
-                            want: TypeCode::Int64,
-                            got: TypeCode::String,
-                        }
-                    ),
-                    "expected TypeMismatch inner source"
-                );
-            }
-            other => panic!("expected TypeConversion variant, got {other:?}"),
-        }
+        assert_eq!(
+            extracted_unnamed.to_string(),
+            "Type conversion error for column '0' (type String): type mismatch, expected Int64, got String",
+            "expected formatted display string with column index '0'"
+        );
+
         // Test with empty column_names slice entirely
         let empty_names_row = Row {
             values: vec!["hello".to_string().to_value()],
@@ -1135,27 +1086,11 @@ mod tests {
             .expect_err("reading from row with empty column_names slice should fail");
         let extracted_empty_names = RowError::extract(&empty_names_error)
             .expect("should extract RowError for row with empty column_names");
-        match extracted_empty_names {
-            RowError::TypeConversion {
-                column,
-                type_code,
-                source,
-            } => {
-                assert_eq!(column, "0", "expected column index '0'");
-                assert_eq!(*type_code, TypeCode::String, "expected TypeCode::String");
-                assert!(
-                    matches!(
-                        source,
-                        ConvertError::TypeMismatch {
-                            want: TypeCode::Int64,
-                            got: TypeCode::String,
-                        }
-                    ),
-                    "expected TypeMismatch inner source"
-                );
-            }
-            other => panic!("expected TypeConversion variant, got {other:?}"),
-        }
+        assert_eq!(
+            extracted_empty_names.to_string(),
+            "Type conversion error for column '0' (type String): type mismatch, expected Int64, got String",
+            "expected formatted display string with column index '0' for empty column_names"
+        );
     }
 
     #[test]
