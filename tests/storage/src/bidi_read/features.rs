@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Feature tests for bidirectional reads: client options, encodings, and metadata.
+
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
 

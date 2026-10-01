@@ -15,6 +15,7 @@
 //! Cross-SDK conformance tests for bidirectional reads.
 
 use bytes::Bytes;
+use futures::FutureExt as _;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -34,6 +35,7 @@ use google_cloud_storage::read_object::ReadObjectResponse;
 use google_cloud_storage::retry_policy::RetryableErrors;
 use google_cloud_test_utils::resource_names::{LowercaseAlphanumeric, random_bucket_id};
 use google_cloud_test_utils::runtime_config::{project_id, region_id, zone_id};
+use std::panic::AssertUnwindSafe;
 use std::time::Duration;
 
 /// Runs the bidi read conformance tests against each supported bucket type.
@@ -57,6 +59,8 @@ pub async fn run() -> anyhow::Result<()> {
     )
     .await?;
 
+    // Only the data path is exercised on Regional Standard (HNS). The error-path tests already
+    // run on HNS through the Zonal Rapid and Regional Rapid buckets, which always enable HNS.
     with_bucket(
         &clients,
         BucketType::RegionalStandard { hns: true },
@@ -170,7 +174,7 @@ impl BucketType {
     }
 }
 
-/// Creates a bucket, runs `f` on it, and deletes the bucket even if `f` fails.
+/// Creates a bucket, runs `f` on it, and deletes the bucket even if `f` fails or panics.
 async fn with_bucket<F>(clients: &Clients, bucket_type: BucketType, f: F) -> anyhow::Result<()>
 where
     F: AsyncFnOnce(&str, BucketType) -> anyhow::Result<()>,
@@ -181,14 +185,20 @@ where
     println!(" Bucket: {bucket_id}");
     println!("========================================================");
     let bucket = create_bucket(&clients.control, bucket_type, bucket_id).await?;
-    let result = f(&bucket.name, bucket_type).await;
+    // A failed `assert!` panics, so catch the unwind to make sure cleanup still runs.
+    let result = AssertUnwindSafe(f(&bucket.name, bucket_type))
+        .catch_unwind()
+        .await;
     cleanup_bucket(
         &clients.control,
         &bucket.name,
         bucket_type.has_rapid_cache(),
     )
     .await;
-    result
+    match result {
+        Ok(result) => result,
+        Err(panic) => std::panic::resume_unwind(panic),
+    }
 }
 
 /// For Regional Rapid, also attaches the cache, and deletes the bucket if that fails.
@@ -428,10 +438,8 @@ async fn test_read_post_stream_close(
 
 async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> {
     println!("\n--- Testing Non-Existent Bucket Read ---");
-    let non_existent_bucket = format!(
-        "projects/_/buckets/non-existent-bucket-{}",
-        random_bucket_id()
-    );
+    // `random_bucket_id()` is a valid, max-length bucket id that is not expected to exist.
+    let non_existent_bucket = format!("projects/_/buckets/{}", random_bucket_id());
 
     let result = clients
         .grpc
@@ -475,7 +483,9 @@ async fn test_out_of_range(
         .await;
 
     match oob_reader.next().await {
-        None => {}
+        None => {
+            panic!("expected OutOfRange or InvalidArgument error for out of range read, got None")
+        }
         Some(Err(err)) => {
             let Some(status) = find_rpc_status(&err) else {
                 panic!("expected an RPC status for out of range read, got {err:?}");
