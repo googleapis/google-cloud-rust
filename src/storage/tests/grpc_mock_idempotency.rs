@@ -65,7 +65,7 @@ async fn delete_object_with_generation_sends_idempotency_token() -> anyhow::Resu
         .send()
         .await?;
 
-    let tokens = tokens.lock().unwrap().clone();
+    let tokens = tokens.lock().unwrap();
     let token = tokens[0]
         .as_deref()
         .expect("generation > 0 must send a token");
@@ -126,7 +126,7 @@ async fn delete_object_retry_reuses_idempotency_token() -> anyhow::Result<()> {
         .send()
         .await?;
 
-    let tokens = tokens.lock().unwrap().clone();
+    let tokens = tokens.lock().unwrap();
     assert_eq!(tokens.len(), 2, "{tokens:?}");
     assert!(tokens[0].is_some(), "{tokens:?}");
     assert_eq!(
