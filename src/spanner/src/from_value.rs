@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Error;
 pub use crate::types::{Type, TypeCode};
 use crate::value::Kind;
 use crate::value::SPANNER_DATE_FORMAT;
@@ -21,6 +22,7 @@ use base64::prelude::BASE64_STANDARD;
 use google_cloud_type::model::Date;
 use rust_decimal::Decimal;
 use serde_json::Value as JsonValue;
+use std::error::Error as _;
 use std::time::SystemTime;
 use time::Date as TimeDate;
 #[cfg(feature = "unstable-time")]
@@ -29,6 +31,22 @@ use time::OffsetDateTime;
 use time::format_description::well_known::Rfc3339;
 
 /// Represent failures in converting a Spanner Value to a Rust type.
+///
+/// # Example
+/// ```
+/// # use google_cloud_spanner::error::ConvertError;
+/// # use google_cloud_spanner::types;
+/// # use google_cloud_spanner::value::{FromValue, Value};
+/// let value = Value::from("not-a-bool");
+/// let string_type = types::string();
+/// let error = bool::from_value(&value, &string_type).expect_err("string is not a bool");
+/// match error {
+///     ConvertError::KindMismatch { want, got } => {
+///         println!("Kind mismatch: expected {want:?}, got {got:?}");
+///     }
+///     _ => {}
+/// }
+/// ```
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum ConvertError {
@@ -48,6 +66,42 @@ pub enum ConvertError {
     /// There was a problem during conversion.
     #[error("cannot convert value, source={0}")]
     Convert(#[source] BoxedError),
+}
+
+impl ConvertError {
+    /// Extracts a `ConvertError` from a [`google_cloud_spanner::Error`][Error], if present.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::error::ConvertError;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 'not-a-number' AS text").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let result: Result<i64, _> = row?.try_get("text");
+    ///     if let Err(error) = result {
+    ///         if let Some(convert_error) = ConvertError::extract(&error) {
+    ///             println!("Conversion failed: {convert_error}");
+    ///         }
+    ///     }
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Row deserialization returns [`Error`] with a source of [`ConvertError`] when
+    /// value conversion fails due to type mismatch or parsing error. This method
+    /// downcasts the immediate error source.
+    pub fn extract(err: &Error) -> Option<&Self> {
+        err.source()
+            .and_then(|source| source.downcast_ref::<Self>())
+    }
 }
 
 type BoxedError = Box<dyn std::error::Error + Send + Sync>;
@@ -1940,5 +1994,28 @@ mod tests {
 
         let j = JsonValue::from_value(&v, &spanner_type).unwrap();
         assert_eq!(j, serde_json::json!({"a": "hello"}));
+    }
+
+    #[test]
+    fn convert_error_auto_traits() {
+        use std::fmt::Debug;
+        static_assertions::assert_impl_all!(ConvertError: Debug, Send, Sync);
+    }
+
+    #[test]
+    fn convert_error_extract() {
+        let error = crate::Error::deser(ConvertError::NotNull);
+        let extracted = ConvertError::extract(&error).expect("should extract ConvertError");
+        assert!(
+            matches!(extracted, ConvertError::NotNull),
+            "expected NotNull variant"
+        );
+
+        let other_error =
+            crate::Error::deser(crate::row::RowError::ColumnNotFound("col".to_string()));
+        assert!(
+            ConvertError::extract(&other_error).is_none(),
+            "should return None for non-ConvertError"
+        );
     }
 }

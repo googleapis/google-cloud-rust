@@ -1191,6 +1191,7 @@ fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
 }
 
 /// A builder for [DatabaseClient].
+#[derive(Debug)]
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
     database_name: String,
@@ -1305,7 +1306,7 @@ impl DatabaseClientBuilder {
             self.database_name
         };
 
-        #[cfg(feature = "metrics")]
+        #[cfg(feature = "_internal-metrics")]
         let o11y = Arc::new(
             Observability::init(
                 &self.spanner.config,
@@ -1318,7 +1319,7 @@ impl DatabaseClientBuilder {
             )
             .await,
         );
-        #[cfg(not(feature = "metrics"))]
+        #[cfg(not(feature = "_internal-metrics"))]
         let o11y = Arc::new(
             Observability::init(
                 &self.spanner.config,
@@ -1573,7 +1574,7 @@ mod tests {
     use mockall::Sequence;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
-    use std::fmt;
+    use std::fmt::Debug;
     use std::sync::Mutex;
     use tokio::sync::mpsc;
 
@@ -1660,7 +1661,8 @@ mod tests {
     #[test]
     fn auto_traits() {
         use static_assertions::assert_impl_all;
-        assert_impl_all!(DatabaseClient: Send, Sync, Clone, fmt::Debug);
+        assert_impl_all!(DatabaseClient: Send, Sync, Clone, Debug);
+        assert_impl_all!(DatabaseClientBuilder: Debug, Send, Sync);
     }
 
     #[tokio_test_no_panics]

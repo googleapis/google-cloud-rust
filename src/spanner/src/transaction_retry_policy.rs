@@ -18,14 +18,41 @@ use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
+use std::fmt::Debug;
+use std::sync::Arc;
 use std::time::Duration;
 
 /// Defines a policy for retrying a transaction when it is aborted by Spanner.
 ///
+/// # Example
+/// ```
+/// # use google_cloud_spanner::Error;
+/// # use google_cloud_spanner::transaction::{RetryResult, TransactionRetryPolicy};
+/// # use std::time::Duration;
+/// #[derive(Debug)]
+/// struct LimitedRetryPolicy {
+///     max_attempts: u32,
+/// }
+///
+/// impl TransactionRetryPolicy for LimitedRetryPolicy {
+///     fn on_abort(&self, error: Error, attempts: u32, _elapsed: Duration) -> RetryResult {
+///         if attempts < self.max_attempts {
+///             RetryResult::Continue(error)
+///         } else {
+///             RetryResult::Exhausted(error)
+///         }
+///     }
+/// }
+/// ```
+///
 /// Spanner can abort any read/write transaction due to lock conflicts or other
 /// transient issues. In such cases, the client should retry the complete
 /// transaction.
-pub trait TransactionRetryPolicy: Send + Sync {
+///
+/// By default, transaction runners use [`BasicTransactionRetryPolicy`] with no
+/// attempt count or timeout limits, retrying aborted transactions until completion
+/// or runner timeout.
+pub trait TransactionRetryPolicy: Debug + Send + Sync {
     /// Evaluates whether an aborted transaction should be retried.
     ///
     /// * `error` the `Aborted` error that was raised. Note that this policy
@@ -33,6 +60,18 @@ pub trait TransactionRetryPolicy: Send + Sync {
     /// * `attempts` is the number of attempts already made (1 for the first failure).
     /// * `elapsed` is the total time spent executing the transaction so far.
     fn on_abort(&self, error: Error, attempts: u32, elapsed: Duration) -> RetryResult;
+}
+
+impl<T: ?Sized + TransactionRetryPolicy> TransactionRetryPolicy for Box<T> {
+    fn on_abort(&self, error: Error, attempts: u32, elapsed: Duration) -> RetryResult {
+        (**self).on_abort(error, attempts, elapsed)
+    }
+}
+
+impl<T: ?Sized + TransactionRetryPolicy> TransactionRetryPolicy for Arc<T> {
+    fn on_abort(&self, error: Error, attempts: u32, elapsed: Duration) -> RetryResult {
+        (**self).on_abort(error, attempts, elapsed)
+    }
 }
 
 /// Policy for automatically retrying a transaction when it is aborted based on
@@ -264,14 +303,48 @@ pub(crate) mod tests {
 
     #[test]
     fn auto_traits() {
+        use std::fmt::Debug;
         static_assertions::assert_impl_all!(
             BasicTransactionRetryPolicy: Send,
             Sync,
             Unpin,
             Clone,
-            std::fmt::Debug,
+            Debug,
             Default,
             TransactionRetryPolicy,
+        );
+        static_assertions::assert_impl_all!(
+            Box<dyn TransactionRetryPolicy>: TransactionRetryPolicy,
+            Debug,
+            Send,
+            Sync,
+        );
+        static_assertions::assert_impl_all!(
+            Arc<dyn TransactionRetryPolicy>: TransactionRetryPolicy,
+            Debug,
+            Send,
+            Sync,
+        );
+    }
+
+    #[test]
+    fn box_and_arc_dispatch_on_abort() {
+        let boxed: Box<dyn TransactionRetryPolicy> =
+            Box::new(BasicTransactionRetryPolicy::new().with_max_attempts(2));
+        let error = create_aborted_error(None);
+        let result = boxed.on_abort(error, 1, Duration::from_millis(10));
+        assert!(
+            matches!(result, RetryResult::Continue(_)),
+            "Box<dyn TransactionRetryPolicy> should forward on_abort to inner policy"
+        );
+
+        let arc: Arc<dyn TransactionRetryPolicy> =
+            Arc::new(BasicTransactionRetryPolicy::new().with_max_attempts(2));
+        let error = create_aborted_error(None);
+        let result = arc.on_abort(error, 1, Duration::from_millis(10));
+        assert!(
+            matches!(result, RetryResult::Continue(_)),
+            "Arc<dyn TransactionRetryPolicy> should forward on_abort to inner policy"
         );
     }
 
@@ -478,6 +551,7 @@ pub(crate) mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn retry_aborted_with_custom_policy() {
+        #[derive(Debug)]
         struct CustomPolicy;
         impl TransactionRetryPolicy for CustomPolicy {
             fn on_abort(&self, error: Error, attempts: u32, _elapsed: Duration) -> RetryResult {

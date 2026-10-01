@@ -93,7 +93,7 @@ pub(crate) fn encode_uuid_part(
     value: &Value,
     decreasing: bool,
 ) -> Result<()> {
-    let uuid_string = value.try_as_string().ok_or_else(|| {
+    let uuid_string = value.as_str().ok_or_else(|| {
         crate::error::internal_error("Type mismatch: expected String value for UUID column")
     })?;
     let uuid_bytes = parse_uuid_bytes(uuid_string)?;

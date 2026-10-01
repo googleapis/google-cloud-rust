@@ -27,7 +27,7 @@ use crate::model::{
     ReadRequest, RollbackRequest, Session, Transaction,
 };
 use crate::observability::Observability;
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 use crate::observability::metrics::SpannerMetricsInterceptor;
 use crate::omni::{InstanceType, TlsConfig, TlsError, is_plaintext_endpoint};
 use crate::request_id::RequestIdCreator;
@@ -53,13 +53,13 @@ use std::sync::Arc;
 use tokio::task::JoinSet;
 
 pub use crate::database_client::DatabaseClient;
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 use crate::observability::SharedMeterProvider;
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 use google_cloud_gax::client_builder::Extensions;
 pub use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 pub use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
-#[cfg(feature = "metrics")]
+#[cfg(feature = "unstable-metrics")]
 use opentelemetry::metrics::MeterProvider;
 
 /// A client for the [Spanner] API.
@@ -76,9 +76,9 @@ pub struct Spanner {
     pub(crate) request_id_creator: Arc<RequestIdCreator>,
     #[cfg(feature = "builtin-metrics")]
     pub(crate) export_builtin_metrics_to_cloud_monitoring: Option<bool>,
-    #[cfg(feature = "metrics")]
+    #[cfg(feature = "_internal-metrics")]
     pub(crate) export_builtin_metrics_to_custom_provider: Option<bool>,
-    #[cfg(feature = "metrics")]
+    #[cfg(feature = "_internal-metrics")]
     pub(crate) meter_provider: Option<SharedMeterProvider>,
 }
 
@@ -126,7 +126,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             .get::<ExportBuiltinMetricsToCloudMonitoring>()
             .map(|config| config.0);
 
-        #[cfg(feature = "metrics")]
+        #[cfg(feature = "_internal-metrics")]
         let (export_builtin_metrics_to_custom_provider, meter_provider) =
             extract_metrics_config(&config.extensions);
 
@@ -138,9 +138,9 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             request_id_creator: Arc::new(RequestIdCreator::new()),
             #[cfg(feature = "builtin-metrics")]
             export_builtin_metrics_to_cloud_monitoring,
-            #[cfg(feature = "metrics")]
+            #[cfg(feature = "_internal-metrics")]
             export_builtin_metrics_to_custom_provider,
-            #[cfg(feature = "metrics")]
+            #[cfg(feature = "_internal-metrics")]
             meter_provider,
         })
     }
@@ -241,7 +241,8 @@ pub trait SpannerBuilderExt {
     ///
     /// - **Spanner Omni**: Because Cloud Monitoring is not active for Omni, built-in metrics
     ///   are exported to this provider by default.
-    #[cfg(feature = "metrics")]
+    #[cfg(feature = "unstable-metrics")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-metrics")))]
     fn with_meter_provider(self, provider: Arc<dyn MeterProvider + Send + Sync>) -> Self;
 
     /// Configures whether built-in request and attempt latency metrics should be
@@ -289,7 +290,8 @@ pub trait SpannerBuilderExt {
     ///
     /// - **Emulator**: When connecting to the Spanner emulator, all built-in metrics collection
     ///   and export are disabled.
-    #[cfg(feature = "metrics")]
+    #[cfg(feature = "unstable-metrics")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-metrics")))]
     fn with_export_builtin_metrics_to_custom_provider(self, export: bool) -> Self;
 
     /// Configures whether built-in request and attempt latency metrics should be
@@ -318,10 +320,11 @@ pub trait SpannerBuilderExt {
     /// # Independence from Custom Provider Export
     ///
     /// Disabling Cloud Monitoring export does **not** affect built-in metrics exported to a
-    /// custom [`MeterProvider`] configured via
-    /// [`with_meter_provider`](Self::with_meter_provider) and
-    /// [`with_export_builtin_metrics_to_custom_provider`](Self::with_export_builtin_metrics_to_custom_provider).
+    /// custom `MeterProvider` configured via `with_meter_provider` and
+    /// `with_export_builtin_metrics_to_custom_provider` (available when the `unstable-metrics`
+    /// feature is enabled).
     #[cfg(feature = "builtin-metrics")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "builtin-metrics")))]
     fn with_export_builtin_metrics_to_cloud_monitoring(self, export: bool) -> Self;
 }
 
@@ -329,7 +332,7 @@ pub trait SpannerBuilderExt {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 struct ExportBuiltinMetricsToCloudMonitoring(bool);
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "unstable-metrics")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 struct ExportBuiltinMetricsToCustomProvider(bool);
 
@@ -347,12 +350,12 @@ impl SpannerBuilderExt for ClientBuilder {
             .with_extension(tls_config)
     }
 
-    #[cfg(feature = "metrics")]
+    #[cfg(feature = "unstable-metrics")]
     fn with_meter_provider(self, provider: Arc<dyn MeterProvider + Send + Sync>) -> Self {
         self.with_extension(SharedMeterProvider::from(provider))
     }
 
-    #[cfg(feature = "metrics")]
+    #[cfg(feature = "unstable-metrics")]
     fn with_export_builtin_metrics_to_custom_provider(self, export: bool) -> Self {
         self.with_extension(ExportBuiltinMetricsToCustomProvider(export))
     }
@@ -528,7 +531,7 @@ async fn create_channel_pool(
     Ok(pool)
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "unstable-metrics")]
 fn extract_metrics_config(extensions: &Extensions) -> (Option<bool>, Option<SharedMeterProvider>) {
     let export_builtin_metrics_to_custom_provider = extensions
         .get::<ExportBuiltinMetricsToCustomProvider>()
@@ -544,6 +547,11 @@ fn extract_metrics_config(extensions: &Extensions) -> (Option<bool>, Option<Shar
     (export_builtin_metrics_to_custom_provider, meter_provider)
 }
 
+#[cfg(all(feature = "_internal-metrics", not(feature = "unstable-metrics")))]
+fn extract_metrics_config(_extensions: &Extensions) -> (Option<bool>, Option<SharedMeterProvider>) {
+    (None, None)
+}
+
 macro_rules! define_idempotent_rpc {
     ($method:ident, $request_type:ty, $response_type:ty, $canonical_name:expr) => {
         pub(crate) async fn $method(
@@ -554,7 +562,7 @@ macro_rules! define_idempotent_rpc {
             o11y: &Arc<Observability>,
         ) -> Result<$response_type> {
             let options = self.attach_request_id(options, channel.channel_id);
-            #[cfg(feature = "metrics")]
+            #[cfg(feature = "_internal-metrics")]
             let options = options.insert_extension(Arc::clone(o11y));
             o11y.trace_operation(
                 $canonical_name,
@@ -737,9 +745,9 @@ impl Spanner {
             request_id_creator: Arc::new(RequestIdCreator::new()),
             #[cfg(feature = "builtin-metrics")]
             export_builtin_metrics_to_cloud_monitoring: None,
-            #[cfg(feature = "metrics")]
+            #[cfg(feature = "_internal-metrics")]
             export_builtin_metrics_to_custom_provider: None,
-            #[cfg(feature = "metrics")]
+            #[cfg(feature = "_internal-metrics")]
             meter_provider: None,
         }
     }
@@ -749,17 +757,17 @@ impl Spanner {
         self.export_builtin_metrics_to_cloud_monitoring
     }
 
-    #[cfg(all(feature = "metrics", not(feature = "builtin-metrics")))]
+    #[cfg(all(feature = "_internal-metrics", not(feature = "builtin-metrics")))]
     pub(crate) fn export_builtin_metrics_to_cloud_monitoring(&self) -> Option<bool> {
         None
     }
 
-    #[cfg(feature = "metrics")]
+    #[cfg(feature = "_internal-metrics")]
     pub(crate) fn export_builtin_metrics_to_custom_provider(&self) -> Option<bool> {
         self.export_builtin_metrics_to_custom_provider
     }
 
-    #[cfg(feature = "metrics")]
+    #[cfg(feature = "_internal-metrics")]
     pub(crate) fn meter_provider(&self) -> Option<SharedMeterProvider> {
         self.meter_provider.clone()
     }
@@ -962,13 +970,13 @@ impl Channel {
         let request_id_interceptor: Arc<dyn AttemptInterceptor> =
             Arc::new(SpannerRequestIdInterceptor);
 
-        #[cfg(feature = "metrics")]
+        #[cfg(feature = "_internal-metrics")]
         let interceptor: Arc<dyn AttemptInterceptor> = Arc::new(vec![
             request_id_interceptor,
             Arc::new(SpannerMetricsInterceptor),
         ]);
 
-        #[cfg(not(feature = "metrics"))]
+        #[cfg(not(feature = "_internal-metrics"))]
         let interceptor: Arc<dyn AttemptInterceptor> = request_id_interceptor;
 
         transport.inner.set_attempt_interceptor(interceptor);
@@ -2464,7 +2472,7 @@ mod tests {
         );
     }
 
-    #[cfg(feature = "builtin-metrics")]
+    #[cfg(all(feature = "builtin-metrics", feature = "unstable-metrics"))]
     #[tokio_test_no_panics]
     async fn spanner_builder_with_meter_provider_cloud_spanner_default_does_not_export_builtin_metrics()
      {
@@ -2535,7 +2543,7 @@ mod tests {
         );
     }
 
-    #[cfg(feature = "builtin-metrics")]
+    #[cfg(all(feature = "builtin-metrics", feature = "unstable-metrics"))]
     #[tokio_test_no_panics]
     async fn spanner_builder_with_export_builtin_metrics_to_custom_provider() {
         use opentelemetry::metrics::MeterProvider;
@@ -2598,7 +2606,7 @@ mod tests {
         );
     }
 
-    #[cfg(feature = "builtin-metrics")]
+    #[cfg(all(feature = "builtin-metrics", feature = "unstable-metrics"))]
     #[tokio_test_no_panics]
     async fn spanner_builder_omni_with_meter_provider_defaults_to_export_builtin_metrics() {
         use opentelemetry::metrics::MeterProvider;
@@ -2692,7 +2700,7 @@ mod tests {
         );
     }
 
-    #[cfg(feature = "builtin-metrics")]
+    #[cfg(all(feature = "builtin-metrics", feature = "unstable-metrics"))]
     #[tokio_test_no_panics]
     async fn spanner_builder_with_raw_meter_provider_extension() {
         use opentelemetry::metrics::MeterProvider;

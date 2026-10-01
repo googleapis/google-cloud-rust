@@ -20,6 +20,8 @@ pub use crate::read_only_transaction::{
 };
 pub use crate::read_write_transaction::ReadWriteTransaction;
 pub use crate::timestamp_bound::TimestampBound;
-pub use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
-pub use crate::transaction_runner::TransactionRunner;
+pub use crate::transaction_retry_policy::{BasicTransactionRetryPolicy, TransactionRetryPolicy};
+pub use crate::transaction_runner::{TransactionResult, TransactionRunner};
 pub use crate::write_only_transaction::WriteOnlyTransaction;
+pub use google_cloud_gax::retry_result::RetryResult;
+pub use wkt::Timestamp;

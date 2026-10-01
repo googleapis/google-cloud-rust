@@ -57,6 +57,7 @@ use tokio::time::sleep;
 /// #   Ok(())
 /// # }
 /// ```
+#[derive(Debug)]
 pub struct PartitionedDmlTransactionBuilder {
     client: DatabaseClient,
     retry_policy: Box<dyn TransactionRetryPolicy>,
@@ -157,6 +158,7 @@ impl PartitionedDmlTransactionBuilder {
 /// A Partitioned DML transaction cannot be committed or rolled back.
 ///
 /// See also: <https://docs.cloud.google.com/spanner/docs/dml-partitioned>
+#[derive(Debug)]
 pub struct PartitionedDmlTransaction {
     client: DatabaseClient,
     retry_policy: Box<dyn TransactionRetryPolicy>,
@@ -509,14 +511,15 @@ mod tests {
     use gaxi::grpc::tonic;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1;
+    use std::fmt::Debug;
     use std::sync::Mutex;
     use std::time::Instant;
     use tokio::sync::mpsc;
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(PartitionedDmlTransactionBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(PartitionedDmlTransaction: Send, Sync);
+        static_assertions::assert_impl_all!(PartitionedDmlTransactionBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(PartitionedDmlTransaction: Debug, Send, Sync);
     }
 
     #[tokio_test_no_panics]

@@ -79,7 +79,7 @@ pub(crate) fn encode_date_part(
     value: &Value,
     decreasing: bool,
 ) -> Result<()> {
-    let date_string = value.try_as_string().ok_or_else(|| {
+    let date_string = value.as_str().ok_or_else(|| {
         crate::error::internal_error(
             "Type mismatch: expected ISO 8601 String value for DATE column",
         )
@@ -95,7 +95,7 @@ pub(crate) fn encode_timestamp_part(
     value: &Value,
     decreasing: bool,
 ) -> Result<()> {
-    let timestamp_string = value.try_as_string().ok_or_else(|| {
+    let timestamp_string = value.as_str().ok_or_else(|| {
         crate::error::internal_error(
             "Type mismatch: expected RFC 3339 String value for TIMESTAMP column",
         )
