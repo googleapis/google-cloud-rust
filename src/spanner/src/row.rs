@@ -16,7 +16,7 @@ use crate::Error;
 use crate::Result;
 use crate::from_value::FromValue;
 use crate::result_set_metadata::ResultSetMetadata;
-use crate::value::{Kind, Value};
+use crate::value::Value;
 use std::fmt::{Debug, Display};
 
 /// A row in a query result.
@@ -118,7 +118,7 @@ impl Row {
     /// * `Err(Error)` if the column name or index is invalid.
     pub fn try_is_null<I: ColumnIndex>(&self, index: I) -> Result<bool> {
         let (_, value) = self.get_value(index)?;
-        Ok(value.kind() == Kind::Null)
+        Ok(value.is_null())
     }
 
     /// Returns true if the value at the specified column name or index is null, panicking on error.
