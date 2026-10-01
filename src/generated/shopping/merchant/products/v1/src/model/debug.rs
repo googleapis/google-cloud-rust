@@ -256,6 +256,7 @@ impl std::fmt::Debug for super::ProductAttributes {
         debug_struct.field("sustainability_incentives", &self.sustainability_incentives);
         debug_struct.field("video_links", &self.video_links);
         debug_struct.field("minimum_order_values", &self.minimum_order_values);
+        debug_struct.field("warranty", &self.warranty);
         debug_struct.field("vin", &self.vin);
         debug_struct.field("model", &self.model);
         debug_struct.field("trim", &self.trim);
@@ -282,7 +283,7 @@ impl std::fmt::Debug for super::ProductAttributes {
             &self.vehicle_mandatory_inspection_included,
         );
         debug_struct.field("vehicle_expenses", &self.vehicle_expenses);
-        debug_struct.field("warranty", &self.warranty);
+        debug_struct.field("returns", &self.returns);
         debug_struct.field("display_address", &self.display_address);
         debug_struct.field("latitude", &self.latitude);
         debug_struct.field("longitude", &self.longitude);
@@ -299,6 +300,7 @@ impl std::fmt::Debug for super::ProductAttributes {
         debug_struct.field("specialty_housing_type", &self.specialty_housing_type);
         debug_struct.field("product_fee", &self.product_fee);
         debug_struct.field("short_title", &self.short_title);
+        debug_struct.field("lease_term", &self.lease_term);
         debug_struct.field("questions_and_answers", &self.questions_and_answers);
         debug_struct.field("popularity_rank", &self.popularity_rank);
         debug_struct.field("item_group_title", &self.item_group_title);
@@ -406,6 +408,7 @@ impl std::fmt::Debug for super::product_attributes::Warranty {
         let mut debug_struct = f.debug_struct("Warranty");
         debug_struct.field("duration", &self.duration);
         debug_struct.field("mileage", &self.mileage);
+        debug_struct.field("duration_unit", &self.duration_unit);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -457,6 +460,39 @@ impl std::fmt::Debug for super::product_attributes::PetPolicy {
         let mut debug_struct = f.debug_struct("PetPolicy");
         debug_struct.field("pets_allowed", &self.pets_allowed);
         debug_struct.field("pet_types", &self.pet_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::product_attributes::LeaseTerm {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LeaseTerm");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("duration_value", &self.duration_value);
+        debug_struct.field("duration_unit", &self.duration_unit);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::product_attributes::Returns {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Returns");
+        debug_struct.field("countries", &self.countries);
+        debug_struct.field("window_days", &self.window_days);
+        debug_struct.field("window_type", &self.window_type);
+        debug_struct.field("item_conditions", &self.item_conditions);
+        debug_struct.field("methods", &self.methods);
+        debug_struct.field("outcomes", &self.outcomes);
+        debug_struct.field("shipping_fee", &self.shipping_fee);
+        debug_struct.field("shipping_fee_type", &self.shipping_fee_type);
+        debug_struct.field("policy_url", &self.policy_url);
+        debug_struct.field("restocking_fee_oneof", &self.restocking_fee_oneof);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -571,6 +607,7 @@ impl std::fmt::Debug for super::ProductInstallment {
         debug_struct.field("credit_type", &self.credit_type);
         debug_struct.field("annual_percentage_rate", &self.annual_percentage_rate);
         debug_struct.field("total_amount", &self.total_amount);
+        debug_struct.field("mileage_allowance", &self.mileage_allowance);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -668,6 +705,11 @@ impl std::fmt::Debug for super::ProductCertification {
         debug_struct.field("certification_name", &self.certification_name);
         debug_struct.field("certification_code", &self.certification_code);
         debug_struct.field("certification_value", &self.certification_value);
+        debug_struct.field(
+            "certification_document_link",
+            &self.certification_document_link,
+        );
+        debug_struct.field("certification_label_link", &self.certification_label_link);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -70,19 +70,63 @@ struct RoutingHintParams<'a> {
     directed_read_options: Option<&'a DirectedReadOptions>,
 }
 
-/// Unbounded transaction affinity map.
+/// Default maximum capacity for the transaction affinity map.
+pub(crate) const DEFAULT_MAX_AFFINITY_ENTRIES: usize = 100_000;
+
+/// Default initial pre-allocated capacity for the transaction affinity map.
+const DEFAULT_INITIAL_AFFINITY_CAPACITY: usize = 256;
+
+#[derive(Debug)]
+struct AffinityEntry {
+    transaction_id: Bytes,
+    address: Arc<str>,
+    prev: Option<usize>,
+    next: Option<usize>,
+}
+
+/// Bounded location-aware routing transaction affinity map.
 ///
-/// Entries are explicitly cleaned up by calling [`LocationRouter::clear_transaction_affinity`]
-/// when a transaction completes (`Commit`, `Rollback`, or drop).
-#[derive(Debug, Default)]
+/// Limits stored entries to at most `max_capacity` (defaulting to [`DEFAULT_MAX_AFFINITY_ENTRIES`])
+/// using FIFO eviction as a fallback safeguard against leaked transactions.
+/// Under normal operation, entries are explicitly cleaned up when a transaction completes
+/// (commit, rollback, abort, or drop).
+///
+/// # Note: Location-Aware Routing Affinity vs Channel Pool Affinity
+/// This tracker records *location-aware routing affinity* (mapping transaction IDs to
+/// remote Spanner tablet backend endpoints [`ServerConnection`]). It is completely distinct
+/// from *channel pool affinity* ([`TransactionAffinity`]), which manages local client
+/// gRPC channel leases in `channel_pool`.
+#[derive(Debug)]
 struct AffinityTracker {
-    entries: HashMap<Vec<u8>, Arc<str>>,
+    entries: HashMap<Bytes, usize>,
+    slots: Vec<Option<AffinityEntry>>,
+    free_slots: Vec<usize>,
+    head: Option<usize>,
+    tail: Option<usize>,
+    max_capacity: usize,
 }
 
 impl AffinityTracker {
     fn new() -> Self {
+        Self::with_max_capacity(DEFAULT_MAX_AFFINITY_ENTRIES)
+    }
+
+    fn with_max_capacity(max_capacity: usize) -> Self {
+        Self::with_initial_capacity(
+            max_capacity.min(DEFAULT_INITIAL_AFFINITY_CAPACITY),
+            max_capacity,
+        )
+    }
+
+    fn with_initial_capacity(initial_capacity: usize, max_capacity: usize) -> Self {
+        let initial_capacity = initial_capacity.min(max_capacity);
         Self {
-            entries: HashMap::new(),
+            entries: HashMap::with_capacity(initial_capacity),
+            slots: Vec::with_capacity(initial_capacity),
+            free_slots: Vec::new(),
+            head: None,
+            tail: None,
+            max_capacity,
         }
     }
 
@@ -90,28 +134,104 @@ impl AffinityTracker {
         if transaction_id.is_empty() {
             return None;
         }
-        self.entries.get(transaction_id).cloned()
+        let slot_index = *self.entries.get(transaction_id)?;
+        self.slots
+            .get(slot_index)
+            .and_then(|slot| slot.as_ref())
+            .map(|entry| Arc::clone(&entry.address))
     }
 
     fn insert(&mut self, transaction_id: &[u8], address: &str) {
-        if transaction_id.is_empty() {
+        // Step 1: Validate input parameters.
+        if transaction_id.is_empty() || self.max_capacity == 0 {
             return;
         }
-        if let Some(entry) = self.entries.get_mut(transaction_id) {
-            if entry.as_ref() != address {
-                *entry = Arc::from(address);
+
+        // Step 2: If transaction affinity is already recorded, update the address in-place.
+        if let Some(&slot_index) = self.entries.get(transaction_id) {
+            if let Some(Some(entry)) = self.slots.get_mut(slot_index)
+                && entry.address.as_ref() != address
+            {
+                entry.address = Arc::from(address);
             }
             return;
         }
-        self.entries
-            .insert(transaction_id.to_vec(), Arc::from(address));
+
+        // Step 3: Evict the oldest entry (FIFO) if tracker has reached maximum capacity.
+        if self.entries.len() >= self.max_capacity
+            && let Some(oldest_index) = self.head
+            && let Some(Some(oldest_entry)) = self.slots.get(oldest_index)
+        {
+            let oldest_transaction_id = oldest_entry.transaction_id.clone();
+            self.remove(&oldest_transaction_id);
+        }
+
+        // Step 4: Allocate a slot index, recycling from free slots if available.
+        let slot_index = if let Some(free_index) = self.free_slots.pop() {
+            free_index
+        } else {
+            let new_index = self.slots.len();
+            self.slots.push(None);
+            new_index
+        };
+
+        // Step 5: Link the new slot at the tail of the intrusive doubly-linked list.
+        let previous_tail = self.tail;
+        if let Some(tail_index) = previous_tail {
+            if let Some(Some(tail_entry)) = self.slots.get_mut(tail_index) {
+                tail_entry.next = Some(slot_index);
+            }
+        } else {
+            // First entry in the tracker becomes the head.
+            self.head = Some(slot_index);
+        }
+        self.tail = Some(slot_index);
+
+        // Step 6: Store entry in the allocated slot and update the lookup index.
+        let transaction_bytes = Bytes::copy_from_slice(transaction_id);
+        self.slots[slot_index] = Some(AffinityEntry {
+            transaction_id: transaction_bytes.clone(),
+            address: Arc::from(address),
+            prev: previous_tail,
+            next: None,
+        });
+        self.entries.insert(transaction_bytes, slot_index);
     }
 
     fn remove(&mut self, transaction_id: &[u8]) -> Option<Arc<str>> {
         if transaction_id.is_empty() {
             return None;
         }
-        self.entries.remove(transaction_id)
+        let slot_index = self.entries.remove(transaction_id)?;
+        let entry = self.slots.get_mut(slot_index)?.take()?;
+
+        // Unlink from the previous entry or update head.
+        if let Some(prev_index) = entry.prev {
+            if let Some(Some(prev_entry)) = self.slots.get_mut(prev_index) {
+                prev_entry.next = entry.next;
+            }
+        } else {
+            self.head = entry.next;
+        }
+
+        // Unlink from the next entry or update tail.
+        if let Some(next_index) = entry.next {
+            if let Some(Some(next_entry)) = self.slots.get_mut(next_index) {
+                next_entry.prev = entry.prev;
+            }
+        } else {
+            self.tail = entry.prev;
+        }
+
+        // Return slot index to the free pool for future allocations.
+        self.free_slots.push(slot_index);
+        Some(entry.address)
+    }
+}
+
+impl Default for AffinityTracker {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
@@ -150,6 +270,27 @@ impl LocationRouter {
         cooldown_tracker: Arc<EndpointCooldownTracker>,
         latency_registry: Arc<LatencyRegistry>,
     ) -> Self {
+        Self::new_with_affinity_capacity(
+            database_scope,
+            key_range_cache,
+            connection_cache,
+            endpoint_lifecycle_manager,
+            cooldown_tracker,
+            latency_registry,
+            DEFAULT_MAX_AFFINITY_ENTRIES,
+        )
+    }
+
+    /// Creates a new `LocationRouter` with a custom maximum transaction affinity capacity.
+    pub(crate) fn new_with_affinity_capacity(
+        database_scope: String,
+        key_range_cache: Arc<KeyRangeCache>,
+        connection_cache: Arc<ConnectionCache>,
+        endpoint_lifecycle_manager: Arc<EndpointLifecycleManager>,
+        cooldown_tracker: Arc<EndpointCooldownTracker>,
+        latency_registry: Arc<LatencyRegistry>,
+        max_affinity_entries: usize,
+    ) -> Self {
         debug_assert!(
             !database_scope.is_empty(),
             "database scope must not be empty"
@@ -162,7 +303,9 @@ impl LocationRouter {
             cooldown_tracker,
             latency_registry,
             replica_selector: PowerOfTwoSelector::new(),
-            affinity_tracker: Arc::new(RwLock::new(AffinityTracker::new())),
+            affinity_tracker: Arc::new(RwLock::new(AffinityTracker::with_max_capacity(
+                max_affinity_entries,
+            ))),
         }
     }
 
@@ -199,8 +342,8 @@ impl LocationRouter {
     /// 1. **Single-Pass Tablet Selection:** Ensures that the replica tablet selected for direct gRPC
     ///    transport connection matches the `tablet_uid` stamped into the [`RoutingHint`], eliminating
     ///    sampling divergence and TOCTOU races.
-    /// 2. **Transaction Affinity:** Checks existing session affinity mapping first. If valid and not cooling down,
-    ///    routes to the affinity endpoint.
+    /// 2. **Transaction Affinity:** Checks existing location-aware routing transaction affinity mapping first.
+    ///    If valid and not cooling down, routes to the affinity endpoint.
     /// 3. **Key Range Lookup & Cooldown Filtering:** Evaluates covering ranges from [`KeyRangeCache`], selects
     ///    an eligible leader or follower replica, and falls back to the default gateway connection if all
     ///    replicas are skipped, unroutable, or cooling down.
@@ -253,7 +396,7 @@ impl LocationRouter {
         }
     }
 
-    /// Checks existing session affinity mapping for `context.transaction_id`.
+    /// Checks existing location-aware routing transaction affinity mapping for `context.transaction_id`.
     ///
     /// Returns the cached connection if valid and not currently on cooldown.
     fn resolve_affinity_connection(
@@ -703,10 +846,10 @@ impl LocationRouter {
         if transaction_id.is_empty() {
             return;
         }
-        let mut tracker = self
-            .affinity_tracker
-            .write()
-            .expect("affinity tracker lock poisoned");
+        let mut tracker = match self.affinity_tracker.write() {
+            Ok(tracker) => tracker,
+            Err(poisoned) => poisoned.into_inner(),
+        };
         tracker.insert(transaction_id, address);
     }
 
@@ -715,10 +858,10 @@ impl LocationRouter {
         if transaction_id.is_empty() {
             return None;
         }
-        let tracker = self
-            .affinity_tracker
-            .read()
-            .expect("affinity tracker lock poisoned");
+        let tracker = match self.affinity_tracker.read() {
+            Ok(tracker) => tracker,
+            Err(poisoned) => poisoned.into_inner(),
+        };
         tracker.get(transaction_id)
     }
 
@@ -727,10 +870,10 @@ impl LocationRouter {
         if transaction_id.is_empty() {
             return;
         }
-        let mut tracker = self
-            .affinity_tracker
-            .write()
-            .expect("affinity tracker lock poisoned");
+        let mut tracker = match self.affinity_tracker.write() {
+            Ok(tracker) => tracker,
+            Err(poisoned) => poisoned.into_inner(),
+        };
         let _ = tracker.remove(transaction_id);
     }
 
@@ -771,6 +914,10 @@ impl LocationRouter {
 impl AffinityTracker {
     fn len(&self) -> usize {
         self.entries.len()
+    }
+
+    fn max_capacity(&self) -> usize {
+        self.max_capacity
     }
 }
 
@@ -824,10 +971,10 @@ impl LocationRouter {
 
     /// Returns the number of active transaction affinity entries.
     pub(crate) fn affinity_count(&self) -> usize {
-        let tracker = self
-            .affinity_tracker
-            .read()
-            .expect("affinity tracker lock poisoned");
+        let tracker = match self.affinity_tracker.read() {
+            Ok(tracker) => tracker,
+            Err(poisoned) => poisoned.into_inner(),
+        };
         tracker.len()
     }
 
@@ -1190,6 +1337,179 @@ mod tests {
             router.get_transaction_affinity(b"tx1"),
             None,
             "tx1 affinity should be None"
+        );
+    }
+
+    #[test]
+    fn affinity_tracker_bounded_capacity_eviction() {
+        let mut tracker = AffinityTracker::with_max_capacity(3);
+        assert_eq!(tracker.max_capacity(), 3, "max capacity should be 3");
+
+        tracker.insert(b"tx1", "10.0.0.1:15000");
+        tracker.insert(b"tx2", "10.0.0.2:15000");
+        tracker.insert(b"tx3", "10.0.0.3:15000");
+        assert_eq!(tracker.len(), 3, "tracker should contain 3 entries");
+
+        // Over-capacity insert: should evict oldest entry ("tx1").
+        tracker.insert(b"tx4", "10.0.0.4:15000");
+        assert_eq!(tracker.len(), 3, "tracker length must remain bounded at 3");
+        assert_eq!(
+            tracker.get(b"tx1"),
+            None,
+            "oldest entry tx1 must be evicted"
+        );
+        assert_eq!(
+            tracker.get(b"tx2").as_deref(),
+            Some("10.0.0.2:15000"),
+            "tx2 must be retained"
+        );
+        assert_eq!(
+            tracker.get(b"tx3").as_deref(),
+            Some("10.0.0.3:15000"),
+            "tx3 must be retained"
+        );
+        assert_eq!(
+            tracker.get(b"tx4").as_deref(),
+            Some("10.0.0.4:15000"),
+            "newest entry tx4 must be present"
+        );
+    }
+
+    #[test]
+    fn affinity_tracker_capacity_boundary_matrix() {
+        // 1. Initial capacity larger than max capacity clamps to max.
+        let clamped = AffinityTracker::with_initial_capacity(100, 10);
+        assert_eq!(clamped.max_capacity(), 10, "max capacity should be 10");
+
+        // 2. Zero max capacity with positive initial capacity.
+        let mut zero_max = AffinityTracker::with_initial_capacity(10, 0);
+        assert_eq!(zero_max.max_capacity(), 0, "max capacity should be 0");
+        zero_max.insert(b"tx1", "10.0.0.1:15000");
+        assert_eq!(
+            zero_max.len(),
+            0,
+            "zero capacity tracker must not store entries"
+        );
+        assert_eq!(zero_max.get(b"tx1"), None, "entry must not be found");
+
+        // 3. Zero initial capacity with positive max capacity.
+        let mut zero_initial = AffinityTracker::with_initial_capacity(0, 10);
+        assert_eq!(zero_initial.max_capacity(), 10, "max capacity should be 10");
+        zero_initial.insert(b"tx1", "10.0.0.1:15000");
+        assert_eq!(zero_initial.len(), 1, "entry should be stored");
+
+        // 4. Extreme initial capacity clamps without allocation panic or OOM.
+        let extreme = AffinityTracker::with_initial_capacity(usize::MAX, 50);
+        assert_eq!(extreme.max_capacity(), 50, "max capacity should be 50");
+
+        // 5. Pre-allocation threshold boundaries below vs above default threshold limits.
+        let small = AffinityTracker::with_max_capacity(100);
+        assert_eq!(small.max_capacity(), 100, "max capacity should be 100");
+        let large = AffinityTracker::with_max_capacity(100_000);
+        assert_eq!(
+            large.max_capacity(),
+            100_000,
+            "max capacity should be 100,000"
+        );
+    }
+
+    #[test]
+    fn affinity_tracker_linked_eviction_and_removal() {
+        let mut tracker = AffinityTracker::with_max_capacity(2000);
+        // Insert 1500 entries.
+        for i in 0..1500 {
+            let key = format!("tx-{}", i).into_bytes();
+            tracker.insert(&key, "10.0.0.1:15000");
+        }
+        assert_eq!(tracker.len(), 1500, "should have 1500 entries");
+
+        // Remove 1400 entries from the beginning.
+        for i in 0..1400 {
+            let key = format!("tx-{}", i).into_bytes();
+            tracker.remove(&key);
+        }
+        assert_eq!(tracker.len(), 100, "should have 100 entries remaining");
+
+        // Verify remaining entries are intact.
+        for i in 1400..1500 {
+            let key = format!("tx-{}", i).into_bytes();
+            assert_eq!(
+                tracker.get(&key).as_deref(),
+                Some("10.0.0.1:15000"),
+                "retained entry must be accessible"
+            );
+        }
+
+        // Remove an entry from the middle of the remaining list (e.g. tx-1450).
+        let middle_key = "tx-1450".as_bytes();
+        assert_eq!(
+            tracker.remove(middle_key).as_deref(),
+            Some("10.0.0.1:15000"),
+            "middle entry should be removed"
+        );
+        assert_eq!(tracker.len(), 99, "length should decrease to 99");
+        assert_eq!(
+            tracker.get(middle_key),
+            None,
+            "middle entry must not be present"
+        );
+
+        // Verify neighboring entries remain linked and accessible.
+        let prev_key = "tx-1449".as_bytes();
+        let next_key = "tx-1451".as_bytes();
+        assert_eq!(
+            tracker.get(prev_key).as_deref(),
+            Some("10.0.0.1:15000"),
+            "prev entry must be accessible"
+        );
+        assert_eq!(
+            tracker.get(next_key).as_deref(),
+            Some("10.0.0.1:15000"),
+            "next entry must be accessible"
+        );
+    }
+
+    #[test]
+    fn location_router_affinity_capacity_configuration() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let connection_cache = Arc::new(ConnectionCache::new(default_connection));
+        let router = LocationRouter::new_with_affinity_capacity(
+            "projects/p/instances/i/databases/d".to_string(),
+            Arc::new(KeyRangeCache::new()),
+            Arc::clone(&connection_cache),
+            Arc::new(EndpointLifecycleManager::new(Arc::clone(&connection_cache))),
+            Arc::new(EndpointCooldownTracker::new()),
+            Arc::new(LatencyRegistry::new()),
+            5,
+        );
+
+        for i in 1..=5 {
+            let key = format!("tx{}", i).into_bytes();
+            let address = format!("10.0.0.{}:15000", i);
+            router.record_transaction_affinity(&key, &address);
+        }
+        assert_eq!(
+            router.affinity_count(),
+            5,
+            "router should store 5 affinities"
+        );
+
+        // Sixth insert must evict tx1.
+        router.record_transaction_affinity(b"tx6", "10.0.0.6:15000");
+        assert_eq!(
+            router.affinity_count(),
+            5,
+            "affinity count should be bounded to 5"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(b"tx1"),
+            None,
+            "tx1 should be evicted"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(b"tx6").as_deref(),
+            Some("10.0.0.6:15000"),
+            "tx6 should be present"
         );
     }
 

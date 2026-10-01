@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod async_pull_custom_attributes;
 pub mod concurrency_control;
 pub mod dead_letter_delivery_attempt;
 pub mod error_listener;

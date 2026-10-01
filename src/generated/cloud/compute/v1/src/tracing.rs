@@ -8270,6 +8270,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn set_name(
+        &self,
+        req: crate::model::interconnects::SetNameRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Interconnects::set_name",
+            self.inner.set_name(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,

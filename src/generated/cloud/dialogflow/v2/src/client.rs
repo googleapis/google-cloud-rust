@@ -871,6 +871,360 @@ impl AnswerRecords {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = CompanionAgents::builder().build().await?;
+///     let mut list = client.list_companion_agents()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing companion agents.
+///
+/// # Configuration
+///
+/// To configure `CompanionAgents` use the `with_*` methods in the type returned
+/// by [builder()][CompanionAgents::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::companion_agents::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::companion_agents::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `CompanionAgents` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `CompanionAgents` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "companion-agents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "companion-agents")))]
+#[derive(Clone, Debug)]
+pub struct CompanionAgents {
+    inner: std::sync::Arc<dyn super::stub::dynamic::CompanionAgents>,
+}
+
+#[cfg(feature = "companion-agents")]
+impl CompanionAgents {
+    /// Returns a builder for [CompanionAgents].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// let client = CompanionAgents::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::companion_agents::ClientBuilder {
+        crate::new_client_builder(super::builder::companion_agents::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::CompanionAgents + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CompanionAgents>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::CompanionAgents> {
+        super::transport::CompanionAgents::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::CompanionAgents> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CompanionAgents::new)
+    }
+
+    /// Creates a companion agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_companion_agent()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_companion_agent(
+    ///             CompanionAgent::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_companion_agent(&self) -> super::builder::companion_agents::CreateCompanionAgent {
+        super::builder::companion_agents::CreateCompanionAgent::new(self.inner.clone())
+    }
+
+    /// Gets a companion agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents, project_id: &str, location_id: &str, companion_agent_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_companion_agent()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/companionAgents/{companion_agent_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_companion_agent(&self) -> super::builder::companion_agents::GetCompanionAgent {
+        super::builder::companion_agents::GetCompanionAgent::new(self.inner.clone())
+    }
+
+    /// Updates a companion agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents, project_id: &str, location_id: &str, companion_agent_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_companion_agent()
+    ///         .set_companion_agent(
+    ///             CompanionAgent::new().set_name(format!("projects/{project_id}/locations/{location_id}/companionAgents/{companion_agent_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_companion_agent(&self) -> super::builder::companion_agents::UpdateCompanionAgent {
+        super::builder::companion_agents::UpdateCompanionAgent::new(self.inner.clone())
+    }
+
+    /// Deletes a companion agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents, project_id: &str, location_id: &str, companion_agent_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_companion_agent()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/companionAgents/{companion_agent_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_companion_agent(&self) -> super::builder::companion_agents::DeleteCompanionAgent {
+        super::builder::companion_agents::DeleteCompanionAgent::new(self.inner.clone())
+    }
+
+    /// Lists companion agents.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_companion_agents()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_companion_agents(&self) -> super::builder::companion_agents::ListCompanionAgents {
+        super::builder::companion_agents::ListCompanionAgents::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::companion_agents::ListLocations {
+        super::builder::companion_agents::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::companion_agents::GetLocation {
+        super::builder::companion_agents::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::companion_agents::ListOperations {
+        super::builder::companion_agents::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::companion_agents::GetOperation {
+        super::builder::companion_agents::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::CompanionAgents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &CompanionAgents
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::companion_agents::CancelOperation {
+        super::builder::companion_agents::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_dialogflow_v2::client::Contexts;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
@@ -7159,6 +7513,65 @@ impl Participants {
         &self,
     ) -> super::builder::participants::StreamingAnalyzeContent {
         super::builder::participants::StreamingAnalyzeContent::new(self.inner.clone())
+    }
+
+    /// Bidirectional endless streaming version of
+    /// [StreamingAnalyzeContent][google.cloud.dialogflow.v2.Participants.StreamingAnalyzeContent].
+    ///
+    /// [google.cloud.dialogflow.v2.Participants.StreamingAnalyzeContent]: crate::client::Participants::streaming_analyze_content
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentRequest;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.bidi_streaming_analyze_content()
+    ///         .build();
+    ///
+    ///     sender.send(BidiStreamingAnalyzeContentRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn bidi_streaming_analyze_content(
+        &self,
+    ) -> super::builder::participants::BidiStreamingAnalyzeContent {
+        super::builder::participants::BidiStreamingAnalyzeContent::new(self.inner.clone())
+    }
+
+    /// External streaming API for direct human-agent-to-bot chats.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsRequest;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_reactive_companion_suggestions()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingReactiveCompanionSuggestionsRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_reactive_companion_suggestions(
+        &self,
+    ) -> super::builder::participants::StreamingReactiveCompanionSuggestions {
+        super::builder::participants::StreamingReactiveCompanionSuggestions::new(self.inner.clone())
     }
 
     /// Gets suggested articles for a participant based on specific historical
