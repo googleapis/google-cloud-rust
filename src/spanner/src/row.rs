@@ -19,7 +19,7 @@ use crate::Error;
 use crate::Result;
 use crate::from_value::FromValue;
 use crate::result_set_metadata::ResultSetMetadata;
-use crate::value::{Kind, Value};
+use crate::value::Value;
 
 /// A row in a query result.
 #[derive(Clone, Debug, PartialEq)]
@@ -176,7 +176,7 @@ impl Row {
     /// * `Err(Error)` if the column name or index is invalid.
     pub fn try_is_null<I: ColumnIndex>(&self, index: I) -> Result<bool> {
         let (_, value) = self.get_value(index)?;
-        Ok(value.kind() == Kind::Null)
+        Ok(value.is_null())
     }
 
     /// Returns true if the value at the specified column name or index is null, panicking on error.
@@ -309,10 +309,11 @@ mod tests {
     use super::*;
     use crate::to_value::ToValue;
     use crate::types;
+    use crate::value::Date;
     use rust_decimal::Decimal;
     use std::collections::BTreeMap;
     use std::sync::Arc;
-    use time::{Date, Month, OffsetDateTime};
+    use wkt::Timestamp;
 
     fn empty_row() -> Row {
         Row {
@@ -367,12 +368,8 @@ mod tests {
         ];
 
         let decimal = Decimal::from_str_exact("123.456").expect("valid decimal");
-        let date = Date::from_calendar_date(2023, Month::October, 27).expect("valid date");
-        let timestamp = OffsetDateTime::parse(
-            "2023-10-27T10:00:00Z",
-            &time::format_description::well_known::Rfc3339,
-        )
-        .expect("valid timestamp");
+        let date = Date::new().set_year(2023).set_month(10).set_day(27);
+        let timestamp = Timestamp::clamp(1_698_400_800, 0);
 
         let values = vec![
             "hello".to_string().to_value(),
@@ -381,7 +378,7 @@ mod tests {
             true.to_value(),
             vec![1_u8, 2, 3].to_value(),
             decimal.to_value(),
-            date.to_value(),
+            date.clone().to_value(),
             timestamp.to_value(),
             1.23_f32.to_value(),
             "{\"key\":\"value\"}".to_string().to_value(),
@@ -424,7 +421,7 @@ mod tests {
         );
         assert_eq!(row.get::<Date, _>(6), date, "expected date at index 6");
         assert_eq!(
-            row.get::<OffsetDateTime, _>(7),
+            row.get::<Timestamp, _>(7),
             timestamp,
             "expected timestamp at index 7"
         );
@@ -485,7 +482,7 @@ mod tests {
             "expected col_date by name"
         );
         assert_eq!(
-            row.get::<OffsetDateTime, _>("col_timestamp"),
+            row.get::<Timestamp, _>("col_timestamp"),
             timestamp,
             "expected col_timestamp by name"
         );

@@ -1394,9 +1394,14 @@ mod tests {
                 let mut last_val = None;
                 while let Some(row_res) = rs.next().await {
                     let row = row_res?;
-                    last_val = Some(row.raw_values()[0].as_string().to_string());
+                    last_val = Some(
+                        row.raw_values()[0]
+                            .as_str()
+                            .expect("raw value should be string")
+                            .to_string(),
+                    );
                 }
-                Ok(last_val.unwrap())
+                Ok(last_val.expect("at least one row should have been returned"))
             })
             .await?;
 

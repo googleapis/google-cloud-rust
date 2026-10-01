@@ -622,10 +622,10 @@ mod tests {
 
         match mutation.inner {
             InternalMutation::Insert(write) => {
-                assert_eq!(write.values[0].as_string(), "user-123");
-                assert_eq!(write.values[1].as_string(), "42");
-                assert!(write.values[2].as_bool());
-                assert_eq!(write.values[3].as_string(), "admin");
+                assert_eq!(write.values[0].as_str(), Some("user-123"));
+                assert_eq!(write.values[1].as_str(), Some("42"));
+                assert_eq!(write.values[2].as_bool(), Some(true));
+                assert_eq!(write.values[3].as_str(), Some("admin"));
             }
             _ => panic!("Expected Insert mutation"),
         }
@@ -676,8 +676,8 @@ mod tests {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId", "UserName"]);
                 assert_eq!(write.values.len(), 2);
-                assert_eq!(write.values[0].as_string(), "1");
-                assert_eq!(write.values[1].as_string(), "Alice");
+                assert_eq!(write.values[0].as_str(), Some("1"));
+                assert_eq!(write.values[1].as_str(), Some("Alice"));
             }
             _ => panic!("Expected Insert mutation"),
         }
@@ -695,7 +695,7 @@ mod tests {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
-                assert_eq!(write.values[0].as_string(), "1");
+                assert_eq!(write.values[0].as_str(), Some("1"));
             }
             _ => panic!("Expected Update mutation"),
         }
@@ -713,7 +713,7 @@ mod tests {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
-                assert_eq!(write.values[0].as_string(), "1");
+                assert_eq!(write.values[0].as_str(), Some("1"));
             }
             _ => panic!("Expected InsertOrUpdate mutation"),
         }
@@ -731,7 +731,7 @@ mod tests {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
-                assert_eq!(write.values[0].as_string(), "1");
+                assert_eq!(write.values[0].as_str(), Some("1"));
             }
             _ => panic!("Expected Replace mutation"),
         }

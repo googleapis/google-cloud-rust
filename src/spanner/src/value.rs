@@ -21,6 +21,7 @@ pub(crate) const SPANNER_DATE_FORMAT: &[time::format_description::FormatItem<'st
 pub use crate::from_value::{ConvertError, FromValue};
 pub use crate::to_value::ToValue;
 pub use crate::types::{Type, TypeCode};
+pub use google_cloud_type::model::Date;
 pub use wkt::{Duration, Timestamp};
 
 use prost_types::Value as ProtoValue;
@@ -85,69 +86,192 @@ impl Value {
         }
     }
 
-    /// Returns the underlying string value if the kind is String.
-    pub fn try_as_string(&self) -> Option<&str> {
+    /// Returns `true` if the value is null, or `false` otherwise.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_spanner::value::Value;
+    ///
+    /// let value = Value::null();
+    /// assert!(value.is_null());
+    ///
+    /// let not_null = Value::from("hello");
+    /// assert!(!not_null.is_null());
+    /// ```
+    pub fn is_null(&self) -> bool {
+        matches!(
+            self.0.kind,
+            Some(prost_types::value::Kind::NullValue(_)) | None
+        )
+    }
+
+    /// Returns the underlying string slice if the value is a string, or `None` otherwise.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_spanner::value::Value;
+    ///
+    /// let value = Value::from("hello");
+    /// assert_eq!(value.as_str(), Some("hello"));
+    ///
+    /// let number_value = Value::from(42.5);
+    /// assert_eq!(number_value.as_str(), None);
+    /// ```
+    pub fn as_str(&self) -> Option<&str> {
         match &self.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => Some(s),
+            Some(prost_types::value::Kind::StringValue(string_value)) => Some(string_value),
             _ => None,
         }
     }
 
-    /// Returns the underlying string value. Panics if the kind is not String.
-    pub fn as_string(&self) -> &str {
-        self.try_as_string().expect("value is not a String")
+    /// Returns the underlying string slice if the value is a string, or `None` otherwise.
+    ///
+    /// # Deprecation
+    ///
+    /// Use [`as_str`](Value::as_str) instead.
+    #[deprecated(note = "use `as_str` instead")]
+    pub fn as_string(&self) -> Option<&str> {
+        self.as_str()
+    }
+
+    /// Returns the underlying string value if the kind is String.
+    ///
+    /// # Deprecation
+    ///
+    /// Use [`as_str`](Value::as_str) instead.
+    #[deprecated(note = "use `as_str` instead")]
+    pub fn try_as_string(&self) -> Option<&str> {
+        self.as_str()
+    }
+
+    /// Returns the underlying boolean value if the value is a boolean, or `None` otherwise.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_spanner::value::Value;
+    ///
+    /// let value = Value::from(true);
+    /// assert_eq!(value.as_bool(), Some(true));
+    ///
+    /// let string_value = Value::from("true");
+    /// assert_eq!(string_value.as_bool(), None);
+    /// ```
+    pub fn as_bool(&self) -> Option<bool> {
+        match &self.0.kind {
+            Some(prost_types::value::Kind::BoolValue(bool_value)) => Some(*bool_value),
+            _ => None,
+        }
     }
 
     /// Returns the underlying bool value if the kind is Bool.
+    ///
+    /// # Deprecation
+    ///
+    /// Use [`as_bool`](Value::as_bool) instead.
+    #[deprecated(note = "use `as_bool` instead")]
     pub fn try_as_bool(&self) -> Option<bool> {
-        match &self.0.kind {
-            Some(prost_types::value::Kind::BoolValue(b)) => Some(*b),
-            _ => None,
-        }
+        self.as_bool()
     }
 
-    /// Returns the underlying bool value. Panics if the kind is not Bool.
-    pub fn as_bool(&self) -> bool {
-        self.try_as_bool().expect("value is not a Bool")
+    /// Returns the underlying number value as an `f64` if the value is a number, or `None` otherwise.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_spanner::value::Value;
+    ///
+    /// let value = Value::from(42.5);
+    /// assert_eq!(value.as_f64(), Some(42.5));
+    ///
+    /// let string_value = Value::from("42.5");
+    /// assert_eq!(string_value.as_f64(), None);
+    /// ```
+    ///
+    /// # Non-Finite Floats
+    ///
+    /// Spanner encodes non-finite IEEE 754 floats (`NaN`, `Infinity`, and `-Infinity`)
+    /// as string values on the wire. Consequently, `as_f64()` returns `None` for non-finite
+    /// floats. To decode floating point values with full IEEE 754 support including `NaN`
+    /// and infinity, use [`Row::try_get`](crate::row::Row::try_get) or [`FromValue`].
+    pub fn as_f64(&self) -> Option<f64> {
+        match &self.0.kind {
+            Some(prost_types::value::Kind::NumberValue(number_value)) => Some(*number_value),
+            _ => None,
+        }
     }
 
     /// Returns the underlying number value if the kind is Number.
+    ///
+    /// # Deprecation
+    ///
+    /// Use [`as_f64`](Value::as_f64) instead.
+    #[deprecated(note = "use `as_f64` instead")]
     pub fn try_as_f64(&self) -> Option<f64> {
-        match &self.0.kind {
-            Some(prost_types::value::Kind::NumberValue(n)) => Some(*n),
-            _ => None,
-        }
+        self.as_f64()
     }
 
-    /// Returns the underlying number value as an `f64`. Panics if the kind is not Number.
-    pub fn as_f64(&self) -> f64 {
-        self.try_as_f64().expect("value is not a Number")
+    /// Returns a reference to the underlying [`Struct`] if the value is a struct, or `None` otherwise.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_spanner::value::Value;
+    ///
+    /// let value = Value::null();
+    /// assert_eq!(value.as_struct(), None);
+    /// ```
+    pub fn as_struct(&self) -> Option<&Struct> {
+        match &self.0.kind {
+            Some(prost_types::value::Kind::StructValue(struct_value)) => {
+                Some(Struct::from_ref(struct_value))
+            }
+            _ => None,
+        }
     }
 
     /// Returns the underlying struct value as a map of Values if the kind is Struct.
+    ///
+    /// # Deprecation
+    ///
+    /// Use [`as_struct`](Value::as_struct) instead.
+    #[deprecated(note = "use `as_struct` instead")]
     pub fn try_as_struct(&self) -> Option<&Struct> {
-        match &self.0.kind {
-            Some(prost_types::value::Kind::StructValue(s)) => Some(Struct::from_ref(s)),
-            _ => None,
-        }
+        self.as_struct()
     }
 
-    /// Returns the underlying struct value. Panics if the kind is not Struct.
-    pub fn as_struct(&self) -> &Struct {
-        self.try_as_struct().expect("value is not a Struct")
+    /// Returns a reference to the underlying [`List`] if the value is a list, or `None` otherwise.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_spanner::value::Value;
+    ///
+    /// let value = Value::from(vec![1i64, 2i64]);
+    /// assert_eq!(value.as_list().map(|list| list.len()), Some(2));
+    ///
+    /// let null_value = Value::null();
+    /// assert_eq!(null_value.as_list(), None);
+    /// ```
+    pub fn as_list(&self) -> Option<&List> {
+        match &self.0.kind {
+            Some(prost_types::value::Kind::ListValue(list_value)) => {
+                Some(List::from_ref(list_value))
+            }
+            _ => None,
+        }
     }
 
     /// Returns the underlying list value as a vector of Values if the kind is List.
+    ///
+    /// # Deprecation
+    ///
+    /// Use [`as_list`](Value::as_list) instead.
+    #[deprecated(note = "use `as_list` instead")]
     pub fn try_as_list(&self) -> Option<&List> {
-        match &self.0.kind {
-            Some(prost_types::value::Kind::ListValue(l)) => Some(List::from_ref(l)),
-            _ => None,
-        }
-    }
-
-    /// Returns the underlying list value. Panics if the kind is not List.
-    pub fn as_list(&self) -> &List {
-        self.try_as_list().expect("value is not a List")
+        self.as_list()
     }
 }
 
@@ -260,6 +384,7 @@ mod tests {
     use serde_json::Map as JsonMap;
     use serde_json::Value as JsonValue;
     use std::collections::BTreeMap;
+    use std::fmt::Debug;
     use std::hash::Hash;
 
     #[test]
@@ -408,10 +533,9 @@ mod tests {
             kind: Some(prost_types::value::Kind::StringValue("NaN".to_string())),
         });
         assert_eq!(nan_value.kind(), Kind::String);
-        assert_eq!(nan_value.try_as_string(), Some("NaN"));
-        assert_eq!(nan_value.as_string(), "NaN");
+        assert_eq!(nan_value.as_str(), Some("NaN"));
         assert_eq!(
-            nan_value.try_as_f64(),
+            nan_value.as_f64(),
             None,
             "StringValue('NaN') is represented as Kind::String in untyped Value; typed access is via FromValue"
         );
@@ -422,10 +546,9 @@ mod tests {
             )),
         });
         assert_eq!(infinity_value.kind(), Kind::String);
-        assert_eq!(infinity_value.try_as_string(), Some("Infinity"));
-        assert_eq!(infinity_value.as_string(), "Infinity");
+        assert_eq!(infinity_value.as_str(), Some("Infinity"));
         assert_eq!(
-            infinity_value.try_as_f64(),
+            infinity_value.as_f64(),
             None,
             "StringValue('Infinity') is represented as Kind::String in untyped Value; typed access is via FromValue"
         );
@@ -436,46 +559,61 @@ mod tests {
             )),
         });
         assert_eq!(negative_infinity_value.kind(), Kind::String);
-        assert_eq!(negative_infinity_value.try_as_string(), Some("-Infinity"));
-        assert_eq!(negative_infinity_value.as_string(), "-Infinity");
+        assert_eq!(negative_infinity_value.as_str(), Some("-Infinity"));
         assert_eq!(
-            negative_infinity_value.try_as_f64(),
+            negative_infinity_value.as_f64(),
             None,
             "StringValue('-Infinity') is represented as Kind::String in untyped Value; typed access is via FromValue"
         );
     }
 
     #[test]
-    fn test_value_kind_and_accessors() {
-        let v_null = Value(ProtoValue {
+    fn value_kind_and_accessors() {
+        let null_value = Value(ProtoValue {
             kind: Some(prost_types::value::Kind::NullValue(0)),
         });
-        assert_eq!(v_null.kind(), Kind::Null);
-        assert!(v_null.try_as_string().is_none());
+        assert_eq!(null_value.kind(), Kind::Null);
+        assert!(null_value.is_null());
+        assert_eq!(null_value.as_str(), None);
+        assert_eq!(null_value.as_bool(), None);
+        assert_eq!(null_value.as_f64(), None);
+        assert_eq!(null_value.as_struct(), None);
+        assert_eq!(null_value.as_list(), None);
 
-        let v_string = Value(ProtoValue {
+        let string_value = Value(ProtoValue {
             kind: Some(prost_types::value::Kind::StringValue("foo".to_string())),
         });
-        assert_eq!(v_string.kind(), Kind::String);
-        assert_eq!(v_string.try_as_string(), Some("foo"));
-        assert_eq!(v_string.as_string(), "foo");
-        assert!(v_string.try_as_bool().is_none());
+        assert_eq!(string_value.kind(), Kind::String);
+        assert!(!string_value.is_null());
+        assert_eq!(string_value.as_str(), Some("foo"));
+        assert_eq!(string_value.as_bool(), None);
+        assert_eq!(string_value.as_f64(), None);
+        assert_eq!(string_value.as_struct(), None);
+        assert_eq!(string_value.as_list(), None);
 
-        let v_bool = Value(ProtoValue {
+        let bool_value = Value(ProtoValue {
             kind: Some(prost_types::value::Kind::BoolValue(true)),
         });
-        assert_eq!(v_bool.kind(), Kind::Bool);
-        assert_eq!(v_bool.try_as_bool(), Some(true));
-        assert!(v_bool.as_bool());
+        assert_eq!(bool_value.kind(), Kind::Bool);
+        assert!(!bool_value.is_null());
+        assert_eq!(bool_value.as_bool(), Some(true));
+        assert_eq!(bool_value.as_str(), None);
+        assert_eq!(bool_value.as_f64(), None);
+        assert_eq!(bool_value.as_struct(), None);
+        assert_eq!(bool_value.as_list(), None);
 
-        let v_number = Value(ProtoValue {
+        let number_value = Value(ProtoValue {
             kind: Some(prost_types::value::Kind::NumberValue(42.0)),
         });
-        assert_eq!(v_number.kind(), Kind::Number);
-        assert_eq!(v_number.try_as_f64(), Some(42.0));
-        assert_eq!(v_number.as_f64(), 42.0);
+        assert_eq!(number_value.kind(), Kind::Number);
+        assert!(!number_value.is_null());
+        assert_eq!(number_value.as_f64(), Some(42.0));
+        assert_eq!(number_value.as_str(), None);
+        assert_eq!(number_value.as_bool(), None);
+        assert_eq!(number_value.as_struct(), None);
+        assert_eq!(number_value.as_list(), None);
 
-        let v_list = Value(ProtoValue {
+        let list_value = Value(ProtoValue {
             kind: Some(prost_types::value::Kind::ListValue(
                 prost_types::ListValue {
                     values: vec![ProtoValue {
@@ -484,15 +622,22 @@ mod tests {
                 },
             )),
         });
-        assert_eq!(v_list.kind(), Kind::List);
-        let list = v_list.try_as_list().unwrap();
+        assert_eq!(list_value.kind(), Kind::List);
+        assert!(!list_value.is_null());
+        assert_eq!(list_value.as_str(), None);
+        assert_eq!(list_value.as_bool(), None);
+        assert_eq!(list_value.as_f64(), None);
+        assert_eq!(list_value.as_struct(), None);
+        let list = list_value.as_list().expect("list must be Some");
         assert_eq!(list.len(), 1);
-        assert_eq!(list.get(0).unwrap().try_as_f64(), Some(1.0));
-        assert_eq!(v_list.as_list().len(), 1);
+        assert_eq!(
+            list.get(0).expect("element 0 must exist").as_f64(),
+            Some(1.0)
+        );
 
-        let v_struct = Value(ProtoValue {
+        let struct_value = Value(ProtoValue {
             kind: Some(prost_types::value::Kind::StructValue(prost_types::Struct {
-                fields: std::collections::BTreeMap::from([(
+                fields: BTreeMap::from([(
                     "a".to_string(),
                     ProtoValue {
                         kind: Some(prost_types::value::Kind::NumberValue(1.0)),
@@ -500,24 +645,80 @@ mod tests {
                 )]),
             })),
         });
-        assert_eq!(v_struct.kind(), Kind::Struct);
-        let map = v_struct.try_as_struct().unwrap();
+        assert_eq!(struct_value.kind(), Kind::Struct);
+        assert!(!struct_value.is_null());
+        assert_eq!(struct_value.as_str(), None);
+        assert_eq!(struct_value.as_bool(), None);
+        assert_eq!(struct_value.as_f64(), None);
+        assert_eq!(struct_value.as_list(), None);
+        let map = struct_value.as_struct().expect("struct must be Some");
         assert_eq!(map.len(), 1);
-        assert_eq!(map.get("a").unwrap().try_as_f64(), Some(1.0));
-        assert_eq!(v_struct.as_struct().len(), 1);
+        assert_eq!(
+            map.get("a").expect("field 'a' must exist").as_f64(),
+            Some(1.0)
+        );
     }
 
     #[test]
-    fn test_auto_traits() {
-        static_assertions::assert_impl_all!(Value: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(Struct: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(List: Send, Sync, Clone, std::fmt::Debug);
+    fn is_null() {
+        assert!(Value::null().is_null());
+        assert!(Value(ProtoValue { kind: None }).is_null());
+        assert!(
+            Value(ProtoValue {
+                kind: Some(prost_types::value::Kind::NullValue(0)),
+            })
+            .is_null()
+        );
+        assert!(!Value::from("hello").is_null());
+        assert!(!Value::from(true).is_null());
+        assert!(!Value::from(42.5).is_null());
+    }
+
+    #[test]
+    #[allow(deprecated)]
+    fn deprecated_try_as_accessors_match_as_accessors() {
+        let string_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::StringValue("test".to_string())),
+        });
+        assert_eq!(string_value.try_as_string(), string_value.as_str());
+        assert_eq!(string_value.as_string(), string_value.as_str());
+
+        let bool_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::BoolValue(false)),
+        });
+        assert_eq!(bool_value.try_as_bool(), bool_value.as_bool());
+
+        let number_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::NumberValue(42.5)),
+        });
+        assert_eq!(number_value.try_as_f64(), number_value.as_f64());
+
+        let list_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue::default(),
+            )),
+        });
+        assert_eq!(list_value.try_as_list(), list_value.as_list());
+
+        let struct_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::StructValue(
+                prost_types::Struct::default(),
+            )),
+        });
+        assert_eq!(struct_value.try_as_struct(), struct_value.as_struct());
+    }
+
+    #[test]
+    fn auto_traits() {
+        static_assertions::assert_impl_all!(Value: Send, Sync, Clone, Debug);
+        static_assertions::assert_impl_all!(Struct: Send, Sync, Clone, Debug);
+        static_assertions::assert_impl_all!(List: Send, Sync, Clone, Debug);
         static_assertions::assert_impl_all!(
             Kind: Send,
             Sync,
             Clone,
             Copy,
-            std::fmt::Debug,
+            Debug,
             PartialEq,
             Eq,
             Hash
