@@ -59,8 +59,9 @@ pub async fn run() -> anyhow::Result<()> {
     )
     .await?;
 
-    // Only the data path is exercised on Regional Standard (HNS). The error-path tests already
-    // run on HNS through the Zonal Rapid and Regional Rapid buckets, which always enable HNS.
+    // Only the data path is exercised on Regional Standard (HNS). The error-path checks
+    // (out-of-range and post-stream-close) are duplicate because the bidi read transport
+    // logic is identical regardless of bucket namespace layout (flat vs HNS).
     with_bucket(
         &clients,
         BucketType::RegionalStandard { hns: true },
