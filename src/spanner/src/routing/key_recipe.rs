@@ -599,7 +599,7 @@ fn resolve_struct_field<'a>(
                 "Invalid negative struct index {struct_index} in key recipe part"
             )));
         }
-        let list = current.try_as_list().ok_or_else(|| {
+        let list = current.as_list().ok_or_else(|| {
             internal_error("Expected Struct ListValue for struct parameter traversal")
         })?;
         current = list.get(struct_index as usize).ok_or_else(|| {
@@ -736,14 +736,14 @@ fn encode_not_null_marker(
 /// Evaluates a boolean column value (`BOOL`).
 fn encode_bool_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> Result<()> {
     let boolean_value = value
-        .try_as_bool()
+        .as_bool()
         .ok_or_else(|| internal_error("Type mismatch: expected Bool value for BOOL column"))?;
     append_bool_ordered(buffer, boolean_value, decreasing)
 }
 
 /// Evaluates an integer or enum column value (`INT64` or `ENUM`).
 fn encode_int64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> Result<()> {
-    let string_value = value.try_as_string().ok_or_else(|| {
+    let string_value = value.as_str().ok_or_else(|| {
         internal_error("Type mismatch: expected String value for INT64 or ENUM column")
     })?;
     let integer_value = string_value.parse::<i64>().map_err(|error| {
@@ -756,7 +756,7 @@ fn encode_int64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> R
 
 /// Evaluates a floating-point column value (`FLOAT64`).
 fn encode_float64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> Result<()> {
-    if let Some(string_value) = value.try_as_string() {
+    if let Some(string_value) = value.as_str() {
         let number = match string_value {
             "NaN" => f64::NAN,
             "Infinity" => f64::INFINITY,
@@ -769,7 +769,7 @@ fn encode_float64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) ->
         };
         return append_double_ordered(buffer, number, decreasing);
     }
-    let number = value.try_as_f64().ok_or_else(|| {
+    let number = value.as_f64().ok_or_else(|| {
         internal_error("Type mismatch: expected Number or special String value for FLOAT64 column")
     })?;
     append_double_ordered(buffer, number, decreasing)
@@ -778,14 +778,14 @@ fn encode_float64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) ->
 /// Evaluates a string column value (`STRING`).
 fn encode_string_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> Result<()> {
     let string_value = value
-        .try_as_string()
+        .as_str()
         .ok_or_else(|| internal_error("Type mismatch: expected String value for STRING column"))?;
     append_string_ordered(buffer, string_value, decreasing)
 }
 
 /// Evaluates a byte array column value (`BYTES`).
 fn encode_bytes_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> Result<()> {
-    let string_value = value.try_as_string().ok_or_else(|| {
+    let string_value = value.as_str().ok_or_else(|| {
         internal_error("Type mismatch: expected base64 String value for BYTES column")
     })?;
     let mut stack_buffer = [0u8; 512];
