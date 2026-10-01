@@ -6468,9 +6468,11 @@ pub mod membership {
         /// Optional. The Google Chat user or app the membership corresponds to.
         /// If your Chat app [authenticates as a
         /// user](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user),
-        /// the output populates the
+        /// the output only populates the
         /// [user](https://developers.google.com/workspace/chat/api/reference/rest/v1/User)
-        /// `name` and `type`.
+        /// `name` and `type` fields for both internal and external users, unless
+        /// they are members of the space or have a prior affinity, like a direct
+        /// message (DM) conversation, with the calling user.
         Member(std::boxed::Box<crate::model::User>),
         /// Optional. The Google Group the membership corresponds to.
         ///
@@ -7195,9 +7197,11 @@ pub struct Message {
     /// Output only. The user who created the message.
     /// If your Chat app [authenticates as a
     /// user](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user),
-    /// the output populates the
+    /// the output only populates the
     /// [user](https://developers.google.com/workspace/chat/api/reference/rest/v1/User)
-    /// `name` and `type`.
+    /// `name` and `type` fields for both internal and external users, unless they
+    /// are members of the space or have a prior affinity, like a direct message
+    /// (DM) conversation, with the calling user.
     pub sender: std::option::Option<crate::model::User>,
 
     /// Optional. Immutable. For spaces created in Chat, the time at which the
@@ -20615,11 +20619,12 @@ impl wkt::message::Message for GetThreadReadStateRequest {
     }
 }
 
-/// A user in Google Chat.
-/// When returned as an output from a request, if your Chat app [authenticates as
-/// a
+/// If your Chat app [authenticates as a
 /// user](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user),
-/// the output for a `User` resource only populates the user's `name` and `type`.
+/// the output for a `User` resource (such as in the Messages and Memberships
+/// APIs) only populates the `name` and `type` fields for both internal and
+/// external users, unless they are members of the space or have prior affinity
+/// with the calling user.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct User {
@@ -20653,7 +20658,37 @@ pub struct User {
     pub name: std::string::String,
 
     /// Output only. The user's display name.
+    ///
+    /// Populated for both app authentication and user authentication.
+    /// This field is always populated for requests made with [app
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-app).
+    /// When calling the Messages and Memberships APIs with [user
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user),
+    /// this field is populated for both internal and external users for the
+    /// `sender` of a message, users within `annotations` (such as user
+    /// mentions), and within `Membership` resources, provided the user is a
+    /// member of the space or has prior affinity with the calling user.
     pub display_name: std::string::String,
+
+    /// Output only. The user's avatar image URL.
+    ///
+    /// When calling the Messages and Memberships APIs with [user
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user),
+    /// this field is populated for both internal and external users for the
+    /// `sender` of a message, users within `annotations` (such as user
+    /// mentions), and within `Membership` resources, provided the user is a
+    /// member of the space or has prior affinity with the calling user.
+    pub avatar_url: std::string::String,
+
+    /// Output only. The user's email address.
+    ///
+    /// When calling the Messages and Memberships APIs with [user
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user),
+    /// this field is populated for both internal and external users for the
+    /// `sender` of a message, users within `annotations` (such as user
+    /// mentions), and within `Membership` resources, provided the user is a
+    /// member of the space or has prior affinity with the calling user.
+    pub email: std::string::String,
 
     /// Unique identifier of the user's Google Workspace domain.
     pub domain_id: std::string::String,
@@ -20662,7 +20697,8 @@ pub struct User {
     pub r#type: crate::model::user::Type,
 
     /// Output only. When `true`, the user is deleted or their profile is not
-    /// visible.
+    /// visible, such as when a user is mentioned in a space without being a member
+    /// and without prior affinity with the calling user.
     pub is_anonymous: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -20695,6 +20731,30 @@ impl User {
     /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [avatar_url][crate::model::User::avatar_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::User;
+    /// let x = User::new().set_avatar_url("example");
+    /// ```
+    pub fn set_avatar_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.avatar_url = v.into();
+        self
+    }
+
+    /// Sets the value of [email][crate::model::User::email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::User;
+    /// let x = User::new().set_email("example");
+    /// ```
+    pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.email = v.into();
         self
     }
 

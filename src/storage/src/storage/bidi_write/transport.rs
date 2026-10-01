@@ -15,7 +15,7 @@
 use super::coalescing_buffer::CoalescingBuffer;
 use super::connector::{Connection, Connector};
 use super::worker::{UploadIntent, Worker};
-use super::{Client, MAX_WRITE_CHUNK_SIZE, TonicStreaming};
+use super::{Client, MAX_WRITE_CHUNK_SIZE, TonicStreaming, is_finalized, persisted_size};
 use crate::google::storage::v2::BidiWriteObjectResponse;
 use crate::google::storage::v2::ObjectChecksums;
 use crate::google::storage::v2::{
@@ -145,22 +145,14 @@ impl AppendableObjectWriterTransport {
         T: Client + Clone + Sync + Send + 'static,
         <T as Client>::Stream: TonicStreaming,
     {
-        let mut persisted_size = 0;
-        let mut generation = generation;
-
-        // The GCS backend returns `WriteStatus::Resource` in two scenarios:
-        // 1. Immediately upon creating a new appendable stream, where `finalize_time` is absent and the new `generation` is returned.
-        // 2. When the stream is fully finalized, where `finalize_time` is present.
-        // Otherwise, such as on stream reopens, the backend returns `WriteStatus::PersistedSize`.
-        if let Some(WriteStatus::Resource(r)) = initial.write_status.as_ref() {
-            if r.finalize_time.is_some() {
-                return Err(Error::io("object is already finalized"));
-            }
-            persisted_size = r.size;
-            generation = r.generation;
-        } else if let Some(WriteStatus::PersistedSize(s)) = initial.write_status.as_ref() {
-            persisted_size = *s;
+        if is_finalized(&initial) {
+            return Err(Error::io("object is already finalized"));
         }
+        let persisted_size = persisted_size(&initial).unwrap_or(0);
+        let generation = match initial.write_status.as_ref() {
+            Some(WriteStatus::Resource(r)) => r.generation,
+            _ => generation,
+        };
 
         // Determine whether we should do a full-object CRC32C checksum
         // calculation. Default is `None`. We will then see if we can establish
@@ -186,7 +178,7 @@ impl AppendableObjectWriterTransport {
         // we can't reliably continue a running checksum, so it remains `None`.
 
         let (tx, rx) = tokio::sync::mpsc::channel(CHANNEL_BUFFER_SIZE);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector).with_persisted_size(persisted_size);
         let worker_handle = Some(tokio::spawn(worker.run(connection, rx)));
 
         let initial_len = initial_payload.map(|p| p.len as i64).unwrap_or(0);
@@ -302,11 +294,8 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
             Ok(res) => res?,
             Err(e) => return Err(self.extract_worker_error(&e.to_string()).await),
         };
-        let size = match response.write_status {
-            Some(WriteStatus::PersistedSize(s)) => s,
-            Some(WriteStatus::Resource(r)) => r.size,
-            None => return Err(Error::io("flush response missing write_status")),
-        };
+        let size = persisted_size(&response)
+            .ok_or_else(|| Error::io("flush response missing write_status"))?;
         self.persisted_size = size;
 
         Ok(size)
@@ -339,8 +328,11 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
             Err(e) => return Err(self.extract_worker_error(&e.to_string()).await),
         };
         let resource = match response.write_status {
-            Some(WriteStatus::Resource(r)) => r,
-            _ => return Err(Error::io("finalize did not return a resource")),
+            // An object resource alone is not proof of finalization: the service also returns one
+            // as the first message of a create stream and of a handle-less takeover stream. Only
+            // `finalize_time` proves the upload finalized.
+            Some(WriteStatus::Resource(r)) if r.finalize_time.is_some() => r,
+            _ => return Err(Error::io("finalize did not return a finalized resource")),
         };
         let object =
             FromProto::cnv(resource).map_err(|_| Error::deser("converting resource to object"))?;
@@ -440,6 +432,7 @@ mod tests {
             );
 
             let object = Object {
+                finalize_time: Some(prost_types::Timestamp::default()),
                 bucket: "projects/_/buckets/test-bucket".into(),
                 name: "test-object".into(),
                 size: 5,
@@ -794,6 +787,7 @@ mod tests {
         if let UploadIntent::Finalize(req, sender) = intent {
             assert!(req.object_checksums.is_none());
             let object = Object {
+                finalize_time: Some(prost_types::Timestamp::default()),
                 bucket: "projects/_/buckets/test-bucket".into(),
                 name: "test-object".into(),
                 size: 5,
@@ -871,6 +865,7 @@ mod tests {
         if let UploadIntent::Finalize(req, sender) = intent {
             assert!(req.flush);
             let object = Object {
+                finalize_time: Some(prost_types::Timestamp::default()),
                 bucket: "projects/_/buckets/test-bucket".into(),
                 name: "test-object".into(),
                 size: 17,
@@ -933,6 +928,7 @@ mod tests {
             assert_eq!(req.write_offset, ONE_MIB as i64);
             let resp = BidiWriteObjectResponse {
                 write_status: Some(WriteStatus::Resource(Object {
+                    finalize_time: Some(prost_types::Timestamp::default()),
                     name: "finalized-obj".into(),
                     generation: 123456,
                     ..Default::default()
