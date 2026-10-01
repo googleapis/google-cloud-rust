@@ -22,6 +22,28 @@ under `src/<service>/examples`, e.g. `src/storage/examples` above.
 
 If this directory does not exist, stop and ask your human for help.
 
+### Confirm the sample is supported
+
+Before writing anything, confirm the Rust client can do what the sample needs.
+Veneer crates (`src/<service>`) usually expose two kinds of clients. Find out
+which one the sample uses (existing samples in `src/<service>/examples` show how
+each client is constructed), and check that one:
+
+- **Hand-written clients** live in `src/<service>/src/`, outside `generated/`.
+  They wrap one or more RPCs and add client-side behavior such as streaming,
+  batching, flow control, or resumable reads and writes. Samples for this
+  behavior, or for the main data path, use these clients. Check the public API
+  (types, builders, and methods: what `cargo doc` shows), not the proto. A proto
+  feature may not be exposed yet, and some RPCs are hidden on purpose.
+- **Generated clients** are re-exported from
+  `src/<service>/src/generated/gapic`. Admin and CRUD samples usually use these.
+  Check that the method exists (`librarian.yaml` can restrict RPCs with
+  `included_ids`) and that the request and model types have the fields the
+  sample needs.
+
+If the client does not support the sample, stop and tell your human. Do not
+emulate the feature with a different API.
+
 ## Identify the sample crate
 
 Next identify the name of the crate for the examples. Typically this is
@@ -86,10 +108,10 @@ Search the local codebase (e.g., `grep -r "key_term" src/<service>`) for key
 terms from the region tag to identify the relevant Rust structs, methods, and
 fields.
 
-Look at the structure under `src/<service>/samples/src`. Read every file to get
+Look at the structure under `src/<service>/examples/src`. Read every file to get
 a feel for what samples for this service look like.
 
-Next read everything under `src/<service>/samples/tests` to see how individual
+Next read everything under `src/<service>/examples/tests` to see how individual
 samples are invoked.
 
 ### Identify where this sample should go.
@@ -98,6 +120,10 @@ Figure out where to create a new `<sample>.rs` file. Typically, we use the
 region tag for the filename, but strip any prefixes that are encoded in the
 directory structure. For example, the `storage_list_buckets` sample is located
 under `src/storage/examples/src/buckets/list_buckets.rs`
+
+If an existing sample already shows exactly the code for this region tag, do not
+create a new file. Nest the new `[START]`/`[END]` tags inside the existing ones
+instead.
 
 ### Identify the most similar sample to the one you are writing
 
@@ -162,6 +188,14 @@ GOOGLE_CLOUD_PROJECT=${PROJECT_ID} \
 We should see this fail. If it does not fail, then we are not running our
 sample. Make sure the new sample is executed by the test driver.
 
+Some test functions are marked `#[ignore]` (e.g. because they are flaky). If the
+sample runs from one of those, add `-- --include-ignored` to the `cargo test`
+commands, and mention in the PR that CI does not run the sample.
+
+If the sample needs extra resources (e.g. a second topic or bucket), create them
+in the test driver with the existing helpers, which label resources so stale
+ones get cleaned up. Delete them once the sample finishes, even if it fails.
+
 If it does fail, you can remove the `panic!()` and move on.
 
 ### Iterate
@@ -183,8 +217,10 @@ When this passes, clean up the code.
 
 - Make it concise.
 - Run `cargo fmt -p <service-samples>`.
-- Run `cargo clippy -p <service-samples> --all-features --all-targets`.
-- Look over other things from `GEMINI.md`.
+- Run
+  `cargo clippy -p <service-samples> --all-features --all-targets -- -D warnings`.
+- Look over other things from `GEMINI.md` and `.gemini/styleguide.md`. This
+  applies to the test driver too, not only the sample.
 
 If you make any changes, test the code again.
 

@@ -145,8 +145,8 @@ fn external_can_name_and_match_row_error() {
     let column_error = RowError::ColumnNotFound("missing_col".to_string());
     assert_eq!(
         column_error.to_string(),
-        "could not find column: missing_col",
-        "RowError display format should match 'could not find column: <name>'"
+        "Could not find column: 'missing_col'",
+        "RowError display format should match 'Could not find column: \\'missing_col\\''"
     );
 
     match &column_error {

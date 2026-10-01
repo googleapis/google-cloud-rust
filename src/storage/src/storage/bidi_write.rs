@@ -61,6 +61,15 @@ pub(crate) fn persisted_size(response: &BidiWriteObjectResponse) -> Option<i64> 
     }
 }
 
+/// Returns `true` when `response` reports an object that the service finalized.
+pub(crate) fn is_finalized(response: &BidiWriteObjectResponse) -> bool {
+    use crate::google::storage::v2::bidi_write_object_response::WriteStatus;
+    matches!(
+        response.write_status.as_ref(),
+        Some(WriteStatus::Resource(resource)) if resource.finalize_time.is_some()
+    )
+}
+
 /// A trait to mock `Streaming<T>` in the unit tests.
 ///
 /// This is not a public trait, we only need this for our own testing.

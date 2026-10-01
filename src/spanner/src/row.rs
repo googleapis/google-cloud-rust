@@ -16,8 +16,10 @@ use std::error::Error as _;
 use std::fmt::{Debug, Display};
 
 use crate::Error;
+use crate::Result;
+use crate::from_value::FromValue;
 use crate::result_set_metadata::ResultSetMetadata;
-use crate::value::Value;
+use crate::value::{Kind, Value};
 
 /// A row in a query result.
 #[derive(Clone, Debug, PartialEq)]
@@ -26,41 +28,13 @@ pub struct Row {
     pub(crate) metadata: ResultSetMetadata,
 }
 
-pub(crate) mod sealed {
-    use super::Row;
-
+pub(crate) mod private {
     /// A sealed trait to prevent external implementation of `ColumnIndex`.
-    pub trait ColumnIndex {
-        /// Returns the index of the column in the given row, if it exists.
-        fn index(&self, row: &Row) -> Option<usize>;
-    }
-
-    impl ColumnIndex for usize {
-        fn index(&self, _row: &Row) -> Option<usize> {
-            Some(*self)
-        }
-    }
-
-    impl ColumnIndex for &str {
-        fn index(&self, row: &Row) -> Option<usize> {
-            row.metadata
-                .column_names
-                .iter()
-                .position(|name| name == *self)
-        }
-    }
-
-    impl ColumnIndex for String {
-        fn index(&self, row: &Row) -> Option<usize> {
-            self.as_str().index(row)
-        }
-    }
-
-    impl ColumnIndex for &String {
-        fn index(&self, row: &Row) -> Option<usize> {
-            self.as_str().index(row)
-        }
-    }
+    pub trait Sealed {}
+    impl Sealed for usize {}
+    impl Sealed for &str {}
+    impl Sealed for String {}
+    impl<T: ?Sized + Sealed> Sealed for &T {}
 }
 
 /// A trait for types that can be used to index into a [`Row`].
@@ -76,23 +50,47 @@ pub(crate) mod sealed {
 /// ```
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-/// Supported index types are `usize`, `&str`, `String`, and `&String`.
-pub trait ColumnIndex: sealed::ColumnIndex + Display + Debug {}
+pub trait ColumnIndex: private::Sealed + Debug + Display {
+    /// Returns the index of the column in the given row, if it exists.
+    fn index(&self, row: &Row) -> Option<usize>;
+}
 
-impl ColumnIndex for usize {}
-impl ColumnIndex for &str {}
-impl ColumnIndex for String {}
-impl ColumnIndex for &String {}
+impl ColumnIndex for usize {
+    fn index(&self, _row: &Row) -> Option<usize> {
+        Some(*self)
+    }
+}
+
+impl ColumnIndex for &str {
+    fn index(&self, row: &Row) -> Option<usize> {
+        row.metadata
+            .column_names
+            .iter()
+            .position(|name| name == *self)
+    }
+}
+
+impl ColumnIndex for String {
+    fn index(&self, row: &Row) -> Option<usize> {
+        self.as_str().index(row)
+    }
+}
+
+impl<T: ?Sized + ColumnIndex> ColumnIndex for &T {
+    fn index(&self, row: &Row) -> Option<usize> {
+        (**self).index(row)
+    }
+}
 
 /// Errors that can occur when getting a value from a [`Row`].
 #[derive(thiserror::Error, Clone, Debug, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum RowError {
     /// The requested column name was not found in the row.
-    #[error("could not find column: {0}")]
+    #[error("Could not find column: '{0}'")]
     ColumnNotFound(String),
     /// The requested column index was out of range.
-    #[error("column index out of range: {index} (expected < {len})")]
+    #[error("Column index out of range: {index} (expected < {len})")]
     IndexOutOfRange {
         /// The index that was requested.
         index: usize,
@@ -176,9 +174,9 @@ impl Row {
     ///
     /// * `Ok(bool)` if the value is null or not.
     /// * `Err(Error)` if the column name or index is invalid.
-    pub fn try_is_null<I: ColumnIndex>(&self, index: I) -> crate::Result<bool> {
+    pub fn try_is_null<I: ColumnIndex>(&self, index: I) -> Result<bool> {
         let (_, value) = self.get_value(index)?;
-        Ok(value.kind() == crate::value::Kind::Null)
+        Ok(value.kind() == Kind::Null)
     }
 
     /// Returns true if the value at the specified column name or index is null, panicking on error.
@@ -207,7 +205,10 @@ impl Row {
     ///
     /// Panics if the column name or index is invalid.
     pub fn is_null<I: ColumnIndex>(&self, index: I) -> bool {
-        self.try_is_null(index).expect("invalid column index")
+        match self.try_is_null(&index) {
+            Ok(is_null) => is_null,
+            Err(error) => panic!("failed to check if column {index:?} is null: {error}"),
+        }
     }
 
     /// Retrieves a value from the row by column name or zero-based index.
@@ -240,18 +241,19 @@ impl Row {
     /// * `Err(Error)` if:
     ///     * The column name or index is invalid. The underlying [`RowError`] can be extracted using [`RowError::extract`].
     ///     * The column value is incompatible with type `T`. The underlying [`ConvertError`][crate::error::ConvertError] can be extracted using [`ConvertError::extract`][crate::error::ConvertError::extract].
-    pub fn try_get<T: crate::from_value::FromValue, I: ColumnIndex>(
-        &self,
-        index: I,
-    ) -> crate::Result<T> {
-        let (idx, value) = self.get_value(index)?;
-        let r#type = self.metadata.column_types.get(idx).ok_or_else(|| {
-            crate::Error::deser(RowError::IndexOutOfRange {
-                index: idx,
-                len: self.metadata.column_types.len(),
-            })
-        })?;
-        T::from_value(value, r#type).map_err(crate::Error::deser)
+    pub fn try_get<T: FromValue, I: ColumnIndex>(&self, index: I) -> Result<T> {
+        let (column_index, value) = self.get_value(index)?;
+        let r#type = self
+            .metadata
+            .column_types
+            .get(column_index)
+            .ok_or_else(|| {
+                Error::deser(RowError::IndexOutOfRange {
+                    index: column_index,
+                    len: self.metadata.column_types.len(),
+                })
+            })?;
+        T::from_value(value, r#type).map_err(Error::deser)
     }
 
     /// Retrieves a value from the row by column name or zero-based index, panicking on error.
@@ -280,23 +282,25 @@ impl Row {
     ///
     /// Panics if:
     /// * The column name or index is invalid.
-    /// * The column value is incompatible with type `T`.
-    pub fn get<T: crate::from_value::FromValue, I: ColumnIndex>(&self, index: I) -> T {
-        self.try_get(index)
-            .expect("column not found or type mismatch")
+    /// * The column value is incompatible with type `T` (or is null when `T` is not an [`Option`]).
+    pub fn get<T: FromValue, I: ColumnIndex>(&self, index: I) -> T {
+        match self.try_get(&index) {
+            Ok(value) => value,
+            Err(error) => panic!("failed to retrieve column {index:?}: {error}"),
+        }
     }
 
-    fn get_value<I: ColumnIndex>(&self, index: I) -> crate::Result<(usize, &Value)> {
-        let idx = index
+    fn get_value<I: ColumnIndex>(&self, index: I) -> Result<(usize, &Value)> {
+        let column_index = index
             .index(self)
-            .ok_or_else(|| crate::Error::deser(RowError::ColumnNotFound(format!("{index}"))))?;
-        let value = self.values.get(idx).ok_or_else(|| {
-            crate::Error::deser(RowError::IndexOutOfRange {
-                index: idx,
+            .ok_or_else(|| Error::deser(RowError::ColumnNotFound(index.to_string())))?;
+        let value = self.values.get(column_index).ok_or_else(|| {
+            Error::deser(RowError::IndexOutOfRange {
+                index: column_index,
                 len: self.values.len(),
             })
         })?;
-        Ok((idx, value))
+        Ok((column_index, value))
     }
 }
 
@@ -310,13 +314,27 @@ mod tests {
     use std::sync::Arc;
     use time::{Date, Month, OffsetDateTime};
 
+    fn empty_row() -> Row {
+        Row {
+            values: Vec::new(),
+            metadata: ResultSetMetadata::new(None),
+        }
+    }
+
     #[test]
     fn auto_traits() {
         static_assertions::assert_impl_all!(Row: Clone, Debug, PartialEq, Send, Sync);
         static_assertions::assert_impl_all!(RowError: Clone, Debug, PartialEq, Eq, Send, Sync);
+        static_assertions::assert_impl_all!(usize: ColumnIndex, Display);
+        static_assertions::assert_impl_all!(&str: ColumnIndex, Display);
+        static_assertions::assert_impl_all!(String: ColumnIndex, Display);
+        static_assertions::assert_impl_all!(&usize: ColumnIndex, Display);
+        static_assertions::assert_impl_all!(&&str: ColumnIndex, Display);
+        static_assertions::assert_impl_all!(&String: ColumnIndex, Display);
     }
 
     #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
     fn row_get() {
         let names = vec![
             "col_string".to_string(),
@@ -348,9 +366,9 @@ mod tests {
             types::interval(),
         ];
 
-        let d = Decimal::from_str_exact("123.456").expect("valid decimal");
-        let dt = Date::from_calendar_date(2023, Month::October, 27).expect("valid date");
-        let ts = OffsetDateTime::parse(
+        let decimal = Decimal::from_str_exact("123.456").expect("valid decimal");
+        let date = Date::from_calendar_date(2023, Month::October, 27).expect("valid date");
+        let timestamp = OffsetDateTime::parse(
             "2023-10-27T10:00:00Z",
             &time::format_description::well_known::Rfc3339,
         )
@@ -362,9 +380,9 @@ mod tests {
             42.5_f64.to_value(),
             true.to_value(),
             vec![1_u8, 2, 3].to_value(),
-            d.to_value(),
-            dt.to_value(),
-            ts.to_value(),
+            decimal.to_value(),
+            date.to_value(),
+            timestamp.to_value(),
             1.23_f32.to_value(),
             "{\"key\":\"value\"}".to_string().to_value(),
             "123e4567-e89b-12d3-a456-426614174000"
@@ -378,7 +396,7 @@ mod tests {
             metadata: ResultSetMetadata {
                 column_names: Arc::new(names),
                 column_types: Arc::new(types),
-                undeclared_parameters: Arc::new(std::collections::BTreeMap::new()),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
 
@@ -390,17 +408,24 @@ mod tests {
         );
         assert_eq!(row.get::<i64, _>(1), 42, "expected int64 at index 1");
         assert_eq!(row.get::<f64, _>(2), 42.5, "expected float64 at index 2");
-        assert!(row.get::<bool, _>(3), "expected bool at index 3 to be true");
+        assert!(
+            row.get::<bool, _>(3),
+            "expected bool value at index 3 to be true"
+        );
         assert_eq!(
             row.get::<Vec<u8>, _>(4),
             vec![1_u8, 2, 3],
             "expected bytes at index 4"
         );
-        assert_eq!(row.get::<Decimal, _>(5), d, "expected numeric at index 5");
-        assert_eq!(row.get::<Date, _>(6), dt, "expected date at index 6");
+        assert_eq!(
+            row.get::<Decimal, _>(5),
+            decimal,
+            "expected numeric at index 5"
+        );
+        assert_eq!(row.get::<Date, _>(6), date, "expected date at index 6");
         assert_eq!(
             row.get::<OffsetDateTime, _>(7),
-            ts,
+            timestamp,
             "expected timestamp at index 7"
         );
         assert_eq!(
@@ -442,7 +467,7 @@ mod tests {
         );
         assert!(
             row.get::<bool, _>("col_bool"),
-            "expected col_bool by name to be true"
+            "expected col_bool to be true"
         );
         assert_eq!(
             row.get::<Vec<u8>, _>("col_bytes"),
@@ -451,17 +476,17 @@ mod tests {
         );
         assert_eq!(
             row.get::<Decimal, _>("col_numeric"),
-            d,
+            decimal,
             "expected col_numeric by name"
         );
         assert_eq!(
             row.get::<Date, _>("col_date"),
-            dt,
+            date,
             "expected col_date by name"
         );
         assert_eq!(
             row.get::<OffsetDateTime, _>("col_timestamp"),
-            ts,
+            timestamp,
             "expected col_timestamp by name"
         );
         assert_eq!(
@@ -488,23 +513,23 @@ mod tests {
         // Test getting by invalid index
         assert!(
             row.try_get::<String, _>(12).is_err(),
-            "expected error for index out of range"
+            "expected out of range index 12 to return an error"
         );
 
         // Test getting by invalid name
         assert!(
             row.try_get::<String, _>("col_invalid").is_err(),
-            "expected error for invalid column name"
+            "expected non-existent column name to return an error"
         );
 
         // Test getting mismatched type
         assert!(
             row.try_get::<i64, _>(0).is_err(),
-            "expected error for mismatched type i64"
+            "expected string-to-int conversion error at index 0"
         );
         assert!(
             row.try_get::<bool, _>(1).is_err(),
-            "expected error for mismatched type bool"
+            "expected int-to-bool conversion error at index 1"
         );
 
         // int64 is encoded as a string, so getting it as a string is also possible.
@@ -512,6 +537,70 @@ mod tests {
             row.get::<String, _>(1),
             "42",
             "expected int64 converted to string"
+        );
+
+        // Test getting with reference index types (&usize, &&str, &String) and owned String
+        assert_eq!(row.get::<String, _>(&0), "hello");
+        assert_eq!(row.get::<String, _>(&"col_string"), "hello");
+        let column_name = "col_string".to_string();
+        assert_eq!(row.get::<String, _>(&column_name), "hello");
+        assert_eq!(row.get::<String, _>(column_name), "hello");
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    fn row_is_null() {
+        let names = vec!["non_null_col".to_string(), "null_col".to_string()];
+        let types = vec![types::string(), types::string()];
+        let values = vec!["hello".to_string().to_value(), Value::null()];
+        let row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(names),
+                column_types: Arc::new(types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        assert!(
+            !row.is_null("non_null_col"),
+            "expected non_null_col to not be null"
+        );
+        assert!(row.is_null("null_col"), "expected null_col to be null");
+        assert!(!row.is_null(0), "expected index 0 to not be null");
+        assert!(row.is_null(1), "expected index 1 to be null");
+
+        // Test checking null with reference index types (&usize, &&str, &String) and owned String
+        assert!(!row.is_null(&0), "expected &0 to not be null");
+        assert!(
+            !row.is_null(&"non_null_col"),
+            "expected &\"non_null_col\" to not be null"
+        );
+        let non_null_name = "non_null_col".to_string();
+        assert!(
+            !row.is_null(&non_null_name),
+            "expected &String to not be null"
+        );
+        assert!(
+            !row.is_null(non_null_name),
+            "expected owned String to not be null"
+        );
+
+        assert!(
+            !row.try_is_null("non_null_col").expect("valid column name"),
+            "expected non_null_col to return false"
+        );
+        assert!(
+            row.try_is_null("null_col").expect("valid column name"),
+            "expected null_col to return true"
+        );
+        assert!(
+            !row.try_is_null(0).expect("valid column index"),
+            "expected index 0 to return false"
+        );
+        assert!(
+            row.try_is_null(1).expect("valid column index"),
+            "expected index 1 to return true"
         );
     }
 
@@ -543,8 +632,8 @@ mod tests {
         );
         assert_eq!(
             extracted_missing.to_string(),
-            "could not find column: nonexistent",
-            "expected 'could not find column: nonexistent' display string"
+            "Could not find column: 'nonexistent'",
+            "expected 'Could not find column: \\'nonexistent\\'' display string"
         );
 
         let err_out_of_range = row.try_get::<String, _>(5).expect_err("index out of range");
@@ -558,8 +647,185 @@ mod tests {
     }
 
     #[test]
+    #[should_panic(
+        expected = "failed to retrieve column \"col_invalid\": cannot deserialize the response Could not find column: 'col_invalid'"
+    )]
+    fn row_get_panics_on_invalid_column_name() {
+        let row = empty_row();
+        let _: String = row.get("col_invalid");
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column \"col_invalid\": cannot deserialize the response Could not find column: 'col_invalid'"
+    )]
+    fn row_get_panics_on_invalid_column_name_owned_string() {
+        let row = empty_row();
+        let _: String = row.get("col_invalid".to_string());
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    #[should_panic(
+        expected = "failed to retrieve column \"col_invalid\": cannot deserialize the response Could not find column: 'col_invalid'"
+    )]
+    fn row_get_panics_on_invalid_column_name_reference() {
+        let row = empty_row();
+        let _: String = row.get(&"col_invalid");
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    #[should_panic(
+        expected = "failed to retrieve column \"col_invalid\": cannot deserialize the response Could not find column: 'col_invalid'"
+    )]
+    fn row_get_panics_on_invalid_column_name_ref_string() {
+        let row = empty_row();
+        let invalid_column = "col_invalid".to_string();
+        let _: String = row.get(&invalid_column);
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column 0: cannot deserialize the response Column index out of range: 0 (expected < 0)"
+    )]
+    fn row_get_panics_on_invalid_column_index_empty_row() {
+        let row = empty_row();
+        let _: String = row.get(0);
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column 5: cannot deserialize the response Column index out of range: 5 (expected < 2)"
+    )]
+    fn row_get_panics_on_invalid_column_index_non_empty_row() {
+        let row = Row {
+            values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_a".to_string(), "col_b".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: String = row.get(5);
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    #[should_panic(
+        expected = "failed to retrieve column 5: cannot deserialize the response Column index out of range: 5 (expected < 2)"
+    )]
+    fn row_get_panics_on_invalid_column_index_reference() {
+        let row = Row {
+            values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_a".to_string(), "col_b".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: String = row.get(&5);
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column \"col_string\": cannot deserialize the response cannot convert value, source=invalid digit found in string"
+    )]
+    fn row_get_panics_on_type_mismatch_by_name() {
+        let row = Row {
+            values: vec!["hello".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_string".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: i64 = row.get("col_string");
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column 0: cannot deserialize the response cannot convert value, source=invalid digit found in string"
+    )]
+    fn row_get_panics_on_type_mismatch_by_index() {
+        let row = Row {
+            values: vec!["hello".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_string".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: i64 = row.get(0);
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column \"col_bool\": cannot deserialize the response expected String, got Bool"
+    )]
+    fn row_get_panics_on_kind_mismatch() {
+        let row = Row {
+            values: vec![true.to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_bool".to_string()]),
+                column_types: Arc::new(vec![types::bool()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: i64 = row.get("col_bool");
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column \"null_col\": cannot deserialize the response expected non-null value, got null"
+    )]
+    fn row_get_panics_on_null_value() {
+        let row = Row {
+            values: vec![Value::null()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["null_col".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: String = row.get("null_col");
+    }
+
+    #[test]
+    fn row_try_get_mismatched_metadata_types_length() {
+        let row = Row {
+            values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_a".to_string(), "col_b".to_string()]),
+                column_types: Arc::new(vec![types::string()]), // length 1 < values length 2
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        assert!(
+            row.try_get::<String, _>(1).is_err(),
+            "expected error when metadata column_types is shorter than values"
+        );
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column 1: cannot deserialize the response Column index out of range: 1 (expected < 1)"
+    )]
+    fn row_get_panics_on_mismatched_metadata_types_length() {
+        let row = Row {
+            values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_a".to_string(), "col_b".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: String = row.get(1);
+    }
+
+    #[test]
     fn generic_column_index_helper() {
-        fn fetch_value<I: ColumnIndex>(row: &Row, index: I) -> crate::Result<String> {
+        fn fetch_value<I: ColumnIndex>(row: &Row, index: I) -> Result<String> {
             row.try_get(index)
         }
 
@@ -588,5 +854,86 @@ mod tests {
 
         let by_index = fetch_value(&row, 0_usize).expect("fetch by usize");
         assert_eq!(by_index, "alice", "expected value fetched by index");
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to check if column \"col_invalid\" is null: cannot deserialize the response Could not find column: 'col_invalid'"
+    )]
+    fn row_is_null_panics_on_invalid_column_name() {
+        let row = empty_row();
+        let _ = row.is_null("col_invalid");
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to check if column \"col_invalid\" is null: cannot deserialize the response Could not find column: 'col_invalid'"
+    )]
+    fn row_is_null_panics_on_invalid_column_name_owned_string() {
+        let row = empty_row();
+        let _ = row.is_null("col_invalid".to_string());
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    #[should_panic(
+        expected = "failed to check if column \"col_invalid\" is null: cannot deserialize the response Could not find column: 'col_invalid'"
+    )]
+    fn row_is_null_panics_on_invalid_column_name_reference() {
+        let row = empty_row();
+        let _ = row.is_null(&"col_invalid");
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    #[should_panic(
+        expected = "failed to check if column \"col_invalid\" is null: cannot deserialize the response Could not find column: 'col_invalid'"
+    )]
+    fn row_is_null_panics_on_invalid_column_name_ref_string() {
+        let row = empty_row();
+        let invalid_column = "col_invalid".to_string();
+        let _ = row.is_null(&invalid_column);
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to check if column 0 is null: cannot deserialize the response Column index out of range: 0 (expected < 0)"
+    )]
+    fn row_is_null_panics_on_invalid_column_index_empty_row() {
+        let row = empty_row();
+        let _ = row.is_null(0);
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to check if column 5 is null: cannot deserialize the response Column index out of range: 5 (expected < 2)"
+    )]
+    fn row_is_null_panics_on_invalid_column_index_non_empty_row() {
+        let row = Row {
+            values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_a".to_string(), "col_b".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _ = row.is_null(5);
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    #[should_panic(
+        expected = "failed to check if column 5 is null: cannot deserialize the response Column index out of range: 5 (expected < 2)"
+    )]
+    fn row_is_null_panics_on_invalid_column_index_reference() {
+        let row = Row {
+            values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_a".to_string(), "col_b".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _ = row.is_null(&5);
     }
 }
