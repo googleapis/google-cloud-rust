@@ -560,6 +560,58 @@ impl std::fmt::Debug for super::IngestEventsResponse {
     }
 }
 
+impl std::fmt::Debug for super::IngestUsersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IngestUsersRequest");
+        debug_struct.field("destinations", &self.destinations);
+        debug_struct.field("users", &self.users);
+        debug_struct.field("encryption_info", &self.encryption_info);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("encoding", &self.encoding);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IngestUsersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IngestUsersResponse");
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RemoveUsersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveUsersRequest");
+        debug_struct.field("destinations", &self.destinations);
+        debug_struct.field("user_data", &self.user_data);
+        debug_struct.field("encryption_info", &self.encryption_info);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("encoding", &self.encoding);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RemoveUsersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveUsersResponse");
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::IngestAdEventsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngestAdEventsRequest");
@@ -1114,6 +1166,18 @@ impl std::fmt::Debug for super::TermsOfService {
             "customer_match_terms_of_service_status",
             &self.customer_match_terms_of_service_status,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::User {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("User");
+        debug_struct.field("user_data", &self.user_data);
+        debug_struct.field("mobile_data", &self.mobile_data);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

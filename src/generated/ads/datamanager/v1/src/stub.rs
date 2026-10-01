@@ -82,6 +82,28 @@ pub trait IngestionService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::IngestionService::ingest_users].
+    fn ingest_users(
+        &self,
+        _req: crate::model::IngestUsersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::IngestUsersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::IngestionService::remove_users].
+    fn remove_users(
+        &self,
+        _req: crate::model::RemoveUsersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RemoveUsersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::IngestionService::ingest_ad_events].
     fn ingest_ad_events(
         &self,

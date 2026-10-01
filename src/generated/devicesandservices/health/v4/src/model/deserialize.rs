@@ -5616,6 +5616,7 @@ impl<'de> serde::de::Deserialize<'de> for super::HeartRateVariability {
             __sample_time,
             __root_mean_square_of_successive_differences_milliseconds,
             __standard_deviation_milliseconds,
+            __metadata,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5642,6 +5643,7 @@ impl<'de> serde::de::Deserialize<'de> for super::HeartRateVariability {
                             "root_mean_square_of_successive_differences_milliseconds" => Ok(__FieldTag::__root_mean_square_of_successive_differences_milliseconds),
                             "standardDeviationMilliseconds" => Ok(__FieldTag::__standard_deviation_milliseconds),
                             "standard_deviation_milliseconds" => Ok(__FieldTag::__standard_deviation_milliseconds),
+                            "metadata" => Ok(__FieldTag::__metadata),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5712,6 +5714,132 @@ impl<'de> serde::de::Deserialize<'de> for super::HeartRateVariability {
                                 }
                             }
                             result.standard_deviation_milliseconds = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__metadata => {
+                            if !fields.insert(__FieldTag::__metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for metadata",
+                                ));
+                            }
+                            result.metadata = map.next_value::<std::option::Option<
+                                crate::model::heart_rate_variability::HeartRateVariabilityMetadata,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::heart_rate_variability::HeartRateVariabilityMetadata
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __high_frequency_power,
+            __low_frequency_power,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for HeartRateVariabilityMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "highFrequencyPower" => Ok(__FieldTag::__high_frequency_power),
+                            "high_frequency_power" => Ok(__FieldTag::__high_frequency_power),
+                            "lowFrequencyPower" => Ok(__FieldTag::__low_frequency_power),
+                            "low_frequency_power" => Ok(__FieldTag::__low_frequency_power),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::heart_rate_variability::HeartRateVariabilityMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct HeartRateVariabilityMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__high_frequency_power => {
+                            if !fields.insert(__FieldTag::__high_frequency_power) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for high_frequency_power",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.high_frequency_power =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__low_frequency_power => {
+                            if !fields.insert(__FieldTag::__low_frequency_power) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for low_frequency_power",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.low_frequency_power =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

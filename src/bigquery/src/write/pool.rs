@@ -31,7 +31,7 @@ impl Default for StreamPoolOptions {
     fn default() -> Self {
         Self {
             max_streams: 8,
-            max_outstanding_requests: Some(1000),
+            max_outstanding_requests: Some(1),
             max_outstanding_bytes: None,
             load_threshold: 0.2,
         }
@@ -275,7 +275,11 @@ mod tests {
     #[tokio::test]
     async fn get_least_loaded() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = StreamPool::new(transport, StreamPoolOptions::default());
+        let options = StreamPoolOptions {
+            max_outstanding_requests: Some(100),
+            ..Default::default()
+        };
+        let pool = StreamPool::new(transport, options);
 
         // Manually seed the pool
         pool.seed([8, 2, 2, 3, 1, 9]);
@@ -289,7 +293,11 @@ mod tests {
     #[tokio::test]
     async fn get_prunes_dead_streams() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = StreamPool::new(transport, StreamPoolOptions::default());
+        let options = StreamPoolOptions {
+            max_outstanding_requests: Some(100),
+            ..Default::default()
+        };
+        let pool = StreamPool::new(transport, options);
 
         // Manually seed the pool. Stream 4 has the lowest load (0).
         pool.seed([8, 2, 3, 0, 9]);

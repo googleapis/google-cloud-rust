@@ -94,11 +94,7 @@ pub async fn cleanup_stale_instances(client: &Instances, project_id: &str) -> an
     let stale_deadline =
         Timestamp::new(stale_deadline.as_secs() as i64, 0).expect("48 hours fits in wkt Timestamp");
 
-    let mut items = client
-        .aggregated_list()
-        .set_project(project_id)
-        .set_return_partial_success(true)
-        .by_item();
+    let mut items = client.aggregated_list().set_project(project_id).by_item();
     while let Some((_zone, scoped_list)) = items.next().await.transpose()? {
         for instance in scoped_list.instances {
             if instance

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod create_dead_letter_subscription;
 pub mod create_pull_subscription;
 pub mod create_subscription_exactly_once;
 pub mod delete_subscription;

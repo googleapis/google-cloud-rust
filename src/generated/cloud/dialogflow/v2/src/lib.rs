@@ -29,6 +29,7 @@
 //!
 //! * [Agents](client/struct.Agents.html)
 //! * [AnswerRecords](client/struct.AnswerRecords.html)
+//! * [CompanionAgents](client/struct.CompanionAgents.html)
 //! * [Contexts](client/struct.Contexts.html)
 //! * [Conversations](client/struct.Conversations.html)
 //! * [ConversationDatasets](client/struct.ConversationDatasets.html)
@@ -129,6 +130,7 @@ pub(crate) mod convert;
 #[cfg(any(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversations",
     feature = "conversation-datasets",
@@ -155,6 +157,7 @@ const DEFAULT_HOST: &str = "https://dialogflow.googleapis.com/";
 #[cfg(any(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversations",
     feature = "conversation-datasets",

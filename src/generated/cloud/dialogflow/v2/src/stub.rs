@@ -321,6 +321,131 @@ pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::CompanionAgents].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::CompanionAgents`.  In other use-cases, application developers only
+/// use `client::CompanionAgents` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "companion-agents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "companion-agents")))]
+pub trait CompanionAgents: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::CompanionAgents::create_companion_agent].
+    fn create_companion_agent(
+        &self,
+        _req: crate::model::CreateCompanionAgentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CompanionAgent>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::get_companion_agent].
+    fn get_companion_agent(
+        &self,
+        _req: crate::model::GetCompanionAgentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CompanionAgent>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::update_companion_agent].
+    fn update_companion_agent(
+        &self,
+        _req: crate::model::UpdateCompanionAgentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CompanionAgent>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::delete_companion_agent].
+    fn delete_companion_agent(
+        &self,
+        _req: crate::model::DeleteCompanionAgentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::list_companion_agents].
+    fn list_companion_agents(
+        &self,
+        _req: crate::model::ListCompanionAgentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListCompanionAgentsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::list_locations].
+    fn list_locations(
+        &self,
+        _req: google_cloud_location::model::ListLocationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::get_location].
+    fn get_location(
+        &self,
+        _req: google_cloud_location::model::GetLocationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::list_operations].
+    fn list_operations(
+        &self,
+        _req: google_cloud_longrunning::model::ListOperationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::get_operation].
+    fn get_operation(
+        &self,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CompanionAgents::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: google_cloud_longrunning::model::CancelOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::Contexts].
 ///
 /// Application developers may need to implement this trait to mock
@@ -2597,6 +2722,36 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
+    /// Implements [super::client::Participants::bidi_streaming_analyze_content].
+    fn bidi_streaming_analyze_content(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::model::BidiStreamingAnalyzeContentRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::model::BidiStreamingAnalyzeContentResponse,
+        >,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
+    /// Implements [super::client::Participants::streaming_reactive_companion_suggestions].
+    fn streaming_reactive_companion_suggestions(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::model::StreamingReactiveCompanionSuggestionsRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::model::StreamingReactiveCompanionSuggestionsResponse,
+        >,
     ) {
         gaxi::unimplemented::unimplemented_bidi_stub()
     }

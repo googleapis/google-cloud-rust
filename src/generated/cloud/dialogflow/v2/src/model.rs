@@ -3221,6 +3221,10 @@ pub struct AgentAssistantFeedback {
     pub knowledge_assist_feedback:
         std::option::Option<crate::model::agent_assistant_feedback::KnowledgeAssistFeedback>,
 
+    /// Optional. Feedback for companion agent.
+    pub companion_feedback:
+        std::option::Option<crate::model::agent_assistant_feedback::CompanionFeedback>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3384,6 +3388,39 @@ impl AgentAssistantFeedback {
         T: std::convert::Into<crate::model::agent_assistant_feedback::KnowledgeAssistFeedback>,
     {
         self.knowledge_assist_feedback = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [companion_feedback][crate::model::AgentAssistantFeedback::companion_feedback].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentAssistantFeedback;
+    /// use google_cloud_dialogflow_v2::model::agent_assistant_feedback::CompanionFeedback;
+    /// let x = AgentAssistantFeedback::new().set_companion_feedback(CompanionFeedback::default()/* use setters */);
+    /// ```
+    pub fn set_companion_feedback<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::agent_assistant_feedback::CompanionFeedback>,
+    {
+        self.companion_feedback = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [companion_feedback][crate::model::AgentAssistantFeedback::companion_feedback].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentAssistantFeedback;
+    /// use google_cloud_dialogflow_v2::model::agent_assistant_feedback::CompanionFeedback;
+    /// let x = AgentAssistantFeedback::new().set_or_clear_companion_feedback(Some(CompanionFeedback::default()/* use setters */));
+    /// let x = AgentAssistantFeedback::new().set_or_clear_companion_feedback(None::<CompanionFeedback>);
+    /// ```
+    pub fn set_or_clear_companion_feedback<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::agent_assistant_feedback::CompanionFeedback>,
+    {
+        self.companion_feedback = v.map(|x| x.into());
         self
     }
 }
@@ -3674,6 +3711,29 @@ pub mod agent_assistant_feedback {
     impl wkt::message::Message for KnowledgeAssistFeedback {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.v2.AgentAssistantFeedback.KnowledgeAssistFeedback"
+        }
+    }
+
+    /// Feedback for companion agent.
+    #[cfg(feature = "answer-records")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CompanionFeedback {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "answer-records")]
+    impl CompanionFeedback {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    #[cfg(feature = "answer-records")]
+    impl wkt::message::Message for CompanionFeedback {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.AgentAssistantFeedback.CompanionFeedback"
         }
     }
 
@@ -4171,6 +4231,8 @@ impl AgentAssistantRecord {
     /// assert!(x.faq_answer().is_none());
     /// assert!(x.dialogflow_assist_answer().is_none());
     /// assert!(x.generator_suggestion().is_none());
+    /// assert!(x.companion_suggestion().is_none());
+    /// assert!(x.reactive_companion_suggestion().is_none());
     /// ```
     pub fn set_article_suggestion_answer<
         T: std::convert::Into<std::boxed::Box<crate::model::ArticleAnswer>>,
@@ -4212,6 +4274,8 @@ impl AgentAssistantRecord {
     /// assert!(x.article_suggestion_answer().is_none());
     /// assert!(x.dialogflow_assist_answer().is_none());
     /// assert!(x.generator_suggestion().is_none());
+    /// assert!(x.companion_suggestion().is_none());
+    /// assert!(x.reactive_companion_suggestion().is_none());
     /// ```
     pub fn set_faq_answer<T: std::convert::Into<std::boxed::Box<crate::model::FaqAnswer>>>(
         mut self,
@@ -4253,6 +4317,8 @@ impl AgentAssistantRecord {
     /// assert!(x.article_suggestion_answer().is_none());
     /// assert!(x.faq_answer().is_none());
     /// assert!(x.generator_suggestion().is_none());
+    /// assert!(x.companion_suggestion().is_none());
+    /// assert!(x.reactive_companion_suggestion().is_none());
     /// ```
     pub fn set_dialogflow_assist_answer<
         T: std::convert::Into<std::boxed::Box<crate::model::DialogflowAssistAnswer>>,
@@ -4296,6 +4362,8 @@ impl AgentAssistantRecord {
     /// assert!(x.article_suggestion_answer().is_none());
     /// assert!(x.faq_answer().is_none());
     /// assert!(x.dialogflow_assist_answer().is_none());
+    /// assert!(x.companion_suggestion().is_none());
+    /// assert!(x.reactive_companion_suggestion().is_none());
     /// ```
     pub fn set_generator_suggestion<
         T: std::convert::Into<std::boxed::Box<crate::model::GeneratorSuggestion>>,
@@ -4305,6 +4373,95 @@ impl AgentAssistantRecord {
     ) -> Self {
         self.answer = std::option::Option::Some(
             crate::model::agent_assistant_record::Answer::GeneratorSuggestion(v.into()),
+        );
+        self
+    }
+
+    /// The value of [answer][crate::model::AgentAssistantRecord::answer]
+    /// if it holds a `CompanionSuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn companion_suggestion(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CompanionSuggestion>> {
+        #[allow(unreachable_patterns)]
+        self.answer.as_ref().and_then(|v| match v {
+            crate::model::agent_assistant_record::Answer::CompanionSuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
+    /// to hold a `CompanionSuggestion`.
+    ///
+    /// Note that all the setters affecting `answer` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentAssistantRecord;
+    /// use google_cloud_dialogflow_v2::model::CompanionSuggestion;
+    /// let x = AgentAssistantRecord::new().set_companion_suggestion(CompanionSuggestion::default()/* use setters */);
+    /// assert!(x.companion_suggestion().is_some());
+    /// assert!(x.article_suggestion_answer().is_none());
+    /// assert!(x.faq_answer().is_none());
+    /// assert!(x.dialogflow_assist_answer().is_none());
+    /// assert!(x.generator_suggestion().is_none());
+    /// assert!(x.reactive_companion_suggestion().is_none());
+    /// ```
+    pub fn set_companion_suggestion<
+        T: std::convert::Into<std::boxed::Box<crate::model::CompanionSuggestion>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.answer = std::option::Option::Some(
+            crate::model::agent_assistant_record::Answer::CompanionSuggestion(v.into()),
+        );
+        self
+    }
+
+    /// The value of [answer][crate::model::AgentAssistantRecord::answer]
+    /// if it holds a `ReactiveCompanionSuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn reactive_companion_suggestion(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.answer.as_ref().and_then(|v| match v {
+            crate::model::agent_assistant_record::Answer::ReactiveCompanionSuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
+    /// to hold a `ReactiveCompanionSuggestion`.
+    ///
+    /// Note that all the setters affecting `answer` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentAssistantRecord;
+    /// use google_cloud_dialogflow_v2::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse;
+    /// let x = AgentAssistantRecord::new().set_reactive_companion_suggestion(ReactiveModeResponse::default()/* use setters */);
+    /// assert!(x.reactive_companion_suggestion().is_some());
+    /// assert!(x.article_suggestion_answer().is_none());
+    /// assert!(x.faq_answer().is_none());
+    /// assert!(x.dialogflow_assist_answer().is_none());
+    /// assert!(x.generator_suggestion().is_none());
+    /// assert!(x.companion_suggestion().is_none());
+    /// ```
+    pub fn set_reactive_companion_suggestion<T: std::convert::Into<std::boxed::Box<crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse>>>(mut self, v: T) -> Self{
+        self.answer = std::option::Option::Some(
+            crate::model::agent_assistant_record::Answer::ReactiveCompanionSuggestion(v.into()),
         );
         self
     }
@@ -4336,6 +4493,10 @@ pub mod agent_assistant_record {
         DialogflowAssistAnswer(std::boxed::Box<crate::model::DialogflowAssistAnswer>),
         /// Output only. The generator suggestion.
         GeneratorSuggestion(std::boxed::Box<crate::model::GeneratorSuggestion>),
+        /// Output only. The companion suggestion.
+        CompanionSuggestion(std::boxed::Box<crate::model::CompanionSuggestion>),
+        /// Output only. The reactive companion suggestion.
+        ReactiveCompanionSuggestion(std::boxed::Box<crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse>),
     }
 }
 
@@ -4660,6 +4821,16 @@ pub struct InputAudioConfig {
     /// migration](https://cloud.google.com/dialogflow/es/docs/speech-model-migration).
     pub opt_out_conformer_model_migration: bool,
 
+    /// Optional. Configuration for using Gemini ASR models served via Vertex AI.
+    /// This field is only used when `use_gemini_asr` is true.
+    pub gemini_asr_config:
+        std::option::Option<crate::model::speech_to_text_config::GeminiAsrConfig>,
+
+    /// Optional. If true, Gemini ASR will be used for transcription instead of
+    /// Cloud Speech-to-Text. If false, Cloud Speech-to-Text will be used.
+    /// If unset, this setting is inherited from the ConversationProfile.
+    pub use_gemini_asr: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4874,6 +5045,70 @@ impl InputAudioConfig {
         v: T,
     ) -> Self {
         self.opt_out_conformer_model_migration = v.into();
+        self
+    }
+
+    /// Sets the value of [gemini_asr_config][crate::model::InputAudioConfig::gemini_asr_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::InputAudioConfig;
+    /// use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+    /// let x = InputAudioConfig::new().set_gemini_asr_config(GeminiAsrConfig::default()/* use setters */);
+    /// ```
+    pub fn set_gemini_asr_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::speech_to_text_config::GeminiAsrConfig>,
+    {
+        self.gemini_asr_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gemini_asr_config][crate::model::InputAudioConfig::gemini_asr_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::InputAudioConfig;
+    /// use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+    /// let x = InputAudioConfig::new().set_or_clear_gemini_asr_config(Some(GeminiAsrConfig::default()/* use setters */));
+    /// let x = InputAudioConfig::new().set_or_clear_gemini_asr_config(None::<GeminiAsrConfig>);
+    /// ```
+    pub fn set_or_clear_gemini_asr_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::speech_to_text_config::GeminiAsrConfig>,
+    {
+        self.gemini_asr_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [use_gemini_asr][crate::model::InputAudioConfig::use_gemini_asr].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::InputAudioConfig;
+    /// let x = InputAudioConfig::new().set_use_gemini_asr(true);
+    /// ```
+    pub fn set_use_gemini_asr<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.use_gemini_asr = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [use_gemini_asr][crate::model::InputAudioConfig::use_gemini_asr].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::InputAudioConfig;
+    /// let x = InputAudioConfig::new().set_or_clear_use_gemini_asr(Some(false));
+    /// let x = InputAudioConfig::new().set_or_clear_use_gemini_asr(None::<bool>);
+    /// ```
+    pub fn set_or_clear_use_gemini_asr<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.use_gemini_asr = v.map(|x| x.into());
         self
     }
 }
@@ -5613,7 +5848,12 @@ impl wkt::message::Message for TelephonyDtmfEvents {
 /// [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile].
 ///
 /// [google.cloud.dialogflow.v2.ConversationProfile]: crate::model::ConversationProfile
-#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechToTextConfig {
@@ -5696,10 +5936,25 @@ pub struct SpeechToTextConfig {
     /// seconds of timeout value.
     pub use_timeout_based_endpointing: bool,
 
+    /// Optional. Configuration for using Gemini ASR models served via Vertex AI,
+    /// overriding the default Gemini ASR model or providing additional advanced
+    /// parameters. This field is only used when `use_gemini_asr` is true.
+    pub gemini_asr_config:
+        std::option::Option<crate::model::speech_to_text_config::GeminiAsrConfig>,
+
+    /// Optional. If true, Gemini ASR will be used for transcription instead of
+    /// Cloud Speech-to-Text.
+    pub use_gemini_asr: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl SpeechToTextConfig {
     /// Creates a new default instance.
     pub fn new() -> Self {
@@ -5818,15 +6073,606 @@ impl SpeechToTextConfig {
         self.use_timeout_based_endpointing = v.into();
         self
     }
+
+    /// Sets the value of [gemini_asr_config][crate::model::SpeechToTextConfig::gemini_asr_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SpeechToTextConfig;
+    /// use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+    /// let x = SpeechToTextConfig::new().set_gemini_asr_config(GeminiAsrConfig::default()/* use setters */);
+    /// ```
+    pub fn set_gemini_asr_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::speech_to_text_config::GeminiAsrConfig>,
+    {
+        self.gemini_asr_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gemini_asr_config][crate::model::SpeechToTextConfig::gemini_asr_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SpeechToTextConfig;
+    /// use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+    /// let x = SpeechToTextConfig::new().set_or_clear_gemini_asr_config(Some(GeminiAsrConfig::default()/* use setters */));
+    /// let x = SpeechToTextConfig::new().set_or_clear_gemini_asr_config(None::<GeminiAsrConfig>);
+    /// ```
+    pub fn set_or_clear_gemini_asr_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::speech_to_text_config::GeminiAsrConfig>,
+    {
+        self.gemini_asr_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [use_gemini_asr][crate::model::SpeechToTextConfig::use_gemini_asr].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SpeechToTextConfig;
+    /// let x = SpeechToTextConfig::new().set_use_gemini_asr(true);
+    /// ```
+    pub fn set_use_gemini_asr<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_gemini_asr = v.into();
+        self
+    }
 }
 
-#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl wkt::message::Message for SpeechToTextConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.SpeechToTextConfig"
     }
 }
 
+/// Defines additional types related to [SpeechToTextConfig].
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
+pub mod speech_to_text_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration for using Gemini ASR models served via Vertex AI. This
+    /// message is used to override the default Gemini ASR model or provide
+    /// additional advanced parameters.
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GeminiAsrConfig {
+        /// Optional. The Gemini ASR model ID used for transcription.
+        /// This value overrides the default model ID configured on the server.
+        /// Example: "gemini-3-flash-lite-asr-preview"
+        pub model_id: std::string::String,
+
+        /// Optional. The required duration of detected silence (or non-speech)
+        /// before end-of-speech is committed.
+        pub silence_duration_ms: i32,
+
+        /// Optional. The required duration of detected speech before start-of-speech
+        /// is committed.
+        pub prefix_padding_ms: i32,
+
+        /// Optional. Start of speech sensitivity.
+        pub start_of_speech_sensitivity:
+            crate::model::speech_to_text_config::gemini_asr_config::StartSensitivity,
+
+        /// Optional. End of speech sensitivity.
+        pub end_of_speech_sensitivity:
+            crate::model::speech_to_text_config::gemini_asr_config::EndSensitivity,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl GeminiAsrConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [model_id][crate::model::speech_to_text_config::GeminiAsrConfig::model_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+        /// let x = GeminiAsrConfig::new().set_model_id("example");
+        /// ```
+        pub fn set_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.model_id = v.into();
+            self
+        }
+
+        /// Sets the value of [silence_duration_ms][crate::model::speech_to_text_config::GeminiAsrConfig::silence_duration_ms].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+        /// let x = GeminiAsrConfig::new().set_silence_duration_ms(42);
+        /// ```
+        pub fn set_silence_duration_ms<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.silence_duration_ms = v.into();
+            self
+        }
+
+        /// Sets the value of [prefix_padding_ms][crate::model::speech_to_text_config::GeminiAsrConfig::prefix_padding_ms].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+        /// let x = GeminiAsrConfig::new().set_prefix_padding_ms(42);
+        /// ```
+        pub fn set_prefix_padding_ms<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.prefix_padding_ms = v.into();
+            self
+        }
+
+        /// Sets the value of [start_of_speech_sensitivity][crate::model::speech_to_text_config::GeminiAsrConfig::start_of_speech_sensitivity].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+        /// use google_cloud_dialogflow_v2::model::speech_to_text_config::gemini_asr_config::StartSensitivity;
+        /// let x0 = GeminiAsrConfig::new().set_start_of_speech_sensitivity(StartSensitivity::High);
+        /// let x1 = GeminiAsrConfig::new().set_start_of_speech_sensitivity(StartSensitivity::Low);
+        /// ```
+        pub fn set_start_of_speech_sensitivity<
+            T: std::convert::Into<
+                    crate::model::speech_to_text_config::gemini_asr_config::StartSensitivity,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.start_of_speech_sensitivity = v.into();
+            self
+        }
+
+        /// Sets the value of [end_of_speech_sensitivity][crate::model::speech_to_text_config::GeminiAsrConfig::end_of_speech_sensitivity].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+        /// use google_cloud_dialogflow_v2::model::speech_to_text_config::gemini_asr_config::EndSensitivity;
+        /// let x0 = GeminiAsrConfig::new().set_end_of_speech_sensitivity(EndSensitivity::High);
+        /// let x1 = GeminiAsrConfig::new().set_end_of_speech_sensitivity(EndSensitivity::Low);
+        /// ```
+        pub fn set_end_of_speech_sensitivity<
+            T: std::convert::Into<
+                    crate::model::speech_to_text_config::gemini_asr_config::EndSensitivity,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.end_of_speech_sensitivity = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl wkt::message::Message for GeminiAsrConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SpeechToTextConfig.GeminiAsrConfig"
+        }
+    }
+
+    /// Defines additional types related to [GeminiAsrConfig].
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    pub mod gemini_asr_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Start of speech sensitivity.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum StartSensitivity {
+            /// The default is START_SENSITIVITY_LOW.
+            Unspecified,
+            /// Automatic detection will detect the start of speech more often.
+            High,
+            /// Automatic detection will detect the start of speech less often.
+            Low,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [StartSensitivity::value] or
+            /// [StartSensitivity::name].
+            UnknownValue(start_sensitivity::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        pub mod start_sensitivity {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl StartSensitivity {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::High => std::option::Option::Some(1),
+                    Self::Low => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("START_SENSITIVITY_UNSPECIFIED"),
+                    Self::High => std::option::Option::Some("START_SENSITIVITY_HIGH"),
+                    Self::Low => std::option::Option::Some("START_SENSITIVITY_LOW"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl std::default::Default for StartSensitivity {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl std::fmt::Display for StartSensitivity {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl std::convert::From<i32> for StartSensitivity {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::High,
+                    2 => Self::Low,
+                    _ => Self::UnknownValue(start_sensitivity::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl std::convert::From<&str> for StartSensitivity {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "START_SENSITIVITY_UNSPECIFIED" => Self::Unspecified,
+                    "START_SENSITIVITY_HIGH" => Self::High,
+                    "START_SENSITIVITY_LOW" => Self::Low,
+                    _ => Self::UnknownValue(start_sensitivity::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl serde::ser::Serialize for StartSensitivity {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::High => serializer.serialize_i32(1),
+                    Self::Low => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl<'de> serde::de::Deserialize<'de> for StartSensitivity {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<StartSensitivity>::new(
+                    ".google.cloud.dialogflow.v2.SpeechToTextConfig.GeminiAsrConfig.StartSensitivity"))
+            }
+        }
+
+        /// End of speech sensitivity.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum EndSensitivity {
+            /// The default is END_SENSITIVITY_LOW.
+            Unspecified,
+            /// Automatic detection ends speech more often.
+            High,
+            /// Automatic detection ends speech less often.
+            Low,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [EndSensitivity::value] or
+            /// [EndSensitivity::name].
+            UnknownValue(end_sensitivity::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        pub mod end_sensitivity {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl EndSensitivity {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::High => std::option::Option::Some(1),
+                    Self::Low => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("END_SENSITIVITY_UNSPECIFIED"),
+                    Self::High => std::option::Option::Some("END_SENSITIVITY_HIGH"),
+                    Self::Low => std::option::Option::Some("END_SENSITIVITY_LOW"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl std::default::Default for EndSensitivity {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl std::fmt::Display for EndSensitivity {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl std::convert::From<i32> for EndSensitivity {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::High,
+                    2 => Self::Low,
+                    _ => Self::UnknownValue(end_sensitivity::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl std::convert::From<&str> for EndSensitivity {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "END_SENSITIVITY_UNSPECIFIED" => Self::Unspecified,
+                    "END_SENSITIVITY_HIGH" => Self::High,
+                    "END_SENSITIVITY_LOW" => Self::Low,
+                    _ => Self::UnknownValue(end_sensitivity::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl serde::ser::Serialize for EndSensitivity {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::High => serializer.serialize_i32(1),
+                    Self::Low => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "conversation-profiles",
+            feature = "conversations",
+            feature = "participants",
+            feature = "sessions",
+        ))]
+        impl<'de> serde::de::Deserialize<'de> for EndSensitivity {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<EndSensitivity>::new(
+                    ".google.cloud.dialogflow.v2.SpeechToTextConfig.GeminiAsrConfig.EndSensitivity",
+                ))
+            }
+        }
+    }
+}
+
+/// Deprecated: Use `CesToolSpec` instead.
 /// Spec of CES app that the generator can choose from.
 #[cfg(any(
     feature = "conversations",
@@ -5835,6 +6681,7 @@ impl wkt::message::Message for SpeechToTextConfig {
 ))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct CesAppSpec {
     /// Optional. Format: `projects/<Project ID>/locations/<Location ID>/apps/<app
     /// ID>`.
@@ -5976,9 +6823,12 @@ impl wkt::message::Message for CesAppSpec {
 
 /// Spec of CES tool that the generator can choose from.
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
 ))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5994,9 +6844,12 @@ pub struct CesToolSpec {
 }
 
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
 ))]
 impl CesToolSpec {
     /// Creates a new default instance.
@@ -6037,13 +6890,1710 @@ impl CesToolSpec {
 }
 
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
 ))]
 impl wkt::message::Message for CesToolSpec {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.CesToolSpec"
+    }
+}
+
+/// Request of CreateCompanionAgent.
+#[cfg(feature = "companion-agents")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateCompanionAgentRequest {
+    /// Required. Resource identifier of the project creating the companion agent.
+    /// Format: `projects/{project}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Required. The companion agent to create.
+    pub companion_agent: std::option::Option<crate::model::CompanionAgent>,
+
+    /// Optional. The resource ID of the companion agent to create. If not
+    /// provided, the server will auto-generate a resource ID.
+    pub companion_agent_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "companion-agents")]
+impl CreateCompanionAgentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateCompanionAgentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateCompanionAgentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateCompanionAgentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [companion_agent][crate::model::CreateCompanionAgentRequest::companion_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateCompanionAgentRequest;
+    /// use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// let x = CreateCompanionAgentRequest::new().set_companion_agent(CompanionAgent::default()/* use setters */);
+    /// ```
+    pub fn set_companion_agent<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CompanionAgent>,
+    {
+        self.companion_agent = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [companion_agent][crate::model::CreateCompanionAgentRequest::companion_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateCompanionAgentRequest;
+    /// use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// let x = CreateCompanionAgentRequest::new().set_or_clear_companion_agent(Some(CompanionAgent::default()/* use setters */));
+    /// let x = CreateCompanionAgentRequest::new().set_or_clear_companion_agent(None::<CompanionAgent>);
+    /// ```
+    pub fn set_or_clear_companion_agent<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CompanionAgent>,
+    {
+        self.companion_agent = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [companion_agent_id][crate::model::CreateCompanionAgentRequest::companion_agent_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateCompanionAgentRequest;
+    /// let x = CreateCompanionAgentRequest::new().set_companion_agent_id("example");
+    /// ```
+    pub fn set_companion_agent_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.companion_agent_id = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "companion-agents")]
+impl wkt::message::Message for CreateCompanionAgentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CreateCompanionAgentRequest"
+    }
+}
+
+/// Request message for GetCompanionAgent.
+#[cfg(feature = "companion-agents")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetCompanionAgentRequest {
+    /// Required. The unique resource identifier of the CompanionAgent to get all
+    /// information for. Format:
+    /// `projects/{project}/locations/{location}/companionAgents/{companion_agent}`.
+    /// Contains the information about the {project}, {location}, and
+    /// {companion_agent}.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "companion-agents")]
+impl GetCompanionAgentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetCompanionAgentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GetCompanionAgentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let companion_agent_id = "companion_agent_id";
+    /// let x = GetCompanionAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/companionAgents/{companion_agent_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "companion-agents")]
+impl wkt::message::Message for GetCompanionAgentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GetCompanionAgentRequest"
+    }
+}
+
+/// Request message for ListCompanionAgents.
+#[cfg(feature = "companion-agents")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListCompanionAgentsRequest {
+    /// Required. The parent resource name to list the companion agents for.
+    /// Format: `projects/{project}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of companion agents to return in a single page.
+    /// By default 100 and at most 1000.
+    pub page_size: i32,
+
+    /// Optional. The page token, received from a previous call.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "companion-agents")]
+impl ListCompanionAgentsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListCompanionAgentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListCompanionAgentsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListCompanionAgentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListCompanionAgentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListCompanionAgentsRequest;
+    /// let x = ListCompanionAgentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListCompanionAgentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListCompanionAgentsRequest;
+    /// let x = ListCompanionAgentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "companion-agents")]
+impl wkt::message::Message for ListCompanionAgentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ListCompanionAgentsRequest"
+    }
+}
+
+/// Response message for ListCompanionAgents.
+#[cfg(feature = "companion-agents")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListCompanionAgentsResponse {
+    /// The list of companion agents.
+    pub companion_agents: std::vec::Vec<crate::model::CompanionAgent>,
+
+    /// Token to retrieve the next page of results, or empty if there are no
+    /// more results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "companion-agents")]
+impl ListCompanionAgentsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [companion_agents][crate::model::ListCompanionAgentsResponse::companion_agents].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListCompanionAgentsResponse;
+    /// use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// let x = ListCompanionAgentsResponse::new()
+    ///     .set_companion_agents([
+    ///         CompanionAgent::default()/* use setters */,
+    ///         CompanionAgent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_companion_agents<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CompanionAgent>,
+    {
+        use std::iter::Iterator;
+        self.companion_agents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCompanionAgentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListCompanionAgentsResponse;
+    /// let x = ListCompanionAgentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "companion-agents")]
+impl wkt::message::Message for ListCompanionAgentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ListCompanionAgentsResponse"
+    }
+}
+
+#[cfg(feature = "companion-agents")]
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCompanionAgentsResponse {
+    type PageItem = crate::model::CompanionAgent;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.companion_agents
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for UpdateCompanionAgent.
+#[cfg(feature = "companion-agents")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateCompanionAgentRequest {
+    /// Required. The Companion Agent to update.
+    pub companion_agent: std::option::Option<crate::model::CompanionAgent>,
+
+    /// Optional. Update mask for Companion Agent.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "companion-agents")]
+impl UpdateCompanionAgentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [companion_agent][crate::model::UpdateCompanionAgentRequest::companion_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateCompanionAgentRequest;
+    /// use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// let x = UpdateCompanionAgentRequest::new().set_companion_agent(CompanionAgent::default()/* use setters */);
+    /// ```
+    pub fn set_companion_agent<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CompanionAgent>,
+    {
+        self.companion_agent = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [companion_agent][crate::model::UpdateCompanionAgentRequest::companion_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateCompanionAgentRequest;
+    /// use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// let x = UpdateCompanionAgentRequest::new().set_or_clear_companion_agent(Some(CompanionAgent::default()/* use setters */));
+    /// let x = UpdateCompanionAgentRequest::new().set_or_clear_companion_agent(None::<CompanionAgent>);
+    /// ```
+    pub fn set_or_clear_companion_agent<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CompanionAgent>,
+    {
+        self.companion_agent = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateCompanionAgentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateCompanionAgentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCompanionAgentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCompanionAgentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateCompanionAgentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCompanionAgentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCompanionAgentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "companion-agents")]
+impl wkt::message::Message for UpdateCompanionAgentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.UpdateCompanionAgentRequest"
+    }
+}
+
+/// Request message for DeleteCompanionAgent.
+#[cfg(feature = "companion-agents")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCompanionAgentRequest {
+    /// Required. The unique resource identifier of the CompanionAgent to delete.
+    /// Format:
+    /// `projects/{project}/locations/{location}/companionAgents/{companion_agent}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "companion-agents")]
+impl DeleteCompanionAgentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteCompanionAgentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::DeleteCompanionAgentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let companion_agent_id = "companion_agent_id";
+    /// let x = DeleteCompanionAgentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/companionAgents/{companion_agent_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "companion-agents")]
+impl wkt::message::Message for DeleteCompanionAgentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.DeleteCompanionAgentRequest"
+    }
+}
+
+/// Guidance instruction for the companion agent.
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GuidanceInstruction {
+    /// Optional. Display name for the instruction. This name should be unique
+    /// within the companion agent.
+    pub display_name: std::string::String,
+
+    /// Optional. The detailed description of this instruction.
+    pub display_details: std::string::String,
+
+    /// Optional. The condition of the instruction. For example, "the customer
+    /// wants to cancel an order".  If the users want the instruction to be
+    /// triggered unconditionally, the condition can be empty.
+    pub condition: std::string::String,
+
+    /// Optional. The action items that can be processed.
+    pub actions: std::vec::Vec<crate::model::guidance_instruction::Action>,
+
+    /// Optional. Event that triggers the guidance instruction.
+    /// If UNSPECIFIED, the instruction triggering will be the same as the skill's
+    /// skill_triggering_event.
+    pub trigger_event: crate::model::companion_agent::TriggerEvent,
+
+    /// Optional. Whether to disable suggested reply generation for this
+    /// instruction. When set to `true`, guidance generated from this instruction
+    /// will not include a suggested reply. Default is `false` (suggested reply
+    /// enabled).
+    pub disable_suggested_reply: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl GuidanceInstruction {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [display_name][crate::model::GuidanceInstruction::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+    /// let x = GuidanceInstruction::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_details][crate::model::GuidanceInstruction::display_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+    /// let x = GuidanceInstruction::new().set_display_details("example");
+    /// ```
+    pub fn set_display_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_details = v.into();
+        self
+    }
+
+    /// Sets the value of [condition][crate::model::GuidanceInstruction::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+    /// let x = GuidanceInstruction::new().set_condition("example");
+    /// ```
+    pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.condition = v.into();
+        self
+    }
+
+    /// Sets the value of [actions][crate::model::GuidanceInstruction::actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+    /// use google_cloud_dialogflow_v2::model::guidance_instruction::Action;
+    /// let x = GuidanceInstruction::new()
+    ///     .set_actions([
+    ///         Action::default()/* use setters */,
+    ///         Action::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_actions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::guidance_instruction::Action>,
+    {
+        use std::iter::Iterator;
+        self.actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [trigger_event][crate::model::GuidanceInstruction::trigger_event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+    /// use google_cloud_dialogflow_v2::model::companion_agent::TriggerEvent;
+    /// let x0 = GuidanceInstruction::new().set_trigger_event(TriggerEvent::EndOfUtterance);
+    /// let x1 = GuidanceInstruction::new().set_trigger_event(TriggerEvent::CustomerMessage);
+    /// let x2 = GuidanceInstruction::new().set_trigger_event(TriggerEvent::AgentMessage);
+    /// ```
+    pub fn set_trigger_event<T: std::convert::Into<crate::model::companion_agent::TriggerEvent>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.trigger_event = v.into();
+        self
+    }
+
+    /// Sets the value of [disable_suggested_reply][crate::model::GuidanceInstruction::disable_suggested_reply].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+    /// let x = GuidanceInstruction::new().set_disable_suggested_reply(true);
+    /// ```
+    pub fn set_disable_suggested_reply<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disable_suggested_reply = v.into();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl wkt::message::Message for GuidanceInstruction {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GuidanceInstruction"
+    }
+}
+
+/// Defines additional types related to [GuidanceInstruction].
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+pub mod guidance_instruction {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Actions to take, including agent action and system action (automation).
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Action {
+        /// Required. Description of action item. It can be a agent action (e.g.
+        /// "Send a message to the customer", "greet the customer") or system action
+        /// (e.g. "Update the ticket", "Create a task", "cancel the order").
+        pub description: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl Action {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [description][crate::model::guidance_instruction::Action::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::guidance_instruction::Action;
+        /// let x = Action::new().set_description("example");
+        /// ```
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for Action {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GuidanceInstruction.Action"
+        }
+    }
+}
+
+/// Companion agent.
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CompanionAgent {
+    /// Identifier. The unique identifier of the companion agent.
+    /// Format:
+    /// `projects/{project}/locations/{location}/companionAgents/{companion_agent}`
+    pub name: std::string::String,
+
+    /// Output only. Creation time of this companion agent.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time of this companion agent.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. List of CES toolset specs that the companion agent can choose
+    /// from.
+    pub toolset_tools: std::vec::Vec<crate::model::ToolsetTool>,
+
+    /// Optional. List of CES tool specs that the companion agent can choose from.
+    pub ces_tool_specs: std::vec::Vec<crate::model::CesToolSpec>,
+
+    /// Optional. Display name for the companion agent.
+    /// Character limit is 63.
+    pub display_name: std::string::String,
+
+    /// Optional. Description for the companion agent.
+    pub description: std::string::String,
+
+    /// Optional. List of skill configs for the companion agent.
+    /// Allows at most one instance of each
+    /// [SkillConfig][google.cloud.dialogflow.v2.CompanionAgent.SkillConfig] type.
+    ///
+    /// [google.cloud.dialogflow.v2.CompanionAgent.SkillConfig]: crate::model::companion_agent::SkillConfig
+    pub skill_configs: std::vec::Vec<crate::model::companion_agent::SkillConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl CompanionAgent {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CompanionAgent::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let companion_agent_id = "companion_agent_id";
+    /// let x = CompanionAgent::new().set_name(format!("projects/{project_id}/locations/{location_id}/companionAgents/{companion_agent_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::CompanionAgent::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use wkt::Timestamp;
+    /// let x = CompanionAgent::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::CompanionAgent::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use wkt::Timestamp;
+    /// let x = CompanionAgent::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CompanionAgent::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::CompanionAgent::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use wkt::Timestamp;
+    /// let x = CompanionAgent::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::CompanionAgent::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use wkt::Timestamp;
+    /// let x = CompanionAgent::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CompanionAgent::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [toolset_tools][crate::model::CompanionAgent::toolset_tools].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use google_cloud_dialogflow_v2::model::ToolsetTool;
+    /// let x = CompanionAgent::new()
+    ///     .set_toolset_tools([
+    ///         ToolsetTool::default()/* use setters */,
+    ///         ToolsetTool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_toolset_tools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ToolsetTool>,
+    {
+        use std::iter::Iterator;
+        self.toolset_tools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ces_tool_specs][crate::model::CompanionAgent::ces_tool_specs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use google_cloud_dialogflow_v2::model::CesToolSpec;
+    /// let x = CompanionAgent::new()
+    ///     .set_ces_tool_specs([
+    ///         CesToolSpec::default()/* use setters */,
+    ///         CesToolSpec::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_ces_tool_specs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CesToolSpec>,
+    {
+        use std::iter::Iterator;
+        self.ces_tool_specs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::CompanionAgent::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// let x = CompanionAgent::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::CompanionAgent::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// let x = CompanionAgent::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [skill_configs][crate::model::CompanionAgent::skill_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionAgent;
+    /// use google_cloud_dialogflow_v2::model::companion_agent::SkillConfig;
+    /// let x = CompanionAgent::new()
+    ///     .set_skill_configs([
+    ///         SkillConfig::default()/* use setters */,
+    ///         SkillConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_skill_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::companion_agent::SkillConfig>,
+    {
+        use std::iter::Iterator;
+        self.skill_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+impl wkt::message::Message for CompanionAgent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent"
+    }
+}
+
+/// Defines additional types related to [CompanionAgent].
+#[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
+    feature = "participants",
+))]
+pub mod companion_agent {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Skill configuration for the companion agent.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SkillConfig {
+        /// Optional. The event that should trigger the skill.
+        pub skill_triggering_event: crate::model::companion_agent::skill_config::SkillTriggerEvent,
+
+        /// Each SkillConfig will be one of the following specific skill configs.
+        pub config: std::option::Option<crate::model::companion_agent::skill_config::Config>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl SkillConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [skill_triggering_event][crate::model::companion_agent::SkillConfig::skill_triggering_event].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::SkillConfig;
+        /// use google_cloud_dialogflow_v2::model::companion_agent::skill_config::SkillTriggerEvent;
+        /// let x0 = SkillConfig::new().set_skill_triggering_event(SkillTriggerEvent::EndOfUtterance);
+        /// let x1 = SkillConfig::new().set_skill_triggering_event(SkillTriggerEvent::CustomerMessage);
+        /// let x2 = SkillConfig::new().set_skill_triggering_event(SkillTriggerEvent::AgentMessage);
+        /// ```
+        pub fn set_skill_triggering_event<
+            T: std::convert::Into<crate::model::companion_agent::skill_config::SkillTriggerEvent>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.skill_triggering_event = v.into();
+            self
+        }
+
+        /// Sets the value of [config][crate::model::companion_agent::SkillConfig::config].
+        ///
+        /// Note that all the setters affecting `config` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::SkillConfig;
+        /// use google_cloud_dialogflow_v2::model::companion_agent::GuidanceSkillConfig;
+        /// let x = SkillConfig::new().set_config(Some(
+        ///     google_cloud_dialogflow_v2::model::companion_agent::skill_config::Config::GuidanceSkillConfig(GuidanceSkillConfig::default().into())));
+        /// ```
+        pub fn set_config<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::companion_agent::skill_config::Config>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.config = v.into();
+            self
+        }
+
+        /// The value of [config][crate::model::companion_agent::SkillConfig::config]
+        /// if it holds a `GuidanceSkillConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn guidance_skill_config(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::companion_agent::GuidanceSkillConfig>>
+        {
+            #[allow(unreachable_patterns)]
+            self.config.as_ref().and_then(|v| match v {
+                crate::model::companion_agent::skill_config::Config::GuidanceSkillConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [config][crate::model::companion_agent::SkillConfig::config]
+        /// to hold a `GuidanceSkillConfig`.
+        ///
+        /// Note that all the setters affecting `config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::SkillConfig;
+        /// use google_cloud_dialogflow_v2::model::companion_agent::GuidanceSkillConfig;
+        /// let x = SkillConfig::new().set_guidance_skill_config(GuidanceSkillConfig::default()/* use setters */);
+        /// assert!(x.guidance_skill_config().is_some());
+        /// assert!(x.translation_skill_config().is_none());
+        /// ```
+        pub fn set_guidance_skill_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::companion_agent::GuidanceSkillConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.config = std::option::Option::Some(
+                crate::model::companion_agent::skill_config::Config::GuidanceSkillConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [config][crate::model::companion_agent::SkillConfig::config]
+        /// if it holds a `TranslationSkillConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn translation_skill_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::companion_agent::TranslationSkillConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.config.as_ref().and_then(|v| match v {
+                crate::model::companion_agent::skill_config::Config::TranslationSkillConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [config][crate::model::companion_agent::SkillConfig::config]
+        /// to hold a `TranslationSkillConfig`.
+        ///
+        /// Note that all the setters affecting `config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::SkillConfig;
+        /// use google_cloud_dialogflow_v2::model::companion_agent::TranslationSkillConfig;
+        /// let x = SkillConfig::new().set_translation_skill_config(TranslationSkillConfig::default()/* use setters */);
+        /// assert!(x.translation_skill_config().is_some());
+        /// assert!(x.guidance_skill_config().is_none());
+        /// ```
+        pub fn set_translation_skill_config<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::companion_agent::TranslationSkillConfig>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.config = std::option::Option::Some(
+                crate::model::companion_agent::skill_config::Config::TranslationSkillConfig(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for SkillConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent.SkillConfig"
+        }
+    }
+
+    /// Defines additional types related to [SkillConfig].
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    pub mod skill_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The event that should trigger the skill.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SkillTriggerEvent {
+            /// Default value for SkillTriggerEvent.
+            Unspecified,
+            /// Triggers when each chat message or voice utterance ends.
+            EndOfUtterance,
+            /// Triggers after each customer message.
+            CustomerMessage,
+            /// Triggers after each agent message.
+            AgentMessage,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [SkillTriggerEvent::value] or
+            /// [SkillTriggerEvent::name].
+            UnknownValue(skill_trigger_event::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        pub mod skill_trigger_event {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        impl SkillTriggerEvent {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::EndOfUtterance => std::option::Option::Some(1),
+                    Self::CustomerMessage => std::option::Option::Some(2),
+                    Self::AgentMessage => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("SKILL_TRIGGER_EVENT_UNSPECIFIED")
+                    }
+                    Self::EndOfUtterance => std::option::Option::Some("END_OF_UTTERANCE"),
+                    Self::CustomerMessage => std::option::Option::Some("CUSTOMER_MESSAGE"),
+                    Self::AgentMessage => std::option::Option::Some("AGENT_MESSAGE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        impl std::default::Default for SkillTriggerEvent {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        impl std::fmt::Display for SkillTriggerEvent {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        impl std::convert::From<i32> for SkillTriggerEvent {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::EndOfUtterance,
+                    2 => Self::CustomerMessage,
+                    3 => Self::AgentMessage,
+                    _ => Self::UnknownValue(skill_trigger_event::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        impl std::convert::From<&str> for SkillTriggerEvent {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SKILL_TRIGGER_EVENT_UNSPECIFIED" => Self::Unspecified,
+                    "END_OF_UTTERANCE" => Self::EndOfUtterance,
+                    "CUSTOMER_MESSAGE" => Self::CustomerMessage,
+                    "AGENT_MESSAGE" => Self::AgentMessage,
+                    _ => Self::UnknownValue(skill_trigger_event::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        impl serde::ser::Serialize for SkillTriggerEvent {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::EndOfUtterance => serializer.serialize_i32(1),
+                    Self::CustomerMessage => serializer.serialize_i32(2),
+                    Self::AgentMessage => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        impl<'de> serde::de::Deserialize<'de> for SkillTriggerEvent {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SkillTriggerEvent>::new(
+                    ".google.cloud.dialogflow.v2.CompanionAgent.SkillConfig.SkillTriggerEvent",
+                ))
+            }
+        }
+
+        /// Each SkillConfig will be one of the following specific skill configs.
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
+            feature = "participants",
+        ))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Config {
+            /// Optional. Guidance skill configuration.
+            GuidanceSkillConfig(
+                std::boxed::Box<crate::model::companion_agent::GuidanceSkillConfig>,
+            ),
+            /// Optional. Translation skill configuration.
+            TranslationSkillConfig(
+                std::boxed::Box<crate::model::companion_agent::TranslationSkillConfig>,
+            ),
+        }
+    }
+
+    /// Guidance skill configuration.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GuidanceSkillConfig {
+        /// Optional. Customized instructions for guidance.
+        pub guidance_instructions: std::vec::Vec<crate::model::GuidanceInstruction>,
+
+        /// Optional. This is specific additional guidance that can configured by the
+        /// user.
+        pub overarching_guidance: std::string::String,
+
+        /// Optional. Knowledge source configuration for guidance.
+        pub knowledge_source: std::option::Option<crate::model::companion_agent::KnowledgeSource>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl GuidanceSkillConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [guidance_instructions][crate::model::companion_agent::GuidanceSkillConfig::guidance_instructions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::GuidanceSkillConfig;
+        /// use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+        /// let x = GuidanceSkillConfig::new()
+        ///     .set_guidance_instructions([
+        ///         GuidanceInstruction::default()/* use setters */,
+        ///         GuidanceInstruction::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_guidance_instructions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::GuidanceInstruction>,
+        {
+            use std::iter::Iterator;
+            self.guidance_instructions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [overarching_guidance][crate::model::companion_agent::GuidanceSkillConfig::overarching_guidance].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::GuidanceSkillConfig;
+        /// let x = GuidanceSkillConfig::new().set_overarching_guidance("example");
+        /// ```
+        pub fn set_overarching_guidance<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.overarching_guidance = v.into();
+            self
+        }
+
+        /// Sets the value of [knowledge_source][crate::model::companion_agent::GuidanceSkillConfig::knowledge_source].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::GuidanceSkillConfig;
+        /// use google_cloud_dialogflow_v2::model::companion_agent::KnowledgeSource;
+        /// let x = GuidanceSkillConfig::new().set_knowledge_source(KnowledgeSource::default()/* use setters */);
+        /// ```
+        pub fn set_knowledge_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::companion_agent::KnowledgeSource>,
+        {
+            self.knowledge_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [knowledge_source][crate::model::companion_agent::GuidanceSkillConfig::knowledge_source].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::GuidanceSkillConfig;
+        /// use google_cloud_dialogflow_v2::model::companion_agent::KnowledgeSource;
+        /// let x = GuidanceSkillConfig::new().set_or_clear_knowledge_source(Some(KnowledgeSource::default()/* use setters */));
+        /// let x = GuidanceSkillConfig::new().set_or_clear_knowledge_source(None::<KnowledgeSource>);
+        /// ```
+        pub fn set_or_clear_knowledge_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::companion_agent::KnowledgeSource>,
+        {
+            self.knowledge_source = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for GuidanceSkillConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent.GuidanceSkillConfig"
+        }
+    }
+
+    /// Knowledge source configuration for knowledge retrieval.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct KnowledgeSource {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl KnowledgeSource {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for KnowledgeSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent.KnowledgeSource"
+        }
+    }
+
+    /// Translation skill configuration for the companion agent.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TranslationSkillConfig {
+        /// Optional. Target language code for the agent, in IETF BCP-47 format
+        /// (e.g., "en-US").
+        pub agent_language_code: std::string::String,
+
+        /// Optional. Target language code for the customer, in IETF BCP-47 format
+        /// (e.g., "es").
+        pub customer_language_code: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl TranslationSkillConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [agent_language_code][crate::model::companion_agent::TranslationSkillConfig::agent_language_code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::TranslationSkillConfig;
+        /// let x = TranslationSkillConfig::new().set_agent_language_code("example");
+        /// ```
+        pub fn set_agent_language_code<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.agent_language_code = v.into();
+            self
+        }
+
+        /// Sets the value of [customer_language_code][crate::model::companion_agent::TranslationSkillConfig::customer_language_code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_agent::TranslationSkillConfig;
+        /// let x = TranslationSkillConfig::new().set_customer_language_code("example");
+        /// ```
+        pub fn set_customer_language_code<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.customer_language_code = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for TranslationSkillConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionAgent.TranslationSkillConfig"
+        }
+    }
+
+    /// Event that triggers companion agent skills and guidance instructions.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TriggerEvent {
+        /// Default value for TriggerEvent.
+        /// For skill_triggering_event, UNSPECIFIED defaults to CUSTOMER_MESSAGE.
+        /// For instruction trigger_event, UNSPECIFIED defaults to the skill's
+        /// skill_triggering_event.
+        Unspecified,
+        /// Triggers when each chat message or voice utterance ends.
+        EndOfUtterance,
+        /// Triggers after each customer message.
+        CustomerMessage,
+        /// Triggers after each agent message.
+        AgentMessage,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TriggerEvent::value] or
+        /// [TriggerEvent::name].
+        UnknownValue(trigger_event::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    pub mod trigger_event {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl TriggerEvent {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::EndOfUtterance => std::option::Option::Some(1),
+                Self::CustomerMessage => std::option::Option::Some(2),
+                Self::AgentMessage => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRIGGER_EVENT_UNSPECIFIED"),
+                Self::EndOfUtterance => std::option::Option::Some("END_OF_UTTERANCE"),
+                Self::CustomerMessage => std::option::Option::Some("CUSTOMER_MESSAGE"),
+                Self::AgentMessage => std::option::Option::Some("AGENT_MESSAGE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl std::default::Default for TriggerEvent {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl std::fmt::Display for TriggerEvent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl std::convert::From<i32> for TriggerEvent {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::EndOfUtterance,
+                2 => Self::CustomerMessage,
+                3 => Self::AgentMessage,
+                _ => Self::UnknownValue(trigger_event::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl std::convert::From<&str> for TriggerEvent {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRIGGER_EVENT_UNSPECIFIED" => Self::Unspecified,
+                "END_OF_UTTERANCE" => Self::EndOfUtterance,
+                "CUSTOMER_MESSAGE" => Self::CustomerMessage,
+                "AGENT_MESSAGE" => Self::AgentMessage,
+                _ => Self::UnknownValue(trigger_event::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl serde::ser::Serialize for TriggerEvent {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::EndOfUtterance => serializer.serialize_i32(1),
+                Self::CustomerMessage => serializer.serialize_i32(2),
+                Self::AgentMessage => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
+        feature = "participants",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for TriggerEvent {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TriggerEvent>::new(
+                ".google.cloud.dialogflow.v2.CompanionAgent.TriggerEvent",
+            ))
+        }
     }
 }
 
@@ -7449,8 +9999,7 @@ pub mod conversation {
             /// relevant context reference.
             pub ingestion_time: std::option::Option<wkt::Timestamp>,
 
-            /// If the context content was generated from a tool call, specify the
-            /// answer record associated with the tool call.
+            /// Optional. The answer record of the tool execution result.
             /// Format: `projects/<Project ID>/locations/<Location
             /// ID>/answerRecords/<Answer Record ID>`.
             pub answer_record: std::string::String,
@@ -7529,7 +10078,9 @@ pub mod conversation {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_dialogflow_v2::model::conversation::context_reference::ContextContent;
-            /// let x = ContextContent::new().set_answer_record("example");
+            /// # let project_id = "project_id";
+            /// # let answer_record_id = "answer_record_id";
+            /// let x = ContextContent::new().set_answer_record(format!("projects/{project_id}/answerRecords/{answer_record_id}"));
             /// ```
             pub fn set_answer_record<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -13570,6 +16121,7 @@ impl wkt::message::Message for DeleteConversationDatasetOperationMetadata {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -13615,6 +16167,7 @@ pub struct ConversationEvent {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -13813,6 +16366,7 @@ impl ConversationEvent {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -13844,6 +16398,7 @@ impl wkt::message::Message for ConversationEvent {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -13887,6 +16442,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -13957,6 +16513,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -13988,6 +16545,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -14050,6 +16608,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -14081,6 +16640,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -14111,6 +16671,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -14152,6 +16713,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -14194,6 +16756,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -14236,6 +16799,7 @@ pub mod conversation_event {
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
+        feature = "companion-agents",
         feature = "contexts",
         feature = "conversation-datasets",
         feature = "conversation-models",
@@ -19286,8 +21850,20 @@ pub mod human_agent_assistant_config {
         /// features)
         pub use_unredacted_conversation_data: bool,
 
-        /// Optional. If true, enable asynchronous execution of tools.
+        /// Optional. Deprecated: This field is not consulted for tool execution.
+        /// Configure asynchronous execution per tool using
+        /// [CesToolSpec.async_execution][google.cloud.dialogflow.v2.CesToolSpec.async_execution]
+        /// or
+        /// [ToolsetTool.async_execution][google.cloud.dialogflow.v2.ToolsetTool.async_execution]
+        /// instead.
+        #[deprecated]
         pub enable_async_tool_call: bool,
+
+        /// Optional. The resource name of the companion agent to link.
+        /// This is only supported for `human_agent_suggestion_config`.
+        /// Format:
+        /// `projects/{project}/locations/{location}/companionAgents/{companion_agent}`
+        pub companion_agent: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -19404,8 +21980,27 @@ pub mod human_agent_assistant_config {
         /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionConfig;
         /// let x = SuggestionConfig::new().set_enable_async_tool_call(true);
         /// ```
+        #[deprecated]
         pub fn set_enable_async_tool_call<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_async_tool_call = v.into();
+            self
+        }
+
+        /// Sets the value of [companion_agent][crate::model::human_agent_assistant_config::SuggestionConfig::companion_agent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionConfig;
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let companion_agent_id = "companion_agent_id";
+        /// let x = SuggestionConfig::new().set_companion_agent(format!("projects/{project_id}/locations/{location_id}/companionAgents/{companion_agent_id}"));
+        /// ```
+        pub fn set_companion_agent<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.companion_agent = v.into();
             self
         }
     }
@@ -30242,7 +32837,9 @@ pub struct Generator {
     /// Optional. List of CES tool specs that the generator can choose from.
     pub ces_tool_specs: std::vec::Vec<crate::model::CesToolSpec>,
 
-    /// Optional. List of CES app specs that the generator can choose from.
+    /// Optional. Deprecated: Use `ces_tool_specs` instead.
+    /// List of CES app specs that the generator can choose from.
+    #[deprecated]
     pub ces_app_specs: std::vec::Vec<crate::model::CesAppSpec>,
 
     /// Required. Input context of the generator.
@@ -30517,6 +33114,7 @@ impl Generator {
     ///         CesAppSpec::default()/* use (different) setters */,
     ///     ]);
     /// ```
+    #[deprecated]
     pub fn set_ces_app_specs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -35948,11 +38546,633 @@ impl wkt::message::Message for EvaluationStatus {
     }
 }
 
+/// Grounding metadata contains sources, citations, and search entry points used
+/// to ground a generated answer or suggestion.
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GroundingMetadata {
+    /// Optional. The web search queries that were used to generate the content.
+    pub web_search_queries: std::vec::Vec<std::string::String>,
+
+    /// Optional. A web search entry point that can be used to display search
+    /// results.
+    pub search_entry_point: std::option::Option<crate::model::SearchEntryPoint>,
+
+    /// Optional. A list of supporting references retrieved from the grounding
+    /// source.
+    pub grounding_chunks: std::vec::Vec<crate::model::GroundingChunk>,
+
+    /// Optional. A list of grounding supports that connect the generated
+    /// content to the grounding chunks.
+    pub grounding_supports: std::vec::Vec<crate::model::GroundingSupport>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl GroundingMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [web_search_queries][crate::model::GroundingMetadata::web_search_queries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingMetadata;
+    /// let x = GroundingMetadata::new().set_web_search_queries(["a", "b", "c"]);
+    /// ```
+    pub fn set_web_search_queries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.web_search_queries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [search_entry_point][crate::model::GroundingMetadata::search_entry_point].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingMetadata;
+    /// use google_cloud_dialogflow_v2::model::SearchEntryPoint;
+    /// let x = GroundingMetadata::new().set_search_entry_point(SearchEntryPoint::default()/* use setters */);
+    /// ```
+    pub fn set_search_entry_point<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SearchEntryPoint>,
+    {
+        self.search_entry_point = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [search_entry_point][crate::model::GroundingMetadata::search_entry_point].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingMetadata;
+    /// use google_cloud_dialogflow_v2::model::SearchEntryPoint;
+    /// let x = GroundingMetadata::new().set_or_clear_search_entry_point(Some(SearchEntryPoint::default()/* use setters */));
+    /// let x = GroundingMetadata::new().set_or_clear_search_entry_point(None::<SearchEntryPoint>);
+    /// ```
+    pub fn set_or_clear_search_entry_point<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SearchEntryPoint>,
+    {
+        self.search_entry_point = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [grounding_chunks][crate::model::GroundingMetadata::grounding_chunks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingMetadata;
+    /// use google_cloud_dialogflow_v2::model::GroundingChunk;
+    /// let x = GroundingMetadata::new()
+    ///     .set_grounding_chunks([
+    ///         GroundingChunk::default()/* use setters */,
+    ///         GroundingChunk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_grounding_chunks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GroundingChunk>,
+    {
+        use std::iter::Iterator;
+        self.grounding_chunks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [grounding_supports][crate::model::GroundingMetadata::grounding_supports].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingMetadata;
+    /// use google_cloud_dialogflow_v2::model::GroundingSupport;
+    /// let x = GroundingMetadata::new()
+    ///     .set_grounding_supports([
+    ///         GroundingSupport::default()/* use setters */,
+    ///         GroundingSupport::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_grounding_supports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GroundingSupport>,
+    {
+        use std::iter::Iterator;
+        self.grounding_supports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for GroundingMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GroundingMetadata"
+    }
+}
+
+/// A web search entry point that can be used to display search
+/// results.
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchEntryPoint {
+    /// Optional. An HTML snippet that can be embedded in a web page or an
+    /// application's webview. This snippet displays a search result, including the
+    /// title, URL, and a brief description of the search result.
+    pub rendered_content: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl SearchEntryPoint {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rendered_content][crate::model::SearchEntryPoint::rendered_content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SearchEntryPoint;
+    /// let x = SearchEntryPoint::new().set_rendered_content("example");
+    /// ```
+    pub fn set_rendered_content<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rendered_content = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for SearchEntryPoint {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SearchEntryPoint"
+    }
+}
+
+/// A piece of evidence that supports a claim made by the model.
+///
+/// This is used to show a citation for a claim made by the model.
+/// It contains a reference to the source of the information.
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GroundingChunk {
+    /// The source of the grounding chunk. Currently we only support web search.
+    pub chunk_type: std::option::Option<crate::model::grounding_chunk::ChunkType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl GroundingChunk {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [chunk_type][crate::model::GroundingChunk::chunk_type].
+    ///
+    /// Note that all the setters affecting `chunk_type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingChunk;
+    /// use google_cloud_dialogflow_v2::model::grounding_chunk::Web;
+    /// let x = GroundingChunk::new().set_chunk_type(Some(
+    ///     google_cloud_dialogflow_v2::model::grounding_chunk::ChunkType::Web(Web::default().into())));
+    /// ```
+    pub fn set_chunk_type<
+        T: std::convert::Into<std::option::Option<crate::model::grounding_chunk::ChunkType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.chunk_type = v.into();
+        self
+    }
+
+    /// The value of [chunk_type][crate::model::GroundingChunk::chunk_type]
+    /// if it holds a `Web`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn web(&self) -> std::option::Option<&std::boxed::Box<crate::model::grounding_chunk::Web>> {
+        #[allow(unreachable_patterns)]
+        self.chunk_type.as_ref().and_then(|v| match v {
+            crate::model::grounding_chunk::ChunkType::Web(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [chunk_type][crate::model::GroundingChunk::chunk_type]
+    /// to hold a `Web`.
+    ///
+    /// Note that all the setters affecting `chunk_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingChunk;
+    /// use google_cloud_dialogflow_v2::model::grounding_chunk::Web;
+    /// let x = GroundingChunk::new().set_web(Web::default()/* use setters */);
+    /// assert!(x.web().is_some());
+    /// assert!(x.retrieved_context().is_none());
+    /// ```
+    pub fn set_web<T: std::convert::Into<std::boxed::Box<crate::model::grounding_chunk::Web>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.chunk_type =
+            std::option::Option::Some(crate::model::grounding_chunk::ChunkType::Web(v.into()));
+        self
+    }
+
+    /// The value of [chunk_type][crate::model::GroundingChunk::chunk_type]
+    /// if it holds a `RetrievedContext`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn retrieved_context(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::grounding_chunk::RetrievedContext>>
+    {
+        #[allow(unreachable_patterns)]
+        self.chunk_type.as_ref().and_then(|v| match v {
+            crate::model::grounding_chunk::ChunkType::RetrievedContext(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [chunk_type][crate::model::GroundingChunk::chunk_type]
+    /// to hold a `RetrievedContext`.
+    ///
+    /// Note that all the setters affecting `chunk_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingChunk;
+    /// use google_cloud_dialogflow_v2::model::grounding_chunk::RetrievedContext;
+    /// let x = GroundingChunk::new().set_retrieved_context(RetrievedContext::default()/* use setters */);
+    /// assert!(x.retrieved_context().is_some());
+    /// assert!(x.web().is_none());
+    /// ```
+    pub fn set_retrieved_context<
+        T: std::convert::Into<std::boxed::Box<crate::model::grounding_chunk::RetrievedContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.chunk_type = std::option::Option::Some(
+            crate::model::grounding_chunk::ChunkType::RetrievedContext(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for GroundingChunk {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GroundingChunk"
+    }
+}
+
+/// Defines additional types related to [GroundingChunk].
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+pub mod grounding_chunk {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A `Web` chunk is a piece of evidence that comes from a web page. It
+    /// contains the URI of the web page, the title of the page, and the domain of
+    /// the page. This is used to provide the user with a link to the source of
+    /// the information.
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Web {
+        /// Output only. The URI of the web page that contains the evidence.
+        pub uri: std::string::String,
+
+        /// Output only. The title of the web page that contains the evidence.
+        pub title: std::string::String,
+
+        /// Output only. The domain of the web page that contains the evidence. This
+        /// can be used to filter out low-quality sources.
+        pub domain: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    impl Web {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [uri][crate::model::grounding_chunk::Web::uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::grounding_chunk::Web;
+        /// let x = Web::new().set_uri("example");
+        /// ```
+        pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.uri = v.into();
+            self
+        }
+
+        /// Sets the value of [title][crate::model::grounding_chunk::Web::title].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::grounding_chunk::Web;
+        /// let x = Web::new().set_title("example");
+        /// ```
+        pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.title = v.into();
+            self
+        }
+
+        /// Sets the value of [domain][crate::model::grounding_chunk::Web::domain].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::grounding_chunk::Web;
+        /// let x = Web::new().set_domain("example");
+        /// ```
+        pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.domain = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    impl wkt::message::Message for Web {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GroundingChunk.Web"
+        }
+    }
+
+    /// Context retrieved from a data source to ground the model's response. This
+    /// is used when a retrieval tool fetches information from a user-provided
+    /// corpus or a public dataset.
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RetrievedContext {
+        /// Output only. The URI of the retrieved data source.
+        pub uri: std::string::String,
+
+        /// Output only. The title of the retrieved data source.
+        pub title: std::string::String,
+
+        /// Output only. The content of the retrieved data source.
+        pub text: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    impl RetrievedContext {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [uri][crate::model::grounding_chunk::RetrievedContext::uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::grounding_chunk::RetrievedContext;
+        /// let x = RetrievedContext::new().set_uri("example");
+        /// ```
+        pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.uri = v.into();
+            self
+        }
+
+        /// Sets the value of [title][crate::model::grounding_chunk::RetrievedContext::title].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::grounding_chunk::RetrievedContext;
+        /// let x = RetrievedContext::new().set_title("example");
+        /// ```
+        pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.title = v.into();
+            self
+        }
+
+        /// Sets the value of [text][crate::model::grounding_chunk::RetrievedContext::text].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::grounding_chunk::RetrievedContext;
+        /// let x = RetrievedContext::new().set_text("example");
+        /// ```
+        pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.text = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    impl wkt::message::Message for RetrievedContext {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GroundingChunk.RetrievedContext"
+        }
+    }
+
+    /// The source of the grounding chunk. Currently we only support web search.
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ChunkType {
+        /// Optional. A grounding chunk from a web page, typically from web
+        /// search. See the `Web` message for details.
+        Web(std::boxed::Box<crate::model::grounding_chunk::Web>),
+        /// Optional. A grounding chunk from a data source retrieved by a
+        /// data store tool.
+        RetrievedContext(std::boxed::Box<crate::model::grounding_chunk::RetrievedContext>),
+    }
+}
+
+/// A segment of the content.
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Segment {
+    /// Output only. The start index of the segment, measured in bytes. This marks
+    /// the beginning of the segment and is inclusive, meaning the byte at this
+    /// index is the first byte of the segment.
+    pub start_index: i32,
+
+    /// Output only. The end index of the segment, measured in bytes. This marks
+    /// the end of the segment and is exclusive, meaning the segment includes
+    /// content up to, but not including, the byte at this index.
+    pub end_index: i32,
+
+    /// Output only. The text of the segment.
+    pub text: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl Segment {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_index][crate::model::Segment::start_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Segment;
+    /// let x = Segment::new().set_start_index(42);
+    /// ```
+    pub fn set_start_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.start_index = v.into();
+        self
+    }
+
+    /// Sets the value of [end_index][crate::model::Segment::end_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Segment;
+    /// let x = Segment::new().set_end_index(42);
+    /// ```
+    pub fn set_end_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.end_index = v.into();
+        self
+    }
+
+    /// Sets the value of [text][crate::model::Segment::text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Segment;
+    /// let x = Segment::new().set_text("example");
+    /// ```
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for Segment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.Segment"
+    }
+}
+
+/// A collection of supporting references for a segment or part of the
+/// model's response.
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GroundingSupport {
+    /// Optional. Segment of the content this support belongs to.
+    pub segment: std::option::Option<crate::model::Segment>,
+
+    /// Optional. A list of indices into `grounding_chunks` field specifying the
+    /// citations associated with the claim. For instance [1, 3] means that
+    /// grounding_chunks[1] and grounding_chunks[3] are the retrieved contents
+    /// attributed to the claim.
+    pub grounding_chunk_indices: std::vec::Vec<i32>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl GroundingSupport {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [segment][crate::model::GroundingSupport::segment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingSupport;
+    /// use google_cloud_dialogflow_v2::model::Segment;
+    /// let x = GroundingSupport::new().set_segment(Segment::default()/* use setters */);
+    /// ```
+    pub fn set_segment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Segment>,
+    {
+        self.segment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [segment][crate::model::GroundingSupport::segment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingSupport;
+    /// use google_cloud_dialogflow_v2::model::Segment;
+    /// let x = GroundingSupport::new().set_or_clear_segment(Some(Segment::default()/* use setters */));
+    /// let x = GroundingSupport::new().set_or_clear_segment(None::<Segment>);
+    /// ```
+    pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Segment>,
+    {
+        self.segment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [grounding_chunk_indices][crate::model::GroundingSupport::grounding_chunk_indices].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GroundingSupport;
+    /// let x = GroundingSupport::new().set_grounding_chunk_indices([1, 2, 3]);
+    /// ```
+    pub fn set_grounding_chunk_indices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.grounding_chunk_indices = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for GroundingSupport {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GroundingSupport"
+    }
+}
+
 /// Represents a notification sent to Cloud Pub/Sub subscribers for
 /// human agent assistant events in a specific conversation.
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -35995,6 +39215,7 @@ pub struct HumanAgentAssistantEvent {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -36072,6 +39293,7 @@ impl HumanAgentAssistantEvent {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -44396,7 +47618,8 @@ pub struct Message {
     /// ID>/conversations/<Conversation ID>/messages/<Message ID>`.
     pub name: std::string::String,
 
-    /// Required. The message content.
+    /// Optional. The message content.
+    /// Only one of `content` and `companion_query` should be set - not both.
     pub content: std::string::String,
 
     /// Optional. The message language.
@@ -46252,6 +49475,7 @@ impl StreamingAnalyzeContentRequest {
     /// assert!(x.input_audio().is_some());
     /// assert!(x.input_text().is_none());
     /// assert!(x.input_dtmf().is_none());
+    /// assert!(x.suggestion_input().is_none());
     /// ```
     pub fn set_input_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input = std::option::Option::Some(
@@ -46286,6 +49510,7 @@ impl StreamingAnalyzeContentRequest {
     /// assert!(x.input_text().is_some());
     /// assert!(x.input_audio().is_none());
     /// assert!(x.input_dtmf().is_none());
+    /// assert!(x.suggestion_input().is_none());
     /// ```
     pub fn set_input_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input = std::option::Option::Some(
@@ -46323,6 +49548,7 @@ impl StreamingAnalyzeContentRequest {
     /// assert!(x.input_dtmf().is_some());
     /// assert!(x.input_audio().is_none());
     /// assert!(x.input_text().is_none());
+    /// assert!(x.suggestion_input().is_none());
     /// ```
     pub fn set_input_dtmf<
         T: std::convert::Into<std::boxed::Box<crate::model::TelephonyDtmfEvents>>,
@@ -46332,6 +49558,49 @@ impl StreamingAnalyzeContentRequest {
     ) -> Self {
         self.input = std::option::Option::Some(
             crate::model::streaming_analyze_content_request::Input::InputDtmf(v.into()),
+        );
+        self
+    }
+
+    /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
+    /// if it holds a `SuggestionInput`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suggestion_input(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestionInput>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::streaming_analyze_content_request::Input::SuggestionInput(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
+    /// to hold a `SuggestionInput`.
+    ///
+    /// Note that all the setters affecting `input` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingAnalyzeContentRequest;
+    /// use google_cloud_dialogflow_v2::model::SuggestionInput;
+    /// let x = StreamingAnalyzeContentRequest::new().set_suggestion_input(SuggestionInput::default()/* use setters */);
+    /// assert!(x.suggestion_input().is_some());
+    /// assert!(x.input_audio().is_none());
+    /// assert!(x.input_text().is_none());
+    /// assert!(x.input_dtmf().is_none());
+    /// ```
+    pub fn set_suggestion_input<
+        T: std::convert::Into<std::boxed::Box<crate::model::SuggestionInput>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input = std::option::Option::Some(
+            crate::model::streaming_analyze_content_request::Input::SuggestionInput(v.into()),
         );
         self
     }
@@ -46380,6 +49649,8 @@ pub mod streaming_analyze_content_request {
         /// This input is ignored if the previous response indicated that DTMF input
         /// is not accepted.
         InputDtmf(std::boxed::Box<crate::model::TelephonyDtmfEvents>),
+        /// Optional. Input for confirming, revising, or canceling a suggestion.
+        SuggestionInput(std::boxed::Box<crate::model::SuggestionInput>),
     }
 }
 
@@ -47367,6 +50638,604 @@ pub mod generate_suggestions_response {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.v2.GenerateSuggestionsResponse.GeneratorSuggestionAnswer"
         }
+    }
+}
+
+/// Structured wrapper that pairs tool execution details with strongly-typed
+/// citations.
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ToolCallSuggestion {
+    /// Optional. Tool execution request/response details.
+    pub tool_call_info: std::option::Option<crate::model::generator_suggestion::ToolCallInfo>,
+
+    /// Optional. The conversational text update generated by the agent
+    /// accompanying this tool call (e.g. "The status of your order 12345 is
+    /// currently being retrieved..."). This is a status update emitted alongside
+    /// in-flight tool execution and is not accumulated into the final response.
+    pub text_update: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl ToolCallSuggestion {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool_call_info][crate::model::ToolCallSuggestion::tool_call_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallSuggestion;
+    /// use google_cloud_dialogflow_v2::model::generator_suggestion::ToolCallInfo;
+    /// let x = ToolCallSuggestion::new().set_tool_call_info(ToolCallInfo::default()/* use setters */);
+    /// ```
+    pub fn set_tool_call_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::generator_suggestion::ToolCallInfo>,
+    {
+        self.tool_call_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tool_call_info][crate::model::ToolCallSuggestion::tool_call_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallSuggestion;
+    /// use google_cloud_dialogflow_v2::model::generator_suggestion::ToolCallInfo;
+    /// let x = ToolCallSuggestion::new().set_or_clear_tool_call_info(Some(ToolCallInfo::default()/* use setters */));
+    /// let x = ToolCallSuggestion::new().set_or_clear_tool_call_info(None::<ToolCallInfo>);
+    /// ```
+    pub fn set_or_clear_tool_call_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::generator_suggestion::ToolCallInfo>,
+    {
+        self.tool_call_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [text_update][crate::model::ToolCallSuggestion::text_update].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallSuggestion;
+    /// let x = ToolCallSuggestion::new().set_text_update("example");
+    /// ```
+    pub fn set_text_update<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text_update = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for ToolCallSuggestion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ToolCallSuggestion"
+    }
+}
+
+/// Represents events containing tool call execution progress.
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ToolCallEvents {
+    /// Optional. Tool call suggestions associated with these events.
+    pub tool_call_suggestions: std::vec::Vec<crate::model::ToolCallSuggestion>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl ToolCallEvents {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool_call_suggestions][crate::model::ToolCallEvents::tool_call_suggestions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallEvents;
+    /// use google_cloud_dialogflow_v2::model::ToolCallSuggestion;
+    /// let x = ToolCallEvents::new()
+    ///     .set_tool_call_suggestions([
+    ///         ToolCallSuggestion::default()/* use setters */,
+    ///         ToolCallSuggestion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tool_call_suggestions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ToolCallSuggestion>,
+    {
+        use std::iter::Iterator;
+        self.tool_call_suggestions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for ToolCallEvents {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ToolCallEvents"
+    }
+}
+
+/// Represents a companion suggestion answer.
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CompanionSuggestion {
+    /// List of guidances generated by the Companion Agent.
+    pub guidances: std::vec::Vec<crate::model::companion_suggestion::Guidance>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl CompanionSuggestion {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [guidances][crate::model::CompanionSuggestion::guidances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CompanionSuggestion;
+    /// use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+    /// let x = CompanionSuggestion::new()
+    ///     .set_guidances([
+    ///         Guidance::default()/* use setters */,
+    ///         Guidance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_guidances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::companion_suggestion::Guidance>,
+    {
+        use std::iter::Iterator;
+        self.guidances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for CompanionSuggestion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CompanionSuggestion"
+    }
+}
+
+/// Defines additional types related to [CompanionSuggestion].
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+pub mod companion_suggestion {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents guidance for companion suggestion.
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Guidance {
+        /// Suggested reply for the agent to respond to the customer.
+        pub suggested_reply: std::string::String,
+
+        /// Suggested action to human agent. For example, "Ask the customer for
+        /// their shipping address" or "Create a new case for the customer".
+        pub suggested_action: std::string::String,
+
+        /// Guidance instruction source.
+        pub instruction_source: std::option::Option<crate::model::GuidanceInstruction>,
+
+        /// Knowledge sources.
+        pub knowledge_sources:
+            std::vec::Vec<crate::model::companion_suggestion::guidance::KnowledgeSource>,
+
+        /// Optional. A brief explanation of why the action is suggested.
+        pub explanation: std::string::String,
+
+        /// Optional. Grounding metadata for the generated guidance.
+        pub grounding_metadata: std::option::Option<crate::model::GroundingMetadata>,
+
+        /// Optional. Rich structured tool calls and their associated citations
+        /// delivered directly as suggestions.
+        pub tool_calls: std::vec::Vec<crate::model::ToolCallSuggestion>,
+
+        /// Optional. The AnswerRecords of the tool calls that triggered this
+        /// guidance.
+        /// Format: `projects/<Project ID>/locations/<Location
+        /// ID>/answerRecords/<Answer Record ID>`.
+        pub triggering_tool_call_answer_records: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    impl Guidance {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [suggested_reply][crate::model::companion_suggestion::Guidance::suggested_reply].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// let x = Guidance::new().set_suggested_reply("example");
+        /// ```
+        pub fn set_suggested_reply<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.suggested_reply = v.into();
+            self
+        }
+
+        /// Sets the value of [suggested_action][crate::model::companion_suggestion::Guidance::suggested_action].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// let x = Guidance::new().set_suggested_action("example");
+        /// ```
+        pub fn set_suggested_action<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.suggested_action = v.into();
+            self
+        }
+
+        /// Sets the value of [instruction_source][crate::model::companion_suggestion::Guidance::instruction_source].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+        /// let x = Guidance::new().set_instruction_source(GuidanceInstruction::default()/* use setters */);
+        /// ```
+        pub fn set_instruction_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GuidanceInstruction>,
+        {
+            self.instruction_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instruction_source][crate::model::companion_suggestion::Guidance::instruction_source].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// use google_cloud_dialogflow_v2::model::GuidanceInstruction;
+        /// let x = Guidance::new().set_or_clear_instruction_source(Some(GuidanceInstruction::default()/* use setters */));
+        /// let x = Guidance::new().set_or_clear_instruction_source(None::<GuidanceInstruction>);
+        /// ```
+        pub fn set_or_clear_instruction_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GuidanceInstruction>,
+        {
+            self.instruction_source = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [knowledge_sources][crate::model::companion_suggestion::Guidance::knowledge_sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// use google_cloud_dialogflow_v2::model::companion_suggestion::guidance::KnowledgeSource;
+        /// let x = Guidance::new()
+        ///     .set_knowledge_sources([
+        ///         KnowledgeSource::default()/* use setters */,
+        ///         KnowledgeSource::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_knowledge_sources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::companion_suggestion::guidance::KnowledgeSource>,
+        {
+            use std::iter::Iterator;
+            self.knowledge_sources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [explanation][crate::model::companion_suggestion::Guidance::explanation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// let x = Guidance::new().set_explanation("example");
+        /// ```
+        pub fn set_explanation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.explanation = v.into();
+            self
+        }
+
+        /// Sets the value of [grounding_metadata][crate::model::companion_suggestion::Guidance::grounding_metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// use google_cloud_dialogflow_v2::model::GroundingMetadata;
+        /// let x = Guidance::new().set_grounding_metadata(GroundingMetadata::default()/* use setters */);
+        /// ```
+        pub fn set_grounding_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GroundingMetadata>,
+        {
+            self.grounding_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grounding_metadata][crate::model::companion_suggestion::Guidance::grounding_metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// use google_cloud_dialogflow_v2::model::GroundingMetadata;
+        /// let x = Guidance::new().set_or_clear_grounding_metadata(Some(GroundingMetadata::default()/* use setters */));
+        /// let x = Guidance::new().set_or_clear_grounding_metadata(None::<GroundingMetadata>);
+        /// ```
+        pub fn set_or_clear_grounding_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GroundingMetadata>,
+        {
+            self.grounding_metadata = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tool_calls][crate::model::companion_suggestion::Guidance::tool_calls].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// use google_cloud_dialogflow_v2::model::ToolCallSuggestion;
+        /// let x = Guidance::new()
+        ///     .set_tool_calls([
+        ///         ToolCallSuggestion::default()/* use setters */,
+        ///         ToolCallSuggestion::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_tool_calls<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ToolCallSuggestion>,
+        {
+            use std::iter::Iterator;
+            self.tool_calls = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [triggering_tool_call_answer_records][crate::model::companion_suggestion::Guidance::triggering_tool_call_answer_records].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::companion_suggestion::Guidance;
+        /// let x = Guidance::new().set_triggering_tool_call_answer_records(["a", "b", "c"]);
+        /// ```
+        pub fn set_triggering_tool_call_answer_records<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.triggering_tool_call_answer_records = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    impl wkt::message::Message for Guidance {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.CompanionSuggestion.Guidance"
+        }
+    }
+
+    /// Defines additional types related to [Guidance].
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    pub mod guidance {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents a knowledge source for the guidance.
+        #[cfg(any(feature = "answer-records", feature = "participants",))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct KnowledgeSource {
+            /// URL of the knowledge article.
+            pub knowledge_article_url: std::string::String,
+
+            /// Knowledge article title.
+            pub knowledge_article_title: std::string::String,
+
+            /// Knowledge snippet.
+            pub knowledge_snippet: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(feature = "answer-records", feature = "participants",))]
+        impl KnowledgeSource {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [knowledge_article_url][crate::model::companion_suggestion::guidance::KnowledgeSource::knowledge_article_url].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::companion_suggestion::guidance::KnowledgeSource;
+            /// let x = KnowledgeSource::new().set_knowledge_article_url("example");
+            /// ```
+            pub fn set_knowledge_article_url<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.knowledge_article_url = v.into();
+                self
+            }
+
+            /// Sets the value of [knowledge_article_title][crate::model::companion_suggestion::guidance::KnowledgeSource::knowledge_article_title].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::companion_suggestion::guidance::KnowledgeSource;
+            /// let x = KnowledgeSource::new().set_knowledge_article_title("example");
+            /// ```
+            pub fn set_knowledge_article_title<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.knowledge_article_title = v.into();
+                self
+            }
+
+            /// Sets the value of [knowledge_snippet][crate::model::companion_suggestion::guidance::KnowledgeSource::knowledge_snippet].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::companion_suggestion::guidance::KnowledgeSource;
+            /// let x = KnowledgeSource::new().set_knowledge_snippet("example");
+            /// ```
+            pub fn set_knowledge_snippet<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.knowledge_snippet = v.into();
+                self
+            }
+        }
+
+        #[cfg(any(feature = "answer-records", feature = "participants",))]
+        impl wkt::message::Message for KnowledgeSource {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.CompanionSuggestion.Guidance.KnowledgeSource"
+            }
+        }
+    }
+}
+
+/// Represents the response message for GenerateCompanionSuggestions.
+#[cfg(feature = "participants")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenerateCompanionSuggestionsResponse {
+    /// Contains the core suggestion generated by the Companion Agent.
+    pub companion_suggestion: std::option::Option<crate::model::CompanionSuggestion>,
+
+    /// Answer record that uniquely identifies the suggestion.
+    /// Format: `projects/<Project ID>/locations/<Location
+    /// ID>/answerRecords/<Answer Record ID>`.
+    pub answer_record: std::string::String,
+
+    /// The name of the latest conversation message used to compile suggestion for.
+    /// Format: `projects/<Project ID>/locations/<Location
+    /// ID>/conversations/<Conversation ID>/messages/<Message ID>`.
+    pub latest_message: std::string::String,
+
+    /// Output only. The 1-based sequential index of the suggestion generated in
+    /// this session.
+    pub suggestion_index: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "participants")]
+impl GenerateCompanionSuggestionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [companion_suggestion][crate::model::GenerateCompanionSuggestionsResponse::companion_suggestion].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GenerateCompanionSuggestionsResponse;
+    /// use google_cloud_dialogflow_v2::model::CompanionSuggestion;
+    /// let x = GenerateCompanionSuggestionsResponse::new().set_companion_suggestion(CompanionSuggestion::default()/* use setters */);
+    /// ```
+    pub fn set_companion_suggestion<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CompanionSuggestion>,
+    {
+        self.companion_suggestion = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [companion_suggestion][crate::model::GenerateCompanionSuggestionsResponse::companion_suggestion].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GenerateCompanionSuggestionsResponse;
+    /// use google_cloud_dialogflow_v2::model::CompanionSuggestion;
+    /// let x = GenerateCompanionSuggestionsResponse::new().set_or_clear_companion_suggestion(Some(CompanionSuggestion::default()/* use setters */));
+    /// let x = GenerateCompanionSuggestionsResponse::new().set_or_clear_companion_suggestion(None::<CompanionSuggestion>);
+    /// ```
+    pub fn set_or_clear_companion_suggestion<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CompanionSuggestion>,
+    {
+        self.companion_suggestion = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [answer_record][crate::model::GenerateCompanionSuggestionsResponse::answer_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GenerateCompanionSuggestionsResponse;
+    /// # let project_id = "project_id";
+    /// # let answer_record_id = "answer_record_id";
+    /// let x = GenerateCompanionSuggestionsResponse::new().set_answer_record(format!("projects/{project_id}/answerRecords/{answer_record_id}"));
+    /// ```
+    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.answer_record = v.into();
+        self
+    }
+
+    /// Sets the value of [latest_message][crate::model::GenerateCompanionSuggestionsResponse::latest_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GenerateCompanionSuggestionsResponse;
+    /// let x = GenerateCompanionSuggestionsResponse::new().set_latest_message("example");
+    /// ```
+    pub fn set_latest_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.latest_message = v.into();
+        self
+    }
+
+    /// Sets the value of [suggestion_index][crate::model::GenerateCompanionSuggestionsResponse::suggestion_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GenerateCompanionSuggestionsResponse;
+    /// let x = GenerateCompanionSuggestionsResponse::new().set_suggestion_index(42);
+    /// ```
+    pub fn set_suggestion_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.suggestion_index = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "participants")]
+impl wkt::message::Message for GenerateCompanionSuggestionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GenerateCompanionSuggestionsResponse"
     }
 }
 
@@ -48724,6 +52593,7 @@ impl SuggestionResult {
     /// assert!(x.suggest_faq_answers_response().is_none());
     /// assert!(x.suggest_smart_replies_response().is_none());
     /// assert!(x.generate_suggestions_response().is_none());
+    /// assert!(x.generate_companion_suggestions_response().is_none());
     /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
@@ -48767,6 +52637,7 @@ impl SuggestionResult {
     /// assert!(x.suggest_faq_answers_response().is_none());
     /// assert!(x.suggest_smart_replies_response().is_none());
     /// assert!(x.generate_suggestions_response().is_none());
+    /// assert!(x.generate_companion_suggestions_response().is_none());
     /// ```
     pub fn set_suggest_articles_response<
         T: std::convert::Into<std::boxed::Box<crate::model::SuggestArticlesResponse>>,
@@ -48812,6 +52683,7 @@ impl SuggestionResult {
     /// assert!(x.suggest_faq_answers_response().is_none());
     /// assert!(x.suggest_smart_replies_response().is_none());
     /// assert!(x.generate_suggestions_response().is_none());
+    /// assert!(x.generate_companion_suggestions_response().is_none());
     /// ```
     pub fn set_suggest_knowledge_assist_response<
         T: std::convert::Into<std::boxed::Box<crate::model::SuggestKnowledgeAssistResponse>>,
@@ -48859,6 +52731,7 @@ impl SuggestionResult {
     /// assert!(x.suggest_knowledge_assist_response().is_none());
     /// assert!(x.suggest_smart_replies_response().is_none());
     /// assert!(x.generate_suggestions_response().is_none());
+    /// assert!(x.generate_companion_suggestions_response().is_none());
     /// ```
     pub fn set_suggest_faq_answers_response<
         T: std::convert::Into<std::boxed::Box<crate::model::SuggestFaqAnswersResponse>>,
@@ -48906,6 +52779,7 @@ impl SuggestionResult {
     /// assert!(x.suggest_knowledge_assist_response().is_none());
     /// assert!(x.suggest_faq_answers_response().is_none());
     /// assert!(x.generate_suggestions_response().is_none());
+    /// assert!(x.generate_companion_suggestions_response().is_none());
     /// ```
     pub fn set_suggest_smart_replies_response<
         T: std::convert::Into<std::boxed::Box<crate::model::SuggestSmartRepliesResponse>>,
@@ -48953,6 +52827,7 @@ impl SuggestionResult {
     /// assert!(x.suggest_knowledge_assist_response().is_none());
     /// assert!(x.suggest_faq_answers_response().is_none());
     /// assert!(x.suggest_smart_replies_response().is_none());
+    /// assert!(x.generate_companion_suggestions_response().is_none());
     /// ```
     pub fn set_generate_suggestions_response<
         T: std::convert::Into<std::boxed::Box<crate::model::GenerateSuggestionsResponse>>,
@@ -48964,6 +52839,53 @@ impl SuggestionResult {
             crate::model::suggestion_result::SuggestionResponse::GenerateSuggestionsResponse(
                 v.into(),
             ),
+        );
+        self
+    }
+
+    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// if it holds a `GenerateCompanionSuggestionsResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn generate_companion_suggestions_response(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GenerateCompanionSuggestionsResponse>>
+    {
+        #[allow(unreachable_patterns)]
+        self.suggestion_response.as_ref().and_then(|v| match v {
+            crate::model::suggestion_result::SuggestionResponse::GenerateCompanionSuggestionsResponse(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// to hold a `GenerateCompanionSuggestionsResponse`.
+    ///
+    /// Note that all the setters affecting `suggestion_response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestionResult;
+    /// use google_cloud_dialogflow_v2::model::GenerateCompanionSuggestionsResponse;
+    /// let x = SuggestionResult::new().set_generate_companion_suggestions_response(GenerateCompanionSuggestionsResponse::default()/* use setters */);
+    /// assert!(x.generate_companion_suggestions_response().is_some());
+    /// assert!(x.error().is_none());
+    /// assert!(x.suggest_articles_response().is_none());
+    /// assert!(x.suggest_knowledge_assist_response().is_none());
+    /// assert!(x.suggest_faq_answers_response().is_none());
+    /// assert!(x.suggest_smart_replies_response().is_none());
+    /// assert!(x.generate_suggestions_response().is_none());
+    /// ```
+    pub fn set_generate_companion_suggestions_response<
+        T: std::convert::Into<std::boxed::Box<crate::model::GenerateCompanionSuggestionsResponse>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.suggestion_response = std::option::Option::Some(
+            crate::model::suggestion_result::SuggestionResponse::GenerateCompanionSuggestionsResponse(
+                v.into()
+            )
         );
         self
     }
@@ -49002,6 +52924,10 @@ pub mod suggestion_result {
         /// Suggestions generated using generators triggered by customer or agent
         /// messages.
         GenerateSuggestionsResponse(std::boxed::Box<crate::model::GenerateSuggestionsResponse>),
+        /// Suggestions generated by companion agent.
+        GenerateCompanionSuggestionsResponse(
+            std::boxed::Box<crate::model::GenerateCompanionSuggestionsResponse>,
+        ),
     }
 }
 
@@ -50354,7 +54280,7 @@ pub struct KnowledgeAssistDebugInfo {
     /// The latency of the service.
     pub service_latency: std::option::Option<crate::model::ServiceLatency>,
 
-    /// Token usage metadata for query generation.
+    /// Debug information and model metadata for query generation.
     pub query_generation_debug_info:
         std::option::Option<crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo>,
 
@@ -50930,7 +54856,7 @@ pub mod knowledge_assist_debug_info {
         }
     }
 
-    /// Token usage metadata for query generation.
+    /// Debug information and model metadata for query generation.
     #[cfg(feature = "participants")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -50943,6 +54869,20 @@ pub mod knowledge_assist_debug_info {
 
         /// The total number of tokens for the entire request.
         pub total_token_count: i32,
+
+        /// The thinking level configured for the Gemini model.
+        pub thinking_level: std::string::String,
+
+        /// The thinking budget (in number of tokens) configured for the Gemini
+        /// model.
+        pub thinking_budget_tokens: i32,
+
+        /// The similarity score of the suggested query to the last suggested query.
+        pub similarity_to_last_query: f32,
+
+        /// The similarity threshold used to filter out queries similar to the last
+        /// suggestion.
+        pub similarity_to_last_query_threshold: f32,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -50987,6 +54927,60 @@ pub mod knowledge_assist_debug_info {
         /// ```
         pub fn set_total_token_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.total_token_count = v.into();
+            self
+        }
+
+        /// Sets the value of [thinking_level][crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo::thinking_level].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+        /// let x = QueryGenerationDebugInfo::new().set_thinking_level("example");
+        /// ```
+        pub fn set_thinking_level<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.thinking_level = v.into();
+            self
+        }
+
+        /// Sets the value of [thinking_budget_tokens][crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo::thinking_budget_tokens].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+        /// let x = QueryGenerationDebugInfo::new().set_thinking_budget_tokens(42);
+        /// ```
+        pub fn set_thinking_budget_tokens<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.thinking_budget_tokens = v.into();
+            self
+        }
+
+        /// Sets the value of [similarity_to_last_query][crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo::similarity_to_last_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+        /// let x = QueryGenerationDebugInfo::new().set_similarity_to_last_query(42.0);
+        /// ```
+        pub fn set_similarity_to_last_query<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.similarity_to_last_query = v.into();
+            self
+        }
+
+        /// Sets the value of [similarity_to_last_query_threshold][crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo::similarity_to_last_query_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+        /// let x = QueryGenerationDebugInfo::new().set_similarity_to_last_query_threshold(42.0);
+        /// ```
+        pub fn set_similarity_to_last_query_threshold<T: std::convert::Into<f32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.similarity_to_last_query_threshold = v.into();
             self
         }
     }
@@ -52351,6 +56345,2050 @@ pub mod knowledge_assist_answer {
                 >,
             ),
         }
+    }
+}
+
+/// The request message for
+/// [Participants.StreamingReactiveCompanionSuggestions][google.cloud.dialogflow.v2.Participants.StreamingReactiveCompanionSuggestions].
+///
+/// [google.cloud.dialogflow.v2.Participants.StreamingReactiveCompanionSuggestions]: crate::client::Participants::streaming_reactive_companion_suggestions
+#[cfg(feature = "participants")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StreamingReactiveCompanionSuggestionsRequest {
+    /// Required. The human-agent participant name.
+    /// Format: `projects/<Project ID>/locations/<Location
+    /// ID>/conversations/<Conversation ID>/participants/<Participant ID>`.
+    pub participant: std::string::String,
+
+    /// Required. The direct query input sent to the companion bot.
+    pub input:
+        std::option::Option<crate::model::streaming_reactive_companion_suggestions_request::Input>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "participants")]
+impl StreamingReactiveCompanionSuggestionsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [participant][crate::model::StreamingReactiveCompanionSuggestionsRequest::participant].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsRequest;
+    /// # let project_id = "project_id";
+    /// # let conversation_id = "conversation_id";
+    /// # let participant_id = "participant_id";
+    /// let x = StreamingReactiveCompanionSuggestionsRequest::new().set_participant(format!("projects/{project_id}/conversations/{conversation_id}/participants/{participant_id}"));
+    /// ```
+    pub fn set_participant<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.participant = v.into();
+        self
+    }
+
+    /// Sets the value of [input][crate::model::StreamingReactiveCompanionSuggestionsRequest::input].
+    ///
+    /// Note that all the setters affecting `input` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsRequest;
+    /// use google_cloud_dialogflow_v2::model::streaming_reactive_companion_suggestions_request::Input;
+    /// let x = StreamingReactiveCompanionSuggestionsRequest::new().set_input(Some(Input::TextInput("example".to_string())));
+    /// ```
+    pub fn set_input<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::streaming_reactive_companion_suggestions_request::Input,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input = v.into();
+        self
+    }
+
+    /// The value of [input][crate::model::StreamingReactiveCompanionSuggestionsRequest::input]
+    /// if it holds a `TextInput`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text_input(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::streaming_reactive_companion_suggestions_request::Input::TextInput(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input][crate::model::StreamingReactiveCompanionSuggestionsRequest::input]
+    /// to hold a `TextInput`.
+    ///
+    /// Note that all the setters affecting `input` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsRequest;
+    /// let x = StreamingReactiveCompanionSuggestionsRequest::new().set_text_input("example");
+    /// assert!(x.text_input().is_some());
+    /// assert!(x.cancel_reactive_query().is_none());
+    /// assert!(x.suggestion_input().is_none());
+    /// ```
+    pub fn set_text_input<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input = std::option::Option::Some(
+            crate::model::streaming_reactive_companion_suggestions_request::Input::TextInput(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [input][crate::model::StreamingReactiveCompanionSuggestionsRequest::input]
+    /// if it holds a `CancelReactiveQuery`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cancel_reactive_query(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CancelQuery>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::streaming_reactive_companion_suggestions_request::Input::CancelReactiveQuery(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input][crate::model::StreamingReactiveCompanionSuggestionsRequest::input]
+    /// to hold a `CancelReactiveQuery`.
+    ///
+    /// Note that all the setters affecting `input` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsRequest;
+    /// use google_cloud_dialogflow_v2::model::CancelQuery;
+    /// let x = StreamingReactiveCompanionSuggestionsRequest::new().set_cancel_reactive_query(CancelQuery::default()/* use setters */);
+    /// assert!(x.cancel_reactive_query().is_some());
+    /// assert!(x.text_input().is_none());
+    /// assert!(x.suggestion_input().is_none());
+    /// ```
+    pub fn set_cancel_reactive_query<
+        T: std::convert::Into<std::boxed::Box<crate::model::CancelQuery>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input = std::option::Option::Some(
+            crate::model::streaming_reactive_companion_suggestions_request::Input::CancelReactiveQuery(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [input][crate::model::StreamingReactiveCompanionSuggestionsRequest::input]
+    /// if it holds a `SuggestionInput`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suggestion_input(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestionInput>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::streaming_reactive_companion_suggestions_request::Input::SuggestionInput(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input][crate::model::StreamingReactiveCompanionSuggestionsRequest::input]
+    /// to hold a `SuggestionInput`.
+    ///
+    /// Note that all the setters affecting `input` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsRequest;
+    /// use google_cloud_dialogflow_v2::model::SuggestionInput;
+    /// let x = StreamingReactiveCompanionSuggestionsRequest::new().set_suggestion_input(SuggestionInput::default()/* use setters */);
+    /// assert!(x.suggestion_input().is_some());
+    /// assert!(x.text_input().is_none());
+    /// assert!(x.cancel_reactive_query().is_none());
+    /// ```
+    pub fn set_suggestion_input<
+        T: std::convert::Into<std::boxed::Box<crate::model::SuggestionInput>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input = std::option::Option::Some(
+            crate::model::streaming_reactive_companion_suggestions_request::Input::SuggestionInput(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+#[cfg(feature = "participants")]
+impl wkt::message::Message for StreamingReactiveCompanionSuggestionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsRequest"
+    }
+}
+
+/// Defines additional types related to [StreamingReactiveCompanionSuggestionsRequest].
+#[cfg(feature = "participants")]
+pub mod streaming_reactive_companion_suggestions_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Required. The direct query input sent to the companion bot.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Input {
+        /// The natural language text to be processed.
+        TextInput(std::string::String),
+        /// Signals to cancel the current ongoing reactive query processing.
+        CancelReactiveQuery(std::boxed::Box<crate::model::CancelQuery>),
+        /// An input representing the selection of a suggestion.
+        SuggestionInput(std::boxed::Box<crate::model::SuggestionInput>),
+    }
+}
+
+/// Message to signal cancellation of the current query turn.
+/// Cancels the currently active interactive query, not any query running in
+/// the background.
+#[cfg(feature = "participants")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CancelQuery {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "participants")]
+impl CancelQuery {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+#[cfg(feature = "participants")]
+impl wkt::message::Message for CancelQuery {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CancelQuery"
+    }
+}
+
+/// The response message for
+/// [Participants.StreamingReactiveCompanionSuggestions][google.cloud.dialogflow.v2.Participants.StreamingReactiveCompanionSuggestions].
+///
+/// [google.cloud.dialogflow.v2.Participants.StreamingReactiveCompanionSuggestions]: crate::client::Participants::streaming_reactive_companion_suggestions
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StreamingReactiveCompanionSuggestionsResponse {
+    /// Output only. Indicates whether the client/UI can accept a new query for
+    /// reactive chat. When `is_final` is `true`, the reactive chat interface is
+    /// unblocked and ready to receive new human agent queries. For synchronous
+    /// turns, this is set to `true` on the final response chunk. For asynchronous
+    /// tool calls running in the background, this is set to `true` on the
+    /// intermediate trigger chunk to unblock the UI while the background tool
+    /// execution is in progress.
+    pub is_final: bool,
+
+    /// Output only. Only set when `is_final` is `true` and conversational turn
+    /// processing completes. The final answer record representing the completed
+    /// suggestion. Only present in the last chunk of the completed response.
+    pub answer_record: std::string::String,
+
+    /// Required. The unique message identifier corresponding to the
+    /// human agent query that generated this response chunk.
+    pub text_message_id: std::string::String,
+
+    /// The timestamp when the response chunk was sent by the service.
+    pub send_time: std::option::Option<wkt::Timestamp>,
+
+    /// Response for the current reactive query.
+    pub response: std::option::Option<
+        crate::model::streaming_reactive_companion_suggestions_response::Response,
+    >,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl StreamingReactiveCompanionSuggestionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [is_final][crate::model::StreamingReactiveCompanionSuggestionsResponse::is_final].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_is_final(true);
+    /// ```
+    pub fn set_is_final<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_final = v.into();
+        self
+    }
+
+    /// Sets the value of [answer_record][crate::model::StreamingReactiveCompanionSuggestionsResponse::answer_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// # let project_id = "project_id";
+    /// # let answer_record_id = "answer_record_id";
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_answer_record(format!("projects/{project_id}/answerRecords/{answer_record_id}"));
+    /// ```
+    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.answer_record = v.into();
+        self
+    }
+
+    /// Sets the value of [text_message_id][crate::model::StreamingReactiveCompanionSuggestionsResponse::text_message_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_text_message_id("example");
+    /// ```
+    pub fn set_text_message_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text_message_id = v.into();
+        self
+    }
+
+    /// Sets the value of [send_time][crate::model::StreamingReactiveCompanionSuggestionsResponse::send_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// use wkt::Timestamp;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_send_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_send_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.send_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [send_time][crate::model::StreamingReactiveCompanionSuggestionsResponse::send_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// use wkt::Timestamp;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_or_clear_send_time(Some(Timestamp::default()/* use setters */));
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_or_clear_send_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_send_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.send_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response].
+    ///
+    /// Note that all the setters affecting `response` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// use google_cloud_dialogflow_v2::model::streaming_reactive_companion_suggestions_response::Response;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_response(Some(Response::ResponseChunk("example".to_string())));
+    /// ```
+    pub fn set_response<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::streaming_reactive_companion_suggestions_response::Response,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response = v.into();
+        self
+    }
+
+    /// The value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response]
+    /// if it holds a `ResponseChunk`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn response_chunk(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::streaming_reactive_companion_suggestions_response::Response::ResponseChunk(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response]
+    /// to hold a `ResponseChunk`.
+    ///
+    /// Note that all the setters affecting `response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_response_chunk("example");
+    /// assert!(x.response_chunk().is_some());
+    /// assert!(x.status().is_none());
+    /// assert!(x.reactive_mode_final_response().is_none());
+    /// assert!(x.intermediate_tool_call_events().is_none());
+    /// ```
+    pub fn set_response_chunk<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::streaming_reactive_companion_suggestions_response::Response::ResponseChunk(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response]
+    /// if it holds a `Status`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn status(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::streaming_reactive_companion_suggestions_response::Response::Status(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response]
+    /// to hold a `Status`.
+    ///
+    /// Note that all the setters affecting `response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_status(Status::default()/* use setters */);
+    /// assert!(x.status().is_some());
+    /// assert!(x.response_chunk().is_none());
+    /// assert!(x.reactive_mode_final_response().is_none());
+    /// assert!(x.intermediate_tool_call_events().is_none());
+    /// ```
+    pub fn set_status<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::streaming_reactive_companion_suggestions_response::Response::Status(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response]
+    /// if it holds a `ReactiveModeFinalResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn reactive_mode_final_response(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::streaming_reactive_companion_suggestions_response::Response::ReactiveModeFinalResponse(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response]
+    /// to hold a `ReactiveModeFinalResponse`.
+    ///
+    /// Note that all the setters affecting `response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// use google_cloud_dialogflow_v2::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_reactive_mode_final_response(ReactiveModeResponse::default()/* use setters */);
+    /// assert!(x.reactive_mode_final_response().is_some());
+    /// assert!(x.response_chunk().is_none());
+    /// assert!(x.status().is_none());
+    /// assert!(x.intermediate_tool_call_events().is_none());
+    /// ```
+    pub fn set_reactive_mode_final_response<T: std::convert::Into<std::boxed::Box<crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse>>>(mut self, v: T) -> Self{
+        self.response = std::option::Option::Some(
+            crate::model::streaming_reactive_companion_suggestions_response::Response::ReactiveModeFinalResponse(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response]
+    /// if it holds a `IntermediateToolCallEvents`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn intermediate_tool_call_events(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ToolCallEvents>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::streaming_reactive_companion_suggestions_response::Response::IntermediateToolCallEvents(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [response][crate::model::StreamingReactiveCompanionSuggestionsResponse::response]
+    /// to hold a `IntermediateToolCallEvents`.
+    ///
+    /// Note that all the setters affecting `response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::StreamingReactiveCompanionSuggestionsResponse;
+    /// use google_cloud_dialogflow_v2::model::ToolCallEvents;
+    /// let x = StreamingReactiveCompanionSuggestionsResponse::new().set_intermediate_tool_call_events(ToolCallEvents::default()/* use setters */);
+    /// assert!(x.intermediate_tool_call_events().is_some());
+    /// assert!(x.response_chunk().is_none());
+    /// assert!(x.status().is_none());
+    /// assert!(x.reactive_mode_final_response().is_none());
+    /// ```
+    pub fn set_intermediate_tool_call_events<
+        T: std::convert::Into<std::boxed::Box<crate::model::ToolCallEvents>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::streaming_reactive_companion_suggestions_response::Response::IntermediateToolCallEvents(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+impl wkt::message::Message for StreamingReactiveCompanionSuggestionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsResponse"
+    }
+}
+
+/// Defines additional types related to [StreamingReactiveCompanionSuggestionsResponse].
+#[cfg(any(feature = "answer-records", feature = "participants",))]
+pub mod streaming_reactive_companion_suggestions_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The complete response generated by the reactive mode capturing the entire
+    /// accumulated streaming response, grounding metadata, and tool calls.
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ReactiveModeResponse {
+        /// Optional. The full reactive suggestion generated by the Companion Agent.
+        /// After the last streaming chunk is sent, this is the final response
+        /// concatenating all the streaming response chunks together to represent the
+        /// full reactive suggestion.
+        pub response: std::string::String,
+
+        /// Optional. Grounding metadata for the generated response.
+        pub grounding_metadata: std::option::Option<crate::model::GroundingMetadata>,
+
+        /// Optional. Captures all the rich structured tool calls and their
+        /// associated citations used by the reactive agent to generate the reactive
+        /// suggestion.
+        pub tool_calls: std::vec::Vec<crate::model::ToolCallSuggestion>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    impl ReactiveModeResponse {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [response][crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse::response].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse;
+        /// let x = ReactiveModeResponse::new().set_response("example");
+        /// ```
+        pub fn set_response<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.response = v.into();
+            self
+        }
+
+        /// Sets the value of [grounding_metadata][crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse::grounding_metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse;
+        /// use google_cloud_dialogflow_v2::model::GroundingMetadata;
+        /// let x = ReactiveModeResponse::new().set_grounding_metadata(GroundingMetadata::default()/* use setters */);
+        /// ```
+        pub fn set_grounding_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GroundingMetadata>,
+        {
+            self.grounding_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grounding_metadata][crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse::grounding_metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse;
+        /// use google_cloud_dialogflow_v2::model::GroundingMetadata;
+        /// let x = ReactiveModeResponse::new().set_or_clear_grounding_metadata(Some(GroundingMetadata::default()/* use setters */));
+        /// let x = ReactiveModeResponse::new().set_or_clear_grounding_metadata(None::<GroundingMetadata>);
+        /// ```
+        pub fn set_or_clear_grounding_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GroundingMetadata>,
+        {
+            self.grounding_metadata = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tool_calls][crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse::tool_calls].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse;
+        /// use google_cloud_dialogflow_v2::model::ToolCallSuggestion;
+        /// let x = ReactiveModeResponse::new()
+        ///     .set_tool_calls([
+        ///         ToolCallSuggestion::default()/* use setters */,
+        ///         ToolCallSuggestion::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_tool_calls<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ToolCallSuggestion>,
+        {
+            use std::iter::Iterator;
+            self.tool_calls = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    impl wkt::message::Message for ReactiveModeResponse {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.StreamingReactiveCompanionSuggestionsResponse.ReactiveModeResponse"
+        }
+    }
+
+    /// Response for the current reactive query.
+    #[cfg(any(feature = "answer-records", feature = "participants",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Response {
+        /// Streamed response text chunks.
+        ResponseChunk(std::string::String),
+        /// Status of the response for the current query. If set and non-ok,
+        /// indicates an error occurred during processing of the current query, or
+        /// confirms that a requested cancellation has successfully completed (status
+        /// code CANCELLED).
+        Status(std::boxed::Box<google_cloud_rpc::model::Status>),
+        /// Output only. The final response from the reactive mode capturing the
+        /// entire accumulated streaming response, grounding metadata, and tool
+        /// calls. Only set when `is_final` is `true` and conversational processing
+        /// for the query turn completes.
+        ReactiveModeFinalResponse(std::boxed::Box<crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse>),
+        /// Output only. Captures intermediate tool call events that occur during the
+        /// execution of the reactive query turn. Note that conversational messages
+        /// within tool calls are displayed within the tool cards and hence are not
+        /// accumulated within the `reactive_mode_final_response.response` string.
+        IntermediateToolCallEvents(std::boxed::Box<crate::model::ToolCallEvents>),
+    }
+}
+
+/// The request message for
+/// [Participants.BidiStreamingAnalyzeContent][google.cloud.dialogflow.v2.Participants.BidiStreamingAnalyzeContent].
+///
+/// [google.cloud.dialogflow.v2.Participants.BidiStreamingAnalyzeContent]: crate::client::Participants::bidi_streaming_analyze_content
+#[cfg(feature = "participants")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BidiStreamingAnalyzeContentRequest {
+    /// Required. Possible request types for BidiStreamingAnalyzeContent.
+    pub request: std::option::Option<crate::model::bidi_streaming_analyze_content_request::Request>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "participants")]
+impl BidiStreamingAnalyzeContentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [request][crate::model::BidiStreamingAnalyzeContentRequest::request].
+    ///
+    /// Note that all the setters affecting `request` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentRequest;
+    /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+    /// let x = BidiStreamingAnalyzeContentRequest::new().set_request(Some(
+    ///     google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Request::Config(Config::default().into())));
+    /// ```
+    pub fn set_request<
+        T: std::convert::Into<
+                std::option::Option<crate::model::bidi_streaming_analyze_content_request::Request>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.request = v.into();
+        self
+    }
+
+    /// The value of [request][crate::model::BidiStreamingAnalyzeContentRequest::request]
+    /// if it holds a `Config`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn config(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::Config>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.request.as_ref().and_then(|v| match v {
+            crate::model::bidi_streaming_analyze_content_request::Request::Config(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [request][crate::model::BidiStreamingAnalyzeContentRequest::request]
+    /// to hold a `Config`.
+    ///
+    /// Note that all the setters affecting `request` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentRequest;
+    /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+    /// let x = BidiStreamingAnalyzeContentRequest::new().set_config(Config::default()/* use setters */);
+    /// assert!(x.config().is_some());
+    /// assert!(x.input().is_none());
+    /// ```
+    pub fn set_config<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::Config>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.request = std::option::Option::Some(
+            crate::model::bidi_streaming_analyze_content_request::Request::Config(v.into()),
+        );
+        self
+    }
+
+    /// The value of [request][crate::model::BidiStreamingAnalyzeContentRequest::request]
+    /// if it holds a `Input`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn input(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::Input>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.request.as_ref().and_then(|v| match v {
+            crate::model::bidi_streaming_analyze_content_request::Request::Input(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [request][crate::model::BidiStreamingAnalyzeContentRequest::request]
+    /// to hold a `Input`.
+    ///
+    /// Note that all the setters affecting `request` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentRequest;
+    /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Input;
+    /// let x = BidiStreamingAnalyzeContentRequest::new().set_input(Input::default()/* use setters */);
+    /// assert!(x.input().is_some());
+    /// assert!(x.config().is_none());
+    /// ```
+    pub fn set_input<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::Input>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.request = std::option::Option::Some(
+            crate::model::bidi_streaming_analyze_content_request::Request::Input(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(feature = "participants")]
+impl wkt::message::Message for BidiStreamingAnalyzeContentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest"
+    }
+}
+
+/// Defines additional types related to [BidiStreamingAnalyzeContentRequest].
+#[cfg(feature = "participants")]
+pub mod bidi_streaming_analyze_content_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The config of the session.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Config {
+        /// Required. The name of the participant to fetch response for.
+        /// Format: `projects/<Project ID>/locations/<Location
+        /// ID>/conversations/<Conversation ID>/participants/<Participant ID>`.
+        pub participant: std::string::String,
+
+        /// Optional. Parameters to be passed to the virtual agent at the beginning.
+        pub initial_virtual_agent_parameters: std::option::Option<wkt::Struct>,
+
+        /// Optional. Initial parameters for the virtual-agent.
+        pub initial_virtual_agent_query_params: std::option::Option<crate::model::QueryParameters>,
+
+        /// The config of the session.
+        pub config: std::option::Option<
+            crate::model::bidi_streaming_analyze_content_request::config::Config,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "participants")]
+    impl Config {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [participant][crate::model::bidi_streaming_analyze_content_request::Config::participant].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+        /// # let project_id = "project_id";
+        /// # let conversation_id = "conversation_id";
+        /// # let participant_id = "participant_id";
+        /// let x = Config::new().set_participant(format!("projects/{project_id}/conversations/{conversation_id}/participants/{participant_id}"));
+        /// ```
+        pub fn set_participant<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.participant = v.into();
+            self
+        }
+
+        /// Sets the value of [initial_virtual_agent_parameters][crate::model::bidi_streaming_analyze_content_request::Config::initial_virtual_agent_parameters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+        /// use wkt::Struct;
+        /// let x = Config::new().set_initial_virtual_agent_parameters(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_initial_virtual_agent_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.initial_virtual_agent_parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [initial_virtual_agent_parameters][crate::model::bidi_streaming_analyze_content_request::Config::initial_virtual_agent_parameters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+        /// use wkt::Struct;
+        /// let x = Config::new().set_or_clear_initial_virtual_agent_parameters(Some(Struct::default()/* use setters */));
+        /// let x = Config::new().set_or_clear_initial_virtual_agent_parameters(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_initial_virtual_agent_parameters<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.initial_virtual_agent_parameters = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [initial_virtual_agent_query_params][crate::model::bidi_streaming_analyze_content_request::Config::initial_virtual_agent_query_params].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+        /// use google_cloud_dialogflow_v2::model::QueryParameters;
+        /// let x = Config::new().set_initial_virtual_agent_query_params(QueryParameters::default()/* use setters */);
+        /// ```
+        pub fn set_initial_virtual_agent_query_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryParameters>,
+        {
+            self.initial_virtual_agent_query_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [initial_virtual_agent_query_params][crate::model::bidi_streaming_analyze_content_request::Config::initial_virtual_agent_query_params].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+        /// use google_cloud_dialogflow_v2::model::QueryParameters;
+        /// let x = Config::new().set_or_clear_initial_virtual_agent_query_params(Some(QueryParameters::default()/* use setters */));
+        /// let x = Config::new().set_or_clear_initial_virtual_agent_query_params(None::<QueryParameters>);
+        /// ```
+        pub fn set_or_clear_initial_virtual_agent_query_params<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryParameters>,
+        {
+            self.initial_virtual_agent_query_params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [config][crate::model::bidi_streaming_analyze_content_request::Config::config].
+        ///
+        /// Note that all the setters affecting `config` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+        /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+        /// let x = Config::new().set_config(Some(
+        ///     google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::Config::VoiceSessionConfig(VoiceSessionConfig::default().into())));
+        /// ```
+        pub fn set_config<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::bidi_streaming_analyze_content_request::config::Config,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.config = v.into();
+            self
+        }
+
+        /// The value of [config][crate::model::bidi_streaming_analyze_content_request::Config::config]
+        /// if it holds a `VoiceSessionConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn voice_session_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.config.as_ref().and_then(|v| match v {
+                crate::model::bidi_streaming_analyze_content_request::config::Config::VoiceSessionConfig(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [config][crate::model::bidi_streaming_analyze_content_request::Config::config]
+        /// to hold a `VoiceSessionConfig`.
+        ///
+        /// Note that all the setters affecting `config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Config;
+        /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+        /// let x = Config::new().set_voice_session_config(VoiceSessionConfig::default()/* use setters */);
+        /// assert!(x.voice_session_config().is_some());
+        /// ```
+        pub fn set_voice_session_config<T: std::convert::Into<std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig>>>(mut self, v: T) -> Self{
+            self.config = std::option::Option::Some(
+                crate::model::bidi_streaming_analyze_content_request::config::Config::VoiceSessionConfig(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl wkt::message::Message for Config {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Config"
+        }
+    }
+
+    /// Defines additional types related to [Config].
+    #[cfg(feature = "participants")]
+    pub mod config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The config about how to process the audio for a voice-based session.
+        #[cfg(feature = "participants")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct VoiceSessionConfig {
+            /// Required. The encoding of input audio.
+            pub input_audio_encoding: crate::model::AudioEncoding,
+
+            /// Required. The sample rate of input audio.
+            pub input_audio_sample_rate_hertz: i32,
+
+            /// Required. The encoding of output audio.
+            pub output_audio_encoding: crate::model::OutputAudioEncoding,
+
+            /// Required. The sample rate of output audio.
+            pub output_audio_sample_rate_hertz: i32,
+
+            /// Optional. Whether to enable CX proactive processing.
+            pub enable_cx_proactive_processing: bool,
+
+            /// Optional. If true, Dialogflow will stream the audio bytes from Cloud
+            /// TTS for speech synthesis using the StreamingSynthesize api.
+            pub enable_streaming_synthesize: bool,
+
+            /// Optional. Configuration for using Gemini ASR models served via Vertex
+            /// AI.
+            /// This field is only used when `use_gemini_asr` is true.
+            pub gemini_asr_config:
+                std::option::Option<crate::model::speech_to_text_config::GeminiAsrConfig>,
+
+            /// Optional. If true, Gemini ASR will be used for transcription instead of
+            /// Cloud Speech-to-Text. If false, Cloud Speech-to-Text will be used.
+            /// If unset, this setting is inherited from the ConversationProfile.
+            pub use_gemini_asr: std::option::Option<bool>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "participants")]
+        impl VoiceSessionConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [input_audio_encoding][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::input_audio_encoding].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// use google_cloud_dialogflow_v2::model::AudioEncoding;
+            /// let x0 = VoiceSessionConfig::new().set_input_audio_encoding(AudioEncoding::Linear16);
+            /// let x1 = VoiceSessionConfig::new().set_input_audio_encoding(AudioEncoding::Flac);
+            /// let x2 = VoiceSessionConfig::new().set_input_audio_encoding(AudioEncoding::Mulaw);
+            /// ```
+            pub fn set_input_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.input_audio_encoding = v.into();
+                self
+            }
+
+            /// Sets the value of [input_audio_sample_rate_hertz][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::input_audio_sample_rate_hertz].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// let x = VoiceSessionConfig::new().set_input_audio_sample_rate_hertz(42);
+            /// ```
+            pub fn set_input_audio_sample_rate_hertz<T: std::convert::Into<i32>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.input_audio_sample_rate_hertz = v.into();
+                self
+            }
+
+            /// Sets the value of [output_audio_encoding][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::output_audio_encoding].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// use google_cloud_dialogflow_v2::model::OutputAudioEncoding;
+            /// let x0 = VoiceSessionConfig::new().set_output_audio_encoding(OutputAudioEncoding::Linear16);
+            /// let x1 = VoiceSessionConfig::new().set_output_audio_encoding(OutputAudioEncoding::Mp364Kbps);
+            /// let x2 = VoiceSessionConfig::new().set_output_audio_encoding(OutputAudioEncoding::OggOpus);
+            /// ```
+            pub fn set_output_audio_encoding<
+                T: std::convert::Into<crate::model::OutputAudioEncoding>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.output_audio_encoding = v.into();
+                self
+            }
+
+            /// Sets the value of [output_audio_sample_rate_hertz][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::output_audio_sample_rate_hertz].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// let x = VoiceSessionConfig::new().set_output_audio_sample_rate_hertz(42);
+            /// ```
+            pub fn set_output_audio_sample_rate_hertz<T: std::convert::Into<i32>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.output_audio_sample_rate_hertz = v.into();
+                self
+            }
+
+            /// Sets the value of [enable_cx_proactive_processing][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::enable_cx_proactive_processing].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// let x = VoiceSessionConfig::new().set_enable_cx_proactive_processing(true);
+            /// ```
+            pub fn set_enable_cx_proactive_processing<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.enable_cx_proactive_processing = v.into();
+                self
+            }
+
+            /// Sets the value of [enable_streaming_synthesize][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::enable_streaming_synthesize].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// let x = VoiceSessionConfig::new().set_enable_streaming_synthesize(true);
+            /// ```
+            pub fn set_enable_streaming_synthesize<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.enable_streaming_synthesize = v.into();
+                self
+            }
+
+            /// Sets the value of [gemini_asr_config][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::gemini_asr_config].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+            /// let x = VoiceSessionConfig::new().set_gemini_asr_config(GeminiAsrConfig::default()/* use setters */);
+            /// ```
+            pub fn set_gemini_asr_config<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::speech_to_text_config::GeminiAsrConfig>,
+            {
+                self.gemini_asr_config = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [gemini_asr_config][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::gemini_asr_config].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
+            /// let x = VoiceSessionConfig::new().set_or_clear_gemini_asr_config(Some(GeminiAsrConfig::default()/* use setters */));
+            /// let x = VoiceSessionConfig::new().set_or_clear_gemini_asr_config(None::<GeminiAsrConfig>);
+            /// ```
+            pub fn set_or_clear_gemini_asr_config<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::speech_to_text_config::GeminiAsrConfig>,
+            {
+                self.gemini_asr_config = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [use_gemini_asr][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::use_gemini_asr].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// let x = VoiceSessionConfig::new().set_use_gemini_asr(true);
+            /// ```
+            pub fn set_use_gemini_asr<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.use_gemini_asr = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [use_gemini_asr][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::use_gemini_asr].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// let x = VoiceSessionConfig::new().set_or_clear_use_gemini_asr(Some(false));
+            /// let x = VoiceSessionConfig::new().set_or_clear_use_gemini_asr(None::<bool>);
+            /// ```
+            pub fn set_or_clear_use_gemini_asr<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.use_gemini_asr = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(feature = "participants")]
+        impl wkt::message::Message for VoiceSessionConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Config.VoiceSessionConfig"
+            }
+        }
+
+        /// The config of the session.
+        #[cfg(feature = "participants")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Config {
+            /// Configure a voice-based session.
+            VoiceSessionConfig(std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig>),
+        }
+    }
+
+    /// Input that forms data for a single turn.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TurnInput {
+        /// Optional. Parameters to be passed to the virtual agent.
+        pub virtual_agent_parameters: std::option::Option<wkt::Struct>,
+
+        /// Content that indicates the end of the turn.
+        pub main_content: std::option::Option<
+            crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "participants")]
+    impl TurnInput {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [virtual_agent_parameters][crate::model::bidi_streaming_analyze_content_request::TurnInput::virtual_agent_parameters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::TurnInput;
+        /// use wkt::Struct;
+        /// let x = TurnInput::new().set_virtual_agent_parameters(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_virtual_agent_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.virtual_agent_parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [virtual_agent_parameters][crate::model::bidi_streaming_analyze_content_request::TurnInput::virtual_agent_parameters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::TurnInput;
+        /// use wkt::Struct;
+        /// let x = TurnInput::new().set_or_clear_virtual_agent_parameters(Some(Struct::default()/* use setters */));
+        /// let x = TurnInput::new().set_or_clear_virtual_agent_parameters(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_virtual_agent_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.virtual_agent_parameters = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content].
+        ///
+        /// Note that all the setters affecting `main_content` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::TurnInput;
+        /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::turn_input::MainContent;
+        /// let x = TurnInput::new().set_main_content(Some(MainContent::Text("example".to_string())));
+        /// ```
+        pub fn set_main_content<T: std::convert::Into<std::option::Option<crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent>>>(mut self, v: T) -> Self
+        {
+            self.main_content = v.into();
+            self
+        }
+
+        /// The value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content]
+        /// if it holds a `Text`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn text(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.main_content.as_ref().and_then(|v| match v {
+                crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent::Text(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content]
+        /// to hold a `Text`.
+        ///
+        /// Note that all the setters affecting `main_content` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::TurnInput;
+        /// let x = TurnInput::new().set_text("example");
+        /// assert!(x.text().is_some());
+        /// assert!(x.intent().is_none());
+        /// assert!(x.event().is_none());
+        /// assert!(x.suggestion_input().is_none());
+        /// ```
+        pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.main_content = std::option::Option::Some(
+                crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent::Text(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content]
+        /// if it holds a `Intent`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn intent(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.main_content.as_ref().and_then(|v| match v {
+                crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent::Intent(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content]
+        /// to hold a `Intent`.
+        ///
+        /// Note that all the setters affecting `main_content` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::TurnInput;
+        /// # let project_id = "project_id";
+        /// # let intent_id = "intent_id";
+        /// let x = TurnInput::new().set_intent(format!("projects/{project_id}/agent/intents/{intent_id}"));
+        /// assert!(x.intent().is_some());
+        /// assert!(x.text().is_none());
+        /// assert!(x.event().is_none());
+        /// assert!(x.suggestion_input().is_none());
+        /// ```
+        pub fn set_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.main_content = std::option::Option::Some(
+                crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent::Intent(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content]
+        /// if it holds a `Event`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn event(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.main_content.as_ref().and_then(|v| match v {
+                crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent::Event(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content]
+        /// to hold a `Event`.
+        ///
+        /// Note that all the setters affecting `main_content` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::TurnInput;
+        /// let x = TurnInput::new().set_event("example");
+        /// assert!(x.event().is_some());
+        /// assert!(x.text().is_none());
+        /// assert!(x.intent().is_none());
+        /// assert!(x.suggestion_input().is_none());
+        /// ```
+        pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.main_content = std::option::Option::Some(
+                crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent::Event(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content]
+        /// if it holds a `SuggestionInput`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn suggestion_input(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestionInput>> {
+            #[allow(unreachable_patterns)]
+            self.main_content.as_ref().and_then(|v| match v {
+                crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent::SuggestionInput(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [main_content][crate::model::bidi_streaming_analyze_content_request::TurnInput::main_content]
+        /// to hold a `SuggestionInput`.
+        ///
+        /// Note that all the setters affecting `main_content` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::TurnInput;
+        /// use google_cloud_dialogflow_v2::model::SuggestionInput;
+        /// let x = TurnInput::new().set_suggestion_input(SuggestionInput::default()/* use setters */);
+        /// assert!(x.suggestion_input().is_some());
+        /// assert!(x.text().is_none());
+        /// assert!(x.intent().is_none());
+        /// assert!(x.event().is_none());
+        /// ```
+        pub fn set_suggestion_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::SuggestionInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.main_content = std::option::Option::Some(
+                crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent::SuggestionInput(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl wkt::message::Message for TurnInput {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.TurnInput"
+        }
+    }
+
+    /// Defines additional types related to [TurnInput].
+    #[cfg(feature = "participants")]
+    pub mod turn_input {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Content that indicates the end of the turn.
+        #[cfg(feature = "participants")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum MainContent {
+            /// The UTF-8 encoded natural language text to be processed.
+            Text(std::string::String),
+            /// The intent to be triggered on V3 agent.
+            /// Format: `projects/<Project ID>/locations/<Location ID>/locations/
+            /// <Location ID>/agents/<Agent ID>/intents/<Intent ID>`. This can only be
+            /// used to trigger the Welcome intent id if the modality is text.
+            Intent(std::string::String),
+            /// The input event name.
+            /// This can only be sent once and would cancel the ongoing speech
+            /// recognition if any. To trigger the Welcome intent use the
+            /// event "WELCOME"
+            Event(std::string::String),
+            /// Optional. Input for confirming, revising, or canceling a suggestion.
+            SuggestionInput(std::boxed::Box<crate::model::SuggestionInput>),
+        }
+    }
+
+    /// Input for the conversation.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Input {
+        #[allow(missing_docs)]
+        pub input:
+            std::option::Option<crate::model::bidi_streaming_analyze_content_request::input::Input>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "participants")]
+    impl Input {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [input][crate::model::bidi_streaming_analyze_content_request::Input::input].
+        ///
+        /// Note that all the setters affecting `input` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Input;
+        /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::input::Input as InputOneOf;
+        /// let x = Input::new().set_input(Some(InputOneOf::Audio(bytes::Bytes::from_static(b"example"))));
+        /// ```
+        pub fn set_input<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::bidi_streaming_analyze_content_request::input::Input,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.input = v.into();
+            self
+        }
+
+        /// The value of [input][crate::model::bidi_streaming_analyze_content_request::Input::input]
+        /// if it holds a `Audio`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn audio(&self) -> std::option::Option<&::bytes::Bytes> {
+            #[allow(unreachable_patterns)]
+            self.input.as_ref().and_then(|v| match v {
+                crate::model::bidi_streaming_analyze_content_request::input::Input::Audio(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [input][crate::model::bidi_streaming_analyze_content_request::Input::input]
+        /// to hold a `Audio`.
+        ///
+        /// Note that all the setters affecting `input` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Input;
+        /// let x = Input::new().set_audio(bytes::Bytes::from_static(b"example"));
+        /// assert!(x.audio().is_some());
+        /// assert!(x.dtmf().is_none());
+        /// assert!(x.turn().is_none());
+        /// ```
+        pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.input = std::option::Option::Some(
+                crate::model::bidi_streaming_analyze_content_request::input::Input::Audio(v.into()),
+            );
+            self
+        }
+
+        /// The value of [input][crate::model::bidi_streaming_analyze_content_request::Input::input]
+        /// if it holds a `Dtmf`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn dtmf(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::TelephonyDtmfEvents>> {
+            #[allow(unreachable_patterns)]
+            self.input.as_ref().and_then(|v| match v {
+                crate::model::bidi_streaming_analyze_content_request::input::Input::Dtmf(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [input][crate::model::bidi_streaming_analyze_content_request::Input::input]
+        /// to hold a `Dtmf`.
+        ///
+        /// Note that all the setters affecting `input` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Input;
+        /// use google_cloud_dialogflow_v2::model::TelephonyDtmfEvents;
+        /// let x = Input::new().set_dtmf(TelephonyDtmfEvents::default()/* use setters */);
+        /// assert!(x.dtmf().is_some());
+        /// assert!(x.audio().is_none());
+        /// assert!(x.turn().is_none());
+        /// ```
+        pub fn set_dtmf<
+            T: std::convert::Into<std::boxed::Box<crate::model::TelephonyDtmfEvents>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.input = std::option::Option::Some(
+                crate::model::bidi_streaming_analyze_content_request::input::Input::Dtmf(v.into()),
+            );
+            self
+        }
+
+        /// The value of [input][crate::model::bidi_streaming_analyze_content_request::Input::input]
+        /// if it holds a `Turn`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn turn(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::TurnInput>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.input.as_ref().and_then(|v| match v {
+                crate::model::bidi_streaming_analyze_content_request::input::Input::Turn(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [input][crate::model::bidi_streaming_analyze_content_request::Input::input]
+        /// to hold a `Turn`.
+        ///
+        /// Note that all the setters affecting `input` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::Input;
+        /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::TurnInput;
+        /// let x = Input::new().set_turn(TurnInput::default()/* use setters */);
+        /// assert!(x.turn().is_some());
+        /// assert!(x.audio().is_none());
+        /// assert!(x.dtmf().is_none());
+        /// ```
+        pub fn set_turn<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::bidi_streaming_analyze_content_request::TurnInput,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.input = std::option::Option::Some(
+                crate::model::bidi_streaming_analyze_content_request::input::Input::Turn(v.into()),
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl wkt::message::Message for Input {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentRequest.Input"
+        }
+    }
+
+    /// Defines additional types related to [Input].
+    #[cfg(feature = "participants")]
+    pub mod input {
+        #[allow(unused_imports)]
+        use super::*;
+
+        #[allow(missing_docs)]
+        #[cfg(feature = "participants")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Input {
+            /// The content of audio stream to be recognized.
+            Audio(::bytes::Bytes),
+            /// The DTMF digits used to invoke intent and fill in parameter value.
+            ///
+            /// This input is ignored if the previous response indicated that DTMF
+            /// input is not accepted.
+            Dtmf(std::boxed::Box<crate::model::TelephonyDtmfEvents>),
+            /// Turn input.
+            Turn(std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::TurnInput>),
+        }
+    }
+
+    /// Required. Possible request types for BidiStreamingAnalyzeContent.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Request {
+        /// The config message for this conversation.
+        Config(std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::Config>),
+        /// Text, audio or other multi-modality inputs.
+        /// This is the second and following messages sent by the client.
+        Input(std::boxed::Box<crate::model::bidi_streaming_analyze_content_request::Input>),
+    }
+}
+
+/// The response message for
+/// [Participants.BidiStreamingAnalyzeContent][google.cloud.dialogflow.v2.Participants.BidiStreamingAnalyzeContent].
+///
+/// [google.cloud.dialogflow.v2.Participants.BidiStreamingAnalyzeContent]: crate::client::Participants::bidi_streaming_analyze_content
+#[cfg(feature = "participants")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BidiStreamingAnalyzeContentResponse {
+    /// The output response.
+    pub response:
+        std::option::Option<crate::model::bidi_streaming_analyze_content_response::Response>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "participants")]
+impl BidiStreamingAnalyzeContentResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response].
+    ///
+    /// Note that all the setters affecting `response` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentResponse;
+    /// use google_cloud_dialogflow_v2::model::StreamingRecognitionResult;
+    /// let x = BidiStreamingAnalyzeContentResponse::new().set_response(Some(
+    ///     google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_response::Response::RecognitionResult(StreamingRecognitionResult::default().into())));
+    /// ```
+    pub fn set_response<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::bidi_streaming_analyze_content_response::Response,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response = v.into();
+        self
+    }
+
+    /// The value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response]
+    /// if it holds a `RecognitionResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn recognition_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingRecognitionResult>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::bidi_streaming_analyze_content_response::Response::RecognitionResult(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response]
+    /// to hold a `RecognitionResult`.
+    ///
+    /// Note that all the setters affecting `response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentResponse;
+    /// use google_cloud_dialogflow_v2::model::StreamingRecognitionResult;
+    /// let x = BidiStreamingAnalyzeContentResponse::new().set_recognition_result(StreamingRecognitionResult::default()/* use setters */);
+    /// assert!(x.recognition_result().is_some());
+    /// assert!(x.barge_in_signal().is_none());
+    /// assert!(x.analyze_content_response().is_none());
+    /// assert!(x.turn_complete().is_none());
+    /// ```
+    pub fn set_recognition_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::StreamingRecognitionResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::bidi_streaming_analyze_content_response::Response::RecognitionResult(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response]
+    /// if it holds a `BargeInSignal`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn barge_in_signal(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::bidi_streaming_analyze_content_response::BargeInSignal>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::bidi_streaming_analyze_content_response::Response::BargeInSignal(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response]
+    /// to hold a `BargeInSignal`.
+    ///
+    /// Note that all the setters affecting `response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentResponse;
+    /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_response::BargeInSignal;
+    /// let x = BidiStreamingAnalyzeContentResponse::new().set_barge_in_signal(BargeInSignal::default()/* use setters */);
+    /// assert!(x.barge_in_signal().is_some());
+    /// assert!(x.recognition_result().is_none());
+    /// assert!(x.analyze_content_response().is_none());
+    /// assert!(x.turn_complete().is_none());
+    /// ```
+    pub fn set_barge_in_signal<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::bidi_streaming_analyze_content_response::BargeInSignal,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::bidi_streaming_analyze_content_response::Response::BargeInSignal(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response]
+    /// if it holds a `AnalyzeContentResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn analyze_content_response(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AnalyzeContentResponse>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::bidi_streaming_analyze_content_response::Response::AnalyzeContentResponse(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response]
+    /// to hold a `AnalyzeContentResponse`.
+    ///
+    /// Note that all the setters affecting `response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentResponse;
+    /// use google_cloud_dialogflow_v2::model::AnalyzeContentResponse;
+    /// let x = BidiStreamingAnalyzeContentResponse::new().set_analyze_content_response(AnalyzeContentResponse::default()/* use setters */);
+    /// assert!(x.analyze_content_response().is_some());
+    /// assert!(x.recognition_result().is_none());
+    /// assert!(x.barge_in_signal().is_none());
+    /// assert!(x.turn_complete().is_none());
+    /// ```
+    pub fn set_analyze_content_response<
+        T: std::convert::Into<std::boxed::Box<crate::model::AnalyzeContentResponse>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::bidi_streaming_analyze_content_response::Response::AnalyzeContentResponse(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response]
+    /// if it holds a `TurnComplete`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn turn_complete(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::bidi_streaming_analyze_content_response::TurnComplete>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::bidi_streaming_analyze_content_response::Response::TurnComplete(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [response][crate::model::BidiStreamingAnalyzeContentResponse::response]
+    /// to hold a `TurnComplete`.
+    ///
+    /// Note that all the setters affecting `response` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::BidiStreamingAnalyzeContentResponse;
+    /// use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_response::TurnComplete;
+    /// let x = BidiStreamingAnalyzeContentResponse::new().set_turn_complete(TurnComplete::default()/* use setters */);
+    /// assert!(x.turn_complete().is_some());
+    /// assert!(x.recognition_result().is_none());
+    /// assert!(x.barge_in_signal().is_none());
+    /// assert!(x.analyze_content_response().is_none());
+    /// ```
+    pub fn set_turn_complete<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::bidi_streaming_analyze_content_response::TurnComplete,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::bidi_streaming_analyze_content_response::Response::TurnComplete(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(feature = "participants")]
+impl wkt::message::Message for BidiStreamingAnalyzeContentResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse"
+    }
+}
+
+/// Defines additional types related to [BidiStreamingAnalyzeContentResponse].
+#[cfg(feature = "participants")]
+pub mod bidi_streaming_analyze_content_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicate the user barge-in has been detected.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BargeInSignal {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "participants")]
+    impl BargeInSignal {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl wkt::message::Message for BargeInSignal {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse.BargeInSignal"
+        }
+    }
+
+    /// Indicate that the turn is complete.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TurnComplete {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "participants")]
+    impl TurnComplete {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl wkt::message::Message for TurnComplete {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.BidiStreamingAnalyzeContentResponse.TurnComplete"
+        }
+    }
+
+    /// The output response.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Response {
+        /// The result of speech recognition.
+        RecognitionResult(std::boxed::Box<crate::model::StreamingRecognitionResult>),
+        /// Indicate the user barge-in has been detected, and client should stop
+        /// playing back the audio.
+        BargeInSignal(
+            std::boxed::Box<crate::model::bidi_streaming_analyze_content_response::BargeInSignal>,
+        ),
+        /// The agent response from analyze content.
+        AnalyzeContentResponse(std::boxed::Box<crate::model::AnalyzeContentResponse>),
+        /// Indicate that the turn is complete.
+        TurnComplete(
+            std::boxed::Box<crate::model::bidi_streaming_analyze_content_response::TurnComplete>,
+        ),
     }
 }
 
@@ -55196,8 +61234,9 @@ pub mod streaming_recognition_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextInput {
-    /// Required. The UTF-8 encoded natural language text to be processed.
+    /// Optional. The UTF-8 encoded natural language text to be processed.
     /// Text length must not exceed 256 characters for virtual agent interactions.
+    /// Only one of `text` and `companion_query` should be set - not both.
     pub text: std::string::String,
 
     /// Required. The language of this conversational query. See [Language
@@ -57890,9 +63929,12 @@ impl wkt::message::Message for UpdateToolRequest {
 
 /// Represents a tool.
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
     feature = "tools",
 ))]
 #[derive(Clone, Default, PartialEq)]
@@ -57943,9 +63985,12 @@ pub struct Tool {
 }
 
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
     feature = "tools",
 ))]
 impl Tool {
@@ -58342,9 +64387,12 @@ impl Tool {
 }
 
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
     feature = "tools",
 ))]
 impl wkt::message::Message for Tool {
@@ -58355,9 +64403,12 @@ impl wkt::message::Message for Tool {
 
 /// Defines additional types related to [Tool].
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
     feature = "tools",
 ))]
 pub mod tool {
@@ -58366,9 +64417,12 @@ pub mod tool {
 
     /// An ExtensionTool is a way to use Vertex Extensions as a tool.
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Default, PartialEq)]
@@ -58383,9 +64437,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl ExtensionTool {
@@ -58408,9 +64465,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl wkt::message::Message for ExtensionTool {
@@ -58421,9 +64481,12 @@ pub mod tool {
 
     /// A Function tool describes the functions to be invoked on the client side.
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Default, PartialEq)]
@@ -58453,9 +64516,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl FunctionTool {
@@ -58550,9 +64616,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl wkt::message::Message for FunctionTool {
@@ -58564,9 +64633,12 @@ pub mod tool {
     /// An OpenAPI tool is a way to provide the Tool specifications in the Open API
     /// schema format.
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Default, PartialEq)]
@@ -58589,9 +64661,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl OpenApiTool {
@@ -58754,9 +64829,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl wkt::message::Message for OpenApiTool {
@@ -58767,9 +64845,12 @@ pub mod tool {
 
     /// Defines additional types related to [OpenApiTool].
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     pub mod open_api_tool {
@@ -58778,9 +64859,12 @@ pub mod tool {
 
         /// Schema representation.
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Debug, PartialEq)]
@@ -58793,9 +64877,12 @@ pub mod tool {
 
     /// A ConnectorTool enabling using Integration Connectors Connections as tools.
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Default, PartialEq)]
@@ -58812,9 +64899,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl ConnectorTool {
@@ -58859,9 +64949,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl wkt::message::Message for ConnectorTool {
@@ -58872,9 +64965,12 @@ pub mod tool {
 
     /// Defines additional types related to [ConnectorTool].
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     pub mod connector_tool {
@@ -58883,9 +64979,12 @@ pub mod tool {
 
         /// Configuration of a Connection operation for the tool to use.
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Default, PartialEq)]
@@ -58907,9 +65006,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl Action {
@@ -59064,9 +65166,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl wkt::message::Message for Action {
@@ -59077,9 +65182,12 @@ pub mod tool {
 
         /// Defines additional types related to [Action].
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         pub mod action {
@@ -59088,9 +65196,12 @@ pub mod tool {
 
             /// Entity CRUD operation specification.
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             #[derive(Clone, Default, PartialEq)]
@@ -59107,9 +65218,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl EntityOperation {
@@ -59150,9 +65264,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl wkt::message::Message for EntityOperation {
@@ -59163,9 +65280,12 @@ pub mod tool {
 
             /// Defines additional types related to [EntityOperation].
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             pub mod entity_operation {
@@ -59188,9 +65308,12 @@ pub mod tool {
                 ///
                 /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 #[derive(Clone, Debug, PartialEq)]
@@ -59218,9 +65341,12 @@ pub mod tool {
 
                 #[doc(hidden)]
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 pub mod operation_type {
@@ -59231,9 +65357,12 @@ pub mod tool {
                 }
 
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 impl OperationType {
@@ -59273,9 +65402,12 @@ pub mod tool {
                 }
 
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 impl std::default::Default for OperationType {
@@ -59286,9 +65418,12 @@ pub mod tool {
                 }
 
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 impl std::fmt::Display for OperationType {
@@ -59301,9 +65436,12 @@ pub mod tool {
                 }
 
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 impl std::convert::From<i32> for OperationType {
@@ -59323,9 +65461,12 @@ pub mod tool {
                 }
 
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 impl std::convert::From<&str> for OperationType {
@@ -59346,9 +65487,12 @@ pub mod tool {
                 }
 
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 impl serde::ser::Serialize for OperationType {
@@ -59369,9 +65513,12 @@ pub mod tool {
                 }
 
                 #[cfg(any(
+                    feature = "answer-records",
+                    feature = "companion-agents",
                     feature = "conversations",
                     feature = "generator-evaluations",
                     feature = "generators",
+                    feature = "participants",
                     feature = "tools",
                 ))]
                 impl<'de> serde::de::Deserialize<'de> for OperationType {
@@ -59387,9 +65534,12 @@ pub mod tool {
 
             /// Required. Specification for an action to configure for the tool to use.
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             #[derive(Clone, Debug, PartialEq)]
@@ -59407,9 +65557,12 @@ pub mod tool {
 
     /// Authentication information required for API calls
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Default, PartialEq)]
@@ -59422,9 +65575,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl Authentication {
@@ -59639,9 +65795,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl wkt::message::Message for Authentication {
@@ -59652,9 +65811,12 @@ pub mod tool {
 
     /// Defines additional types related to [Authentication].
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     pub mod authentication {
@@ -59663,9 +65825,12 @@ pub mod tool {
 
         /// Config for authentication with API key.
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Default, PartialEq)]
@@ -59692,9 +65857,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl ApiKeyConfig {
@@ -59766,9 +65934,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl wkt::message::Message for ApiKeyConfig {
@@ -59779,9 +65950,12 @@ pub mod tool {
 
         /// Config for authentication with OAuth.
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Default, PartialEq)]
@@ -59815,9 +65989,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl OAuthConfig {
@@ -59927,9 +66104,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl wkt::message::Message for OAuthConfig {
@@ -59940,9 +66120,12 @@ pub mod tool {
 
         /// Defines additional types related to [OAuthConfig].
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         pub mod o_auth_config {
@@ -59967,9 +66150,12 @@ pub mod tool {
             ///
             /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             #[derive(Clone, Debug, PartialEq)]
@@ -59989,9 +66175,12 @@ pub mod tool {
 
             #[doc(hidden)]
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             pub mod oauth_grant_type {
@@ -60002,9 +66191,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl OauthGrantType {
@@ -60036,9 +66228,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl std::default::Default for OauthGrantType {
@@ -60049,9 +66244,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl std::fmt::Display for OauthGrantType {
@@ -60064,9 +66262,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl std::convert::From<i32> for OauthGrantType {
@@ -60082,9 +66283,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl std::convert::From<&str> for OauthGrantType {
@@ -60101,9 +66305,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl serde::ser::Serialize for OauthGrantType {
@@ -60120,9 +66327,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl<'de> serde::de::Deserialize<'de> for OauthGrantType {
@@ -60139,9 +66349,12 @@ pub mod tool {
         /// Config for auth using [Dialogflow service
         /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Default, PartialEq)]
@@ -60158,9 +66371,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl ServiceAgentAuthConfig {
@@ -60185,9 +66401,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl wkt::message::Message for ServiceAgentAuthConfig {
@@ -60198,9 +66417,12 @@ pub mod tool {
 
         /// Defines additional types related to [ServiceAgentAuthConfig].
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         pub mod service_agent_auth_config {
@@ -60224,9 +66446,12 @@ pub mod tool {
             ///
             /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             #[derive(Clone, Debug, PartialEq)]
@@ -60255,9 +66480,12 @@ pub mod tool {
 
             #[doc(hidden)]
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             pub mod service_agent_auth {
@@ -60268,9 +66496,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl ServiceAgentAuth {
@@ -60304,9 +66535,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl std::default::Default for ServiceAgentAuth {
@@ -60317,9 +66551,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl std::fmt::Display for ServiceAgentAuth {
@@ -60332,9 +66569,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl std::convert::From<i32> for ServiceAgentAuth {
@@ -60351,9 +66591,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl std::convert::From<&str> for ServiceAgentAuth {
@@ -60371,9 +66614,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl serde::ser::Serialize for ServiceAgentAuth {
@@ -60391,9 +66637,12 @@ pub mod tool {
             }
 
             #[cfg(any(
+                feature = "answer-records",
+                feature = "companion-agents",
                 feature = "conversations",
                 feature = "generator-evaluations",
                 feature = "generators",
+                feature = "participants",
                 feature = "tools",
             ))]
             impl<'de> serde::de::Deserialize<'de> for ServiceAgentAuth {
@@ -60409,9 +66658,12 @@ pub mod tool {
 
         /// Config for authentication using bearer token.
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Default, PartialEq)]
@@ -60435,9 +66687,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl BearerTokenConfig {
@@ -60475,9 +66730,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl wkt::message::Message for BearerTokenConfig {
@@ -60502,9 +66760,12 @@ pub mod tool {
         ///
         /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Debug, PartialEq)]
@@ -60525,9 +66786,12 @@ pub mod tool {
 
         #[doc(hidden)]
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         pub mod request_location {
@@ -60538,9 +66802,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl RequestLocation {
@@ -60572,9 +66839,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl std::default::Default for RequestLocation {
@@ -60585,9 +66855,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl std::fmt::Display for RequestLocation {
@@ -60600,9 +66873,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl std::convert::From<i32> for RequestLocation {
@@ -60619,9 +66895,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl std::convert::From<&str> for RequestLocation {
@@ -60639,9 +66918,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl serde::ser::Serialize for RequestLocation {
@@ -60659,9 +66941,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl<'de> serde::de::Deserialize<'de> for RequestLocation {
@@ -60677,9 +66962,12 @@ pub mod tool {
 
         /// The auth configuration.
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Debug, PartialEq)]
@@ -60704,9 +66992,12 @@ pub mod tool {
 
     /// The TLS configuration.
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Default, PartialEq)]
@@ -60720,9 +67011,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl TLSConfig {
@@ -60755,9 +67049,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl wkt::message::Message for TLSConfig {
@@ -60768,9 +67065,12 @@ pub mod tool {
 
     /// Defines additional types related to [TLSConfig].
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     pub mod tls_config {
@@ -60779,9 +67079,12 @@ pub mod tool {
 
         /// The CA certificate.
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         #[derive(Clone, Default, PartialEq)]
@@ -60810,9 +67113,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl CACert {
@@ -60850,9 +67156,12 @@ pub mod tool {
         }
 
         #[cfg(any(
+            feature = "answer-records",
+            feature = "companion-agents",
             feature = "conversations",
             feature = "generator-evaluations",
             feature = "generators",
+            feature = "participants",
             feature = "tools",
         ))]
         impl wkt::message::Message for CACert {
@@ -60864,9 +67173,12 @@ pub mod tool {
 
     /// Configuration for tools using Service Directory.
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Default, PartialEq)]
@@ -60884,9 +67196,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl ServiceDirectoryConfig {
@@ -60909,9 +67224,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl wkt::message::Message for ServiceDirectoryConfig {
@@ -60936,9 +67254,12 @@ pub mod tool {
     ///
     /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Debug, PartialEq)]
@@ -60960,9 +67281,12 @@ pub mod tool {
 
     #[doc(hidden)]
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     pub mod confirmation_requirement {
@@ -60973,9 +67297,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl ConfirmationRequirement {
@@ -61009,9 +67336,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl std::default::Default for ConfirmationRequirement {
@@ -61022,9 +67352,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl std::fmt::Display for ConfirmationRequirement {
@@ -61034,9 +67367,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl std::convert::From<i32> for ConfirmationRequirement {
@@ -61053,9 +67389,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl std::convert::From<&str> for ConfirmationRequirement {
@@ -61073,9 +67412,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl serde::ser::Serialize for ConfirmationRequirement {
@@ -61093,9 +67435,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl<'de> serde::de::Deserialize<'de> for ConfirmationRequirement {
@@ -61127,9 +67472,12 @@ pub mod tool {
     ///
     /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Debug, PartialEq)]
@@ -61156,9 +67504,12 @@ pub mod tool {
 
     #[doc(hidden)]
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     pub mod method_type {
@@ -61169,9 +67520,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl MethodType {
@@ -61209,9 +67563,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl std::default::Default for MethodType {
@@ -61222,9 +67579,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl std::fmt::Display for MethodType {
@@ -61234,9 +67594,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl std::convert::From<i32> for MethodType {
@@ -61256,9 +67619,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl std::convert::From<&str> for MethodType {
@@ -61279,9 +67645,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl serde::ser::Serialize for MethodType {
@@ -61302,9 +67671,12 @@ pub mod tool {
     }
 
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     impl<'de> serde::de::Deserialize<'de> for MethodType {
@@ -61320,9 +67692,12 @@ pub mod tool {
 
     /// Specification of the Tool.
     #[cfg(any(
+        feature = "answer-records",
+        feature = "companion-agents",
         feature = "conversations",
         feature = "generator-evaluations",
         feature = "generators",
+        feature = "participants",
         feature = "tools",
     ))]
     #[derive(Clone, Debug, PartialEq)]
@@ -62343,6 +68718,9 @@ pub mod tool_call_result {
         /// Optional. The error message of the function.
         pub message: std::string::String,
 
+        /// Optional. Specifies whether the tool call is retryable.
+        pub retryable: bool,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -62368,6 +68746,18 @@ pub mod tool_call_result {
         /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
+            self
+        }
+
+        /// Sets the value of [retryable][crate::model::tool_call_result::Error::retryable].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool_call_result::Error;
+        /// let x = Error::new().set_retryable(true);
+        /// ```
+        pub fn set_retryable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.retryable = v.into();
             self
         }
     }
@@ -62439,9 +68829,12 @@ pub mod tool_call_result {
 
 /// A tool that is created from a toolset.
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
 ))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -62462,9 +68855,12 @@ pub struct ToolsetTool {
 }
 
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
 ))]
 impl ToolsetTool {
     /// Creates a new default instance.
@@ -62517,9 +68913,12 @@ impl ToolsetTool {
 }
 
 #[cfg(any(
+    feature = "answer-records",
+    feature = "companion-agents",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
+    feature = "participants",
 ))]
 impl wkt::message::Message for ToolsetTool {
     fn typename() -> &'static str {
@@ -63581,6 +69980,7 @@ impl wkt::message::Message for DeleteVersionRequest {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -63631,6 +70031,7 @@ pub struct WebhookRequest {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -63755,6 +70156,7 @@ impl WebhookRequest {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -63802,6 +70204,7 @@ impl wkt::message::Message for WebhookRequest {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -63897,6 +70300,7 @@ pub struct WebhookResponse {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -64087,6 +70491,7 @@ impl WebhookResponse {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -64119,6 +70524,7 @@ impl wkt::message::Message for WebhookResponse {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -64169,6 +70575,7 @@ pub struct OriginalDetectIntentRequest {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",
@@ -64257,6 +70664,7 @@ impl OriginalDetectIntentRequest {
 #[cfg(all(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversation-datasets",
     feature = "conversation-models",

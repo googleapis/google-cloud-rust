@@ -2037,6 +2037,7 @@ pub struct Altitude {
     pub interval: std::option::Option<crate::model::ObservationTimeInterval>,
 
     /// Required. Altitude gain in millimeters over the observed interval.
+    /// Must be in the range `[-1000000000, 1000000000]`.
     pub gain_millimeters: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2218,7 +2219,7 @@ pub struct BodyFat {
     /// Required. The time at which body fat was measured.
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
-    /// Required. Body fat percentage, in range [0, 100].
+    /// Required. Body fat percentage. Must be in the range `[0, 100]`.
     pub percentage: std::option::Option<f64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2364,6 +2365,7 @@ pub struct CoreBodyTemperature {
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
     /// Required. The core body temperature in Celsius.
+    /// Must be in the range `[0, 100]`.
     pub temperature_celsius: std::option::Option<f64>,
 
     /// Optional. The location of the core body temperature measurement.
@@ -3496,15 +3498,17 @@ pub struct DailyOxygenSaturation {
     pub date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Required. The average value of the oxygen saturation samples during the
-    /// sleep.
+    /// sleep. Must be in the range `[0, 100]`.
     pub average_percentage: std::option::Option<f64>,
 
     /// Required. The lower bound of the confidence interval of oxygen saturation
     /// samples during sleep.
+    /// Must be in the range `[0, 100]`.
     pub lower_bound_percentage: std::option::Option<f64>,
 
     /// Required. The upper bound of the confidence interval of oxygen saturation
     /// samples during sleep.
+    /// Must be in the range `[0, 100]`.
     pub upper_bound_percentage: std::option::Option<f64>,
 
     /// Optional. Standard deviation of the daily oxygen saturation averages from
@@ -4183,7 +4187,7 @@ pub struct DailyVO2Max {
     pub date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Required. Daily VO2 max value measured as in ml consumed oxygen / kg of
-    /// body weight / min.
+    /// body weight / min. Must be in the range `[0, 100]`.
     pub vo2_max: std::option::Option<f64>,
 
     /// Optional. An estimated field is added to indicate when the confidence has
@@ -4514,6 +4518,7 @@ pub struct Distance {
     pub interval: std::option::Option<crate::model::ObservationTimeInterval>,
 
     /// Required. Distance in millimeters over the observed interval.
+    /// Must be in the range `[0, 1000000000]`.
     pub millimeters: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7676,7 +7681,8 @@ pub struct Floors {
     /// Required. Observed interval
     pub interval: std::option::Option<crate::model::ObservationTimeInterval>,
 
-    /// Required. Number of floors in the recorded interval
+    /// Required. Number of floors in the recorded interval.
+    /// Must be in the range `[0, 1000000]`.
     pub count: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7875,6 +7881,7 @@ pub struct HeartRate {
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
     /// Required. The heart rate value in beats per minute.
+    /// Must be in the range `[1, 300]`.
     pub beats_per_minute: std::option::Option<i64>,
 
     /// Optional. Metadata about the heart rate sample.
@@ -8622,6 +8629,7 @@ pub struct RunVO2Max {
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
     /// Required. Run VO2 max value in ml/kg/min.
+    /// Must be in the range `[0, 100]`.
     pub run_vo2_max: std::option::Option<f64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8809,6 +8817,7 @@ pub struct Height {
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
     /// Required. Height of the user in millimeters.
+    /// Must be in the range `[0, 3000]`.
     pub height_millimeters: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8902,11 +8911,16 @@ pub struct HeartRateVariability {
 
     /// Optional. The root mean square of successive differences between normal
     /// heartbeats. This is a measure of heart rate variability used by Google
-    /// Health.
+    /// Health. Must be in the range `[1, 200]`.
     pub root_mean_square_of_successive_differences_milliseconds: std::option::Option<f64>,
 
     /// Optional. The standard deviation of the heart rate variability measurement.
     pub standard_deviation_milliseconds: std::option::Option<f64>,
+
+    /// Optional. Additional information about the heart rate variability
+    /// measurement.
+    pub metadata:
+        std::option::Option<crate::model::heart_rate_variability::HeartRateVariabilityMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9018,6 +9032,39 @@ impl HeartRateVariability {
         self.standard_deviation_milliseconds = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [metadata][crate::model::HeartRateVariability::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::HeartRateVariability;
+    /// use google_devicesandservices_health_v4::model::heart_rate_variability::HeartRateVariabilityMetadata;
+    /// let x = HeartRateVariability::new().set_metadata(HeartRateVariabilityMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::heart_rate_variability::HeartRateVariabilityMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::HeartRateVariability::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::HeartRateVariability;
+    /// use google_devicesandservices_health_v4::model::heart_rate_variability::HeartRateVariabilityMetadata;
+    /// let x = HeartRateVariability::new().set_or_clear_metadata(Some(HeartRateVariabilityMetadata::default()/* use setters */));
+    /// let x = HeartRateVariability::new().set_or_clear_metadata(None::<HeartRateVariabilityMetadata>);
+    /// ```
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::heart_rate_variability::HeartRateVariabilityMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for HeartRateVariability {
@@ -9026,11 +9073,70 @@ impl wkt::message::Message for HeartRateVariability {
     }
 }
 
+/// Defines additional types related to [HeartRateVariability].
+pub mod heart_rate_variability {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Metadata for HeartRateVariability.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct HeartRateVariabilityMetadata {
+        /// Optional. The power in interbeat interval fluctuations within the high
+        /// frequency band (0.15 Hz - 0.4 Hz).
+        pub high_frequency_power: f64,
+
+        /// Optional. The power in interbeat interval fluctuations within the low
+        /// frequency band (0.04 Hz - 0.15 Hz).
+        pub low_frequency_power: f64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl HeartRateVariabilityMetadata {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [high_frequency_power][crate::model::heart_rate_variability::HeartRateVariabilityMetadata::high_frequency_power].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_devicesandservices_health_v4::model::heart_rate_variability::HeartRateVariabilityMetadata;
+        /// let x = HeartRateVariabilityMetadata::new().set_high_frequency_power(42.0);
+        /// ```
+        pub fn set_high_frequency_power<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.high_frequency_power = v.into();
+            self
+        }
+
+        /// Sets the value of [low_frequency_power][crate::model::heart_rate_variability::HeartRateVariabilityMetadata::low_frequency_power].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_devicesandservices_health_v4::model::heart_rate_variability::HeartRateVariabilityMetadata;
+        /// let x = HeartRateVariabilityMetadata::new().set_low_frequency_power(42.0);
+        /// ```
+        pub fn set_low_frequency_power<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.low_frequency_power = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for HeartRateVariabilityMetadata {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.devicesandservices.health.v4.HeartRateVariability.HeartRateVariabilityMetadata"
+        }
+    }
+}
+
 /// Represents the volume quantity.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeQuantity {
     /// Required. Value representing the volume in milliliters.
+    /// Must be in the range `[0, 100000]`.
     pub milliliters: std::option::Option<f64>,
 
     /// Optional. Value representing the user provided unit, used only for
@@ -10751,6 +10857,7 @@ pub mod metrics_summary {
 #[non_exhaustive]
 pub struct WeightQuantity {
     /// Required. The weight value in grams.
+    /// Must be in the range `[0, 100000]`.
     pub grams: std::option::Option<f64>,
 
     /// Optional. Value representing the user provided unit.
@@ -10826,6 +10933,7 @@ impl wkt::message::Message for WeightQuantity {
 #[non_exhaustive]
 pub struct EnergyQuantity {
     /// Required. The energy value in kilocalories.
+    /// Must be in the range `[0, 100000]`.
     pub kcal: std::option::Option<f64>,
 
     /// Optional. Value representing the user provided unit.
@@ -12407,7 +12515,8 @@ pub struct OxygenSaturation {
     /// Required. The time at which oxygen saturation was measured.
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
-    /// Required. The oxygen saturation percentage. Valid values are from 0 to 100.
+    /// Required. The oxygen saturation percentage.
+    /// Must be in the range `[0, 100]`.
     pub percentage: std::option::Option<f64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14676,6 +14785,7 @@ pub struct Steps {
     pub interval: std::option::Option<crate::model::ObservationTimeInterval>,
 
     /// Required. Number of steps in the recorded interval.
+    /// Must be in the range `[0, 1000000]`.
     pub count: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15414,7 +15524,7 @@ pub struct VO2Max {
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
     /// Required. VO2 max value measured as in ml consumed oxygen / kg of body
-    /// weight / min.
+    /// weight / min. Must be in the range `[0, 100]`.
     pub vo2_max: std::option::Option<f64>,
 
     /// Optional. The method used to measure the VO2 max value.
@@ -15739,6 +15849,7 @@ pub struct Weight {
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
     /// Required. Weight of a user in grams.
+    /// Must be in the range `[0, 1000000]`.
     pub weight_grams: std::option::Option<f64>,
 
     /// Optional. Standard free-form notes captured at manual logging.
@@ -15899,6 +16010,7 @@ pub struct BloodGlucose {
     pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
 
     /// Required. Blood glucose level concentration in mg/dL.
+    /// Must be in the range `[0, 900]`.
     pub blood_glucose_milligrams_per_deciliter: std::option::Option<f64>,
 
     /// Optional. Source of the measurement.
@@ -16883,6 +16995,7 @@ pub struct ActiveEnergyBurned {
     pub interval: std::option::Option<crate::model::ObservationTimeInterval>,
 
     /// Required. Energy burned during an activity, measured in kilocalories.
+    /// Must be in the range `[0, 1000000]`.
     pub kcal: std::option::Option<f64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -18070,6 +18183,30 @@ pub mod moods {
         Loving,
         /// Compassionate.
         Compassionate,
+        /// Depressed.
+        Depressed,
+        /// Good.
+        Good,
+        /// Low energy.
+        LowEnergy,
+        /// Obsessive thoughts.
+        ObsessiveThoughts,
+        /// Panic.
+        Panic,
+        /// Playful.
+        Playful,
+        /// Pleased.
+        Pleased,
+        /// Sensitive.
+        Sensitive,
+        /// Sleepy.
+        Sleepy,
+        /// Mood swings.
+        Swings,
+        /// Unhappy.
+        Unhappy,
+        /// Very self-critical.
+        VerySelfCritical,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Mood::value] or
@@ -18149,6 +18286,18 @@ pub mod moods {
                 Self::Accomplished => std::option::Option::Some(54),
                 Self::Loving => std::option::Option::Some(55),
                 Self::Compassionate => std::option::Option::Some(56),
+                Self::Depressed => std::option::Option::Some(57),
+                Self::Good => std::option::Option::Some(58),
+                Self::LowEnergy => std::option::Option::Some(59),
+                Self::ObsessiveThoughts => std::option::Option::Some(60),
+                Self::Panic => std::option::Option::Some(61),
+                Self::Playful => std::option::Option::Some(62),
+                Self::Pleased => std::option::Option::Some(63),
+                Self::Sensitive => std::option::Option::Some(64),
+                Self::Sleepy => std::option::Option::Some(65),
+                Self::Swings => std::option::Option::Some(66),
+                Self::Unhappy => std::option::Option::Some(67),
+                Self::VerySelfCritical => std::option::Option::Some(68),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -18216,6 +18365,18 @@ pub mod moods {
                 Self::Accomplished => std::option::Option::Some("ACCOMPLISHED"),
                 Self::Loving => std::option::Option::Some("LOVING"),
                 Self::Compassionate => std::option::Option::Some("COMPASSIONATE"),
+                Self::Depressed => std::option::Option::Some("DEPRESSED"),
+                Self::Good => std::option::Option::Some("GOOD"),
+                Self::LowEnergy => std::option::Option::Some("LOW_ENERGY"),
+                Self::ObsessiveThoughts => std::option::Option::Some("OBSESSIVE_THOUGHTS"),
+                Self::Panic => std::option::Option::Some("PANIC"),
+                Self::Playful => std::option::Option::Some("PLAYFUL"),
+                Self::Pleased => std::option::Option::Some("PLEASED"),
+                Self::Sensitive => std::option::Option::Some("SENSITIVE"),
+                Self::Sleepy => std::option::Option::Some("SLEEPY"),
+                Self::Swings => std::option::Option::Some("SWINGS"),
+                Self::Unhappy => std::option::Option::Some("UNHAPPY"),
+                Self::VerySelfCritical => std::option::Option::Some("VERY_SELF_CRITICAL"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -18294,6 +18455,18 @@ pub mod moods {
                 54 => Self::Accomplished,
                 55 => Self::Loving,
                 56 => Self::Compassionate,
+                57 => Self::Depressed,
+                58 => Self::Good,
+                59 => Self::LowEnergy,
+                60 => Self::ObsessiveThoughts,
+                61 => Self::Panic,
+                62 => Self::Playful,
+                63 => Self::Pleased,
+                64 => Self::Sensitive,
+                65 => Self::Sleepy,
+                66 => Self::Swings,
+                67 => Self::Unhappy,
+                68 => Self::VerySelfCritical,
                 _ => Self::UnknownValue(mood::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -18362,6 +18535,18 @@ pub mod moods {
                 "ACCOMPLISHED" => Self::Accomplished,
                 "LOVING" => Self::Loving,
                 "COMPASSIONATE" => Self::Compassionate,
+                "DEPRESSED" => Self::Depressed,
+                "GOOD" => Self::Good,
+                "LOW_ENERGY" => Self::LowEnergy,
+                "OBSESSIVE_THOUGHTS" => Self::ObsessiveThoughts,
+                "PANIC" => Self::Panic,
+                "PLAYFUL" => Self::Playful,
+                "PLEASED" => Self::Pleased,
+                "SENSITIVE" => Self::Sensitive,
+                "SLEEPY" => Self::Sleepy,
+                "SWINGS" => Self::Swings,
+                "UNHAPPY" => Self::Unhappy,
+                "VERY_SELF_CRITICAL" => Self::VerySelfCritical,
                 _ => Self::UnknownValue(mood::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -18432,6 +18617,18 @@ pub mod moods {
                 Self::Accomplished => serializer.serialize_i32(54),
                 Self::Loving => serializer.serialize_i32(55),
                 Self::Compassionate => serializer.serialize_i32(56),
+                Self::Depressed => serializer.serialize_i32(57),
+                Self::Good => serializer.serialize_i32(58),
+                Self::LowEnergy => serializer.serialize_i32(59),
+                Self::ObsessiveThoughts => serializer.serialize_i32(60),
+                Self::Panic => serializer.serialize_i32(61),
+                Self::Playful => serializer.serialize_i32(62),
+                Self::Pleased => serializer.serialize_i32(63),
+                Self::Sensitive => serializer.serialize_i32(64),
+                Self::Sleepy => serializer.serialize_i32(65),
+                Self::Swings => serializer.serialize_i32(66),
+                Self::Unhappy => serializer.serialize_i32(67),
+                Self::VerySelfCritical => serializer.serialize_i32(68),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -28506,6 +28703,18 @@ pub struct ReconcileDataPointsRequest {
     /// - `users/me/dataSourceFamilies/google-sources` - Includes first-party
     ///   Google data, such as data from tracker devices, manually logged data, and
     ///   Health Connect.
+    /// - `users/me/dataSourceFamilies/self-sources` - Includes only the data the
+    ///   calling client wrote through this API, that is, data points whose data
+    ///   source was registered through this API with the same OAuth client ID as
+    ///   the caller.
+    ///
+    /// Callers that were only granted write scopes for the requested data type
+    /// may only read the data they wrote themselves: their requests are
+    /// implicitly restricted to `self-sources`, and requesting any other data
+    /// source family fails with `PERMISSION_DENIED`.
+    ///
+    /// If no data point matches the requested data source family, the response is
+    /// an empty list rather than an error.
     pub data_source_family: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -28687,6 +28896,10 @@ pub struct RollUpDataPointsRequest {
 
     /// Required. The size of the time window to group data points into before
     /// applying the aggregation functions. Must be at least 1 second.
+    ///
+    /// If the requested range is not an exact multiple of `window_size`, the final
+    /// bucket chronologically will be truncated at the upper endpoint of the
+    /// range and will cover a duration shorter than `window_size`.
     pub window_size: std::option::Option<wkt::Duration>,
 
     /// Optional. The maximum number of data points to return.
@@ -28716,6 +28929,18 @@ pub struct RollUpDataPointsRequest {
     /// - `users/me/dataSourceFamilies/google-sources` - Includes first-party
     ///   Google data, such as data from tracker devices, manually logged data, and
     ///   Health Connect.
+    /// - `users/me/dataSourceFamilies/self-sources` - Includes only the data the
+    ///   calling client wrote through this API, that is, data points whose data
+    ///   source was registered through this API with the same OAuth client ID as
+    ///   the caller.
+    ///
+    /// Callers that were only granted write scopes for the requested data type
+    /// may only read the data they wrote themselves: their requests are
+    /// implicitly restricted to `self-sources`, and requesting any other data
+    /// source family fails with `PERMISSION_DENIED`.
+    ///
+    /// If no data point matches the requested data source family, the response is
+    /// an empty list rather than an error.
     pub data_source_family: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -28955,6 +29180,10 @@ pub struct DailyRollUpDataPointsRequest {
 
     /// Optional. Aggregation window size, in number of days. Defaults to 1 if not
     /// specified.
+    ///
+    /// If the requested range is not an exact multiple of `window_size_days`, the
+    /// final bucket chronologically will be truncated at the upper endpoint of the
+    /// range and will cover a duration shorter than `window_size_days`.
     pub window_size_days: i32,
 
     /// Optional. The maximum number of data points to return.
@@ -28983,6 +29212,18 @@ pub struct DailyRollUpDataPointsRequest {
     /// - `users/me/dataSourceFamilies/google-sources` - Includes first-party
     ///   Google data, such as data from tracker devices, manually logged data, and
     ///   Health Connect.
+    /// - `users/me/dataSourceFamilies/self-sources` - Includes only the data the
+    ///   calling client wrote through this API, that is, data points whose data
+    ///   source was registered through this API with the same OAuth client ID as
+    ///   the caller.
+    ///
+    /// Callers that were only granted write scopes for the requested data type
+    /// may only read the data they wrote themselves: their requests are
+    /// implicitly restricted to `self-sources`, and requesting any other data
+    /// source family fails with `PERMISSION_DENIED`.
+    ///
+    /// If no data point matches the requested data source family, the response is
+    /// an empty list rather than an error.
     pub data_source_family: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -31992,6 +32233,8 @@ pub struct Profile {
     /// 1-63 characters consisting of lowercase and uppercase letters, numbers, and
     /// hyphens. The literal `me` can also be used to refer to the authenticated
     /// user.
+    ///
+    /// This field is read-only.
     pub name: std::string::String,
 
     /// Optional. The age in years based on the user's birth date.
@@ -32006,48 +32249,36 @@ pub struct Profile {
 
     /// Optional. The user's user configured walking stride length, in millimeters.
     ///
-    /// The user must consent to
-    /// one of the following access scopes to access this field:
+    /// The user must consent to the following access scope to access this field:
     ///
     ///
     /// `<https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly>`
-    ///
-    /// - `<https://www.googleapis.com/auth/googlehealth.activity_and_fitness>`
     pub user_configured_walking_stride_length_mm: std::option::Option<i32>,
 
     /// Optional. The user's user configured running stride length, in millimeters.
     ///
-    /// The user must consent to
-    /// one of the following access scopes to access this field:
+    /// The user must consent to the following access scope to access this field:
     ///
     ///
     /// `<https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly>`
-    ///
-    /// - `<https://www.googleapis.com/auth/googlehealth.activity_and_fitness>`
     pub user_configured_running_stride_length_mm: std::option::Option<i32>,
 
     /// Output only. The automatically calculated walking stride length, in
     /// millimeters.
     ///
-    /// The user must consent to
-    /// one of the following access scopes to access this field:
+    /// The user must consent to the following access scope to access this field:
     ///
     ///
     /// `<https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly>`
-    ///
-    /// - `<https://www.googleapis.com/auth/googlehealth.activity_and_fitness>`
     pub auto_walking_stride_length_mm: std::option::Option<i32>,
 
     /// Output only. The automatically calculated running stride length, in
     /// millimeters.
     ///
-    /// The user must consent to
-    /// one of the following access scopes to access this field:
+    /// The user must consent to the following access scope to access this field:
     ///
     ///
     /// `<https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly>`
-    ///
-    /// - `<https://www.googleapis.com/auth/googlehealth.activity_and_fitness>`
     pub auto_running_stride_length_mm: std::option::Option<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32825,6 +33056,8 @@ pub struct Settings {
     /// 1-63 characters consisting of lowercase and uppercase letters, numbers, and
     /// hyphens. The literal `me` can also be used to refer to the authenticated
     /// user.
+    ///
+    /// This field is read-only.
     pub name: std::string::String,
 
     /// Optional. True if the user's stride length is determined automatically.
