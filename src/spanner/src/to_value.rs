@@ -212,6 +212,9 @@ impl ToValue for wkt::Timestamp {
     }
 }
 
+// wkt::Timestamp is strictly bounded to [0001-01-01, 9999-12-31], which is
+// entirely within OffsetDateTime's range ([-999,999, +999,999]). This conversion
+// is mathematically infallible.
 impl From<wkt::Timestamp> for Value {
     fn from(timestamp: wkt::Timestamp) -> Self {
         let nanos = timestamp.seconds() as i128 * 1_000_000_000 + timestamp.nanos() as i128;
@@ -396,101 +399,101 @@ mod tests {
 
     #[test]
     fn null_value_conversions() {
-        let null_val = Value::null();
-        assert_eq!(null_val.kind(), Kind::Null);
+        let null_value = Value::null();
+        assert_eq!(null_value.kind(), Kind::Null);
 
-        let unit_val = ().to_value();
-        assert_eq!(unit_val, null_val);
+        let unit_value = ().to_value();
+        assert_eq!(unit_value, null_value);
 
-        let unit_ref_into: Value = (&()).into();
-        assert_eq!(unit_ref_into, null_val);
+        let unit_ref_value: Value = (&()).into();
+        assert_eq!(unit_ref_value, null_value);
 
-        let some_unit = Some(()).to_value();
-        assert_eq!(some_unit, null_val);
+        let some_unit_value = Some(()).to_value();
+        assert_eq!(some_unit_value, null_value);
 
-        let opt_unit: Value = None::<()>.into();
-        assert_eq!(opt_unit, null_val);
+        let opt_unit_value: Value = None::<()>.into();
+        assert_eq!(opt_unit_value, null_value);
 
-        let opt_val: Value = None::<Value>.into();
-        assert_eq!(opt_val, null_val);
+        let opt_value: Value = None::<Value>.into();
+        assert_eq!(opt_value, null_value);
 
-        let opt_i64: Value = None::<i64>.into();
-        assert_eq!(opt_i64, null_val);
+        let opt_i64_value: Value = None::<i64>.into();
+        assert_eq!(opt_i64_value, null_value);
     }
 
     #[test]
     fn from_value_conversions() {
-        let v: Value = "hello".to_string().into();
-        assert_eq!(v.as_str(), Some("hello"));
+        let value: Value = "hello".to_string().into();
+        assert_eq!(value.as_str(), Some("hello"));
 
-        let v: Value = "world".into();
-        assert_eq!(v.as_str(), Some("world"));
+        let value: Value = "world".into();
+        assert_eq!(value.as_str(), Some("world"));
 
-        let v: Value = 42i64.into();
-        assert_eq!(v.as_str(), Some("42"));
+        let value: Value = 42i64.into();
+        assert_eq!(value.as_str(), Some("42"));
 
-        let v: Value = 42i32.into();
-        assert_eq!(v.as_str(), Some("42"));
+        let value: Value = 42i32.into();
+        assert_eq!(value.as_str(), Some("42"));
 
-        let v: Value = true.into();
-        assert_eq!(v.as_bool(), Some(true));
+        let value: Value = true.into();
+        assert_eq!(value.as_bool(), Some(true));
 
-        let v: Value = 42.5f64.into();
-        assert_eq!(v.as_f64(), Some(42.5));
+        let value: Value = 42.5f64.into();
+        assert_eq!(value.as_f64(), Some(42.5));
 
-        let v: Value = 42.5f32.into();
-        assert_eq!(v.as_f64(), Some(42.5));
+        let value: Value = 42.5f32.into();
+        assert_eq!(value.as_f64(), Some(42.5));
 
-        let v: Value = vec![1u8, 2, 3].into();
-        assert_eq!(v.as_str(), Some("AQID"));
+        let value: Value = vec![1u8, 2, 3].into();
+        assert_eq!(value.as_str(), Some("AQID"));
 
-        let v: Value = (&[1u8, 2, 3][..]).into();
-        assert_eq!(v.as_str(), Some("AQID"));
+        let value: Value = (&[1u8, 2, 3][..]).into();
+        assert_eq!(value.as_str(), Some("AQID"));
 
-        let d = Decimal::from_str("123.456").expect("valid decimal");
-        let v: Value = d.into();
-        assert_eq!(v.as_str(), Some("123.456"));
+        let decimal = Decimal::from_str("123.456").expect("valid decimal");
+        let value: Value = decimal.into();
+        assert_eq!(value.as_str(), Some("123.456"));
 
         #[cfg(feature = "unstable-time")]
         {
             let date_time = OffsetDateTime::parse("2023-10-27T10:00:00Z", &Rfc3339)
                 .expect("valid RFC 3339 format");
-            let v: Value = date_time.into();
-            assert_eq!(v.as_str(), Some("2023-10-27T10:00:00.000000000Z"));
+            let value: Value = date_time.into();
+            assert_eq!(value.as_str(), Some("2023-10-27T10:00:00.000000000Z"));
 
             let time_date = TimeDate::from_calendar_date(2023, Month::October, 27)
                 .expect("valid calendar date");
-            let v: Value = time_date.into();
-            assert_eq!(v.as_str(), Some("2023-10-27"));
+            let value: Value = time_date.into();
+            assert_eq!(value.as_str(), Some("2023-10-27"));
         }
 
         let system_time = SystemTime::UNIX_EPOCH + Duration::from_secs(1698400800);
-        let v: Value = system_time.into();
-        assert_eq!(v.as_str(), Some("2023-10-27T10:00:00.000000000Z"));
+        let value: Value = system_time.into();
+        assert_eq!(value.as_str(), Some("2023-10-27T10:00:00.000000000Z"));
 
         let timestamp = wkt::Timestamp::clamp(1698400800, 0);
-        let v: Value = timestamp.into();
-        assert_eq!(v.as_str(), Some("2023-10-27T10:00:00.000000000Z"));
+        let value: Value = timestamp.into();
+        assert_eq!(value.as_str(), Some("2023-10-27T10:00:00.000000000Z"));
 
         let google_date = Date::new().set_year(2023).set_month(10).set_day(27);
-        let v: Value = (&google_date).into();
-        assert_eq!(v.as_str(), Some("2023-10-27"));
+        let value: Value = (&google_date).into();
+        assert_eq!(value.as_str(), Some("2023-10-27"));
 
-        let json_val = serde_json::json!({"key": "value"});
-        let v: Value = json_val.into();
-        assert_eq!(v.as_str(), Some("{\"key\":\"value\"}"));
+        let json_value = serde_json::json!({"key": "value"});
+        let value: Value = json_value.into();
+        assert_eq!(value.as_str(), Some("{\"key\":\"value\"}"));
 
         let list: Value = vec![1i64, 2i64].into();
         assert_eq!(list.kind(), Kind::List);
         assert_eq!(list.as_list().expect("list should exist").len(), 2);
 
-        let opt_some: Value = Some(42i64).into();
-        assert_eq!(opt_some.as_str(), Some("42"));
-        let opt_none: Value = None::<i64>.into();
-        assert_eq!(opt_none.kind(), Kind::Null);
+        let opt_some_value: Value = Some(42i64).into();
+        assert_eq!(opt_some_value.as_str(), Some("42"));
+        let opt_none_value: Value = None::<i64>.into();
+        assert_eq!(opt_none_value.kind(), Kind::Null);
 
-        let unit: Value = ().into();
-        assert_eq!(unit.kind(), Kind::Null);
+        let unit_value: Value = ().into();
+        assert_eq!(unit_value.kind(), Kind::Null);
 
         let borrowed_i64: Value = (&42i64).into();
         assert_eq!(borrowed_i64.as_str(), Some("42"));
@@ -501,20 +504,20 @@ mod tests {
         let borrowed_date: Value = google_date.into();
         assert_eq!(borrowed_date.as_str(), Some("2023-10-27"));
 
-        let vec_opt: Value = vec![Some(1_i64), None].into();
-        assert_eq!(vec_opt.kind(), Kind::List);
-        assert_eq!(vec_opt.as_list().expect("list should exist").len(), 2);
+        let vec_opt_value: Value = vec![Some(1_i64), None].into();
+        assert_eq!(vec_opt_value.kind(), Kind::List);
+        assert_eq!(vec_opt_value.as_list().expect("list should exist").len(), 2);
     }
 
     #[test]
     fn to_value_string() {
-        let v = "hello".to_string().to_value();
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("hello"));
+        let value = "hello".to_string().to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("hello"));
 
-        let v = "world".to_value();
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("world"));
+        let value = "world".to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("world"));
     }
 
     #[test]
@@ -523,59 +526,59 @@ mod tests {
             val.to_value()
         }
 
-        let v = bind_param("hello");
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("hello"));
+        let value = bind_param("hello");
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("hello"));
 
         let owned: String = "hello".to_string();
-        assert_eq!(bind_param(&owned), v);
+        assert_eq!(bind_param(&owned), value);
         let borrowed: &str = &owned;
-        assert_eq!(bind_param(&borrowed), v);
+        assert_eq!(bind_param(&borrowed), value);
     }
 
     #[test]
     fn to_value_int() {
-        let v = 42i64.to_value();
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("42"));
+        let value = 42i64.to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("42"));
 
-        let v = 42i32.to_value();
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("42"));
+        let value = 42i32.to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("42"));
     }
 
     #[test]
     fn to_value_float() {
-        let v = 42.5f64.to_value();
-        assert_eq!(v.kind(), Kind::Number);
-        assert_eq!(v.as_f64(), Some(42.5));
+        let value = 42.5f64.to_value();
+        assert_eq!(value.kind(), Kind::Number);
+        assert_eq!(value.as_f64(), Some(42.5));
 
-        let v = 42.5f32.to_value();
-        assert_eq!(v.kind(), Kind::Number);
-        assert_eq!(v.as_f64(), Some(42.5));
+        let value = 42.5f32.to_value();
+        assert_eq!(value.kind(), Kind::Number);
+        assert_eq!(value.as_f64(), Some(42.5));
     }
 
     #[test]
     fn to_value_bool() {
-        let v = true.to_value();
-        assert_eq!(v.kind(), Kind::Bool);
-        assert_eq!(v.as_bool(), Some(true));
+        let value = true.to_value();
+        assert_eq!(value.kind(), Kind::Bool);
+        assert_eq!(value.as_bool(), Some(true));
 
-        let v = false.to_value();
-        assert_eq!(v.kind(), Kind::Bool);
-        assert_eq!(v.as_bool(), Some(false));
+        let value = false.to_value();
+        assert_eq!(value.kind(), Kind::Bool);
+        assert_eq!(value.as_bool(), Some(false));
     }
 
     #[test]
     fn to_value_bytes() {
         let bytes: Vec<u8> = vec![1, 2, 3];
-        let v = bytes.to_value();
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("AQID")); // Base64 encoded
+        let value = bytes.to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("AQID")); // Base64 encoded
 
-        let slice_val: Value = (&[1u8, 2, 3][..]).into();
-        assert_eq!(slice_val.kind(), Kind::String);
-        assert_eq!(slice_val.as_str(), Some("AQID"));
+        let slice_value: Value = (&[1u8, 2, 3][..]).into();
+        assert_eq!(slice_value.kind(), Kind::String);
+        assert_eq!(slice_value.as_str(), Some("AQID"));
     }
 
     #[test]
@@ -585,17 +588,17 @@ mod tests {
         }
 
         let slice: &[u8] = &[1, 2, 3];
-        let v = bind_param(slice);
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("AQID"));
+        let value = bind_param(slice);
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("AQID"));
     }
 
     #[test]
     fn to_value_decimal() {
-        let d = Decimal::from_str("123.456").expect("valid decimal");
-        let v = d.to_value();
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("123.456"));
+        let decimal = Decimal::from_str("123.456").expect("valid decimal");
+        let value = decimal.to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("123.456"));
     }
 
     #[test]
@@ -641,15 +644,16 @@ mod tests {
         assert_eq!(value.kind(), Kind::String);
         assert_eq!(value.as_str(), Some("2023-10-27T10:00:00.000000000Z"));
 
+        // Verify boundary conditions (MIN_SECONDS and MAX_SECONDS) convert cleanly without panicking.
         let min_timestamp = wkt::Timestamp::clamp(wkt::Timestamp::MIN_SECONDS, 0);
-        let value = min_timestamp.to_value();
-        assert_eq!(value.kind(), Kind::String);
-        assert_eq!(value.as_str(), Some("0001-01-01T00:00:00.000000000Z"));
+        let min_value = min_timestamp.to_value();
+        assert_eq!(min_value.kind(), Kind::String);
+        assert_eq!(min_value.as_str(), Some("0001-01-01T00:00:00.000000000Z"));
 
         let max_timestamp = wkt::Timestamp::clamp(wkt::Timestamp::MAX_SECONDS, 999_999_999);
-        let value = max_timestamp.to_value();
-        assert_eq!(value.kind(), Kind::String);
-        assert_eq!(value.as_str(), Some("9999-12-31T23:59:59.999999999Z"));
+        let max_value = max_timestamp.to_value();
+        assert_eq!(max_value.kind(), Kind::String);
+        assert_eq!(max_value.as_str(), Some("9999-12-31T23:59:59.999999999Z"));
     }
 
     #[test]
@@ -663,28 +667,28 @@ mod tests {
     #[test]
     fn to_value_option() {
         let some_value: Option<i32> = Some(42);
-        let v = some_value.to_value();
-        assert_eq!(v.kind(), Kind::String);
-        assert_eq!(v.as_str(), Some("42"));
+        let value = some_value.to_value();
+        assert_eq!(value.kind(), Kind::String);
+        assert_eq!(value.as_str(), Some("42"));
 
         let none_value: Option<i32> = None;
-        let v = none_value.to_value();
-        assert_eq!(v.kind(), Kind::Null);
+        let value = none_value.to_value();
+        assert_eq!(value.kind(), Kind::Null);
     }
 
     #[test]
     fn to_value_value() {
-        let v_original = 42i32.to_value();
-        let v = v_original.to_value();
-        assert_eq!(v, v_original);
+        let original_value = 42i32.to_value();
+        let value = original_value.to_value();
+        assert_eq!(value, original_value);
     }
 
     #[test]
     fn to_value_array() {
-        let str_array = vec!["one".to_string(), "two".to_string()];
-        let v = str_array.to_value();
-        assert_eq!(v.kind(), Kind::List);
-        let list = v.as_list().expect("list should exist");
+        let string_array = vec!["one".to_string(), "two".to_string()];
+        let value = string_array.to_value();
+        assert_eq!(value.kind(), Kind::List);
+        let list = value.as_list().expect("list should exist");
         assert_eq!(list.len(), 2);
         assert_eq!(
             list.get(0).expect("element 0 should exist").as_str(),
@@ -696,9 +700,9 @@ mod tests {
         );
 
         let int_array = vec![42i64, 100i64];
-        let v = int_array.to_value();
-        assert_eq!(v.kind(), Kind::List);
-        let list = v.as_list().expect("list should exist");
+        let value = int_array.to_value();
+        assert_eq!(value.kind(), Kind::List);
+        let list = value.as_list().expect("list should exist");
         assert_eq!(list.len(), 2);
         assert_eq!(
             list.get(0).expect("element 0 should exist").as_str(),
@@ -710,9 +714,9 @@ mod tests {
         );
 
         let bool_array = vec![true, false];
-        let v = bool_array.to_value();
-        assert_eq!(v.kind(), Kind::List);
-        let list = v.as_list().expect("list should exist");
+        let value = bool_array.to_value();
+        assert_eq!(value.kind(), Kind::List);
+        let list = value.as_list().expect("list should exist");
         assert_eq!(list.len(), 2);
         assert_eq!(
             list.get(0).expect("element 0 should exist").as_bool(),
@@ -724,9 +728,9 @@ mod tests {
         );
 
         let float_array = vec![9.9f64, -2.5f64];
-        let v = float_array.to_value();
-        assert_eq!(v.kind(), Kind::List);
-        let list = v.as_list().expect("list should exist");
+        let value = float_array.to_value();
+        assert_eq!(value.kind(), Kind::List);
+        let list = value.as_list().expect("list should exist");
         assert_eq!(list.len(), 2);
         assert_eq!(
             list.get(0).expect("element 0 should exist").as_f64(),
@@ -738,18 +742,18 @@ mod tests {
         );
 
         let empty_array: Vec<f64> = vec![];
-        let v = empty_array.to_value();
-        assert_eq!(v.kind(), Kind::List);
-        assert_eq!(v.as_list().expect("list should exist").len(), 0);
+        let value = empty_array.to_value();
+        assert_eq!(value.kind(), Kind::List);
+        assert_eq!(value.as_list().expect("list should exist").len(), 0);
 
         let null_array: Option<Vec<i64>> = None;
-        let v = null_array.to_value();
-        assert_eq!(v.kind(), Kind::Null);
+        let value = null_array.to_value();
+        assert_eq!(value.kind(), Kind::Null);
 
         let opt_array: Vec<Option<i64>> = vec![Some(42), None, Some(100)];
-        let v = opt_array.to_value();
-        assert_eq!(v.kind(), Kind::List);
-        let list = v.as_list().expect("list should exist");
+        let value = opt_array.to_value();
+        assert_eq!(value.kind(), Kind::List);
+        let list = value.as_list().expect("list should exist");
         assert_eq!(list.len(), 3);
         assert_eq!(
             list.get(0).expect("element 0 should exist").as_str(),
@@ -767,36 +771,36 @@ mod tests {
 
     #[test]
     fn to_value_non_finite_floats() {
-        let f64_nan_val = f64::NAN.to_value();
-        assert_eq!(f64_nan_val.kind(), Kind::String);
-        assert_eq!(f64_nan_val.as_str(), Some("NaN"));
+        let f64_nan_value = f64::NAN.to_value();
+        assert_eq!(f64_nan_value.kind(), Kind::String);
+        assert_eq!(f64_nan_value.as_str(), Some("NaN"));
 
-        let f64_inf_val = f64::INFINITY.to_value();
-        assert_eq!(f64_inf_val.kind(), Kind::String);
-        assert_eq!(f64_inf_val.as_str(), Some("Infinity"));
+        let f64_infinity_value = f64::INFINITY.to_value();
+        assert_eq!(f64_infinity_value.kind(), Kind::String);
+        assert_eq!(f64_infinity_value.as_str(), Some("Infinity"));
 
-        let f64_neginf_val = f64::NEG_INFINITY.to_value();
-        assert_eq!(f64_neginf_val.kind(), Kind::String);
-        assert_eq!(f64_neginf_val.as_str(), Some("-Infinity"));
+        let f64_neg_infinity_value = f64::NEG_INFINITY.to_value();
+        assert_eq!(f64_neg_infinity_value.kind(), Kind::String);
+        assert_eq!(f64_neg_infinity_value.as_str(), Some("-Infinity"));
 
-        let f64_finite_val = 42.5f64.to_value();
-        assert_eq!(f64_finite_val.kind(), Kind::Number);
-        assert_eq!(f64_finite_val.as_f64(), Some(42.5));
+        let f64_finite_value = 42.5f64.to_value();
+        assert_eq!(f64_finite_value.kind(), Kind::Number);
+        assert_eq!(f64_finite_value.as_f64(), Some(42.5));
 
-        let f32_nan_val = f32::NAN.to_value();
-        assert_eq!(f32_nan_val.kind(), Kind::String);
-        assert_eq!(f32_nan_val.as_str(), Some("NaN"));
+        let f32_nan_value = f32::NAN.to_value();
+        assert_eq!(f32_nan_value.kind(), Kind::String);
+        assert_eq!(f32_nan_value.as_str(), Some("NaN"));
 
-        let f32_inf_val = f32::INFINITY.to_value();
-        assert_eq!(f32_inf_val.kind(), Kind::String);
-        assert_eq!(f32_inf_val.as_str(), Some("Infinity"));
+        let f32_infinity_value = f32::INFINITY.to_value();
+        assert_eq!(f32_infinity_value.kind(), Kind::String);
+        assert_eq!(f32_infinity_value.as_str(), Some("Infinity"));
 
-        let f32_neginf_val = f32::NEG_INFINITY.to_value();
-        assert_eq!(f32_neginf_val.kind(), Kind::String);
-        assert_eq!(f32_neginf_val.as_str(), Some("-Infinity"));
+        let f32_neg_infinity_value = f32::NEG_INFINITY.to_value();
+        assert_eq!(f32_neg_infinity_value.kind(), Kind::String);
+        assert_eq!(f32_neg_infinity_value.as_str(), Some("-Infinity"));
 
-        let f32_finite_val = 12.5f32.to_value();
-        assert_eq!(f32_finite_val.kind(), Kind::Number);
-        assert_eq!(f32_finite_val.as_f64(), Some(12.5));
+        let f32_finite_value = 12.5f32.to_value();
+        assert_eq!(f32_finite_value.kind(), Kind::Number);
+        assert_eq!(f32_finite_value.as_f64(), Some(12.5));
     }
 }
