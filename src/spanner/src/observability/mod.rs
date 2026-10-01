@@ -18,5 +18,5 @@ pub(crate) mod metrics;
 #[cfg(all(test, feature = "builtin-metrics"))]
 mod mock_tests;
 pub(crate) use metrics::Observability;
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) use metrics::SharedMeterProvider;

@@ -26,7 +26,7 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [package.metadata.docs.rs]
-features = ["unstable-time"]
+all-features = true
 
 [features]
 default = ["builtin-metrics", "default-rustls-provider"]
@@ -37,31 +37,40 @@ default = ["builtin-metrics", "default-rustls-provider"]
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
 unstable-stream         = ["dep:futures"]
 
+# Feature flag for unstable OpenTelemetry integration.
+#
+# Enables injecting a custom caller-supplied OpenTelemetry [MeterProvider]
+# via [with_meter_provider] and re-exports [opentelemetry].
+#
+# Note: Because the `opentelemetry` crate has not yet reached 1.0, this feature
+# is considered unstable and is subject to SemVer-incompatible changes across
+# OpenTelemetry minor releases.
+unstable-metrics = ["_internal-metrics"]
+
 # Enables support for types from the `time` crate (`time::OffsetDateTime` and `time::Date`).
 unstable-time = ["wkt/time"]
-
-# Enables collecting and recording metrics on a caller-owned OpenTelemetry MeterProvider.
-# Pulls in only the lightweight OpenTelemetry API trait definitions and UUID generator.
-# When enabled without `builtin-metrics`, applications can record both Client metrics and
-# Spanner built-in request/attempt latency metrics to a custom MeterProvider (e.g. exporting
-# to Datadog, Prometheus, or an OpenTelemetry Collector) without compiling Google Cloud
-# Monitoring dependencies.
-metrics = ["dep:opentelemetry", "dep:uuid"]
 
 # Enabled by default. Includes the background Google Cloud Monitoring (GCM) export pipeline
 # that automatically publishes Spanner built-in request and latency metrics to Cloud Monitoring.
 #
+# OpenTelemetry is used strictly as an internal implementation detail and is NOT exposed in the
+# public API.
+#
 # Applications that run outside GCP (such as Spanner Omni), or that send metrics to third-party
-# monitoring systems instead of Cloud Monitoring, can disable this feature while keeping the
-# `metrics` feature enabled to record built-in metrics directly to their own OpenTelemetry
+# monitoring systems instead of Cloud Monitoring, can disable this feature and enable
+# `unstable-metrics` to record built-in metrics directly to their own OpenTelemetry
 # MeterProvider.
 builtin-metrics = [
+  "_internal-metrics",
   "dep:google-cloud-api",
   "dep:google-cloud-monitoring-v3",
   "dep:opentelemetry_sdk",
   "gaxi/_internal-http-client",
-  "metrics",
 ]
+
+# Internal feature enabling the metric collection machinery (SpannerMetrics, attempt interceptor).
+# Used internally by `builtin-metrics` and `unstable-metrics`.
+_internal-metrics = ["dep:opentelemetry", "dep:uuid"]
 
 [dependencies]
 async-trait.workspace                  = true

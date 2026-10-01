@@ -19,25 +19,25 @@ use gaxi::attempt_interceptor::AttemptInterceptor;
 use gaxi::options::ClientConfig;
 use google_cloud_gax::error::Error;
 use http::HeaderMap;
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 use std::fmt;
 use std::fmt::Debug;
 use std::future::Future;
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 use std::ops::Deref;
 use std::sync::Arc;
 use std::time::Duration;
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) const INSTRUMENTATION_SCOPE: &str = "cloud.google.com/rust";
 
-#[cfg(any(test, feature = "builtin-metrics"))]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) const NATIVE_METRICS_PREFIX: &str = "spanner.googleapis.com/internal/client/";
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) const CLIENT_METRICS_PREFIX: &str = "spanner/client/";
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 use {
     google_cloud_gax::options::RequestOptions,
     http::header::{HeaderName, HeaderValue},
@@ -67,7 +67,7 @@ use {
 #[cfg(feature = "builtin-metrics")]
 pub(crate) const DEFAULT_EXPORT_INTERVAL: Duration = Duration::from_secs(60);
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) const BUCKET_BOUNDARIES: [f64; 50] = [
     0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0,
     16.0, 17.0, 18.0, 19.0, 20.0, 25.0, 30.0, 40.0, 50.0, 65.0, 80.0, 100.0, 130.0, 160.0, 200.0,
@@ -88,7 +88,7 @@ const DEFAULT_METADATA_ROOT: &str = "http://metadata.google.internal";
 #[cfg(feature = "builtin-metrics")]
 const INSTANCE_ZONE_METADATA_PATH: &str = "/computeMetadata/v1/instance/zone";
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 #[derive(Clone, Debug)]
 pub(crate) struct SpannerMetrics {
     operation_latencies: Histogram<f64>,
@@ -102,7 +102,7 @@ pub(crate) struct SpannerMetrics {
     afe_connectivity_error_count: Counter<u64>,
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 impl SpannerMetrics {
     #[cfg(any(test, feature = "builtin-metrics"))]
     pub(crate) fn new(meter: &Meter) -> Self {
@@ -172,7 +172,7 @@ impl SpannerMetrics {
 
 /// Parses `projects/{project}/instances/{instance}/databases/{database}` into its
 /// `(project_id, instance_id, database_id)` components.
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) fn parse_database_name(database_name: &str) -> Option<(&str, &str, &str)> {
     let mut parts = database_name.split('/');
     if parts.next() != Some("projects") {
@@ -195,7 +195,7 @@ pub(crate) fn parse_database_name(database_name: &str) -> Option<(&str, &str, &s
 
 /// Generates a unique identifier for the `client_uid` metric attribute in the format
 /// `UUID@PID@hostname`.
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) fn generate_client_uid() -> String {
     let uuid = Uuid::new_v4().to_string();
     let pid = process::id();
@@ -328,12 +328,12 @@ async fn fetch_location_from_mds() -> Option<String> {
 }
 
 /// Returns the library client identification string (`"spanner-rust/<VERSION>"`).
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) fn client_name() -> &'static str {
     concat!("spanner-rust/", env!("CARGO_PKG_VERSION"))
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 #[derive(Debug)]
 pub(crate) struct Observability {
     pub(crate) metrics: Vec<SpannerMetrics>,
@@ -344,7 +344,7 @@ pub(crate) struct Observability {
     pub(crate) caller_meter_provider: Option<SharedMeterProvider>,
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 impl Observability {
     pub(crate) fn disabled() -> Self {
         Self::disabled_with_caller_provider(None)
@@ -661,7 +661,7 @@ impl Observability {
     }
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 impl Drop for Observability {
     fn drop(&mut self) {
         self.shutdown();
@@ -679,17 +679,17 @@ impl Drop for Observability {
 /// - Implements [`Deref<Target = dyn MeterProvider + Send + Sync>`](std::ops::Deref) so callers
 ///   can invoke meter methods directly without manual unwrapping.
 /// - Implements [`Clone`] and [`From<Arc<dyn MeterProvider + Send + Sync>>`].
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) struct SharedMeterProvider(pub(crate) Arc<dyn MeterProvider + Send + Sync>);
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 impl Clone for SharedMeterProvider {
     fn clone(&self) -> Self {
         Self(Arc::clone(&self.0))
     }
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 impl fmt::Debug for SharedMeterProvider {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         formatter
@@ -698,14 +698,14 @@ impl fmt::Debug for SharedMeterProvider {
     }
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 impl From<Arc<dyn MeterProvider + Send + Sync>> for SharedMeterProvider {
     fn from(provider: Arc<dyn MeterProvider + Send + Sync>) -> Self {
         Self(provider)
     }
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 impl Deref for SharedMeterProvider {
     type Target = dyn MeterProvider;
 
@@ -714,23 +714,23 @@ impl Deref for SharedMeterProvider {
     }
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) const AFE_SERVER_TIMING_HEADER: &str = "x-goog-spanner-enable-afe-server-timing";
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 static AFE_SERVER_TIMING_ENABLED: LazyLock<bool> = LazyLock::new(|| {
     !env::var("SPANNER_DISABLE_AFE_SERVER_TIMING")
         .map(|val| val.eq_ignore_ascii_case("true") || val == "1")
         .unwrap_or(false)
 });
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 #[inline]
 fn is_afe_server_timing_enabled() -> bool {
     *AFE_SERVER_TIMING_ENABLED
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) fn normalize_method_name(method: &str) -> Cow<'static, str> {
     let trimmed = method.trim_start_matches('/');
     let clean = if let Some(suffix) = trimmed.strip_prefix("google.spanner.v1.") {
@@ -771,14 +771,14 @@ pub(crate) fn normalize_method_name(method: &str) -> Cow<'static, str> {
     }
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 fn error_to_status_str(error: Option<&Error>) -> &'static str {
     error.map_or("OK", |e| {
         e.status().map_or("UNKNOWN", |status| status.code.name())
     })
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) fn parse_server_timing_from_headers(headers: &HeaderMap) -> ServerTimings {
     let mut timings = ServerTimings::default();
     for header_value in headers.get_all("server-timing") {
@@ -793,10 +793,10 @@ pub(crate) fn parse_server_timing_from_headers(headers: &HeaderMap) -> ServerTim
 }
 
 #[derive(Debug, Default, Clone)]
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) struct SpannerMetricsInterceptor;
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 impl AttemptInterceptor for SpannerMetricsInterceptor {
     fn intercept(&self, headers: &mut HeaderMap, _attempt: u32) {
         if is_afe_server_timing_enabled() {
@@ -824,14 +824,14 @@ impl AttemptInterceptor for SpannerMetricsInterceptor {
     }
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 #[derive(Debug, Default, PartialEq)]
 pub(crate) struct ServerTimings {
     pub(crate) gfe_latency: Option<f64>,
     pub(crate) afe_latency: Option<f64>,
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 pub(crate) fn parse_server_timing(header_val: &str) -> ServerTimings {
     let mut timings = ServerTimings::default();
     for part in header_val.split(',') {
@@ -856,7 +856,7 @@ pub(crate) fn parse_server_timing(header_val: &str) -> ServerTimings {
     timings
 }
 
-#[cfg(feature = "metrics")]
+#[cfg(feature = "_internal-metrics")]
 fn parse_duration_param(param: &str) -> Option<f64> {
     let (key, value) = param.split_once('=')?;
     if !key.trim().eq_ignore_ascii_case("dur") {
@@ -870,11 +870,11 @@ fn parse_duration_param(param: &str) -> Option<f64> {
         .filter(|duration| *duration >= 0.0 && duration.is_finite())
 }
 
-#[cfg(not(feature = "metrics"))]
+#[cfg(not(feature = "_internal-metrics"))]
 #[derive(Debug, Default)]
 pub(crate) struct Observability;
 
-#[cfg(not(feature = "metrics"))]
+#[cfg(not(feature = "_internal-metrics"))]
 impl Observability {
     pub(crate) fn disabled() -> Self {
         Self
@@ -909,7 +909,7 @@ impl Observability {
     /// No-op stub implementation when the `metrics` feature is disabled.
     ///
     /// This allows interceptors to call `record_attempt` unconditionally without sprinkling
-    /// `#[cfg(feature = "metrics")]` across call sites.
+    /// `#[cfg(feature = "_internal-metrics")]` across call sites.
     #[inline(always)]
     pub(crate) fn record_attempt(
         &self,
@@ -923,7 +923,7 @@ impl Observability {
     /// No-op stub implementation when the `metrics` feature is disabled.
     ///
     /// This allows client operations to call `record_operation` unconditionally without sprinkling
-    /// `#[cfg(feature = "metrics")]` across call sites.
+    /// `#[cfg(feature = "_internal-metrics")]` across call sites.
     #[inline(always)]
     pub(crate) fn record_operation(
         &self,
@@ -938,15 +938,15 @@ impl Observability {
     pub(crate) fn shutdown(&self) {}
 }
 
-#[cfg(not(feature = "metrics"))]
+#[cfg(not(feature = "_internal-metrics"))]
 #[allow(dead_code)]
 #[derive(Debug, Default, Clone)]
 pub(crate) struct SpannerMetricsInterceptor;
 
-#[cfg(not(feature = "metrics"))]
+#[cfg(not(feature = "_internal-metrics"))]
 impl AttemptInterceptor for SpannerMetricsInterceptor {}
 
-#[cfg(all(test, not(feature = "metrics")))]
+#[cfg(all(test, not(feature = "_internal-metrics")))]
 mod disabled_tests {
     use super::*;
 
@@ -972,7 +972,7 @@ mod disabled_tests {
     }
 }
 
-#[cfg(all(test, feature = "metrics"))]
+#[cfg(all(test, feature = "_internal-metrics"))]
 mod tests {
     use super::*;
     use google_cloud_gax::error::rpc::{Code, Status};
