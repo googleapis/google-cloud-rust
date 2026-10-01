@@ -5336,6 +5336,7 @@ dependencies = [
  "google-cloud-spanner-admin-database-v1",
  "google-cloud-spanner-admin-instance-v1",
  "google-cloud-test-macros",
+ "google-cloud-type",
  "google-cloud-wkt",
  "http",
  "mockall",

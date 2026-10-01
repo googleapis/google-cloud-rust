@@ -21,38 +21,26 @@ use google_cloud_spanner::mutation::Mutation;
 use google_cloud_spanner::read::ReadRequest;
 use google_cloud_spanner::statement::Statement;
 use google_cloud_spanner::value::{Kind, Value};
-use prost_types::value::Kind as ProtoKind;
-use prost_types::{ListValue, Value as ProtoValue};
 use std::str::FromStr;
 
-fn string_val(s: &str) -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::StringValue(s.to_string())),
-    }
+fn string_val(s: &str) -> Value {
+    s.to_string().into()
 }
 
-fn number_val(f: f64) -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::NumberValue(f)),
-    }
+fn number_val(f: f64) -> Value {
+    f.into()
 }
 
-fn bool_val(b: bool) -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::BoolValue(b)),
-    }
+fn bool_val(b: bool) -> Value {
+    b.into()
 }
 
-fn array_val(values: Vec<ProtoValue>) -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::ListValue(ListValue { values })),
-    }
+fn array_val(values: Vec<Value>) -> Value {
+    values.into()
 }
 
-fn null_val() -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::NullValue(0)),
-    }
+fn null_val() -> Value {
+    Value::null()
 }
 
 pub enum WriteMethod {
@@ -186,25 +174,25 @@ async fn write_internal(
         .set("ColJson")
         .to::<Option<String>>(None)
         .set("ColArrayBool")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayInt64")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayFloat32")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayFloat64")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayNumeric")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayString")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayBytes")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayDate")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayTimestamp")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayJson")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .build();
 
     let id3 = format!(

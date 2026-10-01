@@ -21,6 +21,8 @@ pub(crate) const SPANNER_DATE_FORMAT: &[time::format_description::FormatItem<'st
 pub use crate::from_value::FromValue;
 pub use crate::to_value::ToValue;
 pub use crate::types::{Type, TypeCode};
+pub use google_cloud_type::model::Date;
+pub use wkt::Timestamp;
 
 use prost_types::Value as ProtoValue;
 use serde_json::Number as JsonNumber;

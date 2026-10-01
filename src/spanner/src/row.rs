@@ -251,10 +251,11 @@ mod tests {
     use super::*;
     use crate::to_value::ToValue;
     use crate::types;
+    use crate::value::Date;
     use rust_decimal::Decimal;
     use std::collections::BTreeMap;
     use std::sync::Arc;
-    use time::{Date, Month, OffsetDateTime};
+    use wkt::Timestamp;
 
     fn empty_row() -> Row {
         Row {
@@ -308,12 +309,8 @@ mod tests {
         ];
 
         let decimal = Decimal::from_str_exact("123.456").expect("valid decimal");
-        let date = Date::from_calendar_date(2023, Month::October, 27).expect("valid date");
-        let timestamp = OffsetDateTime::parse(
-            "2023-10-27T10:00:00Z",
-            &time::format_description::well_known::Rfc3339,
-        )
-        .expect("valid timestamp");
+        let date = Date::new().set_year(2023).set_month(10).set_day(27);
+        let timestamp = Timestamp::clamp(1_698_400_800, 0);
 
         let values = vec![
             "hello".to_string().to_value(),
@@ -322,7 +319,7 @@ mod tests {
             true.to_value(),
             vec![1_u8, 2, 3].to_value(),
             decimal.to_value(),
-            date.to_value(),
+            date.clone().to_value(),
             timestamp.to_value(),
             1.23_f32.to_value(),
             "{\"key\":\"value\"}".to_string().to_value(),
@@ -352,7 +349,7 @@ mod tests {
         assert_eq!(row.get::<Vec<u8>, _>(4), vec![1_u8, 2, 3]);
         assert_eq!(row.get::<Decimal, _>(5), decimal);
         assert_eq!(row.get::<Date, _>(6), date);
-        assert_eq!(row.get::<OffsetDateTime, _>(7), timestamp);
+        assert_eq!(row.get::<Timestamp, _>(7), timestamp);
         assert_eq!(row.get::<f32, _>(8), 1.23_f32);
         assert_eq!(row.get::<String, _>(9), "{\"key\":\"value\"}");
         assert_eq!(
@@ -372,7 +369,7 @@ mod tests {
         assert_eq!(row.get::<Vec<u8>, _>("col_bytes"), vec![1_u8, 2, 3]);
         assert_eq!(row.get::<Decimal, _>("col_numeric"), decimal);
         assert_eq!(row.get::<Date, _>("col_date"), date);
-        assert_eq!(row.get::<OffsetDateTime, _>("col_timestamp"), timestamp);
+        assert_eq!(row.get::<Timestamp, _>("col_timestamp"), timestamp);
         assert_eq!(row.get::<f32, _>("col_float32"), 1.23_f32);
         assert_eq!(row.get::<String, _>("col_json"), "{\"key\":\"value\"}");
         assert_eq!(
