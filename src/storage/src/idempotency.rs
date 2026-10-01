@@ -30,6 +30,7 @@
 
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::options::internal::{RequestOptionsExt, set_default_idempotency};
+use http::{HeaderMap, HeaderValue};
 
 /// The header Cloud Storage uses to deduplicate retried mutations.
 pub(crate) const IDEMPOTENCY_TOKEN_HEADER: &str = "x-goog-gcs-idempotency-token";
@@ -49,14 +50,17 @@ pub(crate) fn mutation(options: RequestOptions, idempotent: bool) -> RequestOpti
     if options.idempotent() != Some(true) {
         return options;
     }
-    let mut headers = options
-        .get_extension::<http::HeaderMap>()
-        .cloned()
-        .unwrap_or_default();
-    if headers.contains_key(IDEMPOTENCY_TOKEN_HEADER) {
+    if options
+        .get_extension::<HeaderMap>()
+        .is_some_and(|h| h.contains_key(IDEMPOTENCY_TOKEN_HEADER))
+    {
         return options;
     }
-    let token = http::HeaderValue::try_from(uuid::Uuid::new_v4().to_string())
+    let mut headers = options
+        .get_extension::<HeaderMap>()
+        .cloned()
+        .unwrap_or_default();
+    let token = HeaderValue::try_from(uuid::Uuid::new_v4().to_string())
         .expect("a hyphenated UUID is always a valid header value");
     headers.insert(IDEMPOTENCY_TOKEN_HEADER, token);
     options.insert_extension(headers)
@@ -163,9 +167,9 @@ mod tests {
     };
     use test_case::test_case;
 
-    fn token(options: &RequestOptions) -> Option<&http::HeaderValue> {
+    fn token(options: &RequestOptions) -> Option<&HeaderValue> {
         options
-            .get_extension::<http::HeaderMap>()
+            .get_extension::<HeaderMap>()
             .and_then(|h| h.get(IDEMPOTENCY_TOKEN_HEADER))
     }
 
@@ -224,6 +228,7 @@ mod tests {
     #[test_case(DeleteObjectRequest::new().set_generation(1), true; "generation")]
     #[test_case(DeleteObjectRequest::new().set_if_generation_match(1), true; "if_generation_match")]
     #[test_case(DeleteObjectRequest::new().set_if_generation_not_match(1), false; "if_generation_not_match")]
+    #[test_case(DeleteObjectRequest::new().set_if_metageneration_match(1), false; "if_metageneration_match alone")]
     fn delete_object(req: DeleteObjectRequest, want: bool) {
         assert_mutation(req.resolve_idempotency(RequestOptions::default()), want);
     }
@@ -261,10 +266,10 @@ mod tests {
 
     #[test]
     fn existing_token_is_kept() {
-        let mut headers = http::HeaderMap::new();
+        let mut headers = HeaderMap::new();
         headers.insert(
             IDEMPOTENCY_TOKEN_HEADER,
-            http::HeaderValue::from_static("caller-token"),
+            HeaderValue::from_static("caller-token"),
         );
         let options = RequestOptions::default().insert_extension(headers);
         let got = mutation(options, true);
@@ -276,13 +281,11 @@ mod tests {
 
     #[test]
     fn other_headers_are_kept() {
-        let mut headers = http::HeaderMap::new();
-        headers.insert("x-goog-custom", http::HeaderValue::from_static("keep-me"));
+        let mut headers = HeaderMap::new();
+        headers.insert("x-goog-custom", HeaderValue::from_static("keep-me"));
         let options = RequestOptions::default().insert_extension(headers);
         let got = mutation(options, true);
-        let headers = got
-            .get_extension::<http::HeaderMap>()
-            .expect("headers are set");
+        let headers = got.get_extension::<HeaderMap>().expect("headers are set");
         assert_eq!(
             headers.get("x-goog-custom").map(|v| v.as_bytes()),
             Some("keep-me".as_bytes())
