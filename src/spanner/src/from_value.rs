@@ -14,13 +14,19 @@
 
 pub use crate::types::{Type, TypeCode};
 use crate::value::Kind;
+use crate::value::SPANNER_DATE_FORMAT;
 use crate::value::Value;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use google_cloud_type::model::Date;
 use rust_decimal::Decimal;
 use serde_json::Value as JsonValue;
 use std::time::SystemTime;
-use time::{Date, OffsetDateTime};
+use time::Date as TimeDate;
+#[cfg(feature = "unstable-time")]
+use time::OffsetDateTime;
+#[cfg(feature = "unstable-time")]
+use time::format_description::well_known::Rfc3339;
 
 /// Represent failures in converting a Spanner Value to a Rust type.
 #[derive(thiserror::Error, Debug)]
@@ -92,7 +98,8 @@ impl FromValue for Value {
 /// | `NullValue` | `null` |
 /// | `BoolValue` | `true` / `false` |
 /// | `NumberValue` (finite) | JSON number |
-/// | `NumberValue` (NaN/±Infinity) | `null` (matches SDK's `into_serde_value`) |
+/// | `NumberValue` (NaN/±Infinity) | `null` |
+/// | `StringValue` ("NaN"/`±Infinity` on FLOAT columns) | `null` |
 /// | `StringValue` (standard) | JSON string (includes stringified `INT64`, `NUMERIC`, Base64 `BYTES`, `TIMESTAMP`, `DATE`) |
 /// | `StringValue` (+ `TypeCode::Json`) | Parsed JSON object/array/value |
 /// | `ListValue` + `TypeCode::Struct` | JSON object (positional → named via metadata) |
@@ -105,8 +112,9 @@ impl FromValue for Value {
 ///   Spanner transmits as `StringValue` on the wire) are preserved as JSON strings.
 ///   This prevents precision loss (e.g. for integers exceeding $2^{53}-1$ or
 ///   high-precision decimals) during deserialization.
-/// - **NaN/Infinity → null**: Non-finite floats become `null` since JSON has no
-///   representation. Callers cannot distinguish these from genuine SQL NULLs.
+/// - **NaN/Infinity → null**: Non-finite floats become `null` when deserialized as
+///   `serde_json::Value` since standard JSON has no representation for NaN/Infinity.
+///   Callers cannot distinguish these from genuine SQL NULLs.
 /// - **Duplicate field names**: Spanner allows structs with duplicate field names
 ///   (e.g., unnamed columns). Since JSON objects require unique keys, last-write-wins
 ///   applies via `serde_json::Map::insert`.
@@ -254,7 +262,12 @@ fn list_value_to_json(
 }
 
 impl FromValue for String {
-    fn from_value(value: &Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+        if type_.code() == TypeCode::Float64 || type_.code() == TypeCode::Float32 {
+            return Err(ConvertError::Convert(
+                "cannot decode FLOAT64 or FLOAT32 column as String".into(),
+            ));
+        }
         match &value.0.kind {
             Some(prost_types::value::Kind::StringValue(s)) => Ok(s.clone()),
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
@@ -319,44 +332,30 @@ impl FromValue for Decimal {
 
 impl FromValue for SystemTime {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Timestamp {
-            return Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
-                got: value.kind(),
-            });
-        }
-        match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
-                let dt = OffsetDateTime::parse(s, &time::format_description::well_known::Rfc3339)
-                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
-                Ok(dt.into())
-            }
-            Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
-            _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
-                got: value.kind(),
-            }),
-        }
+        let timestamp = wkt::Timestamp::from_value(value, type_)?;
+        Self::try_from(timestamp).map_err(|e| ConvertError::Convert(Box::new(e)))
     }
 }
 
+#[cfg(feature = "unstable-time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl FromValue for OffsetDateTime {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         if type_.code() != TypeCode::Timestamp {
             return Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
+                want: Kind::String,
                 got: value.kind(),
             });
         }
         match &value.0.kind {
             Some(prost_types::value::Kind::StringValue(s)) => {
-                let dt = OffsetDateTime::parse(s, &time::format_description::well_known::Rfc3339)
-                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
-                Ok(dt)
+                let date_time =
+                    Self::parse(s, &Rfc3339).map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok(date_time)
             }
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
+                want: Kind::String,
                 got: value.kind(),
             }),
         }
@@ -365,8 +364,47 @@ impl FromValue for OffsetDateTime {
 
 impl FromValue for wkt::Timestamp {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        let dt = OffsetDateTime::from_value(value, type_)?;
-        wkt::Timestamp::try_from(dt).map_err(|e| ConvertError::Convert(Box::new(e)))
+        if type_.code() != TypeCode::Timestamp {
+            return Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            });
+        }
+        match &value.0.kind {
+            Some(prost_types::value::Kind::StringValue(s)) => {
+                Self::try_from(s.as_str()).map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
+            Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
+            _ => Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            }),
+        }
+    }
+}
+
+#[cfg(feature = "unstable-time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
+impl FromValue for TimeDate {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+        if type_.code() != TypeCode::Date {
+            return Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            });
+        }
+        match &value.0.kind {
+            Some(prost_types::value::Kind::StringValue(s)) => {
+                let date = Self::parse(s, SPANNER_DATE_FORMAT)
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok(date)
+            }
+            Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
+            _ => Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            }),
+        }
     }
 }
 
@@ -374,19 +412,22 @@ impl FromValue for Date {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         if type_.code() != TypeCode::Date {
             return Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
+                want: Kind::String,
                 got: value.kind(),
             });
         }
         match &value.0.kind {
             Some(prost_types::value::Kind::StringValue(s)) => {
-                let date = Date::parse(s, crate::value::SPANNER_DATE_FORMAT)
+                let date = TimeDate::parse(s, SPANNER_DATE_FORMAT)
                     .map_err(|e| ConvertError::Convert(Box::new(e)))?;
-                Ok(date)
+                Ok(Self::new()
+                    .set_year(date.year())
+                    .set_month(u8::from(date.month()) as i32)
+                    .set_day(date.day() as i32))
             }
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String,
+                want: Kind::String,
                 got: value.kind(),
             }),
         }
@@ -407,15 +448,22 @@ impl FromValue for bool {
 }
 
 impl FromValue for f64 {
-    fn from_value(value: &Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         match &value.0.kind {
             Some(prost_types::value::Kind::NumberValue(n)) => Ok(*n),
-            Some(prost_types::value::Kind::StringValue(s)) => {
-                s.parse().map_err(|e| ConvertError::Convert(Box::new(e)))
+            Some(prost_types::value::Kind::StringValue(s))
+                if type_.code() == TypeCode::Float64 || type_.code() == TypeCode::Float32 =>
+            {
+                match s.as_str() {
+                    "NaN" => Ok(f64::NAN),
+                    "Infinity" => Ok(f64::INFINITY),
+                    "-Infinity" => Ok(f64::NEG_INFINITY),
+                    _ => s.parse().map_err(|e| ConvertError::Convert(Box::new(e))),
+                }
             }
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::Number,
+                want: Kind::Number,
                 got: value.kind(),
             }),
         }
@@ -423,15 +471,22 @@ impl FromValue for f64 {
 }
 
 impl FromValue for f32 {
-    fn from_value(value: &Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         match &value.0.kind {
             Some(prost_types::value::Kind::NumberValue(n)) => Ok(*n as f32),
-            Some(prost_types::value::Kind::StringValue(s)) => {
-                s.parse().map_err(|e| ConvertError::Convert(Box::new(e)))
+            Some(prost_types::value::Kind::StringValue(s))
+                if type_.code() == TypeCode::Float32 || type_.code() == TypeCode::Float64 =>
+            {
+                match s.as_str() {
+                    "NaN" => Ok(f32::NAN),
+                    "Infinity" => Ok(f32::INFINITY),
+                    "-Infinity" => Ok(f32::NEG_INFINITY),
+                    _ => s.parse().map_err(|e| ConvertError::Convert(Box::new(e))),
+                }
             }
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::Number,
+                want: Kind::Number,
                 got: value.kind(),
             }),
         }
@@ -501,6 +556,8 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use serde_json::Value as JsonValue;
+    #[cfg(feature = "unstable-time")]
+    use time::Month;
 
     #[test]
     fn test_from_value_string() {
@@ -532,16 +589,206 @@ mod tests {
     #[test]
     fn test_from_value_float() {
         let v = 42.5f64.to_value();
-        let f = f64::from_value(&v, &types::float64()).unwrap();
-        assert_eq!(f, 42.5);
+        let f = f64::from_value(&v, &types::float64()).expect("valid float value");
+        assert_eq!(f, 42.5, "expected 42.5");
 
         let v = "Infinity".to_string().to_value();
-        let f = f64::from_value(&v, &types::float64()).unwrap();
-        assert_eq!(f, f64::INFINITY);
+        let f = f64::from_value(&v, &types::float64()).expect("valid infinity value");
+        assert_eq!(f, f64::INFINITY, "expected Infinity");
 
         let v = "invalid float".to_string().to_value();
-        let err = f64::from_value(&v, &types::float64()).unwrap_err();
-        assert!(format!("{}", err).contains("invalid float literal"));
+        let err = f64::from_value(&v, &types::float64()).expect_err("invalid float must fail");
+        assert!(
+            format!("{}", err).contains("invalid float literal"),
+            "expected invalid float literal error"
+        );
+    }
+
+    #[test]
+    fn from_value_float_non_finite_and_type_checks() {
+        // f64 non-finite strings
+        let nan_val = "NaN".to_string().to_value();
+        let f64_nan = f64::from_value(&nan_val, &types::float64()).expect("valid NaN f64");
+        assert!(f64_nan.is_nan(), "expected NaN for f64");
+
+        let inf_val = "Infinity".to_string().to_value();
+        let f64_inf = f64::from_value(&inf_val, &types::float64()).expect("valid Infinity f64");
+        assert_eq!(f64_inf, f64::INFINITY, "expected Infinity for f64");
+
+        let neg_inf_val = "-Infinity".to_string().to_value();
+        let f64_neginf =
+            f64::from_value(&neg_inf_val, &types::float64()).expect("valid -Infinity f64");
+        assert_eq!(f64_neginf, f64::NEG_INFINITY, "expected -Infinity for f64");
+
+        // f64 from FLOAT32 column (lossless widening)
+        let f32_widened =
+            f64::from_value(&42.5f32.to_value(), &types::float32()).expect("FLOAT32 widens to f64");
+        assert_eq!(f32_widened, 42.5, "expected 42.5 from FLOAT32 to f64");
+
+        // f64 rejects STRING column even if it contains "NaN"
+        let string_col_err =
+            f64::from_value(&nan_val, &types::string()).expect_err("f64 must reject STRING column");
+        assert!(
+            matches!(string_col_err, ConvertError::KindMismatch { .. }),
+            "expected KindMismatch when reading STRING column as f64"
+        );
+
+        // f64 rejects non-numeric string in FLOAT64 column
+        let invalid_str_err =
+            f64::from_value(&"not-a-number".to_string().to_value(), &types::float64())
+                .expect_err("f64 must reject arbitrary string representation");
+        assert!(
+            format!("{}", invalid_str_err).contains("invalid float literal"),
+            "expected invalid float literal error"
+        );
+
+        // f32 non-finite strings and numbers
+        let f32_num = f32::from_value(&12.5f32.to_value(), &types::float32()).expect("valid f32");
+        assert_eq!(f32_num, 12.5, "expected 12.5 for f32");
+
+        let f32_nan = f32::from_value(&nan_val, &types::float32()).expect("valid NaN f32");
+        assert!(f32_nan.is_nan(), "expected NaN for f32");
+
+        let f32_inf = f32::from_value(&inf_val, &types::float32()).expect("valid Infinity f32");
+        assert_eq!(f32_inf, f32::INFINITY, "expected Infinity for f32");
+
+        let f32_neginf =
+            f32::from_value(&neg_inf_val, &types::float32()).expect("valid -Infinity f32");
+        assert_eq!(f32_neginf, f32::NEG_INFINITY, "expected -Infinity for f32");
+
+        // f32 accepts NumberValue from FLOAT64 column
+        let f32_from_f64 = f32::from_value(&42.5f64.to_value(), &types::float64())
+            .expect("f32 accepts NumberValue from FLOAT64 column");
+        assert_eq!(f32_from_f64, 42.5, "expected 42.5 from NumberValue for f32");
+
+        // f32 rejects STRING column
+        let f32_str_err =
+            f32::from_value(&nan_val, &types::string()).expect_err("f32 must reject STRING column");
+        assert!(
+            matches!(f32_str_err, ConvertError::KindMismatch { .. }),
+            "expected KindMismatch when reading STRING column as f32"
+        );
+
+        // f32 parses numeric string in FLOAT32 column
+        let f32_from_str = f32::from_value(&"12.5".to_string().to_value(), &types::float32())
+            .expect("valid f32 from numeric string");
+        assert_eq!(f32_from_str, 12.5, "expected 12.5 from string for f32");
+
+        // f32 rejects non-numeric string in FLOAT32 column
+        let invalid_f32_str_error =
+            f32::from_value(&"not-a-number".to_string().to_value(), &types::float32())
+                .expect_err("f32 must reject arbitrary string representation");
+        assert!(
+            format!("{invalid_f32_str_error}").contains("invalid float literal"),
+            "expected invalid float literal error for f32"
+        );
+
+        // String::from_value rejects FLOAT64 and FLOAT32 columns (even with non-finite string representation)
+        let string_f64_nan_err = String::from_value(&nan_val, &types::float64())
+            .expect_err("String must reject FLOAT64 column with NaN");
+        assert!(
+            matches!(string_f64_nan_err, ConvertError::Convert(_)),
+            "expected Convert error when reading FLOAT64 column as String"
+        );
+
+        let string_f32_inf_err = String::from_value(&inf_val, &types::float32())
+            .expect_err("String must reject FLOAT32 column with Infinity");
+        assert!(
+            matches!(string_f32_inf_err, ConvertError::Convert(_)),
+            "expected Convert error when reading FLOAT32 column as String"
+        );
+
+        let string_f64_num_err = String::from_value(&42.5f64.to_value(), &types::float64())
+            .expect_err("String must reject FLOAT64 column with NumberValue");
+        assert!(
+            matches!(string_f64_num_err, ConvertError::Convert(_)),
+            "expected Convert error when reading FLOAT64 NumberValue as String"
+        );
+    }
+
+    #[test]
+    fn from_value_non_finite_float_containers() {
+        // Option<f64>
+        let nan_val = "NaN".to_string().to_value();
+        let opt_nan = Option::<f64>::from_value(&nan_val, &types::float64())
+            .expect("parse Option<f64> containing NaN");
+        assert!(
+            opt_nan.is_some_and(|f| f.is_nan()),
+            "expected Some(NaN) for Option<f64>"
+        );
+
+        let opt_null = Option::<f64>::from_value(&Value::null(), &types::float64())
+            .expect("parse Option<f64> containing null");
+        assert_eq!(opt_null, None, "expected None for null Option<f64>");
+
+        // Vec<f64> with non-finite values
+        let f64_vec = vec![f64::NAN, f64::INFINITY, f64::NEG_INFINITY, 123.5];
+        let v = f64_vec.to_value();
+        let parsed_vec = Vec::<f64>::from_value(&v, &types::array(types::float64()))
+            .expect("parse Vec<f64> with non-finite elements");
+        assert_eq!(parsed_vec.len(), 4);
+        assert!(parsed_vec[0].is_nan(), "expected NaN in Vec<f64>[0]");
+        assert_eq!(
+            parsed_vec[1],
+            f64::INFINITY,
+            "expected Infinity in Vec<f64>[1]"
+        );
+        assert_eq!(
+            parsed_vec[2],
+            f64::NEG_INFINITY,
+            "expected -Infinity in Vec<f64>[2]"
+        );
+        assert_eq!(parsed_vec[3], 123.5, "expected 123.5 in Vec<f64>[3]");
+
+        // Vec<Option<f64>> with non-finite values and None
+        let opt_f64_vec = vec![
+            Some(f64::NAN),
+            None,
+            Some(f64::INFINITY),
+            Some(f64::NEG_INFINITY),
+        ];
+        let v_opt = opt_f64_vec.to_value();
+        let parsed_opt_vec =
+            Vec::<Option<f64>>::from_value(&v_opt, &types::array(types::float64()))
+                .expect("parse Vec<Option<f64>> with non-finite elements and null");
+        assert_eq!(parsed_opt_vec.len(), 4);
+        assert!(
+            parsed_opt_vec[0].is_some_and(|f| f.is_nan()),
+            "expected Some(NaN) in Vec<Option<f64>>[0]"
+        );
+        assert_eq!(
+            parsed_opt_vec[1], None,
+            "expected None in Vec<Option<f64>>[1]"
+        );
+        assert_eq!(
+            parsed_opt_vec[2],
+            Some(f64::INFINITY),
+            "expected Some(Infinity) in Vec<Option<f64>>[2]"
+        );
+        assert_eq!(
+            parsed_opt_vec[3],
+            Some(f64::NEG_INFINITY),
+            "expected Some(-Infinity) in Vec<Option<f64>>[3]"
+        );
+
+        // Vec<f32> with non-finite values
+        let f32_vec = vec![f32::NAN, f32::INFINITY, f32::NEG_INFINITY, 12.5f32];
+        let v_f32 = f32_vec.to_value();
+        let parsed_f32_vec = Vec::<f32>::from_value(&v_f32, &types::array(types::float32()))
+            .expect("parse Vec<f32> with non-finite elements");
+        assert_eq!(parsed_f32_vec.len(), 4);
+        assert!(parsed_f32_vec[0].is_nan(), "expected NaN in Vec<f32>[0]");
+        assert_eq!(
+            parsed_f32_vec[1],
+            f32::INFINITY,
+            "expected Infinity in Vec<f32>[1]"
+        );
+        assert_eq!(
+            parsed_f32_vec[2],
+            f32::NEG_INFINITY,
+            "expected -Infinity in Vec<f32>[2]"
+        );
+        assert_eq!(parsed_f32_vec[3], 12.5, "expected 12.5 in Vec<f32>[3]");
     }
 
     #[test]
@@ -638,111 +885,154 @@ mod tests {
 
     #[test]
     fn test_from_value_date() {
-        let d = Date::from_calendar_date(2023, time::Month::October, 27).unwrap();
-        let v = d.to_value();
-        let res = Date::from_value(&v, &types::date()).unwrap();
-        assert_eq!(res, d);
+        let date = Date::new().set_year(2023).set_month(10).set_day(27);
+        let value = date.clone().to_value();
+        let result = Date::from_value(&value, &types::date()).expect("valid date conversion");
+        assert_eq!(result, date);
 
-        let v = "invalid date".to_string().to_value();
-        let err = Date::from_value(&v, &types::date()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let value = "invalid date".to_string().to_value();
+        let error = Date::from_value(&value, &types::date()).expect_err("invalid date should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
     }
 
+    #[cfg(feature = "unstable-time")]
+    #[test]
+    fn test_from_value_time_date() {
+        let date =
+            TimeDate::from_calendar_date(2023, Month::October, 27).expect("valid calendar date");
+        let value = date.to_value();
+        let result =
+            TimeDate::from_value(&value, &types::date()).expect("valid time date conversion");
+        assert_eq!(result, date);
+
+        let value = "invalid date".to_string().to_value();
+        let error =
+            TimeDate::from_value(&value, &types::date()).expect_err("invalid date should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
+    }
+
+    #[cfg(feature = "unstable-time")]
     #[test]
     fn test_from_value_timestamp() {
-        let dt = OffsetDateTime::parse(
-            "2023-10-27T10:00:00Z",
-            &time::format_description::well_known::Rfc3339,
-        )
-        .unwrap();
-        let v = dt.to_value();
-        let res = OffsetDateTime::from_value(&v, &types::timestamp()).unwrap();
-        assert_eq!(res, dt);
+        let date_time = OffsetDateTime::parse("2023-10-27T10:00:00Z", &Rfc3339)
+            .expect("valid timestamp format");
+        let value = date_time.to_value();
+        let result = OffsetDateTime::from_value(&value, &types::timestamp())
+            .expect("valid timestamp conversion");
+        assert_eq!(result, date_time);
 
-        let v = "invalid timestamp".to_string().to_value();
-        let err = OffsetDateTime::from_value(&v, &types::timestamp()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let value = "invalid timestamp".to_string().to_value();
+        let error = OffsetDateTime::from_value(&value, &types::timestamp())
+            .expect_err("invalid timestamp should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
     }
 
     #[test]
     fn test_from_value_null() {
         let v = Option::<i32>::None.to_value();
-        let res = Option::<i32>::from_value(&v, &types::int64()).unwrap();
+        let res = Option::<i32>::from_value(&v, &types::int64()).expect("valid none option");
         assert_eq!(res, None);
 
         let v = Option::<i32>::None.to_value();
-        let err = i32::from_value(&v, &types::int64()).unwrap_err();
+        let err = i32::from_value(&v, &types::int64()).expect_err("expected non-null error");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
     }
+
     #[test]
     fn test_from_value_system_time() {
-        let dt = OffsetDateTime::parse(
-            "2023-10-27T10:00:00Z",
-            &time::format_description::well_known::Rfc3339,
-        )
-        .unwrap();
-        let system_time: SystemTime = dt.into();
-        let v = system_time.to_value();
-        let res = SystemTime::from_value(&v, &types::timestamp()).unwrap();
-        let res_dt: OffsetDateTime = res.into();
-        assert_eq!(res_dt, dt);
+        let timestamp = wkt::Timestamp::clamp(1_698_400_800, 0);
+        let system_time = SystemTime::try_from(timestamp).expect("valid system time conversion");
+        let value = system_time.to_value();
+        let result = SystemTime::from_value(&value, &types::timestamp())
+            .expect("valid system time conversion");
+        assert_eq!(result, system_time);
 
-        let v = "invalid timestamp".to_string().to_value();
-        let err = SystemTime::from_value(&v, &types::timestamp()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let value = "invalid timestamp".to_string().to_value();
+        let error = SystemTime::from_value(&value, &types::timestamp())
+            .expect_err("invalid timestamp should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
     }
 
     #[test]
     fn test_from_value_wkt_timestamp() {
-        let dt = OffsetDateTime::parse(
-            "2023-10-27T10:00:00Z",
-            &time::format_description::well_known::Rfc3339,
-        )
-        .expect("valid date time parsing");
-        let wkt_ts = wkt::Timestamp::try_from(dt).expect("valid wkt timestamp conversion");
-        let v = dt.to_value();
-        let res = wkt::Timestamp::from_value(&v, &types::timestamp())
+        let timestamp = wkt::Timestamp::clamp(1_698_400_800, 0);
+        let value = timestamp.to_value();
+        let result = wkt::Timestamp::from_value(&value, &types::timestamp())
             .expect("valid wkt timestamp decoding");
-        assert_eq!(res, wkt_ts);
+        assert_eq!(result, timestamp);
 
-        let v = "invalid timestamp".to_string().to_value();
-        let err = wkt::Timestamp::from_value(&v, &types::timestamp()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let value = "invalid timestamp".to_string().to_value();
+        let error = wkt::Timestamp::from_value(&value, &types::timestamp())
+            .expect_err("invalid timestamp should fail");
+        assert!(format!("{}", error).contains("cannot convert value"));
     }
 
     #[test]
     fn test_from_value_type_mismatch() {
         let v = Decimal::from(42).to_value();
-        let err = Decimal::from_value(&v, &types::int64()).unwrap_err();
+        let err = Decimal::from_value(&v, &types::int64()).expect_err("type mismatch");
         assert!(format!("{}", err).contains("expected String, got String"));
 
         let v = SystemTime::now().to_value();
-        let err = SystemTime::from_value(&v, &types::string()).unwrap_err();
-        assert!(format!("{}", err).contains("expected String, got String")); // This might require adjustment as logic changed. In `SystemTime::from_value`, we check TypeCode first.
-
-        let v = OffsetDateTime::now_utc().to_value();
-        let err = OffsetDateTime::from_value(&v, &types::string()).unwrap_err();
+        let err = SystemTime::from_value(&v, &types::string()).expect_err("type mismatch");
         assert!(format!("{}", err).contains("expected String, got String"));
 
-        let v = Date::from_calendar_date(2023, time::Month::October, 27)
-            .unwrap()
+        #[cfg(feature = "unstable-time")]
+        {
+            let value = OffsetDateTime::now_utc().to_value();
+            let error =
+                OffsetDateTime::from_value(&value, &types::string()).expect_err("type mismatch");
+            assert!(format!("{}", error).contains("expected String, got String"));
+
+            let value = TimeDate::from_calendar_date(2023, Month::October, 27)
+                .expect("valid calendar date")
+                .to_value();
+            let error = TimeDate::from_value(&value, &types::string()).expect_err("type mismatch");
+            assert!(format!("{}", error).contains("expected String, got String"));
+        }
+
+        let date = Date::new()
+            .set_year(2023)
+            .set_month(10)
+            .set_day(27)
             .to_value();
-        let err = Date::from_value(&v, &types::string()).unwrap_err();
-        assert!(format!("{}", err).contains("expected String, got String"));
+        let error = Date::from_value(&date, &types::string()).expect_err("type mismatch");
+        assert!(format!("{}", error).contains("expected String, got String"));
 
         let v = vec![1u8].to_value();
-        let err = Vec::<u8>::from_value(&v, &types::string()).unwrap_err();
+        let err = Vec::<u8>::from_value(&v, &types::string()).expect_err("type mismatch");
         assert!(format!("{}", err).contains("expected String, got String"));
     }
 
     #[test]
     fn test_from_value_wrong_kind() {
         let v_bool = true.to_value();
-        let err = String::from_value(&v_bool, &types::string()).unwrap_err();
+        let err = String::from_value(&v_bool, &types::string())
+            .expect_err("expected non-string kind mismatch for String");
         assert!(format!("{}", err).contains("expected String, got Bool"));
 
+        let err = wkt::Timestamp::from_value(&v_bool, &types::timestamp())
+            .expect_err("expected non-string kind mismatch for wkt::Timestamp");
+        assert!(format!("{}", err).contains("expected String, got Bool"));
+
+        let err = Date::from_value(&v_bool, &types::date())
+            .expect_err("expected non-string kind mismatch for Date");
+        assert!(format!("{}", err).contains("expected String, got Bool"));
+
+        #[cfg(feature = "unstable-time")]
+        {
+            let err = OffsetDateTime::from_value(&v_bool, &types::timestamp())
+                .expect_err("expected non-string kind mismatch for OffsetDateTime");
+            assert!(format!("{}", err).contains("expected String, got Bool"));
+
+            let err = TimeDate::from_value(&v_bool, &types::date())
+                .expect_err("expected non-string kind mismatch for TimeDate");
+            assert!(format!("{}", err).contains("expected String, got Bool"));
+        }
+
         let v_string = "hello".to_value();
-        let err = i64::from_value(&v_string, &types::int64()).unwrap_err();
+        let err = i64::from_value(&v_string, &types::int64())
+            .expect_err("expected cannot convert value for i64");
         assert!(format!("{}", err).contains("cannot convert value"));
 
         let v_struct = crate::value::Value(prost_types::Value {
@@ -750,13 +1040,16 @@ mod tests {
                 prost_types::Struct::default(),
             )),
         });
-        let err = i64::from_value(&v_struct, &types::int64()).unwrap_err();
+        let err = i64::from_value(&v_struct, &types::int64())
+            .expect_err("expected non-string kind mismatch for i64");
         assert!(format!("{}", err).contains("expected String, got Struct"));
 
-        let err = f64::from_value(&v_bool, &types::float64()).unwrap_err();
+        let err = f64::from_value(&v_bool, &types::float64())
+            .expect_err("expected non-number kind mismatch for f64");
         assert!(format!("{}", err).contains("expected Number, got Bool"));
 
-        let err = bool::from_value(&v_string, &types::bool()).unwrap_err();
+        let err = bool::from_value(&v_string, &types::bool())
+            .expect_err("expected non-bool kind mismatch for bool");
         assert!(format!("{}", err).contains("expected Bool, got String"));
     }
 
@@ -764,34 +1057,55 @@ mod tests {
     fn test_from_value_null_errors() {
         let v_null = Option::<i32>::None.to_value();
 
-        let err = String::from_value(&v_null, &types::string()).unwrap_err();
+        let err = String::from_value(&v_null, &types::string())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = i64::from_value(&v_null, &types::int64()).unwrap_err();
+        let err = i64::from_value(&v_null, &types::int64())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = f64::from_value(&v_null, &types::float64()).unwrap_err();
+        let err = f64::from_value(&v_null, &types::float64())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = f32::from_value(&v_null, &types::float32()).unwrap_err();
+        let err = f32::from_value(&v_null, &types::float32())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = bool::from_value(&v_null, &types::bool()).unwrap_err();
+        let err = bool::from_value(&v_null, &types::bool())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = Decimal::from_value(&v_null, &types::numeric()).unwrap_err();
+        let err = Decimal::from_value(&v_null, &types::numeric())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = SystemTime::from_value(&v_null, &types::timestamp()).unwrap_err();
+        let err = SystemTime::from_value(&v_null, &types::timestamp())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = OffsetDateTime::from_value(&v_null, &types::timestamp()).unwrap_err();
+        let err = wkt::Timestamp::from_value(&v_null, &types::timestamp())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = Date::from_value(&v_null, &types::date()).unwrap_err();
+        #[cfg(feature = "unstable-time")]
+        {
+            let err = OffsetDateTime::from_value(&v_null, &types::timestamp())
+                .expect_err("expected non-null value, got null");
+            assert!(format!("{}", err).contains("expected non-null value, got null"));
+
+            let err = TimeDate::from_value(&v_null, &types::date())
+                .expect_err("expected non-null value, got null");
+            assert!(format!("{}", err).contains("expected non-null value, got null"));
+        }
+
+        let err = Date::from_value(&v_null, &types::date())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
 
-        let err = Vec::<u8>::from_value(&v_null, &types::bytes()).unwrap_err();
+        let err = Vec::<u8>::from_value(&v_null, &types::bytes())
+            .expect_err("expected non-null value, got null");
         assert!(format!("{}", err).contains("expected non-null value, got null"));
     }
 

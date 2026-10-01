@@ -23,11 +23,9 @@
 //! key recipe compilation, and correctly validate hash collision boundaries via [`PreparedQuery::matches`]
 //! and [`PreparedRead::matches`].
 
-// TODO(#6236): Remove dead_code allowance once request routing interceptors utilize prepared operations in subsequent PRs.
-#![allow(dead_code)]
-
 use crate::model::execute_sql_request::QueryOptions;
 use crate::model::{ExecuteSqlRequest, ReadRequest as ProtoReadRequest, Type};
+#[cfg(test)]
 use crate::read::ReadRequest;
 use serde_json::Value as JsonValue;
 
@@ -163,16 +161,6 @@ impl PreparedRead {
         }
     }
 
-    /// Creates a new `PreparedRead` from a [`ReadRequest`] and assigned `operation_uid`.
-    pub(crate) fn from_read_request(request: &ReadRequest, operation_uid: u64) -> Self {
-        Self::new(
-            &request.table,
-            request.index.as_deref(),
-            &request.columns,
-            operation_uid,
-        )
-    }
-
     /// Creates a new `PreparedRead` from a protobuf [`ProtoReadRequest`] and assigned `operation_uid`.
     pub(crate) fn from_proto_read_request(request: &ProtoReadRequest, operation_uid: u64) -> Self {
         Self::new(
@@ -187,11 +175,6 @@ impl PreparedRead {
     pub(crate) fn matches(&self, table: &str, index: Option<&str>, columns: &[String]) -> bool {
         let normalized_index = index.filter(|index_name| !index_name.is_empty());
         self.table == table && self.index.as_deref() == normalized_index && self.columns == columns
-    }
-
-    /// Returns `true` if the [`ReadRequest`] matches the prepared read descriptor.
-    pub(crate) fn matches_read_request(&self, request: &ReadRequest) -> bool {
-        self.matches(&request.table, request.index.as_deref(), &request.columns)
     }
 
     /// Returns `true` if the protobuf [`ProtoReadRequest`] matches the prepared read descriptor.
@@ -276,15 +259,6 @@ pub(crate) fn fingerprint_read_shape(table: &str, index: &str, columns: &[String
         hasher.write_str(column);
     }
     hasher.finish()
-}
-
-/// Computes a deterministic 64-bit FNV-1a fingerprint for a [`ReadRequest`].
-pub(crate) fn fingerprint_read_request(request: &ReadRequest) -> u64 {
-    fingerprint_read_shape(
-        &request.table,
-        request.index.as_deref().unwrap_or(""),
-        &request.columns,
-    )
 }
 
 /// Computes a deterministic 64-bit FNV-1a fingerprint for a protobuf [`ProtoReadRequest`].
@@ -383,6 +357,33 @@ impl FnvHasher {
     pub(crate) fn finish(&self) -> u64 {
         self.state
     }
+}
+
+#[cfg(test)]
+impl PreparedRead {
+    pub(crate) fn from_read_request(request: &ReadRequest, operation_uid: u64) -> Self {
+        Self::new(
+            request.table.clone(),
+            request.index.as_deref(),
+            &request.columns,
+            operation_uid,
+        )
+    }
+
+    /// Returns `true` if the [`ReadRequest`] matches the prepared read descriptor.
+    pub(crate) fn matches_read_request(&self, request: &ReadRequest) -> bool {
+        self.matches(&request.table, request.index.as_deref(), &request.columns)
+    }
+}
+
+/// Computes a deterministic 64-bit FNV-1a fingerprint for a [`ReadRequest`].
+#[cfg(test)]
+pub(crate) fn fingerprint_read_request(request: &ReadRequest) -> u64 {
+    fingerprint_read_shape(
+        &request.table,
+        request.index.as_deref().unwrap_or(""),
+        &request.columns,
+    )
 }
 
 #[cfg(test)]

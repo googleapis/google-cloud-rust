@@ -18,8 +18,6 @@
 //! Provides interval lookups for point keys and key ranges under `CoveringSplit`
 //! and `PickRandom` routing modes.
 
-#![allow(dead_code)]
-
 use crate::model::{CacheUpdate, Group, Range, Tablet};
 use bytes::Bytes;
 #[cfg(test)]
@@ -40,6 +38,7 @@ pub(crate) enum RangeMode {
     /// Consider it a cache miss if the whole range is not in a single split.
     CoveringSplit,
     /// If the range spans multiple splits, pick a random split when possible.
+    #[allow(dead_code)] // Part of multi-split range query routing protocol
     PickRandom,
 }
 
@@ -58,6 +57,7 @@ pub(crate) const MAX_LOCAL_REPLICA_DISTANCE: u32 = 5;
 /// while concurrent in-flight requests safely read their immutable snapshot without locks or data races.
 #[derive(Debug, Clone)]
 pub(crate) struct CachedGroup {
+    #[allow(dead_code)] // Stored from Group proto for group identification
     pub group_uid: u64,
     pub generation: Bytes,
     pub tablets: Vec<Tablet>,
@@ -65,6 +65,7 @@ pub(crate) struct CachedGroup {
     ///
     /// In Spanner metadata protos, a negative `leader_index` (typically `-1`) denotes that no leader is designated
     /// or that leader routing is unknown/unspecified.
+    #[allow(dead_code)] // Paxos leader index from Group proto
     pub leader_index: Option<usize>,
     /// Precomputed index into `tablets` of the local leader (if designated, routable, and distance <= 5).
     pub local_leader_index: Option<usize>,
@@ -86,44 +87,6 @@ impl CachedGroup {
             local_leader_index,
             eligible_replica_indices,
         }
-    }
-
-    /// Returns `true` if this group has a designated leader index within valid bounds.
-    pub(crate) fn has_leader(&self) -> bool {
-        self.leader_index.is_some()
-    }
-
-    /// Returns a reference to the leader tablet if designated, non-skipped, and with a non-empty server address.
-    pub(crate) fn leader(&self) -> Option<&Tablet> {
-        let candidate = &self.tablets[self.leader_index?];
-        if !Self::is_routable(candidate) {
-            return None;
-        }
-        Some(candidate)
-    }
-
-    /// Returns a reference to the leader tablet if designated, routable, and local
-    /// (`distance <= MAX_LOCAL_REPLICA_DISTANCE`).
-    pub(crate) fn local_leader(&self) -> Option<&Tablet> {
-        let index = self.local_leader_index?;
-        Some(&self.tablets[index])
-    }
-
-    /// Returns candidate replica references in the lowest locality tier matching the minimum distance.
-    ///
-    /// If `prefer_leader` is `true` and a valid local leader is present, returns a single-element
-    /// vector containing a reference to that leader.
-    ///
-    /// Otherwise, returns references to the precomputed candidate replicas in the lowest available distance tier.
-    pub(crate) fn eligible_tablets(&self, prefer_leader: bool) -> Vec<&Tablet> {
-        if prefer_leader && let Some(leader) = self.local_leader() {
-            return vec![leader];
-        }
-
-        self.eligible_replica_indices
-            .iter()
-            .map(|&index| &self.tablets[index])
-            .collect()
     }
 
     /// Parses the raw protobuf leader index, returning `None` if negative or out of bounds.
@@ -277,25 +240,6 @@ impl KeyRangeCache {
         }
     }
 
-    /// Enables deterministic pseudorandom selection for golden conformance testing.
-    #[cfg(test)]
-    pub(crate) fn use_deterministic_random(&self) {
-        self.deterministic_random.store(true, Ordering::Relaxed);
-    }
-
-    #[cfg(test)]
-    fn deterministic_uniform_random(
-        &self,
-        range_bound: usize,
-        key_seed: &[u8],
-        limit_seed: &[u8],
-        start_key_seed: &[u8],
-    ) -> usize {
-        let combined = [key_seed, limit_seed, start_key_seed].concat();
-        let hash = crc32c(&combined);
-        (hash as usize) % range_bound
-    }
-
     fn uniform_random(
         &self,
         range_bound: usize,
@@ -322,24 +266,6 @@ impl KeyRangeCache {
     /// after the increment (matching Java's `AtomicLong.incrementAndGet()`).
     pub(crate) fn access_time_now(&self) -> u64 {
         self.access_counter.fetch_add(1, Ordering::Relaxed) + 1
-    }
-
-    /// Returns `true` if the cache has no stored ranges.
-    pub(crate) fn is_empty(&self) -> bool {
-        self.state
-            .read()
-            .expect("lock cache state for is_empty")
-            .ranges
-            .is_empty()
-    }
-
-    /// Returns the number of cached split ranges.
-    pub(crate) fn len(&self) -> usize {
-        self.state
-            .read()
-            .expect("lock cache state for len")
-            .ranges
-            .len()
     }
 
     /// Clears all cached ranges and groups.
@@ -522,11 +448,6 @@ impl KeyRangeCache {
         state.ranges.insert(start_key, new_range);
     }
 
-    /// Finds a cached range covering the specified single routing key using [`RangeMode::CoveringSplit`].
-    pub(crate) fn find_key(&self, key: &[u8]) -> Option<Arc<CachedRange>> {
-        self.find_range(key, &[], RangeMode::CoveringSplit)
-    }
-
     /// Finds a cached range covering the specified key or range.
     ///
     /// Uses zero-allocation slice borrowing (`Bound::Excluded(key)`) to query the B-tree map.
@@ -640,6 +561,90 @@ impl KeyRangeCache {
 
         None
     }
+}
+
+#[cfg(test)]
+impl CachedGroup {
+    /// Returns `true` if this group has a designated leader index within valid bounds.
+    pub(crate) fn has_leader(&self) -> bool {
+        self.leader_index.is_some()
+    }
+
+    /// Returns a reference to the leader tablet if designated, non-skipped, and with a non-empty server address.
+    pub(crate) fn leader(&self) -> Option<&Tablet> {
+        let candidate = &self.tablets[self.leader_index?];
+        if !Self::is_routable(candidate) {
+            return None;
+        }
+        Some(candidate)
+    }
+
+    /// Returns a reference to the leader tablet if designated, routable, and local
+    /// (`distance <= MAX_LOCAL_REPLICA_DISTANCE`).
+    pub(crate) fn local_leader(&self) -> Option<&Tablet> {
+        let index = self.local_leader_index?;
+        Some(&self.tablets[index])
+    }
+
+    /// Returns candidate replica references in the lowest locality tier matching the minimum distance.
+    ///
+    /// If `prefer_leader` is `true` and a valid local leader is present, returns a single-element
+    /// vector containing a reference to that leader.
+    ///
+    /// Otherwise, returns references to the precomputed candidate replicas in the lowest available distance tier.
+    pub(crate) fn eligible_tablets(&self, prefer_leader: bool) -> Vec<&Tablet> {
+        if prefer_leader && let Some(leader) = self.local_leader() {
+            return vec![leader];
+        }
+
+        self.eligible_replica_indices
+            .iter()
+            .map(|&index| &self.tablets[index])
+            .collect()
+    }
+}
+
+#[cfg(test)]
+impl KeyRangeCache {
+    /// Enables deterministic pseudorandom selection for golden conformance testing.
+    pub(crate) fn use_deterministic_random(&self) {
+        self.deterministic_random.store(true, Ordering::Relaxed);
+    }
+
+    fn deterministic_uniform_random(
+        &self,
+        range_bound: usize,
+        key_seed: &[u8],
+        limit_seed: &[u8],
+        start_key_seed: &[u8],
+    ) -> usize {
+        let combined = [key_seed, limit_seed, start_key_seed].concat();
+        let hash = crc32c(&combined);
+        (hash as usize) % range_bound
+    }
+
+    /// Returns `true` if the cache has no stored ranges.
+    pub(crate) fn is_empty(&self) -> bool {
+        self.state
+            .read()
+            .expect("lock cache state for is_empty")
+            .ranges
+            .is_empty()
+    }
+
+    /// Returns the number of cached split ranges.
+    pub(crate) fn len(&self) -> usize {
+        self.state
+            .read()
+            .expect("lock cache state for len")
+            .ranges
+            .len()
+    }
+
+    /// Finds a cached range covering the specified single routing key using [`RangeMode::CoveringSplit`].
+    pub(crate) fn find_key(&self, key: &[u8]) -> Option<Arc<CachedRange>> {
+        self.find_range(key, &[], RangeMode::CoveringSplit)
+    }
 
     /// Returns all eligible candidate tablets in the lowest distance tier for the split range.
     ///
@@ -750,6 +755,7 @@ mod tests {
         let cache = KeyRangeCache::new();
         assert!(cache.is_empty());
         assert_eq!(cache.len(), 0);
+        assert!(cache.find_key(b"a").is_none());
         assert!(
             cache
                 .find_range(b"a", b"", RangeMode::CoveringSplit)
@@ -850,6 +856,8 @@ mod tests {
             .find_range(b"a", b"", RangeMode::CoveringSplit)
             .expect("start key is inclusive");
         assert_eq!(hit.split_id, 1);
+        let key_hit = cache.find_key(b"a").expect("start key is inclusive");
+        assert_eq!(key_hit.split_id, 1);
     }
 
     #[test]

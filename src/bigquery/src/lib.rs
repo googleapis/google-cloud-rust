@@ -14,9 +14,8 @@
 
 //! Google Cloud Client Libraries for Rust - BigQuery
 //!
-//! **WARNING:** this is a preview release of the crate. We believe the APIs to be
-//! stable. We also are seeking feedback about the APIs and may need to make
-//! breaking changes if we discover that some parts are hard to use.
+//! **NOTE:** While the version is still `0.x`, we believe the APIs to be stable.
+//! We plan to release a `1.0` version of this crate in the following release.
 //!
 //! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 //!
@@ -85,6 +84,41 @@
 //! while let Some(row) = rows.next().await.transpose()? {
 //!     let user: UserStats = row.try_into()?;
 //!     println!("{} has count {}", user.name, user.number);
+//! }
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! # Example: Reading from BigQuery
+//!
+//! ```
+//! use google_cloud_bigquery::client::Read;
+//! use google_cloud_bigquery::model::{DataFormat, ReadSession};
+//! # async fn sample() -> anyhow::Result<()> {
+//! let client = Read::builder().build().await?;
+//!
+//! let session = client
+//!     .create_read_session()
+//!     .set_parent("projects/my-project")
+//!     .set_read_session(
+//!         ReadSession::new()
+//!             .set_data_format(DataFormat::Arrow)
+//!             .set_table("projects/my-project/datasets/my-dataset/tables/my-table"),
+//!     )
+//!     .set_max_stream_count(1)
+//!     .send()
+//!     .await?;
+//!
+//! for stream in &session.streams {
+//!     let mut rows = client
+//!         .read_rows()
+//!         .set_read_stream(&stream.name)
+//!         .send()
+//!         .await?;
+//!
+//!     while let Some(response) = rows.next().await.transpose()? {
+//!         println!("Read {} rows", response.row_count);
+//!     }
 //! }
 //! # Ok(())
 //! # }

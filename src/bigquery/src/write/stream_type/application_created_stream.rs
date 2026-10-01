@@ -16,15 +16,27 @@ use super::{BufferedStream, CommittedStream, PendingStream, Stream};
 use crate::model::write_stream::Type;
 
 /// Marker trait for [application-created stream] types.
+///
+/// You can explicitly create a stream (via [`Write::create_stream`][crate::client::Write::create_stream])
+/// or attach to one (via [`Write::attach_to_stream`][crate::client::Write::attach_to_stream]) if you need
+/// either of the following behaviors:
+///
+/// - Exactly-once write semantics through the use of stream offsets.
+/// - Support for additional ACID properties.
+///
+/// When you create a stream, its type controls when data written to the stream
+/// becomes visible in BigQuery for reading:
 /// - [`PendingStream`]
 /// - [`CommittedStream`]
 /// - [`BufferedStream`]
 ///
-/// These streams can be created or attached to.
+/// See [Selecting a type] for guidance on choosing a stream type for your
+/// workload.
 ///
 /// This trait is sealed and cannot be implemented for types outside this crate.
 ///
 /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
+/// [Selecting a type]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#selecting_a_type
 #[diagnostic::on_unimplemented(
     message = "`{Self}` is not an application-created stream type",
     label = "expected `PendingStream`, `CommittedStream`, or `BufferedStream`",

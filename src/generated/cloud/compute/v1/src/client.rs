@@ -35,6 +35,8 @@
 ///
 /// Service for the `acceleratorTypes` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `AcceleratorTypes` use the `with_*` methods in the type returned
@@ -160,6 +162,8 @@ impl AcceleratorTypes {
 /// # Service Description
 ///
 /// Service for the `addresses` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -318,6 +322,8 @@ impl Addresses {
 ///
 /// Service for the `advice` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `Advice` use the `with_*` methods in the type returned
@@ -443,6 +449,8 @@ impl Advice {
 /// # Service Description
 ///
 /// Service for the `autoscalers` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -603,6 +611,8 @@ impl Autoscalers {
 /// # Service Description
 ///
 /// Service for the `backendBuckets` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -800,6 +810,8 @@ impl BackendBuckets {
 /// # Service Description
 ///
 /// Service for the `backendServices` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -1030,6 +1042,8 @@ impl BackendServices {
 ///
 /// Service for the `crossSiteNetworks` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `CrossSiteNetworks` use the `with_*` methods in the type returned
@@ -1171,6 +1185,8 @@ impl CrossSiteNetworks {
 ///
 /// Service for the `diskTypes` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `DiskTypes` use the `with_*` methods in the type returned
@@ -1295,6 +1311,8 @@ impl DiskTypes {
 /// # Service Description
 ///
 /// Service for the `disks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -1535,6 +1553,8 @@ impl Disks {
 ///
 /// Service for the `externalVpnGateways` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `ExternalVpnGateways` use the `with_*` methods in the type returned
@@ -1683,6 +1703,8 @@ impl ExternalVpnGateways {
 /// # Service Description
 ///
 /// Service for the `firewallPolicies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -1891,6 +1913,8 @@ impl FirewallPolicies {
 ///
 /// Service for the `firewalls` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `Firewalls` use the `with_*` methods in the type returned
@@ -2044,6 +2068,8 @@ impl Firewalls {
 /// # Service Description
 ///
 /// Service for the `forwardingRules` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -2208,6 +2234,8 @@ impl ForwardingRules {
 ///
 /// Service for the `futureReservations` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `FutureReservations` use the `with_*` methods in the type returned
@@ -2359,6 +2387,8 @@ impl FutureReservations {
 ///
 /// Service for the `globalAddresses` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `GlobalAddresses` use the `with_*` methods in the type returned
@@ -2507,6 +2537,8 @@ impl GlobalAddresses {
 ///
 /// Service for the `globalForwardingRules` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `GlobalForwardingRules` use the `with_*` methods in the type returned
@@ -2651,6 +2683,125 @@ impl GlobalForwardingRules {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::GlobalFrontendSettings;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = GlobalFrontendSettings::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `globalFrontendSettings` resource.
+///
+/// The client library was generated with API version 2026-09-01.
+///
+/// # Configuration
+///
+/// To configure `GlobalFrontendSettings` use the `with_*` methods in the type returned
+/// by [builder()][GlobalFrontendSettings::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::global_frontend_settings::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::global_frontend_settings::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `GlobalFrontendSettings` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `GlobalFrontendSettings` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "global-frontend-settings")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-frontend-settings")))]
+#[derive(Clone, Debug)]
+pub struct GlobalFrontendSettings {
+    inner: std::sync::Arc<dyn super::stub::dynamic::GlobalFrontendSettings>,
+}
+
+#[cfg(feature = "global-frontend-settings")]
+impl GlobalFrontendSettings {
+    /// Returns a builder for [GlobalFrontendSettings].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::GlobalFrontendSettings;
+    /// let client = GlobalFrontendSettings::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::global_frontend_settings::ClientBuilder {
+        crate::new_client_builder(super::builder::global_frontend_settings::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::GlobalFrontendSettings + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::GlobalFrontendSettings>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::GlobalFrontendSettings> {
+        super::transport::GlobalFrontendSettings::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::GlobalFrontendSettings> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GlobalFrontendSettings::new)
+    }
+
+    /// Gets the Global Frontend Billing Bundle Settings for a project.
+    pub fn get(&self) -> super::builder::global_frontend_settings::Get {
+        super::builder::global_frontend_settings::Get::new(self.inner.clone())
+    }
+
+    /// Updates the Global Frontend Billing Bundle Settings for a project.
+    pub fn patch(&self) -> super::builder::global_frontend_settings::Patch {
+        super::builder::global_frontend_settings::Patch::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -2663,6 +2814,8 @@ impl GlobalForwardingRules {
 /// # Service Description
 ///
 /// Service for the `globalNetworkEndpointGroups` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -2838,6 +2991,8 @@ impl GlobalNetworkEndpointGroups {
 ///
 /// Service for the `globalOperations` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `GlobalOperations` use the `with_*` methods in the type returned
@@ -2991,6 +3146,8 @@ impl GlobalOperations {
 ///
 /// Service for the `globalOrganizationOperations` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `GlobalOrganizationOperations` use the `with_*` methods in the type returned
@@ -3115,6 +3272,8 @@ impl GlobalOrganizationOperations {
 /// # Service Description
 ///
 /// Service for the `globalPublicDelegatedPrefixes` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -3257,6 +3416,8 @@ impl GlobalPublicDelegatedPrefixes {
 /// # Service Description
 ///
 /// Service for the `globalVmExtensionPolicies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -3409,6 +3570,8 @@ impl GlobalVmExtensionPolicies {
 /// # Service Description
 ///
 /// Service for the `healthChecks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -3571,6 +3734,8 @@ impl HealthChecks {
 ///
 /// Service for the `hosts` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `Hosts` use the `with_*` methods in the type returned
@@ -3696,6 +3861,8 @@ impl Hosts {
 /// # Service Description
 ///
 /// Service for the `httpHealthChecks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -3850,6 +4017,8 @@ impl HttpHealthChecks {
 ///
 /// Service for the `httpsHealthChecks` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `HttpsHealthChecks` use the `with_*` methods in the type returned
@@ -4003,6 +4172,8 @@ impl HttpsHealthChecks {
 ///
 /// Service for the `imageFamilyViews` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `ImageFamilyViews` use the `with_*` methods in the type returned
@@ -4103,6 +4274,126 @@ impl ImageFamilyViews {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::ImageViews;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = ImageViews::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `imageViews` resource.
+///
+/// The client library was generated with API version 2026-09-01.
+///
+/// # Configuration
+///
+/// To configure `ImageViews` use the `with_*` methods in the type returned
+/// by [builder()][ImageViews::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::image_views::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::image_views::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ImageViews` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ImageViews` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "image-views")]
+#[cfg_attr(docsrs, doc(cfg(feature = "image-views")))]
+#[derive(Clone, Debug)]
+pub struct ImageViews {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ImageViews>,
+}
+
+#[cfg(feature = "image-views")]
+impl ImageViews {
+    /// Returns a builder for [ImageViews].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ImageViews;
+    /// let client = ImageViews::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::image_views::ClientBuilder {
+        crate::new_client_builder(super::builder::image_views::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::ImageViews + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ImageViews>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ImageViews> {
+        super::transport::ImageViews::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ImageViews> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ImageViews::new)
+    }
+
+    /// Returns the specified global ImageView resource, with a regional
+    /// context.
+    pub fn get(&self) -> super::builder::image_views::Get {
+        super::builder::image_views::Get::new(self.inner.clone())
+    }
+
+    /// Returns a list of global ImageView resources, with a regional
+    /// context.
+    pub fn list(&self) -> super::builder::image_views::List {
+        super::builder::image_views::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::Images;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -4115,6 +4406,8 @@ impl ImageFamilyViews {
 /// # Service Description
 ///
 /// Service for the `images` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -4298,6 +4591,8 @@ impl Images {
 ///
 /// Service for the `instanceGroupManagerResizeRequests` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `InstanceGroupManagerResizeRequests` use the `with_*` methods in the type returned
@@ -4448,6 +4743,8 @@ impl InstanceGroupManagerResizeRequests {
 /// # Service Description
 ///
 /// Service for the `instanceGroupManagers` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -4893,6 +5190,8 @@ impl InstanceGroupManagers {
 ///
 /// Service for the `instanceGroups` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `InstanceGroups` use the `with_*` methods in the type returned
@@ -5083,6 +5382,8 @@ impl InstanceGroups {
 ///
 /// Service for the `instanceSettings` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `InstanceSettings` use the `with_*` methods in the type returned
@@ -5204,6 +5505,8 @@ impl InstanceSettings {
 /// # Service Description
 ///
 /// Service for the `instanceTemplates` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -5369,6 +5672,8 @@ impl InstanceTemplates {
 /// # Service Description
 ///
 /// Service for the `instances` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -5828,6 +6133,8 @@ impl Instances {
 ///
 /// Service for the `instantSnapshotGroups` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `InstantSnapshotGroups` use the `with_*` methods in the type returned
@@ -5979,6 +6286,8 @@ impl InstantSnapshotGroups {
 /// # Service Description
 ///
 /// Service for the `instantSnapshots` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -6152,6 +6461,8 @@ impl InstantSnapshots {
 ///
 /// Service for the `interconnectAttachmentGroups` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `InterconnectAttachmentGroups` use the `with_*` methods in the type returned
@@ -6324,6 +6635,8 @@ impl InterconnectAttachmentGroups {
 ///
 /// Service for the `interconnectAttachments` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `InterconnectAttachments` use the `with_*` methods in the type returned
@@ -6480,6 +6793,8 @@ impl InterconnectAttachments {
 /// # Service Description
 ///
 /// Service for the `interconnectGroups` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -6653,6 +6968,8 @@ impl InterconnectGroups {
 ///
 /// Service for the `interconnectLocations` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `InterconnectLocations` use the `with_*` methods in the type returned
@@ -6771,6 +7088,8 @@ impl InterconnectLocations {
 /// # Service Description
 ///
 /// Service for the `interconnectRemoteLocations` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -6891,6 +7210,8 @@ impl InterconnectRemoteLocations {
 /// # Service Description
 ///
 /// Service for the `interconnects` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -7037,6 +7358,11 @@ impl Interconnects {
         super::builder::interconnects::SetLabels::new(self.inner.clone())
     }
 
+    /// Sets name of an interconnect.
+    pub fn set_name(&self) -> super::builder::interconnects::SetName {
+        super::builder::interconnects::SetName::new(self.inner.clone())
+    }
+
     /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::interconnects::GetOperation {
         super::builder::interconnects::GetOperation::new(self.inner.clone())
@@ -7059,6 +7385,8 @@ impl Interconnects {
 /// # Service Description
 ///
 /// Service for the `licenseCodes` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -7200,6 +7528,8 @@ impl LicenseCodes {
 /// # Service Description
 ///
 /// Service for the `licenses` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -7383,6 +7713,8 @@ impl Licenses {
 ///
 /// Service for the `machineImages` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `MachineImages` use the `with_*` methods in the type returned
@@ -7543,6 +7875,8 @@ impl MachineImages {
 ///
 /// Service for the `machineTypes` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `MachineTypes` use the `with_*` methods in the type returned
@@ -7655,6 +7989,124 @@ impl MachineTypes {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::ManagedRulesets;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = ManagedRulesets::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `managedRulesets` resource.
+///
+/// The client library was generated with API version 2026-09-01.
+///
+/// # Configuration
+///
+/// To configure `ManagedRulesets` use the `with_*` methods in the type returned
+/// by [builder()][ManagedRulesets::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::managed_rulesets::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::managed_rulesets::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ManagedRulesets` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ManagedRulesets` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "managed-rulesets")]
+#[cfg_attr(docsrs, doc(cfg(feature = "managed-rulesets")))]
+#[derive(Clone, Debug)]
+pub struct ManagedRulesets {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ManagedRulesets>,
+}
+
+#[cfg(feature = "managed-rulesets")]
+impl ManagedRulesets {
+    /// Returns a builder for [ManagedRulesets].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ManagedRulesets;
+    /// let client = ManagedRulesets::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::managed_rulesets::ClientBuilder {
+        crate::new_client_builder(super::builder::managed_rulesets::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::ManagedRulesets + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ManagedRulesets>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedRulesets> {
+        super::transport::ManagedRulesets::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedRulesets> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ManagedRulesets::new)
+    }
+
+    /// Gets the details for the specified managed ruleset name.
+    pub fn get(&self) -> super::builder::managed_rulesets::Get {
+        super::builder::managed_rulesets::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of all the managed rulesets available.
+    pub fn list(&self) -> super::builder::managed_rulesets::List {
+        super::builder::managed_rulesets::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::NetworkAttachments;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -7667,6 +8119,8 @@ impl MachineTypes {
 /// # Service Description
 ///
 /// Service for the `networkAttachments` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -7835,6 +8289,8 @@ impl NetworkAttachments {
 ///
 /// Service for the `networkEdgeSecurityServices` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `NetworkEdgeSecurityServices` use the `with_*` methods in the type returned
@@ -7979,6 +8435,8 @@ impl NetworkEdgeSecurityServices {
 /// # Service Description
 ///
 /// Service for the `networkEndpointGroups` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -8164,6 +8622,8 @@ impl NetworkEndpointGroups {
 /// # Service Description
 ///
 /// Service for the `networkFirewallPolicies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -8404,6 +8864,8 @@ impl NetworkFirewallPolicies {
 ///
 /// Service for the `networkProfiles` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `NetworkProfiles` use the `with_*` methods in the type returned
@@ -8520,6 +8982,8 @@ impl NetworkProfiles {
 /// # Service Description
 ///
 /// Service for the `networks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -8705,6 +9169,8 @@ impl Networks {
 /// # Service Description
 ///
 /// Service for the `nodeGroups` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -8905,6 +9371,8 @@ impl NodeGroups {
 ///
 /// Service for the `nodeTemplates` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `NodeTemplates` use the `with_*` methods in the type returned
@@ -9063,6 +9531,8 @@ impl NodeTemplates {
 ///
 /// Service for the `nodeTypes` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `NodeTypes` use the `with_*` methods in the type returned
@@ -9187,6 +9657,8 @@ impl NodeTypes {
 /// # Service Description
 ///
 /// Service for the `organizationSecurityPolicies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -9468,6 +9940,8 @@ impl OrganizationSecurityPolicies {
 ///
 /// Service for the `packetMirrorings` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `PacketMirrorings` use the `with_*` methods in the type returned
@@ -9623,6 +10097,8 @@ impl PacketMirrorings {
 ///
 /// Service for the `previewFeatures` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `PreviewFeatures` use the `with_*` methods in the type returned
@@ -9750,6 +10226,8 @@ impl PreviewFeatures {
 ///
 /// Service for the `projectViews` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `ProjectViews` use the `with_*` methods in the type returned
@@ -9867,6 +10345,8 @@ impl ProjectViews {
 /// # Service Description
 ///
 /// Service for the `projects` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -10093,6 +10573,8 @@ impl Projects {
 ///
 /// Service for the `publicAdvertisedPrefixes` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `PublicAdvertisedPrefixes` use the `with_*` methods in the type returned
@@ -10244,6 +10726,8 @@ impl PublicAdvertisedPrefixes {
 /// # Service Description
 ///
 /// Service for the `publicDelegatedPrefixes` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -10405,6 +10889,8 @@ impl PublicDelegatedPrefixes {
 ///
 /// Service for the `regionAutoscalers` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionAutoscalers` use the `with_*` methods in the type returned
@@ -10557,6 +11043,8 @@ impl RegionAutoscalers {
 /// # Service Description
 ///
 /// Service for the `regionBackendBuckets` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -10724,6 +11212,8 @@ impl RegionBackendBuckets {
 /// # Service Description
 ///
 /// Service for the `regionBackendServices` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -10919,6 +11409,8 @@ impl RegionBackendServices {
 ///
 /// Service for the `regionCommitments` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionCommitments` use the `with_*` methods in the type returned
@@ -11062,6 +11554,8 @@ impl RegionCommitments {
 /// # Service Description
 ///
 /// Service for the `regionCompositeHealthChecks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -11229,6 +11723,8 @@ impl RegionCompositeHealthChecks {
 ///
 /// Service for the `regionDiskTypes` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionDiskTypes` use the `with_*` methods in the type returned
@@ -11344,6 +11840,8 @@ impl RegionDiskTypes {
 /// # Service Description
 ///
 /// Service for the `regionDisks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -11566,6 +12064,8 @@ impl RegionDisks {
 ///
 /// Service for the `regionHealthAggregationPolicies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionHealthAggregationPolicies` use the `with_*` methods in the type returned
@@ -11732,6 +12232,8 @@ impl RegionHealthAggregationPolicies {
 ///
 /// Service for the `regionHealthCheckServices` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionHealthCheckServices` use the `with_*` methods in the type returned
@@ -11891,6 +12393,8 @@ impl RegionHealthCheckServices {
 ///
 /// Service for the `regionHealthChecks` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionHealthChecks` use the `with_*` methods in the type returned
@@ -12043,6 +12547,8 @@ impl RegionHealthChecks {
 /// # Service Description
 ///
 /// Service for the `regionHealthSources` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -12207,6 +12713,8 @@ impl RegionHealthSources {
 ///
 /// Service for the `regionInstanceGroupManagerResizeRequests` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionInstanceGroupManagerResizeRequests` use the `with_*` methods in the type returned
@@ -12369,6 +12877,8 @@ impl RegionInstanceGroupManagerResizeRequests {
 /// # Service Description
 ///
 /// Service for the `regionInstanceGroupManagers` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -12813,6 +13323,8 @@ impl RegionInstanceGroupManagers {
 ///
 /// Service for the `regionInstanceGroups` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionInstanceGroups` use the `with_*` methods in the type returned
@@ -12956,6 +13468,8 @@ impl RegionInstanceGroups {
 ///
 /// Service for the `regionInstanceTemplates` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionInstanceTemplates` use the `with_*` methods in the type returned
@@ -13091,6 +13605,8 @@ impl RegionInstanceTemplates {
 ///
 /// Service for the `regionInstances` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionInstances` use the `with_*` methods in the type returned
@@ -13207,6 +13723,8 @@ impl RegionInstances {
 /// # Service Description
 ///
 /// Service for the `regionInstantSnapshotGroups` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -13361,6 +13879,8 @@ impl RegionInstantSnapshotGroups {
 /// # Service Description
 ///
 /// Service for the `regionInstantSnapshots` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -13527,6 +14047,8 @@ impl RegionInstantSnapshots {
 /// # Service Description
 ///
 /// Service for the `regionNetworkEndpointGroups` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -13702,6 +14224,8 @@ impl RegionNetworkEndpointGroups {
 ///
 /// Service for the `regionNetworkFirewallPolicies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionNetworkFirewallPolicies` use the `with_*` methods in the type returned
@@ -13862,6 +14386,13 @@ impl RegionNetworkFirewallPolicies {
         super::builder::region_network_firewall_policies::Patch::new(self.inner.clone())
     }
 
+    /// Updates an association for the specified network firewall policy.
+    pub fn patch_association(
+        &self,
+    ) -> super::builder::region_network_firewall_policies::PatchAssociation {
+        super::builder::region_network_firewall_policies::PatchAssociation::new(self.inner.clone())
+    }
+
     /// Patches a rule of the specified priority.
     pub fn patch_rule(&self) -> super::builder::region_network_firewall_policies::PatchRule {
         super::builder::region_network_firewall_policies::PatchRule::new(self.inner.clone())
@@ -13916,6 +14447,8 @@ impl RegionNetworkFirewallPolicies {
 /// # Service Description
 ///
 /// Service for the `regionNotificationEndpoints` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -14064,6 +14597,8 @@ impl RegionNotificationEndpoints {
 ///
 /// Service for the `regionOperations` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionOperations` use the `with_*` methods in the type returned
@@ -14208,6 +14743,8 @@ impl RegionOperations {
 /// # Service Description
 ///
 /// Service for the `regionSecurityPolicies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -14380,6 +14917,8 @@ impl RegionSecurityPolicies {
 ///
 /// Service for the `regionSnapshotSettings` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionSnapshotSettings` use the `with_*` methods in the type returned
@@ -14501,6 +15040,8 @@ impl RegionSnapshotSettings {
 /// # Service Description
 ///
 /// Service for the `regionSnapshots` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -14672,6 +15213,8 @@ impl RegionSnapshots {
 ///
 /// Service for the `regionSslCertificates` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionSslCertificates` use the `with_*` methods in the type returned
@@ -14807,6 +15350,8 @@ impl RegionSslCertificates {
 /// # Service Description
 ///
 /// Service for the `regionSslPolicies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -14957,6 +15502,8 @@ impl RegionSslPolicies {
 ///
 /// Service for the `regionTargetHttpProxies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionTargetHttpProxies` use the `with_*` methods in the type returned
@@ -15095,6 +15642,8 @@ impl RegionTargetHttpProxies {
 /// # Service Description
 ///
 /// Service for the `regionTargetHttpsProxies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -15251,6 +15800,8 @@ impl RegionTargetHttpsProxies {
 ///
 /// Service for the `regionTargetTcpProxies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionTargetTcpProxies` use the `with_*` methods in the type returned
@@ -15384,6 +15935,8 @@ impl RegionTargetTcpProxies {
 /// # Service Description
 ///
 /// Service for the `regionUrlMaps` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -15539,6 +16092,8 @@ impl RegionUrlMaps {
 ///
 /// Service for the `regionZones` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RegionZones` use the `with_*` methods in the type returned
@@ -15650,6 +16205,8 @@ impl RegionZones {
 /// # Service Description
 ///
 /// Service for the `regions` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -15802,6 +16359,8 @@ impl Regions {
 ///
 /// Service for the `reliabilityRisks` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `ReliabilityRisks` use the `with_*` methods in the type returned
@@ -15918,6 +16477,8 @@ impl ReliabilityRisks {
 /// # Service Description
 ///
 /// Service for the `reservationBlocks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -16063,6 +16624,8 @@ impl ReservationBlocks {
 ///
 /// Service for the `reservationSlots` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `ReservationSlots` use the `with_*` methods in the type returned
@@ -16199,6 +16762,8 @@ impl ReservationSlots {
 /// # Service Description
 ///
 /// Service for the `reservationSubBlocks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -16357,6 +16922,8 @@ impl ReservationSubBlocks {
 /// # Service Description
 ///
 /// Service for the `reservations` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -16533,6 +17100,8 @@ impl Reservations {
 ///
 /// Service for the `resourcePolicies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `ResourcePolicies` use the `with_*` methods in the type returned
@@ -16696,6 +17265,8 @@ impl ResourcePolicies {
 ///
 /// Service for the `rolloutPlans` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `RolloutPlans` use the `with_*` methods in the type returned
@@ -16826,6 +17397,8 @@ impl RolloutPlans {
 /// # Service Description
 ///
 /// Service for the `rollouts` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -16972,6 +17545,8 @@ impl Rollouts {
 /// # Service Description
 ///
 /// Service for the `routers` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -17207,6 +17782,8 @@ impl Routers {
 ///
 /// Service for the `routes` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `Routes` use the `with_*` methods in the type returned
@@ -17343,6 +17920,8 @@ impl Routes {
 /// # Service Description
 ///
 /// Service for the `securityPolicies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -17531,6 +18110,8 @@ impl SecurityPolicies {
 ///
 /// Service for the `serviceAttachments` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `ServiceAttachments` use the `with_*` methods in the type returned
@@ -17698,6 +18279,8 @@ impl ServiceAttachments {
 ///
 /// Service for the `snapshotSettings` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `SnapshotSettings` use the `with_*` methods in the type returned
@@ -17819,6 +18402,8 @@ impl SnapshotSettings {
 /// # Service Description
 ///
 /// Service for the `snapshots` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -17992,6 +18577,8 @@ impl Snapshots {
 ///
 /// Service for the `sslCertificates` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `SslCertificates` use the `with_*` methods in the type returned
@@ -18133,6 +18720,8 @@ impl SslCertificates {
 /// # Service Description
 ///
 /// Service for the `sslPolicies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -18288,6 +18877,8 @@ impl SslPolicies {
 ///
 /// Service for the `storagePoolTypes` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `StoragePoolTypes` use the `with_*` methods in the type returned
@@ -18413,6 +19004,8 @@ impl StoragePoolTypes {
 /// # Service Description
 ///
 /// Service for the `storagePools` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -18590,6 +19183,8 @@ impl StoragePools {
 /// # Service Description
 ///
 /// Service for the `subnetworks` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -18776,6 +19371,8 @@ impl Subnetworks {
 ///
 /// Service for the `targetGrpcProxies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `TargetGrpcProxies` use the `with_*` methods in the type returned
@@ -18916,6 +19513,8 @@ impl TargetGrpcProxies {
 /// # Service Description
 ///
 /// Service for the `targetHttpProxies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -19072,6 +19671,8 @@ impl TargetHttpProxies {
 /// # Service Description
 ///
 /// Service for the `targetHttpsProxies` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -19252,6 +19853,8 @@ impl TargetHttpsProxies {
 ///
 /// Service for the `targetInstances` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `TargetInstances` use the `with_*` methods in the type returned
@@ -19404,6 +20007,8 @@ impl TargetInstances {
 /// # Service Description
 ///
 /// Service for the `targetPools` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -19589,6 +20194,8 @@ impl TargetPools {
 ///
 /// Service for the `targetSslProxies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `TargetSslProxies` use the `with_*` methods in the type returned
@@ -19756,6 +20363,8 @@ impl TargetSslProxies {
 ///
 /// Service for the `targetTcpProxies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `TargetTcpProxies` use the `with_*` methods in the type returned
@@ -19914,6 +20523,8 @@ impl TargetTcpProxies {
 ///
 /// Service for the `targetVpnGateways` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `TargetVpnGateways` use the `with_*` methods in the type returned
@@ -20061,6 +20672,8 @@ impl TargetVpnGateways {
 /// # Service Description
 ///
 /// Service for the `urlMaps` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -20239,6 +20852,8 @@ impl UrlMaps {
 ///
 /// Service for the `vpnGateways` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `VpnGateways` use the `with_*` methods in the type returned
@@ -20396,6 +21011,8 @@ impl VpnGateways {
 ///
 /// Service for the `vpnTunnels` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `VpnTunnels` use the `with_*` methods in the type returned
@@ -20543,6 +21160,8 @@ impl VpnTunnels {
 ///
 /// Service for the `wireGroups` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `WireGroups` use the `with_*` methods in the type returned
@@ -20682,6 +21301,8 @@ impl WireGroups {
 /// # Service Description
 ///
 /// Service for the `zoneOperations` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///
@@ -20826,6 +21447,8 @@ impl ZoneOperations {
 ///
 /// Service for the `zoneVmExtensionPolicies` resource.
 ///
+/// The client library was generated with API version 2026-09-01.
+///
 /// # Configuration
 ///
 /// To configure `ZoneVmExtensionPolicies` use the `with_*` methods in the type returned
@@ -20962,6 +21585,8 @@ impl ZoneVmExtensionPolicies {
 /// # Service Description
 ///
 /// Service for the `zones` resource.
+///
+/// The client library was generated with API version 2026-09-01.
 ///
 /// # Configuration
 ///

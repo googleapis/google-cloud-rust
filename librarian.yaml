@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.45.1-0.20260925185230-227f13c61573
+version: v0.46.1-0.20260930150914-7e63426757f3
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: e9a5b69904d8514a2ebdf86a6171f2c3a6062477
-    sha256: 06267bfc7f8fbacd6fdf17d38ee09335c711afb5910af31609d1f94606681458
+    commit: da8155727f763f9bbb349065742b200e5554f347
+    sha256: ae7e05c32cb1623c09a01ed58adfc5e06b90eadd8e0ec2be557b270d44a17505
   googleapis:
-    commit: 9b719a5c153f3ec7a14d5d45d4da720410c7b943
-    sha256: fcceaa2004ccc51874effb9669303c042d21ff3e308f1710ce8280acbab8e2a5
+    commit: 93d6085996d0b4ff7e7e86ca9945d5524bb380d1
+    sha256: 2271ff64a808d6a9089d0f410d28fc9ce4dd35ffe6e1c2cf79dd9a8578ddc871
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -182,7 +182,7 @@ libraries:
           api_path: src/wkt/tests/protos
           template: mod
   - name: google-ads-datamanager-v1
-    version: 1.2.0
+    version: 1.3.0
     copyright_year: "2026"
   - name: google-apps-card-v1
     version: 1.0.0
@@ -341,7 +341,7 @@ libraries:
       - path: google/api/serviceusage/v1
     copyright_year: "2025"
   - name: google-cloud-apigateway-v1
-    version: 1.15.0
+    version: 1.16.0
     copyright_year: "2025"
   - name: google-cloud-apigeeconnect-v1
     version: 1.12.0
@@ -504,7 +504,7 @@ libraries:
     version: 2.3.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
-    version: 0.17.0-preview
+    version: 0.18.0
     copyright_year: "2026"
     output: src/bigquery
     rust:
@@ -566,7 +566,7 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-derive
-    version: 0.1.0-preview
+    version: 0.2.0
     copyright_year: "2026"
     output: src/bigquery-derive
   - name: google-cloud-bigquery-migration-v2
@@ -651,7 +651,7 @@ libraries:
     version: 1.7.0
     copyright_year: "2025"
   - name: google-cloud-compute-v1
-    version: 3.6.0
+    version: 4.0.0
     copyright_year: "2025"
     keep:
       - src/errors.rs
@@ -659,7 +659,6 @@ libraries:
     roots:
       - discovery
       - googleapis
-    skip_generate: true
     specification_format: discovery
     rust:
       package_dependencies:
@@ -678,6 +677,8 @@ libraries:
         - projects
       disabled_clippy_warnings:
         - doc_lazy_continuation
+      message_module_name_overrides:
+        .google.cloud.compute.v1.globalFrontendSettings: global_frontend_settings_requests
       discovery:
         operation_id: .google.cloud.compute.v1.Operation
         pollers:
@@ -724,7 +725,7 @@ libraries:
     version: 1.15.0
     copyright_year: "2025"
   - name: google-cloud-dataform-v1
-    version: 1.14.0
+    version: 1.15.0
     copyright_year: "2025"
   - name: google-cloud-datafusion-v1
     version: 1.15.0
@@ -783,7 +784,7 @@ libraries:
         - versions
         - webhooks
   - name: google-cloud-dialogflow-v2
-    version: 1.16.0
+    version: 1.17.0
     copyright_year: "2025"
     rust:
       per_service_features: true
@@ -931,7 +932,7 @@ libraries:
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.19
+    version: 0.7.20
     copyright_year: "2025"
     output: src/gax-internal
     rust:
@@ -1278,7 +1279,7 @@ libraries:
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 1.5.0
+    version: 1.6.0
     copyright_year: "2025"
     output: src/pubsub
     rust:
@@ -1449,7 +1450,7 @@ libraries:
       - googleapis
     skip_release: true
   - name: google-cloud-spanner
-    version: 0.34.6-preview
+    version: 0.34.7-preview
     copyright_year: "2026"
     output: src/spanner
     rust:
@@ -1525,7 +1526,7 @@ libraries:
           item_field: items
       quickstart_service_override: SqlInstancesService
   - name: google-cloud-storage
-    version: 1.19.0
+    version: 1.20.0
     copyright_year: "2025"
     output: src/storage
     rust:
@@ -1685,9 +1686,6 @@ libraries:
   - name: google-cloud-texttospeech-v1
     version: 1.16.0
     copyright_year: "2025"
-  - name: google-cloud-timeseriesinsights-v1
-    version: 1.13.0
-    copyright_year: "2025"
   - name: google-cloud-tpu-v2
     version: 1.15.0
     copyright_year: "2025"
@@ -1786,7 +1784,7 @@ libraries:
     version: 1.3.0
     copyright_year: "2026"
   - name: google-devicesandservices-health-v4
-    version: 1.2.0
+    version: 1.3.0
     copyright_year: "2026"
   - name: google-geo-type
     version: 1.0.0

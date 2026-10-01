@@ -16,6 +16,7 @@
 #[cfg(any(
     feature = "agents",
     feature = "answer-records",
+    feature = "companion-agents",
     feature = "contexts",
     feature = "conversations",
     feature = "conversation-datasets",
@@ -493,6 +494,216 @@ where
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::AnswerRecords::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
+    }
+}
+
+/// Implements a [CompanionAgents](super::stub::CompanionAgents) decorator for logging and tracing.
+#[cfg(feature = "companion-agents")]
+#[derive(Clone, Debug)]
+pub struct CompanionAgents<T>
+where
+    T: super::stub::CompanionAgents + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+#[cfg(feature = "companion-agents")]
+impl<T> CompanionAgents<T>
+where
+    T: super::stub::CompanionAgents + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+#[cfg(feature = "companion-agents")]
+impl<T> super::stub::CompanionAgents for CompanionAgents<T>
+where
+    T: super::stub::CompanionAgents + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_companion_agent(
+        &self,
+        req: crate::model::CreateCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompanionAgent>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::create_companion_agent",
+            self.inner.create_companion_agent(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_companion_agent(
+        &self,
+        req: crate::model::GetCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompanionAgent>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::get_companion_agent",
+            self.inner.get_companion_agent(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_companion_agent(
+        &self,
+        req: crate::model::UpdateCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompanionAgent>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::update_companion_agent",
+            self.inner.update_companion_agent(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_companion_agent(
+        &self,
+        req: crate::model::DeleteCompanionAgentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::delete_companion_agent",
+            self.inner.delete_companion_agent(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_companion_agents(
+        &self,
+        req: crate::model::ListCompanionAgentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCompanionAgentsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::list_companion_agents",
+            self.inner.list_companion_agents(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::list_locations",
+            self.inner.list_locations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::get_location",
+            self.inner.get_location(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::get_operation",
+            self.inner.get_operation(req, options));
+        google_cloud_lro::record_polling_attributes!(&_span);
+        let result = pending.await;
+        {
+            if google_cloud_lro::LroRecorder::current().is_some() {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CompanionAgents::cancel_operation",
             self.inner.cancel_operation(req, options));
         pending.await
     }
@@ -3984,6 +4195,34 @@ where
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
     ) {
         self.inner.streaming_analyze_content(options)
+    }
+
+    fn bidi_streaming_analyze_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::model::BidiStreamingAnalyzeContentRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::model::BidiStreamingAnalyzeContentResponse,
+        >,
+    ) {
+        self.inner.bidi_streaming_analyze_content(options)
+    }
+
+    fn streaming_reactive_companion_suggestions(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::model::StreamingReactiveCompanionSuggestionsRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::model::StreamingReactiveCompanionSuggestionsResponse,
+        >,
+    ) {
+        self.inner.streaming_reactive_companion_suggestions(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

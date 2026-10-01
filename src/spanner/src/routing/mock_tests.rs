@@ -4409,9 +4409,14 @@ async fn unary_partition_read_routes_to_tablet_node() -> anyhow::Result<()> {
 }
 
 #[tokio_test_no_panics]
-async fn unary_partition_query_with_transaction_id_routes_to_affinity_address() -> anyhow::Result<()>
-{
-    let mock_gateway = create_base_mock();
+async fn unary_partition_query_does_not_use_transaction_affinity() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_partition_query_received = Arc::new(AtomicBool::new(false));
+    let gateway_partition_query_received_clone = Arc::clone(&gateway_partition_query_received);
+    mock_gateway.expect_partition_query().returning(move |_| {
+        gateway_partition_query_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::PartitionResponse::default()))
+    });
     let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mut mock_tablet = create_base_mock();
@@ -4448,6 +4453,8 @@ async fn unary_partition_query_with_transaction_id_routes_to_affinity_address() 
         .get(&tablet_address, client_config)
         .await?;
 
+    // PartitionQuery is only used with read-only transactions, which do not use affinity.
+    // Even if an affinity entry exists for the transaction ID, PartitionQuery must not route to it.
     let transaction_id = b"tx-part-query-affinity";
     router.record_transaction_affinity(transaction_id, &tablet_address);
 
@@ -4465,8 +4472,12 @@ async fn unary_partition_query_with_transaction_id_routes_to_affinity_address() 
         .await?;
 
     assert!(
-        tablet_partition_query_received.load(Ordering::SeqCst),
-        "partition_query request with transaction affinity must route to affinity tablet"
+        gateway_partition_query_received.load(Ordering::SeqCst),
+        "partition_query request must route to gateway because read-only transactions do not use transaction affinity"
+    );
+    assert!(
+        !tablet_partition_query_received.load(Ordering::SeqCst),
+        "partition_query request must not route to affinity tablet"
     );
 
     Ok(())
@@ -6747,6 +6758,261 @@ async fn unary_rpc_feedback_direct_affinity_zero_group_uid_handles_cooldown_and_
     assert!(
         fallback_called.load(Ordering::SeqCst),
         "gateway fallback must have received the post-cooldown execution"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn replay_protected_write_only_transaction_routes_commit_to_affinity_tablet_and_clears()
+-> anyhow::Result<()> {
+    use mock_v1::commit_request::Transaction as CommitTransaction;
+
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let tablet_begin_received = Arc::new(AtomicBool::new(false));
+    let tablet_begin_received_clone = Arc::clone(&tablet_begin_received);
+    let transaction_id = Bytes::from_static(b"tx-write-only-affinity-1");
+    let transaction_id_for_begin = transaction_id.clone();
+    mock_tablet.expect_begin_transaction().returning(move |_| {
+        tablet_begin_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::Transaction {
+            id: transaction_id_for_begin.to_vec(),
+            ..Default::default()
+        }))
+    });
+
+    let tablet_commit_received = Arc::new(AtomicBool::new(false));
+    let tablet_commit_received_clone = Arc::clone(&tablet_commit_received);
+    let expected_transaction_id = transaction_id.clone();
+    mock_tablet.expect_commit().returning(move |request| {
+        tablet_commit_received_clone.store(true, Ordering::SeqCst);
+        assert_eq!(
+            request.get_ref().transaction,
+            Some(CommitTransaction::TransactionId(
+                expected_transaction_id.to_vec(),
+            )),
+            "commit request must carry the transaction id returned by begin_transaction"
+        );
+        Ok(Response::new(mock_v1::CommitResponse {
+            commit_timestamp: Some(Timestamp {
+                seconds: 1700000008,
+                nanos: 0,
+            }),
+            ..Default::default()
+        }))
+    });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(10200, 8002, &tablet_address, &tablet_address);
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8002,
+        split_id: 8002,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present when location-aware routing is enabled");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    assert_eq!(
+        router.affinity_count(),
+        0,
+        "location router affinity count must be 0 before transaction begins"
+    );
+
+    let mutation = Mutation::new_insert_builder("Singers")
+        .set("SingerId")
+        .to(200i64)
+        .set("Name")
+        .to("Grace")
+        .build();
+
+    let transaction = database_client.write_only_transaction().build();
+    let response = transaction.write(vec![mutation]).await?;
+
+    assert!(
+        tablet_begin_received.load(Ordering::SeqCst),
+        "begin_transaction must route to the tablet for the mutation key"
+    );
+    assert!(
+        tablet_commit_received.load(Ordering::SeqCst),
+        "commit must route to the tablet via recorded location router transaction affinity"
+    );
+    assert_eq!(
+        response
+            .commit_timestamp
+            .as_ref()
+            .map(|timestamp| timestamp.seconds()),
+        Some(1700000008),
+        "commit response timestamp must match mock"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(&transaction_id),
+        None,
+        "location router must clear transaction affinity after successful commit"
+    );
+    assert_eq!(
+        router.affinity_count(),
+        0,
+        "location router affinity count must return to 0 after commit"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn replay_protected_write_only_transaction_preserves_affinity_across_precommit_token_retry()
+-> anyhow::Result<()> {
+    use mock_v1::MultiplexedSessionPrecommitToken;
+    use mock_v1::commit_request::Transaction as CommitTransaction;
+    use mock_v1::commit_response::MultiplexedSessionRetry;
+
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let transaction_id = Bytes::from_static(b"tx-write-only-precommit-token");
+    let transaction_id_for_begin = transaction_id.clone();
+    mock_tablet.expect_begin_transaction().returning(move |_| {
+        Ok(Response::new(mock_v1::Transaction {
+            id: transaction_id_for_begin.to_vec(),
+            ..Default::default()
+        }))
+    });
+
+    let commit_invocation_count = Arc::new(AtomicUsize::new(0));
+    let commit_invocation_count_clone = Arc::clone(&commit_invocation_count);
+    let expected_transaction_id = transaction_id.clone();
+    mock_tablet
+        .expect_commit()
+        .times(2)
+        .returning(move |request| {
+            let invocation = commit_invocation_count_clone.fetch_add(1, Ordering::SeqCst);
+            assert_eq!(
+                request.get_ref().transaction,
+                Some(CommitTransaction::TransactionId(
+                    expected_transaction_id.to_vec(),
+                )),
+                "commit request must carry the transaction id returned by begin_transaction"
+            );
+            if invocation == 0 {
+                Ok(Response::new(mock_v1::CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![101, 102],
+                            seq_num: 1,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            } else {
+                Ok(Response::new(mock_v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1700000010,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            }
+        });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(10201, 8003, &tablet_address, &tablet_address);
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8003,
+        split_id: 8003,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present when location-aware routing is enabled");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let mutation = Mutation::new_insert_builder("Singers")
+        .set("SingerId")
+        .to(201i64)
+        .set("Name")
+        .to("Henry")
+        .build();
+
+    let transaction = database_client.write_only_transaction().build();
+    let response = transaction.write(vec![mutation]).await?;
+
+    assert_eq!(
+        commit_invocation_count.load(Ordering::SeqCst),
+        2,
+        "commit must be executed twice on tablet due to precommit_token retry"
+    );
+    assert_eq!(
+        response
+            .commit_timestamp
+            .as_ref()
+            .map(|timestamp| timestamp.seconds()),
+        Some(1700000010),
+        "final commit response timestamp must match mock"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(&transaction_id),
+        None,
+        "location router must clear transaction affinity after final commit completion"
+    );
+    assert_eq!(
+        router.affinity_count(),
+        0,
+        "location router affinity count must return to 0 after final commit completion"
     );
 
     Ok(())

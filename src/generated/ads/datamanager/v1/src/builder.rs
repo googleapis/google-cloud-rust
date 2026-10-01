@@ -557,6 +557,230 @@ pub mod ingestion_service {
         }
     }
 
+    /// The request builder for [IngestionService::ingest_users][crate::client::IngestionService::ingest_users] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_ads_datamanager_v1::builder::ingestion_service::IngestUsers;
+    /// # async fn sample() -> google_ads_datamanager_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> IngestUsers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct IngestUsers(RequestBuilder<crate::model::IngestUsersRequest>);
+
+    impl IngestUsers {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IngestionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::IngestUsersRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IngestUsersResponse> {
+            (*self.0.stub)
+                .ingest_users(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [destinations][crate::model::IngestUsersRequest::destinations].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_destinations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Destination>,
+        {
+            use std::iter::Iterator;
+            self.0.request.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [users][crate::model::IngestUsersRequest::users].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_users<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::User>,
+        {
+            use std::iter::Iterator;
+            self.0.request.users = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [encryption_info][crate::model::IngestUsersRequest::encryption_info].
+        pub fn set_encryption_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionInfo>,
+        {
+            self.0.request.encryption_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_info][crate::model::IngestUsersRequest::encryption_info].
+        pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionInfo>,
+        {
+            self.0.request.encryption_info = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::IngestUsersRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+
+        /// Sets the value of [encoding][crate::model::IngestUsersRequest::encoding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_encoding<T: Into<crate::model::Encoding>>(mut self, v: T) -> Self {
+            self.0.request.encoding = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for IngestUsers {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [IngestionService::remove_users][crate::client::IngestionService::remove_users] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_ads_datamanager_v1::builder::ingestion_service::RemoveUsers;
+    /// # async fn sample() -> google_ads_datamanager_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RemoveUsers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RemoveUsers(RequestBuilder<crate::model::RemoveUsersRequest>);
+
+    impl RemoveUsers {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IngestionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RemoveUsersRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RemoveUsersResponse> {
+            (*self.0.stub)
+                .remove_users(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [destinations][crate::model::RemoveUsersRequest::destinations].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_destinations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Destination>,
+        {
+            use std::iter::Iterator;
+            self.0.request.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [user_data][crate::model::RemoveUsersRequest::user_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_user_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::UserData>,
+        {
+            use std::iter::Iterator;
+            self.0.request.user_data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [encryption_info][crate::model::RemoveUsersRequest::encryption_info].
+        pub fn set_encryption_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionInfo>,
+        {
+            self.0.request.encryption_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_info][crate::model::RemoveUsersRequest::encryption_info].
+        pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionInfo>,
+        {
+            self.0.request.encryption_info = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::RemoveUsersRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+
+        /// Sets the value of [encoding][crate::model::RemoveUsersRequest::encoding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_encoding<T: Into<crate::model::Encoding>>(mut self, v: T) -> Self {
+            self.0.request.encoding = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RemoveUsers {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [IngestionService::ingest_ad_events][crate::client::IngestionService::ingest_ad_events] calls.
     ///
     /// # Example

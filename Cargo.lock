@@ -476,7 +476,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-test-utils",
  "google-cloud-wkt",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tracing",
 ]
@@ -492,7 +492,7 @@ dependencies = [
  "google-cloud-bigquery",
  "google-cloud-bigquery-v2",
  "humantime",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
 ]
 
@@ -1004,7 +1004,7 @@ dependencies = [
  "opentelemetry",
  "opentelemetry-http",
  "opentelemetry_sdk",
- "rand 0.10.2",
+ "rand 0.10.3",
  "thiserror",
  "tokio",
  "tracing",
@@ -1465,7 +1465,7 @@ dependencies = [
 
 [[package]]
 name = "google-ads-datamanager-v1"
-version = "1.2.0"
+version = "1.3.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1839,7 +1839,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apigateway-v1"
-version = "1.15.0"
+version = "1.16.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2379,7 +2379,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery"
-version = "0.17.0-preview"
+version = "0.18.0"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -2504,7 +2504,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-derive"
-version = "0.1.0-preview"
+version = "0.2.0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2840,7 +2840,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-compute-v1"
-version = "3.6.0"
+version = "4.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3035,7 +3035,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dataform-v1"
-version = "1.14.0"
+version = "1.15.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3240,7 +3240,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dialogflow-v2"
-version = "1.16.0"
+version = "1.17.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3568,7 +3568,7 @@ dependencies = [
  "http",
  "mockall",
  "pin-project",
- "rand 0.10.2",
+ "rand 0.10.3",
  "serde",
  "serde_json",
  "static_assertions",
@@ -3580,7 +3580,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.19"
+version = "0.7.20"
 dependencies = [
  "anyhow",
  "bytes",
@@ -4859,7 +4859,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-pubsub"
-version = "1.5.0"
+version = "1.6.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4879,7 +4879,7 @@ dependencies = [
  "prost",
  "prost-types",
  "pubsub-grpc-mock",
- "rand 0.10.2",
+ "rand 0.10.3",
  "serde",
  "serde_json",
  "serde_with",
@@ -5319,7 +5319,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-spanner"
-version = "0.34.6-preview"
+version = "0.34.7-preview"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -5336,6 +5336,7 @@ dependencies = [
  "google-cloud-spanner-admin-database-v1",
  "google-cloud-spanner-admin-instance-v1",
  "google-cloud-test-macros",
+ "google-cloud-type",
  "google-cloud-wkt",
  "http",
  "mockall",
@@ -5343,7 +5344,7 @@ dependencies = [
  "opentelemetry_sdk",
  "prost",
  "prost-types",
- "rand 0.10.2",
+ "rand 0.10.3",
  "rust_decimal",
  "rustls",
  "scoped-env",
@@ -5443,7 +5444,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storage"
-version = "1.19.0"
+version = "1.20.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -5647,7 +5648,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "pretty_assertions",
- "rand 0.10.2",
+ "rand 0.10.3",
  "scoped-env",
  "serial_test",
  "test-case",
@@ -6124,7 +6125,7 @@ dependencies = [
 
 [[package]]
 name = "google-devicesandservices-health-v4"
-version = "1.2.0"
+version = "1.3.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -7211,7 +7212,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-type",
  "google-cloud-wkt",
- "rand 0.10.2",
+ "rand 0.10.3",
  "rust_decimal",
  "tokio",
 ]
@@ -7240,7 +7241,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-test-utils",
  "google-cloud-wkt",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tracing",
 ]
@@ -7343,7 +7344,7 @@ dependencies = [
  "opentelemetry-proto",
  "opentelemetry_sdk",
  "pretty_assertions",
- "rand 0.10.2",
+ "rand 0.10.3",
  "reqwest 0.13.5",
  "scoped-env",
  "serde",
@@ -7455,7 +7456,7 @@ dependencies = [
  "http-body-util",
  "prost",
  "prost-types",
- "rand 0.10.2",
+ "rand 0.10.3",
  "reqwest 0.13.5",
  "serde_json",
  "serial_test",
@@ -8050,9 +8051,9 @@ dependencies = [
 
 [[package]]
 name = "opentelemetry"
-version = "0.32.0"
+version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0142c63252a9e054e68a4c61a5778f7b14f576274d593f8ce883d191a099682"
+checksum = "6cdb0b1b267eb9db3331b434ed9ddab10d50e280a9adf9d13e5233e2002b61b5"
 dependencies = [
  "futures-core",
  "futures-sink",
@@ -8064,9 +8065,9 @@ dependencies = [
 
 [[package]]
 name = "opentelemetry-appender-tracing"
-version = "0.32.0"
+version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2c0080f0dc1d7c786f467cd85a4e395fcab11ee852004f39a29a18ab7c25d837"
+checksum = "e2b304e8d8f11326ba366a99ca5c7aaf7cd397b67268a332437175aeb42a40db"
 dependencies = [
  "opentelemetry",
  "tracing",
@@ -8076,9 +8077,9 @@ dependencies = [
 
 [[package]]
 name = "opentelemetry-http"
-version = "0.32.0"
+version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5683015d09e2df236ef005b17f6f196f0d5f6313c4fa43a7b6a53b52776e4331"
+checksum = "ee2c3625b8aa04209f7e01e513bc8044da9687fa38a9eacf59628ca5f3b87300"
 dependencies = [
  "async-trait",
  "bytes",
@@ -8088,9 +8089,9 @@ dependencies = [
 
 [[package]]
 name = "opentelemetry-otlp"
-version = "0.32.0"
+version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9966929966d17620d7c316c643ba62631826e10021409357772d5eea84f62c35"
+checksum = "699a67345e21962a231955b9059a157e428b219fa5df8efe11f08346fb23a344"
 dependencies = [
  "http",
  "opentelemetry",
@@ -8105,9 +8106,9 @@ dependencies = [
 
 [[package]]
 name = "opentelemetry-proto"
-version = "0.32.0"
+version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "56d658ba1faf63f7b9c492cfbe6e0ec365440a16132d3270c1065f7b33f1b638"
+checksum = "25da1ac11a0aeccf38d7f77ee0348715adaf8340f65ad46c94a02c6b20e2f65d"
 dependencies = [
  "opentelemetry",
  "opentelemetry_sdk",
@@ -8118,15 +8119,15 @@ dependencies = [
 
 [[package]]
 name = "opentelemetry-semantic-conventions"
-version = "0.32.1"
+version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c913ac17a6c451661ee255f4625d143e51647ae78ebd969b75e41c4442f4fe47"
+checksum = "d288b1e1bc3590052fbb8f0f635ef248dd9022cf1fbaeb6582b7ad6081a17b87"
 
 [[package]]
 name = "opentelemetry_sdk"
-version = "0.32.1"
+version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b59f80e1ac4d5ff7a2db8fb6c80badb7f0f3f858211fba08dd9aaec750894f9"
+checksum = "cb39533d9d1c912123efd7d41d7e0c29d16917b60ce15b4c8d87cb1af7f67520"
 dependencies = [
  "futures-channel",
  "futures-executor",
@@ -8509,7 +8510,7 @@ dependencies = [
  "humantime",
  "prost",
  "pubsub-grpc-mock",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tokio-stream",
  "tonic",
@@ -8526,7 +8527,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "jiff",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tracing",
 ]
@@ -8573,7 +8574,7 @@ dependencies = [
  "bytes",
  "getrandom 0.4.3",
  "lru-slab",
- "rand 0.10.2",
+ "rand 0.10.3",
  "rand_pcg",
  "ring",
  "rustc-hash",
@@ -8644,9 +8645,9 @@ dependencies = [
 
 [[package]]
 name = "rand"
-version = "0.10.2"
+version = "0.10.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7f5fa3a058cd35567ef9bfa5e75732bee0f9e4c55fa90477bef2dfcdbc4be80"
+checksum = "65c9fb96cbc91e3478eaae79a69fcd3f1ae4ad052e471fe6732fff548984b4af"
 dependencies = [
  "chacha20",
  "getrandom 0.4.3",
@@ -9494,7 +9495,7 @@ dependencies = [
  "crc32c",
  "google-cloud-auth",
  "google-cloud-storage",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tokio",
  "tracing-subscriber",
  "uuid",
@@ -9511,7 +9512,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-storage",
  "libc",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tempfile",
  "tokio",
  "tracing-subscriber",
@@ -9548,7 +9549,7 @@ dependencies = [
  "google-cloud-storage",
  "humantime",
  "parse-size",
- "rand 0.10.2",
+ "rand 0.10.3",
  "test-case",
  "tokio",
  "tracing",
@@ -9571,7 +9572,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "http",
- "rand 0.10.2",
+ "rand 0.10.3",
  "tempfile",
  "tokio",
  "tracing",
@@ -9591,7 +9592,7 @@ dependencies = [
  "google-cloud-storage",
  "http",
  "humantime",
- "rand 0.10.2",
+ "rand 0.10.3",
  "test-case",
  "tokio",
  "tracing",
@@ -9614,7 +9615,7 @@ dependencies = [
  "opentelemetry_sdk",
  "parse-size",
  "pin-project",
- "rand 0.10.2",
+ "rand 0.10.3",
  "regex",
  "tokio",
  "tokio-metrics",
@@ -9716,7 +9717,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
- "getrandom 0.4.3",
+ "getrandom 0.3.4",
  "once_cell",
  "rustix",
  "windows-sys 0.61.2",
@@ -9739,34 +9740,34 @@ dependencies = [
 
 [[package]]
 name = "test-case"
-version = "3.3.1"
+version = "3.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb2550dd13afcd286853192af8601920d959b14c401fcece38071d53bf0768a8"
+checksum = "124953e7f67cb0b2fcfb87e899e4ae5a64fb68e2e160767933cc67b646fb0042"
 dependencies = [
  "test-case-macros",
 ]
 
 [[package]]
 name = "test-case-core"
-version = "3.3.1"
+version = "3.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "adcb7fd841cd518e279be3d5a3eb0636409487998a4aff22f3de87b81e88384f"
+checksum = "bd097615b407247e102046ba34426bb594923ab3554cf0f3cdfed050f1a5a3e8"
 dependencies = [
  "cfg-if",
  "proc-macro2",
  "quote",
- "syn 2.0.119",
+ "syn 3.0.6",
 ]
 
 [[package]]
 name = "test-case-macros"
-version = "3.3.1"
+version = "3.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c89e72a01ed4c579669add59014b9a524d609c0c88c6a585ce37485879f6ffb"
+checksum = "f4ce35ece947bccac166e1ded639133827a953f69a48ba134d17f91108333082"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.119",
+ "syn 3.0.6",
  "test-case-core",
 ]
 
@@ -10202,9 +10203,9 @@ dependencies = [
 
 [[package]]
 name = "tracing-opentelemetry"
-version = "0.33.0"
+version = "0.34.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "adbc64cba7137545b8044cb1fe9814f7aacf3c6b5f9b45be8bb5db538befdb26"
+checksum = "0a904802a1b902f43638b677ff2a650847e3b4404101b6c586d648e8c1e3e8fe"
 dependencies = [
  "js-sys",
  "opentelemetry",

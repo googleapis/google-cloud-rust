@@ -17,9 +17,6 @@
 //! Evaluates a [`KeyRecipe`] against SQL query parameter values or primary key tuples and encodes
 //! them into a lexicographical binary storage specification key (`Vec<u8>`) using [`ssformat`].
 
-// TODO(#6236): Remove dead_code allowance once KeyRecipe and KeyRecipeCache are integrated into DatabaseClient.
-#![allow(dead_code)]
-
 use crate::Result;
 use crate::error::internal_error;
 use crate::model::key_recipe::Part;
@@ -31,6 +28,7 @@ use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use serde_json::Map;
 use serde_json::Value as JsonValue;
+#[cfg(test)]
 use std::collections::BTreeMap;
 
 /// Encodes a Spanner routing key (`Vec<u8>`) from a [`KeyRecipe`] and a slice of column [`Value`]s.
@@ -47,6 +45,7 @@ use std::collections::BTreeMap;
 /// If encoding returns an error (for example, due to an unsupported key column type like `NUMERIC`
 /// or `FLOAT32`), callers (`LocationRouter` / `DatabaseClient`) MUST catch the error and silently
 /// fall back to default routing (without tablet affinity) rather than failing the user's RPC.
+#[cfg(test)]
 pub(crate) fn encode_key_from_recipe(recipe: &KeyRecipe, values: &[Value]) -> Result<Vec<u8>> {
     let mut buffer = Vec::with_capacity(recipe.part.len().saturating_mul(16));
     encode_key_from_recipe_into(recipe, values, &mut buffer)?;
@@ -216,6 +215,7 @@ pub(crate) fn encode_key_from_recipe_into(
 /// If encoding returns an error (for example, due to a missing parameter or unsupported type),
 /// callers (`LocationRouter` / `DatabaseClient`) MUST catch the error and silently fall back to
 /// default routing rather than failing the user's RPC.
+#[cfg(test)]
 pub(crate) fn encode_key_from_query_params(
     recipe: &KeyRecipe,
     params: &BTreeMap<String, Value>,
@@ -239,6 +239,7 @@ pub(crate) fn encode_key_from_query_params(
 /// If encoding returns an error (for example, due to a missing parameter or unsupported type),
 /// callers (`LocationRouter` / `DatabaseClient`) MUST catch the error and silently fall back to
 /// default routing rather than failing the user's RPC.
+#[cfg(test)]
 pub(crate) fn encode_key_from_query_params_into(
     recipe: &KeyRecipe,
     params: &BTreeMap<String, Value>,
@@ -612,6 +613,7 @@ fn resolve_struct_field<'a>(
 }
 
 /// Looks up a query parameter by name in `params`, supporting case-insensitive lookup.
+#[cfg(test)]
 fn lookup_query_param<'a>(
     params: &'a BTreeMap<String, Value>,
     identifier: &str,

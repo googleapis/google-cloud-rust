@@ -14,15 +14,13 @@
 
 //! Server connection wrapper and inflight request tracking for location-aware routing.
 
-// TODO(location-aware-routing): Remove allow(dead_code) once location_router.rs integrates ServerConnection.
-#![allow(dead_code)]
-
 use crate::client::Channel;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU8, AtomicUsize, Ordering};
 
 const STATE_READY: u8 = 0;
 const STATE_TRANSIENT_FAILURE: u8 = 1;
+#[cfg(test)]
 const STATE_UNHEALTHY: u8 = 2;
 
 /// A Spanner server connection wrapper for location-aware routing.
@@ -113,6 +111,28 @@ impl ServerConnection {
         self.inner.state.load(Ordering::Acquire) == STATE_TRANSIENT_FAILURE
     }
 
+    /// Increments the active inflight request count for this connection.
+    pub(crate) fn increment_active_requests(&self) {
+        self.inner.active_requests.fetch_add(1, Ordering::Relaxed);
+    }
+
+    /// Returns the current number of active inflight requests on this connection.
+    pub(crate) fn active_request_count(&self) -> usize {
+        self.inner.active_requests.load(Ordering::Relaxed)
+    }
+
+    /// Increments the active request count and returns an RAII guard that automatically decrements
+    /// the count when dropped.
+    pub(crate) fn acquire_request_guard(&self) -> ActiveRequestGuard {
+        self.increment_active_requests();
+        ActiveRequestGuard {
+            inner: Arc::clone(&self.inner),
+        }
+    }
+}
+
+#[cfg(test)]
+impl ServerConnection {
     /// Marks this connection as `READY`.
     pub(crate) fn set_ready(&self) {
         self.inner.state.store(STATE_READY, Ordering::Release);
@@ -130,11 +150,6 @@ impl ServerConnection {
         self.inner.state.store(STATE_UNHEALTHY, Ordering::Release);
     }
 
-    /// Increments the active inflight request count for this connection.
-    pub(crate) fn increment_active_requests(&self) {
-        self.inner.active_requests.fetch_add(1, Ordering::Relaxed);
-    }
-
     /// Decrements the active inflight request count for this connection without underflow.
     pub(crate) fn decrement_active_requests(&self) {
         let _ =
@@ -143,20 +158,6 @@ impl ServerConnection {
                 .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |val| {
                     Some(val.saturating_sub(1))
                 });
-    }
-
-    /// Returns the current number of active inflight requests on this connection.
-    pub(crate) fn active_request_count(&self) -> usize {
-        self.inner.active_requests.load(Ordering::Relaxed)
-    }
-
-    /// Increments the active request count and returns an RAII guard that automatically decrements
-    /// the count when dropped.
-    pub(crate) fn acquire_request_guard(&self) -> ActiveRequestGuard {
-        self.increment_active_requests();
-        ActiveRequestGuard {
-            inner: Arc::clone(&self.inner),
-        }
     }
 }
 
