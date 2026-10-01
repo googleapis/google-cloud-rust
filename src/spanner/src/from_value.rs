@@ -55,6 +55,7 @@ use wkt::Timestamp;
 pub enum ConvertError {
     /// The value kind is not as expected.
     #[error("expected {want:?}, got {got:?}")]
+    #[non_exhaustive]
     KindMismatch {
         /// The expected Spanner value kind.
         want: Kind,
@@ -64,6 +65,7 @@ pub enum ConvertError {
 
     /// The column type does not match the requested type.
     #[error("type mismatch, expected {want:?}, got {got:?}")]
+    #[non_exhaustive]
     TypeMismatch {
         /// The expected Spanner type code.
         want: TypeCode,
@@ -130,10 +132,10 @@ impl ConvertError {
     /// impl FromValue for PositiveNumeric {
     ///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
     ///         if type_.code() != TypeCode::Numeric {
-    ///             return Err(ConvertError::TypeMismatch {
-    ///                 want: TypeCode::Numeric,
-    ///                 got: type_.code(),
-    ///             });
+    ///             return Err(ConvertError::type_mismatch(
+    ///                 TypeCode::Numeric,
+    ///                 type_.code(),
+    ///             ));
     ///         }
     ///         let s = String::from_value(value, type_)?;
     ///         if s.starts_with('-') {
@@ -169,6 +171,37 @@ impl ConvertError {
     /// ```
     pub fn message<T: Into<String>>(message: T) -> Self {
         Self::Convert(Arc::new(MessageError(message.into())))
+    }
+
+    /// Creates a [`ConvertError::KindMismatch`] for the expected and actual value kinds.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_spanner::error::ConvertError;
+    /// use google_cloud_spanner::value::Kind;
+    ///
+    /// let error = ConvertError::kind_mismatch(Kind::String, Kind::Bool);
+    /// assert_eq!(error.to_string(), "expected String, got Bool");
+    /// ```
+    pub fn kind_mismatch(want: Kind, got: Kind) -> Self {
+        Self::KindMismatch { want, got }
+    }
+
+    /// Creates a [`ConvertError::TypeMismatch`] for the expected and actual type codes.
+    ///
+    /// This constructor is preferred when validating column schema types in custom
+    /// [`FromValue`] implementations.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_spanner::error::ConvertError;
+    /// use google_cloud_spanner::types::TypeCode;
+    ///
+    /// let error = ConvertError::type_mismatch(TypeCode::Int64, TypeCode::String);
+    /// assert_eq!(error.to_string(), "type mismatch, expected Int64, got String");
+    /// ```
+    pub fn type_mismatch(want: TypeCode, got: TypeCode) -> Self {
+        Self::TypeMismatch { want, got }
     }
 
     /// Extracts a `ConvertError` from a [`google_cloud_spanner::Error`][Error], if present.
@@ -2684,14 +2717,11 @@ mod tests {
             "expected NotNull variant"
         );
 
-        let type_conversion_error = Error::deser(RowError::TypeConversion {
-            column: "col_a".to_string(),
-            type_code: TypeCode::String,
-            source: ConvertError::TypeMismatch {
-                want: TypeCode::Int64,
-                got: TypeCode::String,
-            },
-        });
+        let type_conversion_error = Error::deser(RowError::type_conversion(
+            "col_a",
+            TypeCode::String,
+            ConvertError::type_mismatch(TypeCode::Int64, TypeCode::String),
+        ));
         let extracted_from_type_conversion = ConvertError::extract(&type_conversion_error)
             .expect("should extract ConvertError from RowError::TypeConversion");
         assert!(
@@ -2705,7 +2735,7 @@ mod tests {
             "expected TypeMismatch extracted from TypeConversion"
         );
 
-        let other_error = Error::deser(RowError::ColumnNotFound("col".to_string()));
+        let other_error = Error::deser(RowError::column_not_found("col"));
         assert!(
             ConvertError::extract(&other_error).is_none(),
             "should return None for non-ConvertError"

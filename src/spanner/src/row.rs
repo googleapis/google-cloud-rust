@@ -93,6 +93,7 @@ pub enum RowError {
     ColumnNotFound(String),
     /// The requested column index was out of range.
     #[error("Column index out of range: {index} (expected < {len})")]
+    #[non_exhaustive]
     IndexOutOfRange {
         /// The index that was requested.
         index: usize,
@@ -101,6 +102,7 @@ pub enum RowError {
     },
     /// Failed to convert the column value to the requested type.
     #[error("Type conversion error for column '{column}' (type {type_code:?}): {source}")]
+    #[non_exhaustive]
     TypeConversion {
         /// The column identifier (name or index).
         column: String,
@@ -113,6 +115,58 @@ pub enum RowError {
 }
 
 impl RowError {
+    /// Creates a [`RowError::ColumnNotFound`] with the requested column name.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_spanner::error::RowError;
+    ///
+    /// let error = RowError::column_not_found("user_id");
+    /// assert_eq!(error.to_string(), "Could not find column: 'user_id'");
+    /// ```
+    pub fn column_not_found(column: impl Into<String>) -> Self {
+        Self::ColumnNotFound(column.into())
+    }
+
+    /// Creates a [`RowError::IndexOutOfRange`] with the requested index and total column count.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_spanner::error::RowError;
+    ///
+    /// let error = RowError::index_out_of_range(5, 3);
+    /// assert_eq!(error.to_string(), "Column index out of range: 5 (expected < 3)");
+    /// ```
+    pub fn index_out_of_range(index: usize, len: usize) -> Self {
+        Self::IndexOutOfRange { index, len }
+    }
+
+    /// Creates a [`RowError::TypeConversion`] with the column identifier, type code, and source error.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_spanner::error::{ConvertError, RowError};
+    /// use google_cloud_spanner::types::TypeCode;
+    ///
+    /// let source = ConvertError::type_mismatch(TypeCode::Int64, TypeCode::String);
+    /// let error = RowError::type_conversion("age", TypeCode::String, source);
+    /// assert_eq!(
+    ///     error.to_string(),
+    ///     "Type conversion error for column 'age' (type String): type mismatch, expected Int64, got String"
+    /// );
+    /// ```
+    pub fn type_conversion(
+        column: impl Into<String>,
+        type_code: TypeCode,
+        source: ConvertError,
+    ) -> Self {
+        Self::TypeConversion {
+            column: column.into(),
+            type_code,
+            source,
+        }
+    }
+
     /// Extracts a `RowError` from a [`google_cloud_spanner::Error`][Error], if present.
     ///
     /// # Example
@@ -133,10 +187,10 @@ impl RowError {
     ///         if let Some(row_error) = RowError::extract(&error) {
     ///             match row_error {
     ///                 RowError::ColumnNotFound(column) => println!("Column not found: {column}"),
-    ///                 RowError::IndexOutOfRange { index, len } => {
+    ///                 RowError::IndexOutOfRange { index, len, .. } => {
     ///                     println!("Index {index} out of range (length {len})");
     ///                 }
-    ///                 RowError::TypeConversion { column, type_code, source } => {
+    ///                 RowError::TypeConversion { column, type_code, source, .. } => {
     ///                     println!("Conversion error for {column} ({type_code:?}): {source}");
     ///                 }
     ///                 _ => {}
@@ -273,10 +327,10 @@ impl Row {
             .column_types
             .get(column_index)
             .ok_or_else(|| {
-                Error::deser(RowError::IndexOutOfRange {
-                    index: column_index,
-                    len: self.metadata.column_types.len(),
-                })
+                Error::deser(RowError::index_out_of_range(
+                    column_index,
+                    self.metadata.column_types.len(),
+                ))
             })?;
         T::from_value(value, column_type).map_err(|error| {
             let column = self
@@ -286,11 +340,7 @@ impl Row {
                 .filter(|name| !name.is_empty())
                 .cloned()
                 .unwrap_or_else(|| column_index.to_string());
-            Error::deser(RowError::TypeConversion {
-                column,
-                type_code: column_type.code(),
-                source: error,
-            })
+            Error::deser(RowError::type_conversion(column, column_type.code(), error))
         })
     }
 
@@ -331,12 +381,12 @@ impl Row {
     fn get_value<I: ColumnIndex>(&self, index: I) -> Result<(usize, &Value)> {
         let column_index = index
             .index(self)
-            .ok_or_else(|| Error::deser(RowError::ColumnNotFound(index.to_string())))?;
+            .ok_or_else(|| Error::deser(RowError::column_not_found(index.to_string())))?;
         let value = self.values.get(column_index).ok_or_else(|| {
-            Error::deser(RowError::IndexOutOfRange {
-                index: column_index,
-                len: self.values.len(),
-            })
+            Error::deser(RowError::index_out_of_range(
+                column_index,
+                self.values.len(),
+            ))
         })?;
         Ok((column_index, value))
     }

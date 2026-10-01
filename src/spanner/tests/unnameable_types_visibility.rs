@@ -32,7 +32,7 @@ use google_cloud_spanner::transaction::{
 };
 use google_cloud_spanner::types::TypeCode;
 use google_cloud_spanner::value::{
-    ConvertError as ValueConvertError, SharedError as ValueSharedError,
+    ConvertError as ValueConvertError, Kind, SharedError as ValueSharedError,
 };
 use std::io::Error as IoError;
 use std::sync::Arc;
@@ -146,7 +146,7 @@ fn external_can_use_column_index_as_bound() {
 
 #[test]
 fn external_can_name_and_match_row_error() {
-    let column_error = RowError::ColumnNotFound("missing_col".to_string());
+    let column_error = RowError::column_not_found("missing_col");
     assert_eq!(
         column_error.to_string(),
         "Could not find column: 'missing_col'",
@@ -157,15 +157,15 @@ fn external_can_name_and_match_row_error() {
         RowError::ColumnNotFound(name) => {
             assert_eq!(name, "missing_col", "column name should match");
         }
-        RowError::IndexOutOfRange { index, len } => {
+        RowError::IndexOutOfRange { index, len, .. } => {
             panic!("unexpected IndexOutOfRange: index={index}, len={len}");
         }
         _ => panic!("unexpected error variant"),
     }
 
-    let index_error = RowError::IndexOutOfRange { index: 3, len: 2 };
+    let index_error = RowError::index_out_of_range(3, 2);
     match &index_error {
-        RowError::IndexOutOfRange { index, len } => {
+        RowError::IndexOutOfRange { index, len, .. } => {
             assert_eq!(*index, 3, "index should match");
             assert_eq!(*len, 2, "len should match");
         }
@@ -184,24 +184,22 @@ fn external_can_name_and_match_row_error() {
         _ => panic!("unexpected error variant"),
     }
 
-    let type_conversion_error = RowError::TypeConversion {
-        column: "col_a".to_string(),
-        type_code: TypeCode::String,
-        source: ConvertError::TypeMismatch {
-            want: TypeCode::Int64,
-            got: TypeCode::String,
-        },
-    };
+    let type_conversion_error = RowError::type_conversion(
+        "col_a",
+        TypeCode::String,
+        ConvertError::type_mismatch(TypeCode::Int64, TypeCode::String),
+    );
     match &type_conversion_error {
         RowError::TypeConversion {
             column,
             type_code,
             source,
+            ..
         } => {
             assert_eq!(column, "col_a", "column name should match");
             assert_eq!(*type_code, TypeCode::String, "type code should match");
             match source {
-                ConvertError::TypeMismatch { want, got } => {
+                ConvertError::TypeMismatch { want, got, .. } => {
                     assert_eq!(*want, TypeCode::Int64, "expected want to match Int64");
                     assert_eq!(*got, TypeCode::String, "expected got to match String");
                 }
@@ -210,11 +208,20 @@ fn external_can_name_and_match_row_error() {
         }
         _ => panic!("unexpected error variant"),
     }
+
+    let kind_mismatch_error = ConvertError::kind_mismatch(Kind::String, Kind::Bool);
+    match &kind_mismatch_error {
+        ConvertError::KindMismatch { want, got, .. } => {
+            assert_eq!(*want, Kind::String, "expected want to match String");
+            assert_eq!(*got, Kind::Bool, "expected got to match Bool");
+        }
+        _ => panic!("unexpected error variant"),
+    }
 }
 
 #[test]
 fn external_can_extract_errors() {
-    let row_error = RowError::ColumnNotFound("missing".to_string());
+    let row_error = RowError::column_not_found("missing");
     let error = Error::deser(row_error.clone());
     let extracted_row = RowError::extract(&error).expect("should extract RowError");
     assert!(
@@ -231,14 +238,11 @@ fn external_can_extract_errors() {
         "extracted ConvertError should match NotNull"
     );
 
-    let type_conversion_error = RowError::TypeConversion {
-        column: "col_a".to_string(),
-        type_code: TypeCode::String,
-        source: ConvertError::TypeMismatch {
-            want: TypeCode::Int64,
-            got: TypeCode::String,
-        },
-    };
+    let type_conversion_error = RowError::type_conversion(
+        "col_a",
+        TypeCode::String,
+        ConvertError::type_mismatch(TypeCode::Int64, TypeCode::String),
+    );
     let error_from_type_conversion = Error::deser(type_conversion_error.clone());
     let extracted_row_from_type_conversion =
         RowError::extract(&error_from_type_conversion).expect("should extract RowError");
@@ -248,7 +252,8 @@ fn external_can_extract_errors() {
             RowError::TypeConversion {
                 column,
                 type_code,
-                source: ConvertError::TypeMismatch { want, got },
+                source: ConvertError::TypeMismatch { want, got, .. },
+                ..
             } if column == "col_a" && *type_code == TypeCode::String && *want == TypeCode::Int64 && *got == TypeCode::String
         ),
         "extracted RowError should match original TypeConversion"
@@ -261,6 +266,7 @@ fn external_can_extract_errors() {
             ConvertError::TypeMismatch {
                 want: TypeCode::Int64,
                 got: TypeCode::String,
+                ..
             }
         ),
         "extracted ConvertError should match TypeMismatch"
