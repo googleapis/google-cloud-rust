@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg_attr(not(test), allow(dead_code))]
+pub(crate) mod arrow;
 pub(super) mod builder;
 pub(super) mod client;
 pub(super) mod client_builder;

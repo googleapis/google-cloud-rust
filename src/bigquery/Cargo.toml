@@ -27,6 +27,7 @@ rust-version.workspace = true
 
 [dependencies]
 arc-swap.workspace           = true
+arrow.workspace              = true
 async-trait.workspace        = true
 base64.workspace             = true
 bytes.workspace              = true
