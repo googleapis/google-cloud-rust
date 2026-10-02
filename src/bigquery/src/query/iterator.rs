@@ -66,7 +66,7 @@ impl RowIterator {
             CachedData::Rows(rows) => rows,
             // TODO(#7035): decode cached Arrow IPC streams into RecordBatches
             CachedData::Arrow { .. } => {
-                unreachable!("Arrow IPC decoding is not yet implemented (#7035)")
+                unimplemented!("Arrow IPC decoding is not yet implemented (#7035)")
             }
         };
         Self {
