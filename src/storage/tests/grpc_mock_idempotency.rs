@@ -15,6 +15,7 @@
 use gaxi::grpc::tonic::{MetadataMap, Response, Status};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_storage::client::StorageControl;
 use std::sync::{Arc, Mutex};
 use storage_grpc_mock::google::storage::v2::Object;
@@ -96,24 +97,53 @@ async fn delete_object_unconditioned_omits_idempotency_token() -> anyhow::Result
 }
 
 #[tokio::test]
-async fn delete_object_retry_reuses_idempotency_token() -> anyhow::Result<()> {
+async fn delete_object_unconditioned_does_not_retry() -> anyhow::Result<()> {
     let tokens = Tokens::default();
     let captured = tokens.clone();
     let mut mock = MockStorage::new();
+    mock.expect_delete_object()
+        .times(1)
+        .return_once(move |request| {
+            captured.lock().unwrap().push(token(request.metadata()));
+            Err(Status::unavailable("try again"))
+        });
+
+    let (client, _server) = client(mock).await?;
+    let err = client
+        .delete_object()
+        .set_bucket(BUCKET_NAME)
+        .set_object(OBJECT_NAME)
+        .send()
+        .await
+        .expect_err("unconditioned DeleteObject must not be retried");
+    assert_eq!(
+        err.status().map(|s| s.code),
+        Some(Code::Unavailable),
+        "{err:?}"
+    );
+    assert_eq!(*tokens.lock().unwrap(), vec![None]);
+    Ok(())
+}
+
+#[tokio::test]
+async fn delete_object_retry_reuses_idempotency_token() -> anyhow::Result<()> {
+    let tokens = Tokens::default();
+    let first = tokens.clone();
+    let second = tokens.clone();
+    let mut mock = MockStorage::new();
     let mut seq = mockall::Sequence::new();
-    let c = captured.clone();
     mock.expect_delete_object()
         .times(1)
         .in_sequence(&mut seq)
         .returning(move |request| {
-            c.lock().unwrap().push(token(request.metadata()));
+            first.lock().unwrap().push(token(request.metadata()));
             Err(Status::unavailable("try again"))
         });
     mock.expect_delete_object()
         .times(1)
         .in_sequence(&mut seq)
         .returning(move |request| {
-            captured.lock().unwrap().push(token(request.metadata()));
+            second.lock().unwrap().push(token(request.metadata()));
             Ok(Response::new(()))
         });
 
@@ -139,8 +169,6 @@ async fn delete_object_retry_reuses_idempotency_token() -> anyhow::Result<()> {
 #[tokio::test]
 async fn delete_object_override_idempotency_false_omits_token_and_does_not_retry()
 -> anyhow::Result<()> {
-    use google_cloud_gax::options::RequestOptionsBuilder;
-
     let tokens = Tokens::default();
     let captured = tokens.clone();
     let mut mock = MockStorage::new();
@@ -202,22 +230,22 @@ async fn delete_object_precondition_failure_is_not_retried() -> anyhow::Result<(
 #[tokio::test]
 async fn get_object_retries_without_idempotency_token() -> anyhow::Result<()> {
     let tokens = Tokens::default();
-    let captured = tokens.clone();
+    let first = tokens.clone();
+    let second = tokens.clone();
     let mut mock = MockStorage::new();
     let mut seq = mockall::Sequence::new();
-    let c = captured.clone();
     mock.expect_get_object()
         .times(1)
         .in_sequence(&mut seq)
         .returning(move |request| {
-            c.lock().unwrap().push(token(request.metadata()));
+            first.lock().unwrap().push(token(request.metadata()));
             Err(Status::unavailable("try again"))
         });
     mock.expect_get_object()
         .times(1)
         .in_sequence(&mut seq)
         .returning(move |request| {
-            captured.lock().unwrap().push(token(request.metadata()));
+            second.lock().unwrap().push(token(request.metadata()));
             Ok(Response::new(Object {
                 name: OBJECT_NAME.to_string(),
                 bucket: BUCKET_NAME.to_string(),
