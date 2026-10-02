@@ -233,11 +233,15 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             .as_ref()
             .expect("named field must have identifier");
         let field_type = &field.ty;
+        // Both calls name the trait through the field's type, which keeps the
+        // span of the type in the user's code. If the type does not implement
+        // `ProtoValue`, the compiler reports the error at the field, instead
+        // of at `#[derive(ToRow)]`.
         descriptors.push(quote! {
             <#field_type as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor(#column, #number)
         });
         encoders.push(quote! {
-            google_cloud_bigquery::write::__private::ProtoValue::encode(&self.#field_name, #number, &mut buf)?;
+            <#field_type as google_cloud_bigquery::write::__private::ProtoValue>::encode(&self.#field_name, #number, &mut buf)?;
         });
     }
 
@@ -536,9 +540,9 @@ mod tests {
 
                 fn to_row(&self) -> std::result::Result<google_cloud_bigquery::write::__private::Bytes, google_cloud_bigquery::error::ConvertError> {
                     let mut buf = std::vec::Vec::new();
-                    google_cloud_bigquery::write::__private::ProtoValue::encode(&self.name, 1u32, &mut buf)?;
-                    google_cloud_bigquery::write::__private::ProtoValue::encode(&self.surname, 2u32, &mut buf)?;
-                    google_cloud_bigquery::write::__private::ProtoValue::encode(&self.r#type, 3u32, &mut buf)?;
+                    <String as google_cloud_bigquery::write::__private::ProtoValue>::encode(&self.name, 1u32, &mut buf)?;
+                    <String as google_cloud_bigquery::write::__private::ProtoValue>::encode(&self.surname, 2u32, &mut buf)?;
+                    <String as google_cloud_bigquery::write::__private::ProtoValue>::encode(&self.r#type, 3u32, &mut buf)?;
                     std::result::Result::Ok(buf.into())
                 }
             }
