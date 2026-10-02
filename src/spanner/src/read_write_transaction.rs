@@ -418,7 +418,7 @@ impl ReadWriteTransaction {
     /// # use google_cloud_spanner::mutation::Mutation;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let runner = db_client.read_write_transaction().build();
     /// runner.run(async |tx| {
     ///     let mutation = Mutation::new_insert_builder("users")
     ///         .set("id").to(&1)
@@ -514,7 +514,7 @@ impl ReadWriteTransaction {
     /// # use google_cloud_spanner::batch::BatchDml;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let runner = db_client.read_write_transaction().build();
     /// let result = runner.run(async |transaction| {
     ///     let statement1 = Statement::builder("UPDATE users SET active = true WHERE id = @id")
     ///         .add_param("id", &1)
@@ -545,7 +545,7 @@ impl ReadWriteTransaction {
     /// # use google_cloud_spanner::error::BatchUpdateError;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// # let runner = db_client.read_write_transaction().build().await?;
+    /// # let runner = db_client.read_write_transaction().build();
     /// # let result = runner.run(async |transaction| {
     /// let statement1 = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
     /// let statement2 = Statement::builder("UPDATE non_existent_table SET active = true WHERE id = 2").build();
@@ -2787,8 +2787,7 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(2))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let att_clone = attempt.clone();
@@ -2920,8 +2919,7 @@ mod tests {
             .read_write_transaction()
             .set_transaction_tag("fallback-test-tag")
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(2))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let att_clone = attempt.clone();
@@ -3122,8 +3120,7 @@ mod tests {
                     .with_max_attempts(3)
                     .with_total_timeout(std::time::Duration::from_secs(5)),
             )
-            .build()
-            .await?;
+            .build();
 
         runner
             .run(async |tx| {
@@ -3243,8 +3240,7 @@ mod tests {
                     .with_max_attempts(2)
                     .with_total_timeout(StdDuration::from_secs(5)),
             )
-            .build()
-            .await?;
+            .build();
 
         let attempt_counter = Arc::new(AtomicU32::new(0));
         let attempt_counter_clone = Arc::clone(&attempt_counter);
@@ -3426,8 +3422,7 @@ mod tests {
                     .with_max_attempts(2)
                     .with_total_timeout(StdDuration::from_secs(5)),
             )
-            .build()
-            .await?;
+            .build();
 
         let attempt_counter = Arc::new(AtomicU32::new(0));
         let attempt_counter_clone = Arc::clone(&attempt_counter);
@@ -3568,8 +3563,7 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(2))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let attempt_clone = attempt.clone();
@@ -3624,8 +3618,7 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(2))
-            .build()
-            .await?;
+            .build();
 
         let result = runner
             .run(async |transaction| {
@@ -3697,8 +3690,7 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(2))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let attempt_clone = attempt.clone();
@@ -3794,8 +3786,7 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(2))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let attempt_clone = attempt.clone();
@@ -3881,8 +3872,7 @@ mod tests {
             .read_write_transaction()
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_begin_retry_policy(NeverRetry)
-            .build()
-            .await?;
+            .build();
 
         let res = runner
             .run(async |tx| {
@@ -3933,8 +3923,7 @@ mod tests {
             .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .with_commit_retry_policy(NeverRetry)
             .with_transaction_timeout(StdDuration::from_secs(5))
-            .build()
-            .await?;
+            .build();
 
         let res = runner.run(async |_tx| Ok(())).await;
 
@@ -3991,8 +3980,7 @@ mod tests {
             .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .with_commit_attempt_timeout(StdDuration::from_secs(2))
             .with_transaction_timeout(StdDuration::from_secs(10))
-            .build()
-            .await?;
+            .build();
 
         let res = runner.run(async |_tx| Ok(())).await?;
 
@@ -4095,8 +4083,7 @@ mod tests {
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(2))
             .with_transaction_timeout(StdDuration::from_secs(5))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let att_clone = attempt.clone();
@@ -4174,8 +4161,7 @@ mod tests {
             .read_write_transaction()
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_transaction_timeout(StdDuration::from_secs(5))
-            .build()
-            .await?;
+            .build();
 
         let res = runner.run(async |_tx| Ok(())).await?;
 
@@ -4390,7 +4376,7 @@ mod tests {
             .with_location_aware_routing(true)
             .build()
             .await?;
-        let runner = db_client.read_write_transaction().build().await?;
+        let runner = db_client.read_write_transaction().build();
         runner.run(|_transaction| async move { Ok(()) }).await?;
 
         assert_eq!(db_client.database_id(), Some(88));
@@ -4492,7 +4478,7 @@ mod tests {
             .with_location_aware_routing(true)
             .build()
             .await?;
-        let runner = db_client.read_write_transaction().build().await?;
+        let runner = db_client.read_write_transaction().build();
         runner
             .run(|transaction: ReadWriteTransaction| async move {
                 transaction
@@ -6269,8 +6255,7 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let attempt_clone = Arc::clone(&attempt);
@@ -6406,8 +6391,7 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let attempt_clone = Arc::clone(&attempt);
@@ -6531,8 +6515,7 @@ mod tests {
         let runner = db_client
             .read_write_transaction()
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
-            .build()
-            .await?;
+            .build();
 
         let attempt = Arc::new(AtomicU32::new(0));
         let attempt_clone = Arc::clone(&attempt);

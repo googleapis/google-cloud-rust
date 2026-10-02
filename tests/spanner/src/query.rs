@@ -721,7 +721,7 @@ pub async fn query_profile(db_client: &DatabaseClient) -> anyhow::Result<()> {
 }
 
 pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
 
     runner
         .run(async |tx| {
@@ -1046,7 +1046,7 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
 
     // 3. Update the row using untyped DML parameters (add_param).
     let row_id_clone = row_id.clone();
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     runner
         .run(async |transaction| {
             let update_statement = Statement::builder(
@@ -1099,7 +1099,7 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
 
     // 5. Update to NaN using untyped DML parameter.
     let row_id_clone = row_id.clone();
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     runner
         .run(async |transaction| {
             let update_statement = Statement::builder(

@@ -258,8 +258,7 @@ pub async fn update_singer_rating(
         .set_transaction_tag("update-singer-rating")
         .set_isolation_level(IsolationLevel::Serializable)
         .set_max_commit_delay(Duration::clamp(0, 100_000_000))
-        .build()
-        .await?;
+        .build();
 
     let transaction_result = runner
         .run(async |transaction| {
@@ -344,7 +343,7 @@ pub async fn archive_inactive_accounts(
     database_client: &DatabaseClient,
     cutoff_timestamp: &str,
 ) -> Result<i64, Error> {
-    let transaction = database_client.partitioned_dml_transaction().build().await?;
+    let transaction = database_client.partitioned_dml_transaction().build();
 
     let statement = Statement::builder(
         "UPDATE Accounts SET Status = 'Archived' WHERE Status = 'Inactive' AND LastActivity < @cutoff",

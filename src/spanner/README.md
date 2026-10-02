@@ -190,7 +190,7 @@ async fn execute_read_write(
     database_client: &DatabaseClient,
 ) -> Result<(), Error> {
     // Create a TransactionRunner for a read/write transaction.
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
 
     // Execute the transaction. The async closure is automatically retried
     // if Spanner aborts the transaction.

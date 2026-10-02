@@ -1894,7 +1894,7 @@ mod tests {
             .database_client("projects/p/instances/i/databases/d")
             .build()
             .await?;
-        let runner = db.read_write_transaction().build().await?;
+        let runner = db.read_write_transaction().build();
 
         // 4. Run transaction
         runner
@@ -2008,7 +2008,7 @@ mod tests {
             .database_client("projects/p/instances/i/databases/d")
             .build()
             .await?;
-        let runner = db.read_write_transaction().build().await?;
+        let runner = db.read_write_transaction().build();
 
         // 4. Call execute_update with custom retry and backoff
         let mut mock_backoff = MockBackoffPolicy::new();
@@ -2156,8 +2156,7 @@ mod tests {
         let runner = db
             .read_write_transaction()
             .with_transaction_timeout(Duration::from_millis(100))
-            .build()
-            .await?;
+            .build();
 
         // 4. Run transaction and expect success after retry
         let result = runner
@@ -2283,8 +2282,7 @@ mod tests {
         let runner = db
             .read_write_transaction()
             .with_transaction_timeout(Duration::from_millis(500))
-            .build()
-            .await?;
+            .build();
 
         let result = runner
             .run(async |tx| {

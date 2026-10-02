@@ -580,11 +580,7 @@ mod tests {
         let maintainer = Arc::clone(&db_client.session_maintainer);
 
         // 1. Create builder (captures session 1)
-        let runner = db_client
-            .read_write_transaction()
-            .build()
-            .await
-            .expect("Failed to build runner");
+        let runner = db_client.read_write_transaction().build();
 
         // 2. Force rotation
         maintainer
