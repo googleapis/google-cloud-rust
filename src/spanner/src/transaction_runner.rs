@@ -28,9 +28,10 @@ use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::sync::Arc;
 
+use std::time::Duration;
 use std::time::Duration as StdDuration;
 use tokio::time::Instant;
-use wkt::{Duration, Timestamp};
+use wkt::Timestamp;
 
 /// A builder for a [TransactionRunner] for a read/write transaction.
 ///
@@ -369,12 +370,12 @@ impl TransactionRunnerBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use wkt::Duration;
+    /// # use std::time::Duration;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .set_max_commit_delay(Duration::try_from("0.2s").unwrap())
+    ///     .set_max_commit_delay(Duration::from_millis(200))
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -2089,7 +2090,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .set_max_commit_delay(Duration::try_from("0.2s").unwrap())
+            .set_max_commit_delay(Duration::from_millis(200))
             .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await?;

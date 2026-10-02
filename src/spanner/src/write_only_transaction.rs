@@ -29,7 +29,8 @@ use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::sync::{Arc, Mutex};
-use wkt::Duration;
+use std::time::Duration;
+use wkt::Duration as WktDuration;
 
 /// A builder for [WriteOnlyTransaction].
 #[derive(Debug)]
@@ -104,11 +105,11 @@ impl WriteOnlyTransactionBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use wkt::Duration;
+    /// # use std::time::Duration;
     /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.write_only_transaction()
-    ///     .set_max_commit_delay(Duration::try_from("0.1s").unwrap())
+    ///     .set_max_commit_delay(Duration::from_millis(100))
     ///     .build();
     /// # Ok(())
     /// # }
@@ -554,7 +555,7 @@ impl WriteOnlyTransaction {
             .set_mutations(mutations.into_iter().map(|m| m.build_proto()))
             .set_single_use_transaction(Box::new(single_use))
             .set_request_options(req_options)
-            .set_or_clear_max_commit_delay(self.max_commit_delay)
+            .set_or_clear_max_commit_delay(self.max_commit_delay.map(to_wkt_duration))
             .set_return_commit_stats(self.return_commit_stats);
         let client = self.client;
         let is_emulator = client.is_emulator();
@@ -600,8 +601,14 @@ pub(crate) fn create_commit_request(
         .set_mutations(mutations)
         .set_or_clear_precommit_token(precommit_token)
         .set_or_clear_request_options(request_options)
-        .set_or_clear_max_commit_delay(max_commit_delay)
+        .set_or_clear_max_commit_delay(max_commit_delay.map(to_wkt_duration))
         .set_return_commit_stats(return_commit_stats)
+}
+
+fn to_wkt_duration(duration: Duration) -> WktDuration {
+    let seconds = i64::try_from(duration.as_secs()).unwrap_or(i64::MAX);
+    let nanos = duration.subsec_nanos() as i32;
+    WktDuration::clamp(seconds, nanos)
 }
 
 #[cfg(test)]
@@ -1174,7 +1181,7 @@ mod tests {
         let res = db_client
             .write_only_transaction()
             .set_return_commit_stats(true)
-            .set_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
+            .set_max_commit_delay(Duration::from_millis(200))
             .build()
             .write(vec![mutation])
             .await?;
@@ -1322,12 +1329,12 @@ mod tests {
 
         let res = db_client
             .write_only_transaction()
-            .set_max_commit_delay(Duration::try_from("0.1s").unwrap())
+            .set_max_commit_delay(Duration::from_millis(100))
             .build()
             .write_at_least_once(vec![mutation])
             .await;
 
-        assert!(res.is_ok());
+        res.expect("write_at_least_once should succeed");
     }
 
     #[tokio_test_no_panics]
@@ -1736,5 +1743,44 @@ mod tests {
         assert_eq!(found.expect("range present").group_uid, 44);
 
         Ok(())
+    }
+
+    #[test]
+    fn to_wkt_duration_conversion() {
+        let standard_delay = Duration::from_millis(200);
+        let wkt_delay = to_wkt_duration(standard_delay);
+        assert_eq!(wkt_delay.seconds(), 0, "seconds should be 0");
+        assert_eq!(
+            wkt_delay.nanos(),
+            200_000_000,
+            "nanos should be 200_000_000"
+        );
+
+        let zero_delay = Duration::ZERO;
+        let zero_wkt = to_wkt_duration(zero_delay);
+        assert_eq!(zero_wkt.seconds(), 0, "seconds should be 0");
+        assert_eq!(zero_wkt.nanos(), 0, "nanos should be 0");
+
+        let multi_second_delay = Duration::new(5, 500_000_000);
+        let multi_wkt = to_wkt_duration(multi_second_delay);
+        assert_eq!(multi_wkt.seconds(), 5, "seconds should be 5");
+        assert_eq!(
+            multi_wkt.nanos(),
+            500_000_000,
+            "nanos should be 500_000_000"
+        );
+
+        let max_delay = Duration::MAX;
+        let clamped_wkt = to_wkt_duration(max_delay);
+        assert_eq!(
+            clamped_wkt.seconds(),
+            WktDuration::MAX_SECONDS,
+            "extreme duration should clamp to max wkt seconds"
+        );
+        assert_eq!(
+            clamped_wkt.nanos(),
+            0,
+            "nanos should be 0 when clamped at max seconds"
+        );
     }
 }
