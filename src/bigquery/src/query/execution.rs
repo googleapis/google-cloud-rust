@@ -219,17 +219,21 @@ impl RetryContext {
         let query_request = query_request
             .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true));
         #[cfg(google_cloud_unstable_bigquery_arrow)]
-        let query_request = query_request
-            .set_query_results_format(google_cloud_bigquery_v2::model::query_request::QueryResultsFormat::Arrow)
-            .set_results_format_serialization_options(
-                google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
-                    Box::new(
-                        google_cloud_bigquery_v2::model::ArrowSerializationOptions::new().set_buffer_compression(
-                            google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec::Zstd,
-                        ),
-                    ),
-                ),
-            );
+        let query_request = {
+            use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+            use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+            use google_cloud_bigquery_v2::model::query_request::{
+                QueryResultsFormat, ResultsFormatSerializationOptions,
+            };
+            query_request
+                .set_query_results_format(QueryResultsFormat::Arrow)
+                .set_results_format_serialization_options(
+                    ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                        ArrowSerializationOptions::new()
+                            .set_buffer_compression(CompressionCodec::Zstd),
+                    )),
+                )
+        };
         let query_request = query_request.set_request_id(query_request_id);
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
