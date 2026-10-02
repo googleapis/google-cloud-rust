@@ -418,7 +418,7 @@ fn struct_value_to_json(
 
     let Some(struct_type) = type_.and_then(|t| t.struct_type()) else {
         for (k, v) in s.fields() {
-            map.insert(k.clone(), from_value_recursive(v, None, depth)?);
+            map.insert(k.to_string(), from_value_recursive(v, None, depth)?);
         }
         return Ok(JsonValue::Object(map));
     };
