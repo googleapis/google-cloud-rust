@@ -88,16 +88,26 @@ fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSche
         | DataType::UInt16
         | DataType::UInt32
         | DataType::UInt64 => tf.set_type("INTEGER").set_mode(mode),
-        DataType::Float32 | DataType::Float64 => tf.set_type("FLOAT64").set_mode(mode),
+        DataType::Float16 | DataType::Float32 | DataType::Float64 => {
+            tf.set_type("FLOAT64").set_mode(mode)
+        }
         DataType::Utf8 | DataType::LargeUtf8 => tf.set_type("STRING").set_mode(mode),
-        DataType::Binary | DataType::LargeBinary => tf.set_type("BYTES").set_mode(mode),
+        DataType::Binary | DataType::LargeBinary | DataType::FixedSizeBinary(_) => {
+            tf.set_type("BYTES").set_mode(mode)
+        }
         DataType::Date32 | DataType::Date64 => tf.set_type("DATE").set_mode(mode),
         DataType::Time32(_) | DataType::Time64(_) => tf.set_type("TIME").set_mode(mode),
-        DataType::Timestamp(_, _) => tf.set_type("TIMESTAMP").set_mode(mode),
-        DataType::Interval(_) => tf.set_type("INTERVAL").set_mode(mode),
-        DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => {
-            tf.set_type("NUMERIC").set_mode(mode)
+        DataType::Timestamp(_, tz) => {
+            let bq_type = if tz.is_some() {
+                "TIMESTAMP"
+            } else {
+                "DATETIME"
+            };
+            tf.set_type(bq_type).set_mode(mode)
         }
+        DataType::Interval(_) => tf.set_type("INTERVAL").set_mode(mode),
+        DataType::Decimal128(_, _) => tf.set_type("NUMERIC").set_mode(mode),
+        DataType::Decimal256(_, _) => tf.set_type("BIGNUMERIC").set_mode(mode),
         DataType::Struct(fields) => {
             let sub_fields: Vec<TableFieldSchema> = fields
                 .iter()
@@ -105,7 +115,9 @@ fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSche
                 .collect();
             tf.set_type("RECORD").set_mode(mode).set_fields(sub_fields)
         }
-        DataType::List(sub_field) | DataType::LargeList(sub_field) => {
+        DataType::List(sub_field)
+        | DataType::LargeList(sub_field)
+        | DataType::FixedSizeList(sub_field, _) => {
             let mut sub = arrow_field_to_table_field(sub_field);
             sub.name = field.name().clone();
             sub.mode = "REPEATED".to_string();
@@ -158,11 +170,24 @@ mod tests {
                 true,
             ),
             Field::new("fallback", DataType::Null, true),
+            Field::new("half_score", DataType::Float16, true),
+            Field::new("fixed_bytes", DataType::FixedSizeBinary(16), false),
+            Field::new(
+                "local_dt",
+                DataType::Timestamp(TimeUnit::Microsecond, None),
+                true,
+            ),
+            Field::new("big_amount", DataType::Decimal256(76, 38), true),
+            Field::new(
+                "fixed_list",
+                DataType::FixedSizeList(Arc::new(Field::new("item", DataType::Int64, true)), 3),
+                true,
+            ),
         ]);
 
         let schema = Schema::from_arrow_schema(&arrow_schema);
-        assert_eq!(schema.len(), 13);
-        assert_eq!(schema.fields().len(), 13);
+        assert_eq!(schema.len(), 18);
+        assert_eq!(schema.fields().len(), 18);
         assert_eq!(schema.get_field_index_by_name("name"), Some(0));
         assert_eq!(schema.get_field_index_by_name("age"), Some(1));
         assert_eq!(schema.get_field_index_by_name("tags"), Some(2));
@@ -214,5 +239,16 @@ mod tests {
         assert_eq!(f12.name, "fallback");
         assert_eq!(f12.r#type, "STRING");
         assert_eq!(f12.mode, "NULLABLE");
+
+        assert_eq!(schema.get_field_by_index(13).unwrap().r#type, "FLOAT64");
+        assert_eq!(schema.get_field_by_index(14).unwrap().r#type, "BYTES");
+        assert_eq!(schema.get_field_by_index(14).unwrap().mode, "REQUIRED");
+        assert_eq!(schema.get_field_by_index(15).unwrap().r#type, "DATETIME");
+        assert_eq!(schema.get_field_by_index(16).unwrap().r#type, "BIGNUMERIC");
+
+        let f17 = schema.get_field_by_index(17).unwrap();
+        assert_eq!(f17.name, "fixed_list");
+        assert_eq!(f17.r#type, "INTEGER");
+        assert_eq!(f17.mode, "REPEATED");
     }
 }
