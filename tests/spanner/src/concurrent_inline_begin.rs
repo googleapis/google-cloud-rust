@@ -20,6 +20,7 @@ use google_cloud_spanner::result::{ResultSet, Row};
 use google_cloud_spanner::transaction::BeginTransactionOption;
 use google_cloud_spanner::transaction::TimestampBound;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use google_cloud_wkt::Timestamp;
 use http::{Request, Response, StatusCode, Uri};
 use http_body::Frame;
 use http_body_util::Full;
@@ -28,7 +29,6 @@ use prost::Message;
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use std::collections::HashMap;
 use std::sync::Arc;
-use time::OffsetDateTime;
 use tokio::sync::{Barrier, Mutex};
 use tonic::Status;
 use tonic::body::Body;
@@ -81,8 +81,8 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
         .build()
         .execute_query("SELECT CURRENT_TIMESTAMP")
         .await?;
-    let row: Row = rs.next().await.unwrap().unwrap();
-    let snapshot_time: OffsetDateTime = row.try_get(0)?;
+    let row: Row = rs.next().await.transpose()?.expect("current timestamp row");
+    let snapshot_time: Timestamp = row.try_get(0)?;
 
     // 3. Setup Table 2 (Does NOT exist at snapshot time)
     let statement = format!(

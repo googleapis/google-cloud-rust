@@ -244,6 +244,7 @@ impl Delete {
 }
 
 /// A builder for constructing `Write` mutations fluently.
+#[derive(Clone, Debug, PartialEq)]
 pub struct WriteBuilder {
     table: String,
     mutation_type: MutationType,
@@ -251,6 +252,7 @@ pub struct WriteBuilder {
     values: Vec<Value>,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum MutationType {
     Insert,
     Update,
@@ -302,6 +304,7 @@ impl WriteBuilder {
 }
 
 /// A binder that associates a column name with a value within a `WriteBuilder`.
+#[derive(Clone, Debug, PartialEq)]
 pub struct ValueBinder {
     builder: WriteBuilder,
     column: String,
@@ -533,8 +536,8 @@ mod tests {
         static_assertions::assert_impl_all!(Mutation: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(Write: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(Delete: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(WriteBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(ValueBinder: Send, Sync);
+        static_assertions::assert_impl_all!(WriteBuilder: Send, Sync, Clone, std::fmt::Debug);
+        static_assertions::assert_impl_all!(ValueBinder: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(MutationGroup: Send, Sync, Clone, std::fmt::Debug);
     }
 
@@ -619,10 +622,10 @@ mod tests {
 
         match mutation.inner {
             InternalMutation::Insert(write) => {
-                assert_eq!(write.values[0].as_string(), "user-123");
-                assert_eq!(write.values[1].as_string(), "42");
-                assert!(write.values[2].as_bool());
-                assert_eq!(write.values[3].as_string(), "admin");
+                assert_eq!(write.values[0].as_str(), Some("user-123"));
+                assert_eq!(write.values[1].as_str(), Some("42"));
+                assert_eq!(write.values[2].as_bool(), Some(true));
+                assert_eq!(write.values[3].as_str(), Some("admin"));
             }
             _ => panic!("Expected Insert mutation"),
         }
@@ -673,8 +676,8 @@ mod tests {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId", "UserName"]);
                 assert_eq!(write.values.len(), 2);
-                assert_eq!(write.values[0].as_string(), "1");
-                assert_eq!(write.values[1].as_string(), "Alice");
+                assert_eq!(write.values[0].as_str(), Some("1"));
+                assert_eq!(write.values[1].as_str(), Some("Alice"));
             }
             _ => panic!("Expected Insert mutation"),
         }
@@ -692,7 +695,7 @@ mod tests {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
-                assert_eq!(write.values[0].as_string(), "1");
+                assert_eq!(write.values[0].as_str(), Some("1"));
             }
             _ => panic!("Expected Update mutation"),
         }
@@ -710,7 +713,7 @@ mod tests {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
-                assert_eq!(write.values[0].as_string(), "1");
+                assert_eq!(write.values[0].as_str(), Some("1"));
             }
             _ => panic!("Expected InsertOrUpdate mutation"),
         }
@@ -728,7 +731,7 @@ mod tests {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
-                assert_eq!(write.values[0].as_string(), "1");
+                assert_eq!(write.values[0].as_str(), Some("1"));
             }
             _ => panic!("Expected Replace mutation"),
         }

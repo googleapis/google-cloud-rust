@@ -15,6 +15,7 @@
 use crate::channel_pool::TransactionAffinity;
 use crate::database_client::DatabaseClient;
 use crate::model::CommitResponse;
+use crate::model::commit_response::CommitStats;
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::IsolationLevel;
 use crate::model::transaction_options::read_write::ReadLockMode;
@@ -29,7 +30,7 @@ use std::sync::Arc;
 
 use std::time::Duration as StdDuration;
 use tokio::time::Instant;
-use wkt::Duration;
+use wkt::{Duration, Timestamp};
 
 /// A builder for a [TransactionRunner] for a read/write transaction.
 ///
@@ -52,6 +53,7 @@ use wkt::Duration;
 ///
 /// Spanner can abort any read/write transaction at any time. A [TransactionRunner]
 /// automatically retries aborted transactions according to the configured retry policy.
+#[derive(Debug)]
 pub struct TransactionRunnerBuilder {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
@@ -506,7 +508,34 @@ impl TransactionRunnerBuilder {
 }
 
 /// Result of a read/write transaction executed by a [TransactionRunner].
-#[derive(Debug)]
+///
+/// Contains both the application-defined return value of the closure and the
+/// [`CommitResponse`] returned by the Spanner service upon successful commit.
+///
+/// # Example
+/// ```
+/// # use google_cloud_spanner::client::Spanner;
+/// # use google_cloud_spanner::statement::Statement;
+/// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+/// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+/// let runner = db_client.read_write_transaction().build().await?;
+///
+/// let tx_result = runner
+///     .run(async |transaction| {
+///         let statement = Statement::builder("UPDATE Users SET Active = true WHERE Id = 1").build();
+///         let updated_rows = transaction.execute_update(statement).await?;
+///         Ok(updated_rows)
+///     })
+///     .await?;
+///
+/// println!("Updated {} rows", tx_result.result);
+/// if let Some(timestamp) = tx_result.commit_timestamp() {
+///     println!("Committed at: {timestamp:?}");
+/// }
+/// # Ok(())
+/// # }
+/// ```
+#[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct TransactionResult<T> {
     /// The result returned by the closure executed within the transaction.
@@ -515,7 +544,38 @@ pub struct TransactionResult<T> {
     pub commit_response: CommitResponse,
 }
 
+impl<T> TransactionResult<T> {
+    /// Creates a new `TransactionResult` with the given result and commit response.
+    pub fn new(result: T, commit_response: CommitResponse) -> Self {
+        Self {
+            result,
+            commit_response,
+        }
+    }
+
+    /// Consumes the `TransactionResult`, returning the closure result.
+    pub fn into_inner(self) -> T {
+        self.result
+    }
+
+    /// Consumes the `TransactionResult`, returning both the closure result and commit response.
+    pub fn into_parts(self) -> (T, CommitResponse) {
+        (self.result, self.commit_response)
+    }
+
+    /// Returns the Cloud Spanner timestamp at which the transaction committed, if available.
+    pub fn commit_timestamp(&self) -> Option<Timestamp> {
+        self.commit_response.commit_timestamp
+    }
+
+    /// Returns the statistics about the commit, if requested and returned by Spanner.
+    pub fn commit_stats(&self) -> Option<&CommitStats> {
+        self.commit_response.commit_stats.as_ref()
+    }
+}
+
 /// A runner for read/write transactions. Aborted transactions are automatically retried.
+#[derive(Debug)]
 pub struct TransactionRunner {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
@@ -713,6 +773,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::mutation::Operation;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
     use spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector as ProtoSelector;
+    use std::fmt::Debug;
     use std::net::SocketAddr;
     use std::sync::Mutex;
     use std::sync::atomic::{AtomicU32, AtomicUsize, Ordering};
@@ -783,8 +844,63 @@ mod tests {
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(TransactionRunnerBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(TransactionRunner: Send, Sync);
+        static_assertions::assert_impl_all!(TransactionRunnerBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(TransactionRunner: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(
+            TransactionResult<String>: Clone,
+            Debug,
+            PartialEq,
+            Send,
+            Sync
+        );
+    }
+
+    #[test]
+    fn transaction_result_constructor_and_derives() {
+        use crate::model::CommitResponse as ModelCommitResponse;
+        use wkt::Timestamp;
+
+        let commit_timestamp = Timestamp::clamp(1_234_567_890, 123);
+        let commit_response = ModelCommitResponse::default().set_commit_timestamp(commit_timestamp);
+        let transaction_result = TransactionResult::new(42_i64, commit_response.clone());
+        assert_eq!(
+            transaction_result.result, 42_i64,
+            "expected result field to match input"
+        );
+        assert_eq!(
+            transaction_result.commit_response, commit_response,
+            "expected commit_response field to match input"
+        );
+        assert_eq!(
+            transaction_result.commit_timestamp(),
+            Some(commit_timestamp),
+            "expected commit_timestamp to match commit_response"
+        );
+        assert_eq!(
+            transaction_result.clone(),
+            transaction_result,
+            "expected clone to equal original"
+        );
+        let debug_representation = format!("{transaction_result:?}");
+        assert!(
+            debug_representation.contains("42"),
+            "debug representation should contain result value"
+        );
+
+        let (unwrapped_result, unwrapped_response) = transaction_result.clone().into_parts();
+        assert_eq!(
+            unwrapped_result, 42_i64,
+            "expected into_parts result to match"
+        );
+        assert_eq!(
+            unwrapped_response, commit_response,
+            "expected into_parts response to match"
+        );
+        assert_eq!(
+            transaction_result.into_inner(),
+            42_i64,
+            "expected into_inner to return result value"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -1278,9 +1394,14 @@ mod tests {
                 let mut last_val = None;
                 while let Some(row_res) = rs.next().await {
                     let row = row_res?;
-                    last_val = Some(row.raw_values()[0].as_string().to_string());
+                    last_val = Some(
+                        row.raw_values()[0]
+                            .as_str()
+                            .expect("raw value should be string")
+                            .to_string(),
+                    );
                 }
-                Ok(last_val.unwrap())
+                Ok(last_val.expect("at least one row should have been returned"))
             })
             .await?;
 
@@ -3490,6 +3611,7 @@ mod tests {
         use crate::transaction_retry_policy::TransactionRetryPolicy;
         use google_cloud_gax::retry_result::RetryResult;
 
+        #[derive(Debug)]
         struct GuardCheckRetryPolicy {
             pinned_entry: Arc<Mutex<Option<Arc<ChannelEntry>>>>,
             active_rw_counts_during_backoff: Arc<Mutex<Vec<u32>>>,

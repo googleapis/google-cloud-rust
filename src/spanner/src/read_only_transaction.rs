@@ -52,6 +52,7 @@ use tokio::sync::futures::OwnedNotified;
 /// # Ok(())
 /// # }
 /// ```
+#[derive(Debug)]
 pub struct SingleUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
@@ -240,6 +241,7 @@ pub enum BeginTransactionOption {
 /// # Ok(())
 /// # }
 /// ```
+#[derive(Debug)]
 pub struct MultiUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
@@ -1466,11 +1468,12 @@ pub(crate) mod tests {
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(SingleUseReadOnlyTransactionBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(SingleUseReadOnlyTransaction: Send, Sync, std::fmt::Debug);
-        static_assertions::assert_impl_all!(MultiUseReadOnlyTransactionBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Send, Sync, std::fmt::Debug);
-        static_assertions::assert_impl_all!(ReadContext: Send, Sync, std::fmt::Debug);
+        use std::fmt::Debug;
+        static_assertions::assert_impl_all!(SingleUseReadOnlyTransactionBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(SingleUseReadOnlyTransaction: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(MultiUseReadOnlyTransactionBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(ReadContext: Debug, Send, Sync);
     }
 
     pub(crate) fn create_session_mock() -> MockSpanner {

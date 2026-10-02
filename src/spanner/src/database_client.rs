@@ -46,17 +46,18 @@ use crate::routing::key_range_cache::KeyRangeCache;
 use crate::routing::key_recipe_cache::KeyRecipeCache;
 use crate::routing::latency_registry::LatencyRegistry;
 use crate::routing::location_router::{LocationRouter, RoutingContext};
-use crate::routing::server_connection::ServerConnection;
+use crate::routing::server_connection::{ActiveRequestGuard, ServerConnection};
 use crate::server_streaming::builder::{BatchWrite, ExecuteStreamingSql, StreamingRead};
-use crate::server_streaming::stream::TransactionIdCallback;
+use crate::server_streaming::stream::{StreamGuard, StreamLifetimeGuard, TransactionIdCallback};
 use crate::session_maintainer::ManagedSessionMaintainer;
 use crate::transaction_runner::TransactionRunnerBuilder;
 use crate::write_only_transaction::WriteOnlyTransactionBuilder;
-use crate::{RequestOptions, Result};
+use crate::{Error, RequestOptions, Result};
 use bytes::Bytes;
 use google_cloud_gax::error::rpc::Code;
 use std::env;
 use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::{Duration, Instant};
 
 /// A client for interacting with a specific Spanner database.
@@ -189,9 +190,12 @@ macro_rules! define_db_streaming_rpc {
             let callback =
                 self.streaming_transaction_id_callback(is_read_write_begin, connection.as_ref());
             if let Some(connection) = connection {
+                let group_uid = request.routing_group_uid();
+                let guard = self.create_streaming_route_guard(&connection, group_uid);
                 return self
                     .spanner
                     .$method(request, options, connection.channel())
+                    .with_lifetime_guard(guard)
                     .with_transaction_id_callback(callback);
             }
             let lease = self.spanner.pick_channel_for_target(&channel_target);
@@ -590,10 +594,10 @@ impl DatabaseClient {
         latency: Duration,
         result: &Result<T>,
     ) {
-        let Some(routing) = &self.location_routing else {
+        let Some(connection) = connection else {
             return;
         };
-        let Some(connection) = connection else {
+        let Some(routing) = &self.location_routing else {
             return;
         };
         if connection.is_default() {
@@ -604,9 +608,7 @@ impl DatabaseClient {
             Ok(_) => {
                 routing.location_router.record_success(address);
                 if group_uid > 0 {
-                    routing
-                        .location_router
-                        .record_latency(group_uid, address, latency);
+                    self.record_latency(group_uid, address, latency);
                 }
             }
             Err(error) => {
@@ -621,7 +623,7 @@ impl DatabaseClient {
                         server_retry_delay,
                     );
                     if group_uid > 0 {
-                        routing.location_router.record_error(group_uid, address);
+                        self.record_routing_error(group_uid, address);
                     }
                 }
             }
@@ -629,7 +631,6 @@ impl DatabaseClient {
     }
 
     /// Records an observed round-trip latency sample for an endpoint address within a paxos group.
-    #[allow(dead_code)] // TODO: Used for streaming RPC latency recording in subsequent PRs
     pub(crate) fn record_latency(&self, group_uid: u64, server_address: &str, latency: Duration) {
         let Some(routing) = &self.location_routing else {
             return;
@@ -640,7 +641,6 @@ impl DatabaseClient {
     }
 
     /// Records an RPC error penalty for an endpoint address within a paxos group.
-    #[allow(dead_code)] // TODO: Used for streaming RPC error recording in subsequent PRs
     pub(crate) fn record_routing_error(&self, group_uid: u64, server_address: &str) {
         let Some(routing) = &self.location_routing else {
             return;
@@ -648,6 +648,28 @@ impl DatabaseClient {
         routing
             .location_router
             .record_error(group_uid, server_address);
+    }
+
+    /// Creates an RAII streaming route guard that holds an [`ActiveRequestGuard`] for the direct
+    /// connection and reports routing latency, error cooldowns, and success feedback.
+    fn create_streaming_route_guard(
+        &self,
+        connection: &ServerConnection,
+        group_uid: u64,
+    ) -> StreamLifetimeGuard {
+        let routing = self
+            .location_routing
+            .as_ref()
+            .expect("location routing must be present when creating a routed streaming guard");
+        let request_guard = connection.acquire_request_guard();
+        Arc::new(RoutedStreamGuard {
+            _request_guard: request_guard,
+            routing: Arc::clone(routing),
+            server_address: connection.address().to_string(),
+            group_uid,
+            first_response_recorded: AtomicBool::new(false),
+            error_recorded: AtomicBool::new(false),
+        })
     }
 
     /// Returns the database ID assigned by the server for location-aware routing, if known.
@@ -1191,6 +1213,7 @@ fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
 }
 
 /// A builder for [DatabaseClient].
+#[derive(Debug)]
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
     database_name: String,
@@ -1305,7 +1328,7 @@ impl DatabaseClientBuilder {
             self.database_name
         };
 
-        #[cfg(feature = "metrics")]
+        #[cfg(feature = "_internal-metrics")]
         let o11y = Arc::new(
             Observability::init(
                 &self.spanner.config,
@@ -1318,7 +1341,7 @@ impl DatabaseClientBuilder {
             )
             .await,
         );
-        #[cfg(not(feature = "metrics"))]
+        #[cfg(not(feature = "_internal-metrics"))]
         let o11y = Arc::new(
             Observability::init(
                 &self.spanner.config,
@@ -1491,9 +1514,67 @@ impl ObserveResponse for PartitionResponse {
     fn observe(&self, _client: &DatabaseClient) {}
 }
 
+/// Stream lifetime drop guard that records active requests, cooldown errors, and latency metrics
+/// for direct tablet connections in location-aware routing.
+#[derive(Debug)]
+struct RoutedStreamGuard {
+    _request_guard: ActiveRequestGuard,
+    routing: Arc<LocationRoutingState>,
+    server_address: String,
+    group_uid: u64,
+    first_response_recorded: AtomicBool,
+    error_recorded: AtomicBool,
+}
+
+impl StreamGuard for RoutedStreamGuard {
+    fn record_first_response(&self, latency: Duration) {
+        if self.first_response_recorded.swap(true, Ordering::AcqRel) {
+            return;
+        }
+        self.routing
+            .location_router
+            .record_success(&self.server_address);
+        if self.group_uid > 0 {
+            self.routing.location_router.record_latency(
+                self.group_uid,
+                &self.server_address,
+                latency,
+            );
+        }
+    }
+
+    fn record_error(&self, error: &Error) {
+        if self.error_recorded.swap(true, Ordering::AcqRel) {
+            return;
+        }
+        let Some(code) = extract_status_code_from_error(error) else {
+            return;
+        };
+        if matches!(code, Code::ResourceExhausted | Code::Unavailable) {
+            let server_retry_delay = extract_retry_delay_from_error(error);
+            self.routing
+                .location_router
+                .record_cooldown_error_with_delay(&self.server_address, code, server_retry_delay);
+            if self.group_uid > 0 {
+                self.routing
+                    .location_router
+                    .record_error(self.group_uid, &self.server_address);
+            }
+        }
+    }
+
+    fn record_success(&self) {
+        if !self.first_response_recorded.swap(true, Ordering::AcqRel) {
+            self.routing
+                .location_router
+                .record_success(&self.server_address);
+        }
+    }
+}
+
 /// Extracts the group UID from an RPC request to associate routing feedback with the covering group.
 ///
-/// Protobuf requests that define a `routing_hint` field ([`ExecuteSqlRequest`], [`BeginTransactionRequest`],
+/// Protobuf requests that define a `routing_hint` field ([`ExecuteSqlRequest`], [`ReadRequest`], [`BeginTransactionRequest`],
 /// and [`CommitRequest`]) inspect their hint and return `group_uid`. Requests without a `routing_hint`
 /// field in their protobuf definitions ([`ExecuteBatchDmlRequest`], [`RollbackRequest`], [`PartitionQueryRequest`],
 /// and [`PartitionReadRequest`]) return 0.
@@ -1504,6 +1585,12 @@ trait RequestRoutingGroupUid {
 }
 
 impl RequestRoutingGroupUid for ExecuteSqlRequest {
+    fn routing_group_uid(&self) -> u64 {
+        self.routing_hint.as_ref().map_or(0, |hint| hint.group_uid)
+    }
+}
+
+impl RequestRoutingGroupUid for ReadRequest {
     fn routing_group_uid(&self) -> u64 {
         self.routing_hint.as_ref().map_or(0, |hint| hint.group_uid)
     }
@@ -1573,7 +1660,7 @@ mod tests {
     use mockall::Sequence;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
-    use std::fmt;
+    use std::fmt::Debug;
     use std::sync::Mutex;
     use tokio::sync::mpsc;
 
@@ -1605,7 +1692,7 @@ mod tests {
             "BeginTransactionRequest without hint must return 0"
         );
 
-        let commit_with_hint = CommitRequest::default().set_routing_hint(hint);
+        let commit_with_hint = CommitRequest::default().set_routing_hint(hint.clone());
         assert_eq!(
             commit_with_hint.routing_group_uid(),
             9001,
@@ -1615,6 +1702,18 @@ mod tests {
             CommitRequest::default().routing_group_uid(),
             0,
             "CommitRequest without hint must return 0"
+        );
+
+        let read_with_hint = ReadRequest::default().set_routing_hint(hint);
+        assert_eq!(
+            read_with_hint.routing_group_uid(),
+            9001,
+            "ReadRequest with hint must return hint group_uid"
+        );
+        assert_eq!(
+            ReadRequest::default().routing_group_uid(),
+            0,
+            "ReadRequest without hint must return 0"
         );
 
         assert_eq!(
@@ -1660,7 +1759,8 @@ mod tests {
     #[test]
     fn auto_traits() {
         use static_assertions::assert_impl_all;
-        assert_impl_all!(DatabaseClient: Send, Sync, Clone, fmt::Debug);
+        assert_impl_all!(DatabaseClient: Send, Sync, Clone, Debug);
+        assert_impl_all!(DatabaseClientBuilder: Debug, Send, Sync);
     }
 
     #[tokio_test_no_panics]

@@ -142,7 +142,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
     let spanner_now_minus_5 = spanner_now - time::Duration::seconds(5);
     let tx = db_client
         .single_use()
-        .set_timestamp_bound(TimestampBound::min_read_timestamp(spanner_now_minus_5))
+        .set_timestamp_bound(TimestampBound::try_min_read_timestamp(spanner_now_minus_5)?)
         .build();
 
     let mut rs = tx
