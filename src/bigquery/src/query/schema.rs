@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use arrow::datatypes::DataType;
 use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
 use std::collections::HashMap;
 
@@ -37,6 +36,10 @@ impl Schema {
         }
     }
 
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
     #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) fn from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> Self {
         Self::new(table_schema_from_arrow_schema(arrow_schema))
@@ -59,6 +62,10 @@ impl Schema {
     }
 }
 
+#[cfg(any(
+    google_cloud_unstable_bigquery_arrow,
+    google_cloud_unstable_bigquery_storage_read
+))]
 #[cfg_attr(not(test), allow(dead_code))]
 fn table_schema_from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> TableSchema {
     let fields: Vec<TableFieldSchema> = arrow_schema
@@ -69,8 +76,14 @@ fn table_schema_from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> Ta
     TableSchema::new().set_fields(fields)
 }
 
+#[cfg(any(
+    google_cloud_unstable_bigquery_arrow,
+    google_cloud_unstable_bigquery_storage_read
+))]
 #[cfg_attr(not(test), allow(dead_code))]
 fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSchema {
+    use arrow::datatypes::DataType;
+
     let tf = TableFieldSchema::new().set_name(field.name().clone());
     let mode = if field.is_nullable() {
         "NULLABLE"
@@ -127,7 +140,13 @@ fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSche
     }
 }
 
-#[cfg(test)]
+#[cfg(all(
+    test,
+    any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    )
+))]
 mod tests {
     use super::*;
     use arrow::datatypes::{

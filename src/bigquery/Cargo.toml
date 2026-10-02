@@ -26,7 +26,6 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
-arrow                        = { workspace = true, features = ["ipc", "ipc_compression"] }
 arc-swap.workspace           = true
 async-trait.workspace        = true
 base64.workspace             = true
@@ -52,6 +51,9 @@ tokio-stream.workspace       = true
 tracing.workspace            = true
 rust_decimal.workspace       = true
 uuid.workspace               = true
+
+[target.'cfg(any(google_cloud_unstable_bigquery_arrow, google_cloud_unstable_bigquery_storage_read))'.dependencies]
+arrow.workspace = true
 
 [dev-dependencies]
 anyhow.workspace            = true
