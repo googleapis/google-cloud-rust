@@ -34,7 +34,7 @@ macro_rules! impl_visitor {
     ($name: ident, $t: ty, $msg: literal) => {
         struct $name;
 
-        impl serde::de::Visitor<'_> for $name {
+        impl<'de> serde::de::Visitor<'de> for $name {
             type Value = $t;
 
             fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
@@ -86,6 +86,25 @@ macro_rules! impl_visitor {
                     _ if value > <$t>::MAX as f64 => Err(self::value_error(value, $msg)),
                     _ => Ok(value as Self::Value),
                 }
+            }
+
+            // With the `arbitrary_precision` feature, serde_json presents
+            // non-integer numbers as a single-entry map holding the number's
+            // text. `serde_json::Number` knows how to decode that map.
+            fn visit_map<A>(self, map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                use serde::de::Deserialize;
+                use serde::de::value::MapAccessDeserializer;
+                let number = serde_json::Number::deserialize(MapAccessDeserializer::new(map))?;
+                let value = number.as_f64().ok_or_else(|| {
+                    <A::Error as serde::de::Error>::invalid_value(
+                        serde::de::Unexpected::Other(&format!("number `{number}`")),
+                        &$msg,
+                    )
+                })?;
+                self.visit_f64(value)
             }
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
