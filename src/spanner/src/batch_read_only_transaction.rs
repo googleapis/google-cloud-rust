@@ -55,7 +55,7 @@ impl BatchReadOnlyTransactionBuilder {
     pub(crate) fn new(client: DatabaseClient) -> Self {
         Self {
             inner: MultiUseReadOnlyTransactionBuilder::new(client)
-                .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin),
+                .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin),
         }
     }
 

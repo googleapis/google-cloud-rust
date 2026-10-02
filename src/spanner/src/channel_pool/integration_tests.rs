@@ -387,7 +387,7 @@ async fn multi_use_read_only_transaction_pins_same_channel_inline_begin() -> Res
 
     let transaction = database_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -451,7 +451,7 @@ async fn multi_use_read_only_transaction_pins_same_channel_explicit_begin() -> R
 
     let transaction = database_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build()
         .await?;
 
@@ -529,7 +529,7 @@ async fn multi_use_read_only_transaction_parallel_initial_queries_inline_begin()
 
     let transaction = database_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -611,7 +611,7 @@ async fn multi_use_read_only_transaction_parallel_initial_queries_explicit_begin
 
     let transaction = database_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build()
         .await?;
 
@@ -751,7 +751,7 @@ async fn read_write_transaction_full_lifecycle_hard_affinity() -> Result<()> {
     );
 
     let transaction = ReadWriteTransactionBuilder::new(database_client)
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build(None)
         .await?;
 
@@ -885,7 +885,7 @@ async fn read_write_transaction_parallel_initial_queries_inline_begin() -> Resul
     let (database_client, spanner, _server) = setup_client_with_static_pool(mock, 4).await;
 
     let transaction = ReadWriteTransactionBuilder::new(database_client)
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build(None)
         .await?;
 
@@ -1013,7 +1013,7 @@ async fn read_write_transaction_parallel_initial_queries_explicit_begin() -> Res
     let (database_client, spanner, _server) = setup_client_with_static_pool(mock, 4).await;
 
     let transaction = ReadWriteTransactionBuilder::new(database_client)
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build(None)
         .await?;
 
