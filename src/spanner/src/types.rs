@@ -144,6 +144,11 @@ impl Type {
         self.0.struct_type.as_deref()
     }
 
+    /// Returns the fully qualified name of the proto or enum type, or an empty string if not applicable.
+    pub fn proto_type_fqn(&self) -> &str {
+        &self.0.proto_type_fqn
+    }
+
     /// Safely reinterprets a reference to the inner model type as a reference to Type.
     /// Logical safety is guaranteed by #[repr(transparent)].
     pub(crate) fn from_ref(v: &model::Type) -> &Self {
@@ -277,6 +282,20 @@ pub fn pg_oid() -> Type {
 pub fn array(element_type: Type) -> Type {
     let mut t = create_type(TypeCode::Array);
     t.0.array_element_type = Some(Box::new(element_type.0));
+    t
+}
+
+/// Returns a `Type` representing `ENUM` (GoogleSQL) with the given fully qualified proto type name.
+pub fn enum_type(proto_type_fqn: impl Into<String>) -> Type {
+    let mut t = create_type(TypeCode::Enum);
+    t.0.proto_type_fqn = proto_type_fqn.into();
+    t
+}
+
+/// Returns a `Type` representing `PROTO` (GoogleSQL) with the given fully qualified proto type name.
+pub fn proto_type(proto_type_fqn: impl Into<String>) -> Type {
+    let mut t = create_type(TypeCode::Proto);
+    t.0.proto_type_fqn = proto_type_fqn.into();
     t
 }
 
@@ -452,6 +471,45 @@ mod tests {
             PartialEq,
             Eq,
             Hash
+        );
+    }
+
+    #[test]
+    fn proto_and_enum_types() {
+        let proto_column = proto_type("google.example.Customer");
+        assert_eq!(
+            proto_column.code(),
+            TypeCode::Proto,
+            "expected TypeCode::Proto for proto_type"
+        );
+        assert_eq!(
+            proto_column.proto_type_fqn(),
+            "google.example.Customer",
+            "expected fully qualified proto type name"
+        );
+
+        let enum_column = enum_type("google.example.CustomerStatus");
+        assert_eq!(
+            enum_column.code(),
+            TypeCode::Enum,
+            "expected TypeCode::Enum for enum_type"
+        );
+        assert_eq!(
+            enum_column.proto_type_fqn(),
+            "google.example.CustomerStatus",
+            "expected fully qualified enum type name"
+        );
+
+        // Non-proto/enum types should return an empty string
+        assert_eq!(
+            int64().proto_type_fqn(),
+            "",
+            "expected empty string for non-proto/enum types"
+        );
+        assert_eq!(
+            Type::default().proto_type_fqn(),
+            "",
+            "expected empty string for default Type"
         );
     }
 }
