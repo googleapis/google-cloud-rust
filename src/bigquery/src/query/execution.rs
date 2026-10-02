@@ -217,7 +217,8 @@ impl RetryContext {
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         let query_request: QueryRequest = self.template.request.clone().into();
         let query_request = query_request
-            .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true));
+            .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true))
+            .set_request_id(query_request_id);
         #[cfg(google_cloud_unstable_bigquery_arrow)]
         let query_request = {
             use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
@@ -234,7 +235,6 @@ impl RetryContext {
                     )),
                 )
         };
-        let query_request = query_request.set_request_id(query_request_id);
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
             .set_query_request(query_request);
@@ -356,6 +356,7 @@ fn parse_job_name(name: &str) -> Option<JobReference> {
 mod tests {
     use super::*;
     use crate::query::tests::{MockJobService, create_job_service};
+    use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
     use google_cloud_bigquery_v2::model::{
         ErrorProto, Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus,
         QueryResponse,
@@ -599,9 +600,7 @@ mod tests {
             {
                 use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
                 use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
-                use google_cloud_bigquery_v2::model::query_request::{
-                    QueryResultsFormat, ResultsFormatSerializationOptions,
-                };
+                use google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions;
                 assert_eq!(query_req.query_results_format, QueryResultsFormat::Arrow);
                 assert_eq!(
                     query_req.results_format_serialization_options,
@@ -615,7 +614,6 @@ mod tests {
             }
             #[cfg(not(google_cloud_unstable_bigquery_arrow))]
             {
-                use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
                 assert_eq!(
                     query_req.query_results_format,
                     QueryResultsFormat::default()
