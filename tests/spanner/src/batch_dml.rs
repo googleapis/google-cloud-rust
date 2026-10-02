@@ -45,8 +45,7 @@ pub async fn successful_batch_update(db_client: &DatabaseClient) -> anyhow::Resu
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("batch-success-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -131,8 +130,7 @@ pub async fn partial_batch_update_failure(db_client: &DatabaseClient) -> anyhow:
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("batch-partial-tag")
-        .build()
-        .await?;
+        .build();
 
     let result: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
@@ -182,8 +180,7 @@ pub async fn empty_batch_statement_rejection(db_client: &DatabaseClient) -> anyh
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("batch-empty-tag")
-        .build()
-        .await?;
+        .build();
 
     let result: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
@@ -210,8 +207,7 @@ pub async fn unsupported_query_in_batch_dml(db_client: &DatabaseClient) -> anyho
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("batch-query-tag")
-        .build()
-        .await?;
+        .build();
 
     let result: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
@@ -255,8 +251,7 @@ pub async fn unsupported_returning_clause(db_client: &DatabaseClient) -> anyhow:
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("batch-returning-tag")
-        .build()
-        .await?;
+        .build();
 
     let _result: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
@@ -295,8 +290,7 @@ pub async fn continue_after_empty_batch_statement(
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("continue-empty-tag")
-        .build()
-        .await?;
+        .build();
 
     let _result = runner
         .run(async |transaction| {
@@ -343,8 +337,7 @@ pub async fn continue_after_invalid_first_statement_in_batch(
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("continue-invalid-tag")
-        .build()
-        .await?;
+        .build();
 
     let _result = runner
         .run(async |transaction| {
@@ -409,8 +402,7 @@ pub async fn continue_after_invalid_second_statement_in_batch(
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("continue-second-invalid-tag")
-        .build()
-        .await?;
+        .build();
 
     let _result = runner
         .run(async |transaction| {

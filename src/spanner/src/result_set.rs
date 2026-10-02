@@ -314,7 +314,7 @@ impl ResultSet {
     /// # use google_cloud_spanner::result::ResultSet;
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn check_update_count(db_client: &DatabaseClient) -> Result<(), Box<dyn std::error::Error>> {
-    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let runner = db_client.read_write_transaction().build();
     /// runner.run(async |tx| {
     ///     let stmt = Statement::builder("UPDATE Singers SET LastName = 'Simpson' WHERE SingerId = @id THEN RETURN SingerId, LastName")
     ///         .add_param("id", &123_i64)
