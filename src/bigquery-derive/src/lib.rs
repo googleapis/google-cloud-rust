@@ -90,7 +90,10 @@ fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
 
     // TODO(#5592): check that the schema and this struct have same columns/attributes count.
 
-    let generics = add_trait_bounds(input.generics);
+    let generics = add_trait_bounds(
+        input.generics,
+        syn::parse_quote!(google_cloud_bigquery::query::FromSql),
+    );
     let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
 
     quote! {
@@ -171,13 +174,90 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         }
     };
 
-    let generics = add_trait_bounds(input.generics);
+    let generics = add_trait_bounds(
+        input.generics,
+        syn::parse_quote!(google_cloud_bigquery::query::FromSql),
+    );
     let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
 
     quote! {
         impl #impl_generics google_cloud_bigquery::query::FromSql for #name #ty_generics #where_clause {
             fn from_value(mut value: google_cloud_bigquery::query::SqlValue) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
                 std::result::Result::Ok(#body)
+            }
+        }
+    }
+}
+
+/// Derives `ToRow` for writing a struct as rows with the BigQuery `Write` client.
+///
+/// Each field is written to the column with the same name (or via `#[bigquery(rename = "new_name")]`).
+/// Only structs with named fields are supported.
+#[proc_macro_derive(ToRow, attributes(bigquery))]
+pub fn derive_to_row(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+    derive_to_row_impl(input).into()
+}
+
+/// Protobuf messages number their fields starting at 1.
+const FIRST_FIELD_NUMBER: u32 = 1;
+
+fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
+    let name = input.ident;
+
+    let fields = match input.data {
+        Data::Struct(syn::DataStruct {
+            fields: Fields::Named(fields),
+            ..
+        }) if !fields.named.is_empty() => fields.named,
+        _ => {
+            return syn::Error::new_spanned(
+                name,
+                "ToRow can only be derived for non-empty structs with named fields",
+            )
+            .to_compile_error();
+        }
+    };
+
+    // Number the fields in declaration order. The schema and the encoder use
+    // the same numbers, so they always agree.
+    let mut descriptors = Vec::new();
+    let mut encoders = Vec::new();
+    for (field, number) in fields.iter().zip(FIRST_FIELD_NUMBER..) {
+        let column = match get_field_name(field) {
+            Ok(column) => column,
+            Err(err) => return err.to_compile_error(),
+        };
+        let field_name = field
+            .ident
+            .as_ref()
+            .expect("named field must have identifier");
+        let field_type = &field.ty;
+        descriptors.push(quote! {
+            <#field_type as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor(#column, #number)
+        });
+        encoders.push(quote! {
+            google_cloud_bigquery::write::__private::ProtoValue::encode(&self.#field_name, #number, &mut buf)?;
+        });
+    }
+
+    let message = syn::ext::IdentExt::unraw(&name).to_string();
+    let generics = add_trait_bounds(
+        input.generics,
+        syn::parse_quote!(google_cloud_bigquery::write::__private::ProtoValue),
+    );
+    let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
+
+    quote! {
+        impl #impl_generics google_cloud_bigquery::write::ToRow for #name #ty_generics #where_clause {
+            fn schema() -> google_cloud_bigquery::model::ProtoSchema {
+                google_cloud_bigquery::write::__private::message_schema(#message, [ #( #descriptors ),* ])
+            }
+
+            fn to_row(&self) -> std::result::Result<google_cloud_bigquery::write::__private::Bytes, google_cloud_bigquery::error::ConvertError> {
+                let mut buf = std::vec::Vec::new();
+                #( #encoders )*
+                std::result::Result::Ok(buf.into())
             }
         }
     }
@@ -195,13 +275,11 @@ fn reject_bigquery_attrs<'a>(fields: impl IntoIterator<Item = &'a syn::Field>) -
     Ok(())
 }
 
-/// Adds a `FromSql` bound for each generic parameter.
-fn add_trait_bounds(mut generics: syn::Generics) -> syn::Generics {
+/// Adds `bound` to each generic type parameter.
+fn add_trait_bounds(mut generics: syn::Generics, bound: syn::TypeParamBound) -> syn::Generics {
     for param in &mut generics.params {
         if let syn::GenericParam::Type(type_param) = param {
-            type_param
-                .bounds
-                .push(syn::parse_quote!(google_cloud_bigquery::query::FromSql));
+            type_param.bounds.push(bound.clone());
         }
     }
     generics
@@ -274,6 +352,9 @@ mod tests {
 
         let sql_tokens = derive_from_sql_impl(make_input()).to_string();
         assert!(sql_tokens.contains("unsupported bigquery attribute"));
+
+        let to_row_tokens = derive_to_row_impl(make_input()).to_string();
+        assert!(to_row_tokens.contains("unsupported bigquery attribute"));
     }
 
     #[test]
@@ -427,6 +508,65 @@ mod tests {
         assert!(
             sql_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql , U : google_cloud_bigquery :: query :: FromSql > google_cloud_bigquery :: query :: FromSql for TupleWrapper < T , U >"),
             "unexpected sql expansion: {sql_tokens}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_to_row_expansion() {
+        let input: DeriveInput = parse_quote! {
+            struct Row {
+                name: String,
+                #[bigquery(rename = "family_name")]
+                surname: String,
+                r#type: String,
+            }
+        };
+        // Fields are numbered in declaration order. Renamed fields use the new
+        // name, and raw identifiers lose their `r#` prefix.
+        let want = quote! {
+            impl google_cloud_bigquery::write::ToRow for Row {
+                fn schema() -> google_cloud_bigquery::model::ProtoSchema {
+                    google_cloud_bigquery::write::__private::message_schema("Row", [
+                        <String as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor("name", 1u32),
+                        <String as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor("family_name", 2u32),
+                        <String as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor("type", 3u32)
+                    ])
+                }
+
+                fn to_row(&self) -> std::result::Result<google_cloud_bigquery::write::__private::Bytes, google_cloud_bigquery::error::ConvertError> {
+                    let mut buf = std::vec::Vec::new();
+                    google_cloud_bigquery::write::__private::ProtoValue::encode(&self.name, 1u32, &mut buf)?;
+                    google_cloud_bigquery::write::__private::ProtoValue::encode(&self.surname, 2u32, &mut buf)?;
+                    google_cloud_bigquery::write::__private::ProtoValue::encode(&self.r#type, 3u32, &mut buf)?;
+                    std::result::Result::Ok(buf.into())
+                }
+            }
+        };
+        assert_eq!(derive_to_row_impl(input).to_string(), want.to_string());
+    }
+
+    #[test_case("struct Empty {}"; "empty named struct")]
+    #[test_case("struct Tuple(String);"; "tuple struct")]
+    #[test_case("struct Unit;"; "unit struct")]
+    #[test_case("enum Foo { A }"; "enum")]
+    #[test_case("union Bits { a: u32 }"; "union")]
+    fn test_to_row_requires_named_fields(def: &str) -> Result<(), syn::Error> {
+        let err = derive_to_row_impl(syn::parse_str(def)?).to_string();
+        assert!(
+            err.contains("ToRow can only be derived for non-empty structs with named fields"),
+            "unexpected expansion for {def}: {err}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_to_row_generics_expansion() -> Result<(), syn::Error> {
+        let input: DeriveInput = syn::parse_str("struct Wrapper<T> { val: T }")?;
+        let tokens = derive_to_row_impl(input).to_string();
+        assert!(
+            tokens.contains("impl < T : google_cloud_bigquery :: write :: __private :: ProtoValue > google_cloud_bigquery :: write :: ToRow for Wrapper < T >"),
+            "unexpected expansion: {tokens}"
         );
         Ok(())
     }

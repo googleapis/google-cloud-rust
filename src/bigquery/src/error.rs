@@ -93,7 +93,7 @@ pub enum RowError {
     },
 }
 
-/// Represents failures when converting a BigQuery cell value to a Rust type.
+/// Represents failures when converting between BigQuery values and Rust types.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum ConvertError {

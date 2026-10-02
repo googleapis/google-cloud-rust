@@ -19,6 +19,9 @@ pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
 
+pub use google_cloud_bigquery_derive::ToRow;
+pub use to_row::ToRow;
+
 /// Defines the data formats accepted by a writer.
 pub mod format;
 
@@ -26,6 +29,16 @@ pub mod format;
 pub mod retry_policy;
 
 pub mod stream_type;
+
+/// Helpers for the code that `#[derive(ToRow)]` generates.
+///
+/// This module is not part of the public API. Its contents may change, or be
+/// removed, in any release.
+#[doc(hidden)]
+pub mod __private {
+    pub use super::to_row::{ProtoValue, message_schema};
+    pub use bytes::Bytes;
+}
 
 pub(super) mod append_future;
 pub(super) mod append_response;
@@ -47,8 +60,10 @@ mod pool;
 mod proto_schema;
 mod runner;
 mod stream;
+mod to_row;
 mod transport;
 mod validate;
+mod wire_format;
 
 // TODO(#4832) - remove handwritten code.
 mod status;
