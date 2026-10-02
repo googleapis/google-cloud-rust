@@ -36,7 +36,7 @@ pub mod stream_type;
 /// removed, in any release.
 #[doc(hidden)]
 pub mod __private {
-    pub use super::to_row::{ProtoValue, message_schema};
+    pub use super::to_row::{ProtoElement, ProtoValue, message_schema};
     pub use bytes::Bytes;
 }
 
