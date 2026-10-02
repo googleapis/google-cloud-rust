@@ -60,9 +60,9 @@ use std::mem::take;
 use std::sync::Arc;
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicI64, Ordering};
+use std::time::Duration;
 use std::time::Duration as StdDuration;
 use tokio::time::Instant;
-use wkt::Duration;
 
 /// A builder for [ReadWriteTransaction].
 #[derive(Clone, Debug)]
@@ -1168,7 +1168,7 @@ mod tests {
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .set_return_commit_stats(true)
-            .set_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
+            .set_max_commit_delay(Duration::from_millis(200))
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -2327,7 +2327,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .set_max_commit_delay(Duration::new(0, 200_000_000).unwrap())
+            .set_max_commit_delay(Duration::from_millis(200))
             .with_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await

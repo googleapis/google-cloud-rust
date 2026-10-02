@@ -19,7 +19,6 @@ use google_cloud_spanner::model::request_options::Priority;
 use google_cloud_spanner::mutation::Mutation;
 use google_cloud_spanner::statement::Statement;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
-use google_cloud_wkt::Duration as WktDuration;
 use std::time::Duration;
 use tokio::time::sleep;
 use tracing::info;
@@ -50,7 +49,7 @@ pub async fn runner_commit_configurations(db_client: &DatabaseClient) -> anyhow:
     let runner = db_client
         .read_write_transaction()
         .set_commit_priority(Priority::Low)
-        .set_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
+        .set_max_commit_delay(Duration::from_millis(200))
         .set_exclude_txn_from_change_streams(true)
         .set_return_commit_stats(true)
         .build()
