@@ -215,7 +215,7 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     let tx = intercepted_db
         .read_only_transaction()
         .set_timestamp_bound(TimestampBound::read_timestamp(snapshot_time))
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
     let tx = Arc::new(tx);

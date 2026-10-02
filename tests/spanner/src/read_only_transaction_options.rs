@@ -199,7 +199,7 @@ pub async fn read_timestamp_available_on_failed_first_query(
 ) -> anyhow::Result<()> {
     let tx = db_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 

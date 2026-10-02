@@ -148,7 +148,7 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+    pub(crate) fn set_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
         self.begin_transaction_option = option;
         self
     }
@@ -1011,7 +1011,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1166,7 +1166,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .set_return_commit_stats(true)
             .set_max_commit_delay(Duration::new(0, 200_000_000).expect("valid duration"))
             .build(None)
@@ -1238,7 +1238,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .set_commit_priority(Priority::Low)
             .build(None)
             .await
@@ -1366,7 +1366,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1451,7 +1451,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1538,7 +1538,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
@@ -1698,7 +1698,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let transaction = ReadWriteTransactionBuilder::new(db_client)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
@@ -1787,7 +1787,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
@@ -1896,7 +1896,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -1956,7 +1956,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -2009,7 +2009,7 @@ mod tests {
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .set_isolation_level(IsolationLevel::Serializable)
             .set_read_lock_mode(ReadLockMode::Pessimistic)
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -2034,7 +2034,7 @@ mod tests {
 
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .set_exclude_txn_from_change_streams(true)
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -2095,7 +2095,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -2230,7 +2230,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
@@ -2328,7 +2328,7 @@ mod tests {
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .set_max_commit_delay(Duration::new(0, 200_000_000).unwrap())
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await
             .expect("Failed to build transaction");
@@ -2496,7 +2496,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
         let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -2564,7 +2564,7 @@ mod tests {
             .await?;
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
         let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -2611,7 +2611,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
         let _rs = tx
@@ -2665,7 +2665,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
@@ -2999,7 +2999,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build(None)
             .await
             .expect("Transaction build should succeed");
@@ -3879,7 +3879,7 @@ mod tests {
 
         let runner = db_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_begin_retry_policy(NeverRetry)
             .build()
             .await?;
@@ -3930,7 +3930,7 @@ mod tests {
 
         let runner = db_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .with_commit_retry_policy(NeverRetry)
             .with_transaction_timeout(StdDuration::from_secs(5))
             .build()
@@ -3988,7 +3988,7 @@ mod tests {
 
         let runner = db_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .with_commit_attempt_timeout(StdDuration::from_secs(2))
             .with_transaction_timeout(StdDuration::from_secs(10))
             .build()
@@ -4092,7 +4092,7 @@ mod tests {
 
         let runner = db_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(2))
             .with_transaction_timeout(StdDuration::from_secs(5))
             .build()
@@ -4172,7 +4172,7 @@ mod tests {
 
         let runner = db_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_transaction_timeout(StdDuration::from_secs(5))
             .build()
             .await?;
@@ -4936,7 +4936,7 @@ mod tests {
             setup_db_client_with_dynamic_pool(mock, 4, 8).await;
 
         let transaction = ReadWriteTransactionBuilder::new(database_client)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build(None)
             .await?;
 
@@ -5418,7 +5418,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
@@ -5495,7 +5495,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
@@ -5572,7 +5572,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
@@ -5649,7 +5649,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
@@ -5749,7 +5749,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build(None)
             .await?;
 
@@ -5821,7 +5821,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build(None)
             .await?;
 
@@ -5878,7 +5878,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
@@ -6014,7 +6014,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
@@ -6099,7 +6099,7 @@ mod tests {
             .expect("location router must be present when location-aware routing is enabled");
 
         let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build(None)
             .await?;
 
