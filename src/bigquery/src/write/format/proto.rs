@@ -17,7 +17,7 @@ use crate::model::{AppendRowsRequest, ProtoRows, ProtoSchema};
 
 /// Represents the Protobuf data format for a writer.
 #[derive(Debug)]
-pub(crate) struct Proto {
+pub struct Proto {
     pub(crate) schema: ProtoSchema,
 }
 
