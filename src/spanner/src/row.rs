@@ -14,11 +14,13 @@
 
 use std::error::Error as _;
 use std::fmt::{Debug, Display};
+use std::mem::replace;
 
 use crate::Error;
 use crate::Result;
 use crate::from_value::FromValue;
 use crate::result_set_metadata::ResultSetMetadata;
+use crate::types::Type;
 use crate::value::Value;
 
 /// A row in a query result.
@@ -175,8 +177,8 @@ impl Row {
     /// * `Ok(bool)` if the value is null or not.
     /// * `Err(Error)` if the column name or index is invalid.
     pub fn try_is_null<I: ColumnIndex>(&self, index: I) -> Result<bool> {
-        let (_, value) = self.get_value(index)?;
-        Ok(value.is_null())
+        let column_index = self.validate_column_index(&index)?;
+        Ok(self.values[column_index].is_null())
     }
 
     /// Returns true if the value at the specified column name or index is null, panicking on error.
@@ -242,17 +244,8 @@ impl Row {
     ///     * The column name or index is invalid. The underlying [`RowError`] can be extracted using [`RowError::extract`].
     ///     * The column value is incompatible with type `T`. The underlying [`ConvertError`][crate::error::ConvertError] can be extracted using [`ConvertError::extract`][crate::error::ConvertError::extract].
     pub fn try_get<T: FromValue, I: ColumnIndex>(&self, index: I) -> Result<T> {
-        let (column_index, value) = self.get_value(index)?;
-        let r#type = self
-            .metadata
-            .column_types
-            .get(column_index)
-            .ok_or_else(|| {
-                Error::deser(RowError::IndexOutOfRange {
-                    index: column_index,
-                    len: self.metadata.column_types.len(),
-                })
-            })?;
+        let (column_index, r#type) = self.resolve_column(&index)?;
+        let value = &self.values[column_index];
         T::from_value(value, r#type).map_err(Error::deser)
     }
 
@@ -264,8 +257,8 @@ impl Row {
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
-    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = db_client.single_use().build();
+    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = database_client.single_use().build();
     /// let mut result_set = transaction.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
     ///
     /// if let Some(row) = result_set.next().await {
@@ -290,27 +283,177 @@ impl Row {
         }
     }
 
-    fn get_value<I: ColumnIndex>(&self, index: I) -> Result<(usize, &Value)> {
-        let column_index = index
+    /// Takes ownership of a value from the row by column name or zero-based index,
+    /// replacing the column in the row with a null value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = database_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 'hello' AS greeting").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let mut row = row?;
+    ///     let greeting: String = row.try_take("greeting")?;
+    ///     assert_eq!(greeting, "hello");
+    ///
+    ///     // Subsequent reads treat the column as null:
+    ///     assert!(row.is_null("greeting"));
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This method avoids cloning heap-allocated types such as [`String`], [`Vec<T>`],
+    /// [`serde_json::Value`], and [`Value`].
+    ///
+    /// # Note
+    ///
+    /// If the SQL query contains duplicate column names, indexing by column name
+    /// resolves to the first matching column. Once taken, that column becomes null,
+    /// and subsequent calls with the same column name will still resolve to that first
+    /// (now null) column. To take subsequent duplicate columns, index by column position.
+    ///
+    /// If type conversion fails, the column value in the row has already been
+    /// replaced with `NULL` and cannot be recovered.
+    ///
+    /// # Arguments
+    ///
+    /// * `index` - The column name (string) or index (zero-based integer).
+    ///
+    /// # Returns
+    ///
+    /// * `Ok(T)` if the value was successfully taken and converted to type `T`.
+    /// * `Err(Error)` if:
+    ///     * The column name or index is invalid. The underlying [`RowError`] can be extracted using [`RowError::extract`].
+    ///     * The column value is incompatible with type `T`. The underlying [`ConvertError`][crate::error::ConvertError] can be extracted using [`ConvertError::extract`][crate::error::ConvertError::extract].
+    pub fn try_take<T: FromValue, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
+        let column_index = self.validate_column_index(&index)?;
+        let r#type = Self::column_type(&self.metadata.column_types, column_index)?;
+        let value = replace(&mut self.values[column_index], Value::null());
+        T::from_owned_value(value, r#type).map_err(Error::deser)
+    }
+
+    /// Takes ownership of a value from the row by column name or zero-based index,
+    /// replacing the column in the row with a null value, panicking on error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = database_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 'hello' AS greeting").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let mut row = row?;
+    ///     let greeting: String = row.take("greeting");
+    ///     println!("Greeting: {greeting}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This is a convenience wrapper around [`try_take`](Row::try_take).
+    ///
+    /// # Note
+    ///
+    /// If the SQL query contains duplicate column names, indexing by column name
+    /// resolves to the first matching column. Once taken, that column becomes null,
+    /// and subsequent calls with the same column name will still resolve to that first
+    /// (now null) column. To take subsequent duplicate columns, index by column position.
+    ///
+    /// # Panics
+    ///
+    /// Panics if:
+    /// * The column name or index is invalid.
+    /// * The column value is incompatible with type `T` (or is null when `T` is not an [`Option`]).
+    pub fn take<T: FromValue, I: ColumnIndex>(&mut self, index: I) -> T {
+        match self.try_take(&index) {
+            Ok(value) => value,
+            Err(error) => panic!("failed to take column {index:?}: {error}"),
+        }
+    }
+
+    /// Consumes the row and returns its raw values.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = database_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 1 AS a, 'b' AS b").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let values = row?.into_values();
+    ///     assert_eq!(values.len(), 2);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// # Returns
+    ///
+    /// Returns a [`Vec<Value>`] containing the row's values in ordinal column order.
+    pub fn into_values(self) -> Vec<Value> {
+        self.values
+    }
+
+    fn column_index<I: ColumnIndex>(&self, index: &I) -> Result<usize> {
+        index
             .index(self)
-            .ok_or_else(|| Error::deser(RowError::ColumnNotFound(index.to_string())))?;
-        let value = self.values.get(column_index).ok_or_else(|| {
+            .ok_or_else(|| Error::deser(RowError::ColumnNotFound(index.to_string())))
+    }
+
+    fn column_type(column_types: &[Type], column_index: usize) -> Result<&Type> {
+        column_types.get(column_index).ok_or_else(|| {
             Error::deser(RowError::IndexOutOfRange {
                 index: column_index,
-                len: self.values.len(),
+                len: column_types.len(),
             })
-        })?;
-        Ok((column_index, value))
+        })
+    }
+
+    fn validate_column_index<I: ColumnIndex>(&self, index: &I) -> Result<usize> {
+        let column_index = self.column_index(index)?;
+        let total_columns = self.values.len();
+        if column_index >= total_columns {
+            return Err(Error::deser(RowError::IndexOutOfRange {
+                index: column_index,
+                len: total_columns,
+            }));
+        }
+        Ok(column_index)
+    }
+
+    fn resolve_column<I: ColumnIndex>(&self, index: &I) -> Result<(usize, &Type)> {
+        let column_index = self.validate_column_index(index)?;
+        let r#type = Self::column_type(&self.metadata.column_types, column_index)?;
+        Ok((column_index, r#type))
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::from_value::ConvertError;
     use crate::to_value::ToValue;
     use crate::types;
     use crate::value::Date;
     use rust_decimal::Decimal;
+    use serde_json::{Value as JsonValue, json};
     use std::collections::BTreeMap;
     use std::sync::Arc;
     use wkt::Timestamp;
@@ -932,5 +1075,377 @@ mod tests {
             },
         };
         let _ = row.is_null(&5);
+    }
+
+    #[test]
+    fn row_try_take() {
+        let mut row = Row {
+            values: vec![
+                "test_string".to_string().to_value(),
+                42_i64.to_value(),
+                vec!["a".to_string(), "b".to_string()].to_value(),
+            ],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![
+                    "col_string".to_string(),
+                    "col_int".to_string(),
+                    "col_vec".to_string(),
+                ]),
+                column_types: Arc::new(vec![
+                    types::string(),
+                    types::int64(),
+                    types::array(types::string()),
+                ]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Take string column
+        let string_value: String = row.try_take("col_string").expect("should take col_string");
+        assert_eq!(string_value, "test_string", "expected 'test_string'");
+
+        // Take integer column by index
+        let integer_value: i64 = row.try_take(1).expect("should take col_int by index");
+        assert_eq!(integer_value, 42, "expected 42");
+
+        // Take array column
+        let vector_value: Vec<String> = row.try_take("col_vec").expect("should take col_vec");
+        assert_eq!(
+            vector_value,
+            vec!["a".to_string(), "b".to_string()],
+            "expected array matching ['a', 'b']"
+        );
+    }
+
+    #[test]
+    fn row_take_success() {
+        let mut row = Row {
+            values: vec![
+                "test_string".to_string().to_value(),
+                42_i64.to_value(),
+                vec!["x".to_string()].to_value(),
+                Value::null(),
+            ],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![
+                    "col_string".to_string(),
+                    "col_int".to_string(),
+                    "col_vec".to_string(),
+                    "col_null".to_string(),
+                ]),
+                column_types: Arc::new(vec![
+                    types::string(),
+                    types::int64(),
+                    types::array(types::string()),
+                    types::string(),
+                ]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Take by index
+        let string_value: String = row.take(0);
+        assert_eq!(string_value, "test_string", "expected 'test_string'");
+
+        // Take array column
+        let vector_value: Vec<String> = row.take("col_vec");
+        assert_eq!(vector_value, vec!["x".to_string()], "expected ['x']");
+
+        // Take nullable null column
+        let optional_null: Option<String> = row.take("col_null");
+        assert_eq!(optional_null, None, "expected None for null column");
+
+        // Take nullable present column
+        let optional_present: Option<i64> = row.take("col_int");
+        assert_eq!(optional_present, Some(42), "expected Some(42)");
+    }
+
+    #[test]
+    fn row_take_subsequent_reads_null() {
+        let mut row = Row {
+            values: vec!["hello".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["text".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let taken: String = row.take("text");
+        assert_eq!(taken, "hello", "expected 'hello'");
+
+        // Column is now null
+        assert!(row.is_null("text"), "taken column must be null");
+        assert!(
+            row.try_is_null("text").expect("try_is_null should succeed"),
+            "taken column must be null"
+        );
+
+        // Reading or taking as Option returns None
+        let optional_get: Option<String> = row.try_get("text").expect("get Option must succeed");
+        assert_eq!(optional_get, None, "expected None for taken column");
+
+        let optional_take: Option<String> = row.try_take("text").expect("take Option must succeed");
+        assert_eq!(optional_take, None, "expected None for taken column");
+
+        // Reading or taking again as non-nullable fails with NotNull
+        let error_get = row
+            .try_get::<String, _>("text")
+            .expect_err("get non-nullable on taken column must fail");
+        let convert_error_get =
+            ConvertError::extract(&error_get).expect("should extract ConvertError");
+        assert!(
+            matches!(convert_error_get, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+
+        let error_take = row
+            .try_take::<String, _>("text")
+            .expect_err("take non-nullable on taken column must fail");
+        let convert_error_take =
+            ConvertError::extract(&error_take).expect("should extract ConvertError");
+        assert!(
+            matches!(convert_error_take, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+    }
+
+    #[test]
+    fn row_try_take_invalid_column() {
+        let mut row = Row {
+            values: vec!["a".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_a".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let error_not_found = row
+            .try_take::<String, _>("nonexistent")
+            .expect_err("taking nonexistent column must fail");
+        let row_error_not_found =
+            RowError::extract(&error_not_found).expect("should extract RowError");
+        assert!(
+            matches!(row_error_not_found, RowError::ColumnNotFound(column) if column == "nonexistent"),
+            "expected ColumnNotFound error"
+        );
+
+        let error_out_of_range = row
+            .try_take::<String, _>(5)
+            .expect_err("taking out of range index must fail");
+        let row_error_out_of_range =
+            RowError::extract(&error_out_of_range).expect("should extract RowError");
+        assert_eq!(
+            row_error_out_of_range,
+            &RowError::IndexOutOfRange { index: 5, len: 1 },
+            "expected IndexOutOfRange error"
+        );
+    }
+
+    #[test]
+    fn row_try_take_missing_column_type_metadata() {
+        let mut row = Row {
+            values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_a".to_string(), "col_b".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let error = row
+            .try_take::<String, _>(1)
+            .expect_err("taking column with missing metadata type must fail");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::IndexOutOfRange { index: 1, len: 1 }),
+            "expected IndexOutOfRange for column_types"
+        );
+        // Column value must not be replaced with null if validation fails beforehand:
+        assert_eq!(
+            row.values[1],
+            "b".to_string().to_value(),
+            "column value must not be replaced with null if metadata validation fails"
+        );
+    }
+
+    #[test]
+    fn row_into_values() {
+        let row = Row {
+            values: vec!["val1".to_string().to_value(), 100_i64.to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["c1".to_string(), "c2".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::int64()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let values = row.into_values();
+        assert_eq!(values.len(), 2, "expected 2 values");
+        assert_eq!(
+            values[0],
+            "val1".to_string().to_value(),
+            "expected matching first value"
+        );
+        assert_eq!(
+            values[1],
+            100_i64.to_value(),
+            "expected matching second value"
+        );
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to take column \"invalid\": cannot deserialize the response Could not find column: 'invalid'"
+    )]
+    fn row_take_panics_on_invalid_column() {
+        let mut row = empty_row();
+        let _: String = row.take("invalid");
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to take column 0: cannot deserialize the response Column index out of range: 0 (expected < 0)"
+    )]
+    fn row_take_panics_on_index_out_of_range() {
+        let mut row = empty_row();
+        let _: String = row.take(0);
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to take column \"text\": cannot deserialize the response cannot convert value"
+    )]
+    fn row_take_panics_on_type_mismatch() {
+        let mut row = Row {
+            values: vec!["not_an_int".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["text".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: i64 = row.take("text");
+    }
+
+    #[test]
+    fn row_try_take_type_mismatch_replaces_with_null() {
+        let mut row = Row {
+            values: vec!["not_an_int".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["text".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let error = row
+            .try_take::<i64, _>("text")
+            .expect_err("taking string as i64 must fail");
+        assert!(
+            error.is_deserialization(),
+            "expected deserialization error on type mismatch"
+        );
+        assert!(
+            row.values[0].is_null(),
+            "column value must be replaced with null when try_take consumes it even if conversion fails"
+        );
+    }
+
+    #[test]
+    fn row_try_take_owned_string_index() {
+        let mut row = Row {
+            values: vec!["hello".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["text".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let result: String = row
+            .try_take(String::from("text"))
+            .expect("should take column using owned String");
+        assert_eq!(result, "hello", "expected column value");
+    }
+
+    #[test]
+    fn row_into_values_empty() {
+        let row = empty_row();
+        let values = row.into_values();
+        assert!(values.is_empty(), "expected empty values vector");
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to take column \"null_col\": cannot deserialize the response expected non-null value, got null"
+    )]
+    fn row_take_panics_on_null_for_non_nullable() {
+        let mut row = Row {
+            values: vec![Value::null()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["null_col".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: String = row.take("null_col");
+    }
+
+    #[test]
+    fn row_try_take_bytes() {
+        let mut row = Row {
+            values: vec![b"hello bytes".to_vec().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["bytes_col".to_string()]),
+                column_types: Arc::new(vec![types::bytes()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let bytes: Vec<u8> = row
+            .try_take("bytes_col")
+            .expect("taking bytes column should succeed");
+        assert_eq!(bytes, b"hello bytes", "expected matching bytes");
+        assert!(row.is_null("bytes_col"), "column must be null after take");
+    }
+
+    #[test]
+    fn row_try_take_json() {
+        let mut row = Row {
+            values: vec![r#"{"key":"value"}"#.to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["json_col".to_string()]),
+                column_types: Arc::new(vec![types::json()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let json: JsonValue = row
+            .try_take("json_col")
+            .expect("taking json column should succeed");
+        assert_eq!(json, json!({"key": "value"}), "expected matching json");
+        assert!(row.is_null("json_col"), "column must be null after take");
+    }
+
+    #[test]
+    fn row_take_raw_value() {
+        let mut row = Row {
+            values: vec!["raw string".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["raw_col".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let raw_value: Value = row.take("raw_col");
+        assert_eq!(
+            raw_value,
+            "raw string".to_string().to_value(),
+            "expected matching raw Value"
+        );
+        assert!(row.is_null("raw_col"), "column must be null after take");
     }
 }

@@ -25,6 +25,7 @@ pub use google_cloud_type::model::Date;
 pub use wkt::{Duration, Timestamp};
 
 use prost_types::Value as ProtoValue;
+use prost_types::value::Kind as ProtoKind;
 use serde_json::Number as JsonNumber;
 use serde_json::Value as JsonValue;
 
@@ -50,6 +51,25 @@ pub enum Kind {
     List,
 }
 
+impl From<&Option<ProtoKind>> for Kind {
+    fn from(kind: &Option<ProtoKind>) -> Self {
+        match kind {
+            Some(ProtoKind::NullValue(_)) | None => Kind::Null,
+            Some(ProtoKind::NumberValue(_)) => Kind::Number,
+            Some(ProtoKind::StringValue(_)) => Kind::String,
+            Some(ProtoKind::BoolValue(_)) => Kind::Bool,
+            Some(ProtoKind::StructValue(_)) => Kind::Struct,
+            Some(ProtoKind::ListValue(_)) => Kind::List,
+        }
+    }
+}
+
+impl From<Option<ProtoKind>> for Kind {
+    fn from(kind: Option<ProtoKind>) -> Self {
+        Kind::from(&kind)
+    }
+}
+
 /// Value is a transparent wrapper around a protobuf value.
 /// It adds helper methods for accessing the underlying value.
 #[repr(transparent)]
@@ -60,7 +80,7 @@ impl Value {
     /// Creates a null [Value].
     pub fn null() -> Self {
         Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::NullValue(0)),
+            kind: Some(ProtoKind::NullValue(0)),
         })
     }
 
@@ -75,15 +95,7 @@ impl Value {
 
     /// Returns the kind of the value.
     pub fn kind(&self) -> Kind {
-        match &self.0.kind {
-            Some(prost_types::value::Kind::NullValue(_)) => Kind::Null,
-            Some(prost_types::value::Kind::NumberValue(_)) => Kind::Number,
-            Some(prost_types::value::Kind::StringValue(_)) => Kind::String,
-            Some(prost_types::value::Kind::BoolValue(_)) => Kind::Bool,
-            Some(prost_types::value::Kind::StructValue(_)) => Kind::Struct,
-            Some(prost_types::value::Kind::ListValue(_)) => Kind::List,
-            None => Kind::Null,
-        }
+        Kind::from(&self.0.kind)
     }
 
     /// Returns `true` if the value is null, or `false` otherwise.
