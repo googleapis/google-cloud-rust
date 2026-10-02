@@ -32,8 +32,10 @@ async fn unbuffered_single_shot_reuses_token() -> Result {
         .send_unbuffered()
         .await?;
     let tokens = tokens.lock().unwrap();
-    assert!(tokens[0].is_some(), "{tokens:?}");
-    assert_eq!(tokens[0], tokens[1], "{tokens:?}");
+    let [Some(first), Some(second)] = tokens.as_slice() else {
+        panic!("expected 2 captured tokens, got {tokens:?}");
+    };
+    assert_eq!(first, second);
     Ok(())
 }
 
