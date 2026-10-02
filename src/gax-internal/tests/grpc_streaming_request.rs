@@ -357,4 +357,27 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn large_response() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+
+        // Tonic's default decoding limit is 4 MiB; verify streamed messages > 4 MiB succeed.
+        let large_msg = "a".repeat(5 * 1024 * 1024);
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        tx.send(simple_request(&large_msg)).await?;
+        drop(tx);
+
+        let response = send_streaming_request(client.clone(), rx, "resource=test").await?;
+        let (_metadata, mut stream, _) = response.into_parts();
+        let r = stream.message().await?.expect("expected a message");
+        assert_eq!(r.message.len(), large_msg.len());
+        assert!(stream.message().await?.is_none());
+
+        Ok(())
+    }
 }

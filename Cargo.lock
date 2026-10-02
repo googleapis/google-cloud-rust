@@ -5682,20 +5682,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-timeseriesinsights-v1"
-version = "1.13.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-rpc",
- "google-cloud-wkt",
- "serde",
- "serde_json",
- "serde_with",
- "tracing",
-]
+version = "2.0.0"
 
 [[package]]
 name = "google-cloud-tpu-v2"

@@ -149,8 +149,19 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
 /// A builder for the Spanner client.
 pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory, Credentials>;
 
+pub(crate) mod sealed {
+    use super::ClientBuilder;
+
+    /// A sealed trait to prevent external implementation of [`super::SpannerBuilderExt`].
+    pub trait SpannerBuilderExt {}
+
+    impl SpannerBuilderExt for ClientBuilder {}
+}
+
 /// Extension trait for [`ClientBuilder`] (also exported as `SpannerBuilder`) to configure Spanner-specific options.
-pub trait SpannerBuilderExt {
+///
+/// This trait is sealed and cannot be implemented for types outside of this crate.
+pub trait SpannerBuilderExt: sealed::SpannerBuilderExt {
     /// Configures the gRPC channel pool for the Spanner client.
     ///
     /// # Example

@@ -17,8 +17,10 @@ use crate::generated::{CompleteQueryMetadata, QueryMetadata};
 use crate::query::execution::RetryContext;
 use crate::query::retry_policy::JobRetryResult;
 use crate::query::{Result, RowIterator};
+use bytes::Bytes;
 use google_cloud_bigquery_v2::builder::job_service::GetJob;
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::query_response::{Results, ResultsSchema};
 use google_cloud_bigquery_v2::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
 };
@@ -56,9 +58,19 @@ pub struct Query {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) completed: bool,
     pub(crate) metadata: QueryMetadata,
-    pub(crate) cached_rows: Option<VecDeque<wkt::Struct>>,
+    pub(crate) cached_data: Option<CachedData>,
     pub(crate) page_size: Option<u32>,
     pub(crate) retry_context: Option<RetryContext>,
+}
+
+#[derive(Clone, Debug)]
+pub(crate) enum CachedData {
+    Rows(VecDeque<wkt::Struct>),
+    #[allow(dead_code)]
+    Arrow {
+        serialized_record_batch: Bytes,
+        serialized_schema: Bytes,
+    },
 }
 
 impl Query {
@@ -76,7 +88,7 @@ impl Query {
         Self {
             job_service,
             completed,
-            cached_rows: None,
+            cached_data: None,
             metadata: build_query_metadata_from_job(initial_job),
             retry_context: retry_context.filter(|_| !completed).cloned(),
             page_size,
@@ -90,12 +102,26 @@ impl Query {
         page_size: Option<u32>,
     ) -> Self {
         let completed = query_response.job_complete.unwrap_or(false);
-        let cached_rows = VecDeque::from(std::mem::take(&mut query_response.rows));
+        let cached_data = if let (
+            Some(ResultsSchema::ArrowSchema(schema)),
+            Some(Results::ArrowRecordBatch(results)),
+        ) = (
+            query_response.results_schema.take(),
+            query_response.results.take(),
+        ) {
+            Some(CachedData::Arrow {
+                serialized_record_batch: results.serialized_record_batch,
+                serialized_schema: schema.serialized_schema,
+            })
+        } else {
+            let cached_rows = VecDeque::from(std::mem::take(&mut query_response.rows));
+            Some(CachedData::Rows(cached_rows))
+        };
         let metadata = QueryMetadata::from(query_response);
         Self {
             job_service,
             completed,
-            cached_rows: Some(cached_rows),
+            cached_data,
             metadata,
             retry_context: retry_context.filter(|_| !completed).cloned(),
             page_size,
@@ -201,16 +227,16 @@ impl Query {
                 job_service,
                 completed,
                 metadata,
-                cached_rows,
+                cached_data,
                 page_size,
                 retry_context,
             } = self;
 
-            if completed && let Some(cached_rows) = cached_rows {
+            if completed && let Some(cached_data) = cached_data {
                 return Ok(CompleteQuery::from_query_metadata(
                     job_service,
                     metadata,
-                    cached_rows,
+                    cached_data,
                     page_size,
                 ));
             }
@@ -281,7 +307,7 @@ impl Query {
 pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) job_ref: Option<JobReference>,
-    pub(crate) cached_rows: VecDeque<wkt::Struct>,
+    pub(crate) cached_data: CachedData,
     pub(crate) page_token: Option<String>,
     pub(crate) metadata: CompleteQueryMetadata,
     pub(crate) page_size: Option<u32>,
@@ -296,13 +322,14 @@ impl CompleteQuery {
         page_size: Option<u32>,
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
+        let cached_data = CachedData::Rows(cached_rows);
         let metadata =
             build_complete_query_metadata_from_get_query_results(initial_metadata, res, job_ref);
         Self::from_complete_metadata(
             job_service,
             Some(job_ref.clone()),
             metadata,
-            cached_rows,
+            cached_data,
             page_size,
         )
     }
@@ -310,19 +337,19 @@ impl CompleteQuery {
     pub(crate) fn from_query_metadata(
         job_service: Arc<JobService>,
         metadata: QueryMetadata,
-        cached_rows: VecDeque<wkt::Struct>,
+        cached_data: CachedData,
         page_size: Option<u32>,
     ) -> Self {
         let job_ref = metadata.job_reference.clone();
         let metadata = CompleteQueryMetadata::from(metadata);
-        Self::from_complete_metadata(job_service, job_ref, metadata, cached_rows, page_size)
+        Self::from_complete_metadata(job_service, job_ref, metadata, cached_data, page_size)
     }
 
     pub(crate) fn from_complete_metadata(
         job_service: Arc<JobService>,
         job_ref: Option<JobReference>,
         metadata: CompleteQueryMetadata,
-        cached_rows: VecDeque<wkt::Struct>,
+        cached_data: CachedData,
         page_size: Option<u32>,
     ) -> Self {
         let page_token = if metadata.page_token.is_empty() {
@@ -333,7 +360,7 @@ impl CompleteQuery {
         Self {
             job_service,
             job_ref,
-            cached_rows,
+            cached_data,
             page_token,
             metadata,
             page_size,
@@ -611,8 +638,8 @@ mod tests {
     use crate::query::retry_policy::RetryableJobErrors;
     use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
     use google_cloud_bigquery_v2::model::{
-        ErrorProto, GetQueryResultsResponse, Job, JobConfiguration, JobReference, QueryResponse,
-        TableFieldSchema, TableSchema,
+        ArrowRecordBatch, ArrowSchema, ErrorProto, GetQueryResultsResponse, Job, JobConfiguration,
+        JobReference, QueryResponse, TableFieldSchema, TableSchema,
     };
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
@@ -627,9 +654,9 @@ mod tests {
             mut query_res: QueryResponse,
             page_size: Option<u32>,
         ) -> Self {
-            let cached_rows = std::mem::take(&mut query_res.rows).into();
+            let cached_data = CachedData::Rows(VecDeque::from(std::mem::take(&mut query_res.rows)));
             let metadata = QueryMetadata::from(query_res);
-            Self::from_query_metadata(job_service, metadata, cached_rows, page_size)
+            Self::from_query_metadata(job_service, metadata, cached_data, page_size)
         }
     }
 
@@ -652,12 +679,51 @@ mod tests {
         let completed = query.until_done().await?;
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
         assert_eq!(completed.page_token, Some("some_page_token".to_string()));
-        assert_eq!(completed.cached_rows.len(), 1);
+        match &completed.cached_data {
+            CachedData::Rows(rows) => assert_eq!(rows.len(), 1),
+            _ => panic!("expected rows"),
+        }
 
         let metadata = completed.metadata();
         assert_eq!(metadata.cache_hit, Some(true));
         assert_eq!(metadata.job_complete, Some(true));
         assert_eq!(metadata.page_token, "some_page_token".to_string());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_until_done_already_completed_arrow() -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(true)
+            .set_job_reference(job_ref.clone())
+            .set_arrow_schema(
+                ArrowSchema::new().set_serialized_schema(Bytes::from_static(b"test_schema")),
+            )
+            .set_arrow_record_batch(
+                ArrowRecordBatch::new()
+                    .set_serialized_record_batch(Bytes::from_static(b"test_batch")),
+            )
+            .set_cache_hit(true);
+
+        let query = Query::from_query_response(job_service, query_res, None, None);
+
+        let completed = query.until_done().await?;
+        assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
+        match &completed.cached_data {
+            CachedData::Arrow {
+                serialized_record_batch,
+                serialized_schema,
+            } => {
+                assert_eq!(serialized_record_batch, &Bytes::from_static(b"test_batch"));
+                assert_eq!(serialized_schema, &Bytes::from_static(b"test_schema"));
+            }
+            _ => panic!("expected arrow cached data"),
+        }
 
         Ok(())
     }
@@ -714,7 +780,10 @@ mod tests {
         let completed = query.until_done().await?;
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
         assert_eq!(completed.page_token, Some("some_page_token".to_string()));
-        assert_eq!(completed.cached_rows.len(), 2);
+        match &completed.cached_data {
+            CachedData::Rows(rows) => assert_eq!(rows.len(), 2),
+            _ => panic!("expected rows"),
+        }
 
         let metadata = completed.metadata();
         assert_eq!(metadata.cache_hit, Some(false));

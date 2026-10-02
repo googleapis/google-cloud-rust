@@ -654,7 +654,7 @@ impl Client {
             instrumentation,
         };
 
-        let inner_client = InnerClient::new(channel);
+        let inner_client = InnerClient::new(channel).max_decoding_message_size(usize::MAX);
         if tracing_enabled {
             Ok((inner_client, Some(attrs)))
         } else {
