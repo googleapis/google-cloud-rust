@@ -222,7 +222,10 @@ impl FromSql for Interval {
 
 mod sealed {
     /// A sealed trait to prevent external implementation of `RangeElement`.
-    pub trait RangeElement {}
+    ///
+    /// It requires `RangeBound`, so code that is generic over the element type,
+    /// such as a struct with `#[derive(ToRow)]`, can write ranges.
+    pub trait RangeElement: crate::write::RangeBound {}
 
     impl RangeElement for google_cloud_type::model::Date {}
     impl RangeElement for google_cloud_type::model::DateTime {}
