@@ -22,6 +22,9 @@ pub use pending::PendingWriter;
 pub use google_cloud_bigquery_derive::ToRow;
 pub use to_row::ToRow;
 
+// The sealed `RangeElement` trait in `datatypes` requires this trait.
+pub(crate) use to_row::RangeBound;
+
 /// Defines the data formats accepted by a writer.
 pub mod format;
 
@@ -36,8 +39,12 @@ pub mod stream_type;
 /// removed, in any release.
 #[doc(hidden)]
 pub mod __private {
-    pub use super::to_row::{ProtoElement, ProtoValue, message_schema};
+    pub use super::to_row::{
+        NestedTypes, ProtoElement, ProtoMessage, ProtoValue, encode_message, encode_row,
+        message_schema, struct_field_descriptor,
+    };
     pub use bytes::Bytes;
+    pub use wkt::FieldDescriptorProto;
 }
 
 pub(super) mod append_future;

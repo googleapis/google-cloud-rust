@@ -14,8 +14,10 @@
 
 use super::wire_format::{
     bool_field, bytes_field, double_field, encode_bool, encode_bytes, encode_double, encode_float,
-    encode_int64, encode_string, float_field, int64_field, repeated_field, string_field,
+    encode_int64, encode_string, float_field, int64_field, message_field, repeated_field,
+    string_field,
 };
+use crate::datatypes::{Range, RangeElement};
 use crate::error::ConvertError;
 use crate::model::ProtoSchema;
 use bytes::Bytes;
@@ -46,6 +48,8 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// | [`TimeOfDay`](google_cloud_type::model::TimeOfDay) | `TIME` |
 /// | [`Timestamp`](wkt::Timestamp) | `TIMESTAMP` |
 /// | [`Value`](wkt::Value), [`Struct`](wkt::Struct) | `JSON` |
+/// | [`Range<T>`](crate::datatypes::Range) | `RANGE<T>` |
+/// | A struct with `#[derive(ToRow)]` | `STRUCT` |
 /// | `Option<T>` | The type for `T`. `None` writes `NULL`. |
 /// | `Vec<T>` | An `ARRAY` of the type for `T`. |
 ///
@@ -62,6 +66,13 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 ///   elements of a `Vec<T>` cannot be `Option` or `Vec` values, except for
 ///   `Vec<u8>`, which is a `BYTES` value. Arrays cannot be `NULL` either:
 ///   `None` in an `Option<Vec<T>>` writes an empty array.
+/// - A [`Range<T>`](crate::datatypes::Range) without a `start` or an `end` is
+///   unbounded on that side. When it has both, the start must be before the
+///   end, after rounding down any nanoseconds. [to_row](ToRow::to_row) returns
+///   an error for other ranges, which BigQuery SQL cannot create either.
+/// - Structs can be nested at most 14 levels deep. BigQuery limits the depth
+///   of a schema to 15, and the innermost field counts too. Structs cannot
+///   contain themselves, not even in a `Vec<T>`.
 ///
 /// # Example
 ///
@@ -95,11 +106,62 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// # }
 /// ```
 ///
+/// # Nested structs and ranges
+///
+/// A struct with `#[derive(ToRow)]` can be a field in another one, for a
+/// `STRUCT` column.
+///
+/// ```
+/// use google_cloud_bigquery::datatypes::Range;
+/// use google_cloud_bigquery::write::ToRow;
+/// use google_cloud_type::model::Date;
+///
+/// // For a `STRUCT<city STRING, zip STRING>` column.
+/// #[derive(ToRow)]
+/// struct Address {
+///     city: String,
+///     zip: Option<String>,
+/// }
+///
+/// #[derive(ToRow)]
+/// struct Customer {
+///     name: String,
+///     // `None` writes a `NULL` struct.
+///     address: Option<Address>,
+///     // For an `ARRAY<STRUCT<city STRING, zip STRING>>` column.
+///     previous_addresses: Vec<Address>,
+///     // For a `RANGE<DATE>` column.
+///     membership: Range<Date>,
+/// }
+///
+/// # fn main() -> anyhow::Result<()> {
+/// let start = Date::new().set_year(2025).set_month(1).set_day(1);
+/// let customer = Customer {
+///     name: "alice".to_string(),
+///     address: Some(Address { city: "Paris".to_string(), zip: None }),
+///     previous_addresses: Vec::new(),
+///     // From 2025-01-01, with no end.
+///     membership: Range::new().set_start(start),
+/// };
+/// // Use them as in the example above.
+/// let schema = Customer::schema();
+/// let row = customer.to_row()?;
+/// # Ok(())
+/// # }
+/// ```
+///
 /// [Proto]: crate::write::format::Proto
 pub trait ToRow {
     /// Returns the schema for rows of this type.
     ///
     /// Use it to create a writer with [build_proto].
+    ///
+    /// # Panics
+    ///
+    /// The implementation from `#[derive(ToRow)]` panics if structs are nested
+    /// more than 14 levels deep, or if a struct contains itself. Both depend
+    /// only on the types, not on any values, so any test that calls this
+    /// function finds them.
     ///
     /// [build_proto]: crate::builder::write::WriterBuilder::build_proto
     fn schema() -> ProtoSchema;
@@ -115,11 +177,14 @@ pub trait ToRow {
 #[diagnostic::on_unimplemented(
     message = "`{Self}` is not a supported field type for `#[derive(ToRow)]`",
     label = "unsupported field type",
+    note = "structs must have `#[derive(ToRow)]` to be used as fields",
     note = "see the `ToRow` documentation for the supported types"
 )]
 pub trait ProtoValue {
     /// Describes a field of this type, with the given name and field number.
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto;
+    ///
+    /// Fields that hold messages add the message types to `types`.
+    fn field_descriptor(name: &str, number: u32, types: &mut NestedTypes) -> FieldDescriptorProto;
 
     /// Appends `self` to `buf`, as the field with the given number.
     ///
@@ -145,8 +210,34 @@ pub trait ProtoValue {
 )]
 pub trait ProtoElement: ProtoValue {}
 
+/// A Rust type that is written as a protobuf message: a row, a nested struct,
+/// or a `RANGE` value.
+///
+/// `#[derive(ToRow)]` implements this trait, and [ToRow] uses it to describe
+/// and encode rows.
+///
+/// This is an implementation detail of [ToRow], it is not part of the public
+/// API.
+pub trait ProtoMessage {
+    /// The name of the message.
+    const NAME: &'static str;
+
+    /// The names of the fields.
+    ///
+    /// In a row, these are the column names. The message types for nested
+    /// structs are declared inside the message for the row, so they cannot
+    /// use these names.
+    const COLUMNS: &'static [&'static str];
+
+    /// Describes the fields of the message.
+    fn fields(types: &mut NestedTypes) -> Vec<FieldDescriptorProto>;
+
+    /// Appends the fields of `self` to `buf`, in the protobuf wire format.
+    fn encode_fields(&self, buf: &mut Vec<u8>) -> Result<(), ConvertError>;
+}
+
 impl ProtoValue for String {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         string_field(name, number)
     }
 
@@ -157,7 +248,7 @@ impl ProtoValue for String {
 }
 
 impl ProtoValue for i64 {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         int64_field(name, number)
     }
 
@@ -168,7 +259,7 @@ impl ProtoValue for i64 {
 }
 
 impl ProtoValue for i32 {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // `INT64` columns also take `int32` fields, but the bytes would be the
         // same: protobuf sign-extends negative `int32` values to 64 bits.
         int64_field(name, number)
@@ -181,7 +272,7 @@ impl ProtoValue for i32 {
 }
 
 impl ProtoValue for bool {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         bool_field(name, number)
     }
 
@@ -192,7 +283,7 @@ impl ProtoValue for bool {
 }
 
 impl ProtoValue for f64 {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         double_field(name, number)
     }
 
@@ -203,7 +294,7 @@ impl ProtoValue for f64 {
 }
 
 impl ProtoValue for f32 {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery converts `float` fields to `FLOAT64` values. They take 4
         // bytes instead of 8, which keeps rows smaller.
         float_field(name, number)
@@ -216,7 +307,7 @@ impl ProtoValue for f32 {
 }
 
 impl ProtoValue for Vec<u8> {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         bytes_field(name, number)
     }
 
@@ -227,7 +318,7 @@ impl ProtoValue for Vec<u8> {
 }
 
 impl ProtoValue for Bytes {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         bytes_field(name, number)
     }
 
@@ -238,7 +329,7 @@ impl ProtoValue for Bytes {
 }
 
 impl ProtoValue for wkt::Timestamp {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `TIMESTAMP` values as microseconds since the Unix
         // epoch, in an `int64` field.
         int64_field(name, number)
@@ -267,44 +358,53 @@ fn timestamp_micros(timestamp: &wkt::Timestamp) -> i64 {
 }
 
 impl ProtoValue for google_cloud_type::model::Date {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `DATE` values as days since the Unix epoch, in an
         // `int64` field.
         int64_field(name, number)
     }
 
     fn encode(&self, number: u32, buf: &mut Vec<u8>) -> Result<(), ConvertError> {
-        let date = civil_date(self.year, self.month, self.day)?;
-        encode_int64(number, (date - UNIX_EPOCH).whole_days(), buf);
+        encode_int64(number, date_days(self)?, buf);
         Ok(())
     }
 }
 
+/// Returns the days since the Unix epoch, for a BigQuery `DATE` value.
+fn date_days(value: &google_cloud_type::model::Date) -> Result<i64, ConvertError> {
+    let date = civil_date(value.year, value.month, value.day)?;
+    Ok((date - UNIX_EPOCH).whole_days())
+}
+
 impl ProtoValue for google_cloud_type::model::DateTime {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `DATETIME` values as strings, such as
         // "2025-05-16 09:46:12.123456".
         string_field(name, number)
     }
 
     fn encode(&self, number: u32, buf: &mut Vec<u8>) -> Result<(), ConvertError> {
-        if self.time_offset.is_some() {
-            return Err(ConvertError::Convert(
-                "a `DATETIME` has no time zone or UTC offset, use a `Timestamp` instead".into(),
-            ));
-        }
-        let date = civil_date(self.year, self.month, self.day)?;
-        let time = civil_time(self.hours, self.minutes, self.seconds, self.nanos)?;
-        let value = time::PrimitiveDateTime::new(date, time)
-            .format(DATETIME_FORMAT)
-            .map_err(|e| ConvertError::Convert(Box::new(e)))?;
-        encode_string(number, &value, buf);
+        encode_string(number, &datetime_string(self)?, buf);
         Ok(())
     }
 }
 
+/// Returns the string for a BigQuery `DATETIME` value.
+fn datetime_string(value: &google_cloud_type::model::DateTime) -> Result<String, ConvertError> {
+    if value.time_offset.is_some() {
+        return Err(ConvertError::Convert(
+            "a `DATETIME` has no time zone or UTC offset, use a `Timestamp` instead".into(),
+        ));
+    }
+    let date = civil_date(value.year, value.month, value.day)?;
+    let time = civil_time(value.hours, value.minutes, value.seconds, value.nanos)?;
+    time::PrimitiveDateTime::new(date, time)
+        .format(DATETIME_FORMAT)
+        .map_err(|e| ConvertError::Convert(Box::new(e)))
+}
+
 impl ProtoValue for google_cloud_type::model::TimeOfDay {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `TIME` values as strings, such as "09:46:12.123456".
         string_field(name, number)
     }
@@ -380,7 +480,7 @@ fn civil_time(
 }
 
 impl ProtoValue for rust_decimal::Decimal {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `NUMERIC` and `BIGNUMERIC` values as strings, such as
         // "123.45". Unlike a `double`, a string keeps every digit.
         string_field(name, number)
@@ -393,7 +493,7 @@ impl ProtoValue for rust_decimal::Decimal {
 }
 
 impl ProtoValue for google_cloud_type::model::Decimal {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `NUMERIC` and `BIGNUMERIC` values as strings.
         string_field(name, number)
     }
@@ -406,7 +506,7 @@ impl ProtoValue for google_cloud_type::model::Decimal {
 }
 
 impl ProtoValue for wkt::Value {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `JSON` values as strings.
         string_field(name, number)
     }
@@ -418,7 +518,7 @@ impl ProtoValue for wkt::Value {
 }
 
 impl ProtoValue for wkt::Struct {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `JSON` values as strings.
         string_field(name, number)
     }
@@ -431,9 +531,9 @@ impl ProtoValue for wkt::Struct {
 }
 
 impl<T: ProtoValue> ProtoValue for Option<T> {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
+    fn field_descriptor(name: &str, number: u32, types: &mut NestedTypes) -> FieldDescriptorProto {
         // All fields are optional in the schema, so `NULL` needs no changes.
-        T::field_descriptor(name, number)
+        T::field_descriptor(name, number, types)
     }
 
     fn encode(&self, number: u32, buf: &mut Vec<u8>) -> Result<(), ConvertError> {
@@ -465,8 +565,8 @@ impl ProtoElement for wkt::Value {}
 impl ProtoElement for wkt::Struct {}
 
 impl<T: ProtoElement> ProtoValue for Vec<T> {
-    fn field_descriptor(name: &str, number: u32) -> FieldDescriptorProto {
-        repeated_field(T::field_descriptor(name, number))
+    fn field_descriptor(name: &str, number: u32, types: &mut NestedTypes) -> FieldDescriptorProto {
+        repeated_field(T::field_descriptor(name, number, types))
     }
 
     fn encode(&self, number: u32, buf: &mut Vec<u8>) -> Result<(), ConvertError> {
@@ -479,21 +579,274 @@ impl<T: ProtoElement> ProtoValue for Vec<T> {
     }
 }
 
-/// Returns the schema for a message with the given name and fields.
+/// The name of the message type for `RANGE` values.
+const RANGE_MESSAGE: &str = "Range";
+
+/// The name of the field for the start of a `RANGE` value.
+const RANGE_START: &str = "start";
+
+/// The field number of `start`.
+const RANGE_START_FIELD: u32 = 1;
+
+/// The name of the field for the end of a `RANGE` value.
+const RANGE_END: &str = "end";
+
+/// The field number of `end`.
+const RANGE_END_FIELD: u32 = 2;
+
+/// A type for the bounds of a [Range].
+///
+/// BigQuery SQL cannot create a range unless its start is before its end, so
+/// [ToRow::to_row] returns an error for other ranges. It compares the values
+/// that BigQuery receives, which keep microseconds, not nanoseconds.
+///
+/// [RangeElement] requires this trait, so code that is generic over the element
+/// type, such as a struct with `#[derive(ToRow)]`, can write ranges.
 ///
 /// This is an implementation detail of [ToRow], it is not part of the public
 /// API.
-pub fn message_schema<I>(name: &str, fields: I) -> ProtoSchema
-where
-    I: IntoIterator<Item = FieldDescriptorProto>,
-{
-    let descriptor = DescriptorProto::new().set_name(name).set_field(fields);
+pub trait RangeBound {
+    /// The value that BigQuery receives for a bound. The values sort in the
+    /// same order as the bounds.
+    type Key: Ord;
+
+    /// Returns the value that BigQuery receives for this bound.
+    fn range_key(&self) -> Result<Self::Key, ConvertError>;
+}
+
+impl RangeBound for wkt::Timestamp {
+    type Key = i64;
+
+    fn range_key(&self) -> Result<i64, ConvertError> {
+        Ok(timestamp_micros(self))
+    }
+}
+
+impl RangeBound for google_cloud_type::model::Date {
+    type Key = i64;
+
+    fn range_key(&self) -> Result<i64, ConvertError> {
+        date_days(self)
+    }
+}
+
+impl RangeBound for google_cloud_type::model::DateTime {
+    // The strings have the same length, with the largest units first, so they
+    // sort in the same order as the values.
+    type Key = String;
+
+    fn range_key(&self) -> Result<String, ConvertError> {
+        datetime_string(self)
+    }
+}
+
+// BigQuery takes `RANGE<T>` values as a message with two fields, `start` and
+// `end`, of the type for `T`.
+impl<T: RangeElement + ProtoValue + RangeBound> ProtoMessage for Range<T> {
+    const NAME: &'static str = RANGE_MESSAGE;
+    const COLUMNS: &'static [&'static str] = &[RANGE_START, RANGE_END];
+
+    fn fields(types: &mut NestedTypes) -> Vec<FieldDescriptorProto> {
+        vec![
+            Option::<T>::field_descriptor(RANGE_START, RANGE_START_FIELD, types),
+            Option::<T>::field_descriptor(RANGE_END, RANGE_END_FIELD, types),
+        ]
+    }
+
+    fn encode_fields(&self, buf: &mut Vec<u8>) -> Result<(), ConvertError> {
+        if let (Some(start), Some(end)) = (&self.start, &self.end)
+            && start.range_key()? >= end.range_key()?
+        {
+            return Err(ConvertError::Convert(
+                "the start of a `RANGE` must be before its end".into(),
+            ));
+        }
+        // `None` leaves the field out, which BigQuery reads as unbounded.
+        self.start.encode(RANGE_START_FIELD, buf)?;
+        self.end.encode(RANGE_END_FIELD, buf)
+    }
+}
+
+impl<T: RangeElement + ProtoValue + RangeBound> ProtoValue for Range<T> {
+    fn field_descriptor(name: &str, number: u32, types: &mut NestedTypes) -> FieldDescriptorProto {
+        // A `RANGE` column is not a `STRUCT` column, so it does not count
+        // toward the limit on nested `STRUCT` columns.
+        message_field(name, number, &types.add_message::<Self>())
+    }
+
+    fn encode(&self, number: u32, buf: &mut Vec<u8>) -> Result<(), ConvertError> {
+        encode_message(self, number, buf)
+    }
+}
+
+impl<T: RangeElement + ProtoValue + RangeBound> ProtoElement for Range<T> {}
+
+/// The most levels of nested `STRUCT` columns that BigQuery supports.
+///
+/// BigQuery limits the depth of a schema to 15, and counts every part of a
+/// field path, such as `a.b.c`. The innermost field is not a `STRUCT`, so at
+/// most 14 parts can be.
+const MAX_DEPTH: usize = 14;
+
+/// The suffix for the second message type with the same name, as in
+/// `Address_2`.
+const FIRST_SUFFIX: usize = 2;
+
+/// The message types that a schema needs, besides the message for the row.
+///
+/// BigQuery needs a self-contained schema, so these types are nested in the
+/// message for the row. They are all nested at the same level, even types
+/// that only appear inside other nested types, so each type is declared once.
+///
+/// This is an implementation detail of [ToRow], it is not part of the public
+/// API.
+#[derive(Debug, Default)]
+pub struct NestedTypes {
+    /// The name before any suffix, and the descriptor, of each type. In the
+    /// order they were added.
+    types: Vec<(&'static str, DescriptorProto)>,
+    /// The names of the fields in the message for the row. The nested types
+    /// share a scope with these fields, so they cannot use these names.
+    reserved: &'static [&'static str],
+    /// How many levels of nested structs are being described.
+    depth: usize,
+}
+
+impl NestedTypes {
+    /// Returns an empty set of types, for a row with the given column names.
+    fn new(columns: &'static [&'static str]) -> Self {
+        Self {
+            types: Vec::new(),
+            reserved: columns,
+            depth: 0,
+        }
+    }
+
+    /// Adds the message type for the nested struct `T`, and returns its name.
+    ///
+    /// # Panics
+    ///
+    /// If `T` is nested more than [MAX_DEPTH] levels deep, which includes any
+    /// struct that contains itself.
+    fn add_struct<T: ProtoMessage>(&mut self) -> String {
+        self.depth += 1;
+        assert!(
+            self.depth <= MAX_DEPTH,
+            "`{}` is nested more than {MAX_DEPTH} levels deep, or contains itself. \
+             BigQuery supports at most {MAX_DEPTH} levels of nested `STRUCT` columns.",
+            std::any::type_name::<T>()
+        );
+        let name = self.add_message::<T>();
+        self.depth -= 1;
+        name
+    }
+
+    /// Adds the message type for `T`, and returns its name.
+    ///
+    /// A type with the same name and the same fields as an earlier type is not
+    /// added again, so a struct in many fields is declared once. Different
+    /// types with the same name, such as `Address` structs from two modules,
+    /// get a suffix.
+    fn add_message<T: ProtoMessage>(&mut self) -> String {
+        // The fields come first, because they may add types too.
+        let fields = T::fields(self);
+        let existing = self
+            .types
+            .iter()
+            .find(|(base, descriptor)| *base == T::NAME && descriptor.field == fields);
+        if let Some((_, descriptor)) = existing {
+            return descriptor.name.clone();
+        }
+        let name = self.unused_name(T::NAME);
+        let descriptor = DescriptorProto::new().set_name(&name).set_field(fields);
+        self.types.push((T::NAME, descriptor));
+        name
+    }
+
+    /// Returns `name`, or `name` with the first suffix that is not taken.
+    fn unused_name(&self, name: &str) -> String {
+        let taken = |candidate: &str| {
+            self.reserved.contains(&candidate)
+                || self.types.iter().any(|(_, d)| d.name == candidate)
+        };
+        if !taken(name) {
+            return name.to_string();
+        }
+        (FIRST_SUFFIX..)
+            .map(|suffix| format!("{name}_{suffix}"))
+            .find(|candidate| !taken(candidate))
+            .expect("there are more suffixes than types")
+    }
+
+    /// Returns the descriptors of the types, in the order they were added.
+    fn into_descriptors(self) -> Vec<DescriptorProto> {
+        self.types.into_iter().map(|(_, d)| d).collect()
+    }
+}
+
+/// Returns the schema for rows of type `T`.
+///
+/// This is an implementation detail of [ToRow], it is not part of the public
+/// API.
+pub fn message_schema<T: ProtoMessage>() -> ProtoSchema {
+    let mut types = NestedTypes::new(T::COLUMNS);
+    let fields = T::fields(&mut types);
+    let descriptor = DescriptorProto::new()
+        .set_name(T::NAME)
+        .set_field(fields)
+        .set_nested_type(types.into_descriptors());
     ProtoSchema::new().set_proto_descriptor(descriptor)
+}
+
+/// Encodes `row` as one row, in the protobuf wire format.
+///
+/// This is an implementation detail of [ToRow], it is not part of the public
+/// API.
+pub fn encode_row<T: ProtoMessage>(row: &T) -> Result<Bytes, ConvertError> {
+    let mut buf = Vec::new();
+    row.encode_fields(&mut buf)?;
+    Ok(buf.into())
+}
+
+/// Describes a field that holds the nested struct `T`.
+///
+/// This is an implementation detail of [ToRow], it is not part of the public
+/// API.
+///
+/// # Panics
+///
+/// If `T` is nested more than 14 levels deep, which includes any struct that
+/// contains itself.
+pub fn struct_field_descriptor<T: ProtoMessage>(
+    name: &str,
+    number: u32,
+    types: &mut NestedTypes,
+) -> FieldDescriptorProto {
+    message_field(name, number, &types.add_struct::<T>())
+}
+
+/// Appends `value` to `buf`, as a message in the field with the given number.
+///
+/// This is an implementation detail of [ToRow], it is not part of the public
+/// API.
+pub fn encode_message<T: ProtoMessage>(
+    value: &T,
+    number: u32,
+    buf: &mut Vec<u8>,
+) -> Result<(), ConvertError> {
+    // The length of the message comes before its fields, so encode the fields
+    // on their own first. An empty message still appends the tag and a zero
+    // length, which is not the same as leaving the field out.
+    let mut message = Vec::new();
+    value.encode_fields(&mut message)?;
+    encode_bytes(number, &message, buf);
+    Ok(())
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{ProtoValue, timestamp_micros};
+    use super::{MAX_DEPTH, NestedTypes, ProtoMessage, ProtoValue, timestamp_micros};
+    use crate::datatypes::{Range, RangeElement};
     use crate::error::ConvertError;
     use crate::google::cloud::bigquery::storage::v1;
     use crate::write::ToRow;
@@ -739,7 +1092,7 @@ mod tests {
     /// Returns the protobuf type of a field of type `T`. The name and number
     /// do not matter.
     fn field_type<T: ProtoValue>() -> wkt::field_descriptor_proto::Type {
-        T::field_descriptor(NAME_COLUMN, NAME_FIELD).r#type
+        T::field_descriptor(NAME_COLUMN, NAME_FIELD, &mut NestedTypes::default()).r#type
     }
 
     #[test]
@@ -765,15 +1118,19 @@ mod tests {
         assert_eq!(field_type::<wkt::Value>(), Type::String);
         assert_eq!(field_type::<wkt::Struct>(), Type::String);
         assert_eq!(field_type::<Option<String>>(), Type::String);
+        // Nested structs and ranges are messages.
+        assert_eq!(field_type::<Address>(), Type::Message);
+        assert_eq!(field_type::<Range<Date>>(), Type::Message);
         // An array has the type of its elements.
         assert_eq!(field_type::<Vec<i64>>(), Type::Int64);
         assert_eq!(field_type::<Vec<Vec<u8>>>(), Type::Bytes);
+        assert_eq!(field_type::<Vec<Address>>(), Type::Message);
     }
 
     /// Returns the label of a field of type `T`. The name and number do not
     /// matter.
     fn field_label<T: ProtoValue>() -> wkt::field_descriptor_proto::Label {
-        T::field_descriptor(NAME_COLUMN, NAME_FIELD).label
+        T::field_descriptor(NAME_COLUMN, NAME_FIELD, &mut NestedTypes::default()).label
     }
 
     #[test]
@@ -787,6 +1144,9 @@ mod tests {
         assert_eq!(field_label::<Vec<Vec<u8>>>(), Label::Repeated);
         // Arrays cannot be `NULL`, so `None` writes an empty array.
         assert_eq!(field_label::<Option<Vec<i64>>>(), Label::Repeated);
+        assert_eq!(field_label::<Option<Address>>(), Label::Optional);
+        assert_eq!(field_label::<Vec<Address>>(), Label::Repeated);
+        assert_eq!(field_label::<Vec<Range<Date>>>(), Label::Repeated);
     }
 
     /// What `prost` generates for:
@@ -1156,6 +1516,520 @@ mod tests {
         assert_eq!(schema, Some(sent_descriptor()?));
         let rows = data.rows.map(|r| r.serialized_rows);
         assert_eq!(rows, Some(vec![sample_prost_row().encode_to_vec()]));
+        Ok(())
+    }
+
+    /// The name of the message type for `Address`.
+    const ADDRESS: &str = "Address";
+
+    /// The name of the only field in `Address`.
+    const CITY_COLUMN: &str = "city";
+
+    /// The field number of `city`.
+    const CITY_FIELD: u32 = 1;
+
+    /// A sample value for `city`.
+    const CITY: &str = "NYC";
+
+    /// A struct for a `STRUCT<city STRING>` column.
+    #[derive(ToRow)]
+    struct Address {
+        city: Option<String>,
+    }
+
+    /// The name of the message type for `Customer`.
+    const CUSTOMER: &str = "Customer";
+
+    /// The name of the `STRUCT` column in `Customer`.
+    const ADDRESS_COLUMN: &str = "address";
+
+    /// The field number of `address`.
+    const ADDRESS_FIELD: u32 = 2;
+
+    /// The name of the `ARRAY<STRUCT>` column in `Customer`.
+    const PREVIOUS_COLUMN: &str = "previous";
+
+    /// The field number of `previous`.
+    const PREVIOUS_FIELD: u32 = 3;
+
+    /// A row with a `STRING` column, a nullable `STRUCT` column, and an
+    /// `ARRAY<STRUCT>` column.
+    #[derive(ToRow)]
+    struct Customer {
+        name: String,
+        address: Option<Address>,
+        previous: Vec<Address>,
+    }
+
+    /// What `prost` generates for `message Address { optional string city = 1; }`.
+    #[derive(Clone, PartialEq, Message)]
+    struct ProstAddress {
+        #[prost(string, optional, tag = "1")]
+        city: Option<String>,
+    }
+
+    /// What `prost` generates for:
+    ///
+    /// `message Customer { string name = 1; optional Address address = 2;
+    /// repeated Address previous = 3; }`
+    #[derive(Clone, PartialEq, Message)]
+    struct ProstCustomer {
+        #[prost(string, tag = "1")]
+        name: String,
+        /// Like `ToRow`, `prost` writes any `Some` message, even an empty one.
+        #[prost(message, optional, tag = "2")]
+        address: Option<ProstAddress>,
+        #[prost(message, repeated, tag = "3")]
+        previous: Vec<ProstAddress>,
+    }
+
+    /// An address with a city.
+    fn nyc() -> Address {
+        Address {
+            city: Some(CITY.to_string()),
+        }
+    }
+
+    #[test]
+    fn nested_structs_match_prost() -> anyhow::Result<()> {
+        let customer = Customer {
+            name: NAME.to_string(),
+            address: Some(nyc()),
+            previous: vec![nyc(), Address { city: None }],
+        };
+        let prost_nyc = ProstAddress {
+            city: Some(CITY.to_string()),
+        };
+        let want = ProstCustomer {
+            name: NAME.to_string(),
+            address: Some(prost_nyc.clone()),
+            previous: vec![prost_nyc, ProstAddress::default()],
+        };
+        assert_eq!(customer.to_row()?, want.encode_to_vec());
+        Ok(())
+    }
+
+    #[test]
+    fn nested_struct_by_hand() -> anyhow::Result<()> {
+        let customer = Customer {
+            name: NAME.to_string(),
+            address: Some(nyc()),
+            previous: vec![Address { city: None }],
+        };
+        let mut want = vec![0x0A, 0x05]; // name: tag (field 1, length-delimited), length 5
+        want.extend_from_slice(NAME.as_bytes());
+        // address: tag (field 2, length-delimited), then the length of the
+        // `Address` message. It has 5 bytes: the `city` field.
+        want.extend([0x12, 0x05]);
+        want.extend([0x0A, 0x03]); // city: tag (field 1, length-delimited), length 3
+        want.extend_from_slice(CITY.as_bytes());
+        // previous: tag (field 3, length-delimited), then an empty `Address`
+        // message. `city` is `None`, so the message has no fields.
+        want.extend([0x1A, 0x00]);
+        assert_eq!(customer.to_row()?, want);
+        Ok(())
+    }
+
+    #[test]
+    fn none_struct_is_left_out() -> anyhow::Result<()> {
+        let customer = Customer {
+            name: NAME.to_string(),
+            address: None,
+            previous: Vec::new(),
+        };
+        // Only `name` is written. BigQuery reads the missing `address` as a
+        // `NULL` struct, and the missing `previous` as an empty array.
+        let want = ProstCustomer {
+            name: NAME.to_string(),
+            ..Default::default()
+        };
+        assert_eq!(customer.to_row()?, want.encode_to_vec());
+        Ok(())
+    }
+
+    /// What BigQuery receives for one field that holds a message, written by
+    /// hand.
+    fn sent_message_field(
+        name: &str,
+        number: u32,
+        type_name: &str,
+    ) -> anyhow::Result<prost_types::FieldDescriptorProto> {
+        use prost_types::field_descriptor_proto::Type;
+        Ok(prost_types::FieldDescriptorProto {
+            type_name: Some(type_name.to_string()),
+            ..sent_field(name, number, Type::Message)?
+        })
+    }
+
+    #[test]
+    fn nested_schema_matches_descriptor() -> anyhow::Result<()> {
+        use prost_types::field_descriptor_proto::{Label, Type};
+        let address = prost_types::DescriptorProto {
+            name: Some(ADDRESS.to_string()),
+            field: vec![sent_field(CITY_COLUMN, CITY_FIELD, Type::String)?],
+            ..Default::default()
+        };
+        let want = prost_types::DescriptorProto {
+            name: Some(CUSTOMER.to_string()),
+            field: vec![
+                sent_field(NAME_COLUMN, NAME_FIELD, Type::String)?,
+                sent_message_field(ADDRESS_COLUMN, ADDRESS_FIELD, ADDRESS)?,
+                prost_types::FieldDescriptorProto {
+                    label: Some(Label::Repeated as i32),
+                    ..sent_message_field(PREVIOUS_COLUMN, PREVIOUS_FIELD, ADDRESS)?
+                },
+            ],
+            // Both fields use the same `Address` type, declared once inside
+            // `Customer`. This keeps the schema self-contained.
+            nested_type: vec![address],
+            ..Default::default()
+        };
+        let got: v1::ProtoSchema = Customer::schema().to_proto()?;
+        assert_eq!(got.proto_descriptor, Some(want));
+        Ok(())
+    }
+
+    /// Returns the names of the types nested in `descriptor`.
+    fn nested_names(descriptor: &wkt::DescriptorProto) -> Vec<&str> {
+        descriptor
+            .nested_type
+            .iter()
+            .map(|t| t.name.as_str())
+            .collect()
+    }
+
+    /// Returns the type names of the fields in `descriptor`. They are empty
+    /// for fields that do not hold messages.
+    fn field_type_names(descriptor: &wkt::DescriptorProto) -> Vec<&str> {
+        descriptor
+            .field
+            .iter()
+            .map(|f| f.type_name.as_str())
+            .collect()
+    }
+
+    /// The name of the message type for `Geo`.
+    const GEO: &str = "Geo";
+
+    /// The name of the message type for `Place`.
+    const PLACE: &str = "Place";
+
+    /// A struct for a `STRUCT<lat FLOAT64, lng FLOAT64>` column.
+    #[derive(ToRow)]
+    struct Geo {
+        lat: f64,
+        lng: f64,
+    }
+
+    /// A struct with a nested struct.
+    #[derive(ToRow)]
+    struct Place {
+        geo: Geo,
+    }
+
+    /// A row with two columns of the same `STRUCT` type.
+    #[derive(ToRow)]
+    struct Trip {
+        from: Place,
+        to: Place,
+    }
+
+    #[test]
+    fn nested_types_are_flattened() {
+        let descriptor = Trip::schema().proto_descriptor.expect("has a descriptor");
+        // `Geo` only appears inside `Place`, but it is declared in the row,
+        // next to `Place`. Each type is declared once.
+        assert_eq!(nested_names(&descriptor), [GEO, PLACE]);
+        assert_eq!(field_type_names(&descriptor), [PLACE, PLACE]);
+        // `Place` refers to `Geo` by its short name. Protobuf looks for it in
+        // `Place` first, and then in the enclosing message, the row.
+        assert_eq!(field_type_names(&descriptor.nested_type[1]), [GEO]);
+    }
+
+    /// The name of the message type for the first `Wrapper` type.
+    const WRAPPER: &str = "Wrapper";
+
+    /// The name of the message type for the second `Wrapper` type.
+    const WRAPPER_2: &str = "Wrapper_2";
+
+    /// A struct with a field of any type.
+    #[derive(ToRow)]
+    struct Wrapper<T> {
+        value: T,
+    }
+
+    /// A row with columns that hold different `Wrapper` types.
+    #[derive(ToRow)]
+    struct Wrapped {
+        count: Wrapper<i64>,
+        name: Wrapper<String>,
+        total: Wrapper<i64>,
+    }
+
+    #[test]
+    fn same_names_get_suffixes() {
+        let descriptor = Wrapped::schema()
+            .proto_descriptor
+            .expect("has a descriptor");
+        // `Wrapper<i64>` and `Wrapper<String>` have different fields, so they
+        // need two message types, with different names. `total` reuses the
+        // type for `count`.
+        assert_eq!(nested_names(&descriptor), [WRAPPER, WRAPPER_2]);
+        assert_eq!(field_type_names(&descriptor), [WRAPPER, WRAPPER_2, WRAPPER]);
+    }
+
+    /// The name of the message type for `Address`, when a column already has
+    /// the name `Address`.
+    const ADDRESS_2: &str = "Address_2";
+
+    /// A row with a column that has the same name as the type of the column.
+    #[derive(ToRow)]
+    struct Legacy {
+        #[bigquery(rename = "Address")]
+        home: Address,
+    }
+
+    #[test]
+    fn column_names_are_reserved() {
+        let descriptor = Legacy::schema().proto_descriptor.expect("has a descriptor");
+        // A message cannot have a field and a nested type with the same name,
+        // so the type for `Address` gets a suffix.
+        assert_eq!(nested_names(&descriptor), [ADDRESS_2]);
+        assert_eq!(field_type_names(&descriptor), [ADDRESS_2]);
+    }
+
+    /// A struct with one field, to nest structs many levels deep.
+    #[derive(ToRow)]
+    struct Nest<T> {
+        inner: T,
+    }
+
+    /// A field of this type nests 3 levels of `STRUCT` columns.
+    type Nest3<T> = Nest<Nest<Nest<T>>>;
+
+    /// A field of this type nests 14 levels of `STRUCT` columns, the most that
+    /// BigQuery supports.
+    type Nest14 = Nest<Nest<Nest3<Nest3<Nest3<Nest3<i64>>>>>>;
+
+    #[test]
+    fn fourteen_levels_are_supported() {
+        // A row with a field of type `Nest14`. The row is not a level.
+        let descriptor = Nest::<Nest14>::schema()
+            .proto_descriptor
+            .expect("has a descriptor");
+        // Each level has a different type, so each level needs a message type.
+        assert_eq!(descriptor.nested_type.len(), MAX_DEPTH);
+    }
+
+    #[test]
+    #[should_panic(expected = "is nested more than 14 levels deep")]
+    fn fifteen_levels_panic() {
+        let _ = Nest::<Nest<Nest14>>::schema();
+    }
+
+    /// A struct that contains itself. BigQuery schemas cannot do that.
+    #[derive(ToRow)]
+    struct Node {
+        name: String,
+        children: Vec<Node>,
+    }
+
+    #[test]
+    #[should_panic(expected = "contains itself")]
+    fn recursive_structs_panic() {
+        let _ = Node::schema();
+    }
+
+    /// A sample start for a range: 2025-05-16, which is 20,224 days after the
+    /// epoch.
+    fn check_in() -> Date {
+        date(2025, 5, 16)
+    }
+
+    /// `check_in()` in days since the epoch.
+    const CHECK_IN_DAYS: i64 = 20_224;
+
+    /// A sample end for a range: 2025-05-18, which is 20,226 days after the
+    /// epoch.
+    fn check_out() -> Date {
+        date(2025, 5, 18)
+    }
+
+    /// `check_out()` in days since the epoch.
+    const CHECK_OUT_DAYS: i64 = 20_226;
+
+    #[test]
+    fn range_by_hand() -> anyhow::Result<()> {
+        let stay: Range<Date> = Range::new().set_start(check_in()).set_end(check_out());
+        let want = [
+            0x0A, 0x08, // tag (field 1, length-delimited), then 8 bytes of fields
+            0x08, 0x80, 0x9E, 0x01, // start: tag (field 1, varint), 20224
+            0x10, 0x82, 0x9E, 0x01, // end: tag (field 2, varint), 20226
+        ];
+        assert_eq!(field_bytes(&stay)?, want);
+        Ok(())
+    }
+
+    /// What `prost` generates for:
+    ///
+    /// `message Range { optional int64 start = 1; optional int64 end = 2; }`
+    #[derive(Clone, PartialEq, Message)]
+    struct ProstRange {
+        #[prost(int64, optional, tag = "1")]
+        start: Option<i64>,
+        #[prost(int64, optional, tag = "2")]
+        end: Option<i64>,
+    }
+
+    /// Returns the fields of `message`, without a tag or a length.
+    fn message_bytes<T: ProtoMessage>(message: &T) -> Result<Vec<u8>, ConvertError> {
+        let mut buf = Vec::new();
+        message.encode_fields(&mut buf)?;
+        Ok(buf)
+    }
+
+    #[test_case(true, true; "bounded")]
+    #[test_case(false, true; "unbounded start")]
+    #[test_case(true, false; "unbounded end")]
+    #[test_case(false, false; "unbounded")]
+    fn range_matches_prost(has_start: bool, has_end: bool) -> anyhow::Result<()> {
+        let range: Range<Date> = Range::new()
+            .set_or_clear_start(has_start.then(check_in))
+            .set_or_clear_end(has_end.then(check_out));
+        // A missing `start` or `end` field is unbounded.
+        let want = ProstRange {
+            start: has_start.then_some(CHECK_IN_DAYS),
+            end: has_end.then_some(CHECK_OUT_DAYS),
+        };
+        assert_eq!(message_bytes(&range)?, want.encode_to_vec());
+        Ok(())
+    }
+
+    /// Returns the fields of a range from `start` to `end`.
+    fn bounded_range_bytes<T: RangeElement>(start: T, end: T) -> Result<Vec<u8>, ConvertError>
+    where
+        Range<T>: ProtoMessage,
+    {
+        let range: Range<T> = Range::new().set_start(start).set_end(end);
+        message_bytes(&range)
+    }
+
+    #[test_case(check_in(), check_in(); "empty")]
+    #[test_case(check_out(), check_in(); "start after end")]
+    fn invalid_date_ranges_are_errors(start: Date, end: Date) {
+        let got = bounded_range_bytes(start, end);
+        assert!(got.is_err(), "{got:?}");
+    }
+
+    // BigQuery keeps microseconds, so bounds that differ only in the last three
+    // digits of the nanoseconds are the same.
+    #[test_case(1_000, 1_000; "empty")]
+    #[test_case(1_000, 1_999; "same microsecond")]
+    #[test_case(2_000, 1_000; "start after end")]
+    fn invalid_timestamp_ranges_are_errors(start_nanos: i32, end_nanos: i32) -> anyhow::Result<()> {
+        let start = Timestamp::new(0, start_nanos)?;
+        let end = Timestamp::new(0, end_nanos)?;
+        let got = bounded_range_bytes(start, end);
+        assert!(got.is_err(), "{got:?}");
+        Ok(())
+    }
+
+    #[test_case(1_000, 1_000; "empty")]
+    #[test_case(1_000, 1_999; "same microsecond")]
+    #[test_case(2_000, 1_000; "start after end")]
+    fn invalid_datetime_ranges_are_errors(start_nanos: i32, end_nanos: i32) {
+        let start = datetime(check_in(), time_of_day(0, 0, 0, start_nanos));
+        let end = datetime(check_in(), time_of_day(0, 0, 0, end_nanos));
+        let got = bounded_range_bytes(start, end);
+        assert!(got.is_err(), "{got:?}");
+    }
+
+    #[test]
+    fn range_bounds_compare_microseconds() -> anyhow::Result<()> {
+        // 999 nanoseconds round down to 0 microseconds, and 1,000 nanoseconds
+        // are 1 microsecond, so these ranges start before they end.
+        bounded_range_bytes(Timestamp::new(0, 999)?, Timestamp::new(0, 1_000)?)?;
+        let start = datetime(check_in(), time_of_day(0, 0, 0, 999));
+        let end = datetime(check_in(), time_of_day(0, 0, 0, 1_000));
+        bounded_range_bytes(start, end)?;
+        Ok(())
+    }
+
+    /// The name of the first message type for `RANGE` values.
+    const RANGE: &str = "Range";
+
+    /// The name of the second message type for `RANGE` values.
+    const RANGE_2: &str = "Range_2";
+
+    /// The name of the field for the start of a `RANGE` value.
+    const START_COLUMN: &str = "start";
+
+    /// The field number of `start`.
+    const START_FIELD: u32 = 1;
+
+    /// The name of the field for the end of a `RANGE` value.
+    const END_COLUMN: &str = "end";
+
+    /// The field number of `end`.
+    const END_FIELD: u32 = 2;
+
+    /// A row with a `RANGE` column for each element type.
+    #[derive(ToRow)]
+    struct Ranges {
+        dates: Range<Date>,
+        timestamps: Range<Timestamp>,
+        datetimes: Range<DateTime>,
+    }
+
+    /// What BigQuery receives for a `RANGE` message type, written by hand.
+    fn sent_range(
+        name: &str,
+        field_type: prost_types::field_descriptor_proto::Type,
+    ) -> anyhow::Result<prost_types::DescriptorProto> {
+        Ok(prost_types::DescriptorProto {
+            name: Some(name.to_string()),
+            field: vec![
+                sent_field(START_COLUMN, START_FIELD, field_type)?,
+                sent_field(END_COLUMN, END_FIELD, field_type)?,
+            ],
+            ..Default::default()
+        })
+    }
+
+    #[test]
+    fn range_schema_matches_descriptor() -> anyhow::Result<()> {
+        use prost_types::field_descriptor_proto::Type;
+        let descriptor = Ranges::schema().proto_descriptor.expect("has a descriptor");
+        assert_eq!(field_type_names(&descriptor), [RANGE, RANGE, RANGE_2]);
+        // `DATE` and `TIMESTAMP` values are both `int64` fields, so their
+        // ranges share one message type. `DATETIME` values are `string`
+        // fields, so their ranges need another one.
+        let got: v1::ProtoSchema = Ranges::schema().to_proto()?;
+        let want = vec![
+            sent_range(RANGE, Type::Int64)?,
+            sent_range(RANGE_2, Type::String)?,
+        ];
+        assert_eq!(got.proto_descriptor.map(|d| d.nested_type), Some(want));
+        Ok(())
+    }
+
+    /// A row that is generic over the element type of its range.
+    #[derive(ToRow)]
+    struct Stay<T: RangeElement> {
+        period: Range<T>,
+    }
+
+    #[test]
+    fn to_row_rejects_invalid_ranges() -> anyhow::Result<()> {
+        let valid: Stay<Date> = Stay {
+            period: Range::new().set_start(check_in()).set_end(check_out()),
+        };
+        valid.to_row()?;
+        let invalid: Stay<Date> = Stay {
+            period: Range::new().set_start(check_out()).set_end(check_in()),
+        };
+        let got = invalid.to_row();
+        assert!(matches!(got, Err(ConvertError::Convert(_))), "{got:?}");
         Ok(())
     }
 }

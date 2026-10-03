@@ -137,6 +137,19 @@ pub(super) fn bytes_field(name: &str, field_number: u32) -> FieldDescriptorProto
     optional_field(name, field_number, Type::Bytes)
 }
 
+/// Describes a field that holds a message, which BigQuery maps to a `STRUCT`
+/// or a `RANGE` column. `type_name` is the name of the message type.
+///
+/// On the wire, a message field is a `bytes` value that holds the fields of
+/// the message.
+pub(super) fn message_field(
+    name: &str,
+    field_number: u32,
+    type_name: &str,
+) -> FieldDescriptorProto {
+    optional_field(name, field_number, Type::Message).set_type_name(type_name)
+}
+
 /// Makes `field` a repeated field, which BigQuery maps to an `ARRAY` column.
 pub(super) fn repeated_field(field: FieldDescriptorProto) -> FieldDescriptorProto {
     field.set_label(Label::Repeated)
@@ -450,5 +463,16 @@ mod tests {
         }
         .encode_to_vec();
         assert_eq!(buf, want);
+    }
+
+    /// The name of a message type, for a field that holds a message.
+    const ADDRESS: &str = "Address";
+
+    #[test]
+    fn message_field_names_its_type() {
+        let field = message_field(NAME_COLUMN, NAME_FIELD, ADDRESS);
+        assert_eq!(field.r#type, Type::Message);
+        assert_eq!(field.type_name, ADDRESS);
+        assert_eq!(field.label, Label::Optional);
     }
 }
