@@ -17,7 +17,7 @@ use super::wire_format::{
     encode_int64, encode_string, float_field, int64_field, message_field, repeated_field,
     string_field,
 };
-use crate::datatypes::{Range, RangeElement};
+use crate::datatypes::{Interval, Range, RangeElement};
 use crate::error::ConvertError;
 use crate::model::ProtoSchema;
 use bytes::Bytes;
@@ -41,12 +41,13 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// | `i32`, `i64` | `INT64` |
 /// | `f32`, `f64` | `FLOAT64` |
 /// | [`rust_decimal::Decimal`], [`google_cloud_type::model::Decimal`] | `NUMERIC`, `BIGNUMERIC` |
-/// | `String` | `STRING` |
+/// | `String` | `STRING`, `GEOGRAPHY` |
 /// | `Vec<u8>`, [`Bytes`](bytes::Bytes) | `BYTES` |
 /// | [`Date`](google_cloud_type::model::Date) | `DATE` |
 /// | [`DateTime`](google_cloud_type::model::DateTime) | `DATETIME` |
 /// | [`TimeOfDay`](google_cloud_type::model::TimeOfDay) | `TIME` |
 /// | [`Timestamp`](wkt::Timestamp) | `TIMESTAMP` |
+/// | [`Interval`](crate::datatypes::Interval) | `INTERVAL` |
 /// | [`Value`](wkt::Value), [`Struct`](wkt::Struct) | `JSON` |
 /// | [`Range<T>`](crate::datatypes::Range) | `RANGE<T>` |
 /// | A struct with `#[derive(ToRow)]` | `STRUCT` |
@@ -55,12 +56,21 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 ///
 /// Some types have limits:
 ///
-/// - BigQuery keeps microseconds, so any nanoseconds are rounded down.
+/// - BigQuery keeps microseconds, so any nanoseconds are rounded down, or
+///   toward zero in an [`Interval`](crate::datatypes::Interval).
 /// - Dates must have a year, a month, and a day, between the years 1 and
 ///   9999. [to_row](ToRow::to_row) returns an error for other dates, and for
 ///   times such as `24:00:00` or leap seconds.
 /// - A [`DateTime`](google_cloud_type::model::DateTime) with a time zone or a
 ///   UTC offset is an error. Use a [`Timestamp`](wkt::Timestamp) instead.
+/// - BigQuery keeps an `INTERVAL` as three parts: months, days, and time. It
+///   combines the fields of an [`Interval`](crate::datatypes::Interval) in
+///   each part, so `minutes: 90` reads back as `hours: 1, minutes: 30`. The
+///   parts can be at most 10,000 years, 3,660,000 days, and 87,840,000
+///   hours, positive or negative. [to_row](ToRow::to_row) returns an error
+///   for longer intervals.
+/// - A `GEOGRAPHY` value is a `String` in the WKT or GeoJSON format, such as
+///   `POINT(1 2)`.
 /// - `Value::Null` writes the JSON value `null`, not a SQL `NULL`.
 /// - BigQuery arrays cannot contain `NULL` values or other arrays, so the
 ///   elements of a `Vec<T>` cannot be `Option` or `Vec` values, except for
@@ -479,6 +489,92 @@ fn civil_time(
     time::Time::from_hms_nano(hour, minute, second, nanosecond).map_err(|_| invalid())
 }
 
+impl ProtoValue for Interval {
+    fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
+        // BigQuery takes `INTERVAL` values as strings, such as
+        // "1-2 3 4:5:6.789000".
+        string_field(name, number)
+    }
+
+    fn encode(&self, number: u32, buf: &mut Vec<u8>) -> Result<(), ConvertError> {
+        encode_string(number, &interval_string(self)?, buf);
+        Ok(())
+    }
+}
+
+/// The number of months in a year.
+const MONTHS_PER_YEAR: i128 = 12;
+
+/// The number of nanoseconds in a second.
+const NANOS_PER_SECOND: i128 = 1_000_000_000;
+
+/// The number of nanoseconds in a minute.
+const NANOS_PER_MINUTE: i128 = 60 * NANOS_PER_SECOND;
+
+/// The number of nanoseconds in an hour.
+const NANOS_PER_HOUR: i128 = 60 * NANOS_PER_MINUTE;
+
+/// The most months in a BigQuery `INTERVAL`, positive or negative: 10,000
+/// years.
+const MAX_INTERVAL_MONTHS: i128 = 10_000 * MONTHS_PER_YEAR;
+
+/// The most days in a BigQuery `INTERVAL`, positive or negative.
+const MAX_INTERVAL_DAYS: i128 = 3_660_000;
+
+/// The most time in a BigQuery `INTERVAL`, positive or negative: 87,840,000
+/// hours.
+const MAX_INTERVAL_NANOS: i128 = 87_840_000 * NANOS_PER_HOUR;
+
+/// Returns the string for a BigQuery `INTERVAL` value, such as
+/// "1-2 3 4:5:6.789000".
+///
+/// BigQuery keeps three parts, each with its own sign: the months, the days,
+/// and the time. Like BigQuery, this combines the fields in each part, so
+/// `months: 14` is `1-2`, and `minutes: 90` is `1:30:0`. Hours never become
+/// days, and days never become months.
+fn interval_string(value: &Interval) -> Result<String, ConvertError> {
+    // An `i128` holds these sums, and their absolute values, without
+    // overflowing.
+    let months = i128::from(value.years) * MONTHS_PER_YEAR + i128::from(value.months);
+    let days = i128::from(value.days);
+    let nanos = i128::from(value.hours) * NANOS_PER_HOUR
+        + i128::from(value.minutes) * NANOS_PER_MINUTE
+        + i128::from(value.seconds) * NANOS_PER_SECOND
+        + i128::from(value.nanos);
+    // BigQuery keeps microseconds, so this drops the last three digits.
+    // Integer division rounds toward zero, for positive and negative values.
+    let nanos_per_micro = i128::from(NANOS_PER_MICRO);
+    let time = nanos / nanos_per_micro * nanos_per_micro;
+
+    // The format is `[sign]Y-M [sign]D [sign]H:M:S[.F]`.
+    let sign = |part: i128| if part < 0 { "-" } else { "" };
+    let fraction = match (time % NANOS_PER_SECOND / nanos_per_micro).abs() {
+        0 => String::new(),
+        micros => format!(".{micros:06}"),
+    };
+    let interval = format!(
+        "{}{}-{} {days} {}{}:{}:{}{fraction}",
+        sign(months),
+        (months / MONTHS_PER_YEAR).abs(),
+        (months % MONTHS_PER_YEAR).abs(),
+        sign(time),
+        (time / NANOS_PER_HOUR).abs(),
+        (time % NANOS_PER_HOUR / NANOS_PER_MINUTE).abs(),
+        (time % NANOS_PER_MINUTE / NANOS_PER_SECOND).abs(),
+    );
+    // BigQuery SQL cannot represent longer intervals, even if the Write API
+    // accepts them.
+    if months.abs() > MAX_INTERVAL_MONTHS
+        || days.abs() > MAX_INTERVAL_DAYS
+        || time.abs() > MAX_INTERVAL_NANOS
+    {
+        return Err(ConvertError::Convert(
+            format!("{interval} is outside the range of a BigQuery `INTERVAL`").into(),
+        ));
+    }
+    Ok(interval)
+}
+
 impl ProtoValue for rust_decimal::Decimal {
     fn field_descriptor(name: &str, number: u32, _: &mut NestedTypes) -> FieldDescriptorProto {
         // BigQuery takes `NUMERIC` and `BIGNUMERIC` values as strings, such as
@@ -559,6 +655,7 @@ impl ProtoElement for wkt::Timestamp {}
 impl ProtoElement for google_cloud_type::model::Date {}
 impl ProtoElement for google_cloud_type::model::DateTime {}
 impl ProtoElement for google_cloud_type::model::TimeOfDay {}
+impl ProtoElement for Interval {}
 impl ProtoElement for rust_decimal::Decimal {}
 impl ProtoElement for google_cloud_type::model::Decimal {}
 impl ProtoElement for wkt::Value {}
@@ -845,10 +942,13 @@ pub fn encode_message<T: ProtoMessage>(
 
 #[cfg(test)]
 mod tests {
-    use super::{MAX_DEPTH, NestedTypes, ProtoMessage, ProtoValue, timestamp_micros};
-    use crate::datatypes::{Range, RangeElement};
+    use super::{
+        MAX_DEPTH, NestedTypes, ProtoMessage, ProtoValue, interval_string, timestamp_micros,
+    };
+    use crate::datatypes::{Interval, Range, RangeElement};
     use crate::error::ConvertError;
     use crate::google::cloud::bigquery::storage::v1;
+    use crate::query::{FromSql, SqlValue};
     use crate::write::ToRow;
     use bytes::Bytes;
     use gaxi::prost::ToProto;
@@ -1115,6 +1215,7 @@ mod tests {
         assert_eq!(field_type::<DateTime>(), Type::String);
         assert_eq!(field_type::<TimeOfDay>(), Type::String);
         assert_eq!(field_type::<Timestamp>(), Type::Int64);
+        assert_eq!(field_type::<Interval>(), Type::String);
         assert_eq!(field_type::<wkt::Value>(), Type::String);
         assert_eq!(field_type::<wkt::Struct>(), Type::String);
         assert_eq!(field_type::<Option<String>>(), Type::String);
@@ -1393,6 +1494,152 @@ mod tests {
         let mut local = value;
         local.time_offset = None;
         field_bytes(&local)?;
+        Ok(())
+    }
+
+    // BigQuery combines the fields in each part of an interval: the months,
+    // the days, and the time. Most of these strings come from the examples in
+    // the BigQuery documentation.
+    #[test_case(Interval::new(), "0-0 0 0:0:0"; "zero")]
+    #[test_case(Interval::new().set_years(1), "1-0 0 0:0:0"; "one year")]
+    #[test_case(Interval::new().set_months(14), "1-2 0 0:0:0"; "months become years")]
+    #[test_case(Interval::new().set_months(-25), "-2-1 0 0:0:0"; "negative months")]
+    #[test_case(
+        Interval::new().set_years(1).set_months(-2),
+        "0-10 0 0:0:0";
+        "combines years and months"
+    )]
+    #[test_case(Interval::new().set_days(-5), "0-0 -5 0:0:0"; "negative days")]
+    #[test_case(Interval::new().set_hours(25), "0-0 0 25:0:0"; "hours do not become days")]
+    #[test_case(Interval::new().set_minutes(90), "0-0 0 1:30:0"; "minutes become hours")]
+    #[test_case(Interval::new().set_seconds(90), "0-0 0 0:1:30"; "seconds become minutes")]
+    #[test_case(Interval::new().set_minutes(-90), "0-0 0 -1:30:0"; "negative minutes")]
+    #[test_case(
+        Interval::new().set_months(8).set_days(-20).set_hours(17),
+        "0-8 -20 17:0:0";
+        "each part has its own sign"
+    )]
+    #[test_case(
+        Interval::new().set_months(-2).set_days(10).set_minutes(30),
+        "-0-2 10 0:30:0";
+        "negative months under a year"
+    )]
+    #[test_case(
+        Interval::new().set_minutes(-30).set_seconds(-10),
+        "0-0 0 -0:30:10";
+        "negative time under an hour"
+    )]
+    #[test_case(
+        Interval::new().set_years(-1).set_months(-2).set_days(-3).set_hours(-4).set_minutes(-5).set_seconds(-6).set_nanos(-789_000_000),
+        "-1-2 -3 -4:5:6.789000";
+        "all negative"
+    )]
+    // BigQuery shows this one as `10:20:30.520`, which is the same value.
+    #[test_case(
+        Interval::new().set_hours(10).set_minutes(20).set_seconds(30).set_nanos(520_000_000),
+        "0-0 0 10:20:30.520000";
+        "six fraction digits"
+    )]
+    #[test_case(
+        Interval::new().set_seconds(1).set_nanos(-1_000),
+        "0-0 0 0:0:0.999999";
+        "combines seconds and nanoseconds"
+    )]
+    #[test_case(Interval::new().set_nanos(2_000_000_000), "0-0 0 0:0:2"; "nanoseconds become seconds")]
+    #[test_case(Interval::new().set_nanos(123_456_789), "0-0 0 0:0:0.123456"; "drops the last nanosecond digits")]
+    #[test_case(Interval::new().set_nanos(-1_999), "0-0 0 -0:0:0.000001"; "rounds toward zero")]
+    #[test_case(Interval::new().set_nanos(-999), "0-0 0 0:0:0"; "rounds to zero without a sign")]
+    #[test_case(
+        Interval::new().set_years(10_000).set_days(3_660_000).set_hours(87_840_000),
+        "10000-0 3660000 87840000:0:0";
+        "longest"
+    )]
+    #[test_case(
+        Interval::new().set_years(-10_000).set_days(-3_660_000).set_hours(-87_840_000),
+        "-10000-0 -3660000 -87840000:0:0";
+        "longest negative"
+    )]
+    #[test_case(
+        Interval::new().set_hours(87_840_000).set_nanos(999),
+        "0-0 0 87840000:0:0";
+        "checks the range after rounding"
+    )]
+    fn intervals_are_strings(value: Interval, want: &str) -> anyhow::Result<()> {
+        assert_eq!(field_bytes(&value)?, field_bytes(&want.to_string())?);
+        Ok(())
+    }
+
+    // The error shows the value that BigQuery would receive, with the fields
+    // combined.
+    #[test_case(
+        Interval::new().set_years(10_000).set_months(1),
+        "10000-1 0 0:0:0";
+        "too many months"
+    )]
+    #[test_case(Interval::new().set_months(-120_001), "-10000-1 0 0:0:0"; "too many negative months")]
+    #[test_case(Interval::new().set_days(3_660_001), "0-0 3660001 0:0:0"; "too many days")]
+    #[test_case(Interval::new().set_days(-3_660_001), "0-0 -3660001 0:0:0"; "too many negative days")]
+    #[test_case(
+        Interval::new().set_hours(87_840_000).set_nanos(1_000),
+        "0-0 0 87840000:0:0.000001";
+        "too much time"
+    )]
+    #[test_case(
+        Interval::new().set_hours(-87_840_000).set_seconds(-1),
+        "0-0 0 -87840000:0:1";
+        "too much negative time"
+    )]
+    fn intervals_out_of_range_are_errors(value: Interval, want: &str) {
+        let err = field_bytes(&value).expect_err("the interval is out of range");
+        assert_eq!(
+            err.to_string(),
+            format!("cannot convert value: {want} is outside the range of a BigQuery `INTERVAL`")
+        );
+    }
+
+    /// Returns an interval with every field set to `value`.
+    fn every_field(value: i32) -> Interval {
+        Interval::new()
+            .set_years(value)
+            .set_months(value)
+            .set_days(value)
+            .set_hours(value)
+            .set_minutes(value)
+            .set_seconds(value)
+            .set_nanos(value)
+    }
+
+    #[test_case(i32::MAX; "largest")]
+    #[test_case(i32::MIN; "smallest")]
+    fn interval_fields_do_not_overflow(value: i32) {
+        // Combining the fields does not overflow, and the result is far out
+        // of range.
+        let got = field_bytes(&every_field(value));
+        assert!(got.is_err(), "{got:?}");
+    }
+
+    // These intervals have the fields that `FromSql` returns: the fields in
+    // each part are combined, and the nanoseconds are whole microseconds.
+    #[test_case(Interval::new(); "zero")]
+    #[test_case(
+        Interval::new().set_years(1).set_months(2).set_days(3).set_hours(4).set_minutes(5).set_seconds(6).set_nanos(789_000_000);
+        "positive"
+    )]
+    #[test_case(
+        Interval::new().set_years(-1).set_months(-2).set_days(-3).set_hours(-4).set_minutes(-5).set_seconds(-6).set_nanos(-1_000);
+        "negative"
+    )]
+    #[test_case(Interval::new().set_months(8).set_days(-20).set_hours(17); "mixed signs")]
+    #[test_case(Interval::new().set_months(-2).set_minutes(-30).set_seconds(-10); "negative under a unit")]
+    #[test_case(Interval::new().set_hours(744); "hours beyond a day")]
+    #[test_case(
+        Interval::new().set_years(10_000).set_days(3_660_000).set_hours(87_840_000);
+        "longest"
+    )]
+    fn intervals_round_trip(value: Interval) -> anyhow::Result<()> {
+        let sent = interval_string(&value)?;
+        let got = Interval::from_value(SqlValue::new(wkt::Value::String(sent)))?;
+        assert_eq!(got, value);
         Ok(())
     }
 
