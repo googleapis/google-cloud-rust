@@ -15,6 +15,7 @@
 pub mod create_anywhere_cache;
 pub mod create_folder;
 pub mod delete_folder;
+pub mod delete_folder_recursive;
 pub mod disable_anywhere_cache;
 pub mod get_anywhere_cache;
 pub mod get_folder;
