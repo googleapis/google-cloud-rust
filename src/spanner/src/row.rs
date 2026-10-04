@@ -17,8 +17,10 @@ use std::fmt::{Debug, Display};
 
 use crate::Error;
 use crate::Result;
+use crate::from_value::ConvertError;
 use crate::from_value::FromValue;
 use crate::result_set_metadata::ResultSetMetadata;
+use crate::types::TypeCode;
 use crate::value::Value;
 
 /// A row in a query result.
@@ -28,13 +30,42 @@ pub struct Row {
     pub(crate) metadata: ResultSetMetadata,
 }
 
-pub(crate) mod private {
-    /// A sealed trait to prevent external implementation of `ColumnIndex`.
-    pub trait Sealed {}
-    impl Sealed for usize {}
-    impl Sealed for &str {}
-    impl Sealed for String {}
-    impl<T: ?Sized + Sealed> Sealed for &T {}
+pub(crate) mod sealed {
+    use super::Row;
+
+    /// A sealed trait to prevent external implementation and hide internal
+    /// row indexing mechanics of [`super::ColumnIndex`].
+    pub trait ColumnIndex {
+        /// Returns the index of the column in the given row, if it exists.
+        fn index(&self, row: &Row) -> Option<usize>;
+    }
+
+    impl ColumnIndex for usize {
+        fn index(&self, _row: &Row) -> Option<usize> {
+            Some(*self)
+        }
+    }
+
+    impl ColumnIndex for &str {
+        fn index(&self, row: &Row) -> Option<usize> {
+            row.metadata
+                .column_names
+                .iter()
+                .position(|name| name == *self)
+        }
+    }
+
+    impl ColumnIndex for String {
+        fn index(&self, row: &Row) -> Option<usize> {
+            self.as_str().index(row)
+        }
+    }
+
+    impl<T: ?Sized + ColumnIndex> ColumnIndex for &T {
+        fn index(&self, row: &Row) -> Option<usize> {
+            (**self).index(row)
+        }
+    }
 }
 
 /// A trait for types that can be used to index into a [`Row`].
@@ -50,40 +81,15 @@ pub(crate) mod private {
 /// ```
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: private::Sealed + Debug + Display {
-    /// Returns the index of the column in the given row, if it exists.
-    fn index(&self, row: &Row) -> Option<usize>;
-}
+pub trait ColumnIndex: sealed::ColumnIndex + Debug + Display {}
 
-impl ColumnIndex for usize {
-    fn index(&self, _row: &Row) -> Option<usize> {
-        Some(*self)
-    }
-}
-
-impl ColumnIndex for &str {
-    fn index(&self, row: &Row) -> Option<usize> {
-        row.metadata
-            .column_names
-            .iter()
-            .position(|name| name == *self)
-    }
-}
-
-impl ColumnIndex for String {
-    fn index(&self, row: &Row) -> Option<usize> {
-        self.as_str().index(row)
-    }
-}
-
-impl<T: ?Sized + ColumnIndex> ColumnIndex for &T {
-    fn index(&self, row: &Row) -> Option<usize> {
-        (**self).index(row)
-    }
-}
+impl ColumnIndex for usize {}
+impl ColumnIndex for &str {}
+impl ColumnIndex for String {}
+impl<T: ?Sized + ColumnIndex> ColumnIndex for &T {}
 
 /// Errors that can occur when getting a value from a [`Row`].
-#[derive(thiserror::Error, Clone, Debug, PartialEq, Eq)]
+#[derive(thiserror::Error, Clone, Debug)]
 #[non_exhaustive]
 pub enum RowError {
     /// The requested column name was not found in the row.
@@ -91,15 +97,80 @@ pub enum RowError {
     ColumnNotFound(String),
     /// The requested column index was out of range.
     #[error("Column index out of range: {index} (expected < {len})")]
+    #[non_exhaustive]
     IndexOutOfRange {
         /// The index that was requested.
         index: usize,
         /// The total number of columns in the row.
         len: usize,
     },
+    /// Failed to convert the column value to the requested type.
+    #[error("Type conversion error for column '{column}' (type {type_code:?}): {source}")]
+    #[non_exhaustive]
+    TypeConversion {
+        /// The column identifier (name or index).
+        column: String,
+        /// The Spanner type code of the column.
+        type_code: TypeCode,
+        /// The underlying conversion error.
+        #[source]
+        source: ConvertError,
+    },
 }
 
 impl RowError {
+    /// Creates a [`RowError::ColumnNotFound`] with the requested column name.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_spanner::error::RowError;
+    ///
+    /// let error = RowError::column_not_found("user_id");
+    /// assert_eq!(error.to_string(), "Could not find column: 'user_id'");
+    /// ```
+    pub fn column_not_found(column: impl Into<String>) -> Self {
+        Self::ColumnNotFound(column.into())
+    }
+
+    /// Creates a [`RowError::IndexOutOfRange`] with the requested index and total column count.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_spanner::error::RowError;
+    ///
+    /// let error = RowError::index_out_of_range(5, 3);
+    /// assert_eq!(error.to_string(), "Column index out of range: 5 (expected < 3)");
+    /// ```
+    pub fn index_out_of_range(index: usize, len: usize) -> Self {
+        Self::IndexOutOfRange { index, len }
+    }
+
+    /// Creates a [`RowError::TypeConversion`] with the column identifier, type code, and source error.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_spanner::error::{ConvertError, RowError};
+    /// use google_cloud_spanner::types::TypeCode;
+    ///
+    /// let source = ConvertError::type_mismatch(TypeCode::Int64, TypeCode::String);
+    /// let error = RowError::type_conversion("age", TypeCode::String, source);
+    /// assert_eq!(
+    ///     error.to_string(),
+    ///     "Type conversion error for column 'age' (type String): type mismatch, expected Int64, got String"
+    /// );
+    /// ```
+    pub fn type_conversion(
+        column: impl Into<String>,
+        type_code: TypeCode,
+        source: ConvertError,
+    ) -> Self {
+        Self::TypeConversion {
+            column: column.into(),
+            type_code,
+            source,
+        }
+    }
+
     /// Extracts a `RowError` from a [`google_cloud_spanner::Error`][Error], if present.
     ///
     /// # Example
@@ -120,8 +191,11 @@ impl RowError {
     ///         if let Some(row_error) = RowError::extract(&error) {
     ///             match row_error {
     ///                 RowError::ColumnNotFound(column) => println!("Column not found: {column}"),
-    ///                 RowError::IndexOutOfRange { index, len } => {
+    ///                 RowError::IndexOutOfRange { index, len, .. } => {
     ///                     println!("Index {index} out of range (length {len})");
+    ///                 }
+    ///                 RowError::TypeConversion { column, type_code, source, .. } => {
+    ///                     println!("Conversion error for {column} ({type_code:?}): {source}");
     ///                 }
     ///                 _ => {}
     ///             }
@@ -133,10 +207,17 @@ impl RowError {
     /// ```
     ///
     /// Row operations return [`Error`] with a source of [`RowError`] when a column lookup
-    /// fails or an index is out of bounds. This method downcasts the immediate error source.
+    /// fails, an index is out of bounds, or type conversion fails. This method traverses
+    /// the error chain to extract the underlying [`RowError`].
     pub fn extract(err: &Error) -> Option<&Self> {
-        err.source()
-            .and_then(|source| source.downcast_ref::<Self>())
+        let mut current = err.source();
+        while let Some(source) = current {
+            if let Some(row_error) = source.downcast_ref::<Self>() {
+                return Some(row_error);
+            }
+            current = source.source();
+        }
+        None
     }
 }
 
@@ -240,20 +321,31 @@ impl Row {
     /// * `Ok(T)` if the value was successfully retrieved and converted to type `T`.
     /// * `Err(Error)` if:
     ///     * The column name or index is invalid. The underlying [`RowError`] can be extracted using [`RowError::extract`].
-    ///     * The column value is incompatible with type `T`. The underlying [`ConvertError`][crate::error::ConvertError] can be extracted using [`ConvertError::extract`][crate::error::ConvertError::extract].
+    ///     * The column value is incompatible with type `T` or conversion fails. The underlying [`RowError::TypeConversion`]
+    ///       can be extracted using [`RowError::extract`], and the inner [`ConvertError`][crate::error::ConvertError]
+    ///       can also be extracted using [`ConvertError::extract`][crate::error::ConvertError::extract].
     pub fn try_get<T: FromValue, I: ColumnIndex>(&self, index: I) -> Result<T> {
         let (column_index, value) = self.get_value(index)?;
-        let r#type = self
+        let column_type = self
             .metadata
             .column_types
             .get(column_index)
             .ok_or_else(|| {
-                Error::deser(RowError::IndexOutOfRange {
-                    index: column_index,
-                    len: self.metadata.column_types.len(),
-                })
+                Error::deser(RowError::index_out_of_range(
+                    column_index,
+                    self.metadata.column_types.len(),
+                ))
             })?;
-        T::from_value(value, r#type).map_err(Error::deser)
+        T::from_value(value, column_type).map_err(|error| {
+            let column = self
+                .metadata
+                .column_names
+                .get(column_index)
+                .filter(|name| !name.is_empty())
+                .cloned()
+                .unwrap_or_else(|| column_index.to_string());
+            Error::deser(RowError::type_conversion(column, column_type.code(), error))
+        })
     }
 
     /// Retrieves a value from the row by column name or zero-based index, panicking on error.
@@ -293,12 +385,12 @@ impl Row {
     fn get_value<I: ColumnIndex>(&self, index: I) -> Result<(usize, &Value)> {
         let column_index = index
             .index(self)
-            .ok_or_else(|| Error::deser(RowError::ColumnNotFound(index.to_string())))?;
+            .ok_or_else(|| Error::deser(RowError::column_not_found(index.to_string())))?;
         let value = self.values.get(column_index).ok_or_else(|| {
-            Error::deser(RowError::IndexOutOfRange {
-                index: column_index,
-                len: self.values.len(),
-            })
+            Error::deser(RowError::index_out_of_range(
+                column_index,
+                self.values.len(),
+            ))
         })?;
         Ok((column_index, value))
     }
@@ -325,7 +417,7 @@ mod tests {
     #[test]
     fn auto_traits() {
         static_assertions::assert_impl_all!(Row: Clone, Debug, PartialEq, Send, Sync);
-        static_assertions::assert_impl_all!(RowError: Clone, Debug, PartialEq, Eq, Send, Sync);
+        static_assertions::assert_impl_all!(RowError: Clone, Debug, Send, Sync);
         static_assertions::assert_impl_all!(usize: ColumnIndex, Display);
         static_assertions::assert_impl_all!(&str: ColumnIndex, Display);
         static_assertions::assert_impl_all!(String: ColumnIndex, Display);
@@ -419,11 +511,26 @@ mod tests {
             decimal,
             "expected numeric at index 5"
         );
+        assert_eq!(
+            row.get::<String, _>(5),
+            "123.456",
+            "expected numeric as string at index 5"
+        );
         assert_eq!(row.get::<Date, _>(6), date, "expected date at index 6");
+        assert_eq!(
+            row.get::<String, _>(6),
+            "2023-10-27",
+            "expected date as string at index 6"
+        );
         assert_eq!(
             row.get::<Timestamp, _>(7),
             timestamp,
             "expected timestamp at index 7"
+        );
+        assert_eq!(
+            row.get::<String, _>(7),
+            "2023-10-27T10:00:00.000000000Z",
+            "expected timestamp as string at index 7"
         );
         assert_eq!(
             row.get::<f32, _>(8),
@@ -477,14 +584,29 @@ mod tests {
             "expected col_numeric by name"
         );
         assert_eq!(
+            row.get::<String, _>("col_numeric"),
+            "123.456",
+            "expected col_numeric as string by name"
+        );
+        assert_eq!(
             row.get::<Date, _>("col_date"),
             date,
             "expected col_date by name"
         );
         assert_eq!(
+            row.get::<String, _>("col_date"),
+            "2023-10-27",
+            "expected col_date as string by name"
+        );
+        assert_eq!(
             row.get::<Timestamp, _>("col_timestamp"),
             timestamp,
             "expected col_timestamp by name"
+        );
+        assert_eq!(
+            row.get::<String, _>("col_timestamp"),
+            "2023-10-27T10:00:00.000000000Z",
+            "expected col_timestamp as string by name"
         );
         assert_eq!(
             row.get::<f32, _>("col_float32"),
@@ -529,11 +651,15 @@ mod tests {
             "expected int-to-bool conversion error at index 1"
         );
 
-        // int64 is encoded as a string, so getting it as a string is also possible.
+        let err_int_as_string = row
+            .try_get::<String, _>(1)
+            .expect_err("reading INT64 column as String must fail with TypeConversion error");
+        let convert_err = ConvertError::extract(&err_int_as_string)
+            .expect("should extract ConvertError::TypeMismatch");
         assert_eq!(
-            row.get::<String, _>(1),
-            "42",
-            "expected int64 converted to string"
+            convert_err.to_string(),
+            "type mismatch, expected String, got Int64",
+            "expected TypeMismatch when reading INT64 column as String"
         );
 
         // Test getting with reference index types (&usize, &&str, &String) and owned String
@@ -542,6 +668,77 @@ mod tests {
         let column_name = "col_string".to_string();
         assert_eq!(row.get::<String, _>(&column_name), "hello");
         assert_eq!(row.get::<String, _>(column_name), "hello");
+    }
+
+    #[test]
+    fn row_get_enum() {
+        let column_names = vec!["col_enum".to_string()];
+        let column_types = vec![types::enum_type("customer.Priority")];
+        let values = vec![3_i64.to_value()];
+        let row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Getting by index as i64 and i32
+        assert_eq!(
+            row.get::<i64, _>(0),
+            3,
+            "expected i64 value 3 from enum column by index"
+        );
+        assert_eq!(
+            row.get::<i32, _>(0),
+            3,
+            "expected i32 value 3 from enum column by index"
+        );
+
+        // Getting by name as i64 and i32
+        assert_eq!(
+            row.get::<i64, _>("col_enum"),
+            3,
+            "expected i64 value 3 from enum column by name"
+        );
+        assert_eq!(
+            row.get::<i32, _>("col_enum"),
+            3,
+            "expected i32 value 3 from enum column by name"
+        );
+
+        // Getting as String should fail with TypeConversion
+        let string_error = row
+            .try_get::<String, _>("col_enum")
+            .expect_err("reading ENUM column as String must fail");
+        let convert_error = ConvertError::extract(&string_error)
+            .expect("should extract ConvertError from string_error");
+        assert_eq!(
+            convert_error.to_string(),
+            "type mismatch, expected String, got Enum",
+            "expected TypeMismatch when reading ENUM column as String"
+        );
+
+        // Null ENUM column decoding as Option<i64> and Option<i32>
+        let null_row = Row {
+            values: vec![Value::null()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_enum".to_string()]),
+                column_types: Arc::new(vec![types::enum_type("customer.Priority")]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        assert_eq!(
+            null_row.get::<Option<i64>, _>("col_enum"),
+            None,
+            "expected None for null enum column as Option<i64>"
+        );
+        assert_eq!(
+            null_row.get::<Option<i32>, _>("col_enum"),
+            None,
+            "expected None for null enum column as Option<i32>"
+        );
     }
 
     #[test]
@@ -617,29 +814,48 @@ mod tests {
             .try_get::<String, _>("nonexistent")
             .expect_err("column not found");
         let extracted_missing = RowError::extract(&err_missing).expect("should extract RowError");
+        let cloned_missing = extracted_missing.clone();
         assert_eq!(
-            *extracted_missing,
-            RowError::ColumnNotFound("nonexistent".to_string()),
-            "expected ColumnNotFound variant"
-        );
-        assert_eq!(
-            extracted_missing.clone(),
-            *extracted_missing,
-            "expected cloned RowError to equal original"
+            cloned_missing.to_string(),
+            extracted_missing.to_string(),
+            "expected cloned RowError display to match original"
         );
         assert_eq!(
             extracted_missing.to_string(),
             "Could not find column: 'nonexistent'",
             "expected 'Could not find column: \\'nonexistent\\'' display string"
         );
-
-        let err_out_of_range = row.try_get::<String, _>(5).expect_err("index out of range");
-        let extracted_out_of_range =
-            RowError::extract(&err_out_of_range).expect("should extract RowError");
         assert_eq!(
-            *extracted_out_of_range,
-            RowError::IndexOutOfRange { index: 5, len: 1 },
-            "expected IndexOutOfRange variant"
+            extracted_missing.to_string(),
+            RowError::column_not_found("nonexistent").to_string(),
+            "expected ColumnNotFound display to match constructor"
+        );
+
+        let error_out_of_range = row.try_get::<String, _>(5).expect_err("index out of range");
+        let extracted_out_of_range =
+            RowError::extract(&error_out_of_range).expect("should extract RowError");
+        assert_eq!(
+            extracted_out_of_range.to_string(),
+            "Column index out of range: 5 (expected < 1)",
+            "expected 'Column index out of range: 5 (expected < 1)' display string"
+        );
+        assert_eq!(
+            extracted_out_of_range.to_string(),
+            RowError::index_out_of_range(5, 1).to_string(),
+            "expected IndexOutOfRange display to match constructor"
+        );
+
+        let unrelated_error = Error::deser(ConvertError::NotNull);
+        assert!(
+            RowError::extract(&unrelated_error).is_none(),
+            "expected None when extracting RowError from an unrelated error source"
+        );
+
+        use google_cloud_rpc::model::Status;
+        let no_source_error = Error::service(Status::default().into());
+        assert!(
+            RowError::extract(&no_source_error).is_none(),
+            "expected None when error has no source"
         );
     }
 
@@ -726,7 +942,7 @@ mod tests {
 
     #[test]
     #[should_panic(
-        expected = "failed to retrieve column \"col_string\": cannot deserialize the response cannot convert value, source=invalid digit found in string"
+        expected = "failed to retrieve column \"col_string\": cannot deserialize the response Type conversion error for column 'col_string' (type String): type mismatch, expected Int64, got String"
     )]
     fn row_get_panics_on_type_mismatch_by_name() {
         let row = Row {
@@ -742,7 +958,7 @@ mod tests {
 
     #[test]
     #[should_panic(
-        expected = "failed to retrieve column 0: cannot deserialize the response cannot convert value, source=invalid digit found in string"
+        expected = "failed to retrieve column 0: cannot deserialize the response Type conversion error for column 'col_string' (type String): type mismatch, expected Int64, got String"
     )]
     fn row_get_panics_on_type_mismatch_by_index() {
         let row = Row {
@@ -758,23 +974,39 @@ mod tests {
 
     #[test]
     #[should_panic(
-        expected = "failed to retrieve column \"col_bool\": cannot deserialize the response expected String, got Bool"
+        expected = "failed to retrieve column 0: cannot deserialize the response Type conversion error for column '0' (type String): type mismatch, expected Int64, got String"
+    )]
+    fn row_get_panics_on_type_mismatch_for_unnamed_column() {
+        let row = Row {
+            values: vec!["hello".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let _: i64 = row.get(0);
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "failed to retrieve column \"col_int\": cannot deserialize the response Type conversion error for column 'col_int' (type Int64): expected String, got Bool"
     )]
     fn row_get_panics_on_kind_mismatch() {
         let row = Row {
             values: vec![true.to_value()],
             metadata: ResultSetMetadata {
-                column_names: Arc::new(vec!["col_bool".to_string()]),
-                column_types: Arc::new(vec![types::bool()]),
+                column_names: Arc::new(vec!["col_int".to_string()]),
+                column_types: Arc::new(vec![types::int64()]),
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: i64 = row.get("col_bool");
+        let _: i64 = row.get("col_int");
     }
 
     #[test]
     #[should_panic(
-        expected = "failed to retrieve column \"null_col\": cannot deserialize the response expected non-null value, got null"
+        expected = "failed to retrieve column \"null_col\": cannot deserialize the response Type conversion error for column 'null_col' (type String): expected non-null value, got null"
     )]
     fn row_get_panics_on_null_value() {
         let row = Row {
@@ -786,6 +1018,83 @@ mod tests {
             },
         };
         let _: String = row.get("null_col");
+    }
+
+    #[test]
+    fn row_type_conversion_error() {
+        let row = Row {
+            values: vec!["hello".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["col_string".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let error = row
+            .try_get::<i64, _>("col_string")
+            .expect_err("reading string column as i64 should fail");
+        let extracted_row_error =
+            RowError::extract(&error).expect("should extract RowError::TypeConversion");
+        let cloned_row_error = extracted_row_error.clone();
+        assert_eq!(
+            cloned_row_error.to_string(),
+            extracted_row_error.to_string(),
+            "expected cloned RowError display to match original"
+        );
+        assert_eq!(
+            extracted_row_error.to_string(),
+            "Type conversion error for column 'col_string' (type String): type mismatch, expected Int64, got String",
+            "expected formatted display string"
+        );
+
+        let extracted_convert_error =
+            ConvertError::extract(&error).expect("should extract inner ConvertError");
+        assert_eq!(
+            extracted_convert_error.to_string(),
+            "type mismatch, expected Int64, got String",
+            "expected inner TypeMismatch error"
+        );
+
+        // Test with unnamed column fallback to index string
+        let unnamed_row = Row {
+            values: vec!["hello".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let unnamed_error = unnamed_row
+            .try_get::<i64, _>(0)
+            .expect_err("reading unnamed string column as i64 should fail");
+        let extracted_unnamed =
+            RowError::extract(&unnamed_error).expect("should extract RowError for unnamed column");
+        assert_eq!(
+            extracted_unnamed.to_string(),
+            "Type conversion error for column '0' (type String): type mismatch, expected Int64, got String",
+            "expected formatted display string with column index '0'"
+        );
+
+        // Test with empty column_names slice entirely
+        let empty_names_row = Row {
+            values: vec!["hello".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+        let empty_names_error = empty_names_row
+            .try_get::<i64, _>(0)
+            .expect_err("reading from row with empty column_names slice should fail");
+        let extracted_empty_names = RowError::extract(&empty_names_error)
+            .expect("should extract RowError for row with empty column_names");
+        assert_eq!(
+            extracted_empty_names.to_string(),
+            "Type conversion error for column '0' (type String): type mismatch, expected Int64, got String",
+            "expected formatted display string with column index '0' for empty column_names"
+        );
     }
 
     #[test]

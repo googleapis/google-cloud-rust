@@ -48,7 +48,10 @@ pub async fn start_echo_server_with_address(
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
         let _ = Server::builder()
-            .add_service(google::test::v1::echo_service_server::EchoServiceServer::new(echo))
+            .add_service(
+                google::test::v1::echo_service_server::EchoServiceServer::new(echo)
+                    .max_decoding_message_size(usize::MAX),
+            )
             .serve_with_incoming(stream)
             .await;
     });

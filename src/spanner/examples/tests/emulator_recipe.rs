@@ -140,7 +140,7 @@ mod tests {
             );
 
             // 7. Execute read-write transaction with automatic ABORTED retry handling
-            let runner = database_client.read_write_transaction().build().await?;
+            let runner = database_client.read_write_transaction().build();
             let update_result = runner
                 .run(async |transaction| {
                     let update_statement = Statement::builder(

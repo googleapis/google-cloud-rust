@@ -907,9 +907,8 @@ async fn unary_execute_batch_dml_happy_path_records_all_metrics() -> anyhow::Res
 
     let runner = database_client
         .read_write_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
-        .build()
-        .await?;
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .build();
 
     let batch = BatchDml::builder()
         .add_statement(Statement::builder("UPDATE users SET active = true WHERE id = 1").build())
@@ -1503,9 +1502,8 @@ async fn unary_commit_hard_error_and_explicit_rollback_records_metrics() -> anyh
 
     let runner = database_client
         .read_write_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
-        .build()
-        .await?;
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .build();
 
     let _ = runner
         .run(|_transaction: ReadWriteTransaction| async move {
@@ -1808,7 +1806,7 @@ async fn read_write_transaction_runner_aborted_retry_records_metrics_per_attempt
     let executed_iterations = Arc::new(AtomicUsize::new(0));
     let executed_iterations_clone = Arc::clone(&executed_iterations);
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
 
     let _result = runner
         .run(|transaction: ReadWriteTransaction| {

@@ -1320,7 +1320,7 @@ async fn warm_up_select_update(
         if contention_manager.connected_channel_count() >= target_channels {
             break;
         }
-        let runner = database_client.read_write_transaction().build().await?;
+        let runner = database_client.read_write_transaction().build();
         runner
             .run(|transaction: ReadWriteTransaction| async move {
                 let statement = Statement::builder("SELECT id FROM test WHERE id = @id")
@@ -1365,7 +1365,7 @@ async fn run_database_client_select_update_workload(
             let mut worker_latencies = Vec::new();
             while !stopped.load(Ordering::Relaxed) {
                 let start_time = Instant::now();
-                let runner = client_clone.read_write_transaction().build().await?;
+                let runner = client_clone.read_write_transaction().build();
 
                 runner
                     .run(|transaction: ReadWriteTransaction| async move {

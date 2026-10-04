@@ -18,7 +18,7 @@ pub(crate) const SPANNER_TIMESTAMP_FORMAT: &[time::format_description::FormatIte
 pub(crate) const SPANNER_DATE_FORMAT: &[time::format_description::FormatItem<'static>] =
     time::macros::format_description!("[year]-[month]-[day]");
 
-pub use crate::from_value::{ConvertError, FromValue};
+pub use crate::from_value::{ConvertError, FromValue, SharedError};
 pub use crate::to_value::ToValue;
 pub use crate::types::{Type, TypeCode};
 pub use google_cloud_type::model::Date;
