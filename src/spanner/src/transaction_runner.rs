@@ -28,9 +28,9 @@ use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::sync::Arc;
 
-use std::time::Duration as StdDuration;
+use std::time::Duration;
 use tokio::time::Instant;
-use wkt::{Duration, Timestamp};
+use wkt::Timestamp;
 
 /// A builder for a [TransactionRunner] for a read/write transaction.
 ///
@@ -57,7 +57,7 @@ use wkt::{Duration, Timestamp};
 pub struct TransactionRunnerBuilder {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
-    timeout: Option<StdDuration>,
+    timeout: Option<Duration>,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
 }
@@ -93,7 +93,7 @@ impl TransactionRunnerBuilder {
     /// all statements and automatic retries. Each individual RPC within the transaction
     /// is automatically assigned a deadline derived from the remaining time of this
     /// overall timeout.
-    pub fn with_transaction_timeout(mut self, timeout: StdDuration) -> Self {
+    pub fn with_transaction_timeout(mut self, timeout: Duration) -> Self {
         self.timeout = Some(timeout);
         self
     }
@@ -115,7 +115,7 @@ impl TransactionRunnerBuilder {
     /// ```
     ///
     /// Note: This timeout is only used if the transaction uses the `ExplicitBegin` transaction option.
-    pub fn with_begin_attempt_timeout(mut self, timeout: StdDuration) -> Self {
+    pub fn with_begin_attempt_timeout(mut self, timeout: Duration) -> Self {
         self.begin_gax_options
             .get_or_insert_with(crate::RequestOptions::default)
             .set_attempt_timeout(timeout);
@@ -185,7 +185,7 @@ impl TransactionRunnerBuilder {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_commit_attempt_timeout(mut self, timeout: StdDuration) -> Self {
+    pub fn with_commit_attempt_timeout(mut self, timeout: Duration) -> Self {
         self.commit_gax_options
             .get_or_insert_with(crate::RequestOptions::default)
             .set_attempt_timeout(timeout);
@@ -369,12 +369,12 @@ impl TransactionRunnerBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use wkt::Duration;
+    /// # use std::time::Duration;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .set_max_commit_delay(Duration::try_from("0.2s").unwrap())
+    ///     .set_max_commit_delay(Duration::from_millis(200))
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -579,7 +579,7 @@ impl<T> TransactionResult<T> {
 pub struct TransactionRunner {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
-    timeout: Option<StdDuration>,
+    timeout: Option<Duration>,
 }
 
 impl TransactionRunner {
@@ -2089,7 +2089,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .set_max_commit_delay(Duration::try_from("0.2s").unwrap())
+            .set_max_commit_delay(Duration::from_millis(200))
             .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await?;
