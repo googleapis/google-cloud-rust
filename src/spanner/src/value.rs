@@ -53,6 +53,30 @@ pub enum Kind {
     /// Spanner query results and parameters encode SQL `STRUCT`s and `ARRAY`s
     /// as positional lists.
     List,
+    /// Represents an unknown or unexpected value kind.
+    Unknown,
+}
+
+impl From<&Option<ProtoKind>> for Kind {
+    fn from(kind: &Option<ProtoKind>) -> Self {
+        match kind {
+            Some(ProtoKind::NullValue(_)) | None => Kind::Null,
+            Some(ProtoKind::NumberValue(_)) => Kind::Number,
+            Some(ProtoKind::StringValue(_)) => Kind::String,
+            Some(ProtoKind::BoolValue(_)) => Kind::Bool,
+            Some(ProtoKind::ListValue(_)) => Kind::List,
+            // Spanner never returns or accepts protobuf StructValue on the wire;
+            // SQL STRUCT values are represented as Kind::List. Any unexpected kind
+            // defaults to Kind::Unknown.
+            _ => Kind::Unknown,
+        }
+    }
+}
+
+impl From<Option<ProtoKind>> for Kind {
+    fn from(kind: Option<ProtoKind>) -> Self {
+        Kind::from(&kind)
+    }
 }
 
 /// Value is a transparent wrapper around a protobuf value.
@@ -72,7 +96,7 @@ impl Value {
     /// Safely reinterprets a reference to the inner protobuf value as a reference to Value.
     /// Logical safety is guaranteed by #[repr(transparent)].
     pub(crate) fn from_ref(proto_value: &ProtoValue) -> &Self {
-        // Safety: Value is #[repr(transparent)] wrapper around ProtoValue.
+        // SAFETY: Value is #[repr(transparent)] wrapper around ProtoValue.
         // This structure guarantees that Value has the exact same memory layout as ProtoValue.
         // This is the standard Rust pattern for safe zero-cost newtype references.
         unsafe { &*(proto_value as *const ProtoValue as *const Value) }
@@ -80,17 +104,7 @@ impl Value {
 
     /// Returns the kind of the value.
     pub fn kind(&self) -> Kind {
-        match &self.0.kind {
-            Some(ProtoKind::NullValue(_)) => Kind::Null,
-            Some(ProtoKind::NumberValue(_)) => Kind::Number,
-            Some(ProtoKind::StringValue(_)) => Kind::String,
-            Some(ProtoKind::BoolValue(_)) => Kind::Bool,
-            Some(ProtoKind::ListValue(_)) => Kind::List,
-            // Spanner never returns or accepts protobuf StructValue on the wire;
-            // SQL STRUCT values are represented as Kind::List. Any unexpected kind
-            // or missing kind defaults to Kind::Null.
-            _ => Kind::Null,
-        }
+        Kind::from(&self.0.kind)
     }
 
     /// Returns `true` if the value is null, or `false` otherwise.
@@ -342,7 +356,7 @@ pub struct List(pub(crate) ProtoListValue);
 impl List {
     /// Safely reinterprets a reference to the inner protobuf list as a reference to List.
     pub(crate) fn from_ref(proto_list: &ProtoListValue) -> &Self {
-        // Safety: List is #[repr(transparent)] wrapper around ProtoListValue.
+        // SAFETY: List is #[repr(transparent)] wrapper around ProtoListValue.
         unsafe { &*(proto_list as *const ProtoListValue as *const List) }
     }
 
@@ -375,7 +389,7 @@ impl List {
     ///     }
     /// }
     /// ```
-    pub fn iter(&self) -> impl Iterator<Item = &Value> {
+    pub fn iter(&self) -> impl DoubleEndedIterator<Item = &Value> + ExactSizeIterator {
         self.0.values.iter().map(Value::from_ref)
     }
 
@@ -636,12 +650,12 @@ mod tests {
         });
         assert_eq!(
             unexpected_kind.kind(),
-            Kind::Null,
-            "unexpected proto kind must report Kind::Null"
+            Kind::Unknown,
+            "unexpected proto kind must report Kind::Unknown"
         );
         assert!(
-            unexpected_kind.is_null(),
-            "unexpected proto kind must report is_null == true"
+            !unexpected_kind.is_null(),
+            "unexpected proto kind must report is_null == false"
         );
     }
 
@@ -807,6 +821,71 @@ mod tests {
             vec![10, 20, 30],
             "iter() should yield all elements"
         );
+
+        // Verify DoubleEndedIterator and ExactSizeIterator capabilities
+        {
+            let mut iterator = list.iter();
+            assert_eq!(
+                iterator.len(),
+                3,
+                "iterator should report exact remaining length"
+            );
+            assert_eq!(
+                iterator.next_back().and_then(|value| value.as_str()),
+                Some("30"),
+                "next_back() should yield the last element"
+            );
+            assert_eq!(
+                iterator.len(),
+                2,
+                "iterator should decrement remaining length after next_back()"
+            );
+            assert_eq!(
+                iterator.next().and_then(|value| value.as_str()),
+                Some("10"),
+                "next() should yield the first element"
+            );
+            assert_eq!(
+                iterator.len(),
+                1,
+                "iterator should decrement remaining length after next()"
+            );
+            assert_eq!(
+                iterator.next().and_then(|value| value.as_str()),
+                Some("20"),
+                "next() should yield the remaining element"
+            );
+            assert_eq!(
+                iterator.len(),
+                0,
+                "iterator should report length 0 when exhausted"
+            );
+            assert_eq!(
+                iterator.next(),
+                None,
+                "next() should return None when exhausted"
+            );
+            assert_eq!(
+                iterator.next_back(),
+                None,
+                "next_back() should return None when exhausted"
+            );
+
+            let reversed_elements: Vec<i64> = list
+                .iter()
+                .rev()
+                .filter_map(|value| {
+                    value
+                        .as_str()
+                        .and_then(|string_slice| string_slice.parse::<i64>().ok())
+                })
+                .collect();
+            assert_eq!(
+                reversed_elements,
+                vec![30, 20, 10],
+                "rev() should yield elements in reverse order"
+            );
+        }
 
         // Verify into_values()
         let owned_list = list_value.into_list().expect("owned list should exist");

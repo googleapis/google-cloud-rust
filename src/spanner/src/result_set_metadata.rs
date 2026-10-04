@@ -32,8 +32,8 @@ use std::sync::Arc;
 ///
 /// let metadata = rs.metadata().expect("metadata available");
 ///
-/// for (name, type_) in metadata.column_names().iter().zip(metadata.column_types().iter()) {
-///     println!("Column: {} has type: {:?}", name, type_.code());
+/// for (name, spanner_type) in metadata.column_names().iter().zip(metadata.column_types().iter()) {
+///     println!("Column: {} has type: {:?}", name, spanner_type.code());
 /// }
 /// # Ok(())
 /// # }

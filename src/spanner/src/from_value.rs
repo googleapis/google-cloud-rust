@@ -20,9 +20,12 @@ use crate::value::Value;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use google_cloud_type::model::Date;
+use prost_types::ListValue as ProtoListValue;
+use prost_types::value::Kind as ProtoKind;
 use rust_decimal::Decimal;
-use serde_json::Value as JsonValue;
+use serde_json::{Map as JsonMap, Number as JsonNumber, Value as JsonValue};
 use std::error::Error as StdError;
+use std::str::FromStr;
 use std::sync::Arc;
 use std::time::SystemTime;
 use time::Date as TimeDate;
@@ -96,8 +99,8 @@ impl ConvertError {
     /// struct CustomerId(u32);
     ///
     /// impl FromValue for CustomerId {
-    ///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-    ///         let raw_int = i64::from_value(value, type_)?;
+    ///     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+    ///         let raw_int = i64::from_value(value, spanner_type)?;
     ///         let parsed = u32::try_from(raw_int).map_err(ConvertError::custom)?;
     ///         Ok(CustomerId(parsed))
     ///     }
@@ -129,14 +132,14 @@ impl ConvertError {
     /// struct PositiveNumeric(pub String);
     ///
     /// impl FromValue for PositiveNumeric {
-    ///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-    ///         if type_.code() != TypeCode::Numeric {
+    ///     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+    ///         if spanner_type.code() != TypeCode::Numeric {
     ///             return Err(ConvertError::type_mismatch(
     ///                 TypeCode::Numeric,
-    ///                 type_.code(),
+    ///                 spanner_type.code(),
     ///             ));
     ///         }
-    ///         let s = String::from_value(value, type_)?;
+    ///         let s = String::from_value(value, spanner_type)?;
     ///         if s.starts_with('-') {
     ///             return Err(ConvertError::message("numeric value must be non-negative"));
     ///         }
@@ -158,8 +161,8 @@ impl ConvertError {
     /// }
     ///
     /// impl FromValue for OrderStatus {
-    ///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-    ///         let raw_status = String::from_value(value, type_)?;
+    ///     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+    ///         let raw_status = String::from_value(value, spanner_type)?;
     ///         match raw_status.as_str() {
     ///             "PENDING" => Ok(OrderStatus::Pending),
     ///             "SHIPPED" => Ok(OrderStatus::Shipped),
@@ -273,8 +276,8 @@ pub type SharedError = Arc<dyn StdError + Send + Sync>;
 /// struct AccountNumber(pub String);
 ///
 /// impl FromValue for AccountNumber {
-///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-///         let s = String::from_value(value, type_)?;
+///     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+///         let s = String::from_value(value, spanner_type)?;
 ///         Ok(AccountNumber(s))
 ///     }
 /// }
@@ -296,27 +299,68 @@ pub trait FromValue: Sized {
     /// Returns a [`ConvertError`] if the kind of the value does not match the expected kind,
     /// if the value is null but the target type is not optional (e.g., `Option<T>`), or if
     /// parsing or decoding the inner value format fails.
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError>;
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError>;
+
+    /// Converts an owned Spanner value into the target Rust type, using the provided
+    /// Spanner `Type` metadata for compatibility checks.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::types;
+    /// # use google_cloud_spanner::value::{FromValue, Value};
+    /// let value = Value::from("example");
+    /// let string = String::from_owned_value(value, &types::string())?;
+    /// assert_eq!(string, "example");
+    /// # Ok::<(), google_cloud_spanner::error::ConvertError>(())
+    /// ```
+    ///
+    /// The default implementation delegates to [`from_value`](FromValue::from_value)
+    /// using a reference to `value`. Types that contain heap allocations (such as
+    /// [`String`], [`Vec<T>`], [`serde_json::Value`], and [`Value`]) override this method
+    /// to move the underlying data directly without cloning.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [`ConvertError`] if the kind of the value does not match the expected kind,
+    /// if the value is null but the target type is not optional (e.g., `Option<T>`), or if
+    /// parsing or decoding the inner value format fails.
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        Self::from_value(&value, spanner_type)
+    }
 }
 
 impl<T> FromValue for Option<T>
 where
     T: FromValue,
 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
         if value.is_null() {
-            return match T::from_value(value, type_) {
+            return match T::from_value(value, spanner_type) {
                 Ok(_) | Err(ConvertError::NotNull) => Ok(None),
                 Err(error) => Err(error),
             };
         }
-        T::from_value(value, type_).map(Some)
+        T::from_value(value, spanner_type).map(Some)
+    }
+
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if value.is_null() {
+            return match T::from_owned_value(value, spanner_type) {
+                Ok(_) | Err(ConvertError::NotNull) => Ok(None),
+                Err(error) => Err(error),
+            };
+        }
+        T::from_owned_value(value, spanner_type).map(Some)
     }
 }
 
 impl FromValue for Value {
-    fn from_value(value: &Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, _spanner_type: &Type) -> Result<Self, ConvertError> {
         Ok(value.clone())
+    }
+
+    fn from_owned_value(value: Value, _spanner_type: &Type) -> Result<Self, ConvertError> {
+        Ok(value)
     }
 }
 
@@ -355,14 +399,69 @@ impl FromValue for Value {
 ///   `struct_type` metadata is available, positional values are returned as a plain
 ///   JSON array to avoid silent data loss.
 impl FromValue for JsonValue {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        from_value_recursive(value, Some(type_), 0)
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        from_value_recursive(value, Some(spanner_type), 0)
+    }
+
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        value_to_json(value, Some(spanner_type), 0)
+    }
+}
+
+trait SpannerFloat: FromStr {
+    const NAN: Self;
+    const INFINITY: Self;
+    const NEG_INFINITY: Self;
+}
+
+impl SpannerFloat for f64 {
+    const NAN: Self = f64::NAN;
+    const INFINITY: Self = f64::INFINITY;
+    const NEG_INFINITY: Self = f64::NEG_INFINITY;
+}
+
+impl SpannerFloat for f32 {
+    const NAN: Self = f32::NAN;
+    const INFINITY: Self = f32::INFINITY;
+    const NEG_INFINITY: Self = f32::NEG_INFINITY;
+}
+
+fn parse_spanner_float<F>(string_value: &str) -> Result<F, ConvertError>
+where
+    F: SpannerFloat,
+    F::Err: StdError + Send + Sync + 'static,
+{
+    match string_value {
+        "NaN" => Ok(F::NAN),
+        "Infinity" => Ok(F::INFINITY),
+        "-Infinity" => Ok(F::NEG_INFINITY),
+        _ => string_value.parse::<F>().map_err(ConvertError::custom),
+    }
+}
+
+fn decode_borrowed_string_to_json(
+    string_value: &str,
+    target_type: Option<&Type>,
+) -> Result<JsonValue, ConvertError> {
+    let Some(target_type) = target_type else {
+        return Ok(JsonValue::String(string_value.to_string()));
+    };
+
+    match target_type.code() {
+        TypeCode::Json => serde_json::from_str(string_value).map_err(ConvertError::custom),
+        TypeCode::Float64 | TypeCode::Float32 => {
+            let float_value = parse_spanner_float::<f64>(string_value)?;
+            Ok(JsonNumber::from_f64(float_value)
+                .map(JsonValue::Number)
+                .unwrap_or(JsonValue::Null))
+        }
+        _ => Ok(JsonValue::String(string_value.to_string())),
     }
 }
 
 fn from_value_recursive(
     value: &Value,
-    type_: Option<&Type>,
+    spanner_type: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
     const MAX_RECURSION_DEPTH: usize = 64;
@@ -371,65 +470,51 @@ fn from_value_recursive(
     }
 
     match &value.0.kind {
-        Some(prost_types::value::Kind::NullValue(_)) | None => Ok(JsonValue::Null),
+        Some(ProtoKind::NullValue(_)) | None => Ok(JsonValue::Null),
 
-        Some(prost_types::value::Kind::NumberValue(n)) => Ok(serde_json::Number::from_f64(*n)
+        Some(ProtoKind::NumberValue(number)) => Ok(JsonNumber::from_f64(*number)
             .map(JsonValue::Number)
             .unwrap_or(JsonValue::Null)),
 
-        Some(prost_types::value::Kind::StringValue(s)) => {
-            let Some(t) = type_ else {
-                return Ok(JsonValue::String(s.clone()));
-            };
-            match t.code() {
-                TypeCode::Json => serde_json::from_str(s).map_err(ConvertError::custom),
-                TypeCode::Float64 | TypeCode::Float32 => {
-                    if s == "NaN" || s == "Infinity" || s == "-Infinity" {
-                        return Ok(JsonValue::Null);
-                    }
-                    let f = s.parse::<f64>().map_err(ConvertError::custom)?;
-                    Ok(serde_json::Number::from_f64(f)
-                        .map(JsonValue::Number)
-                        .unwrap_or(JsonValue::Null))
-                }
-                _ => Ok(JsonValue::String(s.clone())),
-            }
+        Some(ProtoKind::StringValue(string_value)) => {
+            decode_borrowed_string_to_json(string_value, spanner_type)
         }
 
-        Some(prost_types::value::Kind::BoolValue(b)) => Ok(JsonValue::Bool(*b)),
+        Some(ProtoKind::BoolValue(boolean_value)) => Ok(JsonValue::Bool(*boolean_value)),
 
-        Some(prost_types::value::Kind::StructValue(_)) => Err(ConvertError::message(
-            "unexpected protobuf StructValue on wire; Spanner SQL STRUCTs are encoded as ListValue",
+        Some(ProtoKind::StructValue(_)) => Err(ConvertError::message(
+            "unexpected protobuf StructValue on wire; Spanner SQL STRUCT values are encoded as ListValue",
         )),
 
-        Some(prost_types::value::Kind::ListValue(list)) => {
-            list_value_to_json(list, type_, depth + 1)
+        Some(ProtoKind::ListValue(list_value)) => {
+            borrowed_list_value_to_json(list_value, spanner_type, depth + 1)
         }
     }
 }
 
-fn list_value_to_json(
-    list: &prost_types::ListValue,
-    type_: Option<&Type>,
+fn borrowed_list_value_to_json(
+    list_value: &ProtoListValue,
+    spanner_type: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
-    let code = type_.map_or(TypeCode::Unspecified, |t| t.code());
+    let code = spanner_type.map_or(TypeCode::Unspecified, |target_type| target_type.code());
     match code {
         TypeCode::Struct => {
-            let Some(struct_type) = type_.and_then(|t| t.struct_type()) else {
-                let mut arr = Vec::with_capacity(list.values.len());
-                for v in &list.values {
-                    let val = Value::from_ref(v);
-                    arr.push(from_value_recursive(val, None, depth)?);
+            let Some(struct_type) = spanner_type.and_then(|target_type| target_type.struct_type())
+            else {
+                let mut array = Vec::with_capacity(list_value.values.len());
+                for proto_value in &list_value.values {
+                    let val = Value::from_ref(proto_value);
+                    array.push(from_value_recursive(val, None, depth)?);
                 }
-                return Ok(JsonValue::Array(arr));
+                return Ok(JsonValue::Array(array));
             };
 
-            let mut map = serde_json::Map::new();
-            for (i, field) in struct_type.fields.iter().enumerate() {
+            let mut map = JsonMap::new();
+            for (index, field) in struct_type.fields.iter().enumerate() {
                 let field_type = field.r#type.as_deref().map(Type::from_ref);
-                let value = if let Some(v) = list.values.get(i) {
-                    let val = Value::from_ref(v);
+                let value = if let Some(proto_value) = list_value.values.get(index) {
+                    let val = Value::from_ref(proto_value);
                     from_value_recursive(val, field_type, depth)?
                 } else {
                     JsonValue::Null
@@ -439,23 +524,115 @@ fn list_value_to_json(
             Ok(JsonValue::Object(map))
         }
 
-        TypeCode::Array => {
-            let element_type = type_.and_then(|t| t.array_element_type());
-            let mut arr = Vec::with_capacity(list.values.len());
-            for v in &list.values {
-                let val = Value::from_ref(v);
-                arr.push(from_value_recursive(val, element_type.as_ref(), depth)?);
+        _ => {
+            let element_type =
+                spanner_type.and_then(|target_type| target_type.array_element_type());
+            let mut array = Vec::with_capacity(list_value.values.len());
+            for proto_value in &list_value.values {
+                let val = Value::from_ref(proto_value);
+                array.push(from_value_recursive(val, element_type.as_ref(), depth)?);
             }
-            Ok(JsonValue::Array(arr))
+            Ok(JsonValue::Array(array))
+        }
+    }
+}
+
+fn decode_owned_string_to_json(
+    string_value: String,
+    target_type: Option<&Type>,
+) -> Result<JsonValue, ConvertError> {
+    let Some(target_type) = target_type else {
+        return Ok(JsonValue::String(string_value));
+    };
+
+    match target_type.code() {
+        TypeCode::Json => serde_json::from_str(&string_value).map_err(ConvertError::custom),
+        TypeCode::Float64 | TypeCode::Float32 => {
+            let float_value = parse_spanner_float::<f64>(&string_value)?;
+            Ok(JsonNumber::from_f64(float_value)
+                .map(JsonValue::Number)
+                .unwrap_or(JsonValue::Null))
+        }
+        _ => Ok(JsonValue::String(string_value)),
+    }
+}
+
+fn value_to_json(
+    value: Value,
+    spanner_type: Option<&Type>,
+    depth: usize,
+) -> Result<JsonValue, ConvertError> {
+    const MAX_RECURSION_DEPTH: usize = 64;
+    if depth > MAX_RECURSION_DEPTH {
+        return Err(ConvertError::message("maximum nesting depth exceeded"));
+    }
+
+    match value.0.kind {
+        Some(ProtoKind::NullValue(_)) | None => Ok(JsonValue::Null),
+
+        Some(ProtoKind::NumberValue(number)) => Ok(JsonNumber::from_f64(number)
+            .map(JsonValue::Number)
+            .unwrap_or(JsonValue::Null)),
+
+        Some(ProtoKind::StringValue(string_value)) => {
+            decode_owned_string_to_json(string_value, spanner_type)
+        }
+
+        Some(ProtoKind::BoolValue(boolean_value)) => Ok(JsonValue::Bool(boolean_value)),
+
+        Some(ProtoKind::StructValue(_)) => Err(ConvertError::message(
+            "unexpected protobuf StructValue on wire; Spanner SQL STRUCT values are encoded as ListValue",
+        )),
+
+        Some(ProtoKind::ListValue(list_value)) => {
+            list_value_to_json(list_value, spanner_type, depth + 1)
+        }
+    }
+}
+
+fn list_value_to_json(
+    list_value: ProtoListValue,
+    spanner_type: Option<&Type>,
+    depth: usize,
+) -> Result<JsonValue, ConvertError> {
+    let code = spanner_type.map_or(TypeCode::Unspecified, |target_type| target_type.code());
+    match code {
+        TypeCode::Struct => {
+            let Some(struct_type) = spanner_type.and_then(|target_type| target_type.struct_type())
+            else {
+                let mut array = Vec::with_capacity(list_value.values.len());
+                for proto_value in list_value.values {
+                    array.push(value_to_json(Value(proto_value), None, depth)?);
+                }
+                return Ok(JsonValue::Array(array));
+            };
+
+            let mut map = JsonMap::new();
+            let mut iterator = list_value.values.into_iter();
+            for field in &struct_type.fields {
+                let field_type = field.r#type.as_deref().map(Type::from_ref);
+                let value = if let Some(field_value) = iterator.next() {
+                    value_to_json(Value(field_value), field_type, depth)?
+                } else {
+                    JsonValue::Null
+                };
+                map.insert(field.name.clone(), value);
+            }
+            Ok(JsonValue::Object(map))
         }
 
         _ => {
-            let mut arr = Vec::with_capacity(list.values.len());
-            for v in &list.values {
-                let val = Value::from_ref(v);
-                arr.push(from_value_recursive(val, None, depth)?);
+            let element_type =
+                spanner_type.and_then(|target_type| target_type.array_element_type());
+            let mut array = Vec::with_capacity(list_value.values.len());
+            for proto_value in list_value.values {
+                array.push(value_to_json(
+                    Value(proto_value),
+                    element_type.as_ref(),
+                    depth,
+                )?);
             }
-            Ok(JsonValue::Array(arr))
+            Ok(JsonValue::Array(array))
         }
     }
 }
@@ -470,8 +647,8 @@ fn list_value_to_json(
 /// Non-string types (such as `INT64`, `BYTES`, `FLOAT64`, `FLOAT32`, `BOOL`, `ARRAY`, and `STRUCT`)
 /// are rejected with [`ConvertError::TypeMismatch`].
 impl FromValue for String {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        match type_.code() {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
             TypeCode::String
             | TypeCode::Json
             | TypeCode::Uuid
@@ -487,11 +664,37 @@ impl FromValue for String {
             }
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => Ok(s.clone()),
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::StringValue(s)) => Ok(s.clone()),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
+            }),
+        }
+    }
+
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
+            TypeCode::String
+            | TypeCode::Json
+            | TypeCode::Uuid
+            | TypeCode::Interval
+            | TypeCode::Date
+            | TypeCode::Timestamp
+            | TypeCode::Numeric => {}
+            got => {
+                return Err(ConvertError::TypeMismatch {
+                    want: TypeCode::String,
+                    got,
+                });
+            }
+        }
+        match value.0.kind {
+            Some(ProtoKind::StringValue(string_value)) => Ok(string_value),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            other => Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: Kind::from(other),
             }),
         }
     }
@@ -501,8 +704,8 @@ impl FromValue for String {
 ///
 /// Accepts Spanner [`TypeCode::Int64`] and [`TypeCode::Enum`].
 impl FromValue for i64 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        match type_.code() {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
             TypeCode::Int64 | TypeCode::Enum => {}
             got => {
                 return Err(ConvertError::TypeMismatch {
@@ -512,10 +715,8 @@ impl FromValue for i64 {
             }
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
-                s.parse().map_err(ConvertError::custom)
-            }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::StringValue(s)) => s.parse().map_err(ConvertError::custom),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
@@ -528,8 +729,8 @@ impl FromValue for i64 {
 ///
 /// Accepts Spanner [`TypeCode::Int64`] and [`TypeCode::Enum`].
 impl FromValue for i32 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        match type_.code() {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
             TypeCode::Int64 | TypeCode::Enum => {}
             got => {
                 return Err(ConvertError::TypeMismatch {
@@ -539,10 +740,8 @@ impl FromValue for i32 {
             }
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
-                s.parse().map_err(ConvertError::custom)
-            }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::StringValue(s)) => s.parse().map_err(ConvertError::custom),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
@@ -552,18 +751,18 @@ impl FromValue for i32 {
 }
 
 impl FromValue for Decimal {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Numeric {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Numeric {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Numeric,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
+            Some(ProtoKind::StringValue(s)) => {
                 Decimal::from_str_exact(s).map_err(ConvertError::custom)
             }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
@@ -573,8 +772,8 @@ impl FromValue for Decimal {
 }
 
 impl FromValue for SystemTime {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        let timestamp = Timestamp::from_value(value, type_)?;
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        let timestamp = Timestamp::from_value(value, spanner_type)?;
         Self::try_from(timestamp).map_err(ConvertError::custom)
     }
 }
@@ -582,19 +781,19 @@ impl FromValue for SystemTime {
 #[cfg(feature = "unstable-time")]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl FromValue for OffsetDateTime {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Timestamp {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Timestamp {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Timestamp,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
+            Some(ProtoKind::StringValue(s)) => {
                 let date_time = Self::parse(s, &Rfc3339).map_err(ConvertError::custom)?;
                 Ok(date_time)
             }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
@@ -604,18 +803,18 @@ impl FromValue for OffsetDateTime {
 }
 
 impl FromValue for Timestamp {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Timestamp {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Timestamp {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Timestamp,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
+            Some(ProtoKind::StringValue(s)) => {
                 Self::try_from(s.as_str()).map_err(ConvertError::custom)
             }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
@@ -627,19 +826,19 @@ impl FromValue for Timestamp {
 #[cfg(feature = "unstable-time")]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl FromValue for TimeDate {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Date {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Date {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Date,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
+            Some(ProtoKind::StringValue(s)) => {
                 let date = Self::parse(s, SPANNER_DATE_FORMAT).map_err(ConvertError::custom)?;
                 Ok(date)
             }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
@@ -649,22 +848,22 @@ impl FromValue for TimeDate {
 }
 
 impl FromValue for Date {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Date {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Date {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Date,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
+            Some(ProtoKind::StringValue(s)) => {
                 let date = TimeDate::parse(s, SPANNER_DATE_FORMAT).map_err(ConvertError::custom)?;
                 Ok(Self::new()
                     .set_year(date.year())
                     .set_month(u8::from(date.month()) as i32)
                     .set_day(date.day() as i32))
             }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
@@ -674,16 +873,16 @@ impl FromValue for Date {
 }
 
 impl FromValue for bool {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Bool {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Bool {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Bool,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::BoolValue(b)) => Ok(*b),
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::BoolValue(b)) => Ok(*b),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::Bool,
                 got: value.kind(),
@@ -693,22 +892,22 @@ impl FromValue for bool {
 }
 
 impl FromValue for f64 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Float64 && type_.code() != TypeCode::Float32 {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Float64 && spanner_type.code() != TypeCode::Float32 {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Float64,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::NumberValue(n)) => Ok(*n),
-            Some(prost_types::value::Kind::StringValue(s)) => match s.as_str() {
+            Some(ProtoKind::NumberValue(n)) => Ok(*n),
+            Some(ProtoKind::StringValue(s)) => match s.as_str() {
                 "NaN" => Ok(f64::NAN),
                 "Infinity" => Ok(f64::INFINITY),
                 "-Infinity" => Ok(f64::NEG_INFINITY),
                 _ => s.parse().map_err(ConvertError::custom),
             },
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::Number,
                 got: value.kind(),
@@ -718,22 +917,22 @@ impl FromValue for f64 {
 }
 
 impl FromValue for f32 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Float32 && type_.code() != TypeCode::Float64 {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Float32 && spanner_type.code() != TypeCode::Float64 {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Float32,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::NumberValue(n)) => Ok(*n as f32),
-            Some(prost_types::value::Kind::StringValue(s)) => match s.as_str() {
+            Some(ProtoKind::NumberValue(n)) => Ok(*n as f32),
+            Some(ProtoKind::StringValue(s)) => match s.as_str() {
                 "NaN" => Ok(f32::NAN),
                 "Infinity" => Ok(f32::INFINITY),
                 "-Infinity" => Ok(f32::NEG_INFINITY),
                 _ => s.parse().map_err(ConvertError::custom),
             },
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::Number,
                 got: value.kind(),
@@ -743,18 +942,18 @@ impl FromValue for f32 {
 }
 
 impl FromValue for Vec<u8> {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Bytes && type_.code() != TypeCode::Proto {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Bytes && spanner_type.code() != TypeCode::Proto {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Bytes,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => {
+            Some(ProtoKind::StringValue(s)) => {
                 BASE64_STANDARD.decode(s).map_err(ConvertError::custom)
             }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::String,
                 got: value.kind(),
@@ -767,19 +966,19 @@ impl<T> FromValue for Vec<T>
 where
     T: FromValue,
 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Array {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Array {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Array,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
-        let element_type = type_
+        let element_type = spanner_type
             .array_element_type()
             .ok_or_else(|| ConvertError::message("Array type missing element type"))?;
 
         match &value.0.kind {
-            Some(prost_types::value::Kind::ListValue(list)) => {
+            Some(ProtoKind::ListValue(list)) => {
                 let mut vec = Vec::with_capacity(list.values.len());
                 for v in &list.values {
                     // `Value` is a `#[repr(transparent)]` wrapper around `ProtoValue`.
@@ -789,10 +988,37 @@ where
                 }
                 Ok(vec)
             }
-            Some(prost_types::value::Kind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::List,
                 got: value.kind(),
+            }),
+        }
+    }
+
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Array {
+            return Err(ConvertError::TypeMismatch {
+                want: TypeCode::Array,
+                got: spanner_type.code(),
+            });
+        }
+        let element_type = spanner_type
+            .array_element_type()
+            .ok_or_else(|| ConvertError::message("Array type missing element type"))?;
+
+        match value.0.kind {
+            Some(ProtoKind::ListValue(list_value)) => {
+                let mut vector = Vec::with_capacity(list_value.values.len());
+                for proto_value in list_value.values {
+                    vector.push(T::from_owned_value(Value(proto_value), &element_type)?);
+                }
+                Ok(vector)
+            }
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            other => Err(ConvertError::KindMismatch {
+                want: Kind::List,
+                got: Kind::from(other),
             }),
         }
     }
@@ -801,12 +1027,11 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::generated::gapic_dataplane::model as mdl;
+    use crate::generated::gapic_dataplane::model;
     use crate::row::RowError;
     use crate::to_value::ToValue;
     use crate::types;
-    use serde_json::Value as JsonValue;
-    use serde_json::json;
+    use serde_json::{Value as JsonValue, json};
     #[cfg(feature = "unstable-time")]
     use time::Month;
 
@@ -1738,19 +1963,19 @@ mod tests {
     fn test_from_value_json_positional_struct() {
         // Type: STRUCT<name STRING, age INT64>
         let struct_type = types::create_type(TypeCode::Struct);
-        let mut inner: mdl::Type = struct_type.0;
-        inner.struct_type = Some(Box::new(mdl::StructType {
+        let mut inner: model::Type = struct_type.0;
+        inner.struct_type = Some(Box::new(model::StructType {
             fields: vec![
-                mdl::struct_type::Field::new()
+                model::struct_type::Field::new()
                     .set_name("name")
-                    .set_type(mdl::Type {
-                        code: mdl::TypeCode::String,
+                    .set_type(model::Type {
+                        code: model::TypeCode::String,
                         ..Default::default()
                     }),
-                mdl::struct_type::Field::new()
+                model::struct_type::Field::new()
                     .set_name("age")
-                    .set_type(mdl::Type {
-                        code: mdl::TypeCode::Int64,
+                    .set_type(model::Type {
+                        code: model::TypeCode::Int64,
                         ..Default::default()
                     }),
             ],
@@ -1781,20 +2006,20 @@ mod tests {
     #[test]
     fn test_from_value_json_array_of_structs() {
         // Type: ARRAY<STRUCT<a STRING, b INT64>>
-        let elem_struct = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let elem_struct = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("a")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::String,
+                        .set_type(model::Type {
+                            code: model::TypeCode::String,
                             ..Default::default()
                         }),
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("b")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Int64,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Int64,
                             ..Default::default()
                         }),
                 ],
@@ -1802,8 +2027,8 @@ mod tests {
             })),
             ..Default::default()
         };
-        let array_type = mdl::Type {
-            code: mdl::TypeCode::Array,
+        let array_type = model::Type {
+            code: model::TypeCode::Array,
             array_element_type: Some(Box::new(elem_struct)),
             ..Default::default()
         };
@@ -1881,6 +2106,21 @@ mod tests {
     }
 
     #[test]
+    fn test_from_owned_value_json_unexpected_struct_value_errors() {
+        let spanner_value = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::StructValue(
+                prost_types::Struct::default(),
+            )),
+        });
+        let expected_error = JsonValue::from_owned_value(spanner_value, &Type::default())
+            .expect_err("StructValue must produce error in JsonValue::from_owned_value");
+        assert!(
+            format!("{expected_error}").contains("unexpected protobuf StructValue"),
+            "error message should mention unexpected protobuf StructValue, got: {expected_error}"
+        );
+    }
+
+    #[test]
     fn test_from_value_json_spanner_json_column() {
         // Spanner JSON column: value arrives as a StringValue containing JSON text
         let json_str = r#"{"key": "value", "nested": [1, 2, 3]}"#;
@@ -1888,27 +2128,32 @@ mod tests {
             kind: Some(prost_types::value::Kind::StringValue(json_str.to_string())),
         });
 
-        let j = JsonValue::from_value(&v, &types::json()).unwrap();
-        assert_eq!(j, serde_json::json!({"key": "value", "nested": [1, 2, 3]}));
+        let j = JsonValue::from_value(&v, &types::json())
+            .expect("parsing JSON string to JsonValue should succeed");
+        assert_eq!(
+            j,
+            serde_json::json!({"key": "value", "nested": [1, 2, 3]}),
+            "expected JSON object matching input string"
+        );
     }
 
     #[test]
     fn test_from_value_json_nested_struct_in_struct() {
         // Type: STRUCT<outer_field STRING, inner STRUCT<x INT64, y BOOL>>
-        let inner_struct_type = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let inner_struct_type = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("x")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Int64,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Int64,
                             ..Default::default()
                         }),
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("y")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Bool,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Bool,
                             ..Default::default()
                         }),
                 ],
@@ -1917,17 +2162,17 @@ mod tests {
             ..Default::default()
         };
 
-        let outer_type = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let outer_type = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("outer_field")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::String,
+                        .set_type(model::Type {
+                            code: model::TypeCode::String,
                             ..Default::default()
                         }),
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("inner")
                         .set_type(inner_struct_type),
                 ],
@@ -1976,20 +2221,20 @@ mod tests {
     #[test]
     fn test_from_value_json_null_in_struct() {
         // Type: STRUCT<name STRING, value INT64>
-        let struct_type_mdl = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let struct_type_model = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("name")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::String,
+                        .set_type(model::Type {
+                            code: model::TypeCode::String,
                             ..Default::default()
                         }),
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("value")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Int64,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Int64,
                             ..Default::default()
                         }),
                 ],
@@ -1997,7 +2242,7 @@ mod tests {
             })),
             ..Default::default()
         };
-        let spanner_type = Type(struct_type_mdl);
+        let spanner_type = Type(struct_type_model);
 
         // Wire: ["test", null]
         let v = crate::value::Value(prost_types::Value {
@@ -2112,15 +2357,15 @@ mod tests {
     #[test]
     fn test_from_value_json_empty_struct() {
         // Type: STRUCT<> (zero fields)
-        let struct_type_mdl = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let struct_type_model = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![],
                 _unknown_fields: Default::default(),
             })),
             ..Default::default()
         };
-        let spanner_type = Type(struct_type_mdl);
+        let spanner_type = Type(struct_type_model);
 
         // Wire: empty positional list
         let v = crate::value::Value(prost_types::Value {
@@ -2137,20 +2382,20 @@ mod tests {
     fn test_from_value_json_unnamed_fields() {
         // Type: STRUCT with unnamed fields (empty string names)
         // This is valid in Spanner for SELECT expressions without aliases.
-        let struct_type_mdl = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let struct_type_model = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::String,
+                        .set_type(model::Type {
+                            code: model::TypeCode::String,
                             ..Default::default()
                         }),
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Int64,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Int64,
                             ..Default::default()
                         }),
                 ],
@@ -2158,7 +2403,7 @@ mod tests {
             })),
             ..Default::default()
         };
-        let spanner_type = Type(struct_type_mdl);
+        let spanner_type = Type(struct_type_model);
 
         // Wire: positional values
         let v = crate::value::Value(prost_types::Value {
@@ -2235,26 +2480,26 @@ mod tests {
     #[test]
     fn test_from_value_json_missing_positional_fields_become_null() {
         // Type declares 3 fields but wire only has 1 value
-        let struct_type_mdl = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let struct_type_model = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("a")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::String,
+                        .set_type(model::Type {
+                            code: model::TypeCode::String,
                             ..Default::default()
                         }),
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("b")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Int64,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Int64,
                             ..Default::default()
                         }),
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("c")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Bool,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Bool,
                             ..Default::default()
                         }),
                 ],
@@ -2262,7 +2507,7 @@ mod tests {
             })),
             ..Default::default()
         };
-        let spanner_type = Type(struct_type_mdl);
+        let spanner_type = Type(struct_type_model);
 
         // Wire: only one value present
         let v = crate::value::Value(prost_types::Value {
@@ -2282,12 +2527,12 @@ mod tests {
     #[test]
     fn test_from_value_json_array_of_json_columns() {
         // Type: ARRAY<JSON>
-        let json_type = mdl::Type {
-            code: mdl::TypeCode::Json,
+        let json_type = model::Type {
+            code: model::TypeCode::Json,
             ..Default::default()
         };
-        let array_type = mdl::Type {
-            code: mdl::TypeCode::Array,
+        let array_type = model::Type {
+            code: model::TypeCode::Array,
             array_element_type: Some(Box::new(json_type)),
             ..Default::default()
         };
@@ -2320,24 +2565,24 @@ mod tests {
     #[test]
     fn test_from_value_json_nested_array_in_struct() {
         // Type: STRUCT<tags ARRAY<STRING>, id INT64>
-        let struct_type_mdl = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let struct_type_model = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("tags")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Array,
-                            array_element_type: Some(Box::new(mdl::Type {
-                                code: mdl::TypeCode::String,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Array,
+                            array_element_type: Some(Box::new(model::Type {
+                                code: model::TypeCode::String,
                                 ..Default::default()
                             })),
                             ..Default::default()
                         }),
-                    mdl::struct_type::Field::new()
+                    model::struct_type::Field::new()
                         .set_name("id")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Int64,
+                        .set_type(model::Type {
+                            code: model::TypeCode::Int64,
                             ..Default::default()
                         }),
                 ],
@@ -2345,7 +2590,7 @@ mod tests {
             })),
             ..Default::default()
         };
-        let spanner_type = Type(struct_type_mdl);
+        let spanner_type = Type(struct_type_model);
 
         // Wire: [["foo", "bar"], "42"]
         let v = crate::value::Value(prost_types::Value {
@@ -2406,8 +2651,8 @@ mod tests {
     #[test]
     fn test_from_value_json_array_without_element_type() {
         // Type: ARRAY but array_element_type is None
-        let array_type = mdl::Type {
-            code: mdl::TypeCode::Array,
+        let array_type = model::Type {
+            code: model::TypeCode::Array,
             array_element_type: None,
             ..Default::default()
         };
@@ -2431,17 +2676,17 @@ mod tests {
     #[test]
     fn test_from_value_json_struct_with_missing_field_type() {
         // Type: STRUCT where field "a" has no type metadata
-        let struct_type_mdl = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
+        let struct_type_model = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
                 fields: vec![
-                    mdl::struct_type::Field::new().set_name("a"), // type is None
+                    model::struct_type::Field::new().set_name("a"), // type is None
                 ],
                 _unknown_fields: Default::default(),
             })),
             ..Default::default()
         };
-        let spanner_type = Type(struct_type_mdl);
+        let spanner_type = Type(struct_type_model);
 
         // Wire: positional list ["hello"]
         let v = crate::value::Value(prost_types::Value {
@@ -2658,8 +2903,8 @@ mod tests {
 
     #[test]
     fn from_value_array_missing_element_type() {
-        let malformed_type = Type::from(mdl::Type {
-            code: mdl::TypeCode::Array,
+        let malformed_type = Type::from(model::Type {
+            code: model::TypeCode::Array,
             array_element_type: None,
             ..Default::default()
         });
@@ -2795,6 +3040,565 @@ mod tests {
         assert!(
             matches!(date_error, ConvertError::NotNull),
             "expected NotNull for Date"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_string() {
+        let value = "hello".to_value();
+        let string_type = types::string();
+        let string_value =
+            String::from_owned_value(value, &string_type).expect("valid string value");
+        assert_eq!(string_value, "hello", "expected string 'hello'");
+
+        // Null value check
+        let null_value = Value::null();
+        let null_error = String::from_owned_value(null_value, &string_type)
+            .expect_err("null value must fail for String");
+        assert!(
+            matches!(null_error, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+
+        // Kind mismatch check
+        let bool_value = true.to_value();
+        let mismatch_error = String::from_owned_value(bool_value, &string_type)
+            .expect_err("bool value must fail for String");
+        assert!(
+            matches!(mismatch_error, ConvertError::KindMismatch { .. }),
+            "expected KindMismatch error"
+        );
+
+        // Float type check
+        let float_string_value = "1.5".to_value();
+        let float_type = types::float64();
+        let float_error = String::from_owned_value(float_string_value, &float_type)
+            .expect_err("float column must not decode as String");
+        assert!(
+            matches!(
+                float_error,
+                ConvertError::TypeMismatch {
+                    want: TypeCode::String,
+                    got: TypeCode::Float64,
+                }
+            ),
+            "expected TypeMismatch error for float column"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_option() {
+        let null_value = Value::null();
+        let string_type = types::string();
+        let optional_null: Option<String> =
+            Option::from_owned_value(null_value, &string_type).expect("valid optional null");
+        assert_eq!(optional_null, None, "expected None for null value");
+
+        let present_value = "present".to_value();
+        let optional_present: Option<String> =
+            Option::from_owned_value(present_value, &string_type).expect("valid optional string");
+        assert_eq!(
+            optional_present,
+            Some("present".to_string()),
+            "expected Some('present')"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_value() {
+        let value = "raw".to_value();
+        let string_type = types::string();
+        let returned_value =
+            Value::from_owned_value(value.clone(), &string_type).expect("valid Value conversion");
+        assert_eq!(returned_value, value, "expected identical Value");
+    }
+
+    #[test]
+    fn from_owned_value_vector() {
+        let array_type = types::array(types::string());
+        let list_value = vec!["one".to_string(), "two".to_string()].to_value();
+        let string_vector: Vec<String> =
+            Vec::from_owned_value(list_value, &array_type).expect("valid Vec<String>");
+        assert_eq!(
+            string_vector,
+            vec!["one".to_string(), "two".to_string()],
+            "expected matching vector of strings"
+        );
+
+        // Null value check
+        let null_value = Value::null();
+        let null_error = Vec::<String>::from_owned_value(null_value, &array_type)
+            .expect_err("null value must fail for Vec<String>");
+        assert!(
+            matches!(null_error, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+
+        // Not an array type
+        let string_type = types::string();
+        let non_array_value = vec!["one".to_string()].to_value();
+        let type_error = Vec::<String>::from_owned_value(non_array_value, &string_type)
+            .expect_err("non-array type must fail");
+        assert!(
+            matches!(
+                type_error,
+                ConvertError::TypeMismatch {
+                    want: TypeCode::Array,
+                    got: TypeCode::String,
+                }
+            ),
+            "expected TypeMismatch for non-array type"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_json() {
+        let json_type = types::json();
+        let json_string_value = "{\"key\":\"value\"}".to_value();
+        let parsed_json =
+            JsonValue::from_owned_value(json_string_value, &json_type).expect("valid JSON value");
+        assert_eq!(
+            parsed_json,
+            serde_json::json!({"key": "value"}),
+            "expected parsed JSON object"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_default_delegation() {
+        let int_value = 123_i64.to_value();
+        let int_type = types::int64();
+        let integer = i64::from_owned_value(int_value, &int_type).expect("valid i64");
+        assert_eq!(integer, 123, "expected i64 value 123");
+
+        let bool_value = true.to_value();
+        let bool_type = types::bool();
+        let boolean = bool::from_owned_value(bool_value, &bool_type).expect("valid bool");
+        assert!(boolean, "expected boolean value true");
+    }
+
+    #[test]
+    fn from_value_value() {
+        let value = "raw".to_value();
+        let string_type = types::string();
+        let returned_value =
+            Value::from_value(&value, &string_type).expect("valid Value conversion");
+        assert_eq!(returned_value, value, "expected identical Value");
+    }
+
+    #[test]
+    fn from_owned_value_vector_kind_mismatch() {
+        let array_type = types::array(types::string());
+        let non_list_value = 42_i64.to_value();
+        let type_error = Vec::<String>::from_owned_value(non_list_value, &array_type)
+            .expect_err("non-list value with array type must fail with KindMismatch");
+        assert!(
+            matches!(type_error, ConvertError::KindMismatch { .. }),
+            "expected KindMismatch for non-list value with array type"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_json_struct_without_metadata() {
+        let struct_type_without_metadata = Type(model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: None,
+            ..Default::default()
+        });
+        let list_value = Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue(
+                            "anonymous".to_string(),
+                        )),
+                    }],
+                },
+            )),
+        });
+        let json_value = JsonValue::from_owned_value(list_value, &struct_type_without_metadata)
+            .expect("valid conversion to JSON array fallback");
+        assert_eq!(
+            json_value,
+            serde_json::json!(["anonymous"]),
+            "expected positional array fallback when struct metadata is missing"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_option_null() {
+        let null_value = Value(prost_types::Value {
+            kind: Some(ProtoKind::NullValue(0)),
+        });
+        let string_type = types::string();
+        let optional_value: Option<String> = Option::from_owned_value(null_value, &string_type)
+            .expect("sql null value should convert to None");
+        assert_eq!(optional_value, None, "expected None for sql null");
+    }
+
+    #[test]
+    fn from_owned_value_option_missing_kind() {
+        let missing_kind_value = Value(prost_types::Value { kind: None });
+        let string_type = types::string();
+        let optional_value: Option<String> =
+            Option::from_owned_value(missing_kind_value, &string_type)
+                .expect("Option::<String> on missing kind should produce None");
+        assert_eq!(optional_value, None, "expected None for missing kind");
+
+        let missing_kind_value = Value(prost_types::Value { kind: None });
+        let error = String::from_owned_value(missing_kind_value, &string_type)
+            .expect_err("non-option String on missing kind should fail");
+        assert!(
+            matches!(error, ConvertError::NotNull),
+            "expected NotNull error for missing kind on non-option type"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_option_error() {
+        let bool_value = true.to_value();
+        let string_type = types::string();
+        let error = Option::<String>::from_owned_value(bool_value, &string_type)
+            .expect_err("type mismatch inside Option must return error");
+        assert!(
+            matches!(error, ConvertError::KindMismatch { .. }),
+            "expected KindMismatch error"
+        );
+    }
+
+    #[test]
+    fn from_value_option_unexpected_struct_value_fails() {
+        let struct_value = Value(prost_types::Value {
+            kind: Some(ProtoKind::StructValue(prost_types::Struct::default())),
+        });
+        let string_type = types::string();
+        let error = Option::<String>::from_value(&struct_value, &string_type)
+            .expect_err("unexpected StructValue must fail for Option<String>");
+        assert!(
+            matches!(
+                error,
+                ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: Kind::Unknown,
+                }
+            ),
+            "expected KindMismatch with got: Kind::Unknown, got: {error}"
+        );
+
+        let json_err = Option::<JsonValue>::from_value(&struct_value, &Type::default())
+            .expect_err("unexpected StructValue must fail for Option<JsonValue>");
+        assert!(
+            format!("{json_err}").contains("unexpected protobuf StructValue"),
+            "expected error to mention unexpected protobuf StructValue"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_vector_element_error() {
+        let array_type = types::array(types::int64());
+        let list_value = Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("42".to_string())),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue(
+                                "not_a_number".to_string(),
+                            )),
+                        },
+                    ],
+                },
+            )),
+        });
+        let error = Vec::<i64>::from_owned_value(list_value, &array_type)
+            .expect_err("invalid inner element must fail vector conversion");
+        assert!(
+            matches!(error, ConvertError::Convert(_)),
+            "expected Convert error for invalid integer element"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_json_list_struct() {
+        let struct_type_model = model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
+                fields: vec![
+                    model::struct_type::Field::new()
+                        .set_name("id")
+                        .set_type(types::int64().0),
+                    model::struct_type::Field::new()
+                        .set_name("name")
+                        .set_type(types::string().0),
+                ],
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+        let struct_type = Type(struct_type_model);
+        // Spanner wire format sends structs as ListValue
+        let wire_struct = Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("101".to_string())),
+                        },
+                        prost_types::Value {
+                            kind: Some(prost_types::value::Kind::StringValue("Alice".to_string())),
+                        },
+                    ],
+                },
+            )),
+        });
+        let json_value = JsonValue::from_owned_value(wire_struct, &struct_type)
+            .expect("valid conversion of wire-format struct to JSON object");
+        assert_eq!(
+            json_value,
+            serde_json::json!({
+                "id": "101",
+                "name": "Alice",
+            }),
+            "expected JSON object matching wire struct fields"
+        );
+    }
+
+    #[test]
+    fn from_value_vector_null() {
+        let array_type = types::array(types::string());
+        let null_value = Value::null();
+        let error = Vec::<String>::from_value(&null_value, &array_type)
+            .expect_err("null value for Vec must return NotNull");
+        assert!(
+            matches!(error, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+    }
+
+    #[test]
+    fn from_value_vector_kind_mismatch() {
+        let array_type = types::array(types::string());
+        let non_list_value = "string".to_value();
+        let error = Vec::<String>::from_value(&non_list_value, &array_type)
+            .expect_err("non-list value for Vec must return KindMismatch");
+        assert!(
+            format!("{error}").contains("expected List, got String"),
+            "expected KindMismatch error message"
+        );
+    }
+
+    #[test]
+    fn from_value_bytes_kind_mismatch() {
+        let bytes_type = types::bytes();
+        let bool_value = true.to_value();
+        let error = Vec::<u8>::from_value(&bool_value, &bytes_type)
+            .expect_err("bool value for bytes must return KindMismatch");
+        assert!(
+            format!("{error}").contains("expected String, got Bool"),
+            "expected KindMismatch error message"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_bytes() {
+        let bytes_type = types::bytes();
+        let bytes_value = b"test bytes".to_vec().to_value();
+        let decoded = Vec::<u8>::from_owned_value(bytes_value, &bytes_type)
+            .expect("should decode bytes from owned value");
+        assert_eq!(decoded, b"test bytes", "expected matching bytes");
+
+        let null_value = Value::null();
+        let null_error = Vec::<u8>::from_owned_value(null_value, &bytes_type)
+            .expect_err("null bytes must return NotNull");
+        assert!(
+            format!("{null_error}").contains("expected non-null value, got null"),
+            "expected NotNull error message"
+        );
+
+        let bool_value = true.to_value();
+        let mismatch_error = Vec::<u8>::from_owned_value(bool_value, &bytes_type)
+            .expect_err("bool for bytes must return KindMismatch");
+        assert!(
+            format!("{mismatch_error}").contains("expected String, got Bool"),
+            "expected KindMismatch error message"
+        );
+    }
+
+    #[test]
+    fn from_value_json_borrowed_primitive_and_struct() {
+        let json_type = types::json();
+        let json_string_value = Value::from(r#"{"field":123}"#);
+        let parsed = JsonValue::from_value(&json_string_value, &json_type)
+            .expect("parsing JSON from borrowed Value");
+        assert_eq!(
+            parsed,
+            json!({"field": 123}),
+            "expected matching JSON object from borrowed Value"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_json_list_struct_fewer_values_than_fields() {
+        let struct_type = Type(model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: Some(Box::new(model::StructType {
+                fields: vec![
+                    model::struct_type::Field::new()
+                        .set_name("first")
+                        .set_type(model::Type {
+                            code: model::TypeCode::String,
+                            ..Default::default()
+                        }),
+                    model::struct_type::Field::new()
+                        .set_name("second")
+                        .set_type(model::Type {
+                            code: model::TypeCode::String,
+                            ..Default::default()
+                        }),
+                ],
+                _unknown_fields: Default::default(),
+            })),
+            ..Default::default()
+        });
+
+        let list_val = Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue(
+                            "only_first".to_string(),
+                        )),
+                    }],
+                },
+            )),
+        });
+        let result = JsonValue::from_owned_value(list_val, &struct_type)
+            .expect("should convert truncated list to JSON struct with null for missing fields");
+        assert_eq!(
+            result,
+            json!({"first": "only_first", "second": null}),
+            "expected missing field to be populated with null"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_json_float_string() {
+        let float64_type = types::float64();
+        let val64 = Value::from("12.5");
+        let json64 = JsonValue::from_owned_value(val64, &float64_type)
+            .expect("should decode float64 string to json number");
+        assert_eq!(json64, json!(12.5), "expected JSON number 12.5 for float64");
+
+        let float32_type = types::float32();
+        let val32 = Value::from("3.25");
+        let json32 = JsonValue::from_owned_value(val32, &float32_type)
+            .expect("should decode float32 string to json number");
+        assert_eq!(json32, json!(3.25), "expected JSON number 3.25 for float32");
+    }
+
+    #[test]
+    fn from_owned_value_json_max_recursion_depth() {
+        let mut inner = prost_types::Value {
+            kind: Some(prost_types::value::Kind::BoolValue(true)),
+        };
+        for _ in 0..65 {
+            inner = prost_types::Value {
+                kind: Some(prost_types::value::Kind::ListValue(
+                    prost_types::ListValue {
+                        values: vec![inner],
+                    },
+                )),
+            };
+        }
+        let v = Value(inner);
+
+        let err = JsonValue::from_owned_value(v, &Type::default())
+            .expect_err("nested depth exceeding 64 must fail");
+        assert!(
+            format!("{}", err).contains("nesting depth exceeded"),
+            "expected error to mention nesting depth exceeded"
+        );
+    }
+
+    #[test]
+    fn from_value_json_borrowed_struct_without_metadata() {
+        let struct_type_without_metadata = Type(model::Type {
+            code: model::TypeCode::Struct,
+            struct_type: None,
+            ..Default::default()
+        });
+        let list_value = Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue(
+                            "anonymous".to_string(),
+                        )),
+                    }],
+                },
+            )),
+        });
+        let json_value = JsonValue::from_value(&list_value, &struct_type_without_metadata)
+            .expect("valid conversion to JSON array fallback for borrowed Value");
+        assert_eq!(
+            json_value,
+            json!(["anonymous"]),
+            "expected positional array fallback when struct metadata is missing"
+        );
+    }
+
+    #[test]
+    fn from_owned_value_json_primitives_and_arrays() {
+        // Null
+        let null_json = JsonValue::from_owned_value(Value::null(), &Type::default())
+            .expect("null to JSON should succeed");
+        assert_eq!(null_json, JsonValue::Null, "expected JsonValue::Null");
+
+        // Missing kind (None)
+        let missing_kind = Value(prost_types::Value { kind: None });
+        let none_json = JsonValue::from_owned_value(missing_kind, &Type::default())
+            .expect("missing kind to JSON should succeed");
+        assert_eq!(
+            none_json,
+            JsonValue::Null,
+            "expected JsonValue::Null for None"
+        );
+
+        // Number
+        let num_val = 42.5_f64.to_value();
+        let num_json = JsonValue::from_owned_value(num_val, &types::float64())
+            .expect("number to JSON should succeed");
+        assert_eq!(num_json, json!(42.5), "expected JSON number 42.5");
+
+        // Bool
+        let bool_val = true.to_value();
+        let bool_json = JsonValue::from_owned_value(bool_val, &types::bool())
+            .expect("bool to JSON should succeed");
+        assert_eq!(bool_json, json!(true), "expected JSON bool true");
+
+        // Non-struct array
+        let array_type = types::array(types::string());
+        let list_val = Value::from(vec!["hello".to_string(), "world".to_string()]);
+        let array_json = JsonValue::from_owned_value(list_val, &array_type)
+            .expect("array to JSON should succeed");
+        assert_eq!(
+            array_json,
+            json!(["hello", "world"]),
+            "expected JSON array matching input list"
+        );
+    }
+
+    #[test]
+    fn from_value_decimal_kind_mismatch() {
+        let numeric_type = types::numeric();
+        let bool_value = true.to_value();
+        let error = Decimal::from_value(&bool_value, &numeric_type)
+            .expect_err("non-string value for numeric must return KindMismatch");
+        assert!(
+            format!("{error}").contains("expected String, got Bool"),
+            "expected KindMismatch error message"
         );
     }
 }
