@@ -100,8 +100,8 @@ impl ConvertError {
     /// struct CustomerId(u32);
     ///
     /// impl FromValue for CustomerId {
-    ///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-    ///         let raw_int = i64::from_value(value, type_)?;
+    ///     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+    ///         let raw_int = i64::from_value(value, spanner_type)?;
     ///         let parsed = u32::try_from(raw_int).map_err(ConvertError::custom)?;
     ///         Ok(CustomerId(parsed))
     ///     }
@@ -133,14 +133,14 @@ impl ConvertError {
     /// struct PositiveNumeric(pub String);
     ///
     /// impl FromValue for PositiveNumeric {
-    ///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-    ///         if type_.code() != TypeCode::Numeric {
+    ///     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+    ///         if spanner_type.code() != TypeCode::Numeric {
     ///             return Err(ConvertError::type_mismatch(
     ///                 TypeCode::Numeric,
-    ///                 type_.code(),
+    ///                 spanner_type.code(),
     ///             ));
     ///         }
-    ///         let s = String::from_value(value, type_)?;
+    ///         let s = String::from_value(value, spanner_type)?;
     ///         if s.starts_with('-') {
     ///             return Err(ConvertError::message("numeric value must be non-negative"));
     ///         }
@@ -162,8 +162,8 @@ impl ConvertError {
     /// }
     ///
     /// impl FromValue for OrderStatus {
-    ///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-    ///         let raw_status = String::from_value(value, type_)?;
+    ///     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+    ///         let raw_status = String::from_value(value, spanner_type)?;
     ///         match raw_status.as_str() {
     ///             "PENDING" => Ok(OrderStatus::Pending),
     ///             "SHIPPED" => Ok(OrderStatus::Shipped),
@@ -277,8 +277,8 @@ pub type SharedError = Arc<dyn StdError + Send + Sync>;
 /// struct AccountNumber(pub String);
 ///
 /// impl FromValue for AccountNumber {
-///     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-///         let s = String::from_value(value, type_)?;
+///     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+///         let s = String::from_value(value, spanner_type)?;
 ///         Ok(AccountNumber(s))
 ///     }
 /// }
@@ -300,7 +300,7 @@ pub trait FromValue: Sized {
     /// Returns a [`ConvertError`] if the kind of the value does not match the expected kind,
     /// if the value is null but the target type is not optional (e.g., `Option<T>`), or if
     /// parsing or decoding the inner value format fails.
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError>;
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError>;
 
     /// Converts an owned Spanner value into the target Rust type, using the provided
     /// Spanner `Type` metadata for compatibility checks.
@@ -325,8 +325,8 @@ pub trait FromValue: Sized {
     /// Returns a [`ConvertError`] if the kind of the value does not match the expected kind,
     /// if the value is null but the target type is not optional (e.g., `Option<T>`), or if
     /// parsing or decoding the inner value format fails.
-    fn from_owned_value(value: Value, type_: &Type) -> Result<Self, ConvertError> {
-        Self::from_value(&value, type_)
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        Self::from_value(&value, spanner_type)
     }
 }
 
@@ -334,33 +334,33 @@ impl<T> FromValue for Option<T>
 where
     T: FromValue,
 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
         if value.is_null() {
-            return match T::from_value(value, type_) {
+            return match T::from_value(value, spanner_type) {
                 Ok(_) | Err(ConvertError::NotNull) => Ok(None),
                 Err(error) => Err(error),
             };
         }
-        T::from_value(value, type_).map(Some)
+        T::from_value(value, spanner_type).map(Some)
     }
 
-    fn from_owned_value(value: Value, type_: &Type) -> Result<Self, ConvertError> {
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
         if value.is_null() {
-            return match T::from_owned_value(value, type_) {
+            return match T::from_owned_value(value, spanner_type) {
                 Ok(_) | Err(ConvertError::NotNull) => Ok(None),
                 Err(error) => Err(error),
             };
         }
-        T::from_owned_value(value, type_).map(Some)
+        T::from_owned_value(value, spanner_type).map(Some)
     }
 }
 
 impl FromValue for Value {
-    fn from_value(value: &Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, _spanner_type: &Type) -> Result<Self, ConvertError> {
         Ok(value.clone())
     }
 
-    fn from_owned_value(value: Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_owned_value(value: Value, _spanner_type: &Type) -> Result<Self, ConvertError> {
         Ok(value)
     }
 }
@@ -401,12 +401,12 @@ impl FromValue for Value {
 ///   `struct_type` metadata is available, positional values are returned as a plain
 ///   JSON array to avoid silent data loss.
 impl FromValue for JsonValue {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        from_value_recursive(value, Some(type_), 0)
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        from_value_recursive(value, Some(spanner_type), 0)
     }
 
-    fn from_owned_value(value: Value, type_: &Type) -> Result<Self, ConvertError> {
-        value_to_json(value, Some(type_), 0)
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        value_to_json(value, Some(spanner_type), 0)
     }
 }
 
@@ -463,7 +463,7 @@ fn decode_borrowed_string_to_json(
 
 fn from_value_recursive(
     value: &Value,
-    type_: Option<&Type>,
+    spanner_type: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
     const MAX_RECURSION_DEPTH: usize = 64;
@@ -479,29 +479,29 @@ fn from_value_recursive(
             .unwrap_or(JsonValue::Null)),
 
         Some(ProtoKind::StringValue(string_value)) => {
-            decode_borrowed_string_to_json(string_value, type_)
+            decode_borrowed_string_to_json(string_value, spanner_type)
         }
 
         Some(ProtoKind::BoolValue(boolean_value)) => Ok(JsonValue::Bool(*boolean_value)),
 
         Some(ProtoKind::StructValue(struct_value)) => {
-            borrowed_struct_value_to_json(struct_value, type_, depth + 1)
+            borrowed_struct_value_to_json(struct_value, spanner_type, depth + 1)
         }
 
         Some(ProtoKind::ListValue(list_value)) => {
-            borrowed_list_value_to_json(list_value, type_, depth + 1)
+            borrowed_list_value_to_json(list_value, spanner_type, depth + 1)
         }
     }
 }
 
 fn borrowed_struct_value_to_json(
     struct_value: &ProtoStruct,
-    type_: Option<&Type>,
+    spanner_type: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
     let mut map = JsonMap::new();
 
-    let Some(struct_type) = type_.and_then(|target_type| target_type.struct_type()) else {
+    let Some(struct_type) = spanner_type.and_then(|target_type| target_type.struct_type()) else {
         for (key, field_value) in &struct_value.fields {
             let val = Value::from_ref(field_value);
             map.insert(key.clone(), from_value_recursive(val, None, depth)?);
@@ -525,13 +525,14 @@ fn borrowed_struct_value_to_json(
 
 fn borrowed_list_value_to_json(
     list_value: &ProtoListValue,
-    type_: Option<&Type>,
+    spanner_type: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
-    let code = type_.map_or(TypeCode::Unspecified, |target_type| target_type.code());
+    let code = spanner_type.map_or(TypeCode::Unspecified, |target_type| target_type.code());
     match code {
         TypeCode::Struct => {
-            let Some(struct_type) = type_.and_then(|target_type| target_type.struct_type()) else {
+            let Some(struct_type) = spanner_type.and_then(|target_type| target_type.struct_type())
+            else {
                 let mut array = Vec::with_capacity(list_value.values.len());
                 for proto_value in &list_value.values {
                     let val = Value::from_ref(proto_value);
@@ -555,7 +556,8 @@ fn borrowed_list_value_to_json(
         }
 
         _ => {
-            let element_type = type_.and_then(|target_type| target_type.array_element_type());
+            let element_type =
+                spanner_type.and_then(|target_type| target_type.array_element_type());
             let mut array = Vec::with_capacity(list_value.values.len());
             for proto_value in &list_value.values {
                 let val = Value::from_ref(proto_value);
@@ -588,7 +590,7 @@ fn decode_owned_string_to_json(
 
 fn value_to_json(
     value: Value,
-    type_: Option<&Type>,
+    spanner_type: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
     const MAX_RECURSION_DEPTH: usize = 64;
@@ -604,27 +606,29 @@ fn value_to_json(
             .unwrap_or(JsonValue::Null)),
 
         Some(ProtoKind::StringValue(string_value)) => {
-            decode_owned_string_to_json(string_value, type_)
+            decode_owned_string_to_json(string_value, spanner_type)
         }
 
         Some(ProtoKind::BoolValue(boolean_value)) => Ok(JsonValue::Bool(boolean_value)),
 
         Some(ProtoKind::StructValue(struct_value)) => {
-            struct_value_to_json(struct_value, type_, depth + 1)
+            struct_value_to_json(struct_value, spanner_type, depth + 1)
         }
 
-        Some(ProtoKind::ListValue(list_value)) => list_value_to_json(list_value, type_, depth + 1),
+        Some(ProtoKind::ListValue(list_value)) => {
+            list_value_to_json(list_value, spanner_type, depth + 1)
+        }
     }
 }
 
 fn struct_value_to_json(
     mut struct_value: ProtoStruct,
-    type_: Option<&Type>,
+    spanner_type: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
     let mut map = JsonMap::new();
 
-    let Some(struct_type) = type_.and_then(|target_type| target_type.struct_type()) else {
+    let Some(struct_type) = spanner_type.and_then(|target_type| target_type.struct_type()) else {
         for (key, field_value) in struct_value.fields {
             map.insert(key, value_to_json(Value(field_value), None, depth)?);
         }
@@ -646,13 +650,14 @@ fn struct_value_to_json(
 
 fn list_value_to_json(
     list_value: ProtoListValue,
-    type_: Option<&Type>,
+    spanner_type: Option<&Type>,
     depth: usize,
 ) -> Result<JsonValue, ConvertError> {
-    let code = type_.map_or(TypeCode::Unspecified, |target_type| target_type.code());
+    let code = spanner_type.map_or(TypeCode::Unspecified, |target_type| target_type.code());
     match code {
         TypeCode::Struct => {
-            let Some(struct_type) = type_.and_then(|target_type| target_type.struct_type()) else {
+            let Some(struct_type) = spanner_type.and_then(|target_type| target_type.struct_type())
+            else {
                 let mut array = Vec::with_capacity(list_value.values.len());
                 for proto_value in list_value.values {
                     array.push(value_to_json(Value(proto_value), None, depth)?);
@@ -675,7 +680,8 @@ fn list_value_to_json(
         }
 
         _ => {
-            let element_type = type_.and_then(|target_type| target_type.array_element_type());
+            let element_type =
+                spanner_type.and_then(|target_type| target_type.array_element_type());
             let mut array = Vec::with_capacity(list_value.values.len());
             for proto_value in list_value.values {
                 array.push(value_to_json(
@@ -699,8 +705,8 @@ fn list_value_to_json(
 /// Non-string types (such as `INT64`, `BYTES`, `FLOAT64`, `FLOAT32`, `BOOL`, `ARRAY`, and `STRUCT`)
 /// are rejected with [`ConvertError::TypeMismatch`].
 impl FromValue for String {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        match type_.code() {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
             TypeCode::String
             | TypeCode::Json
             | TypeCode::Uuid
@@ -725,8 +731,8 @@ impl FromValue for String {
         }
     }
 
-    fn from_owned_value(value: Value, type_: &Type) -> Result<Self, ConvertError> {
-        match type_.code() {
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
             TypeCode::String
             | TypeCode::Json
             | TypeCode::Uuid
@@ -756,8 +762,8 @@ impl FromValue for String {
 ///
 /// Accepts Spanner [`TypeCode::Int64`] and [`TypeCode::Enum`].
 impl FromValue for i64 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        match type_.code() {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
             TypeCode::Int64 | TypeCode::Enum => {}
             got => {
                 return Err(ConvertError::TypeMismatch {
@@ -781,8 +787,8 @@ impl FromValue for i64 {
 ///
 /// Accepts Spanner [`TypeCode::Int64`] and [`TypeCode::Enum`].
 impl FromValue for i32 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        match type_.code() {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
             TypeCode::Int64 | TypeCode::Enum => {}
             got => {
                 return Err(ConvertError::TypeMismatch {
@@ -803,11 +809,11 @@ impl FromValue for i32 {
 }
 
 impl FromValue for Decimal {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Numeric {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Numeric {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Numeric,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -824,8 +830,8 @@ impl FromValue for Decimal {
 }
 
 impl FromValue for SystemTime {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        let timestamp = Timestamp::from_value(value, type_)?;
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        let timestamp = Timestamp::from_value(value, spanner_type)?;
         Self::try_from(timestamp).map_err(ConvertError::custom)
     }
 }
@@ -833,11 +839,11 @@ impl FromValue for SystemTime {
 #[cfg(feature = "unstable-time")]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl FromValue for OffsetDateTime {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Timestamp {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Timestamp {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Timestamp,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -855,11 +861,11 @@ impl FromValue for OffsetDateTime {
 }
 
 impl FromValue for Timestamp {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Timestamp {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Timestamp {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Timestamp,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -878,11 +884,11 @@ impl FromValue for Timestamp {
 #[cfg(feature = "unstable-time")]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-time")))]
 impl FromValue for TimeDate {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Date {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Date {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Date,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -900,11 +906,11 @@ impl FromValue for TimeDate {
 }
 
 impl FromValue for Date {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Date {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Date {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Date,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -925,11 +931,11 @@ impl FromValue for Date {
 }
 
 impl FromValue for bool {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Bool {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Bool {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Bool,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -944,11 +950,11 @@ impl FromValue for bool {
 }
 
 impl FromValue for f64 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Float64 && type_.code() != TypeCode::Float32 {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Float64 && spanner_type.code() != TypeCode::Float32 {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Float64,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -969,11 +975,11 @@ impl FromValue for f64 {
 }
 
 impl FromValue for f32 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Float32 && type_.code() != TypeCode::Float64 {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Float32 && spanner_type.code() != TypeCode::Float64 {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Float32,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -994,11 +1000,11 @@ impl FromValue for f32 {
 }
 
 impl FromValue for Vec<u8> {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Bytes && type_.code() != TypeCode::Proto {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Bytes && spanner_type.code() != TypeCode::Proto {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Bytes,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
         match &value.0.kind {
@@ -1018,14 +1024,14 @@ impl<T> FromValue for Vec<T>
 where
     T: FromValue,
 {
-    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Array {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Array {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Array,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
-        let element_type = type_
+        let element_type = spanner_type
             .array_element_type()
             .ok_or_else(|| ConvertError::message("Array type missing element type"))?;
 
@@ -1048,14 +1054,14 @@ where
         }
     }
 
-    fn from_owned_value(value: Value, type_: &Type) -> Result<Self, ConvertError> {
-        if type_.code() != TypeCode::Array {
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Array {
             return Err(ConvertError::TypeMismatch {
                 want: TypeCode::Array,
-                got: type_.code(),
+                got: spanner_type.code(),
             });
         }
-        let element_type = type_
+        let element_type = spanner_type
             .array_element_type()
             .ok_or_else(|| ConvertError::message("Array type missing element type"))?;
 
