@@ -248,7 +248,7 @@ async fn read_write_transaction_commit_ingests_cache_update_and_sends_route_to_l
 
     let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| async move {
             transaction.buffer(vec![
@@ -332,7 +332,7 @@ async fn read_write_transaction_batch_dml_ingests_cache_update() -> anyhow::Resu
 
     let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| async move {
             transaction
@@ -451,7 +451,6 @@ async fn partitioned_dml_ingests_cache_update() -> anyhow::Result<()> {
     let affected_rows = database_client
         .partitioned_dml_transaction()
         .build()
-        .await?
         .execute_update(Statement::from(
             "UPDATE Singers SET Active = true WHERE true",
         ))
@@ -3943,7 +3942,7 @@ async fn read_write_transaction_inline_begin_query_records_affinity_and_routes_c
     let router_clone = Arc::clone(router);
     let gateway_address_clone = gateway_address.clone();
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| {
             let router_clone = Arc::clone(&router_clone);
@@ -4048,7 +4047,7 @@ async fn read_write_transaction_inline_begin_read_records_affinity_and_routes_co
     let router_clone = Arc::clone(router);
     let gateway_address_clone = gateway_address.clone();
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| {
             let affinity_verified = Arc::clone(&affinity_verified);
@@ -4180,7 +4179,7 @@ async fn read_write_transaction_inline_begin_query_aborted_retries_and_updates_a
     let router_clone = Arc::clone(router);
     let gateway_address_clone = gateway_address.clone();
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| {
             let attempts = Arc::clone(&attempts_clone);

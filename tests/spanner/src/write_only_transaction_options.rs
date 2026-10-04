@@ -19,7 +19,7 @@ use google_cloud_spanner::model::request_options::Priority;
 use google_cloud_spanner::mutation::Mutation;
 use google_cloud_spanner::statement::Statement;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
-use google_cloud_wkt::Duration as WktDuration;
+use std::time::Duration;
 
 async fn run_write_only_options_test<F, Fut>(
     db_client: &DatabaseClient,
@@ -78,7 +78,7 @@ pub async fn write_only_commit_configurations(db_client: &DatabaseClient) -> any
         client
             .write_only_transaction()
             .set_commit_priority(Priority::Low)
-            .set_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
+            .set_max_commit_delay(Duration::from_millis(200))
             .set_exclude_txn_from_change_streams(true)
             .set_return_commit_stats(true)
             .build()
@@ -94,7 +94,7 @@ pub async fn write_only_at_least_once_commit_configurations(
         client
             .write_only_transaction()
             .set_commit_priority(Priority::Low)
-            .set_max_commit_delay(WktDuration::try_from("0.2s").expect("valid wkt duration"))
+            .set_max_commit_delay(Duration::from_millis(200))
             .set_exclude_txn_from_change_streams(true)
             .set_return_commit_stats(true)
             .build()

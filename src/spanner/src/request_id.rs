@@ -643,11 +643,7 @@ mod tests {
         let count = Arc::new(std::sync::atomic::AtomicUsize::new(0));
         let count_clone = Arc::clone(&count);
 
-        let runner = db_client
-            .read_write_transaction()
-            .build()
-            .await
-            .expect("runner build");
+        let runner = db_client.read_write_transaction().build();
 
         runner
             .run(async |tx| {

@@ -17,7 +17,7 @@ use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::statement::Statement;
 
 pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
-    let transaction = client.partitioned_dml_transaction().build().await?;
+    let transaction = client.partitioned_dml_transaction().build();
     let statement = Statement::builder("DELETE FROM Singers WHERE SingerId > 10").build();
 
     let row_count = transaction.execute_update(statement).await?;

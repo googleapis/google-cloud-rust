@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::error::RowError;
+use crate::query::query_handle::CachedData;
 use crate::query::{CompleteQuery, Row, Schema};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{GetQueryResultsRequest, JobReference};
@@ -61,12 +62,19 @@ impl RowIterator {
     pub(crate) fn new(q: CompleteQuery) -> Self {
         // DDL/DML queries have no schema.
         let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
+        let rows = match q.cached_data {
+            CachedData::Rows(rows) => rows,
+            // TODO(#7035): decode cached Arrow IPC streams into RecordBatches
+            CachedData::Arrow { .. } => {
+                unimplemented!("Arrow IPC decoding is not yet implemented (#7035)")
+            }
+        };
         Self {
             job_service: q.job_service,
             job_ref: q.job_ref,
             schema,
             page_token: q.page_token,
-            rows: q.cached_rows,
+            rows,
             page_size: q.page_size,
         }
     }

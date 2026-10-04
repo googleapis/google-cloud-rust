@@ -32,13 +32,42 @@ pub struct Row {
     pub(crate) metadata: ResultSetMetadata,
 }
 
-pub(crate) mod private {
-    /// A sealed trait to prevent external implementation of `ColumnIndex`.
-    pub trait Sealed {}
-    impl Sealed for usize {}
-    impl Sealed for &str {}
-    impl Sealed for String {}
-    impl<T: ?Sized + Sealed> Sealed for &T {}
+pub(crate) mod sealed {
+    use super::Row;
+
+    /// A sealed trait to prevent external implementation and hide internal
+    /// row indexing mechanics of [`super::ColumnIndex`].
+    pub trait ColumnIndex {
+        /// Returns the index of the column in the given row, if it exists.
+        fn index(&self, row: &Row) -> Option<usize>;
+    }
+
+    impl ColumnIndex for usize {
+        fn index(&self, _row: &Row) -> Option<usize> {
+            Some(*self)
+        }
+    }
+
+    impl ColumnIndex for &str {
+        fn index(&self, row: &Row) -> Option<usize> {
+            row.metadata
+                .column_names
+                .iter()
+                .position(|name| name == *self)
+        }
+    }
+
+    impl ColumnIndex for String {
+        fn index(&self, row: &Row) -> Option<usize> {
+            self.as_str().index(row)
+        }
+    }
+
+    impl<T: ?Sized + ColumnIndex> ColumnIndex for &T {
+        fn index(&self, row: &Row) -> Option<usize> {
+            (**self).index(row)
+        }
+    }
 }
 
 /// A trait for types that can be used to index into a [`Row`].
@@ -54,37 +83,12 @@ pub(crate) mod private {
 /// ```
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: private::Sealed + Debug + Display {
-    /// Returns the index of the column in the given row, if it exists.
-    fn index(&self, row: &Row) -> Option<usize>;
-}
+pub trait ColumnIndex: sealed::ColumnIndex + Debug + Display {}
 
-impl ColumnIndex for usize {
-    fn index(&self, _row: &Row) -> Option<usize> {
-        Some(*self)
-    }
-}
-
-impl ColumnIndex for &str {
-    fn index(&self, row: &Row) -> Option<usize> {
-        row.metadata
-            .column_names
-            .iter()
-            .position(|name| name == *self)
-    }
-}
-
-impl ColumnIndex for String {
-    fn index(&self, row: &Row) -> Option<usize> {
-        self.as_str().index(row)
-    }
-}
-
-impl<T: ?Sized + ColumnIndex> ColumnIndex for &T {
-    fn index(&self, row: &Row) -> Option<usize> {
-        (**self).index(row)
-    }
-}
+impl ColumnIndex for usize {}
+impl ColumnIndex for &str {}
+impl ColumnIndex for String {}
+impl<T: ?Sized + ColumnIndex> ColumnIndex for &T {}
 
 /// Errors that can occur when getting a value from a [`Row`].
 #[derive(thiserror::Error, Clone, Debug)]

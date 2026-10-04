@@ -270,7 +270,7 @@ impl MultiUseReadOnlyTransactionBuilder {
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn set_begin_option(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = db_client.read_only_transaction().with_begin_transaction_option(BeginTransactionOption::ExplicitBegin).build().await?;
+    /// let transaction = db_client.read_only_transaction().set_begin_transaction_option(BeginTransactionOption::ExplicitBegin).build().await?;
     /// let statement = Statement::builder("SELECT * FROM users").build();
     /// let result_set = transaction.execute_query(statement).await?;
     /// # Ok(())
@@ -292,7 +292,7 @@ impl MultiUseReadOnlyTransactionBuilder {
     ///    executing a `BeginTransaction` RPC and retry the first query.
     ///
     /// Default is `BeginTransactionOption::InlineBegin`.
-    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+    pub fn set_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
         self.begin_transaction_option = option;
         self
     }
@@ -1474,6 +1474,16 @@ pub(crate) mod tests {
         static_assertions::assert_impl_all!(MultiUseReadOnlyTransactionBuilder: Debug, Send, Sync);
         static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Debug, Send, Sync);
         static_assertions::assert_impl_all!(ReadContext: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(
+            BeginTransactionOption: Send,
+            Sync,
+            Clone,
+            Copy,
+            Debug,
+            Default,
+            PartialEq,
+            Eq
+        );
     }
 
     pub(crate) fn create_session_mock() -> MockSpanner {
@@ -1683,7 +1693,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build()
             .await
             .expect("Failed to start tx");
@@ -1770,7 +1780,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1902,7 +1912,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1992,7 +2002,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2051,7 +2061,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2095,7 +2105,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2167,7 +2177,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2287,7 +2297,7 @@ pub(crate) mod tests {
         let (database_client, _server) = setup_db_client(mock).await;
         let transaction = database_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2451,7 +2461,7 @@ pub(crate) mod tests {
         let (database_client, _server) = setup_db_client(mock).await;
         let transaction = database_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2595,7 +2605,7 @@ pub(crate) mod tests {
         let (database_client, _server) = setup_db_client(mock).await;
         let transaction = database_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2704,7 +2714,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2790,7 +2800,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -2923,7 +2933,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -3106,7 +3116,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -3220,7 +3230,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -3315,7 +3325,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -3387,7 +3397,7 @@ pub(crate) mod tests {
         // Access internal state for unit testing.
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -3458,7 +3468,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -3563,7 +3573,7 @@ pub(crate) mod tests {
         let tx = Arc::new(
             db_client
                 .read_only_transaction()
-                .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+                .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
                 .build()
                 .await?,
         );
@@ -3744,7 +3754,7 @@ pub(crate) mod tests {
 
         let transaction = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(option)
+            .set_begin_transaction_option(option)
             .build()
             .await
             .expect("Failed to start transaction");
@@ -3791,7 +3801,7 @@ pub(crate) mod tests {
 
         let res = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .with_begin_retry_policy(NeverRetry)
             .build()
             .await;
@@ -3832,7 +3842,7 @@ pub(crate) mod tests {
 
         let transaction = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_begin_retry_policy(NeverRetry)
             .build()
             .await?;
@@ -3891,7 +3901,7 @@ pub(crate) mod tests {
 
         let _transaction = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .with_begin_attempt_timeout(std::time::Duration::from_secs(5))
             .build()
             .await?;
@@ -4006,7 +4016,7 @@ pub(crate) mod tests {
 
         let transaction = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -4070,7 +4080,7 @@ pub(crate) mod tests {
 
         let transaction = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_begin_retry_policy(NeverRetry)
             .build()
             .await?;
@@ -4614,7 +4624,7 @@ pub(crate) mod tests {
 
         let transaction = database_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await
             .expect("Failed to build read only transaction");
@@ -4667,7 +4677,7 @@ pub(crate) mod tests {
         let (database_client, _server) = setup_db_client(mock).await;
         let transaction = database_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -4787,7 +4797,7 @@ pub(crate) mod tests {
         let (database_client, _server) = setup_db_client(mock).await;
         let transaction = database_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 

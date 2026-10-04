@@ -407,7 +407,7 @@ impl DatabaseClient {
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = db_client.partitioned_dml_transaction().build().await?;
+    /// let transaction = db_client.partitioned_dml_transaction().build();
     /// let statement = Statement::builder("UPDATE users SET active = true WHERE TRUE").build();
     /// let modified_rows = transaction.execute_update(statement).await?;
     /// # Ok(())
@@ -431,7 +431,7 @@ impl DatabaseClient {
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let runner = db_client.read_write_transaction().build();
     /// let result = runner.run(async |transaction| {
     ///     let statement = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
     ///     transaction.execute_update(statement).await?;
