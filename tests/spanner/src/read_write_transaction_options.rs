@@ -52,8 +52,7 @@ pub async fn runner_commit_configurations(db_client: &DatabaseClient) -> anyhow:
         .set_max_commit_delay(Duration::from_millis(200))
         .set_exclude_txn_from_change_streams(true)
         .set_return_commit_stats(true)
-        .build()
-        .await?;
+        .build();
 
     let result = runner
         .run(async |transaction| {
@@ -94,7 +93,7 @@ pub async fn client_routing_success(_db_client: &DatabaseClient) -> anyhow::Resu
         .await?;
 
     let id = format!("adv-routing-{}", LowercaseAlphanumeric.random_string(10));
-    let runner = custom_client.read_write_transaction().build().await?;
+    let runner = custom_client.read_write_transaction().build();
 
     runner
         .run(async |transaction| {
@@ -168,8 +167,7 @@ pub async fn timeout_exceeded_transaction_abort(db_client: &DatabaseClient) -> a
     let runner = db_client
         .read_write_transaction()
         .with_transaction_timeout(Duration::from_millis(2))
-        .build()
-        .await?;
+        .build();
 
     let result: SpannerResult<()> = runner
         .run(async |transaction| {

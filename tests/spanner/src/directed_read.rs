@@ -53,7 +53,7 @@ pub async fn read_write_with_directed_read_error(db_client: &DatabaseClient) -> 
         .build();
 
     // Read-write transaction runner
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
 
     let result: google_cloud_spanner::Result<()> = runner
         .run(async |tx| {

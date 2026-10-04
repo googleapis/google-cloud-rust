@@ -39,8 +39,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("success-tag")
-        .build()
-        .await?;
+        .build();
     runner
         .run(async |transaction| {
             let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
@@ -106,8 +105,7 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("rollback-tag")
-        .build()
-        .await?;
+        .build();
     let res: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
             let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
@@ -205,9 +203,7 @@ pub async fn concurrent_read_write_transaction_retries(
             let runner = client
                 .read_write_transaction()
                 .set_transaction_tag("concurrent-tag")
-                .build()
-                .await
-                .expect("Failed to build transaction runner");
+                .build();
 
             let res: Result<(), google_cloud_spanner::Error> = runner
                 .run(async move |transaction| {
@@ -301,8 +297,7 @@ pub async fn read_write_transaction_with_mutations(
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("mutations-tag")
-        .build()
-        .await?;
+        .build();
     runner
         .run(async |transaction| {
             // Execute select query to start transaction
@@ -368,8 +363,7 @@ pub async fn read_write_transaction_mutation_only(
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("only-mutations-tag")
-        .build()
-        .await?;
+        .build();
     runner
         .run(async |transaction| {
             transaction.buffer([mutation.clone()])?;
@@ -428,8 +422,7 @@ pub async fn read_write_transaction_multiple_queries_and_dml(
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("multi-query-tag")
-        .build()
-        .await?;
+        .build();
     runner
         .run(async |transaction| {
             // First query
@@ -519,8 +512,7 @@ pub async fn consecutive_reads(db_client: &DatabaseClient) -> anyhow::Result<()>
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("consecutive-reads-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -607,8 +599,7 @@ pub async fn mixed_reads_and_queries(db_client: &DatabaseClient) -> anyhow::Resu
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("mixed-operations-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -694,8 +685,7 @@ pub async fn multiple_execute_updates(db_client: &DatabaseClient) -> anyhow::Res
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("multiple-updates-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -766,8 +756,7 @@ pub async fn read_your_writes_consistency(db_client: &DatabaseClient) -> anyhow:
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("read-your-writes-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -831,8 +820,7 @@ pub async fn buffered_mutation_interleaving(db_client: &DatabaseClient) -> anyho
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("buffered-interleaving-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -877,8 +865,7 @@ pub async fn initial_statement_failure_handling(db_client: &DatabaseClient) -> a
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("initial-fail-tag")
-        .build()
-        .await?;
+        .build();
 
     let result: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
@@ -928,8 +915,7 @@ pub async fn intermediate_statement_constraint_error(
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("constraint-error-tag")
-        .build()
-        .await?;
+        .build();
 
     let result: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
@@ -980,8 +966,7 @@ pub async fn buffered_mutation_commit_rejection(db_client: &DatabaseClient) -> a
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("commit-rejection-tag")
-        .build()
-        .await?;
+        .build();
 
     let result: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
@@ -1031,8 +1016,7 @@ pub async fn application_error_explicit_rollback(db_client: &DatabaseClient) -> 
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("explicit-rollback-tag")
-        .build()
-        .await?;
+        .build();
 
     let result: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
@@ -1101,8 +1085,7 @@ pub async fn continue_after_initial_query_error(db_client: &DatabaseClient) -> a
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("continue-after-err-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -1159,8 +1142,7 @@ pub async fn continue_after_initial_dml_error(db_client: &DatabaseClient) -> any
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("continue-after-dml-err-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -1224,7 +1206,7 @@ pub async fn read_write_transaction_last_statement(
         .write(vec![mutation])
         .await?;
 
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     runner
         .run(async |transaction| {
             let update_statement =
@@ -1261,8 +1243,7 @@ pub async fn continue_after_initial_batch_dml_error(
     let runner = db_client
         .read_write_transaction()
         .set_transaction_tag("continue-after-bdml-err-tag")
-        .build()
-        .await?;
+        .build();
 
     runner
         .run(async |transaction| {
@@ -1328,7 +1309,7 @@ pub async fn read_write_transaction_batch_last_statements(
         .write(vec![mutation])
         .await?;
 
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     runner
         .run(async |transaction| {
             let stmt = Statement::builder("UPDATE AllTypes SET ColInt64 = 300 WHERE Id = @id")

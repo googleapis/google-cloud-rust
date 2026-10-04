@@ -1341,10 +1341,7 @@ async fn partitioned_dml_pins_begin_and_execute_and_releases() -> Result<()> {
 
     let (database_client, spanner, _server) = setup_client_with_static_pool(mock, 4).await;
 
-    let transaction = database_client
-        .partitioned_dml_transaction()
-        .build()
-        .await?;
+    let transaction = database_client.partitioned_dml_transaction().build();
 
     let modified = transaction
         .execute_update("UPDATE Users SET active = true WHERE true")
