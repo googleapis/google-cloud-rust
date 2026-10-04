@@ -158,7 +158,6 @@ impl FromValue for Value {
 /// | `StringValue` (+ `TypeCode::Json`) | Parsed JSON object/array/value |
 /// | `ListValue` + `TypeCode::Struct` | JSON object (positional → named via metadata) |
 /// | `ListValue` + `TypeCode::Array` | JSON array |
-/// | `StructValue` (named wire format) | JSON object |
 ///
 /// # Known limitations
 ///
@@ -225,7 +224,10 @@ fn from_value_recursive(
 
         Some(prost_types::value::Kind::BoolValue(b)) => Ok(JsonValue::Bool(*b)),
 
-        Some(prost_types::value::Kind::StructValue(s)) => struct_value_to_json(s, type_, depth + 1),
+        Some(prost_types::value::Kind::StructValue(_)) => Err(ConvertError::Convert(
+            "unexpected protobuf StructValue on wire; Spanner SQL STRUCTs are encoded as ListValue"
+                .into(),
+        )),
 
         Some(prost_types::value::Kind::ListValue(list)) => {
             list_value_to_json(list, type_, depth + 1)
@@ -233,34 +235,6 @@ fn from_value_recursive(
 
         None => Ok(JsonValue::Null),
     }
-}
-
-fn struct_value_to_json(
-    s: &prost_types::Struct,
-    type_: Option<&Type>,
-    depth: usize,
-) -> Result<JsonValue, ConvertError> {
-    let s = crate::value::Struct::from_ref(s);
-    let mut map = serde_json::Map::new();
-
-    let Some(struct_type) = type_.and_then(|t| t.struct_type()) else {
-        for (k, v) in s.fields() {
-            map.insert(k.to_string(), from_value_recursive(v, None, depth)?);
-        }
-        return Ok(JsonValue::Object(map));
-    };
-
-    for field in &struct_type.fields {
-        let field_type = field.r#type.as_deref().map(Type::from_ref);
-        let value = if let Some(v) = s.get(&field.name) {
-            from_value_recursive(v, field_type, depth)?
-        } else {
-            JsonValue::Null
-        };
-        map.insert(field.name.clone(), value);
-    }
-
-    Ok(JsonValue::Object(map))
 }
 
 fn list_value_to_json(
@@ -1089,14 +1063,9 @@ mod tests {
             .expect_err("expected cannot convert value for i64");
         assert!(format!("{}", err).contains("cannot convert value"));
 
-        let v_struct = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(
-                prost_types::Struct::default(),
-            )),
-        });
-        let err = i64::from_value(&v_struct, &types::int64())
+        let err = i64::from_value(&v_bool, &types::int64())
             .expect_err("expected non-string kind mismatch for i64");
-        assert!(format!("{}", err).contains("expected String, got Struct"));
+        assert!(format!("{}", err).contains("expected String, got Bool"));
 
         let err = f64::from_value(&v_bool, &types::float64())
             .expect_err("expected non-number kind mismatch for f64");
@@ -1355,80 +1324,18 @@ mod tests {
     }
 
     #[test]
-    fn test_from_value_json_named_struct() {
-        // Type: STRUCT<name STRING>
-        let struct_type_mdl =
-            mdl::Type {
-                code: mdl::TypeCode::Struct,
-                struct_type: Some(Box::new(mdl::StructType {
-                    fields: vec![mdl::struct_type::Field::new().set_name("name").set_type(
-                        mdl::Type {
-                            code: mdl::TypeCode::String,
-                            ..Default::default()
-                        },
-                    )],
-                    _unknown_fields: Default::default(),
-                })),
-                ..Default::default()
-            };
-        let spanner_type = Type(struct_type_mdl);
-
-        // Wire: named StructValue (rare but valid)
-        let mut s = prost_types::Struct::default();
-        s.fields.insert(
-            "name".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::StringValue("Alice".to_string())),
-            },
-        );
-        let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(s)),
+    fn test_from_value_json_unexpected_struct_value_errors() {
+        let spanner_value = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::StructValue(
+                prost_types::Struct::default(),
+            )),
         });
-
-        let j = JsonValue::from_value(&v, &spanner_type).unwrap();
-        assert_eq!(j, serde_json::json!({"name": "Alice"}));
-    }
-
-    #[test]
-    fn test_from_value_json_named_struct_missing_fields_become_null() {
-        // Type declares 2 fields but wire StructValue only has 1
-        let struct_type_mdl = mdl::Type {
-            code: mdl::TypeCode::Struct,
-            struct_type: Some(Box::new(mdl::StructType {
-                fields: vec![
-                    mdl::struct_type::Field::new()
-                        .set_name("present")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::String,
-                            ..Default::default()
-                        }),
-                    mdl::struct_type::Field::new()
-                        .set_name("absent")
-                        .set_type(mdl::Type {
-                            code: mdl::TypeCode::Int64,
-                            ..Default::default()
-                        }),
-                ],
-                _unknown_fields: Default::default(),
-            })),
-            ..Default::default()
-        };
-        let spanner_type = Type(struct_type_mdl);
-
-        // Wire: named StructValue with only "present" field
-        let mut s = prost_types::Struct::default();
-        s.fields.insert(
-            "present".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::StringValue("here".to_string())),
-            },
+        let expected_error = JsonValue::from_value(&spanner_value, &Type::default())
+            .expect_err("StructValue must produce error in JsonValue::from_value");
+        assert!(
+            format!("{expected_error}").contains("unexpected protobuf StructValue"),
+            "error message should mention unexpected protobuf StructValue, got: {expected_error}"
         );
-        let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(s)),
-        });
-
-        let j = JsonValue::from_value(&v, &spanner_type).unwrap();
-        assert_eq!(j, serde_json::json!({"present": "here", "absent": null}));
     }
 
     #[test]
@@ -1714,25 +1621,6 @@ mod tests {
         assert_eq!(res.len(), 2);
         assert_eq!(res[0], JsonValue::String("one".to_string()));
         assert_eq!(res[1], JsonValue::String("two".to_string()));
-    }
-
-    #[test]
-    fn test_from_value_json_struct_without_metadata() {
-        // StructValue wire format without type metadata — preserves raw field names
-        let mut s = prost_types::Struct::default();
-        s.fields.insert(
-            "raw_field".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::BoolValue(true)),
-            },
-        );
-        let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(s)),
-        });
-
-        // Pass default type (no struct_type metadata)
-        let j = JsonValue::from_value(&v, &Type::default()).unwrap();
-        assert_eq!(j, serde_json::json!({"raw_field": true}));
     }
 
     #[test]

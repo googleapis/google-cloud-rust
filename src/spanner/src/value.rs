@@ -25,17 +25,19 @@ pub use google_cloud_type::model::Date;
 pub use wkt::{Duration, Timestamp};
 
 use prost_types::value::Kind as ProtoKind;
-use prost_types::{ListValue as ProtoListValue, Struct as ProtoStruct, Value as ProtoValue};
+use prost_types::{ListValue as ProtoListValue, Value as ProtoValue};
 use serde_json::Number as JsonNumber;
 use serde_json::Value as JsonValue;
-use std::collections::BTreeMap;
 
-/// Kind indicates the type of the value.
+/// Kind indicates the data type of a [`Value`].
 ///
-/// This enum maps 1-to-1 with the frozen specification of JSON/Protobuf types
-/// in `google.protobuf.Value`, and is guaranteed not to grow.
+/// This enum corresponds to the possible variants of a Spanner value.
+/// Spanner SQL `STRUCT`s and `ARRAY`s are represented as [`Kind::List`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-#[allow(clippy::exhaustive_enums, reason = "Value kinds are frozen JSON types")]
+#[allow(
+    clippy::exhaustive_enums,
+    reason = "Value kinds are frozen Spanner types"
+)]
 pub enum Kind {
     /// Represents a null value of any data type.
     Null,
@@ -46,9 +48,10 @@ pub enum Kind {
     String,
     /// Represents a boolean value.
     Bool,
-    /// Represents a structured object containing a collection of key-value pairs.
-    Struct,
     /// Represents an ordered list of values.
+    ///
+    /// Spanner query results and parameters encode SQL `STRUCT`s and `ARRAY`s
+    /// as positional lists.
     List,
 }
 
@@ -82,9 +85,11 @@ impl Value {
             Some(ProtoKind::NumberValue(_)) => Kind::Number,
             Some(ProtoKind::StringValue(_)) => Kind::String,
             Some(ProtoKind::BoolValue(_)) => Kind::Bool,
-            Some(ProtoKind::StructValue(_)) => Kind::Struct,
             Some(ProtoKind::ListValue(_)) => Kind::List,
-            None => Kind::Null,
+            // Spanner never returns or accepts protobuf StructValue on the wire;
+            // SQL STRUCT values are represented as Kind::List. Any unexpected kind
+            // or missing kind defaults to Kind::Null.
+            _ => Kind::Null,
         }
     }
 
@@ -102,7 +107,7 @@ impl Value {
     /// assert!(!not_null.is_null());
     /// ```
     pub fn is_null(&self) -> bool {
-        matches!(self.0.kind, Some(ProtoKind::NullValue(_)) | None)
+        self.kind() == Kind::Null
     }
 
     /// Returns the underlying string slice if the value is a string, or `None` otherwise.
@@ -212,43 +217,6 @@ impl Value {
         self.as_f64()
     }
 
-    /// Returns a reference to the underlying [`Struct`] if the value is a struct, or `None` otherwise.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use google_cloud_spanner::value::Value;
-    ///
-    /// let value = Value::null();
-    /// assert_eq!(value.as_struct(), None);
-    /// ```
-    ///
-    /// # Spanner SQL STRUCT Representation
-    ///
-    /// In Cloud Spanner query results, SQL `STRUCT` values are transmitted by the
-    /// backend using positional list encoding ([`Kind::List`]), not [`Kind::Struct`].
-    /// Therefore, calling `as_struct()` on a SQL `STRUCT` column in a query result row
-    /// will return `None`.
-    ///
-    /// To decode SQL `STRUCT` columns from a row, use [`Row::try_get`](crate::row::Row::try_get)
-    /// or [`FromValue`], which properly inspect schema metadata.
-    pub fn as_struct(&self) -> Option<&Struct> {
-        match &self.0.kind {
-            Some(ProtoKind::StructValue(struct_value)) => Some(Struct::from_ref(struct_value)),
-            _ => None,
-        }
-    }
-
-    /// Returns the underlying struct value as a map of Values if the kind is Struct.
-    ///
-    /// # Deprecation
-    ///
-    /// Use [`as_struct`](Value::as_struct) instead.
-    #[deprecated(note = "use `as_struct` instead")]
-    pub fn try_as_struct(&self) -> Option<&Struct> {
-        self.as_struct()
-    }
-
     /// Returns a reference to the underlying [`List`] if the value is a list, or `None` otherwise.
     ///
     /// # Example
@@ -262,6 +230,12 @@ impl Value {
     /// let null_value = Value::null();
     /// assert_eq!(null_value.as_list(), None);
     /// ```
+    ///
+    /// # Spanner SQL STRUCT Representation
+    ///
+    /// Spanner transmits SQL `STRUCT` values on the wire as positional
+    /// [`List`]s accompanied by schema metadata. Both `ARRAY` and `STRUCT` columns
+    /// can be inspected via this method.
     pub fn as_list(&self) -> Option<&List> {
         match &self.0.kind {
             Some(ProtoKind::ListValue(list_value)) => Some(List::from_ref(list_value)),
@@ -299,33 +273,6 @@ impl Value {
         }
     }
 
-    /// Consumes the value and returns the underlying [`Struct`] if the value is a struct, or `None` otherwise.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use google_cloud_spanner::value::Value;
-    ///
-    /// let value = Value::null();
-    /// assert_eq!(value.into_struct(), None);
-    /// ```
-    ///
-    /// # Spanner SQL STRUCT Representation
-    ///
-    /// In Cloud Spanner query results, SQL `STRUCT` values are transmitted by the
-    /// backend using positional list encoding ([`Kind::List`]), not [`Kind::Struct`].
-    /// Therefore, calling `into_struct()` on a SQL `STRUCT` column in a query result row
-    /// will return `None`.
-    ///
-    /// To decode SQL `STRUCT` columns from a row, use [`Row::try_get`](crate::row::Row::try_get)
-    /// or [`FromValue`], which properly inspect schema metadata.
-    pub fn into_struct(self) -> Option<Struct> {
-        match self.0.kind {
-            Some(ProtoKind::StructValue(struct_value)) => Some(Struct(struct_value)),
-            _ => None,
-        }
-    }
-
     /// Consumes the value and returns the underlying [`List`] if the value is a list, or `None` otherwise.
     ///
     /// # Example
@@ -339,6 +286,12 @@ impl Value {
     /// let null_value = Value::null();
     /// assert_eq!(null_value.into_list(), None);
     /// ```
+    ///
+    /// # Spanner SQL STRUCT Representation
+    ///
+    /// Spanner transmits SQL `STRUCT` values on the wire as positional
+    /// [`List`]s accompanied by schema metadata. Both `ARRAY` and `STRUCT` columns
+    /// can be extracted via this method.
     pub fn into_list(self) -> Option<List> {
         match self.0.kind {
             Some(ProtoKind::ListValue(list_value)) => Some(List(list_value)),
@@ -367,91 +320,17 @@ impl Value {
             }
             Some(ProtoKind::StringValue(string_value)) => JsonValue::String(string_value),
             Some(ProtoKind::BoolValue(bool_value)) => JsonValue::Bool(bool_value),
-            Some(ProtoKind::StructValue(structure)) => JsonValue::Object(
-                structure
-                    .fields
-                    .into_iter()
-                    .map(|(key, value)| (key, Value(value).into_serde_value()))
-                    .collect(),
-            ),
             Some(ProtoKind::ListValue(list)) => JsonValue::Array(
                 list.values
                     .into_iter()
                     .map(|value| Value(value).into_serde_value())
                     .collect(),
             ),
-            None => JsonValue::Null,
+            // Spanner never returns or accepts protobuf StructValue on the wire;
+            // SQL STRUCT values are encoded as ListValue. Any unexpected kind
+            // or missing kind is treated as Null.
+            _ => JsonValue::Null,
         }
-    }
-}
-
-/// A lightweight wrapper around a protobuf Struct.
-#[repr(transparent)]
-#[derive(Clone, Debug, PartialEq, Default)]
-pub struct Struct(pub(crate) ProtoStruct);
-
-impl Struct {
-    /// Safely reinterprets a reference to the inner protobuf struct as a reference to Struct.
-    pub(crate) fn from_ref(proto_struct: &ProtoStruct) -> &Self {
-        // Safety: Struct is #[repr(transparent)] wrapper around ProtoStruct.
-        unsafe { &*(proto_struct as *const ProtoStruct as *const Struct) }
-    }
-
-    /// Returns the value for the given key, or `None` if the key is not present.
-    pub fn get(&self, key: &str) -> Option<&Value> {
-        self.0.fields.get(key).map(Value::from_ref)
-    }
-
-    /// Returns the number of fields in the struct.
-    pub fn len(&self) -> usize {
-        self.0.fields.len()
-    }
-
-    /// Returns `true` if the struct has no fields.
-    pub fn is_empty(&self) -> bool {
-        self.0.fields.is_empty()
-    }
-
-    /// Returns an iterator over the fields of the struct.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use google_cloud_spanner::value::Value;
-    ///
-    /// let value = Value::null();
-    /// if let Some(structure) = value.as_struct() {
-    ///     for (name, val) in structure.fields() {
-    ///         println!("{name}: {val:?}");
-    ///     }
-    /// }
-    /// ```
-    pub fn fields(&self) -> impl Iterator<Item = (&str, &Value)> {
-        self.0
-            .fields
-            .iter()
-            .map(|(key, value)| (key.as_str(), Value::from_ref(value)))
-    }
-
-    /// Consumes the struct and returns its fields as a map of [`Value`]s.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use google_cloud_spanner::value::Value;
-    ///
-    /// let value = Value::null();
-    /// if let Some(structure) = value.into_struct() {
-    ///     let fields = structure.into_fields();
-    ///     assert!(fields.is_empty());
-    /// }
-    /// ```
-    pub fn into_fields(self) -> BTreeMap<String, Value> {
-        self.0
-            .fields
-            .into_iter()
-            .map(|(key, value)| (key, Value(value)))
-            .collect()
     }
 }
 
@@ -521,9 +400,7 @@ impl List {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use serde_json::Map as JsonMap;
     use serde_json::Value as JsonValue;
-    use std::collections::BTreeMap;
     use std::fmt::Debug;
     use std::hash::Hash;
 
@@ -603,28 +480,6 @@ mod tests {
             Value::from(true).into_serde_value(),
             JsonValue::Bool(true),
             "BoolValue must serialize as JsonValue::Bool"
-        );
-
-        // StructValue
-        let mut fields = BTreeMap::new();
-        fields.insert(
-            "field_name".to_string(),
-            ProtoValue {
-                kind: Some(ProtoKind::StringValue("field_value".to_string())),
-            },
-        );
-        let struct_value = Value(ProtoValue {
-            kind: Some(ProtoKind::StructValue(ProtoStruct { fields })),
-        });
-        let mut expected_map = JsonMap::new();
-        expected_map.insert(
-            "field_name".to_string(),
-            JsonValue::String("field_value".to_string()),
-        );
-        assert_eq!(
-            struct_value.into_serde_value(),
-            JsonValue::Object(expected_map),
-            "StructValue must serialize as JsonValue::Object"
         );
 
         // None
@@ -709,7 +564,6 @@ mod tests {
         assert_eq!(null_value.as_str(), None);
         assert_eq!(null_value.as_bool(), None);
         assert_eq!(null_value.as_f64(), None);
-        assert_eq!(null_value.as_struct(), None);
         assert_eq!(null_value.as_list(), None);
 
         let string_value = Value(ProtoValue {
@@ -720,7 +574,6 @@ mod tests {
         assert_eq!(string_value.as_str(), Some("foo"));
         assert_eq!(string_value.as_bool(), None);
         assert_eq!(string_value.as_f64(), None);
-        assert_eq!(string_value.as_struct(), None);
         assert_eq!(string_value.as_list(), None);
 
         let bool_value = Value(ProtoValue {
@@ -731,7 +584,6 @@ mod tests {
         assert_eq!(bool_value.as_bool(), Some(true));
         assert_eq!(bool_value.as_str(), None);
         assert_eq!(bool_value.as_f64(), None);
-        assert_eq!(bool_value.as_struct(), None);
         assert_eq!(bool_value.as_list(), None);
 
         let number_value = Value(ProtoValue {
@@ -742,7 +594,6 @@ mod tests {
         assert_eq!(number_value.as_f64(), Some(42.0));
         assert_eq!(number_value.as_str(), None);
         assert_eq!(number_value.as_bool(), None);
-        assert_eq!(number_value.as_struct(), None);
         assert_eq!(number_value.as_list(), None);
 
         let list_value = Value(ProtoValue {
@@ -757,34 +608,10 @@ mod tests {
         assert_eq!(list_value.as_str(), None);
         assert_eq!(list_value.as_bool(), None);
         assert_eq!(list_value.as_f64(), None);
-        assert_eq!(list_value.as_struct(), None);
         let list = list_value.as_list().expect("list must be Some");
         assert_eq!(list.len(), 1);
         assert_eq!(
             list.get(0).expect("element 0 must exist").as_f64(),
-            Some(1.0)
-        );
-
-        let struct_value = Value(ProtoValue {
-            kind: Some(ProtoKind::StructValue(ProtoStruct {
-                fields: BTreeMap::from([(
-                    "a".to_string(),
-                    ProtoValue {
-                        kind: Some(ProtoKind::NumberValue(1.0)),
-                    },
-                )]),
-            })),
-        });
-        assert_eq!(struct_value.kind(), Kind::Struct);
-        assert!(!struct_value.is_null());
-        assert_eq!(struct_value.as_str(), None);
-        assert_eq!(struct_value.as_bool(), None);
-        assert_eq!(struct_value.as_f64(), None);
-        assert_eq!(struct_value.as_list(), None);
-        let map = struct_value.as_struct().expect("struct must be Some");
-        assert_eq!(map.len(), 1);
-        assert_eq!(
-            map.get("a").expect("field 'a' must exist").as_f64(),
             Some(1.0)
         );
     }
@@ -802,6 +629,20 @@ mod tests {
         assert!(!Value::from("hello").is_null());
         assert!(!Value::from(true).is_null());
         assert!(!Value::from(42.5).is_null());
+        assert!(!Value::from(vec![1i64]).is_null());
+
+        let unexpected_kind = Value(ProtoValue {
+            kind: Some(ProtoKind::StructValue(Default::default())),
+        });
+        assert_eq!(
+            unexpected_kind.kind(),
+            Kind::Null,
+            "unexpected proto kind must report Kind::Null"
+        );
+        assert!(
+            unexpected_kind.is_null(),
+            "unexpected proto kind must report is_null == true"
+        );
     }
 
     #[test]
@@ -827,17 +668,11 @@ mod tests {
             kind: Some(ProtoKind::ListValue(ProtoListValue::default())),
         });
         assert_eq!(list_value.try_as_list(), list_value.as_list());
-
-        let struct_value = Value(ProtoValue {
-            kind: Some(ProtoKind::StructValue(ProtoStruct::default())),
-        });
-        assert_eq!(struct_value.try_as_struct(), struct_value.as_struct());
     }
 
     #[test]
     fn auto_traits() {
         static_assertions::assert_impl_all!(Value: Send, Sync, Clone, Debug, Default);
-        static_assertions::assert_impl_all!(Struct: Send, Sync, Clone, Debug, Default);
         static_assertions::assert_impl_all!(List: Send, Sync, Clone, Debug, Default);
         static_assertions::assert_impl_all!(
             Kind: Send,
@@ -907,19 +742,6 @@ mod tests {
             Kind::List,
             "list value kind must be Kind::List"
         );
-
-        let struct_value = Value(ProtoValue {
-            kind: Some(ProtoKind::StructValue(ProtoStruct::default())),
-        });
-        assert!(
-            !struct_value.is_null(),
-            "struct value must not report is_null == true"
-        );
-        assert_eq!(
-            struct_value.kind(),
-            Kind::Struct,
-            "struct value kind must be Kind::Struct"
-        );
     }
 
     #[test]
@@ -938,11 +760,6 @@ mod tests {
             "number into_string must return None"
         );
         assert_eq!(
-            number_value.clone().into_struct(),
-            None,
-            "number into_struct must return None"
-        );
-        assert_eq!(
             number_value.into_list(),
             None,
             "number into_list must return None"
@@ -951,103 +768,6 @@ mod tests {
         let list_value = Value::from(vec![1i64, 2i64]);
         let list = list_value.into_list().expect("list should exist");
         assert_eq!(list.len(), 2, "extracted list should have 2 elements");
-
-        let struct_value = Value(ProtoValue {
-            kind: Some(ProtoKind::StructValue(ProtoStruct {
-                fields: BTreeMap::from([(
-                    "key".to_string(),
-                    ProtoValue {
-                        kind: Some(ProtoKind::StringValue("val".to_string())),
-                    },
-                )]),
-            })),
-        });
-        let structure = struct_value.into_struct().expect("struct should exist");
-        assert_eq!(structure.len(), 1, "extracted struct should have 1 element");
-        assert!(
-            structure.get("key").is_some(),
-            "extracted struct must contain 'key'"
-        );
-    }
-
-    #[test]
-    fn struct_fields_and_into_fields() {
-        let mut fields = BTreeMap::new();
-        fields.insert(
-            "name".to_string(),
-            ProtoValue {
-                kind: Some(ProtoKind::StringValue("Alice".to_string())),
-            },
-        );
-        fields.insert(
-            "age".to_string(),
-            ProtoValue {
-                kind: Some(ProtoKind::NumberValue(30.0)),
-            },
-        );
-        let structure = Struct(ProtoStruct { fields });
-
-        assert_eq!(structure.len(), 2, "struct len must be 2");
-        assert!(!structure.is_empty(), "struct must not be empty");
-        assert_eq!(
-            structure.get("name").and_then(|val| val.as_str()),
-            Some("Alice"),
-            "field 'name' should match"
-        );
-        assert_eq!(
-            structure.get("age").and_then(|val| val.as_f64()),
-            Some(30.0),
-            "field 'age' should match"
-        );
-        assert_eq!(
-            structure.get("missing"),
-            None,
-            "missing field must return None"
-        );
-
-        // Verify fields iterator yields (&str, &Value)
-        let entries: Vec<(&str, &Value)> = structure.fields().collect();
-        assert_eq!(entries.len(), 2, "entries length should match 2");
-        assert_eq!(entries[0].0, "age", "first field key should be 'age'");
-        assert_eq!(
-            entries[0].1.as_f64(),
-            Some(30.0),
-            "first field value should be 30.0"
-        );
-        assert_eq!(entries[1].0, "name", "second field key should be 'name'");
-        assert_eq!(
-            entries[1].1.as_str(),
-            Some("Alice"),
-            "second field value should be 'Alice'"
-        );
-
-        // Verify into_fields()
-        let extracted_fields = structure.into_fields();
-        assert_eq!(
-            extracted_fields.len(),
-            2,
-            "into_fields() must return 2 entries"
-        );
-        assert_eq!(
-            extracted_fields.get("name").and_then(|val| val.as_str()),
-            Some("Alice"),
-            "extracted field 'name' must match"
-        );
-
-        // Verify empty Struct behavior
-        let empty_struct = Struct::default();
-        assert!(empty_struct.is_empty(), "default struct must be empty");
-        assert_eq!(empty_struct.len(), 0, "default struct len must be 0");
-        assert_eq!(
-            empty_struct.fields().count(),
-            0,
-            "empty fields count must be 0"
-        );
-        assert_eq!(
-            empty_struct.into_fields().len(),
-            0,
-            "empty into_fields len must be 0"
-        );
     }
 
     #[test]
