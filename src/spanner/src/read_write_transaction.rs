@@ -61,7 +61,6 @@ use std::sync::Arc;
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicI64, Ordering};
 use std::time::Duration;
-use std::time::Duration as StdDuration;
 use tokio::time::Instant;
 
 /// A builder for [ReadWriteTransaction].
@@ -816,7 +815,7 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
         self.inner.on_throttle(state, error)
     }
 
-    fn remaining_time(&self, state: &RetryState) -> Option<StdDuration> {
+    fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
         let remaining = self.deadline.saturating_duration_since(Instant::now());
         let attempt_timeout = self
             .inner

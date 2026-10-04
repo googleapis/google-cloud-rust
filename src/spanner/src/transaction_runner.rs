@@ -29,7 +29,6 @@ use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::sync::Arc;
 
 use std::time::Duration;
-use std::time::Duration as StdDuration;
 use tokio::time::Instant;
 use wkt::Timestamp;
 
@@ -58,7 +57,7 @@ use wkt::Timestamp;
 pub struct TransactionRunnerBuilder {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
-    timeout: Option<StdDuration>,
+    timeout: Option<Duration>,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
 }
@@ -94,7 +93,7 @@ impl TransactionRunnerBuilder {
     /// all statements and automatic retries. Each individual RPC within the transaction
     /// is automatically assigned a deadline derived from the remaining time of this
     /// overall timeout.
-    pub fn with_transaction_timeout(mut self, timeout: StdDuration) -> Self {
+    pub fn with_transaction_timeout(mut self, timeout: Duration) -> Self {
         self.timeout = Some(timeout);
         self
     }
@@ -116,7 +115,7 @@ impl TransactionRunnerBuilder {
     /// ```
     ///
     /// Note: This timeout is only used if the transaction uses the `ExplicitBegin` transaction option.
-    pub fn with_begin_attempt_timeout(mut self, timeout: StdDuration) -> Self {
+    pub fn with_begin_attempt_timeout(mut self, timeout: Duration) -> Self {
         self.begin_gax_options
             .get_or_insert_with(crate::RequestOptions::default)
             .set_attempt_timeout(timeout);
@@ -186,7 +185,7 @@ impl TransactionRunnerBuilder {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_commit_attempt_timeout(mut self, timeout: StdDuration) -> Self {
+    pub fn with_commit_attempt_timeout(mut self, timeout: Duration) -> Self {
         self.commit_gax_options
             .get_or_insert_with(crate::RequestOptions::default)
             .set_attempt_timeout(timeout);
@@ -580,7 +579,7 @@ impl<T> TransactionResult<T> {
 pub struct TransactionRunner {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
-    timeout: Option<StdDuration>,
+    timeout: Option<Duration>,
 }
 
 impl TransactionRunner {
