@@ -907,7 +907,7 @@ async fn unary_execute_batch_dml_happy_path_records_all_metrics() -> anyhow::Res
 
     let runner = database_client
         .read_write_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build();
 
     let batch = BatchDml::builder()
@@ -1502,7 +1502,7 @@ async fn unary_commit_hard_error_and_explicit_rollback_records_metrics() -> anyh
 
     let runner = database_client
         .read_write_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build();
 
     let _ = runner

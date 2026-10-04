@@ -2613,7 +2613,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -2691,7 +2691,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut mock_backoff = MockBackoffPolicy::new();
@@ -2784,7 +2784,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut mock_backoff = MockBackoffPolicy::new();
@@ -2857,7 +2857,7 @@ pub(crate) mod tests {
         // Use explicitly deferred Lazy begin transaction!
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let err = tx
@@ -3042,7 +3042,7 @@ pub(crate) mod tests {
         // Use inline begin transaction
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 

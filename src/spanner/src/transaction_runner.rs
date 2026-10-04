@@ -305,7 +305,7 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+    ///     .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
     ///     .build();
     /// # Ok(())
     /// # }
@@ -327,8 +327,8 @@ impl TransactionRunnerBuilder {
     ///    the closure using an explicit `BeginTransaction` RPC.
     ///
     /// Default is `BeginTransactionOption::InlineBegin`.
-    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
-        self.builder = self.builder.with_begin_transaction_option(option);
+    pub fn set_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+        self.builder = self.builder.set_begin_transaction_option(option);
         self
     }
 
@@ -631,8 +631,8 @@ impl TransactionRunner {
                     .clone()
                     .with_affinity(Arc::clone(&channel_pool_affinity));
                 if force_explicit_begin {
-                    builder = builder
-                        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin);
+                    builder =
+                        builder.set_begin_transaction_option(BeginTransactionOption::ExplicitBegin);
                 }
                 let transaction = builder.build(deadline).await.map_err(|e| (e, None))?;
                 let selector = transaction.context.transaction_selector.clone();
@@ -791,7 +791,7 @@ mod tests {
     ) -> Result<i64, crate::Error> {
         let (db_client, server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build();
         tokio::select! {
             res = runner.run(async |tx| {
@@ -1025,9 +1025,8 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
             .set_return_commit_stats(true)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build();
-
         let res = runner
             .run(async |tx| {
                 let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -1362,9 +1361,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build();
-
         let mut attempt_counter = 0;
         let res = runner
             .run(async |tx| {
@@ -1785,9 +1783,8 @@ mod tests {
 
         let (db_client, _) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build();
-
         let mut attempt_counter = 0;
 
         // TransactionRunner retries the closure on transaction aborts
@@ -1894,7 +1891,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .set_transaction_tag("my-test-tag")
             .build();
 
@@ -1980,9 +1977,8 @@ mod tests {
 
         let runner = TransactionRunnerBuilder::new(db_client)
             .set_exclude_txn_from_change_streams(true)
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build();
-
         let res = runner
             .run(async |tx| {
                 let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -2063,9 +2059,8 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
             .set_max_commit_delay(Duration::from_millis(200))
-            .with_begin_transaction_option(begin_transaction_option)
+            .set_begin_transaction_option(begin_transaction_option)
             .build();
-
         let res = runner
             .run(async |tx| {
                 let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -2094,9 +2089,8 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let res = runner.run(async |_tx| Ok(42)).await.unwrap();
         assert_eq!(res.result, 42);
     }
@@ -2120,9 +2114,8 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut rx_started_opt = Some(rx_started);
         let res = runner
             .run(async |tx| {
@@ -2187,9 +2180,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let res = runner
             .run(async |tx| {
                 let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -2328,9 +2320,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt = 0;
         let res = runner
             .run(async |tx| {
@@ -2379,9 +2370,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let res = runner
             .run(async |tx| {
                 let m1 = Mutation::new_insert_builder("Orders")
@@ -3532,7 +3522,7 @@ mod tests {
 
         let runner = database_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build();
         let closure_invocations_clone = Arc::clone(&closure_invocations);
         let result = runner
@@ -4228,9 +4218,8 @@ mod tests {
 
         let runner = database_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build();
-
         let result = runner
             .run(move |transaction: ReadWriteTransaction| {
                 let attempts_clone = Arc::clone(&attempts_clone);
@@ -4401,9 +4390,8 @@ mod tests {
 
         let runner = database_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build();
-
         let result = runner
             .run(move |transaction: ReadWriteTransaction| {
                 let attempts_clone = Arc::clone(&attempts_clone);
@@ -4518,9 +4506,8 @@ mod tests {
 
         let runner = database_client
             .read_write_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build();
-
         let run_result = runner
             .run(move |_transaction: ReadWriteTransaction| {
                 let router_clone = Arc::clone(&router_clone);
@@ -4599,9 +4586,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let result = runner
             .run::<(), _>(async |transaction| {
                 // execute_query eagerly awaits stream initialization to fetch metadata.
@@ -4748,9 +4734,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -4876,9 +4861,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         runner
             .run(async |transaction| {
@@ -4941,9 +4925,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let result = runner
             .run::<(), _>(async |transaction| {
                 let request = ReadRequest::builder("non_existing_table", vec!["id"])
@@ -5045,9 +5028,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -5148,9 +5130,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run::<(), _>(async |transaction| {
@@ -5312,9 +5293,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -5427,9 +5407,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let result = runner
             .run::<(), _>(async |transaction| {
                 let mut result_set = transaction.execute_query("SELECT 1").await?;
@@ -5558,9 +5537,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -5704,9 +5682,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -5859,9 +5836,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -6037,9 +6013,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -6204,9 +6179,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -6387,9 +6361,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -6555,9 +6528,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -6740,9 +6712,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -6934,9 +6905,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -7118,9 +7088,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -7308,9 +7277,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -7473,9 +7441,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -7647,9 +7614,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -7821,9 +7787,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -7988,9 +7953,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -8171,9 +8135,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {
@@ -8384,7 +8347,7 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .with_retry_policy(
                 BasicTransactionRetryPolicy::new()
                     .with_max_attempts(5)
@@ -8540,9 +8503,8 @@ mod tests {
 
         let (database_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(database_client)
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build();
-
         let mut attempt_counter = 0;
         let result = runner
             .run(async |transaction| {

@@ -67,7 +67,7 @@ impl PartitionedDmlTransactionBuilder {
     ///     let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     ///     let transaction = db_client
     ///         .partitioned_dml_transaction()
-    ///         .with_exclude_txn_from_change_streams(true)
+    ///         .set_exclude_txn_from_change_streams(true)
     ///         .build();
     /// #   Ok(())
     /// # }
@@ -80,7 +80,7 @@ impl PartitionedDmlTransactionBuilder {
     ///
     /// When set to `false` or not specified, modifications from this transaction are recorded in all change streams
     /// tracking columns modified by this transaction.
-    pub fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+    pub fn set_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
         self.exclude_txn_from_change_streams = exclude;
         self
     }
@@ -353,10 +353,13 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let transaction = db_client
             .partitioned_dml_transaction()
-            .with_exclude_txn_from_change_streams(true)
+            .set_exclude_txn_from_change_streams(true)
             .build();
         let statement = Statement::builder("UPDATE Users SET active = true").build();
-        let res: i64 = transaction.execute_update(statement).await.unwrap();
+        let res: i64 = transaction
+            .execute_update(statement)
+            .await
+            .expect("executing update should succeed");
         assert_eq!(res, 500);
     }
 

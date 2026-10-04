@@ -230,7 +230,7 @@ async fn test_multi_use_read_only_transaction(
     // Start a multi-use read-only transaction.
     let tx = db_client
         .read_only_transaction()
-        .with_begin_transaction_option(begin_transaction_option)
+        .set_begin_transaction_option(begin_transaction_option)
         .build()
         .await?;
 
@@ -274,7 +274,7 @@ pub async fn multi_use_read_only_transaction_interleaved(
 ) -> anyhow::Result<()> {
     let tx = db_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -304,7 +304,7 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
     // Start a multi-use read-only transaction with implicit begin.
     let tx = db_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -599,7 +599,7 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
 
     let tx = proxy_db_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
