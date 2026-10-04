@@ -55,7 +55,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
 
     // Insert a new row in a read-write transaction.
     let id = format!("read-ts-{}", LowercaseAlphanumeric.random_string(10));
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     let commit_res = runner
         .run(async |tx| {
             let mutation = Mutation::new_insert_builder("AllTypes")

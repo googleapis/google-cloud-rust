@@ -36,7 +36,7 @@ use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 /// # use google_cloud_spanner::statement::Statement;
 /// # async fn build_transaction(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 ///     let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-///     let transaction = db_client.partitioned_dml_transaction().build().await?;
+///     let transaction = db_client.partitioned_dml_transaction().build();
 ///     let statement = Statement::builder("UPDATE users SET active = true WHERE TRUE").build();
 ///     let modified_rows = transaction.execute_update(statement).await?;
 /// #   Ok(())
@@ -68,8 +68,7 @@ impl PartitionedDmlTransactionBuilder {
     ///     let transaction = db_client
     ///         .partitioned_dml_transaction()
     ///         .set_exclude_txn_from_change_streams(true)
-    ///         .build()
-    ///         .await?;
+    ///         .build();
     /// #   Ok(())
     /// # }
     /// ```
@@ -103,8 +102,7 @@ impl PartitionedDmlTransactionBuilder {
     ///     let transaction = db_client
     ///         .partitioned_dml_transaction()
     ///         .with_retry_policy(retry_policy)
-    ///         .build()
-    ///         .await?;
+    ///         .build();
     /// #   Ok(())
     /// # }
     /// ```
@@ -118,12 +116,25 @@ impl PartitionedDmlTransactionBuilder {
     }
 
     /// Builds the [PartitionedDmlTransaction].
-    pub async fn build(self) -> crate::Result<PartitionedDmlTransaction> {
-        Ok(PartitionedDmlTransaction {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn build_transaction(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.partitioned_dml_transaction().build();
+    /// let statement = Statement::builder("UPDATE users SET active = true WHERE TRUE").build();
+    /// let modified_rows = transaction.execute_update(statement).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn build(self) -> PartitionedDmlTransaction {
+        PartitionedDmlTransaction {
             client: self.client,
             retry_policy: self.retry_policy,
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
-        })
+        }
     }
 }
 
@@ -152,7 +163,7 @@ impl PartitionedDmlTransaction {
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = db_client.partitioned_dml_transaction().build().await?;
+    /// let transaction = db_client.partitioned_dml_transaction().build();
     /// let statement = Statement::builder("UPDATE users SET active = true WHERE TRUE").build();
     /// let modified_rows = transaction.execute_update(statement).await?;
     /// # Ok(())
@@ -305,11 +316,7 @@ mod tests {
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
-        let transaction = db_client
-            .partitioned_dml_transaction()
-            .build()
-            .await
-            .unwrap();
+        let transaction = db_client.partitioned_dml_transaction().build();
         let statement = Statement::builder("UPDATE Users SET active = true").build();
         let res: i64 = transaction.execute_update(statement).await.unwrap();
         assert_eq!(res, 500);
@@ -347,9 +354,7 @@ mod tests {
         let transaction = db_client
             .partitioned_dml_transaction()
             .set_exclude_txn_from_change_streams(true)
-            .build()
-            .await
-            .expect("building partitioned DML transaction should succeed");
+            .build();
         let statement = Statement::builder("UPDATE Users SET active = true").build();
         let res: i64 = transaction
             .execute_update(statement)
@@ -395,11 +400,7 @@ mod tests {
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
-        let transaction = db_client
-            .partitioned_dml_transaction()
-            .build()
-            .await
-            .unwrap();
+        let transaction = db_client.partitioned_dml_transaction().build();
         let res: i64 = transaction
             .execute_update(Statement::builder("UPDATE Users SET active = true").build())
             .await
@@ -419,9 +420,7 @@ mod tests {
         let _transaction = db_client
             .partitioned_dml_transaction()
             .with_retry_policy(policy)
-            .build()
-            .await
-            .unwrap();
+            .build();
     }
 
     #[tokio_test_no_panics]
@@ -450,11 +449,7 @@ mod tests {
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
-        let transaction = db_client
-            .partitioned_dml_transaction()
-            .build()
-            .await
-            .unwrap();
+        let transaction = db_client.partitioned_dml_transaction().build();
 
         let statement = Statement::builder("UPDATE Users SET active = true").build();
         let res = transaction.execute_update(statement).await;
@@ -506,11 +501,7 @@ mod tests {
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
-        let transaction = db_client
-            .partitioned_dml_transaction()
-            .build()
-            .await
-            .unwrap();
+        let transaction = db_client.partitioned_dml_transaction().build();
         let statement = Statement::builder("UPDATE Users SET active = true").build();
         let res: i64 = transaction.execute_update(statement).await.unwrap();
         assert_eq!(res, 500);
@@ -588,7 +579,7 @@ mod tests {
             .with_location_aware_routing(true)
             .build()
             .await?;
-        let transaction = db_client.partitioned_dml_transaction().build().await?;
+        let transaction = db_client.partitioned_dml_transaction().build();
         let statement = Statement::builder("UPDATE Users SET active = true").build();
         let rows = transaction.execute_update(statement).await?;
         assert_eq!(rows, 500);
