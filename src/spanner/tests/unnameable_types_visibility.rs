@@ -121,6 +121,7 @@ fn external_can_implement_transaction_retry_policy() {
 }
 
 #[test]
+#[allow(clippy::needless_borrows_for_generic_args)]
 fn external_can_use_column_index_as_bound() {
     fn accepts_column_index<I: ColumnIndex>(_index: I) -> bool {
         true
@@ -141,6 +142,16 @@ fn external_can_use_column_index_as_bound() {
     assert!(
         accepts_column_index(0_usize),
         "usize should satisfy ColumnIndex"
+    );
+    let numeric_index = 0_usize;
+    assert!(
+        accepts_column_index(&numeric_index),
+        "&usize should satisfy ColumnIndex"
+    );
+    let string_reference = "column_name";
+    assert!(
+        accepts_column_index(&string_reference),
+        "&&str should satisfy ColumnIndex"
     );
 }
 
