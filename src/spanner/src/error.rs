@@ -15,7 +15,7 @@
 use google_cloud_gax::error::rpc::{Code, Status, StatusDetails};
 use std::error::Error;
 
-pub use crate::from_value::ConvertError;
+pub use crate::from_value::{ConvertError, SharedError};
 pub use crate::omni::TlsError;
 pub use crate::row::RowError;
 pub use wkt::{DurationError, TimestampError};

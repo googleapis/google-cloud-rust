@@ -30,7 +30,7 @@ use google_cloud_wkt::{Duration, FieldMask};
 use std::time::Duration as StdDuration;
 
 /// Creates a StorageControl client with retry and backoff policies configured for RCU tests.
-/// If `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT` is set, overrides the default endpoint.
+/// If `GOOGLE_CLOUD_TEST_GRPC_ENDPOINT` is set, overrides the default endpoint.
 pub async fn create_client() -> anyhow::Result<StorageControl> {
     let backoff = ExponentialBackoffBuilder::new()
         .with_initial_delay(StdDuration::from_secs(2))
@@ -41,7 +41,7 @@ pub async fn create_client() -> anyhow::Result<StorageControl> {
         .with_backoff_policy(backoff)
         .with_retry_policy(RetryableErrors.with_attempt_limit(5));
 
-    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT") {
+    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_GRPC_ENDPOINT") {
         println!("StorageControl endpoint: {endpoint}");
         builder = builder.with_endpoint(&endpoint);
     }

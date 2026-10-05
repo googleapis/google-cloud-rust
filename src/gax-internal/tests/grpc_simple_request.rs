@@ -659,4 +659,19 @@ mod tests {
         assert!(!header.contains("gapic/"), "{header}");
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn large_response() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        // Tonic's default decoding limit is 4 MiB; verify messages > 4 MiB succeed.
+        let large_msg = "a".repeat(5 * 1024 * 1024);
+        let response = send_request(client, &large_msg, "").await?;
+        assert_eq!(response.message.len(), large_msg.len());
+        Ok(())
+    }
 }

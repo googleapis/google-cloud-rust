@@ -112,21 +112,42 @@ mod storage {
         result
     }
 
-    #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_bidi() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let result = integration_tests_storage::bidi_read::run(&bucket.name)
-            .await
-            .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+    mod bidi_read {
+        use super::*;
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn features() -> anyhow::Result<()> {
+            let _guard = enable_tracing();
+            let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
                 .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump)?;
+            let result = integration_tests_storage::bidi_read::features::run(&bucket.name)
+                .await
                 .inspect_err(anydump);
-        result
+            let _ = storage_samples::cleanup_bucket(
+                control,
+                bucket.name.clone(),
+                bucket.project.clone(),
+            )
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
+            result
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn conformance() -> anyhow::Result<()> {
+            let _guard = enable_tracing();
+            if std::env::var("GOOGLE_CLOUD_TEST_GRPC_ENDPOINT").is_err()
+                || std::env::var("GOOGLE_CLOUD_TEST_HTTP_ENDPOINT").is_err()
+            {
+                println!("Skipping Bidi Read Conformance tests");
+                return Ok(());
+            }
+            integration_tests_storage::bidi_read::conformance::run()
+                .await
+                .inspect_err(anydump)
+        }
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -150,10 +171,8 @@ mod storage {
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_control_rapid_cache() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        if std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT").is_err() {
-            println!(
-                "Skipping Rapid Cache Ultra tests: GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT is not set"
-            );
+        if std::env::var("GOOGLE_CLOUD_TEST_GRPC_ENDPOINT").is_err() {
+            println!("Skipping Rapid Cache Ultra tests");
             return Ok(());
         }
         let control = integration_tests_storage::rcu_crud::create_client()

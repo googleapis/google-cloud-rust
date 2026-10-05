@@ -413,7 +413,7 @@ mod tests {
             .clone()
             .expect("should have job_ref");
         assert_eq!(job_ref.job_id, "my-job-123", "{job_ref:?}");
-        assert!(query.cached_rows.is_some(), "{query:?}");
+        assert!(query.cached_data.is_some(), "{query:?}");
 
         Ok(())
     }
