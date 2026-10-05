@@ -15,14 +15,15 @@
 
 set -euo pipefail
 
-WORKFLOW_FILE=".github/workflows/rust-toolchain-check.yaml"
+TOOLCHAIN_FILE="rust-toolchain.toml"
 
-if [[ ! -f "${WORKFLOW_FILE}" ]]; then
-  echo "Error: ${WORKFLOW_FILE} not found." >&2
+if [[ ! -f "${TOOLCHAIN_FILE}" ]]; then
+  echo "Error: ${TOOLCHAIN_FILE} not found." >&2
   exit 1
 fi
 
-CURRENT_VERSION=$(sed -nE "s/.*CURRENT_RUST_VERSION: '([0-9.]+)'.*/\1/p" "${WORKFLOW_FILE}")
+# The `1.XX` version pinned in `rust-toolchain.toml`.
+CURRENT_VERSION=$(sed -nE 's/^channel *= *"([0-9]+\.[0-9]+).*"/\1/p' "${TOOLCHAIN_FILE}")
 echo "Current configured Rust toolchain version: ${CURRENT_VERSION}"
 
 LATEST_MINOR=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | sed -nE 's/^Version 1\.([0-9]+)\..*/\1/p' | sed -n '1p')
@@ -50,8 +51,12 @@ if [[ "${CURRENT_BRANCH}" != "${TARGET_BRANCH}" ]]; then
 fi
 
 echo ""
-echo "==== 2. Updating Stable Rust Toolchain ===="
-rustup update stable
+echo "==== 2. Updating rust-toolchain.toml to ${LATEST_VERSION} ===="
+# Write to a temporary file instead of using `sed -i`, which is not portable
+# between GNU and BSD (macOS) sed.
+sed "s/^\(channel *= *\)\".*\"/\1\"${LATEST_VERSION}\"/" "${TOOLCHAIN_FILE}" >"${TOOLCHAIN_FILE}.tmp"
+mv "${TOOLCHAIN_FILE}.tmp" "${TOOLCHAIN_FILE}"
+rustup toolchain install
 rustc --version
 
 echo ""
