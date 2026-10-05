@@ -9333,7 +9333,7 @@ pub mod query_metrics_response {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::query_metrics_response::slice::data_point::conversation_measure::QaTagScore>
-                {
+{
                     use std::iter::Iterator;
                     self.qa_tag_scores = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -10609,7 +10609,7 @@ impl TuneQaScorecardRevisionMetadata {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult>
-    {
+{
         use std::iter::Iterator;
         self.qa_question_dataset_validation_results = v.into_iter().map(|i| i.into()).collect();
         self
@@ -10794,7 +10794,7 @@ pub mod tune_qa_scorecard_revision_metadata {
         /// ```
         pub fn set_metrics<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics>
-        {
+{
             self.metrics = std::option::Option::Some(v.into());
             self
         }
@@ -10810,7 +10810,7 @@ pub mod tune_qa_scorecard_revision_metadata {
         /// ```
         pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics>
-        {
+{
             self.metrics = v.map(|x| x.into());
             self
         }
@@ -14712,7 +14712,7 @@ pub mod conversation {
             /// ```
             pub fn set_dialogflow_segment_metadata<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::conversation::transcript::transcript_segment::DialogflowSegmentMetadata>
-            {
+{
                 self.dialogflow_segment_metadata = std::option::Option::Some(v.into());
                 self
             }
@@ -14728,7 +14728,7 @@ pub mod conversation {
             /// ```
             pub fn set_or_clear_dialogflow_segment_metadata<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::conversation::transcript::transcript_segment::DialogflowSegmentMetadata>
-            {
+{
                 self.dialogflow_segment_metadata = v.map(|x| x.into());
                 self
             }

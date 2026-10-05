@@ -29247,7 +29247,7 @@ pub mod job_service {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::search_model_deployment_monitoring_stats_anomalies_request::StatsAnomaliesObjective>
-        {
+{
             use std::iter::Iterator;
             self.0.request.objectives = v.into_iter().map(|i| i.into()).collect();
             self

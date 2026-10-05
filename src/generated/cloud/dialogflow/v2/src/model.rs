@@ -1949,7 +1949,7 @@ pub mod agent_coaching_instruction {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion>
-        {
+{
             use std::iter::Iterator;
             self.duplicate_suggestions = v.into_iter().map(|i| i.into()).collect();
             self
@@ -13278,7 +13278,7 @@ pub mod search_knowledge_request {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::BoostSpec>
-            {
+{
                 use std::iter::Iterator;
                 self.spec = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -13339,7 +13339,7 @@ pub mod search_knowledge_request {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::ConditionBoostSpec>
-                {
+{
                     use std::iter::Iterator;
                     self.condition_boost_specs = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -13446,7 +13446,7 @@ pub mod search_knowledge_request {
                     /// ```
                     pub fn set_boost_control_spec<T>(mut self, v: T) -> Self
                     where T: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::BoostControlSpec>
-                    {
+{
                         self.boost_control_spec = std::option::Option::Some(v.into());
                         self
                     }
@@ -13462,7 +13462,7 @@ pub mod search_knowledge_request {
                     /// ```
                     pub fn set_or_clear_boost_control_spec<T>(mut self, v: std::option::Option<T>) -> Self
                     where T: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::BoostControlSpec>
-                    {
+{
                         self.boost_control_spec = v.map(|x| x.into());
                         self
                     }
@@ -13579,7 +13579,7 @@ pub mod search_knowledge_request {
                         where
                             T: std::iter::IntoIterator<Item = V>,
                             V: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint>
-                        {
+{
                             use std::iter::Iterator;
                             self.control_points = v.into_iter().map(|i| i.into()).collect();
                             self
@@ -22103,7 +22103,7 @@ pub mod human_agent_assistant_config {
         /// ```
         pub fn set_context_filter_settings<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::ContextFilterSettings>
-        {
+{
             self.context_filter_settings = std::option::Option::Some(v.into());
             self
         }
@@ -22119,7 +22119,7 @@ pub mod human_agent_assistant_config {
         /// ```
         pub fn set_or_clear_context_filter_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::ContextFilterSettings>
-        {
+{
             self.context_filter_settings = v.map(|x| x.into());
             self
         }
@@ -22186,7 +22186,7 @@ pub mod human_agent_assistant_config {
         ///     google_cloud_dialogflow_v2::model::human_agent_assistant_config::suggestion_query_config::QuerySource::KnowledgeBaseQuerySource(KnowledgeBaseQuerySource::default().into())));
         /// ```
         pub fn set_query_source<T: std::convert::Into<std::option::Option<crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource>>>(mut self, v: T) -> Self
-        {
+{
             self.query_source = v.into();
             self
         }
@@ -22456,7 +22456,7 @@ pub mod human_agent_assistant_config {
             /// ```
             pub fn set_human_agent_side_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::dialogflow_query_source::HumanAgentSideConfig>
-            {
+{
                 self.human_agent_side_config = std::option::Option::Some(v.into());
                 self
             }
@@ -22472,7 +22472,7 @@ pub mod human_agent_assistant_config {
             /// ```
             pub fn set_or_clear_human_agent_side_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::dialogflow_query_source::HumanAgentSideConfig>
-            {
+{
                 self.human_agent_side_config = v.map(|x| x.into());
                 self
             }
@@ -22652,7 +22652,7 @@ pub mod human_agent_assistant_config {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::sections::SectionType>
-            {
+{
                 use std::iter::Iterator;
                 self.section_types = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -33828,7 +33828,7 @@ pub mod agent_coaching_suggestion {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion>
-        {
+{
             use std::iter::Iterator;
             self.duplicate_suggestions = v.into_iter().map(|i| i.into()).collect();
             self
@@ -36379,7 +36379,7 @@ pub mod summarization_evaluation_metrics {
         ///     google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::decomposition::Decomposition::AccuracyDecomposition(AccuracyDecomposition::default().into())));
         /// ```
         pub fn set_decomposition<T: std::convert::Into<std::option::Option<crate::model::summarization_evaluation_metrics::decomposition::Decomposition>>>(mut self, v: T) -> Self
-        {
+{
             self.decomposition = v.into();
             self
         }
@@ -37105,7 +37105,7 @@ pub mod summarization_evaluation_metrics {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::summarization_evaluation_metrics::conversation_detail::MetricDetail>
-        {
+{
             use std::iter::Iterator;
             self.metric_details = v.into_iter().map(|i| i.into()).collect();
             self
@@ -37233,7 +37233,7 @@ pub mod summarization_evaluation_metrics {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail>
-            {
+{
                 use std::iter::Iterator;
                 self.section_details = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -37869,7 +37869,7 @@ pub mod generator_evaluation_config {
         ///     google_cloud_dialogflow_v2::model::generator_evaluation_config::input_data_config::SourceSpecificConfig::AgentAssistInputDataConfig(AgentAssistInputDataConfig::default().into())));
         /// ```
         pub fn set_source_specific_config<T: std::convert::Into<std::option::Option<crate::model::generator_evaluation_config::input_data_config::SourceSpecificConfig>>>(mut self, v: T) -> Self
-        {
+{
             self.source_specific_config = v.into();
             self
         }
@@ -43119,7 +43119,7 @@ pub mod intent {
                 ///     google_cloud_dialogflow_v2::model::intent::message::media_content::response_media_object::Image::LargeImage(Image::default().into())));
                 /// ```
                 pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::intent::message::media_content::response_media_object::Image>>>(mut self, v: T) -> Self
-                {
+{
                     self.image = v.into();
                     self
                 }
@@ -43595,7 +43595,7 @@ pub mod intent {
                 /// ```
                 pub fn set_open_uri_action<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::intent::message::browse_carousel_card::browse_carousel_card_item::OpenUrlAction>
-                {
+{
                     self.open_uri_action = std::option::Option::Some(v.into());
                     self
                 }
@@ -43611,7 +43611,7 @@ pub mod intent {
                 /// ```
                 pub fn set_or_clear_open_uri_action<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::intent::message::browse_carousel_card::browse_carousel_card_item::OpenUrlAction>
-                {
+{
                     self.open_uri_action = v.map(|x| x.into());
                     self
                 }
@@ -56106,7 +56106,7 @@ pub mod knowledge_assist_answer {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::knowledge_assist_answer::knowledge_answer::generative_source::Snippet>
-            {
+{
                 use std::iter::Iterator;
                 self.snippets = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -57672,7 +57672,7 @@ pub mod bidi_streaming_analyze_content_request {
         /// let x = TurnInput::new().set_main_content(Some(MainContent::Text("example".to_string())));
         /// ```
         pub fn set_main_content<T: std::convert::Into<std::option::Option<crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent>>>(mut self, v: T) -> Self
-        {
+{
             self.main_content = v.into();
             self
         }

@@ -9688,7 +9688,7 @@ pub mod indicator {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::indicator::process_signature::memory_hash_signature::Detection>
-            {
+{
                 use std::iter::Iterator;
                 self.detections = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -20165,7 +20165,7 @@ pub mod list_findings_response {
             ///     google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata::GcpMetadata(GcpMetadata::default().into())));
             /// ```
             pub fn set_cloud_provider_metadata<T: std::convert::Into<std::option::Option<crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata>>>(mut self, v: T) -> Self
-            {
+{
                 self.cloud_provider_metadata = v.into();
                 self
             }

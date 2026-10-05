@@ -7844,7 +7844,7 @@ pub mod retrieve_insights_response {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::retrieve_insights_response::marketing_data_insight::MarketingDataInsightsAttribute>
-        {
+{
             use std::iter::Iterator;
             self.attributes = v.into_iter().map(|i| i.into()).collect();
             self
@@ -9629,7 +9629,7 @@ pub mod request_status_per_destination {
         ///     google_ads_datamanager_v1::model::request_status_per_destination::ingest_audience_members_status::Status::UserDataIngestionStatus(IngestUserDataStatus::default().into())));
         /// ```
         pub fn set_status<T: std::convert::Into<std::option::Option<crate::model::request_status_per_destination::ingest_audience_members_status::Status>>>(mut self, v: T) -> Self
-        {
+{
             self.status = v.into();
             self
         }
@@ -10148,7 +10148,7 @@ pub mod request_status_per_destination {
         ///     google_ads_datamanager_v1::model::request_status_per_destination::remove_audience_members_status::Status::UserDataRemovalStatus(RemoveUserDataStatus::default().into())));
         /// ```
         pub fn set_status<T: std::convert::Into<std::option::Option<crate::model::request_status_per_destination::remove_audience_members_status::Status>>>(mut self, v: T) -> Self
-        {
+{
             self.status = v.into();
             self
         }
