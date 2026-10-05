@@ -423,7 +423,7 @@ impl ResultSet {
     /// let rows: Vec<_> = result_set
     ///     .into_stream()
     ///     .try_filter(|row| {
-    ///         let id = row.get::<String, _>("Id");
+    ///         let id = row.get::<String>("Id");
     ///         ready(id == "id1")
     ///     })
     ///     .try_collect()

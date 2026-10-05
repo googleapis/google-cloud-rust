@@ -127,8 +127,8 @@ pub async fn batch_write(db_client: &DatabaseClient) -> Result<()> {
         rows.push(row?);
     }
     assert_eq!(rows.len(), 2, "Expected precisely 2 rows inserted/updated");
-    assert_eq!(rows[0].get::<String, _>("ColString"), "batch-write-1");
-    assert_eq!(rows[1].get::<String, _>("ColString"), "batch-write-2");
+    assert_eq!(rows[0].get::<String>("ColString"), "batch-write-1");
+    assert_eq!(rows[1].get::<String>("ColString"), "batch-write-2");
 
     Ok(())
 }
@@ -236,7 +236,7 @@ pub async fn batch_write_partial_failure(db_client: &DatabaseClient) -> Result<(
         .transpose()?
         .expect("Expected Group 1 committed row");
     assert_eq!(
-        row.get::<String, _>("ColString"),
+        row.get::<String>("ColString"),
         "batch-write-ok",
         "Expected committed ColString value to match exactly"
     );

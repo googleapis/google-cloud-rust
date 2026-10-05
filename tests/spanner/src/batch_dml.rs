@@ -92,7 +92,7 @@ pub async fn successful_batch_update(db_client: &DatabaseClient) -> anyhow::Resu
         .transpose()?
         .expect("Row 1 exists for verification");
     assert_eq!(
-        row1.get::<i64, _>("ColInt64"),
+        row1.get::<i64>("ColInt64"),
         100,
         "Update on row 1 should be committed"
     );
@@ -103,7 +103,7 @@ pub async fn successful_batch_update(db_client: &DatabaseClient) -> anyhow::Resu
         .transpose()?
         .expect("Row 2 exists for verification");
     assert_eq!(
-        row2.get::<i64, _>("ColInt64"),
+        row2.get::<i64>("ColInt64"),
         200,
         "Update on row 2 should be committed"
     );

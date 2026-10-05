@@ -52,8 +52,8 @@ pub async fn read_single_key(db_client: &DatabaseClient) -> anyhow::Result<()> {
         rows.push(row);
     }
     assert_eq!(rows.len(), 1);
-    assert_eq!(rows[0].get::<String, _>("Id"), id1);
-    assert_eq!(rows[0].get::<String, _>("ColString"), "single");
+    assert_eq!(rows[0].get::<String>("Id"), id1);
+    assert_eq!(rows[0].get::<String>("ColString"), "single");
     Ok(())
 }
 
@@ -95,7 +95,7 @@ pub async fn read_all_keys(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .transpose()
         .expect("Failed to get row")
     {
-        let id = row.get::<String, _>("Id");
+        let id = row.get::<String>("Id");
         // The table is shared across tests, so KeySet::all() may return rows
         // inserted by other concurrent tests. Filter in-memory to find the rows
         // created by this specific test.
@@ -164,10 +164,7 @@ pub async fn read_key_range(db_client: &DatabaseClient) -> anyhow::Result<()> {
     }
     assert_eq!(rows.len(), 2);
 
-    let actual_ids = vec![
-        rows[0].get::<String, _>("Id"),
-        rows[1].get::<String, _>("Id"),
-    ];
+    let actual_ids = vec![rows[0].get::<String>("Id"), rows[1].get::<String>("Id")];
     assert_eq!(actual_ids, vec![id1, id2]);
 
     Ok(())
@@ -277,8 +274,8 @@ pub async fn read_with_index(db_client: &DatabaseClient) -> anyhow::Result<()> {
         rows.push(row);
     }
     assert_eq!(rows.len(), 1);
-    assert_eq!(rows[0].get::<String, _>("Id"), id1);
-    assert_eq!(rows[0].get::<String, _>("ColString"), col_string_val);
+    assert_eq!(rows[0].get::<String>("Id"), id1);
+    assert_eq!(rows[0].get::<String>("ColString"), col_string_val);
 
     Ok(())
 }
@@ -320,7 +317,7 @@ pub async fn read_as_stream(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let rows: Vec<_> = result_set
         .into_stream()
         .try_filter(|row| {
-            let id = row.get::<String, _>("Id");
+            let id = row.get::<String>("Id");
             ready(id == id1)
         })
         .try_collect()

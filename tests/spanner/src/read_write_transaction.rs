@@ -853,10 +853,10 @@ pub async fn buffered_mutation_interleaving(db_client: &DatabaseClient) -> anyho
         .await?;
 
     let row1 = result_set.next().await.transpose()?.expect("Row 1 exists");
-    assert_eq!(row1.get::<i64, _>("ColInt64"), 200);
+    assert_eq!(row1.get::<i64>("ColInt64"), 200);
 
     let row2 = result_set.next().await.transpose()?.expect("Row 2 exists");
-    assert_eq!(row2.get::<i64, _>("ColInt64"), 999);
+    assert_eq!(row2.get::<i64>("ColInt64"), 999);
 
     Ok(())
 }
@@ -1058,7 +1058,7 @@ pub async fn application_error_explicit_rollback(db_client: &DatabaseClient) -> 
         .transpose()?
         .expect("Row 1 exists for verification");
     assert_eq!(
-        row1.get::<i64, _>("ColInt64"),
+        row1.get::<i64>("ColInt64"),
         100,
         "Update statement should be rolled back"
     );
@@ -1128,7 +1128,7 @@ pub async fn continue_after_initial_query_error(db_client: &DatabaseClient) -> a
         .transpose()?
         .expect("Row exists for verification");
     assert_eq!(
-        row.get::<i64, _>("ColInt64"),
+        row.get::<i64>("ColInt64"),
         777,
         "Insert should have succeeded despite earlier query error"
     );
@@ -1180,7 +1180,7 @@ pub async fn continue_after_initial_dml_error(db_client: &DatabaseClient) -> any
         .transpose()?
         .expect("Row exists for verification");
     assert_eq!(
-        row.get::<i64, _>("ColInt64"),
+        row.get::<i64>("ColInt64"),
         888,
         "Insert should have succeeded despite earlier DML error"
     );
@@ -1283,7 +1283,7 @@ pub async fn continue_after_initial_batch_dml_error(
         .transpose()?
         .expect("Row exists for verification");
     assert_eq!(
-        row.get::<i64, _>("ColInt64"),
+        row.get::<i64>("ColInt64"),
         999,
         "Insert should have succeeded despite earlier Batch DML error"
     );
