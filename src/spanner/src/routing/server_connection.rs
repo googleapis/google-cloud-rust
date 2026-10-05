@@ -58,7 +58,7 @@ impl Drop for ActiveRequestGuard {
         let _ = self
             .inner
             .active_requests
-            // TODO(https://github.com/googleapis/google-cloud-rust/issues/7108): use `try_update` once the MSRV is bumped to 1.95.
+            // TODO(#7108): use `try_update` once the MSRV is bumped to 1.95.
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |val| {
                 Some(val.saturating_sub(1))
             });
@@ -158,7 +158,7 @@ impl ServerConnection {
         let _ = self
             .inner
             .active_requests
-            // TODO(https://github.com/googleapis/google-cloud-rust/issues/7108): use `try_update` once the MSRV is bumped to 1.95.
+            // TODO(#7108): use `try_update` once the MSRV is bumped to 1.95.
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |val| {
                 Some(val.saturating_sub(1))
             });

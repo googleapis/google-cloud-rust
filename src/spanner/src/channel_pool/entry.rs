@@ -158,7 +158,7 @@ impl ChannelEntry {
         #[allow(deprecated)]
         let _ = self
             .penalty_state
-            // TODO(https://github.com/googleapis/google-cloud-rust/issues/7108): use `try_update` once the MSRV is bumped to 1.95.
+            // TODO(#7108): use `try_update` once the MSRV is bumped to 1.95.
             .fetch_update(Ordering::Release, Ordering::Acquire, |packed| {
                 let now_millis =
                     u64::try_from(self.created_at.elapsed().as_millis()).unwrap_or(u64::MAX);
