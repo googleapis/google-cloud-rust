@@ -33,7 +33,7 @@ pub async fn dml_then_return_execute_query(db_client: &DatabaseClient) -> Result
     write_tx.write_at_least_once(vec![mutation]).await?;
 
     // 2. Execute DML with THEN RETURN via execute_query in a Read-Write transaction
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     let result = runner
         .run(async |tx| {
             let id = id.clone();
@@ -89,7 +89,7 @@ pub async fn dml_then_return_execute_update(db_client: &DatabaseClient) -> Resul
     write_tx.write_at_least_once(vec![mutation]).await?;
 
     // 2. Execute DML with THEN RETURN via execute_update in a Read-Write transaction
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     let result = runner
         .run(async |tx| {
             let id = id.clone();
@@ -118,7 +118,7 @@ pub async fn dml_then_return_unconsumed_query(db_client: &DatabaseClient) -> Res
     let id = format!("dml-ret-uncon-{}", run_id);
 
     // 1. Execute DML with THEN RETURN via execute_query, but do NOT read any returned rows!
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     let result = runner
         .run(async |tx| {
             let id = id.clone();
@@ -165,7 +165,7 @@ pub async fn dml_then_return_multiple_execute_queries(db_client: &DatabaseClient
     let id2 = format!("dml-ret-multi2-{}", run_id);
 
     // Execute multiple DMLs with THEN RETURN via execute_query in a single Read-Write transaction
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     let result = runner
         .run(async |tx| {
             let id1 = id1.clone();

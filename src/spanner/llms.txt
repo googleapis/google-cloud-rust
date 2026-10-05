@@ -45,7 +45,7 @@ Spanner provides specialized transaction types tailored for different access pat
    - **Key Configuration Options**:
      - `set_transaction_tag(&str)`: Troubleshoot transactions in Cloud Monitoring and Spanner Studio.
      - `set_read_lock_mode(ReadLockMode)`: Pessimistic (default) vs. Optimistic locks.
-     - `set_max_commit_delay(wkt::Duration)`: Enables commit grouping on Spanner servers, grouping commits from multiple clients together for higher commit throughput when low millisecond latency is not strictly required.
+     - `set_max_commit_delay(std::time::Duration)`: Enables commit grouping on Spanner servers, grouping commits from multiple clients together for higher commit throughput when low millisecond latency is not strictly required.
      - `set_commit_priority(Priority)`: Set transaction RPC priority (`High` (default), `Medium`, `Low`).
      - `with_transaction_timeout(std::time::Duration)`: Bounded overall timeout covering all attempts and retries.
      - `set_exclude_txn_from_change_streams(bool)`: Omit modifications from change streams.
@@ -246,7 +246,7 @@ use google_cloud_spanner::Error;
 use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::model::transaction_options::IsolationLevel;
 use google_cloud_spanner::statement::Statement;
-use wkt::Duration;
+use std::time::Duration;
 
 pub async fn update_singer_rating(
     database_client: &DatabaseClient,
@@ -257,9 +257,8 @@ pub async fn update_singer_rating(
         .read_write_transaction()
         .set_transaction_tag("update-singer-rating")
         .set_isolation_level(IsolationLevel::Serializable)
-        .set_max_commit_delay(Duration::clamp(0, 100_000_000))
-        .build()
-        .await?;
+        .set_max_commit_delay(Duration::from_millis(100))
+        .build();
 
     let transaction_result = runner
         .run(async |transaction| {
@@ -299,7 +298,7 @@ pub async fn update_singer_rating(
 use google_cloud_spanner::Error;
 use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::mutation::Mutation;
-use wkt::Duration;
+use std::time::Duration;
 
 pub async fn insert_singer_and_albums(
     database_client: &DatabaseClient,
@@ -324,7 +323,7 @@ pub async fn insert_singer_and_albums(
     database_client
         .write_only_transaction()
         .set_transaction_tag("batch-catalog-insert")
-        .set_max_commit_delay(Duration::clamp(0, 50_000_000))
+        .set_max_commit_delay(Duration::from_millis(50))
         .build()
         .write(mutations)
         .await?;
@@ -344,7 +343,7 @@ pub async fn archive_inactive_accounts(
     database_client: &DatabaseClient,
     cutoff_timestamp: &str,
 ) -> Result<i64, Error> {
-    let transaction = database_client.partitioned_dml_transaction().build().await?;
+    let transaction = database_client.partitioned_dml_transaction().build();
 
     let statement = Statement::builder(
         "UPDATE Accounts SET Status = 'Archived' WHERE Status = 'Inactive' AND LastActivity < @cutoff",
