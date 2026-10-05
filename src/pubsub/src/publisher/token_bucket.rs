@@ -48,8 +48,8 @@ impl TokenBucket {
     /// Attempts to acquire 1 full token (1000 scaled units).
     ///
     /// Returns `true` if a token was acquired, `false` otherwise.
-    #[allow(deprecated)]
     pub(crate) fn try_acquire(&self) -> bool {
+        #[allow(deprecated)]
         self.tokens
             // TODO(#7108): use `try_update` once the MSRV is bumped to 1.95.
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
