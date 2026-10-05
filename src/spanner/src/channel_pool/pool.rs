@@ -28,7 +28,7 @@ use crate::routing::power_of_two_selector::PowerOfTwoSelector;
 use gaxi::options::ClientConfig;
 use std::fmt::{Debug, Formatter, Result as FmtResult};
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
-use std::sync::{Arc, Mutex, RwLock};
+use std::sync::{Arc, Mutex, MutexGuard, RwLock, RwLockReadGuard, RwLockWriteGuard};
 use std::time::{Duration, Instant};
 use tokio::spawn;
 use tokio::sync::Notify;
@@ -158,7 +158,7 @@ impl ChannelPool {
 
     /// Selects an active channel using Power of Two Least Busy (P2C) selection.
     pub(crate) fn pick_channel(&self) -> Option<ChannelLease> {
-        let active_guard = self.inner.active_entries.read().expect("lock poisoned");
+        let active_guard = self.inner.read_active_entries();
 
         self.pick_from_slice(&active_guard)
     }
@@ -193,7 +193,7 @@ impl ChannelPool {
     pub(crate) fn resolve_affinity(&self, affinity: &TransactionAffinity) -> Option<ChannelLease> {
         let current_id = affinity.pinned_entry_id();
 
-        let active_guard = self.inner.active_entries.read().expect("lock poisoned");
+        let active_guard = self.inner.read_active_entries();
 
         if active_guard.is_empty() {
             return None;
@@ -300,7 +300,7 @@ impl ChannelPool {
 
     /// Finds a channel entry in the draining pool by ID, if present and still draining.
     fn find_draining_entry(&self, entry_id: u64) -> Option<Arc<ChannelEntry>> {
-        let draining_guard = self.inner.draining_entries.read().expect("lock poisoned");
+        let draining_guard = self.inner.read_draining_entries();
         draining_guard
             .iter()
             .find(|entry| entry.id == entry_id && entry.is_draining())
@@ -328,11 +328,11 @@ impl ChannelPool {
     /// Sets the multiplexed session name used for scale-up channel priming and signals the worker.
     pub(crate) fn set_prime_session(&self, session_name: String) {
         {
-            let mut prime = self.inner.prime_session.write().expect("lock poisoned");
+            let mut prime = self.inner.write_prime_session();
             *prime = Some(session_name);
         }
         {
-            let mut last_scale = self.inner.last_scale_up_time.lock().expect("lock poisoned");
+            let mut last_scale = self.inner.lock_last_scale_up_time();
             *last_scale = None;
         }
         self.inner.scale_up_notify.notify_one();
@@ -340,20 +340,12 @@ impl ChannelPool {
 
     /// Returns the total number of active channels in the pool.
     pub(crate) fn active_channel_count(&self) -> usize {
-        self.inner
-            .active_entries
-            .read()
-            .expect("lock poisoned")
-            .len()
+        self.inner.read_active_entries().len()
     }
 
     /// Returns the total number of draining channels in the pool.
     pub(crate) fn draining_channel_count(&self) -> usize {
-        self.inner
-            .draining_entries
-            .read()
-            .expect("lock poisoned")
-            .len()
+        self.inner.read_draining_entries().len()
     }
 
     /// Returns a clone of the first active channel in the pool, if present.
@@ -368,7 +360,7 @@ impl ChannelPool {
     /// Use [`ChannelPool::pick_channel`] for P2C load-balanced channel selection, or
     /// [`ChannelPool::resolve_affinity`] for operations requiring transaction affinity.
     pub(crate) fn default_channel(&self) -> Option<Channel> {
-        let active_guard = self.inner.active_entries.read().expect("lock poisoned");
+        let active_guard = self.inner.read_active_entries();
         active_guard.first().map(|entry| entry.channel.clone())
     }
 }
@@ -400,6 +392,62 @@ impl Drop for ChannelPoolInner {
 }
 
 impl ChannelPoolInner {
+    /// Acquires a shared read lock on active channel entries, recovering if the lock was poisoned.
+    pub(crate) fn read_active_entries(&self) -> RwLockReadGuard<'_, Vec<Arc<ChannelEntry>>> {
+        match self.active_entries.read() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
+    /// Acquires an exclusive write lock on active channel entries, recovering if the lock was poisoned.
+    pub(crate) fn write_active_entries(&self) -> RwLockWriteGuard<'_, Vec<Arc<ChannelEntry>>> {
+        match self.active_entries.write() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
+    /// Acquires a shared read lock on draining channel entries, recovering if the lock was poisoned.
+    pub(crate) fn read_draining_entries(&self) -> RwLockReadGuard<'_, Vec<Arc<ChannelEntry>>> {
+        match self.draining_entries.read() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
+    /// Acquires an exclusive write lock on draining channel entries, recovering if the lock was poisoned.
+    pub(crate) fn write_draining_entries(&self) -> RwLockWriteGuard<'_, Vec<Arc<ChannelEntry>>> {
+        match self.draining_entries.write() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
+    /// Acquires a shared read lock on the prime session name, recovering if the lock was poisoned.
+    pub(crate) fn read_prime_session(&self) -> RwLockReadGuard<'_, Option<String>> {
+        match self.prime_session.read() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
+    /// Acquires an exclusive write lock on the prime session name, recovering if the lock was poisoned.
+    pub(crate) fn write_prime_session(&self) -> RwLockWriteGuard<'_, Option<String>> {
+        match self.prime_session.write() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
+    /// Acquires an exclusive mutex lock on the last scale-up time, recovering if the lock was poisoned.
+    pub(crate) fn lock_last_scale_up_time(&self) -> MutexGuard<'_, Option<Instant>> {
+        match self.last_scale_up_time.lock() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
     pub(crate) fn make_guard(&self, entry: Arc<ChannelEntry>) -> ActiveRpcGuard {
         let (step, duration, max_penalty) = match &self.config {
             ChannelPoolConfig::Dynamic(dynamic_config) => (
@@ -430,27 +478,15 @@ impl ChannelPool {
     }
 
     pub(crate) fn has_prime_session(&self) -> bool {
-        self.inner
-            .prime_session
-            .read()
-            .expect("lock poisoned")
-            .is_some()
+        self.inner.read_prime_session().is_some()
     }
 
     pub(crate) fn prime_session_name(&self) -> Option<String> {
-        self.inner
-            .prime_session
-            .read()
-            .expect("lock poisoned")
-            .clone()
+        self.inner.read_prime_session().clone()
     }
 
     pub(crate) fn active_entries(&self) -> Vec<Arc<ChannelEntry>> {
-        self.inner
-            .active_entries
-            .read()
-            .expect("lock poisoned")
-            .clone()
+        self.inner.read_active_entries().clone()
     }
 }
 
@@ -468,6 +504,7 @@ mod tests {
     use std::collections::HashSet;
     use std::fmt::Debug;
     use std::future::{Future, ready};
+    use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::atomic::Ordering;
     use tokio::task::JoinSet;
 
@@ -496,12 +533,12 @@ mod tests {
 
     impl ChannelPool {
         fn total_in_flight_rpcs(&self) -> u32 {
-            let active_guard = self.inner.active_entries.read().expect("lock poisoned");
+            let active_guard = self.inner.read_active_entries();
             active_guard.iter().map(|entry| entry.in_flight()).sum()
         }
 
         fn clear_prime_session(&self) {
-            *self.inner.prime_session.write().expect("lock poisoned") = None;
+            *self.inner.write_prime_session() = None;
         }
     }
 
@@ -527,7 +564,7 @@ mod tests {
 
         // Effective load comparison: Channel 1 has high load (10 in flight)
         {
-            let active = pool.inner.active_entries.read().expect("lock poisoned");
+            let active = pool.inner.read_active_entries();
             active[0].in_flight_rpcs.store(10, Ordering::Relaxed);
             active[1].in_flight_rpcs.store(1, Ordering::Relaxed);
             active[2].in_flight_rpcs.store(1, Ordering::Relaxed);
@@ -539,7 +576,7 @@ mod tests {
         // Uniform distribution check: With all channels at equal 0 load,
         // multiple sequential picks should distribute across different channels.
         {
-            let active = pool.inner.active_entries.read().expect("lock poisoned");
+            let active = pool.inner.read_active_entries();
             active[0].in_flight_rpcs.store(0, Ordering::Relaxed);
             active[1].in_flight_rpcs.store(0, Ordering::Relaxed);
             active[2].in_flight_rpcs.store(0, Ordering::Relaxed);
@@ -620,8 +657,8 @@ mod tests {
 
         // Setup: channel_1 is active, channel_2 is draining
         channel_2.set_state(ChannelState::Draining);
-        *pool.inner.active_entries.write().expect("lock") = vec![Arc::clone(&channel_1)];
-        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+        *pool.inner.write_active_entries() = vec![Arc::clone(&channel_1)];
+        *pool.inner.write_draining_entries() = vec![Arc::clone(&channel_2)];
 
         // Read/Write transaction requires hard stickiness
         let affinity = TransactionAffinity::new_read_write();
@@ -710,8 +747,8 @@ mod tests {
 
         // Setup: channel_1 is active, channel_2 is draining
         channel_2.set_state(ChannelState::Draining);
-        *pool.inner.active_entries.write().expect("lock") = vec![Arc::clone(&channel_1)];
-        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+        *pool.inner.write_active_entries() = vec![Arc::clone(&channel_1)];
+        *pool.inner.write_draining_entries() = vec![Arc::clone(&channel_2)];
 
         // Simulate a Read-Only transaction that was previously pinned to channel 2,
         // which has now transitioned to Draining during a scale-down event.
@@ -794,7 +831,7 @@ mod tests {
 
         // Under high load, pick_channel triggers scale-up notification
         {
-            let active = pool.inner.active_entries.read().expect("lock poisoned");
+            let active = pool.inner.read_active_entries();
             active[0].in_flight_rpcs.store(10, Ordering::Relaxed);
             active[1].in_flight_rpcs.store(10, Ordering::Relaxed);
         }
@@ -823,7 +860,7 @@ mod tests {
             StaticChannelPoolConfig { num_channels: 3 },
             ClientConfig::default(),
         );
-        *pool.inner.active_entries.write().expect("lock") = vec![channel_1, channel_2, channel_3];
+        *pool.inner.write_active_entries() = vec![channel_1, channel_2, channel_3];
 
         let affinity = Arc::new(TransactionAffinity::new_read_write());
         let mut join_set = JoinSet::new();
@@ -881,7 +918,7 @@ mod tests {
         );
 
         {
-            let active = pool.inner.active_entries.read().expect("lock poisoned");
+            let active = pool.inner.read_active_entries();
             active[0].in_flight_rpcs.store(3, Ordering::Relaxed);
             active[1].in_flight_rpcs.store(2, Ordering::Relaxed);
         }
@@ -927,8 +964,8 @@ mod tests {
             client_config,
         );
 
-        *pool.inner.active_entries.write().expect("lock") = vec![Arc::clone(&channel_1)];
-        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+        *pool.inner.write_active_entries() = vec![Arc::clone(&channel_1)];
+        *pool.inner.write_draining_entries() = vec![Arc::clone(&channel_2)];
 
         // 1. Simulate a Read/Write transaction previously pinned to channel 2,
         // which has now transitioned to Closed after an idle timeout.
@@ -974,7 +1011,7 @@ mod tests {
             client_config,
         );
         let active = vec![Arc::clone(&channel_1), Arc::clone(&channel_2)];
-        *pool.inner.active_entries.write().expect("lock") = active.clone();
+        *pool.inner.write_active_entries() = active.clone();
 
         let affinity = TransactionAffinity::new_read_write();
         let my_lease = pool.make_lease(Arc::clone(&channel_1));
@@ -1000,8 +1037,8 @@ mod tests {
             client_config,
         );
         let active = vec![Arc::clone(&channel_1)];
-        *pool.inner.active_entries.write().expect("lock") = active.clone();
-        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+        *pool.inner.write_active_entries() = active.clone();
+        *pool.inner.write_draining_entries() = vec![Arc::clone(&channel_2)];
 
         let affinity = TransactionAffinity::new_read_write();
         let my_lease = pool.make_lease(Arc::clone(&channel_1));
@@ -1027,8 +1064,8 @@ mod tests {
             client_config,
         );
         let active = vec![Arc::clone(&channel_1)];
-        *pool.inner.active_entries.write().expect("lock") = active.clone();
-        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+        *pool.inner.write_active_entries() = active.clone();
+        *pool.inner.write_draining_entries() = vec![Arc::clone(&channel_2)];
 
         let affinity = TransactionAffinity::new_read_write();
         affinity
@@ -1063,8 +1100,8 @@ mod tests {
             client_config,
         );
         let active = vec![Arc::clone(&channel_1)];
-        *pool.inner.active_entries.write().expect("lock") = active.clone();
-        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+        *pool.inner.write_active_entries() = active.clone();
+        *pool.inner.write_draining_entries() = vec![Arc::clone(&channel_2)];
 
         let affinity = TransactionAffinity::new_read_only();
         affinity
@@ -1100,8 +1137,8 @@ mod tests {
             client_config,
         );
         let active = vec![Arc::clone(&channel_1), Arc::clone(&channel_3)];
-        *pool.inner.active_entries.write().expect("lock") = active.clone();
-        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+        *pool.inner.write_active_entries() = active.clone();
+        *pool.inner.write_draining_entries() = vec![Arc::clone(&channel_2)];
 
         let affinity = TransactionAffinity::new_read_write();
         // Another thread already updated affinity from 2 to 3
@@ -1306,7 +1343,7 @@ mod tests {
             client_config,
         );
         let active = vec![Arc::clone(&channel_1), Arc::clone(&channel_2)];
-        *pool.inner.active_entries.write().expect("lock") = active;
+        *pool.inner.write_active_entries() = active;
 
         let affinity = TransactionAffinity::new_read_write();
         // Simulate affinity having an unknown stale ID (e.g. 999)
@@ -1369,11 +1406,7 @@ mod tests {
             StaticChannelPoolConfig { num_channels: 0 },
             client_config,
         );
-        pool.inner
-            .active_entries
-            .write()
-            .expect("lock poisoned")
-            .push(Arc::clone(&channel));
+        pool.inner.write_active_entries().push(Arc::clone(&channel));
 
         // 1. ChannelTarget::Any leases an active channel
         let any_lease = pool.pick_channel_for_target(&ChannelTarget::Any);
@@ -1437,5 +1470,269 @@ mod tests {
         );
 
         drop(lease);
+    }
+
+    #[test]
+    fn channel_pool_recovers_from_poisoned_active_entries_lock() {
+        let client_config = ClientConfig::default();
+        let channels = vec![create_mock_channel(), create_mock_channel()];
+        let pool = ChannelPool::new_static(
+            channels,
+            StaticChannelPoolConfig { num_channels: 2 },
+            client_config,
+        );
+
+        // Intentionally poison active_entries by panicking while holding an exclusive write lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = pool
+                .inner
+                .active_entries
+                .write()
+                .expect("lock active_entries");
+            panic!("deliberately poisoning active_entries lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind must capture panic");
+        assert!(
+            pool.inner.active_entries.is_poisoned(),
+            "active_entries lock must be poisoned"
+        );
+
+        // Verify that operations accessing active_entries recover seamlessly via into_inner().
+        assert_eq!(
+            pool.active_channel_count(),
+            2,
+            "active_channel_count must return 2 despite poisoned lock"
+        );
+        assert_eq!(
+            pool.active_entries().len(),
+            2,
+            "active_entries must return active channels despite poisoned lock"
+        );
+        let lease = pool
+            .pick_channel()
+            .expect("pick_channel must succeed despite poisoned lock");
+        assert!(
+            (1..=2).contains(&lease.channel_id),
+            "leased channel ID must be in valid range"
+        );
+        assert!(
+            pool.default_channel().is_some(),
+            "default_channel must return a channel despite poisoned lock"
+        );
+
+        let affinity = TransactionAffinity::new_read_write();
+        let affinity_lease = pool
+            .resolve_affinity(&affinity)
+            .expect("resolve_affinity must succeed despite poisoned lock");
+        assert!(
+            (1..=2).contains(&affinity_lease.channel_id),
+            "affinity leased channel ID must be in valid range"
+        );
+        let fast_affinity_lease = pool
+            .resolve_affinity(&affinity)
+            .expect("resolve_affinity fast path must succeed despite poisoned lock");
+        assert_eq!(
+            fast_affinity_lease.channel_id, affinity_lease.channel_id,
+            "resolve_affinity fast path must return same channel"
+        );
+
+        // Read and write accessors must also return valid guards.
+        assert_eq!(
+            pool.inner.read_active_entries().len(),
+            2,
+            "read_active_entries must return valid guard"
+        );
+        // Also verify read-lock poisoning: a panic while holding a read guard poisons the RwLock.
+        let read_panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _read_guard = pool.inner.read_active_entries();
+            panic!("deliberately poisoning active_entries via read lock");
+        }));
+        assert!(
+            read_panic_result.is_err(),
+            "catch_unwind must capture read panic"
+        );
+        assert!(
+            pool.inner.active_entries.is_poisoned(),
+            "active_entries lock must remain poisoned after read panic"
+        );
+
+        // Subsequent write and read operations must still recover seamlessly.
+        assert_eq!(
+            pool.inner.write_active_entries().len(),
+            2,
+            "write_active_entries must recover from read-lock poisoning"
+        );
+        assert_eq!(
+            pool.inner.read_active_entries().len(),
+            2,
+            "read_active_entries must recover from read-lock poisoning"
+        );
+    }
+
+    #[test]
+    fn channel_pool_recovers_from_poisoned_draining_entries_lock() {
+        let client_config = ClientConfig::default();
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        channel_2.set_state(ChannelState::Draining);
+
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 1 },
+            client_config,
+        );
+        *pool.inner.write_active_entries() = vec![Arc::clone(&channel_1)];
+        *pool.inner.write_draining_entries() = vec![Arc::clone(&channel_2)];
+
+        // Intentionally poison draining_entries by panicking while holding an exclusive write lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = pool
+                .inner
+                .draining_entries
+                .write()
+                .expect("lock draining_entries");
+            panic!("deliberately poisoning draining_entries lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind must capture panic");
+        assert!(
+            pool.inner.draining_entries.is_poisoned(),
+            "draining_entries lock must be poisoned"
+        );
+
+        // Verify operations accessing draining_entries recover seamlessly via into_inner().
+        assert_eq!(
+            pool.draining_channel_count(),
+            1,
+            "draining_channel_count must return 1 despite poisoned lock"
+        );
+        assert!(
+            pool.find_draining_entry(2).is_some(),
+            "find_draining_entry must find draining channel 2 despite poisoned lock"
+        );
+
+        let rw_affinity = TransactionAffinity::new_read_write();
+        rw_affinity
+            .compare_and_set_entry_id(0, 2)
+            .expect("pin affinity to 2");
+        let lease = pool
+            .resolve_affinity(&rw_affinity)
+            .expect("resolve_affinity must resolve to draining channel despite poisoned lock");
+        assert_eq!(
+            lease.entry_id(),
+            2,
+            "must preserve draining channel affinity for R/W"
+        );
+
+        let active_candidates = vec![Arc::clone(&channel_1)];
+        let conflict_lease = pool.resolve_cas_conflict(
+            &rw_affinity,
+            pool.make_lease(Arc::clone(&channel_1)),
+            &active_candidates,
+            2,
+        );
+        assert_eq!(
+            conflict_lease.entry_id(),
+            2,
+            "resolve_cas_conflict must recover draining channel despite poisoned lock"
+        );
+
+        assert_eq!(
+            pool.inner.read_draining_entries().len(),
+            1,
+            "read_draining_entries must return valid guard"
+        );
+        assert_eq!(
+            pool.inner.write_draining_entries().len(),
+            1,
+            "write_draining_entries must return valid guard"
+        );
+    }
+
+    #[test]
+    fn channel_pool_recovers_from_poisoned_prime_session_lock() {
+        let client_config = ClientConfig::default();
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 1 },
+            client_config,
+        );
+
+        // Intentionally poison prime_session by panicking while holding an exclusive write lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = pool
+                .inner
+                .prime_session
+                .write()
+                .expect("lock prime_session");
+            panic!("deliberately poisoning prime_session lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind must capture panic");
+        assert!(
+            pool.inner.prime_session.is_poisoned(),
+            "prime_session lock must be poisoned"
+        );
+
+        // Operations must recover and allow reading and updating the prime session.
+        assert!(
+            !pool.has_prime_session(),
+            "has_prime_session must return false when None despite poisoned lock"
+        );
+        assert_eq!(
+            pool.prime_session_name(),
+            None,
+            "prime_session_name must return None despite poisoned lock"
+        );
+
+        pool.set_prime_session("projects/p/instances/i/databases/d/sessions/recovered".to_string());
+        assert!(
+            pool.has_prime_session(),
+            "has_prime_session must return true after set_prime_session"
+        );
+        assert_eq!(
+            pool.prime_session_name(),
+            Some("projects/p/instances/i/databases/d/sessions/recovered".to_string()),
+            "prime_session_name must return updated session name"
+        );
+    }
+
+    #[test]
+    fn channel_pool_recovers_from_poisoned_last_scale_up_time_lock() {
+        let client_config = ClientConfig::default();
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 1 },
+            client_config,
+        );
+
+        // Set last_scale_up_time to Some(now)
+        *pool.inner.lock_last_scale_up_time() = Some(Instant::now());
+
+        // Intentionally poison last_scale_up_time by panicking while holding the lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = pool
+                .inner
+                .last_scale_up_time
+                .lock()
+                .expect("lock last_scale_up_time");
+            panic!("deliberately poisoning last_scale_up_time lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind must capture panic");
+        assert!(
+            pool.inner.last_scale_up_time.is_poisoned(),
+            "last_scale_up_time lock must be poisoned"
+        );
+
+        // Operations accessing last_scale_up_time must recover via into_inner().
+        assert!(
+            pool.inner.lock_last_scale_up_time().is_some(),
+            "lock_last_scale_up_time must recover previous timestamp"
+        );
+
+        // set_prime_session resets last_scale_up_time to None; must succeed without panic.
+        pool.set_prime_session("projects/p/instances/i/databases/d/sessions/s1".to_string());
+        assert!(
+            pool.inner.lock_last_scale_up_time().is_none(),
+            "set_prime_session must reset last_scale_up_time to None despite previous poisoning"
+        );
     }
 }
