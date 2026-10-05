@@ -138,26 +138,6 @@ impl Value {
         }
     }
 
-    /// Returns the underlying string slice if the value is a string, or `None` otherwise.
-    ///
-    /// # Deprecation
-    ///
-    /// Use [`as_str`](Value::as_str) instead.
-    #[deprecated(note = "use `as_str` instead")]
-    pub fn as_string(&self) -> Option<&str> {
-        self.as_str()
-    }
-
-    /// Returns the underlying string value if the kind is String.
-    ///
-    /// # Deprecation
-    ///
-    /// Use [`as_str`](Value::as_str) instead.
-    #[deprecated(note = "use `as_str` instead")]
-    pub fn try_as_string(&self) -> Option<&str> {
-        self.as_str()
-    }
-
     /// Returns the underlying boolean value if the value is a boolean, or `None` otherwise.
     ///
     /// # Example
@@ -176,16 +156,6 @@ impl Value {
             Some(prost_types::value::Kind::BoolValue(bool_value)) => Some(*bool_value),
             _ => None,
         }
-    }
-
-    /// Returns the underlying bool value if the kind is Bool.
-    ///
-    /// # Deprecation
-    ///
-    /// Use [`as_bool`](Value::as_bool) instead.
-    #[deprecated(note = "use `as_bool` instead")]
-    pub fn try_as_bool(&self) -> Option<bool> {
-        self.as_bool()
     }
 
     /// Returns the underlying number value as an `f64` if the value is a number, or `None` otherwise.
@@ -215,16 +185,6 @@ impl Value {
         }
     }
 
-    /// Returns the underlying number value if the kind is Number.
-    ///
-    /// # Deprecation
-    ///
-    /// Use [`as_f64`](Value::as_f64) instead.
-    #[deprecated(note = "use `as_f64` instead")]
-    pub fn try_as_f64(&self) -> Option<f64> {
-        self.as_f64()
-    }
-
     /// Returns a reference to the underlying [`Struct`] if the value is a struct, or `None` otherwise.
     ///
     /// # Example
@@ -242,16 +202,6 @@ impl Value {
             }
             _ => None,
         }
-    }
-
-    /// Returns the underlying struct value as a map of Values if the kind is Struct.
-    ///
-    /// # Deprecation
-    ///
-    /// Use [`as_struct`](Value::as_struct) instead.
-    #[deprecated(note = "use `as_struct` instead")]
-    pub fn try_as_struct(&self) -> Option<&Struct> {
-        self.as_struct()
     }
 
     /// Returns a reference to the underlying [`List`] if the value is a list, or `None` otherwise.
@@ -274,16 +224,6 @@ impl Value {
             }
             _ => None,
         }
-    }
-
-    /// Returns the underlying list value as a vector of Values if the kind is List.
-    ///
-    /// # Deprecation
-    ///
-    /// Use [`as_list`](Value::as_list) instead.
-    #[deprecated(note = "use `as_list` instead")]
-    pub fn try_as_list(&self) -> Option<&List> {
-        self.as_list()
     }
 }
 
@@ -684,40 +624,6 @@ mod tests {
         assert!(!Value::from("hello").is_null());
         assert!(!Value::from(true).is_null());
         assert!(!Value::from(42.5).is_null());
-    }
-
-    #[test]
-    #[allow(deprecated)]
-    fn deprecated_try_as_accessors_match_as_accessors() {
-        let string_value = Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::StringValue("test".to_string())),
-        });
-        assert_eq!(string_value.try_as_string(), string_value.as_str());
-        assert_eq!(string_value.as_string(), string_value.as_str());
-
-        let bool_value = Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::BoolValue(false)),
-        });
-        assert_eq!(bool_value.try_as_bool(), bool_value.as_bool());
-
-        let number_value = Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::NumberValue(42.5)),
-        });
-        assert_eq!(number_value.try_as_f64(), number_value.as_f64());
-
-        let list_value = Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::ListValue(
-                prost_types::ListValue::default(),
-            )),
-        });
-        assert_eq!(list_value.try_as_list(), list_value.as_list());
-
-        let struct_value = Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::StructValue(
-                prost_types::Struct::default(),
-            )),
-        });
-        assert_eq!(struct_value.try_as_struct(), struct_value.as_struct());
     }
 
     #[test]
