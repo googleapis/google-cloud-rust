@@ -358,8 +358,14 @@ where
                 state_lookup: true,
                 ..BidiWriteObjectRequest::default()
             };
-            if tx.send(request).await.is_ok() {
-                self.self_flush_outstanding = true;
+            // If sending fails, the gRPC call has ended, and `rx.next_message()` will observe its
+            // status or closure on a later iteration, which ends the loop. No probe is in flight
+            // in that case, so leave `self_flush_outstanding` unset.
+            match tx.send(request).await {
+                Ok(()) => self.self_flush_outstanding = true,
+                Err(e) => {
+                    tracing::debug!("error sending watermark probe on bidi write stream: {e:?}");
+                }
             }
         }
     }
