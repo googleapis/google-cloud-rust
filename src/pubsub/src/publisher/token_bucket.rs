@@ -48,8 +48,10 @@ impl TokenBucket {
     /// Attempts to acquire 1 full token (1000 scaled units).
     ///
     /// Returns `true` if a token was acquired, `false` otherwise.
+    #[allow(deprecated)]
     pub(crate) fn try_acquire(&self) -> bool {
         self.tokens
+            // TODO(https://github.com/googleapis/google-cloud-rust/issues/7108): use `try_update` once the MSRV is bumped to 1.95.
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
                 if current >= SCALE {
                     Some(current - SCALE)
@@ -64,8 +66,10 @@ impl TokenBucket {
     ///
     /// Tokens are capped at `max_tokens * SCALE`.
     pub(crate) fn refill(&self) {
+        #[allow(deprecated)]
         let _ = self
             .tokens
+            // TODO(https://github.com/googleapis/google-cloud-rust/issues/7108): use `try_update` once the MSRV is bumped to 1.95.
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
                 if current >= self.max_scaled_tokens {
                     None // optimization to save an atomic update.
