@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(any(
+    google_cloud_unstable_bigquery_arrow,
+    google_cloud_unstable_bigquery_storage_read
+))]
+pub(crate) use super::arrow::ArrowCell;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 #[allow(unused_imports)]
@@ -41,17 +46,28 @@ pub(crate) enum SqlValueInner {
     String(String),
     Array(Vec<SqlValueInner>),
     Struct(Vec<(String, SqlValueInner)>),
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[cfg_attr(not(test), allow(dead_code))]
+    Arrow(ArrowCell),
 }
 
 impl SqlValueInner {
-    pub(crate) fn type_name(&self) -> &'static str {
+    pub(crate) fn type_name(&self) -> String {
         match self {
-            Self::Null => "null",
-            Self::Bool(_) => "bool",
-            Self::Number(_) => "number",
-            Self::String(_) => "string",
-            Self::Array(_) => "array",
-            Self::Struct(_) => "object",
+            Self::Null => "null".to_string(),
+            Self::Bool(_) => "bool".to_string(),
+            Self::Number(_) => "number".to_string(),
+            Self::String(_) => "string".to_string(),
+            Self::Array(_) => "array".to_string(),
+            Self::Struct(_) => "object".to_string(),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            Self::Arrow(cell) => cell.data_type_str(),
         }
     }
 
@@ -177,6 +193,14 @@ impl FromSql for wkt::Value {
                     .map(|(k, v)| Ok((k, wkt::Value::from_value(SqlValue::from_inner(v))?)))
                     .collect::<Result<wkt::Struct, ConvertError>>()?,
             ),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(_) => {
+                // TODO(#7032): Implement wkt::Value conversion for Arrow cells.
+                unimplemented!("Arrow to wkt::Value conversion is not yet implemented (#7032)")
+            }
         })
     }
 }
@@ -929,5 +953,35 @@ mod tests {
         let parsed_json = GenericTupleSql::<i64, String>::from_value(json_val)
             .expect("should deserialize generic tuple struct from JSON array");
         assert_eq!(parsed_json, GenericTupleSql(100, None, "world".to_string()));
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    use arrow::array::{ArrayRef, BooleanArray, Float64Array, Int64Array, StringArray};
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    use std::sync::Arc;
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[test_case(Arc::new(BooleanArray::from(vec![true])) => "Boolean" ; "arrow boolean")]
+    #[test_case(Arc::new(Int64Array::from(vec![42])) => "Int64" ; "arrow int64")]
+    #[test_case(Arc::new(Float64Array::from(vec![3.25])) => "Float64" ; "arrow float64")]
+    #[test_case(Arc::new(StringArray::from(vec!["hello"])) => "Utf8" ; "arrow utf8")]
+    fn test_sql_value_inner_arrow_type_name(arr: ArrayRef) -> String {
+        let val = SqlValueInner::Arrow(ArrowCell::new(arr, 0));
+        let err = ConvertError::type_mismatch("expected_type", &val);
+        assert!(matches!(
+            err,
+            ConvertError::TypeMismatch { ref expected, ref got }
+                if expected == "expected_type" && got == &val.type_name()
+        ));
+        val.type_name()
     }
 }
