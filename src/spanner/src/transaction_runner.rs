@@ -604,6 +604,82 @@ impl TransactionRunner {
     ///
     /// If the transaction is aborted by Spanner due to concurrency contention, the closure
     /// is automatically retried according to the configured `TransactionRetryPolicy`.
+    ///
+    /// # Application Errors
+    ///
+    /// To return a domain-specific or business logic error from within the transaction closure,
+    /// wrap it using [`application_error`][crate::error::application_error]:
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::error::application_error;
+    /// # #[derive(thiserror::Error, Debug, PartialEq)]
+    /// # #[error("insufficient funds")]
+    /// # struct InsufficientFunds;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// # let runner = db_client.read_write_transaction().build();
+    /// let result = runner
+    ///     .run(async |transaction| {
+    ///         let balance: i64 = 50;
+    ///         if balance < 100 {
+    ///             return Err(application_error(InsufficientFunds));
+    ///         }
+    ///         Ok(())
+    ///     })
+    ///     .await;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// If an application error is returned because a Spanner statement failed, use
+    /// [`.map_app_err(...)`][crate::error::SpannerResultExt::map_app_err] to attach the
+    /// Spanner error as the underlying cause. If that statement failed due to an [`Aborted`][google_cloud_gax::error::rpc::Code::Aborted]
+    /// error, the runner recognizes it and automatically retries the transaction:
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::error::SpannerResultExt;
+    /// # #[derive(thiserror::Error, Debug)]
+    /// # #[error("transfer update failed")]
+    /// # struct TransferFailed;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// # let runner = db_client.read_write_transaction().build();
+    /// runner
+    ///     .run(async |transaction| {
+    ///         transaction
+    ///             .execute_update("UPDATE Accounts SET balance = balance - 100 WHERE id = 1")
+    ///             .await
+    ///             .map_app_err(TransferFailed)?;
+    ///         Ok(())
+    ///     })
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// # Using with `tokio::spawn`
+    ///
+    /// When executing a transaction inside a spawned task (e.g. [`tokio::spawn`]), use an
+    /// `async move |transaction|` closure to ensure captured variables and the transaction handle have
+    /// the `'static` lifetimes required by the `Send` bound on spawned tasks:
+    ///
+    /// ```no_run
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample(spanner: Spanner) -> Result<(), Box<dyn std::error::Error>> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let task = tokio::spawn(async move {
+    ///     let runner = db_client.read_write_transaction().build();
+    ///     runner.run(async move |transaction| {
+    ///         // perform queries/updates
+    ///         Ok(())
+    ///     }).await
+    /// });
+    /// task.await??;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn run<T, F>(mut self, mut work: F) -> crate::Result<TransactionResult<T>>
     where
         F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,
@@ -731,6 +807,7 @@ mod tests {
     use crate::batch_dml::BatchDml;
     use crate::channel_pool::entry::{ChannelEntry, ChannelState};
     use crate::channel_pool::scaler::sweep_draining_channels;
+    use crate::error::{ApplicationError, SpannerResultExt, application_error};
     use crate::key::KeySet;
     use crate::mutation::Mutation;
     use crate::read::ReadRequest;
@@ -1490,6 +1567,244 @@ mod tests {
         } else {
             panic!("Expected GRPC error");
         }
+    }
+
+    #[derive(thiserror::Error, Debug, PartialEq, Eq)]
+    #[error("insufficient funds")]
+    struct InsufficientFunds;
+
+    #[derive(thiserror::Error, Debug, PartialEq, Eq)]
+    #[error("transfer update failed")]
+    struct TransferFailed;
+
+    #[tokio_test_no_panics]
+    async fn execute_run_with_pure_application_error() {
+        let mut mock = create_session_mock();
+        expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+
+        // When a pure domain error is returned, rollback must be called immediately.
+        mock.expect_rollback()
+            .once()
+            .returning(|_req| Ok(Response::new(())));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build();
+
+        let result = runner
+            .run(async |_transaction| Err::<(), _>(application_error(InsufficientFunds)))
+            .await;
+
+        let error = result.expect_err("runner should return error for pure application error");
+        let app_error =
+            ApplicationError::extract(&error).expect("error should contain ApplicationError");
+        assert!(
+            app_error.spanner_error().is_none(),
+            "pure domain error should not have an underlying Spanner error"
+        );
+        let domain_downcast = app_error
+            .downcast_ref::<InsufficientFunds>()
+            .expect("domain error should downcast to InsufficientFunds");
+        assert_eq!(
+            domain_downcast, &InsufficientFunds,
+            "downcasted error should match original InsufficientFunds"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_run_with_application_error_wrapping_aborted_retries_and_succeeds() {
+        let mut mock = create_session_mock();
+        let mut seq = Sequence::new();
+
+        // Attempt 1: begin explicit
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session, "projects/p/instances/i/databases/d/sessions/123",
+                    "session must match"
+                );
+                Ok(Response::new(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: execute_sql fails with Aborted
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // Attempt 2: begin explicit on retry
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session, "projects/p/instances/i/databases/d/sessions/123",
+                    "session must match"
+                );
+                Ok(Response::new(v1::Transaction {
+                    id: vec![8, 8, 8],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: execute_sql succeeds
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                Ok(Response::new(v1::ResultSet {
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_req| commit_response());
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build();
+
+        let mut attempts = 0;
+        let result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let rows = transaction
+                    .execute_update("UPDATE Accounts SET balance = 100 WHERE id = 1")
+                    .await
+                    .map_app_err(TransferFailed)?;
+                Ok(rows)
+            })
+            .await;
+
+        let transaction_result = result.expect("runner should succeed on retry attempt 2");
+        assert_eq!(
+            transaction_result.result, 1,
+            "update should report 1 row modified"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_run_with_application_error_wrapping_aborted_retries_exhausted() {
+        let mut mock = create_session_mock();
+        let mut seq = Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session, "projects/p/instances/i/databases/d/sessions/123",
+                    "session must match"
+                );
+                Ok(Response::new(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let retry_policy = BasicTransactionRetryPolicy::new().with_max_attempts(1);
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(retry_policy)
+            .build();
+
+        let result = runner
+            .run(async |transaction| {
+                transaction
+                    .execute_update("UPDATE Accounts SET balance = 100 WHERE id = 1")
+                    .await
+                    .map_app_err(TransferFailed)?;
+                Ok(42)
+            })
+            .await;
+
+        let error = result.expect_err("runner should return error when retries exhausted");
+        let app_error = ApplicationError::extract(&error)
+            .expect("returned error should contain ApplicationError");
+        let spanner_err = app_error
+            .spanner_error()
+            .expect("ApplicationError should contain underlying Spanner error");
+        assert_eq!(
+            spanner_err.status().expect("status should exist").code,
+            GaxCode::Aborted,
+            "underlying Spanner error should be Aborted"
+        );
+        let domain_downcast = app_error
+            .downcast_ref::<TransferFailed>()
+            .expect("should downcast to TransferFailed");
+        assert_eq!(
+            domain_downcast, &TransferFailed,
+            "downcasted error should match TransferFailed"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_run_with_application_error_wrapping_non_aborted_error() {
+        let mut mock = create_session_mock();
+        expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+
+        mock.expect_execute_sql()
+            .once()
+            .returning(move |_req| Err(Status::new(Code::PermissionDenied, "permission denied")));
+
+        // Non-aborted error must trigger rollback immediately
+        mock.expect_rollback()
+            .once()
+            .returning(|_req| Ok(Response::new(())));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build();
+
+        let result = runner
+            .run(async |transaction| {
+                transaction
+                    .execute_update("UPDATE Accounts SET balance = 100 WHERE id = 1")
+                    .await
+                    .map_app_err(TransferFailed)?;
+                Ok(42)
+            })
+            .await;
+
+        let error = result.expect_err("runner should return error for non-aborted failure");
+        let app_error = ApplicationError::extract(&error)
+            .expect("returned error should contain ApplicationError");
+        let spanner_err = app_error
+            .spanner_error()
+            .expect("underlying Spanner error should be present");
+        assert_eq!(
+            spanner_err.status().expect("status should exist").code,
+            GaxCode::PermissionDenied,
+            "underlying Spanner error should be PermissionDenied"
+        );
     }
 
     #[tokio_test_no_panics]

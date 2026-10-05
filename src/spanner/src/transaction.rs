@@ -14,6 +14,7 @@
 
 //! Re-exports for Spanner transactions.
 
+pub use crate::error::{ApplicationError, SpannerResultExt, application_error};
 pub use crate::partitioned_dml_transaction::PartitionedDmlTransaction;
 pub use crate::read_only_transaction::{
     BeginTransactionOption, MultiUseReadOnlyTransaction, SingleUseReadOnlyTransaction,

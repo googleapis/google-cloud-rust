@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Error;
+use crate::error::underlying_spanner_error;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
@@ -175,6 +176,7 @@ where
 }
 
 pub(crate) fn is_aborted(err: &crate::Error) -> bool {
+    let err = underlying_spanner_error(err);
     err.status().is_some_and(|s| s.code == Code::Aborted)
 }
 
@@ -190,6 +192,7 @@ pub(crate) fn default_retry_backoff() -> ExponentialBackoff {
 }
 
 pub(crate) fn is_internal_emulator_error(err: &crate::Error) -> bool {
+    let err = underlying_spanner_error(err);
     if let Some(status) = err.status() {
         status.code == Code::Internal
             && status.message.contains("Schema generation")
