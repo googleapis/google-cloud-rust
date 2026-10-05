@@ -17,6 +17,7 @@ use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::database_client::DatabaseClient;
 use crate::error::{SpannerInternalError, aborted_due_to_failed_initial_statement, internal_error};
 use crate::model::transaction_options::{Mode, ReadOnly};
+use crate::model::transaction_selector::Selector;
 use crate::model::{
     BeginTransactionRequest, Mutation, Transaction, TransactionOptions, TransactionSelector,
 };
@@ -33,7 +34,7 @@ use google_cloud_gax::retry_policy::RetryPolicyArg;
 use http::HeaderMap;
 use std::error::Error as _;
 use std::mem::replace;
-use std::sync::{Arc, Mutex, PoisonError};
+use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::{Duration, Instant};
 use tokio::sync::Notify;
 use tokio::sync::futures::OwnedNotified;
@@ -648,6 +649,35 @@ impl TransactionStartFailure {
 }
 
 impl ReadContextTransactionSelector {
+    /// Acquires an exclusive mutex lock on the inner lazy transaction state, recovering if the lock was poisoned.
+    ///
+    /// Returns `None` if this is a `Fixed` transaction selector.
+    fn lock_state(&self) -> Option<MutexGuard<'_, TransactionState>> {
+        match self {
+            Self::Lazy(lazy) => match lazy.lock() {
+                Ok(guard) => Some(guard),
+                Err(poisoned) => Some(poisoned.into_inner()),
+            },
+            Self::Fixed(_, _) => None,
+        }
+    }
+
+    /// Returns whether this is a lazy transaction selector.
+    pub(crate) fn is_lazy(&self) -> bool {
+        matches!(self, Self::Lazy(_))
+    }
+
+    /// Returns whether the transaction has successfully started.
+    pub(crate) fn is_started(&self) -> bool {
+        if let Self::Fixed(selector, _) = self {
+            return matches!(selector.selector, Some(Selector::Id(_)));
+        }
+        if let Some(guard) = self.lock_state() {
+            return matches!(&*guard, TransactionState::Started(_, _));
+        }
+        false
+    }
+
     pub(crate) async fn selector(&self) -> crate::Result<crate::model::TransactionSelector> {
         match self {
             Self::Fixed(selector, _) => Ok(selector.clone()),
@@ -663,10 +693,9 @@ impl ReadContextTransactionSelector {
     /// Inspects the current lazy selector state returning whether it is ready,
     /// failed, or needs to wait for the transaction to start.
     fn poll_selector_status(&self) -> crate::Result<SelectorStatus> {
-        let Self::Lazy(lazy) = self else {
+        let Some(mut guard) = self.lock_state() else {
             unreachable!("poll_selector_status called on non-Lazy selector");
         };
-        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
 
         // Fast path: Transaction is already started.
         if let TransactionState::Started(selector, _) = &*guard {
@@ -734,9 +763,9 @@ impl ReadContextTransactionSelector {
     /// the client to force the start of a transaction if the first statement
     /// failed.
     pub(crate) async fn begin_explicitly(&self, params: ExplicitBeginParams) -> crate::Result<()> {
-        let Self::Lazy(lazy) = self else {
+        if !self.is_lazy() {
             return Ok(());
-        };
+        }
 
         enum FallbackAction {
             Begin(crate::model::TransactionOptions, Option<Arc<Notify>>),
@@ -758,9 +787,9 @@ impl ReadContextTransactionSelector {
         // - If already in a terminal state (`Started` or `Failed`), return the result immediately.
         let (options, notify_opt) = loop {
             let action = {
-                let mut guard = lazy
-                    .lock()
-                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
+                let Some(mut guard) = self.lock_state() else {
+                    return Ok(());
+                };
                 match &*guard {
                     TransactionState::NotStarted(options) => {
                         // The transaction has not started yet. This thread becomes the "leader"
@@ -820,11 +849,12 @@ impl ReadContextTransactionSelector {
         {
             Ok(r) => r,
             Err(e) => {
-                let mut guard = lazy.lock().expect("transaction state mutex poisoned");
-                *guard = TransactionState::Failed(TransactionStartFailure::from_error(&e));
+                if let Some(mut guard) = self.lock_state() {
+                    *guard = TransactionState::Failed(TransactionStartFailure::from_error(&e));
+                    drop(guard);
+                }
                 // Release the lock and notify all the waiting queries that
                 // the transaction has failed.
-                drop(guard);
                 if let Some(notify) = notify_opt {
                     notify.notify_waiters();
                 }
@@ -856,10 +886,9 @@ impl ReadContextTransactionSelector {
         id: bytes::Bytes,
         timestamp: Option<wkt::Timestamp>,
     ) -> crate::Result<()> {
-        let Self::Lazy(lazy) = self else {
+        let Some(mut guard) = self.lock_state() else {
             return Ok(());
         };
-        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
 
         if matches!(
             &*guard,
@@ -904,19 +933,15 @@ impl ReadContextTransactionSelector {
     /// transaction has already started. It returns `None` if the transaction
     /// has not yet started or is in a state without an ID.
     pub(crate) fn get_id_no_wait(&self) -> crate::Result<Option<bytes::Bytes>> {
-        use crate::model::transaction_selector::Selector;
         match self {
             Self::Fixed(selector, _) => {
                 if let Some(Selector::Id(id)) = &selector.selector {
                     return Ok(Some(id.clone()));
                 }
             }
-            Self::Lazy(lazy) => {
-                let guard = match lazy.lock() {
-                    Ok(guard) => guard,
-                    Err(poisoned) => poisoned.into_inner(),
-                };
-                if let TransactionState::Started(selector, _) = &*guard
+            Self::Lazy(_) => {
+                if let Some(guard) = self.lock_state()
+                    && let TransactionState::Started(selector, _) = &*guard
                     && let Some(Selector::Id(id)) = &selector.selector
                 {
                     return Ok(Some(id.clone()));
@@ -928,15 +953,10 @@ impl ReadContextTransactionSelector {
 
     /// Returns whether the transaction selector is currently in the `Starting` state.
     pub(crate) fn is_starting(&self) -> crate::Result<bool> {
-        match self {
-            Self::Lazy(lazy) => {
-                let guard = lazy
-                    .lock()
-                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
-                Ok(matches!(&*guard, TransactionState::Starting(_, _)))
-            }
-            _ => Ok(false),
-        }
+        let Some(guard) = self.lock_state() else {
+            return Ok(false);
+        };
+        Ok(matches!(&*guard, TransactionState::Starting(_, _)))
     }
 
     /// Handles the cancellation of an operation that was starting the transaction.
@@ -948,11 +968,10 @@ impl ReadContextTransactionSelector {
     /// - For read-only transactions: resets to `NotStarted`, allowing another query to attempt
     ///   the inlined begin.
     pub(crate) fn on_cancelled_starting(&self) {
-        let Self::Lazy(lazy) = self else {
+        let Some(mut guard) = self.lock_state() else {
             return;
         };
 
-        let mut guard = lazy.lock().unwrap_or_else(PoisonError::into_inner);
         if let TransactionState::Starting(options, notify) = &*guard {
             let notify = Arc::clone(notify);
             let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
@@ -967,10 +986,9 @@ impl ReadContextTransactionSelector {
     }
 
     pub(crate) fn is_first_statement_failed(&self) -> bool {
-        let Self::Lazy(lazy) = self else {
+        let Some(guard) = self.lock_state() else {
             return false;
         };
-        let guard = lazy.lock().expect("transaction state mutex poisoned");
         matches!(&*guard, TransactionState::FirstStatementFailed)
     }
 
@@ -993,8 +1011,10 @@ impl ReadContextTransactionSelector {
     pub(crate) fn selector_for_restart(&self) -> crate::Result<crate::model::TransactionSelector> {
         match self {
             Self::Fixed(selector, _) => Ok(selector.clone()),
-            Self::Lazy(lazy) => {
-                let guard = lazy.lock().expect("transaction state mutex poisoned");
+            Self::Lazy(_) => {
+                let Some(guard) = self.lock_state() else {
+                    unreachable!("selector_for_restart called on non-Lazy selector");
+                };
                 match &*guard {
                     TransactionState::Started(selector, _) => Ok(selector.clone()),
                     TransactionState::Starting(options, _) => {
@@ -1040,11 +1060,10 @@ impl ReadContextTransactionSelector {
     /// - **Already Started / Non-Lazy**: If the transaction is already established, this is
     ///   just a standard stream failure, so we return `true` to propagate the error.
     pub(crate) fn handle_stream_initialization_error(&self, err: &crate::Error) -> bool {
-        let Self::Lazy(lazy) = self else {
+        let Some(guard) = self.lock_state() else {
             // Non-lazy selectors do not inline begin transactions; propagate error directly.
             return true;
         };
-        let guard = lazy.lock().expect("transaction state mutex poisoned");
         match &*guard {
             TransactionState::Starting(options, _) => {
                 let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
@@ -1063,10 +1082,9 @@ impl ReadContextTransactionSelector {
     }
 
     pub(crate) fn set_failed(&self, err: &crate::Error) {
-        let Self::Lazy(lazy) = self else {
+        let Some(mut guard) = self.lock_state() else {
             return;
         };
-        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
         if let TransactionState::Starting(options, notify) = &*guard {
             let notify = Arc::clone(notify);
             let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
@@ -1089,10 +1107,9 @@ impl ReadContextTransactionSelector {
     }
 
     pub(crate) fn check_failed(&self) -> crate::Result<()> {
-        let Self::Lazy(lazy) = self else {
+        let Some(guard) = self.lock_state() else {
             return Ok(());
         };
-        let guard = lazy.lock().expect("transaction state mutex poisoned");
         match &*guard {
             TransactionState::Failed(failure) => Err(failure.to_error()),
             TransactionState::FirstStatementFailed => {
@@ -1113,14 +1130,10 @@ impl ReadContextTransactionSelector {
     pub(crate) fn read_timestamp(&self) -> Option<wkt::Timestamp> {
         match self {
             Self::Fixed(_, timestamp) => *timestamp,
-            Self::Lazy(lazy) => {
-                let guard = lazy.lock().expect("transaction state mutex poisoned");
-                if let TransactionState::Started(_, timestamp) = &*guard {
-                    *timestamp
-                } else {
-                    None
-                }
-            }
+            Self::Lazy(_) => match self.lock_state().as_deref() {
+                Some(TransactionState::Started(_, timestamp)) => *timestamp,
+                _ => None,
+            },
         }
     }
 }
@@ -1193,14 +1206,7 @@ impl ReadContext {
         is_stream_fallback: bool,
         mutation_key: Option<Mutation>,
     ) -> Result<bool> {
-        let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
-            return Ok(false);
-        };
-        let is_started = matches!(
-            &*lazy.lock().expect("transaction state mutex poisoned"),
-            TransactionState::Started(_, _)
-        );
-        if is_started {
+        if !self.transaction_selector.is_lazy() || self.transaction_selector.is_started() {
             return Ok(false);
         }
 
@@ -5221,6 +5227,202 @@ pub(crate) mod tests {
                 .contains("Spanner failed to return a transaction ID"),
             "Expected missing transaction ID error message, got: {error}"
         );
+
+        Ok(())
+    }
+
+    #[test]
+    fn transaction_selector_recovers_from_poisoned_lock_on_start() -> crate::Result<()> {
+        use bytes::Bytes;
+        use std::panic::catch_unwind;
+
+        let inner_state = Arc::new(StdMutex::new(TransactionState::NotStarted(
+            TransactionOptions::default().set_read_only(ReadOnly::default()),
+        )));
+        let selector = ReadContextTransactionSelector::Lazy(Arc::clone(&inner_state));
+
+        // Deliberately poison the mutex.
+        let inner_state_clone = Arc::clone(&inner_state);
+        let _ = catch_unwind(move || {
+            let _guard = inner_state_clone
+                .lock()
+                .expect("lock must succeed before poison");
+            panic!("deliberate panic to poison mutex");
+        });
+        assert!(
+            inner_state.is_poisoned(),
+            "transaction state mutex must be poisoned"
+        );
+
+        // Verify query methods recover under poison.
+        assert!(
+            selector.is_lazy(),
+            "selector must be identified as lazy even if poisoned"
+        );
+        assert!(
+            !selector.is_started(),
+            "selector must not be started initially"
+        );
+        assert!(
+            !selector.is_starting()?,
+            "selector must not be starting initially"
+        );
+
+        // Verify poll_selector_status successfully transitions under poison.
+        let status = selector.poll_selector_status()?;
+        match status {
+            SelectorStatus::Ready(transaction_selector) => {
+                assert!(
+                    transaction_selector.begin().is_some(),
+                    "expected begin options in ready status"
+                );
+            }
+            SelectorStatus::Wait(_) => {
+                panic!("first poller should become leader, not waiter");
+            }
+        }
+        assert!(
+            selector.is_starting()?,
+            "selector must be starting after poll_selector_status"
+        );
+
+        // Verify update succeeds and transitions to Started under poison.
+        let timestamp = wkt::Timestamp::clamp(12345, 6789);
+        selector.update(Bytes::from_static(b"test-tx-id"), Some(timestamp))?;
+
+        assert!(
+            selector.is_started(),
+            "selector must be started after update"
+        );
+        assert_eq!(
+            selector.get_id_no_wait()?,
+            Some(Bytes::from_static(b"test-tx-id")),
+            "expected transaction ID"
+        );
+        assert_eq!(
+            selector.read_timestamp(),
+            Some(timestamp),
+            "expected read timestamp"
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn transaction_selector_recovers_from_poisoned_lock_on_failure() -> crate::Result<()> {
+        use std::panic::catch_unwind;
+
+        let notify = Arc::new(Notify::new());
+        let options = TransactionOptions::default().set_read_only(ReadOnly::default());
+        let inner_state = Arc::new(StdMutex::new(TransactionState::Starting(
+            options,
+            Arc::clone(&notify),
+        )));
+        let selector = ReadContextTransactionSelector::Lazy(Arc::clone(&inner_state));
+
+        // Deliberately poison the mutex.
+        let inner_state_clone = Arc::clone(&inner_state);
+        let _ = catch_unwind(move || {
+            let _guard = inner_state_clone
+                .lock()
+                .expect("lock must succeed before poison");
+            panic!("deliberate panic to poison mutex");
+        });
+        assert!(
+            inner_state.is_poisoned(),
+            "transaction state mutex must be poisoned"
+        );
+
+        // For read-only, handle_stream_initialization_error returns false (caller should begin explicitly).
+        let test_error = internal_error("transient stream error");
+        assert!(
+            !selector.handle_stream_initialization_error(&test_error),
+            "read-only transactions must return false for stream fallback"
+        );
+
+        // set_failed marks the selector as Failed despite lock poisoning.
+        selector.set_failed(&test_error);
+
+        let check_result = selector.check_failed();
+        assert!(
+            check_result.is_err(),
+            "check_failed must return error after set_failed on poisoned lock"
+        );
+
+        let restart_result = selector.selector_for_restart();
+        assert!(
+            restart_result.is_err(),
+            "selector_for_restart must return error for Failed transaction on poisoned lock"
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn transaction_selector_on_cancelled_starting_recovers_from_poisoned_lock() -> crate::Result<()>
+    {
+        use std::panic::catch_unwind;
+
+        // Test read-write cancellation transitions to FirstStatementFailed.
+        {
+            use crate::model::transaction_options::ReadWrite;
+            let notify = Arc::new(Notify::new());
+            let read_write_options =
+                TransactionOptions::default().set_read_write(ReadWrite::default());
+            let inner_state = Arc::new(StdMutex::new(TransactionState::Starting(
+                read_write_options,
+                Arc::clone(&notify),
+            )));
+            let selector = ReadContextTransactionSelector::Lazy(Arc::clone(&inner_state));
+
+            let inner_state_clone = Arc::clone(&inner_state);
+            let _ = catch_unwind(move || {
+                let _guard = inner_state_clone
+                    .lock()
+                    .expect("lock must succeed before poison");
+                panic!("deliberate panic to poison mutex");
+            });
+            assert!(
+                inner_state.is_poisoned(),
+                "read-write transaction mutex must be poisoned"
+            );
+
+            selector.on_cancelled_starting();
+            assert!(
+                selector.is_first_statement_failed(),
+                "read-write selector must transition to FirstStatementFailed on cancellation"
+            );
+        }
+
+        // Test read-only cancellation transitions back to NotStarted.
+        {
+            let notify = Arc::new(Notify::new());
+            let read_only_options =
+                TransactionOptions::default().set_read_only(ReadOnly::default());
+            let inner_state = Arc::new(StdMutex::new(TransactionState::Starting(
+                read_only_options,
+                Arc::clone(&notify),
+            )));
+            let selector = ReadContextTransactionSelector::Lazy(Arc::clone(&inner_state));
+
+            let inner_state_clone = Arc::clone(&inner_state);
+            let _ = catch_unwind(move || {
+                let _guard = inner_state_clone
+                    .lock()
+                    .expect("lock must succeed before poison");
+                panic!("deliberate panic to poison mutex");
+            });
+            assert!(
+                inner_state.is_poisoned(),
+                "read-only transaction mutex must be poisoned"
+            );
+
+            selector.on_cancelled_starting();
+            assert!(
+                !selector.is_starting()?,
+                "read-only selector must reset from Starting back to NotStarted on cancellation"
+            );
+        }
 
         Ok(())
     }

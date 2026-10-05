@@ -57,9 +57,8 @@ use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::cmp::min;
 use std::mem::take;
-use std::sync::Arc;
-use std::sync::Mutex;
 use std::sync::atomic::{AtomicI64, Ordering};
+use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::Duration;
 use tokio::time::Instant;
 
@@ -432,10 +431,7 @@ impl ReadWriteTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let mut guard = self
-            .mutations
-            .lock()
-            .map_err(|_| crate::error::internal_error("mutations mutex poisoned"))?;
+        let mut guard = self.lock_mutations();
         for mutation in mutations {
             guard.push(mutation.build_proto());
         }
@@ -628,6 +624,14 @@ impl ReadWriteTransaction {
         self.context.transaction_selector.is_starting()
     }
 
+    /// Acquires an exclusive mutex lock on the buffered mutations, recovering if the lock was poisoned.
+    fn lock_mutations(&self) -> MutexGuard<'_, Vec<ProtoMutation>> {
+        match self.mutations.lock() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
     fn commit_request_options(&self) -> Option<crate::model::RequestOptions> {
         let mut options = self.context.amend_request_options(None);
         if self.commit_priority != Priority::Unspecified {
@@ -669,7 +673,7 @@ impl ReadWriteTransaction {
 
     async fn commit_internal(&self) -> Result<CommitResponse> {
         self.context.transaction_selector.check_failed()?;
-        let mutations = take(&mut *self.mutations.lock().expect("mutations mutex poisoned"));
+        let mutations = take(&mut *self.lock_mutations());
         let mut id = self.context.transaction_selector.get_id_no_wait()?;
         if id.is_none() {
             if self.is_starting()? {
@@ -6588,6 +6592,50 @@ mod tests {
                 .is_some(),
             "Expected commit timestamp"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_recovers_from_poisoned_mutations_lock() -> crate::Result<()> {
+        use std::mem::take;
+        use std::panic::catch_unwind;
+
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        // Deliberately poison the mutations mutex.
+        let mutations_clone = Arc::clone(&transaction.mutations);
+        let _ = catch_unwind(move || {
+            let _guard = mutations_clone
+                .lock()
+                .expect("mutex lock before deliberate panic");
+            panic!("deliberate panic to poison mutations mutex");
+        });
+        assert!(
+            transaction.mutations.is_poisoned(),
+            "mutations mutex must be poisoned"
+        );
+
+        // Verify buffer() recovers from the poisoned lock and successfully buffers mutations.
+        use crate::key::KeySet;
+        let mutation = Mutation::delete("Users", KeySet::all());
+        transaction.buffer(vec![mutation])?;
+
+        // Verify lock_mutations() recovers from the poisoned lock and exposes the mutation.
+        let mut guard = transaction.lock_mutations();
+        assert_eq!(
+            guard.len(),
+            1,
+            "expected one buffered mutation after poison recovery"
+        );
+        let drained: Vec<_> = take(&mut *guard);
+        assert_eq!(drained.len(), 1, "expected one drained mutation");
+
         Ok(())
     }
 }
