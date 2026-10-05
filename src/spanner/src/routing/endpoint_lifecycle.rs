@@ -23,7 +23,10 @@ use gaxi::options::ClientConfig;
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::sync::Arc;
+use std::sync::PoisonError;
 use std::sync::RwLock;
+use std::sync::RwLockReadGuard;
+use std::sync::RwLockWriteGuard;
 use std::sync::Weak;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Duration;
@@ -104,6 +107,18 @@ impl EndpointLifecycleManager {
         }
     }
 
+    /// Acquires a shared read lock on the lifecycle manager state, recovering the underlying lock guard
+    /// via `PoisonError::into_inner` if the lock was poisoned.
+    fn read_state(&self) -> RwLockReadGuard<'_, LifecycleManagerState> {
+        self.state.read().unwrap_or_else(PoisonError::into_inner)
+    }
+
+    /// Acquires an exclusive write lock on the lifecycle manager state, recovering the underlying lock guard
+    /// via `PoisonError::into_inner` if the lock was poisoned.
+    fn write_state(&self) -> RwLockWriteGuard<'_, LifecycleManagerState> {
+        self.state.write().unwrap_or_else(PoisonError::into_inner)
+    }
+
     /// Starts the background periodic health probing and idle eviction maintenance task if running
     /// within a Tokio asynchronous runtime.
     ///
@@ -116,10 +131,7 @@ impl EndpointLifecycleManager {
         let weak = Arc::downgrade(self);
         let probe_interval = self.probe_interval;
         let task = handle.spawn(Self::run_maintenance_loop(weak, probe_interval));
-        let mut state = self
-            .state
-            .write()
-            .expect("EndpointLifecycleManager state write lock poisoned");
+        let mut state = self.write_state();
         if let Some(old) = state.maintenance_task.replace(task) {
             old.abort();
         }
@@ -149,10 +161,7 @@ impl EndpointLifecycleManager {
 
     /// Stops the background maintenance task if currently running.
     pub(crate) fn stop_maintenance(&self) {
-        let mut state = self
-            .state
-            .write()
-            .expect("EndpointLifecycleManager state write lock poisoned");
+        let mut state = self.write_state();
         if let Some(handle) = state.maintenance_task.take() {
             handle.abort();
         }
@@ -172,10 +181,7 @@ impl EndpointLifecycleManager {
         // Fast path: Check under shared read lock without contending for the exclusive write lock.
         // If traffic was already recorded within the throttle window, return immediately.
         {
-            let state = self
-                .state
-                .read()
-                .expect("EndpointLifecycleManager state read lock poisoned");
+            let state = self.read_state();
 
             let Some(endpoint_state) = state.endpoints.get(address) else {
                 return;
@@ -189,10 +195,7 @@ impl EndpointLifecycleManager {
         }
 
         // Slow path: Acquire exclusive write lock to update the timestamp.
-        let mut state = self
-            .state
-            .write()
-            .expect("EndpointLifecycleManager state write lock poisoned");
+        let mut state = self.write_state();
 
         // Double-Checked Locking: Re-check the throttle condition under the write lock.
         // Multiple concurrent requests may have passed the read-lock check simultaneously
@@ -231,10 +234,7 @@ impl EndpointLifecycleManager {
         }
 
         let (newly_registered, stale_addresses) = {
-            let mut state = self
-                .state
-                .write()
-                .expect("EndpointLifecycleManager state write lock poisoned");
+            let mut state = self.write_state();
 
             let newly_registered = state.register_new_endpoints(
                 &active_addresses,
@@ -267,10 +267,7 @@ impl EndpointLifecycleManager {
         }
 
         let stale_addresses = {
-            let mut state = self
-                .state
-                .write()
-                .expect("EndpointLifecycleManager state write lock poisoned");
+            let mut state = self.write_state();
 
             if state
                 .active_addresses_per_source
@@ -315,19 +312,13 @@ impl EndpointLifecycleManager {
 
         // Fast-path read check: avoid exclusive write lock if endpoint is already tracked.
         {
-            let state = self
-                .state
-                .read()
-                .expect("EndpointLifecycleManager state read lock poisoned");
+            let state = self.read_state();
             if state.endpoints.contains_key(address) {
                 return false;
             }
         }
 
-        let mut state = self
-            .state
-            .write()
-            .expect("EndpointLifecycleManager state write lock poisoned");
+        let mut state = self.write_state();
 
         // Double check after acquiring write lock.
         if state.endpoints.contains_key(address) {
@@ -411,18 +402,15 @@ impl EndpointLifecycleManager {
         };
 
         let is_still_tracked = if let Some(state) = weak_state.upgrade() {
-            if let Ok(mut lifecycle_state) = state.write() {
-                if connection.is_healthy() {
-                    lifecycle_state.record_probe_healthy(&address_string, Instant::now());
-                    transient_failure_count.store(
-                        lifecycle_state.transient_failure_evicted.len(),
-                        Ordering::Release,
-                    );
-                }
-                lifecycle_state.endpoints.contains_key(&address_string)
-            } else {
-                false
+            let mut lifecycle_state = state.write().unwrap_or_else(PoisonError::into_inner);
+            if connection.is_healthy() {
+                lifecycle_state.record_probe_healthy(&address_string, Instant::now());
+                transient_failure_count.store(
+                    lifecycle_state.transient_failure_evicted.len(),
+                    Ordering::Release,
+                );
             }
+            lifecycle_state.endpoints.contains_key(&address_string)
         } else {
             false
         };
@@ -447,10 +435,7 @@ impl EndpointLifecycleManager {
     pub(crate) fn probe_all_endpoints_at(&self, now: Instant) -> Vec<(String, EvictionReason)> {
         // Step 1: Read all tracked endpoint addresses under a shared read lock.
         let addresses: Vec<String> = {
-            let state = self
-                .state
-                .read()
-                .expect("EndpointLifecycleManager state read lock poisoned");
+            let state = self.read_state();
             state.endpoints.keys().cloned().collect()
         };
 
@@ -472,10 +457,7 @@ impl EndpointLifecycleManager {
 
         // Step 3: Batch-update lifecycle state under a single exclusive write lock if there are updates.
         let evicted = if !healthy_endpoints.is_empty() || !transient_failure_endpoints.is_empty() {
-            let mut state = self
-                .state
-                .write()
-                .expect("EndpointLifecycleManager state write lock poisoned");
+            let mut state = self.write_state();
 
             let evicted =
                 state.apply_probe_results(&healthy_endpoints, &transient_failure_endpoints, now);
@@ -519,10 +501,7 @@ impl EndpointLifecycleManager {
 
         // Fast path: check under shared read lock if any endpoint is idle before taking write lock.
         {
-            let state = self
-                .state
-                .read()
-                .expect("EndpointLifecycleManager state read lock poisoned");
+            let state = self.read_state();
             let has_idle = state.endpoints.iter().any(|(address, endpoint_state)| {
                 address != default_address && endpoint_state.is_idle_at(now, idle_duration)
             });
@@ -532,10 +511,7 @@ impl EndpointLifecycleManager {
         }
 
         let evicted_addresses = {
-            let mut state = self
-                .state
-                .write()
-                .expect("EndpointLifecycleManager state write lock poisoned");
+            let mut state = self.write_state();
 
             let mut evicted = Vec::new();
             state.endpoints.retain(|address, endpoint_state| {
@@ -562,10 +538,7 @@ impl EndpointLifecycleManager {
         if !self.has_transient_failure_evictions() {
             return false;
         }
-        let state = self
-            .state
-            .read()
-            .expect("EndpointLifecycleManager state read lock poisoned");
+        let state = self.read_state();
         state.transient_failure_evicted.contains(address)
     }
 
@@ -581,10 +554,7 @@ impl EndpointLifecycleManager {
             return false;
         }
         let needs_recreation = {
-            let state = self
-                .state
-                .read()
-                .expect("EndpointLifecycleManager state read lock poisoned");
+            let state = self.read_state();
             if !state.transient_failure_evicted.contains(address) {
                 return false;
             }
@@ -616,17 +586,16 @@ impl EndpointLifecycleManager {
 
 impl Drop for EndpointLifecycleManager {
     fn drop(&mut self) {
-        if let Ok(mut state) = self.state.write() {
-            for address in state.endpoints.keys() {
-                self.evict_connection(address, EvictionReason::Shutdown);
-            }
-            state.endpoints.clear();
-            state.transient_failure_evicted.clear();
-            state.active_addresses_per_source.clear();
-            self.transient_failure_count.store(0, Ordering::Release);
-            if let Some(handle) = state.maintenance_task.take() {
-                handle.abort();
-            }
+        let mut state = self.write_state();
+        for address in state.endpoints.keys() {
+            self.evict_connection(address, EvictionReason::Shutdown);
+        }
+        state.endpoints.clear();
+        state.transient_failure_evicted.clear();
+        state.active_addresses_per_source.clear();
+        self.transient_failure_count.store(0, Ordering::Release);
+        if let Some(handle) = state.maintenance_task.take() {
+            handle.abort();
         }
     }
 }
@@ -803,10 +772,7 @@ impl EndpointLifecycleState {
 impl EndpointLifecycleManager {
     /// Returns `true` if the background maintenance task is currently active.
     pub(crate) fn is_maintenance_active(&self) -> bool {
-        let state = self
-            .state
-            .read()
-            .expect("EndpointLifecycleManager state read lock poisoned");
+        let state = self.read_state();
         state
             .maintenance_task
             .as_ref()
@@ -844,10 +810,7 @@ impl EndpointLifecycleManager {
 
         let connection = self.connection_cache.get_if_present(address)?;
         if connection.is_healthy() {
-            let mut state = self
-                .state
-                .write()
-                .expect("EndpointLifecycleManager state write lock poisoned");
+            let mut state = self.write_state();
             state.record_probe_healthy(address, now);
             self.transient_failure_count
                 .store(state.transient_failure_evicted.len(), Ordering::Release);
@@ -855,10 +818,7 @@ impl EndpointLifecycleManager {
         }
 
         if connection.is_transient_failure() {
-            let mut state = self
-                .state
-                .write()
-                .expect("EndpointLifecycleManager state write lock poisoned");
+            let mut state = self.write_state();
             let reason = state.record_probe_transient_failure(address, now);
             self.transient_failure_count
                 .store(state.transient_failure_evicted.len(), Ordering::Release);
@@ -874,10 +834,7 @@ impl EndpointLifecycleManager {
 
     /// Returns the number of currently tracked endpoints.
     pub(crate) fn len(&self) -> usize {
-        let state = self
-            .state
-            .read()
-            .expect("EndpointLifecycleManager state read lock poisoned");
+        let state = self.read_state();
         state.endpoints.len()
     }
 
@@ -888,19 +845,13 @@ impl EndpointLifecycleManager {
 
     /// Returns a copy of the lifecycle state for the given address, if tracked.
     pub(crate) fn get_endpoint_state(&self, address: &str) -> Option<EndpointLifecycleState> {
-        let state = self
-            .state
-            .read()
-            .expect("EndpointLifecycleManager state read lock poisoned");
+        let state = self.read_state();
         state.endpoints.get(address).cloned()
     }
 
     /// Clears all tracked endpoint states and failure markers.
     pub(crate) fn clear(&self) {
-        let mut state = self
-            .state
-            .write()
-            .expect("EndpointLifecycleManager state write lock poisoned");
+        let mut state = self.write_state();
         for address in state.endpoints.keys() {
             self.evict_connection(address, EvictionReason::Shutdown);
         }
@@ -912,10 +863,7 @@ impl EndpointLifecycleManager {
 
     /// Returns whether the specified endpoint address is currently tracked in the lifecycle manager.
     pub(crate) fn is_managed(&self, address: &str) -> bool {
-        let state = self
-            .state
-            .read()
-            .expect("EndpointLifecycleManager state read lock poisoned");
+        let state = self.read_state();
         state.endpoints.contains_key(address)
     }
 }
@@ -928,6 +876,7 @@ mod tests {
     use crate::routing::server_connection::ServerConnection;
     use gaxi::options::ClientConfig;
     use std::fmt::Debug;
+    use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::Barrier;
     use std::thread;
     use tokio::runtime::Builder;
@@ -2318,6 +2267,156 @@ mod tests {
         assert!(
             manager.get_endpoint_state(address).is_some(),
             "endpoint must be tracked after recreation"
+        );
+    }
+
+    #[test]
+    fn endpoint_lifecycle_manager_recovers_from_poisoned_write_lock() {
+        let (manager, _cache) = make_test_manager();
+        let base_now = Instant::now();
+
+        let mut initial_addresses = HashSet::new();
+        initial_addresses.insert("10.0.0.1:15000".to_string());
+        initial_addresses.insert("10.0.0.2:15000".to_string());
+
+        let newly_registered =
+            manager.update_active_addresses_at("db1", initial_addresses, base_now);
+        assert_eq!(
+            newly_registered.len(),
+            2,
+            "two addresses should be registered"
+        );
+        assert_eq!(manager.len(), 2, "manager should track two endpoints");
+
+        // Intentionally poison the state lock by panicking while holding an exclusive write lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = manager.state.write().expect("lock state for panic");
+            panic!("deliberately poisoning lifecycle manager write lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind must capture panic");
+        assert!(
+            manager.state.is_poisoned(),
+            "lifecycle manager state lock must be poisoned after panic"
+        );
+
+        // Verify read operations recover seamlessly via read_state() / into_inner().
+        assert_eq!(
+            manager.len(),
+            2,
+            "len() must return 2 despite poisoned lock"
+        );
+        assert!(
+            !manager.is_empty(),
+            "is_empty() must return false despite poisoned lock"
+        );
+        assert!(
+            manager.is_managed("10.0.0.1:15000"),
+            "is_managed() must return true for tracked address despite poisoned lock"
+        );
+        assert!(
+            manager.get_endpoint_state("10.0.0.1:15000").is_some(),
+            "get_endpoint_state() must return Some despite poisoned lock"
+        );
+        assert!(
+            !manager.is_transient_failure_evicted("10.0.0.1:15000"),
+            "is_transient_failure_evicted must return false for healthy endpoint"
+        );
+        assert!(
+            !manager.check_transient_failure_evicted_and_request_recreation("10.0.0.1:15000"),
+            "check_transient_failure_evicted_and_request_recreation must return false"
+        );
+
+        // Verify traffic recording recovers under poisoned lock (both fast path and slow path).
+        let traffic_time = base_now + Duration::from_secs(15);
+        manager.record_real_traffic_at("10.0.0.1:15000", traffic_time);
+        let updated_state = manager
+            .get_endpoint_state("10.0.0.1:15000")
+            .expect("endpoint state should exist");
+        assert_eq!(
+            updated_state.last_real_traffic_at, traffic_time,
+            "last_real_traffic_at must be updated despite poisoned lock"
+        );
+
+        // Verify request_endpoint_recreation_at recovers under poisoned lock.
+        assert!(
+            !manager.request_endpoint_recreation_at("10.0.0.1:15000", traffic_time),
+            "recreation for already-managed endpoint must return false"
+        );
+
+        // Verify update_active_addresses_at recovers under poisoned lock.
+        let mut second_addresses = HashSet::new();
+        second_addresses.insert("10.0.0.3:15000".to_string());
+        let newly_registered =
+            manager.update_active_addresses_at("db2", second_addresses, traffic_time);
+        assert_eq!(
+            newly_registered.len(),
+            1,
+            "new address 10.0.0.3:15000 must be registered despite poisoned lock"
+        );
+        assert_eq!(manager.len(), 3, "manager should now track 3 endpoints");
+
+        // Verify unregister_source recovers under poisoned lock.
+        let stale = manager.unregister_source("db2");
+        assert_eq!(
+            stale.len(),
+            1,
+            "unregister_source must evict stale endpoint 10.0.0.3:15000"
+        );
+        assert_eq!(manager.len(), 2, "manager should now track 2 endpoints");
+
+        // Verify probe_all_endpoints_at recovers under poisoned lock.
+        let evicted = manager.probe_all_endpoints_at(traffic_time);
+        assert!(
+            evicted.is_empty(),
+            "no endpoints should be evicted when connections are absent or healthy"
+        );
+
+        // Verify check_idle_eviction_at recovers under poisoned lock.
+        let idle_time = traffic_time + Duration::from_secs(2000);
+        let idle_evicted = manager.check_idle_eviction_at(idle_time);
+        assert_eq!(
+            idle_evicted.len(),
+            2,
+            "both endpoints should be idle-evicted after 2000s"
+        );
+        assert_eq!(manager.len(), 0, "manager should now have 0 endpoints");
+
+        // Verify clear() recovers on poisoned lock.
+        manager.clear();
+        assert!(
+            manager.is_empty(),
+            "manager must be empty after clear on poisoned lock"
+        );
+
+        // Also verify that panicking while holding a read guard on the poisoned lock keeps the lock poisoned.
+        let read_panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _read_guard = manager.read_state();
+            panic!("deliberately panicking while holding read guard on poisoned lock");
+        }));
+        assert!(
+            read_panic_result.is_err(),
+            "catch_unwind must capture read panic"
+        );
+        assert!(
+            manager.state.is_poisoned(),
+            "lifecycle manager state lock must remain poisoned after read panic"
+        );
+
+        // Subsequent write and read operations must still recover seamlessly.
+        assert_eq!(
+            manager.len(),
+            0,
+            "len() must recover after read panic on poisoned lock"
+        );
+        assert_eq!(
+            manager.read_state().endpoints.len(),
+            0,
+            "read_state() must recover after read panic on poisoned lock"
+        );
+        assert_eq!(
+            manager.write_state().endpoints.len(),
+            0,
+            "write_state() must recover after read panic on poisoned lock"
         );
     }
 }
