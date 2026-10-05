@@ -959,11 +959,14 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_appends_past_watermark_without_explicit_flush() -> anyhow::Result<()> {
+    async fn run_appends_past_capacity_without_explicit_flush() -> anyhow::Result<()> {
         // Arrange.
-        // Use a capacity where `capacity - 2 * MAX_WRITE_CHUNK_SIZE` is non-zero (`2 *
-        // TEST_CHUNK_SIZE`), so only appends at or above the watermark are flagged.
-        const APPEND_COUNT: usize = 16;
+        // Send more than twice `TEST_CAPACITY` without ever flushing. The replay buffer cannot
+        // hold it all, so the worker only finishes if its watermark probes keep eliciting the
+        // server responses that drive `ack()`. Otherwise `is_full()` disables the intent branch,
+        // the worker never observes the closed channel, and the timeout below fires.
+        const APPEND_COUNT: usize = 6;
+        const { assert!(APPEND_COUNT * MAX_WRITE_CHUNK_SIZE > 2 * TEST_CAPACITY) }
         let (handle, tx, mut request_rx, response_tx) =
             spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
 
@@ -991,7 +994,8 @@ mod tests {
         // Act.
         let result = tokio::time::timeout(std::time::Duration::from_secs(10), async move {
             for i in 0..APPEND_COUNT {
-                tx.send(append_intent((i * TEST_CHUNK_SIZE) as i64, TEST_CHUNK_SIZE))
+                let write_offset = (i * MAX_WRITE_CHUNK_SIZE) as i64;
+                tx.send(append_intent(write_offset, MAX_WRITE_CHUNK_SIZE))
                     .await
                     .expect("the worker must keep accepting appends");
             }
