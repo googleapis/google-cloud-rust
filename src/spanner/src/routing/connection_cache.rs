@@ -23,7 +23,7 @@ use gaxi::options::ClientConfig;
 use http::uri::Scheme;
 use std::collections::HashMap;
 use std::net::IpAddr;
-use std::sync::{Arc, RwLock};
+use std::sync::{Arc, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard};
 use tokio::sync::OnceCell;
 use url::{Host, Url};
 
@@ -63,9 +63,25 @@ impl ConnectionCache {
         cache
             .servers
             .get_mut()
-            .expect("uncontended lock on initialization")
+            .unwrap_or_else(PoisonError::into_inner)
             .insert(key, default_cell);
         cache
+    }
+
+    /// Acquires a shared read lock on cached server connections, recovering the underlying lock guard
+    /// via [`PoisonError::into_inner`] if the lock was poisoned.
+    fn read_servers(
+        &self,
+    ) -> RwLockReadGuard<'_, HashMap<String, Arc<OnceCell<ServerConnection>>>> {
+        self.servers.read().unwrap_or_else(PoisonError::into_inner)
+    }
+
+    /// Acquires an exclusive write lock on cached server connections, recovering the underlying lock guard
+    /// via [`PoisonError::into_inner`] if the lock was poisoned.
+    fn write_servers(
+        &self,
+    ) -> RwLockWriteGuard<'_, HashMap<String, Arc<OnceCell<ServerConnection>>>> {
+        self.servers.write().unwrap_or_else(PoisonError::into_inner)
     }
 
     /// Returns a reference to the default fallback server connection.
@@ -125,10 +141,7 @@ impl ConnectionCache {
             return Some(self.default_connection.clone());
         }
         let key = self.cache_key(address);
-        let guard = self
-            .servers
-            .read()
-            .expect("connection cache read lock poisoned");
+        let guard = self.read_servers();
         guard.get(&key).and_then(|cell| cell.get().cloned())
     }
 
@@ -145,10 +158,7 @@ impl ConnectionCache {
 
         let key = self.cache_key(address);
         let cell = {
-            let guard = self
-                .servers
-                .read()
-                .expect("connection cache read lock poisoned");
+            let guard = self.read_servers();
             if let Some(cell) = guard.get(&key) {
                 if let Some(connection) = cell.get() {
                     return Ok(connection.clone());
@@ -156,10 +166,7 @@ impl ConnectionCache {
                 Arc::clone(cell)
             } else {
                 drop(guard);
-                let mut guard = self
-                    .servers
-                    .write()
-                    .expect("connection cache write lock poisoned");
+                let mut guard = self.write_servers();
                 Arc::clone(
                     guard
                         .entry(key)
@@ -187,10 +194,7 @@ impl ConnectionCache {
             return false;
         }
         let key = self.cache_key(address);
-        let mut guard = self
-            .servers
-            .write()
-            .expect("connection cache write lock poisoned");
+        let mut guard = self.write_servers();
         guard.remove(&key).is_some()
     }
 }
@@ -347,10 +351,7 @@ pub(crate) fn prepare_routed_endpoint_config(
 impl ConnectionCache {
     /// Returns the number of cached server connections (including the default connection).
     pub(crate) fn len(&self) -> usize {
-        let guard = self
-            .servers
-            .read()
-            .expect("connection cache read lock poisoned");
+        let guard = self.read_servers();
         guard.values().filter(|cell| cell.get().is_some()).count()
     }
 
@@ -361,10 +362,7 @@ impl ConnectionCache {
 
     /// Clears all cached server connections while preserving the default fallback connection.
     pub(crate) fn clear(&self) {
-        let mut guard = self
-            .servers
-            .write()
-            .expect("connection cache write lock poisoned");
+        let mut guard = self.write_servers();
         guard.retain(|key, _| key == &self.default_key);
     }
 }
@@ -375,6 +373,8 @@ mod tests {
     use crate::omni::InstanceType;
     use http::HeaderMap;
     use http::header::{AUTHORIZATION, HeaderValue};
+    use std::fmt::Debug;
+    use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::Barrier;
     use std::thread;
 
@@ -394,7 +394,114 @@ mod tests {
 
     #[test]
     fn traits() {
-        static_assertions::assert_impl_all!(ConnectionCache: Send, Sync, std::fmt::Debug);
+        static_assertions::assert_impl_all!(ConnectionCache: Send, Sync, Debug);
+    }
+
+    #[tokio::test]
+    async fn connection_cache_recovers_from_poisoned_write_lock() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+
+        let tablet_connection = create_test_connection("10.0.0.1:15000");
+        {
+            let mut guard = cache.write_servers();
+            let cell = Arc::new(OnceCell::new());
+            let _ = cell.set(tablet_connection.clone());
+            guard.insert(cache.cache_key(tablet_connection.address()), cell);
+        }
+        assert_eq!(
+            cache.len(),
+            2,
+            "cache should contain default and tablet connection"
+        );
+
+        // Intentionally poison the servers RwLock by panicking while holding an exclusive write lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = cache.servers.write().expect("lock servers for panic test");
+            panic!("deliberately poisoning write lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind must capture panic");
+        assert!(
+            cache.servers.is_poisoned(),
+            "servers RwLock must be poisoned after write lock panic"
+        );
+
+        // Verify that get_if_present recovers seamlessly via into_inner().
+        assert!(
+            cache.get_if_present("spanner.googleapis.com:443").is_some(),
+            "get_if_present must return default connection despite poisoned lock"
+        );
+        let retrieved = cache
+            .get_if_present("10.0.0.1:15000")
+            .expect("get_if_present must return tablet connection despite poisoned lock");
+        assert_eq!(
+            retrieved.address(),
+            "10.0.0.1:15000",
+            "retrieved connection address must match"
+        );
+
+        // Verify that get() recovers seamlessly on poisoned lock for both default and cached endpoints.
+        let client_config = ClientConfig::default();
+        let default_retrieved = cache
+            .get("spanner.googleapis.com:443", &client_config)
+            .await
+            .expect("get must return default connection despite poisoned lock");
+        assert_eq!(
+            default_retrieved.address(),
+            "spanner.googleapis.com:443",
+            "default connection address must match"
+        );
+
+        let tablet_retrieved = cache
+            .get("10.0.0.1:15000", &client_config)
+            .await
+            .expect("get must return cached tablet connection despite poisoned lock");
+        assert_eq!(
+            tablet_retrieved.address(),
+            "10.0.0.1:15000",
+            "cached tablet connection address must match"
+        );
+
+        // Verify that get() write-lock miss path recovers on poisoned lock when inserting a new OnceCell.
+        let invalid_address = "invalid host:not a port";
+        let miss_result = cache.get(invalid_address, &client_config).await;
+        assert!(
+            miss_result.is_err(),
+            "miss path must attempt connection creation and return error for invalid address"
+        );
+
+        assert_eq!(
+            cache.len(),
+            2,
+            "cache len must return 2 despite poisoned lock"
+        );
+        assert!(
+            !cache.is_empty(),
+            "cache must not be empty despite poisoned lock"
+        );
+
+        // Verify that evict recovers and removes the connection under poisoned lock.
+        assert!(
+            cache.evict("10.0.0.1:15000"),
+            "evict must return true when removing connection on poisoned lock"
+        );
+        assert_eq!(
+            cache.len(),
+            1,
+            "cache len must be 1 after eviction on poisoned lock"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_none(),
+            "evicted connection must not be present"
+        );
+
+        // Verify that clear() recovers on poisoned lock.
+        cache.clear();
+        assert_eq!(
+            cache.len(),
+            1,
+            "cache clear must retain default connection on poisoned lock"
+        );
     }
 
     #[test]
@@ -445,7 +552,7 @@ mod tests {
         // Manually insert a tablet connection into the cache for testing eviction.
         let tablet_connection = create_test_connection("10.0.0.1:15000");
         {
-            let mut guard = cache.servers.write().expect("write lock poisoned");
+            let mut guard = cache.write_servers();
             let cell = Arc::new(OnceCell::new());
             let _ = cell.set(tablet_connection.clone());
             guard.insert(cache.cache_key(tablet_connection.address()), cell);
@@ -495,7 +602,7 @@ mod tests {
         let cache = ConnectionCache::new(default_connection);
 
         {
-            let mut guard = cache.servers.write().expect("write lock poisoned");
+            let mut guard = cache.write_servers();
             let cell1 = Arc::new(OnceCell::new());
             let _ = cell1.set(create_test_connection("10.0.0.1:15000"));
             guard.insert(cache.cache_key("10.0.0.1:15000"), cell1);
@@ -635,7 +742,7 @@ mod tests {
         assert!(!cache.is_empty(), "cache should not be empty");
 
         {
-            let mut guard = cache.servers.write().expect("write lock poisoned");
+            let mut guard = cache.write_servers();
             guard.insert(cache.cache_key("10.0.0.1:15000"), Arc::new(OnceCell::new()));
         }
 
@@ -657,7 +764,7 @@ mod tests {
         let cache = ConnectionCache::new(default_connection);
 
         {
-            let mut guard = cache.servers.write().expect("write lock poisoned");
+            let mut guard = cache.write_servers();
             guard.insert(cache.cache_key("10.0.0.1:15000"), Arc::new(OnceCell::new()));
         }
 
@@ -1369,7 +1476,7 @@ mod tests {
 
         let tablet_connection = create_test_connection("https://Tablet.Omni.Internal:8443/");
         {
-            let mut guard = cache.servers.write().expect("write lock poisoned");
+            let mut guard = cache.write_servers();
             let cell = Arc::new(OnceCell::new());
             let _ = cell.set(tablet_connection.clone());
             guard.insert(cache.cache_key(tablet_connection.address()), cell);

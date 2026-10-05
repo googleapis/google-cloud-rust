@@ -29,7 +29,7 @@ use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
 use std::mem::take;
 use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, RwLock, RwLockReadGuard, RwLockWriteGuard};
+use std::sync::{Arc, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard};
 
 /// Default maximum number of SQL query recipes cached simultaneously.
 ///
@@ -82,16 +82,16 @@ impl KeyRecipeCache {
         self.next_operation_uid.fetch_add(1, Ordering::Relaxed)
     }
 
+    /// Acquires a shared read lock on the recipe store, recovering the underlying lock guard
+    /// via [`PoisonError::into_inner`] if the lock was poisoned.
     fn read_store(&self) -> RwLockReadGuard<'_, RecipeStore> {
-        self.store
-            .read()
-            .expect("key recipe cache read lock poisoned")
+        self.store.read().unwrap_or_else(PoisonError::into_inner)
     }
 
+    /// Acquires an exclusive write lock on the recipe store, recovering the underlying lock guard
+    /// via [`PoisonError::into_inner`] if the lock was poisoned.
     fn write_store(&self) -> RwLockWriteGuard<'_, RecipeStore> {
-        self.store
-            .write()
-            .expect("key recipe cache write lock poisoned")
+        self.store.write().unwrap_or_else(PoisonError::into_inner)
     }
 
     /// Returns the cached recipe for a given database table name (`Read` RPC), if present.
@@ -474,11 +474,105 @@ impl KeyRecipeCache {
 mod tests {
     use super::*;
     use crate::model::key_recipe::Part;
+    use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::thread;
 
     #[test]
     fn key_recipe_cache_implements_send_sync_debug() {
         static_assertions::assert_impl_all!(KeyRecipeCache: Send, Sync, Debug);
+    }
+
+    #[test]
+    fn key_recipe_cache_recovers_from_poisoned_write_lock() {
+        let cache = KeyRecipeCache::new();
+        let users_recipe = KeyRecipe::new().set_table_name("Users");
+        let index_recipe = KeyRecipe::new().set_index_name("UsersByEmail");
+        assert!(
+            cache.insert(users_recipe),
+            "table recipe insert must succeed"
+        );
+        assert!(
+            cache.insert(index_recipe),
+            "index recipe insert must succeed"
+        );
+        assert_eq!(cache.len(), 2, "cache length must be 2");
+
+        // Intentionally poison the store RwLock by panicking while holding an exclusive write lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = cache.store.write().expect("lock store for panic test");
+            panic!("deliberately poisoning write lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind must capture panic");
+        assert!(
+            cache.store.is_poisoned(),
+            "store RwLock must be poisoned after write lock panic"
+        );
+
+        // Verify that read lookups recover seamlessly via into_inner().
+        let cached_table = cache
+            .get_table_recipe("Users")
+            .expect("table recipe lookup must succeed despite poisoned lock");
+        assert_eq!(
+            cached_table.table_name().expect("table name present"),
+            "Users",
+            "cached table name must match"
+        );
+
+        let cached_index = cache
+            .get_index_recipe("UsersByEmail")
+            .expect("index recipe lookup must succeed despite poisoned lock");
+        assert_eq!(
+            cached_index.index_name().expect("index name present"),
+            "UsersByEmail",
+            "cached index name must match"
+        );
+
+        assert_eq!(
+            cache.len(),
+            2,
+            "cache len must return 2 despite poisoned lock"
+        );
+        assert!(
+            !cache.is_empty(),
+            "cache must not be empty despite poisoned lock"
+        );
+
+        // Verify that write operations recover seamlessly via into_inner().
+        let accounts_recipe = KeyRecipe::new().set_table_name("Accounts");
+        assert!(
+            cache.insert(accounts_recipe),
+            "inserting new recipe must succeed despite poisoned lock"
+        );
+        assert_eq!(
+            cache.len(),
+            3,
+            "cache len must reflect new entry despite poisoned lock"
+        );
+
+        let request = ExecuteSqlRequest::new().set_sql("SELECT 1");
+        let operation_uid = cache
+            .get_or_prepare_query(&request)
+            .expect("get_or_prepare_query must succeed despite poisoned lock");
+        assert!(
+            operation_uid > 0,
+            "allocated operation UID must be positive"
+        );
+
+        // Verify that clear() recovers and resets state under poisoned lock.
+        cache.clear();
+        assert!(
+            cache.is_empty(),
+            "cache must be empty after clear on poisoned lock"
+        );
+        assert_eq!(
+            cache.len(),
+            0,
+            "cache len must be 0 after clear on poisoned lock"
+        );
+        assert!(
+            cache.get_table_recipe("Users").is_none(),
+            "cleared table recipe must not be present"
+        );
     }
 
     #[test]
