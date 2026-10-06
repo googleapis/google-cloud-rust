@@ -15,7 +15,6 @@
 use crate::generated::gapic_dataplane::model;
 use crate::generated::gapic_dataplane::model::TypeAnnotationCode;
 use crate::google::spanner::v1::Type as ProtoType;
-use gaxi::prost::ConvertError;
 use std::sync::LazyLock;
 
 /// Spanner type definition.
@@ -154,24 +153,6 @@ impl Type {
     pub(crate) fn from_ref(v: &model::Type) -> &Self {
         // SAFETY: Type is #[repr(transparent)] wrapper around model::Type.
         unsafe { &*(v as *const model::Type as *const Type) }
-    }
-}
-
-impl gaxi::prost::ToProto<i32> for TypeCode {
-    type Output = i32;
-
-    fn to_proto(self) -> Result<i32, ConvertError> {
-        let internal: crate::generated::gapic_dataplane::model::TypeCode = self.into();
-
-        internal.to_proto()
-    }
-}
-
-impl gaxi::prost::ToProto<crate::generated::gapic_dataplane::model::Type> for Type {
-    type Output = crate::generated::gapic_dataplane::model::Type;
-
-    fn to_proto(self) -> Result<crate::generated::gapic_dataplane::model::Type, ConvertError> {
-        Ok(self.0)
     }
 }
 
@@ -396,18 +377,20 @@ mod tests {
     }
 
     #[test]
-    fn test_to_proto_traits() {
-        use gaxi::prost::ToProto;
-        let t = int64();
-        let proto: crate::generated::gapic_dataplane::model::Type = t.clone().to_proto().unwrap();
+    fn test_type_code_conversions() {
+        let code = TypeCode::Int64;
+        let integer_code: i32 = code.into();
         assert_eq!(
-            proto.code,
-            crate::generated::gapic_dataplane::model::TypeCode::Int64
+            integer_code, 2,
+            "TypeCode::Int64 converted to i32 should equal 2"
         );
 
-        let code = TypeCode::Int64;
-        let proto_code: i32 = code.to_proto().unwrap();
-        assert_eq!(proto_code, 2);
+        let internal_code: crate::generated::gapic_dataplane::model::TypeCode = code.into();
+        assert_eq!(
+            internal_code,
+            crate::generated::gapic_dataplane::model::TypeCode::Int64,
+            "TypeCode::Int64 converted to model::TypeCode should match"
+        );
     }
 
     #[test]
@@ -416,20 +399,35 @@ mod tests {
             code: crate::generated::gapic_dataplane::model::TypeCode::Bool,
             ..Default::default()
         };
-        let t: Type = internal_type.clone().into();
-        assert_eq!(t.code(), TypeCode::Bool);
+        let converted_type: Type = internal_type.clone().into();
+        assert_eq!(
+            converted_type.code(),
+            TypeCode::Bool,
+            "converted Type should have Bool code"
+        );
 
-        let back: crate::generated::gapic_dataplane::model::Type = t.into();
-        assert_eq!(back.code, internal_type.code);
+        let back: crate::generated::gapic_dataplane::model::Type = converted_type.into();
+        assert_eq!(
+            back.code, internal_type.code,
+            "roundtripped model::Type code should match original"
+        );
     }
 
     #[test]
     fn test_array_type() {
-        let t = array(int64());
-        assert_eq!(t.code(), TypeCode::Array);
+        let array_type = array(int64());
         assert_eq!(
-            t.0.array_element_type.unwrap().code,
-            crate::generated::gapic_dataplane::model::TypeCode::Int64
+            array_type.code(),
+            TypeCode::Array,
+            "array type should have Array code"
+        );
+        assert_eq!(
+            array_type
+                .array_element_type()
+                .expect("array element type must be present")
+                .code(),
+            TypeCode::Int64,
+            "array element type code should be Int64"
         );
     }
 

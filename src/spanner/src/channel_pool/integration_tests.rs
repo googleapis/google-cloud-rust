@@ -106,22 +106,12 @@ async fn setup_client_with_dynamic_pool(
 }
 
 fn total_in_flight(spanner: &Spanner) -> u32 {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
+    let active_guard = spanner.channel_pool().inner.read_active_entries();
     active_guard.iter().map(|entry| entry.in_flight()).sum()
 }
 
 fn total_active_rw(spanner: &Spanner) -> u32 {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
+    let active_guard = spanner.channel_pool().inner.read_active_entries();
     active_guard
         .iter()
         .map(|entry| entry.active_rw_count())
@@ -129,13 +119,7 @@ fn total_active_rw(spanner: &Spanner) -> u32 {
 }
 
 fn active_channel_entries(spanner: &Spanner) -> Vec<Arc<ChannelEntry>> {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
-    active_guard.clone()
+    spanner.channel_pool().active_entries()
 }
 
 async fn wait_for_in_flight(spanner: &Spanner, expected: u32, timeout_duration: Duration) {

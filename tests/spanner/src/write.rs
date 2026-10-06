@@ -523,9 +523,7 @@ async fn write_internal(
     let row2_id: String = row2.get("Id");
     assert_eq!(row2_id, id2);
 
-    let metadata = rs
-        .metadata()
-        .expect("result set metadata is unexpectedly missing");
+    let metadata = rs.metadata();
     let column_count = metadata.column_names().len();
     assert_eq!(row2.raw_values().len(), column_count);
     for i in 1..column_count {
