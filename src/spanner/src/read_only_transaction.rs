@@ -649,9 +649,17 @@ impl TransactionStartFailure {
 }
 
 impl ReadContextTransactionSelector {
-    /// Acquires an exclusive mutex lock on the inner lazy transaction state, recovering if the lock was poisoned.
+    /// Acquires an exclusive mutex lock on the inner lazy transaction state, recovering from lock poisoning via `into_inner()`.
     ///
     /// Returns `None` if this is a `Fixed` transaction selector.
+    ///
+    /// # Poison Recovery Rationale
+    /// `lazy` protects the transaction lifecycle state (`TransactionState`). State transitions are
+    /// atomic enum assignments; the underlying data is always memory-safe and structurally sound
+    /// in Rust even if an earlier thread panicked. Recovering the guard via `into_inner()` ensures
+    /// that an isolated panic in an application query, streaming task, or fallback routine does not
+    /// permanently poison the selector lock and cascade into fatal panics across concurrent waiters,
+    /// subsequent statements, commit attempts, or cleanup routines.
     fn lock_state(&self) -> Option<MutexGuard<'_, TransactionState>> {
         match self {
             Self::Lazy(lazy) => match lazy.lock() {

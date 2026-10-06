@@ -624,7 +624,15 @@ impl ReadWriteTransaction {
         self.context.transaction_selector.is_starting()
     }
 
-    /// Acquires an exclusive mutex lock on the buffered mutations, recovering if the lock was poisoned.
+    /// Acquires an exclusive mutex lock on the buffered mutations, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `mutations` protects the in-memory buffered mutation list (`Vec<ProtoMutation>`). Standard
+    /// library `Vec` collections remain memory-safe and structurally sound in Rust even if a thread
+    /// panicked while appending or clearing mutations. Recovering the guard via `into_inner()` prevents
+    /// an isolated panic in a caller task from permanently disabling mutation buffering, allowing
+    /// subsequent statements, error handlers, or rollback routines to inspect or clear the transaction
+    /// state cleanly without crashing.
     fn lock_mutations(&self) -> MutexGuard<'_, Vec<ProtoMutation>> {
         match self.mutations.lock() {
             Ok(guard) => guard,
