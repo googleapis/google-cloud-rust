@@ -987,6 +987,7 @@ mod tests {
         val.type_name()
     }
 
+    // TODO(#7032): Remove this test once wkt::Value conversion for Arrow cells is implemented.
     #[cfg(any(
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
