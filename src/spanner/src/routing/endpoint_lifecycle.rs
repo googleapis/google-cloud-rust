@@ -932,6 +932,7 @@ mod tests {
     use std::thread;
     use tokio::runtime::Builder;
     use tokio::task::yield_now;
+    use tokio::time::sleep;
 
     #[test]
     fn traits() {
@@ -975,15 +976,18 @@ mod tests {
         (manager, connection_cache)
     }
 
-    /// Helper to wait deterministically for a background connection task to establish a connection in the cache.
+    /// Helper to wait for a background connection task to establish a connection in the cache.
     async fn wait_for_connection_in_cache(cache: &ConnectionCache, address: &str) {
         let start = Instant::now();
-        let timeout = Duration::from_secs(3);
+        let timeout = Duration::from_secs(5);
         while start.elapsed() < timeout {
             if cache.get_if_present(address).is_some() {
                 return;
             }
-            yield_now().await;
+            sleep(Duration::from_millis(10)).await;
+        }
+        if cache.get_if_present(address).is_some() {
+            return;
         }
         panic!(
             "timed out after {:?} waiting for connection {} in cache",

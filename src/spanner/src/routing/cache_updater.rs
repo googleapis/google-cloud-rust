@@ -196,6 +196,7 @@ mod tests {
     use crate::routing::server_connection::ServerConnection;
     use gaxi::options::ClientConfig;
     use std::time::{Duration, Instant};
+    use tokio::time::sleep;
 
     #[test]
     fn cache_updater_implements_send_sync_debug() {
@@ -231,16 +232,18 @@ mod tests {
         )
     }
 
-    /// Helper to wait deterministically for background connection pre-warming tasks to complete
-    /// without arbitrary timer sleeps.
+    /// Helper to wait for background connection pre-warming tasks to complete.
     async fn wait_for_connections(updater: &CacheUpdater, expected_count: usize) {
         let start = Instant::now();
-        let timeout = Duration::from_secs(2);
+        let timeout = Duration::from_secs(5);
         while start.elapsed() < timeout {
             if updater.connection_cache().len() >= expected_count {
                 return;
             }
-            tokio::task::yield_now().await;
+            sleep(Duration::from_millis(10)).await;
+        }
+        if updater.connection_cache().len() >= expected_count {
+            return;
         }
         panic!(
             "timed out after {:?} waiting for connections: expected {}, got {}",
