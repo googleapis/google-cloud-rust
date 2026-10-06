@@ -74,22 +74,24 @@ fn default_retry_throttler() -> SharedRetryThrottler {
 ///                Start here
 ///                    │
 ///              ┌─────▼──────┐
-///        ┌─────┼ Connecting ◄────────┐◄───────────────────┐
-///        │     └─────┬──────┘        │                    │
-///        │           │        Failed to read          Failed to
-///   Exhausted        │         first message         read message
-///    Retries         │      (retains retry state  (resets retry state)
-///       or           │           from connecting)         ▲
-/// Unrecoverable┌─────▼──────┐        ▲               ┌────┼────┐
-///      Error   │ Connected  ┼────────┼───────────────► Reading │
-///        │     └─────┬──────┘                        └────┬────┘
-///        │           ▼                                    ▼
-///        │      Unrecoverable                      Unrecoverable
-///        │         Error                                Error
-///        │           │            ┌────────────┐          │
-///        │           └───────────►│            │          │
-///        │                        │ Terminated │◄─────────┘
-///        └───────────────────────►│            │
+///        ┌─────┼ Connecting ◄─────────────────────────┐
+///        │     └─────┬──────┘                         │
+///        │           │                          Failed to read
+///   Exhausted        │                             message
+///    Retries         │                    (retains retry_state if Some,
+///       or           │                     or starts fresh RetryState
+/// Unrecoverable      │                        if cleared to None)
+///      Error   ┌─────▼──────┐                         │
+///        │     │  Reading   ┼─────────────────────────┘
+///        │     └─────┬──────┘ (clears retry_state
+///        │           │         on first message)
+///        │           ▼
+///        │      Unrecoverable
+///        │      Error or EOF
+///        │           │            ┌────────────┐
+///        │           └───────────►│            │
+///        └───────────────────────►│ Terminated │
+///                                 │            │
 ///                                 └────────────┘
 /// ```
 #[derive(Debug)]
@@ -99,15 +101,14 @@ pub(crate) enum ReaderState {
         offset: i64,
         retry_state: RetryState,
     },
-    /// Waiting for the first message in a BigQuery read stream.
-    Connected {
-        offset: i64,
-        retry_state: RetryState,
-        stream: ResponseStream<ReadRowsResponse>,
-    },
-    /// Waiting for the next message in a BigQuery read stream.
+    /// Reading messages from an open BigQuery read stream.
+    ///
+    /// `retry_state` is `Some` while waiting for the first message after connecting
+    /// (so failures before any data progress retain the retry count from `Connecting`),
+    /// and is cleared to `None` once the first message is successfully received.
     Reading {
         offset: i64,
+        retry_state: Option<RetryState>,
         stream: ResponseStream<ReadRowsResponse>,
     },
     /// Stream completed cleanly, fatal error occurred, or consumer dropped the receiver.
@@ -293,9 +294,9 @@ impl Reader {
                 let req = self.request.clone().set_offset(offset);
                 match req.send().await {
                     Ok(stream) => {
-                        self.state = ReaderState::Connected {
+                        self.state = ReaderState::Reading {
                             offset,
-                            retry_state,
+                            retry_state: Some(retry_state),
                             stream,
                         };
                     }
@@ -305,35 +306,32 @@ impl Reader {
                 }
                 None
             }
-            ReaderState::Connected {
+            ReaderState::Reading {
                 offset,
                 retry_state,
                 stream,
             } => match stream.next().await {
                 Some(Ok(response)) => {
-                    let offset = *offset;
-                    self.retry_throttler
-                        .lock()
-                        .expect("retry throttler lock is poisoned")
-                        .on_success();
-                    let offset = match advance_offset(offset, response.row_count) {
+                    let next_offset = match advance_offset(*offset, response.row_count) {
                         Ok(o) => o,
                         Err(err) => {
                             self.state = ReaderState::Terminated(Some(err));
                             return None;
                         }
                     };
-                    let ReaderState::Connected { stream, .. } =
-                        std::mem::replace(&mut self.state, ReaderState::Terminated(None))
-                    else {
-                        unreachable!("state is known to be Connected");
-                    };
-                    self.state = ReaderState::Reading { offset, stream };
+                    *offset = next_offset;
+                    // Data progress was made: clear `retry_state` so any future
+                    // mid-stream failure starts a fresh `RetryState::new(true)`.
+                    *retry_state = None;
+                    self.retry_throttler
+                        .lock()
+                        .expect("retry throttler lock is poisoned")
+                        .on_success();
                     Some(response)
                 }
                 Some(Err(err)) => {
                     let offset = *offset;
-                    let retry_state = retry_state.clone();
+                    let retry_state = retry_state.take().unwrap_or_else(|| RetryState::new(true));
                     self.handle_error(offset, retry_state, err).await;
                     None
                 }
@@ -346,32 +344,6 @@ impl Reader {
                     None
                 }
             },
-            ReaderState::Reading { offset, stream } => match stream.next().await {
-                Some(Ok(response)) => {
-                    let next_offset = match advance_offset(*offset, response.row_count) {
-                        Ok(o) => o,
-                        Err(err) => {
-                            self.state = ReaderState::Terminated(Some(err));
-                            return None;
-                        }
-                    };
-                    *offset = next_offset;
-                    self.retry_throttler
-                        .lock()
-                        .expect("retry throttler lock is poisoned")
-                        .on_success();
-                    Some(response)
-                }
-                Some(Err(err)) => {
-                    let offset = *offset;
-                    self.handle_error(offset, RetryState::new(true), err).await;
-                    None
-                }
-                None => {
-                    self.state = ReaderState::Terminated(None);
-                    None
-                }
-            },
             ReaderState::Terminated(_) => None,
         }
     }
@@ -380,11 +352,11 @@ impl Reader {
     /// retryable error occurs, or returns `None` when the stream completes.
     pub async fn next(&mut self) -> Option<Result<ReadRowsResponse>> {
         loop {
-            let response = self.step().await;
-            match &mut self.state {
-                ReaderState::Connecting { .. } | ReaderState::Connected { .. } => continue,
-                ReaderState::Reading { .. } => return response.map(Ok),
-                ReaderState::Terminated(err) => return err.take().map(Err),
+            if let Some(response) = self.step().await {
+                return Some(Ok(response));
+            }
+            if let ReaderState::Terminated(err) = &mut self.state {
+                return err.take().map(Err);
             }
         }
     }
@@ -507,7 +479,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn step_connecting_to_connected() -> anyhow::Result<()> {
+    async fn step_connecting_to_reading() -> anyhow::Result<()> {
         let mut mock = MockReadStub::new();
         mock.expect_read_rows().once().returning(|req, _| {
             assert_eq!(req.read_stream, "streams/1");
@@ -534,13 +506,16 @@ mod tests {
         };
         let resp = reader.step().await;
         assert!(resp.is_none());
-        let ReaderState::Connected {
+        let ReaderState::Reading {
             offset,
-            retry_state,
+            retry_state: Some(retry_state),
             ..
         } = &reader.state
         else {
-            anyhow::bail!("expected Connected state, got: {:?}", reader.state);
+            anyhow::bail!(
+                "expected Reading state with Some(retry_state), got: {:?}",
+                reader.state
+            );
         };
         assert_eq!(*offset, 42);
         assert_eq!(retry_state.attempt_count, 2);
@@ -681,7 +656,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn step_connected_to_reading() -> anyhow::Result<()> {
+    async fn step_first_message_clears_retry_state() -> anyhow::Result<()> {
         let mut mock = MockReadStub::new();
         mock.expect_read_rows().never();
         let mut retry = mock_retry_policy();
@@ -700,22 +675,31 @@ mod tests {
             .await?;
         let stream = ResponseStream::from(rx);
 
-        reader.state = ReaderState::Connected {
+        reader.state = ReaderState::Reading {
             offset: 10,
-            retry_state: RetryState::new(true),
+            retry_state: Some(RetryState::new(true).set_attempt_count(3_u32)),
             stream,
         };
         let resp = reader.step().await.expect("expected Some(response)");
-        let ReaderState::Reading { offset, .. } = &reader.state else {
+        let ReaderState::Reading {
+            offset,
+            retry_state,
+            ..
+        } = &reader.state
+        else {
             anyhow::bail!("expected Reading state, got: {:?}", reader.state);
         };
         assert_eq!(resp.row_count, 5);
         assert_eq!(*offset, 15);
+        assert!(
+            retry_state.is_none(),
+            "expected retry_state to be cleared to None after first message, got: {retry_state:?}"
+        );
         Ok(())
     }
 
     #[tokio::test]
-    async fn step_connected_retryable_error_retains_retry_state() -> anyhow::Result<()> {
+    async fn step_first_message_retryable_error_retains_retry_state() -> anyhow::Result<()> {
         let mut mock = MockReadStub::new();
         mock.expect_read_rows().never();
 
@@ -745,11 +729,11 @@ mod tests {
         tx.send(Err(transient_error())).await?;
         let stream = ResponseStream::from(rx);
 
-        // Connected state starts with attempt_count = 2 from prior Connecting attempts.
+        // Waiting for the first message starts with attempt_count = 2 from prior Connecting attempts.
         let prior_retry = RetryState::new(true).set_attempt_count(2_u32);
-        reader.state = ReaderState::Connected {
+        reader.state = ReaderState::Reading {
             offset: 7,
-            retry_state: prior_retry,
+            retry_state: Some(prior_retry),
             stream,
         };
         let resp = reader.step().await;
@@ -763,76 +747,6 @@ mod tests {
         };
         assert_eq!(*offset, 7);
         assert_eq!(retry_state.attempt_count, 3);
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn step_connected_permanent_error_to_terminated() -> anyhow::Result<()> {
-        let mut mock = MockReadStub::new();
-        mock.expect_read_rows().never();
-
-        let mut retry = mock_retry_policy();
-        retry
-            .expect_on_error()
-            .withf(|state, e| {
-                state.attempt_count == 1
-                    && e.status().is_some_and(|s| s.code == Code::PermissionDenied)
-            })
-            .once()
-            .returning(|_, e| RetryResult::Permanent(e));
-
-        let mut backoff = MockBackoffPolicy::new();
-        backoff.expect_on_failure().never();
-
-        let client = Read::from_stub(mock);
-        let req = client.read_rows().set_read_stream("streams/1");
-        let mut reader = Reader::new(req)
-            .with_retry_policy(retry)
-            .with_backoff_policy(backoff);
-
-        let (tx, rx) = mpsc::channel(1);
-        tx.send(Err(permanent_error())).await?;
-        let stream = ResponseStream::from(rx);
-
-        reader.state = ReaderState::Connected {
-            offset: 0,
-            retry_state: RetryState::new(true),
-            stream,
-        };
-        let resp = reader.step().await;
-        assert!(resp.is_none());
-        let ReaderState::Terminated(Some(err)) = &reader.state else {
-            anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
-        };
-        assert_eq!(err.status().map(|s| s.code), Some(Code::PermissionDenied));
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn step_connected_eof_to_terminated() -> anyhow::Result<()> {
-        let mut mock = MockReadStub::new();
-        mock.expect_read_rows().never();
-
-        let client = Read::from_stub(mock);
-        let req = client.read_rows().set_read_stream("streams/1");
-        let mut reader = Reader::new(req);
-
-        let (tx, rx) = mpsc::channel(1);
-        drop(tx);
-        let stream = ResponseStream::from(rx);
-
-        reader.state = ReaderState::Connected {
-            offset: 0,
-            retry_state: RetryState::new(true),
-            stream,
-        };
-        let resp = reader.step().await;
-        assert!(resp.is_none());
-        assert!(
-            matches!(reader.state, ReaderState::Terminated(None)),
-            "expected Terminated(None), got: {:?}",
-            reader.state
-        );
         Ok(())
     }
 
@@ -856,13 +770,23 @@ mod tests {
             .await?;
         let stream = ResponseStream::from(rx);
 
-        reader.state = ReaderState::Reading { offset: 5, stream };
+        reader.state = ReaderState::Reading {
+            offset: 5,
+            retry_state: None,
+            stream,
+        };
         let resp = reader.step().await.expect("expected Some(response)");
-        let ReaderState::Reading { offset, .. } = &reader.state else {
+        let ReaderState::Reading {
+            offset,
+            retry_state,
+            ..
+        } = &reader.state
+        else {
             anyhow::bail!("expected Reading state, got: {:?}", reader.state);
         };
         assert_eq!(resp.row_count, 3);
         assert_eq!(*offset, 8);
+        assert!(retry_state.is_none());
         Ok(())
     }
 
@@ -875,7 +799,7 @@ mod tests {
         retry
             .expect_on_error()
             .withf(|state, e| {
-                // Reading resets RetryState, so the first failure from Reading has attempt_count == 1.
+                // Once retry_state is None, the first failure from Reading has attempt_count == 1.
                 state.attempt_count == 1 && e.status().is_some_and(|s| s.code == Code::Unavailable)
             })
             .once()
@@ -898,7 +822,11 @@ mod tests {
         tx.send(Err(transient_error())).await?;
         let stream = ResponseStream::from(rx);
 
-        reader.state = ReaderState::Reading { offset: 12, stream };
+        reader.state = ReaderState::Reading {
+            offset: 12,
+            retry_state: None,
+            stream,
+        };
         let resp = reader.step().await;
         assert!(resp.is_none());
         let ReaderState::Connecting {
@@ -941,7 +869,11 @@ mod tests {
         tx.send(Err(permanent_error())).await?;
         let stream = ResponseStream::from(rx);
 
-        reader.state = ReaderState::Reading { offset: 0, stream };
+        reader.state = ReaderState::Reading {
+            offset: 0,
+            retry_state: None,
+            stream,
+        };
         let resp = reader.step().await;
         assert!(resp.is_none());
         let ReaderState::Terminated(Some(err)) = &reader.state else {
@@ -964,7 +896,11 @@ mod tests {
         drop(tx);
         let stream = ResponseStream::from(rx);
 
-        reader.state = ReaderState::Reading { offset: 0, stream };
+        reader.state = ReaderState::Reading {
+            offset: 0,
+            retry_state: None,
+            stream,
+        };
         let resp = reader.step().await;
         assert!(resp.is_none());
         assert!(
