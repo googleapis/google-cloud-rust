@@ -517,12 +517,12 @@ where
 #[cfg(test)]
 mod tests {
     use super::super::mocks::{MockTestClient, mock_connector};
-    use super::super::replay_buffer::MIN_REPLAY_BUFFER_SIZE;
+    use super::super::replay_buffer::{DEFAULT_REPLAY_BUFFER_SIZE, MIN_REPLAY_BUFFER_SIZE};
     use super::super::state::AppendObjectSpecState;
     use super::super::tests::permanent_error;
     use super::*;
     use crate::google::storage::v2::{
-        AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, Object,
+        AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, ChecksummedData, Object,
         bidi_write_object_response::WriteStatus,
     };
     use gaxi::grpc::tonic::Response as TonicResponse;
@@ -554,31 +554,48 @@ mod tests {
     /// the second append is the one that crosses it.
     const TEST_CAPACITY: usize = 2 * MAX_WRITE_CHUNK_SIZE + 2 * TEST_CHUNK_SIZE;
 
-    fn spawn_test_worker() -> TestWorkerContext {
-        spawn_test_worker_with(None)
+    /// The `AppendObjectSpec` that reconnecting test workers hand to the connector.
+    fn test_spec_state() -> AppendObjectSpecState {
+        AppendObjectSpecState::Append {
+            spec: AppendObjectSpec {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                object: "test-object".into(),
+                ..Default::default()
+            },
+            initial_chunk: None,
+        }
     }
 
-    fn spawn_test_worker_with_replay_capacity(capacity: usize) -> TestWorkerContext {
-        spawn_test_worker_with(Some(capacity))
-    }
-
-    fn spawn_test_worker_with(capacity: Option<usize>) -> TestWorkerContext {
+    /// Wires `mock` into a connector and spawns a worker over fresh request, response, and intent
+    /// channels. `spec_state`, when set, is what the connector uses on reconnect.
+    fn spawn_worker(
+        mock: MockTestClient,
+        capacity: usize,
+        spec_state: Option<AppendObjectSpecState>,
+    ) -> TestWorkerContext {
         let (request_tx, request_rx) = mpsc::channel(10);
         let (response_tx, response_rx) = mpsc::channel(10);
-        let (tx, rx) = mpsc::channel(10);
+        let (intent_tx, intent_rx) = mpsc::channel(10);
         let connection = Connection::new(request_tx, response_rx);
 
+        let mut connector = mock_connector(mock);
+        if let Some(state) = spec_state {
+            connector.set_spec_state(state);
+        }
+        let worker = Worker::with_replay_buffer(connector, ReplayBuffer::with_capacity(capacity));
+        let handle = tokio::spawn(worker.run(connection, intent_rx));
+
+        (handle, intent_tx, request_rx, response_tx)
+    }
+
+    fn spawn_test_worker() -> TestWorkerContext {
+        spawn_test_worker_with_capacity(DEFAULT_REPLAY_BUFFER_SIZE)
+    }
+
+    fn spawn_test_worker_with_capacity(capacity: usize) -> TestWorkerContext {
         let mut mock = MockTestClient::new();
         mock.expect_start().never();
-
-        let connector = mock_connector(mock);
-        let worker = match capacity {
-            Some(cap) => Worker::with_replay_buffer(connector, ReplayBuffer::with_capacity(cap)),
-            None => Worker::new(connector),
-        };
-        let handle = tokio::spawn(worker.run(connection, rx));
-
-        (handle, tx, request_rx, response_tx)
+        spawn_worker(mock, capacity, None)
     }
 
     fn append_intent(write_offset: i64, len: usize) -> UploadIntent {
@@ -586,12 +603,10 @@ mod tests {
         let crc32c = crc32c::crc32c(&content);
         UploadIntent::Append(BidiWriteObjectRequest {
             write_offset,
-            data: Some(Data::ChecksummedData(
-                crate::google::storage::v2::ChecksummedData {
-                    content,
-                    crc32c: Some(crc32c),
-                },
-            )),
+            data: Some(Data::ChecksummedData(ChecksummedData {
+                content,
+                crc32c: Some(crc32c),
+            })),
             ..Default::default()
         })
     }
@@ -808,19 +823,13 @@ mod tests {
         Ok(())
     }
 
-    /// Spawns a worker whose first stream is `conn1` and whose reconnect attempt yields a second
-    /// stream, returning the handles needed to drive both.
+    /// Spawns a worker whose first stream is already connected and whose reconnect attempt yields
+    /// a second stream, returning the handles needed to drive both.
     fn spawn_reconnecting_worker() -> ReconnectingWorkerContext {
-        spawn_reconnecting_worker_with_capacity(
-            super::super::replay_buffer::DEFAULT_REPLAY_BUFFER_SIZE,
-        )
+        spawn_reconnecting_worker_with_capacity(DEFAULT_REPLAY_BUFFER_SIZE)
     }
 
     fn spawn_reconnecting_worker_with_capacity(capacity: usize) -> ReconnectingWorkerContext {
-        let (stream1_tx, stream1_rx) = mpsc::channel(10);
-        let (stream1_resp_tx, stream1_resp_rx) = mpsc::channel(10);
-        let conn1 = Connection::new(stream1_tx, stream1_resp_rx);
-
         let (captured_stream2_req_tx, captured_stream2_req_rx) =
             mpsc::channel::<mpsc::Receiver<BidiWriteObjectRequest>>(1);
         let (stream2_resp_tx, stream2_resp_rx) = mpsc::channel(10);
@@ -834,20 +843,8 @@ mod tests {
                 Ok(Ok(stream2))
             });
 
-        let mut connector = mock_connector(mock);
-        connector.set_spec_state(AppendObjectSpecState::Append {
-            spec: AppendObjectSpec {
-                bucket: "projects/_/buckets/test-bucket".into(),
-                object: "test-object".into(),
-                ..Default::default()
-            },
-            initial_chunk: None,
-        });
-
-        let worker = Worker::with_replay_buffer(connector, ReplayBuffer::with_capacity(capacity));
-        let (intent_tx, intent_rx) = mpsc::channel(10);
-        let handle = tokio::spawn(worker.run(conn1, intent_rx));
-
+        let (handle, intent_tx, stream1_rx, stream1_resp_tx) =
+            spawn_worker(mock, capacity, Some(test_spec_state()));
         (
             handle,
             intent_tx,
@@ -874,32 +871,25 @@ mod tests {
         let chunk1 = bytes::Bytes::from_static(b"0123456789");
         let req1 = BidiWriteObjectRequest {
             write_offset: 0,
-            data: Some(Data::ChecksummedData(
-                crate::google::storage::v2::ChecksummedData {
-                    content: chunk1.clone(),
-                    crc32c: Some(crc32c::crc32c(&chunk1)),
-                },
-            )),
+            data: Some(Data::ChecksummedData(ChecksummedData {
+                content: chunk1.clone(),
+                crc32c: Some(crc32c::crc32c(&chunk1)),
+            })),
             ..Default::default()
         };
         let chunk2 = bytes::Bytes::from_static(b"abcdefghij");
         let req2 = BidiWriteObjectRequest {
             write_offset: 10,
-            data: Some(Data::ChecksummedData(
-                crate::google::storage::v2::ChecksummedData {
-                    content: chunk2.clone(),
-                    crc32c: Some(crc32c::crc32c(&chunk2)),
-                },
-            )),
+            data: Some(Data::ChecksummedData(ChecksummedData {
+                content: chunk2.clone(),
+                crc32c: Some(crc32c::crc32c(&chunk2)),
+            })),
             ..Default::default()
         };
-
-        // Act.
         intent_tx.send(UploadIntent::Append(req1)).await?;
         intent_tx.send(UploadIntent::Append(req2)).await?;
 
-        // Assert.
-        // Ensure both chunks were dispatched on stream 1 and buffered for replay
+        // Ensure both chunks were dispatched on stream 1 (and therefore buffered for replay).
         let s1_req1 = stream1_rx.recv().await.unwrap();
         assert_eq!(s1_req1.write_offset, 0);
         let s1_req2 = stream1_rx.recv().await.unwrap();
@@ -930,6 +920,13 @@ mod tests {
         } else {
             panic!("expected ChecksummedData");
         }
+
+        // Chunk 1 was acknowledged by the handshake, so it is not replayed, and nothing else
+        // follows (no pending flush/finalize, and the buffer is far below the watermark).
+        assert!(matches!(
+            stream2_req_rx.try_recv(),
+            Err(mpsc::error::TryRecvError::Empty)
+        ));
 
         drop(intent_tx);
         tokio::task::yield_now().await;
@@ -986,51 +983,26 @@ mod tests {
         Ok(())
     }
 
-    fn setup_mock_worker_with_reconnect_error(err: Error) -> TestWorkerContext {
-        setup_mock_worker_with_reconnect_error_and_capacity(
-            err,
-            super::super::replay_buffer::DEFAULT_REPLAY_BUFFER_SIZE,
-        )
+    /// Spawns a worker whose reconnect attempt fails with `err`.
+    fn spawn_failing_reconnect_worker(err: Error) -> TestWorkerContext {
+        spawn_failing_reconnect_worker_with_capacity(err, DEFAULT_REPLAY_BUFFER_SIZE)
     }
 
-    fn setup_mock_worker_with_reconnect_error_and_capacity(
+    fn spawn_failing_reconnect_worker_with_capacity(
         err: Error,
         capacity: usize,
     ) -> TestWorkerContext {
-        let (request_tx, request_rx) = mpsc::channel(10);
-        let (response_tx, response_rx) = mpsc::channel(10);
-        let (tx, rx) = mpsc::channel(10);
-        let connection = Connection::new(request_tx, response_rx);
-
         let mut mock = MockTestClient::new();
         mock.expect_start()
             .return_once(move |_, _, _, _, _, _| Err(err));
-
-        let mut connector = mock_connector(mock);
-        let initial_spec = crate::google::storage::v2::AppendObjectSpec {
-            bucket: "projects/_/buckets/test-bucket".into(),
-            object: "test-object".into(),
-            generation: 0,
-            routing_token: None,
-            write_handle: None,
-            ..Default::default()
-        };
-        connector.set_spec_state(super::super::state::AppendObjectSpecState::Append {
-            spec: initial_spec,
-            initial_chunk: None,
-        });
-
-        let worker = Worker::with_replay_buffer(connector, ReplayBuffer::with_capacity(capacity));
-        let handle = tokio::spawn(worker.run(connection, rx));
-
-        (handle, tx, request_rx, response_tx)
+        spawn_worker(mock, capacity, Some(test_spec_state()))
     }
 
     #[tokio::test]
     async fn run_server_closes_unexpectedly() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, _request_rx, response_tx) =
-            setup_mock_worker_with_reconnect_error(permanent_error());
+            spawn_failing_reconnect_worker(permanent_error());
 
         // Act.
         // Close the stream from the server side unexpectedly while upload is not finalized.
@@ -1051,7 +1023,7 @@ mod tests {
     async fn run_stream_error_during_flush() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, mut request_rx, response_tx) =
-            setup_mock_worker_with_reconnect_error(permanent_error());
+            spawn_failing_reconnect_worker(permanent_error());
 
         let (flush_tx, flush_rx) = oneshot::channel();
         let flush_request = BidiWriteObjectRequest {
@@ -1090,7 +1062,7 @@ mod tests {
     async fn run_stream_error_then_queue_requests() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, _request_rx, response_tx) =
-            setup_mock_worker_with_reconnect_error(permanent_error());
+            spawn_failing_reconnect_worker(permanent_error());
 
         let (flush_tx1, flush_rx1) = oneshot::channel();
         let (flush_tx2, flush_rx2) = oneshot::channel();
@@ -1143,7 +1115,7 @@ mod tests {
         // channel-drain loop in `drain_intents_on_error`.
         let capacity = MIN_REPLAY_BUFFER_SIZE;
         let (handle, tx, mut request_rx, response_tx) =
-            setup_mock_worker_with_reconnect_error_and_capacity(permanent_error(), capacity);
+            spawn_failing_reconnect_worker_with_capacity(permanent_error(), capacity);
 
         tx.send(append_intent(0, capacity)).await?;
         let stream_req = request_rx.recv().await.unwrap();
@@ -1178,7 +1150,7 @@ mod tests {
         // `requests.recv()` branch. Queue a fourth append while the buffer is full, then send a
         // server ack that drains the buffer and verify the fourth append is picked up and sent.
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(MIN_REPLAY_BUFFER_SIZE);
+            spawn_test_worker_with_capacity(MIN_REPLAY_BUFFER_SIZE);
 
         let chunk_len = MAX_WRITE_CHUNK_SIZE;
         for i in 0..3_i64 {
@@ -1287,7 +1259,7 @@ mod tests {
     async fn run_append_injects_watermark_flush() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+            spawn_test_worker_with_capacity(TEST_CAPACITY);
 
         // Act.
         tx.send(append_intent(0, TEST_CHUNK_SIZE)).await?;
@@ -1317,7 +1289,7 @@ mod tests {
     async fn run_append_does_not_repeat_watermark_flush() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+            spawn_test_worker_with_capacity(TEST_CAPACITY);
 
         // Act.
         // Three appends, all above the watermark from the second one onwards, with no server
@@ -1354,7 +1326,7 @@ mod tests {
         const APPEND_COUNT: usize = 6;
         const { assert!(APPEND_COUNT * MAX_WRITE_CHUNK_SIZE > 2 * TEST_CAPACITY) }
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+            spawn_test_worker_with_capacity(TEST_CAPACITY);
 
         // A server that replies only when the client asks for it via state_lookup.
         let server = tokio::spawn(async move {
@@ -1433,6 +1405,8 @@ mod tests {
         for i in 0..2 {
             let replayed = stream2_req_rx.recv().await.unwrap();
             assert_eq!(replayed.write_offset, (i * TEST_CHUNK_SIZE) as i64);
+            assert!(replayed.data.is_some(), "{replayed:?}");
+            assert!(!replayed.flush, "{replayed:?}");
             assert!(!replayed.state_lookup, "{replayed:?}");
         }
 
@@ -1505,20 +1479,21 @@ mod tests {
             .await?;
 
         // Assert.
-        // The caller is not told the upload finalized, ...
-        tokio::task::yield_now().await;
-        assert!(matches!(
-            finalize_rx.try_recv(),
-            Err(oneshot::error::TryRecvError::Empty)
-        ));
-
-        // ... and the finalize is re-sent on the new stream after the handshake.
+        // The finalize is re-sent on the new stream after the handshake, ...
         let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
         let initial_req = stream2_req_rx.recv().await.unwrap();
         assert!(initial_req.first_message.is_some());
         let resent = stream2_req_rx.recv().await.unwrap();
         assert!(resent.finish_write, "{resent:?}");
         assert_eq!(resent.write_offset, 50);
+
+        // ... and the caller has not been told the upload finalized. `resent` was sent after the
+        // worker processed the handshake, so the handshake has already had its chance to (wrongly)
+        // complete the pending finalize.
+        assert!(matches!(
+            finalize_rx.try_recv(),
+            Err(oneshot::error::TryRecvError::Empty)
+        ));
 
         // The service then answers the re-sent finalize.
         stream2_resp_tx.send(Ok(finalized_response(50))).await?;
@@ -1626,7 +1601,7 @@ mod tests {
     async fn run_watermark_rearms_after_non_draining_ack() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+            spawn_test_worker_with_capacity(TEST_CAPACITY);
 
         // Send two chunks to hit the watermark (`2 * TEST_CHUNK_SIZE`).
         tx.send(append_intent(0, TEST_CHUNK_SIZE)).await?;
