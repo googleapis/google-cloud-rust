@@ -613,17 +613,18 @@ where
 
     /// Configure the idempotency for this upload.
     ///
-    /// By default, the client library treats single-shot uploads without
-    /// preconditions, as non-idempotent. If the destination bucket is
-    /// configured with [object versioning] then the operation may succeed
-    /// multiple times with observable side-effects. With object versioning and
-    /// a [lifecycle] policy limiting the number of versions, uploading the same
-    /// data multiple times may result in data loss.
+    /// By default, the client library treats single-shot uploads without an
+    /// `if_generation_match` precondition as non-idempotent. If the destination
+    /// bucket is configured with [object versioning] then the operation may
+    /// succeed multiple times with observable side-effects. With object
+    /// versioning and a [lifecycle] policy limiting the number of versions,
+    /// uploading the same data multiple times may result in data loss.
     ///
     /// The client library cannot efficiently determine if these conditions
-    /// apply to your upload. If they do, or your application can tolerate
+    /// apply to your upload. If they do not, or your application can tolerate
     /// multiple versions of the same data for other reasons, consider using
-    /// `with_idempotency(true)`.
+    /// `with_idempotency(true)`. Use `with_idempotency(false)` to disable
+    /// retries even when `if_generation_match` is set.
     ///
     /// The client library treats resumable uploads as idempotent, regardless of
     /// the value in this option. Such uploads can succeed at most once.
