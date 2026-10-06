@@ -204,9 +204,7 @@ pub mod error;
 pub mod query;
 
 /// Types related to reading with a [Read][crate::client::Read] client.
-pub mod read {
-    pub use crate::write::reader::Reader;
-}
+pub mod read;
 
 /// Types related to writing with a [Write][crate::client::Write] client.
 pub mod write;

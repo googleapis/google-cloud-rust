@@ -45,7 +45,6 @@ mod optimizer;
 mod pending;
 mod pool;
 mod proto_schema;
-pub(super) mod reader;
 mod runner;
 mod stream;
 mod transport;
