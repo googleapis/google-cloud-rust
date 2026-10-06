@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.46.1-0.20260930150914-7e63426757f3
+version: v0.47.0
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -1600,6 +1600,7 @@ libraries:
             - .google.storage.v2.ReadObjectRequest
             - .google.storage.v2.WriteObjectSpec
           include_grpc_only_methods: true
+          idempotency_hook: resolve_idempotency
           name_overrides: .google.storage.v2.Storage=StorageControl
           output: src/storage/src/generated/gapic
           routing_required: true
@@ -1686,6 +1687,10 @@ libraries:
   - name: google-cloud-texttospeech-v1
     version: 1.16.0
     copyright_year: "2025"
+  - name: google-cloud-timeseriesinsights-v1
+    version: 2.0.0
+    copyright_year: "2025"
+    output: src/generated/cloud/timeseriesinsights/v1
   - name: google-cloud-tpu-v2
     version: 1.15.0
     copyright_year: "2025"

@@ -14,8 +14,7 @@
 
 use crate::generated::gapic_dataplane::model;
 use crate::generated::gapic_dataplane::model::TypeAnnotationCode;
-use crate::google::spanner::v1 as spanner_v1;
-use gaxi::prost::ConvertError;
+use crate::google::spanner::v1::Type as ProtoType;
 use std::sync::LazyLock;
 
 /// Spanner type definition.
@@ -116,14 +115,12 @@ impl From<Type> for model::Type {
     }
 }
 
-impl From<spanner_v1::Type> for Type {
-    fn from(value: spanner_v1::Type) -> Self {
+impl Type {
+    pub(crate) fn from_proto(value: ProtoType) -> Self {
         use gaxi::prost::FromProto;
         value.cnv().unwrap_or_default().into()
     }
-}
 
-impl Type {
     /// Returns the type code.
     pub fn code(&self) -> TypeCode {
         self.0.code.clone().into()
@@ -146,29 +143,16 @@ impl Type {
         self.0.struct_type.as_deref()
     }
 
+    /// Returns the fully qualified name of the proto or enum type, or an empty string if not applicable.
+    pub fn proto_type_fqn(&self) -> &str {
+        &self.0.proto_type_fqn
+    }
+
     /// Safely reinterprets a reference to the inner model type as a reference to Type.
     /// Logical safety is guaranteed by #[repr(transparent)].
     pub(crate) fn from_ref(v: &model::Type) -> &Self {
         // SAFETY: Type is #[repr(transparent)] wrapper around model::Type.
         unsafe { &*(v as *const model::Type as *const Type) }
-    }
-}
-
-impl gaxi::prost::ToProto<i32> for TypeCode {
-    type Output = i32;
-
-    fn to_proto(self) -> Result<i32, ConvertError> {
-        let internal: crate::generated::gapic_dataplane::model::TypeCode = self.into();
-
-        internal.to_proto()
-    }
-}
-
-impl gaxi::prost::ToProto<crate::generated::gapic_dataplane::model::Type> for Type {
-    type Output = crate::generated::gapic_dataplane::model::Type;
-
-    fn to_proto(self) -> Result<crate::generated::gapic_dataplane::model::Type, ConvertError> {
-        Ok(self.0)
     }
 }
 
@@ -282,6 +266,20 @@ pub fn array(element_type: Type) -> Type {
     t
 }
 
+/// Returns a `Type` representing `ENUM` (GoogleSQL) with the given fully qualified proto type name.
+pub fn enum_type(proto_type_fqn: impl Into<String>) -> Type {
+    let mut t = create_type(TypeCode::Enum);
+    t.0.proto_type_fqn = proto_type_fqn.into();
+    t
+}
+
+/// Returns a `Type` representing `PROTO` (GoogleSQL) with the given fully qualified proto type name.
+pub fn proto_type(proto_type_fqn: impl Into<String>) -> Type {
+    let mut t = create_type(TypeCode::Proto);
+    t.0.proto_type_fqn = proto_type_fqn.into();
+    t
+}
+
 pub(crate) fn create_type(code: TypeCode) -> Type {
     Type(crate::generated::gapic_dataplane::model::Type {
         code: code.into(),
@@ -379,18 +377,20 @@ mod tests {
     }
 
     #[test]
-    fn test_to_proto_traits() {
-        use gaxi::prost::ToProto;
-        let t = int64();
-        let proto: crate::generated::gapic_dataplane::model::Type = t.clone().to_proto().unwrap();
+    fn test_type_code_conversions() {
+        let code = TypeCode::Int64;
+        let integer_code: i32 = code.into();
         assert_eq!(
-            proto.code,
-            crate::generated::gapic_dataplane::model::TypeCode::Int64
+            integer_code, 2,
+            "TypeCode::Int64 converted to i32 should equal 2"
         );
 
-        let code = TypeCode::Int64;
-        let proto_code: i32 = code.to_proto().unwrap();
-        assert_eq!(proto_code, 2);
+        let internal_code: crate::generated::gapic_dataplane::model::TypeCode = code.into();
+        assert_eq!(
+            internal_code,
+            crate::generated::gapic_dataplane::model::TypeCode::Int64,
+            "TypeCode::Int64 converted to model::TypeCode should match"
+        );
     }
 
     #[test]
@@ -399,20 +399,35 @@ mod tests {
             code: crate::generated::gapic_dataplane::model::TypeCode::Bool,
             ..Default::default()
         };
-        let t: Type = internal_type.clone().into();
-        assert_eq!(t.code(), TypeCode::Bool);
+        let converted_type: Type = internal_type.clone().into();
+        assert_eq!(
+            converted_type.code(),
+            TypeCode::Bool,
+            "converted Type should have Bool code"
+        );
 
-        let back: crate::generated::gapic_dataplane::model::Type = t.into();
-        assert_eq!(back.code, internal_type.code);
+        let back: crate::generated::gapic_dataplane::model::Type = converted_type.into();
+        assert_eq!(
+            back.code, internal_type.code,
+            "roundtripped model::Type code should match original"
+        );
     }
 
     #[test]
     fn test_array_type() {
-        let t = array(int64());
-        assert_eq!(t.code(), TypeCode::Array);
+        let array_type = array(int64());
         assert_eq!(
-            t.0.array_element_type.unwrap().code,
-            crate::generated::gapic_dataplane::model::TypeCode::Int64
+            array_type.code(),
+            TypeCode::Array,
+            "array type should have Array code"
+        );
+        assert_eq!(
+            array_type
+                .array_element_type()
+                .expect("array element type must be present")
+                .code(),
+            TypeCode::Int64,
+            "array element type code should be Int64"
         );
     }
 
@@ -454,6 +469,45 @@ mod tests {
             PartialEq,
             Eq,
             Hash
+        );
+    }
+
+    #[test]
+    fn proto_and_enum_types() {
+        let proto_column = proto_type("google.example.Customer");
+        assert_eq!(
+            proto_column.code(),
+            TypeCode::Proto,
+            "expected TypeCode::Proto for proto_type"
+        );
+        assert_eq!(
+            proto_column.proto_type_fqn(),
+            "google.example.Customer",
+            "expected fully qualified proto type name"
+        );
+
+        let enum_column = enum_type("google.example.CustomerStatus");
+        assert_eq!(
+            enum_column.code(),
+            TypeCode::Enum,
+            "expected TypeCode::Enum for enum_type"
+        );
+        assert_eq!(
+            enum_column.proto_type_fqn(),
+            "google.example.CustomerStatus",
+            "expected fully qualified enum type name"
+        );
+
+        // Non-proto/enum types should return an empty string
+        assert_eq!(
+            int64().proto_type_fqn(),
+            "",
+            "expected empty string for non-proto/enum types"
+        );
+        assert_eq!(
+            Type::default().proto_type_fqn(),
+            "",
+            "expected empty string for default Type"
         );
     }
 }

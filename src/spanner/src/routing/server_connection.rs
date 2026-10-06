@@ -47,6 +47,7 @@ struct Inner {
 
 /// RAII guard that decrements the active request count of a [`ServerConnection`] when dropped.
 #[must_use = "if unused the request count will decrement immediately"]
+#[derive(Debug)]
 pub(crate) struct ActiveRequestGuard {
     inner: Arc<Inner>,
 }

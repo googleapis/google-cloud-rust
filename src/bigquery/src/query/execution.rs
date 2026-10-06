@@ -21,8 +21,8 @@ use crate::query::retry_policy::{JobRetryResult, is_duplicate_job_error};
 use crate::query::{Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest, QueryRequest,
-    QueryResponse,
+    DataFormatOptions, InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest,
+    QueryRequest, QueryResponse,
 };
 use google_cloud_gax::options::RequestOptionsBuilder as _;
 use google_cloud_gax::retry_state::RetryState;
@@ -217,11 +217,24 @@ impl RetryContext {
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         let query_request: QueryRequest = self.template.request.clone().into();
         let query_request = query_request
-            .set_format_options(
-                google_cloud_bigquery_v2::model::DataFormatOptions::new()
-                    .set_use_int64_timestamp(true),
-            )
+            .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true))
             .set_request_id(query_request_id);
+        #[cfg(google_cloud_unstable_bigquery_arrow)]
+        let query_request = {
+            use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+            use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+            use google_cloud_bigquery_v2::model::query_request::{
+                QueryResultsFormat, ResultsFormatSerializationOptions,
+            };
+            query_request
+                .set_query_results_format(QueryResultsFormat::Arrow)
+                .set_results_format_serialization_options(
+                    ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                        ArrowSerializationOptions::new()
+                            .set_buffer_compression(CompressionCodec::Zstd),
+                    )),
+                )
+        };
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
             .set_query_request(query_request);
@@ -343,6 +356,7 @@ fn parse_job_name(name: &str) -> Option<JobReference> {
 mod tests {
     use super::*;
     use crate::query::tests::{MockJobService, create_job_service};
+    use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
     use google_cloud_bigquery_v2::model::{
         ErrorProto, Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus,
         QueryResponse,
@@ -399,7 +413,7 @@ mod tests {
             .clone()
             .expect("should have job_ref");
         assert_eq!(job_ref.job_id, "my-job-123", "{job_ref:?}");
-        assert!(query.cached_rows.is_some(), "{query:?}");
+        assert!(query.cached_data.is_some(), "{query:?}");
 
         Ok(())
     }
@@ -582,6 +596,30 @@ mod tests {
         mock.expect_query().returning(|req, _| {
             let query_req = req.query_request.as_ref().unwrap();
             assert!(!query_req.dry_run);
+            #[cfg(google_cloud_unstable_bigquery_arrow)]
+            {
+                use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+                use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+                use google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions;
+                assert_eq!(query_req.query_results_format, QueryResultsFormat::Arrow);
+                assert_eq!(
+                    query_req.results_format_serialization_options,
+                    Some(
+                        ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                            ArrowSerializationOptions::new()
+                                .set_buffer_compression(CompressionCodec::Zstd)
+                        ))
+                    )
+                );
+            }
+            #[cfg(not(google_cloud_unstable_bigquery_arrow))]
+            {
+                assert_eq!(
+                    query_req.query_results_format,
+                    QueryResultsFormat::default()
+                );
+                assert_eq!(query_req.results_format_serialization_options, None);
+            }
             let res =
                 QueryResponse::new().set_job_reference(JobReference::new().set_job_id("query-job"));
             Ok(Response::from(res))

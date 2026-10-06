@@ -19,6 +19,24 @@
 //! some parts are hard to use.
 //!
 //! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
+//!
+//! # Features
+//!
+//! - `builtin-metrics`: enabled by default. Automatically exports Spanner built-in request
+//!   and attempt latency metrics to Google Cloud Monitoring in the background.
+//! - `default-rustls-provider`: enabled by default. Use the default rustls crypto provider
+//!   ([aws-lc-rs]) for TLS and authentication.
+//! - `unstable-metrics`: enable integration with a custom caller-supplied OpenTelemetry
+//!   `MeterProvider`. Because the `opentelemetry` crate is pre-1.0, this feature is
+//!   subject to SemVer-incompatible changes across OpenTelemetry minor releases.
+//! - `unstable-stream`: enable the (unstable) features to convert several types to
+//!   a `futures::Stream`.
+//! - `unstable-time`: enable support for types from the `time` crate (`time::OffsetDateTime`
+//!   and `time::Date`).
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 // Public domain modules.
 
@@ -45,7 +63,12 @@ pub mod value;
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
-#[cfg(feature = "metrics")]
+/// Re-export of the `opentelemetry` crate.
+///
+/// **Warning:** This re-export is subject to SemVer-incompatible changes across
+/// OpenTelemetry minor releases until OpenTelemetry reaches 1.0.
+#[cfg(feature = "unstable-metrics")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-metrics")))]
 pub use opentelemetry;
 pub use rust_decimal::Decimal;
 

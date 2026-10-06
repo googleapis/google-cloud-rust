@@ -17,7 +17,7 @@ use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::statement::Statement;
 
 pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
-    let runner = client.read_write_transaction().build().await?;
+    let runner = client.read_write_transaction().build();
 
     runner
         .run(async |transaction| {

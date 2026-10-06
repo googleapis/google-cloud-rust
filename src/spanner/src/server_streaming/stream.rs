@@ -12,20 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
 use crate::google::spanner::v1::BatchWriteResponse;
 use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
 use crate::google::spanner::v1::PartialResultSet;
+use crate::retry_delay::extract_status_code_from_error;
+use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::Streaming;
 use google_cloud_gax::error::rpc::Code;
 use http::HeaderMap;
 use std::fmt::{Debug, Formatter, Result as FmtResult};
 use std::sync::Arc;
+use std::time::Duration;
 
-/// Trait for stream lifetime drop guards capable of recording RPC error codes for dynamic channel pooling.
+/// Trait for stream lifetime drop guards capable of recording RPC error codes for dynamic channel pooling
+/// and routing feedback for location-aware routing.
 pub(crate) trait StreamGuard: Debug + Send + Sync + 'static {
-    fn record_error_code(&self, code: Code);
+    fn record_error_code(&self, _code: Code) {}
+
+    fn record_error(&self, error: &Error) {
+        if let Some(code) = extract_status_code_from_error(error) {
+            self.record_error_code(code);
+        }
+    }
+
+    fn record_first_response(&self, _latency: Duration) {}
+
+    fn record_success(&self) {}
 }
 
 /// Type alias for stream lifetime drop guards.
@@ -86,16 +99,16 @@ impl<T: StreamTransactionIdExtractor> SpannerServerStream<T> {
         let message = match self.inner.message().await.map_err(to_gax_error).transpose() {
             Some(Ok(message)) => message,
             Some(Err(err)) => {
-                if let Some(guard) = self.lifetime_guard.take()
-                    && let Some(status) = err.status()
-                {
-                    guard.record_error_code(status.code);
+                if let Some(guard) = self.lifetime_guard.take() {
+                    guard.record_error(&err);
                 }
                 self.on_first_transaction_id = None;
                 return Some(Err(err));
             }
             None => {
-                self.lifetime_guard = None;
+                if let Some(guard) = self.lifetime_guard.take() {
+                    guard.record_success();
+                }
                 self.on_first_transaction_id = None;
                 return None;
             }
@@ -219,11 +232,16 @@ mod tests {
     struct TestDropGuard {
         dropped: Arc<AtomicBool>,
         recorded_code: Arc<Mutex<Option<Code>>>,
+        recorded_success: Arc<AtomicBool>,
     }
 
     impl StreamGuard for TestDropGuard {
         fn record_error_code(&self, code: Code) {
             *self.recorded_code.lock().expect("lock poisoned") = Some(code);
+        }
+
+        fn record_success(&self) {
+            self.recorded_success.store(true, Ordering::Release);
         }
     }
 
@@ -237,9 +255,11 @@ mod tests {
     async fn stream_drop_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
         let recorded_code = Arc::new(Mutex::new(None));
+        let recorded_success = Arc::new(AtomicBool::new(false));
         let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
             recorded_code: Arc::clone(&recorded_code),
+            recorded_success: Arc::clone(&recorded_success),
         });
 
         let mut mock = create_session_mock();
@@ -275,6 +295,10 @@ mod tests {
             None,
             "No error code should be recorded on normal stream drop"
         );
+        assert!(
+            !recorded_success.load(Ordering::Acquire),
+            "Early stream drop without EOF must not invoke record_success"
+        );
         Ok(())
     }
 
@@ -282,9 +306,11 @@ mod tests {
     async fn stream_eof_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
         let recorded_code = Arc::new(Mutex::new(None));
+        let recorded_success = Arc::new(AtomicBool::new(false));
         let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
             recorded_code: Arc::clone(&recorded_code),
+            recorded_success: Arc::clone(&recorded_success),
         });
 
         let mut mock = create_session_mock();
@@ -322,6 +348,10 @@ mod tests {
             None,
             "No error code should be recorded on normal EOF"
         );
+        assert!(
+            recorded_success.load(Ordering::Acquire),
+            "Stream EOF must invoke record_success on lifetime guard"
+        );
         Ok(())
     }
 
@@ -329,9 +359,11 @@ mod tests {
     async fn stream_error_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
         let recorded_code = Arc::new(Mutex::new(None));
+        let recorded_success = Arc::new(AtomicBool::new(false));
         let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
             recorded_code: Arc::clone(&recorded_code),
+            recorded_success: Arc::clone(&recorded_success),
         });
 
         let mut mock = create_session_mock();
@@ -374,6 +406,10 @@ mod tests {
             *recorded_code.lock().expect("lock poisoned"),
             Some(Code::Unavailable),
             "Stream error must record Code::Unavailable on guard"
+        );
+        assert!(
+            !recorded_success.load(Ordering::Acquire),
+            "Stream error must not invoke record_success on lifetime guard"
         );
         Ok(())
     }

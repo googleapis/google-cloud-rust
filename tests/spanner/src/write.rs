@@ -21,38 +21,26 @@ use google_cloud_spanner::mutation::Mutation;
 use google_cloud_spanner::read::ReadRequest;
 use google_cloud_spanner::statement::Statement;
 use google_cloud_spanner::value::{Kind, Value};
-use prost_types::value::Kind as ProtoKind;
-use prost_types::{ListValue, Value as ProtoValue};
 use std::str::FromStr;
 
-fn string_val(s: &str) -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::StringValue(s.to_string())),
-    }
+fn string_val(s: &str) -> Value {
+    s.to_string().into()
 }
 
-fn number_val(f: f64) -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::NumberValue(f)),
-    }
+fn number_val(f: f64) -> Value {
+    f.into()
 }
 
-fn bool_val(b: bool) -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::BoolValue(b)),
-    }
+fn bool_val(b: bool) -> Value {
+    b.into()
 }
 
-fn array_val(values: Vec<ProtoValue>) -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::ListValue(ListValue { values })),
-    }
+fn array_val(values: Vec<Value>) -> Value {
+    values.into()
 }
 
-fn null_val() -> ProtoValue {
-    ProtoValue {
-        kind: Some(ProtoKind::NullValue(0)),
-    }
+fn null_val() -> Value {
+    Value::null()
 }
 
 pub enum WriteMethod {
@@ -186,25 +174,25 @@ async fn write_internal(
         .set("ColJson")
         .to::<Option<String>>(None)
         .set("ColArrayBool")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayInt64")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayFloat32")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayFloat64")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayNumeric")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayString")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayBytes")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayDate")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayTimestamp")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .set("ColArrayJson")
-        .to::<Option<ProtoValue>>(None)
+        .to::<Option<Value>>(None)
         .build();
 
     let id3 = format!(
@@ -294,24 +282,24 @@ async fn write_internal(
     // TODO: We should implement FromValue and ToValue for specific array types.
     // For now, we fallback to extracting the raw Value to verify the array types.
     let arr_bool: Value = row1.get("ColArrayBool");
-    assert_eq!(arr_bool.as_list().len(), 3); // ArrayBool
-    assert!(
-        arr_bool
-            .as_list()
+    let list_bool = arr_bool.as_list().expect("expected ColArrayBool list");
+    assert_eq!(list_bool.len(), 3); // ArrayBool
+    assert_eq!(
+        list_bool
             .get(0)
             .expect("expected ArrayBool element at index 0")
-            .as_bool()
-    );
-    assert!(
-        !arr_bool
-            .as_list()
-            .get(1)
-            .expect("expected ArrayBool element at index 1")
-            .as_bool()
+            .as_bool(),
+        Some(true)
     );
     assert_eq!(
-        arr_bool
-            .as_list()
+        list_bool
+            .get(1)
+            .expect("expected ArrayBool element at index 1")
+            .as_bool(),
+        Some(false)
+    );
+    assert_eq!(
+        list_bool
             .get(2)
             .expect("expected ArrayBool element at index 2")
             .kind(),
@@ -319,26 +307,24 @@ async fn write_internal(
     );
 
     let arr_int64: Value = row1.get("ColArrayInt64");
-    assert_eq!(arr_int64.as_list().len(), 3); // ArrayInt64
+    let list_int64 = arr_int64.as_list().expect("expected ColArrayInt64 list");
+    assert_eq!(list_int64.len(), 3); // ArrayInt64
     assert_eq!(
-        arr_int64
-            .as_list()
+        list_int64
             .get(0)
             .expect("expected ArrayInt64 element at index 0")
-            .as_string(),
-        "1"
+            .as_str(),
+        Some("1")
     );
     assert_eq!(
-        arr_int64
-            .as_list()
+        list_int64
             .get(1)
             .expect("expected ArrayInt64 element at index 1")
-            .as_string(),
-        "2"
+            .as_str(),
+        Some("2")
     );
     assert_eq!(
-        arr_int64
-            .as_list()
+        list_int64
             .get(2)
             .expect("expected ArrayInt64 element at index 2")
             .kind(),
@@ -346,26 +332,26 @@ async fn write_internal(
     );
 
     let arr_float32: Value = row1.get("ColArrayFloat32");
-    assert_eq!(arr_float32.as_list().len(), 3); // ArrayFloat32 mapped to f64
+    let list_float32 = arr_float32
+        .as_list()
+        .expect("expected ColArrayFloat32 list");
+    assert_eq!(list_float32.len(), 3); // ArrayFloat32 mapped to f64
     assert_eq!(
-        arr_float32
-            .as_list()
+        list_float32
             .get(0)
             .expect("expected ArrayFloat32 element at index 0")
             .as_f64(),
-        1.0
+        Some(1.0)
     );
     assert_eq!(
-        arr_float32
-            .as_list()
+        list_float32
             .get(1)
             .expect("expected ArrayFloat32 element at index 1")
             .as_f64(),
-        2.0
+        Some(2.0)
     );
     assert_eq!(
-        arr_float32
-            .as_list()
+        list_float32
             .get(2)
             .expect("expected ArrayFloat32 element at index 2")
             .kind(),
@@ -373,26 +359,26 @@ async fn write_internal(
     );
 
     let arr_float64: Value = row1.get("ColArrayFloat64");
-    assert_eq!(arr_float64.as_list().len(), 3); // ArrayFloat64
+    let list_float64 = arr_float64
+        .as_list()
+        .expect("expected ColArrayFloat64 list");
+    assert_eq!(list_float64.len(), 3); // ArrayFloat64
     assert_eq!(
-        arr_float64
-            .as_list()
+        list_float64
             .get(0)
             .expect("expected ArrayFloat64 element at index 0")
             .as_f64(),
-        1.0
+        Some(1.0)
     );
     assert_eq!(
-        arr_float64
-            .as_list()
+        list_float64
             .get(1)
             .expect("expected ArrayFloat64 element at index 1")
             .as_f64(),
-        2.0
+        Some(2.0)
     );
     assert_eq!(
-        arr_float64
-            .as_list()
+        list_float64
             .get(2)
             .expect("expected ArrayFloat64 element at index 2")
             .kind(),
@@ -400,26 +386,26 @@ async fn write_internal(
     );
 
     let arr_numeric: Value = row1.get("ColArrayNumeric");
-    assert_eq!(arr_numeric.as_list().len(), 3); // ArrayNumeric
+    let list_numeric = arr_numeric
+        .as_list()
+        .expect("expected ColArrayNumeric list");
+    assert_eq!(list_numeric.len(), 3); // ArrayNumeric
     assert_eq!(
-        arr_numeric
-            .as_list()
+        list_numeric
             .get(0)
             .expect("expected ArrayNumeric element at index 0")
-            .as_string(),
-        "1"
+            .as_str(),
+        Some("1")
     );
     assert_eq!(
-        arr_numeric
-            .as_list()
+        list_numeric
             .get(1)
             .expect("expected ArrayNumeric element at index 1")
-            .as_string(),
-        "2"
+            .as_str(),
+        Some("2")
     );
     assert_eq!(
-        arr_numeric
-            .as_list()
+        list_numeric
             .get(2)
             .expect("expected ArrayNumeric element at index 2")
             .kind(),
@@ -427,26 +413,24 @@ async fn write_internal(
     );
 
     let arr_string: Value = row1.get("ColArrayString");
-    assert_eq!(arr_string.as_list().len(), 3); // ArrayString
+    let list_string = arr_string.as_list().expect("expected ColArrayString list");
+    assert_eq!(list_string.len(), 3); // ArrayString
     assert_eq!(
-        arr_string
-            .as_list()
+        list_string
             .get(0)
             .expect("expected ArrayString element at index 0")
-            .as_string(),
-        "hello"
+            .as_str(),
+        Some("hello")
     );
     assert_eq!(
-        arr_string
-            .as_list()
+        list_string
             .get(1)
             .expect("expected ArrayString element at index 1")
-            .as_string(),
-        "world"
+            .as_str(),
+        Some("world")
     );
     assert_eq!(
-        arr_string
-            .as_list()
+        list_string
             .get(2)
             .expect("expected ArrayString element at index 2")
             .kind(),
@@ -454,26 +438,24 @@ async fn write_internal(
     );
 
     let arr_bytes: Value = row1.get("ColArrayBytes");
-    assert_eq!(arr_bytes.as_list().len(), 3); // ArrayBytes (base64 returned from Spanner REST)
+    let list_bytes = arr_bytes.as_list().expect("expected ColArrayBytes list");
+    assert_eq!(list_bytes.len(), 3); // ArrayBytes (base64 returned from Spanner REST)
     assert!(
-        arr_bytes
-            .as_list()
+        list_bytes
             .get(0)
             .expect("expected ArrayBytes element at index 0")
-            .try_as_string()
+            .as_str()
             .is_some()
     );
     assert!(
-        arr_bytes
-            .as_list()
+        list_bytes
             .get(1)
             .expect("expected ArrayBytes element at index 1")
-            .try_as_string()
+            .as_str()
             .is_some()
     );
     assert_eq!(
-        arr_bytes
-            .as_list()
+        list_bytes
             .get(2)
             .expect("expected ArrayBytes element at index 2")
             .kind(),
@@ -481,18 +463,17 @@ async fn write_internal(
     );
 
     let arr_date: Value = row1.get("ColArrayDate");
-    assert_eq!(arr_date.as_list().len(), 2); // ArrayDate
+    let list_date = arr_date.as_list().expect("expected ColArrayDate list");
+    assert_eq!(list_date.len(), 2); // ArrayDate
     assert_eq!(
-        arr_date
-            .as_list()
+        list_date
             .get(0)
             .expect("expected ArrayDate element at index 0")
-            .as_string(),
-        "2026-03-09"
+            .as_str(),
+        Some("2026-03-09")
     );
     assert_eq!(
-        arr_date
-            .as_list()
+        list_date
             .get(1)
             .expect("expected ArrayDate element at index 1")
             .kind(),
@@ -500,18 +481,19 @@ async fn write_internal(
     );
 
     let arr_timestamp: Value = row1.get("ColArrayTimestamp");
-    assert_eq!(arr_timestamp.as_list().len(), 2); // ArrayTimestamp
+    let list_timestamp = arr_timestamp
+        .as_list()
+        .expect("expected ColArrayTimestamp list");
+    assert_eq!(list_timestamp.len(), 2); // ArrayTimestamp
     assert_eq!(
-        arr_timestamp
-            .as_list()
+        list_timestamp
             .get(0)
             .expect("expected ArrayTimestamp element at index 0")
-            .as_string(),
-        "2026-03-09T16:20:00Z"
+            .as_str(),
+        Some("2026-03-09T16:20:00Z")
     );
     assert_eq!(
-        arr_timestamp
-            .as_list()
+        list_timestamp
             .get(1)
             .expect("expected ArrayTimestamp element at index 1")
             .kind(),
@@ -519,18 +501,17 @@ async fn write_internal(
     );
 
     let arr_json: Value = row1.get("ColArrayJson");
-    assert_eq!(arr_json.as_list().len(), 2); // ArrayJson
+    let list_json = arr_json.as_list().expect("expected ColArrayJson list");
+    assert_eq!(list_json.len(), 2); // ArrayJson
     assert_eq!(
-        arr_json
-            .as_list()
+        list_json
             .get(0)
             .expect("expected ArrayJson element at index 0")
-            .as_string(),
-        "{\"value\":1}"
+            .as_str(),
+        Some("{\"value\":1}")
     );
     assert_eq!(
-        arr_json
-            .as_list()
+        list_json
             .get(1)
             .expect("expected ArrayJson element at index 1")
             .kind(),
@@ -542,9 +523,7 @@ async fn write_internal(
     let row2_id: String = row2.get("Id");
     assert_eq!(row2_id, id2);
 
-    let metadata = rs
-        .metadata()
-        .expect("result set metadata is unexpectedly missing");
+    let metadata = rs.metadata();
     let column_count = metadata.column_names().len();
     assert_eq!(row2.raw_values().len(), column_count);
     for i in 1..column_count {

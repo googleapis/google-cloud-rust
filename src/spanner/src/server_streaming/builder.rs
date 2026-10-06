@@ -31,6 +31,7 @@ use gaxi::grpc::tonic::GrpcMethod;
 use gaxi::prost::ToProto;
 use prost::Message;
 use std::sync::LazyLock;
+use std::time::Instant;
 
 /// The request builder for [SpannerImpl::execute_streaming_sql][crate::client::SpannerImpl::execute_streaming_sql] calls.
 #[derive(Debug)]
@@ -338,6 +339,7 @@ where
     };
     let path = http::uri::PathAndQuery::from_static(path_str);
 
+    let start_time = Instant::now();
     let response = match grpc_client
         .server_streaming(
             extensions,
@@ -349,12 +351,15 @@ where
         )
         .await
     {
-        Ok(response) => response,
+        Ok(response) => {
+            if let Some(guard) = &lifetime_guard {
+                guard.record_first_response(start_time.elapsed());
+            }
+            response
+        }
         Err(err) => {
-            if let Some(guard) = lifetime_guard
-                && let Some(status) = err.status()
-            {
-                guard.record_error_code(status.code);
+            if let Some(guard) = lifetime_guard {
+                guard.record_error(&err);
             }
             return Err(err);
         }
@@ -369,14 +374,19 @@ mod tests {
     use super::*;
     use crate::client::Spanner;
     use crate::server_streaming::stream::StreamGuard;
+    use gaxi::grpc::tonic::Response;
     use gaxi::grpc::tonic::Status;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use spanner_grpc_mock::MockSpanner;
+    use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::fmt::Debug;
     use std::sync::Arc;
     use std::sync::Mutex;
+    use std::time::Duration;
+    use tokio::sync::mpsc::channel;
     use tokio::task::JoinHandle;
 
     #[test]
@@ -399,7 +409,7 @@ mod tests {
     }
 
     async fn create_test_grpc_client_with_mock(
-        mock: spanner_grpc_mock::MockSpanner,
+        mock: MockSpanner,
     ) -> (gaxi::grpc::Client, JoinHandle<()>) {
         let (address, server) = spanner_grpc_mock::start("0.0.0.0:0", mock)
             .await
@@ -421,7 +431,7 @@ mod tests {
     }
 
     async fn create_test_grpc_client() -> (gaxi::grpc::Client, JoinHandle<()>) {
-        create_test_grpc_client_with_mock(spanner_grpc_mock::MockSpanner::new()).await
+        create_test_grpc_client_with_mock(MockSpanner::new()).await
     }
 
     #[tokio_test_no_panics]
@@ -691,6 +701,54 @@ mod tests {
         assert!(
             result.is_err(),
             "Initial handshake failure without lifetime guard must return Err"
+        );
+    }
+
+    #[derive(Debug, Default)]
+    struct TestLatencyGuard {
+        recorded_latency: Arc<Mutex<Option<Duration>>>,
+    }
+
+    impl StreamGuard for TestLatencyGuard {
+        fn record_first_response(&self, latency: Duration) {
+            *self.recorded_latency.lock().expect("lock poisoned") = Some(latency);
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn make_server_streaming_request_records_first_response_latency_on_success() {
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_streaming_sql().returning(|_| {
+            let (sender, receiver) = channel(1);
+            let _ = sender.try_send(Ok(mock_v1::PartialResultSet::default()));
+            Ok(Response::from(receiver))
+        });
+        let (grpc_client, _server) = create_test_grpc_client_with_mock(mock).await;
+        let recorded_latency = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestLatencyGuard {
+            recorded_latency: Arc::clone(&recorded_latency),
+        });
+
+        let result =
+            make_server_streaming_request::<mock_v1::ExecuteSqlRequest, mock_v1::PartialResultSet>(
+                &grpc_client,
+                mock_v1::ExecuteSqlRequest::default(),
+                RequestOptions::default(),
+                "ExecuteStreamingSql",
+                "/google.spanner.v1.Spanner/ExecuteStreamingSql",
+                "session=test",
+                Some(guard),
+            )
+            .await;
+
+        assert!(
+            result.is_ok(),
+            "make_server_streaming_request must succeed on 200 response"
+        );
+        let latency = *recorded_latency.lock().expect("lock poisoned");
+        assert!(
+            latency.is_some(),
+            "first response latency must be recorded on successful connection"
         );
     }
 }

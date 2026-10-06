@@ -189,7 +189,7 @@ impl StatementBuilder {
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let runner = db_client.read_write_transaction().build();
     ///
     /// let result = runner.run(async |transaction| {
     ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1")
@@ -324,7 +324,7 @@ impl Statement {
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let runner = db_client.read_write_transaction().build();
     ///
     /// let result = runner.run(async |transaction| {
     ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1")
@@ -613,8 +613,8 @@ mod tests {
         assert_eq!(stmt.params.len(), 1);
         assert_eq!(stmt.request_options, None);
 
-        let val = stmt.params.get("age").unwrap();
-        assert_eq!(val.as_string(), "21");
+        let val = stmt.params.get("age").expect("age parameter should exist");
+        assert_eq!(val.as_str(), Some("21"));
     }
 
     #[test]
@@ -633,10 +633,22 @@ mod tests {
         .add_param("active", active_bool)
         .build();
 
-        assert_eq!(stmt.params.get("id").unwrap().as_string(), "user-123");
-        assert_eq!(stmt.params.get("id2").unwrap().as_string(), "user-456");
-        assert_eq!(stmt.params.get("age").unwrap().as_string(), "42");
-        assert!(stmt.params.get("active").unwrap().as_bool());
+        assert_eq!(
+            stmt.params.get("id").expect("id param").as_str(),
+            Some("user-123")
+        );
+        assert_eq!(
+            stmt.params.get("id2").expect("id2 param").as_str(),
+            Some("user-456")
+        );
+        assert_eq!(
+            stmt.params.get("age").expect("age param").as_str(),
+            Some("42")
+        );
+        assert_eq!(
+            stmt.params.get("active").expect("active param").as_bool(),
+            Some(true)
+        );
     }
 
     #[test]
@@ -658,11 +670,26 @@ mod tests {
         .add_typed_param("role", &"admin", types::string())
         .build();
 
-        assert_eq!(stmt.params.get("id").unwrap().as_string(), "user-123");
-        assert_eq!(stmt.params.get("id2").unwrap().as_string(), "user-456");
-        assert_eq!(stmt.params.get("age").unwrap().as_string(), "42");
-        assert!(stmt.params.get("active").unwrap().as_bool());
-        assert_eq!(stmt.params.get("role").unwrap().as_string(), "admin");
+        assert_eq!(
+            stmt.params.get("id").expect("id param").as_str(),
+            Some("user-123")
+        );
+        assert_eq!(
+            stmt.params.get("id2").expect("id2 param").as_str(),
+            Some("user-456")
+        );
+        assert_eq!(
+            stmt.params.get("age").expect("age param").as_str(),
+            Some("42")
+        );
+        assert_eq!(
+            stmt.params.get("active").expect("active param").as_bool(),
+            Some(true)
+        );
+        assert_eq!(
+            stmt.params.get("role").expect("role param").as_str(),
+            Some("admin")
+        );
     }
 
     #[test]
@@ -678,8 +705,8 @@ mod tests {
             stmt.params
                 .get("age")
                 .expect("parameter 'age' should be present")
-                .as_string(),
-            "21"
+                .as_str(),
+            Some("21")
         );
     }
 
@@ -703,8 +730,8 @@ mod tests {
             stmt.params
                 .get("id")
                 .expect("parameter 'id' should be present")
-                .as_string(),
-            "user-123"
+                .as_str(),
+            Some("user-123")
         );
     }
 
@@ -742,11 +769,14 @@ mod tests {
             .build();
 
         assert_eq!(stmt.param_types.len(), 1);
-        assert_eq!(stmt.param_types.get("id").unwrap(), &types::string());
+        assert_eq!(
+            stmt.param_types.get("id").expect("param type should exist"),
+            &types::string()
+        );
 
         assert_eq!(stmt.params.len(), 1);
-        let val = stmt.params.get("id").unwrap();
-        assert_eq!(val.as_string(), "user-123");
+        let val = stmt.params.get("id").expect("id parameter should exist");
+        assert_eq!(val.as_str(), Some("user-123"));
     }
 
     #[test]

@@ -47,7 +47,7 @@ pub async fn partitioned_dml_update(db_client: &DatabaseClient) -> anyhow::Resul
     write_tx.write(mutations).await?;
 
     // 2. Execute partitioned DML scoped strictly to our own generated row IDs to prevent shared state flakiness
-    let pdml_tx = db_client.partitioned_dml_transaction().build().await?;
+    let pdml_tx = db_client.partitioned_dml_transaction().build();
     let stmt = Statement::builder(
         "UPDATE AllTypes SET ColBool = true WHERE ColBool = false AND Id IN (@id1, @id2, @id3)",
     )

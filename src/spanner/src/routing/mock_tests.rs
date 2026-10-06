@@ -49,7 +49,7 @@ use crate::mutation::Mutation;
 use crate::omni::{InstanceType, TlsConfig};
 use crate::read::ReadRequest;
 use crate::read_write_transaction::ReadWriteTransaction;
-use crate::retry_delay::ProtoRetryInfo;
+use crate::retry_delay::{ProtoRetryInfo, extract_status_code_from_error};
 use crate::routing::directed_read::select_eligible_tablets_for_directed_read;
 use crate::routing::key_range_cache::RangeMode;
 use crate::routing::location_router::RoutingContext;
@@ -59,6 +59,7 @@ use gaxi::grpc::tonic::transport::server::TcpIncoming;
 use gaxi::grpc::tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
 use gaxi::grpc::tonic::{Code as TonicCode, MetadataMap, Response, Status as TonicStatus};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::retry_policy::NeverRetry;
 use google_cloud_test_macros::tokio_test_no_panics;
 use mockall::Sequence;
@@ -247,7 +248,7 @@ async fn read_write_transaction_commit_ingests_cache_update_and_sends_route_to_l
 
     let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| async move {
             transaction.buffer(vec![
@@ -331,7 +332,7 @@ async fn read_write_transaction_batch_dml_ingests_cache_update() -> anyhow::Resu
 
     let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| async move {
             transaction
@@ -450,7 +451,6 @@ async fn partitioned_dml_ingests_cache_update() -> anyhow::Result<()> {
     let affected_rows = database_client
         .partitioned_dml_transaction()
         .build()
-        .await?
         .execute_update(Statement::from(
             "UPDATE Singers SET Active = true WHERE true",
         ))
@@ -3942,7 +3942,7 @@ async fn read_write_transaction_inline_begin_query_records_affinity_and_routes_c
     let router_clone = Arc::clone(router);
     let gateway_address_clone = gateway_address.clone();
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| {
             let router_clone = Arc::clone(&router_clone);
@@ -4047,7 +4047,7 @@ async fn read_write_transaction_inline_begin_read_records_affinity_and_routes_co
     let router_clone = Arc::clone(router);
     let gateway_address_clone = gateway_address.clone();
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| {
             let affinity_verified = Arc::clone(&affinity_verified);
@@ -4179,7 +4179,7 @@ async fn read_write_transaction_inline_begin_query_aborted_retries_and_updates_a
     let router_clone = Arc::clone(router);
     let gateway_address_clone = gateway_address.clone();
 
-    let runner = database_client.read_write_transaction().build().await?;
+    let runner = database_client.read_write_transaction().build();
     runner
         .run(|transaction: ReadWriteTransaction| {
             let attempts = Arc::clone(&attempts_clone);
@@ -7012,6 +7012,1178 @@ async fn replay_protected_write_only_transaction_preserves_affinity_across_preco
         router.affinity_count(),
         0,
         "location router affinity count must return to 0 after final commit completion"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_rpc_feedback_success_records_latency_and_repairs_cooldown() -> anyhow::Result<()>
+{
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicUsize::new(0));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(3)
+        .returning(move |_| {
+            tablet_called_clone.fetch_add(1, Ordering::SeqCst);
+            let (sender, receiver) = mpsc::channel(1);
+            let partial_result_set = sample_int64_partial_result_set("SingerId", "42", None);
+            sender
+                .try_send(Ok(partial_result_set))
+                .expect("should send streaming sql partial result set");
+            Ok(Response::from(receiver))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query populates recipe and range cache via gateway
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .await?;
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    // Record an expired failure in cooldown tracker (30s in the past so cooldown is over, but failure tier is 1)
+    let past = Instant::now() - Duration::from_secs(30);
+    router
+        .cooldown_tracker()
+        .record_failure_at(&tablet_address, past);
+    assert!(
+        !router.cooldown_tracker().is_empty(),
+        "cooldown tracker should contain entry for tablet address before repair"
+    );
+
+    assert!(
+        !router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry should have no score for tablet address before direct streaming execution"
+    );
+
+    // Execute 3 successful direct streaming SQL RPCs to the tablet and consume streams to EOF
+    for _ in 0..3 {
+        let mut stream = database_client
+            .execute_streaming_sql(
+                statement.clone().into_request(),
+                RequestOptions::default(),
+                None,
+            )
+            .send()
+            .await?;
+        while let Some(message) = stream.next_message().await {
+            let _ = message?;
+        }
+    }
+
+    assert_eq!(
+        tablet_called.load(Ordering::SeqCst),
+        3,
+        "mock tablet must have received 3 direct streaming execute_streaming_sql calls"
+    );
+
+    // Verify latency was recorded
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded latency score for tablet address after successful streaming execution"
+    );
+    let cost = router.latency_registry().get_selection_cost(
+        Some(router.database_scope()),
+        9001,
+        0,
+        &tablet_address,
+    );
+    assert!(
+        cost > 0.0,
+        "selection cost for tablet address must be greater than zero after latency recording"
+    );
+
+    // Verify that 3 consecutive successes repaired the failure tier and pruned the entry
+    assert!(
+        router.cooldown_tracker().is_empty(),
+        "cooldown tracker must be empty after 3 successful streaming RPCs repaired failure tier of expired entry"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_rpc_feedback_resource_exhausted_places_endpoint_on_cooldown_and_penalizes_latency()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            Err(TonicStatus::resource_exhausted("tablet overloaded"))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let fallback_called = Arc::new(AtomicBool::new(false));
+    let fallback_called_clone = Arc::clone(&fallback_called);
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_| {
+            fallback_called_clone.store(true, Ordering::SeqCst);
+            let (sender, receiver) = mpsc::channel(1);
+            let partial_result_set = sample_int64_partial_result_set("SingerId", "42", None);
+            sender
+                .try_send(Ok(partial_result_set))
+                .expect("should send streaming sql fallback result set");
+            Ok(Response::from(receiver))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query populates recipe and range cache via gateway
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .await?;
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    assert!(
+        !router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must not be on cooldown initially"
+    );
+
+    // Direct streaming execution to tablet fails with ResourceExhausted
+    let stream_result = database_client
+        .execute_streaming_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .send()
+        .await;
+
+    assert!(
+        stream_result.is_err(),
+        "execute_streaming_sql to overloaded tablet must return an error"
+    );
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "mock tablet must have received direct streaming execute_streaming_sql call"
+    );
+
+    // Verify tablet was placed on cooldown and latency penalty was recorded
+    assert!(
+        router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must be on active cooldown after ResourceExhausted error"
+    );
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded error penalty for tablet address"
+    );
+
+    // Subsequent streaming execution falls back to gateway because tablet is on cooldown
+    let mut fallback_stream = database_client
+        .execute_streaming_sql(statement.into_request(), RequestOptions::default(), None)
+        .send()
+        .await?;
+    while let Some(message) = fallback_stream.next_message().await {
+        let _ = message?;
+    }
+
+    assert!(
+        fallback_called.load(Ordering::SeqCst),
+        "gateway fallback must have received the streaming execution while tablet is on cooldown"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_rpc_feedback_unavailable_places_endpoint_on_cooldown() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            Err(TonicStatus::unavailable("tablet node restarting"))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query populates recipe and range cache via gateway
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .await?;
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    assert!(
+        !router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must not be cooling down initially"
+    );
+
+    // Direct streaming execution to tablet fails with Unavailable
+    let stream_result = database_client
+        .execute_streaming_sql(statement.into_request(), RequestOptions::default(), None)
+        .send()
+        .await;
+
+    assert!(
+        stream_result.is_err(),
+        "streaming SQL to unavailable tablet must return an error"
+    );
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "mock tablet must have received direct streaming execute_streaming_sql call"
+    );
+
+    // Verify tablet was placed on cooldown and latency penalty was recorded
+    assert!(
+        router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must be on active cooldown after Unavailable error"
+    );
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded error penalty for tablet address"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_rpc_tracks_active_request_guard_during_stream_and_releases_on_drop()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let (resume_sender, resume_receiver) = mpsc::channel::<()>(1);
+    let resume_receiver = Arc::new(tokio::sync::Mutex::new(resume_receiver));
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    let resume_receiver_clone = Arc::clone(&resume_receiver);
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            let (sender, receiver) = mpsc::channel(2);
+            let partial_result_set = sample_int64_partial_result_set("SingerId", "42", None);
+            sender
+                .try_send(Ok(partial_result_set))
+                .expect("should send first chunk");
+            let resume_receiver = Arc::clone(&resume_receiver_clone);
+            tokio::spawn(async move {
+                let mut guard = resume_receiver.lock().await;
+                let _ = guard.recv().await;
+                drop(sender);
+            });
+            Ok(Response::from(receiver))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query populates recipe and range cache via gateway
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .await?;
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let connection = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    assert_eq!(
+        connection.active_request_count(),
+        0,
+        "active requests on direct connection must be 0 prior to streaming RPC"
+    );
+
+    // Start streaming RPC
+    let mut stream = database_client
+        .execute_streaming_sql(statement.into_request(), RequestOptions::default(), None)
+        .send()
+        .await?;
+
+    // Read first message
+    let first_message = stream.next_message().await;
+    assert!(
+        first_message.is_some(),
+        "first message from stream must be received"
+    );
+
+    // While stream is alive, active request count on connection must be 1
+    assert_eq!(
+        connection.active_request_count(),
+        1,
+        "active request count on direct connection must be 1 while stream is open"
+    );
+
+    // Drop the stream before completing
+    drop(stream);
+    let _ = resume_sender.send(()).await;
+
+    // After dropping stream, active request count must immediately return to 0
+    assert_eq!(
+        connection.active_request_count(),
+        0,
+        "active request count on direct connection must return to 0 after stream is dropped"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_read_feedback_success_records_latency_and_repairs_cooldown() -> anyhow::Result<()>
+{
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet_leader = create_base_mock();
+    let leader_called = Arc::new(AtomicUsize::new(0));
+    let leader_called_clone = Arc::clone(&leader_called);
+
+    mock_tablet_leader
+        .expect_streaming_read()
+        .times(3)
+        .returning(move |_| {
+            leader_called_clone.fetch_add(1, Ordering::SeqCst);
+            let (sender, receiver) = mpsc::channel(1);
+            let partial_result_set = sample_int64_partial_result_set("SingerId", "42", None);
+            sender
+                .try_send(Ok(partial_result_set))
+                .expect("should send streaming read partial result set");
+            Ok(Response::from(receiver))
+        });
+    let (tablet_leader_address, _tablet_leader_server) =
+        start("127.0.0.1:0", mock_tablet_leader).await?;
+
+    let mock_tablet_follower = create_base_mock();
+    let (tablet_follower_address, _tablet_follower_server) =
+        start("127.0.0.1:0", mock_tablet_follower).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(
+        10103,
+        8003,
+        &tablet_leader_address,
+        &tablet_follower_address,
+    );
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8003,
+        split_id: 8003,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    update.key_recipes = Some(RecipeList {
+        schema_generation: Bytes::from_static(b"schema_v1"),
+        recipe: vec![KeyRecipe {
+            target: Some(Target::TableName("Singers".to_string())),
+            part: vec![
+                Part {
+                    tag: 100,
+                    order: Order::Unspecified,
+                    null_order: NullOrder::Unspecified,
+                    r#type: None,
+                    struct_identifiers: vec![],
+                    value_type: None,
+                    _unknown_fields: Default::default(),
+                },
+                Part {
+                    tag: 0,
+                    order: Order::Ascending,
+                    null_order: NullOrder::NullsFirst,
+                    r#type: Some(Type {
+                        code: TypeCode::Int64,
+                        ..Default::default()
+                    }),
+                    struct_identifiers: vec![],
+                    value_type: Some(ValueType::Identifier("SingerId".to_string())),
+                    _unknown_fields: Default::default(),
+                },
+            ],
+            _unknown_fields: Default::default(),
+        }],
+        _unknown_fields: Default::default(),
+    });
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_leader_address, client_config)
+        .await?;
+
+    // Record an expired failure in cooldown tracker (30s in the past so cooldown is over, but failure tier is 1)
+    let past = Instant::now() - Duration::from_secs(30);
+    router
+        .cooldown_tracker()
+        .record_failure_at(&tablet_leader_address, past);
+    assert!(
+        !router.cooldown_tracker().is_empty(),
+        "cooldown tracker should contain entry for tablet leader address before repair"
+    );
+
+    let read_request = ReadRequest::builder("Singers", vec!["SingerId"])
+        .with_keys(KeySet::from(key![42i64]))
+        .build();
+
+    // Execute 3 direct streaming reads to the tablet leader and consume streams to EOF
+    for _ in 0..3 {
+        let mut stream = database_client
+            .streaming_read(
+                read_request.clone().into_request(),
+                RequestOptions::default(),
+                None,
+            )
+            .send()
+            .await?;
+        while let Some(message) = stream.next_message().await {
+            let _ = message?;
+        }
+    }
+
+    assert_eq!(
+        leader_called.load(Ordering::SeqCst),
+        3,
+        "mock tablet leader must have received 3 direct streaming_read calls"
+    );
+
+    // Verify latency was recorded for group 8003
+    assert!(
+        router.latency_registry().has_score(
+            Some(router.database_scope()),
+            8003,
+            &tablet_leader_address
+        ),
+        "latency registry must have recorded latency score for tablet leader address after successful streaming read execution"
+    );
+
+    // Verify that 3 consecutive successes repaired the failure tier and pruned the entry
+    assert!(
+        router.cooldown_tracker().is_empty(),
+        "cooldown tracker must be empty after 3 successful streaming read RPCs repaired failure tier of expired entry"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_rpc_midstream_error_places_endpoint_on_cooldown_and_penalizes_latency()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            let (sender, receiver) = mpsc::channel(2);
+            let partial_result_set = sample_int64_partial_result_set("SingerId", "42", None);
+            sender
+                .try_send(Ok(partial_result_set))
+                .expect("should send first chunk");
+            sender
+                .try_send(Err(TonicStatus::unavailable(
+                    "tablet replica crashed mid-stream",
+                )))
+                .expect("should send mid-stream error");
+            Ok(Response::from(receiver))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .await?;
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let connection = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    assert!(
+        !router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet should not be on cooldown initially"
+    );
+
+    let mut stream = database_client
+        .execute_streaming_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .send()
+        .await?;
+
+    // Initial message succeeds: first response latency is recorded
+    let first_message = stream.next_message().await;
+    assert!(
+        first_message.is_some(),
+        "first streaming chunk should be received"
+    );
+    let _ = first_message.expect("first chunk must exist")?;
+
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded first-response latency after first chunk"
+    );
+    assert_eq!(
+        connection.active_request_count(),
+        1,
+        "active request count must be 1 while stream is active"
+    );
+
+    // Second message returns mid-stream UNAVAILABLE error
+    let second_message = stream.next_message().await;
+    assert!(
+        second_message.is_some(),
+        "second message should return mid-stream error"
+    );
+    let error = second_message
+        .expect("second chunk must exist")
+        .expect_err("second chunk must be an error");
+    assert_eq!(
+        extract_status_code_from_error(&error),
+        Some(Code::Unavailable),
+        "error must be UNAVAILABLE"
+    );
+
+    // Verify mid-stream error placed endpoint on cooldown and recorded routing feedback
+    assert!(
+        router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "cooldown tracker must have placed tablet address on cooldown after mid-stream UNAVAILABLE error"
+    );
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded first-response score for tablet address"
+    );
+    assert_eq!(
+        connection.active_request_count(),
+        0,
+        "active request count must drop to 0 after error releases lifetime guard"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_rpc_early_client_drop_records_latency_and_repairs_cooldown() -> anyhow::Result<()>
+{
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicUsize::new(0));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(3)
+        .returning(move |_| {
+            tablet_called_clone.fetch_add(1, Ordering::SeqCst);
+            let (sender, receiver) = mpsc::channel(3);
+            for id in 1..=3 {
+                let partial_result_set =
+                    sample_int64_partial_result_set("SingerId", &id.to_string(), None);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("should send chunk");
+            }
+            Ok(Response::from(receiver))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .await?;
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let connection = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    // Record an expired failure (30s in the past) in cooldown tracker to simulate recovery state
+    let past = Instant::now() - Duration::from_secs(30);
+    router
+        .cooldown_tracker()
+        .record_failure_at(&tablet_address, past);
+    assert!(
+        !router.cooldown_tracker().is_empty(),
+        "cooldown tracker should contain entry for tablet address before early drop"
+    );
+
+    // Execute 3 streaming RPCs, consuming only the first chunk and dropping each stream early
+    for _ in 0..3 {
+        let mut stream = database_client
+            .execute_streaming_sql(
+                statement.clone().into_request(),
+                RequestOptions::default(),
+                None,
+            )
+            .send()
+            .await?;
+
+        // Consume ONLY the first chunk
+        let first_message = stream.next_message().await;
+        assert!(first_message.is_some(), "first chunk should be received");
+        let _ = first_message.expect("first chunk must exist")?;
+
+        assert_eq!(
+            connection.active_request_count(),
+            1,
+            "active request count must be 1 while stream is retained"
+        );
+
+        // Client drops the stream early before reading to EOF
+        drop(stream);
+
+        assert_eq!(
+            connection.active_request_count(),
+            0,
+            "active request count must drop to 0 after dropping stream"
+        );
+    }
+
+    assert_eq!(
+        tablet_called.load(Ordering::SeqCst),
+        3,
+        "mock tablet must have received 3 streaming calls"
+    );
+
+    // Verify first-response latency was recorded
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded latency score for tablet address despite early drop"
+    );
+
+    // Verify that 3 successful first responses repaired failure tier in cooldown tracker
+    assert!(
+        router.cooldown_tracker().is_empty(),
+        "cooldown tracker must have pruned repaired entry on 3 successful first responses despite early drop"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_rpc_error_with_retry_delay_hint_applies_server_cooldown_floor()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    let retry_info_bytes = encode_test_retry_info(2, 0);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            Err(TonicStatus::with_details_and_metadata(
+                TonicCode::ResourceExhausted,
+                "tablet overloaded with resource exhaustion",
+                retry_info_bytes.clone().into(),
+                MetadataMap::new(),
+            ))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .await?;
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let result = database_client
+        .execute_streaming_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .send()
+        .await;
+
+    assert!(result.is_err(), "execute_streaming_sql must return error");
+
+    // The 2-second retry delay plus progressive floor/jitter means cooldown is at least 2 seconds
+    let now = Instant::now();
+    assert!(
+        router
+            .cooldown_tracker()
+            .is_cooling_down_at(&tablet_address, now + Duration::from_millis(1500)),
+        "tablet address must be on active cooldown at +1.5s respecting the 2s server retry hint"
+    );
+    assert!(
+        !router
+            .cooldown_tracker()
+            .is_cooling_down_at(&tablet_address, now + Duration::from_secs(4)),
+        "tablet address cooldown must expire after the server retry hint window has passed"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn result_set_streaming_records_routing_feedback_and_releases_guard() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            let (sender, receiver) = mpsc::channel(1);
+            let partial_result_set = sample_int64_partial_result_set("SingerId", "42", None);
+            sender
+                .try_send(Ok(partial_result_set))
+                .expect("should send streaming sql partial result set");
+            drop(sender);
+            Ok(Response::from(receiver))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            None,
+        )
+        .await?;
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let connection = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    // Execute via SingleUseReadOnlyTransaction returning ResultSet
+    let transaction = database_client.single_use().build();
+    let mut result_set = transaction.execute_query(statement).await?;
+
+    let row = result_set.next().await;
+    assert!(row.is_some(), "result set should yield a row");
+    let row = row.expect("row must exist")?;
+    assert_eq!(row.raw_values().len(), 1, "row must have 1 column");
+
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded latency score for tablet address through ResultSet"
+    );
+
+    // Drop result set and allow background drain task to finish
+    drop(result_set);
+    tokio::task::yield_now().await;
+
+    assert_eq!(
+        connection.active_request_count(),
+        0,
+        "active request count must drop to 0 after dropping ResultSet"
     );
 
     Ok(())

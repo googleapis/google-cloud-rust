@@ -106,22 +106,12 @@ async fn setup_client_with_dynamic_pool(
 }
 
 fn total_in_flight(spanner: &Spanner) -> u32 {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
+    let active_guard = spanner.channel_pool().inner.read_active_entries();
     active_guard.iter().map(|entry| entry.in_flight()).sum()
 }
 
 fn total_active_rw(spanner: &Spanner) -> u32 {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
+    let active_guard = spanner.channel_pool().inner.read_active_entries();
     active_guard
         .iter()
         .map(|entry| entry.active_rw_count())
@@ -129,13 +119,7 @@ fn total_active_rw(spanner: &Spanner) -> u32 {
 }
 
 fn active_channel_entries(spanner: &Spanner) -> Vec<Arc<ChannelEntry>> {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
-    active_guard.clone()
+    spanner.channel_pool().active_entries()
 }
 
 async fn wait_for_in_flight(spanner: &Spanner, expected: u32, timeout_duration: Duration) {
@@ -387,7 +371,7 @@ async fn multi_use_read_only_transaction_pins_same_channel_inline_begin() -> Res
 
     let transaction = database_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -451,7 +435,7 @@ async fn multi_use_read_only_transaction_pins_same_channel_explicit_begin() -> R
 
     let transaction = database_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build()
         .await?;
 
@@ -529,7 +513,7 @@ async fn multi_use_read_only_transaction_parallel_initial_queries_inline_begin()
 
     let transaction = database_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -611,7 +595,7 @@ async fn multi_use_read_only_transaction_parallel_initial_queries_explicit_begin
 
     let transaction = database_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build()
         .await?;
 
@@ -751,7 +735,7 @@ async fn read_write_transaction_full_lifecycle_hard_affinity() -> Result<()> {
     );
 
     let transaction = ReadWriteTransactionBuilder::new(database_client)
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build(None)
         .await?;
 
@@ -885,7 +869,7 @@ async fn read_write_transaction_parallel_initial_queries_inline_begin() -> Resul
     let (database_client, spanner, _server) = setup_client_with_static_pool(mock, 4).await;
 
     let transaction = ReadWriteTransactionBuilder::new(database_client)
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build(None)
         .await?;
 
@@ -1013,7 +997,7 @@ async fn read_write_transaction_parallel_initial_queries_explicit_begin() -> Res
     let (database_client, spanner, _server) = setup_client_with_static_pool(mock, 4).await;
 
     let transaction = ReadWriteTransactionBuilder::new(database_client)
-        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build(None)
         .await?;
 
@@ -1341,10 +1325,7 @@ async fn partitioned_dml_pins_begin_and_execute_and_releases() -> Result<()> {
 
     let (database_client, spanner, _server) = setup_client_with_static_pool(mock, 4).await;
 
-    let transaction = database_client
-        .partitioned_dml_transaction()
-        .build()
-        .await?;
+    let transaction = database_client.partitioned_dml_transaction().build();
 
     let modified = transaction
         .execute_update("UPDATE Users SET active = true WHERE true")

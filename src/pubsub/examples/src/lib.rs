@@ -82,6 +82,10 @@ pub async fn run_subscription_samples(
         let (project_id, id) = (project_id.clone(), id.clone());
         async move { subscriber::dead_letter_delivery_attempt::sample(&project_id, &id).await }
     });
+    slow_tasks.spawn({
+        let (project_id, id) = (project_id.clone(), id.clone());
+        async move { subscriber::async_pull_custom_attributes::sample(&project_id, &id).await }
+    });
 
     let id = random_subscription_id();
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
@@ -95,6 +99,14 @@ pub async fn run_subscription_samples(
     let id = random_subscription_id();
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     subscription::enable_subscription_ordering::sample(&client, &project_id, topic_id, &id).await?;
+
+    // The sample creates this subscription when it finds it does not exist.
+    let id = random_subscription_id();
+    subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
+    slow_tasks.spawn({
+        let (project_id, topic_id, id) = (project_id.clone(), topic_id.to_string(), id.clone());
+        async move { subscriber::optimistic_subscribe::sample(&project_id, &topic_id, &id).await }
+    });
 
     let (topic_admin, dead_letter_topic) = create_test_topic().await?;
     let dead_letter_topic_id = dead_letter_topic
