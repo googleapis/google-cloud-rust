@@ -75,7 +75,12 @@ impl TransactionAffinity {
             .map(|_| ())
     }
 
-    /// Acquires an exclusive mutex lock on the RW guard state, recovering if the lock was poisoned.
+    /// Acquires an exclusive mutex lock on the RW guard state, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `rw_guard` protects the channel affinity guard lifecycle state (`RwGuardState`). State transitions
+    /// are atomic enum assignments; recovering via `into_inner()` ensures that cleanup (`release_rw_guard`)
+    /// and channel guard attachments proceed safely even if a panic unwound during an earlier operation on the handle.
     fn lock_rw_guard(&self) -> MutexGuard<'_, RwGuardState> {
         match self.rw_guard.lock() {
             Ok(guard) => guard,

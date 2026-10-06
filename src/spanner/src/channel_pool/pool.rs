@@ -392,7 +392,13 @@ impl Drop for ChannelPoolInner {
 }
 
 impl ChannelPoolInner {
-    /// Acquires a shared read lock on active channel entries, recovering if the lock was poisoned.
+    /// Acquires a shared read lock on active channel entries, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `active_entries` stores reference-counted `Arc<ChannelEntry>` handles. The underlying `Vec`
+    /// remains memory-safe and structurally valid in Rust even if a previous reader/writer thread panicked.
+    /// Recovering the guard via `into_inner()` prevents an isolated panic in a caller request or
+    /// background scaler task from permanently disabling the channel pool and taking down all client RPCs.
     pub(crate) fn read_active_entries(&self) -> RwLockReadGuard<'_, Vec<Arc<ChannelEntry>>> {
         match self.active_entries.read() {
             Ok(guard) => guard,
@@ -400,7 +406,10 @@ impl ChannelPoolInner {
         }
     }
 
-    /// Acquires an exclusive write lock on active channel entries, recovering if the lock was poisoned.
+    /// Acquires an exclusive write lock on active channel entries, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_active_entries`](Self::read_active_entries).
     pub(crate) fn write_active_entries(&self) -> RwLockWriteGuard<'_, Vec<Arc<ChannelEntry>>> {
         match self.active_entries.write() {
             Ok(guard) => guard,
@@ -408,7 +417,12 @@ impl ChannelPoolInner {
         }
     }
 
-    /// Acquires a shared read lock on draining channel entries, recovering if the lock was poisoned.
+    /// Acquires a shared read lock on draining channel entries, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `draining_entries` stores reference-counted `Arc<ChannelEntry>` handles being drained. Recovering
+    /// via `into_inner()` ensures that draining channel sweeping and affinity lookups continue operating
+    /// normally even if an earlier task panicked.
     pub(crate) fn read_draining_entries(&self) -> RwLockReadGuard<'_, Vec<Arc<ChannelEntry>>> {
         match self.draining_entries.read() {
             Ok(guard) => guard,
@@ -416,7 +430,10 @@ impl ChannelPoolInner {
         }
     }
 
-    /// Acquires an exclusive write lock on draining channel entries, recovering if the lock was poisoned.
+    /// Acquires an exclusive write lock on draining channel entries, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_draining_entries`](Self::read_draining_entries).
     pub(crate) fn write_draining_entries(&self) -> RwLockWriteGuard<'_, Vec<Arc<ChannelEntry>>> {
         match self.draining_entries.write() {
             Ok(guard) => guard,
@@ -424,7 +441,12 @@ impl ChannelPoolInner {
         }
     }
 
-    /// Acquires a shared read lock on the prime session name, recovering if the lock was poisoned.
+    /// Acquires a shared read lock on the prime session name, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `prime_session` holds an `Option<String>` used to prime newly established channels. Recovering
+    /// via `into_inner()` ensures that new channels can still read the prime session name even if an earlier
+    /// task panicked.
     pub(crate) fn read_prime_session(&self) -> RwLockReadGuard<'_, Option<String>> {
         match self.prime_session.read() {
             Ok(guard) => guard,
@@ -432,7 +454,10 @@ impl ChannelPoolInner {
         }
     }
 
-    /// Acquires an exclusive write lock on the prime session name, recovering if the lock was poisoned.
+    /// Acquires an exclusive write lock on the prime session name, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_prime_session`](Self::read_prime_session).
     pub(crate) fn write_prime_session(&self) -> RwLockWriteGuard<'_, Option<String>> {
         match self.prime_session.write() {
             Ok(guard) => guard,
@@ -440,7 +465,11 @@ impl ChannelPoolInner {
         }
     }
 
-    /// Acquires an exclusive mutex lock on the last scale-up time, recovering if the lock was poisoned.
+    /// Acquires an exclusive mutex lock on the last scale-up time, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `last_scale_up_time` protects an `Option<Instant>` cooldown timestamp. The value is always structurally
+    /// valid in memory; recovering via `into_inner()` allows scaling cooldown evaluation to proceed safely.
     pub(crate) fn lock_last_scale_up_time(&self) -> MutexGuard<'_, Option<Instant>> {
         match self.last_scale_up_time.lock() {
             Ok(guard) => guard,
