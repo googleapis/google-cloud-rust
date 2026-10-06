@@ -15,8 +15,9 @@
 use crate::error::{BatchUpdateError, internal_error};
 use crate::model::request_options::Priority;
 use crate::model::result_set_stats::RowCount;
-use crate::model::{ExecuteBatchDmlResponse, RequestOptions};
+use crate::model::{ExecuteBatchDmlResponse, RequestOptions, ResultSet};
 use crate::statement::Statement;
+use crate::{Error, Result};
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::error::rpc::Status as RpcStatus;
@@ -170,35 +171,57 @@ impl<T: Into<Statement>> From<Vec<T>> for BatchDml {
     }
 }
 
+/// Extracts exact update counts from the given slice of [`ResultSet`]s.
+///
+/// Every [`ResultSet`] must contain [`ResultSetStats`] with an exact row count. Returns an `internal_error`
+/// if `stats` is missing or if the row count is invalid or non-exact.
+fn extract_update_counts(result_sets: &[ResultSet]) -> Result<Vec<i64>> {
+    let mut update_counts = Vec::with_capacity(result_sets.len());
+    for result_set in result_sets {
+        let stats = result_set
+            .stats
+            .as_ref()
+            .ok_or_else(|| internal_error("ExecuteBatchDml ResultSet missing stats/row_count"))?;
+        let exact_count = match stats.row_count {
+            Some(RowCount::RowCountExact(count)) => count,
+            _ => {
+                return Err(internal_error(
+                    "ExecuteBatchDml returned an invalid or missing row count type",
+                ));
+            }
+        };
+        update_counts.push(exact_count);
+    }
+    Ok(update_counts)
+}
+
 /// Processes an ExecuteBatchDmlResponse and returns the success counts, or an error.
-pub(crate) fn process_response(response: ExecuteBatchDmlResponse) -> crate::Result<Vec<i64>> {
-    let mut update_counts = Vec::with_capacity(response.result_sets.len());
-    for result_set in response.result_sets {
-        if let Some(stats) = result_set.stats {
-            let exact_count = match stats.row_count {
-                Some(RowCount::RowCountExact(c)) => c,
-                _ => {
-                    return Err(internal_error(
-                        "ExecuteBatchDml returned an invalid or missing row count type",
-                    ));
-                }
-            };
-            update_counts.push(exact_count);
-        }
+pub(crate) fn process_response(response: ExecuteBatchDmlResponse) -> Result<Vec<i64>> {
+    // If the error code is Aborted, propagate a normal service error so TransactionRunner retries.
+    // We check this before extracting update counts because an aborted transaction is completely rolled back.
+    if let Some(status) = response
+        .status
+        .as_ref()
+        .filter(|s| s.code == Code::Aborted as i32)
+    {
+        let grpc_status = RpcStatus::default()
+            .set_code(status.code)
+            .set_message(status.message.clone())
+            .set_details(status.details.clone());
+        return Err(Error::service(grpc_status));
     }
 
-    // If a non-zero status is present, it halted the batch somewhere in the middle of the batch.
-    if let Some(status) = response.status.filter(|s| s.code != Code::Ok as i32) {
+    let update_counts = extract_update_counts(&response.result_sets)?;
+
+    // If a non-zero status is present, execution halted due to a statement failure.
+    if let Some(status) = response
+        .status
+        .filter(|status| status.code != Code::Ok as i32)
+    {
         let grpc_status = RpcStatus::default()
             .set_code(status.code)
             .set_message(status.message)
             .set_details(status.details);
-
-        // If the error code is Aborted, then we propagate a 'normal' service error.
-        // The TransactionRunner will then retry the transaction.
-        if status.code == Code::Aborted as i32 {
-            return Err(crate::Error::service(grpc_status));
-        }
         return Err(BatchUpdateError::build_error(update_counts, grpc_status));
     }
 
@@ -208,7 +231,7 @@ pub(crate) fn process_response(response: ExecuteBatchDmlResponse) -> crate::Resu
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::model::{ResultSet, ResultSetStats};
+    use crate::model::{ResultSet, ResultSetMetadata, ResultSetStats, Transaction};
     use google_cloud_rpc::model::Status;
     use static_assertions::assert_impl_all;
 
@@ -321,23 +344,27 @@ mod tests {
             ..Default::default()
         };
 
-        let rs1 = ResultSet {
+        let result_set1 = ResultSet {
             stats: Some(stats1),
             ..Default::default()
         };
-        let rs2 = ResultSet {
+        let result_set2 = ResultSet {
             stats: Some(stats2),
             ..Default::default()
         };
 
         let response = ExecuteBatchDmlResponse {
-            result_sets: vec![rs1, rs2],
+            result_sets: vec![result_set1, result_set2],
             status: None,
             ..Default::default()
         };
 
-        let counts = process_response(response)?;
-        assert_eq!(counts, vec![5, 10]);
+        let update_counts = process_response(response)?;
+        assert_eq!(
+            update_counts,
+            vec![5, 10],
+            "Expected update counts to match exact counts from result sets"
+        );
         Ok(())
     }
 
@@ -347,7 +374,7 @@ mod tests {
             row_count: Some(RowCount::RowCountExact(3)),
             ..Default::default()
         };
-        let rs = ResultSet {
+        let result_set = ResultSet {
             stats: Some(stats),
             ..Default::default()
         };
@@ -358,23 +385,138 @@ mod tests {
             .set_message("Bad query");
 
         let response = ExecuteBatchDmlResponse {
-            result_sets: vec![rs],
+            result_sets: vec![result_set],
             status: Some(err_status),
             ..Default::default()
         };
 
         let result = process_response(response);
-        let err = result.expect_err("should return error");
-        let batch_err = BatchUpdateError::extract(&err).expect("should extract BatchUpdateError");
+        let error = result.expect_err("should return error when response status is non-zero");
+        let batch_error =
+            BatchUpdateError::extract(&error).expect("should extract BatchUpdateError cleanly");
 
-        assert_eq!(batch_err.update_counts, vec![3]);
         assert_eq!(
-            batch_err.status.status().expect("status").code,
-            Code::InvalidArgument
+            batch_error.update_counts,
+            vec![3],
+            "Update counts should contain the successful statement's count"
         );
         assert_eq!(
-            batch_err.status.status().expect("status").message,
-            "Bad query"
+            batch_error
+                .status
+                .status()
+                .expect("status should be available")
+                .code,
+            Code::InvalidArgument,
+            "Error code should be InvalidArgument"
+        );
+        assert_eq!(
+            batch_error
+                .status
+                .status()
+                .expect("status should be available")
+                .message,
+            "Bad query",
+            "Error message should match the server status message"
+        );
+    }
+
+    #[test]
+    fn process_response_grpc_error_empty_result_sets() {
+        let err_status = Status::default()
+            .set_code(Code::InvalidArgument as i32)
+            .set_message("Initial statement syntax error");
+
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![],
+            status: Some(err_status),
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error = result.expect_err("should return error when initial statement failed");
+        let batch_error =
+            BatchUpdateError::extract(&error).expect("should extract BatchUpdateError cleanly");
+
+        assert_eq!(
+            batch_error.update_counts,
+            Vec::<i64>::new(),
+            "Update counts should be empty when the first statement failed"
+        );
+        assert_eq!(
+            batch_error
+                .status
+                .status()
+                .expect("status should be available")
+                .code,
+            Code::InvalidArgument,
+            "Error code should be InvalidArgument"
+        );
+        assert_eq!(
+            batch_error
+                .status
+                .status()
+                .expect("status should be available")
+                .message,
+            "Initial statement syntax error",
+            "Error message should match the server status message"
+        );
+    }
+
+    #[test]
+    fn process_response_metadata_with_stats_grpc_error() {
+        let stats = ResultSetStats {
+            row_count: Some(RowCount::RowCountExact(7)),
+            ..Default::default()
+        };
+        let result_set = ResultSet {
+            metadata: Some(ResultSetMetadata {
+                transaction: Some(Transaction {
+                    id: vec![7, 7, 7].into(),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }),
+            stats: Some(stats),
+            ..Default::default()
+        };
+
+        let err_status = Status::default()
+            .set_code(Code::InvalidArgument as i32)
+            .set_message("Second statement invalid");
+
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![result_set],
+            status: Some(err_status),
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error = result.expect_err("should return error when subsequent statement fails");
+        let batch_error =
+            BatchUpdateError::extract(&error).expect("should extract BatchUpdateError cleanly");
+
+        assert_eq!(
+            batch_error.update_counts,
+            vec![7],
+            "Update counts should contain the successful first statement count"
+        );
+        assert_eq!(
+            batch_error
+                .status
+                .status()
+                .expect("status should be available")
+                .code,
+            Code::InvalidArgument,
+            "Status code should be InvalidArgument"
+        );
+        assert_eq!(
+            batch_error
+                .status
+                .status()
+                .expect("status should be available")
+                .message,
+            "Second statement invalid",
+            "Status message should match server status message"
         );
     }
 
@@ -384,7 +526,7 @@ mod tests {
             row_count: Some(RowCount::RowCountExact(3)),
             ..Default::default()
         };
-        let rs = ResultSet {
+        let result_set = ResultSet {
             stats: Some(stats),
             ..Default::default()
         };
@@ -394,96 +536,87 @@ mod tests {
             .set_message("transaction aborted");
 
         let response = ExecuteBatchDmlResponse {
-            result_sets: vec![rs],
+            result_sets: vec![result_set],
             status: Some(err_status),
             ..Default::default()
         };
 
         let result = process_response(response);
-        let err = result.expect_err("should return error");
-        let batch_err = BatchUpdateError::extract(&err);
+        let error = result.expect_err("should return error on aborted status");
+        let batch_error = BatchUpdateError::extract(&error);
         assert!(
-            batch_err.is_none(),
-            "Unexpected BatchUpdateError: {batch_err:?}"
+            batch_error.is_none(),
+            "Unexpected BatchUpdateError on Aborted status: {batch_error:?}"
         );
-        assert_eq!(err.status().expect("status").code, Code::Aborted);
-        assert_eq!(err.status().expect("status").message, "transaction aborted");
+        assert_eq!(
+            error.status().expect("status should be present").code,
+            Code::Aborted,
+            "Service error code should be Aborted"
+        );
+        assert_eq!(
+            error.status().expect("status should be present").message,
+            "transaction aborted",
+            "Service error message should match aborted message"
+        );
     }
 
     #[test]
     fn process_response_missing_stats() {
-        let rs = ResultSet {
+        let result_set = ResultSet {
             stats: None,
             ..Default::default()
         };
 
         let response = ExecuteBatchDmlResponse {
-            result_sets: vec![rs],
-            ..Default::default()
-        };
-
-        let result = process_response(response).expect("should return empty update counts");
-        assert!(result.is_empty());
-    }
-
-    #[test]
-    fn process_response_missing_row_count_type() {
-        let stats = ResultSetStats {
-            row_count: None,
-            ..Default::default()
-        };
-
-        let rs = ResultSet {
-            stats: Some(stats),
-            ..Default::default()
-        };
-
-        let response = ExecuteBatchDmlResponse {
-            result_sets: vec![rs],
+            result_sets: vec![result_set],
             ..Default::default()
         };
 
         let result = process_response(response);
-        let err = result.expect_err("should fail");
+        let error = result.expect_err("should fail when ResultSet is missing stats");
         assert!(
-            err.to_string()
-                .contains("invalid or missing row count type")
+            error
+                .to_string()
+                .contains("ExecuteBatchDml ResultSet missing stats/row_count"),
+            "Unexpected error message: {error}"
         );
     }
 
     #[test]
-    fn from_vector_of_strings() {
-        let statements = vec!["UPDATE table SET col = 1", "UPDATE table SET col = 2"];
-        let batch: BatchDml = statements.into();
-        assert_eq!(batch.statements.len(), 2);
-        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
-        assert_eq!(batch.statements[1].sql, "UPDATE table SET col = 2");
+    fn process_response_subsequent_result_set_missing_stats() {
+        let stats = ResultSetStats {
+            row_count: Some(RowCount::RowCountExact(5)),
+            ..Default::default()
+        };
+        let result_set1 = ResultSet {
+            stats: Some(stats),
+            ..Default::default()
+        };
+        let result_set2 = ResultSet {
+            stats: None,
+            ..Default::default()
+        };
+
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![result_set1, result_set2],
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error = result.expect_err("should fail when subsequent ResultSet is missing stats");
+        assert!(
+            error
+                .to_string()
+                .contains("ExecuteBatchDml ResultSet missing stats/row_count"),
+            "Unexpected error message: {error}"
+        );
     }
 
     #[test]
-    fn from_vector_of_statements() {
-        let statement1 = Statement::builder("UPDATE table SET col = 1").build();
-        let statement2 = Statement::builder("UPDATE table SET col = 2").build();
-        let statements = vec![statement1, statement2];
-        let batch: BatchDml = statements.into();
-        assert_eq!(batch.statements.len(), 2);
-        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
-        assert_eq!(batch.statements[1].sql, "UPDATE table SET col = 2");
-    }
-
-    #[test]
-    fn from_builder() {
-        let builder = BatchDml::builder().add_statement("UPDATE table SET col = 1");
-        let batch: BatchDml = builder.into();
-        assert_eq!(batch.statements.len(), 1);
-        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
-    }
-
-    #[test]
-    fn process_response_metadata_no_stats_grpc_error() {
-        let rs = ResultSet {
-            metadata: Some(crate::model::ResultSetMetadata {
-                transaction: Some(crate::model::Transaction {
+    fn process_response_grpc_error_with_missing_stats() {
+        let result_set = ResultSet {
+            metadata: Some(ResultSetMetadata {
+                transaction: Some(Transaction {
                     id: vec![7, 7, 7].into(),
                     ..Default::default()
                 }),
@@ -498,28 +631,272 @@ mod tests {
             .set_message("Table not found or syntax invalid");
 
         let response = ExecuteBatchDmlResponse {
-            result_sets: vec![rs],
+            result_sets: vec![result_set],
             status: Some(err_status),
             ..Default::default()
         };
 
         let result = process_response(response);
-        let err = result.expect_err("should return error");
-        let batch_err = BatchUpdateError::extract(&err)
-            .expect("should extract BatchUpdateError cleanly and not return internal error");
+        let error = result.expect_err(
+            "should fail with internal error when stats are missing, even if grpc error status is present",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("ExecuteBatchDml ResultSet missing stats/row_count"),
+            "Expected missing stats error rather than silently ignoring invalid ResultSet, got: {error}"
+        );
+    }
 
+    #[test]
+    fn process_response_grpc_error_with_invalid_row_count_type() {
+        let stats = ResultSetStats {
+            row_count: Some(RowCount::RowCountLowerBound(10)),
+            ..Default::default()
+        };
+        let result_set = ResultSet {
+            stats: Some(stats),
+            ..Default::default()
+        };
+
+        let err_status = Status::default()
+            .set_code(Code::InvalidArgument as i32)
+            .set_message("syntax error on subsequent statement");
+
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![result_set],
+            status: Some(err_status),
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error = result.expect_err(
+            "should fail with internal error when row count type is invalid, even with grpc error status",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("invalid or missing row count type"),
+            "Expected invalid row count type error, got: {error}"
+        );
+    }
+
+    #[test]
+    fn process_response_status_ok_code() -> anyhow::Result<()> {
+        let stats = ResultSetStats {
+            row_count: Some(RowCount::RowCountExact(4)),
+            ..Default::default()
+        };
+        let result_set = ResultSet {
+            stats: Some(stats),
+            ..Default::default()
+        };
+        let ok_status = Status::default().set_code(Code::Ok as i32);
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![result_set],
+            status: Some(ok_status),
+            ..Default::default()
+        };
+
+        let update_counts = process_response(response)?;
         assert_eq!(
-            batch_err.update_counts,
+            update_counts,
+            vec![4],
+            "Expected update counts when status code is explicitly Ok"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn process_response_status_ok_code_missing_stats() {
+        let result_set = ResultSet {
+            stats: None,
+            ..Default::default()
+        };
+        let ok_status = Status::default().set_code(Code::Ok as i32);
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![result_set],
+            status: Some(ok_status),
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error =
+            result.expect_err("should fail when status is Ok but ResultSet is missing stats");
+        assert!(
+            error
+                .to_string()
+                .contains("ExecuteBatchDml ResultSet missing stats/row_count"),
+            "Unexpected error message: {error}"
+        );
+    }
+
+    #[test]
+    fn process_response_aborted_empty_result_sets() {
+        let err_status = Status::default()
+            .set_code(Code::Aborted as i32)
+            .set_message("transaction aborted on first statement");
+
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![],
+            status: Some(err_status),
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error = result
+            .expect_err("should return service error on aborted status with empty result sets");
+        assert_eq!(
+            error.status().expect("status should be present").code,
+            Code::Aborted,
+            "Service error code should be Aborted"
+        );
+        assert_eq!(
+            error.status().expect("status should be present").message,
+            "transaction aborted on first statement",
+            "Service error message should match aborted message"
+        );
+    }
+
+    #[test]
+    fn process_response_aborted_with_missing_stats() {
+        let result_set = ResultSet {
+            stats: None,
+            ..Default::default()
+        };
+        let err_status = Status::default()
+            .set_code(Code::Aborted as i32)
+            .set_message("transaction aborted");
+
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![result_set],
+            status: Some(err_status),
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error = result
+            .expect_err("abort status should take precedence over missing stats in result set");
+        assert_eq!(
+            error.status().expect("status should be present").code,
+            Code::Aborted,
+            "Service error code should be Aborted"
+        );
+        assert_eq!(
+            error.status().expect("status should be present").message,
+            "transaction aborted",
+            "Service error message should match aborted message"
+        );
+    }
+
+    #[test]
+    fn process_response_empty_result_sets_success() -> anyhow::Result<()> {
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![],
+            status: None,
+            ..Default::default()
+        };
+
+        let update_counts = process_response(response)?;
+        assert_eq!(
+            update_counts,
             Vec::<i64>::new(),
-            "Update counts should be completely empty"
+            "Expected empty update counts when result_sets is empty and status is None"
         );
+        Ok(())
+    }
+
+    #[test]
+    fn process_response_missing_row_count_type() {
+        let stats = ResultSetStats {
+            row_count: None,
+            ..Default::default()
+        };
+
+        let result_set = ResultSet {
+            stats: Some(stats),
+            ..Default::default()
+        };
+
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![result_set],
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error = result.expect_err("should fail when row count is missing in stats");
+        assert!(
+            error
+                .to_string()
+                .contains("invalid or missing row count type"),
+            "Unexpected error message: {error}"
+        );
+    }
+
+    #[test]
+    fn process_response_row_count_lower_bound() {
+        let stats = ResultSetStats {
+            row_count: Some(RowCount::RowCountLowerBound(42)),
+            ..Default::default()
+        };
+
+        let result_set = ResultSet {
+            stats: Some(stats),
+            ..Default::default()
+        };
+
+        let response = ExecuteBatchDmlResponse {
+            result_sets: vec![result_set],
+            ..Default::default()
+        };
+
+        let result = process_response(response);
+        let error = result.expect_err("RowCountLowerBound is not valid for Batch DML");
+        assert!(
+            error
+                .to_string()
+                .contains("invalid or missing row count type"),
+            "Unexpected error message: {error}"
+        );
+    }
+
+    #[test]
+    fn from_vector_of_strings() {
+        let statements = vec!["UPDATE table SET col = 1", "UPDATE table SET col = 2"];
+        let batch: BatchDml = statements.into();
         assert_eq!(
-            batch_err.status.status().expect("status").code,
-            Code::InvalidArgument
+            batch.statements.len(),
+            2,
+            "Expected exactly 2 statements converted from strings"
         );
+        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
+        assert_eq!(batch.statements[1].sql, "UPDATE table SET col = 2");
+    }
+
+    #[test]
+    fn from_vector_of_statements() {
+        let statement1 = Statement::builder("UPDATE table SET col = 1").build();
+        let statement2 = Statement::builder("UPDATE table SET col = 2").build();
+        let statements = vec![statement1, statement2];
+        let batch: BatchDml = statements.into();
         assert_eq!(
-            batch_err.status.status().expect("status").message,
-            "Table not found or syntax invalid"
+            batch.statements.len(),
+            2,
+            "Expected exactly 2 statements converted from Statement objects"
         );
+        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
+        assert_eq!(batch.statements[1].sql, "UPDATE table SET col = 2");
+    }
+
+    #[test]
+    fn from_builder() {
+        let builder = BatchDml::builder().add_statement("UPDATE table SET col = 1");
+        let batch: BatchDml = builder.into();
+        assert_eq!(
+            batch.statements.len(),
+            1,
+            "Expected 1 statement built from builder"
+        );
+        assert_eq!(batch.statements[0].sql, "UPDATE table SET col = 1");
     }
 }
