@@ -32,7 +32,14 @@ impl PrecommitTokenTracker {
         Self::NoOp
     }
 
-    /// Acquires a shared read lock on the tracked precommit token, recovering if the lock was poisoned.
+    /// Acquires a shared read lock on the tracked precommit token, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `tracker` protects an `Option<MultiplexedSessionPrecommitToken>`. State transitions are atomic
+    /// replacements (`*guard = Some(token)`); the underlying data is always memory-safe and structurally
+    /// sound in Rust even if a previous reader/writer thread panicked. Recovering the guard via
+    /// `into_inner()` prevents an isolated panic in an application RPC, streaming query, or commit step
+    /// from permanently disabling precommit token tracking and causing cascading transaction failures.
     fn read_tracker(
         &self,
     ) -> Option<RwLockReadGuard<'_, Option<MultiplexedSessionPrecommitToken>>> {
@@ -45,7 +52,10 @@ impl PrecommitTokenTracker {
         })
     }
 
-    /// Acquires an exclusive write lock on the tracked precommit token, recovering if the lock was poisoned.
+    /// Acquires an exclusive write lock on the tracked precommit token, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_tracker`](Self::read_tracker).
     fn write_tracker(
         &self,
     ) -> Option<RwLockWriteGuard<'_, Option<MultiplexedSessionPrecommitToken>>> {
