@@ -240,6 +240,16 @@ impl KeyRangeCache {
         }
     }
 
+    /// Acquires a read lock on the cache state, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `CacheState` is an in-memory routing optimization table (`ranges` and `groups`). The underlying
+    /// standard library collections (`BTreeMap` and `HashMap`) remain memory-safe and structurally valid
+    /// in Rust even if a previous thread panicked. Individual entries are wrapped in immutable `Arc`s and
+    /// updated atomically at the map level; any partially applied or interrupted update is safely corrected
+    /// by subsequent server `CacheUpdate` messages. Recovering the lock guard via `into_inner()` prevents an
+    /// isolated panic in a single query or worker thread from permanently poisoning the cache and cascading
+    /// into a complete failure of the client.
     fn read_state(&self) -> RwLockReadGuard<'_, CacheState> {
         match self.state.read() {
             Ok(guard) => guard,
@@ -247,6 +257,10 @@ impl KeyRangeCache {
         }
     }
 
+    /// Acquires a write lock on the cache state, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_state`](Self::read_state).
     fn write_state(&self) -> RwLockWriteGuard<'_, CacheState> {
         match self.state.write() {
             Ok(guard) => guard,
