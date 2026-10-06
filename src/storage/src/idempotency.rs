@@ -156,6 +156,13 @@ impl crate::model::MoveObjectRequest {
     }
 }
 
+impl crate::model::WriteObjectSpec {
+    /// Returns `true` if the upload is protected by an `if_generation_match` precondition.
+    pub(crate) fn is_idempotent(&self) -> bool {
+        self.if_generation_match.is_some()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -163,7 +170,7 @@ mod tests {
         ComposeObjectRequest, CreateBucketRequest, DeleteBucketRequest, DeleteObjectRequest,
         GetBucketRequest, GetObjectRequest, ListBucketsRequest, ListObjectsRequest,
         LockBucketRetentionPolicyRequest, MoveObjectRequest, RestoreObjectRequest,
-        RewriteObjectRequest, UpdateBucketRequest, UpdateObjectRequest,
+        RewriteObjectRequest, UpdateBucketRequest, UpdateObjectRequest, WriteObjectSpec,
     };
     use test_case::test_case;
 
@@ -254,6 +261,14 @@ mod tests {
     #[test_case(MoveObjectRequest::new().set_if_source_generation_match(1), false; "if_source_generation_match alone")]
     fn move_object(req: MoveObjectRequest, want: bool) {
         assert_mutation(req.resolve_idempotency(RequestOptions::default()), want);
+    }
+
+    #[test_case(WriteObjectSpec::new(), false; "unconditioned")]
+    #[test_case(WriteObjectSpec::new().set_if_generation_match(0), true; "if_generation_match")]
+    #[test_case(WriteObjectSpec::new().set_if_generation_not_match(0), false; "if_generation_not_match")]
+    #[test_case(WriteObjectSpec::new().set_if_metageneration_match(1), false; "if_metageneration_match alone")]
+    fn write_object_spec(spec: WriteObjectSpec, want: bool) {
+        assert_eq!(spec.is_idempotent(), want);
     }
 
     #[test_case(true, false; "with_idempotency(true) on unconditioned")]
