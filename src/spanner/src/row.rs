@@ -18,6 +18,7 @@ use std::mem::replace;
 
 use crate::Error;
 use crate::Result;
+use crate::from_row::FromRow;
 use crate::from_value::ConvertError;
 use crate::from_value::FromValue;
 use crate::result_set_metadata::ResultSetMetadata;
@@ -501,6 +502,75 @@ impl Row {
     /// Returns a [`Vec<Value>`] containing the row's values in ordinal column order.
     pub fn into_values(self) -> Vec<Value> {
         self.values
+    }
+
+    /// Converts this row into a typed record implementing [`FromRow`].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = database_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 'user-1', 42").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let (id, age): (String, i64) = row?.try_into_record()?;
+    ///     println!("User: {id}, age: {age}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This is equivalent to calling `T::from_row(self)`.
+    ///
+    /// # Errors
+    ///
+    /// Returns an [`Error`] if:
+    /// * A required column name or positional index is missing from the row.
+    /// * A column value cannot be converted into the target field type.
+    /// * A column is `NULL` but the target field is not an [`Option`].
+    pub fn try_into_record<T: FromRow>(self) -> Result<T> {
+        T::from_row(self)
+    }
+
+    /// Converts this row into a typed record implementing [`FromRow`], panicking on error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = database_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 'user-1', 42").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let (id, age): (String, i64) = row?.into_record();
+    ///     println!("User: {id}, age: {age}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This is a convenience wrapper around [`try_into_record`](Row::try_into_record).
+    ///
+    /// # Panics
+    ///
+    /// Panics if:
+    /// * A required column name or positional index is missing from the row.
+    /// * A column value cannot be converted into the target field type.
+    /// * A column is `NULL` but the target field is not an [`Option`].
+    pub fn into_record<T: FromRow>(self) -> T {
+        match self.try_into_record() {
+            Ok(record) => record,
+            Err(error) => panic!("failed to convert row into record: {error}"),
+        }
     }
 
     fn get_value<I: ColumnIndex>(&self, index: I) -> Result<(usize, &Value)> {
@@ -1762,5 +1832,76 @@ mod tests {
             "expected matching raw Value"
         );
         assert!(row.is_null("raw_col"), "column must be null after take");
+    }
+
+    #[test]
+    fn row_try_into_record() -> Result<()> {
+        let row = Row {
+            values: vec!["alice".to_string().to_value(), 42_i64.to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["name".to_string(), "age".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::int64()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let (name, age): (String, i64) = row.try_into_record()?;
+        assert_eq!(name, "alice", "expected matching name from try_into_record");
+        assert_eq!(age, 42, "expected matching age from try_into_record");
+        Ok(())
+    }
+
+    #[test]
+    fn row_into_record() {
+        let row = Row {
+            values: vec!["bob".to_string().to_value(), 30_i64.to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["name".to_string(), "age".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::int64()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let (name, age): (String, i64) = row.into_record();
+        assert_eq!(name, "bob", "expected matching name from into_record");
+        assert_eq!(age, 30, "expected matching age from into_record");
+    }
+
+    #[test]
+    fn row_try_into_record_error() {
+        let row = Row {
+            values: vec!["not-a-number".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["age".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let error = row
+            .try_into_record::<(i64,)>()
+            .expect_err("try_into_record must fail when type conversion fails");
+        let row_error = RowError::extract(&error).expect("error chain must contain a RowError");
+        match row_error {
+            RowError::TypeConversion { column, .. } => {
+                assert_eq!(column, "age", "expected conversion error on column 'age'");
+            }
+            other => panic!("expected RowError::TypeConversion, got: {other:?}"),
+        }
+    }
+
+    #[test]
+    #[should_panic(expected = "failed to convert row into record")]
+    fn row_into_record_panics() {
+        let row = Row {
+            values: vec!["not-a-number".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["age".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let (_age,): (i64,) = row.into_record();
     }
 }

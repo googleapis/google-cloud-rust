@@ -15,6 +15,7 @@
 use crate::channel_pool::TransactionAffinity;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
+use crate::from_row::FromRow;
 use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
@@ -412,6 +413,30 @@ impl ResultSet {
         }
     }
 
+    /// Fetches the next row from the result set and converts it into type `T`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # async fn fetch_next(mut result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
+    /// if let Some(record) = result_set.next_as::<(String, i64)>().await.transpose()? {
+    ///     println!("Name: {}, Age: {}", record.0, record.1);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Single-column scalar queries (such as `SELECT COUNT(*) FROM Users`) can be
+    /// retrieved using a 1-tuple `(T,)`, for example `next_as::<(i64,)>()`.
+    ///
+    /// Returns `None` when all rows have been retrieved, or `Some(Err(..))` if fetching
+    /// the row or converting it into `T` fails.
+    pub async fn next_as<T: FromRow>(&mut self) -> Option<crate::Result<T>> {
+        let row = self.next().await?;
+        Some(row.and_then(T::from_row))
+    }
+
     /// Converts the [`ResultSet`] into a [`Stream`].
     ///
     /// # Example
@@ -439,6 +464,34 @@ impl ResultSet {
         use futures::stream::unfold;
         Box::pin(unfold(self, |mut result_set| async move {
             result_set.next().await.map(|row| (row, result_set))
+        }))
+    }
+
+    /// Converts the [`ResultSet`] into a [`Stream`] of typed records.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # use futures::TryStreamExt;
+    /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
+    /// let records: Vec<(String, i64)> = result_set
+    ///     .into_stream_as()
+    ///     .try_collect()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This consumes the [`ResultSet`] and returns a stream of records converted via [`FromRow`].
+    #[cfg(feature = "unstable-stream")]
+    pub fn into_stream_as<T: FromRow>(self) -> impl Stream<Item = crate::Result<T>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(self, |mut result_set| async move {
+            result_set
+                .next_as()
+                .await
+                .map(|record| (record, result_set))
         }))
     }
 }
@@ -904,6 +957,7 @@ pub(crate) mod tests {
     use crate::client::Spanner;
     use crate::key::KeySet;
     use crate::read::ReadRequest;
+    use crate::row::RowError;
     use crate::statement::Statement;
     use crate::transaction::BeginTransactionOption;
     use gaxi::grpc::tonic::{Code as GrpcCode, MetadataMap, Response, Status};
@@ -953,6 +1007,27 @@ pub(crate) mod tests {
             fields.push(Field {
                 name: format!("col{}", i),
                 r#type: None,
+            });
+        }
+        Some(ResultSetMetadata {
+            row_type: Some(StructType { fields }),
+            transaction: None,
+            undeclared_parameters: None,
+        })
+    }
+
+    fn string_metadata(columns: usize) -> Option<ResultSetMetadata> {
+        let mut fields = Vec::with_capacity(columns);
+        for index in 0..columns {
+            fields.push(Field {
+                name: format!("col{index}"),
+                r#type: Some(spanner_v1::Type {
+                    code: spanner_v1::TypeCode::String as i32,
+                    array_element_type: None,
+                    struct_type: None,
+                    type_annotation: 0,
+                    proto_type_fqn: String::new(),
+                }),
             });
         }
         Some(ResultSetMetadata {
@@ -1015,6 +1090,114 @@ pub(crate) mod tests {
     #[test]
     fn auto_traits() {
         static_assertions::assert_impl_all!(ResultSet: Debug, Send, Sync);
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_next_as() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: string_metadata(2),
+                values: vec![string_val("alice"), string_val("30")],
+                last: false,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("bob"), string_val("25")],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let first = result_set
+            .next_as::<(String, String)>()
+            .await
+            .expect("first record must be present")?;
+        assert_eq!(
+            first,
+            ("alice".to_string(), "30".to_string()),
+            "first record must match expected tuple"
+        );
+
+        let second = result_set
+            .next_as::<(String, String)>()
+            .await
+            .expect("second record must be present")?;
+        assert_eq!(
+            second,
+            ("bob".to_string(), "25".to_string()),
+            "second record must match expected tuple"
+        );
+
+        let done = result_set.next_as::<(String, String)>().await;
+        assert!(
+            done.is_none(),
+            "next_as must return None after all rows are consumed"
+        );
+
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio_test_no_panics]
+    async fn result_set_into_stream_as() -> anyhow::Result<()> {
+        use futures::TryStreamExt;
+
+        let result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: string_metadata(2),
+                values: vec![string_val("alice"), string_val("30")],
+                last: false,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("bob"), string_val("25")],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let records: Vec<(String, String)> = result_set.into_stream_as().try_collect().await?;
+        assert_eq!(
+            records,
+            vec![
+                ("alice".to_string(), "30".to_string()),
+                ("bob".to_string(), "25".to_string()),
+            ],
+            "into_stream_as must collect all records into vector"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_next_as_conversion_error() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: string_metadata(2),
+            values: vec![string_val("not-an-int"), string_val("alice")],
+            last: true,
+            ..Default::default()
+        }])
+        .await;
+
+        let result = result_set.next_as::<(i64, String)>().await;
+        assert!(
+            result.is_some(),
+            "next_as must return Some when a row is received"
+        );
+        let error = result
+            .expect("must be Some")
+            .expect_err("next_as must return Err when row deserialization fails");
+        let row_error = RowError::extract(&error).expect("error chain must contain a RowError");
+        match row_error {
+            RowError::TypeConversion { column, .. } => {
+                assert_eq!(column, "col0", "expected conversion error on column 'col0'");
+            }
+            other => panic!("expected RowError::TypeConversion, got: {other:?}"),
+        }
+
+        Ok(())
     }
 
     #[tokio_test_no_panics]
