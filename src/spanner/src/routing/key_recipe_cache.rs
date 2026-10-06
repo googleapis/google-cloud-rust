@@ -82,14 +82,25 @@ impl KeyRecipeCache {
         self.next_operation_uid.fetch_add(1, Ordering::Relaxed)
     }
 
-    /// Acquires a shared read lock on the recipe store, recovering the underlying lock guard
-    /// via [`PoisonError::into_inner`] if the lock was poisoned.
+    /// Acquires a shared read lock on the recipe store, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `RecipeStore` caches in-memory key extraction recipes (`tables`, `indexes`, `queries`,
+    /// `prepared_queries`, `prepared_reads`) and schema generation metadata. Standard library
+    /// collections (`HashMap` and bounded clock cache) remain memory-safe and structurally sound
+    /// in Rust even if an earlier thread panicked while reading or writing. Individual recipes are
+    /// wrapped in immutable `Arc<KeyRecipe>` handles; any partially applied or interrupted update is
+    /// safely overwritten by subsequent server `CacheUpdate` messages. Recovering the guard via
+    /// `into_inner()` prevents an isolated panic in an application query or background task from
+    /// permanently disabling recipe caching and breaking location-aware routing across all requests.
     fn read_store(&self) -> RwLockReadGuard<'_, RecipeStore> {
         self.store.read().unwrap_or_else(PoisonError::into_inner)
     }
 
-    /// Acquires an exclusive write lock on the recipe store, recovering the underlying lock guard
-    /// via [`PoisonError::into_inner`] if the lock was poisoned.
+    /// Acquires an exclusive write lock on the recipe store, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_store`](Self::read_store).
     fn write_store(&self) -> RwLockWriteGuard<'_, RecipeStore> {
         self.store.write().unwrap_or_else(PoisonError::into_inner)
     }

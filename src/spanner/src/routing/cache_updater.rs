@@ -82,16 +82,25 @@ impl CacheUpdater {
         }
     }
 
-    /// Acquires a shared read lock on the update synchronization guard, recovering the underlying lock guard
-    /// via [`PoisonError::into_inner`] if the lock was poisoned.
+    /// Acquires a shared read lock on the update synchronization guard, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `update_lock` protects a zero-sized `()` token used solely as an execution barrier (shared read lock
+    /// for concurrent incremental cache updates, exclusive write lock for database ID switches and cache
+    /// invalidations). Because the guarded type is `()`, there is no internal data or invariants that can
+    /// be corrupted by an unwinding panic. Recovering via `into_inner()` ensures that an isolated panic in an
+    /// update worker does not permanently freeze the synchronization barrier and deadlock subsequent
+    /// incremental updates or database ID transitions.
     fn read_update_lock(&self) -> RwLockReadGuard<'_, ()> {
         self.update_lock
             .read()
             .unwrap_or_else(PoisonError::into_inner)
     }
 
-    /// Acquires an exclusive write lock on the update synchronization guard, recovering the underlying lock guard
-    /// via [`PoisonError::into_inner`] if the lock was poisoned.
+    /// Acquires an exclusive write lock on the update synchronization guard, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_update_lock`](Self::read_update_lock).
     fn write_update_lock(&self) -> RwLockWriteGuard<'_, ()> {
         self.update_lock
             .write()

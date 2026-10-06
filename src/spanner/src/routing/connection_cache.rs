@@ -68,16 +68,26 @@ impl ConnectionCache {
         cache
     }
 
-    /// Acquires a shared read lock on cached server connections, recovering the underlying lock guard
-    /// via [`PoisonError::into_inner`] if the lock was poisoned.
+    /// Acquires a shared read lock on cached server connections, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `servers` stores an in-memory `HashMap<String, Arc<OnceCell<ServerConnection>>>`. The standard
+    /// collection remains memory-safe and structurally sound in Rust even if an earlier thread panicked.
+    /// Individual connections are wrapped in `Arc<OnceCell<ServerConnection>>`, where asynchronous connection
+    /// dialing occurs inside the cell without holding the collection write lock. Any partially inserted or
+    /// failed entry is safely resolved or evicted on subsequent connection lookups. Recovering via
+    /// `into_inner()` prevents an isolated panic during connection establishment or eviction from permanently
+    /// freezing the connection cache and crashing all subsequent client operations.
     fn read_servers(
         &self,
     ) -> RwLockReadGuard<'_, HashMap<String, Arc<OnceCell<ServerConnection>>>> {
         self.servers.read().unwrap_or_else(PoisonError::into_inner)
     }
 
-    /// Acquires an exclusive write lock on cached server connections, recovering the underlying lock guard
-    /// via [`PoisonError::into_inner`] if the lock was poisoned.
+    /// Acquires an exclusive write lock on cached server connections, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_servers`](Self::read_servers).
     fn write_servers(
         &self,
     ) -> RwLockWriteGuard<'_, HashMap<String, Arc<OnceCell<ServerConnection>>>> {
