@@ -193,8 +193,13 @@ where
                     match intent {
                         Some(intent) => {
                             let request = self.process_intent(intent);
+                            // If sending fails, `rx.next_message()` will observe the stream's
+                            // status or closure on the next iteration and reconnect, replaying the
+                            // chunk or pending request recorded by `process_intent`.
                             if let Err(e) = tx.send(request).await {
-                                break Some(Error::io(e));
+                                tracing::debug!(
+                                    "error sending request on bidi write stream: {e:?}"
+                                );
                             }
                         }
                         None => {
@@ -1464,6 +1469,53 @@ mod tests {
         let initial_req = stream2_req_rx.recv().await.unwrap();
         assert!(initial_req.first_message.is_some());
         assert!(stream2_req_rx.try_recv().is_err());
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_send_error_defers_reconnect_to_rx_and_replays_chunk() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        // Prepare Stream 2's initial handshake response (`PersistedSize(0)`).
+        stream2_resp_tx.send(Ok(persisted_size_response(0))).await?;
+
+        // Act.
+        // Drop Stream 1's request receiver so `tx.send(request).await` fails after
+        // `process_intent` buffers the chunk, then deliver a transient gRPC status on Stream 1's
+        // response half so `rx.next_message()` drives `reconnect`.
+        drop(stream1_rx);
+        intent_tx.send(append_intent(0, 16)).await?;
+        tokio::task::yield_now().await;
+        stream1_resp_tx
+            .send(Err(Status::unavailable("stream broken")))
+            .await?;
+
+        // Assert.
+        // `reconnect` replaces the stream halves and replays the chunk that `process_intent`
+        // buffered before `tx.send` failed.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+
+        let replayed_req = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed_req.write_offset, 0);
+        let Some(Data::ChecksummedData(cd)) = replayed_req.data else {
+            panic!("expected ChecksummedData on replayed append");
+        };
+        assert_eq!(cd.content.len(), 16);
 
         drop(intent_tx);
         tokio::task::yield_now().await;
