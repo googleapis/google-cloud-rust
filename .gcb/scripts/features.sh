@@ -28,6 +28,9 @@ for sub in test doc; do
   cargo "${sub}" --package google-cloud-wkt --no-default-features --features _internal-semver
   cargo "${sub}" --package google-cloud-wkt --all-features
 done
+# Test against certain configurations of our dependencies. This is a regression
+# test for: https://github.com/googleapis/google-cloud-rust/issues/6990
+cargo test --package google-cloud-wkt --features serde_json/arbitrary_precision
 cargo clippy --no-deps --package google-cloud-wkt --all-targets -- --deny warnings
 cargo clippy --no-deps --package google-cloud-wkt --all-features --all-targets --profile=test -- --deny warnings
 

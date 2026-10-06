@@ -56,7 +56,10 @@ mod tests {
     #[test_case(MessageWithF64::new().set_map([("", 0_f64);0]), json!({}))]
     #[test_case(MessageWithF64::new().set_map([("a", 0_f64), ("b", 1_f64)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
     fn test_de(want: MessageWithF64, input: Value) -> Result {
+        let s = input.to_string();
         let got = serde_json::from_value::<MessageWithF64>(input)?;
+        assert_eq!(got, want);
+        let got = serde_json::from_str::<MessageWithF64>(&s)?;
         assert_eq!(got, want);
         Ok(())
     }
