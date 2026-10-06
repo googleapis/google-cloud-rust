@@ -53,12 +53,24 @@ impl ManagedSessionMaintainer {
         self.read_session().session.name.clone()
     }
 
-    /// Acquires a read lock on the managed session, recovering from lock poisoning if necessary.
+    /// Acquires a read lock on the managed session, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `ManagedSession` holds an immutable `Arc<Session>` and an `Instant`. The write lock is only held
+    /// during an atomic swap when rotating sessions (`*guard = ManagedSession { ... }`), while remote RPCs
+    /// (`CreateSession`) occur beforehand without holding the lock. Even if an unexpected panic occurs while
+    /// holding the lock, the underlying memory remains structurally valid in Rust, and the `Arc<Session>`
+    /// safely references a valid session. Recovering the guard via `into_inner()` ensures that an isolated
+    /// panic in a background rotation or worker task does not permanently poison the lock and take down the
+    /// entire client on subsequent `session_name()` lookups.
     pub(crate) fn read_session(&self) -> RwLockReadGuard<'_, ManagedSession> {
         self.session.read().unwrap_or_else(PoisonError::into_inner)
     }
 
-    /// Acquires a write lock on the managed session, recovering from lock poisoning if necessary.
+    /// Acquires a write lock on the managed session, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_session`](Self::read_session).
     pub(crate) fn write_session(&self) -> RwLockWriteGuard<'_, ManagedSession> {
         self.session.write().unwrap_or_else(PoisonError::into_inner)
     }
