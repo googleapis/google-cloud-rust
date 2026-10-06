@@ -52,6 +52,15 @@ enum ResponseAction<S> {
     Finished,
 }
 
+/// Where a [`BidiWriteObjectResponse`] came from.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum ResponseOrigin {
+    /// Read from the live stream; one that matches nothing was unprompted.
+    Stream,
+    /// The `state_lookup` handshake of a reconnected stream; always expected.
+    Handshake,
+}
+
 /// Which kind of confirmation a [`PendingRequest`] is waiting for.
 #[derive(Debug)]
 enum PendingKind {
@@ -295,11 +304,18 @@ where
                 return Ok(ResponseAction::Finished);
             }
             Err(e) => {
+                // The finalized object has already been handed to the caller; a trailing stream
+                // error cannot change it. Mirror the `Ok(None)` arm above instead of reconnecting
+                // against a finalized object.
+                if self.finalized && self.pending_requests.is_empty() {
+                    tracing::debug!("ignoring stream error after finalize completed: {e:?}");
+                    return Ok(ResponseAction::Finished);
+                }
                 let connection = self.reconnect(to_gax_error(e)).await?;
                 return Ok(ResponseAction::Reconnected(connection));
             }
         };
-        self.handle_response_success(response)?;
+        self.handle_response_success(response, ResponseOrigin::Stream)?;
         Ok(ResponseAction::Continue)
     }
 
@@ -308,7 +324,11 @@ where
     /// Updates acknowledged offsets in the replay buffer and completes any matching in-flight flush
     /// or finalize requests. Returns an error if the server reports a `persisted_size` lower than
     /// previously acknowledged bytes.
-    fn handle_response_success(&mut self, response: BidiWriteObjectResponse) -> LoopResult<()> {
+    fn handle_response_success(
+        &mut self,
+        response: BidiWriteObjectResponse,
+        origin: ResponseOrigin,
+    ) -> LoopResult<()> {
         // Every response ends the wait for a worker-initiated `state_lookup`, including one that
         // carries no `write_status`. Clearing the flag only on the acknowledged-bytes path would
         // suppress all later watermark probes and stall the worker once the replay buffer fills.
@@ -354,12 +374,12 @@ where
             return Err(Error::io("object is already finalized"));
         }
 
-        // A worker-initiated `state_lookup` has no entry in `pending_requests`, so its response
-        // legitimately matches nothing. Do not report it as unprompted.
-        if !matched && !self_flush_outstanding {
+        // A reconnect handshake and a worker-initiated `state_lookup` have no entry in
+        // `pending_requests`, so their responses legitimately match nothing. Do not report them as
+        // unprompted.
+        if origin == ResponseOrigin::Stream && !matched && !self_flush_outstanding {
             tracing::debug!(
-                "Received unprompted BidiWriteObjectResponse from server: {:?}",
-                response
+                "Received unprompted BidiWriteObjectResponse from server: {response:?}"
             );
         }
         Ok(())
@@ -409,18 +429,23 @@ where
         // it. Otherwise, a reconnected create or handle-less takeover stream returns an
         // unfinalized `Resource` (`finalize_time.is_none()`), which `PendingRequest::is_satisfied`
         // ignores for `PendingKind::Finalize` so the pending finalize is re-sent below.
-        self.handle_response_success(initial_response)?;
+        self.handle_response_success(initial_response, ResponseOrigin::Handshake)?;
 
-        // Replay all unpersisted chunks. If the new stream's request channel is already closed,
-        // the next `rx.next_message()` poll in `run()` will observe the stream's status or closure
-        // and reconnect again.
+        // Replay all unpersisted chunks, then re-send the pending flush / finalize requests. A
+        // send fails only when the new stream's request channel is already closed, so stop at the
+        // first failure: the next `rx.next_message()` poll in `run()` observes the stream's status
+        // or closure and reconnects again, with the replay buffer and `pending_requests` intact.
         for chunk in self.replay_buffer.chunks_to_replay() {
-            let _ = connection.tx.send(chunk.to_request()).await;
+            if let Err(e) = connection.tx.send(chunk.to_request()).await {
+                tracing::debug!("error replaying chunk on bidi write stream: {e:?}");
+                return Ok(connection);
+            }
         }
-
-        // Re-send pending flush / finalize requests.
         for pending in &self.pending_requests {
-            let _ = connection.tx.send(pending.request.clone()).await;
+            if let Err(e) = connection.tx.send(pending.request.clone()).await {
+                tracing::debug!("error re-sending pending request on bidi write stream: {e:?}");
+                return Ok(connection);
+            }
         }
 
         // Replayed chunks set neither `flush` nor `state_lookup`. If the buffer is still above the
@@ -435,11 +460,17 @@ where
         loop {
             match rx.next_message().await {
                 Ok(Some(msg)) => {
-                    if let Err(e) = self.handle_response_success(msg) {
+                    if let Err(e) = self.handle_response_success(msg, ResponseOrigin::Stream) {
                         break Some(e);
                     }
                 }
                 Ok(None) => break None,
+                // Same as in `handle_response`: a trailing error after the finalize response was
+                // delivered cannot change the finalized object.
+                Err(e) if self.finalized && self.pending_requests.is_empty() => {
+                    tracing::debug!("ignoring stream error after finalize completed: {e:?}");
+                    break None;
+                }
                 Err(e) => break Some(to_gax_error(e)),
             }
         }
@@ -662,6 +693,56 @@ mod tests {
         assert_eq!(received_resp.write_status, server_resp.write_status);
 
         drop(response_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_finalize_ignores_trailing_stream_error() -> anyhow::Result<()> {
+        // Arrange.
+        // `spawn_test_worker` sets `expect_start().never()`, so any reconnect attempt would panic.
+        let (handle, tx, mut request_rx, response_tx) = spawn_test_worker();
+
+        let (intent, finalize_rx) = finalize_intent(100);
+        tx.send(intent).await?;
+        let _ = request_rx.recv().await.unwrap();
+        response_tx.send(Ok(finalized_response(100))).await?;
+        let _ = finalize_rx.await??;
+
+        // Act.
+        // The intent channel is still open, so `handle_response` sees the error.
+        response_tx
+            .send(Err(Status::unavailable("connection reset")))
+            .await?;
+
+        // Assert.
+        // The finalized object was already delivered, so the worker finishes cleanly.
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_finalize_ignores_trailing_stream_error_after_intents_close() -> anyhow::Result<()>
+    {
+        // Arrange.
+        let (handle, tx, mut request_rx, response_tx) = spawn_test_worker();
+
+        let (intent, finalize_rx) = finalize_intent(100);
+        tx.send(intent).await?;
+        let _ = request_rx.recv().await.unwrap();
+        response_tx.send(Ok(finalized_response(100))).await?;
+        let _ = finalize_rx.await??;
+
+        // Close the intent channel first, so `wait_for_server_completion` sees the error.
+        drop(tx);
+        tokio::task::yield_now().await;
+
+        // Act.
+        response_tx
+            .send(Err(Status::unavailable("connection reset")))
+            .await?;
+
+        // Assert.
         handle.await??;
         Ok(())
     }
