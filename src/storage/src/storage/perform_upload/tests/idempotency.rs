@@ -84,6 +84,18 @@ async fn buffered_resumable_reuses_token() -> Result {
 }
 
 #[tokio::test]
+async fn buffered_resumable_unconditioned_reuses_token() -> Result {
+    let (server, tokens) = resumable_server();
+    start_resumable(&server).await?.send_buffered().await?;
+    let tokens = tokens.lock().unwrap();
+    let [Some(first), Some(second)] = tokens.as_slice() else {
+        panic!("expected 2 captured tokens, got {tokens:?}");
+    };
+    assert_eq!(first, second);
+    Ok(())
+}
+
+#[tokio::test]
 async fn unbuffered_resumable_reuses_token() -> Result {
     let (server, tokens) = resumable_server();
     start_resumable(&server)
@@ -99,10 +111,23 @@ async fn unbuffered_resumable_reuses_token() -> Result {
     Ok(())
 }
 
-// `with_idempotency(false)` suppresses the token. Session creation is still
-// retried, because resumable uploads are always idempotent.
 #[tokio::test]
-async fn buffered_resumable_idempotency_false_omits_token() -> Result {
+async fn unbuffered_resumable_unconditioned_reuses_token() -> Result {
+    let (server, tokens) = resumable_server();
+    start_resumable(&server).await?.send_unbuffered().await?;
+    let tokens = tokens.lock().unwrap();
+    let [Some(first), Some(second)] = tokens.as_slice() else {
+        panic!("expected 2 captured tokens, got {tokens:?}");
+    };
+    assert_eq!(first, second);
+    Ok(())
+}
+
+// Resumable uploads are always treated as idempotent and retried regardless of
+// `with_idempotency(false)`, so session creation still stamps and reuses the
+// deduplication token.
+#[tokio::test]
+async fn buffered_resumable_idempotency_false_reuses_token() -> Result {
     let (server, tokens) = resumable_server();
     start_resumable(&server)
         .await?
@@ -110,7 +135,28 @@ async fn buffered_resumable_idempotency_false_omits_token() -> Result {
         .with_idempotency(false)
         .send_buffered()
         .await?;
-    assert_eq!(*tokens.lock().unwrap(), vec![None, None]);
+    let tokens = tokens.lock().unwrap();
+    let [Some(first), Some(second)] = tokens.as_slice() else {
+        panic!("expected 2 captured tokens, got {tokens:?}");
+    };
+    assert_eq!(first, second);
+    Ok(())
+}
+
+#[tokio::test]
+async fn unbuffered_resumable_idempotency_false_reuses_token() -> Result {
+    let (server, tokens) = resumable_server();
+    start_resumable(&server)
+        .await?
+        .set_if_generation_match(0)
+        .with_idempotency(false)
+        .send_unbuffered()
+        .await?;
+    let tokens = tokens.lock().unwrap();
+    let [Some(first), Some(second)] = tokens.as_slice() else {
+        panic!("expected 2 captured tokens, got {tokens:?}");
+    };
+    assert_eq!(first, second);
     Ok(())
 }
 

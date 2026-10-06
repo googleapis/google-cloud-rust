@@ -50,6 +50,15 @@ pub(crate) fn mutation(options: RequestOptions, idempotent: bool) -> RequestOpti
     if options.idempotent() != Some(true) {
         return options;
     }
+    add_token(options)
+}
+
+/// Stamps a deduplication token onto `options` if one is not already present.
+///
+/// Resumable uploads are always retried (regardless of preconditions or
+/// `with_idempotency(false)`), so session creation calls this directly to
+/// ensure every attempt carries a deduplication token.
+pub(crate) fn add_token(options: RequestOptions) -> RequestOptions {
     if options
         .get_extension::<HeaderMap>()
         .is_some_and(|h| h.contains_key(IDEMPOTENCY_TOKEN_HEADER))
