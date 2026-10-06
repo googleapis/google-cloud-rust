@@ -87,15 +87,11 @@ pub(crate) async fn scale_up_worker_loop(
                 ChannelPoolConfig::Static(_) => return, // Static pools never scale; exit worker.
             };
 
-            let cooldown_remaining = inner
-                .last_scale_up_time
-                .lock()
-                .expect("lock poisoned")
-                .and_then(|last_time| {
-                    dynamic_config
-                        .scale_up_cooldown
-                        .checked_sub(last_time.elapsed())
-                });
+            let cooldown_remaining = inner.lock_last_scale_up_time().and_then(|last_time| {
+                dynamic_config
+                    .scale_up_cooldown
+                    .checked_sub(last_time.elapsed())
+            });
 
             (dynamic_config, cooldown_remaining)
         };
@@ -118,7 +114,7 @@ pub(crate) async fn scale_up_worker_loop(
                 None => return,
             };
 
-            let maybe_prime_session = inner.prime_session.read().expect("lock poisoned").clone();
+            let maybe_prime_session = inner.read_prime_session().clone();
             let prime_session_name = match maybe_prime_session {
                 Some(session) => session,
                 None => {
@@ -165,10 +161,10 @@ pub(crate) async fn scale_up_worker_loop(
 fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoolConfig) -> usize {
     let scale_up_requested = inner.scale_up_requested.swap(false, Ordering::AcqRel);
 
-    let active_guard = inner.active_entries.read().expect("lock poisoned");
+    let active_guard = inner.read_active_entries();
     let current_len = active_guard.len();
     if current_len >= config.max_channels {
-        let mut last_scale = inner.last_scale_up_time.lock().expect("lock poisoned");
+        let mut last_scale = inner.lock_last_scale_up_time();
         *last_scale = Some(Instant::now());
         return 0;
     }
@@ -217,7 +213,7 @@ fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoo
     // Note: We commit the scale-up cooldown timestamp here before awaiting dialing/priming
     // to prevent redundant scale-up attempts from firing while parallel dialing is already in flight.
     if channels_to_add > 0 {
-        let mut last_scale = inner.last_scale_up_time.lock().expect("lock poisoned");
+        let mut last_scale = inner.lock_last_scale_up_time();
         *last_scale = Some(Instant::now());
         inner
             .consecutive_low_load_checks
@@ -272,7 +268,7 @@ async fn dial_prime_and_publish_channels_parallel(
 /// Guarantees that each channel receives a strictly unique `logical_channel_id` (1..=max_channels)
 /// by marking slots from both `active_entries` and active `draining_entries` as occupied.
 fn publish_primed_channel(inner: &ChannelPoolInner, channel: Channel, max_channels: usize) {
-    let mut active_write = inner.active_entries.write().expect("lock poisoned");
+    let mut active_write = inner.write_active_entries();
 
     if active_write.len() >= max_channels {
         return;
@@ -289,7 +285,7 @@ fn publish_primed_channel(inner: &ChannelPoolInner, channel: Channel, max_channe
 
     // Also mark slots occupied by draining channels that are not yet closed
     {
-        let draining_guard = inner.draining_entries.read().expect("lock poisoned");
+        let draining_guard = inner.read_draining_entries();
         for entry in draining_guard.iter() {
             if !entry.is_closed() && entry.logical_channel_id() <= MAX_SUPPORTED_CHANNELS {
                 occupied_slots[entry.logical_channel_id()] = true;
@@ -432,9 +428,7 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
 
     // 2. Do not scale down during the scale-up cooldown window following channel expansion.
     let in_scale_up_cooldown = inner
-        .last_scale_up_time
-        .lock()
-        .expect("lock poisoned")
+        .lock_last_scale_up_time()
         .is_some_and(|last_time| last_time.elapsed() < config.scale_up_cooldown);
     if in_scale_up_cooldown {
         inner
@@ -443,7 +437,7 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
         return;
     }
 
-    let mut active_write = inner.active_entries.write().expect("lock poisoned");
+    let mut active_write = inner.write_active_entries();
 
     // Do not scale down below configured min_channels floor.
     if active_write.len() <= config.min_channels {
@@ -499,7 +493,7 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
     }
 
     // Move candidate channels from active_entries to draining_entries in-place under write lock.
-    let mut draining_write = inner.draining_entries.write().expect("lock poisoned");
+    let mut draining_write = inner.write_draining_entries();
 
     // Snapshot stable keys to prevent race conditions during sorting if in-flight counts change concurrently.
     // Order:
@@ -507,19 +501,19 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
     // 2. active_rw_count: between channels with equal active load, prefer draining channels with 0 R/W transactions.
     // 3. current_penalty (reversed): between idle channels, prefer draining channels with active error penalties.
     // 4. created_at (reversed): prefer newer channels on tie, preserving older/warmer channels.
-    let mut active_with_keys: Vec<(u32, u32, u32, Instant, Arc<ChannelEntry>)> = active_write
-        .drain(..)
+    let mut candidate_keys: Vec<(u32, u32, u32, Instant, u64)> = active_write
+        .iter()
         .map(|entry| {
             (
                 entry.in_flight(),
                 entry.active_rw_count(),
                 entry.current_penalty(),
                 entry.created_at,
-                entry,
+                entry.id,
             )
         })
         .collect();
-    active_with_keys.sort_unstable_by_key(|(in_flight, rw_count, penalty, created_at, _)| {
+    candidate_keys.sort_unstable_by_key(|(in_flight, rw_count, penalty, created_at, _)| {
         (
             *in_flight,
             *rw_count,
@@ -529,19 +523,26 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
     });
 
     // Exactly calculate number of channels eligible to remove without breaching min_channels.
-    let eligible_to_remove = active_with_keys
+    let eligible_to_remove = candidate_keys
         .len()
         .saturating_sub(config.min_channels)
         .min(channels_to_remove);
 
-    for (index, (_, _, _, _, entry)) in active_with_keys.into_iter().enumerate() {
-        if index < eligible_to_remove {
+    let drain_channel_ids: Vec<u64> = candidate_keys
+        .into_iter()
+        .take(eligible_to_remove)
+        .map(|(_, _, _, _, entry_id)| entry_id)
+        .collect();
+
+    active_write.retain(|entry| {
+        if drain_channel_ids.contains(&entry.id) {
             entry.set_state(ChannelState::Draining);
-            draining_write.push(entry);
+            draining_write.push(Arc::clone(entry));
+            false
         } else {
-            active_write.push(entry);
+            true
         }
-    }
+    });
 
     inner
         .consecutive_low_load_checks
@@ -556,7 +557,7 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
 ///    the transaction completes, or `SPANNER_RW_TRANSACTION_IDLE_TIMEOUT` (10s) plus `drain_idle_grace` elapses.
 /// 3. Channels with 0 load and no R/W transactions are closed once `drain_idle_grace` elapses.
 pub(crate) fn sweep_draining_channels(inner: &ChannelPoolInner, drain_idle_grace: Duration) {
-    let mut draining_write = inner.draining_entries.write().expect("lock poisoned");
+    let mut draining_write = inner.write_draining_entries();
 
     draining_write.retain(|entry| {
         if entry.in_flight() > 0 {
@@ -598,6 +599,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::fmt::Debug;
     use std::future::{Future, ready};
+    use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize};
     use std::sync::{Mutex, RwLock, Weak};
     use tokio::sync::Notify;
@@ -624,6 +626,118 @@ mod tests {
 
     fn dummy_shutdown_receiver() -> WatchReceiver<()> {
         watch_channel(()).1
+    }
+
+    #[test]
+    fn scaler_operations_recover_from_poisoned_locks() {
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        let channel_3 = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+
+        let dynamic_config = DynamicChannelPoolConfig {
+            min_channels: 1,
+            max_channels: 4,
+            min_rpc_per_channel: 2.0,
+            max_rpc_per_channel: 8.0,
+            scale_up_cooldown: Duration::from_millis(50),
+            consecutive_low_load_checks: 1,
+            max_remove_channels: 1,
+            ..Default::default()
+        };
+
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(dynamic_config.clone()),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
+            draining_entries: RwLock::new(vec![Arc::clone(&channel_3)]),
+            next_entry_id: AtomicU64::new(4),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(0),
+            prime_session: RwLock::new(Some(
+                "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+            )),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        // 1. Deliberately poison all locks: active_entries, draining_entries, prime_session, and last_scale_up_time.
+        let _ = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = inner.active_entries.write();
+            panic!("poisoning active_entries");
+        }));
+        let _ = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = inner.draining_entries.write();
+            panic!("poisoning draining_entries");
+        }));
+        let _ = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = inner.prime_session.write();
+            panic!("poisoning prime_session");
+        }));
+        let _ = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = inner.last_scale_up_time.lock();
+            panic!("poisoning last_scale_up_time");
+        }));
+
+        assert!(
+            inner.active_entries.is_poisoned(),
+            "active_entries lock must be poisoned"
+        );
+        assert!(
+            inner.draining_entries.is_poisoned(),
+            "draining_entries lock must be poisoned"
+        );
+        assert!(
+            inner.prime_session.is_poisoned(),
+            "prime_session lock must be poisoned"
+        );
+        assert!(
+            inner.last_scale_up_time.is_poisoned(),
+            "last_scale_up_time lock must be poisoned"
+        );
+
+        // 2. calculate_scale_up_count must recover from poisoned active_entries and last_scale_up_time.
+        channel_1.in_flight_rpcs.store(10, Ordering::Relaxed);
+        let channels_to_add = calculate_scale_up_count(&inner, &dynamic_config);
+        assert_eq!(
+            channels_to_add, 1,
+            "calculate_scale_up_count must succeed despite poisoned locks"
+        );
+        assert!(
+            inner.lock_last_scale_up_time().is_some(),
+            "last_scale_up_time must be updated despite previous poisoning"
+        );
+
+        // 3. publish_primed_channel must recover from poisoned active_entries and draining_entries.
+        publish_primed_channel(&inner, create_mock_channel(), dynamic_config.max_channels);
+        assert_eq!(
+            inner.read_active_entries().len(),
+            3,
+            "publish_primed_channel must succeed despite poisoned locks"
+        );
+
+        // 4. evaluate_and_execute_scale_down must recover from poisoned active_entries, draining_entries, and last_scale_up_time.
+        channel_1.in_flight_rpcs.store(0, Ordering::Relaxed);
+        *inner.lock_last_scale_up_time() = None;
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+        assert_eq!(
+            inner.read_active_entries().len(),
+            2,
+            "evaluate_and_execute_scale_down must succeed despite poisoned locks"
+        );
+        assert_eq!(
+            inner.read_draining_entries().len(),
+            2,
+            "draining_entries must contain the downscaled channel despite poisoned locks"
+        );
+
+        // 5. sweep_draining_channels must recover from poisoned draining_entries.
+        sweep_draining_channels(&inner, Duration::ZERO);
+        assert!(
+            inner.read_draining_entries().is_empty(),
+            "sweep_draining_channels must succeed and close idle draining channels"
+        );
     }
 
     #[test]
@@ -674,7 +788,7 @@ mod tests {
 
         sweep_draining_channels(&inner, Duration::from_secs(5));
 
-        let draining_guard = inner.draining_entries.read().expect("lock poisoned");
+        let draining_guard = inner.read_draining_entries();
         assert_eq!(
             draining_guard.len(),
             1,
@@ -734,7 +848,7 @@ mod tests {
             "Initial consecutive low load checks must be 0"
         );
         {
-            let active = inner.active_entries.read().expect("lock poisoned");
+            let active = inner.read_active_entries();
             let total_load: u32 = active.iter().map(|entry| entry.in_flight()).sum();
             let avg_load = (total_load as f64) / (active.len() as f64);
             assert!(avg_load < 2.0, "Average load must be below threshold 2.0");
@@ -746,7 +860,7 @@ mod tests {
             + 1;
         assert_eq!(runs, 1, "First low load run count must be 1");
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             4,
             "Active channels must stay 4"
         );
@@ -758,7 +872,7 @@ mod tests {
             + 1;
         assert_eq!(runs2, 2, "Second low load run count must be 2");
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             4,
             "Active channels must stay 4 on second low load run"
         );
@@ -812,14 +926,14 @@ mod tests {
         };
         evaluate_and_execute_scale_down(&inner, &dynamic_config);
 
-        let active = inner.active_entries.read().expect("lock");
+        let active = inner.read_active_entries();
         assert_eq!(
             active.len(),
             2,
             "Active channel count must never drop below min_channels (2)"
         );
 
-        let draining = inner.draining_entries.read().expect("lock");
+        let draining = inner.read_draining_entries();
         assert_eq!(draining.len(), 1, "Exactly 1 channel should be draining");
     }
 
@@ -867,7 +981,7 @@ mod tests {
         };
         evaluate_and_execute_scale_down(&inner, &dynamic_config);
 
-        let draining = inner.draining_entries.read().expect("lock poisoned");
+        let draining = inner.read_draining_entries();
         assert_eq!(draining.len(), 1, "Exactly 1 channel should be draining");
         assert_eq!(
             draining[0].id, 2,
@@ -935,7 +1049,7 @@ mod tests {
             "publish_primed_channel must reset consecutive_low_load_checks to 0"
         );
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             3,
             "Pool size must now be 3 active channels"
         );
@@ -943,7 +1057,7 @@ mod tests {
         // 5. When the burst subsides, the first post-scale-up scale-down check increments from 0 to 1,
         // and does NOT prematurely scale down:
         channel_1.in_flight_rpcs.store(0, Ordering::Relaxed);
-        *inner.last_scale_up_time.lock().expect("lock poisoned") = None;
+        *inner.lock_last_scale_up_time() = None;
         evaluate_and_execute_scale_down(&inner, &config);
 
         assert_eq!(
@@ -952,16 +1066,12 @@ mod tests {
             "First low-load check after scale-up must increment count to 1"
         );
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             3,
             "Pool must retain all 3 channels without prematurely draining on first check"
         );
         assert!(
-            inner
-                .draining_entries
-                .read()
-                .expect("lock poisoned")
-                .is_empty(),
+            inner.read_draining_entries().is_empty(),
             "No channels should be moved to draining"
         );
     }
@@ -1011,16 +1121,12 @@ mod tests {
             "scale_up_requested must reset consecutive_low_load_checks to 0"
         );
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             3,
             "No channels should be drained while scale_up_requested is true"
         );
         assert!(
-            inner
-                .draining_entries
-                .read()
-                .expect("lock poisoned")
-                .is_empty(),
+            inner.read_draining_entries().is_empty(),
             "Draining entries must remain empty"
         );
     }
@@ -1071,31 +1177,26 @@ mod tests {
             "Scale-up cooldown must reset consecutive_low_load_checks to 0"
         );
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             3,
             "No channels should be drained during scale-up cooldown"
         );
         assert!(
-            inner
-                .draining_entries
-                .read()
-                .expect("lock poisoned")
-                .is_empty(),
+            inner.read_draining_entries().is_empty(),
             "Draining entries must remain empty"
         );
 
         // 2. After cooldown expires: scale-down is permitted.
-        *inner.last_scale_up_time.lock().expect("lock poisoned") =
-            Some(Instant::now() - Duration::from_secs(15));
+        *inner.lock_last_scale_up_time() = Some(Instant::now() - Duration::from_secs(15));
         evaluate_and_execute_scale_down(&inner, &dynamic_config);
 
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             2,
             "One channel must be drained after scale-up cooldown expires"
         );
         assert_eq!(
-            inner.draining_entries.read().expect("lock poisoned").len(),
+            inner.read_draining_entries().len(),
             1,
             "Exactly 1 channel should be draining"
         );
@@ -1162,14 +1263,14 @@ mod tests {
         // Sorting priority must choose channel_2 (failing) to drain first, preserving channel_3 (healthy).
         evaluate_and_execute_scale_down(&inner, &dynamic_config);
 
-        let draining = inner.draining_entries.read().expect("lock poisoned");
+        let draining = inner.read_draining_entries();
         assert_eq!(draining.len(), 1, "Exactly 1 channel should be draining");
         assert_eq!(
             draining[0].id, 2,
             "Failing channel_2 with error penalty must be drained before healthy idle channel_3"
         );
 
-        let active = inner.active_entries.read().expect("lock poisoned");
+        let active = inner.read_active_entries();
         assert_eq!(active.len(), 2, "2 healthy channels must remain active");
         let active_ids: Vec<u64> = active.iter().map(|entry| entry.id).collect();
         assert!(active_ids.contains(&1), "channel_1 must remain active");
@@ -1239,7 +1340,7 @@ mod tests {
         // Drain pass 1: channel_penalized_idle (in_flight=0, rw=0, penalty=8) must be drained first.
         evaluate_and_execute_scale_down(&inner, &dynamic_config);
         {
-            let draining = inner.draining_entries.read().expect("lock poisoned");
+            let draining = inner.read_draining_entries();
             assert_eq!(
                 draining.len(),
                 1,
@@ -1254,7 +1355,7 @@ mod tests {
         // Drain pass 2: channel_healthy_idle (in_flight=0, rw=0, penalty=0) must be drained next.
         evaluate_and_execute_scale_down(&inner, &dynamic_config);
         {
-            let draining = inner.draining_entries.read().expect("lock poisoned");
+            let draining = inner.read_draining_entries();
             assert_eq!(
                 draining.len(),
                 2,
@@ -1269,7 +1370,7 @@ mod tests {
         // Drain pass 3: channel_rw_attached (in_flight=0, rw=1, penalty=0) must be drained before channel_heavy.
         evaluate_and_execute_scale_down(&inner, &dynamic_config);
         {
-            let draining = inner.draining_entries.read().expect("lock poisoned");
+            let draining = inner.read_draining_entries();
             assert_eq!(
                 draining.len(),
                 3,
@@ -1282,7 +1383,7 @@ mod tests {
         }
 
         // channel_heavy remains active
-        let active = inner.active_entries.read().expect("lock poisoned");
+        let active = inner.read_active_entries();
         assert_eq!(active.len(), 1, "channel_heavy must remain active");
         assert_eq!(active[0].id, 1, "channel_heavy id must be 1");
     }
@@ -1351,7 +1452,7 @@ mod tests {
             "Low load must not trigger scale-up"
         );
         assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_none(),
+            inner.lock_last_scale_up_time().is_none(),
             "Cooldown timestamp must not be set on low load so subsequent bursts are not delayed"
         );
 
@@ -1367,13 +1468,13 @@ mod tests {
             "Saturated channel with low aggregate load must scale up by 1 channel without veto"
         );
         assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_some(),
+            inner.lock_last_scale_up_time().is_some(),
             "Cooldown timestamp must be set after scale-up count > 0"
         );
 
         // 3. High load with rate limiting: total load 30 -> target rpc 5 -> desired = 6 channels
         // current = 2, max_to_add = max(ceil(2 * 0.3) = 1, 2) = 2 -> channels_to_add = 2
-        *inner.last_scale_up_time.lock().expect("lock") = None;
+        *inner.lock_last_scale_up_time() = None;
         channel_1.in_flight_rpcs.store(15, Ordering::Relaxed);
         channel_2.in_flight_rpcs.store(15, Ordering::Relaxed);
         let count = calculate_scale_up_count(&inner, &config);
@@ -1393,7 +1494,7 @@ mod tests {
         };
         let channel_3 = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
         let channel_4 = Arc::new(ChannelEntry::new(4, 4, create_mock_channel()));
-        *inner.active_entries.write().expect("lock") = vec![
+        *inner.write_active_entries() = vec![
             Arc::clone(&channel_1),
             Arc::clone(&channel_2),
             Arc::clone(&channel_3),
@@ -1413,7 +1514,7 @@ mod tests {
         // 4b. Moderate burst under saturation where 1 < base_needed < max_to_add_by_percent:
         // total load = 10 + 10 + 6 + 5 = 31 -> desired = ceil(31 / 5) = 7 -> base_needed = 3 (< cap 4).
         // Must scale up by base_needed (3), neither collapsing to 1 nor over-scaling to cap (4).
-        *inner.last_scale_up_time.lock().expect("lock") = None;
+        *inner.lock_last_scale_up_time() = None;
         channel_1.in_flight_rpcs.store(10, Ordering::Relaxed);
         channel_2.in_flight_rpcs.store(10, Ordering::Relaxed);
         channel_3.in_flight_rpcs.store(6, Ordering::Relaxed);
@@ -1425,7 +1526,7 @@ mod tests {
         );
 
         // 4c. Heavy aggregate load (desired = 8, base_needed = 4): adds base_needed (4), bounded by 100% cap (4):
-        *inner.last_scale_up_time.lock().expect("lock") = None;
+        *inner.lock_last_scale_up_time() = None;
         channel_1.in_flight_rpcs.store(10, Ordering::Relaxed);
         channel_2.in_flight_rpcs.store(10, Ordering::Relaxed);
         channel_3.in_flight_rpcs.store(10, Ordering::Relaxed);
@@ -1452,7 +1553,7 @@ mod tests {
         );
 
         // 6. Pool already at max_channels (8) -> returns 0 and commits cooldown timestamp
-        *inner.last_scale_up_time.lock().expect("lock") = None;
+        *inner.lock_last_scale_up_time() = None;
         let mut full_channels = Vec::new();
         for index in 1..=8 {
             full_channels.push(Arc::new(ChannelEntry::new(
@@ -1461,14 +1562,14 @@ mod tests {
                 create_mock_channel(),
             )));
         }
-        *inner.active_entries.write().expect("lock") = full_channels;
+        *inner.write_active_entries() = full_channels;
         assert_eq!(
             calculate_scale_up_count(&inner, &config),
             0,
             "Pool at max_channels must return 0 channels to add"
         );
         assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_some(),
+            inner.lock_last_scale_up_time().is_some(),
             "Cooldown timestamp must be set when pool is at capacity ceiling"
         );
     }
@@ -1520,7 +1621,7 @@ mod tests {
             "scale_up_requested must be reset to false after calculation"
         );
         assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_none(),
+            inner.lock_last_scale_up_time().is_none(),
             "Cooldown must not be committed when 0 channels are added"
         );
 
@@ -1542,7 +1643,7 @@ mod tests {
             "scale_up_requested must be reset to false after calculation"
         );
         assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_some(),
+            inner.lock_last_scale_up_time().is_some(),
             "Cooldown must be committed when channels are added"
         );
 
@@ -1594,7 +1695,7 @@ mod tests {
         // Slots 1 (active) and 2 (draining) are occupied -> new channel should receive slot 3
         publish_primed_channel(&inner, create_mock_channel(), 3);
         {
-            let active = inner.active_entries.read().expect("lock");
+            let active = inner.read_active_entries();
             assert_eq!(
                 active.len(),
                 2,
@@ -1611,14 +1712,14 @@ mod tests {
         // When active channels reach max_channels (3), publishing is a no-op
         publish_primed_channel(&inner, create_mock_channel(), 3);
         assert_eq!(
-            inner.active_entries.read().expect("lock").len(),
+            inner.read_active_entries().len(),
             3,
             "Active channel count must reach max_channels (3)"
         );
 
         publish_primed_channel(&inner, create_mock_channel(), 3);
         assert_eq!(
-            inner.active_entries.read().expect("lock").len(),
+            inner.read_active_entries().len(),
             3,
             "Publishing beyond max_channels must be a no-op"
         );
@@ -1705,7 +1806,7 @@ mod tests {
             "First low load run must increment consecutive checks to 1"
         );
         assert_eq!(
-            inner.active_entries.read().expect("lock").len(),
+            inner.read_active_entries().len(),
             4,
             "No channels drained after 1 low-load check"
         );
@@ -1719,11 +1820,11 @@ mod tests {
             "Consecutive checks must be reset to 0 after scale-down execution"
         );
         assert_eq!(
-            inner.active_entries.read().expect("lock").len(),
+            inner.read_active_entries().len(),
             2,
             "Active channel count must be reduced to 2"
         );
-        let draining = inner.draining_entries.read().expect("lock");
+        let draining = inner.read_draining_entries();
         assert_eq!(draining.len(), 2, "2 channels must be moved to draining");
         assert!(
             draining[0].is_draining(),
@@ -1737,7 +1838,7 @@ mod tests {
         // 4. When already at min_channels (2), evaluate_and_execute_scale_down resets counter and returns immediately
         evaluate_and_execute_scale_down(&inner, &config);
         assert_eq!(
-            inner.active_entries.read().expect("lock").len(),
+            inner.read_active_entries().len(),
             2,
             "Must remain at min_channels 2"
         );
@@ -1776,7 +1877,7 @@ mod tests {
         };
         evaluate_and_execute_scale_down(&heavy_inner, &heavy_config);
         assert_eq!(
-            heavy_inner.active_entries.read().expect("lock").len(),
+            heavy_inner.read_active_entries().len(),
             3,
             "No channels drained when desired_channels >= active_channels"
         );
@@ -1810,7 +1911,7 @@ mod tests {
         };
         evaluate_and_execute_scale_down(&zero_remove_inner, &zero_remove_config);
         assert_eq!(
-            zero_remove_inner.active_entries.read().expect("lock").len(),
+            zero_remove_inner.read_active_entries().len(),
             3,
             "No channels drained when channels_to_remove is 0"
         );
@@ -1876,8 +1977,8 @@ mod tests {
         stop_flag.store(true, Ordering::Relaxed);
         let _ = background_writer.await;
 
-        let active_len = inner.active_entries.read().expect("lock poisoned").len();
-        let draining_len = inner.draining_entries.read().expect("lock poisoned").len();
+        let active_len = inner.read_active_entries().len();
+        let draining_len = inner.read_draining_entries().len();
         assert_eq!(
             active_len + draining_len,
             6,
@@ -1927,7 +2028,7 @@ mod tests {
         // - channel_recent_idle was active recently (< 5s) -> retained
         sweep_draining_channels(&inner, Duration::from_secs(5));
         assert_eq!(
-            inner.draining_entries.read().expect("lock").len(),
+            inner.read_draining_entries().len(),
             2,
             "Both in-flight and recently active draining channels must be retained"
         );
@@ -2114,7 +2215,7 @@ mod tests {
 
         // Yield execution to allow published channels to register in active_entries
         let deadline = Instant::now() + Duration::from_secs(2);
-        while inner.active_entries.read().expect("lock").len() < 3 {
+        while inner.read_active_entries().len() < 3 {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for channel count to reach 3");
             }
@@ -2122,7 +2223,7 @@ mod tests {
         }
 
         assert_eq!(
-            inner.active_entries.read().expect("lock").len(),
+            inner.read_active_entries().len(),
             3,
             "Worker loop must scale up pool to 3 channels"
         );
@@ -2308,7 +2409,7 @@ mod tests {
         .await;
 
         assert_eq!(
-            inner.active_entries.read().expect("lock").len(),
+            inner.read_active_entries().len(),
             1,
             "Only 1 successfully primed channel must be published when other fails"
         );
@@ -2432,7 +2533,7 @@ mod tests {
         yield_now().await;
 
         // 2. Set prime_session, but load is 0 so channels_to_add is 0 -> worker should continue looping
-        *inner.prime_session.write().expect("lock") =
+        *inner.write_prime_session() =
             Some("projects/p/instances/i/databases/d/sessions/s1".to_string());
         inner.scale_up_notify.notify_one();
         yield_now().await;
@@ -2563,7 +2664,7 @@ mod tests {
         primed_notify.notified().await;
 
         let deadline = Instant::now() + Duration::from_secs(2);
-        while inner.active_entries.read().expect("lock poisoned").len() < 2 {
+        while inner.read_active_entries().len() < 2 {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for channel count to reach 2");
             }
@@ -2571,7 +2672,7 @@ mod tests {
         }
 
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             2,
             "Worker loop must scale up pool to 2 channels after cooldown sleep completes"
         );
@@ -2645,14 +2746,14 @@ mod tests {
         inner.scale_up_notify.notify_one();
 
         // While worker is sleeping in cooldown, session registration occurs
-        *inner.prime_session.write().expect("lock poisoned") =
+        *inner.write_prime_session() =
             Some("projects/p/instances/i/databases/d/sessions/s_registered".to_string());
 
         // Worker must pick up the newly registered session after cooldown expires
         primed_notify.notified().await;
 
         let deadline = Instant::now() + Duration::from_secs(2);
-        while inner.active_entries.read().expect("lock poisoned").len() < 2 {
+        while inner.read_active_entries().len() < 2 {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for channel count to reach 2");
             }
@@ -2660,7 +2761,7 @@ mod tests {
         }
 
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             2,
             "Worker loop must pick up session registered during cooldown sleep and scale up"
         );
@@ -2836,11 +2937,7 @@ mod tests {
 
         // Worker must have committed a cooldown timestamp rather than spinning in a tight loop
         assert!(
-            inner
-                .last_scale_up_time
-                .lock()
-                .expect("lock poisoned")
-                .is_some(),
+            inner.lock_last_scale_up_time().is_some(),
             "Scale-up worker must commit cooldown timestamp when at capacity ceiling to prevent tight-loop wakeups"
         );
 
@@ -2919,7 +3016,7 @@ mod tests {
         primed_notify.notified().await;
 
         let deadline = Instant::now() + Duration::from_secs(2);
-        while inner.active_entries.read().expect("lock poisoned").len() < 2 {
+        while inner.read_active_entries().len() < 2 {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for channel count to reach 2");
             }
@@ -2927,7 +3024,7 @@ mod tests {
         }
 
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             2,
             "Worker loop must scale up even with sub-millisecond timer resolution"
         );
@@ -3078,7 +3175,7 @@ mod tests {
 
         // Verify that no cooldown timestamp was committed
         assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_none(),
+            inner.lock_last_scale_up_time().is_none(),
             "Low-load notification must NOT commit a cooldown timestamp"
         );
 
@@ -3091,7 +3188,7 @@ mod tests {
         primed_notify.notified().await;
 
         let deadline = Instant::now() + Duration::from_secs(2);
-        while inner.active_entries.read().expect("lock poisoned").len() < 4 {
+        while inner.read_active_entries().len() < 4 {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for pool to scale up after traffic burst");
             }
@@ -3099,14 +3196,14 @@ mod tests {
         }
 
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             4,
             "Worker must scale up to 4 channels immediately upon burst"
         );
 
         // After actual scale-up, cooldown timestamp MUST now be committed
         assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_some(),
+            inner.lock_last_scale_up_time().is_some(),
             "Cooldown timestamp must be set after an actual scale-up event"
         );
 
@@ -3172,14 +3269,14 @@ mod tests {
 
         // Worker debounces and must NOT scale up
         assert_eq!(
-            inner.active_entries.read().expect("lock").len(),
+            inner.read_active_entries().len(),
             4,
             "Pool size must remain at 4 since aggregate load does not warrant scale-up"
         );
 
         // Cooldown must not be set on insufficient aggregate load
         assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_none(),
+            inner.lock_last_scale_up_time().is_none(),
             "Capacity-absorption cooldown must NOT be committed on insufficient aggregate load"
         );
 
@@ -3272,7 +3369,7 @@ mod tests {
         primed_notify.notified().await;
 
         let deadline = Instant::now() + Duration::from_secs(2);
-        while inner.active_entries.read().expect("lock poisoned").len() < 5 {
+        while inner.read_active_entries().len() < 5 {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for pool to scale up after single-channel saturation");
             }
@@ -3282,7 +3379,7 @@ mod tests {
         yield_now().await;
 
         assert_eq!(
-            inner.active_entries.read().expect("lock poisoned").len(),
+            inner.read_active_entries().len(),
             5,
             "Pool size must increase by exactly 1 channel (4 -> 5), NOT doubling to 8"
         );
