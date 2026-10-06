@@ -13,19 +13,21 @@
 // limitations under the License.
 
 // [START storage_set_bucket_public_iam]
-use google_cloud_iam_v1::model::Binding;
+use google_cloud_iam_v1::model::{Binding, GetPolicyOptions};
 use google_cloud_storage::client::StorageControl;
 
 pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
     let mut policy = client
         .get_iam_policy()
         .set_resource(format!("projects/_/buckets/{bucket_id}"))
+        .set_options(GetPolicyOptions::new().set_requested_policy_version(3))
         .send()
         .await?;
+    policy.version = 3;
     policy.bindings.push(
         Binding::new()
             .set_role("roles/storage.objectViewer")
-            .set_members(vec!["allUsers".to_string()]),
+            .set_members(["allUsers"]),
     );
     let updated_policy = client
         .set_iam_policy()
