@@ -199,7 +199,9 @@ impl FromSql for wkt::Value {
             ))]
             SqlValueInner::Arrow(_) => {
                 // TODO(#7032): Implement wkt::Value conversion for Arrow cells.
-                unimplemented!("Arrow to wkt::Value conversion is not yet implemented (#7032)")
+                return Err(ConvertError::Convert(
+                    "Arrow to wkt::Value conversion is not yet implemented".into(),
+                ));
             }
         })
     }
@@ -983,5 +985,18 @@ mod tests {
                 if expected == "expected_type" && got == &val.type_name()
         ));
         val.type_name()
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[test]
+    fn test_from_sql_value_arrow_not_implemented() {
+        let arr: ArrayRef = Arc::new(Int64Array::from(vec![42]));
+        let val = SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, 0)));
+        let err = wkt::Value::from_value(val).unwrap_err();
+        assert!(matches!(err, ConvertError::Convert(_)));
+        assert!(err.to_string().contains("not yet implemented"), "{err}");
     }
 }
