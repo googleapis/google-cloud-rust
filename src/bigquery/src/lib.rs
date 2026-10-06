@@ -203,6 +203,11 @@ pub mod error;
 /// Types related to querying with a [BigQuery][crate::client::BigQuery] client.
 pub mod query;
 
+/// Types related to reading with a [Read][crate::client::Read] client.
+pub mod read {
+    pub use crate::write::reader::Reader;
+}
+
 /// Types related to writing with a [Write][crate::client::Write] client.
 pub mod write;
 
