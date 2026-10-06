@@ -16,7 +16,7 @@ use crate::client::Spanner;
 use crate::model::{CreateSessionRequest, Session};
 use crate::observability::Observability;
 use crate::{RequestOptions, Result};
-use std::sync::{Arc, RwLock, Weak};
+use std::sync::{Arc, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard, Weak};
 use std::time::Duration;
 use tokio::time::{Instant, sleep};
 
@@ -45,13 +45,34 @@ pub(crate) struct ManagedSession {
 }
 
 impl ManagedSessionMaintainer {
+    /// Returns the name of the active multiplexed session.
+    ///
+    /// This method is called on every Spanner request to resolve the session name,
+    /// and safely recovers from lock poisoning if an earlier task panicked under lock.
     pub(crate) fn session_name(&self) -> String {
-        self.session
-            .read()
-            .expect("failed to read session")
-            .session
-            .name
-            .clone()
+        self.read_session().session.name.clone()
+    }
+
+    /// Acquires a read lock on the managed session, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `ManagedSession` holds an immutable `Arc<Session>` and an `Instant`. The write lock is only held
+    /// during an atomic swap when rotating sessions (`*guard = ManagedSession { ... }`), while remote RPCs
+    /// (`CreateSession`) occur beforehand without holding the lock. Even if an unexpected panic occurs while
+    /// holding the lock, the underlying memory remains structurally valid in Rust, and the `Arc<Session>`
+    /// safely references a valid session. Recovering the guard via `into_inner()` ensures that an isolated
+    /// panic in a background rotation or worker task does not permanently poison the lock and take down the
+    /// entire client on subsequent `session_name()` lookups.
+    pub(crate) fn read_session(&self) -> RwLockReadGuard<'_, ManagedSession> {
+        self.session.read().unwrap_or_else(PoisonError::into_inner)
+    }
+
+    /// Acquires a write lock on the managed session, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_session`](Self::read_session).
+    pub(crate) fn write_session(&self) -> RwLockWriteGuard<'_, ManagedSession> {
+        self.session.write().unwrap_or_else(PoisonError::into_inner)
     }
 
     /// Creates a new `ManagedSessionMaintainer` with an initial session,
@@ -94,7 +115,7 @@ impl ManagedSessionMaintainer {
 
     async fn check_and_replace_session(&self, age: Duration) -> Result<()> {
         let should_replace = {
-            let guard = self.session.read().expect("failed to read session");
+            let guard = self.read_session();
             guard.created_at.elapsed() >= age
         };
 
@@ -116,7 +137,7 @@ impl ManagedSessionMaintainer {
 
         self.spanner.set_prime_session(new_session.name.clone());
 
-        let mut guard = self.session.write().expect("failed to write session");
+        let mut guard = self.write_session();
         *guard = ManagedSession {
             session: Arc::new(new_session),
             created_at: Instant::now(),
@@ -157,8 +178,8 @@ impl ManagedSessionMaintainer {
         age: Duration,
     ) {
         sleep(interval).await;
-        while let Some(m) = maintainer.upgrade() {
-            Self::maintain(m, age).await;
+        while let Some(upgraded_maintainer) = maintainer.upgrade() {
+            Self::maintain(upgraded_maintainer, age).await;
             sleep(interval).await;
         }
     }
@@ -183,6 +204,7 @@ mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1::Session as GrpcSession;
     use spanner_grpc_mock::{MockSpanner, start};
+    use std::panic::{AssertUnwindSafe, catch_unwind};
 
     #[tokio_test_no_panics]
     async fn session_maintenance() {
@@ -236,15 +258,11 @@ mod tests {
         .expect("Failed to create ManagedSessionMaintainer");
 
         {
-            let session = maintainer
-                .session
-                .read()
-                .expect("failed to read session")
-                .session
-                .clone();
+            let session = maintainer.read_session().session.clone();
             assert_eq!(
                 session.name,
-                "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
+                "projects/test-project/instances/test-instance/databases/test-db/sessions/1",
+                "Initial session name must match expected session 1"
             );
         }
         assert_eq!(
@@ -259,7 +277,7 @@ mod tests {
 
         // Modify created_at to be in the past (older than 7 days)
         {
-            let mut guard = maintainer.session.write().expect("failed to write session");
+            let mut guard = maintainer.write_session();
             guard.created_at = Instant::now() - Duration::from_secs(7 * 24 * 3600 + 3600);
         }
 
@@ -270,15 +288,11 @@ mod tests {
             .expect("Failed to check and replace session");
 
         {
-            let session = maintainer
-                .session
-                .read()
-                .expect("failed to read session")
-                .session
-                .clone();
+            let session = maintainer.read_session().session.clone();
             assert_eq!(
                 session.name,
-                "projects/test-project/instances/test-instance/databases/test-db/sessions/2"
+                "projects/test-project/instances/test-instance/databases/test-db/sessions/2",
+                "Rotated session name must match expected session 2"
             );
         }
         assert_eq!(
@@ -325,14 +339,17 @@ mod tests {
         .expect("Failed to create ManagedSessionMaintainer");
 
         let weak = Arc::downgrade(&maintainer);
-        let m = weak.upgrade().expect("should be alive");
-        ManagedSessionMaintainer::maintain(m, SESSION_MAINTENANCE_AGE).await;
+        let upgraded_maintainer = weak.upgrade().expect("should be alive");
+        ManagedSessionMaintainer::maintain(upgraded_maintainer, SESSION_MAINTENANCE_AGE).await;
     }
 
     #[tokio_test_no_panics]
     async fn maintain_dropped() {
         let weak = Weak::<ManagedSessionMaintainer>::new();
-        assert!(weak.upgrade().is_none());
+        assert!(
+            weak.upgrade().is_none(),
+            "Weak reference to dropped maintainer must upgrade to None"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -375,15 +392,11 @@ mod tests {
             .expect("Failed to check and replace session");
 
         // Verify session is still the same.
-        let session = maintainer
-            .session
-            .read()
-            .expect("failed to read session")
-            .session
-            .clone();
+        let session = maintainer.read_session().session.clone();
         assert_eq!(
             session.name,
-            "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/1",
+            "Session name must remain unchanged when age has not elapsed"
         );
     }
 
@@ -434,24 +447,20 @@ mod tests {
 
         // Age the session
         {
-            let mut guard = maintainer.session.write().expect("failed to write session");
+            let mut guard = maintainer.write_session();
             guard.created_at = Instant::now() - Duration::from_secs(7 * 24 * 3600 + 3600);
         }
 
         let weak = Arc::downgrade(&maintainer);
-        let m = weak.upgrade().expect("should be alive");
-        ManagedSessionMaintainer::maintain(m, SESSION_MAINTENANCE_AGE).await;
+        let upgraded_maintainer = weak.upgrade().expect("should be alive");
+        ManagedSessionMaintainer::maintain(upgraded_maintainer, SESSION_MAINTENANCE_AGE).await;
 
         // Verify session is still the old one!
-        let session = maintainer
-            .session
-            .read()
-            .expect("failed to read session")
-            .session
-            .clone();
+        let session = maintainer.read_session().session.clone();
         assert_eq!(
             session.name,
-            "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/1",
+            "Session name must remain unchanged when replacement creation RPC fails"
         );
     }
 
@@ -491,7 +500,10 @@ mod tests {
         // Mock begin_transaction (twice)
         mock.expect_begin_transaction().times(2).returning(|req| {
             let req = req.into_inner();
-            assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/1");
+            assert_eq!(
+                req.session, "projects/p/instances/i/databases/d/sessions/1",
+                "BeginTransaction request must target initial session 1"
+            );
             Ok(Response::new(mock_v1::Transaction {
                 id: vec![1, 2, 3],
                 ..Default::default()
@@ -501,7 +513,10 @@ mod tests {
         // Mock execute_sql for update (attempt 1)
         mock.expect_execute_sql().once().returning(|req| {
             let req = req.into_inner();
-            assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/1");
+            assert_eq!(
+                req.session, "projects/p/instances/i/databases/d/sessions/1",
+                "ExecuteSql request for attempt 1 must target initial session 1"
+            );
 
             Ok(Response::new(mock_v1::ResultSet {
                 metadata: Some(mock_v1::ResultSetMetadata {
@@ -522,14 +537,20 @@ mod tests {
         // Mock commit returning Aborted
         mock.expect_commit().once().returning(|req| {
             let req = req.into_inner();
-            assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/1");
+            assert_eq!(
+                req.session, "projects/p/instances/i/databases/d/sessions/1",
+                "Commit request for attempt 1 must target initial session 1"
+            );
             Err(create_aborted_status(std::time::Duration::from_nanos(1)))
         });
 
         // Mock execute_sql for update (retry attempt)
         mock.expect_execute_sql().once().returning(|req| {
             let req = req.into_inner();
-            assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/1");
+            assert_eq!(
+                req.session, "projects/p/instances/i/databases/d/sessions/1",
+                "ExecuteSql request for retry attempt must target initial session 1"
+            );
 
             Ok(Response::new(mock_v1::ResultSet {
                 metadata: Some(mock_v1::ResultSetMetadata {
@@ -550,7 +571,10 @@ mod tests {
         // Mock commit returning success
         mock.expect_commit().once().returning(|req| {
             let req = req.into_inner();
-            assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/1");
+            assert_eq!(
+                req.session, "projects/p/instances/i/databases/d/sessions/1",
+                "Commit request for retry attempt must target initial session 1"
+            );
             Ok(Response::new(mock_v1::CommitResponse {
                 commit_timestamp: Some(prost_types::Timestamp {
                     seconds: 123456789,
@@ -591,7 +615,8 @@ mod tests {
         // Verify that the maintainer now has session 2
         assert_eq!(
             maintainer.session_name(),
-            "projects/p/instances/i/databases/d/sessions/2"
+            "projects/p/instances/i/databases/d/sessions/2",
+            "Maintainer session_name() must reflect rotated session 2"
         );
 
         // 3. Run transaction
@@ -599,12 +624,122 @@ mod tests {
             .run(
                 |tx: crate::read_write_transaction::ReadWriteTransaction| async move {
                     let count = tx.execute_update("UPDATE Users SET active = true").await?;
-                    assert_eq!(count, 1);
+                    assert_eq!(count, 1, "Execute update row count must be 1");
                     Ok(())
                 },
             )
             .await;
 
         result.expect("Transaction failed");
+    }
+
+    #[tokio_test_no_panics]
+    async fn poisoned_session_lock_recovery() {
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(GrpcSession {
+                    name:
+                        "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
+                            .to_string(),
+                    multiplexed: true,
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(GrpcSession {
+                    name:
+                        "projects/test-project/instances/test-instance/databases/test-db/sessions/2"
+                            .to_string(),
+                    multiplexed: true,
+                    ..Default::default()
+                }))
+            });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
+            spanner,
+            "projects/test-project/instances/test-instance/databases/test-db".to_string(),
+            "test-role".to_string(),
+            RequestOptions::default(),
+            Arc::new(Observability::disabled()),
+        )
+        .await
+        .expect("Failed to create ManagedSessionMaintainer");
+
+        assert_eq!(
+            maintainer.session_name(),
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/1",
+            "Initial session name must be session 1"
+        );
+
+        // 1. Intentionally poison the RwLock by panicking while holding a write lock.
+        let maintainer_for_write_panic = Arc::clone(&maintainer);
+        let write_panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _write_guard = maintainer_for_write_panic.write_session();
+            panic!("simulated panic while holding session write lock");
+        }));
+        assert!(
+            write_panic_result.is_err(),
+            "catch_unwind must capture the simulated write panic"
+        );
+
+        // Verify that the underlying RwLock is indeed marked as poisoned.
+        assert!(
+            maintainer.session.is_poisoned(),
+            "RwLock must be marked as poisoned after a panic while holding the write guard"
+        );
+
+        // Verify `session_name()` recovers and does not panic on a poisoned lock.
+        assert_eq!(
+            maintainer.session_name(),
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/1",
+            "session_name() must successfully read from a write-poisoned lock"
+        );
+
+        // Verify `read_session()` recovers and does not panic.
+        {
+            let guard = maintainer.read_session();
+            assert_eq!(
+                guard.session.name,
+                "projects/test-project/instances/test-instance/databases/test-db/sessions/1",
+                "read_session() must return the session even when write-poisoned"
+            );
+        }
+
+        // 2. Verify `write_session()` recovers and allows mutating state when poisoned.
+        {
+            let mut guard = maintainer.write_session();
+            guard.created_at = Instant::now() - Duration::from_secs(7 * 24 * 3600 + 3600);
+        }
+
+        // 3. Verify maintenance replacement works end-to-end even when the lock was poisoned.
+        maintainer
+            .check_and_replace_session(SESSION_MAINTENANCE_AGE)
+            .await
+            .expect("check_and_replace_session must succeed on poisoned lock");
+
+        assert_eq!(
+            maintainer.session_name(),
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/2",
+            "Session name must reflect rotated session 2 after maintenance on a poisoned lock"
+        );
     }
 }
