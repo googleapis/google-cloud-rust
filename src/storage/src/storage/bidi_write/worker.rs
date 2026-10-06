@@ -122,7 +122,8 @@ pub struct Worker<C> {
     /// Tracks if a worker-initiated `state_lookup` request is awaiting a server response.
     ///
     /// The worker injects such a request when the replay buffer crosses its high watermark, so that
-    /// an `ack()` is guaranteed to arrive before the buffer fills.
+    /// a response is already owed by the time the buffer fills and `ack()` can drain it. Up to two
+    /// more maximum-size appends may still arrive before that response does.
     self_flush_outstanding: bool,
 }
 
@@ -155,8 +156,9 @@ impl<C> Worker<C> {
     /// Returns `true` if the replay buffer has crossed its high watermark and neither a user
     /// flush/finalize nor a worker-initiated `state_lookup` is already awaiting a response.
     ///
-    /// Because normal appends do not elicit a server response, this ensures a `state_lookup` probe
-    /// is always in flight before [`ReplayBuffer::is_full`] pauses the intent channel.
+    /// Because plain appends do not elicit a server response, this keeps a response owed, either to
+    /// a pending user flush/finalize or to a worker probe, whenever the buffer is above the
+    /// watermark, so the loop stays live once [`ReplayBuffer::is_full`] pauses the intent channel.
     fn needs_watermark_flush(&self) -> bool {
         !self.self_flush_outstanding
             && self.pending_requests.is_empty()
@@ -292,9 +294,10 @@ where
         let response = match message {
             Ok(Some(msg)) => msg,
             Ok(None) => {
-                // If the stream is unexpectedly closed by the server before the client intends to
-                // finalize the upload, treat it as an error to trigger reconnect or prevent silent
-                // failures on subsequent client writes.
+                // The server closed the stream. That is the expected end of a finalized upload
+                // once the finalize response has been delivered. Otherwise a flush or finalize is
+                // still waiting for its response, or the client never asked to finalize, so
+                // reconnect rather than drop unacknowledged work and fail later client writes.
                 if !self.pending_requests.is_empty() || !self.finalized {
                     let connection = self
                         .reconnect(Error::io("stream closed unexpectedly"))
@@ -412,7 +415,11 @@ where
     /// Reconnects, then restores the session state on the new stream.
     ///
     /// Replays every unacknowledged chunk, re-sends the flush and finalize requests still waiting
-    /// for a response, and re-arms the watermark probe.
+    /// for a response, and re-arms the watermark probe if the replay buffer is still above its
+    /// watermark. Returns an error if the connector gives up on reconnecting (the retry policy
+    /// classifies `last_error` as permanent or the retry or redirect budget is exhausted), or if
+    /// the handshake response reports a `persisted_size` regression or an unexpectedly finalized
+    /// object.
     async fn reconnect(&mut self, last_error: Error) -> LoopResult<Connection<C::Stream>> {
         // Any response the worker-initiated `state_lookup` was waiting on will never arrive on the
         // dead stream.
@@ -423,12 +430,15 @@ where
             .reconnect(last_error, self.persisted_size)
             .await?;
 
-        // Process the reconnect handshake response. If the service already finalized the object
-        // before the previous stream broke, `initial_response` carries a finalized `Resource`
-        // (`finalize_time.is_some()`) and satisfies the pending `Finalize` here without re-sending
-        // it. Otherwise, a reconnected create or handle-less takeover stream returns an
-        // unfinalized `Resource` (`finalize_time.is_none()`), which `PendingRequest::is_satisfied`
-        // ignores for `PendingKind::Finalize` so the pending finalize is re-sent below.
+        // Process the reconnect handshake response. The spec is always `Append` here, so the new
+        // stream opened with `state_lookup: true`. If the service finalized the object before the
+        // previous stream broke, `initial_response` carries a finalized `Resource`
+        // (`finalize_time.is_some()`) and satisfies the pending `Finalize` here, so it is not
+        // re-sent. Otherwise the handshake reports progress as a bare `PersistedSize` or as an
+        // unfinalized `Resource` (`finalize_time.is_none()`); neither satisfies a pending
+        // `Finalize` (`PendingRequest::is_satisfied` requires a finalized response), so it is
+        // re-sent below. A pending `Flush` whose `write_offset` is already persisted is completed
+        // here instead of being re-sent.
         self.handle_response_success(initial_response, ResponseOrigin::Handshake)?;
 
         // Replay all unpersisted chunks, then re-send the pending flush / finalize requests. A
@@ -456,6 +466,13 @@ where
         Ok(connection)
     }
 
+    /// Drains the response stream after the intent channel closed and `tx` was dropped.
+    ///
+    /// Dropping `tx` half-closes the request stream, so the server sends any remaining responses
+    /// and then ends the call. Unlike [`Self::run`], this does not reconnect on an error or early
+    /// close: the transport closes the intent channel only after `close()` has flushed or
+    /// `finalize()` has received its response, so every chunk is already acknowledged, no request
+    /// is pending, and no new intent can arrive. Returns the error that ended the stream, if any.
     async fn wait_for_server_completion(&mut self, mut rx: C::Stream) -> Option<Error> {
         loop {
             match rx.next_message().await {
@@ -1728,8 +1745,10 @@ mod tests {
         let (handle, tx, _request_rx, response_tx) = spawn_test_worker();
 
         // Act.
-        // Send a permanent gRPC error (INVALID_ARGUMENT) on the stream. Because spawn_test_worker
-        // sets `mock.expect_start().never()`, any reconnect attempt would panic.
+        // Send a permanent gRPC error (INVALID_ARGUMENT) on the stream. `Worker::reconnect` is
+        // entered, but `Connector::reconnect` rejects the permanent error via the retry policy
+        // before opening a new stream, so `start()` is never called; `spawn_test_worker` sets
+        // `mock.expect_start().never()` to prove it.
         response_tx
             .send(Err(Status::invalid_argument("bad write_offset")))
             .await?;
