@@ -224,61 +224,65 @@ impl Reader {
         self
     }
 
-    async fn handle_error(&mut self, offset: i64, mut retry_state: RetryState, err: Error) {
+    fn record_success(&self) {
+        self.retry_throttler
+            .lock()
+            .expect("retry throttler lock is poisoned")
+            .on_success();
+    }
+
+    fn handle_error(
+        &self,
+        offset: i64,
+        mut retry_state: RetryState,
+        err: Error,
+    ) -> (ReaderState, Option<Duration>) {
         retry_state.attempt_count += 1;
         let flow = self.retry_policy.on_error(&retry_state, err);
         self.retry_throttler
             .lock()
             .expect("retry throttler lock is poisoned")
             .on_retry_failure(&flow);
-        let mut prev_err = match flow {
+        let prev_err = match flow {
             RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
-                self.state = ReaderState::Terminated(Some(e));
-                return;
+                return (ReaderState::Terminated(Some(e)), None);
             }
             RetryResult::Continue(e) => e,
         };
 
-        loop {
-            let delay = self.backoff_policy.on_failure(&retry_state);
-            if self
-                .retry_policy
-                .remaining_time(&retry_state)
-                .is_some_and(|remaining| remaining <= delay)
-            {
-                self.state = ReaderState::Terminated(Some(Error::exhausted(prev_err)));
-                return;
-            }
-            // Transition to Connecting before sleeping so that if `next()` is
-            // cancelled during backoff, the Reader remains in a valid state to
-            // reconnect on the next poll instead of terminating prematurely.
-            self.state = ReaderState::Connecting {
-                offset,
-                retry_state: retry_state.clone(),
-            };
-            tokio::time::sleep(delay).await;
-
-            let throttled = self
-                .retry_throttler
-                .lock()
-                .expect("retry throttler lock is poisoned")
-                .throttle_retry_attempt();
-            if !throttled {
-                return;
-            }
+        let throttled = self
+            .retry_throttler
+            .lock()
+            .expect("retry throttler lock is poisoned")
+            .throttle_retry_attempt();
+        let prev_err = if throttled {
             retry_state.attempt_count += 1;
-            self.state = ReaderState::Connecting {
-                offset,
-                retry_state: retry_state.clone(),
-            };
-            prev_err = match self.retry_policy.on_throttle(&retry_state, prev_err) {
-                ThrottleResult::Exhausted(e) => {
-                    self.state = ReaderState::Terminated(Some(e));
-                    return;
-                }
+            match self.retry_policy.on_throttle(&retry_state, prev_err) {
+                ThrottleResult::Exhausted(e) => return (ReaderState::Terminated(Some(e)), None),
                 ThrottleResult::Continue(e) => e,
-            };
+            }
+        } else {
+            prev_err
+        };
+
+        let delay = self.backoff_policy.on_failure(&retry_state);
+        if self
+            .retry_policy
+            .remaining_time(&retry_state)
+            .is_some_and(|remaining| remaining <= delay)
+        {
+            return (
+                ReaderState::Terminated(Some(Error::exhausted(prev_err))),
+                None,
+            );
         }
+        (
+            ReaderState::Connecting {
+                offset,
+                retry_state,
+            },
+            Some(delay),
+        )
     }
 
     /// Advances the state machine by a single transition, returning a
@@ -301,7 +305,11 @@ impl Reader {
                         };
                     }
                     Err(err) => {
-                        self.handle_error(offset, retry_state, err).await;
+                        let (next_state, delay) = self.handle_error(offset, retry_state, err);
+                        self.state = next_state;
+                        if let Some(delay) = delay {
+                            tokio::time::sleep(delay).await;
+                        }
                     }
                 }
                 None
@@ -323,23 +331,21 @@ impl Reader {
                     // Data progress was made: clear `retry_state` so any future
                     // mid-stream failure starts a fresh `RetryState::new(true)`.
                     *retry_state = None;
-                    self.retry_throttler
-                        .lock()
-                        .expect("retry throttler lock is poisoned")
-                        .on_success();
+                    self.record_success();
                     Some(response)
                 }
                 Some(Err(err)) => {
                     let offset = *offset;
                     let retry_state = retry_state.take().unwrap_or_else(|| RetryState::new(true));
-                    self.handle_error(offset, retry_state, err).await;
+                    let (next_state, delay) = self.handle_error(offset, retry_state, err);
+                    self.state = next_state;
+                    if let Some(delay) = delay {
+                        tokio::time::sleep(delay).await;
+                    }
                     None
                 }
                 None => {
-                    self.retry_throttler
-                        .lock()
-                        .expect("retry throttler lock is poisoned")
-                        .on_success();
+                    self.record_success();
                     self.state = ReaderState::Terminated(None);
                     None
                 }
