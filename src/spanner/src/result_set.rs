@@ -269,16 +269,17 @@ impl ResultSet {
     /// # use google_cloud_spanner::result::ResultSet;
     /// # use google_cloud_spanner::result::Row;
     /// # async fn fetch_metadata(mut rs: ResultSet) -> Result<(), Box<dyn std::error::Error>> {
-    /// if let Some(metadata) = rs.metadata() {
-    ///     for column in metadata.column_names() {
-    ///         println!("Column name: {}", column);
-    ///     }
+    /// let metadata = rs.metadata();
+    /// for column in metadata.column_names() {
+    ///     println!("Column name: {}", column);
     /// }
     /// # Ok(())
     /// # }
     /// ```
-    pub fn metadata(&self) -> Option<&ResultSetMetadata> {
-        self.local_metadata.as_ref()
+    pub fn metadata(&self) -> &ResultSetMetadata {
+        self.local_metadata
+            .as_ref()
+            .expect("metadata is guaranteed on initialized ResultSet")
     }
 
     /// Returns the stats of the result set, if available.
@@ -313,7 +314,7 @@ impl ResultSet {
     /// # use google_cloud_spanner::result::ResultSet;
     /// # use google_cloud_spanner::statement::Statement;
     /// # async fn check_update_count(db_client: &DatabaseClient) -> Result<(), Box<dyn std::error::Error>> {
-    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let runner = db_client.read_write_transaction().build();
     /// runner.run(async |tx| {
     ///     let stmt = Statement::builder("UPDATE Singers SET LastName = 'Simpson' WHERE SingerId = @id THEN RETURN SingerId, LastName")
     ///         .add_param("id", &123_i64)
@@ -472,6 +473,9 @@ impl ResultSet {
                 return Err(internal_error(
                     "First PartialResultSet did not contain metadata",
                 ));
+            }
+            (Some(_), Some(m)) if self.last_resume_token.is_empty() => {
+                self.handle_metadata(m)?;
             }
             (Some(_), Some(_)) => {
                 return Err(internal_error("Additional metadata after first result set"));
@@ -672,9 +676,10 @@ impl ResultSet {
         if values.is_empty() {
             return Ok(());
         }
-        let metadata = self.local_metadata.as_ref().ok_or_else(|| {
-            internal_error("PartialResultSet contained values but no metadata was provided")
-        })?;
+        let metadata = self
+            .local_metadata
+            .as_ref()
+            .expect("metadata is guaranteed on initialized ResultSet");
         if metadata.column_types.is_empty() {
             return Err(internal_error(
                 "PartialResultSet contained values but no column metadata was provided",
@@ -721,14 +726,6 @@ impl ResultSet {
         } else {
             None
         };
-
-        // If we are restarting the stream from the beginning (because no resume token
-        // was received prior to the transient failure), we clear our local metadata state.
-        // This ensures that when Spanner transmits the initial metadata chunk on the retried stream,
-        // it is extracted without triggering the 'only-once' metadata validation error.
-        if self.last_resume_token.is_empty() {
-            self.local_metadata = None;
-        }
 
         // When retrying a streaming SQL/read RPC after a transient failure, we manually increment
         // the attempt number suffix on the existing `x-goog-spanner-request-id` header in `RequestOptions`.
@@ -971,7 +968,9 @@ pub(crate) mod tests {
     }
 
     async fn run_mock_query(results: Vec<PartialResultSet>) -> ResultSet {
-        run_mock_query_fallible(results).await.unwrap()
+        run_mock_query_fallible(results)
+            .await
+            .expect("mock query should succeed")
     }
 
     async fn run_mock_query_fallible(results: Vec<PartialResultSet>) -> crate::Result<ResultSet> {
@@ -999,10 +998,8 @@ pub(crate) mod tests {
             .await
             .expect("Failed to build client");
 
-        let db_client: crate::database_client::DatabaseClient =
-            client.database_client("db").build().await.unwrap();
-        let tx: crate::read_only_transaction::SingleUseReadOnlyTransaction =
-            db_client.single_use().build();
+        let db_client = client.database_client("db").build().await?;
+        let tx = db_client.single_use().build();
         tx.execute_query("SELECT 1").await
     }
 
@@ -1040,7 +1037,7 @@ pub(crate) mod tests {
         .await;
 
         // Called before next() -> metadata is immediately available.
-        let meta = rs.metadata().expect("metadata available");
+        let meta = rs.metadata();
         assert_eq!(
             meta.column_names(),
             &["col0".to_string(), "col1".to_string()]
@@ -1050,9 +1047,75 @@ pub(crate) mod tests {
         let _next = rs.next().await.expect("Expected a row")?;
 
         // Called after next() -> returns metadata
-        let meta = rs.metadata().expect("metadata available");
+        let meta = rs.metadata();
         assert_eq!(
             meta.column_names(),
+            &["col0".to_string(), "col1".to_string()]
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn test_result_set_metadata_remains_available_after_stream_error() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let chunk1 = PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a"), string_val("b")],
+            last: false,
+            resume_token: b"token1".to_vec(),
+            ..Default::default()
+        };
+        let responses = vec![
+            Ok(chunk1),
+            Err(Status::new(
+                GrpcCode::Internal,
+                "simulated unrecoverable stream error",
+            )),
+        ];
+        let rx = adapt(responses.into_iter());
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_request| Ok(Response::from(rx)));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let tx = db_client.single_use().build();
+        let mut rs = tx.execute_query("SELECT 1").await?;
+
+        // Metadata is immediately available before iterating rows.
+        let meta_before = rs.metadata();
+        assert_eq!(
+            meta_before.column_names(),
+            &["col0".to_string(), "col1".to_string()]
+        );
+
+        // Consume first row.
+        let row1 = rs.next().await.expect("first row should be available")?;
+        assert_eq!(row1.raw_values().len(), 2);
+
+        // Second row encounters unrecoverable stream error.
+        let err = rs.next().await.expect("stream error should yield item");
+        assert!(err.is_err(), "expected stream error");
+
+        // Metadata remains intact and accessible without panic.
+        let meta_after = rs.metadata();
+        assert_eq!(
+            meta_after.column_names(),
             &["col0".to_string(), "col1".to_string()]
         );
 
@@ -2604,7 +2667,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -2682,7 +2745,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut mock_backoff = MockBackoffPolicy::new();
@@ -2775,7 +2838,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut mock_backoff = MockBackoffPolicy::new();
@@ -2848,7 +2911,7 @@ pub(crate) mod tests {
         // Use explicitly deferred Lazy begin transaction!
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let err = tx
@@ -3033,7 +3096,7 @@ pub(crate) mod tests {
         // Use inline begin transaction
         let tx = db_client
             .read_only_transaction()
-            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -3111,7 +3174,7 @@ pub(crate) mod tests {
         let mut rs = tx.execute_query("SELECT 1").await?;
 
         // Call metadata() BEFORE next(). It should succeed immediately.
-        let metadata = rs.metadata().expect("metadata available");
+        let metadata = rs.metadata();
         assert_eq!(metadata.column_names().len(), 1);
         assert_eq!(metadata.column_names()[0], "col0");
 

@@ -170,7 +170,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
     let mut rs = rot.execute_query(Statement::builder(sql).build()).await?;
 
     assert!(rs.next().await.transpose()?.is_some());
-    let metadata = rs.metadata().expect("metadata available");
+    let metadata = rs.metadata();
     assert_eq!(
         metadata.column_names(),
         &["num".to_string(), "name".to_string()]
@@ -188,7 +188,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         .await?;
 
     assert!(rs_zero_rows.next().await.transpose()?.is_none());
-    let metadata_zero_rows = rs_zero_rows.metadata().expect("metadata available");
+    let metadata_zero_rows = rs_zero_rows.metadata();
     assert_eq!(
         metadata_zero_rows.column_names(),
         &["num".to_string(), "name".to_string()]
@@ -200,8 +200,12 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         .execute_query(Statement::builder(sql_dup).build())
         .await?;
 
-    let row_dup = rs_dup.next().await.transpose()?.unwrap();
-    let metadata_dup = rs_dup.metadata().expect("metadata available");
+    let row_dup = rs_dup
+        .next()
+        .await
+        .transpose()?
+        .expect("row should be present");
+    let metadata_dup = rs_dup.metadata();
     assert_eq!(
         metadata_dup.column_names(),
         &["dup".to_string(), "dup".to_string()]
@@ -230,7 +234,7 @@ async fn test_multi_use_read_only_transaction(
     // Start a multi-use read-only transaction.
     let tx = db_client
         .read_only_transaction()
-        .with_begin_transaction_option(begin_transaction_option)
+        .set_begin_transaction_option(begin_transaction_option)
         .build()
         .await?;
 
@@ -274,7 +278,7 @@ pub async fn multi_use_read_only_transaction_interleaved(
 ) -> anyhow::Result<()> {
     let tx = db_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -304,7 +308,7 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
     // Start a multi-use read-only transaction with implicit begin.
     let tx = db_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -599,7 +603,7 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
 
     let tx = proxy_db_client
         .read_only_transaction()
-        .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
@@ -677,7 +681,7 @@ pub async fn query_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let next = rs.next().await.transpose()?;
     assert!(next.is_none());
 
-    let metadata = rs.metadata().expect("metadata available");
+    let metadata = rs.metadata();
     assert_eq!(metadata.column_names(), &["num".to_string()]);
 
     let stats = rs.stats();
@@ -721,7 +725,7 @@ pub async fn query_profile(db_client: &DatabaseClient) -> anyhow::Result<()> {
 }
 
 pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
 
     runner
         .run(async |tx| {
@@ -734,7 +738,7 @@ pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
             let next = rs.next().await.transpose()?;
             assert!(next.is_none());
 
-            let metadata = rs.metadata().expect("metadata should be available");
+            let metadata = rs.metadata();
             assert!(metadata.column_names().is_empty());
 
             // Verify undeclared parameters
@@ -1046,7 +1050,7 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
 
     // 3. Update the row using untyped DML parameters (add_param).
     let row_id_clone = row_id.clone();
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     runner
         .run(async |transaction| {
             let update_statement = Statement::builder(
@@ -1099,7 +1103,7 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
 
     // 5. Update to NaN using untyped DML parameter.
     let row_id_clone = row_id.clone();
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client.read_write_transaction().build();
     runner
         .run(async |transaction| {
             let update_statement = Statement::builder(
