@@ -115,14 +115,23 @@ impl EndpointCooldownTracker {
         }
     }
 
-    /// Acquires a shared read lock on the endpoint cooldown states, recovering the underlying lock guard
-    /// via `PoisonError::into_inner` if the lock was poisoned.
+    /// Acquires a shared read lock on the endpoint cooldown states, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `state` stores an in-memory `HashMap<String, EndpointCooldownState>`. In Rust, standard collections
+    /// remain memory-safe and structurally sound even if an earlier thread panicked while reading or writing.
+    /// Cooldown states track transient failure counts and decay timestamps; any partially applied or interrupted
+    /// update is safely corrected or pruned on subsequent checks. Recovering the guard via `into_inner()` prevents
+    /// an isolated panic in an application RPC or maintenance cleanup task from permanently disabling cooldown
+    /// tracking and cascading into routing failures.
     fn read_state(&self) -> RwLockReadGuard<'_, HashMap<String, EndpointCooldownState>> {
         self.state.read().unwrap_or_else(PoisonError::into_inner)
     }
 
-    /// Acquires an exclusive write lock on the endpoint cooldown states, recovering the underlying lock guard
-    /// via `PoisonError::into_inner` if the lock was poisoned.
+    /// Acquires an exclusive write lock on the endpoint cooldown states, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_state`](Self::read_state).
     fn write_state(&self) -> RwLockWriteGuard<'_, HashMap<String, EndpointCooldownState>> {
         self.state.write().unwrap_or_else(PoisonError::into_inner)
     }

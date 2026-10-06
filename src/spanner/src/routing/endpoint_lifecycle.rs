@@ -107,14 +107,24 @@ impl EndpointLifecycleManager {
         }
     }
 
-    /// Acquires a shared read lock on the lifecycle manager state, recovering the underlying lock guard
-    /// via `PoisonError::into_inner` if the lock was poisoned.
+    /// Acquires a shared read lock on the lifecycle manager state, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `LifecycleManagerState` tracks active routing endpoints, warmup tasks, and transient failure evictions
+    /// across standard library collections (`HashMap` and `HashSet`). These collections remain memory-safe
+    /// and structurally valid in Rust even if an earlier thread panicked. Individual endpoint records and
+    /// warmup cancellation tokens are updated independently; any incomplete state transition is safely
+    /// reconciled by periodic background health probes and idle eviction sweeps. Recovering the guard via
+    /// `into_inner()` ensures that an isolated panic does not permanently poison endpoint management and crash
+    /// client routing.
     fn read_state(&self) -> RwLockReadGuard<'_, LifecycleManagerState> {
         self.state.read().unwrap_or_else(PoisonError::into_inner)
     }
 
-    /// Acquires an exclusive write lock on the lifecycle manager state, recovering the underlying lock guard
-    /// via `PoisonError::into_inner` if the lock was poisoned.
+    /// Acquires an exclusive write lock on the lifecycle manager state, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_state`](Self::read_state).
     fn write_state(&self) -> RwLockWriteGuard<'_, LifecycleManagerState> {
         self.state.write().unwrap_or_else(PoisonError::into_inner)
     }
@@ -402,6 +412,8 @@ impl EndpointLifecycleManager {
         };
 
         let is_still_tracked = if let Some(state) = weak_state.upgrade() {
+            // Recover from lock poisoning via into_inner() so background probe results
+            // are safely recorded even if an earlier caller or maintenance task panicked.
             let mut lifecycle_state = state.write().unwrap_or_else(PoisonError::into_inner);
             if connection.is_healthy() {
                 lifecycle_state.record_probe_healthy(&address_string, Instant::now());

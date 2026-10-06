@@ -144,10 +144,22 @@ impl LatencyRegistry {
         }
     }
 
+    /// Acquires a shared read lock on the latency trackers, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `trackers` stores an in-memory `HashMap<LatencyKey, RegistryEntry>`. In Rust, standard collections
+    /// remain memory-safe and structurally sound even if an earlier thread panicked while reading or writing.
+    /// Each tracker entry is updated independently, and stale or incomplete entries are naturally refreshed
+    /// or pruned during periodic cleanups. Recovering the guard via `into_inner()` prevents an isolated panic
+    /// during latency updates or replica selection from permanently locking out routing cost evaluations.
     fn read_trackers(&self) -> RwLockReadGuard<'_, HashMap<LatencyKey, RegistryEntry>> {
         self.trackers.read().unwrap_or_else(PoisonError::into_inner)
     }
 
+    /// Acquires an exclusive write lock on the latency trackers, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_trackers`](Self::read_trackers).
     fn write_trackers(&self) -> RwLockWriteGuard<'_, HashMap<LatencyKey, RegistryEntry>> {
         self.trackers
             .write()
@@ -683,6 +695,13 @@ impl EwmaLatencyTracker {
         Some(f64::from_bits(bits))
     }
 
+    /// Acquires an exclusive mutex lock on the EWMA state, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `state` protects an `Option<EwmaState>` containing an EWMA score and timestamp. State updates
+    /// are atomic struct replacements protected by the mutex; the underlying data is always memory-safe
+    /// and structurally intact. Recovering via `into_inner()` ensures that subsequent latency sample updates
+    /// (`update_at`) and score calculations continue operating even if an earlier caller thread panicked.
     fn lock_state(&self) -> MutexGuard<'_, Option<EwmaState>> {
         self.state.lock().unwrap_or_else(PoisonError::into_inner)
     }
