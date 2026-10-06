@@ -26,7 +26,6 @@ use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg, SharedRetryThrottler};
 use google_cloud_gax::streaming::ResponseStream;
 use google_cloud_gax::throttle_result::ThrottleResult;
-use std::ops::ControlFlow;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
@@ -275,8 +274,9 @@ impl Reader {
         }
     }
 
-    /// Advances the state machine by a single transition.
-    async fn step(&mut self) -> ControlFlow<Option<Result<ReadRowsResponse>>, ()> {
+    /// Advances the state machine by a single transition, returning a
+    /// [`ReadRowsResponse`] if one was read during this step.
+    async fn step(&mut self) -> Option<ReadRowsResponse> {
         match &mut self.state {
             ReaderState::Connecting(retry_state) => {
                 let retry_state = retry_state.clone();
@@ -289,7 +289,7 @@ impl Reader {
                         self.handle_error(retry_state, err).await;
                     }
                 }
-                ControlFlow::Continue(())
+                None
             }
             ReaderState::Connected(retry_state, stream) => match stream.next().await {
                 Some(Ok(response)) => {
@@ -299,7 +299,7 @@ impl Reader {
                         .on_success();
                     if let Err(err) = self.advance_offset(response.row_count) {
                         self.state = ReaderState::Terminated(Some(err));
-                        return ControlFlow::Continue(());
+                        return None;
                     }
                     let ReaderState::Connected(_, stream) =
                         std::mem::replace(&mut self.state, ReaderState::Terminated(None))
@@ -307,12 +307,12 @@ impl Reader {
                         unreachable!("state is known to be Connected");
                     };
                     self.state = ReaderState::Reading(stream);
-                    ControlFlow::Break(Some(Ok(response)))
+                    Some(response)
                 }
                 Some(Err(err)) => {
                     let retry_state = retry_state.clone();
                     self.handle_error(retry_state, err).await;
-                    ControlFlow::Continue(())
+                    None
                 }
                 None => {
                     self.retry_throttler
@@ -320,7 +320,7 @@ impl Reader {
                         .expect("retry throttler lock is poisoned")
                         .on_success();
                     self.state = ReaderState::Terminated(None);
-                    ControlFlow::Break(None)
+                    None
                 }
             },
             ReaderState::Reading(stream) => match stream.next().await {
@@ -331,20 +331,20 @@ impl Reader {
                         .on_success();
                     if let Err(err) = self.advance_offset(response.row_count) {
                         self.state = ReaderState::Terminated(Some(err));
-                        return ControlFlow::Continue(());
+                        return None;
                     }
-                    ControlFlow::Break(Some(Ok(response)))
+                    Some(response)
                 }
                 Some(Err(err)) => {
                     self.handle_error(RetryState::new(true), err).await;
-                    ControlFlow::Continue(())
+                    None
                 }
                 None => {
                     self.state = ReaderState::Terminated(None);
-                    ControlFlow::Break(None)
+                    None
                 }
             },
-            ReaderState::Terminated(err) => ControlFlow::Break(err.take().map(Err)),
+            ReaderState::Terminated(_) => None,
         }
     }
 
@@ -352,8 +352,11 @@ impl Reader {
     /// retryable error occurs, or returns `None` when the stream completes.
     pub async fn next(&mut self) -> Option<Result<ReadRowsResponse>> {
         loop {
-            if let ControlFlow::Break(result) = self.step().await {
-                return result;
+            let response = self.step().await;
+            match &mut self.state {
+                ReaderState::Connecting(_) | ReaderState::Connected(_, _) => continue,
+                ReaderState::Reading(_) => return response.map(Ok),
+                ReaderState::Terminated(err) => return err.take().map(Err),
             }
         }
     }
@@ -485,8 +488,8 @@ mod tests {
 
         let initial_retry = RetryState::new(true).set_attempt_count(2_u32);
         reader.state = ReaderState::Connecting(initial_retry);
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Continue(())));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         let ReaderState::Connected(retry_state, _) = &reader.state else {
             anyhow::bail!("expected Connected state, got: {:?}", reader.state);
         };
@@ -525,8 +528,8 @@ mod tests {
 
         let initial_retry = RetryState::new(true).set_attempt_count(1_u32);
         reader.state = ReaderState::Connecting(initial_retry);
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Continue(())));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         let ReaderState::Connecting(retry_state) = &reader.state else {
             anyhow::bail!("expected Connecting state, got: {:?}", reader.state);
         };
@@ -561,8 +564,8 @@ mod tests {
             .with_backoff_policy(backoff);
 
         reader.state = ReaderState::Connecting(RetryState::new(true));
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Continue(())));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         let ReaderState::Terminated(Some(err)) = &reader.state else {
             anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
         };
@@ -599,8 +602,8 @@ mod tests {
             .with_backoff_policy(backoff);
 
         reader.state = ReaderState::Connecting(RetryState::new(true));
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Continue(())));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         let ReaderState::Terminated(Some(err)) = &reader.state else {
             anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
         };
@@ -634,9 +637,7 @@ mod tests {
         let stream = ResponseStream::from(rx);
 
         reader.state = ReaderState::Connected(RetryState::new(true), stream);
-        let ControlFlow::Break(Some(Ok(resp))) = reader.step().await else {
-            anyhow::bail!("expected Break(Some(Ok(_)))");
-        };
+        let resp = reader.step().await.expect("expected Some(response)");
         assert!(
             matches!(reader.state, ReaderState::Reading(_)),
             "expected Reading state, got: {:?}",
@@ -681,8 +682,8 @@ mod tests {
         // Connected state starts with attempt_count = 2 from prior Connecting attempts.
         let prior_retry = RetryState::new(true).set_attempt_count(2_u32);
         reader.state = ReaderState::Connected(prior_retry, stream);
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Continue(())));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         let ReaderState::Connecting(retry_state) = &reader.state else {
             anyhow::bail!("expected Connecting state, got: {:?}", reader.state);
         };
@@ -719,8 +720,8 @@ mod tests {
         let stream = ResponseStream::from(rx);
 
         reader.state = ReaderState::Connected(RetryState::new(true), stream);
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Continue(())));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         let ReaderState::Terminated(Some(err)) = &reader.state else {
             anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
         };
@@ -742,8 +743,8 @@ mod tests {
         let stream = ResponseStream::from(rx);
 
         reader.state = ReaderState::Connected(RetryState::new(true), stream);
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Break(None)));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         assert!(
             matches!(reader.state, ReaderState::Terminated(None)),
             "expected Terminated(None), got: {:?}",
@@ -774,9 +775,7 @@ mod tests {
         let stream = ResponseStream::from(rx);
 
         reader.state = ReaderState::Reading(stream);
-        let ControlFlow::Break(Some(Ok(resp))) = reader.step().await else {
-            anyhow::bail!("expected Break(Some(Ok(_)))");
-        };
+        let resp = reader.step().await.expect("expected Some(response)");
         assert!(
             matches!(reader.state, ReaderState::Reading(_)),
             "expected Reading state, got: {:?}",
@@ -820,8 +819,8 @@ mod tests {
         let stream = ResponseStream::from(rx);
 
         reader.state = ReaderState::Reading(stream);
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Continue(())));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         let ReaderState::Connecting(retry_state) = &reader.state else {
             anyhow::bail!("expected Connecting state, got: {:?}", reader.state);
         };
@@ -858,8 +857,8 @@ mod tests {
         let stream = ResponseStream::from(rx);
 
         reader.state = ReaderState::Reading(stream);
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Continue(())));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         let ReaderState::Terminated(Some(err)) = &reader.state else {
             anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
         };
@@ -881,8 +880,8 @@ mod tests {
         let stream = ResponseStream::from(rx);
 
         reader.state = ReaderState::Reading(stream);
-        let flow = reader.step().await;
-        assert!(matches!(flow, ControlFlow::Break(None)));
+        let resp = reader.step().await;
+        assert!(resp.is_none());
         assert!(
             matches!(reader.state, ReaderState::Terminated(None)),
             "expected Terminated(None), got: {:?}",
@@ -892,7 +891,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn step_terminated_yields_error_once_then_none() -> anyhow::Result<()> {
+    async fn step_terminated_stays_terminated() -> anyhow::Result<()> {
         let mut mock = MockReadStub::new();
         mock.expect_read_rows().never();
 
@@ -901,16 +900,19 @@ mod tests {
         let mut reader = Reader::new(req);
 
         reader.state = ReaderState::Terminated(None);
-        assert!(matches!(reader.step().await, ControlFlow::Break(None)));
-        assert!(matches!(reader.state, ReaderState::Terminated(None)));
+        assert!(reader.step().await.is_none());
+        assert!(
+            matches!(reader.state, ReaderState::Terminated(None)),
+            "expected Terminated(None), got: {:?}",
+            reader.state
+        );
 
         reader.state = ReaderState::Terminated(Some(permanent_error()));
-        let ControlFlow::Break(Some(Err(err))) = reader.step().await else {
-            anyhow::bail!("expected Break(Some(Err(_)))");
+        assert!(reader.step().await.is_none());
+        let ReaderState::Terminated(Some(err)) = &reader.state else {
+            anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
         };
         assert_eq!(err.status().map(|s| s.code), Some(Code::PermissionDenied));
-        assert!(matches!(reader.state, ReaderState::Terminated(None)));
-        assert!(matches!(reader.step().await, ControlFlow::Break(None)));
         Ok(())
     }
 
