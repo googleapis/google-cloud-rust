@@ -7439,7 +7439,7 @@ pub mod batch_get_effective_iam_policies_response {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo>
-        {
+{
             use std::iter::Iterator;
             self.policies = v.into_iter().map(|i| i.into()).collect();
             self
@@ -10795,7 +10795,7 @@ pub mod analyze_org_policy_governed_assets_response {
         ///     google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedResource(GovernedResource::default().into())));
         /// ```
         pub fn set_governed_asset<T: std::convert::Into<std::option::Option<crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset>>>(mut self, v: T) -> Self
-        {
+{
             self.governed_asset = v.into();
             self
         }

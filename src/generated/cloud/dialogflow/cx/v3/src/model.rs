@@ -18100,7 +18100,7 @@ pub mod fulfillment {
                 ///     google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage::Message(ResponseMessage::default().into())));
                 /// ```
                 pub fn set_cases_or_message<T: std::convert::Into<std::option::Option<crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage>>>(mut self, v: T) -> Self
-                {
+{
                     self.cases_or_message = v.into();
                     self
                 }
@@ -36112,7 +36112,7 @@ pub mod boost_spec {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint>
-            {
+{
                 use std::iter::Iterator;
                 self.control_points = v.into_iter().map(|i| i.into()).collect();
                 self

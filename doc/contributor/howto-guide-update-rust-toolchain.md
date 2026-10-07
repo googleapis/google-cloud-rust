@@ -71,6 +71,9 @@ Inspect `git status` after running the check script:
 - **If semver-checks fails with `unsupported rustdoc format vXX`:** Update
   `cargo-semver-checks` to the latest version in both
   `.gcb/scripts/semver-checks.sh` and `librarian.yaml`, then re-run.
+- **If the new `rustfmt` formats code differently:** Run `cargo fmt` and commit
+  the changes, including any changes to generated code. The generator formats
+  its output with `cargo fmt`, so the result matches what it would produce.
 
 ### Step 3: Update CI Configuration Files
 

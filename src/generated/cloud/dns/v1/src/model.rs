@@ -6691,7 +6691,7 @@ impl PolicyAlternativeNameServerConfigTargetNameServer {
     /// ```
     pub fn set_forwarding_path<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::policy_alternative_name_server_config_target_name_server::ForwardingPath>
-    {
+{
         self.forwarding_path = std::option::Option::Some(v.into());
         self
     }
@@ -6707,7 +6707,7 @@ impl PolicyAlternativeNameServerConfigTargetNameServer {
     /// ```
     pub fn set_or_clear_forwarding_path<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::policy_alternative_name_server_config_target_name_server::ForwardingPath>
-    {
+{
         self.forwarding_path = v.map(|x| x.into());
         self
     }

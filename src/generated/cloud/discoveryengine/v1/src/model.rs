@@ -2002,7 +2002,7 @@ pub mod answer {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<crate::model::answer::step::action::observation::search_result::SnippetInfo>
-                    {
+{
                         use std::iter::Iterator;
                         self.snippet_info = v.into_iter().map(|i| i.into()).collect();
                         self
@@ -2024,7 +2024,7 @@ pub mod answer {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<crate::model::answer::step::action::observation::search_result::ChunkInfo>
-                    {
+{
                         use std::iter::Iterator;
                         self.chunk_info = v.into_iter().map(|i| i.into()).collect();
                         self
@@ -4969,7 +4969,7 @@ pub mod assistant_grounded_content {
             /// ```
             pub fn set_document_metadata<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata>
-            {
+{
                 self.document_metadata = std::option::Option::Some(v.into());
                 self
             }
@@ -4985,7 +4985,7 @@ pub mod assistant_grounded_content {
             /// ```
             pub fn set_or_clear_document_metadata<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata>
-            {
+{
                 self.document_metadata = v.map(|x| x.into());
                 self
             }
@@ -15418,7 +15418,7 @@ pub mod answer_query_request {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::answer_query_request::search_spec::search_result_list::SearchResult>
-            {
+{
                 use std::iter::Iterator;
                 self.search_results = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -15470,7 +15470,7 @@ pub mod answer_query_request {
                 ///     google_cloud_discoveryengine_v1::model::answer_query_request::search_spec::search_result_list::search_result::Content::UnstructuredDocumentInfo(UnstructuredDocumentInfo::default().into())));
                 /// ```
                 pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::answer_query_request::search_spec::search_result_list::search_result::Content>>>(mut self, v: T) -> Self
-                {
+{
                     self.content = v.into();
                     self
                 }
@@ -15663,7 +15663,7 @@ pub mod answer_query_request {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<crate::model::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::DocumentContext>
-                    {
+{
                         use std::iter::Iterator;
                         self.document_contexts = v.into_iter().map(|i| i.into()).collect();
                         self
@@ -15685,7 +15685,7 @@ pub mod answer_query_request {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<crate::model::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::ExtractiveSegment>
-                    {
+{
                         use std::iter::Iterator;
                         self.extractive_segments = v.into_iter().map(|i| i.into()).collect();
                         self
@@ -15708,7 +15708,7 @@ pub mod answer_query_request {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<crate::model::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::ExtractiveAnswer>
-                    {
+{
                         use std::iter::Iterator;
                         self.extractive_answers = v.into_iter().map(|i| i.into()).collect();
                         self
@@ -15984,7 +15984,7 @@ pub mod answer_query_request {
                     /// ```
                     pub fn set_document_metadata<T>(mut self, v: T) -> Self
                     where T: std::convert::Into<crate::model::answer_query_request::search_spec::search_result_list::search_result::chunk_info::DocumentMetadata>
-                    {
+{
                         self.document_metadata = std::option::Option::Some(v.into());
                         self
                     }
@@ -16000,7 +16000,7 @@ pub mod answer_query_request {
                     /// ```
                     pub fn set_or_clear_document_metadata<T>(mut self, v: std::option::Option<T>) -> Self
                     where T: std::convert::Into<crate::model::answer_query_request::search_spec::search_result_list::search_result::chunk_info::DocumentMetadata>
-                    {
+{
                         self.document_metadata = v.map(|x| x.into());
                         self
                     }
@@ -16150,7 +16150,7 @@ pub mod answer_query_request {
         /// ```
         pub fn set_query_classification_spec<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::answer_query_request::query_understanding_spec::QueryClassificationSpec>
-        {
+{
             self.query_classification_spec = std::option::Option::Some(v.into());
             self
         }
@@ -16166,7 +16166,7 @@ pub mod answer_query_request {
         /// ```
         pub fn set_or_clear_query_classification_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::answer_query_request::query_understanding_spec::QueryClassificationSpec>
-        {
+{
             self.query_classification_spec = v.map(|x| x.into());
             self
         }
@@ -16181,7 +16181,7 @@ pub mod answer_query_request {
         /// ```
         pub fn set_query_rephraser_spec<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::answer_query_request::query_understanding_spec::QueryRephraserSpec>
-        {
+{
             self.query_rephraser_spec = std::option::Option::Some(v.into());
             self
         }
@@ -16197,7 +16197,7 @@ pub mod answer_query_request {
         /// ```
         pub fn set_or_clear_query_rephraser_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::answer_query_request::query_understanding_spec::QueryRephraserSpec>
-        {
+{
             self.query_rephraser_spec = v.map(|x| x.into());
             self
         }
@@ -16263,7 +16263,7 @@ pub mod answer_query_request {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::answer_query_request::query_understanding_spec::query_classification_spec::Type>
-            {
+{
                 use std::iter::Iterator;
                 self.types = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -16515,7 +16515,7 @@ pub mod answer_query_request {
             /// ```
             pub fn set_model_spec<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::ModelSpec>
-            {
+{
                 self.model_spec = std::option::Option::Some(v.into());
                 self
             }
@@ -16531,7 +16531,7 @@ pub mod answer_query_request {
             /// ```
             pub fn set_or_clear_model_spec<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::ModelSpec>
-            {
+{
                 self.model_spec = v.map(|x| x.into());
                 self
             }
@@ -16838,7 +16838,7 @@ pub mod answer_query_request {
             ///     google_cloud_discoveryengine_v1::model::answer_query_request::end_user_spec::end_user_meta_data::Content::ChunkInfo(ChunkInfo::default().into())));
             /// ```
             pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content>>>(mut self, v: T) -> Self
-            {
+{
                 self.content = v.into();
                 self
             }
@@ -16937,7 +16937,7 @@ pub mod answer_query_request {
                 /// ```
                 pub fn set_document_metadata<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::answer_query_request::end_user_spec::end_user_meta_data::chunk_info::DocumentMetadata>
-                {
+{
                     self.document_metadata = std::option::Option::Some(v.into());
                     self
                 }
@@ -16953,7 +16953,7 @@ pub mod answer_query_request {
                 /// ```
                 pub fn set_or_clear_document_metadata<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::answer_query_request::end_user_spec::end_user_meta_data::chunk_info::DocumentMetadata>
-                {
+{
                     self.document_metadata = v.map(|x| x.into());
                     self
                 }
@@ -21889,7 +21889,7 @@ pub mod document_processing_config {
         ///     google_cloud_discoveryengine_v1::model::document_processing_config::parsing_config::TypeDedicatedConfig::DigitalParsingConfig(DigitalParsingConfig::default().into())));
         /// ```
         pub fn set_type_dedicated_config<T: std::convert::Into<std::option::Option<crate::model::document_processing_config::parsing_config::TypeDedicatedConfig>>>(mut self, v: T) -> Self
-        {
+{
             self.type_dedicated_config = v.into();
             self
         }
@@ -23328,7 +23328,7 @@ pub mod batch_get_documents_metadata_response {
         /// ```
         pub fn set_matcher_value<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::batch_get_documents_metadata_response::document_metadata::MatcherValue>
-        {
+{
             self.matcher_value = std::option::Option::Some(v.into());
             self
         }
@@ -23344,7 +23344,7 @@ pub mod batch_get_documents_metadata_response {
         /// ```
         pub fn set_or_clear_matcher_value<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::batch_get_documents_metadata_response::document_metadata::MatcherValue>
-        {
+{
             self.matcher_value = v.map(|x| x.into());
             self
         }
@@ -23468,7 +23468,7 @@ pub mod batch_get_documents_metadata_response {
             /// let x = MatcherValue::new().set_matcher_value(Some(MatcherValueOneOf::Uri("example".to_string())));
             /// ```
             pub fn set_matcher_value<T: std::convert::Into<std::option::Option<crate::model::batch_get_documents_metadata_response::document_metadata::matcher_value::MatcherValue>>>(mut self, v: T) -> Self
-            {
+{
                 self.matcher_value = v.into();
                 self
             }
@@ -24425,7 +24425,7 @@ pub mod engine {
         /// ```
         pub fn set_optimization_objective_config<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::engine::media_recommendation_engine_config::OptimizationObjectiveConfig>
-        {
+{
             self.optimization_objective_config = std::option::Option::Some(v.into());
             self
         }
@@ -24441,7 +24441,7 @@ pub mod engine {
         /// ```
         pub fn set_or_clear_optimization_objective_config<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::engine::media_recommendation_engine_config::OptimizationObjectiveConfig>
-        {
+{
             self.optimization_objective_config = v.map(|x| x.into());
             self
         }
@@ -24611,7 +24611,7 @@ pub mod engine {
             ///     google_cloud_discoveryengine_v1::model::engine::media_recommendation_engine_config::engine_features_config::TypeDedicatedConfig::RecommendedForYouConfig(RecommendedForYouFeatureConfig::default().into())));
             /// ```
             pub fn set_type_dedicated_config<T: std::convert::Into<std::option::Option<crate::model::engine::media_recommendation_engine_config::engine_features_config::TypeDedicatedConfig>>>(mut self, v: T) -> Self
-            {
+{
                 self.type_dedicated_config = v.into();
                 self
             }
@@ -26766,7 +26766,7 @@ pub mod generate_grounded_content_request {
         /// ```
         pub fn set_predictor<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::generate_grounded_content_request::dynamic_retrieval_configuration::DynamicRetrievalPredictor>
-        {
+{
             self.predictor = std::option::Option::Some(v.into());
             self
         }
@@ -26782,7 +26782,7 @@ pub mod generate_grounded_content_request {
         /// ```
         pub fn set_or_clear_predictor<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::generate_grounded_content_request::dynamic_retrieval_configuration::DynamicRetrievalPredictor>
-        {
+{
             self.predictor = v.map(|x| x.into());
             self
         }
@@ -27442,7 +27442,7 @@ pub mod generate_grounded_content_request {
             /// ```
             pub fn set_dynamic_retrieval_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::generate_grounded_content_request::DynamicRetrievalConfiguration>
-            {
+{
                 self.dynamic_retrieval_config = std::option::Option::Some(v.into());
                 self
             }
@@ -27458,7 +27458,7 @@ pub mod generate_grounded_content_request {
             /// ```
             pub fn set_or_clear_dynamic_retrieval_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::generate_grounded_content_request::DynamicRetrievalConfiguration>
-            {
+{
                 self.dynamic_retrieval_config = v.map(|x| x.into());
                 self
             }
@@ -27826,7 +27826,7 @@ pub mod generate_grounded_content_response {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::RetrievalMetadata>
-            {
+{
                 use std::iter::Iterator;
                 self.retrieval_metadata = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -27881,7 +27881,7 @@ pub mod generate_grounded_content_response {
             /// ```
             pub fn set_search_entry_point<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::SearchEntryPoint>
-            {
+{
                 self.search_entry_point = std::option::Option::Some(v.into());
                 self
             }
@@ -27897,7 +27897,7 @@ pub mod generate_grounded_content_response {
             /// ```
             pub fn set_or_clear_search_entry_point<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::SearchEntryPoint>
-            {
+{
                 self.search_entry_point = v.map(|x| x.into());
                 self
             }
@@ -27918,7 +27918,7 @@ pub mod generate_grounded_content_response {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::GroundingSupport>
-            {
+{
                 use std::iter::Iterator;
                 self.grounding_support = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -27940,7 +27940,7 @@ pub mod generate_grounded_content_response {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata>
-            {
+{
                 use std::iter::Iterator;
                 self.images = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -28007,7 +28007,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_dynamic_retrieval_metadata<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalMetadata>
-                {
+{
                     self.dynamic_retrieval_metadata = std::option::Option::Some(v.into());
                     self
                 }
@@ -28023,7 +28023,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_or_clear_dynamic_retrieval_metadata<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalMetadata>
-                {
+{
                     self.dynamic_retrieval_metadata = v.map(|x| x.into());
                     self
                 }
@@ -28229,7 +28229,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_predictor_metadata<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalPredictorMetadata>
-                {
+{
                     self.predictor_metadata = std::option::Option::Some(v.into());
                     self
                 }
@@ -28245,7 +28245,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_or_clear_predictor_metadata<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalPredictorMetadata>
-                {
+{
                     self.predictor_metadata = v.map(|x| x.into());
                     self
                 }
@@ -28673,7 +28673,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_image<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>
-                {
+{
                     self.image = std::option::Option::Some(v.into());
                     self
                 }
@@ -28689,7 +28689,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>
-                {
+{
                     self.image = v.map(|x| x.into());
                     self
                 }
@@ -28704,7 +28704,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_thumbnail<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>
-                {
+{
                     self.thumbnail = std::option::Option::Some(v.into());
                     self
                 }
@@ -28720,7 +28720,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_or_clear_thumbnail<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>
-                {
+{
                     self.thumbnail = v.map(|x| x.into());
                     self
                 }
@@ -28735,7 +28735,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_source<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo>
-                {
+{
                     self.source = std::option::Option::Some(v.into());
                     self
                 }
@@ -28751,7 +28751,7 @@ pub mod generate_grounded_content_response {
                 /// ```
                 pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo>
-                {
+{
                     self.source = v.map(|x| x.into());
                     self
                 }
@@ -42066,7 +42066,7 @@ pub mod search_request {
             /// ```
             pub fn set_boost_control_spec<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::search_request::boost_spec::condition_boost_spec::BoostControlSpec>
-            {
+{
                 self.boost_control_spec = std::option::Option::Some(v.into());
                 self
             }
@@ -42082,7 +42082,7 @@ pub mod search_request {
             /// ```
             pub fn set_or_clear_boost_control_spec<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::search_request::boost_spec::condition_boost_spec::BoostControlSpec>
-            {
+{
                 self.boost_control_spec = v.map(|x| x.into());
                 self
             }
@@ -42217,7 +42217,7 @@ pub mod search_request {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::search_request::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint>
-                {
+{
                     use std::iter::Iterator;
                     self.control_points = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -43831,7 +43831,7 @@ pub mod search_request {
             /// ```
             pub fn set_model_prompt_spec<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::search_request::content_search_spec::summary_spec::ModelPromptSpec>
-            {
+{
                 self.model_prompt_spec = std::option::Option::Some(v.into());
                 self
             }
@@ -43847,7 +43847,7 @@ pub mod search_request {
             /// ```
             pub fn set_or_clear_model_prompt_spec<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::search_request::content_search_spec::summary_spec::ModelPromptSpec>
-            {
+{
                 self.model_prompt_spec = v.map(|x| x.into());
                 self
             }
@@ -46349,7 +46349,7 @@ pub mod search_request {
             ///     google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::RelevanceThreshold(RelevanceThreshold::Medium)));
             /// ```
             pub fn set_relevance_threshold_spec<T: std::convert::Into<std::option::Option<crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec>>>(mut self, v: T) -> Self
-            {
+{
                 self.relevance_threshold_spec = v.into();
                 self
             }
@@ -48202,7 +48202,7 @@ pub mod search_response {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::search_response::search_result::retrieval_signals::RetrievalSource>
-            {
+{
                 use std::iter::Iterator;
                 self.retrieval_sources = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -49692,7 +49692,7 @@ pub mod search_response {
         /// ```
         pub fn set_structured_extracted_filter<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter>
-        {
+{
             self.structured_extracted_filter = std::option::Option::Some(v.into());
             self
         }
@@ -49708,7 +49708,7 @@ pub mod search_response {
         /// ```
         pub fn set_or_clear_structured_extracted_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter>
-        {
+{
             self.structured_extracted_filter = v.map(|x| x.into());
             self
         }
@@ -49761,7 +49761,7 @@ pub mod search_response {
             /// ```
             pub fn set_expression<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>
-            {
+{
                 self.expression = std::option::Option::Some(v.into());
                 self
             }
@@ -49777,7 +49777,7 @@ pub mod search_response {
             /// ```
             pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>
-            {
+{
                 self.expression = v.map(|x| x.into());
                 self
             }
@@ -50288,7 +50288,7 @@ pub mod search_response {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>
-                {
+{
                     use std::iter::Iterator;
                     self.expressions = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -50337,7 +50337,7 @@ pub mod search_response {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>
-                {
+{
                     use std::iter::Iterator;
                     self.expressions = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -50384,7 +50384,7 @@ pub mod search_response {
                 ///     google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::StringConstraint(StringConstraint::default().into())));
                 /// ```
                 pub fn set_expr<T: std::convert::Into<std::option::Option<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr>>>(mut self, v: T) -> Self
-                {
+{
                     self.expr = v.into();
                     self
                 }

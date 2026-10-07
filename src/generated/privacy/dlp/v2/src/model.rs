@@ -11373,7 +11373,7 @@ pub mod privacy_metric {
             /// let x = TaggedField::new().set_tag(Some(Tag::CustomTag("example".to_string())));
             /// ```
             pub fn set_tag<T: std::convert::Into<std::option::Option<crate::model::privacy_metric::k_map_estimation_config::tagged_field::Tag>>>(mut self, v: T) -> Self
-            {
+{
                 self.tag = v.into();
                 self
             }
@@ -11606,7 +11606,7 @@ pub mod privacy_metric {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField>
-            {
+{
                 use std::iter::Iterator;
                 self.quasi_ids = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -12473,7 +12473,7 @@ pub mod analyze_data_source_risk_details {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket>
-        {
+{
             use std::iter::Iterator;
             self.value_frequency_histogram_buckets = v.into_iter().map(|i| i.into()).collect();
             self
@@ -12637,7 +12637,7 @@ pub mod analyze_data_source_risk_details {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket>
-        {
+{
             use std::iter::Iterator;
             self.equivalence_class_histogram_buckets = v.into_iter().map(|i| i.into()).collect();
             self
@@ -12806,7 +12806,7 @@ pub mod analyze_data_source_risk_details {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass>
-            {
+{
                 use std::iter::Iterator;
                 self.bucket_values = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -12865,7 +12865,7 @@ pub mod analyze_data_source_risk_details {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket>
-        {
+{
             use std::iter::Iterator;
             self.sensitive_value_frequency_histogram_buckets =
                 v.into_iter().map(|i| i.into()).collect();
@@ -13078,7 +13078,7 @@ pub mod analyze_data_source_risk_details {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass>
-            {
+{
                 use std::iter::Iterator;
                 self.bucket_values = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -13145,7 +13145,7 @@ pub mod analyze_data_source_risk_details {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket>
-        {
+{
             use std::iter::Iterator;
             self.k_map_estimation_histogram = v.into_iter().map(|i| i.into()).collect();
             self
@@ -13312,7 +13312,7 @@ pub mod analyze_data_source_risk_details {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues>
-            {
+{
                 use std::iter::Iterator;
                 self.bucket_values = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -13379,7 +13379,7 @@ pub mod analyze_data_source_risk_details {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket>
-        {
+{
             use std::iter::Iterator;
             self.delta_presence_estimation_histogram = v.into_iter().map(|i| i.into()).collect();
             self
@@ -13554,7 +13554,7 @@ pub mod analyze_data_source_risk_details {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues>
-            {
+{
                 use std::iter::Iterator;
                 self.bucket_values = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -30761,7 +30761,7 @@ pub mod discovery_cloud_sql_generation_cadence {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::discovery_cloud_sql_generation_cadence::schema_modified_cadence::CloudSqlSchemaModification>
-        {
+{
             use std::iter::Iterator;
             self.types = v.into_iter().map(|i| i.into()).collect();
             self
@@ -34362,7 +34362,7 @@ pub mod other_cloud_discovery_starting_location {
         /// let x = AwsDiscoveryStartingLocation::new().set_scope(Some(Scope::AccountId("example".to_string())));
         /// ```
         pub fn set_scope<T: std::convert::Into<std::option::Option<crate::model::other_cloud_discovery_starting_location::aws_discovery_starting_location::Scope>>>(mut self, v: T) -> Self
-        {
+{
             self.scope = v.into();
             self
         }
@@ -48427,7 +48427,7 @@ pub mod content_policy {
                 ///     google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition::InfoTypes(InfoTypes::default().into())));
                 /// ```
                 pub fn set_info_type_condition<T: std::convert::Into<std::option::Option<crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition>>>(mut self, v: T) -> Self
-                {
+{
                     self.info_type_condition = v.into();
                     self
                 }
@@ -50189,7 +50189,7 @@ pub mod custom_info_type {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::custom_info_type::file_label_info_type::google_drive_label::LabelField>
-            {
+{
                 use std::iter::Iterator;
                 self.label_fields_to_match = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -50470,7 +50470,7 @@ pub mod custom_info_type {
             ///     google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment::FixedLikelihood(Likelihood::Possible)));
             /// ```
             pub fn set_adjustment<T: std::convert::Into<std::option::Option<crate::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment>>>(mut self, v: T) -> Self
-            {
+{
                 self.adjustment = v.into();
                 self
             }

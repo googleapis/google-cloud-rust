@@ -2886,7 +2886,7 @@ impl CaloriesInHeartRateZoneRollupValue {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::calories_in_heart_rate_zone_rollup_value::CaloriesInHeartRateZoneValue>
-    {
+{
         use std::iter::Iterator;
         self.calories_in_heart_rate_zones = v.into_iter().map(|i| i.into()).collect();
         self
