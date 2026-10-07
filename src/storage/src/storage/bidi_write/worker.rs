@@ -337,9 +337,17 @@ where
         // suppress all later watermark probes and stall the worker once the replay buffer fills.
         let self_flush_outstanding = std::mem::take(&mut self.self_flush_outstanding);
 
+        // The service periodically refreshes the write handle, often in a response that carries
+        // nothing else. Record it before the early return below, so a later `reconnect` opens its
+        // stream with the latest handle. The handshake response was already recorded by
+        // `Connector::connect_attempt`.
+        if origin == ResponseOrigin::Stream {
+            self.connector.handle_response(&response);
+        }
+
         let Some(persisted_size) = persisted_size(&response) else {
-            // A response with no `write_status` carries no progress, for example one that only
-            // refreshes the write handle.
+            // A response with no `write_status` carries no progress; its write handle, if any,
+            // was recorded above.
             tracing::debug!("Received BidiWriteObjectResponse with no write_status: {response:?}");
             return Ok(());
         };
@@ -522,7 +530,8 @@ mod tests {
     use super::super::tests::permanent_error;
     use super::*;
     use crate::google::storage::v2::{
-        AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, ChecksummedData, Object,
+        AppendObjectSpec, BidiWriteHandle, BidiWriteObjectRequest, BidiWriteObjectResponse,
+        ChecksummedData, Object, bidi_write_object_request::FirstMessage,
         bidi_write_object_response::WriteStatus,
     };
     use gaxi::grpc::tonic::Response as TonicResponse;
@@ -927,6 +936,60 @@ mod tests {
             stream2_req_rx.try_recv(),
             Err(mpsc::error::TryRecvError::Empty)
         ));
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_uses_refreshed_write_handle() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        intent_tx.send(append_intent(0, 16)).await?;
+        let _ = stream1_rx.recv().await.unwrap();
+
+        // Act.
+        // The service refreshes the write handle in a response that carries no `write_status`.
+        let refreshed = BidiWriteHandle {
+            handle: bytes::Bytes::from_static(b"refreshed-handle"),
+        };
+        stream1_resp_tx
+            .send(Ok(BidiWriteObjectResponse {
+                write_handle: Some(refreshed.clone()),
+                ..Default::default()
+            }))
+            .await?;
+        tokio::task::yield_now().await;
+
+        // Stream 1 breaks; the reconnect handshake reports nothing persisted.
+        drop(stream1_resp_tx);
+        stream2_resp_tx.send(Ok(persisted_size_response(0))).await?;
+
+        // Assert.
+        // `test_spec_state()` starts with no write handle, so the handshake carries one only if
+        // the worker recorded the refresh.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        let Some(FirstMessage::AppendObjectSpec(spec)) = initial_req.first_message else {
+            panic!("expected AppendObjectSpec handshake, got {initial_req:?}");
+        };
+        assert_eq!(spec.write_handle, Some(refreshed));
+
+        // The unacknowledged chunk is still replayed after the handshake.
+        let replayed = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed.write_offset, 0);
+        assert!(replayed.data.is_some(), "{replayed:?}");
 
         drop(intent_tx);
         tokio::task::yield_now().await;
