@@ -76,7 +76,7 @@ pub(crate) mod sealed {
 /// ```
 /// # use google_cloud_spanner::result::{ColumnIndex, Row};
 /// fn print_column_value<I: ColumnIndex>(row: &Row, index: I) -> Result<(), google_cloud_spanner::Error> {
-///     let value: String = row.try_get(index)?;
+///     let value: String = row.get(index)?;
 ///     println!("Value: {value}");
 ///     Ok(())
 /// }
@@ -188,7 +188,7 @@ impl RowError {
     ///     .await?;
     ///
     /// if let Some(row) = result_set.next().await {
-    ///     let result: Result<i64, _> = row?.try_get("nonexistent_column");
+    ///     let result: Result<i64, _> = row?.get("nonexistent_column");
     ///     if let Err(error) = result {
     ///         if let Some(row_error) = RowError::extract(&error) {
     ///             match row_error {
@@ -242,7 +242,7 @@ impl Row {
     /// let mut result_set = transaction.execute_query(Statement::builder("SELECT NULL AS Age").build()).await?;
     ///
     /// if let Some(row) = result_set.next().await {
-    ///     let is_null = row?.try_is_null("Age")?;
+    ///     let is_null = row?.is_null("Age")?;
     ///     println!("Is null: {}", is_null);
     /// }
     /// # Ok(())
@@ -257,41 +257,9 @@ impl Row {
     ///
     /// * `Ok(bool)` if the value is null or not.
     /// * `Err(Error)` if the column name or index is invalid.
-    pub fn try_is_null(&self, index: impl ColumnIndex) -> Result<bool> {
+    pub fn is_null(&self, index: impl ColumnIndex) -> Result<bool> {
         let column_index = self.validate_column_index(&index)?;
         Ok(self.values[column_index].is_null())
-    }
-
-    /// Returns true if the value at the specified column name or index is null, panicking on error.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::statement::Statement;
-    /// # async fn test_doc() -> anyhow::Result<()> {
-    /// let client = Spanner::builder().build().await?;
-    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = db_client.single_use().build();
-    /// let mut result_set = transaction.execute_query(Statement::builder("SELECT NULL AS Age").build()).await?;
-    ///
-    /// if let Some(row) = result_set.next().await {
-    ///     let is_null = row?.is_null("Age");
-    ///     println!("Is null: {}", is_null);
-    /// }
-    /// # Ok(())
-    /// # }
-    /// ```
-    ///
-    /// This is a convenience wrapper around [`try_is_null`](Row::try_is_null).
-    ///
-    /// # Panics
-    ///
-    /// Panics if the column name or index is invalid.
-    pub fn is_null(&self, index: impl ColumnIndex) -> bool {
-        match self.try_is_null(&index) {
-            Ok(is_null) => is_null,
-            Err(error) => panic!("failed to check if column {index:?} is null: {error}"),
-        }
     }
 
     /// Retrieves a value from the row by column name or zero-based index.
@@ -307,7 +275,7 @@ impl Row {
     /// let mut result_set = transaction.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
     ///
     /// if let Some(row) = result_set.next().await {
-    ///     let age: i64 = row?.try_get("Age")?;
+    ///     let age: i64 = row?.get("Age")?;
     ///     println!("Age: {}", age);
     /// }
     /// # Ok(())
@@ -326,47 +294,13 @@ impl Row {
     ///     * The column value is incompatible with type `T` or conversion fails. The underlying [`RowError::TypeConversion`]
     ///       can be extracted using [`RowError::extract`], and the inner [`ConvertError`][crate::error::ConvertError]
     ///       can also be extracted using [`ConvertError::extract`][crate::error::ConvertError::extract].
-    pub fn try_get<T: FromValue>(&self, index: impl ColumnIndex) -> Result<T> {
+    pub fn get<T: FromValue>(&self, index: impl ColumnIndex) -> Result<T> {
         let (column_index, value) = self.get_value(index)?;
         let column_type = Self::column_type(&self.metadata.column_types, column_index)?;
         T::from_value(value, column_type).map_err(|error| {
             let column = self.column_identifier(column_index);
             Error::deser(RowError::type_conversion(column, column_type.code(), error))
         })
-    }
-
-    /// Retrieves a value from the row by column name or zero-based index, panicking on error.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::statement::Statement;
-    /// # async fn test_doc() -> anyhow::Result<()> {
-    /// let client = Spanner::builder().build().await?;
-    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = database_client.single_use().build();
-    /// let mut result_set = transaction.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
-    ///
-    /// if let Some(row) = result_set.next().await {
-    ///     let age: i64 = row?.get("Age");
-    ///     println!("Age: {}", age);
-    /// }
-    /// # Ok(())
-    /// # }
-    /// ```
-    ///
-    /// This is a convenience wrapper around [`try_get`](Row::try_get).
-    ///
-    /// # Panics
-    ///
-    /// Panics if:
-    /// * The column name or index is invalid.
-    /// * The column value is incompatible with type `T` (or is null when `T` is not an [`Option`]).
-    pub fn get<T: FromValue>(&self, index: impl ColumnIndex) -> T {
-        match self.try_get(&index) {
-            Ok(value) => value,
-            Err(error) => panic!("failed to retrieve column {index:?}: {error}"),
-        }
     }
 
     /// Takes ownership of a value from the row by column name or zero-based index,
@@ -385,11 +319,11 @@ impl Row {
     ///
     /// if let Some(row) = result_set.next().await {
     ///     let mut row = row?;
-    ///     let greeting: String = row.try_take("greeting")?;
+    ///     let greeting: String = row.take("greeting")?;
     ///     assert_eq!(greeting, "hello");
     ///
     ///     // Subsequent reads treat the column as null:
-    ///     assert!(row.is_null("greeting"));
+    ///     assert!(row.is_null("greeting")?);
     /// }
     /// # Ok(())
     /// # }
@@ -420,7 +354,7 @@ impl Row {
     ///     * The column value is incompatible with type `T` or conversion fails. The underlying [`RowError::TypeConversion`]
     ///       can be extracted using [`RowError::extract`], and the inner [`ConvertError`][crate::error::ConvertError]
     ///       can also be extracted using [`ConvertError::extract`][crate::error::ConvertError::extract].
-    pub fn try_take<T: FromValue>(&mut self, index: impl ColumnIndex) -> Result<T> {
+    pub fn take<T: FromValue>(&mut self, index: impl ColumnIndex) -> Result<T> {
         let column_index = self.validate_column_index(&index)?;
         let column_type = Self::column_type(&self.metadata.column_types, column_index)?;
         let type_code = column_type.code();
@@ -429,50 +363,6 @@ impl Row {
             let column = self.column_identifier(column_index);
             Error::deser(RowError::type_conversion(column, type_code, error))
         })
-    }
-
-    /// Takes ownership of a value from the row by column name or zero-based index,
-    /// replacing the column in the row with a null value, panicking on error.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::statement::Statement;
-    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
-    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = database_client.single_use().build();
-    /// let mut result_set = transaction
-    ///     .execute_query(Statement::builder("SELECT 'hello' AS greeting").build())
-    ///     .await?;
-    ///
-    /// if let Some(row) = result_set.next().await {
-    ///     let mut row = row?;
-    ///     let greeting: String = row.take("greeting");
-    ///     println!("Greeting: {greeting}");
-    /// }
-    /// # Ok(())
-    /// # }
-    /// ```
-    ///
-    /// This is a convenience wrapper around [`try_take`](Row::try_take).
-    ///
-    /// # Note
-    ///
-    /// If the SQL query contains duplicate column names, indexing by column name
-    /// resolves to the first matching column. Once taken, that column becomes null,
-    /// and subsequent calls with the same column name will still resolve to that first
-    /// (now null) column. To take subsequent duplicate columns, index by column position.
-    ///
-    /// # Panics
-    ///
-    /// Panics if:
-    /// * The column name or index is invalid.
-    /// * The column value is incompatible with type `T` (or is null when `T` is not an [`Option`]).
-    pub fn take<T: FromValue>(&mut self, index: impl ColumnIndex) -> T {
-        match self.try_take(&index) {
-            Ok(value) => value,
-            Err(error) => panic!("failed to take column {index:?}: {error}"),
-        }
     }
 
     /// Consumes the row and returns its raw values.
@@ -638,158 +528,187 @@ mod tests {
         };
 
         // Test getting by valid index
-        assert_eq!(row.get::<String>(0), "hello", "expected string at index 0");
-        assert_eq!(row.get::<i64>(1), 42, "expected int64 at index 1");
-        assert_eq!(row.get::<f64>(2), 42.5, "expected float64 at index 2");
+        assert_eq!(
+            row.get::<String>(0).expect("string at 0"),
+            "hello",
+            "expected string at index 0"
+        );
+        assert_eq!(
+            row.get::<i64>(1).expect("int64 at 1"),
+            42,
+            "expected int64 at index 1"
+        );
+        assert_eq!(
+            row.get::<f64>(2).expect("float64 at 2"),
+            42.5,
+            "expected float64 at index 2"
+        );
         assert!(
-            row.get::<bool>(3),
+            row.get::<bool>(3).expect("bool at 3"),
             "expected bool value at index 3 to be true"
         );
         assert_eq!(
-            row.get::<Vec<u8>>(4),
+            row.get::<Vec<u8>>(4).expect("bytes at 4"),
             vec![1_u8, 2, 3],
             "expected bytes at index 4"
         );
         assert_eq!(
-            row.get::<Decimal>(5),
+            row.get::<Decimal>(5).expect("decimal at 5"),
             decimal,
             "expected numeric at index 5"
         );
         assert_eq!(
-            row.get::<String>(5),
+            row.get::<String>(5).expect("numeric as string at 5"),
             "123.456",
             "expected numeric as string at index 5"
         );
-        assert_eq!(row.get::<Date>(6), date, "expected date at index 6");
         assert_eq!(
-            row.get::<String>(6),
+            row.get::<Date>(6).expect("date at 6"),
+            date,
+            "expected date at index 6"
+        );
+        assert_eq!(
+            row.get::<String>(6).expect("date as string at 6"),
             "2023-10-27",
             "expected date as string at index 6"
         );
         assert_eq!(
-            row.get::<Timestamp>(7),
+            row.get::<Timestamp>(7).expect("timestamp at 7"),
             timestamp,
             "expected timestamp at index 7"
         );
         assert_eq!(
-            row.get::<String>(7),
+            row.get::<String>(7).expect("timestamp as string at 7"),
             "2023-10-27T10:00:00.000000000Z",
             "expected timestamp as string at index 7"
         );
-        assert_eq!(row.get::<f32>(8), 1.23_f32, "expected float32 at index 8");
         assert_eq!(
-            row.get::<String>(9),
+            row.get::<f32>(8).expect("float32 at 8"),
+            1.23_f32,
+            "expected float32 at index 8"
+        );
+        assert_eq!(
+            row.get::<String>(9).expect("json at 9"),
             "{\"key\":\"value\"}",
             "expected json at index 9"
         );
         assert_eq!(
-            row.get::<String>(10),
+            row.get::<String>(10).expect("uuid at 10"),
             "123e4567-e89b-12d3-a456-426614174000",
             "expected uuid at index 10"
         );
         assert_eq!(
-            row.get::<String>(11),
+            row.get::<String>(11).expect("interval at 11"),
             "P1Y2M3D",
             "expected interval at index 11"
         );
 
         // Test getting by valid name
         assert_eq!(
-            row.get::<String>("col_string"),
+            row.get::<String>("col_string").expect("col_string by name"),
             "hello",
             "expected col_string by name"
         );
         assert_eq!(
-            row.get::<i64>("col_int64"),
+            row.get::<i64>("col_int64").expect("col_int64 by name"),
             42,
             "expected col_int64 by name"
         );
         assert_eq!(
-            row.get::<f64>("col_float64"),
+            row.get::<f64>("col_float64").expect("col_float64 by name"),
             42.5,
             "expected col_float64 by name"
         );
-        assert!(row.get::<bool>("col_bool"), "expected col_bool to be true");
+        assert!(
+            row.get::<bool>("col_bool").expect("col_bool by name"),
+            "expected col_bool to be true"
+        );
         assert_eq!(
-            row.get::<Vec<u8>>("col_bytes"),
+            row.get::<Vec<u8>>("col_bytes").expect("col_bytes by name"),
             vec![1_u8, 2, 3],
             "expected col_bytes by name"
         );
         assert_eq!(
-            row.get::<Decimal>("col_numeric"),
+            row.get::<Decimal>("col_numeric")
+                .expect("col_numeric by name"),
             decimal,
             "expected col_numeric by name"
         );
         assert_eq!(
-            row.get::<String>("col_numeric"),
+            row.get::<String>("col_numeric")
+                .expect("col_numeric as string"),
             "123.456",
             "expected col_numeric as string by name"
         );
         assert_eq!(
-            row.get::<Date>("col_date"),
+            row.get::<Date>("col_date").expect("col_date by name"),
             date,
             "expected col_date by name"
         );
         assert_eq!(
-            row.get::<String>("col_date"),
+            row.get::<String>("col_date")
+                .expect("col_date as string by name"),
             "2023-10-27",
             "expected col_date as string by name"
         );
         assert_eq!(
-            row.get::<Timestamp>("col_timestamp"),
+            row.get::<Timestamp>("col_timestamp")
+                .expect("col_timestamp by name"),
             timestamp,
             "expected col_timestamp by name"
         );
         assert_eq!(
-            row.get::<String>("col_timestamp"),
+            row.get::<String>("col_timestamp")
+                .expect("col_timestamp as string by name"),
             "2023-10-27T10:00:00.000000000Z",
             "expected col_timestamp as string by name"
         );
         assert_eq!(
-            row.get::<f32>("col_float32"),
+            row.get::<f32>("col_float32").expect("col_float32 by name"),
             1.23_f32,
             "expected col_float32 by name"
         );
         assert_eq!(
-            row.get::<String>("col_json"),
+            row.get::<String>("col_json").expect("col_json by name"),
             "{\"key\":\"value\"}",
             "expected col_json by name"
         );
         assert_eq!(
-            row.get::<String>("col_uuid"),
+            row.get::<String>("col_uuid").expect("col_uuid by name"),
             "123e4567-e89b-12d3-a456-426614174000",
             "expected col_uuid by name"
         );
         assert_eq!(
-            row.get::<String>("col_interval"),
+            row.get::<String>("col_interval")
+                .expect("col_interval by name"),
             "P1Y2M3D",
             "expected col_interval by name"
         );
 
         // Test getting by invalid index
         assert!(
-            row.try_get::<String>(12).is_err(),
+            row.get::<String>(12).is_err(),
             "expected out of range index 12 to return an error"
         );
 
         // Test getting by invalid name
         assert!(
-            row.try_get::<String>("col_invalid").is_err(),
+            row.get::<String>("col_invalid").is_err(),
             "expected non-existent column name to return an error"
         );
 
         // Test getting mismatched type
         assert!(
-            row.try_get::<i64>(0).is_err(),
+            row.get::<i64>(0).is_err(),
             "expected string-to-int conversion error at index 0"
         );
         assert!(
-            row.try_get::<bool>(1).is_err(),
+            row.get::<bool>(1).is_err(),
             "expected int-to-bool conversion error at index 1"
         );
 
         let err_int_as_string = row
-            .try_get::<String>(1)
+            .get::<String>(1)
             .expect_err("reading INT64 column as String must fail with TypeConversion error");
         let convert_err = ConvertError::extract(&err_int_as_string)
             .expect("should extract ConvertError::TypeMismatch");
@@ -800,11 +719,21 @@ mod tests {
         );
 
         // Test getting with reference index types (&usize, &&str, &String) and owned String
-        assert_eq!(row.get::<String>(&0), "hello");
-        assert_eq!(row.get::<String>(&"col_string"), "hello");
+        assert_eq!(row.get::<String>(&0).expect("get &0"), "hello");
+        assert_eq!(
+            row.get::<String>(&"col_string").expect("get &col_string"),
+            "hello"
+        );
         let column_name = "col_string".to_string();
-        assert_eq!(row.get::<String>(&column_name), "hello");
-        assert_eq!(row.get::<String>(column_name), "hello");
+        assert_eq!(
+            row.get::<String>(&column_name).expect("get &column_name"),
+            "hello"
+        );
+        assert_eq!(
+            row.get::<String>(column_name)
+                .expect("get owned column_name"),
+            "hello"
+        );
     }
 
     #[test]
@@ -823,31 +752,35 @@ mod tests {
 
         // Getting by index as i64 and i32
         assert_eq!(
-            row.get::<i64>(0),
+            row.get::<i64>(0)
+                .expect("expected i64 value 3 from enum column by index"),
             3,
             "expected i64 value 3 from enum column by index"
         );
         assert_eq!(
-            row.get::<i32>(0),
+            row.get::<i32>(0)
+                .expect("expected i32 value 3 from enum column by index"),
             3,
             "expected i32 value 3 from enum column by index"
         );
 
         // Getting by name as i64 and i32
         assert_eq!(
-            row.get::<i64>("col_enum"),
+            row.get::<i64>("col_enum")
+                .expect("expected i64 value 3 from enum column by name"),
             3,
             "expected i64 value 3 from enum column by name"
         );
         assert_eq!(
-            row.get::<i32>("col_enum"),
+            row.get::<i32>("col_enum")
+                .expect("expected i32 value 3 from enum column by name"),
             3,
             "expected i32 value 3 from enum column by name"
         );
 
         // Getting as String should fail with TypeConversion
         let string_error = row
-            .try_get::<String>("col_enum")
+            .get::<String>("col_enum")
             .expect_err("reading ENUM column as String must fail");
         let convert_error = ConvertError::extract(&string_error)
             .expect("should extract ConvertError from string_error");
@@ -867,12 +800,16 @@ mod tests {
             },
         };
         assert_eq!(
-            null_row.get::<Option<i64>>("col_enum"),
+            null_row
+                .get::<Option<i64>>("col_enum")
+                .expect("expected None for null enum column as Option<i64>"),
             None,
             "expected None for null enum column as Option<i64>"
         );
         assert_eq!(
-            null_row.get::<Option<i32>>("col_enum"),
+            null_row
+                .get::<Option<i32>>("col_enum")
+                .expect("expected None for null enum column as Option<i32>"),
             None,
             "expected None for null enum column as Option<i32>"
         );
@@ -894,44 +831,39 @@ mod tests {
         };
 
         assert!(
-            !row.is_null("non_null_col"),
+            !row.is_null("non_null_col").expect("valid column name"),
             "expected non_null_col to not be null"
         );
-        assert!(row.is_null("null_col"), "expected null_col to be null");
-        assert!(!row.is_null(0), "expected index 0 to not be null");
-        assert!(row.is_null(1), "expected index 1 to be null");
+        assert!(
+            row.is_null("null_col").expect("valid column name"),
+            "expected null_col to be null"
+        );
+        assert!(
+            !row.is_null(0).expect("valid column index"),
+            "expected index 0 to not be null"
+        );
+        assert!(
+            row.is_null(1).expect("valid column index"),
+            "expected index 1 to be null"
+        );
 
         // Test checking null with reference index types (&usize, &&str, &String) and owned String
-        assert!(!row.is_null(&0), "expected &0 to not be null");
         assert!(
-            !row.is_null(&"non_null_col"),
+            !row.is_null(&0).expect("valid &usize"),
+            "expected &0 to not be null"
+        );
+        assert!(
+            !row.is_null(&"non_null_col").expect("valid &str"),
             "expected &\"non_null_col\" to not be null"
         );
         let non_null_name = "non_null_col".to_string();
         assert!(
-            !row.is_null(&non_null_name),
+            !row.is_null(&non_null_name).expect("valid &String"),
             "expected &String to not be null"
         );
         assert!(
-            !row.is_null(non_null_name),
+            !row.is_null(non_null_name).expect("valid owned String"),
             "expected owned String to not be null"
-        );
-
-        assert!(
-            !row.try_is_null("non_null_col").expect("valid column name"),
-            "expected non_null_col to return false"
-        );
-        assert!(
-            row.try_is_null("null_col").expect("valid column name"),
-            "expected null_col to return true"
-        );
-        assert!(
-            !row.try_is_null(0).expect("valid column index"),
-            "expected index 0 to return false"
-        );
-        assert!(
-            row.try_is_null(1).expect("valid column index"),
-            "expected index 1 to return true"
         );
     }
 
@@ -948,7 +880,7 @@ mod tests {
         };
 
         let err_missing = row
-            .try_get::<String>("nonexistent")
+            .get::<String>("nonexistent")
             .expect_err("column not found");
         let extracted_missing = RowError::extract(&err_missing).expect("should extract RowError");
         let cloned_missing = extracted_missing.clone();
@@ -968,7 +900,7 @@ mod tests {
             "expected ColumnNotFound display to match constructor"
         );
 
-        let error_out_of_range = row.try_get::<String>(5).expect_err("index out of range");
+        let error_out_of_range = row.get::<String>(5).expect_err("index out of range");
         let extracted_out_of_range =
             RowError::extract(&error_out_of_range).expect("should extract RowError");
         assert_eq!(
@@ -997,58 +929,74 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column \"col_invalid\": cannot deserialize the response Could not find column: 'col_invalid'"
-    )]
-    fn row_get_panics_on_invalid_column_name() {
+    fn row_get_err_on_invalid_column_name() {
         let row = empty_row();
-        let _: String = row.get("col_invalid");
+        let error = row
+            .get::<String>("col_invalid")
+            .expect_err("column not found");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::ColumnNotFound(col) if col == "col_invalid"),
+            "expected ColumnNotFound error"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column \"col_invalid\": cannot deserialize the response Could not find column: 'col_invalid'"
-    )]
-    fn row_get_panics_on_invalid_column_name_owned_string() {
+    fn row_get_err_on_invalid_column_name_owned_string() {
         let row = empty_row();
-        let _: String = row.get("col_invalid".to_string());
+        let error = row
+            .get::<String>("col_invalid".to_string())
+            .expect_err("column not found");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::ColumnNotFound(col) if col == "col_invalid"),
+            "expected ColumnNotFound error"
+        );
     }
 
     #[test]
     #[allow(clippy::needless_borrows_for_generic_args)]
-    #[should_panic(
-        expected = "failed to retrieve column \"col_invalid\": cannot deserialize the response Could not find column: 'col_invalid'"
-    )]
-    fn row_get_panics_on_invalid_column_name_reference() {
+    fn row_get_err_on_invalid_column_name_reference() {
         let row = empty_row();
-        let _: String = row.get(&"col_invalid");
+        let error = row
+            .get::<String>(&"col_invalid")
+            .expect_err("column not found");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::ColumnNotFound(col) if col == "col_invalid"),
+            "expected ColumnNotFound error"
+        );
     }
 
     #[test]
     #[allow(clippy::needless_borrows_for_generic_args)]
-    #[should_panic(
-        expected = "failed to retrieve column \"col_invalid\": cannot deserialize the response Could not find column: 'col_invalid'"
-    )]
-    fn row_get_panics_on_invalid_column_name_ref_string() {
+    fn row_get_err_on_invalid_column_name_ref_string() {
         let row = empty_row();
         let invalid_column = "col_invalid".to_string();
-        let _: String = row.get(&invalid_column);
+        let error = row
+            .get::<String>(&invalid_column)
+            .expect_err("column not found");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::ColumnNotFound(col) if col == "col_invalid"),
+            "expected ColumnNotFound error"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column 0: cannot deserialize the response Column index out of range: 0 (expected < 0)"
-    )]
-    fn row_get_panics_on_invalid_column_index_empty_row() {
+    fn row_get_err_on_invalid_column_index_empty_row() {
         let row = empty_row();
-        let _: String = row.get(0);
+        let error = row.get::<String>(0).expect_err("column index out of range");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            RowError::index_out_of_range(0, 0).to_string(),
+            "expected IndexOutOfRange error"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column 5: cannot deserialize the response Column index out of range: 5 (expected < 2)"
-    )]
-    fn row_get_panics_on_invalid_column_index_non_empty_row() {
+    fn row_get_err_on_invalid_column_index_non_empty_row() {
         let row = Row {
             values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1057,15 +1005,18 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: String = row.get(5);
+        let error = row.get::<String>(5).expect_err("column index out of range");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            RowError::index_out_of_range(5, 2).to_string(),
+            "expected IndexOutOfRange error"
+        );
     }
 
     #[test]
     #[allow(clippy::needless_borrows_for_generic_args)]
-    #[should_panic(
-        expected = "failed to retrieve column 5: cannot deserialize the response Column index out of range: 5 (expected < 2)"
-    )]
-    fn row_get_panics_on_invalid_column_index_reference() {
+    fn row_get_err_on_invalid_column_index_reference() {
         let row = Row {
             values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1074,14 +1025,19 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: String = row.get(&5);
+        let error = row
+            .get::<String>(&5)
+            .expect_err("column index out of range");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            RowError::index_out_of_range(5, 2).to_string(),
+            "expected IndexOutOfRange error"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column \"col_string\": cannot deserialize the response Type conversion error for column 'col_string' (type String): type mismatch, expected Int64, got String"
-    )]
-    fn row_get_panics_on_type_mismatch_by_name() {
+    fn row_get_err_on_type_mismatch_by_name() {
         let row = Row {
             values: vec!["hello".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1090,14 +1046,19 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: i64 = row.get("col_string");
+        let error = row
+            .get::<i64>("col_string")
+            .expect_err("expected type mismatch");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            "Type conversion error for column 'col_string' (type String): type mismatch, expected Int64, got String",
+            "expected type conversion error message"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column 0: cannot deserialize the response Type conversion error for column 'col_string' (type String): type mismatch, expected Int64, got String"
-    )]
-    fn row_get_panics_on_type_mismatch_by_index() {
+    fn row_get_err_on_type_mismatch_by_index() {
         let row = Row {
             values: vec!["hello".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1106,14 +1067,17 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: i64 = row.get(0);
+        let error = row.get::<i64>(0).expect_err("expected type mismatch");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            "Type conversion error for column 'col_string' (type String): type mismatch, expected Int64, got String",
+            "expected type conversion error message"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column 0: cannot deserialize the response Type conversion error for column '0' (type String): type mismatch, expected Int64, got String"
-    )]
-    fn row_get_panics_on_type_mismatch_for_unnamed_column() {
+    fn row_get_err_on_type_mismatch_for_unnamed_column() {
         let row = Row {
             values: vec!["hello".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1122,14 +1086,17 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: i64 = row.get(0);
+        let error = row.get::<i64>(0).expect_err("expected type mismatch");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            "Type conversion error for column '0' (type String): type mismatch, expected Int64, got String",
+            "expected type conversion error message"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column \"col_int\": cannot deserialize the response Type conversion error for column 'col_int' (type Int64): expected String, got Bool"
-    )]
-    fn row_get_panics_on_kind_mismatch() {
+    fn row_get_err_on_kind_mismatch() {
         let row = Row {
             values: vec![true.to_value()],
             metadata: ResultSetMetadata {
@@ -1138,14 +1105,19 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: i64 = row.get("col_int");
+        let error = row
+            .get::<i64>("col_int")
+            .expect_err("expected kind mismatch");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            "Type conversion error for column 'col_int' (type Int64): expected String, got Bool",
+            "expected kind mismatch error message"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to retrieve column \"null_col\": cannot deserialize the response Type conversion error for column 'null_col' (type String): expected non-null value, got null"
-    )]
-    fn row_get_panics_on_null_value() {
+    fn row_get_err_on_null_value() {
         let row = Row {
             values: vec![Value::null()],
             metadata: ResultSetMetadata {
@@ -1154,7 +1126,15 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: String = row.get("null_col");
+        let error = row
+            .get::<String>("null_col")
+            .expect_err("expected error on null value");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            "Type conversion error for column 'null_col' (type String): expected non-null value, got null",
+            "expected null error message"
+        );
     }
 
     #[test]
@@ -1169,7 +1149,7 @@ mod tests {
         };
 
         let error = row
-            .try_get::<i64>("col_string")
+            .get::<i64>("col_string")
             .expect_err("reading string column as i64 should fail");
         let extracted_row_error =
             RowError::extract(&error).expect("should extract RowError::TypeConversion");
@@ -1203,7 +1183,7 @@ mod tests {
             },
         };
         let unnamed_error = unnamed_row
-            .try_get::<i64>(0)
+            .get::<i64>(0)
             .expect_err("reading unnamed string column as i64 should fail");
         let extracted_unnamed =
             RowError::extract(&unnamed_error).expect("should extract RowError for unnamed column");
@@ -1223,7 +1203,7 @@ mod tests {
             },
         };
         let empty_names_error = empty_names_row
-            .try_get::<i64>(0)
+            .get::<i64>(0)
             .expect_err("reading from row with empty column_names slice should fail");
         let extracted_empty_names = RowError::extract(&empty_names_error)
             .expect("should extract RowError for row with empty column_names");
@@ -1235,7 +1215,7 @@ mod tests {
     }
 
     #[test]
-    fn row_try_get_mismatched_metadata_types_length() {
+    fn row_get_mismatched_metadata_types_length() {
         let row = Row {
             values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1244,32 +1224,21 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        assert!(
-            row.try_get::<String>(1).is_err(),
-            "expected error when metadata column_types is shorter than values"
+        let error = row
+            .get::<String>(1)
+            .expect_err("expected error when metadata column_types is shorter than values");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            RowError::index_out_of_range(1, 1).to_string(),
+            "expected IndexOutOfRange for column_types"
         );
-    }
-
-    #[test]
-    #[should_panic(
-        expected = "failed to retrieve column 1: cannot deserialize the response Column index out of range: 1 (expected < 1)"
-    )]
-    fn row_get_panics_on_mismatched_metadata_types_length() {
-        let row = Row {
-            values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
-            metadata: ResultSetMetadata {
-                column_names: Arc::new(vec!["col_a".to_string(), "col_b".to_string()]),
-                column_types: Arc::new(vec![types::string()]),
-                undeclared_parameters: Arc::new(BTreeMap::new()),
-            },
-        };
-        let _: String = row.get(1);
     }
 
     #[test]
     fn generic_column_index_helper() {
         fn fetch_value<I: ColumnIndex>(row: &Row, index: I) -> Result<String> {
-            row.try_get(index)
+            row.get(index)
         }
 
         let metadata = ResultSetMetadata {
@@ -1300,58 +1269,68 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to check if column \"col_invalid\" is null: cannot deserialize the response Could not find column: 'col_invalid'"
-    )]
-    fn row_is_null_panics_on_invalid_column_name() {
+    fn row_is_null_err_on_invalid_column_name() {
         let row = empty_row();
-        let _ = row.is_null("col_invalid");
+        let error = row.is_null("col_invalid").expect_err("column not found");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::ColumnNotFound(col) if col == "col_invalid"),
+            "expected ColumnNotFound error"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to check if column \"col_invalid\" is null: cannot deserialize the response Could not find column: 'col_invalid'"
-    )]
-    fn row_is_null_panics_on_invalid_column_name_owned_string() {
+    fn row_is_null_err_on_invalid_column_name_owned_string() {
         let row = empty_row();
-        let _ = row.is_null("col_invalid".to_string());
-    }
-
-    #[test]
-    #[allow(clippy::needless_borrows_for_generic_args)]
-    #[should_panic(
-        expected = "failed to check if column \"col_invalid\" is null: cannot deserialize the response Could not find column: 'col_invalid'"
-    )]
-    fn row_is_null_panics_on_invalid_column_name_reference() {
-        let row = empty_row();
-        let _ = row.is_null(&"col_invalid");
+        let error = row
+            .is_null("col_invalid".to_string())
+            .expect_err("column not found");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::ColumnNotFound(col) if col == "col_invalid"),
+            "expected ColumnNotFound error"
+        );
     }
 
     #[test]
     #[allow(clippy::needless_borrows_for_generic_args)]
-    #[should_panic(
-        expected = "failed to check if column \"col_invalid\" is null: cannot deserialize the response Could not find column: 'col_invalid'"
-    )]
-    fn row_is_null_panics_on_invalid_column_name_ref_string() {
+    fn row_is_null_err_on_invalid_column_name_reference() {
+        let row = empty_row();
+        let error = row.is_null(&"col_invalid").expect_err("column not found");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::ColumnNotFound(col) if col == "col_invalid"),
+            "expected ColumnNotFound error"
+        );
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    fn row_is_null_err_on_invalid_column_name_ref_string() {
         let row = empty_row();
         let invalid_column = "col_invalid".to_string();
-        let _ = row.is_null(&invalid_column);
+        let error = row.is_null(&invalid_column).expect_err("column not found");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert!(
+            matches!(row_error, RowError::ColumnNotFound(col) if col == "col_invalid"),
+            "expected ColumnNotFound error"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to check if column 0 is null: cannot deserialize the response Column index out of range: 0 (expected < 0)"
-    )]
-    fn row_is_null_panics_on_invalid_column_index_empty_row() {
+    fn row_is_null_err_on_invalid_column_index_empty_row() {
         let row = empty_row();
-        let _ = row.is_null(0);
+        let error = row.is_null(0).expect_err("column index out of range");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            RowError::index_out_of_range(0, 0).to_string(),
+            "expected IndexOutOfRange error"
+        );
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to check if column 5 is null: cannot deserialize the response Column index out of range: 5 (expected < 2)"
-    )]
-    fn row_is_null_panics_on_invalid_column_index_non_empty_row() {
+    fn row_is_null_err_on_invalid_column_index_non_empty_row() {
         let row = Row {
             values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1360,15 +1339,18 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _ = row.is_null(5);
+        let error = row.is_null(5).expect_err("column index out of range");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            RowError::index_out_of_range(5, 2).to_string(),
+            "expected IndexOutOfRange error"
+        );
     }
 
     #[test]
     #[allow(clippy::needless_borrows_for_generic_args)]
-    #[should_panic(
-        expected = "failed to check if column 5 is null: cannot deserialize the response Column index out of range: 5 (expected < 2)"
-    )]
-    fn row_is_null_panics_on_invalid_column_index_reference() {
+    fn row_is_null_err_on_invalid_column_index_reference() {
         let row = Row {
             values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1377,46 +1359,12 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _ = row.is_null(&5);
-    }
-
-    #[test]
-    fn row_try_take() {
-        let mut row = Row {
-            values: vec![
-                "test_string".to_string().to_value(),
-                42_i64.to_value(),
-                vec!["a".to_string(), "b".to_string()].to_value(),
-            ],
-            metadata: ResultSetMetadata {
-                column_names: Arc::new(vec![
-                    "col_string".to_string(),
-                    "col_int".to_string(),
-                    "col_vec".to_string(),
-                ]),
-                column_types: Arc::new(vec![
-                    types::string(),
-                    types::int64(),
-                    types::array(types::string()),
-                ]),
-                undeclared_parameters: Arc::new(BTreeMap::new()),
-            },
-        };
-
-        // Take string column
-        let string_value: String = row.try_take("col_string").expect("should take col_string");
-        assert_eq!(string_value, "test_string", "expected 'test_string'");
-
-        // Take integer column by index
-        let integer_value: i64 = row.try_take(1).expect("should take col_int by index");
-        assert_eq!(integer_value, 42, "expected 42");
-
-        // Take array column
-        let vector_value: Vec<String> = row.try_take("col_vec").expect("should take col_vec");
+        let error = row.is_null(&5).expect_err("column index out of range");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
         assert_eq!(
-            vector_value,
-            vec!["a".to_string(), "b".to_string()],
-            "expected array matching ['a', 'b']"
+            row_error.to_string(),
+            RowError::index_out_of_range(5, 2).to_string(),
+            "expected IndexOutOfRange error"
         );
     }
 
@@ -1447,19 +1395,19 @@ mod tests {
         };
 
         // Take by index
-        let string_value: String = row.take(0);
+        let string_value: String = row.take(0).expect("take index 0");
         assert_eq!(string_value, "test_string", "expected 'test_string'");
 
         // Take array column
-        let vector_value: Vec<String> = row.take("col_vec");
+        let vector_value: Vec<String> = row.take("col_vec").expect("take col_vec");
         assert_eq!(vector_value, vec!["x".to_string()], "expected ['x']");
 
         // Take nullable null column
-        let optional_null: Option<String> = row.take("col_null");
+        let optional_null: Option<String> = row.take("col_null").expect("take col_null");
         assert_eq!(optional_null, None, "expected None for null column");
 
         // Take nullable present column
-        let optional_present: Option<i64> = row.take("col_int");
+        let optional_present: Option<i64> = row.take("col_int").expect("take col_int");
         assert_eq!(optional_present, Some(42), "expected Some(42)");
     }
 
@@ -1474,26 +1422,25 @@ mod tests {
             },
         };
 
-        let taken: String = row.take("text");
+        let taken: String = row.take("text").expect("take text");
         assert_eq!(taken, "hello", "expected 'hello'");
 
         // Column is now null
-        assert!(row.is_null("text"), "taken column must be null");
         assert!(
-            row.try_is_null("text").expect("try_is_null should succeed"),
+            row.is_null("text").expect("is_null should succeed"),
             "taken column must be null"
         );
 
         // Reading or taking as Option returns None
-        let optional_get: Option<String> = row.try_get("text").expect("get Option must succeed");
+        let optional_get: Option<String> = row.get("text").expect("get Option must succeed");
         assert_eq!(optional_get, None, "expected None for taken column");
 
-        let optional_take: Option<String> = row.try_take("text").expect("take Option must succeed");
+        let optional_take: Option<String> = row.take("text").expect("take Option must succeed");
         assert_eq!(optional_take, None, "expected None for taken column");
 
         // Reading or taking again as non-nullable fails with NotNull
         let error_get = row
-            .try_get::<String>("text")
+            .get::<String>("text")
             .expect_err("get non-nullable on taken column must fail");
         let convert_error_get =
             ConvertError::extract(&error_get).expect("should extract ConvertError");
@@ -1503,7 +1450,7 @@ mod tests {
         );
 
         let error_take = row
-            .try_take::<String>("text")
+            .take::<String>("text")
             .expect_err("take non-nullable on taken column must fail");
         let convert_error_take =
             ConvertError::extract(&error_take).expect("should extract ConvertError");
@@ -1514,7 +1461,7 @@ mod tests {
     }
 
     #[test]
-    fn row_try_take_invalid_column() {
+    fn row_take_invalid_column() {
         let mut row = Row {
             values: vec!["a".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1525,7 +1472,7 @@ mod tests {
         };
 
         let error_not_found = row
-            .try_take::<String>("nonexistent")
+            .take::<String>("nonexistent")
             .expect_err("taking nonexistent column must fail");
         let row_error_not_found =
             RowError::extract(&error_not_found).expect("should extract RowError");
@@ -1535,7 +1482,7 @@ mod tests {
         );
 
         let error_out_of_range = row
-            .try_take::<String>(5)
+            .take::<String>(5)
             .expect_err("taking out of range index must fail");
         let row_error_out_of_range =
             RowError::extract(&error_out_of_range).expect("should extract RowError");
@@ -1547,7 +1494,7 @@ mod tests {
     }
 
     #[test]
-    fn row_try_take_missing_column_type_metadata() {
+    fn row_take_missing_column_type_metadata() {
         let mut row = Row {
             values: vec!["a".to_string().to_value(), "b".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1558,7 +1505,7 @@ mod tests {
         };
 
         let error = row
-            .try_take::<String>(1)
+            .take::<String>(1)
             .expect_err("taking column with missing metadata type must fail");
         let row_error = RowError::extract(&error).expect("should extract RowError");
         assert_eq!(
@@ -1600,28 +1547,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to take column \"invalid\": cannot deserialize the response Could not find column: 'invalid'"
-    )]
-    fn row_take_panics_on_invalid_column() {
-        let mut row = empty_row();
-        let _: String = row.take("invalid");
-    }
-
-    #[test]
-    #[should_panic(
-        expected = "failed to take column 0: cannot deserialize the response Column index out of range: 0 (expected < 0)"
-    )]
-    fn row_take_panics_on_index_out_of_range() {
-        let mut row = empty_row();
-        let _: String = row.take(0);
-    }
-
-    #[test]
-    #[should_panic(
-        expected = "failed to take column \"text\": cannot deserialize the response Type conversion error for column 'text' (type String): type mismatch, expected Int64, got String"
-    )]
-    fn row_take_panics_on_type_mismatch() {
+    fn row_take_err_on_type_mismatch() {
         let mut row = Row {
             values: vec!["not_an_int".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1630,11 +1556,19 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: i64 = row.take("text");
+        let error = row
+            .take::<i64>("text")
+            .expect_err("expected type mismatch on take");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            "Type conversion error for column 'text' (type String): type mismatch, expected Int64, got String",
+            "expected type conversion error message"
+        );
     }
 
     #[test]
-    fn row_try_take_type_mismatch_replaces_with_null() {
+    fn row_take_type_mismatch_replaces_with_null() {
         let mut row = Row {
             values: vec!["not_an_int".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1645,7 +1579,7 @@ mod tests {
         };
 
         let error = row
-            .try_take::<i64>("text")
+            .take::<i64>("text")
             .expect_err("taking string as i64 must fail");
         assert!(
             error.is_deserialization(),
@@ -1653,12 +1587,12 @@ mod tests {
         );
         assert!(
             row.values[0].is_null(),
-            "column value must be replaced with null when try_take consumes it even if conversion fails"
+            "column value must be replaced with null when take consumes it even if conversion fails"
         );
     }
 
     #[test]
-    fn row_try_take_owned_string_index() {
+    fn row_take_owned_string_index() {
         let mut row = Row {
             values: vec!["hello".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1669,7 +1603,7 @@ mod tests {
         };
 
         let result: String = row
-            .try_take(String::from("text"))
+            .take(String::from("text"))
             .expect("should take column using owned String");
         assert_eq!(result, "hello", "expected column value");
     }
@@ -1682,10 +1616,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(
-        expected = "failed to take column \"null_col\": cannot deserialize the response Type conversion error for column 'null_col' (type String): expected non-null value, got null"
-    )]
-    fn row_take_panics_on_null_for_non_nullable() {
+    fn row_take_err_on_null_for_non_nullable() {
         let mut row = Row {
             values: vec![Value::null()],
             metadata: ResultSetMetadata {
@@ -1694,11 +1625,19 @@ mod tests {
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
-        let _: String = row.take("null_col");
+        let error = row
+            .take::<String>("null_col")
+            .expect_err("taking null as non-nullable String must fail");
+        let row_error = RowError::extract(&error).expect("should extract RowError");
+        assert_eq!(
+            row_error.to_string(),
+            "Type conversion error for column 'null_col' (type String): expected non-null value, got null",
+            "expected null error message"
+        );
     }
 
     #[test]
-    fn row_try_take_bytes() {
+    fn row_take_bytes() {
         let mut row = Row {
             values: vec![b"hello bytes".to_vec().to_value()],
             metadata: ResultSetMetadata {
@@ -1709,14 +1648,17 @@ mod tests {
         };
 
         let bytes: Vec<u8> = row
-            .try_take("bytes_col")
+            .take("bytes_col")
             .expect("taking bytes column should succeed");
         assert_eq!(bytes, b"hello bytes", "expected matching bytes");
-        assert!(row.is_null("bytes_col"), "column must be null after take");
+        assert!(
+            row.is_null("bytes_col").expect("is_null"),
+            "column must be null after take"
+        );
     }
 
     #[test]
-    fn row_try_take_json() {
+    fn row_take_json() {
         let mut row = Row {
             values: vec![r#"{"key":"value"}"#.to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -1727,10 +1669,13 @@ mod tests {
         };
 
         let json: JsonValue = row
-            .try_take("json_col")
+            .take("json_col")
             .expect("taking json column should succeed");
         assert_eq!(json, json!({"key": "value"}), "expected matching json");
-        assert!(row.is_null("json_col"), "column must be null after take");
+        assert!(
+            row.is_null("json_col").expect("is_null"),
+            "column must be null after take"
+        );
     }
 
     #[test]
@@ -1744,13 +1689,16 @@ mod tests {
             },
         };
 
-        let raw_value: Value = row.take("raw_col");
+        let raw_value: Value = row.take("raw_col").expect("take raw value");
         assert_eq!(
             raw_value,
             "raw string".to_string().to_value(),
             "expected matching raw Value"
         );
-        assert!(row.is_null("raw_col"), "column must be null after take");
+        assert!(
+            row.is_null("raw_col").expect("is_null"),
+            "column must be null after take"
+        );
     }
 
     #[test]
@@ -1774,47 +1722,38 @@ mod tests {
 
         // Turbofish specifying only the target return type T (without dummy index parameter)
         assert_eq!(
-            row.get::<String>("col_string"),
+            row.get::<String>("col_string").expect("get col_string"),
             "sample",
             "expected string value via turbofish by name"
         );
         assert_eq!(
-            row.get::<i64>(1),
+            row.get::<i64>(1).expect("get col_int"),
             100,
             "expected int64 value via turbofish by index"
         );
-        assert_eq!(
-            row.try_get::<String>("col_string")
-                .expect("try_get by name should succeed"),
-            "sample",
-            "expected string value via try_get turbofish by name"
-        );
-        assert_eq!(
-            row.try_get::<i64>(1)
-                .expect("try_get by index should succeed"),
-            100,
-            "expected int64 value via try_get turbofish by index"
-        );
 
         assert!(
-            row.is_null("col_null"),
+            row.is_null("col_null").expect("is_null"),
             "expected is_null by name to return true"
         );
         assert!(
-            row.try_is_null(2)
-                .expect("try_is_null by index should succeed"),
-            "expected try_is_null by index to return true"
+            row.is_null(2).expect("is_null"),
+            "expected is_null by index to return true"
         );
 
-        // Turbofish on take and try_take
-        let taken_string = row.take::<String>("col_string");
+        // Turbofish on take
+        let taken_string = row.take::<String>("col_string").expect("take col_string");
         assert_eq!(taken_string, "sample", "expected taken string value");
-        assert!(row.is_null("col_string"), "column must be null after take");
+        assert!(
+            row.is_null("col_string").expect("is_null"),
+            "column must be null after take"
+        );
 
-        let taken_int64 = row
-            .try_take::<i64>(1)
-            .expect("try_take by index should succeed");
+        let taken_int64 = row.take::<i64>(1).expect("take col_int");
         assert_eq!(taken_int64, 100, "expected taken int64 value");
-        assert!(row.is_null("col_int"), "column must be null after try_take");
+        assert!(
+            row.is_null("col_int").expect("is_null"),
+            "column must be null after take"
+        );
     }
 }

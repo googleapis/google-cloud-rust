@@ -52,7 +52,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
                 .await
                 .transpose()?
                 .expect("Row exists for success transaction test");
-            let current_val: i64 = row.get("ColInt64");
+            let current_val: i64 = row.get("ColInt64")?;
 
             let update_statement =
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
@@ -80,7 +80,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
         .await
         .transpose()?
         .expect("Row exists for verification");
-    let final_val: i64 = row.get("ColInt64");
+    let final_val: i64 = row.get("ColInt64")?;
     assert_eq!(final_val, 150, "Update should have been committed");
 
     Ok(())
@@ -118,7 +118,7 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
                 .await
                 .transpose()?
                 .expect("Row exists for rollback transaction test");
-            let current_val: i64 = row.get("ColInt64");
+            let current_val: i64 = row.get("ColInt64")?;
 
             let update_statement =
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
@@ -151,7 +151,7 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
         .await
         .transpose()?
         .expect("Row exists for verification");
-    let final_val: i64 = row.get("ColInt64");
+    let final_val: i64 = row.get("ColInt64")?;
     assert_eq!(final_val, 100, "Update should have been rolled back");
 
     Ok(())
@@ -223,7 +223,7 @@ pub async fn concurrent_read_write_transaction_retries(
                     };
                     let mut result_set = transaction.execute_query(statement).await?;
                     while let Some(row) = result_set.next().await.transpose()? {
-                        let _: String = row.get("Id"); // Consume row
+                        let _: String = row.get("Id")?; // Consume row
                     }
 
                     // Update one row
@@ -268,7 +268,7 @@ pub async fn concurrent_read_write_transaction_retries(
             .await
             .transpose()?
             .unwrap_or_else(|| panic!("Row for {} does not exist", id));
-        let val: i64 = row.get("ColInt64");
+        let val: i64 = row.get("ColInt64")?;
         assert_eq!(val, 150, "Update on {} was not applied", id);
     }
 
@@ -310,7 +310,7 @@ pub async fn read_write_transaction_with_mutations(
                 .await
                 .transpose()?
                 .expect("Row exists for success transaction test");
-            let current_val: i64 = row.get("ColInt64");
+            let current_val: i64 = row.get("ColInt64")?;
 
             // Buffer a mutation for id2
             let buffer_mut = Mutation::new_insert_builder("AllTypes")
@@ -339,7 +339,7 @@ pub async fn read_write_transaction_with_mutations(
         .await
         .transpose()?
         .expect("Row exists for verification");
-    let final_val: i64 = row.get("ColInt64");
+    let final_val: i64 = row.get("ColInt64")?;
     assert_eq!(
         final_val, 200,
         "Buffered mutation should have been committed"
@@ -385,7 +385,7 @@ pub async fn read_write_transaction_mutation_only(
         .await
         .transpose()?
         .expect("Row exists for verification");
-    let final_val: i64 = row.get("ColInt64");
+    let final_val: i64 = row.get("ColInt64")?;
     assert_eq!(
         final_val, 555,
         "Mutation-only read/write transaction should have been committed"
@@ -436,7 +436,7 @@ pub async fn read_write_transaction_multiple_queries_and_dml(
                 .await
                 .transpose()?
                 .expect("First row exists for multiple queries transaction test");
-            let first_value: i64 = first_row.get("ColInt64");
+            let first_value: i64 = first_row.get("ColInt64")?;
 
             // Second query
             let second_statement =
@@ -449,7 +449,7 @@ pub async fn read_write_transaction_multiple_queries_and_dml(
                 .await
                 .transpose()?
                 .expect("Second row exists for multiple queries transaction test");
-            let second_value: i64 = second_row.get("ColInt64");
+            let second_value: i64 = second_row.get("ColInt64")?;
 
             // DML statement
             let update_statement =
@@ -477,7 +477,7 @@ pub async fn read_write_transaction_multiple_queries_and_dml(
         .await
         .transpose()?
         .expect("Row exists for verification");
-    let final_value: i64 = row.get("ColInt64");
+    let final_value: i64 = row.get("ColInt64")?;
     assert_eq!(
         final_value, 300,
         "Update from multiple queries and DML transaction should have been committed"
@@ -525,7 +525,7 @@ pub async fn consecutive_reads(db_client: &DatabaseClient) -> anyhow::Result<()>
                 .await
                 .transpose()?
                 .expect("Row 1 exists for consecutive reads test");
-            let val1: i64 = row1.get("ColInt64");
+            let val1: i64 = row1.get("ColInt64")?;
             assert_eq!(val1, 10, "Row 1 should have value 10");
 
             let read2 = ReadRequest::builder("AllTypes", vec!["ColInt64"])
@@ -537,7 +537,7 @@ pub async fn consecutive_reads(db_client: &DatabaseClient) -> anyhow::Result<()>
                 .await
                 .transpose()?
                 .expect("Row 2 exists for consecutive reads test");
-            let val2: i64 = row2.get("ColInt64");
+            let val2: i64 = row2.get("ColInt64")?;
             assert_eq!(val2, 20, "Row 2 should have value 20");
 
             let update_statement =
@@ -565,7 +565,7 @@ pub async fn consecutive_reads(db_client: &DatabaseClient) -> anyhow::Result<()>
         .await
         .transpose()?
         .expect("Row exists for verification");
-    let final_val: i64 = row.get("ColInt64");
+    let final_val: i64 = row.get("ColInt64")?;
     assert_eq!(
         final_val, 30,
         "Update should have been committed after consecutive reads"
@@ -612,7 +612,7 @@ pub async fn mixed_reads_and_queries(db_client: &DatabaseClient) -> anyhow::Resu
                 .await
                 .transpose()?
                 .expect("Row 1 exists for mixed read test");
-            let val1: i64 = row1.get("ColInt64");
+            let val1: i64 = row1.get("ColInt64")?;
 
             let query_statement =
                 Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
@@ -624,7 +624,7 @@ pub async fn mixed_reads_and_queries(db_client: &DatabaseClient) -> anyhow::Resu
                 .await
                 .transpose()?
                 .expect("Row 2 exists for mixed query test");
-            let val2: i64 = row2.get("ColInt64");
+            let val2: i64 = row2.get("ColInt64")?;
 
             let update_statement =
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
@@ -651,7 +651,7 @@ pub async fn mixed_reads_and_queries(db_client: &DatabaseClient) -> anyhow::Resu
         .await
         .transpose()?
         .expect("Row exists for verification");
-    let final_val: i64 = row.get("ColInt64");
+    let final_val: i64 = row.get("ColInt64")?;
     assert_eq!(
         final_val, 350,
         "Update should have been committed after mixed reads and queries"
@@ -724,7 +724,7 @@ pub async fn multiple_execute_updates(db_client: &DatabaseClient) -> anyhow::Res
         .await
         .transpose()?
         .expect("Row 1 exists for verification");
-    let val1: i64 = row1.get("ColInt64");
+    let val1: i64 = row1.get("ColInt64")?;
     assert_eq!(val1, 15, "Expected updated value for id1");
 
     let row2 = result_set
@@ -732,7 +732,7 @@ pub async fn multiple_execute_updates(db_client: &DatabaseClient) -> anyhow::Res
         .await
         .transpose()?
         .expect("Row 2 exists for verification");
-    let val2: i64 = row2.get("ColInt64");
+    let val2: i64 = row2.get("ColInt64")?;
     assert_eq!(val2, 30, "Expected updated value for id2");
 
     Ok(())
@@ -769,7 +769,7 @@ pub async fn read_your_writes_consistency(db_client: &DatabaseClient) -> anyhow:
                 .await
                 .transpose()?
                 .expect("Initial row exists");
-            let initial_val: i64 = row1.get("ColInt64");
+            let initial_val: i64 = row1.get("ColInt64")?;
             assert_eq!(initial_val, 100);
 
             let update_statement =
@@ -788,7 +788,7 @@ pub async fn read_your_writes_consistency(db_client: &DatabaseClient) -> anyhow:
                 .await
                 .transpose()?
                 .expect("Subsequent row exists");
-            let mid_transaction_val: i64 = row2.get("ColInt64");
+            let mid_transaction_val: i64 = row2.get("ColInt64")?;
             assert_eq!(
                 mid_transaction_val, 250,
                 "Transaction should reflect uncommitted DML update"
@@ -853,10 +853,10 @@ pub async fn buffered_mutation_interleaving(db_client: &DatabaseClient) -> anyho
         .await?;
 
     let row1 = result_set.next().await.transpose()?.expect("Row 1 exists");
-    assert_eq!(row1.get::<i64>("ColInt64"), 200);
+    assert_eq!(row1.get::<i64>("ColInt64")?, 200);
 
     let row2 = result_set.next().await.transpose()?.expect("Row 2 exists");
-    assert_eq!(row2.get::<i64>("ColInt64"), 999);
+    assert_eq!(row2.get::<i64>("ColInt64")?, 999);
 
     Ok(())
 }
@@ -1058,7 +1058,7 @@ pub async fn application_error_explicit_rollback(db_client: &DatabaseClient) -> 
         .transpose()?
         .expect("Row 1 exists for verification");
     assert_eq!(
-        row1.get::<i64>("ColInt64"),
+        row1.get::<i64>("ColInt64")?,
         100,
         "Update statement should be rolled back"
     );
@@ -1128,7 +1128,7 @@ pub async fn continue_after_initial_query_error(db_client: &DatabaseClient) -> a
         .transpose()?
         .expect("Row exists for verification");
     assert_eq!(
-        row.get::<i64>("ColInt64"),
+        row.get::<i64>("ColInt64")?,
         777,
         "Insert should have succeeded despite earlier query error"
     );
@@ -1180,7 +1180,7 @@ pub async fn continue_after_initial_dml_error(db_client: &DatabaseClient) -> any
         .transpose()?
         .expect("Row exists for verification");
     assert_eq!(
-        row.get::<i64>("ColInt64"),
+        row.get::<i64>("ColInt64")?,
         888,
         "Insert should have succeeded despite earlier DML error"
     );
@@ -1229,7 +1229,7 @@ pub async fn read_write_transaction_last_statement(
         .execute_query(statement)
         .await?;
     let row = result_set.next().await.transpose()?.expect("Row exists");
-    let final_val: i64 = row.get("ColInt64");
+    let final_val: i64 = row.get("ColInt64")?;
     assert_eq!(final_val, 200);
 
     Ok(())
@@ -1283,7 +1283,7 @@ pub async fn continue_after_initial_batch_dml_error(
         .transpose()?
         .expect("Row exists for verification");
     assert_eq!(
-        row.get::<i64>("ColInt64"),
+        row.get::<i64>("ColInt64")?,
         999,
         "Insert should have succeeded despite earlier Batch DML error"
     );
@@ -1334,7 +1334,7 @@ pub async fn read_write_transaction_batch_last_statements(
         .execute_query(statement)
         .await?;
     let row = result_set.next().await.transpose()?.expect("Row exists");
-    let final_val: i64 = row.get("ColInt64");
+    let final_val: i64 = row.get("ColInt64")?;
     assert_eq!(final_val, 300);
 
     Ok(())

@@ -83,8 +83,8 @@ pub async fn partitioned_dml_update(db_client: &DatabaseClient) -> anyhow::Resul
 
     assert_eq!(rows.len(), 3, "Expected 3 rows in result set");
     for row in rows {
-        let col_bool: bool = row.get("ColBool");
-        let id: String = row.get("Id");
+        let col_bool: bool = row.get("ColBool")?;
+        let id: String = row.get("Id")?;
         assert!(
             col_bool,
             "All rows should have ColBool = true, but failed for Id {}",

@@ -96,9 +96,9 @@ pub async fn partitioned_query(db_client: &DatabaseClient) -> anyhow::Result<()>
             rows_received += 1;
 
             // 5. Verify that we received the rows correctly.
-            let id: String = row.get("Id");
-            let col_int64: i64 = row.get("ColInt64");
-            let col_string: String = row.get("ColString");
+            let id: String = row.get("Id")?;
+            let col_int64: i64 = row.get("ColInt64")?;
+            let col_string: String = row.get("ColString")?;
 
             let expected_id = format!("batch-read-{}-{}", col_int64, run_id);
             let expected_str = format!("Value {}", col_int64);
@@ -183,9 +183,9 @@ pub async fn partitioned_read(db_client: &DatabaseClient) -> anyhow::Result<()> 
             rows_received += 1;
 
             // 5. Verify that we received the rows correctly.
-            let id: String = row.get("Id");
-            let col_int64: i64 = row.get("ColInt64");
-            let col_string: String = row.get("ColString");
+            let id: String = row.get("Id")?;
+            let col_int64: i64 = row.get("ColInt64")?;
+            let col_string: String = row.get("ColString")?;
 
             let expected_id = format!("batch-read-{}-{}", col_int64, run_id);
             let expected_str = format!("Value {}", col_int64);
@@ -255,7 +255,7 @@ pub async fn partition_tuning_and_data_boost(db_client: &DatabaseClient) -> anyh
         let mut result_set = boosted_partition.execute(&execution_client).await?;
         while let Some(row) = result_set.next().await.transpose()? {
             rows_received += 1;
-            let col_int64: i64 = row.get("ColInt64");
+            let col_int64: i64 = row.get("ColInt64")?;
             assert!((1..=5).contains(&col_int64));
         }
     }
@@ -321,7 +321,7 @@ pub async fn parallel_partition_execution(db_client: &DatabaseClient) -> anyhow:
             let mut result_set = partition.execute(&client).await?;
             let mut received_keys = Vec::new();
             while let Some(row) = result_set.next().await.transpose()? {
-                let col_int64: i64 = row.get("ColInt64");
+                let col_int64: i64 = row.get("ColInt64")?;
                 received_keys.push(col_int64);
             }
             Ok::<_, anyhow::Error>(received_keys)

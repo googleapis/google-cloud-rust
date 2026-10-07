@@ -3585,7 +3585,7 @@ mod tests {
                         .await
                         .expect("Expected row option")
                         .expect("Expected valid row");
-                    assert_eq!(row.get::<String>(0), "alice");
+                    assert_eq!(row.get::<String>(0)?, "alice");
                     Ok(())
                 }
             })
@@ -3705,7 +3705,7 @@ mod tests {
                     .await
                     .expect("Expected first row")
                     .expect("First row should be Ok");
-                assert_eq!(row.get::<String>(0), "alice");
+                assert_eq!(row.get::<String>(0)?, "alice");
                 // Second next() fails
                 let next_result = result_set.next().await.expect("Expected stream item");
                 assert!(next_result.is_err(), "Second row fetch must fail");

@@ -129,74 +129,74 @@ pub async fn pg_dialect_types_roundtrip(db_client: &DatabaseClient) -> Result<()
         .expect("Expected to find inserted PG row");
 
     // 3. Assertions using positional indices (immune to PG case-folding lowercasing!)
-    assert_eq!(row.get::<String>(0), id, "Id mismatch");
-    assert_eq!(row.get::<bool>(1), val_bool, "ColBool mismatch");
-    assert_eq!(row.get::<i64>(2), val_int64, "ColInt64 mismatch");
-    assert_eq!(row.get::<f32>(3), val_float32, "ColFloat32 mismatch");
-    assert_eq!(row.get::<f64>(4), val_float64, "ColFloat64 mismatch");
-    assert_eq!(row.get::<Decimal>(5), val_numeric, "ColNumeric mismatch");
-    assert_eq!(row.get::<String>(6), val_string, "ColString mismatch");
-    assert_eq!(row.get::<Vec<u8>>(7), val_bytes, "ColBytes mismatch");
-    assert_eq!(row.get::<time::Date>(8), val_date, "ColDate mismatch");
+    assert_eq!(row.get::<String>(0)?, id, "Id mismatch");
+    assert_eq!(row.get::<bool>(1)?, val_bool, "ColBool mismatch");
+    assert_eq!(row.get::<i64>(2)?, val_int64, "ColInt64 mismatch");
+    assert_eq!(row.get::<f32>(3)?, val_float32, "ColFloat32 mismatch");
+    assert_eq!(row.get::<f64>(4)?, val_float64, "ColFloat64 mismatch");
+    assert_eq!(row.get::<Decimal>(5)?, val_numeric, "ColNumeric mismatch");
+    assert_eq!(row.get::<String>(6)?, val_string, "ColString mismatch");
+    assert_eq!(row.get::<Vec<u8>>(7)?, val_bytes, "ColBytes mismatch");
+    assert_eq!(row.get::<time::Date>(8)?, val_date, "ColDate mismatch");
 
-    let read_timestamp: time::OffsetDateTime = row.get(9);
+    let read_timestamp: time::OffsetDateTime = row.get(9)?;
     assert_eq!(
         read_timestamp.unix_timestamp_nanos() / 1000,
         val_timestamp.unix_timestamp_nanos() / 1000,
         "ColTimestamp mismatch"
     );
 
-    let read_json_str: String = row.get(10);
+    let read_json_str: String = row.get(10)?;
     let read_json: serde_json::Value =
         serde_json::from_str(&read_json_str).expect("valid read JSON");
     let expected_json: serde_json::Value =
         serde_json::from_str(&val_json).expect("valid expected JSON");
     assert_eq!(read_json, expected_json, "ColJson mismatch");
-    assert_eq!(row.get::<String>(11), val_uuid, "ColUuid mismatch");
+    assert_eq!(row.get::<String>(11)?, val_uuid, "ColUuid mismatch");
 
     // Array assertions using positional indices
     assert_eq!(
-        row.get::<Vec<Option<bool>>>(12),
+        row.get::<Vec<Option<bool>>>(12)?,
         val_array_bool,
         "ColArrayBool mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<i64>>>(13),
+        row.get::<Vec<Option<i64>>>(13)?,
         val_array_int64,
         "ColArrayInt64 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<f32>>>(14),
+        row.get::<Vec<Option<f32>>>(14)?,
         val_array_float32,
         "ColArrayFloat32 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<f64>>>(15),
+        row.get::<Vec<Option<f64>>>(15)?,
         val_array_float64,
         "ColArrayFloat64 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<Decimal>>>(16),
+        row.get::<Vec<Option<Decimal>>>(16)?,
         val_array_numeric,
         "ColArrayNumeric mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<String>>>(17),
+        row.get::<Vec<Option<String>>>(17)?,
         val_array_string,
         "ColArrayString mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<Vec<u8>>>>(18),
+        row.get::<Vec<Option<Vec<u8>>>>(18)?,
         val_array_bytes,
         "ColArrayBytes mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<time::Date>>>(19),
+        row.get::<Vec<Option<time::Date>>>(19)?,
         val_array_date,
         "ColArrayDate mismatch"
     );
 
-    let read_array_timestamp: Vec<Option<time::OffsetDateTime>> = row.get(20);
+    let read_array_timestamp: Vec<Option<time::OffsetDateTime>> = row.get(20)?;
     assert_eq!(read_array_timestamp.len(), 2);
     assert_eq!(
         read_array_timestamp[0]
@@ -214,7 +214,7 @@ pub async fn pg_dialect_types_roundtrip(db_client: &DatabaseClient) -> Result<()
         "ColArrayTimestamp element 1 must be None (NULL)"
     );
 
-    let read_array_json_str: Vec<Option<String>> = row.get(21);
+    let read_array_json_str: Vec<Option<String>> = row.get(21)?;
     assert_eq!(read_array_json_str.len(), 2);
     let read_array_json: serde_json::Value = serde_json::from_str(
         read_array_json_str[0]
@@ -238,7 +238,7 @@ pub async fn pg_dialect_types_roundtrip(db_client: &DatabaseClient) -> Result<()
     );
 
     assert_eq!(
-        row.get::<Vec<Option<String>>>(22),
+        row.get::<Vec<Option<String>>>(22)?,
         val_array_uuid,
         "ColArrayUuid mismatch"
     );

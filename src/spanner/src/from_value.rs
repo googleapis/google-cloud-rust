@@ -222,7 +222,7 @@ impl ConvertError {
     ///     .await?;
     ///
     /// if let Some(row) = result_set.next().await {
-    ///     let result: Result<i64, _> = row?.try_get("text");
+    ///     let result: Result<i64, _> = row?.get("text");
     ///     if let Err(error) = result {
     ///         if let Some(convert_error) = ConvertError::extract(&error) {
     ///             println!("Conversion failed: {convert_error}");
