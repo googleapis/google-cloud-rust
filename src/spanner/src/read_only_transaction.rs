@@ -34,7 +34,7 @@ use google_cloud_gax::retry_policy::RetryPolicyArg;
 use http::HeaderMap;
 use std::error::Error as _;
 use std::mem::replace;
-use std::sync::{Arc, Mutex, MutexGuard};
+use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
 use std::time::{Duration, Instant};
 use tokio::sync::Notify;
 use tokio::sync::futures::OwnedNotified;
@@ -662,10 +662,7 @@ impl ReadContextTransactionSelector {
     /// subsequent statements, commit attempts, or cleanup routines.
     fn lock_state(&self) -> Option<MutexGuard<'_, TransactionState>> {
         match self {
-            Self::Lazy(lazy) => match lazy.lock() {
-                Ok(guard) => Some(guard),
-                Err(poisoned) => Some(poisoned.into_inner()),
-            },
+            Self::Lazy(lazy) => Some(lazy.lock().unwrap_or_else(PoisonError::into_inner)),
             Self::Fixed(_, _) => None,
         }
     }
@@ -960,11 +957,11 @@ impl ReadContextTransactionSelector {
     }
 
     /// Returns whether the transaction selector is currently in the `Starting` state.
-    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
+    pub(crate) fn is_starting(&self) -> bool {
         let Some(guard) = self.lock_state() else {
-            return Ok(false);
+            return false;
         };
-        Ok(matches!(&*guard, TransactionState::Starting(_, _)))
+        matches!(&*guard, TransactionState::Starting(_, _))
     }
 
     /// Handles the cancellation of an operation that was starting the transaction.
@@ -1019,10 +1016,8 @@ impl ReadContextTransactionSelector {
     pub(crate) fn selector_for_restart(&self) -> crate::Result<crate::model::TransactionSelector> {
         match self {
             Self::Fixed(selector, _) => Ok(selector.clone()),
-            Self::Lazy(_) => {
-                let Some(guard) = self.lock_state() else {
-                    unreachable!("selector_for_restart called on non-Lazy selector");
-                };
+            Self::Lazy(lazy) => {
+                let guard = lazy.lock().unwrap_or_else(PoisonError::into_inner);
                 match &*guard {
                     TransactionState::Started(selector, _) => Ok(selector.clone()),
                     TransactionState::Starting(options, _) => {
@@ -5136,7 +5131,7 @@ pub(crate) mod tests {
         leader_rpc_received.notified().await;
         yield_now().await;
         assert!(
-            selector.is_starting()?,
+            selector.is_starting(),
             "Leader must be in Starting state before cancellation"
         );
 
@@ -5272,7 +5267,7 @@ pub(crate) mod tests {
             "selector must not be started initially"
         );
         assert!(
-            !selector.is_starting()?,
+            !selector.is_starting(),
             "selector must not be starting initially"
         );
 
@@ -5290,7 +5285,7 @@ pub(crate) mod tests {
             }
         }
         assert!(
-            selector.is_starting()?,
+            selector.is_starting(),
             "selector must be starting after poll_selector_status"
         );
 
@@ -5427,7 +5422,7 @@ pub(crate) mod tests {
 
             selector.on_cancelled_starting();
             assert!(
-                !selector.is_starting()?,
+                !selector.is_starting(),
                 "read-only selector must reset from Starting back to NotStarted on cancellation"
             );
         }

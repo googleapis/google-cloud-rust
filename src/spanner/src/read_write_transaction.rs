@@ -629,7 +629,7 @@ impl ReadWriteTransaction {
             .await
     }
 
-    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
+    pub(crate) fn is_starting(&self) -> bool {
         self.context.transaction_selector.is_starting()
     }
 
@@ -693,7 +693,7 @@ impl ReadWriteTransaction {
         let mutations = take(&mut *self.lock_mutations());
         let mut id = self.context.transaction_selector.get_id_no_wait()?;
         if id.is_none() {
-            if self.is_starting()? {
+            if self.is_starting() {
                 return Err(internal_error(
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
@@ -6877,7 +6877,7 @@ mod tests {
                     leader_rpc_received.notified().await;
                     yield_now().await;
                     assert!(
-                        transaction.is_starting()?,
+                        transaction.is_starting(),
                         "Leader must be in Starting state before cancellation"
                     );
 
