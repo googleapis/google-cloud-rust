@@ -1614,6 +1614,117 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn run_reconnect_replays_chunk_and_resends_pending_flush() -> anyhow::Result<()> {
+        // Arrange.
+        // `transport.flush()` queues the residual append immediately followed by the flush, so
+        // `[Append, Flush]` is the usual shape of the worker's state when a stream breaks.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        intent_tx.send(append_intent(0, 10)).await?;
+        let (intent, mut flush_rx) = flush_intent(10);
+        intent_tx.send(intent).await?;
+        let _ = stream1_rx.recv().await.unwrap();
+        let sent_flush = stream1_rx.recv().await.unwrap();
+        assert!(sent_flush.flush);
+
+        // Act.
+        // Stream 1 breaks before the append reached the service; the handshake reports nothing
+        // persisted.
+        drop(stream1_resp_tx);
+        stream2_resp_tx.send(Ok(persisted_size_response(0))).await?;
+
+        // Assert.
+        // Stream 2 receives the handshake, then the replayed chunk, then the re-sent flush.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+
+        let replayed = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed.write_offset, 0);
+        assert!(replayed.data.is_some(), "{replayed:?}");
+        assert!(!replayed.flush, "{replayed:?}");
+        assert!(!replayed.state_lookup, "{replayed:?}");
+
+        let resent_flush = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(resent_flush.write_offset, 10);
+        assert!(resent_flush.flush, "{resent_flush:?}");
+        assert!(resent_flush.state_lookup, "{resent_flush:?}");
+        assert!(resent_flush.data.is_none(), "{resent_flush:?}");
+
+        // The caller is still waiting: the handshake did not cover the flush offset.
+        assert!(matches!(
+            flush_rx.try_recv(),
+            Err(oneshot::error::TryRecvError::Empty)
+        ));
+
+        // The service answers the re-sent flush.
+        let server_resp = persisted_size_response(10);
+        stream2_resp_tx.send(Ok(server_resp.clone())).await?;
+        let got = flush_rx.await??;
+        assert_eq!(got.write_status, server_resp.write_status);
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_handshake_completes_pending_flush_without_resending()
+    -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        intent_tx.send(append_intent(0, 10)).await?;
+        let (intent, flush_rx) = flush_intent(10);
+        intent_tx.send(intent).await?;
+        let _ = stream1_rx.recv().await.unwrap();
+        let _ = stream1_rx.recv().await.unwrap();
+
+        // Act.
+        // Stream 1 breaks after the service persisted the append but before the flush response
+        // was delivered; the handshake already reports the flush offset as persisted.
+        drop(stream1_resp_tx);
+        let handshake = persisted_size_response(10);
+        stream2_resp_tx.send(Ok(handshake.clone())).await?;
+
+        // Assert.
+        // The handshake response completes the pending flush, ...
+        let got = flush_rx.await??;
+        assert_eq!(got.write_status, handshake.write_status);
+
+        // ... and stream 2 receives only the handshake: no replayed chunk, no duplicate flush.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+        assert!(matches!(
+            stream2_req_rx.try_recv(),
+            Err(mpsc::error::TryRecvError::Empty)
+        ));
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn run_send_error_defers_reconnect_to_rx_and_replays_chunk() -> anyhow::Result<()> {
         // Arrange.
         let (
