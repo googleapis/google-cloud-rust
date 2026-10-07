@@ -333,11 +333,13 @@ pub mod notification_config {
 #[non_exhaustive]
 pub struct ImageConfig {
     /// The initial image the remote agent will attempt to run for the control
-    /// plane.
+    /// plane. Format would be a gcr image path, e.g.:
+    /// gcr.io/PROJECT-ID/my-image:tag1
     pub target_image: std::string::String,
 
     /// The stable image that the remote agent will fallback to if the target image
-    /// fails.
+    /// fails. Format would be a gcr image path, e.g.:
+    /// gcr.io/PROJECT-ID/my-image:tag1
     pub stable_image: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -392,8 +394,10 @@ pub struct ListAppConnectorsRequest {
     /// If not specified, a default value of 50 will be used by the service.
     /// Regardless of the page_size value, the response may include a partial list
     /// and a caller should only rely on response's
-    /// [next_page_token][BeyondCorp.ListAppConnectorsResponse.next_page_token] to
-    /// determine if there are more instances left to be queried.
+    /// [next_page_token][google.cloud.beyondcorp.appconnectors.v1.ListAppConnectorsResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.beyondcorp.appconnectors.v1.ListAppConnectorsResponse.next_page_token]: crate::model::ListAppConnectorsResponse::next_page_token
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -644,8 +648,8 @@ pub struct CreateAppConnectorRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -781,8 +785,8 @@ pub struct UpdateAppConnectorRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -914,8 +918,8 @@ pub struct DeleteAppConnectorRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes after the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -983,6 +987,101 @@ impl wkt::message::Message for DeleteAppConnectorRequest {
     }
 }
 
+/// Request message for BeyondCorp.ResolveInstanceConfig.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ResolveInstanceConfigRequest {
+    /// Required. BeyondCorp AppConnector name using the form:
+    /// `projects/{project_id}/locations/{location_id}/appConnectors/{app_connector}`
+    pub app_connector: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ResolveInstanceConfigRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [app_connector][crate::model::ResolveInstanceConfigRequest::app_connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResolveInstanceConfigRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_connector_id = "app_connector_id";
+    /// let x = ResolveInstanceConfigRequest::new().set_app_connector(format!("projects/{project_id}/locations/{location_id}/appConnectors/{app_connector_id}"));
+    /// ```
+    pub fn set_app_connector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.app_connector = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ResolveInstanceConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.beyondcorp.appconnectors.v1.ResolveInstanceConfigRequest"
+    }
+}
+
+/// Response message for BeyondCorp.ResolveInstanceConfig.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ResolveInstanceConfigResponse {
+    /// AppConnectorInstanceConfig.
+    pub instance_config: std::option::Option<crate::model::AppConnectorInstanceConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ResolveInstanceConfigResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance_config][crate::model::ResolveInstanceConfigResponse::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResolveInstanceConfigResponse;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// let x = ResolveInstanceConfigResponse::new().set_instance_config(AppConnectorInstanceConfig::default()/* use setters */);
+    /// ```
+    pub fn set_instance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnectorInstanceConfig>,
+    {
+        self.instance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_config][crate::model::ResolveInstanceConfigResponse::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResolveInstanceConfigResponse;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// let x = ResolveInstanceConfigResponse::new().set_or_clear_instance_config(Some(AppConnectorInstanceConfig::default()/* use setters */));
+    /// let x = ResolveInstanceConfigResponse::new().set_or_clear_instance_config(None::<AppConnectorInstanceConfig>);
+    /// ```
+    pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnectorInstanceConfig>,
+    {
+        self.instance_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ResolveInstanceConfigResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.beyondcorp.appconnectors.v1.ResolveInstanceConfigResponse"
+    }
+}
+
 /// Request report the connector status.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -999,8 +1098,8 @@ pub struct ReportStatusRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -1688,9 +1787,13 @@ pub struct AppConnectorOperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of `1`,
+    /// corresponding to `Code.CANCELLED`.
+    ///
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1838,17 +1941,11 @@ impl wkt::message::Message for AppConnectorOperationMetadata {
     }
 }
 
-/// ResourceInfo represents the information/status of an app connector resource.
-/// Such as:
-///
-/// - remote_agent
-///   - container
-///     - runtime
-///     - appgateway
-///       - appconnector
-///         - appconnection
-///           - tunnel
-///       - logagent
+/// ResourceInfo represents the information or status of an app connector
+/// resource component that's used to report on various parts of the system. For
+/// example, ResourceInfo can be used to convey the status of a remote_agent,
+/// including the status of an appgateway for an runtime environment in a
+/// container instance.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceInfo {
@@ -1996,6 +2093,121 @@ impl ResourceInfo {
 impl wkt::message::Message for ResourceInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.beyondcorp.appconnectors.v1.ResourceInfo"
+    }
+}
+
+/// ContainerHealthDetails reflects the health details of a container.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ContainerHealthDetails {
+    /// The version of the expected config.
+    pub expected_config_version: std::string::String,
+
+    /// The version of the current config.
+    pub current_config_version: std::string::String,
+
+    /// The extended status. Such as ExitCode, StartedAt, FinishedAt, etc.
+    pub extended_status: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// The latest error message.
+    pub error_msg: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ContainerHealthDetails {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [expected_config_version][crate::model::ContainerHealthDetails::expected_config_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ContainerHealthDetails;
+    /// let x = ContainerHealthDetails::new().set_expected_config_version("example");
+    /// ```
+    pub fn set_expected_config_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expected_config_version = v.into();
+        self
+    }
+
+    /// Sets the value of [current_config_version][crate::model::ContainerHealthDetails::current_config_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ContainerHealthDetails;
+    /// let x = ContainerHealthDetails::new().set_current_config_version("example");
+    /// ```
+    pub fn set_current_config_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.current_config_version = v.into();
+        self
+    }
+
+    /// Sets the value of [extended_status][crate::model::ContainerHealthDetails::extended_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ContainerHealthDetails;
+    /// let x = ContainerHealthDetails::new().set_extended_status([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_extended_status<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.extended_status = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [error_msg][crate::model::ContainerHealthDetails::error_msg].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ContainerHealthDetails;
+    /// let x = ContainerHealthDetails::new().set_error_msg("example");
+    /// ```
+    pub fn set_error_msg<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_msg = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ContainerHealthDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.beyondcorp.appconnectors.v1.ContainerHealthDetails"
+    }
+}
+
+/// RemoteAgentDetails reflects the details of a remote agent.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RemoteAgentDetails {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RemoteAgentDetails {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for RemoteAgentDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.beyondcorp.appconnectors.v1.RemoteAgentDetails"
     }
 }
 

@@ -420,6 +420,62 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_boundary(
+        &self,
+        req: crate::model::GetBoundaryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Boundary>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_boundary",
+            self.inner.get_boundary(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_boundary(
+        &self,
+        req: crate::model::UpdateBoundaryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::update_boundary",
+            self.inner.update_boundary(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_extended_metadata_schema(
+        &self,
+        req: crate::model::GetExtendedMetadataSchemaRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExtendedMetadataSchema>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_extended_metadata_schema",
+            self.inner.get_extended_metadata_schema(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_extended_metadata_schemas(
+        &self,
+        req: crate::model::ListExtendedMetadataSchemasRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListExtendedMetadataSchemasResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_extended_metadata_schemas",
+            self.inner.list_extended_metadata_schemas(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,

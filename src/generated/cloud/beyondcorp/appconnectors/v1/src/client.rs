@@ -56,6 +56,9 @@
 /// The AppConnectorsService provides methods to manage
 /// (create/read/update/delete) BeyondCorp AppConnectors.
 ///
+/// Deprecated: App Connector is deprecated and creation of new App Connector
+/// resources is no longer permitted. Use Security Gateway instead.
+///
 /// # Configuration
 ///
 /// To configure `AppConnectorsService` use the `with_*` methods in the type returned
@@ -83,6 +86,7 @@
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AppConnectorsService {
     inner: std::sync::Arc<dyn super::stub::dynamic::AppConnectorsService>,
 }
@@ -161,6 +165,7 @@ impl AppConnectorsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn list_app_connectors(&self) -> super::builder::app_connectors_service::ListAppConnectors {
         super::builder::app_connectors_service::ListAppConnectors::new(self.inner.clone())
     }
@@ -181,6 +186,7 @@ impl AppConnectorsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn get_app_connector(&self) -> super::builder::app_connectors_service::GetAppConnector {
         super::builder::app_connectors_service::GetAppConnector::new(self.inner.clone())
     }
@@ -216,6 +222,7 @@ impl AppConnectorsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn create_app_connector(
         &self,
     ) -> super::builder::app_connectors_service::CreateAppConnector {
@@ -255,6 +262,7 @@ impl AppConnectorsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn update_app_connector(
         &self,
     ) -> super::builder::app_connectors_service::UpdateAppConnector {
@@ -287,10 +295,35 @@ impl AppConnectorsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn delete_app_connector(
         &self,
     ) -> super::builder::app_connectors_service::DeleteAppConnector {
         super::builder::app_connectors_service::DeleteAppConnector::new(self.inner.clone())
+    }
+
+    /// Gets instance configuration for a given AppConnector.
+    /// An internal method called by a AppConnector to get its container config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// use google_cloud_beyondcorp_appconnectors_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectorsService
+    /// ) -> Result<()> {
+    ///     let response = client.resolve_instance_config()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    #[deprecated]
+    pub fn resolve_instance_config(
+        &self,
+    ) -> super::builder::app_connectors_service::ResolveInstanceConfig {
+        super::builder::app_connectors_service::ResolveInstanceConfig::new(self.inner.clone())
     }
 
     /// Report status for a given connector.
@@ -320,11 +353,29 @@ impl AppConnectorsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn report_status(&self) -> super::builder::app_connectors_service::ReportStatus {
         super::builder::app_connectors_service::ReportStatus::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

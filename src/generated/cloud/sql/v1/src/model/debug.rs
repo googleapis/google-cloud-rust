@@ -220,6 +220,182 @@ impl std::fmt::Debug for super::Backup {
     }
 }
 
+impl std::fmt::Debug for super::BlueGreenDeployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BlueGreenDeployment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("source_instance", &self.source_instance);
+        debug_struct.field(
+            "switchover_target_instance",
+            &self.switchover_target_instance,
+        );
+        debug_struct.field("error_detail", &self.error_detail);
+        debug_struct.field("deployment_mappings", &self.deployment_mappings);
+        debug_struct.field("deployment_tasks", &self.deployment_tasks);
+        debug_struct.field("requested_config", &self.requested_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::blue_green_deployment::RequestedConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequestedConfig");
+        debug_struct.field("database_version", &self.database_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::blue_green_deployment::DeploymentTasks {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeploymentTasks");
+        debug_struct.field("task", &self.task);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::blue_green_deployment::SourceTargetPairedNode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceTargetPairedNode");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("diffs", &self.diffs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::blue_green_deployment::source_target_paired_node::ConfigDiff {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigDiff");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("source_value", &self.source_value);
+        debug_struct.field("target_value", &self.target_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::blue_green_deployment::source_target_paired_node::NodeInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeInfo");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("connection", &self.connection);
+        debug_struct.field("dns", &self.dns);
+        debug_struct.field("ip_mappings", &self.ip_mappings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::blue_green_deployment::source_target_paired_node::DeploymentTask {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeploymentTask");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("error_message", &self.error_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateBlueGreenDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBlueGreenDeploymentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("blue_green_deployment_id", &self.blue_green_deployment_id);
+        debug_struct.field("blue_green_deployment", &self.blue_green_deployment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetBlueGreenDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBlueGreenDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SwitchoverBlueGreenDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SwitchoverBlueGreenDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListBlueGreenDeploymentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBlueGreenDeploymentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListBlueGreenDeploymentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBlueGreenDeploymentsResponse");
+        debug_struct.field("blue_green_deployments", &self.blue_green_deployments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteBlueGreenDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBlueGreenDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("delete_old_source", &self.delete_old_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetConnectSettingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConnectSettingsRequest");
@@ -1160,6 +1336,10 @@ impl std::fmt::Debug for super::InstancesRestoreBackupRequest {
             "restore_instance_clear_overrides_field_names",
             &self.restore_instance_clear_overrides_field_names,
         );
+        debug_struct.field(
+            "ignore_maintenance_version",
+            &self.ignore_maintenance_version,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1436,10 +1616,12 @@ impl std::fmt::Debug for super::DatabaseInstance {
             "include_replicas_for_major_version_upgrade",
             &self.include_replicas_for_major_version_upgrade,
         );
+        debug_struct.field("skip_precheck", &self.skip_precheck);
         debug_struct.field("tags", &self.tags);
         debug_struct.field("node_count", &self.node_count);
         debug_struct.field("nodes", &self.nodes);
         debug_struct.field("dns_names", &self.dns_names);
+        debug_struct.field("deployment_info", &self.deployment_info);
         debug_struct.field(
             "database_center_integration_enabled",
             &self.database_center_integration_enabled,
@@ -1510,6 +1692,41 @@ impl std::fmt::Debug for super::database_instance::PoolNodeConfig {
             &self.psc_service_attachment_link,
         );
         debug_struct.field("psc_auto_connections", &self.psc_auto_connections);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BlueGreenDeploymentInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BlueGreenDeploymentInfo");
+        debug_struct.field("deployment_id", &self.deployment_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("role_details", &self.role_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::blue_green_deployment_info::SourceRole {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceRole");
+        debug_struct.field("target_id", &self.target_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::blue_green_deployment_info::TargetRole {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TargetRole");
+        debug_struct.field("source_id", &self.source_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2093,6 +2310,7 @@ impl std::fmt::Debug for super::PreCheckMajorVersionUpgradeContext {
         debug_struct.field("target_database_version", &self.target_database_version);
         debug_struct.field("pre_check_response", &self.pre_check_response);
         debug_struct.field("kind", &self.kind);
+        debug_struct.field("max_runtime", &self.max_runtime);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2597,6 +2815,11 @@ impl std::fmt::Debug for super::DiskEncryptionConfiguration {
         let mut debug_struct = f.debug_struct("DiskEncryptionConfiguration");
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("kind", &self.kind);
+        debug_struct.field("confidential_mode", &self.confidential_mode);
+        debug_struct.field(
+            "cmek_source_log_encryption_enforced",
+            &self.cmek_source_log_encryption_enforced,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2659,6 +2882,22 @@ impl std::fmt::Debug for super::Operation {
         debug_struct.field(
             "pre_check_major_version_upgrade_context",
             &self.pre_check_major_version_upgrade_context,
+        );
+        debug_struct.field(
+            "start_workload_capture_context",
+            &self.start_workload_capture_context,
+        );
+        debug_struct.field(
+            "stop_workload_capture_context",
+            &self.stop_workload_capture_context,
+        );
+        debug_struct.field(
+            "start_workload_replay_context",
+            &self.start_workload_replay_context,
+        );
+        debug_struct.field(
+            "stop_workload_replay_context",
+            &self.stop_workload_replay_context,
         );
         debug_struct.field("name", &self.name);
         debug_struct.field("target_id", &self.target_id);
@@ -3066,6 +3305,51 @@ impl std::fmt::Debug for super::DnsNameMapping {
     }
 }
 
+impl std::fmt::Debug for super::StartWorkloadCaptureContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartWorkloadCaptureContext");
+        debug_struct.field("enable_live_replay", &self.enable_live_replay);
+        debug_struct.field("replay_instance", &self.replay_instance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StopWorkloadCaptureContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopWorkloadCaptureContext");
+        debug_struct.field("abort_live_replay", &self.abort_live_replay);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StartWorkloadReplayContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartWorkloadReplayContext");
+        debug_struct.field("replay_instance", &self.replay_instance);
+        debug_struct.field("workload_id", &self.workload_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StopWorkloadReplayContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopWorkloadReplayContext");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SqlSslCertsDeleteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SqlSslCertsDeleteRequest");
@@ -3351,6 +3635,113 @@ impl std::fmt::Debug for super::UsersListResponse {
         debug_struct.field("kind", &self.kind);
         debug_struct.field("items", &self.items);
         debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadCapturesStartRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadCapturesStartRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field(
+            "start_workload_capture_context",
+            &self.start_workload_capture_context,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadCapturesStopRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadCapturesStopRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field(
+            "stop_workload_capture_context",
+            &self.stop_workload_capture_context,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadCapturesStartReplayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadCapturesStartReplayRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field(
+            "start_workload_replay_context",
+            &self.start_workload_replay_context,
+        );
+        debug_struct.field("workload_id", &self.workload_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadCapturesStopReplayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadCapturesStopReplayRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field(
+            "stop_workload_replay_context",
+            &self.stop_workload_replay_context,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SqlWorkloadCapturesListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlWorkloadCapturesListRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("instance", &self.instance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadCapturesListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadCapturesListResponse");
+        debug_struct.field("workload_captures", &self.workload_captures);
+        debug_struct.field("kind", &self.kind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadCapture {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadCapture");
+        debug_struct.field("workload_id", &self.workload_id);
+        debug_struct.field("source_instance", &self.source_instance);
+        debug_struct.field("workload_capture_state", &self.workload_capture_state);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("replay_instance", &self.replay_instance);
+        debug_struct.field("retention_days", &self.retention_days);
+        debug_struct.field("backup_id", &self.backup_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

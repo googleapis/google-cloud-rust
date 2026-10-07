@@ -224,6 +224,34 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn start_split(
+        &self,
+        req: crate::model::StartSplitRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetApp::start_split",
+            self.inner.start_split(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_split_status(
+        &self,
+        req: crate::model::GetSplitStatusRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SplitStatus>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetApp::get_split_status",
+            self.inner.get_split_status(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn establish_volume_peering(
         &self,
         req: crate::model::EstablishVolumePeeringRequest,
@@ -1032,6 +1060,48 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::NetApp::execute_ontap_patch",
             self.inner.execute_ontap_patch(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn restore_volume(
+        &self,
+        req: crate::model::RestoreVolumeRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetApp::restore_volume",
+            self.inner.restore_volume(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_backup_configs(
+        &self,
+        req: crate::model::ListBackupConfigsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBackupConfigsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetApp::list_backup_configs",
+            self.inner.list_backup_configs(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_backup_config(
+        &self,
+        req: crate::model::UpdateBackupConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetApp::update_backup_config",
+            self.inner.update_backup_config(req, options));
         pending.await
     }
 
