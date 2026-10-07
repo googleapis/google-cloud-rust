@@ -20,7 +20,7 @@ use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{ExplicitBeginParams, ReadContextTransactionSelector};
-use crate::request_id_interceptor::REQUEST_ID_HEADER;
+use crate::request_id_interceptor::update_request_id_attempt;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::retry_policy::SpannerRetryPolicy;
 use crate::row::Row;
@@ -30,11 +30,10 @@ use gaxi::prost::FromProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use google_cloud_gax::options::internal::RequestOptionsExt;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
-use http::{HeaderMap, HeaderValue};
+use http::HeaderMap;
 use prost_types::Value;
 use std::collections::VecDeque;
 use std::mem::take;
@@ -724,16 +723,8 @@ impl ResultSet {
         // the attempt number suffix on the existing `x-goog-spanner-request-id` header in `RequestOptions`.
         // When `gaxi` invokes `SpannerRequestIdInterceptor` with attempt 1 for the retried stream,
         // the interceptor takes the maximum (`existing_attempt.max(attempt)`), preserving our bumped attempt number.
-        if self.retry_count > 0
-            && let Some(headers) = self.gax_options.get_extension_mut::<HeaderMap>()
-            && let Some(val) = headers.get(&REQUEST_ID_HEADER)
-            && let Ok(s) = val.to_str()
-            && let Some((base, _)) = s.rsplit_once('.')
-        {
-            let new_id = format!("{}.{}", base, self.retry_count + 1);
-            if let Ok(new_val) = HeaderValue::from_str(&new_id) {
-                headers.insert(REQUEST_ID_HEADER.clone(), new_val);
-            }
+        if self.retry_count > 0 {
+            update_request_id_attempt(&mut self.gax_options, (self.retry_count + 1) as u32);
         }
 
         self.attempt_start_time = Instant::now();
