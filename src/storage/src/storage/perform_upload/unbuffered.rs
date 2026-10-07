@@ -89,10 +89,10 @@ where
             self.options.checksum = Checksum::default();
         }
 
-        // Resumable uploads are always retried (regardless of preconditions or
-        // `with_idempotency()`), so stamp the deduplication token once before
-        // the retry loop to ensure every attempt at creating the session reuses
-        // the identical `x-goog-gcs-idempotency-token`.
+        // Resumable uploads are always treated as idempotent (regardless of
+        // preconditions or `with_idempotency()`), so stamp the deduplication
+        // token once before the retry loop to ensure every attempt at creating
+        // the session reuses the identical `x-goog-gcs-idempotency-token`.
         let options = crate::idempotency::add_token(self.options.gax());
 
         let mut upload_url = None;

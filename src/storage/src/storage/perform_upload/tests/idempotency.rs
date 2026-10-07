@@ -123,7 +123,7 @@ async fn unbuffered_resumable_unconditioned_reuses_token() -> Result {
     Ok(())
 }
 
-// Resumable uploads are always treated as idempotent and retried regardless of
+// Resumable uploads are always treated as idempotent regardless of
 // `with_idempotency(false)`, so session creation still stamps and reuses the
 // deduplication token.
 #[tokio::test]

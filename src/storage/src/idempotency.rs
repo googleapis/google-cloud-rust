@@ -23,8 +23,10 @@
 //! (`*_not_match`) never make a request idempotent, because they can match again
 //! on a retry.
 //!
-//! Handwritten operations (uploads) call [mutation] once, before their retry
-//! loop, so every attempt sends the same token.
+//! Single-shot uploads call [mutation] once, before their retry loop, so every
+//! retried attempt sends the same token. Resumable uploads are always treated
+//! as idempotent, so session creation calls [add_token] once, before the retry
+//! loop. The data `PUT` and status queries carry no token.
 //!
 //! [GCS retry strategy]: https://cloud.google.com/storage/docs/retry-strategy#idempotency-operations
 
@@ -55,9 +57,9 @@ pub(crate) fn mutation(options: RequestOptions, idempotent: bool) -> RequestOpti
 
 /// Stamps a deduplication token onto `options` if one is not already present.
 ///
-/// Resumable uploads are always retried (regardless of preconditions or
-/// `with_idempotency(false)`), so session creation calls this directly to
-/// ensure every attempt carries a deduplication token.
+/// Resumable uploads are always treated as idempotent (regardless of
+/// preconditions or `with_idempotency(false)`), so session creation calls this
+/// directly to ensure every attempt carries a deduplication token.
 pub(crate) fn add_token(options: RequestOptions) -> RequestOptions {
     if options
         .get_extension::<HeaderMap>()
