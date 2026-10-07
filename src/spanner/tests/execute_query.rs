@@ -14,6 +14,7 @@
 
 use gaxi::grpc::tonic::Response;
 use google_cloud_auth::credentials::anonymous::Builder as AnonymousCredentialsBuilder;
+use google_cloud_spanner::Decimal;
 use google_cloud_spanner::client::Spanner;
 use google_cloud_spanner::statement::Statement;
 use google_cloud_test_macros::tokio_test_no_panics;
@@ -441,6 +442,277 @@ async fn execute_query_with_non_finite_float_params() -> anyhow::Result<()> {
         f32_array_val[2],
         f32::NEG_INFINITY,
         "expected -Infinity for f32_array[2]"
+    );
+
+    assert!(
+        result_set.next().await.is_none(),
+        "result set should yield exactly one row"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn execute_query_numeric_scientific_notation() -> anyhow::Result<()> {
+    let mut mock = MockSpanner::new();
+    mock.expect_create_session().once().returning(|_| {
+        Ok(Response::new(mock_v1::Session {
+            name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+            ..Default::default()
+        }))
+    });
+
+    mock.expect_execute_streaming_sql()
+        .once()
+        .returning(|request| {
+            let request = request.into_inner();
+            assert_eq!(
+                request.session,
+                "projects/p/instances/i/databases/d/sessions/123"
+            );
+            assert_eq!(
+                request.sql,
+                "SELECT col_sci, col_neg_sci, col_frac_sci, col_zero_sci, col_array_sci, col_array_with_nulls"
+            );
+
+            let result_set = mock_v1::PartialResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType {
+                        fields: vec![
+                            Field {
+                                name: "col_sci".to_string(),
+                                r#type: Some(mock_v1::Type {
+                                    code: mock_v1::TypeCode::Numeric as i32,
+                                    array_element_type: None,
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: "".to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "col_neg_sci".to_string(),
+                                r#type: Some(mock_v1::Type {
+                                    code: mock_v1::TypeCode::Numeric as i32,
+                                    array_element_type: None,
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: "".to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "col_frac_sci".to_string(),
+                                r#type: Some(mock_v1::Type {
+                                    code: mock_v1::TypeCode::Numeric as i32,
+                                    array_element_type: None,
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: "".to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "col_zero_sci".to_string(),
+                                r#type: Some(mock_v1::Type {
+                                    code: mock_v1::TypeCode::Numeric as i32,
+                                    array_element_type: None,
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: "".to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "col_array_sci".to_string(),
+                                r#type: Some(mock_v1::Type {
+                                    code: mock_v1::TypeCode::Array as i32,
+                                    array_element_type: Some(Box::new(mock_v1::Type {
+                                        code: mock_v1::TypeCode::Numeric as i32,
+                                        array_element_type: None,
+                                        struct_type: None,
+                                        type_annotation: 0,
+                                        proto_type_fqn: "".to_string(),
+                                    })),
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: "".to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "col_array_with_nulls".to_string(),
+                                r#type: Some(mock_v1::Type {
+                                    code: mock_v1::TypeCode::Array as i32,
+                                    array_element_type: Some(Box::new(mock_v1::Type {
+                                        code: mock_v1::TypeCode::Numeric as i32,
+                                        array_element_type: None,
+                                        struct_type: None,
+                                        type_annotation: 0,
+                                        proto_type_fqn: "".to_string(),
+                                    })),
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: "".to_string(),
+                                }),
+                            },
+                        ],
+                    }),
+                    transaction: None,
+                    undeclared_parameters: None,
+                }),
+                values: vec![
+                    ProstValue {
+                        kind: Some(Kind::StringValue("1e5".to_string())),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::StringValue("-1.5e3".to_string())),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::StringValue("1E-1".to_string())),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::StringValue("0e0".to_string())),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::ListValue(ListValue {
+                            values: vec![
+                                ProstValue {
+                                    kind: Some(Kind::StringValue("1e2".to_string())),
+                                },
+                                ProstValue {
+                                    kind: Some(Kind::StringValue("1e-1".to_string())),
+                                },
+                            ],
+                        })),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::ListValue(ListValue {
+                            values: vec![
+                                ProstValue {
+                                    kind: Some(Kind::StringValue("1e2".to_string())),
+                                },
+                                ProstValue {
+                                    kind: Some(Kind::NullValue(0)),
+                                },
+                                ProstValue {
+                                    kind: Some(Kind::StringValue("1e-1".to_string())),
+                                },
+                            ],
+                        })),
+                    },
+                ],
+                chunked_value: false,
+                resume_token: vec![],
+                stats: None,
+                precommit_token: None,
+                cache_update: None,
+                last: true,
+            };
+            let (transaction_channel, receiver_channel) = channel(1);
+            transaction_channel
+                .try_send(Ok(result_set))
+                .expect("always succeeds");
+            Ok(Response::from(receiver_channel))
+        });
+
+    let (address, _server) = start("0.0.0.0:0", mock)
+        .await
+        .expect("Failed to start mock server");
+
+    let spanner = Spanner::builder()
+        .with_endpoint(address)
+        .with_credentials(AnonymousCredentialsBuilder::new().build())
+        .build()
+        .await
+        .expect("Failed to build client");
+
+    let database_client = spanner
+        .database_client("projects/p/instances/i/databases/d")
+        .build()
+        .await
+        .expect("Failed to create DatabaseClient");
+
+    let transaction = database_client.single_use().build();
+    let statement = Statement::builder(
+        "SELECT col_sci, col_neg_sci, col_frac_sci, col_zero_sci, col_array_sci, col_array_with_nulls",
+    )
+    .build();
+    let mut result_set = transaction.execute_query(statement).await?;
+
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .ok_or_else(|| anyhow::anyhow!("result set should yield a row"))?;
+
+    let column_scientific: Decimal = row.try_get("col_sci")?;
+    assert_eq!(
+        column_scientific,
+        Decimal::from_str_exact("100000").expect("valid decimal"),
+        "expected 100000 for col_sci"
+    );
+
+    let optional_column_scientific: Option<Decimal> = row.try_get("col_sci")?;
+    assert_eq!(
+        optional_column_scientific,
+        Some(Decimal::from_str_exact("100000").expect("valid decimal")),
+        "expected Some(100000) for optional col_sci"
+    );
+
+    let column_negative_scientific: Decimal = row.try_get("col_neg_sci")?;
+    assert_eq!(
+        column_negative_scientific,
+        Decimal::from_str_exact("-1500").expect("valid decimal"),
+        "expected -1500 for col_neg_sci"
+    );
+
+    let column_fraction_scientific: Decimal = row.try_get("col_frac_sci")?;
+    assert_eq!(
+        column_fraction_scientific,
+        Decimal::from_str_exact("0.1").expect("valid decimal"),
+        "expected 0.1 for col_frac_sci"
+    );
+
+    let column_zero_scientific: Decimal = row.try_get("col_zero_sci")?;
+    assert_eq!(
+        column_zero_scientific,
+        Decimal::from_str_exact("0").expect("valid decimal"),
+        "expected 0 for col_zero_sci"
+    );
+
+    let column_array_scientific: Vec<Decimal> = row.try_get("col_array_sci")?;
+    assert_eq!(
+        column_array_scientific,
+        vec![
+            Decimal::from_str_exact("100").expect("valid decimal"),
+            Decimal::from_str_exact("0.1").expect("valid decimal"),
+        ],
+        "expected matching Decimal elements in col_array_sci"
+    );
+
+    let column_array_with_nulls: Vec<Option<Decimal>> = row.try_get("col_array_with_nulls")?;
+    assert_eq!(
+        column_array_with_nulls,
+        vec![
+            Some(Decimal::from_str_exact("100").expect("valid decimal")),
+            None,
+            Some(Decimal::from_str_exact("0.1").expect("valid decimal")),
+        ],
+        "expected matching elements with null in col_array_with_nulls"
+    );
+
+    // Also test try_take on owned row
+    let mut owned_row = row;
+    let taken_scientific: Decimal = owned_row.try_take("col_sci")?;
+    assert_eq!(
+        taken_scientific,
+        Decimal::from_str_exact("100000").expect("valid decimal"),
+        "expected 100000 for taken_scientific"
+    );
+    assert!(
+        owned_row.is_null("col_sci"),
+        "col_sci must be null after try_take"
+    );
+    assert_eq!(
+        owned_row.try_get::<Option<Decimal>, _>("col_sci")?,
+        None,
+        "col_sci must be None after try_take"
     );
 
     assert!(
