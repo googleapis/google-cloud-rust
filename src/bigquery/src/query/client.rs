@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::builder::bigquery::Query;
-use crate::client::Read as ReadClient;
+use crate::client::Read;
 use crate::error::QueryError;
 use crate::query::client_builder::ClientBuilder;
 use crate::query::execution::check_job_status;
@@ -67,7 +67,7 @@ use std::sync::Arc;
 pub struct BigQuery {
     job_service: Arc<JobService>,
     // TODO(#7037): Thread read_client through Query and CompleteQuery.
-    read_client: Option<Arc<ReadClient>>,
+    read_client: Option<Arc<Read>>,
     project_id: Option<String>,
 }
 
@@ -131,7 +131,7 @@ impl BigQuery {
         let job_service = Arc::new(job_service_builder.build().await?);
 
         let read_client = if builder.storage_read_enabled {
-            let mut read_builder = ReadClient::builder();
+            let mut read_builder = Read::builder();
             if let Some(creds) = builder.config.cred {
                 read_builder = read_builder.with_credentials(creds);
             }
@@ -330,6 +330,14 @@ mod tests {
         assert!(
             debug_str.contains("custom.storage.endpoint"),
             "expected custom storage endpoint in read_client debug output, got: {debug_str}"
+        );
+        assert!(
+            debug_str.contains("my-universe.com"),
+            "expected universe domain in read_client debug output, got: {debug_str}"
+        );
+        assert!(
+            debug_str.contains("tracing_attributes: Some"),
+            "expected tracing attributes in read_client debug output, got: {debug_str}"
         );
 
         Ok(())
