@@ -42,6 +42,25 @@ pub enum UploadIntent {
     ),
 }
 
+/// What [`Worker::run`] must do after handling one server message.
+enum ResponseAction<S> {
+    /// Keep using the current stream.
+    Continue,
+    /// The stream was replaced; adopt these halves.
+    Reconnected(Connection<S>),
+    /// The server closed the stream and the upload is complete.
+    Finished,
+}
+
+/// Where a [`BidiWriteObjectResponse`] came from.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum ResponseOrigin {
+    /// Read from the live stream; one that matches nothing was unprompted.
+    Stream,
+    /// The `state_lookup` handshake of a reconnected stream; always expected.
+    Handshake,
+}
+
 /// Which kind of confirmation a [`PendingRequest`] is waiting for.
 #[derive(Debug)]
 enum PendingKind {
@@ -53,29 +72,30 @@ enum PendingKind {
 #[derive(Debug)]
 struct PendingRequest {
     kind: PendingKind,
-    target_offset: i64,
+    request: BidiWriteObjectRequest,
     sender: oneshot::Sender<crate::Result<BidiWriteObjectResponse>>,
 }
 
 impl PendingRequest {
     fn new(
         kind: PendingKind,
-        target_offset: i64,
+        request: BidiWriteObjectRequest,
         sender: oneshot::Sender<crate::Result<BidiWriteObjectResponse>>,
     ) -> Self {
         Self {
             kind,
-            target_offset,
+            request,
             sender,
         }
     }
 
     /// Returns `true` when `response` confirms this request completed.
     ///
-    /// Once `persisted_size` reaches `target_offset`, a [`PendingKind::Flush`] is satisfied by an
-    /// unfinalized response and a [`PendingKind::Finalize`] is satisfied by a finalized response.
+    /// Once `persisted_size` reaches `self.request.write_offset`, a [`PendingKind::Flush`] is
+    /// satisfied by an unfinalized response and a [`PendingKind::Finalize`] is satisfied by a
+    /// finalized response.
     fn is_satisfied(&self, response: &BidiWriteObjectResponse, persisted_size: i64) -> bool {
-        if persisted_size < self.target_offset {
+        if persisted_size < self.request.write_offset {
             return false;
         }
         match self.kind {
@@ -89,9 +109,10 @@ impl PendingRequest {
     }
 }
 
-/// The background worker that manages the live gRPC stream and unacknowledged chunk replay.
+/// The background worker that manages the live gRPC stream, unacknowledged chunk replay, and
+/// automatic reconnection.
 pub struct Worker<C> {
-    _connector: Connector<C>,
+    connector: Connector<C>,
     replay_buffer: ReplayBuffer,
     pending_requests: VecDeque<PendingRequest>,
     /// Tracks the highest byte offset acknowledged by the server.
@@ -101,7 +122,8 @@ pub struct Worker<C> {
     /// Tracks if a worker-initiated `state_lookup` request is awaiting a server response.
     ///
     /// The worker injects such a request when the replay buffer crosses its high watermark, so that
-    /// an `ack()` is guaranteed to arrive before the buffer fills.
+    /// a response is already owed by the time the buffer fills and `ack()` can drain it. Up to two
+    /// more maximum-size appends may still arrive before that response does.
     self_flush_outstanding: bool,
 }
 
@@ -116,7 +138,7 @@ impl<C> Worker<C> {
     /// [`DEFAULT_REPLAY_BUFFER_SIZE`][super::replay_buffer::DEFAULT_REPLAY_BUFFER_SIZE] bytes.
     pub fn with_replay_buffer(connector: Connector<C>, replay_buffer: ReplayBuffer) -> Self {
         Self {
-            _connector: connector,
+            connector,
             replay_buffer,
             pending_requests: VecDeque::new(),
             persisted_size: 0,
@@ -134,8 +156,9 @@ impl<C> Worker<C> {
     /// Returns `true` if the replay buffer has crossed its high watermark and neither a user
     /// flush/finalize nor a worker-initiated `state_lookup` is already awaiting a response.
     ///
-    /// Because normal appends do not elicit a server response, this ensures a `state_lookup` probe
-    /// is always in flight before [`ReplayBuffer::is_full`] pauses the intent channel.
+    /// Because plain appends do not elicit a server response, this keeps a response owed, either to
+    /// a pending user flush/finalize or to a worker probe, whenever the buffer is above the
+    /// watermark, so the loop stays live once [`ReplayBuffer::is_full`] pauses the intent channel.
     fn needs_watermark_flush(&self) -> bool {
         !self.self_flush_outstanding
             && self.pending_requests.is_empty()
@@ -162,22 +185,18 @@ where
         let error = loop {
             tokio::select! {
                 m = rx.next_message() => {
-                    match self.handle_response(m) {
+                    match self.handle_response(m).await {
+                        Err(e) => break Some(e),
                         // Successful end of stream, return without error.
-                        None => break None,
-                        // An unrecoverable error in the stream or its data, return
-                        // the error.
-                        Some(Err(e)) => break Some(e),
+                        Ok(ResponseAction::Finished) => break None,
+                        // The stream was replaced, adopt the new halves.
+                        Ok(ResponseAction::Reconnected(connection)) => {
+                            (rx, tx) = (connection.rx, connection.tx);
+                        }
                         // Message handled on the existing stream. Re-evaluate the watermark, since
                         // the ack may have left the buffer above it.
-                        Some(Ok(None)) => {
+                        Ok(ResponseAction::Continue) => {
                             self.maybe_send_watermark_flush(&tx).await;
-                        }
-                        // TODO(#5716): Update when implementing reconnect logic.
-                        // The stream reconnected successfully, update the local
-                        // variables and continue.
-                        Some(Ok(Some(connection))) => {
-                            (rx, tx) = (connection.rx, connection.tx);
                         }
                     }
                 },
@@ -185,8 +204,13 @@ where
                     match intent {
                         Some(intent) => {
                             let request = self.process_intent(intent);
+                            // If sending fails, `rx.next_message()` will observe the stream's
+                            // status or closure on the next iteration and reconnect, replaying the
+                            // chunk or pending request recorded by `process_intent`.
                             if let Err(e) = tx.send(request).await {
-                                break Some(Error::io(e));
+                                tracing::debug!(
+                                    "error sending request on bidi write stream: {e:?}"
+                                );
                             }
                         }
                         None => {
@@ -237,7 +261,7 @@ where
                 assert!(req.flush, "flush must be true for Flush intents");
                 self.pending_requests.push_back(PendingRequest::new(
                     PendingKind::Flush,
-                    req.write_offset,
+                    req.clone(),
                     sender,
                 ));
                 req
@@ -251,7 +275,7 @@ where
                 self.finalized = true;
                 self.pending_requests.push_back(PendingRequest::new(
                     PendingKind::Finalize,
-                    req.write_offset,
+                    req.clone(),
                     sender,
                 ));
                 req
@@ -259,29 +283,43 @@ where
         }
     }
 
-    pub fn handle_response(
+    /// Handles an incoming response message or stream completion from the server.
+    ///
+    /// Returns the action [`Self::run`] must take next, or an error if the failure is unrecoverable
+    /// or reconnection failed.
+    async fn handle_response(
         &mut self,
         message: TonicResult<Option<BidiWriteObjectResponse>>,
-    ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
+    ) -> LoopResult<ResponseAction<C::Stream>> {
         let response = match message {
             Ok(Some(msg)) => msg,
             Ok(None) => {
-                // If the stream is unexpectedly closed by the server before the client
-                // intends to finalize the upload, treat it as an error to prevent silent
-                // failures on subsequent client writes.
+                // The server closed the stream. That is the expected end of a finalized upload
+                // once the finalize response has been delivered. Otherwise a flush or finalize is
+                // still waiting for its response, or the client never asked to finalize, so
+                // reconnect rather than drop unacknowledged work and fail later client writes.
                 if !self.pending_requests.is_empty() || !self.finalized {
-                    return Some(Err(Error::io("stream closed unexpectedly")));
+                    let connection = self
+                        .reconnect(Error::io("stream closed unexpectedly"))
+                        .await?;
+                    return Ok(ResponseAction::Reconnected(connection));
                 }
-                return None;
+                return Ok(ResponseAction::Finished);
             }
-            Err(e) => return Some(Err(to_gax_error(e))),
+            Err(e) => {
+                // The finalized object has already been handed to the caller; a trailing stream
+                // error cannot change it. Mirror the `Ok(None)` arm above instead of reconnecting
+                // against a finalized object.
+                if self.finalized && self.pending_requests.is_empty() {
+                    tracing::debug!("ignoring stream error after finalize completed: {e:?}");
+                    return Ok(ResponseAction::Finished);
+                }
+                let connection = self.reconnect(to_gax_error(e)).await?;
+                return Ok(ResponseAction::Reconnected(connection));
+            }
         };
-        if let Err(e) = self.handle_response_success(response) {
-            return Some(Err(e));
-        }
-
-        // TODO(#5716): Implement reconnect logic.
-        Some(Ok(None))
+        self.handle_response_success(response, ResponseOrigin::Stream)?;
+        Ok(ResponseAction::Continue)
     }
 
     /// Processes a successful [`BidiWriteObjectResponse`] from the server.
@@ -289,15 +327,27 @@ where
     /// Updates acknowledged offsets in the replay buffer and completes any matching in-flight flush
     /// or finalize requests. Returns an error if the server reports a `persisted_size` lower than
     /// previously acknowledged bytes.
-    fn handle_response_success(&mut self, response: BidiWriteObjectResponse) -> LoopResult<()> {
+    fn handle_response_success(
+        &mut self,
+        response: BidiWriteObjectResponse,
+        origin: ResponseOrigin,
+    ) -> LoopResult<()> {
         // Every response ends the wait for a worker-initiated `state_lookup`, including one that
         // carries no `write_status`. Clearing the flag only on the acknowledged-bytes path would
         // suppress all later watermark probes and stall the worker once the replay buffer fills.
         let self_flush_outstanding = std::mem::take(&mut self.self_flush_outstanding);
 
+        // The service periodically refreshes the write handle, often in a response that carries
+        // nothing else. Record it before the early return below, so a later `reconnect` opens its
+        // stream with the latest handle. The handshake response was already recorded by
+        // `Connector::connect_attempt`.
+        if origin == ResponseOrigin::Stream {
+            self.connector.handle_response(&response);
+        }
+
         let Some(persisted_size) = persisted_size(&response) else {
-            // A response with no `write_status` carries no progress, for example one that only
-            // refreshes the write handle.
+            // A response with no `write_status` carries no progress; its write handle, if any,
+            // was recorded above.
             tracing::debug!("Received BidiWriteObjectResponse with no write_status: {response:?}");
             return Ok(());
         };
@@ -335,12 +385,12 @@ where
             return Err(Error::io("object is already finalized"));
         }
 
-        // A worker-initiated `state_lookup` has no entry in `pending_requests`, so its response
-        // legitimately matches nothing. Do not report it as unprompted.
-        if !matched && !self_flush_outstanding {
+        // A reconnect handshake and a worker-initiated `state_lookup` have no entry in
+        // `pending_requests`, so their responses legitimately match nothing. Do not report them as
+        // unprompted.
+        if origin == ResponseOrigin::Stream && !matched && !self_flush_outstanding {
             tracing::debug!(
-                "Received unprompted BidiWriteObjectResponse from server: {:?}",
-                response
+                "Received unprompted BidiWriteObjectResponse from server: {response:?}"
             );
         }
         Ok(())
@@ -359,8 +409,9 @@ where
                 ..BidiWriteObjectRequest::default()
             };
             // If sending fails, the gRPC call has ended, and `rx.next_message()` will observe its
-            // status or closure on a later iteration, which ends the loop. No probe is in flight
-            // in that case, so leave `self_flush_outstanding` unset.
+            // status or closure on a later iteration and reconnect. No probe is in flight in that
+            // case, so leave `self_flush_outstanding` unset; `reconnect()` re-arms the probe after
+            // replay if the buffer is still above the watermark.
             match tx.send(request).await {
                 Ok(()) => self.self_flush_outstanding = true,
                 Err(e) => {
@@ -370,15 +421,84 @@ where
         }
     }
 
+    /// Reconnects, then restores the session state on the new stream.
+    ///
+    /// Replays every unacknowledged chunk, re-sends the flush and finalize requests still waiting
+    /// for a response, and re-arms the watermark probe if the replay buffer is still above its
+    /// watermark. Returns an error if the connector gives up on reconnecting (the retry policy
+    /// classifies `last_error` as permanent or the retry or redirect budget is exhausted), or if
+    /// the handshake response reports a `persisted_size` regression or an unexpectedly finalized
+    /// object.
+    async fn reconnect(&mut self, last_error: Error) -> LoopResult<Connection<C::Stream>> {
+        // Any response the worker-initiated `state_lookup` was waiting on will never arrive on the
+        // dead stream.
+        self.self_flush_outstanding = false;
+
+        let (initial_response, connection) = self
+            .connector
+            .reconnect(last_error, self.persisted_size)
+            .await?;
+
+        // Process the reconnect handshake response. The spec is always `Append` here, so the new
+        // stream opened with `state_lookup: true`. If the service finalized the object before the
+        // previous stream broke, `initial_response` carries a finalized `Resource`
+        // (`finalize_time.is_some()`) and satisfies the pending `Finalize` here, so it is not
+        // re-sent. Otherwise the handshake reports progress as a bare `PersistedSize` or as an
+        // unfinalized `Resource` (`finalize_time.is_none()`); neither satisfies a pending
+        // `Finalize` (`PendingRequest::is_satisfied` requires a finalized response), so it is
+        // re-sent below. A pending `Flush` whose `write_offset` is already persisted is completed
+        // here instead of being re-sent.
+        self.handle_response_success(initial_response, ResponseOrigin::Handshake)?;
+
+        // Replay all unpersisted chunks, then re-send the pending flush / finalize requests. A
+        // send fails only when the new stream's request channel is already closed, so stop at the
+        // first failure: the next `rx.next_message()` poll in `run()` observes the stream's status
+        // or closure and reconnects again, with the replay buffer and `pending_requests` intact.
+        for chunk in self.replay_buffer.chunks_to_replay() {
+            if let Err(e) = connection.tx.send(chunk.to_request()).await {
+                tracing::debug!("error replaying chunk on bidi write stream: {e:?}");
+                return Ok(connection);
+            }
+        }
+        for pending in &self.pending_requests {
+            if let Err(e) = connection.tx.send(pending.request.clone()).await {
+                tracing::debug!("error re-sending pending request on bidi write stream: {e:?}");
+                return Ok(connection);
+            }
+        }
+
+        // Replayed chunks set neither `flush` nor `state_lookup`. If the buffer is still above the
+        // watermark and no user request is pending, nothing would elicit a response on the new
+        // stream, so restore the invariant explicitly.
+        self.maybe_send_watermark_flush(&connection.tx).await;
+
+        Ok(connection)
+    }
+
+    /// Drains the response stream after the intent channel closed and `tx` was dropped.
+    ///
+    /// Dropping `tx` half-closes the request stream, so the server sends any remaining responses
+    /// and then ends the call. Unlike [`Self::run`], this does not reconnect on an error or early
+    /// close. On the graceful path the transport closes the intent channel only after `close()`
+    /// has flushed or `finalize()` has received its response, so every chunk is already
+    /// acknowledged and no request is pending. If the writer is dropped without closing, any
+    /// unacknowledged chunks are abandoned by design; nothing can ask for them again. Returns the
+    /// error that ended the stream, if any.
     async fn wait_for_server_completion(&mut self, mut rx: C::Stream) -> Option<Error> {
         loop {
             match rx.next_message().await {
                 Ok(Some(msg)) => {
-                    if let Err(e) = self.handle_response_success(msg) {
+                    if let Err(e) = self.handle_response_success(msg, ResponseOrigin::Stream) {
                         break Some(e);
                     }
                 }
                 Ok(None) => break None,
+                // Same as in `handle_response`: a trailing error after the finalize response was
+                // delivered cannot change the finalized object.
+                Err(e) if self.finalized && self.pending_requests.is_empty() => {
+                    tracing::debug!("ignoring stream error after finalize completed: {e:?}");
+                    break None;
+                }
                 Err(e) => break Some(to_gax_error(e)),
             }
         }
@@ -408,12 +528,16 @@ where
 #[cfg(test)]
 mod tests {
     use super::super::mocks::{MockTestClient, mock_connector};
-    use super::super::replay_buffer::MIN_REPLAY_BUFFER_SIZE;
+    use super::super::replay_buffer::{DEFAULT_REPLAY_BUFFER_SIZE, MIN_REPLAY_BUFFER_SIZE};
+    use super::super::state::AppendObjectSpecState;
+    use super::super::tests::permanent_error;
     use super::*;
     use crate::google::storage::v2::{
-        BidiWriteObjectRequest, BidiWriteObjectResponse, Object,
+        AppendObjectSpec, BidiWriteHandle, BidiWriteObjectRequest, BidiWriteObjectResponse,
+        ChecksummedData, Object, bidi_write_object_request::FirstMessage,
         bidi_write_object_response::WriteStatus,
     };
+    use gaxi::grpc::tonic::Response as TonicResponse;
     use gaxi::grpc::tonic::Result as TonicResult;
     use gaxi::grpc::tonic::Status;
     use tokio::sync::mpsc;
@@ -426,6 +550,15 @@ mod tests {
         mpsc::Sender<TonicResult<BidiWriteObjectResponse>>,
     );
 
+    type ReconnectingWorkerContext = (
+        tokio::task::JoinHandle<LoopResult<()>>,
+        mpsc::Sender<UploadIntent>,
+        mpsc::Receiver<BidiWriteObjectRequest>,
+        mpsc::Sender<TonicResult<BidiWriteObjectResponse>>,
+        mpsc::Receiver<mpsc::Receiver<BidiWriteObjectRequest>>,
+        mpsc::Sender<TonicResult<BidiWriteObjectResponse>>,
+    );
+
     /// Defines the payload size of the synthetic appends used in the watermark tests.
     const TEST_CHUNK_SIZE: usize = 512;
 
@@ -433,31 +566,48 @@ mod tests {
     /// the second append is the one that crosses it.
     const TEST_CAPACITY: usize = 2 * MAX_WRITE_CHUNK_SIZE + 2 * TEST_CHUNK_SIZE;
 
-    fn spawn_test_worker() -> TestWorkerContext {
-        spawn_test_worker_with(None)
+    /// The `AppendObjectSpec` that reconnecting test workers hand to the connector.
+    fn test_spec_state() -> AppendObjectSpecState {
+        AppendObjectSpecState::Append {
+            spec: AppendObjectSpec {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                object: "test-object".into(),
+                ..Default::default()
+            },
+            initial_chunk: None,
+        }
     }
 
-    fn spawn_test_worker_with_replay_capacity(capacity: usize) -> TestWorkerContext {
-        spawn_test_worker_with(Some(capacity))
-    }
-
-    fn spawn_test_worker_with(capacity: Option<usize>) -> TestWorkerContext {
+    /// Wires `mock` into a connector and spawns a worker over fresh request, response, and intent
+    /// channels. `spec_state`, when set, is what the connector uses on reconnect.
+    fn spawn_worker(
+        mock: MockTestClient,
+        capacity: usize,
+        spec_state: Option<AppendObjectSpecState>,
+    ) -> TestWorkerContext {
         let (request_tx, request_rx) = mpsc::channel(10);
         let (response_tx, response_rx) = mpsc::channel(10);
-        let (tx, rx) = mpsc::channel(10);
+        let (intent_tx, intent_rx) = mpsc::channel(10);
         let connection = Connection::new(request_tx, response_rx);
 
+        let mut connector = mock_connector(mock);
+        if let Some(state) = spec_state {
+            connector.set_spec_state(state);
+        }
+        let worker = Worker::with_replay_buffer(connector, ReplayBuffer::with_capacity(capacity));
+        let handle = tokio::spawn(worker.run(connection, intent_rx));
+
+        (handle, intent_tx, request_rx, response_tx)
+    }
+
+    fn spawn_test_worker() -> TestWorkerContext {
+        spawn_test_worker_with_capacity(DEFAULT_REPLAY_BUFFER_SIZE)
+    }
+
+    fn spawn_test_worker_with_capacity(capacity: usize) -> TestWorkerContext {
         let mut mock = MockTestClient::new();
         mock.expect_start().never();
-
-        let connector = mock_connector(mock);
-        let worker = match capacity {
-            Some(cap) => Worker::with_replay_buffer(connector, ReplayBuffer::with_capacity(cap)),
-            None => Worker::new(connector),
-        };
-        let handle = tokio::spawn(worker.run(connection, rx));
-
-        (handle, tx, request_rx, response_tx)
+        spawn_worker(mock, capacity, None)
     }
 
     fn append_intent(write_offset: i64, len: usize) -> UploadIntent {
@@ -465,12 +615,10 @@ mod tests {
         let crc32c = crc32c::crc32c(&content);
         UploadIntent::Append(BidiWriteObjectRequest {
             write_offset,
-            data: Some(Data::ChecksummedData(
-                crate::google::storage::v2::ChecksummedData {
-                    content,
-                    crc32c: Some(crc32c),
-                },
-            )),
+            data: Some(Data::ChecksummedData(ChecksummedData {
+                content,
+                crc32c: Some(crc32c),
+            })),
             ..Default::default()
         })
     }
@@ -594,6 +742,56 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn run_finalize_ignores_trailing_stream_error() -> anyhow::Result<()> {
+        // Arrange.
+        // `spawn_test_worker` sets `expect_start().never()`, so any reconnect attempt would panic.
+        let (handle, tx, mut request_rx, response_tx) = spawn_test_worker();
+
+        let (intent, finalize_rx) = finalize_intent(100);
+        tx.send(intent).await?;
+        let _ = request_rx.recv().await.unwrap();
+        response_tx.send(Ok(finalized_response(100))).await?;
+        let _ = finalize_rx.await??;
+
+        // Act.
+        // The intent channel is still open, so `handle_response` sees the error.
+        response_tx
+            .send(Err(Status::unavailable("connection reset")))
+            .await?;
+
+        // Assert.
+        // The finalized object was already delivered, so the worker finishes cleanly.
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_finalize_ignores_trailing_stream_error_after_intents_close() -> anyhow::Result<()>
+    {
+        // Arrange.
+        let (handle, tx, mut request_rx, response_tx) = spawn_test_worker();
+
+        let (intent, finalize_rx) = finalize_intent(100);
+        tx.send(intent).await?;
+        let _ = request_rx.recv().await.unwrap();
+        response_tx.send(Ok(finalized_response(100))).await?;
+        let _ = finalize_rx.await??;
+
+        // Close the intent channel first, so `wait_for_server_completion` sees the error.
+        drop(tx);
+        tokio::task::yield_now().await;
+
+        // Act.
+        response_tx
+            .send(Err(Status::unavailable("connection reset")))
+            .await?;
+
+        // Assert.
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn run_finalize_ignores_resource_without_finalize_time() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, mut request_rx, response_tx) = spawn_test_worker();
@@ -633,6 +831,172 @@ mod tests {
         drop(tx);
         tokio::task::yield_now().await;
         drop(response_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    /// Spawns a worker whose first stream is already connected and whose reconnect attempt yields
+    /// a second stream, returning the handles needed to drive both.
+    fn spawn_reconnecting_worker() -> ReconnectingWorkerContext {
+        spawn_reconnecting_worker_with_capacity(DEFAULT_REPLAY_BUFFER_SIZE)
+    }
+
+    fn spawn_reconnecting_worker_with_capacity(capacity: usize) -> ReconnectingWorkerContext {
+        let (captured_stream2_req_tx, captured_stream2_req_rx) =
+            mpsc::channel::<mpsc::Receiver<BidiWriteObjectRequest>>(1);
+        let (stream2_resp_tx, stream2_resp_rx) = mpsc::channel(10);
+        let stream2 = TonicResponse::from(stream2_resp_rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, req_rx, _, _, _| {
+                let _ = captured_stream2_req_tx.try_send(req_rx);
+                Ok(Ok(stream2))
+            });
+
+        let (handle, intent_tx, stream1_rx, stream1_resp_tx) =
+            spawn_worker(mock, capacity, Some(test_spec_state()));
+        (
+            handle,
+            intent_tx,
+            stream1_rx,
+            stream1_resp_tx,
+            captured_stream2_req_rx,
+            stream2_resp_tx,
+        )
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_and_replay_unpersisted_chunks() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        // Append two 10-byte chunks
+        let chunk1 = bytes::Bytes::from_static(b"0123456789");
+        let req1 = BidiWriteObjectRequest {
+            write_offset: 0,
+            data: Some(Data::ChecksummedData(ChecksummedData {
+                content: chunk1.clone(),
+                crc32c: Some(crc32c::crc32c(&chunk1)),
+            })),
+            ..Default::default()
+        };
+        let chunk2 = bytes::Bytes::from_static(b"abcdefghij");
+        let req2 = BidiWriteObjectRequest {
+            write_offset: 10,
+            data: Some(Data::ChecksummedData(ChecksummedData {
+                content: chunk2.clone(),
+                crc32c: Some(crc32c::crc32c(&chunk2)),
+            })),
+            ..Default::default()
+        };
+        intent_tx.send(UploadIntent::Append(req1)).await?;
+        intent_tx.send(UploadIntent::Append(req2)).await?;
+
+        // Ensure both chunks were dispatched on stream 1 (and therefore buffered for replay).
+        let s1_req1 = stream1_rx.recv().await.unwrap();
+        assert_eq!(s1_req1.write_offset, 0);
+        let s1_req2 = stream1_rx.recv().await.unwrap();
+        assert_eq!(s1_req2.write_offset, 10);
+
+        // Act.
+        // Simulate stream 1 failure by dropping response stream
+        drop(stream1_resp_tx);
+
+        // Connector reconnects to stream 2; server initial message reports persisted_size = 10
+        // (chunk 1 persisted)
+        stream2_resp_tx
+            .send(Ok(persisted_size_response(10)))
+            .await?;
+
+        // Assert.
+        // Verify that stream 2 received the reconnect opening handshake request
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+
+        // Verify that chunk 2 (unpersisted) is replayed over stream 2!
+        let replayed_req = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed_req.write_offset, 10);
+        if let Some(Data::ChecksummedData(cd)) = replayed_req.data {
+            assert_eq!(cd.content, chunk2);
+            assert_eq!(cd.crc32c, Some(crc32c::crc32c(&chunk2)));
+        } else {
+            panic!("expected ChecksummedData");
+        }
+
+        // Chunk 1 was acknowledged by the handshake, so it is not replayed, and nothing else
+        // follows (no pending flush/finalize, and the buffer is far below the watermark).
+        assert!(matches!(
+            stream2_req_rx.try_recv(),
+            Err(mpsc::error::TryRecvError::Empty)
+        ));
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_uses_refreshed_write_handle() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        intent_tx.send(append_intent(0, 16)).await?;
+        let _ = stream1_rx.recv().await.unwrap();
+
+        // Act.
+        // The service refreshes the write handle in a response that carries no `write_status`.
+        let refreshed = BidiWriteHandle {
+            handle: bytes::Bytes::from_static(b"refreshed-handle"),
+        };
+        stream1_resp_tx
+            .send(Ok(BidiWriteObjectResponse {
+                write_handle: Some(refreshed.clone()),
+                ..Default::default()
+            }))
+            .await?;
+        tokio::task::yield_now().await;
+
+        // Stream 1 breaks; the reconnect handshake reports nothing persisted.
+        drop(stream1_resp_tx);
+        stream2_resp_tx.send(Ok(persisted_size_response(0))).await?;
+
+        // Assert.
+        // `test_spec_state()` starts with no write handle, so the handshake carries one only if
+        // the worker recorded the refresh.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        let Some(FirstMessage::AppendObjectSpec(spec)) = initial_req.first_message else {
+            panic!("expected AppendObjectSpec handshake, got {initial_req:?}");
+        };
+        assert_eq!(spec.write_handle, Some(refreshed));
+
+        // The unacknowledged chunk is still replayed after the handshake.
+        let replayed = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed.write_offset, 0);
+        assert!(replayed.data.is_some(), "{replayed:?}");
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
         handle.await??;
         Ok(())
     }
@@ -685,73 +1049,93 @@ mod tests {
         Ok(())
     }
 
+    /// Spawns a worker whose reconnect attempt fails with `err`.
+    fn spawn_failing_reconnect_worker(err: Error) -> TestWorkerContext {
+        spawn_failing_reconnect_worker_with_capacity(err, DEFAULT_REPLAY_BUFFER_SIZE)
+    }
+
+    fn spawn_failing_reconnect_worker_with_capacity(
+        err: Error,
+        capacity: usize,
+    ) -> TestWorkerContext {
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .return_once(move |_, _, _, _, _, _| Err(err));
+        spawn_worker(mock, capacity, Some(test_spec_state()))
+    }
+
     #[tokio::test]
     async fn run_server_closes_unexpectedly() -> anyhow::Result<()> {
-        let (handle, _tx, _request_rx, response_tx) = spawn_test_worker();
+        // Arrange.
+        let (handle, tx, _request_rx, response_tx) =
+            spawn_failing_reconnect_worker(permanent_error());
 
-        // Close the stream from the server side unexpectedly.
+        // Act.
+        // Close the stream from the server side unexpectedly while upload is not finalized.
         drop(response_tx);
 
+        // Assert.
         let result = handle.await?;
         assert!(result.is_err());
-        assert_eq!(
-            result.unwrap_err().to_string(),
-            "cannot serialize the request the transport reports an error: stream closed unexpectedly"
-        );
+        let err = result.unwrap_err().to_string();
+        assert!(err.contains("cannot serialize the request"));
+        assert!(err.contains("PERMISSION_DENIED"));
 
+        drop(tx);
         Ok(())
     }
 
     #[tokio::test]
     async fn run_stream_error_during_flush() -> anyhow::Result<()> {
-        let (handle, tx, mut request_rx, response_tx) = spawn_test_worker();
+        // Arrange.
+        let (handle, tx, mut request_rx, response_tx) =
+            spawn_failing_reconnect_worker(permanent_error());
 
         let (flush_tx, flush_rx) = oneshot::channel();
         let flush_request = BidiWriteObjectRequest {
             flush: true,
             state_lookup: true,
+            write_offset: 100,
             ..Default::default()
         };
+
+        // Act.
         tx.send(UploadIntent::Flush(flush_request.clone(), flush_tx))
             .await?;
 
         let stream_req = request_rx.recv().await.unwrap();
         assert!(stream_req.flush);
 
-        // Before the server responds, the stream unexpectedly closes.
+        // Drop response stream and simulate failed reconnect
         drop(response_tx);
 
+        // Assert.
         let received_resp = flush_rx.await?;
         assert!(received_resp.is_err());
-        assert_eq!(
-            received_resp.unwrap_err().to_string(),
-            "cannot serialize the request the transport reports an error: stream closed unexpectedly"
-        );
+        let err = received_resp.unwrap_err().to_string();
+        assert!(err.contains("cannot serialize the request"));
+        assert!(err.contains("PERMISSION_DENIED"));
 
         let result = handle.await?;
         assert!(result.is_err());
+        let err = result.unwrap_err().to_string();
+        assert!(err.contains("cannot serialize the request"));
+        assert!(err.contains("PERMISSION_DENIED"));
         Ok(())
     }
 
     #[tokio::test]
     async fn run_stream_error_then_queue_requests() -> anyhow::Result<()> {
-        let (request_tx, _request_rx) = mpsc::channel(10);
-        let (response_tx, response_rx) = mpsc::channel(10);
-        let (tx, rx) = mpsc::channel(10);
-        let connection = Connection::new(request_tx, response_rx);
-
-        let mut mock = MockTestClient::new();
-        mock.expect_start().never();
-
-        let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
-        let handle = tokio::spawn(worker.run(connection, rx));
+        // Arrange.
+        let (handle, tx, _request_rx, response_tx) =
+            spawn_failing_reconnect_worker(permanent_error());
 
         let (flush_tx1, flush_rx1) = oneshot::channel();
         let (flush_tx2, flush_rx2) = oneshot::channel();
 
+        // Act.
         // Drop the server response stream to simulate the remote network crash.
-        // The worker will wake up and eventually process this, triggering the drain.
+        // The worker will wake up and attempt reconnect, which fails and triggers draining.
         drop(response_tx);
 
         // Put requests into the channel immediately. Because it has capacity 10
@@ -759,6 +1143,7 @@ mod tests {
         let valid_flush = || BidiWriteObjectRequest {
             flush: true,
             state_lookup: true,
+            write_offset: 100,
             ..Default::default()
         };
         tx.send(UploadIntent::Flush(valid_flush(), flush_tx1))
@@ -766,27 +1151,60 @@ mod tests {
         tx.send(UploadIntent::Flush(valid_flush(), flush_tx2))
             .await?;
 
+        // Assert.
         let payload1 = flush_rx1.await.unwrap();
         assert!(payload1.is_err());
-        assert!(
-            payload1
-                .unwrap_err()
-                .to_string()
-                .contains("stream closed unexpectedly")
-        );
+        let err1 = payload1.unwrap_err().to_string();
+        assert!(err1.contains("cannot serialize the request"));
+        assert!(err1.contains("PERMISSION_DENIED"));
 
         let payload2 = flush_rx2.await.unwrap();
         assert!(payload2.is_err());
-        assert!(
-            payload2
-                .unwrap_err()
-                .to_string()
-                .contains("stream closed unexpectedly")
-        );
+        let err2 = payload2.unwrap_err().to_string();
+        assert!(err2.contains("cannot serialize the request"));
+        assert!(err2.contains("PERMISSION_DENIED"));
 
         let result = handle.await?;
         assert!(result.is_err());
+        let err = result.unwrap_err().to_string();
+        assert!(err.contains("cannot serialize the request"));
+        assert!(err.contains("PERMISSION_DENIED"));
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_error_drains_intents_queued_behind_full_buffer() -> anyhow::Result<()> {
+        // Arrange.
+        // A single append fills the buffer, which disables the intent branch of the `run()` select.
+        // Intents sent afterwards stay in the channel and can only be completed by the
+        // channel-drain loop in `drain_intents_on_error`.
+        let capacity = MIN_REPLAY_BUFFER_SIZE;
+        let (handle, tx, mut request_rx, response_tx) =
+            spawn_failing_reconnect_worker_with_capacity(permanent_error(), capacity);
+
+        tx.send(append_intent(0, capacity)).await?;
+        let stream_req = request_rx.recv().await.unwrap();
+        // The append crossed the watermark, so the worker piggybacked a state lookup and is now
+        // waiting for the response with a full buffer.
+        assert!(stream_req.state_lookup);
+
+        let (flush, flush_rx) = flush_intent(capacity as i64);
+        tx.send(flush).await?;
+        let (finalize, finalize_rx) = finalize_intent(capacity as i64);
+        tx.send(finalize).await?;
+
+        // Act.
+        // Fail the stream. Reconnecting fails permanently, so the worker drains.
+        drop(response_tx);
+
+        // Assert.
+        for received in [flush_rx.await?, finalize_rx.await?] {
+            let err = received.unwrap_err().to_string();
+            assert!(err.contains("PERMISSION_DENIED"), "{err}");
+        }
+        let err = handle.await?.unwrap_err().to_string();
+        assert!(err.contains("PERMISSION_DENIED"), "{err}");
         Ok(())
     }
 
@@ -798,7 +1216,7 @@ mod tests {
         // `requests.recv()` branch. Queue a fourth append while the buffer is full, then send a
         // server ack that drains the buffer and verify the fourth append is picked up and sent.
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(MIN_REPLAY_BUFFER_SIZE);
+            spawn_test_worker_with_capacity(MIN_REPLAY_BUFFER_SIZE);
 
         let chunk_len = MAX_WRITE_CHUNK_SIZE;
         for i in 0..3_i64 {
@@ -907,7 +1325,7 @@ mod tests {
     async fn run_append_injects_watermark_flush() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+            spawn_test_worker_with_capacity(TEST_CAPACITY);
 
         // Act.
         tx.send(append_intent(0, TEST_CHUNK_SIZE)).await?;
@@ -937,7 +1355,7 @@ mod tests {
     async fn run_append_does_not_repeat_watermark_flush() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+            spawn_test_worker_with_capacity(TEST_CAPACITY);
 
         // Act.
         // Three appends, all above the watermark from the second one onwards, with no server
@@ -974,7 +1392,7 @@ mod tests {
         const APPEND_COUNT: usize = 6;
         const { assert!(APPEND_COUNT * MAX_WRITE_CHUNK_SIZE > 2 * TEST_CAPACITY) }
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+            spawn_test_worker_with_capacity(TEST_CAPACITY);
 
         // A server that replies only when the client asks for it via state_lookup.
         let server = tokio::spawn(async move {
@@ -1017,6 +1435,61 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn run_reconnect_restores_watermark_state_lookup() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker_with_capacity(TEST_CAPACITY);
+
+        // Fill the replay buffer up to the watermark on the first stream.
+        intent_tx.send(append_intent(0, TEST_CHUNK_SIZE)).await?;
+        intent_tx
+            .send(append_intent(TEST_CHUNK_SIZE as i64, TEST_CHUNK_SIZE))
+            .await?;
+        let _ = stream1_rx.recv().await.unwrap();
+        let _ = stream1_rx.recv().await.unwrap();
+
+        // Act.
+        // Break the first stream. The watermark state_lookup sent on it is lost.
+        drop(stream1_resp_tx);
+
+        // The reconnected stream reports nothing persisted, so both chunks are replayed.
+        stream2_resp_tx.send(Ok(persisted_size_response(0))).await?;
+
+        // Assert.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+
+        // Replayed chunks carry data but neither flush nor state_lookup.
+        for i in 0..2 {
+            let replayed = stream2_req_rx.recv().await.unwrap();
+            assert_eq!(replayed.write_offset, (i * TEST_CHUNK_SIZE) as i64);
+            assert!(replayed.data.is_some(), "{replayed:?}");
+            assert!(!replayed.flush, "{replayed:?}");
+            assert!(!replayed.state_lookup, "{replayed:?}");
+        }
+
+        // The buffer is still at the watermark and no user request is pending, so the worker
+        // re-establishes the invariant with a standalone state_lookup.
+        let watermark_req = stream2_req_rx.recv().await.unwrap();
+        assert!(watermark_req.flush, "{watermark_req:?}");
+        assert!(watermark_req.state_lookup, "{watermark_req:?}");
+        assert_eq!(watermark_req.write_offset, (2 * TEST_CHUNK_SIZE) as i64);
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
     fn finalize_intent(
         write_offset: i64,
     ) -> (
@@ -1037,10 +1510,275 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn run_reconnect_resends_pending_finalize() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        let (intent, mut finalize_rx) = finalize_intent(50);
+        intent_tx.send(intent).await?;
+        let sent_finalize = stream1_rx.recv().await.unwrap();
+        assert!(sent_finalize.finish_write);
+
+        // Act.
+        // Stream 1 breaks before delivering the finalize response.
+        drop(stream1_resp_tx);
+
+        // The reconnect handshake returns a resource without `finalize_time`, which is what a
+        // takeover stream reports. It is not a finalization.
+        stream2_resp_tx
+            .send(Ok(BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::Resource(Object {
+                    name: "test-object".into(),
+                    size: 50,
+                    finalize_time: None,
+                    ..Default::default()
+                })),
+                ..Default::default()
+            }))
+            .await?;
+
+        // Assert.
+        // The finalize is re-sent on the new stream after the handshake, ...
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+        let resent = stream2_req_rx.recv().await.unwrap();
+        assert!(resent.finish_write, "{resent:?}");
+        assert_eq!(resent.write_offset, 50);
+
+        // ... and the caller has not been told the upload finalized. `resent` was sent after the
+        // worker processed the handshake, so the handshake has already had its chance to (wrongly)
+        // complete the pending finalize.
+        assert!(matches!(
+            finalize_rx.try_recv(),
+            Err(oneshot::error::TryRecvError::Empty)
+        ));
+
+        // The service then answers the re-sent finalize.
+        stream2_resp_tx.send(Ok(finalized_response(50))).await?;
+        let got = finalize_rx.await??;
+        assert!(is_finalized(&got), "{got:?}");
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_completes_already_finalized_request_without_resending()
+    -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        let (intent, finalize_rx) = finalize_intent(50);
+        intent_tx.send(intent).await?;
+        let sent_finalize = stream1_rx.recv().await.unwrap();
+        assert!(sent_finalize.finish_write);
+
+        // Act.
+        // Stream 1 breaks after the service finalized the object but before it could deliver the
+        // response.
+        drop(stream1_resp_tx);
+        let finalized = finalized_response(50);
+        stream2_resp_tx.send(Ok(finalized.clone())).await?;
+
+        // Assert.
+        // The handshake response completes the pending finalize.
+        let got_resp = finalize_rx.await??;
+        assert_eq!(got_resp, finalized);
+
+        // Stream 2 only received the initial AppendObjectSpec handshake, NOT a duplicate Finalize.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+        assert!(stream2_req_rx.try_recv().is_err());
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_replays_chunk_and_resends_pending_flush() -> anyhow::Result<()> {
+        // Arrange.
+        // `transport.flush()` queues the residual append immediately followed by the flush, so
+        // `[Append, Flush]` is the usual shape of the worker's state when a stream breaks.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        intent_tx.send(append_intent(0, 10)).await?;
+        let (intent, mut flush_rx) = flush_intent(10);
+        intent_tx.send(intent).await?;
+        let _ = stream1_rx.recv().await.unwrap();
+        let sent_flush = stream1_rx.recv().await.unwrap();
+        assert!(sent_flush.flush);
+
+        // Act.
+        // Stream 1 breaks before the append reached the service; the handshake reports nothing
+        // persisted.
+        drop(stream1_resp_tx);
+        stream2_resp_tx.send(Ok(persisted_size_response(0))).await?;
+
+        // Assert.
+        // Stream 2 receives the handshake, then the replayed chunk, then the re-sent flush.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+
+        let replayed = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed.write_offset, 0);
+        assert!(replayed.data.is_some(), "{replayed:?}");
+        assert!(!replayed.flush, "{replayed:?}");
+        assert!(!replayed.state_lookup, "{replayed:?}");
+
+        let resent_flush = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(resent_flush.write_offset, 10);
+        assert!(resent_flush.flush, "{resent_flush:?}");
+        assert!(resent_flush.state_lookup, "{resent_flush:?}");
+        assert!(resent_flush.data.is_none(), "{resent_flush:?}");
+
+        // The caller is still waiting: the handshake did not cover the flush offset.
+        assert!(matches!(
+            flush_rx.try_recv(),
+            Err(oneshot::error::TryRecvError::Empty)
+        ));
+
+        // The service answers the re-sent flush.
+        let server_resp = persisted_size_response(10);
+        stream2_resp_tx.send(Ok(server_resp.clone())).await?;
+        let got = flush_rx.await??;
+        assert_eq!(got.write_status, server_resp.write_status);
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_handshake_completes_pending_flush_without_resending()
+    -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        intent_tx.send(append_intent(0, 10)).await?;
+        let (intent, flush_rx) = flush_intent(10);
+        intent_tx.send(intent).await?;
+        let _ = stream1_rx.recv().await.unwrap();
+        let _ = stream1_rx.recv().await.unwrap();
+
+        // Act.
+        // Stream 1 breaks after the service persisted the append but before the flush response
+        // was delivered; the handshake already reports the flush offset as persisted.
+        drop(stream1_resp_tx);
+        let handshake = persisted_size_response(10);
+        stream2_resp_tx.send(Ok(handshake.clone())).await?;
+
+        // Assert.
+        // The handshake response completes the pending flush, ...
+        let got = flush_rx.await??;
+        assert_eq!(got.write_status, handshake.write_status);
+
+        // ... and stream 2 receives only the handshake: no replayed chunk, no duplicate flush.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+        assert!(matches!(
+            stream2_req_rx.try_recv(),
+            Err(mpsc::error::TryRecvError::Empty)
+        ));
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_send_error_defers_reconnect_to_rx_and_replays_chunk() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            stream1_rx,
+            stream1_resp_tx,
+            mut captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        // Prepare Stream 2's initial handshake response (`PersistedSize(0)`).
+        stream2_resp_tx.send(Ok(persisted_size_response(0))).await?;
+
+        // Act.
+        // Drop Stream 1's request receiver so `tx.send(request).await` fails after
+        // `process_intent` buffers the chunk, then deliver a transient gRPC status on Stream 1's
+        // response half so `rx.next_message()` drives `reconnect`.
+        drop(stream1_rx);
+        intent_tx.send(append_intent(0, 16)).await?;
+        tokio::task::yield_now().await;
+        stream1_resp_tx
+            .send(Err(Status::unavailable("stream broken")))
+            .await?;
+
+        // Assert.
+        // `reconnect` replaces the stream halves and replays the chunk that `process_intent`
+        // buffered before `tx.send` failed.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+
+        let replayed_req = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed_req.write_offset, 0);
+        let Some(Data::ChecksummedData(cd)) = replayed_req.data else {
+            panic!("expected ChecksummedData on replayed append");
+        };
+        assert_eq!(cd.content.len(), 16);
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn run_watermark_rearms_after_non_draining_ack() -> anyhow::Result<()> {
         // Arrange.
         let (handle, tx, mut request_rx, response_tx) =
-            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+            spawn_test_worker_with_capacity(TEST_CAPACITY);
 
         // Send two chunks to hit the watermark (`2 * TEST_CHUNK_SIZE`).
         tx.send(append_intent(0, TEST_CHUNK_SIZE)).await?;
@@ -1112,6 +1850,65 @@ mod tests {
         tokio::task::yield_now().await;
         drop(response_tx);
         handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_fails_on_persisted_size_regression() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            _captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        intent_tx.send(append_intent(0, 20)).await?;
+        let _ = stream1_rx.recv().await.unwrap();
+
+        // Server acknowledges 15 bytes, trimming [0..15) from the replay buffer.
+        stream1_resp_tx
+            .send(Ok(persisted_size_response(15)))
+            .await?;
+        tokio::task::yield_now().await;
+
+        // Act.
+        // Stream 1 breaks; Stream 2 claims only 10 bytes persisted (< 15 already trimmed).
+        drop(stream1_resp_tx);
+        stream2_resp_tx
+            .send(Ok(persisted_size_response(10)))
+            .await?;
+
+        // Assert.
+        let err = handle.await?.unwrap_err();
+        assert!(
+            err.to_string()
+                .contains("regressed below acknowledged offset"),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_stream_permanent_grpc_error_fails_without_reconnecting() -> anyhow::Result<()> {
+        // Arrange.
+        let (handle, tx, _request_rx, response_tx) = spawn_test_worker();
+
+        // Act.
+        // Send a permanent gRPC error (INVALID_ARGUMENT) on the stream. `Worker::reconnect` is
+        // entered, but `Connector::reconnect` rejects the permanent error via the retry policy
+        // before opening a new stream, so `start()` is never called; `spawn_test_worker` sets
+        // `mock.expect_start().never()` to prove it.
+        response_tx
+            .send(Err(Status::invalid_argument("bad write_offset")))
+            .await?;
+
+        // Assert.
+        let err = handle.await?.unwrap_err();
+        assert!(err.to_string().contains("bad write_offset"), "{err:?}");
+        drop(tx);
         Ok(())
     }
 

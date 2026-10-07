@@ -14,12 +14,19 @@
 
 use crate::error::ConvertError;
 use arrow::array::ArrayRef;
+use std::sync::Arc;
 
 /// A reference to a single cell within an Arrow array.
 #[derive(Clone, Debug)]
 pub(crate) struct ArrowCell {
     array: ArrayRef,
     pub(crate) row_idx: usize,
+}
+
+impl PartialEq for ArrowCell {
+    fn eq(&self, other: &Self) -> bool {
+        Arc::ptr_eq(&self.array, &other.array) && self.row_idx == other.row_idx
+    }
 }
 
 impl ArrowCell {
@@ -238,6 +245,8 @@ mod tests {
         assert!(cell_row1.is_null());
         assert_eq!(cell_row0.data_type(), &DataType::Int64);
         assert_eq!(cell_row0.data_type_str(), "Int64");
+        assert_eq!(cell_row0.clone(), cell_row0);
+        assert_ne!(cell_row0, cell_row1);
     }
 
     #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])), 0 => Ok(true) ; "bool true")]
