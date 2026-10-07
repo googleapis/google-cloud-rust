@@ -313,15 +313,22 @@ pub async fn read_as_stream(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .await
         .expect("Failed to execute read");
 
+    // The table is shared across tests, so KeySet::all() may return rows
+    // inserted by other concurrent tests. Filter the stream to find the rows
+    // inserted by this test.
+    let target_ids = [&id1, &id2];
     let ids: Vec<String> = result_set
         .into_stream()
-        .and_then(|row| async move { row.get("Id") })
+        .try_filter_map(|row| async move {
+            let id: String = row.get("Id")?;
+            Ok(target_ids.contains(&&id).then_some(id))
+        })
         .try_collect()
         .await?;
 
-    assert_eq!(ids.len(), 2);
-    assert!(ids.contains(&id1));
-    assert!(ids.contains(&id2));
+    assert_eq!(ids.len(), 2, "expected 2 rows matching target IDs");
+    assert!(ids.contains(&id1), "expected ids to contain id1");
+    assert!(ids.contains(&id2), "expected ids to contain id2");
 
     Ok(())
 }
