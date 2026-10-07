@@ -87,8 +87,8 @@ cargo run --release --package storage-scenarios -- --bucket-name <BUCKET_NAME> [
   `resolve_idempotency` impl there. Single-shot uploads call
   `crate::idempotency::mutation` and resumable uploads call
   `crate::idempotency::add_token` once, outside the retry loop, so all attempts
-  share one `x-goog-gcs-idempotency-token`. `StorageControl` does not use the
-  hook.
+  share one `x-goog-gcs-idempotency-token`.
+  `google.storage.control.v2.StorageControl` RPCs do not use the hook.
 - **Mocking Strategy:** The library provides robust mocking capabilities for
   developers using the crate. The `src/stub/` module defines traits that can be
   implemented or mocked using `mockall` to simulate GCP behavior in unit tests.
