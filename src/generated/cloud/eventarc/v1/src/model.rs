@@ -8065,7 +8065,7 @@ pub mod pipeline {
             ///     google_cloud_eventarc_v1::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::GoogleOidc(OidcToken::default().into())));
             /// ```
             pub fn set_authentication_method_descriptor<T: std::convert::Into<std::option::Option<crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor>>>(mut self, v: T) -> Self
-            {
+{
                 self.authentication_method_descriptor = v.into();
                 self
             }

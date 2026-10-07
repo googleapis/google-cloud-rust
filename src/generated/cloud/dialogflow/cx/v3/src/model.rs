@@ -17523,6 +17523,11 @@ pub struct Fulfillment {
     /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
     pub tag: std::string::String,
 
+    /// Optional. The name of the code block function to execute, if this is a code
+    /// block fulfillment. The code block itself is implied by the fulfillment's
+    /// parent, e.g. a playbook.
+    pub code_block_function: std::string::String,
+
     /// Set parameter values before executing the webhook.
     pub set_parameter_actions: std::vec::Vec<crate::model::fulfillment::SetParameterAction>,
 
@@ -17621,6 +17626,21 @@ impl Fulfillment {
     /// ```
     pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag = v.into();
+        self
+    }
+
+    /// Sets the value of [code_block_function][crate::model::Fulfillment::code_block_function].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
+    /// let x = Fulfillment::new().set_code_block_function("example");
+    /// ```
+    pub fn set_code_block_function<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code_block_function = v.into();
         self
     }
 
@@ -18100,7 +18120,7 @@ pub mod fulfillment {
                 ///     google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage::Message(ResponseMessage::default().into())));
                 /// ```
                 pub fn set_cases_or_message<T: std::convert::Into<std::option::Option<crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage>>>(mut self, v: T) -> Self
-                {
+{
                     self.cases_or_message = v.into();
                     self
                 }
@@ -20126,7 +20146,7 @@ pub struct Intent {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Human readable description for better understanding an intent like its
-    /// scope, content, result etc. Maximum character limit: 140 characters.
+    /// scope, content, result etc. Maximum character limit: 1000 characters.
     pub description: std::string::String,
 
     /// Optional. Matching DTMF pattern for the intent.
@@ -36112,7 +36132,7 @@ pub mod boost_spec {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint>
-            {
+{
                 use std::iter::Iterator;
                 self.control_points = v.into_iter().map(|i| i.into()).collect();
                 self

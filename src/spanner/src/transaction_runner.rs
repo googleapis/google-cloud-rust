@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::channel_pool::TransactionAffinity;
 use crate::database_client::DatabaseClient;
 use crate::model::CommitResponse;
@@ -60,6 +61,7 @@ pub struct TransactionRunnerBuilder {
     timeout: Option<Duration>,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
+    rollback_gax_options: Option<RequestOptions>,
 }
 
 impl TransactionRunnerBuilder {
@@ -70,6 +72,7 @@ impl TransactionRunnerBuilder {
             timeout: None,
             begin_gax_options: None,
             commit_gax_options: None,
+            rollback_gax_options: None,
         }
     }
 
@@ -225,6 +228,72 @@ impl TransactionRunnerBuilder {
     pub fn with_commit_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
         self.commit_gax_options
             .get_or_insert_with(crate::RequestOptions::default)
+            .set_backoff_policy(policy);
+        self
+    }
+
+    /// Sets the per-attempt timeout for the Rollback RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_rollback_attempt_timeout(Duration::from_secs(5))
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// When a transaction fails, a rollback RPC is issued to release server locks.
+    /// If not specified, this defaults to 30 seconds.
+    pub fn with_rollback_attempt_timeout(mut self, timeout: Duration) -> Self {
+        self.rollback_gax_options
+            .get_or_insert_with(RequestOptions::default)
+            .set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for the Rollback RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::retry_policy::NeverRetry;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_rollback_retry_policy(NeverRetry)
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_rollback_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.rollback_gax_options
+            .get_or_insert_with(RequestOptions::default)
+            .set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for the Rollback RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_rollback_backoff_policy(ExponentialBackoff::default())
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_rollback_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.rollback_gax_options
+            .get_or_insert_with(RequestOptions::default)
             .set_backoff_policy(policy);
         self
     }
@@ -484,7 +553,8 @@ impl TransactionRunnerBuilder {
             builder: self
                 .builder
                 .with_begin_transaction_request_options(self.begin_gax_options)
-                .with_commit_request_options(self.commit_gax_options),
+                .with_commit_request_options(self.commit_gax_options)
+                .with_rollback_request_options(self.rollback_gax_options),
             retry_policy: self.retry_policy,
             timeout: self.timeout,
         }
@@ -716,6 +786,7 @@ impl TransactionRunner {
                         self.retry_policy.as_ref(),
                         &backoff,
                         self.builder.client.is_emulator(),
+                        deadline,
                     )
                     .await?;
                 }
@@ -739,6 +810,7 @@ mod tests {
     use crate::statement::Statement;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
+    use gaxi::grpc::tonic::MetadataMap;
     use gaxi::grpc::tonic::{Code, Response, Status};
     use google_cloud_gax::error::rpc::{Code as GaxCode, Status as GaxStatus};
     use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
@@ -768,6 +840,25 @@ mod tests {
     use tokio::sync::mpsc::channel;
     use tokio::sync::oneshot::channel as oneshot_channel;
     use tokio::task::{JoinHandle, yield_now};
+
+    fn parse_grpc_timeout(metadata: &MetadataMap) -> Option<StdDuration> {
+        let timeout_header = metadata.get("grpc-timeout")?.to_str().ok()?;
+        let numeric_part: String = timeout_header
+            .chars()
+            .take_while(char::is_ascii_digit)
+            .collect();
+        let value = numeric_part.parse::<u64>().ok()?;
+        let unit = timeout_header.trim_start_matches(&numeric_part);
+        let duration = match unit {
+            "u" => StdDuration::from_micros(value),
+            "m" => StdDuration::from_millis(value),
+            "S" => StdDuration::from_secs(value),
+            "M" => StdDuration::from_secs(value * 60),
+            "H" => StdDuration::from_secs(value * 3600),
+            _ => return None,
+        };
+        Some(duration)
+    }
 
     fn expect_begin_transaction(mock: &mut MockSpanner, times: usize, transaction_id: Vec<u8>) {
         mock.expect_begin_transaction()
@@ -1647,7 +1738,109 @@ mod tests {
             .set_isolation_level(IsolationLevel::Serializable)
             .set_read_lock_mode(ReadLockMode::Pessimistic)
             .with_retry_policy(retry_policy)
+            .with_rollback_attempt_timeout(StdDuration::from_secs(5))
+            .with_rollback_retry_policy(NeverRetry)
+            .with_rollback_backoff_policy(ExponentialBackoff::default())
             .build();
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_rolls_back_with_graceful_timeout_when_transaction_times_out() {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![1, 2, 3, 4];
+        let id_clone = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: id_clone.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        let id_clone_rollback = transaction_id.clone();
+        mock.expect_rollback().once().returning(move |request| {
+            let duration = parse_grpc_timeout(request.metadata())
+                .expect("valid grpc-timeout header on rollback");
+            assert!(
+                duration >= StdDuration::from_millis(28000)
+                    && duration <= StdDuration::from_millis(32000),
+                "rollback timeout should use default graceful timeout (~30s), got: {:?}",
+                duration
+            );
+            let inner_request = request.into_inner();
+            assert_eq!(inner_request.transaction_id, id_clone_rollback);
+            Ok(tonic::Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_transaction_timeout(StdDuration::from_millis(50))
+            .build();
+
+        let result: Result<TransactionResult<()>, crate::Error> = runner
+            .run(async |_transaction| {
+                tokio::time::sleep(StdDuration::from_millis(70)).await;
+                Err(crate::error::internal_error("simulated user failure"))
+            })
+            .await;
+
+        let error = result.expect_err("runner must propagate the closure error");
+        assert!(
+            error.to_string().contains("simulated user failure"),
+            "expected simulated user failure, got: {:?}",
+            error
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_aborted_retry_stops_when_delay_exceeds_timeout() {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![1, 2, 3, 4];
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: transaction_id.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .returning(move |_request| Err(create_aborted_status(StdDuration::from_millis(500))));
+
+        mock.expect_rollback().never();
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_transaction_timeout(StdDuration::from_millis(50))
+            .build();
+
+        let result: Result<TransactionResult<i64>, crate::Error> = runner
+            .run(async |transaction| {
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true")
+                    .await?;
+                Ok(count)
+            })
+            .await;
+
+        let error = result.expect_err(
+            "runner must fail immediately without retrying when backoff exceeds timeout",
+        );
+        assert_eq!(
+            error.status().map(|status| status.code),
+            Some(GaxCode::Aborted),
+            "expected Aborted status code, got: {:?}",
+            error
+        );
     }
 
     #[tokio_test_no_panics]

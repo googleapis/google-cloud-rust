@@ -2876,7 +2876,7 @@ pub mod listing {
             /// let x = SelectedResource::new().set_resource(Some(Resource::Table("example".to_string())));
             /// ```
             pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::listing::big_query_dataset_source::selected_resource::Resource>>>(mut self, v: T) -> Self
-            {
+{
                 self.resource = v.into();
                 self
             }
@@ -3754,7 +3754,7 @@ pub mod listing {
             /// ```
             pub fn set_commercial_state<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>
-            {
+{
                 self.commercial_state = std::option::Option::Some(v.into());
                 self
             }
@@ -3771,7 +3771,7 @@ pub mod listing {
             /// ```
             pub fn set_or_clear_commercial_state<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>
-            {
+{
                 self.commercial_state = v.map(|x| x.into());
                 self
             }

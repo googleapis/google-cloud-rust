@@ -541,7 +541,7 @@ impl SecretManagerService {
     /// }
     /// ```
     pub fn get_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion
-    {
+{
         super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
@@ -590,7 +590,7 @@ impl SecretManagerService {
     /// }
     /// ```
     pub fn access_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
-    {
+{
         super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
@@ -639,7 +639,7 @@ impl SecretManagerService {
     /// }
     /// ```
     pub fn disable_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
-    {
+{
         super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
@@ -688,7 +688,7 @@ impl SecretManagerService {
     /// }
     /// ```
     pub fn enable_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
-    {
+{
         super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
@@ -739,7 +739,7 @@ impl SecretManagerService {
     /// }
     /// ```
     pub fn destroy_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
-    {
+{
         super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 

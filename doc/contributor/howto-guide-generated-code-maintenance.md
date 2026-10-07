@@ -10,6 +10,11 @@ when the generator changes.
 Make sure your workstation has up-to-date versions of Rust and Go. Follow the
 instructions in [Set Up Development Environment].
 
+The generator formats the code with `cargo fmt`, so the output depends on your
+local `rustfmt` version. Use the latest stable release of Rust, which is what CI
+uses. With older versions you may see unexpected formatting changes in the
+generated code.
+
 To install the generator dependencies use `librarian install`:
 
 ```bash
