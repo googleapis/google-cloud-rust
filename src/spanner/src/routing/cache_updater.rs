@@ -236,21 +236,20 @@ mod tests {
     async fn wait_for_connections(updater: &CacheUpdater, expected_count: usize) {
         let start = Instant::now();
         let timeout = Duration::from_secs(5);
-        while start.elapsed() < timeout {
-            if updater.connection_cache().len() >= expected_count {
+        loop {
+            let count = updater.connection_cache().len();
+            if count >= expected_count {
                 return;
             }
+            assert!(
+                start.elapsed() < timeout,
+                "timed out after {:?} waiting for connections: expected {}, got {}",
+                timeout,
+                expected_count,
+                count
+            );
             sleep(Duration::from_millis(10)).await;
         }
-        if updater.connection_cache().len() >= expected_count {
-            return;
-        }
-        panic!(
-            "timed out after {:?} waiting for connections: expected {}, got {}",
-            timeout,
-            expected_count,
-            updater.connection_cache().len()
-        );
     }
 
     #[test]
