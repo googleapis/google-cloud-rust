@@ -89,6 +89,12 @@ where
             self.options.checksum = Checksum::default();
         }
 
+        // Resumable uploads are always treated as idempotent (regardless of
+        // preconditions or `with_idempotency()`), so stamp the deduplication
+        // token once before the retry loop to ensure every attempt at creating
+        // the session reuses the identical `x-goog-gcs-idempotency-token`.
+        let options = crate::idempotency::add_token(self.options.gax());
+
         let mut upload_url = None;
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
@@ -97,12 +103,16 @@ where
         let inner = async move |_| {
             let previous = count;
             count += 1;
-            self.resumable_attempt(&mut upload_url, hint, previous)
+            self.resumable_attempt(&mut upload_url, hint, previous, &options)
                 .await
         };
         google_cloud_gax::retry_loop_internal::retry_loop(
             inner,
             async |duration| tokio::time::sleep(duration).await,
+            // Resumable uploads are always idempotent, regardless of
+            // `with_idempotency()`. Extra sessions created by retries have no
+            // observable side-effects; they are never used and eventually
+            // garbage collected. A session can be finalized at most once.
             true,
             throttler,
             retry,
@@ -116,6 +126,7 @@ where
         url: &mut Option<String>,
         hint: SizeHint,
         attempt_count: u32,
+        options: &google_cloud_gax::options::RequestOptions,
     ) -> Result<Object> {
         let (offset, upload_url) = if let Some(upload_url) = url.as_deref() {
             match self
@@ -128,7 +139,9 @@ where
                 ResumableUploadStatus::Partial(offset) => (offset, upload_url),
             }
         } else {
-            let upload_url = self.start_resumable_upload_attempt(attempt_count).await?;
+            let upload_url = self
+                .start_resumable_upload_attempt(attempt_count, options)
+                .await?;
             (0_u64, url.insert(upload_url).as_str())
         };
 
@@ -173,10 +186,8 @@ where
     }
 
     pub(super) async fn send_unbuffered_single_shot(self, hint: SizeHint) -> Result<Object> {
-        // Single shot uploads are idempotent only if they have pre-conditions.
-        let idempotent = self.options.idempotency.unwrap_or(
-            self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some(),
-        );
+        let options = crate::idempotency::mutation(self.options.gax(), self.spec.is_idempotent());
+        let idempotent = options.idempotent().unwrap_or(false);
         let throttler = self.options.retry_throttler.clone();
         let retry = self.options.retry_policy.clone();
         let backoff = self.options.backoff_policy.clone();
@@ -185,7 +196,7 @@ where
         let inner = async move |_| {
             let previous = count;
             count += 1;
-            self.single_shot_attempt(hint, previous).await
+            self.single_shot_attempt(hint, previous, &options).await
         };
         google_cloud_gax::retry_loop_internal::retry_loop(
             inner,
@@ -198,11 +209,15 @@ where
         .await
     }
 
-    async fn single_shot_attempt(&self, hint: SizeHint, attempt_count: u32) -> Result<Object> {
+    async fn single_shot_attempt(
+        &self,
+        hint: SizeHint,
+        attempt_count: u32,
+        options: &google_cloud_gax::options::RequestOptions,
+    ) -> Result<Object> {
         let builder = self.single_shot_builder(hint).await?;
-        let options = self
-            .options
-            .gax()
+        let options = options
+            .clone()
             .insert_extension(PathTemplate("/upload/storage/v1/b/{bucket}/o"))
             .insert_extension(ResourceName(format!(
                 "//storage.googleapis.com/{}",
