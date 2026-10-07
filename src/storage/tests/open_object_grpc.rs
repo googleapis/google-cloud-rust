@@ -523,3 +523,698 @@ fn slice_range_for_len<'a>(buffer: &'a [u8], range: &ProtoRange, len: usize) -> 
     let start = range.read_offset as usize;
     &buffer[start..start + len]
 }
+
+mod conformance {
+    use super::*;
+    use google_cloud_gax::retry_policy::{AlwaysRetry, NeverRetry, RetryPolicyExt as _};
+    use google_cloud_storage::model_ext::KeyAes256;
+    use google_cloud_storage::read_resume_policy::{
+        NeverResume, ReadResumePolicyExt as _, Recommended,
+    };
+    use pretty_assertions::assert_eq;
+    use prost::Message as _;
+    use sha2::{Digest as _, Sha256};
+    use std::sync::Arc;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    use storage_grpc_mock::google::rpc::Status as RpcStatus;
+    use storage_grpc_mock::google::storage::v2::{BidiReadHandle, BidiReadObjectRedirectedError};
+
+    /// Constructs a tonic `Status` representing a GCS `BidiReadObjectRedirectedError`.
+    fn redirect_status(routing: &str) -> TonicStatus {
+        let redirect = BidiReadObjectRedirectedError {
+            routing_token: Some(routing.to_string()),
+            read_handle: Some(BidiReadHandle {
+                handle: b"test-handle-redirect".to_vec(),
+            }),
+        };
+        let redirect = prost_types::Any::from_msg(&redirect).expect("serialize any");
+        let status = RpcStatus {
+            code: gaxi::grpc::tonic::Code::Aborted as i32,
+            message: "redirect".to_string(),
+            details: vec![redirect],
+        };
+        let details = bytes::Bytes::from_owner(status.encode_to_vec());
+        TonicStatus::with_details(gaxi::grpc::tonic::Code::Aborted, "redirect", details)
+    }
+
+    #[tokio::test]
+    async fn handle_redirect_error() -> anyhow::Result<()> {
+        // Arrange
+        const ROUTING_TOKEN: &str = "test-redirect-routing-token";
+        let (resumed_tx, resumed_rx) = tokio::sync::oneshot::channel::<BidiReadObjectRequest>();
+
+        let mut mock = MockStorage::new();
+        let mut seq = mockall::Sequence::new();
+
+        // Initial stream: sends partial data then a redirect error
+        mock.expect_bidi_read_object()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |request| {
+                let (_, _, mut requests) = request.into_parts();
+                let (tx, rx) = tokio::sync::mpsc::channel(2);
+                tokio::spawn(async move {
+                    let first = requests
+                        .recv()
+                        .await
+                        .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                        .expect(ERR_RECV_ERROR);
+                    let [range] = first
+                        .read_ranges
+                        .clone()
+                        .try_into()
+                        .expect("expected exactly one range");
+
+                    // Send initial partial data (4 bytes)
+                    tx.send(Ok(initial_response_with_data(
+                        range,
+                        slice_range_for_len(OBJECT_CONTENT, &range, 4).to_vec(),
+                        false,
+                    )))
+                    .await
+                    .expect("failed to send partial data");
+
+                    // Send redirect error mid-stream
+                    tx.send(Err(redirect_status(ROUTING_TOKEN)))
+                        .await
+                        .expect("failed to send redirect status");
+                });
+                Ok(TonicResponse::from(rx))
+            });
+
+        // Resumed stream: sends remaining data after redirect
+        let resumed_tx = Arc::new(tokio::sync::Mutex::new(Some(resumed_tx)));
+        mock.expect_bidi_read_object()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |request| {
+                let (_, _, mut requests) = request.into_parts();
+                let (tx, rx) = tokio::sync::mpsc::channel(2);
+                let resumed_tx = resumed_tx.clone();
+
+                tokio::spawn(async move {
+                    let first = requests
+                        .recv()
+                        .await
+                        .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                        .expect(ERR_RECV_ERROR);
+                    if let Some(chan) = resumed_tx.lock().await.take() {
+                        let _ = chan.send(first.clone());
+                    }
+
+                    let [range] = first
+                        .read_ranges
+                        .clone()
+                        .try_into()
+                        .expect("expected exactly one range");
+
+                    tx.send(Ok(initial_response_with_data(
+                        range,
+                        slice_range(OBJECT_CONTENT, &range).to_vec(),
+                        true,
+                    )))
+                    .await
+                    .expect("failed to send resumed data");
+                });
+                Ok(TonicResponse::from(rx))
+            });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act: Read bytes 10..18 (8 bytes)
+        let (_, reader) = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_read(ReadRange::segment(10, 8))
+            .await?;
+        let payload = read_all_bytes(reader).await?;
+
+        // Assert: Payload matches full 8 bytes
+        assert_eq!(payload, &OBJECT_CONTENT[10..18]);
+
+        // Assert: Resumed request has redirect routing token and read_handle
+        let resumed_req = resumed_rx.await?;
+        let spec = resumed_req
+            .read_object_spec
+            .expect("resumed request must contain read_object_spec");
+        assert_eq!(spec.routing_token.as_deref(), Some(ROUTING_TOKEN));
+        assert_eq!(
+            spec.read_handle.as_ref().map(|h| h.handle.as_slice()),
+            Some(b"test-handle-redirect".as_slice())
+        );
+        assert_eq!(
+            resumed_req.read_ranges,
+            [ProtoRange {
+                read_offset: 14,
+                read_length: 4,
+                read_id: 0,
+            }]
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn handle_redirect_error_on_open() -> anyhow::Result<()> {
+        // Arrange
+        const ROUTING_TOKEN: &str = "test-open-redirect-token";
+        let (resumed_tx, resumed_rx) = tokio::sync::oneshot::channel::<BidiReadObjectRequest>();
+
+        let mut mock = MockStorage::new();
+        let mut seq = mockall::Sequence::new();
+
+        // Initial stream attempt: server immediately aborts with redirect status before sending metadata
+        mock.expect_bidi_read_object()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| Err(redirect_status(ROUTING_TOKEN)));
+
+        // Second stream attempt: server succeeds with initial metadata
+        let resumed_tx = Arc::new(tokio::sync::Mutex::new(Some(resumed_tx)));
+        mock.expect_bidi_read_object()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |request| {
+                let (_, _, mut requests) = request.into_parts();
+                let (tx, rx) = tokio::sync::mpsc::channel(1);
+                let resumed_tx = resumed_tx.clone();
+
+                tokio::spawn(async move {
+                    let first = requests
+                        .recv()
+                        .await
+                        .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                        .expect(ERR_RECV_ERROR);
+                    if let Some(chan) = resumed_tx.lock().await.take() {
+                        let _ = chan.send(first);
+                    }
+
+                    tx.send(Ok(initial_response()))
+                        .await
+                        .expect("failed to send initial response");
+                });
+                Ok(TonicResponse::from(rx))
+            });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act: open object
+        let descriptor = client.open_object(BUCKET_NAME, OBJECT_NAME).send().await?;
+
+        // Assert: open succeeded and descriptor is valid
+        assert_eq!(descriptor.object().name, OBJECT_NAME);
+
+        // Assert: second attempt contained the updated routing token and handle
+        let second_req = resumed_rx.await?;
+        let spec = second_req
+            .read_object_spec
+            .expect("retry request must contain read_object_spec");
+        assert_eq!(spec.routing_token.as_deref(), Some(ROUTING_TOKEN));
+        assert_eq!(
+            spec.read_handle.as_ref().map(|h| h.handle.as_slice()),
+            Some(b"test-handle-redirect".as_slice())
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn handle_redirect_error_max_attempts() -> anyhow::Result<()> {
+        // Arrange: Mock fails every attempt with a redirect
+        let attempts = Arc::new(AtomicUsize::new(0));
+        let attempts_clone = attempts.clone();
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().returning(move |_| {
+            let count = attempts_clone.fetch_add(1, Ordering::SeqCst);
+            Err(redirect_status(&format!("redirect-token-{count}")))
+        });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act: Set retry policy with attempt limit of 2
+        let result = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .with_retry_policy(AlwaysRetry.with_attempt_limit(2))
+            .send()
+            .await;
+
+        // Assert: Call fails with error after reaching max attempts
+        assert!(
+            result.is_err(),
+            "expected error after max redirect attempts"
+        );
+        assert_eq!(attempts.load(Ordering::SeqCst), 2);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_settings_max_attempt() -> anyhow::Result<()> {
+        // Arrange
+        let attempts = Arc::new(AtomicUsize::new(0));
+        let attempts_clone = attempts.clone();
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().returning(move |request| {
+            let attempt = attempts_clone.fetch_add(1, Ordering::SeqCst);
+            let (_, _, mut requests) = request.into_parts();
+            let (tx, rx) = tokio::sync::mpsc::channel(2);
+
+            tokio::spawn(async move {
+                let first = requests
+                    .recv()
+                    .await
+                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                    .expect(ERR_RECV_ERROR);
+                let [range] = first
+                    .read_ranges
+                    .clone()
+                    .try_into()
+                    .expect("expected exactly one range");
+
+                if attempt == 0 {
+                    // First attempt sends partial data then fails
+                    tx.send(Ok(initial_response_with_data(
+                        range,
+                        slice_range_for_len(OBJECT_CONTENT, &range, 2).to_vec(),
+                        false,
+                    )))
+                    .await
+                    .expect("failed to send initial partial data");
+                }
+
+                // Stream is terminated by transient error
+                tx.send(Err(TonicStatus::unavailable(format!(
+                    "transient error attempt {attempt}"
+                ))))
+                .await
+                .expect("failed to send transient error");
+            });
+            Ok(TonicResponse::from(rx))
+        });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act: read with read_resume_policy limited to 2 attempts, and NeverRetry for connection attempts
+        let (_, reader) = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .with_retry_policy(NeverRetry)
+            .with_read_resume_policy(Recommended.with_attempt_limit(2))
+            .send_and_read(ReadRange::segment(10, 8))
+            .await?;
+
+        let result = read_all_bytes(reader).await;
+
+        // Assert: read failed due to resume attempt limit exhaustion
+        assert!(
+            result.is_err(),
+            "expected read error after max resume attempts"
+        );
+        // Attempt 0 (initial) + Attempt 1 (first resume) = 2 attempts total
+        assert_eq!(attempts.load(Ordering::SeqCst), 2);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn request_option_verification() -> anyhow::Result<()> {
+        // Arrange
+        const USER_AGENT: &str = "custom-agent/3.14";
+        const QUOTA_PROJECT: &str = "custom-quota-project";
+        const OBJECT_GEN: i64 = 777;
+        const IF_GEN_MATCH: i64 = 888;
+        const IF_METAGEN_MATCH: i64 = 999;
+        let raw_key = [42u8; 32];
+        let key_sha256 = Sha256::digest(raw_key).to_vec();
+
+        let (observed_req_tx, observed_req_rx) =
+            tokio::sync::oneshot::channel::<BidiReadObjectRequest>();
+        let (observed_meta_tx, observed_meta_rx) =
+            tokio::sync::oneshot::channel::<gaxi::grpc::tonic::MetadataMap>();
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().return_once(move |request| {
+            let (metadata, _, mut requests) = request.into_parts();
+            let _ = observed_meta_tx.send(metadata);
+
+            let (tx, rx) = tokio::sync::mpsc::channel(1);
+            tokio::spawn(async move {
+                let first = requests
+                    .recv()
+                    .await
+                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                    .expect(ERR_RECV_ERROR);
+                let _ = observed_req_tx.send(first);
+
+                tx.send(Ok(initial_response_with_data(
+                    ProtoRange {
+                        read_id: 0,
+                        read_offset: 0,
+                        read_length: 5,
+                    },
+                    OBJECT_CONTENT[..5].to_vec(),
+                    true,
+                )))
+                .await
+                .expect("failed to send response");
+            });
+            Ok(TonicResponse::from(rx))
+        });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act
+        let (descriptor, reader) = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .with_user_agent(USER_AGENT)
+            .with_quota_project(QUOTA_PROJECT)
+            .set_generation(OBJECT_GEN)
+            .set_if_generation_match(IF_GEN_MATCH)
+            .set_if_metageneration_match(IF_METAGEN_MATCH)
+            .set_key(KeyAes256::new(&raw_key)?)
+            .send_and_read(ReadRange::segment(0, 5))
+            .await?;
+
+        let payload = read_all_bytes(reader).await?;
+        assert_eq!(payload, &OBJECT_CONTENT[..5]);
+
+        // Assert: Metadata headers
+        let metadata = observed_meta_rx.await?;
+        let user_agent = metadata
+            .get(http::header::USER_AGENT.as_str())
+            .and_then(|v| v.to_str().ok())
+            .expect("user-agent header must be present");
+        assert!(user_agent.contains(USER_AGENT), "{user_agent}");
+        assert_eq!(
+            metadata
+                .get("x-goog-user-project")
+                .and_then(|v| v.to_str().ok()),
+            Some(QUOTA_PROJECT)
+        );
+        assert_eq!(
+            metadata
+                .get("x-goog-request-params")
+                .and_then(|v| v.to_str().ok()),
+            Some(format!("bucket={BUCKET_NAME}").as_str())
+        );
+
+        // Assert: Protobuf request spec
+        let req = observed_req_rx.await?;
+        let spec = req
+            .read_object_spec
+            .expect("read_object_spec must be present");
+        assert_eq!(spec.bucket, BUCKET_NAME);
+        assert_eq!(spec.object, OBJECT_NAME);
+        assert_eq!(spec.generation, OBJECT_GEN);
+        assert_eq!(spec.if_generation_match, Some(IF_GEN_MATCH));
+        assert_eq!(spec.if_metageneration_match, Some(IF_METAGEN_MATCH));
+
+        // Assert: CSEK encryption params
+        let csek = spec
+            .common_object_request_params
+            .expect("common_object_request_params must be present");
+        assert_eq!(csek.encryption_algorithm, "AES256");
+        assert_eq!(csek.encryption_key_bytes.as_slice(), raw_key.as_slice());
+        assert_eq!(
+            csek.encryption_key_sha256_bytes.as_slice(),
+            key_sha256.as_slice()
+        );
+
+        assert_eq!(descriptor.object().name, OBJECT_NAME);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn failed_stream_restart_should_fail_all_pending_reads() -> anyhow::Result<()> {
+        // Arrange
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().return_once(|request| {
+            let (_, _, mut requests) = request.into_parts();
+            let (tx, rx) = tokio::sync::mpsc::channel(2);
+
+            tokio::spawn(async move {
+                let open = requests
+                    .recv()
+                    .await
+                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                    .expect(ERR_RECV_ERROR);
+                assert!(open.read_object_spec.is_some());
+
+                // Initial open handshake succeeds
+                tx.send(Ok(initial_response()))
+                    .await
+                    .expect("failed to send initial response");
+
+                // Client requests a range
+                let _ = requests.recv().await;
+
+                // Stream fails with unrecoverable / non-resumed error
+                tx.send(Err(TonicStatus::unavailable("stream crash")))
+                    .await
+                    .expect("failed to send stream error");
+            });
+            Ok(TonicResponse::from(rx))
+        });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Open object with NeverResume so that stream restart fails immediately
+        let descriptor = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .with_read_resume_policy(NeverResume)
+            .send()
+            .await?;
+
+        // Act: Request a range read
+        let reader = descriptor.read_range(ReadRange::segment(0, 10)).await;
+        let result = read_all_bytes(reader).await;
+
+        // Assert: The active read fails with an error
+        assert!(
+            result.is_err(),
+            "expected pending read to fail after stream error"
+        );
+
+        // Assert: Subsequent read on the broken descriptor also fails
+        let next_reader = descriptor.read_range(ReadRange::segment(10, 5)).await;
+        let next_result = read_all_bytes(next_reader).await;
+        assert!(next_result.is_err(), "expected subsequent read to fail");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retryable_error_while_open() -> anyhow::Result<()> {
+        // Arrange
+        let mut mock = MockStorage::new();
+        let mut seq = mockall::Sequence::new();
+
+        // First attempt fails immediately with transient retryable error (Unavailable)
+        mock.expect_bidi_read_object()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| Err(TonicStatus::unavailable("transient error on open")));
+
+        // Second attempt succeeds with initial response
+        mock.expect_bidi_read_object()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|request| {
+                let (_, _, mut requests) = request.into_parts();
+                let (tx, rx) = tokio::sync::mpsc::channel(1);
+
+                tokio::spawn(async move {
+                    let first = requests
+                        .recv()
+                        .await
+                        .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                        .expect(ERR_RECV_ERROR);
+                    assert!(first.read_object_spec.is_some());
+
+                    tx.send(Ok(initial_response()))
+                        .await
+                        .expect("failed to send initial response");
+                });
+                Ok(TonicResponse::from(rx))
+            });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act: open_object.send() should retry transparently
+        let descriptor = client.open_object(BUCKET_NAME, OBJECT_NAME).send().await?;
+
+        // Assert: successfully opened
+        assert_eq!(descriptor.object().name, OBJECT_NAME);
+        assert_eq!(descriptor.object().generation, OBJECT_GENERATION);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn on_complete_without_data() -> anyhow::Result<()> {
+        // Arrange: Server completes range with range_end: true without returning the requested data
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().return_once(|request| {
+            let (_, _, mut requests) = request.into_parts();
+            let (tx, rx) = tokio::sync::mpsc::channel(1);
+
+            tokio::spawn(async move {
+                let first = requests
+                    .recv()
+                    .await
+                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                    .expect(ERR_RECV_ERROR);
+                let [range] = first.read_ranges.try_into().expect("expected one range");
+
+                // Send initial metadata response with range_end: true but NO checksummed data
+                let response = BidiReadObjectResponse {
+                    metadata: test_metadata(),
+                    object_data_ranges: vec![ObjectRangeData {
+                        read_range: Some(ProtoRange {
+                            read_id: range.read_id,
+                            read_offset: range.read_offset,
+                            read_length: 0,
+                        }),
+                        range_end: true,
+                        checksummed_data: None,
+                    }],
+                    ..BidiReadObjectResponse::default()
+                };
+                tx.send(Ok(response))
+                    .await
+                    .expect("failed to send response");
+            });
+            Ok(TonicResponse::from(rx))
+        });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act: Request 10 bytes, but server completes with range_end: true and 0 bytes
+        let result = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .with_read_resume_policy(NeverResume)
+            .send_and_read(ReadRange::segment(0, 10))
+            .await;
+
+        // Assert: Client detects short read and returns an error
+        assert!(
+            result.is_err(),
+            "expected error when server completes without requested data"
+        );
+        let err_str = result.err().unwrap().to_string();
+        assert!(
+            err_str.contains("missing 10 bytes"),
+            "expected missing bytes error, got: {err_str}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn fast_open_read_session() -> anyhow::Result<()> {
+        // Arrange
+        const READ_LEN: usize = 16;
+        let (observed_tx, observed_rx) = tokio::sync::oneshot::channel::<BidiReadObjectRequest>();
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().return_once(move |request| {
+            let (_, _, mut requests) = request.into_parts();
+            let (tx, rx) = tokio::sync::mpsc::channel(1);
+
+            tokio::spawn(async move {
+                let first = requests
+                    .recv()
+                    .await
+                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                    .expect(ERR_RECV_ERROR);
+
+                // Fast open: verify client bundled spec and read_ranges together in the initial message
+                assert!(
+                    first.read_object_spec.is_some(),
+                    "fast open request must contain read_object_spec"
+                );
+                assert!(
+                    !first.read_ranges.is_empty(),
+                    "fast open request must bundle read_ranges in the first message"
+                );
+
+                let [range] = first
+                    .read_ranges
+                    .clone()
+                    .try_into()
+                    .expect("expected exactly one range");
+                let _ = observed_tx.send(first);
+
+                // Fast open: server responds with metadata AND range data in the single initial message
+                let payload = slice_range(OBJECT_CONTENT, &range).to_vec();
+                tx.send(Ok(initial_response_with_data(range, payload, true)))
+                    .await
+                    .expect("failed to send combined response");
+            });
+            Ok(TonicResponse::from(rx))
+        });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act: send_and_read initiates fast open
+        let (descriptor, reader) = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_read(ReadRange::segment(0, READ_LEN as u64))
+            .await?;
+
+        let payload = read_all_bytes(reader).await?;
+
+        // Assert
+        assert_eq!(payload, &OBJECT_CONTENT[..READ_LEN]);
+        assert_eq!(descriptor.object().name, OBJECT_NAME);
+        assert_eq!(descriptor.object().generation, OBJECT_GENERATION);
+
+        let observed = observed_rx.await?;
+        assert_eq!(observed.read_ranges.len(), 1);
+        assert_eq!(observed.read_ranges[0].read_offset, 0);
+        assert_eq!(observed.read_ranges[0].read_length, READ_LEN as i64);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn non_retryable_error() -> anyhow::Result<()> {
+        // Arrange: Server returns permanent NotFound error
+        let attempts = Arc::new(AtomicUsize::new(0));
+        let attempts_clone = attempts.clone();
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().returning(move |_| {
+            attempts_clone.fetch_add(1, Ordering::SeqCst);
+            Err(TonicStatus::not_found("object not found"))
+        });
+
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let client = make_client(endpoint).await?;
+
+        // Act: open object
+        let result = client
+            .open_object(BUCKET_NAME, "nonexistent-object")
+            .send()
+            .await;
+
+        // Assert: fails immediately without retry
+        assert!(result.is_err(), "expected open_object to fail on NotFound");
+        assert_eq!(
+            attempts.load(Ordering::SeqCst),
+            1,
+            "non-retryable error must not be retried"
+        );
+
+        Ok(())
+    }
+}
