@@ -17,11 +17,10 @@ mod tests {
     use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::options::RequestOptionsBuilder;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_storage::client::{Storage, StorageControl};
     use http::header::{HeaderName, HeaderValue};
     use httptest::{Expectation, Server, all_of, matchers::*, responders::status_code};
-    use scoped_env::ScopedEnv;
-    use serial_test::serial;
     use storage_grpc_mock::google::storage::v2::{
         BidiReadObjectResponse, Bucket as ProtoBucket, Object as ProtoObject,
     };
@@ -31,19 +30,7 @@ mod tests {
     const OBJECT_NAME: &str = "test-object";
 
     #[tokio::test]
-    #[serial]
     async fn read_object_with_custom_header() -> anyhow::Result<()> {
-        // Disable HTTP proxy environment variables so reqwest connects directly to the local mock server.
-        let _proxy_guard = [
-            "http_proxy",
-            "https_proxy",
-            "HTTP_PROXY",
-            "HTTPS_PROXY",
-            "all_proxy",
-            "ALL_PROXY",
-        ]
-        .map(ScopedEnv::remove);
-
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -62,6 +49,8 @@ mod tests {
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(Anonymous::new().build())
+            // httptest answers unmatched requests with a 500; don't retry it.
+            .with_retry_policy(NeverRetry)
             .with_custom_header(
                 HeaderName::from_static("x-custom-header"),
                 HeaderValue::from_static("custom-value"),
@@ -94,13 +83,10 @@ mod tests {
         };
         tx.send(Ok(initial)).await?;
 
+        let (header_tx, header_rx) = tokio::sync::oneshot::channel();
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object().return_once(|request| {
-            let meta = request.metadata();
-            assert_eq!(
-                meta.get("x-custom-header").and_then(|v| v.to_str().ok()),
-                Some("custom-value")
-            );
+            let _ = header_tx.send(request.metadata().get("x-custom-header").cloned());
             Ok(TonicResponse::from(rx))
         });
         let (endpoint, _server) = start("127.0.0.1:0", mock).await?;
@@ -117,20 +103,23 @@ mod tests {
 
         let _descriptor = client.open_object(BUCKET_NAME, OBJECT_NAME).send().await?;
 
+        let got = header_rx.await?;
+        assert_eq!(
+            got.as_ref().and_then(|v| v.to_str().ok()),
+            Some("custom-value")
+        );
+
         Ok(())
     }
 
     #[tokio::test]
     async fn storage_control_with_custom_header() -> anyhow::Result<()> {
+        let (header_tx, header_rx) = tokio::sync::oneshot::channel();
         let mut mock = MockStorage::new();
-        mock.expect_get_bucket()
-            .withf(|req| {
-                let meta = req.metadata();
-                meta.get("x-custom-header").and_then(|v| v.to_str().ok()) == Some("custom-value")
-            })
-            .times(1)
-            .returning(|_| Ok(TonicResponse::new(ProtoBucket::default())));
-
+        mock.expect_get_bucket().return_once(|request| {
+            let _ = header_tx.send(request.metadata().get("x-custom-header").cloned());
+            Ok(TonicResponse::new(ProtoBucket::default()))
+        });
         let (endpoint, _server) = start("127.0.0.1:0", mock).await?;
 
         let client = StorageControl::builder()
@@ -148,6 +137,12 @@ mod tests {
             )
             .send()
             .await?;
+
+        let got = header_rx.await?;
+        assert_eq!(
+            got.as_ref().and_then(|v| v.to_str().ok()),
+            Some("custom-value")
+        );
 
         Ok(())
     }
