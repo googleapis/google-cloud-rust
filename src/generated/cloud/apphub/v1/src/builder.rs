@@ -1352,8 +1352,6 @@ pub mod app_hub {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1363,8 +1361,6 @@ pub mod app_hub {
         }
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2210,8 +2206,6 @@ pub mod app_hub {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2221,8 +2215,6 @@ pub mod app_hub {
         }
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2822,8 +2814,6 @@ pub mod app_hub {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2833,8 +2823,6 @@ pub mod app_hub {
         }
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2994,6 +2982,394 @@ pub mod app_hub {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DeleteApplication {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [AppHub::get_boundary][crate::client::AppHub::get_boundary] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetBoundary;
+    /// # async fn sample() -> google_cloud_apphub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetBoundary {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetBoundary(RequestBuilder<crate::model::GetBoundaryRequest>);
+
+    impl GetBoundary {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetBoundaryRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Boundary> {
+            (*self.0.stub)
+                .get_boundary(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetBoundaryRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetBoundary {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [AppHub::update_boundary][crate::client::AppHub::update_boundary] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::UpdateBoundary;
+    /// # async fn sample() -> google_cloud_apphub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateBoundary {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateBoundary(RequestBuilder<crate::model::UpdateBoundaryRequest>);
+
+    impl UpdateBoundary {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateBoundaryRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_boundary][crate::client::AppHub::update_boundary].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_boundary(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_boundary`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Boundary, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Boundary,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_apphub_v1::client::AppHub::update_boundary::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateBoundaryRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBoundaryRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [boundary][crate::model::UpdateBoundaryRequest::boundary].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_boundary<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Boundary>,
+        {
+            self.0.request.boundary = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [boundary][crate::model::UpdateBoundaryRequest::boundary].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_boundary<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Boundary>,
+        {
+            self.0.request.boundary = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateBoundaryRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateBoundary {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [AppHub::get_extended_metadata_schema][crate::client::AppHub::get_extended_metadata_schema] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetExtendedMetadataSchema;
+    /// # async fn sample() -> google_cloud_apphub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetExtendedMetadataSchema {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetExtendedMetadataSchema(
+        RequestBuilder<crate::model::GetExtendedMetadataSchemaRequest>,
+    );
+
+    impl GetExtendedMetadataSchema {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetExtendedMetadataSchemaRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ExtendedMetadataSchema> {
+            (*self.0.stub)
+                .get_extended_metadata_schema(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetExtendedMetadataSchemaRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetExtendedMetadataSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [AppHub::list_extended_metadata_schemas][crate::client::AppHub::list_extended_metadata_schemas] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListExtendedMetadataSchemas;
+    /// # async fn sample() -> google_cloud_apphub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListExtendedMetadataSchemas {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListExtendedMetadataSchemas(
+        RequestBuilder<crate::model::ListExtendedMetadataSchemasRequest>,
+    );
+
+    impl ListExtendedMetadataSchemas {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListExtendedMetadataSchemasRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListExtendedMetadataSchemasResponse> {
+            (*self.0.stub)
+                .list_extended_metadata_schemas(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListExtendedMetadataSchemasResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListExtendedMetadataSchemasResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListExtendedMetadataSchemasRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListExtendedMetadataSchemasRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListExtendedMetadataSchemasRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListExtendedMetadataSchemas {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

@@ -1318,7 +1318,7 @@ impl wkt::message::Message for LookupDiscoveredServiceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Service resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
     /// the full request.
@@ -1865,7 +1865,7 @@ impl wkt::message::Message for GetApplicationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateApplicationRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Application resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
     /// the full request.
@@ -2760,7 +2760,7 @@ impl wkt::message::Message for LookupDiscoveredWorkloadResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkloadRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Workload resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
     /// the full request.
@@ -2951,6 +2951,167 @@ impl wkt::message::Message for DeleteWorkloadRequest {
     }
 }
 
+/// Request message for AppHub.GetBoundary.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetBoundaryRequest {
+    /// Required. The name of the boundary to retrieve.
+    /// Format: `projects/{project}/locations/{location}/boundary`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBoundaryRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBoundaryRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::GetBoundaryRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetBoundaryRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/boundary"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBoundaryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.GetBoundaryRequest"
+    }
+}
+
+/// Request message for AppHub.UpdateBoundary.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateBoundaryRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// Boundary resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The boundary to update.
+    pub boundary: std::option::Option<crate::model::Boundary>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateBoundaryRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateBoundaryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::UpdateBoundaryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBoundaryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBoundaryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::UpdateBoundaryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBoundaryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBoundaryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [boundary][crate::model::UpdateBoundaryRequest::boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::UpdateBoundaryRequest;
+    /// use google_cloud_apphub_v1::model::Boundary;
+    /// let x = UpdateBoundaryRequest::new().set_boundary(Boundary::default()/* use setters */);
+    /// ```
+    pub fn set_boundary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Boundary>,
+    {
+        self.boundary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [boundary][crate::model::UpdateBoundaryRequest::boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::UpdateBoundaryRequest;
+    /// use google_cloud_apphub_v1::model::Boundary;
+    /// let x = UpdateBoundaryRequest::new().set_or_clear_boundary(Some(Boundary::default()/* use setters */));
+    /// let x = UpdateBoundaryRequest::new().set_or_clear_boundary(None::<Boundary>);
+    /// ```
+    pub fn set_or_clear_boundary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Boundary>,
+    {
+        self.boundary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateBoundaryRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::UpdateBoundaryRequest;
+    /// let x = UpdateBoundaryRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateBoundaryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.UpdateBoundaryRequest"
+    }
+}
+
 /// Represents the metadata of the long-running operation.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3126,6 +3287,194 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
+/// Request for GetExtendedMetadataSchema.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetExtendedMetadataSchemaRequest {
+    /// Required. Schema resource name.
+    /// Format:
+    /// `projects/{project}/locations/{location}/extendedMetadataSchemas/{extended_metadata_schema}`.
+    ///
+    /// `{extended_metadata_schema}` has the format
+    /// `"apphub.googleapis.com/{SchemaName}"`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetExtendedMetadataSchemaRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetExtendedMetadataSchemaRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::GetExtendedMetadataSchemaRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let extended_metadata_schema_id = "extended_metadata_schema_id";
+    /// let x = GetExtendedMetadataSchemaRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/extendedMetadataSchemas/{extended_metadata_schema_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetExtendedMetadataSchemaRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.GetExtendedMetadataSchemaRequest"
+    }
+}
+
+/// Request for ListExtendedMetadataSchemas.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListExtendedMetadataSchemasRequest {
+    /// Required. Project and location to list Extended Metadata Schemas on.
+    /// Expected format: `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListExtendedMetadataSchemasRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListExtendedMetadataSchemasRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ListExtendedMetadataSchemasRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListExtendedMetadataSchemasRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListExtendedMetadataSchemasRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ListExtendedMetadataSchemasRequest;
+    /// let x = ListExtendedMetadataSchemasRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListExtendedMetadataSchemasRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ListExtendedMetadataSchemasRequest;
+    /// let x = ListExtendedMetadataSchemasRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListExtendedMetadataSchemasRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.ListExtendedMetadataSchemasRequest"
+    }
+}
+
+/// Response for ListExtendedMetadataSchemas.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListExtendedMetadataSchemasResponse {
+    /// List of Extended Metadata Schemas.
+    pub extended_metadata_schemas: std::vec::Vec<crate::model::ExtendedMetadataSchema>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListExtendedMetadataSchemasResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [extended_metadata_schemas][crate::model::ListExtendedMetadataSchemasResponse::extended_metadata_schemas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ListExtendedMetadataSchemasResponse;
+    /// use google_cloud_apphub_v1::model::ExtendedMetadataSchema;
+    /// let x = ListExtendedMetadataSchemasResponse::new()
+    ///     .set_extended_metadata_schemas([
+    ///         ExtendedMetadataSchema::default()/* use setters */,
+    ///         ExtendedMetadataSchema::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_extended_metadata_schemas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ExtendedMetadataSchema>,
+    {
+        use std::iter::Iterator;
+        self.extended_metadata_schemas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExtendedMetadataSchemasResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ListExtendedMetadataSchemasResponse;
+    /// let x = ListExtendedMetadataSchemasResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListExtendedMetadataSchemasResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.ListExtendedMetadataSchemasResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListExtendedMetadataSchemasResponse
+{
+    type PageItem = crate::model::ExtendedMetadataSchema;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.extended_metadata_schemas
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Application defines the governance boundary for App Hub entities that
 /// perform a logical end-to-end business function.
 /// App Hub supports application level IAM permission to align with governance
@@ -3164,6 +3513,13 @@ pub struct Application {
 
     /// Output only. Application state.
     pub state: crate::model::application::State,
+
+    /// Output only. Properties of an underlying cloud resource that can comprise
+    /// an Application.
+    pub application_properties: std::option::Option<crate::model::ApplicationProperties>,
+
+    /// Output only. Application type.
+    pub application_type: std::option::Option<crate::model::ApplicationType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3374,6 +3730,72 @@ impl Application {
         self.state = v.into();
         self
     }
+
+    /// Sets the value of [application_properties][crate::model::Application::application_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Application;
+    /// use google_cloud_apphub_v1::model::ApplicationProperties;
+    /// let x = Application::new().set_application_properties(ApplicationProperties::default()/* use setters */);
+    /// ```
+    pub fn set_application_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ApplicationProperties>,
+    {
+        self.application_properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [application_properties][crate::model::Application::application_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Application;
+    /// use google_cloud_apphub_v1::model::ApplicationProperties;
+    /// let x = Application::new().set_or_clear_application_properties(Some(ApplicationProperties::default()/* use setters */));
+    /// let x = Application::new().set_or_clear_application_properties(None::<ApplicationProperties>);
+    /// ```
+    pub fn set_or_clear_application_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ApplicationProperties>,
+    {
+        self.application_properties = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [application_type][crate::model::Application::application_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Application;
+    /// use google_cloud_apphub_v1::model::ApplicationType;
+    /// let x = Application::new().set_application_type(ApplicationType::default()/* use setters */);
+    /// ```
+    pub fn set_application_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ApplicationType>,
+    {
+        self.application_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [application_type][crate::model::Application::application_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Application;
+    /// use google_cloud_apphub_v1::model::ApplicationType;
+    /// let x = Application::new().set_or_clear_application_type(Some(ApplicationType::default()/* use setters */));
+    /// let x = Application::new().set_or_clear_application_type(None::<ApplicationType>);
+    /// ```
+    pub fn set_or_clear_application_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ApplicationType>,
+    {
+        self.application_type = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Application {
@@ -3522,6 +3944,176 @@ pub mod application {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.apphub.v1.Application.State",
+            ))
+        }
+    }
+}
+
+/// Application type.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ApplicationType {
+    /// The type of the application.
+    pub r#type: crate::model::application_type::Type,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ApplicationType {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::ApplicationType::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ApplicationType;
+    /// use google_cloud_apphub_v1::model::application_type::Type;
+    /// let x0 = ApplicationType::new().set_type(Type::AiApplication);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::application_type::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ApplicationType {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.ApplicationType"
+    }
+}
+
+/// Defines additional types related to [ApplicationType].
+pub mod application_type {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Application type enum.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Unspecified type.
+        Unspecified,
+        /// AI Application type.
+        AiApplication,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AiApplication => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::AiApplication => std::option::Option::Some("AI_APPLICATION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AiApplication,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "AI_APPLICATION" => Self::AiApplication,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AiApplication => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.apphub.v1.ApplicationType.Type",
             ))
         }
     }
@@ -3699,6 +4291,55 @@ pub mod scope {
                 ".google.cloud.apphub.v1.Scope.Type",
             ))
         }
+    }
+}
+
+/// Additional system properties of an Application.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ApplicationProperties {
+    /// Output only. Additional metadata specific to the App Hub application.
+    /// The key is a string that identifies the type of metadata and the value is
+    /// the metadata contents specific to that type.
+    /// Key format: `apphub.googleapis.com/{metadataType}`
+    pub extended_metadata:
+        std::collections::HashMap<std::string::String, crate::model::ExtendedMetadata>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ApplicationProperties {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [extended_metadata][crate::model::ApplicationProperties::extended_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ApplicationProperties;
+    /// use google_cloud_apphub_v1::model::ExtendedMetadata;
+    /// let x = ApplicationProperties::new().set_extended_metadata([
+    ///     ("key0", ExtendedMetadata::default()/* use setters */),
+    ///     ("key1", ExtendedMetadata::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_extended_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ExtendedMetadata>,
+    {
+        use std::iter::Iterator;
+        self.extended_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ApplicationProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.ApplicationProperties"
     }
 }
 
@@ -4307,6 +4948,872 @@ impl wkt::message::Message for ContactInfo {
     }
 }
 
+/// Application management boundary.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Boundary {
+    /// Identifier. The resource name of the boundary.
+    /// Format: "projects/{project}/locations/{location}/boundary"
+    pub name: std::string::String,
+
+    /// Output only. Create time.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Boundary type.
+    pub r#type: crate::model::boundary::Type,
+
+    /// The scope defining the boundary.
+    pub scope: std::option::Option<crate::model::boundary::Scope>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Boundary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Boundary::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Boundary;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = Boundary::new().set_name(format!("projects/{project_id}/locations/{location_id}/boundary"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Boundary::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Boundary;
+    /// use wkt::Timestamp;
+    /// let x = Boundary::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Boundary::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Boundary;
+    /// use wkt::Timestamp;
+    /// let x = Boundary::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Boundary::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Boundary::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Boundary;
+    /// use wkt::Timestamp;
+    /// let x = Boundary::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Boundary::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Boundary;
+    /// use wkt::Timestamp;
+    /// let x = Boundary::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Boundary::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::Boundary::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Boundary;
+    /// use google_cloud_apphub_v1::model::boundary::Type;
+    /// let x0 = Boundary::new().set_type(Type::Automatic);
+    /// let x1 = Boundary::new().set_type(Type::Manual);
+    /// let x2 = Boundary::new().set_type(Type::ManagedAutomatic);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::boundary::Type>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::Boundary::scope].
+    ///
+    /// Note that all the setters affecting `scope` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Boundary;
+    /// use google_cloud_apphub_v1::model::boundary::Scope;
+    /// let x = Boundary::new().set_scope(Some(Scope::CrmNode("example".to_string())));
+    /// ```
+    pub fn set_scope<T: std::convert::Into<std::option::Option<crate::model::boundary::Scope>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scope = v.into();
+        self
+    }
+
+    /// The value of [scope][crate::model::Boundary::scope]
+    /// if it holds a `CrmNode`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn crm_node(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.scope.as_ref().and_then(|v| match v {
+            crate::model::boundary::Scope::CrmNode(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [scope][crate::model::Boundary::scope]
+    /// to hold a `CrmNode`.
+    ///
+    /// Note that all the setters affecting `scope` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Boundary;
+    /// let x = Boundary::new().set_crm_node("example");
+    /// assert!(x.crm_node().is_some());
+    /// ```
+    pub fn set_crm_node<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope = std::option::Option::Some(crate::model::boundary::Scope::CrmNode(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for Boundary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.Boundary"
+    }
+}
+
+/// Defines additional types related to [Boundary].
+pub mod boundary {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Boundary management type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Unspecified type.
+        Unspecified,
+        /// The Boundary automatically includes all descendants of the CRM node.
+        Automatic,
+        /// The list of projects within the Boundary is managed by the user.
+        Manual,
+        /// The Boundary automatically includes all descendants of the CRM node,
+        /// which is set via App Management folder capability.
+        ManagedAutomatic,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Automatic => std::option::Option::Some(1),
+                Self::Manual => std::option::Option::Some(2),
+                Self::ManagedAutomatic => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Automatic => std::option::Option::Some("AUTOMATIC"),
+                Self::Manual => std::option::Option::Some("MANUAL"),
+                Self::ManagedAutomatic => std::option::Option::Some("MANAGED_AUTOMATIC"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Automatic,
+                2 => Self::Manual,
+                3 => Self::ManagedAutomatic,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "AUTOMATIC" => Self::Automatic,
+                "MANUAL" => Self::Manual,
+                "MANAGED_AUTOMATIC" => Self::ManagedAutomatic,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Automatic => serializer.serialize_i32(1),
+                Self::Manual => serializer.serialize_i32(2),
+                Self::ManagedAutomatic => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.apphub.v1.Boundary.Type",
+            ))
+        }
+    }
+
+    /// The scope defining the boundary.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Scope {
+        /// Optional. The resource name of the CRM node being attached to the
+        /// boundary.
+        /// Format: `projects/{project-number}` or `projects/{project-id}`
+        CrmNode(std::string::String),
+    }
+}
+
+/// ExtendedMetadataSchema represents a schema for extended metadata of a service
+/// or workload.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExtendedMetadataSchema {
+    /// Identifier. Resource name of the schema.
+    /// Format:
+    /// projects/\<project\>/locations/\<location\>/extendedMetadataSchemas/\<schema-id\>
+    pub name: std::string::String,
+
+    /// Output only. The JSON schema as a string.
+    pub json_schema: std::string::String,
+
+    /// Output only. The version of the schema. New versions are required to be
+    /// backwards compatible.
+    pub schema_version: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExtendedMetadataSchema {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExtendedMetadataSchema::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ExtendedMetadataSchema;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let extended_metadata_schema_id = "extended_metadata_schema_id";
+    /// let x = ExtendedMetadataSchema::new().set_name(format!("projects/{project_id}/locations/{location_id}/extendedMetadataSchemas/{extended_metadata_schema_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [json_schema][crate::model::ExtendedMetadataSchema::json_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ExtendedMetadataSchema;
+    /// let x = ExtendedMetadataSchema::new().set_json_schema("example");
+    /// ```
+    pub fn set_json_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.json_schema = v.into();
+        self
+    }
+
+    /// Sets the value of [schema_version][crate::model::ExtendedMetadataSchema::schema_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ExtendedMetadataSchema;
+    /// let x = ExtendedMetadataSchema::new().set_schema_version(42);
+    /// ```
+    pub fn set_schema_version<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.schema_version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExtendedMetadataSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.ExtendedMetadataSchema"
+    }
+}
+
+/// The functional type of a service or workload.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FunctionalType {
+    /// Output only. The functional type of a service or workload.
+    pub r#type: crate::model::functional_type::Type,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FunctionalType {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::FunctionalType::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::FunctionalType;
+    /// use google_cloud_apphub_v1::model::functional_type::Type;
+    /// let x0 = FunctionalType::new().set_type(Type::Agent);
+    /// let x1 = FunctionalType::new().set_type(Type::McpServer);
+    /// let x2 = FunctionalType::new().set_type(Type::Endpoint);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::functional_type::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FunctionalType {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.FunctionalType"
+    }
+}
+
+/// Defines additional types related to [FunctionalType].
+pub mod functional_type {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The functional type of a service or workload.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Unspecified type.
+        Unspecified,
+        /// Agent type.
+        Agent,
+        /// MCP Server type.
+        McpServer,
+        /// Endpoint type.
+        Endpoint,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Agent => std::option::Option::Some(1),
+                Self::McpServer => std::option::Option::Some(2),
+                Self::Endpoint => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Agent => std::option::Option::Some("AGENT"),
+                Self::McpServer => std::option::Option::Some("MCP_SERVER"),
+                Self::Endpoint => std::option::Option::Some("ENDPOINT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Agent,
+                2 => Self::McpServer,
+                3 => Self::Endpoint,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "AGENT" => Self::Agent,
+                "MCP_SERVER" => Self::McpServer,
+                "ENDPOINT" => Self::Endpoint,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Agent => serializer.serialize_i32(1),
+                Self::McpServer => serializer.serialize_i32(2),
+                Self::Endpoint => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.apphub.v1.FunctionalType.Type",
+            ))
+        }
+    }
+}
+
+/// The registration type of a service.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RegistrationType {
+    /// Output only. The registration type of a service.
+    pub r#type: crate::model::registration_type::Type,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RegistrationType {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::RegistrationType::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::RegistrationType;
+    /// use google_cloud_apphub_v1::model::registration_type::Type;
+    /// let x0 = RegistrationType::new().set_type(Type::Exclusive);
+    /// let x1 = RegistrationType::new().set_type(Type::Shared);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::registration_type::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RegistrationType {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.RegistrationType"
+    }
+}
+
+/// Defines additional types related to [RegistrationType].
+pub mod registration_type {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The registration type of a service.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Unspecified registration type. Defaults to EXCLUSIVE.
+        Unspecified,
+        /// The service can only be registered to one application.
+        Exclusive,
+        /// The service can be registered to multiple applications.
+        Shared,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Exclusive => std::option::Option::Some(1),
+                Self::Shared => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Exclusive => std::option::Option::Some("EXCLUSIVE"),
+                Self::Shared => std::option::Option::Some("SHARED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Exclusive,
+                2 => Self::Shared,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "EXCLUSIVE" => Self::Exclusive,
+                "SHARED" => Self::Shared,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Exclusive => serializer.serialize_i32(1),
+                Self::Shared => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.apphub.v1.RegistrationType.Type",
+            ))
+        }
+    }
+}
+
+/// Additional metadata for a Service or Workload.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExtendedMetadata {
+    /// Output only. The metadata contents.
+    pub metadata_struct: std::option::Option<wkt::Struct>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExtendedMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [metadata_struct][crate::model::ExtendedMetadata::metadata_struct].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ExtendedMetadata;
+    /// use wkt::Struct;
+    /// let x = ExtendedMetadata::new().set_metadata_struct(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_metadata_struct<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.metadata_struct = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata_struct][crate::model::ExtendedMetadata::metadata_struct].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ExtendedMetadata;
+    /// use wkt::Struct;
+    /// let x = ExtendedMetadata::new().set_or_clear_metadata_struct(Some(Struct::default()/* use setters */));
+    /// let x = ExtendedMetadata::new().set_or_clear_metadata_struct(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_metadata_struct<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.metadata_struct = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExtendedMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.ExtendedMetadata"
+    }
+}
+
+/// The identity associated with a service or workload.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Identity {
+    /// Output only. The principal of the identity.
+    ///
+    /// Supported formats:
+    ///
+    /// * `sa://my-sa@PROJECT_ID.iam.gserviceaccount.com` for GCP Service Account
+    /// * `principal://POOL_ID.global.PROJECT_NUMBER.workload.id.goog/ns/NAMESPACE_ID/sa/MANAGED_IDENTITY_ID` for Managed Workload Identity
+    pub principal: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Identity {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [principal][crate::model::Identity::principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::Identity;
+    /// let x = Identity::new().set_principal("example");
+    /// ```
+    pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.principal = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Identity {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apphub.v1.Identity"
+    }
+}
+
 /// Service is an App Hub data model that contains a discovered service, which
 /// represents a network or API interface that exposes some functionality to
 /// clients for consumption over the network.
@@ -4821,6 +6328,22 @@ pub struct ServiceProperties {
     /// zonal, for example, us-west1-a).
     pub zone: std::string::String,
 
+    /// Output only. The type of the service.
+    pub functional_type: std::option::Option<crate::model::FunctionalType>,
+
+    /// Output only. The registration type of the service.
+    pub registration_type: std::option::Option<crate::model::RegistrationType>,
+
+    /// Output only. Additional metadata specific to the resource type.
+    /// The key is a string that identifies the type of metadata and the value is
+    /// the metadata contents specific to that type.
+    /// Key format: `apphub.googleapis.com/{metadataType}`
+    pub extended_metadata:
+        std::collections::HashMap<std::string::String, crate::model::ExtendedMetadata>,
+
+    /// Output only. The identity associated with the service.
+    pub identity: std::option::Option<crate::model::Identity>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4863,6 +6386,127 @@ impl ServiceProperties {
     /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
+        self
+    }
+
+    /// Sets the value of [functional_type][crate::model::ServiceProperties::functional_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ServiceProperties;
+    /// use google_cloud_apphub_v1::model::FunctionalType;
+    /// let x = ServiceProperties::new().set_functional_type(FunctionalType::default()/* use setters */);
+    /// ```
+    pub fn set_functional_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FunctionalType>,
+    {
+        self.functional_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [functional_type][crate::model::ServiceProperties::functional_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ServiceProperties;
+    /// use google_cloud_apphub_v1::model::FunctionalType;
+    /// let x = ServiceProperties::new().set_or_clear_functional_type(Some(FunctionalType::default()/* use setters */));
+    /// let x = ServiceProperties::new().set_or_clear_functional_type(None::<FunctionalType>);
+    /// ```
+    pub fn set_or_clear_functional_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FunctionalType>,
+    {
+        self.functional_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [registration_type][crate::model::ServiceProperties::registration_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ServiceProperties;
+    /// use google_cloud_apphub_v1::model::RegistrationType;
+    /// let x = ServiceProperties::new().set_registration_type(RegistrationType::default()/* use setters */);
+    /// ```
+    pub fn set_registration_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RegistrationType>,
+    {
+        self.registration_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [registration_type][crate::model::ServiceProperties::registration_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ServiceProperties;
+    /// use google_cloud_apphub_v1::model::RegistrationType;
+    /// let x = ServiceProperties::new().set_or_clear_registration_type(Some(RegistrationType::default()/* use setters */));
+    /// let x = ServiceProperties::new().set_or_clear_registration_type(None::<RegistrationType>);
+    /// ```
+    pub fn set_or_clear_registration_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RegistrationType>,
+    {
+        self.registration_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [extended_metadata][crate::model::ServiceProperties::extended_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ServiceProperties;
+    /// use google_cloud_apphub_v1::model::ExtendedMetadata;
+    /// let x = ServiceProperties::new().set_extended_metadata([
+    ///     ("key0", ExtendedMetadata::default()/* use setters */),
+    ///     ("key1", ExtendedMetadata::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_extended_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ExtendedMetadata>,
+    {
+        use std::iter::Iterator;
+        self.extended_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [identity][crate::model::ServiceProperties::identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ServiceProperties;
+    /// use google_cloud_apphub_v1::model::Identity;
+    /// let x = ServiceProperties::new().set_identity(Identity::default()/* use setters */);
+    /// ```
+    pub fn set_identity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Identity>,
+    {
+        self.identity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [identity][crate::model::ServiceProperties::identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::ServiceProperties;
+    /// use google_cloud_apphub_v1::model::Identity;
+    /// let x = ServiceProperties::new().set_or_clear_identity(Some(Identity::default()/* use setters */));
+    /// let x = ServiceProperties::new().set_or_clear_identity(None::<Identity>);
+    /// ```
+    pub fn set_or_clear_identity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Identity>,
+    {
+        self.identity = v.map(|x| x.into());
         self
     }
 }
@@ -5782,6 +7426,19 @@ pub struct WorkloadProperties {
     /// if it is zonal (for example, us-west1-a).
     pub zone: std::string::String,
 
+    /// Output only. The type of the workload.
+    pub functional_type: std::option::Option<crate::model::FunctionalType>,
+
+    /// Output only. Additional metadata specific to the resource type.
+    /// The key is a string that identifies the type of metadata and the value is
+    /// the metadata contents specific to that type.
+    /// Key format: `apphub.googleapis.com/{metadataType}`
+    pub extended_metadata:
+        std::collections::HashMap<std::string::String, crate::model::ExtendedMetadata>,
+
+    /// Output only. The identity associated with the workload.
+    pub identity: std::option::Option<crate::model::Identity>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5824,6 +7481,94 @@ impl WorkloadProperties {
     /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
+        self
+    }
+
+    /// Sets the value of [functional_type][crate::model::WorkloadProperties::functional_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::WorkloadProperties;
+    /// use google_cloud_apphub_v1::model::FunctionalType;
+    /// let x = WorkloadProperties::new().set_functional_type(FunctionalType::default()/* use setters */);
+    /// ```
+    pub fn set_functional_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FunctionalType>,
+    {
+        self.functional_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [functional_type][crate::model::WorkloadProperties::functional_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::WorkloadProperties;
+    /// use google_cloud_apphub_v1::model::FunctionalType;
+    /// let x = WorkloadProperties::new().set_or_clear_functional_type(Some(FunctionalType::default()/* use setters */));
+    /// let x = WorkloadProperties::new().set_or_clear_functional_type(None::<FunctionalType>);
+    /// ```
+    pub fn set_or_clear_functional_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FunctionalType>,
+    {
+        self.functional_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [extended_metadata][crate::model::WorkloadProperties::extended_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::WorkloadProperties;
+    /// use google_cloud_apphub_v1::model::ExtendedMetadata;
+    /// let x = WorkloadProperties::new().set_extended_metadata([
+    ///     ("key0", ExtendedMetadata::default()/* use setters */),
+    ///     ("key1", ExtendedMetadata::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_extended_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ExtendedMetadata>,
+    {
+        use std::iter::Iterator;
+        self.extended_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [identity][crate::model::WorkloadProperties::identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::WorkloadProperties;
+    /// use google_cloud_apphub_v1::model::Identity;
+    /// let x = WorkloadProperties::new().set_identity(Identity::default()/* use setters */);
+    /// ```
+    pub fn set_identity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Identity>,
+    {
+        self.identity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [identity][crate::model::WorkloadProperties::identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apphub_v1::model::WorkloadProperties;
+    /// use google_cloud_apphub_v1::model::Identity;
+    /// let x = WorkloadProperties::new().set_or_clear_identity(Some(Identity::default()/* use setters */));
+    /// let x = WorkloadProperties::new().set_or_clear_identity(None::<Identity>);
+    /// ```
+    pub fn set_or_clear_identity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Identity>,
+    {
+        self.identity = v.map(|x| x.into());
         self
     }
 }

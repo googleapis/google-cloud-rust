@@ -515,6 +515,62 @@ impl NetApp {
         super::builder::net_app::RevertVolume::new(self.inner.clone())
     }
 
+    /// Splits a clone volume from its source volume.
+    /// This operation will only work for volumes which have clone_details
+    /// set(clones).
+    /// For volumes that are not clones, this operation will return an error.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.start_split()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start_split(&self) -> super::builder::net_app::StartSplit {
+        super::builder::net_app::StartSplit::new(self.inner.clone())
+    }
+
+    /// Retrieves the current state, progress, and details of a split operation for
+    /// a volume. This method is relevant when the volume is a clone. For volumes
+    /// that are not clones, this method will return an error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.get_split_status()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_split_status(&self) -> super::builder::net_app::GetSplitStatus {
+        super::builder::net_app::GetSplitStatus::new(self.inner.clone())
+    }
+
     /// Establish volume peering. This is used to establish cluster and svm
     /// peerings between the GCNV and OnPrem clusters.
     ///
@@ -2102,7 +2158,7 @@ impl NetApp {
         super::builder::net_app::DeleteHostGroup::new(self.inner.clone())
     }
 
-    /// `ExecuteOntapPost` dispatches the ONTAP `POST` request to the
+    /// `ExecuteOntapPost` sends the ONTAP `POST` request to the
     /// `StoragePool` cluster.
     ///
     /// # Example
@@ -2123,7 +2179,7 @@ impl NetApp {
         super::builder::net_app::ExecuteOntapPost::new(self.inner.clone())
     }
 
-    /// `ExecuteOntapGet` dispatches the ONTAP `GET` request to the
+    /// `ExecuteOntapGet` sends the ONTAP `GET` request to the
     /// `StoragePool` cluster.
     ///
     /// # Example
@@ -2144,7 +2200,7 @@ impl NetApp {
         super::builder::net_app::ExecuteOntapGet::new(self.inner.clone())
     }
 
-    /// `ExecuteOntapDelete` dispatches the ONTAP `DELETE` request to the
+    /// `ExecuteOntapDelete` sends the ONTAP `DELETE` request to the
     /// `StoragePool` cluster.
     ///
     /// # Example
@@ -2165,7 +2221,7 @@ impl NetApp {
         super::builder::net_app::ExecuteOntapDelete::new(self.inner.clone())
     }
 
-    /// `ExecuteOntapPatch` dispatches the ONTAP `PATCH` request to the
+    /// `ExecuteOntapPatch` sends the ONTAP `PATCH` request to the
     /// `StoragePool` cluster.
     ///
     /// # Example
@@ -2184,6 +2240,91 @@ impl NetApp {
     /// ```
     pub fn execute_ontap_patch(&self) -> super::builder::net_app::ExecuteOntapPatch {
         super::builder::net_app::ExecuteOntapPatch::new(self.inner.clone())
+    }
+
+    /// Restores a backup to an ONTAP-mode volume.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.restore_volume()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn restore_volume(&self) -> super::builder::net_app::RestoreVolume {
+        super::builder::net_app::RestoreVolume::new(self.inner.clone())
+    }
+
+    /// Lists backup configurations for all volumes in an ONTAP-mode Storage Pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backup_configs()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_backup_configs(&self) -> super::builder::net_app::ListBackupConfigs {
+        super::builder::net_app::ListBackupConfigs::new(self.inner.clone())
+    }
+
+    /// Updates the backup configuration for an ONTAP-mode volume.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup_config()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_backup_config(&self) -> super::builder::net_app::UpdateBackupConfig {
+        super::builder::net_app::UpdateBackupConfig::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.

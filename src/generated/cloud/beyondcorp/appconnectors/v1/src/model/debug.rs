@@ -146,6 +146,28 @@ impl std::fmt::Debug for super::DeleteAppConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for super::ResolveInstanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResolveInstanceConfigRequest");
+        debug_struct.field("app_connector", &self.app_connector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ResolveInstanceConfigResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResolveInstanceConfigResponse");
+        debug_struct.field("instance_config", &self.instance_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ReportStatusRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReportStatusRequest");
@@ -226,6 +248,30 @@ impl std::fmt::Debug for super::ResourceInfo {
         debug_struct.field("resource", &self.resource);
         debug_struct.field("time", &self.time);
         debug_struct.field("sub", &self.sub);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ContainerHealthDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContainerHealthDetails");
+        debug_struct.field("expected_config_version", &self.expected_config_version);
+        debug_struct.field("current_config_version", &self.current_config_version);
+        debug_struct.field("extended_status", &self.extended_status);
+        debug_struct.field("error_msg", &self.error_msg);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RemoteAgentDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoteAgentDetails");
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

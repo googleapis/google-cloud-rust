@@ -165,6 +165,89 @@ impl<T: super::SqlBackupsService> SqlBackupsService for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::BlueGreenDeploymentsService].
+#[async_trait::async_trait]
+pub trait BlueGreenDeploymentsService: std::fmt::Debug + Send + Sync {
+    async fn create_blue_green_deployment(
+        &self,
+        req: crate::model::CreateBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get_blue_green_deployment(
+        &self,
+        req: crate::model::GetBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BlueGreenDeployment>>;
+
+    async fn switchover_blue_green_deployment(
+        &self,
+        req: crate::model::SwitchoverBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list_blue_green_deployments(
+        &self,
+        req: crate::model::ListBlueGreenDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBlueGreenDeploymentsResponse>>;
+
+    async fn delete_blue_green_deployment(
+        &self,
+        req: crate::model::DeleteBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+}
+
+/// All implementations of [super::BlueGreenDeploymentsService] also implement [BlueGreenDeploymentsService].
+#[async_trait::async_trait]
+impl<T: super::BlueGreenDeploymentsService> BlueGreenDeploymentsService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_blue_green_deployment(
+        &self,
+        req: crate::model::CreateBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::create_blue_green_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_blue_green_deployment(
+        &self,
+        req: crate::model::GetBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BlueGreenDeployment>> {
+        T::get_blue_green_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn switchover_blue_green_deployment(
+        &self,
+        req: crate::model::SwitchoverBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::switchover_blue_green_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_blue_green_deployments(
+        &self,
+        req: crate::model::ListBlueGreenDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBlueGreenDeploymentsResponse>> {
+        T::list_blue_green_deployments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_blue_green_deployment(
+        &self,
+        req: crate::model::DeleteBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete_blue_green_deployment(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::SqlConnectService].
 #[async_trait::async_trait]
 pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
@@ -1219,5 +1302,88 @@ impl<T: super::SqlUsersService> SqlUsersService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::update(self, req, options).await
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::SqlWorkloadCapturesService].
+#[async_trait::async_trait]
+pub trait SqlWorkloadCapturesService: std::fmt::Debug + Send + Sync {
+    async fn start(
+        &self,
+        req: crate::model::WorkloadCapturesStartRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn stop(
+        &self,
+        req: crate::model::WorkloadCapturesStopRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn start_replay(
+        &self,
+        req: crate::model::WorkloadCapturesStartReplayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn stop_replay(
+        &self,
+        req: crate::model::WorkloadCapturesStopReplayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::SqlWorkloadCapturesListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkloadCapturesListResponse>>;
+}
+
+/// All implementations of [super::SqlWorkloadCapturesService] also implement [SqlWorkloadCapturesService].
+#[async_trait::async_trait]
+impl<T: super::SqlWorkloadCapturesService> SqlWorkloadCapturesService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn start(
+        &self,
+        req: crate::model::WorkloadCapturesStartRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::start(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stop(
+        &self,
+        req: crate::model::WorkloadCapturesStopRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::stop(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn start_replay(
+        &self,
+        req: crate::model::WorkloadCapturesStartReplayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::start_replay(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stop_replay(
+        &self,
+        req: crate::model::WorkloadCapturesStopReplayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::stop_replay(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::SqlWorkloadCapturesListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkloadCapturesListResponse>> {
+        T::list(self, req, options).await
     }
 }

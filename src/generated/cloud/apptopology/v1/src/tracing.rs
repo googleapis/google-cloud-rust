@@ -70,6 +70,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn explore_schema(
+        &self,
+        req: crate::model::ExploreSchemaRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExploreSchemaResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppTopology::explore_schema",
+            self.inner.explore_schema(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_domain(
         &self,
         req: crate::model::GetDomainRequest,
