@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::model::MultiplexedSessionPrecommitToken;
-use std::sync::{Arc, RwLock, RwLockReadGuard, RwLockWriteGuard};
+use std::sync::{Arc, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard};
 
 #[derive(Clone, Debug)]
 pub(crate) enum PrecommitTokenTracker {
@@ -46,10 +46,7 @@ impl PrecommitTokenTracker {
         let Self::Track(tracker) = self else {
             return None;
         };
-        Some(match tracker.read() {
-            Ok(guard) => guard,
-            Err(poisoned) => poisoned.into_inner(),
-        })
+        Some(tracker.read().unwrap_or_else(PoisonError::into_inner))
     }
 
     /// Acquires an exclusive write lock on the tracked precommit token, recovering from lock poisoning via `into_inner()`.
@@ -62,10 +59,7 @@ impl PrecommitTokenTracker {
         let Self::Track(tracker) = self else {
             return None;
         };
-        Some(match tracker.write() {
-            Ok(guard) => guard,
-            Err(poisoned) => poisoned.into_inner(),
-        })
+        Some(tracker.write().unwrap_or_else(PoisonError::into_inner))
     }
 
     /// Updates the tracker with an optional precommit token from a response.
