@@ -17,6 +17,7 @@ use crate::client::{
 };
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
+use google_cloud_spanner::Decimal;
 use google_cloud_spanner::client::{DatabaseClient, Spanner};
 use google_cloud_spanner::key;
 use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
@@ -1146,6 +1147,214 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
     assert!(is_nan_float32.is_nan(), "expected NaN for ColFloat32");
 
     // 7. Cleanup the test row.
+    let delete_mutation = Mutation::delete("AllTypes", key![row_id].into());
+    let cleanup_transaction = db_client.write_only_transaction().build();
+    cleanup_transaction.write(vec![delete_mutation]).await?;
+
+    Ok(())
+}
+
+pub async fn query_numeric_values(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let transaction = db_client.single_use().build();
+
+    // 1. Query literal NUMERIC values in standard fixed-point and scientific notation formats.
+    let sql = r#"
+    SELECT
+      NUMERIC '123.456' AS col_fixed,
+      NUMERIC '1e5' AS col_sci_int,
+      NUMERIC '-1.5e3' AS col_sci_neg,
+      NUMERIC '1E-1' AS col_sci_frac,
+      NUMERIC '+.5e-2' AS col_sci_small,
+      [NUMERIC '1e5', NUMERIC '1E-1', NUMERIC '123.456'] AS col_sci_array
+    "#;
+
+    let statement = Statement::builder(sql).build();
+    let mut result_set = transaction.execute_query(statement).await?;
+
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .ok_or_else(|| anyhow::anyhow!("query should yield a row"))?;
+
+    let column_fixed: Decimal = row.try_get("col_fixed")?;
+    assert_eq!(
+        column_fixed,
+        Decimal::from_str_exact("123.456").expect("valid decimal"),
+        "expected exact decimal for col_fixed"
+    );
+
+    let column_scientific_integer: Decimal = row.try_get("col_sci_int")?;
+    assert_eq!(
+        column_scientific_integer,
+        Decimal::from_str_exact("100000").expect("valid decimal"),
+        "expected 100000 for col_sci_int"
+    );
+
+    let column_scientific_negative: Decimal = row.try_get("col_sci_neg")?;
+    assert_eq!(
+        column_scientific_negative,
+        Decimal::from_str_exact("-1500").expect("valid decimal"),
+        "expected -1500 for col_sci_neg"
+    );
+
+    let column_scientific_fraction: Decimal = row.try_get("col_sci_frac")?;
+    assert_eq!(
+        column_scientific_fraction,
+        Decimal::from_str_exact("0.1").expect("valid decimal"),
+        "expected 0.1 for col_sci_frac"
+    );
+
+    let column_scientific_small: Decimal = row.try_get("col_sci_small")?;
+    assert_eq!(
+        column_scientific_small,
+        Decimal::from_str_exact("0.005").expect("valid decimal"),
+        "expected 0.005 for col_sci_small"
+    );
+
+    let column_scientific_array: Vec<Decimal> = row.try_get("col_sci_array")?;
+    assert_eq!(
+        column_scientific_array,
+        vec![
+            Decimal::from_str_exact("100000").expect("valid decimal"),
+            Decimal::from_str_exact("0.1").expect("valid decimal"),
+            Decimal::from_str_exact("123.456").expect("valid decimal"),
+        ],
+        "expected matching Decimal elements in col_sci_array"
+    );
+
+    // 2. Query with parameters using Decimal and scientific notation strings.
+    let parameter_sql = r#"
+    SELECT
+      @fixed_param AS col_fixed_param,
+      @sci_param AS col_sci_param,
+      @array_param AS col_array_param
+    "#;
+
+    let parameter_statement = Statement::builder(parameter_sql)
+        .add_typed_param(
+            "fixed_param",
+            Decimal::from_str_exact("123.456").expect("valid decimal"),
+            types::numeric(),
+        )
+        .add_typed_param(
+            "sci_param",
+            Decimal::from_scientific("1e5").expect("valid decimal"),
+            types::numeric(),
+        )
+        .add_typed_param(
+            "array_param",
+            vec![
+                Decimal::from_str_exact("100000").expect("valid decimal"),
+                Decimal::from_str_exact("0.1").expect("valid decimal"),
+            ],
+            types::array(types::numeric()),
+        )
+        .build();
+
+    let mut parameter_result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(parameter_statement)
+        .await?;
+
+    let parameter_row = parameter_result_set
+        .next()
+        .await
+        .transpose()?
+        .ok_or_else(|| anyhow::anyhow!("query with numeric parameters should yield a row"))?;
+
+    let fixed_parameter_out: Decimal = parameter_row.try_get("col_fixed_param")?;
+    assert_eq!(
+        fixed_parameter_out,
+        Decimal::from_str_exact("123.456").expect("valid decimal"),
+        "expected matching fixed parameter"
+    );
+
+    let scientific_parameter_out: Decimal = parameter_row.try_get("col_sci_param")?;
+    assert_eq!(
+        scientific_parameter_out,
+        Decimal::from_str_exact("100000").expect("valid decimal"),
+        "expected matching scientific parameter"
+    );
+
+    let array_parameter_out: Vec<Decimal> = parameter_row.try_get("col_array_param")?;
+    assert_eq!(
+        array_parameter_out,
+        vec![
+            Decimal::from_str_exact("100000").expect("valid decimal"),
+            Decimal::from_str_exact("0.1").expect("valid decimal"),
+        ],
+        "expected matching array parameter"
+    );
+
+    // 3. Write a row into AllTypes with ColNumeric and ColArrayNumeric and read back.
+    let row_id = format!("numeric-{}", LowercaseAlphanumeric.random_string(10));
+
+    let mutation = Mutation::new_insert_or_update_builder("AllTypes")
+        .set("Id")
+        .to(&row_id)
+        .set("ColNumeric")
+        .to(Decimal::from_scientific("2.5e3").expect("valid decimal"))
+        .set("ColArrayNumeric")
+        .to(vec![
+            Decimal::from_str_exact("100").expect("valid decimal"),
+            Decimal::from_scientific("1e-1").expect("valid decimal"),
+        ])
+        .build();
+
+    let write_transaction = db_client.write_only_transaction().build();
+    write_transaction.write(vec![mutation]).await?;
+
+    // Read back via execute_read
+    let read_request =
+        ReadRequest::builder("AllTypes", vec!["Id", "ColNumeric", "ColArrayNumeric"])
+            .with_keys(key![row_id.clone()])
+            .build();
+
+    let mut read_result_set = db_client
+        .single_use()
+        .build()
+        .execute_read(read_request)
+        .await?;
+
+    let read_row = read_result_set
+        .next()
+        .await
+        .transpose()?
+        .ok_or_else(|| anyhow::anyhow!("row should exist after mutation insert"))?;
+
+    let numeric_value: Decimal = read_row.try_get("ColNumeric")?;
+    assert_eq!(
+        numeric_value,
+        Decimal::from_str_exact("2500").expect("valid decimal"),
+        "expected 2500 for ColNumeric after mutation"
+    );
+
+    let array_value: Vec<Decimal> = read_row.try_get("ColArrayNumeric")?;
+    assert_eq!(
+        array_value,
+        vec![
+            Decimal::from_str_exact("100").expect("valid decimal"),
+            Decimal::from_str_exact("0.1").expect("valid decimal"),
+        ],
+        "expected matching ColArrayNumeric"
+    );
+
+    // Also read back via try_take
+    let mut owned_row = read_row.clone();
+    let taken_numeric: Decimal = owned_row.try_take("ColNumeric")?;
+    assert_eq!(
+        taken_numeric,
+        Decimal::from_str_exact("2500").expect("valid decimal"),
+        "expected 2500 for taken ColNumeric"
+    );
+    assert!(
+        owned_row.is_null("ColNumeric"),
+        "ColNumeric must be null after try_take"
+    );
+
+    // Cleanup test row
     let delete_mutation = Mutation::delete("AllTypes", key![row_id].into());
     let cleanup_transaction = db_client.write_only_transaction().build();
     cleanup_transaction.write(vec![delete_mutation]).await?;

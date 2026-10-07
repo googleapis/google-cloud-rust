@@ -802,6 +802,22 @@ impl FromValue for i32 {
     }
 }
 
+/// Converts a Spanner `TypeCode::Numeric` column into a `Decimal`.
+///
+/// Supports both standard fixed-point decimal notation (e.g., `"123.456"`) and
+/// scientific notation format (e.g., `"1e5"`, `"1.5e-3"`).
+///
+/// # Precision Limitations
+///
+/// Cloud Spanner `NUMERIC` supports up to 38 decimal digits of precision (up to 29
+/// digits before the decimal point and 9 digits after). However, [`Decimal`] uses a
+/// 96-bit unsigned integer mantissa, which can represent at most ~28–29 total decimal
+/// digits (and at most 19–20 digits before the decimal point when scale is 9).
+///
+/// If a Spanner numeric value exceeds the 96-bit limit of [`Decimal`], or if a PostgreSQL
+/// dialect database returns `"NaN"`, converting to [`Decimal`] will return a
+/// [`ConvertError::Convert`]. For values that exceed 96 bits or for PostgreSQL `"NaN"`,
+/// callers should read the column as a [`String`] instead (e.g., `row.try_get::<String, _>()`).
 impl FromValue for Decimal {
     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
         if spanner_type.code() != TypeCode::Numeric {
@@ -810,15 +826,23 @@ impl FromValue for Decimal {
                 got: spanner_type.code(),
             });
         }
-        match &value.0.kind {
-            Some(ProtoKind::StringValue(s)) => {
-                Decimal::from_str_exact(s).map_err(ConvertError::custom)
+        let string_value = match &value.0.kind {
+            Some(ProtoKind::StringValue(string_value)) => string_value,
+            Some(ProtoKind::NullValue(_)) | None => return Err(ConvertError::NotNull),
+            _ => {
+                return Err(ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: value.kind(),
+                });
             }
-            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
-            _ => Err(ConvertError::KindMismatch {
-                want: Kind::String,
-                got: value.kind(),
-            }),
+        };
+
+        match Decimal::from_str_exact(string_value) {
+            Ok(decimal) => Ok(decimal),
+            Err(_) if string_value.contains(['e', 'E']) => {
+                Decimal::from_scientific(string_value).map_err(ConvertError::custom)
+            }
+            Err(error) => Err(ConvertError::custom(error)),
         }
     }
 }
@@ -1487,15 +1511,295 @@ mod tests {
     }
 
     #[test]
-    fn test_from_value_decimal() {
-        let d = Decimal::from_str_exact("123.456").unwrap();
-        let v = d.to_value();
-        let res = Decimal::from_value(&v, &types::numeric()).unwrap();
-        assert_eq!(res, d);
+    fn from_value_decimal() -> Result<(), ConvertError> {
+        let numeric_type = types::numeric();
 
-        let v = "invalid decimal".to_string().to_value();
-        let err = Decimal::from_value(&v, &types::numeric()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let decimal = Decimal::from_str_exact("123.456").expect("valid decimal");
+        let value = decimal.to_value();
+        let result = Decimal::from_value(&value, &numeric_type)?;
+        assert_eq!(result, decimal);
+
+        // Fixed-point sign and zero variations
+        let valid_cases = [
+            ("+123.456", "123.456"),
+            ("-123.456", "-123.456"),
+            ("+1", "1"),
+            ("-1", "-1"),
+            ("0", "0"),
+            ("0.0", "0"),
+            ("+0", "0"),
+            ("-0", "0"),
+            (".1", "0.1"),
+            ("+.1", "0.1"),
+            ("-.1", "-0.1"),
+            ("1.", "1"),
+            ("+1.", "1"),
+            ("-1.", "-1"),
+            ("100000000000000000000.1", "100000000000000000000.1"),
+        ];
+
+        for (input_str, expected_str) in valid_cases {
+            let value = input_str.to_string().to_value();
+            let parsed = Decimal::from_value(&value, &numeric_type)
+                .expect("valid decimal conversion from supported format");
+            assert_eq!(
+                parsed,
+                Decimal::from_str_exact(expected_str).expect("valid decimal"),
+                "mismatch for {input_str}"
+            );
+        }
+
+        let value = "invalid decimal".to_string().to_value();
+        let error =
+            Decimal::from_value(&value, &numeric_type).expect_err("invalid decimal should fail");
+        assert!(format!("{error}").contains("cannot convert value"));
+
+        Ok(())
+    }
+
+    #[test]
+    fn from_value_decimal_scientific_notation() -> Result<(), ConvertError> {
+        let numeric_type = types::numeric();
+
+        // Integer scientific notation
+        let value = "1e5".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("100000").expect("valid decimal")
+        );
+
+        let value = "+1e5".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("100000").expect("valid decimal")
+        );
+
+        let value = "-1e5".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("-100000").expect("valid decimal")
+        );
+
+        // Positive exponent with explicit plus sign
+        let value = "1E+1".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("10").expect("valid decimal")
+        );
+
+        let value = "1e+1".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("10").expect("valid decimal")
+        );
+
+        let value = "1E1".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("10").expect("valid decimal")
+        );
+
+        let value = "01e1".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("10").expect("valid decimal")
+        );
+
+        let value = "1e01".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("10").expect("valid decimal")
+        );
+
+        // Negative exponent
+        let value = "1E-1".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0.1").expect("valid decimal")
+        );
+
+        let value = "1e-1".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0.1").expect("valid decimal")
+        );
+
+        let value = "01e-1".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0.1").expect("valid decimal")
+        );
+
+        let value = "1e-01".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0.1").expect("valid decimal")
+        );
+
+        // Fractional base with exponent
+        let value = "1.e2".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("100").expect("valid decimal")
+        );
+
+        let value = ".5e2".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("50").expect("valid decimal")
+        );
+
+        let value = "+.5e-2".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0.005").expect("valid decimal")
+        );
+
+        let value = "-.5e-2".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("-0.005").expect("valid decimal")
+        );
+
+        // Fractional base with positive exponent plus sign
+        let value = ".5e+2".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("50").expect("valid decimal")
+        );
+
+        let value = "1.e+2".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("100").expect("valid decimal")
+        );
+
+        let value = "-1.e+2".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("-100").expect("valid decimal")
+        );
+
+        // Zero mantissa in scientific notation
+        let value = "0e0".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0").expect("valid decimal")
+        );
+
+        let value = "0e5".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0").expect("valid decimal")
+        );
+
+        let value = "0e-5".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0").expect("valid decimal")
+        );
+
+        let value = "-0e0".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0").expect("valid decimal")
+        );
+
+        let value = "+0e0".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("0").expect("valid decimal")
+        );
+
+        // Zero exponent in scientific notation
+        let value = "1e0".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("1").expect("valid decimal")
+        );
+
+        let value = "1E0".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("1").expect("valid decimal")
+        );
+
+        let value = "1e+0".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("1").expect("valid decimal")
+        );
+
+        let value = "1e-0".to_string().to_value();
+        assert_eq!(
+            Decimal::from_value(&value, &numeric_type)?,
+            Decimal::from_str_exact("1").expect("valid decimal")
+        );
+
+        // Owned value conversion
+        let value = "2.5e3".to_string().to_value();
+        assert_eq!(
+            Decimal::from_owned_value(value, &numeric_type)?,
+            Decimal::from_str_exact("2500").expect("valid decimal")
+        );
+
+        // Optional decimal with scientific notation and null
+        let value = "1e5".to_string().to_value();
+        assert_eq!(
+            Option::<Decimal>::from_value(&value, &numeric_type)?,
+            Some(Decimal::from_str_exact("100000").expect("valid decimal"))
+        );
+
+        let value = None::<Decimal>.to_value();
+        assert_eq!(Option::<Decimal>::from_value(&value, &numeric_type)?, None);
+
+        // Array with mixed scientific notation and null elements
+        let array_type = types::array(types::numeric());
+        let list_value = vec![Some("1e2".to_string()), None, Some("1e-1".to_string())].to_value();
+        assert_eq!(
+            Vec::<Option<Decimal>>::from_value(&list_value, &array_type)?,
+            vec![
+                Some(Decimal::from_str_exact("100").expect("valid decimal")),
+                None,
+                Some(Decimal::from_str_exact("0.1").expect("valid decimal")),
+            ]
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn from_value_decimal_scientific_notation_errors() {
+        let numeric_type = types::numeric();
+
+        let invalid_cases = [
+            "1e",
+            "1E",
+            "1e+",
+            "1e-",
+            "e1",
+            "1e5e5",
+            "1e50",  // Overflow scale exceeds maximum precision
+            "1e-50", // Underflow scale exceeds maximum precision
+            // Values exceeding rust_decimal 96-bit mantissa limit (even if valid in Spanner NUMERIC)
+            // (2^96 - 1 ≈ 7.9228e28, up to 28-29 digits total)
+            "99999999999999999999999999999.999999999", // 38 digits (max Spanner NUMERIC)
+            "100000000000000000000.123456789",         // 30 digits
+            "100000000000000000000000000000",          // 30 integer digits
+            "8e28",
+            // PostgreSQL dialect PG_NUMERIC NaN
+            "NaN",
+        ];
+
+        for invalid_string in invalid_cases {
+            let value = invalid_string.to_string().to_value();
+            let error = Decimal::from_value(&value, &numeric_type)
+                .expect_err("malformed or out-of-range scientific notation should fail");
+            assert!(
+                matches!(error, ConvertError::Convert(_)),
+                "expected ConvertError::Convert for {invalid_string}, got {error:?}"
+            );
+        }
     }
 
     #[test]
