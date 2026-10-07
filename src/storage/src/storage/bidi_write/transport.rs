@@ -43,7 +43,12 @@ use tokio::sync::oneshot;
 ///    memory predictably capped around 10 MiB before foreground `.append()` calls suspend.
 const CHANNEL_BUFFER_SIZE: usize = 4;
 
-#[derive(Clone, Debug)]
+/// The payload sent in the opening request of an open-and-append stream.
+///
+/// It is kept past the opening request to seed the running CRC32C checksum and the worker's
+/// replay buffer, so a stream failure before the server acknowledges it is recovered like any
+/// other append.
+#[derive(Debug)]
 struct InitialPayload {
     data: Bytes,
     crc32c: u32,
@@ -178,9 +183,16 @@ impl AppendableObjectWriterTransport {
         // If persisted_size > 0 but the server didn't provide a checksum,
         // we can't reliably continue a running checksum, so it remains `None`.
 
+        let initial_len = initial_payload.as_ref().map_or(0, |p| p.data.len() as i64);
+
+        // Seed the replay buffer with the opening payload so that a stream failure before the
+        // server acknowledges it is recovered like any other append. Acknowledge the bytes the
+        // open response already reports as persisted right away: a reconnect handshake would ack
+        // them anyway, but dropping them now keeps the buffer's unpersisted total, and therefore
+        // its watermark accounting, accurate and releases their memory early.
         let mut replay_buffer = ReplayBuffer::new();
-        if let Some(ref payload) = initial_payload {
-            replay_buffer.push(ReplayChunk::new(0, payload.data.clone(), payload.crc32c));
+        if let Some(payload) = initial_payload {
+            replay_buffer.push(ReplayChunk::new(0, payload.data, payload.crc32c));
             replay_buffer.ack(persisted_size);
         }
 
@@ -189,7 +201,6 @@ impl AppendableObjectWriterTransport {
             .with_persisted_size(persisted_size);
         let worker_handle = Some(tokio::spawn(worker.run(connection, rx)));
 
-        let initial_len = initial_payload.map(|p| p.data.len() as i64).unwrap_or(0);
         let write_offset = std::cmp::max(persisted_size, initial_len);
 
         Ok(Self {
