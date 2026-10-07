@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Error;
 use crate::channel_pool::ChannelTarget;
 use crate::database_client::DatabaseClient;
 use crate::model::{ExecuteSqlRequest, PartitionOptions, ReadRequest};
@@ -103,7 +104,7 @@ impl BatchReadOnlyTransactionBuilder {
 /// # use google_cloud_spanner::client::Spanner;
 /// # use google_cloud_spanner::statement::Statement;
 /// # use google_cloud_spanner::model::PartitionOptions;
-///
+/// #
 /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let transaction = db_client.batch_read_only_transaction().build().await?;
@@ -184,6 +185,7 @@ impl BatchReadOnlyTransaction {
                 req.partition_token = p.partition_token;
 
                 Partition {
+                    version: CURRENT_WIRE_VERSION,
                     inner: PartitionedOperation::Query(req),
                     gax_options: GaxRequestOptions::default(),
                 }
@@ -247,6 +249,7 @@ impl BatchReadOnlyTransaction {
                 req.partition_token = p.partition_token;
 
                 Partition {
+                    version: CURRENT_WIRE_VERSION,
                     inner: PartitionedOperation::Read(req),
                     gax_options: GaxRequestOptions::default(),
                 }
@@ -255,11 +258,45 @@ impl BatchReadOnlyTransaction {
     }
 }
 
+/// The legacy unversioned wire format (version omitted or 0) emitted prior to GA.
+const LEGACY_WIRE_VERSION: u32 = 0;
+/// The current wire format version for [`Partition`] serialization envelopes.
+const CURRENT_WIRE_VERSION: u32 = 1;
+
 /// Defines the segments of data to be read in a partitioned read or query.
-/// These partitions can be serialized and processed across several
-/// different machines or processes.
+///
+/// # Example
+/// ```
+/// # use google_cloud_spanner::client::Spanner;
+/// # use google_cloud_spanner::statement::Statement;
+/// # use google_cloud_spanner::model::PartitionOptions;
+/// # use google_cloud_spanner::batch::Partition;
+/// # async fn run_query(spanner: Spanner) -> Result<(), Box<dyn std::error::Error>> {
+/// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+/// # let transaction = db_client.batch_read_only_transaction().build().await?;
+/// # let partitions = transaction.partition_query(
+/// #     Statement::builder("SELECT * FROM Users").build(),
+/// #     PartitionOptions::default(),
+/// # ).await?;
+/// // Coordinator serializes partition to send to a worker:
+/// let serialized = serde_json::to_string(&partitions[0])?;
+///
+/// // Worker deserializes the partition and executes it:
+/// let partition: Partition = serde_json::from_str(&serialized)?;
+/// let mut result_set = partition.execute(&db_client).await?;
+/// # Ok(())
+/// # }
+/// ```
+///
+/// Partitions can be serialized and processed across several different worker machines
+/// or processes using any [`serde`]-compatible format (such as JSON or binary).
+///
+/// Serialization is wrapped in a versioned wire envelope to guarantee backward and
+/// forward compatibility across client versions.
 #[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(try_from = "PartitionEnvelope")]
 pub struct Partition {
+    pub(crate) version: u32,
     pub(crate) inner: PartitionedOperation,
     #[serde(skip)]
     pub(crate) gax_options: GaxRequestOptions,
@@ -287,8 +324,8 @@ impl Partition {
     /// ```
     pub fn set_data_boost(mut self, enabled: bool) -> Self {
         match &mut self.inner {
-            PartitionedOperation::Query(req) => req.data_boost_enabled = enabled,
-            PartitionedOperation::Read(req) => req.data_boost_enabled = enabled,
+            PartitionedOperation::Query(request) => request.data_boost_enabled = enabled,
+            PartitionedOperation::Read(request) => request.data_boost_enabled = enabled,
         }
         self
     }
@@ -369,12 +406,18 @@ impl Partition {
     /// A partition can be executed by any `DatabaseClient` that is connected to
     /// the database that the partitions belong to.
     pub async fn execute(&self, client: &DatabaseClient) -> crate::Result<ResultSet> {
+        if self.version != CURRENT_WIRE_VERSION {
+            return Err(Error::deser(format!(
+                "unsupported Partition wire format version {}, expected {}",
+                self.version, CURRENT_WIRE_VERSION
+            )));
+        }
         match &self.inner {
-            PartitionedOperation::Query(req) => {
-                Self::execute_query(client, req, self.gax_options.clone()).await
+            PartitionedOperation::Query(request) => {
+                Self::execute_query(client, request, self.gax_options.clone()).await
             }
-            PartitionedOperation::Read(req) => {
-                Self::execute_read(client, req, self.gax_options.clone()).await
+            PartitionedOperation::Read(request) => {
+                Self::execute_read(client, request, self.gax_options.clone()).await
             }
         }
     }
@@ -404,30 +447,30 @@ impl Partition {
 
     async fn execute_query(
         client: &DatabaseClient,
-        req: &ExecuteSqlRequest,
+        request: &ExecuteSqlRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
+        let transaction = request
+            .transaction
+            .clone()
+            .ok_or_else(|| Error::deser("missing transaction in partition query request"))?;
+
         let (stream, attempt_start_time) =
             Self::execute_partition_stream(client, "ExecuteStreamingSql", || {
                 client
-                    .execute_streaming_sql(req.clone(), gax_options.clone(), ChannelTarget::Any)
+                    .execute_streaming_sql(request.clone(), gax_options.clone(), ChannelTarget::Any)
                     .send()
             })
             .await?;
 
         ResultSet::create(ResultSetParams {
             stream,
-            transaction_selector: Some(ReadContextTransactionSelector::Fixed(
-                req.transaction
-                    .clone()
-                    .expect("transaction must be set in partition request"),
-                None,
-            )),
+            transaction_selector: Some(ReadContextTransactionSelector::Fixed(transaction, None)),
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
-            session_name: req.session.clone(),
+            session_name: request.session.clone(),
             transaction_tag: None,
-            operation: StreamOperation::Query(req.clone()),
+            operation: StreamOperation::Query(request.clone()),
             gax_options,
             method_name: "ExecuteStreamingSql",
             attempt_start_time: Some(attempt_start_time),
@@ -439,30 +482,30 @@ impl Partition {
 
     async fn execute_read(
         client: &DatabaseClient,
-        req: &ReadRequest,
+        request: &ReadRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
+        let transaction = request
+            .transaction
+            .clone()
+            .ok_or_else(|| Error::deser("missing transaction in partition read request"))?;
+
         let (stream, attempt_start_time) =
             Self::execute_partition_stream(client, "StreamingRead", || {
                 client
-                    .streaming_read(req.clone(), gax_options.clone(), ChannelTarget::Any)
+                    .streaming_read(request.clone(), gax_options.clone(), ChannelTarget::Any)
                     .send()
             })
             .await?;
 
         ResultSet::create(ResultSetParams {
             stream,
-            transaction_selector: Some(ReadContextTransactionSelector::Fixed(
-                req.transaction
-                    .clone()
-                    .expect("transaction must be set in partition request"),
-                None,
-            )),
+            transaction_selector: Some(ReadContextTransactionSelector::Fixed(transaction, None)),
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
-            session_name: req.session.clone(),
+            session_name: request.session.clone(),
             transaction_tag: None,
-            operation: StreamOperation::Read(req.clone()),
+            operation: StreamOperation::Read(request.clone()),
             gax_options,
             method_name: "StreamingRead",
             attempt_start_time: Some(attempt_start_time),
@@ -471,12 +514,79 @@ impl Partition {
         })
         .await
     }
+
+    fn validate_operation(operation: &PartitionedOperation) -> Result<(), &'static str> {
+        match operation {
+            PartitionedOperation::Query(request) => Self::validate_query_request(request),
+            PartitionedOperation::Read(request) => Self::validate_read_request(request),
+        }
+    }
+
+    fn validate_query_request(request: &ExecuteSqlRequest) -> Result<(), &'static str> {
+        if request.session.is_empty() {
+            return Err("missing session in partition query request");
+        }
+        if request.transaction.is_none() {
+            return Err("missing transaction in partition query request");
+        }
+        if request.partition_token.is_empty() {
+            return Err("missing partition token in partition query request");
+        }
+        if request.sql.is_empty() {
+            return Err("missing sql in partition query request");
+        }
+        Ok(())
+    }
+
+    fn validate_read_request(request: &ReadRequest) -> Result<(), &'static str> {
+        if request.session.is_empty() {
+            return Err("missing session in partition read request");
+        }
+        if request.transaction.is_none() {
+            return Err("missing transaction in partition read request");
+        }
+        if request.partition_token.is_empty() {
+            return Err("missing partition token in partition read request");
+        }
+        if request.table.is_empty() {
+            return Err("missing table in partition read request");
+        }
+        Ok(())
+    }
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Deserialize)]
+struct PartitionEnvelope {
+    #[serde(default)]
+    version: u32,
+    inner: PartitionedOperation,
+}
+
+impl TryFrom<PartitionEnvelope> for Partition {
+    type Error = String;
+
+    fn try_from(envelope: PartitionEnvelope) -> Result<Self, Self::Error> {
+        match envelope.version {
+            LEGACY_WIRE_VERSION | CURRENT_WIRE_VERSION => (),
+            unsupported => {
+                return Err(format!(
+                    "unsupported Partition wire format version {unsupported}, expected {CURRENT_WIRE_VERSION}"
+                ));
+            }
+        }
+        Self::validate_operation(&envelope.inner).map_err(ToString::to_string)?;
+        Ok(Partition {
+            version: CURRENT_WIRE_VERSION,
+            inner: envelope.inner,
+            gax_options: GaxRequestOptions::default(),
+        })
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub(crate) enum PartitionedOperation {
-    Query(crate::model::ExecuteSqlRequest),
-    Read(crate::model::ReadRequest),
+    Query(ExecuteSqlRequest),
+    Read(ReadRequest),
 }
 
 #[cfg(test)]
@@ -492,6 +602,8 @@ pub(crate) mod tests {
     use gaxi::grpc::tonic::Response;
     use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Timestamp;
+    use serde::de::DeserializeOwned;
+    use serde_json::Value as JsonValue;
     use spanner_grpc_mock::google::spanner::v1::{
         PartialResultSet, Partition as MockPartition, PartitionResponse, ResultSetMetadata,
         StructType, Transaction,
@@ -503,20 +615,24 @@ pub(crate) mod tests {
     fn auto_traits() {
         assert_impl_all!(BatchReadOnlyTransactionBuilder: Debug, Send, Sync);
         assert_impl_all!(BatchReadOnlyTransaction: Debug, Send, Sync);
-        assert_impl_all!(Partition: Debug, Send, Sync);
+        assert_impl_all!(Partition: Debug, Send, Sync, Clone, Serialize, DeserializeOwned);
     }
 
     #[test]
     fn serialize_partition_skips_gax_options() -> anyhow::Result<()> {
-        use std::time::Duration;
-
-        let req = crate::model::ExecuteSqlRequest::new()
+        let req = ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
+                ..Default::default()
+            })
             .set_sql("SELECT 1")
             .set_partition_token(b"token".to_vec());
 
         let mut gax_options = GaxRequestOptions::default();
         gax_options.set_attempt_timeout(Duration::from_secs(5));
         let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
             inner: PartitionedOperation::Query(req),
             gax_options,
         };
@@ -548,15 +664,12 @@ pub(crate) mod tests {
 
     #[tokio_test_no_panics]
     async fn partition_execute_respects_options() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
-        use std::time::Duration;
-
         let mut mock = create_session_mock();
 
         mock.expect_execute_streaming_sql().once().returning(|req| {
             let timeout = req.metadata().get("grpc-timeout");
             assert!(timeout.is_some(), "Missing grpc-timeout header");
-            assert_eq!(timeout.unwrap(), "5000000u"); // 5 seconds in micros
+            assert_eq!(timeout.expect("Missing grpc-timeout header"), "5000000u"); // 5 seconds in micros
 
             Ok(Response::from(crate::result_set::tests::adapt([Ok(
                 setup_select1(),
@@ -565,9 +678,9 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let req = crate::model::ExecuteSqlRequest::new()
+        let req = ExecuteSqlRequest::new()
             .set_session("projects/p/instances/i/databases/d/sessions/123")
-            .set_transaction(crate::model::TransactionSelector {
+            .set_transaction(TransactionSelector {
                 selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
                 ..Default::default()
             })
@@ -575,6 +688,7 @@ pub(crate) mod tests {
             .set_partition_token(b"token".to_vec());
 
         let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
             inner: PartitionedOperation::Query(req),
             gax_options: GaxRequestOptions::default(),
         };
@@ -588,23 +702,29 @@ pub(crate) mod tests {
 
     #[test]
     fn serialize_partition_query() -> anyhow::Result<()> {
-        let req = crate::model::ExecuteSqlRequest::new()
+        let req = ExecuteSqlRequest::new()
             .set_session("projects/p/instances/i/databases/d/sessions/123")
-            .set_transaction(crate::model::TransactionSelector {
-                selector: Some(crate::model::transaction_selector::Selector::Id(
-                    b"tx_id_1".to_vec().into(),
-                )),
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
                 ..Default::default()
             })
             .set_sql("SELECT * FROM Users")
             .set_partition_token(b"partition_token_123".to_vec());
 
         let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
             inner: PartitionedOperation::Query(req),
             gax_options: GaxRequestOptions::default(),
         };
 
         let serialized = serde_json::to_string(&partition)?;
+        let value: JsonValue = serde_json::from_str(&serialized)?;
+        assert_eq!(value["version"], 1, "envelope version must be 1");
+        assert!(
+            value["inner"]["Query"].is_object(),
+            "operation Query payload must be present"
+        );
+
         let deserialized: Partition = serde_json::from_str(&serialized)?;
 
         match &deserialized.inner {
@@ -620,12 +740,10 @@ pub(crate) mod tests {
 
     #[test]
     fn serialize_partition_read() -> anyhow::Result<()> {
-        let req = crate::model::ReadRequest::new()
+        let req = GrpcReadRequest::new()
             .set_session("projects/p/instances/i/databases/d/sessions/456")
-            .set_transaction(crate::model::TransactionSelector {
-                selector: Some(crate::model::transaction_selector::Selector::Id(
-                    b"tx_id_2".to_vec().into(),
-                )),
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_2".to_vec().into())),
                 ..Default::default()
             })
             .set_table("Users")
@@ -633,11 +751,19 @@ pub(crate) mod tests {
             .set_partition_token(b"partition_token_456".to_vec());
 
         let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
             inner: PartitionedOperation::Read(req),
             gax_options: GaxRequestOptions::default(),
         };
 
         let serialized = serde_json::to_string(&partition)?;
+        let value: JsonValue = serde_json::from_str(&serialized)?;
+        assert_eq!(value["version"], 1, "envelope version must be 1");
+        assert!(
+            value["inner"]["Read"].is_object(),
+            "operation Read payload must be present"
+        );
+
         let deserialized: Partition = serde_json::from_str(&serialized)?;
 
         match &deserialized.inner {
@@ -673,18 +799,17 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let req = crate::model::ExecuteSqlRequest::new()
+        let req = ExecuteSqlRequest::new()
             .set_session("projects/p/instances/i/databases/d/sessions/123")
-            .set_transaction(crate::model::TransactionSelector {
-                selector: Some(crate::model::transaction_selector::Selector::Id(
-                    b"tx_id_1".to_vec().into(),
-                )),
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
                 ..Default::default()
             })
             .set_sql("SELECT * FROM Users")
             .set_partition_token(b"partition_token_123".to_vec());
 
         let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
             inner: PartitionedOperation::Query(req),
             gax_options: GaxRequestOptions::default(),
         };
@@ -716,12 +841,10 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let req = crate::model::ReadRequest::new()
+        let req = GrpcReadRequest::new()
             .set_session("projects/p/instances/i/databases/d/sessions/456")
-            .set_transaction(crate::model::TransactionSelector {
-                selector: Some(crate::model::transaction_selector::Selector::Id(
-                    b"tx_id_2".to_vec().into(),
-                )),
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_2".to_vec().into())),
                 ..Default::default()
             })
             .set_table("Users")
@@ -729,6 +852,7 @@ pub(crate) mod tests {
             .set_partition_token(b"partition_token_456".to_vec());
 
         let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
             inner: PartitionedOperation::Read(req),
             gax_options: GaxRequestOptions::default(),
         };
@@ -891,6 +1015,7 @@ pub(crate) mod tests {
             .set_partition_token(b"partition_token_123".to_vec());
 
         let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
             inner: PartitionedOperation::Query(req),
             gax_options: GaxRequestOptions::default(),
         };
@@ -925,11 +1050,309 @@ pub(crate) mod tests {
             .set_partition_token(b"partition_token_456".to_vec());
 
         let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
             inner: PartitionedOperation::Read(req),
             gax_options: GaxRequestOptions::default(),
         };
 
         let _result_set = partition.set_data_boost(true).execute(&db_client).await?;
+
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_partition_unsupported_version() {
+        let json = r#"{
+            "version": 99,
+            "inner": {
+                "Query": {
+                    "session": "projects/p/instances/i/databases/d/sessions/123",
+                    "transaction": {"id": "dHhfaWRfMQ=="},
+                    "sql": "SELECT 1",
+                    "partitionToken": "dG9rZW4="
+                }
+            }
+        }"#;
+
+        let result: Result<Partition, _> = serde_json::from_str(json);
+        assert!(
+            result.is_err(),
+            "deserialization with unsupported version must fail"
+        );
+        let error_message = result
+            .expect_err("deserialization with unsupported version must fail")
+            .to_string();
+        assert!(
+            error_message.contains("unsupported Partition wire format version 99, expected 1"),
+            "error message must mention unsupported version: {error_message}"
+        );
+    }
+
+    #[test]
+    fn deserialize_legacy_unversioned_partition() -> anyhow::Result<()> {
+        let json = r#"{
+            "inner": {
+                "Query": {
+                    "session": "projects/p/instances/i/databases/d/sessions/123",
+                    "transaction": {"id": "dHhfaWRfMQ=="},
+                    "sql": "SELECT 1",
+                    "partitionToken": "dG9rZW4="
+                }
+            }
+        }"#;
+
+        let partition: Partition = serde_json::from_str(json)?;
+        assert_eq!(
+            partition.version, CURRENT_WIRE_VERSION,
+            "legacy unversioned partition must normalize to CURRENT_WIRE_VERSION"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_explicit_legacy_version_0_partition() -> anyhow::Result<()> {
+        let json = r#"{
+            "version": 0,
+            "inner": {
+                "Query": {
+                    "session": "projects/p/instances/i/databases/d/sessions/123",
+                    "transaction": {"id": "dHhfaWRfMQ=="},
+                    "sql": "SELECT 1",
+                    "partitionToken": "dG9rZW4="
+                }
+            }
+        }"#;
+
+        let partition: Partition = serde_json::from_str(json)?;
+        assert_eq!(
+            partition.version, CURRENT_WIRE_VERSION,
+            "explicit legacy version 0 partition must normalize to CURRENT_WIRE_VERSION"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_partition_missing_transaction() {
+        let json = r#"{
+            "version": 1,
+            "inner": {
+                "Query": {
+                    "session": "projects/p/instances/i/databases/d/sessions/123",
+                    "sql": "SELECT 1",
+                    "partitionToken": "dG9rZW4="
+                }
+            }
+        }"#;
+
+        let result: Result<Partition, _> = serde_json::from_str(json);
+        assert!(
+            result.is_err(),
+            "query partition without transaction must fail"
+        );
+        let error_message = result
+            .expect_err("query partition without transaction must fail")
+            .to_string();
+        assert!(
+            error_message.contains("missing transaction in partition query request"),
+            "error message must describe missing transaction: {error_message}"
+        );
+    }
+
+    #[test]
+    fn deserialize_partition_missing_session() {
+        let json = r#"{
+            "version": 1,
+            "inner": {
+                "Query": {
+                    "transaction": {"id": "dHhfaWRfMQ=="},
+                    "sql": "SELECT 1",
+                    "partitionToken": "dG9rZW4="
+                }
+            }
+        }"#;
+
+        let result: Result<Partition, _> = serde_json::from_str(json);
+        assert!(result.is_err(), "query partition without session must fail");
+        let error_message = result
+            .expect_err("query partition without session must fail")
+            .to_string();
+        assert!(
+            error_message.contains("missing session in partition query request"),
+            "error message must describe missing session: {error_message}"
+        );
+    }
+
+    #[test]
+    fn deserialize_partition_missing_partition_token() {
+        let json = r#"{
+            "version": 1,
+            "inner": {
+                "Query": {
+                    "session": "projects/p/instances/i/databases/d/sessions/123",
+                    "transaction": {"id": "dHhfaWRfMQ=="},
+                    "sql": "SELECT 1"
+                }
+            }
+        }"#;
+
+        let result: Result<Partition, _> = serde_json::from_str(json);
+        assert!(
+            result.is_err(),
+            "query partition without partition token must fail"
+        );
+        let error_message = result
+            .expect_err("query partition without partition token must fail")
+            .to_string();
+        assert!(
+            error_message.contains("missing partition token in partition query request"),
+            "error message must describe missing partition token: {error_message}"
+        );
+    }
+
+    #[test]
+    fn deserialize_partition_missing_sql() {
+        let json = r#"{
+            "version": 1,
+            "inner": {
+                "Query": {
+                    "session": "projects/p/instances/i/databases/d/sessions/123",
+                    "transaction": {"id": "dHhfaWRfMQ=="},
+                    "partitionToken": "dG9rZW4="
+                }
+            }
+        }"#;
+
+        let result: Result<Partition, _> = serde_json::from_str(json);
+        assert!(result.is_err(), "query partition without sql must fail");
+        let error_message = result
+            .expect_err("query partition without sql must fail")
+            .to_string();
+        assert!(
+            error_message.contains("missing sql in partition query request"),
+            "error message must describe missing sql: {error_message}"
+        );
+    }
+
+    #[test]
+    fn deserialize_partition_read_missing_table() {
+        let json = r#"{
+            "version": 1,
+            "inner": {
+                "Read": {
+                    "session": "projects/p/instances/i/databases/d/sessions/123",
+                    "transaction": {"id": "dHhfaWRfMQ=="},
+                    "partitionToken": "dG9rZW4="
+                }
+            }
+        }"#;
+
+        let result: Result<Partition, _> = serde_json::from_str(json);
+        assert!(result.is_err(), "read partition without table must fail");
+        let error_message = result
+            .expect_err("read partition without table must fail")
+            .to_string();
+        assert!(
+            error_message.contains("missing table in partition read request"),
+            "error message must describe missing table: {error_message}"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_unsupported_version_returns_error() -> anyhow::Result<()> {
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let request = ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
+                ..Default::default()
+            })
+            .set_sql("SELECT 1")
+            .set_partition_token(b"partition_token_123".to_vec());
+
+        let partition = Partition {
+            version: 99,
+            inner: PartitionedOperation::Query(request),
+            gax_options: GaxRequestOptions::default(),
+        };
+
+        let result = partition.execute(&db_client).await;
+        assert!(
+            result.is_err(),
+            "execute with unsupported version must return error"
+        );
+        let error = result.expect_err("execute with unsupported version must return error");
+        assert!(
+            error
+                .to_string()
+                .contains("unsupported Partition wire format version 99, expected 1"),
+            "error must indicate unsupported version: {error}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_query_missing_transaction_returns_error() -> anyhow::Result<()> {
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let request = ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_sql("SELECT 1")
+            .set_partition_token(b"partition_token_123".to_vec());
+
+        let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
+            inner: PartitionedOperation::Query(request),
+            gax_options: GaxRequestOptions::default(),
+        };
+
+        let result = partition.execute(&db_client).await;
+        assert!(
+            result.is_err(),
+            "execute without transaction must return error"
+        );
+        let error = result.expect_err("execute without transaction must return error");
+        assert!(
+            error
+                .to_string()
+                .contains("missing transaction in partition query request"),
+            "error must indicate missing transaction: {error}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_read_missing_transaction_returns_error() -> anyhow::Result<()> {
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let request = GrpcReadRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_table("Users")
+            .set_partition_token(b"partition_token_456".to_vec());
+
+        let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
+            inner: PartitionedOperation::Read(request),
+            gax_options: GaxRequestOptions::default(),
+        };
+
+        let result = partition.execute(&db_client).await;
+        assert!(
+            result.is_err(),
+            "execute without transaction must return error"
+        );
+        let error = result.expect_err("execute without transaction must return error");
+        assert!(
+            error
+                .to_string()
+                .contains("missing transaction in partition read request"),
+            "error must indicate missing transaction: {error}"
+        );
 
         Ok(())
     }
