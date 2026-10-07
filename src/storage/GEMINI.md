@@ -23,6 +23,9 @@ ergonomic wrappers, trait implementations, and custom logic (like
 - **`src/`**: The core library code.
   - `src/lib.rs`: The root of the crate, exporting the main clients, builders,
     stubs, and types.
+  - `src/idempotency.rs`: Request-level idempotency resolution and
+    `x-goog-gcs-idempotency-token` deduplication header stamping for
+    `google.storage.v2` RPCs and handwritten uploads.
   - `src/storage/`: Implementations for the data plane client (bidi streaming,
     open object, read/write object).
   - `src/control/`: Implementations for the control plane client.
@@ -31,7 +34,7 @@ ergonomic wrappers, trait implementations, and custom logic (like
   - `src/stub/`: Defines traits and structures for mocking client interactions
     during tests.
 - **`tests/`**: Contains unit and integration tests (e.g., `mocking.rs`,
-  `binding.rs`).
+  `binding.rs`, `grpc_mock_idempotency.rs`).
   - **`tests/scenarios/`**: A standalone binary package (`storage-scenarios`)
     used for stress testing bidirectional streaming reads against live GCP
     environments.
@@ -76,8 +79,16 @@ cargo run --release --package storage-scenarios -- --bucket-name <BUCKET_NAME> [
   `futures`. All RPCs are asynchronous.
 - **Code Generation:** Core protobuf definitions are generated from Google API
   descriptors using the internal `sidekick` tool. Manual implementation work
-  should occur in extension files like `model_ext.rs`, `builder_ext.rs`, or the
-  high-level `client.rs` implementations rather than the generated modules.
+  should occur in extension files like `model_ext.rs`, `builder_ext.rs`,
+  `idempotency.rs`, or the high-level `client.rs` implementations rather than
+  the generated modules.
+- **Idempotency & Retries:** Rules for `google.storage.v2.Storage` RPCs live in
+  `src/idempotency.rs` (see its module docs). A new v2 RPC needs a
+  `resolve_idempotency` impl there. Single-shot uploads call
+  `crate::idempotency::mutation` and resumable uploads call
+  `crate::idempotency::add_token` once, outside the retry loop, so all attempts
+  share one `x-goog-gcs-idempotency-token`.
+  `google.storage.control.v2.StorageControl` RPCs do not use the hook.
 - **Mocking Strategy:** The library provides robust mocking capabilities for
   developers using the crate. The `src/stub/` module defines traits that can be
   implemented or mocked using `mockall` to simulate GCP behavior in unit tests.
