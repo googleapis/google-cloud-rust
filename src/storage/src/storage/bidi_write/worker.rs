@@ -409,8 +409,9 @@ where
                 ..BidiWriteObjectRequest::default()
             };
             // If sending fails, the gRPC call has ended, and `rx.next_message()` will observe its
-            // status or closure on a later iteration, which ends the loop. No probe is in flight
-            // in that case, so leave `self_flush_outstanding` unset.
+            // status or closure on a later iteration and reconnect. No probe is in flight in that
+            // case, so leave `self_flush_outstanding` unset; `reconnect()` re-arms the probe after
+            // replay if the buffer is still above the watermark.
             match tx.send(request).await {
                 Ok(()) => self.self_flush_outstanding = true,
                 Err(e) => {
@@ -478,9 +479,11 @@ where
     ///
     /// Dropping `tx` half-closes the request stream, so the server sends any remaining responses
     /// and then ends the call. Unlike [`Self::run`], this does not reconnect on an error or early
-    /// close: the transport closes the intent channel only after `close()` has flushed or
-    /// `finalize()` has received its response, so every chunk is already acknowledged, no request
-    /// is pending, and no new intent can arrive. Returns the error that ended the stream, if any.
+    /// close. On the graceful path the transport closes the intent channel only after `close()`
+    /// has flushed or `finalize()` has received its response, so every chunk is already
+    /// acknowledged and no request is pending. If the writer is dropped without closing, any
+    /// unacknowledged chunks are abandoned by design; nothing can ask for them again. Returns the
+    /// error that ended the stream, if any.
     async fn wait_for_server_completion(&mut self, mut rx: C::Stream) -> Option<Error> {
         loop {
             match rx.next_message().await {
