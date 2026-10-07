@@ -55,7 +55,6 @@ pub async fn sample(bucket_id: &str) -> anyhow::Result<()> {
         .with_scaling(3)
         .build()?;
 
-    const NAME: &str = "hello-world.txt";
     let client = Storage::builder()
         .with_retry_policy(retry_policy)
         .with_backoff_policy(backoff_policy)
@@ -63,10 +62,39 @@ pub async fn sample(bucket_id: &str) -> anyhow::Result<()> {
         .await?;
     // Use the `Storage` client as usual:
     let reader = client
-        .read_object(format!("projects/_/buckets/{bucket_id}"), NAME)
+        .read_object(format!("projects/_/buckets/{bucket_id}"), "hello-world.txt")
         .send()
         .await?;
     println!("Object highlights: {:?}", reader.object());
+
+    // Requests are retried only when they are idempotent. Single-shot uploads
+    // are idempotent, and therefore retried, only if they set
+    // `if_generation_match`. A value of `0` means "create the object only if
+    // it does not exist".
+    const NAME: &str = "configure-retries.txt";
+    let object = client
+        .write_object(
+            format!("projects/_/buckets/{bucket_id}"),
+            NAME,
+            "hello world",
+        )
+        .set_if_generation_match(0)
+        .send_unbuffered()
+        .await?;
+    println!("Created object with retries enabled: {object:?}");
+
+    // Use `with_idempotency(false)` to disable retries for a single request.
+    let object = client
+        .write_object(
+            format!("projects/_/buckets/{bucket_id}"),
+            NAME,
+            "goodbye world",
+        )
+        .set_if_generation_match(object.generation)
+        .with_idempotency(false)
+        .send_unbuffered()
+        .await?;
+    println!("Replaced object with retries disabled: {object:?}");
 
     Ok(())
 }
