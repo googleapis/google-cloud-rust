@@ -389,6 +389,11 @@ impl StorageInner {
         let (mut config, options) = builder.into_parts()?;
         config.disable_automatic_decompression = true;
         config.disable_follow_redirects = true;
+        config.extensions.insert(gaxi::api_header::XGoogApiClient {
+            name: super::info::NAME,
+            version: super::info::VERSION,
+            library_type: gaxi::api_header::GCCL,
+        });
 
         let client = gaxi::http::ReqwestClient::new(config.clone(), super::DEFAULT_HOST).await?;
         let client = if gaxi::options::tracing_enabled(&config) {
@@ -959,6 +964,9 @@ pub(crate) mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
+    use http::header::{HeaderName, HeaderValue};
+    use httptest::{Expectation, Server, all_of, matchers::*, responders::*};
+    use serde_json::json;
     use std::{sync::Arc, time::Duration};
 
     #[test]
@@ -1016,7 +1024,6 @@ pub(crate) mod tests {
 
     #[test]
     fn test_client_builder_with_custom_header() {
-        use http::header::{HeaderName, HeaderValue};
         let name = HeaderName::from_static("x-custom-global");
         let value = HeaderValue::from_static("global-value");
         let builder = ClientBuilder::new()
@@ -1092,5 +1099,42 @@ pub(crate) mod tests {
         impl crate::read_resume_policy::ReadResumePolicy for ReadResumePolicy {
             fn on_error(&self, query: &crate::read_resume_policy::ResumeQuery, error: google_cloud_gax::error::Error) -> crate::read_resume_policy::ResumeResult;
         }
+    }
+
+    #[tokio::test]
+    async fn test_storage_calls_send_veneer_header_not_gapic() -> anyhow::Result<()> {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/my-bucket/o"),
+                request::headers(contains((
+                    "x-goog-api-client",
+                    matches(format!("gccl/{}", env!("CARGO_PKG_VERSION"))),
+                ))),
+                not(request::headers(contains((
+                    "x-goog-api-client",
+                    matches("gapic/"),
+                )))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .append_header("Location", server.url_str("/upload/session_123"))
+                    .body(json!({"name": "my-object", "bucket": "my-bucket"}).to_string()),
+            ),
+        );
+
+        let client = super::Storage::builder()
+            .with_endpoint(server.url_str(""))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let _ = client
+            .write_object("projects/_/buckets/my-bucket", "my-object", "hello")
+            .send_buffered()
+            .await;
+
+        Ok(())
     }
 }
