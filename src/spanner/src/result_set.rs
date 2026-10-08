@@ -417,14 +417,10 @@ impl ResultSet {
     /// ```
     /// # use google_cloud_spanner::result::ResultSet;
     /// # use futures::TryStreamExt;
-    /// # use std::future::ready;
     /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
-    /// let rows: Vec<_> = result_set
+    /// let ids: Vec<String> = result_set
     ///     .into_stream()
-    ///     .try_filter(|row| {
-    ///         let id = row.get::<String, _>("Id");
-    ///         ready(id == "id1")
-    ///     })
+    ///     .and_then(|row| async move { row.get("Id") })
     ///     .try_collect()
     ///     .await?;
     /// # Ok(())
