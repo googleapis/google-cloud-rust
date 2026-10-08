@@ -21,7 +21,6 @@ use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use google_cloud_type::model::Date;
 use prost_types::ListValue as ProtoListValue;
-use prost_types::Struct as ProtoStruct;
 use prost_types::value::Kind as ProtoKind;
 use rust_decimal::Decimal;
 use serde_json::{Map as JsonMap, Number as JsonNumber, Value as JsonValue};
@@ -383,7 +382,6 @@ impl FromValue for Value {
 /// | `StringValue` (+ `TypeCode::Json`) | Parsed JSON object/array/value |
 /// | `ListValue` + `TypeCode::Struct` | JSON object (positional → named via metadata) |
 /// | `ListValue` + `TypeCode::Array` | JSON array |
-/// | `StructValue` (named wire format) | JSON object |
 ///
 /// # Known limitations
 ///
@@ -484,43 +482,14 @@ fn from_value_recursive(
 
         Some(ProtoKind::BoolValue(boolean_value)) => Ok(JsonValue::Bool(*boolean_value)),
 
-        Some(ProtoKind::StructValue(struct_value)) => {
-            borrowed_struct_value_to_json(struct_value, spanner_type, depth + 1)
-        }
+        Some(ProtoKind::StructValue(_)) => Err(ConvertError::message(
+            "unexpected protobuf StructValue on wire; Spanner SQL STRUCT values are encoded as ListValue",
+        )),
 
         Some(ProtoKind::ListValue(list_value)) => {
             borrowed_list_value_to_json(list_value, spanner_type, depth + 1)
         }
     }
-}
-
-fn borrowed_struct_value_to_json(
-    struct_value: &ProtoStruct,
-    spanner_type: Option<&Type>,
-    depth: usize,
-) -> Result<JsonValue, ConvertError> {
-    let mut map = JsonMap::new();
-
-    let Some(struct_type) = spanner_type.and_then(|target_type| target_type.struct_type()) else {
-        for (key, field_value) in &struct_value.fields {
-            let val = Value::from_ref(field_value);
-            map.insert(key.clone(), from_value_recursive(val, None, depth)?);
-        }
-        return Ok(JsonValue::Object(map));
-    };
-
-    for field in &struct_type.fields {
-        let field_type = field.r#type.as_deref().map(Type::from_ref);
-        let value = if let Some(field_value) = struct_value.fields.get(&field.name) {
-            let val = Value::from_ref(field_value);
-            from_value_recursive(val, field_type, depth)?
-        } else {
-            JsonValue::Null
-        };
-        map.insert(field.name.clone(), value);
-    }
-
-    Ok(JsonValue::Object(map))
 }
 
 fn borrowed_list_value_to_json(
@@ -610,41 +579,14 @@ fn value_to_json(
 
         Some(ProtoKind::BoolValue(boolean_value)) => Ok(JsonValue::Bool(boolean_value)),
 
-        Some(ProtoKind::StructValue(struct_value)) => {
-            struct_value_to_json(struct_value, spanner_type, depth + 1)
-        }
+        Some(ProtoKind::StructValue(_)) => Err(ConvertError::message(
+            "unexpected protobuf StructValue on wire; Spanner SQL STRUCT values are encoded as ListValue",
+        )),
 
         Some(ProtoKind::ListValue(list_value)) => {
             list_value_to_json(list_value, spanner_type, depth + 1)
         }
     }
-}
-
-fn struct_value_to_json(
-    mut struct_value: ProtoStruct,
-    spanner_type: Option<&Type>,
-    depth: usize,
-) -> Result<JsonValue, ConvertError> {
-    let mut map = JsonMap::new();
-
-    let Some(struct_type) = spanner_type.and_then(|target_type| target_type.struct_type()) else {
-        for (key, field_value) in struct_value.fields {
-            map.insert(key, value_to_json(Value(field_value), None, depth)?);
-        }
-        return Ok(JsonValue::Object(map));
-    };
-
-    for field in &struct_type.fields {
-        let field_type = field.r#type.as_deref().map(Type::from_ref);
-        if let Some((key, field_value)) = struct_value.fields.remove_entry(&field.name) {
-            let value = value_to_json(Value(field_value), field_type, depth)?;
-            map.insert(key, value);
-        } else if !map.contains_key(&field.name) {
-            map.insert(field.name.clone(), JsonValue::Null);
-        }
-    }
-
-    Ok(JsonValue::Object(map))
 }
 
 fn list_value_to_json(
@@ -1084,7 +1026,6 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use serde_json::{Value as JsonValue, json};
-    use std::collections::BTreeMap;
     #[cfg(feature = "unstable-time")]
     use time::Month;
 
@@ -1875,14 +1816,9 @@ mod tests {
             .expect_err("expected cannot convert value for i64");
         assert!(format!("{}", err).contains("cannot convert value"));
 
-        let v_struct = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(
-                prost_types::Struct::default(),
-            )),
-        });
-        let err = i64::from_value(&v_struct, &types::int64())
+        let err = i64::from_value(&v_bool, &types::int64())
             .expect_err("expected non-string kind mismatch for i64");
-        assert!(format!("{}", err).contains("expected String, got Struct"));
+        assert!(format!("{}", err).contains("expected String, got Bool"));
 
         let err = f64::from_value(&v_bool, &types::float64())
             .expect_err("expected non-number kind mismatch for f64");
@@ -2149,79 +2085,33 @@ mod tests {
     }
 
     #[test]
-    fn test_from_value_json_named_struct() {
-        // Type: STRUCT<name STRING>
-        let struct_type_model = model::Type {
-            code: model::TypeCode::Struct,
-            struct_type: Some(Box::new(model::StructType {
-                fields: vec![model::struct_type::Field::new().set_name("name").set_type(
-                    model::Type {
-                        code: model::TypeCode::String,
-                        ..Default::default()
-                    },
-                )],
-                _unknown_fields: Default::default(),
-            })),
-            ..Default::default()
-        };
-        let spanner_type = Type(struct_type_model);
-
-        // Wire: named StructValue (rare but valid)
-        let mut s = prost_types::Struct::default();
-        s.fields.insert(
-            "name".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::StringValue("Alice".to_string())),
-            },
-        );
-        let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(s)),
+    fn test_from_value_json_unexpected_struct_value_errors() {
+        let spanner_value = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::StructValue(
+                prost_types::Struct::default(),
+            )),
         });
-
-        let j = JsonValue::from_value(&v, &spanner_type).unwrap();
-        assert_eq!(j, serde_json::json!({"name": "Alice"}));
+        let expected_error = JsonValue::from_value(&spanner_value, &Type::default())
+            .expect_err("StructValue must produce error in JsonValue::from_value");
+        assert!(
+            format!("{expected_error}").contains("unexpected protobuf StructValue"),
+            "error message should mention unexpected protobuf StructValue, got: {expected_error}"
+        );
     }
 
     #[test]
-    fn test_from_value_json_named_struct_missing_fields_become_null() {
-        // Type declares 2 fields but wire StructValue only has 1
-        let struct_type_model = model::Type {
-            code: model::TypeCode::Struct,
-            struct_type: Some(Box::new(model::StructType {
-                fields: vec![
-                    model::struct_type::Field::new()
-                        .set_name("present")
-                        .set_type(model::Type {
-                            code: model::TypeCode::String,
-                            ..Default::default()
-                        }),
-                    model::struct_type::Field::new()
-                        .set_name("absent")
-                        .set_type(model::Type {
-                            code: model::TypeCode::Int64,
-                            ..Default::default()
-                        }),
-                ],
-                _unknown_fields: Default::default(),
-            })),
-            ..Default::default()
-        };
-        let spanner_type = Type(struct_type_model);
-
-        // Wire: named StructValue with only "present" field
-        let mut s = prost_types::Struct::default();
-        s.fields.insert(
-            "present".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::StringValue("here".to_string())),
-            },
-        );
-        let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(s)),
+    fn test_from_owned_value_json_unexpected_struct_value_errors() {
+        let spanner_value = crate::value::Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::StructValue(
+                prost_types::Struct::default(),
+            )),
         });
-
-        let j = JsonValue::from_value(&v, &spanner_type).unwrap();
-        assert_eq!(j, serde_json::json!({"present": "here", "absent": null}));
+        let expected_error = JsonValue::from_owned_value(spanner_value, &Type::default())
+            .expect_err("StructValue must produce error in JsonValue::from_owned_value");
+        assert!(
+            format!("{expected_error}").contains("unexpected protobuf StructValue"),
+            "error message should mention unexpected protobuf StructValue, got: {expected_error}"
+        );
     }
 
     #[test]
@@ -2232,8 +2122,13 @@ mod tests {
             kind: Some(prost_types::value::Kind::StringValue(json_str.to_string())),
         });
 
-        let j = JsonValue::from_value(&v, &types::json()).unwrap();
-        assert_eq!(j, serde_json::json!({"key": "value", "nested": [1, 2, 3]}));
+        let j = JsonValue::from_value(&v, &types::json())
+            .expect("parsing JSON string to JsonValue should succeed");
+        assert_eq!(
+            j,
+            serde_json::json!({"key": "value", "nested": [1, 2, 3]}),
+            "expected JSON object matching input string"
+        );
     }
 
     #[test]
@@ -2539,25 +2434,6 @@ mod tests {
         assert_eq!(res.len(), 2);
         assert_eq!(res[0], JsonValue::String("one".to_string()));
         assert_eq!(res[1], JsonValue::String("two".to_string()));
-    }
-
-    #[test]
-    fn test_from_value_json_struct_without_metadata() {
-        // StructValue wire format without type metadata — preserves raw field names
-        let mut s = prost_types::Struct::default();
-        s.fields.insert(
-            "raw_field".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::BoolValue(true)),
-            },
-        );
-        let v = crate::value::Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(s)),
-        });
-
-        // Pass default type (no struct_type metadata)
-        let j = JsonValue::from_value(&v, &Type::default()).unwrap();
-        assert_eq!(j, serde_json::json!({"raw_field": true}));
     }
 
     #[test]
@@ -3280,40 +3156,6 @@ mod tests {
             serde_json::json!({"key": "value"}),
             "expected parsed JSON object"
         );
-
-        // Struct value to JSON
-        let struct_type_model = model::Type {
-            code: model::TypeCode::Struct,
-            struct_type: Some(Box::new(model::StructType {
-                fields: vec![
-                    model::struct_type::Field::new()
-                        .set_name("title")
-                        .set_type(types::string().0),
-                ],
-                ..Default::default()
-            })),
-            ..Default::default()
-        };
-        let struct_type = Type(struct_type_model);
-        let struct_value = Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(prost_types::Struct {
-                fields: [(
-                    "title".to_string(),
-                    prost_types::Value {
-                        kind: Some(prost_types::value::Kind::StringValue("test".to_string())),
-                    },
-                )]
-                .into_iter()
-                .collect(),
-            })),
-        });
-        let struct_json = JsonValue::from_owned_value(struct_value, &struct_type)
-            .expect("valid struct JSON conversion");
-        assert_eq!(
-            struct_json,
-            serde_json::json!({"title": "test"}),
-            "expected JSON object matching struct"
-        );
     }
 
     #[test]
@@ -3415,6 +3257,33 @@ mod tests {
         assert!(
             matches!(error, ConvertError::KindMismatch { .. }),
             "expected KindMismatch error"
+        );
+    }
+
+    #[test]
+    fn from_value_option_unexpected_struct_value_fails() {
+        let struct_value = Value(prost_types::Value {
+            kind: Some(ProtoKind::StructValue(prost_types::Struct::default())),
+        });
+        let string_type = types::string();
+        let error = Option::<String>::from_value(&struct_value, &string_type)
+            .expect_err("unexpected StructValue must fail for Option<String>");
+        assert!(
+            matches!(
+                error,
+                ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: Kind::Unknown,
+                }
+            ),
+            "expected KindMismatch with got: Kind::Unknown, got: {error}"
+        );
+
+        let json_err = Option::<JsonValue>::from_value(&struct_value, &Type::default())
+            .expect_err("unexpected StructValue must fail for Option<JsonValue>");
+        assert!(
+            format!("{json_err}").contains("unexpected protobuf StructValue"),
+            "expected error to mention unexpected protobuf StructValue"
         );
     }
 
@@ -3565,74 +3434,6 @@ mod tests {
     }
 
     #[test]
-    fn from_owned_value_json_proto_struct_without_metadata() {
-        let mut fields = BTreeMap::new();
-        fields.insert(
-            "key".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::StringValue("val".to_string())),
-            },
-        );
-        let struct_val = Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(prost_types::Struct {
-                fields,
-            })),
-        });
-        let result = JsonValue::from_owned_value(struct_val, &Type::default())
-            .expect("should convert struct without metadata to JSON object");
-        assert_eq!(
-            result,
-            json!({"key": "val"}),
-            "expected JSON object matching proto struct fields"
-        );
-    }
-
-    #[test]
-    fn from_owned_value_json_proto_struct_missing_field() {
-        let struct_type = Type(model::Type {
-            code: model::TypeCode::Struct,
-            struct_type: Some(Box::new(model::StructType {
-                fields: vec![
-                    model::struct_type::Field::new()
-                        .set_name("present")
-                        .set_type(model::Type {
-                            code: model::TypeCode::String,
-                            ..Default::default()
-                        }),
-                    model::struct_type::Field::new()
-                        .set_name("absent")
-                        .set_type(model::Type {
-                            code: model::TypeCode::String,
-                            ..Default::default()
-                        }),
-                ],
-                _unknown_fields: Default::default(),
-            })),
-            ..Default::default()
-        });
-
-        let mut fields = BTreeMap::new();
-        fields.insert(
-            "present".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::StringValue("here".to_string())),
-            },
-        );
-        let struct_val = Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(prost_types::Struct {
-                fields,
-            })),
-        });
-        let result = JsonValue::from_owned_value(struct_val, &struct_type)
-            .expect("should convert struct with missing field to JSON object");
-        assert_eq!(
-            result,
-            json!({"present": "here", "absent": null}),
-            "expected absent field to be null in JSON object"
-        );
-    }
-
-    #[test]
     fn from_owned_value_json_list_struct_fewer_values_than_fields() {
         let struct_type = Type(model::Type {
             code: model::TypeCode::Struct,
@@ -3712,52 +3513,6 @@ mod tests {
         assert!(
             format!("{}", err).contains("nesting depth exceeded"),
             "expected error to mention nesting depth exceeded"
-        );
-    }
-
-    #[test]
-    fn from_owned_value_json_proto_struct_duplicate_fields() {
-        let struct_type = Type(model::Type {
-            code: model::TypeCode::Struct,
-            struct_type: Some(Box::new(model::StructType {
-                fields: vec![
-                    model::struct_type::Field::new()
-                        .set_name("dup")
-                        .set_type(model::Type {
-                            code: model::TypeCode::String,
-                            ..Default::default()
-                        }),
-                    model::struct_type::Field::new()
-                        .set_name("dup")
-                        .set_type(model::Type {
-                            code: model::TypeCode::String,
-                            ..Default::default()
-                        }),
-                ],
-                _unknown_fields: Default::default(),
-            })),
-            ..Default::default()
-        });
-
-        let mut fields = BTreeMap::new();
-        fields.insert(
-            "dup".to_string(),
-            prost_types::Value {
-                kind: Some(prost_types::value::Kind::StringValue("val".to_string())),
-            },
-        );
-        let struct_val = Value(prost_types::Value {
-            kind: Some(prost_types::value::Kind::StructValue(prost_types::Struct {
-                fields,
-            })),
-        });
-        let result = JsonValue::from_owned_value(struct_val, &struct_type).expect(
-            "should convert struct with duplicate field metadata without overwriting with null",
-        );
-        assert_eq!(
-            result,
-            json!({"dup": "val"}),
-            "expected duplicate field to retain value instead of null"
         );
     }
 
