@@ -19,9 +19,19 @@ use percent_encoding::{AsciiSet, utf8_percent_encode};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 
-/// Same encoding set as used in https://cloud.google.com/storage/docs/request-endpoints#encoding
-/// but for signed URLs, we do not encode '/'.
-const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
+/// Encoding set for a V4 signed URL object name.
+///
+/// Starts from [`ENCODED_CHARS`] (the JSON API set), then:
+/// - leaves `/` unencoded, because `/` separates segments in the V4 resource path
+/// - encodes `%`, so the object name stays an opaque key
+///
+/// `%` must be encoded as `%25`. Otherwise an object name such as `.%2e` is
+/// copied into the URL as its own path segment. A URL parser decodes `%2e` to
+/// `.` and removes that dot segment, so the signed URL names a different object
+/// than the caller requested.
+///
+/// Reported at https://issuetracker.google.com/issues/530300890.
+const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/').add(b'%');
 
 /// Creates [Signed URLs].
 ///
@@ -800,6 +810,18 @@ mod tests {
         UrlStyle::PathStyle,
         "https://storage.googleapis.com/test-bucket"
     ; "list objects")]
+    #[test_case::test_case(
+        Some("prefix/.%2e/%2e%2e/object"),
+        None,
+        UrlStyle::PathStyle,
+        "https://storage.googleapis.com/test-bucket/prefix/.%252e/%252e%252e/object"
+    ; "encode percent so dot segments stay literal")]
+    #[test_case::test_case(
+        Some("100% done.txt"),
+        None,
+        UrlStyle::VirtualHostedStyle,
+        "https://test-bucket.storage.googleapis.com/100%25%20done.txt"
+    ; "encode percent and space")]
     fn test_signed_url_canonical_url(
         object: Option<&str>,
         endpoint: Option<&str>,
@@ -819,6 +841,29 @@ mod tests {
         let endpoint = builder.resolve_endpoint_url()?;
         let url = endpoint.canonical_url(&builder.scope, builder.url_style);
         assert_eq!(url, expected_url);
+
+        Ok(())
+    }
+
+    /// `%` in an object name is encoded before the name is placed in a path.
+    ///
+    /// `url::Url` decodes `%2e` to `.` and removes the resulting dot segment.
+    /// Encoding `%` as `%25` keeps `.%2e` as a literal key, which is the key
+    /// the canonical request signs.
+    #[test]
+    fn percent_encoded_dot_is_not_removed_from_signed_path() -> TestResult {
+        let object = "tenant-a/uploads/.%2e/%2e%2e/tenant-b/secret";
+        let builder = SignedUrlBuilder::for_object("projects/_/buckets/test-bucket", object)
+            .with_endpoint("https://storage.googleapis.com");
+        let endpoint = builder.resolve_endpoint_url()?;
+        let canonical_url = endpoint.canonical_url(&builder.scope, builder.url_style);
+        let canonical_uri = builder.scope.canonical_uri(builder.url_style);
+
+        let parsed = url::Url::parse(&canonical_url)?;
+        let want = "/test-bucket/tenant-a/uploads/.%252e/%252e%252e/tenant-b/secret";
+        assert_eq!(parsed.path(), want);
+        assert_eq!(canonical_uri, want);
+        assert!(parsed.path().starts_with("/test-bucket/tenant-a/"));
 
         Ok(())
     }
