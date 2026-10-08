@@ -27,6 +27,7 @@ categories.workspace = true
 anyhow.workspace           = true
 jiff                       = { workspace = true, features = ["std"] }
 futures.workspace          = true
+google-cloud-auth          = { workspace = true }
 google-cloud-pubsub        = { workspace = true, features = ["default", "unstable-stream"] }
 google-cloud-gax.workspace = true
 google-cloud-test-utils    = { workspace = true }
