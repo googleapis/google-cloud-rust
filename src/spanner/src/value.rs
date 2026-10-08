@@ -349,11 +349,11 @@ impl List {
     /// ```
     /// use google_cloud_spanner::value::Value;
     ///
-    /// let value = Value::null();
-    /// if let Some(list) = value.into_list() {
-    ///     let values = list.into_values();
-    ///     assert!(values.is_empty());
-    /// }
+    /// let value = Value::from(vec![1i64, 2i64]);
+    /// let list = value.into_list().expect("value is a list");
+    /// let values = list.into_values();
+    /// assert_eq!(values.len(), 2, "extracted list should have 2 elements");
+    /// assert_eq!(values[0].as_str(), Some("1"), "first element should be '1'");
     /// ```
     pub fn into_values(self) -> Vec<Value> {
         self.0.values.into_iter().map(Value).collect()
@@ -366,6 +366,7 @@ mod tests {
     use serde_json::Value as JsonValue;
     use std::fmt::Debug;
     use std::hash::Hash;
+    use test_case::test_case;
 
     #[test]
     fn into_serde_value_non_finite_floats() {
@@ -577,34 +578,36 @@ mod tests {
             list.get(0).expect("element 0 must exist").as_f64(),
             Some(1.0)
         );
-    }
 
-    #[test]
-    fn is_null() {
-        assert!(Value::null().is_null());
-        assert!(Value(ProtoValue { kind: None }).is_null());
-        assert!(
-            Value(ProtoValue {
-                kind: Some(ProtoKind::NullValue(0)),
-            })
-            .is_null()
-        );
-        assert!(!Value::from("hello").is_null());
-        assert!(!Value::from(true).is_null());
-        assert!(!Value::from(42.5).is_null());
-        assert!(!Value::from(vec![1i64]).is_null());
-
-        let unexpected_kind = Value(ProtoValue {
+        let unknown_value = Value(ProtoValue {
             kind: Some(ProtoKind::StructValue(Default::default())),
         });
+        assert_eq!(unknown_value.kind(), Kind::Unknown);
+        assert!(!unknown_value.is_null());
+        assert_eq!(unknown_value.as_str(), None);
+        assert_eq!(unknown_value.as_bool(), None);
+        assert_eq!(unknown_value.as_f64(), None);
+        assert_eq!(unknown_value.as_list(), None);
+    }
+
+    #[test_case(Value::null(), Kind::Null, true; "null value")]
+    #[test_case(Value(ProtoValue { kind: None }), Kind::Null, true; "none kind")]
+    #[test_case(Value(ProtoValue { kind: Some(ProtoKind::NullValue(0)) }), Kind::Null, true; "proto null value")]
+    #[test_case(Value::from(true), Kind::Bool, false; "bool value")]
+    #[test_case(Value::from("hello"), Kind::String, false; "string value")]
+    #[test_case(Value::from(42.5), Kind::Number, false; "number value")]
+    #[test_case(Value::from(vec![1i64, 2i64]), Kind::List, false; "list value")]
+    #[test_case(Value(ProtoValue { kind: Some(ProtoKind::StructValue(Default::default())) }), Kind::Unknown, false; "unexpected struct value")]
+    fn value_null_and_kind(value: Value, expected_kind: Kind, expected_is_null: bool) {
         assert_eq!(
-            unexpected_kind.kind(),
-            Kind::Unknown,
-            "unexpected proto kind must report Kind::Unknown"
+            value.kind(),
+            expected_kind,
+            "value kind must match expected"
         );
-        assert!(
-            !unexpected_kind.is_null(),
-            "unexpected proto kind must report is_null == false"
+        assert_eq!(
+            value.is_null(),
+            expected_is_null,
+            "value is_null must match expected"
         );
     }
 
@@ -621,64 +624,6 @@ mod tests {
             PartialEq,
             Eq,
             Hash
-        );
-    }
-
-    #[test]
-    fn value_null_and_kind() {
-        let null_value = Value::null();
-        assert!(
-            null_value.is_null(),
-            "null value must report is_null == true"
-        );
-        assert_eq!(
-            null_value.kind(),
-            Kind::Null,
-            "null value kind must be Kind::Null"
-        );
-
-        let bool_value = Value::from(true);
-        assert!(
-            !bool_value.is_null(),
-            "boolean value must not report is_null == true"
-        );
-        assert_eq!(
-            bool_value.kind(),
-            Kind::Bool,
-            "boolean value kind must be Kind::Bool"
-        );
-
-        let string_value = Value::from("hello");
-        assert!(
-            !string_value.is_null(),
-            "string value must not report is_null == true"
-        );
-        assert_eq!(
-            string_value.kind(),
-            Kind::String,
-            "string value kind must be Kind::String"
-        );
-
-        let number_value = Value::from(42.5);
-        assert!(
-            !number_value.is_null(),
-            "number value must not report is_null == true"
-        );
-        assert_eq!(
-            number_value.kind(),
-            Kind::Number,
-            "number value kind must be Kind::Number"
-        );
-
-        let list_value = Value::from(vec![1i64, 2i64]);
-        assert!(
-            !list_value.is_null(),
-            "list value must not report is_null == true"
-        );
-        assert_eq!(
-            list_value.kind(),
-            Kind::List,
-            "list value kind must be Kind::List"
         );
     }
 

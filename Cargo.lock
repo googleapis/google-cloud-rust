@@ -5355,6 +5355,7 @@ dependencies = [
  "serial_test",
  "spanner-grpc-mock",
  "static_assertions",
+ "test-case",
  "thiserror",
  "time",
  "tokio",
