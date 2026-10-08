@@ -227,6 +227,20 @@ impl ResultSet {
             .record_operation(self.method_name, elapsed, error);
     }
 
+    fn record_error_and_return(&mut self, error: crate::Error) -> Option<crate::Result<Row>> {
+        self.seen_last = true;
+        self.stream = None;
+        self.ready_rows.clear();
+        self.buffered_values.clear();
+        self.chunked = false;
+        self.last_resume_token = Bytes::new();
+        self.partial_result_sets_buffer.clear();
+        self.safe_to_retry = false;
+        self.record_current_attempt(Some(&error));
+        self.record_operation_complete(Some(&error));
+        Some(Err(error))
+    }
+
     async fn init_stream(&mut self) -> crate::Result<()> {
         // We loop here because if an initial stream failure occurs and is retriable (e.g., UNAVAILABLE),
         // we restart the stream and retry fetching the initial chunk.
@@ -364,48 +378,34 @@ impl ResultSet {
             }
 
             if self.seen_last {
+                let stream = self.stream.take();
                 if let Some(handle) = &self.tokio_handle
-                    && let Some(s) = self.stream.take()
+                    && let Some(stream) = stream
                 {
-                    drain_stream_in_background(handle, s);
+                    drain_stream_in_background(handle, stream);
+                }
+                if let Err(error) = self.validate_stream_termination() {
+                    return self.record_error_and_return(error);
                 }
                 self.record_current_attempt(None);
                 self.record_operation_complete(None);
                 return None;
             }
 
-            let stream_result = match &mut self.stream {
-                Some(s) => s.next_message().await,
-                None => {
-                    self.record_current_attempt(None);
-                    self.record_operation_complete(None);
-                    return None;
-                }
+            let Some(stream) = &mut self.stream else {
+                return None;
             };
 
-            match stream_result {
-                Some(Ok(partial_result_set)) => {
-                    if let Err(e) = self.handle_partial_result_set(partial_result_set) {
-                        self.record_current_attempt(Some(&e));
-                        self.record_operation_complete(Some(&e));
-                        return Some(Err(e));
-                    }
-                }
-                Some(Err(e)) => {
-                    if let Err(err) = self.handle_stream_error(e).await {
-                        self.record_operation_complete(Some(&err));
-                        return Some(Err(err));
-                    }
-                }
-                None => match self.handle_stream_end() {
-                    Ok(Some(row)) => return Some(Ok(row)),
-                    Ok(None) => return None,
-                    Err(e) => {
-                        self.record_current_attempt(Some(&e));
-                        self.record_operation_complete(Some(&e));
-                        return Some(Err(e));
-                    }
-                },
+            let stream_result = stream.next_message().await;
+
+            let result = match stream_result {
+                Some(Ok(partial_result_set)) => self.handle_partial_result_set(partial_result_set),
+                Some(Err(stream_error)) => self.handle_stream_error(stream_error).await,
+                None => self.handle_stream_end(),
+            };
+
+            if let Err(error) = result {
+                return self.record_error_and_return(error);
             }
         }
     }
@@ -508,11 +508,6 @@ impl ResultSet {
 
         if self.seen_last {
             self.flush_buffer()?;
-            if self.chunked {
-                return Err(crate::error::internal_error(
-                    "Stream ended with chunked_value=true",
-                ));
-            }
         }
 
         Ok(())
@@ -608,26 +603,20 @@ impl ResultSet {
         Ok(())
     }
 
-    fn handle_stream_end(&mut self) -> crate::Result<Option<Row>> {
-        // We are at the end of the stream. Return any buffered rows as long
-        // as there are any. If there are no buffered rows, return None.
+    fn handle_stream_end(&mut self) -> crate::Result<()> {
+        self.stream.take();
+        self.seen_last = true;
+        self.flush_buffer()
+    }
 
-        // First flush any PartialResultSets that we had received without a resume_token.
-        if !self.partial_result_sets_buffer.is_empty() {
-            self.flush_buffer()?;
-        }
+    fn validate_stream_termination(&self) -> crate::Result<()> {
         if self.chunked {
-            // This should never happen.
-            return Err(crate::error::internal_error(
-                "Stream ended with chunked_value=true",
-            ));
+            return Err(internal_error("Stream ended with chunked_value=true"));
         }
-        self.record_current_attempt(None);
-        self.record_operation_complete(None);
-        if let Some(row) = self.ready_rows.pop_front() {
-            return Ok(Some(row));
+        if !self.buffered_values.is_empty() {
+            return Err(internal_error("Stream ended before row is complete"));
         }
-        Ok(None)
+        Ok(())
     }
 
     fn flush_buffer(&mut self) -> crate::Result<()> {
@@ -895,6 +884,7 @@ pub(crate) mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     #[cfg(feature = "builtin-metrics")]
     use opentelemetry_sdk::metrics::data::ResourceMetrics;
+    use prost_types::value::Kind;
     use serde::Deserialize;
     use serde_json::Value as JsonValue;
     use spanner_grpc_mock::MockSpanner;
@@ -1179,6 +1169,393 @@ pub(crate) mod tests {
             err_str
         );
 
+        Ok(())
+    }
+
+    async fn assert_stream_error(result_set: &mut ResultSet, expected_substring: &str) {
+        let response = result_set
+            .next()
+            .await
+            .expect("Expected next() to return Some(Err(..)) but got None");
+        let error = response.expect_err("Expected next() to return Err but got Ok(Row)");
+        let error_string = error.to_string();
+        assert!(
+            error_string.contains(expected_substring),
+            "Expected error to contain '{expected_substring}', but got: '{error_string}'"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "Stream should be fused and return None after error on first check"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "Stream should remain fused and return None after error on repeated check"
+        );
+    }
+
+    async fn assert_next_row_values(
+        result_set: &mut ResultSet,
+        first_column_value: &str,
+        second_column_value: &str,
+    ) -> anyhow::Result<()> {
+        let row = result_set
+            .next()
+            .await
+            .expect("Expected next row to be Some")?;
+        assert_eq!(
+            row.raw_values()[0].0,
+            string_val(first_column_value),
+            "Expected column 0 to match {first_column_value}"
+        );
+        assert_eq!(
+            row.raw_values()[1].0,
+            string_val(second_column_value),
+            "Expected column 1 to match {second_column_value}"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn single_chunk_with_exact_column_count_and_chunked_value_errors() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("partial_val2")],
+            chunked_value: true,
+            last: true,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn error_resets_all_internal_buffers_and_flags() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            chunked_value: true,
+            last: true,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        let response = result_set.next().await.expect("Expected Some(Err(..))");
+        assert!(response.is_err(), "Expected error response");
+
+        assert!(
+            result_set.seen_last,
+            "seen_last must be true after terminal error"
+        );
+        assert!(
+            result_set.stream.is_none(),
+            "stream must be dropped after terminal error"
+        );
+        assert!(result_set.ready_rows.is_empty(), "ready_rows must be empty");
+        assert!(
+            result_set.buffered_values.is_empty(),
+            "buffered_values must be empty"
+        );
+        assert!(!result_set.chunked, "chunked must be false");
+        assert!(
+            result_set.partial_result_sets_buffer.is_empty(),
+            "partial_result_sets_buffer must be empty"
+        );
+        assert!(
+            result_set.last_resume_token.is_empty(),
+            "last_resume_token must be empty"
+        );
+        assert!(!result_set.safe_to_retry, "safe_to_retry must be false");
+        assert!(
+            result_set.next().await.is_none(),
+            "Stream must remain fused on first poll"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "Stream must remain fused on repeated poll"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_ended_with_chunked_value_and_resume_token() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            chunked_value: true,
+            last: true,
+            resume_token: b"token-with-chunked".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_ended_with_incomplete_row_on_last_flag() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            last: true,
+            resume_token: b"token-with-partial".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_ended_with_incomplete_row_on_transport_eof() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            last: false,
+            resume_token: b"token-with-partial".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_ended_with_chunked_value_on_transport_eof() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            chunked_value: true,
+            last: false,
+            resume_token: b"token-with-chunked".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn complete_rows_yielded_before_stream_ended_with_incomplete_row() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            last: true,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn complete_rows_yielded_before_transport_eof_with_incomplete_row() -> anyhow::Result<()>
+    {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            last: false,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn complete_rows_yielded_before_stream_ended_with_chunked_value() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            chunked_value: true,
+            last: true,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn complete_rows_yielded_before_transport_eof_with_chunked_value() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            chunked_value: true,
+            last: false,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn chunked_value_followed_by_empty_last_chunk_errors() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("id1"), string_val("partial_val")],
+                chunked_value: true,
+                resume_token: b"token-1".to_vec(),
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![],
+                last: true,
+                resume_token: b"token-2".to_vec(),
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn incomplete_row_followed_by_empty_last_chunk_errors() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("id1")],
+                resume_token: b"token-1".to_vec(),
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![],
+                last: true,
+                resume_token: b"token-2".to_vec(),
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn unresumable_buffered_chunk_ending_in_error_flushed_on_eof() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1")],
+            last: false,
+            resume_token: vec![],
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn unresumable_buffered_chunk_with_complete_rows_before_incomplete_row_on_transport_eof()
+    -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            last: false,
+            resume_token: vec![],
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn unresumable_buffered_chunk_with_complete_rows_before_chunked_value_on_transport_eof()
+    -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            chunked_value: true,
+            last: false,
+            resume_token: vec![],
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn multi_chunk_resumable_followed_by_unresumable_truncated_chunk() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("val1"), string_val("val2")],
+                resume_token: b"tok1".to_vec(),
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("val3")],
+                last: false,
+                resume_token: vec![],
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn unresumable_buffered_chunk_with_incompatible_types_flushed_on_eof_fails()
+    -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("a"), string_val("b")],
+                chunked_value: true,
+                last: false,
+                resume_token: vec![],
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![Value {
+                    kind: Some(Kind::BoolValue(true)),
+                }],
+                last: false,
+                resume_token: vec![],
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        assert_stream_error(
+            &mut result_set,
+            "Incompatible types for merging chunked values",
+        )
+        .await;
         Ok(())
     }
 
