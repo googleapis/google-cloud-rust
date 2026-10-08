@@ -51,11 +51,7 @@ async fn send_and_read_single_response_success() -> anyhow::Result<()> {
         assert_request_metadata(request.metadata(), USER_AGENT, QUOTA_PROJECT);
         let (_, _, mut requests) = request.into_parts();
         tokio::spawn(async move {
-            let first = requests
-                .recv()
-                .await
-                .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                .expect(ERR_RECV_ERROR);
+            let first = recv_request(&mut requests).await;
             observed_tx
                 .send(first)
                 .expect("failed to send recorded request");
@@ -79,8 +75,7 @@ async fn send_and_read_single_response_success() -> anyhow::Result<()> {
         );
         Ok(response)
     });
-    let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-    let client = make_client(endpoint).await?;
+    let (client, _server) = start_test_server(mock).await?;
 
     // Act
     let (descriptor, reader) = client
@@ -138,19 +133,12 @@ async fn send_and_read_reads_range_split_across_multiple_responses() -> anyhow::
 
         // Setup the Storage service
         tokio::spawn(async move {
-            let first = requests
-                .recv()
-                .await
-                .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                .expect(ERR_RECV_ERROR);
+            let first = recv_request(&mut requests).await;
 
             // Initial message should contain the object spec and range request
             assert!(first.read_object_spec.is_some(), "{first:?}");
 
-            let [range] = first
-                .read_ranges
-                .try_into()
-                .expect("expected exactly one range");
+            let range = single_range(&first);
 
             // Split the requested range payload across two separate response messages
             let first_payload =
@@ -186,8 +174,7 @@ async fn send_and_read_reads_range_split_across_multiple_responses() -> anyhow::
         });
         Ok(TonicResponse::from(rx))
     });
-    let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-    let client = make_client(endpoint).await?;
+    let (client, _server) = start_test_server(mock).await?;
 
     // Act
     let (_, reader) = client
@@ -213,11 +200,7 @@ async fn descriptor_sends_ranges_after_open_and_reads_multiple_messages() -> any
 
         // Setup the Storage service
         tokio::spawn(async move {
-            let open = requests
-                .recv()
-                .await
-                .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                .expect(ERR_RECV_ERROR);
+            let open = recv_request(&mut requests).await;
 
             // Initial message should contain the object spec and no range requests
             assert!(open.read_object_spec.is_some(), "{open:?}");
@@ -230,20 +213,12 @@ async fn descriptor_sends_ranges_after_open_and_reads_multiple_messages() -> any
 
             // Simulate the client requesting two distinct ranges sequentially
             for _ in 0..2 {
-                let request = requests
-                    .recv()
-                    .await
-                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                    .expect(ERR_RECV_ERROR);
+                let request = recv_request(&mut requests).await;
 
                 // Subsequent requests on the open stream must NOT send the object spec
                 assert!(request.read_object_spec.is_none(), "{request:?}");
 
-                let [range] = request
-                    .read_ranges
-                    .try_into()
-                    .expect("expected exactly one range");
-
+                let range = single_range(&request);
                 let payload = slice_range(OBJECT_CONTENT, &range).to_vec();
 
                 // Return the requested payload slice to the client
@@ -254,8 +229,7 @@ async fn descriptor_sends_ranges_after_open_and_reads_multiple_messages() -> any
         });
         Ok(TonicResponse::from(rx))
     });
-    let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-    let client = make_client(endpoint).await?;
+    let (client, _server) = start_test_server(mock).await?;
 
     // Act
     let descriptor = client
@@ -298,16 +272,8 @@ async fn transient_stream_error_resumes_partial_read() -> anyhow::Result<()> {
 
             // Setup the Storage service
             tokio::spawn(async move {
-                let first = requests
-                    .recv()
-                    .await
-                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                    .expect(ERR_RECV_ERROR);
-                let [range] = first
-                    .read_ranges
-                    .clone()
-                    .try_into()
-                    .expect("expected exactly one range");
+                let first = recv_request(&mut requests).await;
+                let range = single_range(&first);
 
                 // Verify original range request
                 assert!(first.read_object_spec.is_some(), "{first:?}");
@@ -341,16 +307,8 @@ async fn transient_stream_error_resumes_partial_read() -> anyhow::Result<()> {
             let observed_tx = observed_tx.clone();
 
             tokio::spawn(async move {
-                let first = requests
-                    .recv()
-                    .await
-                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                    .expect(ERR_RECV_ERROR);
-                let [range] = first
-                    .read_ranges
-                    .clone()
-                    .try_into()
-                    .expect("expected exactly one range");
+                let first = recv_request(&mut requests).await;
+                let range = single_range(&first);
 
                 // Capture the resumed request for assertion
                 observed_tx
@@ -369,8 +327,7 @@ async fn transient_stream_error_resumes_partial_read() -> anyhow::Result<()> {
             });
             Ok(TonicResponse::from(rx))
         });
-    let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-    let client = make_client(endpoint).await?;
+    let (client, _server) = start_test_server(mock).await?;
 
     // Act
     let (_, reader) = client
@@ -524,6 +481,36 @@ fn slice_range_for_len<'a>(buffer: &'a [u8], range: &ProtoRange, len: usize) -> 
     &buffer[start..start + len]
 }
 
+/// Starts an in-process mock storage gRPC server and returns an initialized client and server guard.
+async fn start_test_server(
+    mock: MockStorage,
+) -> anyhow::Result<(Storage, tokio::task::JoinHandle<()>)> {
+    let (endpoint, server) = start(BIND_ADDRESS, mock).await?;
+    let client = make_client(endpoint).await?;
+    Ok((client, server))
+}
+
+/// Receives the next request message from the client's streaming channel.
+async fn recv_request(
+    requests: &mut tokio::sync::mpsc::Receiver<TonicResult<BidiReadObjectRequest>>,
+) -> BidiReadObjectRequest {
+    requests
+        .recv()
+        .await
+        .expect(ERR_STREAM_CLOSED_PREMATURELY)
+        .expect(ERR_RECV_ERROR)
+}
+
+/// Extracts the single `ReadRange` from a `BidiReadObjectRequest`.
+fn single_range(request: &BidiReadObjectRequest) -> ProtoRange {
+    let [range] = request
+        .read_ranges
+        .clone()
+        .try_into()
+        .expect("expected exactly one range");
+    range
+}
+
 mod conformance {
     use super::*;
     use google_cloud_gax::retry_policy::{AlwaysRetry, NeverRetry, RetryPolicyExt as _};
@@ -577,16 +564,8 @@ mod conformance {
                 let (_, _, mut requests) = request.into_parts();
                 let (tx, rx) = tokio::sync::mpsc::channel(2);
                 tokio::spawn(async move {
-                    let first = requests
-                        .recv()
-                        .await
-                        .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                        .expect(ERR_RECV_ERROR);
-                    let [range] = first
-                        .read_ranges
-                        .clone()
-                        .try_into()
-                        .expect("expected exactly one range");
+                    let first = recv_request(&mut requests).await;
+                    let range = single_range(&first);
 
                     // Send initial partial data (4 bytes)
                     tx.send(Ok(initial_response_with_data(
@@ -616,20 +595,12 @@ mod conformance {
                 let resumed_tx = resumed_tx.clone();
 
                 tokio::spawn(async move {
-                    let first = requests
-                        .recv()
-                        .await
-                        .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                        .expect(ERR_RECV_ERROR);
+                    let first = recv_request(&mut requests).await;
                     if let Some(chan) = resumed_tx.lock().await.take() {
                         let _ = chan.send(first.clone());
                     }
 
-                    let [range] = first
-                        .read_ranges
-                        .clone()
-                        .try_into()
-                        .expect("expected exactly one range");
+                    let range = single_range(&first);
 
                     tx.send(Ok(initial_response_with_data(
                         range,
@@ -642,8 +613,7 @@ mod conformance {
                 Ok(TonicResponse::from(rx))
             });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act: Read bytes 10..18 (8 bytes)
         let (_, reader) = client
@@ -705,11 +675,7 @@ mod conformance {
                 let resumed_tx = resumed_tx.clone();
 
                 tokio::spawn(async move {
-                    let first = requests
-                        .recv()
-                        .await
-                        .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                        .expect(ERR_RECV_ERROR);
+                    let first = recv_request(&mut requests).await;
                     if let Some(chan) = resumed_tx.lock().await.take() {
                         let _ = chan.send(first);
                     }
@@ -721,8 +687,7 @@ mod conformance {
                 Ok(TonicResponse::from(rx))
             });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act: open object
         let descriptor = client.open_object(BUCKET_NAME, OBJECT_NAME).send().await?;
@@ -758,8 +723,7 @@ mod conformance {
             Err(redirect_status(&format!("redirect-token-{count}")))
         });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act: Set retry policy with attempt limit of 2
         let result = client
@@ -793,16 +757,8 @@ mod conformance {
             let (tx, rx) = tokio::sync::mpsc::channel(2);
 
             tokio::spawn(async move {
-                let first = requests
-                    .recv()
-                    .await
-                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                    .expect(ERR_RECV_ERROR);
-                let [range] = first
-                    .read_ranges
-                    .clone()
-                    .try_into()
-                    .expect("expected exactly one range");
+                let first = recv_request(&mut requests).await;
+                let range = single_range(&first);
 
                 if attempt == 0 {
                     // First attempt sends partial data then fails
@@ -825,8 +781,7 @@ mod conformance {
             Ok(TonicResponse::from(rx))
         });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act: read with read_resume_policy limited to 2 attempts, and NeverRetry for connection attempts
         let (_, reader) = client
@@ -874,11 +829,7 @@ mod conformance {
 
             let (tx, rx) = tokio::sync::mpsc::channel(1);
             tokio::spawn(async move {
-                let first = requests
-                    .recv()
-                    .await
-                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                    .expect(ERR_RECV_ERROR);
+                let first = recv_request(&mut requests).await;
                 let _ = observed_req_tx.send(first);
 
                 tx.send(Ok(initial_response_with_data(
@@ -896,8 +847,7 @@ mod conformance {
             Ok(TonicResponse::from(rx))
         });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act
         let (descriptor, reader) = client
@@ -971,11 +921,7 @@ mod conformance {
             let (tx, rx) = tokio::sync::mpsc::channel(2);
 
             tokio::spawn(async move {
-                let open = requests
-                    .recv()
-                    .await
-                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                    .expect(ERR_RECV_ERROR);
+                let open = recv_request(&mut requests).await;
                 assert!(open.read_object_spec.is_some());
 
                 // Initial open handshake succeeds
@@ -994,8 +940,7 @@ mod conformance {
             Ok(TonicResponse::from(rx))
         });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Open object with NeverResume so that stream restart fails immediately
         let descriptor = client
@@ -1045,11 +990,7 @@ mod conformance {
                 let (tx, rx) = tokio::sync::mpsc::channel(1);
 
                 tokio::spawn(async move {
-                    let first = requests
-                        .recv()
-                        .await
-                        .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                        .expect(ERR_RECV_ERROR);
+                    let first = recv_request(&mut requests).await;
                     assert!(first.read_object_spec.is_some());
 
                     tx.send(Ok(initial_response()))
@@ -1059,8 +1000,7 @@ mod conformance {
                 Ok(TonicResponse::from(rx))
             });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act: open_object.send() should retry transparently
         let descriptor = client.open_object(BUCKET_NAME, OBJECT_NAME).send().await?;
@@ -1083,12 +1023,8 @@ mod conformance {
             let (tx, rx) = tokio::sync::mpsc::channel(1);
 
             tokio::spawn(async move {
-                let first = requests
-                    .recv()
-                    .await
-                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                    .expect(ERR_RECV_ERROR);
-                let [range] = first.read_ranges.try_into().expect("expected one range");
+                let first = recv_request(&mut requests).await;
+                let range = single_range(&first);
 
                 // Send initial metadata response with range_end: true but NO checksummed data
                 let response = BidiReadObjectResponse {
@@ -1111,8 +1047,7 @@ mod conformance {
             Ok(TonicResponse::from(rx))
         });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act: Request 10 bytes, but server completes with range_end: true and 0 bytes
         let result = client
@@ -1148,11 +1083,7 @@ mod conformance {
             let (tx, rx) = tokio::sync::mpsc::channel(1);
 
             tokio::spawn(async move {
-                let first = requests
-                    .recv()
-                    .await
-                    .expect(ERR_STREAM_CLOSED_PREMATURELY)
-                    .expect(ERR_RECV_ERROR);
+                let first = recv_request(&mut requests).await;
 
                 // Fast open: verify client bundled spec and read_ranges together in the initial message
                 assert!(
@@ -1164,11 +1095,7 @@ mod conformance {
                     "fast open request must bundle read_ranges in the first message"
                 );
 
-                let [range] = first
-                    .read_ranges
-                    .clone()
-                    .try_into()
-                    .expect("expected exactly one range");
+                let range = single_range(&first);
                 let _ = observed_tx.send(first);
 
                 // Fast open: server responds with metadata AND range data in the single initial message
@@ -1180,8 +1107,7 @@ mod conformance {
             Ok(TonicResponse::from(rx))
         });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act: send_and_read initiates fast open
         let (descriptor, reader) = client
@@ -1218,8 +1144,7 @@ mod conformance {
             Err(TonicStatus::not_found("object not found"))
         });
 
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
-        let client = make_client(endpoint).await?;
+        let (client, _server) = start_test_server(mock).await?;
 
         // Act: open object
         let result = client
