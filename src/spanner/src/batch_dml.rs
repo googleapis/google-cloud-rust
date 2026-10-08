@@ -197,23 +197,7 @@ fn extract_update_counts(result_sets: &[ResultSet]) -> Result<Vec<i64>> {
 
 /// Processes an ExecuteBatchDmlResponse and returns the success counts, or an error.
 pub(crate) fn process_response(response: ExecuteBatchDmlResponse) -> Result<Vec<i64>> {
-    // If the error code is Aborted, propagate a normal service error so TransactionRunner retries.
-    // We check this before extracting update counts because an aborted transaction is completely rolled back.
-    if let Some(status) = response
-        .status
-        .as_ref()
-        .filter(|s| s.code == Code::Aborted as i32)
-    {
-        let grpc_status = RpcStatus::default()
-            .set_code(status.code)
-            .set_message(status.message.clone())
-            .set_details(status.details.clone());
-        return Err(Error::service(grpc_status));
-    }
-
-    let update_counts = extract_update_counts(&response.result_sets)?;
-
-    // If a non-zero status is present, execution halted due to a statement failure.
+    // If a non-zero status is present, execution halted due to a statement failure or transaction abort.
     if let Some(status) = response
         .status
         .filter(|status| status.code != Code::Ok as i32)
@@ -222,10 +206,16 @@ pub(crate) fn process_response(response: ExecuteBatchDmlResponse) -> Result<Vec<
             .set_code(status.code)
             .set_message(status.message)
             .set_details(status.details);
+        // If the error code is Aborted, propagate a normal service error so TransactionRunner retries.
+        // We check this before extracting update counts because an aborted transaction is completely rolled back.
+        if status.code == Code::Aborted as i32 {
+            return Err(Error::service(grpc_status));
+        }
+        let update_counts = extract_update_counts(&response.result_sets)?;
         return Err(BatchUpdateError::build_error(update_counts, grpc_status));
     }
 
-    Ok(update_counts)
+    extract_update_counts(&response.result_sets)
 }
 
 #[cfg(test)]
@@ -560,6 +550,19 @@ mod tests {
         );
     }
 
+    fn assert_process_response_fails(
+        response: ExecuteBatchDmlResponse,
+        expected_error_substring: &str,
+        failure_description: &'static str,
+    ) {
+        let result = process_response(response);
+        let error = result.expect_err(failure_description);
+        assert!(
+            error.to_string().contains(expected_error_substring),
+            "Expected error containing '{expected_error_substring}', got: {error}"
+        );
+    }
+
     #[test]
     fn process_response_missing_stats() {
         let result_set = ResultSet {
@@ -572,13 +575,10 @@ mod tests {
             ..Default::default()
         };
 
-        let result = process_response(response);
-        let error = result.expect_err("should fail when ResultSet is missing stats");
-        assert!(
-            error
-                .to_string()
-                .contains("ExecuteBatchDml ResultSet missing stats/row_count"),
-            "Unexpected error message: {error}"
+        assert_process_response_fails(
+            response,
+            "ExecuteBatchDml ResultSet missing stats/row_count",
+            "should fail when ResultSet is missing stats",
         );
     }
 
@@ -602,13 +602,10 @@ mod tests {
             ..Default::default()
         };
 
-        let result = process_response(response);
-        let error = result.expect_err("should fail when subsequent ResultSet is missing stats");
-        assert!(
-            error
-                .to_string()
-                .contains("ExecuteBatchDml ResultSet missing stats/row_count"),
-            "Unexpected error message: {error}"
+        assert_process_response_fails(
+            response,
+            "ExecuteBatchDml ResultSet missing stats/row_count",
+            "should fail when subsequent ResultSet is missing stats",
         );
     }
 
@@ -626,25 +623,20 @@ mod tests {
             ..Default::default()
         };
 
-        let err_status = Status::default()
+        let error_status = Status::default()
             .set_code(Code::InvalidArgument as i32)
             .set_message("Table not found or syntax invalid");
 
         let response = ExecuteBatchDmlResponse {
             result_sets: vec![result_set],
-            status: Some(err_status),
+            status: Some(error_status),
             ..Default::default()
         };
 
-        let result = process_response(response);
-        let error = result.expect_err(
+        assert_process_response_fails(
+            response,
+            "ExecuteBatchDml ResultSet missing stats/row_count",
             "should fail with internal error when stats are missing, even if grpc error status is present",
-        );
-        assert!(
-            error
-                .to_string()
-                .contains("ExecuteBatchDml ResultSet missing stats/row_count"),
-            "Expected missing stats error rather than silently ignoring invalid ResultSet, got: {error}"
         );
     }
 
@@ -659,25 +651,20 @@ mod tests {
             ..Default::default()
         };
 
-        let err_status = Status::default()
+        let error_status = Status::default()
             .set_code(Code::InvalidArgument as i32)
             .set_message("syntax error on subsequent statement");
 
         let response = ExecuteBatchDmlResponse {
             result_sets: vec![result_set],
-            status: Some(err_status),
+            status: Some(error_status),
             ..Default::default()
         };
 
-        let result = process_response(response);
-        let error = result.expect_err(
+        assert_process_response_fails(
+            response,
+            "invalid or missing row count type",
             "should fail with internal error when row count type is invalid, even with grpc error status",
-        );
-        assert!(
-            error
-                .to_string()
-                .contains("invalid or missing row count type"),
-            "Expected invalid row count type error, got: {error}"
         );
     }
 
@@ -720,14 +707,10 @@ mod tests {
             ..Default::default()
         };
 
-        let result = process_response(response);
-        let error =
-            result.expect_err("should fail when status is Ok but ResultSet is missing stats");
-        assert!(
-            error
-                .to_string()
-                .contains("ExecuteBatchDml ResultSet missing stats/row_count"),
-            "Unexpected error message: {error}"
+        assert_process_response_fails(
+            response,
+            "ExecuteBatchDml ResultSet missing stats/row_count",
+            "should fail when status is Ok but ResultSet is missing stats",
         );
     }
 
@@ -823,13 +806,10 @@ mod tests {
             ..Default::default()
         };
 
-        let result = process_response(response);
-        let error = result.expect_err("should fail when row count is missing in stats");
-        assert!(
-            error
-                .to_string()
-                .contains("invalid or missing row count type"),
-            "Unexpected error message: {error}"
+        assert_process_response_fails(
+            response,
+            "invalid or missing row count type",
+            "should fail when row count is missing in stats",
         );
     }
 
@@ -850,13 +830,10 @@ mod tests {
             ..Default::default()
         };
 
-        let result = process_response(response);
-        let error = result.expect_err("RowCountLowerBound is not valid for Batch DML");
-        assert!(
-            error
-                .to_string()
-                .contains("invalid or missing row count type"),
-            "Unexpected error message: {error}"
+        assert_process_response_fails(
+            response,
+            "invalid or missing row count type",
+            "RowCountLowerBound is not valid for Batch DML",
         );
     }
 
