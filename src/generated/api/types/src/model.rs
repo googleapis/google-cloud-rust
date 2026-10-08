@@ -7985,7 +7985,7 @@ pub mod metric_descriptor {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::metric_descriptor::metric_descriptor_metadata::TimeSeriesResourceHierarchyLevel>
-        {
+{
             use std::iter::Iterator;
             self.time_series_resource_hierarchy_level = v.into_iter().map(|i| i.into()).collect();
             self

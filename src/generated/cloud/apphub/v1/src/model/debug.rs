@@ -495,6 +495,30 @@ impl std::fmt::Debug for super::DeleteWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for super::GetBoundaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBoundaryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateBoundaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBoundaryRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("boundary", &self.boundary);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
@@ -505,6 +529,42 @@ impl std::fmt::Debug for super::OperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetExtendedMetadataSchemaRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExtendedMetadataSchemaRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListExtendedMetadataSchemasRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExtendedMetadataSchemasRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListExtendedMetadataSchemasResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExtendedMetadataSchemasResponse");
+        debug_struct.field("extended_metadata_schemas", &self.extended_metadata_schemas);
+        debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -524,6 +584,19 @@ impl std::fmt::Debug for super::Application {
         debug_struct.field("scope", &self.scope);
         debug_struct.field("uid", &self.uid);
         debug_struct.field("state", &self.state);
+        debug_struct.field("application_properties", &self.application_properties);
+        debug_struct.field("application_type", &self.application_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ApplicationType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApplicationType");
+        debug_struct.field("r#type", &self.r#type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -535,6 +608,17 @@ impl std::fmt::Debug for super::Scope {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Scope");
         debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ApplicationProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApplicationProperties");
+        debug_struct.field("extended_metadata", &self.extended_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -591,6 +675,78 @@ impl std::fmt::Debug for super::ContactInfo {
     }
 }
 
+impl std::fmt::Debug for super::Boundary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Boundary");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("scope", &self.scope);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExtendedMetadataSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExtendedMetadataSchema");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("json_schema", &self.json_schema);
+        debug_struct.field("schema_version", &self.schema_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FunctionalType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionalType");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RegistrationType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegistrationType");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExtendedMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExtendedMetadata");
+        debug_struct.field("metadata_struct", &self.metadata_struct);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Identity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Identity");
+        debug_struct.field("principal", &self.principal);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Service {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Service");
@@ -629,6 +785,10 @@ impl std::fmt::Debug for super::ServiceProperties {
         debug_struct.field("gcp_project", &self.gcp_project);
         debug_struct.field("location", &self.location);
         debug_struct.field("zone", &self.zone);
+        debug_struct.field("functional_type", &self.functional_type);
+        debug_struct.field("registration_type", &self.registration_type);
+        debug_struct.field("extended_metadata", &self.extended_metadata);
+        debug_struct.field("identity", &self.identity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -702,6 +862,9 @@ impl std::fmt::Debug for super::WorkloadProperties {
         debug_struct.field("gcp_project", &self.gcp_project);
         debug_struct.field("location", &self.location);
         debug_struct.field("zone", &self.zone);
+        debug_struct.field("functional_type", &self.functional_type);
+        debug_struct.field("extended_metadata", &self.extended_metadata);
+        debug_struct.field("identity", &self.identity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

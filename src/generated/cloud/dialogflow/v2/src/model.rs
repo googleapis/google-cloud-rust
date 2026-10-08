@@ -1949,7 +1949,7 @@ pub mod agent_coaching_instruction {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion>
-        {
+{
             use std::iter::Iterator;
             self.duplicate_suggestions = v.into_iter().map(|i| i.into()).collect();
             self
@@ -13278,7 +13278,7 @@ pub mod search_knowledge_request {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::BoostSpec>
-            {
+{
                 use std::iter::Iterator;
                 self.spec = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -13339,7 +13339,7 @@ pub mod search_knowledge_request {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::ConditionBoostSpec>
-                {
+{
                     use std::iter::Iterator;
                     self.condition_boost_specs = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -13446,7 +13446,7 @@ pub mod search_knowledge_request {
                     /// ```
                     pub fn set_boost_control_spec<T>(mut self, v: T) -> Self
                     where T: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::BoostControlSpec>
-                    {
+{
                         self.boost_control_spec = std::option::Option::Some(v.into());
                         self
                     }
@@ -13462,7 +13462,7 @@ pub mod search_knowledge_request {
                     /// ```
                     pub fn set_or_clear_boost_control_spec<T>(mut self, v: std::option::Option<T>) -> Self
                     where T: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::BoostControlSpec>
-                    {
+{
                         self.boost_control_spec = v.map(|x| x.into());
                         self
                     }
@@ -13579,7 +13579,7 @@ pub mod search_knowledge_request {
                         where
                             T: std::iter::IntoIterator<Item = V>,
                             V: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint>
-                        {
+{
                             use std::iter::Iterator;
                             self.control_points = v.into_iter().map(|i| i.into()).collect();
                             self
@@ -22103,7 +22103,7 @@ pub mod human_agent_assistant_config {
         /// ```
         pub fn set_context_filter_settings<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::ContextFilterSettings>
-        {
+{
             self.context_filter_settings = std::option::Option::Some(v.into());
             self
         }
@@ -22119,7 +22119,7 @@ pub mod human_agent_assistant_config {
         /// ```
         pub fn set_or_clear_context_filter_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::ContextFilterSettings>
-        {
+{
             self.context_filter_settings = v.map(|x| x.into());
             self
         }
@@ -22186,7 +22186,7 @@ pub mod human_agent_assistant_config {
         ///     google_cloud_dialogflow_v2::model::human_agent_assistant_config::suggestion_query_config::QuerySource::KnowledgeBaseQuerySource(KnowledgeBaseQuerySource::default().into())));
         /// ```
         pub fn set_query_source<T: std::convert::Into<std::option::Option<crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource>>>(mut self, v: T) -> Self
-        {
+{
             self.query_source = v.into();
             self
         }
@@ -22456,7 +22456,7 @@ pub mod human_agent_assistant_config {
             /// ```
             pub fn set_human_agent_side_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::dialogflow_query_source::HumanAgentSideConfig>
-            {
+{
                 self.human_agent_side_config = std::option::Option::Some(v.into());
                 self
             }
@@ -22472,7 +22472,7 @@ pub mod human_agent_assistant_config {
             /// ```
             pub fn set_or_clear_human_agent_side_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::dialogflow_query_source::HumanAgentSideConfig>
-            {
+{
                 self.human_agent_side_config = v.map(|x| x.into());
                 self
             }
@@ -22652,7 +22652,7 @@ pub mod human_agent_assistant_config {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::human_agent_assistant_config::suggestion_query_config::sections::SectionType>
-            {
+{
                 use std::iter::Iterator;
                 self.section_types = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -33828,7 +33828,7 @@ pub mod agent_coaching_suggestion {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion>
-        {
+{
             use std::iter::Iterator;
             self.duplicate_suggestions = v.into_iter().map(|i| i.into()).collect();
             self
@@ -36379,7 +36379,7 @@ pub mod summarization_evaluation_metrics {
         ///     google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::decomposition::Decomposition::AccuracyDecomposition(AccuracyDecomposition::default().into())));
         /// ```
         pub fn set_decomposition<T: std::convert::Into<std::option::Option<crate::model::summarization_evaluation_metrics::decomposition::Decomposition>>>(mut self, v: T) -> Self
-        {
+{
             self.decomposition = v.into();
             self
         }
@@ -37105,7 +37105,7 @@ pub mod summarization_evaluation_metrics {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::summarization_evaluation_metrics::conversation_detail::MetricDetail>
-        {
+{
             use std::iter::Iterator;
             self.metric_details = v.into_iter().map(|i| i.into()).collect();
             self
@@ -37233,7 +37233,7 @@ pub mod summarization_evaluation_metrics {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail>
-            {
+{
                 use std::iter::Iterator;
                 self.section_details = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -37869,7 +37869,7 @@ pub mod generator_evaluation_config {
         ///     google_cloud_dialogflow_v2::model::generator_evaluation_config::input_data_config::SourceSpecificConfig::AgentAssistInputDataConfig(AgentAssistInputDataConfig::default().into())));
         /// ```
         pub fn set_source_specific_config<T: std::convert::Into<std::option::Option<crate::model::generator_evaluation_config::input_data_config::SourceSpecificConfig>>>(mut self, v: T) -> Self
-        {
+{
             self.source_specific_config = v.into();
             self
         }
@@ -43119,7 +43119,7 @@ pub mod intent {
                 ///     google_cloud_dialogflow_v2::model::intent::message::media_content::response_media_object::Image::LargeImage(Image::default().into())));
                 /// ```
                 pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::intent::message::media_content::response_media_object::Image>>>(mut self, v: T) -> Self
-                {
+{
                     self.image = v.into();
                     self
                 }
@@ -43595,7 +43595,7 @@ pub mod intent {
                 /// ```
                 pub fn set_open_uri_action<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::intent::message::browse_carousel_card::browse_carousel_card_item::OpenUrlAction>
-                {
+{
                     self.open_uri_action = std::option::Option::Some(v.into());
                     self
                 }
@@ -43611,7 +43611,7 @@ pub mod intent {
                 /// ```
                 pub fn set_or_clear_open_uri_action<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::intent::message::browse_carousel_card::browse_carousel_card_item::OpenUrlAction>
-                {
+{
                     self.open_uri_action = v.map(|x| x.into());
                     self
                 }
@@ -56106,7 +56106,7 @@ pub mod knowledge_assist_answer {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::knowledge_assist_answer::knowledge_answer::generative_source::Snippet>
-            {
+{
                 use std::iter::Iterator;
                 self.snippets = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -57672,7 +57672,7 @@ pub mod bidi_streaming_analyze_content_request {
         /// let x = TurnInput::new().set_main_content(Some(MainContent::Text("example".to_string())));
         /// ```
         pub fn set_main_content<T: std::convert::Into<std::option::Option<crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent>>>(mut self, v: T) -> Self
-        {
+{
             self.main_content = v.into();
             self
         }
@@ -62825,6 +62825,12 @@ pub struct SipTrunk {
     /// Optional. Human readable alias for this trunk.
     pub display_name: std::string::String,
 
+    /// Required. Peer hostnames of the SIP trunk.
+    pub peer_hostnames: std::vec::Vec<crate::model::SipHostname>,
+
+    /// Optional. The root certificate file to use for this SIP trunk.
+    pub google_root_cert_file: crate::model::sip_trunk::GoogleRootCertFile,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -62900,12 +62906,193 @@ impl SipTrunk {
         self.display_name = v.into();
         self
     }
+
+    /// Sets the value of [peer_hostnames][crate::model::SipTrunk::peer_hostnames].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// use google_cloud_dialogflow_v2::model::SipHostname;
+    /// let x = SipTrunk::new()
+    ///     .set_peer_hostnames([
+    ///         SipHostname::default()/* use setters */,
+    ///         SipHostname::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_peer_hostnames<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SipHostname>,
+    {
+        use std::iter::Iterator;
+        self.peer_hostnames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [google_root_cert_file][crate::model::SipTrunk::google_root_cert_file].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// use google_cloud_dialogflow_v2::model::sip_trunk::GoogleRootCertFile;
+    /// let x0 = SipTrunk::new().set_google_root_cert_file(GoogleRootCertFile::ExternalPrivateCa);
+    /// ```
+    pub fn set_google_root_cert_file<
+        T: std::convert::Into<crate::model::sip_trunk::GoogleRootCertFile>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.google_root_cert_file = v.into();
+        self
+    }
 }
 
 #[cfg(feature = "sip-trunks")]
 impl wkt::message::Message for SipTrunk {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.SipTrunk"
+    }
+}
+
+/// Defines additional types related to [SipTrunk].
+#[cfg(feature = "sip-trunks")]
+pub mod sip_trunk {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of Google root certificate file used for mTLS.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(feature = "sip-trunks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum GoogleRootCertFile {
+        /// Unspecified root certificate file.
+        CertFileUnspecified,
+        /// Use external private CA.
+        ExternalPrivateCa,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [GoogleRootCertFile::value] or
+        /// [GoogleRootCertFile::name].
+        UnknownValue(google_root_cert_file::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "sip-trunks")]
+    pub mod google_root_cert_file {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl GoogleRootCertFile {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::CertFileUnspecified => std::option::Option::Some(0),
+                Self::ExternalPrivateCa => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::CertFileUnspecified => std::option::Option::Some("CERT_FILE_UNSPECIFIED"),
+                Self::ExternalPrivateCa => std::option::Option::Some("EXTERNAL_PRIVATE_CA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::default::Default for GoogleRootCertFile {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::fmt::Display for GoogleRootCertFile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<i32> for GoogleRootCertFile {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::CertFileUnspecified,
+                5 => Self::ExternalPrivateCa,
+                _ => Self::UnknownValue(google_root_cert_file::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<&str> for GoogleRootCertFile {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CERT_FILE_UNSPECIFIED" => Self::CertFileUnspecified,
+                "EXTERNAL_PRIVATE_CA" => Self::ExternalPrivateCa,
+                _ => Self::UnknownValue(google_root_cert_file::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl serde::ser::Serialize for GoogleRootCertFile {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::CertFileUnspecified => serializer.serialize_i32(0),
+                Self::ExternalPrivateCa => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl<'de> serde::de::Deserialize<'de> for GoogleRootCertFile {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<GoogleRootCertFile>::new(
+                ".google.cloud.dialogflow.v2.SipTrunk.GoogleRootCertFile",
+            ))
+        }
     }
 }
 
@@ -63488,6 +63675,885 @@ pub mod connection {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CertificateState>::new(
                 ".google.cloud.dialogflow.v2.Connection.CertificateState",
+            ))
+        }
+    }
+}
+
+/// Represents a peer hostname for SIP Trunk.
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SipHostname {
+    /// Required. Peer hostname name.
+    pub peer_hostname: std::string::String,
+
+    /// Output only. Peer hostname enabled for SIP ping.
+    pub enabled_sip_ping: bool,
+
+    /// Output only. How often the sip ping should occur.
+    pub ping_interval: std::option::Option<wkt::Duration>,
+
+    /// Output only. The peer_socket address of the partner SBC pinged.
+    pub peer_socket_address: std::string::String,
+
+    /// Output only. The details from the options probe.
+    pub probe_details: std::option::Option<crate::model::ProbeDetails>,
+
+    /// Output only. State of the connection.
+    pub connection_state: crate::model::sip_hostname::ConnectionState,
+
+    /// Output only. The error details for the connection. Only populated when
+    /// authentication errors occur.
+    pub error_details: std::option::Option<crate::model::sip_hostname::HostnameErrorDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl SipHostname {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [peer_hostname][crate::model::SipHostname::peer_hostname].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// let x = SipHostname::new().set_peer_hostname("example");
+    /// ```
+    pub fn set_peer_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.peer_hostname = v.into();
+        self
+    }
+
+    /// Sets the value of [enabled_sip_ping][crate::model::SipHostname::enabled_sip_ping].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// let x = SipHostname::new().set_enabled_sip_ping(true);
+    /// ```
+    pub fn set_enabled_sip_ping<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled_sip_ping = v.into();
+        self
+    }
+
+    /// Sets the value of [ping_interval][crate::model::SipHostname::ping_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// use wkt::Duration;
+    /// let x = SipHostname::new().set_ping_interval(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_ping_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ping_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ping_interval][crate::model::SipHostname::ping_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// use wkt::Duration;
+    /// let x = SipHostname::new().set_or_clear_ping_interval(Some(Duration::default()/* use setters */));
+    /// let x = SipHostname::new().set_or_clear_ping_interval(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_ping_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ping_interval = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [peer_socket_address][crate::model::SipHostname::peer_socket_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// let x = SipHostname::new().set_peer_socket_address("example");
+    /// ```
+    pub fn set_peer_socket_address<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.peer_socket_address = v.into();
+        self
+    }
+
+    /// Sets the value of [probe_details][crate::model::SipHostname::probe_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// use google_cloud_dialogflow_v2::model::ProbeDetails;
+    /// let x = SipHostname::new().set_probe_details(ProbeDetails::default()/* use setters */);
+    /// ```
+    pub fn set_probe_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProbeDetails>,
+    {
+        self.probe_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [probe_details][crate::model::SipHostname::probe_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// use google_cloud_dialogflow_v2::model::ProbeDetails;
+    /// let x = SipHostname::new().set_or_clear_probe_details(Some(ProbeDetails::default()/* use setters */));
+    /// let x = SipHostname::new().set_or_clear_probe_details(None::<ProbeDetails>);
+    /// ```
+    pub fn set_or_clear_probe_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProbeDetails>,
+    {
+        self.probe_details = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [connection_state][crate::model::SipHostname::connection_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// use google_cloud_dialogflow_v2::model::sip_hostname::ConnectionState;
+    /// let x0 = SipHostname::new().set_connection_state(ConnectionState::Connected);
+    /// let x1 = SipHostname::new().set_connection_state(ConnectionState::Disconnected);
+    /// let x2 = SipHostname::new().set_connection_state(ConnectionState::AuthenticationFailed);
+    /// ```
+    pub fn set_connection_state<
+        T: std::convert::Into<crate::model::sip_hostname::ConnectionState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.connection_state = v.into();
+        self
+    }
+
+    /// Sets the value of [error_details][crate::model::SipHostname::error_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// use google_cloud_dialogflow_v2::model::sip_hostname::HostnameErrorDetails;
+    /// let x = SipHostname::new().set_error_details(HostnameErrorDetails::default()/* use setters */);
+    /// ```
+    pub fn set_error_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::sip_hostname::HostnameErrorDetails>,
+    {
+        self.error_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error_details][crate::model::SipHostname::error_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipHostname;
+    /// use google_cloud_dialogflow_v2::model::sip_hostname::HostnameErrorDetails;
+    /// let x = SipHostname::new().set_or_clear_error_details(Some(HostnameErrorDetails::default()/* use setters */));
+    /// let x = SipHostname::new().set_or_clear_error_details(None::<HostnameErrorDetails>);
+    /// ```
+    pub fn set_or_clear_error_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::sip_hostname::HostnameErrorDetails>,
+    {
+        self.error_details = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for SipHostname {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SipHostname"
+    }
+}
+
+/// Defines additional types related to [SipHostname].
+#[cfg(feature = "sip-trunks")]
+pub mod sip_hostname {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The error details of Sip Trunk hostnameconnection authentication.
+    #[cfg(feature = "sip-trunks")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct HostnameErrorDetails {
+        /// Output only. The status of the certificate authentication.
+        pub certificate_state: crate::model::sip_hostname::HostnameCertificateState,
+
+        /// Output only. The error message provided from SIP trunking auth service
+        pub error_message: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl HostnameErrorDetails {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [certificate_state][crate::model::sip_hostname::HostnameErrorDetails::certificate_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::sip_hostname::HostnameErrorDetails;
+        /// use google_cloud_dialogflow_v2::model::sip_hostname::HostnameCertificateState;
+        /// let x0 = HostnameErrorDetails::new().set_certificate_state(HostnameCertificateState::Valid);
+        /// let x1 = HostnameErrorDetails::new().set_certificate_state(HostnameCertificateState::Invalid);
+        /// let x2 = HostnameErrorDetails::new().set_certificate_state(HostnameCertificateState::Expired);
+        /// ```
+        pub fn set_certificate_state<
+            T: std::convert::Into<crate::model::sip_hostname::HostnameCertificateState>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.certificate_state = v.into();
+            self
+        }
+
+        /// Sets the value of [error_message][crate::model::sip_hostname::HostnameErrorDetails::error_message].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::sip_hostname::HostnameErrorDetails;
+        /// let x = HostnameErrorDetails::new().set_error_message("example");
+        /// ```
+        pub fn set_error_message<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error_message = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl wkt::message::Message for HostnameErrorDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SipHostname.HostnameErrorDetails"
+        }
+    }
+
+    /// The state of SBC hostname connection.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(feature = "sip-trunks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConnectionState {
+        /// SBC hostname connection state is Not specified.
+        Unspecified,
+        /// SBC hostname connection is connected.
+        Connected,
+        /// SBC hostname connection is disconnected.
+        Disconnected,
+        /// SBC hostname connection has authentication error.
+        AuthenticationFailed,
+        /// SBC hostname connection is keepalive.
+        Keepalive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConnectionState::value] or
+        /// [ConnectionState::name].
+        UnknownValue(connection_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "sip-trunks")]
+    pub mod connection_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl ConnectionState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Connected => std::option::Option::Some(1),
+                Self::Disconnected => std::option::Option::Some(2),
+                Self::AuthenticationFailed => std::option::Option::Some(3),
+                Self::Keepalive => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CONNECTION_STATE_UNSPECIFIED"),
+                Self::Connected => std::option::Option::Some("CONNECTED"),
+                Self::Disconnected => std::option::Option::Some("DISCONNECTED"),
+                Self::AuthenticationFailed => std::option::Option::Some("AUTHENTICATION_FAILED"),
+                Self::Keepalive => std::option::Option::Some("KEEPALIVE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::default::Default for ConnectionState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::fmt::Display for ConnectionState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<i32> for ConnectionState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Connected,
+                2 => Self::Disconnected,
+                3 => Self::AuthenticationFailed,
+                4 => Self::Keepalive,
+                _ => Self::UnknownValue(connection_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<&str> for ConnectionState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONNECTION_STATE_UNSPECIFIED" => Self::Unspecified,
+                "CONNECTED" => Self::Connected,
+                "DISCONNECTED" => Self::Disconnected,
+                "AUTHENTICATION_FAILED" => Self::AuthenticationFailed,
+                "KEEPALIVE" => Self::Keepalive,
+                _ => Self::UnknownValue(connection_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl serde::ser::Serialize for ConnectionState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Connected => serializer.serialize_i32(1),
+                Self::Disconnected => serializer.serialize_i32(2),
+                Self::AuthenticationFailed => serializer.serialize_i32(3),
+                Self::Keepalive => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl<'de> serde::de::Deserialize<'de> for ConnectionState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectionState>::new(
+                ".google.cloud.dialogflow.v2.SipHostname.ConnectionState",
+            ))
+        }
+    }
+
+    /// The state of Sip Trunk certificate authentication.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(feature = "sip-trunks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HostnameCertificateState {
+        /// Certificate state is not specified.
+        Unspecified,
+        /// Certificate is valid.
+        Valid,
+        /// Catch all for any error not specified.
+        Invalid,
+        /// Certificate leaf node has expired.
+        Expired,
+        /// There is no hostname defined to authenticate in SipTrunkingServer.
+        HostnameNotFound,
+        /// No path found from the leaf certificate to any root.
+        Unauthenticated,
+        /// Trust store does not exist.
+        TrustStoreNotFound,
+        /// Hostname has invalid format.
+        HostnameInvalidFormat,
+        /// Certificate has exhausted its quota.
+        QuotaExceeded,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HostnameCertificateState::value] or
+        /// [HostnameCertificateState::name].
+        UnknownValue(hostname_certificate_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "sip-trunks")]
+    pub mod hostname_certificate_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl HostnameCertificateState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Valid => std::option::Option::Some(1),
+                Self::Invalid => std::option::Option::Some(2),
+                Self::Expired => std::option::Option::Some(3),
+                Self::HostnameNotFound => std::option::Option::Some(4),
+                Self::Unauthenticated => std::option::Option::Some(5),
+                Self::TrustStoreNotFound => std::option::Option::Some(6),
+                Self::HostnameInvalidFormat => std::option::Option::Some(7),
+                Self::QuotaExceeded => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("HOSTNAME_CERTIFICATE_STATE_UNSPECIFIED")
+                }
+                Self::Valid => std::option::Option::Some("VALID"),
+                Self::Invalid => std::option::Option::Some("INVALID"),
+                Self::Expired => std::option::Option::Some("EXPIRED"),
+                Self::HostnameNotFound => std::option::Option::Some("HOSTNAME_NOT_FOUND"),
+                Self::Unauthenticated => std::option::Option::Some("UNAUTHENTICATED"),
+                Self::TrustStoreNotFound => std::option::Option::Some("TRUST_STORE_NOT_FOUND"),
+                Self::HostnameInvalidFormat => std::option::Option::Some("HOSTNAME_INVALID_FORMAT"),
+                Self::QuotaExceeded => std::option::Option::Some("QUOTA_EXCEEDED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::default::Default for HostnameCertificateState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::fmt::Display for HostnameCertificateState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<i32> for HostnameCertificateState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Valid,
+                2 => Self::Invalid,
+                3 => Self::Expired,
+                4 => Self::HostnameNotFound,
+                5 => Self::Unauthenticated,
+                6 => Self::TrustStoreNotFound,
+                7 => Self::HostnameInvalidFormat,
+                8 => Self::QuotaExceeded,
+                _ => Self::UnknownValue(hostname_certificate_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<&str> for HostnameCertificateState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HOSTNAME_CERTIFICATE_STATE_UNSPECIFIED" => Self::Unspecified,
+                "VALID" => Self::Valid,
+                "INVALID" => Self::Invalid,
+                "EXPIRED" => Self::Expired,
+                "HOSTNAME_NOT_FOUND" => Self::HostnameNotFound,
+                "UNAUTHENTICATED" => Self::Unauthenticated,
+                "TRUST_STORE_NOT_FOUND" => Self::TrustStoreNotFound,
+                "HOSTNAME_INVALID_FORMAT" => Self::HostnameInvalidFormat,
+                "QUOTA_EXCEEDED" => Self::QuotaExceeded,
+                _ => Self::UnknownValue(hostname_certificate_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl serde::ser::Serialize for HostnameCertificateState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Valid => serializer.serialize_i32(1),
+                Self::Invalid => serializer.serialize_i32(2),
+                Self::Expired => serializer.serialize_i32(3),
+                Self::HostnameNotFound => serializer.serialize_i32(4),
+                Self::Unauthenticated => serializer.serialize_i32(5),
+                Self::TrustStoreNotFound => serializer.serialize_i32(6),
+                Self::HostnameInvalidFormat => serializer.serialize_i32(7),
+                Self::QuotaExceeded => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl<'de> serde::de::Deserialize<'de> for HostnameCertificateState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<HostnameCertificateState>::new(
+                    ".google.cloud.dialogflow.v2.SipHostname.HostnameCertificateState",
+                ),
+            )
+        }
+    }
+}
+
+/// The probe details of Sip Trunk peer hostname.
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProbeDetails {
+    /// Output only. Duration between OPTIONS send and OPTIONS 200 received.
+    pub options_latency: std::option::Option<wkt::Duration>,
+
+    /// Output only. Result of the probe.
+    pub probe_status: crate::model::probe_details::ProbeStatus,
+
+    /// Output only. When the options probe was started.
+    pub init_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl ProbeDetails {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [options_latency][crate::model::ProbeDetails::options_latency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ProbeDetails;
+    /// use wkt::Duration;
+    /// let x = ProbeDetails::new().set_options_latency(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_options_latency<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.options_latency = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [options_latency][crate::model::ProbeDetails::options_latency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ProbeDetails;
+    /// use wkt::Duration;
+    /// let x = ProbeDetails::new().set_or_clear_options_latency(Some(Duration::default()/* use setters */));
+    /// let x = ProbeDetails::new().set_or_clear_options_latency(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_options_latency<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.options_latency = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [probe_status][crate::model::ProbeDetails::probe_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ProbeDetails;
+    /// use google_cloud_dialogflow_v2::model::probe_details::ProbeStatus;
+    /// let x0 = ProbeDetails::new().set_probe_status(ProbeStatus::Success);
+    /// let x1 = ProbeDetails::new().set_probe_status(ProbeStatus::Failed);
+    /// ```
+    pub fn set_probe_status<T: std::convert::Into<crate::model::probe_details::ProbeStatus>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.probe_status = v.into();
+        self
+    }
+
+    /// Sets the value of [init_time][crate::model::ProbeDetails::init_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ProbeDetails;
+    /// use wkt::Timestamp;
+    /// let x = ProbeDetails::new().set_init_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_init_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.init_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [init_time][crate::model::ProbeDetails::init_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ProbeDetails;
+    /// use wkt::Timestamp;
+    /// let x = ProbeDetails::new().set_or_clear_init_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ProbeDetails::new().set_or_clear_init_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_init_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.init_time = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for ProbeDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ProbeDetails"
+    }
+}
+
+/// Defines additional types related to [ProbeDetails].
+#[cfg(feature = "sip-trunks")]
+pub mod probe_details {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The status of InitiateSipOptionsPing to peer hostname.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(feature = "sip-trunks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProbeStatus {
+        /// Peer hostname ping state is not specified.
+        Unspecified,
+        /// Peer hostname ping succeeded.
+        Success,
+        /// Peer hostname ping failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProbeStatus::value] or
+        /// [ProbeStatus::name].
+        UnknownValue(probe_status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "sip-trunks")]
+    pub mod probe_status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl ProbeStatus {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Success => std::option::Option::Some(1),
+                Self::Failed => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROBE_STATUS_UNSPECIFIED"),
+                Self::Success => std::option::Option::Some("PROBE_STATUS_SUCCESS"),
+                Self::Failed => std::option::Option::Some("PROBE_STATUS_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::default::Default for ProbeStatus {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::fmt::Display for ProbeStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<i32> for ProbeStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Success,
+                2 => Self::Failed,
+                _ => Self::UnknownValue(probe_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<&str> for ProbeStatus {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROBE_STATUS_UNSPECIFIED" => Self::Unspecified,
+                "PROBE_STATUS_SUCCESS" => Self::Success,
+                "PROBE_STATUS_FAILED" => Self::Failed,
+                _ => Self::UnknownValue(probe_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl serde::ser::Serialize for ProbeStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Success => serializer.serialize_i32(1),
+                Self::Failed => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl<'de> serde::de::Deserialize<'de> for ProbeStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProbeStatus>::new(
+                ".google.cloud.dialogflow.v2.ProbeDetails.ProbeStatus",
             ))
         }
     }

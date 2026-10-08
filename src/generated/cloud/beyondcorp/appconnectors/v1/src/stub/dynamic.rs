@@ -47,6 +47,12 @@ pub trait AppConnectorsService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn resolve_instance_config(
+        &self,
+        req: crate::model::ResolveInstanceConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResolveInstanceConfigResponse>>;
+
     async fn report_status(
         &self,
         req: crate::model::ReportStatusRequest,
@@ -169,6 +175,15 @@ impl<T: super::AppConnectorsService> AppConnectorsService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_app_connector(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn resolve_instance_config(
+        &self,
+        req: crate::model::ResolveInstanceConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResolveInstanceConfigResponse>> {
+        T::resolve_instance_config(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

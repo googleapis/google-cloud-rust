@@ -5355,6 +5355,7 @@ dependencies = [
  "serial_test",
  "spanner-grpc-mock",
  "static_assertions",
+ "test-case",
  "thiserror",
  "time",
  "tokio",
@@ -8510,6 +8511,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "futures",
+ "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-pubsub",
  "google-cloud-test-utils",

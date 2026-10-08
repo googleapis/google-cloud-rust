@@ -1051,6 +1051,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AppConnection {
             __connectors,
             __state,
             __gateway,
+            __satisfies_pzs,
+            __satisfies_pzi,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1086,6 +1088,10 @@ impl<'de> serde::de::Deserialize<'de> for super::AppConnection {
                             "connectors" => Ok(__FieldTag::__connectors),
                             "state" => Ok(__FieldTag::__state),
                             "gateway" => Ok(__FieldTag::__gateway),
+                            "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfiesPzi" => Ok(__FieldTag::__satisfies_pzi),
+                            "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1217,6 +1223,22 @@ impl<'de> serde::de::Deserialize<'de> for super::AppConnection {
                             result.gateway = map.next_value::<std::option::Option<crate::model::app_connection::Gateway>>()?
                                 ;
                         }
+                        __FieldTag::__satisfies_pzs => {
+                            if !fields.insert(__FieldTag::__satisfies_pzs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzs",
+                                ));
+                            }
+                            result.satisfies_pzs = map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__satisfies_pzi => {
+                            if !fields.insert(__FieldTag::__satisfies_pzi) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzi",
+                                ));
+                            }
+                            result.satisfies_pzi = map.next_value::<std::option::Option<bool>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1345,6 +1367,7 @@ impl<'de> serde::de::Deserialize<'de> for super::app_connection::Gateway {
             __uri,
             __ingress_port,
             __app_gateway,
+            __l7psc,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1371,6 +1394,7 @@ impl<'de> serde::de::Deserialize<'de> for super::app_connection::Gateway {
                             "ingress_port" => Ok(__FieldTag::__ingress_port),
                             "appGateway" => Ok(__FieldTag::__app_gateway),
                             "app_gateway" => Ok(__FieldTag::__app_gateway),
+                            "l7psc" => Ok(__FieldTag::__l7psc),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1444,6 +1468,16 @@ impl<'de> serde::de::Deserialize<'de> for super::app_connection::Gateway {
                                 ));
                             }
                             result.app_gateway = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__l7psc => {
+                            if !fields.insert(__FieldTag::__l7psc) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for l7psc",
+                                ));
+                            }
+                            result.l7psc = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }

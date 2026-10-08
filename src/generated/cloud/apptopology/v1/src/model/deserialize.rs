@@ -2693,6 +2693,282 @@ impl<'de> serde::de::Deserialize<'de> for super::GetSchemaRequest {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ExploreSchemaRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __start_labels,
+            __depth,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExploreSchemaRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "startLabels" => Ok(__FieldTag::__start_labels),
+                            "start_labels" => Ok(__FieldTag::__start_labels),
+                            "depth" => Ok(__FieldTag::__depth),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ExploreSchemaRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExploreSchemaRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__start_labels => {
+                            if !fields.insert(__FieldTag::__start_labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_labels",
+                                ));
+                            }
+                            result.start_labels = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__depth => {
+                            if !fields.insert(__FieldTag::__depth) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for depth",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.depth = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ExploreSchemaResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __node_types,
+            __edge_types,
+            __label_properties,
+            __edge_rules,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExploreSchemaResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "nodeTypes" => Ok(__FieldTag::__node_types),
+                            "node_types" => Ok(__FieldTag::__node_types),
+                            "edgeTypes" => Ok(__FieldTag::__edge_types),
+                            "edge_types" => Ok(__FieldTag::__edge_types),
+                            "labelProperties" => Ok(__FieldTag::__label_properties),
+                            "label_properties" => Ok(__FieldTag::__label_properties),
+                            "edgeRules" => Ok(__FieldTag::__edge_rules),
+                            "edge_rules" => Ok(__FieldTag::__edge_rules),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ExploreSchemaResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExploreSchemaResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__node_types => {
+                            if !fields.insert(__FieldTag::__node_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for node_types",
+                                ));
+                            }
+                            result.node_types = map.next_value::<std::option::Option<std::vec::Vec<crate::model::NodeType>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__edge_types => {
+                            if !fields.insert(__FieldTag::__edge_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for edge_types",
+                                ));
+                            }
+                            result.edge_types = map.next_value::<std::option::Option<std::vec::Vec<crate::model::EdgeType>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__label_properties => {
+                            if !fields.insert(__FieldTag::__label_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label_properties",
+                                ));
+                            }
+                            result.label_properties =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::LabelProperties>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__edge_rules => {
+                            if !fields.insert(__FieldTag::__edge_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for edge_rules",
+                                ));
+                            }
+                            result.edge_rules = map.next_value::<std::option::Option<std::vec::Vec<crate::model::EdgeRule>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::GetDomainRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where

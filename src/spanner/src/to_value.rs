@@ -21,7 +21,6 @@ use base64::prelude::BASE64_STANDARD;
 use google_cloud_type::model::Date;
 use prost_types::Value as ProtoValue;
 use rust_decimal::Decimal;
-use serde_json::Value as JsonValue;
 use std::time::SystemTime;
 #[cfg(feature = "unstable-time")]
 use time::Date as TimeDate;
@@ -80,22 +79,6 @@ impl From<()> for Value {
 impl ToValue for Value {
     fn to_value(&self) -> Value {
         self.clone()
-    }
-}
-
-impl ToValue for JsonValue {
-    fn to_value(&self) -> Value {
-        self.to_string().into()
-    }
-}
-
-impl From<JsonValue> for Value {
-    fn from(json_value: JsonValue) -> Self {
-        Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::StringValue(
-                json_value.to_string(),
-            )),
-        })
     }
 }
 
@@ -479,10 +462,6 @@ mod tests {
         let value: Value = (&google_date).into();
         assert_eq!(value.as_str(), Some("2023-10-27"));
 
-        let json_value = serde_json::json!({"key": "value"});
-        let value: Value = json_value.into();
-        assert_eq!(value.as_str(), Some("{\"key\":\"value\"}"));
-
         let list: Value = vec![1i64, 2i64].into();
         assert_eq!(list.kind(), Kind::List);
         assert_eq!(list.as_list().expect("list should exist").len(), 2);
@@ -654,14 +633,6 @@ mod tests {
         let max_value = max_timestamp.to_value();
         assert_eq!(max_value.kind(), Kind::String);
         assert_eq!(max_value.as_str(), Some("9999-12-31T23:59:59.999999999Z"));
-    }
-
-    #[test]
-    fn to_value_json() {
-        let json_value = serde_json::json!({"test": 123});
-        let value = json_value.to_value();
-        assert_eq!(value.kind(), Kind::String);
-        assert_eq!(value.as_str(), Some("{\"test\":123}"));
     }
 
     #[test]

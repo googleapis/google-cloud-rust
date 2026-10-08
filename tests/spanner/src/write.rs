@@ -246,42 +246,42 @@ async fn write_internal(
     // Verify row 1 (100)
     let row1 = &rows[0];
 
-    let id: String = row1.get("Id");
+    let id: String = row1.get("Id")?;
     assert_eq!(id, id1);
 
-    let col_bool: bool = row1.get("ColBool");
+    let col_bool: bool = row1.get("ColBool")?;
     assert!(col_bool);
 
-    let col_int64: i64 = row1.get("ColInt64");
+    let col_int64: i64 = row1.get("ColInt64")?;
     assert_eq!(col_int64, 100);
 
-    let col_float32: f32 = row1.get("ColFloat32");
+    let col_float32: f32 = row1.get("ColFloat32")?;
     assert_eq!(col_float32, 1.0_f32);
 
-    let col_float64: f64 = row1.get("ColFloat64");
+    let col_float64: f64 = row1.get("ColFloat64")?;
     assert_eq!(col_float64, 1.0_f64);
 
-    let col_numeric: String = row1.get("ColNumeric");
+    let col_numeric: String = row1.get("ColNumeric")?;
     assert_eq!(col_numeric, "1");
 
-    let col_string: String = row1.get("ColString");
+    let col_string: String = row1.get("ColString")?;
     assert_eq!(col_string, "hello");
 
-    let col_bytes: Vec<u8> = row1.get("ColBytes");
+    let col_bytes: Vec<u8> = row1.get("ColBytes")?;
     assert_eq!(col_bytes, vec![1, 2, 3]);
 
-    let col_date: String = row1.get("ColDate");
+    let col_date: String = row1.get("ColDate")?;
     assert_eq!(col_date, "2026-03-09");
 
-    let col_timestamp: String = row1.get("ColTimestamp");
+    let col_timestamp: String = row1.get("ColTimestamp")?;
     assert_eq!(col_timestamp, "2026-03-09T16:20:00Z");
 
-    let col_json: String = row1.get("ColJson");
+    let col_json: String = row1.get("ColJson")?;
     assert_eq!(col_json, "{\"value\":1}");
 
     // TODO: We should implement FromValue and ToValue for specific array types.
     // For now, we fallback to extracting the raw Value to verify the array types.
-    let arr_bool: Value = row1.get("ColArrayBool");
+    let arr_bool: Value = row1.get("ColArrayBool")?;
     let list_bool = arr_bool.as_list().expect("expected ColArrayBool list");
     assert_eq!(list_bool.len(), 3); // ArrayBool
     assert_eq!(
@@ -306,7 +306,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_int64: Value = row1.get("ColArrayInt64");
+    let arr_int64: Value = row1.get("ColArrayInt64")?;
     let list_int64 = arr_int64.as_list().expect("expected ColArrayInt64 list");
     assert_eq!(list_int64.len(), 3); // ArrayInt64
     assert_eq!(
@@ -331,7 +331,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_float32: Value = row1.get("ColArrayFloat32");
+    let arr_float32: Value = row1.get("ColArrayFloat32")?;
     let list_float32 = arr_float32
         .as_list()
         .expect("expected ColArrayFloat32 list");
@@ -358,7 +358,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_float64: Value = row1.get("ColArrayFloat64");
+    let arr_float64: Value = row1.get("ColArrayFloat64")?;
     let list_float64 = arr_float64
         .as_list()
         .expect("expected ColArrayFloat64 list");
@@ -385,7 +385,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_numeric: Value = row1.get("ColArrayNumeric");
+    let arr_numeric: Value = row1.get("ColArrayNumeric")?;
     let list_numeric = arr_numeric
         .as_list()
         .expect("expected ColArrayNumeric list");
@@ -412,7 +412,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_string: Value = row1.get("ColArrayString");
+    let arr_string: Value = row1.get("ColArrayString")?;
     let list_string = arr_string.as_list().expect("expected ColArrayString list");
     assert_eq!(list_string.len(), 3); // ArrayString
     assert_eq!(
@@ -437,7 +437,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_bytes: Value = row1.get("ColArrayBytes");
+    let arr_bytes: Value = row1.get("ColArrayBytes")?;
     let list_bytes = arr_bytes.as_list().expect("expected ColArrayBytes list");
     assert_eq!(list_bytes.len(), 3); // ArrayBytes (base64 returned from Spanner REST)
     assert!(
@@ -462,7 +462,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_date: Value = row1.get("ColArrayDate");
+    let arr_date: Value = row1.get("ColArrayDate")?;
     let list_date = arr_date.as_list().expect("expected ColArrayDate list");
     assert_eq!(list_date.len(), 2); // ArrayDate
     assert_eq!(
@@ -480,7 +480,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_timestamp: Value = row1.get("ColArrayTimestamp");
+    let arr_timestamp: Value = row1.get("ColArrayTimestamp")?;
     let list_timestamp = arr_timestamp
         .as_list()
         .expect("expected ColArrayTimestamp list");
@@ -500,7 +500,7 @@ async fn write_internal(
         Kind::Null
     );
 
-    let arr_json: Value = row1.get("ColArrayJson");
+    let arr_json: Value = row1.get("ColArrayJson")?;
     let list_json = arr_json.as_list().expect("expected ColArrayJson list");
     assert_eq!(list_json.len(), 2); // ArrayJson
     assert_eq!(
@@ -520,7 +520,7 @@ async fn write_internal(
 
     // Verify row 2 (200) - explicitly NULL fields
     let row2 = &rows[1];
-    let row2_id: String = row2.get("Id");
+    let row2_id: String = row2.get("Id")?;
     assert_eq!(row2_id, id2);
 
     let metadata = rs.metadata();
@@ -528,7 +528,7 @@ async fn write_internal(
     assert_eq!(row2.raw_values().len(), column_count);
     for i in 1..column_count {
         assert!(
-            row2.is_null(i),
+            row2.is_null(i)?,
             "Column {} must be null",
             metadata.column_names()[i]
         );
@@ -732,105 +732,97 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         .expect("Expected to find inserted row");
 
     // Row 1 Assertions
-    assert_eq!(row.get::<bool, _>("ColBool"), val_bool, "ColBool mismatch");
+    assert_eq!(row.get::<bool>("ColBool")?, val_bool, "ColBool mismatch");
+    assert_eq!(row.get::<i64>("ColInt64")?, val_int64, "ColInt64 mismatch");
     assert_eq!(
-        row.get::<i64, _>("ColInt64"),
-        val_int64,
-        "ColInt64 mismatch"
-    );
-    assert_eq!(
-        row.get::<f32, _>("ColFloat32"),
+        row.get::<f32>("ColFloat32")?,
         val_float32,
         "ColFloat32 mismatch"
     );
     assert_eq!(
-        row.get::<f64, _>("ColFloat64"),
+        row.get::<f64>("ColFloat64")?,
         val_float64,
         "ColFloat64 mismatch"
     );
     assert_eq!(
-        row.get::<Decimal, _>("ColNumeric"),
+        row.get::<Decimal>("ColNumeric")?,
         val_numeric,
         "ColNumeric mismatch"
     );
     assert_eq!(
-        row.get::<String, _>("ColString"),
+        row.get::<String>("ColString")?,
         val_string,
         "ColString mismatch"
     );
     assert_eq!(
-        row.get::<Vec<u8>, _>("ColBytes"),
+        row.get::<Vec<u8>>("ColBytes")?,
         val_bytes,
         "ColBytes mismatch"
     );
     assert_eq!(
-        row.get::<time::Date, _>("ColDate"),
+        row.get::<time::Date>("ColDate")?,
         val_date,
         "ColDate mismatch"
     );
 
     // Timestamp comparison: Spanner stores timestamp at microsecond precision E2E
-    let read_timestamp: time::OffsetDateTime = row.get("ColTimestamp");
+    let read_timestamp: time::OffsetDateTime = row.get("ColTimestamp")?;
     assert_eq!(
         read_timestamp.unix_timestamp_nanos() / 1000,
         val_timestamp.unix_timestamp_nanos() / 1000,
         "ColTimestamp mismatch"
     );
 
-    let read_json_str: String = row.get("ColJson");
+    let read_json_str: String = row.get("ColJson")?;
     let read_json: serde_json::Value =
         serde_json::from_str(&read_json_str).expect("valid read JSON");
     let expected_json: serde_json::Value =
         serde_json::from_str(&val_json).expect("valid expected JSON");
     assert_eq!(read_json, expected_json, "ColJson mismatch");
-    assert_eq!(
-        row.get::<String, _>("ColUuid"),
-        val_uuid,
-        "ColUuid mismatch"
-    );
+    assert_eq!(row.get::<String>("ColUuid")?, val_uuid, "ColUuid mismatch");
 
     assert_eq!(
-        row.get::<Vec<Option<bool>>, _>("ColArrayBool"),
+        row.get::<Vec<Option<bool>>>("ColArrayBool")?,
         val_array_bool,
         "ColArrayBool mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<i64>>, _>("ColArrayInt64"),
+        row.get::<Vec<Option<i64>>>("ColArrayInt64")?,
         val_array_int64,
         "ColArrayInt64 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<f32>>, _>("ColArrayFloat32"),
+        row.get::<Vec<Option<f32>>>("ColArrayFloat32")?,
         val_array_float32,
         "ColArrayFloat32 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<f64>>, _>("ColArrayFloat64"),
+        row.get::<Vec<Option<f64>>>("ColArrayFloat64")?,
         val_array_float64,
         "ColArrayFloat64 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<Decimal>>, _>("ColArrayNumeric"),
+        row.get::<Vec<Option<Decimal>>>("ColArrayNumeric")?,
         val_array_numeric,
         "ColArrayNumeric mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<String>>, _>("ColArrayString"),
+        row.get::<Vec<Option<String>>>("ColArrayString")?,
         val_array_string,
         "ColArrayString mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<Vec<u8>>>, _>("ColArrayBytes"),
+        row.get::<Vec<Option<Vec<u8>>>>("ColArrayBytes")?,
         val_array_bytes,
         "ColArrayBytes mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Option<time::Date>>, _>("ColArrayDate"),
+        row.get::<Vec<Option<time::Date>>>("ColArrayDate")?,
         val_array_date,
         "ColArrayDate mismatch"
     );
 
-    let read_array_timestamp: Vec<Option<time::OffsetDateTime>> = row.get("ColArrayTimestamp");
+    let read_array_timestamp: Vec<Option<time::OffsetDateTime>> = row.get("ColArrayTimestamp")?;
     assert_eq!(read_array_timestamp.len(), 2);
     assert_eq!(
         read_array_timestamp[0]
@@ -845,7 +837,7 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
     );
     assert!(read_array_timestamp[1].is_none());
 
-    let read_array_json_str: Vec<Option<String>> = row.get("ColArrayJson");
+    let read_array_json_str: Vec<Option<String>> = row.get("ColArrayJson")?;
     assert_eq!(read_array_json_str.len(), 2);
     let read_array_json: serde_json::Value = serde_json::from_str(
         read_array_json_str[0]
@@ -866,7 +858,7 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
     assert!(read_array_json_str[1].is_none());
 
     assert_eq!(
-        row.get::<Vec<Option<String>>, _>("ColArrayUuid"),
+        row.get::<Vec<Option<String>>>("ColArrayUuid")?,
         val_array_uuid,
         "ColArrayUuid mismatch"
     );
@@ -917,114 +909,114 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         .transpose()?
         .expect("Expected to find null row");
     assert!(
-        row_null.get::<Option<bool>, _>("ColBool").is_none(),
+        row_null.get::<Option<bool>>("ColBool")?.is_none(),
         "Expected ColBool to be NULL"
     );
     assert!(
-        row_null.get::<Option<i64>, _>("ColInt64").is_none(),
+        row_null.get::<Option<i64>>("ColInt64")?.is_none(),
         "Expected ColInt64 to be NULL"
     );
     assert!(
-        row_null.get::<Option<f32>, _>("ColFloat32").is_none(),
+        row_null.get::<Option<f32>>("ColFloat32")?.is_none(),
         "Expected ColFloat32 to be NULL"
     );
     assert!(
-        row_null.get::<Option<f64>, _>("ColFloat64").is_none(),
+        row_null.get::<Option<f64>>("ColFloat64")?.is_none(),
         "Expected ColFloat64 to be NULL"
     );
     assert!(
-        row_null.get::<Option<Decimal>, _>("ColNumeric").is_none(),
+        row_null.get::<Option<Decimal>>("ColNumeric")?.is_none(),
         "Expected ColNumeric to be NULL"
     );
     assert!(
-        row_null.get::<Option<String>, _>("ColString").is_none(),
+        row_null.get::<Option<String>>("ColString")?.is_none(),
         "Expected ColString to be NULL"
     );
     assert!(
-        row_null.get::<Option<Vec<u8>>, _>("ColBytes").is_none(),
+        row_null.get::<Option<Vec<u8>>>("ColBytes")?.is_none(),
         "Expected ColBytes to be NULL"
     );
     assert!(
-        row_null.get::<Option<time::Date>, _>("ColDate").is_none(),
+        row_null.get::<Option<time::Date>>("ColDate")?.is_none(),
         "Expected ColDate to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<time::OffsetDateTime>, _>("ColTimestamp")
+            .get::<Option<time::OffsetDateTime>>("ColTimestamp")?
             .is_none(),
         "Expected ColTimestamp to be NULL"
     );
     assert!(
-        row_null.get::<Option<String>, _>("ColJson").is_none(),
+        row_null.get::<Option<String>>("ColJson")?.is_none(),
         "Expected ColJson to be NULL"
     );
     assert!(
-        row_null.get::<Option<String>, _>("ColUuid").is_none(),
+        row_null.get::<Option<String>>("ColUuid")?.is_none(),
         "Expected ColUuid to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<bool>>>, _>("ColArrayBool")
+            .get::<Option<Vec<Option<bool>>>>("ColArrayBool")?
             .is_none(),
         "Expected ColArrayBool to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<i64>>>, _>("ColArrayInt64")
+            .get::<Option<Vec<Option<i64>>>>("ColArrayInt64")?
             .is_none(),
         "Expected ColArrayInt64 to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<f32>>>, _>("ColArrayFloat32")
+            .get::<Option<Vec<Option<f32>>>>("ColArrayFloat32")?
             .is_none(),
         "Expected ColArrayFloat32 to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<f64>>>, _>("ColArrayFloat64")
+            .get::<Option<Vec<Option<f64>>>>("ColArrayFloat64")?
             .is_none(),
         "Expected ColArrayFloat64 to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<Decimal>>>, _>("ColArrayNumeric")
+            .get::<Option<Vec<Option<Decimal>>>>("ColArrayNumeric")?
             .is_none(),
         "Expected ColArrayNumeric to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<String>>>, _>("ColArrayString")
+            .get::<Option<Vec<Option<String>>>>("ColArrayString")?
             .is_none(),
         "Expected ColArrayString to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<Vec<u8>>>>, _>("ColArrayBytes")
+            .get::<Option<Vec<Option<Vec<u8>>>>>("ColArrayBytes")?
             .is_none(),
         "Expected ColArrayBytes to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<time::Date>>>, _>("ColArrayDate")
+            .get::<Option<Vec<Option<time::Date>>>>("ColArrayDate")?
             .is_none(),
         "Expected ColArrayDate to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<time::OffsetDateTime>>>, _>("ColArrayTimestamp")
+            .get::<Option<Vec<Option<time::OffsetDateTime>>>>("ColArrayTimestamp")?
             .is_none(),
         "Expected ColArrayTimestamp to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<String>>>, _>("ColArrayJson")
+            .get::<Option<Vec<Option<String>>>>("ColArrayJson")?
             .is_none(),
         "Expected ColArrayJson to be NULL"
     );
     assert!(
         row_null
-            .get::<Option<Vec<Option<String>>>, _>("ColArrayUuid")
+            .get::<Option<Vec<Option<String>>>>("ColArrayUuid")?
             .is_none(),
         "Expected ColArrayUuid to be NULL"
     );
@@ -1171,52 +1163,52 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         .await
         .transpose()?
         .expect("Expected to find row matching parameter bindings");
-    let returned_id: String = row.get(0);
+    let returned_id: String = row.get(0)?;
     assert_eq!(returned_id, id, "Row ID mismatch");
 
     // Assertions on returned array parameters
     assert_eq!(
-        row.get::<Vec<bool>, _>(1),
+        row.get::<Vec<bool>>(1)?,
         val_array_bool,
         "array_bool mismatch"
     );
     assert_eq!(
-        row.get::<Vec<i64>, _>(2),
+        row.get::<Vec<i64>>(2)?,
         val_array_int64,
         "array_int64 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<f32>, _>(3),
+        row.get::<Vec<f32>>(3)?,
         val_array_float32,
         "array_float32 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<f64>, _>(4),
+        row.get::<Vec<f64>>(4)?,
         val_array_float64,
         "array_float64 mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Decimal>, _>(5),
+        row.get::<Vec<Decimal>>(5)?,
         val_array_numeric,
         "array_numeric mismatch"
     );
     assert_eq!(
-        row.get::<Vec<String>, _>(6),
+        row.get::<Vec<String>>(6)?,
         val_array_string,
         "array_string mismatch"
     );
     assert_eq!(
-        row.get::<Vec<Vec<u8>>, _>(7),
+        row.get::<Vec<Vec<u8>>>(7)?,
         val_array_bytes,
         "array_bytes mismatch"
     );
     assert_eq!(
-        row.get::<Vec<time::Date>, _>(8),
+        row.get::<Vec<time::Date>>(8)?,
         val_array_date,
         "array_date mismatch"
     );
 
-    let read_array_timestamp: Vec<time::OffsetDateTime> = row.get(9);
+    let read_array_timestamp: Vec<time::OffsetDateTime> = row.get(9)?;
     assert_eq!(read_array_timestamp.len(), 1);
     assert_eq!(
         read_array_timestamp[0].unix_timestamp_nanos() / 1000,
@@ -1224,7 +1216,7 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         "array_timestamp mismatch"
     );
 
-    let read_array_json_str: Vec<String> = row.get(10);
+    let read_array_json_str: Vec<String> = row.get(10)?;
     assert_eq!(read_array_json_str.len(), 1);
     let read_array_json: serde_json::Value =
         serde_json::from_str(&read_array_json_str[0]).expect("valid read Array JSON");
@@ -1233,7 +1225,7 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
     assert_eq!(read_array_json, expected_array_json, "array_json mismatch");
 
     assert_eq!(
-        row.get::<Vec<String>, _>(11),
+        row.get::<Vec<String>>(11)?,
         val_array_uuid,
         "array_uuid mismatch"
     );
@@ -1266,7 +1258,7 @@ pub async fn interval_parameter_binding(db_client: &DatabaseClient) -> anyhow::R
         .transpose()?
         .expect("Expected to find row matching INTERVAL CTE");
 
-    let returned_interval: String = row.get(0);
+    let returned_interval: String = row.get(0)?;
     assert!(
         returned_interval.contains("30"),
         "Expected returned interval to contain '30', got: {}",
