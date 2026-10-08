@@ -3633,7 +3633,7 @@ mod tests {
                         .await
                         .expect("Expected row option")
                         .expect("Expected valid row");
-                    assert_eq!(row.get::<String, _>(0), "alice");
+                    assert_eq!(row.get::<String>(0)?, "alice");
                     Ok(())
                 }
             })
@@ -3753,7 +3753,7 @@ mod tests {
                     .await
                     .expect("Expected first row")
                     .expect("First row should be Ok");
-                assert_eq!(row.get::<String, _>(0), "alice");
+                assert_eq!(row.get::<String>(0)?, "alice");
                 // Second next() fails
                 let next_result = result_set.next().await.expect("Expected stream item");
                 assert!(next_result.is_err(), "Second row fetch must fail");
@@ -4724,8 +4724,10 @@ mod tests {
         use crate::routing::key_range_cache::RangeMode;
         use crate::statement::Statement;
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
         use spanner_grpc_mock::google::spanner::v1::{
-            CacheUpdate, CommitResponse, ExecuteBatchDmlResponse, Group, Range, ResultSet, Tablet,
+            CacheUpdate, CommitResponse, ExecuteBatchDmlResponse, Group, Range, ResultSet,
+            ResultSetStats, Tablet,
         };
         use spanner_grpc_mock::start;
 
@@ -4770,6 +4772,10 @@ mod tests {
                         ..Default::default()
                     }),
                     cache_update: Some(cache_update),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
                     ..Default::default()
                 }],
                 status: Some(spanner_grpc_mock::google::rpc::Status {

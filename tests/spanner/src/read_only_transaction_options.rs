@@ -51,7 +51,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
         .await
         .transpose()?
         .expect("Expected current timestamp row");
-    let spanner_now_wkt: WktTimestamp = row.get(0);
+    let spanner_now_wkt: WktTimestamp = row.get(0)?;
 
     // Insert a new row in a read-write transaction.
     let id = format!("read-ts-{}", LowercaseAlphanumeric.random_string(10));
@@ -127,8 +127,8 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
         .await
         .transpose()?
         .expect("Expected current timestamp row");
-    let spanner_now_wkt: WktTimestamp = row.get(0);
-    let spanner_now: OffsetDateTime = row.get(0);
+    let spanner_now_wkt: WktTimestamp = row.get(0)?;
+    let spanner_now: OffsetDateTime = row.get(0)?;
 
     assert!(
         read_ts < spanner_now_wkt,
@@ -188,7 +188,7 @@ pub async fn read_timestamp_unavailable_before_start(
     );
 
     let row = rs.next().await.transpose()?.expect("Expected row");
-    let val: i64 = row.get(0);
+    let val: i64 = row.get(0)?;
     assert_eq!(val, 1, "Expected query value to be 1");
 
     Ok(())
@@ -229,7 +229,7 @@ pub async fn read_timestamp_available_on_failed_first_query(
         .execute_query(Statement::builder("SELECT 2 AS col").build())
         .await?;
     let row = rs2.next().await.transpose()?.expect("Expected row");
-    let val: i64 = row.get(0);
+    let val: i64 = row.get(0)?;
     assert_eq!(val, 2, "Expected query value to be 2");
 
     Ok(())
