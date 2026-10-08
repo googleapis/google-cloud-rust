@@ -28,6 +28,7 @@ use opentelemetry_sdk::metrics::data::{
 };
 use opentelemetry_sdk::metrics::exporter::PushMetricExporter;
 use std::collections::HashMap;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex, PoisonError};
 use std::time::{Duration, Instant, SystemTime};
 use tokio::runtime::Handle;
@@ -49,29 +50,125 @@ const MIN_EXPORT_INTERVAL: Duration = Duration::from_secs(30);
 
 #[derive(Debug)]
 pub(crate) struct GcpMonitoringExporter {
-    client: Arc<MetricService>,
-    project_name: String,
+    pub(crate) inner: Arc<ExporterInner>,
     handle: Option<Handle>,
-    last_exported_at: Mutex<Option<Instant>>,
+}
+
+#[derive(Debug)]
+pub(crate) struct ExporterInner {
+    pub(crate) client: MetricService,
+    pub(crate) project_name: String,
+    pub(crate) last_exported_at: Mutex<Option<Instant>>,
+    pub(crate) is_shutting_down: AtomicBool,
 }
 
 impl GcpMonitoringExporter {
     pub(crate) fn new(client: MetricService, project_id: &str) -> Self {
         Self {
-            client: Arc::new(client),
-            project_name: format!("projects/{}", project_id),
+            inner: Arc::new(ExporterInner {
+                client,
+                project_name: format!("projects/{}", project_id),
+                last_exported_at: Mutex::new(None),
+                is_shutting_down: AtomicBool::new(false),
+            }),
             handle: Handle::try_current().ok(),
-            last_exported_at: Mutex::new(None),
         }
+    }
+
+    /// Records the completion timestamp of a metric export.
+    ///
+    /// The timestamp is updated monotonically using [`Instant::max`] to ensure that even if
+    /// concurrent or out-of-order exports complete, the recorded timestamp never moves backwards.
+    fn record_export_completion(last_exported_at: &Mutex<Option<Instant>>) {
+        let mut last_exported = last_exported_at
+            .lock()
+            .unwrap_or_else(PoisonError::into_inner);
+        let current_instant = Instant::now();
+        *last_exported = Some(last_exported.map_or(current_instant, |previous_instant| {
+            previous_instant.max(current_instant)
+        }));
+    }
+
+    /// Exports time series directly within the active Tokio runtime context of the calling thread.
+    ///
+    /// This path is taken when the caller is already executing inside an active Tokio task
+    /// (e.g. during direct unit tests or manual calls to [`PushMetricExporter::export`]).
+    /// Since the caller is already an async task, awaiting the network export directly provides
+    /// accurate error propagation and deterministic execution.
+    async fn export_in_current_runtime(&self, time_series_list: Vec<TimeSeries>) -> OTelSdkResult {
+        let result = send_time_series_batches(
+            &self.inner.client,
+            &self.inner.project_name,
+            time_series_list,
+        )
+        .await
+        .map_err(|error| error.to_string());
+
+        if let Err(error_message) = result {
+            tracing::warn!("Failed to export Spanner metrics batch: {error_message}");
+            return Err(OTelSdkError::InternalFailure(error_message));
+        }
+
+        Self::record_export_completion(&self.inner.last_exported_at);
+        Ok(())
+    }
+
+    /// Dispatches time series export asynchronously onto the captured Tokio runtime handle.
+    ///
+    /// This path is taken when called from OpenTelemetry's dedicated [`PeriodicReader`] background
+    /// thread, which runs outside of any Tokio worker context.
+    ///
+    /// # Deadlock Prevention & Best-Effort Delivery
+    ///
+    /// We deliberately do NOT await or block on the spawned task here. During client drop or shutdown
+    /// on a single-threaded runtime (e.g., `current_thread` or single worker thread), the main Tokio
+    /// thread is blocked waiting for [`PeriodicReader::shutdown`] or [`Observability::drop`].
+    /// If this method were to block waiting for Tokio to poll the spawned task, it would deadlock.
+    ///
+    /// Spawning asynchronously decouples the [`PeriodicReader`] thread lifecycle from Tokio, allowing
+    /// shutdown to complete without deadlocking. Consequently, final metric batches collected during
+    /// client shutdown or drop are delivered on a best-effort basis. If the Tokio runtime is dropped
+    /// immediately following client drop without yielding, unpolled background tasks may be cancelled
+    /// by Tokio. This intentional trade-off prevents deadlocks and is acceptable for Spanner internal
+    /// client metrics (which sample periodically every 60 seconds).
+    fn export_in_background_runtime(
+        &self,
+        handle: &Handle,
+        time_series_list: Vec<TimeSeries>,
+    ) -> OTelSdkResult {
+        let inner = Arc::clone(&self.inner);
+
+        handle.spawn(async move {
+            let result =
+                send_time_series_batches(&inner.client, &inner.project_name, time_series_list)
+                    .await;
+            match result {
+                Ok(()) => {
+                    Self::record_export_completion(&inner.last_exported_at);
+                }
+                Err(error) => {
+                    tracing::warn!("Failed to export Spanner metrics batch: {error}");
+                }
+            }
+        });
+
+        Ok(())
     }
 }
 
 impl PushMetricExporter for GcpMonitoringExporter {
     async fn export(&self, metrics: &ResourceMetrics) -> OTelSdkResult {
+        // Fast path: suppress export if exporter is shutting down to avoid unnecessary
+        // metric serialization, time series allocation, or network RPC dispatch.
+        if self.inner.is_shutting_down.load(Ordering::Acquire) {
+            return Ok(());
+        }
+
         // Fast path: suppress export if an export occurred within MIN_EXPORT_INTERVAL (30s)
         // without allocating or converting any time series.
         {
             let last_exported = self
+                .inner
                 .last_exported_at
                 .lock()
                 .unwrap_or_else(PoisonError::into_inner);
@@ -107,6 +204,7 @@ impl PushMetricExporter for GcpMonitoringExporter {
         // and guard against partial-batch failure re-exports on shutdown.
         {
             let mut last_exported = self
+                .inner
                 .last_exported_at
                 .lock()
                 .unwrap_or_else(PoisonError::into_inner);
@@ -118,48 +216,19 @@ impl PushMetricExporter for GcpMonitoringExporter {
             *last_exported = Some(Instant::now());
         }
 
-        let client = Arc::clone(&self.client);
-        let project_name = self.project_name.clone();
-
-        let result = if Handle::try_current().is_ok() {
-            send_time_series_batches(client, project_name, time_series_list)
-                .await
-                .map_err(|e| e.to_string())
+        if Handle::try_current().is_ok() {
+            // Path 1: Active Tokio task context (e.g. direct test calls or manual async invocation).
+            self.export_in_current_runtime(time_series_list).await
         } else if let Some(handle) = self.handle.as_ref() {
-            match handle
-                .spawn(send_time_series_batches(
-                    client,
-                    project_name,
-                    time_series_list,
-                ))
-                .await
-            {
-                Ok(Ok(())) => Ok(()),
-                Ok(Err(e)) => Err(e.to_string()),
-                Err(e) => Err(format!(
-                    "Failed to join Tokio task for metrics batch export: {e}"
-                )),
-            }
+            // Path 2: Dedicated OpenTelemetry PeriodicReader background thread.
+            self.export_in_background_runtime(handle, time_series_list)
         } else {
-            Err("No Tokio runtime handle available for exporting Spanner metrics batch".to_string())
-        };
-
-        if let Err(err_msg) = result {
-            tracing::warn!("Failed to export Spanner metrics batch: {err_msg}");
-            return Err(OTelSdkError::InternalFailure(err_msg));
+            // Path 3: No Tokio runtime handle available.
+            let error_message =
+                "No Tokio runtime handle available for exporting Spanner metrics batch".to_string();
+            tracing::warn!("{error_message}");
+            Err(OTelSdkError::InternalFailure(error_message))
         }
-
-        // Update the timestamp to mark completion time monotonically.
-        {
-            let mut last_exported = self
-                .last_exported_at
-                .lock()
-                .unwrap_or_else(PoisonError::into_inner);
-            let now = Instant::now();
-            *last_exported = Some(last_exported.map_or(now, |prev| prev.max(now)));
-        }
-
-        Ok(())
     }
 
     fn force_flush(&self) -> OTelSdkResult {
@@ -167,6 +236,7 @@ impl PushMetricExporter for GcpMonitoringExporter {
     }
 
     fn shutdown(&self) -> OTelSdkResult {
+        self.inner.is_shutting_down.store(true, Ordering::Release);
         Ok(())
     }
 
@@ -180,8 +250,8 @@ impl PushMetricExporter for GcpMonitoringExporter {
 }
 
 async fn send_time_series_batches(
-    client: Arc<MetricService>,
-    project_name: String,
+    client: &MetricService,
+    project_name: &str,
     time_series_list: Vec<TimeSeries>,
 ) -> crate::Result<()> {
     let mut last_error = None;
@@ -193,7 +263,7 @@ async fn send_time_series_batches(
         }
         let res = client
             .create_service_time_series()
-            .set_name(project_name.clone())
+            .set_name(project_name)
             .set_time_series(chunk)
             .send()
             .await;
@@ -438,7 +508,10 @@ fn convert_f64_point(
 }
 
 #[cfg(all(test, feature = "builtin-metrics"))]
-mod tests {
+pub(crate) use test_mock::MockMetricService;
+
+#[cfg(all(test, feature = "builtin-metrics"))]
+mod test_mock {
     use super::*;
     use google_cloud_gax::Result as GaxResult;
     use google_cloud_gax::error::Error as GaxError;
@@ -446,16 +519,14 @@ mod tests {
     use google_cloud_gax::response::Response;
     use google_cloud_monitoring_v3::model::CreateTimeSeriesRequest;
     use google_cloud_monitoring_v3::stub::MetricService as MetricServiceStub;
-    use opentelemetry::metrics::{Counter, Histogram, MeterProvider as _};
-    use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
-    use std::fmt::Debug;
     use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
-    use std::time::SystemTime;
+    use tokio::sync::oneshot;
 
     #[derive(Debug, Default)]
-    struct MockMetricService {
-        call_count: AtomicUsize,
-        fail: AtomicBool,
+    pub(crate) struct MockMetricService {
+        pub(crate) call_count: AtomicUsize,
+        pub(crate) fail: AtomicBool,
+        pub(crate) completion_sender: Mutex<Option<oneshot::Sender<()>>>,
     }
 
     impl MetricServiceStub for MockMetricService {
@@ -465,12 +536,33 @@ mod tests {
             _options: RequestOptions,
         ) -> GaxResult<Response<()>> {
             self.call_count.fetch_add(1, Ordering::SeqCst);
+            if let Some(sender) = self
+                .completion_sender
+                .lock()
+                .expect("lock should not be poisoned")
+                .take()
+            {
+                let _ = sender.send(());
+            }
             if self.fail.load(Ordering::SeqCst) {
                 return Err(GaxError::timeout("simulated timeout"));
             }
             Ok(Response::from(()))
         }
     }
+}
+
+#[cfg(all(test, feature = "builtin-metrics"))]
+mod tests {
+    use super::*;
+    use opentelemetry::metrics::{Counter, Histogram, MeterProvider as _};
+    use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
+    use std::fmt::Debug;
+    use std::sync::atomic::{AtomicBool, Ordering};
+    use std::thread;
+    use std::time::SystemTime;
+    use tokio::runtime::Builder;
+    use tokio::sync::oneshot;
 
     static_assertions::assert_impl_all!(
         GcpMonitoringExporter: Send,
@@ -777,6 +869,7 @@ mod tests {
         // Verify that initially last_exported_at is None:
         {
             let last_exported = exporter
+                .inner
                 .last_exported_at
                 .lock()
                 .expect("lock should not be poisoned");
@@ -801,6 +894,7 @@ mod tests {
         );
 
         let last_exported = exporter
+            .inner
             .last_exported_at
             .lock()
             .expect("lock should not be poisoned");
@@ -828,6 +922,7 @@ mod tests {
             .checked_sub(Duration::from_secs(5))
             .expect("system uptime should exceed test interval");
         *exporter
+            .inner
             .last_exported_at
             .lock()
             .expect("lock should not be poisoned") = Some(simulated_previous);
@@ -858,6 +953,7 @@ mod tests {
             .checked_sub(Duration::from_secs(35))
             .expect("system uptime should exceed test interval");
         *exporter
+            .inner
             .last_exported_at
             .lock()
             .expect("lock should not be poisoned") = Some(simulated_previous);
@@ -877,6 +973,7 @@ mod tests {
         );
 
         let last_exported = exporter
+            .inner
             .last_exported_at
             .lock()
             .expect("lock should not be poisoned");
@@ -917,6 +1014,7 @@ mod tests {
         // Even though export failed, last_exported_at must be recorded to suppress rapid re-export on shutdown:
         {
             let last_exported = exporter
+                .inner
                 .last_exported_at
                 .lock()
                 .expect("lock should not be poisoned");
@@ -937,5 +1035,217 @@ mod tests {
             1,
             "no additional create_time_series RPC should be issued on shutdown flush"
         );
+    }
+
+    #[tokio::test]
+    async fn export_suppressed_after_shutdown() {
+        let mock_service = Arc::new(MockMetricService::default());
+        let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+        let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+        let shutdown_result = exporter.shutdown();
+        assert!(
+            shutdown_result.is_ok(),
+            "exporter.shutdown() must return Ok"
+        );
+
+        let metrics = create_test_resource_metrics();
+        let export_result = exporter.export(&metrics).await;
+        assert!(
+            export_result.is_ok(),
+            "export after shutdown must be suppressed and return Ok"
+        );
+        assert_eq!(
+            mock_service.call_count.load(Ordering::SeqCst),
+            0,
+            "no create_time_series RPC should be issued when exporter is shut down"
+        );
+    }
+
+    #[test]
+    fn periodic_reader_background_export_delivers_metrics() {
+        let runtime = Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("runtime build failed");
+
+        runtime.block_on(async {
+            let (completion_sender, completion_receiver) = oneshot::channel();
+            let mock_service = Arc::new(MockMetricService {
+                completion_sender: Mutex::new(Some(completion_sender)),
+                ..Default::default()
+            });
+            let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+            let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+            let reader = PeriodicReader::builder(exporter).build();
+            let provider = SdkMeterProvider::builder().with_reader(reader).build();
+            let meter = provider.meter(SPANNER_METER_NAME);
+            let counter = meter.u64_counter("test_counter").build();
+            counter.add(42, &[KeyValue::new("method", "ExecuteSql")]);
+
+            let flush_result = provider.force_flush();
+            assert!(
+                flush_result.is_ok(),
+                "force_flush on provider must return Ok"
+            );
+
+            // Wait directly for the background export task to execute without polling or sleeping:
+            completion_receiver
+                .await
+                .expect("background export task should complete");
+
+            assert_eq!(
+                mock_service.call_count.load(Ordering::SeqCst),
+                1,
+                "background periodic reader must deliver time series to MetricService"
+            );
+        });
+    }
+
+    #[test]
+    fn current_thread_drop_and_shutdown_does_not_deadlock() {
+        let runtime = Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("runtime build failed");
+
+        runtime.block_on(async {
+            let mock_service = Arc::new(MockMetricService::default());
+            let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+            let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+            let reader = PeriodicReader::builder(exporter).build();
+            let provider = SdkMeterProvider::builder().with_reader(reader).build();
+            let meter = provider.meter(SPANNER_METER_NAME);
+            let counter = meter.u64_counter("test_counter").build();
+            counter.add(1, &[KeyValue::new("method", "ExecuteSql")]);
+
+            let start = Instant::now();
+            let shutdown_result = provider.shutdown();
+            let elapsed = start.elapsed();
+            assert!(
+                shutdown_result.is_ok(),
+                "provider.shutdown() must return Ok"
+            );
+            assert!(
+                elapsed < Duration::from_secs(2),
+                "provider.shutdown() hung for {elapsed:?}! Deadlock detected!"
+            );
+        });
+    }
+
+    #[test]
+    fn current_thread_drop_without_explicit_shutdown_does_not_deadlock() {
+        let runtime = Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("runtime build failed");
+
+        runtime.block_on(async {
+            let mock_service = Arc::new(MockMetricService::default());
+            let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+            let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+            let reader = PeriodicReader::builder(exporter).build();
+            let provider = SdkMeterProvider::builder().with_reader(reader).build();
+            let meter = provider.meter(SPANNER_METER_NAME);
+            let counter = meter.u64_counter("test_counter").build();
+            counter.add(1, &[KeyValue::new("method", "ExecuteSql")]);
+
+            let start = Instant::now();
+            drop(provider);
+            let elapsed = start.elapsed();
+            assert!(
+                elapsed < Duration::from_secs(2),
+                "provider drop hung for {elapsed:?}! Deadlock detected!"
+            );
+        });
+    }
+
+    #[test]
+    fn shutdown_with_timeout_delegates_to_shutdown() {
+        let mock_service = Arc::new(MockMetricService::default());
+        let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+        let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+        let shutdown_result = exporter.shutdown_with_timeout(Duration::from_secs(1));
+        assert!(
+            shutdown_result.is_ok(),
+            "exporter.shutdown_with_timeout() must return Ok"
+        );
+        assert!(
+            exporter.inner.is_shutting_down.load(Ordering::Acquire),
+            "shutdown_with_timeout must mark exporter as shutting down"
+        );
+    }
+
+    #[test]
+    fn periodic_reader_background_export_handles_rpc_failure() {
+        let runtime = Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("runtime build failed");
+
+        runtime.block_on(async {
+            let (completion_sender, completion_receiver) = oneshot::channel();
+            let mock_service = Arc::new(MockMetricService {
+                fail: AtomicBool::new(true),
+                completion_sender: Mutex::new(Some(completion_sender)),
+                ..Default::default()
+            });
+            let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+            let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+            let reader = PeriodicReader::builder(exporter).build();
+            let provider = SdkMeterProvider::builder().with_reader(reader).build();
+            let meter = provider.meter(SPANNER_METER_NAME);
+            let counter = meter.u64_counter("test_counter").build();
+            counter.add(1, &[KeyValue::new("method", "ExecuteSql")]);
+
+            let flush_result = provider.force_flush();
+            assert!(
+                flush_result.is_ok(),
+                "force_flush returns Ok because background export is dispatched asynchronously"
+            );
+
+            completion_receiver
+                .await
+                .expect("background export task should complete");
+
+            assert_eq!(
+                mock_service.call_count.load(Ordering::SeqCst),
+                1,
+                "background periodic reader should have attempted create_time_series RPC"
+            );
+        });
+    }
+
+    #[test]
+    fn periodic_reader_export_fails_gracefully_without_tokio_handle() {
+        let worker_thread = thread::spawn(|| {
+            let mock_service = Arc::new(MockMetricService::default());
+            let client = MetricService::from_stub::<MockMetricService>(mock_service);
+            let exporter = GcpMonitoringExporter::new(client, "test-project");
+            assert!(
+                exporter.handle.is_none(),
+                "exporter created on plain OS thread must have no Tokio handle"
+            );
+
+            let reader = PeriodicReader::builder(exporter).build();
+            let provider = SdkMeterProvider::builder().with_reader(reader).build();
+            let meter = provider.meter(SPANNER_METER_NAME);
+            let counter = meter.u64_counter("test_counter").build();
+            counter.add(1, &[KeyValue::new("method", "ExecuteSql")]);
+
+            let flush_result = provider.force_flush();
+            assert!(
+                flush_result.is_err(),
+                "force_flush must return Err when no Tokio runtime is available"
+            );
+        });
+        worker_thread
+            .join()
+            .expect("worker thread execution should succeed");
     }
 }
