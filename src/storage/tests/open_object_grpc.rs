@@ -557,12 +557,9 @@ mod conformance {
         TonicStatus::with_details(gaxi::grpc::tonic::Code::Aborted, "redirect", details)
     }
 
-    /// Case #6: Handle Redirect Error.
-    ///
-    /// The server sends a redirect error (`BidiReadObjectRedirectedError`) mid-stream with
-    /// a new `routing_token` and `read_handle`. The client must handle the redirect
-    /// transparently by resuming the stream with the updated routing token and handle,
-    /// adjusting the read offset to fetch remaining bytes, and completing the read.
+    /// Verifies handling mid-read `BidiReadObjectRedirectedError` gRPC responses,
+    /// ensuring the client transparently reconnects using redirected `read_handle`
+    /// and `routing_token`.
     #[tokio::test]
     async fn handle_redirect_error() -> anyhow::Result<()> {
         // Arrange
@@ -680,11 +677,8 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #7: Handle Redirect Error on Open.
-    ///
-    /// The server immediately aborts the stream on the initial connection attempt with a
-    /// redirect error before sending any metadata or data. The client must retry the open
-    /// handshake with the redirected `routing_token` and `read_handle`.
+    /// Verifies handling `BidiReadObjectRedirectedError` during initial session open,
+    /// reconnecting with the updated routing token and completing session initialization.
     #[tokio::test]
     async fn handle_redirect_error_on_open() -> anyhow::Result<()> {
         // Arrange
@@ -750,10 +744,8 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #8: Handle Redirect Error Max Attempts.
-    ///
-    /// When redirect errors exceed the configured retry policy attempt limit, the client
-    /// must stop retrying and return the error to the caller.
+    /// Verifies redirect limit enforcement when the server repeatedly returns redirects,
+    /// confirming the client stops retrying once the attempt budget is exhausted.
     #[tokio::test]
     async fn handle_redirect_error_max_attempts() -> anyhow::Result<()> {
         // Arrange: Mock fails every attempt with a redirect
@@ -786,10 +778,8 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #13: Retry Settings - Max Attempt.
-    ///
-    /// When mid-stream read resume attempts exceed the configured read resume policy limit,
-    /// the client must stop reconnecting and fail the read.
+    /// Verifies attempt budget limits under retry settings, confirming that repeated
+    /// stream failures exhaust resume attempts and return an error.
     #[tokio::test]
     async fn retry_settings_max_attempt() -> anyhow::Result<()> {
         // Arrange
@@ -859,11 +849,8 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #14: Request Option Verification.
-    ///
-    /// Verifies that all configured request options (custom `user-agent`, `x-goog-user-project`,
-    /// `x-goog-request-params`, object generation, preconditions, and Customer-Supplied Encryption
-    /// Keys (CSEK)) are correctly populated over the wire in gRPC request headers and protobuf fields.
+    /// Verifies propagation of user project, encryption keys, and preconditions into
+    /// gRPC request headers and metadata (`CommonObjectRequestParams`).
     #[tokio::test]
     async fn request_option_verification() -> anyhow::Result<()> {
         // Arrange
@@ -973,11 +960,8 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #15: Failed Stream Restart Should Fail All Pending Reads.
-    ///
-    /// When an unrecoverable stream error occurs and stream restart is not permitted or fails
-    /// (e.g. `NeverResume`), any active range reads and any subsequent calls to `read_range`
-    /// on the descriptor must fail immediately.
+    /// Verifies that if an underlying gRPC stream breaks and cannot restart, all
+    /// active pending reads and subsequent reads on the descriptor fail immediately.
     #[tokio::test]
     async fn failed_stream_restart_should_fail_all_pending_reads() -> anyhow::Result<()> {
         // Arrange
@@ -1038,10 +1022,8 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #17: Retryable Error While Open.
-    ///
-    /// When the initial open handshake encounters a transient retryable error (such as
-    /// `Unavailable`), the client must transparently retry and return an active descriptor.
+    /// Verifies that opening an object session retries automatically when the initial
+    /// open fails with a transient gRPC error (e.g. `UNAVAILABLE`).
     #[tokio::test]
     async fn retryable_error_while_open() -> anyhow::Result<()> {
         // Arrange
@@ -1090,10 +1072,8 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #18: On Complete Without Data.
-    ///
-    /// If the server sends `range_end: true` without delivering the requested number of bytes,
-    /// the client must detect the short read and return an error to the caller.
+    /// Verifies handling when the server completes a range without delivering the
+    /// expected data, ensuring the short read returns an error.
     #[tokio::test]
     async fn on_complete_without_data() -> anyhow::Result<()> {
         // Arrange: Server completes range with range_end: true without returning the requested data
@@ -1155,11 +1135,7 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #20: Fast Open Read Session.
-    ///
-    /// The client initiates a single round-trip read by bundling the open object specification
-    /// and range request in the first request message (`send_and_read`), and the server responds
-    /// with metadata and payload in the first response message.
+    /// Verifies fast open by bundling read ranges along with the initial `ReadObjectSpec` request.
     #[tokio::test]
     async fn fast_open_read_session() -> anyhow::Result<()> {
         // Arrange
@@ -1228,9 +1204,8 @@ mod conformance {
         Ok(())
     }
 
-    /// Case #21: Non-Retryable Error.
-    ///
-    /// Permanent non-retryable errors (e.g., `NotFound`) must fail immediately without retry.
+    /// Verifies non-retryable error classification, confirming permanent errors fail
+    /// immediately on the first attempt without retrying.
     #[tokio::test]
     async fn non_retryable_error() -> anyhow::Result<()> {
         // Arrange: Server returns permanent NotFound error
