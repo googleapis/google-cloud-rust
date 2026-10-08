@@ -19,9 +19,7 @@ use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::{
-    ExplicitBeginParams, ReadContextTransactionSelector, TransactionState,
-};
+use crate::read_only_transaction::{ExplicitBeginParams, ReadContextTransactionSelector};
 use crate::request_id_interceptor::update_request_id_attempt;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -418,14 +416,10 @@ impl ResultSet {
     /// ```
     /// # use google_cloud_spanner::result::ResultSet;
     /// # use futures::TryStreamExt;
-    /// # use std::future::ready;
     /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
-    /// let rows: Vec<_> = result_set
+    /// let ids: Vec<String> = result_set
     ///     .into_stream()
-    ///     .try_filter(|row| {
-    ///         let id = row.get::<String, _>("Id");
-    ///         ready(id == "id1")
-    ///     })
+    ///     .and_then(|row| async move { row.get("Id") })
     ///     .try_collect()
     ///     .await?;
     /// # Ok(())
@@ -534,16 +528,10 @@ impl ResultSet {
                         .read_timestamp
                         .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
                 )?;
-            } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
-                let is_started = matches!(
-                    &*lazy.lock().expect("transaction state mutex poisoned"),
-                    TransactionState::Started(_, _)
-                );
-                if !is_started {
-                    return Err(internal_error(
-                        "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
-                    ));
-                }
+            } else if selector.is_lazy() && !selector.is_started() {
+                return Err(internal_error(
+                    "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
+                ));
             }
         }
         self.local_metadata = Some(meta);

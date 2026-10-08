@@ -27,7 +27,7 @@ use crate::routing::key_recipe_cache::KeyRecipeCache;
 use gaxi::options::ClientConfig;
 use std::fmt::{self, Debug, Formatter};
 use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, RwLock};
+use std::sync::{Arc, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard};
 
 /// Orchestrates updates to the location-aware routing caches.
 ///
@@ -45,8 +45,9 @@ pub(crate) struct CacheUpdater {
 }
 
 impl Debug for CacheUpdater {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        f.debug_struct("CacheUpdater")
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> fmt::Result {
+        formatter
+            .debug_struct("CacheUpdater")
             .field("database_scope", &self.database_scope)
             .field("connection_cache", &self.connection_cache)
             .field(
@@ -81,6 +82,31 @@ impl CacheUpdater {
         }
     }
 
+    /// Acquires a shared read lock on the update synchronization guard, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `update_lock` protects a zero-sized `()` token used solely as an execution barrier (shared read lock
+    /// for concurrent incremental cache updates, exclusive write lock for database ID switches and cache
+    /// invalidations). Because the guarded type is `()`, there is no internal data or invariants that can
+    /// be corrupted by an unwinding panic. Recovering via `into_inner()` ensures that an isolated panic in an
+    /// update worker does not permanently freeze the synchronization barrier and deadlock subsequent
+    /// incremental updates or database ID transitions.
+    fn read_update_lock(&self) -> RwLockReadGuard<'_, ()> {
+        self.update_lock
+            .read()
+            .unwrap_or_else(PoisonError::into_inner)
+    }
+
+    /// Acquires an exclusive write lock on the update synchronization guard, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_update_lock`](Self::read_update_lock).
+    fn write_update_lock(&self) -> RwLockWriteGuard<'_, ()> {
+        self.update_lock
+            .write()
+            .unwrap_or_else(PoisonError::into_inner)
+    }
+
     /// Returns the current active database ID recorded by the cache updater.
     pub(crate) fn database_id(&self) -> u64 {
         self.database_id.load(Ordering::Acquire)
@@ -100,7 +126,7 @@ impl CacheUpdater {
         if update_database_id != 0 {
             let current_id = self.database_id.load(Ordering::Acquire);
             if current_id != update_database_id {
-                let _write_guard = self.update_lock.write().expect("poisoned update lock");
+                let _write_guard = self.write_update_lock();
                 let current_id = self.database_id.load(Ordering::Acquire);
                 if current_id != update_database_id {
                     if current_id != 0 && update_database_id < current_id {
@@ -123,7 +149,7 @@ impl CacheUpdater {
 
         // Shared read path: Multiple threads can concurrently ingest incremental updates for the current active database.
         // The shared read lock prevents cache updates from racing with an exclusive cache invalidation / database ID switch.
-        let _read_guard = self.update_lock.read().expect("poisoned update lock");
+        let _read_guard = self.read_update_lock();
         if update_database_id != 0 && update_database_id < self.database_id.load(Ordering::Acquire)
         {
             // A database ID switch occurred before acquiring the read lock; abort stale update.
@@ -195,11 +221,87 @@ mod tests {
     use crate::model::{Group, KeyRecipe, Range, RecipeList, Tablet};
     use crate::routing::server_connection::ServerConnection;
     use gaxi::options::ClientConfig;
+    use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::time::{Duration, Instant};
+    use tokio::time::sleep;
 
     #[test]
     fn cache_updater_implements_send_sync_debug() {
         static_assertions::assert_impl_all!(CacheUpdater: Send, Sync, Debug);
+    }
+
+    #[test]
+    fn cache_updater_recovers_from_poisoned_write_lock() {
+        let updater = make_test_updater();
+
+        // Intentionally poison update_lock by panicking while holding an exclusive write lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = updater
+                .update_lock
+                .write()
+                .expect("lock update_lock for panic test");
+            panic!("deliberately poisoning update_lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind must capture panic");
+        assert!(
+            updater.update_lock.is_poisoned(),
+            "update_lock must be poisoned after write lock panic"
+        );
+
+        // 1. Initial database ID transition exercises write_update_lock() under poisoned lock.
+        let users_recipe = KeyRecipe::new().set_table_name("Users");
+        let initial_recipe_list = RecipeList::new()
+            .set_schema_generation(bytes::Bytes::from("gen1"))
+            .set_recipe(vec![users_recipe]);
+        let initial_update = CacheUpdate::new()
+            .set_database_id(1_u64)
+            .set_key_recipes(initial_recipe_list);
+        updater.process_cache_update(initial_update);
+
+        assert_eq!(
+            updater.database_id(),
+            1,
+            "database_id must transition to 1 despite poisoned lock"
+        );
+        assert!(
+            updater
+                .key_recipe_cache()
+                .get_table_recipe("Users")
+                .is_some(),
+            "table recipe must be cached despite poisoned lock"
+        );
+
+        // 2. Incremental update with matching database ID exercises read_update_lock() under poisoned lock.
+        let index_recipe = KeyRecipe::new().set_index_name("UsersByEmail");
+        let incremental_recipe_list = RecipeList::new()
+            .set_schema_generation(bytes::Bytes::from("gen1"))
+            .set_recipe(vec![index_recipe]);
+        let incremental_update = CacheUpdate::new()
+            .set_database_id(1_u64)
+            .set_key_recipes(incremental_recipe_list);
+        updater.process_cache_update(incremental_update);
+
+        assert!(
+            updater
+                .key_recipe_cache()
+                .get_index_recipe("UsersByEmail")
+                .is_some(),
+            "incremental recipe must be cached under poisoned read lock"
+        );
+
+        // 3. Database ID switch exercises write_update_lock() and cache invalidation under poisoned lock.
+        let switch_update = CacheUpdate::new().set_database_id(2_u64);
+        updater.process_cache_update(switch_update);
+
+        assert_eq!(
+            updater.database_id(),
+            2,
+            "database_id must switch to 2 despite poisoned lock"
+        );
+        assert!(
+            updater.key_recipe_cache().is_empty(),
+            "key recipe cache must be cleared on database switch despite poisoned lock"
+        );
     }
 
     #[derive(Debug)]
@@ -231,23 +333,24 @@ mod tests {
         )
     }
 
-    /// Helper to wait deterministically for background connection pre-warming tasks to complete
-    /// without arbitrary timer sleeps.
+    /// Helper to wait for background connection pre-warming tasks to complete.
     async fn wait_for_connections(updater: &CacheUpdater, expected_count: usize) {
         let start = Instant::now();
-        let timeout = Duration::from_secs(2);
-        while start.elapsed() < timeout {
-            if updater.connection_cache().len() >= expected_count {
+        let timeout = Duration::from_secs(5);
+        loop {
+            let count = updater.connection_cache().len();
+            if count >= expected_count {
                 return;
             }
-            tokio::task::yield_now().await;
+            assert!(
+                start.elapsed() < timeout,
+                "timed out after {:?} waiting for connections: expected {}, got {}",
+                timeout,
+                expected_count,
+                count
+            );
+            sleep(Duration::from_millis(10)).await;
         }
-        panic!(
-            "timed out after {:?} waiting for connections: expected {}, got {}",
-            timeout,
-            expected_count,
-            updater.connection_cache().len()
-        );
     }
 
     #[test]

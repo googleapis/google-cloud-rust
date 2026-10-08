@@ -174,7 +174,7 @@ pub mod enroll_resource_request {
         /// let x = EligibleDestination::new().set_eligible_destinations(Some(EligibleDestinations::EligibleGcsBucket("example".to_string())));
         /// ```
         pub fn set_eligible_destinations<T: std::convert::Into<std::option::Option<crate::model::enroll_resource_request::eligible_destination::EligibleDestinations>>>(mut self, v: T) -> Self
-        {
+{
             self.eligible_destinations = v.into();
             self
         }

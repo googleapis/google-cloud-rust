@@ -112,6 +112,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn resolve_instance_config(
+        &self,
+        req: crate::model::ResolveInstanceConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ResolveInstanceConfigResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppConnectorsService::resolve_instance_config",
+            self.inner.resolve_instance_config(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn report_status(
         &self,
         req: crate::model::ReportStatusRequest,

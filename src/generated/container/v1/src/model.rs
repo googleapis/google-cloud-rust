@@ -1098,7 +1098,7 @@ pub mod linux_node_config {
             /// let x = BootDiskProfile::new().set_swap_size(Some(SwapSize::SwapSizeGib(42)));
             /// ```
             pub fn set_swap_size<T: std::convert::Into<std::option::Option<crate::model::linux_node_config::swap_config::boot_disk_profile::SwapSize>>>(mut self, v: T) -> Self
-            {
+{
                 self.swap_size = v.into();
                 self
             }
@@ -1224,7 +1224,7 @@ pub mod linux_node_config {
             /// let x = EphemeralLocalSsdProfile::new().set_swap_size(Some(SwapSize::SwapSizeGib(42)));
             /// ```
             pub fn set_swap_size<T: std::convert::Into<std::option::Option<crate::model::linux_node_config::swap_config::ephemeral_local_ssd_profile::SwapSize>>>(mut self, v: T) -> Self
-            {
+{
                 self.swap_size = v.into();
                 self
             }
@@ -7772,7 +7772,7 @@ pub mod containerd_config {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig>
-        {
+{
             use std::iter::Iterator;
             self.certificate_authority_domain_config = v.into_iter().map(|i| i.into()).collect();
             self
@@ -7849,7 +7849,7 @@ pub mod containerd_config {
             ///     google_cloud_container_v1::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::CertificateConfig::GcpSecretManagerCertificateConfig(GCPSecretManagerCertificateConfig::default().into())));
             /// ```
             pub fn set_certificate_config<T: std::convert::Into<std::option::Option<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::CertificateConfig>>>(mut self, v: T) -> Self
-            {
+{
                 self.certificate_config = v.into();
                 self
             }
@@ -8096,7 +8096,7 @@ pub mod containerd_config {
             /// let x = CertificateConfig::new().set_certificate(Some(Certificate::GcpSecretManagerSecretUri("example".to_string())));
             /// ```
             pub fn set_certificate<T: std::convert::Into<std::option::Option<crate::model::containerd_config::registry_host_config::certificate_config::Certificate>>>(mut self, v: T) -> Self
-            {
+{
                 self.certificate = v.into();
                 self
             }
@@ -8498,7 +8498,7 @@ pub mod containerd_config {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::containerd_config::registry_host_config::CertificateConfigPair>
-            {
+{
                 use std::iter::Iterator;
                 self.client = v.into_iter().map(|i| i.into()).collect();
                 self

@@ -195,6 +195,103 @@ where
     }
 }
 
+/// Implements a [BlueGreenDeploymentsService](super::stub::BlueGreenDeploymentsService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct BlueGreenDeploymentsService<T>
+where
+    T: super::stub::BlueGreenDeploymentsService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> BlueGreenDeploymentsService<T>
+where
+    T: super::stub::BlueGreenDeploymentsService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::BlueGreenDeploymentsService for BlueGreenDeploymentsService<T>
+where
+    T: super::stub::BlueGreenDeploymentsService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_blue_green_deployment(
+        &self,
+        req: crate::model::CreateBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BlueGreenDeploymentsService::create_blue_green_deployment",
+            self.inner.create_blue_green_deployment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_blue_green_deployment(
+        &self,
+        req: crate::model::GetBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BlueGreenDeployment>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BlueGreenDeploymentsService::get_blue_green_deployment",
+            self.inner.get_blue_green_deployment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn switchover_blue_green_deployment(
+        &self,
+        req: crate::model::SwitchoverBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BlueGreenDeploymentsService::switchover_blue_green_deployment",
+            self.inner.switchover_blue_green_deployment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_blue_green_deployments(
+        &self,
+        req: crate::model::ListBlueGreenDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBlueGreenDeploymentsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BlueGreenDeploymentsService::list_blue_green_deployments",
+            self.inner.list_blue_green_deployments(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_blue_green_deployment(
+        &self,
+        req: crate::model::DeleteBlueGreenDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BlueGreenDeploymentsService::delete_blue_green_deployment",
+            self.inner.delete_blue_green_deployment(req, options));
+        pending.await
+    }
+}
+
 /// Implements a [SqlConnectService](super::stub::SqlConnectService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlConnectService<T>
@@ -1331,6 +1428,103 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SqlUsersService::update",
             self.inner.update(req, options));
+        pending.await
+    }
+}
+
+/// Implements a [SqlWorkloadCapturesService](super::stub::SqlWorkloadCapturesService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct SqlWorkloadCapturesService<T>
+where
+    T: super::stub::SqlWorkloadCapturesService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> SqlWorkloadCapturesService<T>
+where
+    T: super::stub::SqlWorkloadCapturesService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::SqlWorkloadCapturesService for SqlWorkloadCapturesService<T>
+where
+    T: super::stub::SqlWorkloadCapturesService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn start(
+        &self,
+        req: crate::model::WorkloadCapturesStartRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlWorkloadCapturesService::start",
+            self.inner.start(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn stop(
+        &self,
+        req: crate::model::WorkloadCapturesStopRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlWorkloadCapturesService::stop",
+            self.inner.stop(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn start_replay(
+        &self,
+        req: crate::model::WorkloadCapturesStartReplayRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlWorkloadCapturesService::start_replay",
+            self.inner.start_replay(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn stop_replay(
+        &self,
+        req: crate::model::WorkloadCapturesStopReplayRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlWorkloadCapturesService::stop_replay",
+            self.inner.stop_replay(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::SqlWorkloadCapturesListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WorkloadCapturesListResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlWorkloadCapturesService::list",
+            self.inner.list(req, options));
         pending.await
     }
 }

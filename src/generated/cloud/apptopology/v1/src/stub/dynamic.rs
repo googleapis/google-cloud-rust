@@ -29,6 +29,12 @@ pub trait AppTopology: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Schema>>;
 
+    async fn explore_schema(
+        &self,
+        req: crate::model::ExploreSchemaRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExploreSchemaResponse>>;
+
     async fn get_domain(
         &self,
         req: crate::model::GetDomainRequest,
@@ -98,6 +104,15 @@ impl<T: super::AppTopology> AppTopology for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Schema>> {
         T::get_schema(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn explore_schema(
+        &self,
+        req: crate::model::ExploreSchemaRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExploreSchemaResponse>> {
+        T::explore_schema(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -22,6 +22,11 @@ If you need to upgrade, consider:
 rustup update
 ```
 
+To format code with `cargo fmt` you need the latest stable release of Rust. Our
+CI formats the code, including the generated code, with that version. Older
+versions of `rustfmt` may format some code differently and produce unexpected
+diffs. The version used in CI is the `_RUST_VERSION` in `.gcb/format.yaml`.
+
 ## Installing Go
 
 The code generator is implemented in [Go](https://go.dev). Follow the

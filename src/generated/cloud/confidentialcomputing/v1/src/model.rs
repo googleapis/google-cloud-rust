@@ -1875,7 +1875,7 @@ pub mod aws_principal_tags_options {
         /// ```
         pub fn set_container_image_signatures<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
-        {
+{
             self.container_image_signatures = std::option::Option::Some(v.into());
             self
         }
@@ -1891,7 +1891,7 @@ pub mod aws_principal_tags_options {
         /// ```
         pub fn set_or_clear_container_image_signatures<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
-        {
+{
             self.container_image_signatures = v.map(|x| x.into());
             self
         }
@@ -2806,7 +2806,7 @@ pub mod verify_confidential_space_request {
         ///     google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions::AwsPrincipalTagsOptions(AwsPrincipalTagsOptions::default().into())));
         /// ```
         pub fn set_token_profile_options<T: std::convert::Into<std::option::Option<crate::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions>>>(mut self, v: T) -> Self
-        {
+{
             self.token_profile_options = v.into();
             self
         }

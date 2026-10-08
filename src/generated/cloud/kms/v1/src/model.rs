@@ -5851,7 +5851,7 @@ impl ApproveSingleTenantHsmInstanceProposalRequest {
     ///     google_cloud_kms_v1::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload::QuorumReply(QuorumReply::default().into())));
     /// ```
     pub fn set_approval_payload<T: std::convert::Into<std::option::Option<crate::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload>>>(mut self, v: T) -> Self
-    {
+{
         self.approval_payload = v.into();
         self
     }

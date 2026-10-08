@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.46.1-0.20261005173254-dbbeba2b289f
+version: v0.47.0
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: da8155727f763f9bbb349065742b200e5554f347
-    sha256: ae7e05c32cb1623c09a01ed58adfc5e06b90eadd8e0ec2be557b270d44a17505
+    commit: c225bb4f2741bfe21fa20343d3e1a1218e33ab18
+    sha256: e9a85b5856627e860205dd08ad1a22a4348a2a59e722fcf5bb22a0f49d6e47a9
   googleapis:
-    commit: 93d6085996d0b4ff7e7e86ca9945d5524bb380d1
-    sha256: 2271ff64a808d6a9089d0f410d28fc9ce4dd35ffe6e1c2cf79dd9a8578ddc871
+    commit: 180d93c4b1dbeec2e615c003dd3c19ef992e5e85
+    sha256: 55af71cc87fcaf838b79096e9d672d740c6a5c8a6aed72545a431a368db7daf7
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d

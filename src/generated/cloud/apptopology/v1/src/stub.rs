@@ -61,6 +61,17 @@ pub trait AppTopology: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::AppTopology::explore_schema].
+    fn explore_schema(
+        &self,
+        _req: crate::model::ExploreSchemaRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ExploreSchemaResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::AppTopology::get_domain].
     fn get_domain(
         &self,
