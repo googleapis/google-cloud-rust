@@ -897,38 +897,23 @@ impl ClientBuilder {
     }
 }
 
-/// The set of characters that are percent encoded.
+/// The set of characters to percent-encode.
 ///
-/// This set is defined at https://cloud.google.com/storage/docs/request-endpoints#encoding:
+/// We encode everything except RFC 3986 [unreserved]
+/// characters (`ALPHA`, `DIGIT`, `-`, `.`, `_`, `~`).
 ///
-/// Encode the following characters when they appear in either the object name
-/// or query string of a request URL:
-///     !, #, $, &, ', (, ), *, +, ,, /, :, ;, =, ?, @, [, ], and space characters.
-pub(crate) const ENCODED_CHARS: percent_encoding::AsciiSet = percent_encoding::CONTROLS
-    .add(b'!')
-    .add(b'#')
-    .add(b'$')
-    .add(b'&')
-    .add(b'\'')
-    .add(b'(')
-    .add(b')')
-    .add(b'*')
-    .add(b'+')
-    .add(b',')
-    .add(b'/')
-    .add(b':')
-    .add(b';')
-    .add(b'=')
-    .add(b'?')
-    .add(b'@')
-    .add(b'[')
-    .add(b']')
-    .add(b' ');
+/// Encoding `%`, `\`, and other special ASCII characters prevents the service
+/// from decoding `%XX` sequences in object names and keeps URL parsers and HTTP
+/// clients from rewriting the path.
+///
+/// [unreserved]: https://datatracker.ietf.org/doc/html/rfc3986#section-2.3
+pub(crate) const ENCODED_CHARS: percent_encoding::AsciiSet = percent_encoding::NON_ALPHANUMERIC
+    .remove(b'-')
+    .remove(b'.')
+    .remove(b'_')
+    .remove(b'~');
 
-/// Percent encode a string.
-///
-/// To ensure compatibility certain characters need to be encoded when they appear
-/// in either the object name or query string of a request URL.
+/// Percent-encodes a string using [`ENCODED_CHARS`].
 pub(crate) fn enc(value: &str) -> String {
     percent_encoding::utf8_percent_encode(value, &ENCODED_CHARS).to_string()
 }
@@ -959,6 +944,7 @@ pub(crate) mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
+    use pretty_assertions::assert_eq;
     use std::{sync::Arc, time::Duration};
 
     #[test]
@@ -1092,5 +1078,34 @@ pub(crate) mod tests {
         impl crate::read_resume_policy::ReadResumePolicy for ReadResumePolicy {
             fn on_error(&self, query: &crate::read_resume_policy::ResumeQuery, error: google_cloud_gax::error::Error) -> crate::read_resume_policy::ResumeResult;
         }
+    }
+
+    #[test]
+    fn enc_only_keeps_unreserved_ascii() {
+        // Arrange
+        let input: String = (0_u8..=0x7F).map(char::from).collect();
+        let want: String = (0_u8..=0x7F)
+            .map(|b| {
+                if b.is_ascii_alphanumeric() || b"-._~".contains(&b) {
+                    char::from(b).to_string()
+                } else {
+                    format!("%{b:02X}")
+                }
+            })
+            .collect();
+        // Act
+        let got = enc(&input);
+        // Assert
+        assert_eq!(got, want);
+    }
+
+    #[test]
+    fn enc_non_ascii_as_utf8() {
+        // Arrange
+        let input = "test-\u{e9} \u{1F600}";
+        // Act
+        let got = enc(input);
+        // Assert
+        assert_eq!(got, "test-%C3%A9%20%F0%9F%98%80");
     }
 }

@@ -694,6 +694,7 @@ mod tests {
         testing::error_credentials,
     };
     use httptest::{Expectation, Server, all_of, cycle, matchers::*, responders::status_code};
+    use pretty_assertions::assert_eq;
     use std::collections::HashMap;
     use std::error::Error;
     use std::sync::Arc;
@@ -1542,13 +1543,31 @@ mod tests {
     #[test_case("tilde~123", "tilde~123")]
     #[test_case("exclamation!point!", "exclamation%21point%21")]
     #[test_case("spaces   spaces", "spaces%20%20%20spaces")]
-    #[test_case("preserve%percent%21", "preserve%percent%21")]
+    #[test_case("encode%percent%21", "encode%25percent%2521")]
+    #[test_case("100%25", "100%2525")]
+    #[test_case("foo%2Fbar", "foo%252Fbar")]
+    #[test_case(".%2e", ".%252e")]
+    #[test_case("%2e%2e", "%252e%252e")]
+    #[test_case("double\"quote", "double%22quote")]
+    #[test_case("less<than", "less%3Cthan")]
+    #[test_case("greater>than", "greater%3Ethan")]
+    #[test_case("back\\slash", "back%5Cslash")]
+    #[test_case(
+        "tenant-a/uploads\\..\\..\\tenant-b/secret",
+        "tenant-a%2Fuploads%5C..%5C..%5Ctenant-b%2Fsecret"
+    )]
+    #[test_case("caret^", "caret%5E")]
+    #[test_case("back`tick", "back%60tick")]
+    #[test_case("curly{brace}", "curly%7Bbrace%7D")]
+    #[test_case("vertical|bar", "vertical%7Cbar")]
+    #[test_case("test-\u{e9}", "test-%C3%A9")]
     #[test_case(
         "testall !#$&'()*+,/:;=?@[]",
         "testall%20%21%23%24%26%27%28%29%2A%2B%2C%2F%3A%3B%3D%3F%40%5B%5D"
     )]
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
+        // Arrange
         let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
@@ -1557,12 +1576,16 @@ mod tests {
             name,
             inner.options.clone(),
         );
+        // Act
         let request = http_request_builder(inner, builder)
             .await?
             .build_for_tests()
             .await?;
-        let got = request.url().path_segments().unwrap().next_back().unwrap();
-        assert_eq!(got, want);
+        // Assert
+        assert_eq!(
+            request.url().path(),
+            format!("/storage/v1/b/bucket/o/{want}")
+        );
         Ok(())
     }
 
