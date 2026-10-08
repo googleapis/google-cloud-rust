@@ -425,6 +425,78 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn resolve_instance_config(
+        &self,
+        req: crate::model::ResolveInstanceConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ResolveInstanceConfigResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_app_connector = try_match(
+                    Some(&req).map(|m| &m.app_connector).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/appConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:resolveInstanceConfig", var_app_connector,);
+                let path_template = "/v1/{app_connector}:resolveInstanceConfig";
+
+                let resource_name = format!("//beyondcorp.googleapis.com/{}", var_app_connector,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.app_connector).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/appConnectors/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "app_connector",
+                        "projects/*/locations/*/appConnectors/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.beyondcorp.appconnectors.v1.AppConnectorsService/ResolveInstanceConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn report_status(
         &self,
         req: crate::model::ReportStatusRequest,
@@ -707,7 +779,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/clientConnectorServices/"),
+                        Segment::Literal("/securityGateways/"),
                         Segment::SingleWildcard,
                     ],
                 )?;
@@ -728,7 +800,9 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/clientGateways/"),
+                        Segment::Literal("/securityGateways/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/applications/"),
                         Segment::SingleWildcard,
                     ],
                 )?;
@@ -803,11 +877,11 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/clientConnectorServices/"),
+                            Segment::Literal("/securityGateways/"),
                             Segment::SingleWildcard,
                         ],
                         "resource",
-                        "projects/*/locations/*/clientConnectorServices/*",
+                        "projects/*/locations/*/securityGateways/*",
                     );
                     paths.push(builder.build());
                 }
@@ -820,11 +894,13 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/clientGateways/"),
+                            Segment::Literal("/securityGateways/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/applications/"),
                             Segment::SingleWildcard,
                         ],
                         "resource",
-                        "projects/*/locations/*/clientGateways/*",
+                        "projects/*/locations/*/securityGateways/*/applications/*",
                     );
                     paths.push(builder.build());
                 }
@@ -965,7 +1041,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/clientConnectorServices/"),
+                        Segment::Literal("/securityGateways/"),
                         Segment::SingleWildcard,
                     ],
                 )?;
@@ -997,7 +1073,9 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/clientGateways/"),
+                        Segment::Literal("/securityGateways/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/applications/"),
                         Segment::SingleWildcard,
                     ],
                 )?;
@@ -1083,11 +1161,11 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/clientConnectorServices/"),
+                            Segment::Literal("/securityGateways/"),
                             Segment::SingleWildcard,
                         ],
                         "resource",
-                        "projects/*/locations/*/clientConnectorServices/*",
+                        "projects/*/locations/*/securityGateways/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1100,11 +1178,13 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/clientGateways/"),
+                            Segment::Literal("/securityGateways/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/applications/"),
                             Segment::SingleWildcard,
                         ],
                         "resource",
-                        "projects/*/locations/*/clientGateways/*",
+                        "projects/*/locations/*/securityGateways/*/applications/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1213,7 +1293,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/clientConnectorServices/"),
+                        Segment::Literal("/securityGateways/"),
                         Segment::SingleWildcard,
                     ],
                 )?;
@@ -1234,7 +1314,9 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/clientGateways/"),
+                        Segment::Literal("/securityGateways/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/applications/"),
                         Segment::SingleWildcard,
                     ],
                 )?;
@@ -1309,11 +1391,11 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/clientConnectorServices/"),
+                            Segment::Literal("/securityGateways/"),
                             Segment::SingleWildcard,
                         ],
                         "resource",
-                        "projects/*/locations/*/clientConnectorServices/*",
+                        "projects/*/locations/*/securityGateways/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1326,11 +1408,13 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/clientGateways/"),
+                            Segment::Literal("/securityGateways/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/applications/"),
                             Segment::SingleWildcard,
                         ],
                         "resource",
-                        "projects/*/locations/*/clientGateways/*",
+                        "projects/*/locations/*/securityGateways/*/applications/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1389,6 +1473,28 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1403,6 +1509,21 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         ],
                         "name",
                         "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1457,6 +1578,25 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1473,6 +1613,23 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         ],
                         "name",
                         "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1527,6 +1684,25 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1543,6 +1719,23 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         ],
                         "name",
                         "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1605,6 +1798,26 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1621,6 +1834,23 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                         ],
                         "name",
                         "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }

@@ -49,7 +49,9 @@ impl TokenBucket {
     ///
     /// Returns `true` if a token was acquired, `false` otherwise.
     pub(crate) fn try_acquire(&self) -> bool {
+        #[allow(deprecated)]
         self.tokens
+            // TODO(#7108): use `try_update` once the MSRV is bumped to 1.95.
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
                 if current >= SCALE {
                     Some(current - SCALE)
@@ -64,8 +66,10 @@ impl TokenBucket {
     ///
     /// Tokens are capped at `max_tokens * SCALE`.
     pub(crate) fn refill(&self) {
+        #[allow(deprecated)]
         let _ = self
             .tokens
+            // TODO(#7108): use `try_update` once the MSRV is bumped to 1.95.
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
                 if current >= self.max_scaled_tokens {
                     None // optimization to save an atomic update.

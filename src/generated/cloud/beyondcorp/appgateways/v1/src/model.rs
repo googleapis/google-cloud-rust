@@ -50,8 +50,10 @@ pub struct ListAppGatewaysRequest {
     /// If not specified, a default value of 50 will be used by the service.
     /// Regardless of the page_size value, the response may include a partial list
     /// and a caller should only rely on response's
-    /// [next_page_token][BeyondCorp.ListAppGatewaysResponse.next_page_token] to
-    /// determine if there are more instances left to be queried.
+    /// [next_page_token][google.cloud.beyondcorp.appgateways.v1.ListAppGatewaysResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.beyondcorp.appgateways.v1.ListAppGatewaysResponse.next_page_token]: crate::model::ListAppGatewaysResponse::next_page_token
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -302,8 +304,8 @@ pub struct CreateAppGatewayRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -428,8 +430,8 @@ pub struct DeleteAppGatewayRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes after the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -539,6 +541,12 @@ pub struct AppGateway {
 
     /// Required. The type of hosting used by the AppGateway.
     pub host_type: crate::model::app_gateway::HostType,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzi: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -756,6 +764,68 @@ impl AppGateway {
         v: T,
     ) -> Self {
         self.host_type = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::AppGateway::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_satisfies_pzs(true);
+    /// ```
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::AppGateway::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = AppGateway::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::AppGateway::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_satisfies_pzi(true);
+    /// ```
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::AppGateway::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = AppGateway::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
         self
     }
 }
@@ -1249,9 +1319,13 @@ pub struct AppGatewayOperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of `1`,
+    /// corresponding to `Code.CANCELLED`.
+    ///
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

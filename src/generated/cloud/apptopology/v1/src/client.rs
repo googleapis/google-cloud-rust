@@ -177,6 +177,30 @@ impl AppTopology {
         super::builder::app_topology::GetSchema::new(self.inner.clone())
     }
 
+    /// Explores the topology schema starting from given node types or label names
+    /// up to a specified hop depth.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apptopology_v1::client::AppTopology;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apptopology_v1::Result;
+    /// async fn sample(
+    ///    client: &AppTopology
+    /// ) -> Result<()> {
+    ///     let mut list = client.explore_schema()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn explore_schema(&self) -> super::builder::app_topology::ExploreSchema {
+        super::builder::app_topology::ExploreSchema::new(self.inner.clone())
+    }
+
     /// Retrieves the specified topology domain.
     ///
     /// # Example

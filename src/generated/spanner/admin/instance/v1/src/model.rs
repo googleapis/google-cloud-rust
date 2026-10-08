@@ -2055,7 +2055,7 @@ pub mod autoscaling_config {
         /// ```
         pub fn set_overrides<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides>
-        {
+{
             self.overrides = std::option::Option::Some(v.into());
             self
         }
@@ -2071,7 +2071,7 @@ pub mod autoscaling_config {
         /// ```
         pub fn set_or_clear_overrides<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides>
-        {
+{
             self.overrides = v.map(|x| x.into());
             self
         }

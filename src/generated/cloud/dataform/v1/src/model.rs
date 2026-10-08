@@ -14602,7 +14602,7 @@ pub mod workflow_invocation_action {
         /// let x = DataPreparationAction::new().set_definition(Some(Definition::ContentsYaml("example".to_string())));
         /// ```
         pub fn set_definition<T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::Definition>>>(mut self, v: T) -> Self
-        {
+{
             self.definition = v.into();
             self
         }
@@ -14738,7 +14738,7 @@ pub mod workflow_invocation_action {
             /// ```
             pub fn set_error_table<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable>
-            {
+{
                 self.error_table = std::option::Option::Some(v.into());
                 self
             }
@@ -14754,7 +14754,7 @@ pub mod workflow_invocation_action {
             /// ```
             pub fn set_or_clear_error_table<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable>
-            {
+{
                 self.error_table = v.map(|x| x.into());
                 self
             }
@@ -14769,7 +14769,7 @@ pub mod workflow_invocation_action {
             /// ```
             pub fn set_load_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig>
-            {
+{
                 self.load_config = std::option::Option::Some(v.into());
                 self
             }
@@ -14785,7 +14785,7 @@ pub mod workflow_invocation_action {
             /// ```
             pub fn set_or_clear_load_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig>
-            {
+{
                 self.load_config = v.map(|x| x.into());
                 self
             }
@@ -14900,7 +14900,7 @@ pub mod workflow_invocation_action {
             ///     google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Replace(ActionSimpleLoadMode::default().into())));
             /// ```
             pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode>>>(mut self, v: T) -> Self
-            {
+{
                 self.mode = v.into();
                 self
             }
@@ -18027,7 +18027,7 @@ pub mod query_team_folder_contents_response {
         ///     google_cloud_dataform_v1::model::query_team_folder_contents_response::team_folder_contents_entry::Entry::Folder(Folder::default().into())));
         /// ```
         pub fn set_entry<T: std::convert::Into<std::option::Option<crate::model::query_team_folder_contents_response::team_folder_contents_entry::Entry>>>(mut self, v: T) -> Self
-        {
+{
             self.entry = v.into();
             self
         }
@@ -18356,7 +18356,7 @@ pub mod search_team_folders_response {
         ///     google_cloud_dataform_v1::model::search_team_folders_response::team_folder_search_result::Entry::TeamFolder(TeamFolder::default().into())));
         /// ```
         pub fn set_entry<T: std::convert::Into<std::option::Option<crate::model::search_team_folders_response::team_folder_search_result::Entry>>>(mut self, v: T) -> Self
-        {
+{
             self.entry = v.into();
             self
         }

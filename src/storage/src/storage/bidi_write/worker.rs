@@ -134,7 +134,8 @@ impl<C> Worker<C> {
 
     /// Creates a [`Worker`] with a caller-provided [`ReplayBuffer`].
     ///
-    /// Tests use this to exercise the capacity limits without buffering
+    /// The transport uses this to seed the buffer with the payload sent in the opening request, and
+    /// tests use it to exercise the capacity limits without buffering
     /// [`DEFAULT_REPLAY_BUFFER_SIZE`][super::replay_buffer::DEFAULT_REPLAY_BUFFER_SIZE] bytes.
     pub fn with_replay_buffer(connector: Connector<C>, replay_buffer: ReplayBuffer) -> Self {
         Self {

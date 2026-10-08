@@ -19,9 +19,7 @@ use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::{
-    ExplicitBeginParams, ReadContextTransactionSelector, TransactionState,
-};
+use crate::read_only_transaction::{ExplicitBeginParams, ReadContextTransactionSelector};
 use crate::request_id_interceptor::update_request_id_attempt;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -530,16 +528,10 @@ impl ResultSet {
                         .read_timestamp
                         .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
                 )?;
-            } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
-                let is_started = matches!(
-                    &*lazy.lock().expect("transaction state mutex poisoned"),
-                    TransactionState::Started(_, _)
-                );
-                if !is_started {
-                    return Err(internal_error(
-                        "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
-                    ));
-                }
+            } else if selector.is_lazy() && !selector.is_started() {
+                return Err(internal_error(
+                    "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
+                ));
             }
         }
         self.local_metadata = Some(meta);

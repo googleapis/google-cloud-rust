@@ -246,7 +246,7 @@ impl SecurityCenterManagement {
     /// }
     /// ```
     pub fn list_descendant_security_health_analytics_custom_modules(&self) -> super::builder::security_center_management::ListDescendantSecurityHealthAnalyticsCustomModules
-    {
+{
         super::builder::security_center_management::ListDescendantSecurityHealthAnalyticsCustomModules::new(self.inner.clone())
     }
 

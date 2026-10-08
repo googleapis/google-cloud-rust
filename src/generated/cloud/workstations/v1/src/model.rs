@@ -1936,7 +1936,7 @@ pub mod workstation_config {
             /// ```
             pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>
-            {
+{
                 self.shielded_instance_config = std::option::Option::Some(v.into());
                 self
             }
@@ -1952,7 +1952,7 @@ pub mod workstation_config {
             /// ```
             pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>
-            {
+{
                 self.shielded_instance_config = v.map(|x| x.into());
                 self
             }
@@ -1967,7 +1967,7 @@ pub mod workstation_config {
             /// ```
             pub fn set_confidential_instance_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>
-            {
+{
                 self.confidential_instance_config = std::option::Option::Some(v.into());
                 self
             }
@@ -1983,7 +1983,7 @@ pub mod workstation_config {
             /// ```
             pub fn set_or_clear_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>
-            {
+{
                 self.confidential_instance_config = v.map(|x| x.into());
                 self
             }

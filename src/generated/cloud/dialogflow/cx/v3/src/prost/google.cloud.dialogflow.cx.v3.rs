@@ -1195,6 +1195,8 @@ pub struct Fulfillment {
     pub return_partial_responses: bool,
     #[prost(string, tag = "3")]
     pub tag: ::prost::alloc::string::String,
+    #[prost(string, tag = "17")]
+    pub code_block_function: ::prost::alloc::string::String,
     #[prost(message, repeated, tag = "4")]
     pub set_parameter_actions: ::prost::alloc::vec::Vec<fulfillment::SetParameterAction>,
     #[prost(message, repeated, tag = "5")]

@@ -2127,7 +2127,7 @@ pub mod authorization_policy {
                 /// let x = HttpHeaderMatch::new().set_type(Some(Type::RegexMatch("example".to_string())));
                 /// ```
                 pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::authorization_policy::rule::destination::http_header_match::Type>>>(mut self, v: T) -> Self
-                {
+{
                     self.r#type = v.into();
                     self
                 }
@@ -4427,7 +4427,7 @@ pub mod authz_policy {
                 /// ```
                 pub fn set_header_set<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::authz_policy::authz_rule::to::request_operation::HeaderSet>
-                {
+{
                     self.header_set = std::option::Option::Some(v.into());
                     self
                 }
@@ -4443,7 +4443,7 @@ pub mod authz_policy {
                 /// ```
                 pub fn set_or_clear_header_set<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::authz_policy::authz_rule::to::request_operation::HeaderSet>
-                {
+{
                     self.header_set = v.map(|x| x.into());
                     self
                 }
@@ -4771,7 +4771,7 @@ pub mod authz_policy {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<crate::model::authz_policy::authz_rule::to::request_operation::MCPMethod>
-                    {
+{
                         use std::iter::Iterator;
                         self.methods = v.into_iter().map(|i| i.into()).collect();
                         self

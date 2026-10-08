@@ -34,6 +34,8 @@ use google_cloud_gax::client_builder::Result;
 pub struct ClientBuilder {
     pub(crate) config: ClientConfig,
     pub(crate) project_id: Option<String>,
+    pub(crate) storage_read_enabled: bool,
+    pub(crate) storage_read_endpoint: Option<String>,
 }
 
 impl Default for ClientBuilder {
@@ -48,6 +50,8 @@ impl ClientBuilder {
         Self {
             config: ClientConfig::default(),
             project_id: None,
+            storage_read_enabled: false,
+            storage_read_endpoint: None,
         }
     }
 
@@ -209,6 +213,46 @@ impl ClientBuilder {
         self
     }
 
+    /// Enables or disables BigQuery Storage Read API acceleration for query result reading.
+    ///
+    /// When enabled, large query result sets will be streamed directly using the high-performance
+    /// gRPC Storage Read API in Arrow format, using the same [`Row`][crate::query::Row] interface.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = BigQuery::builder()
+    ///     .with_storage_read(true)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    #[cfg(google_cloud_unstable_bigquery_storage_read)]
+    pub fn with_storage_read(mut self, enabled: bool) -> Self {
+        self.storage_read_enabled = enabled;
+        self
+    }
+
+    /// Sets the endpoint for the BigQuery Storage Read API.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = BigQuery::builder()
+    ///     .with_storage_read(true)
+    ///     .with_storage_read_endpoint("https://bigquerystorage.googleapis.com")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    #[cfg(google_cloud_unstable_bigquery_storage_read)]
+    pub fn with_storage_read_endpoint<V: Into<String>>(mut self, endpoint: V) -> Self {
+        self.storage_read_endpoint = Some(endpoint.into());
+        self
+    }
+
     /// Creates a new [`BigQuery`] client.
     ///
     /// # Example
@@ -240,6 +284,8 @@ mod tests {
         assert!(builder.config.retry_policy.is_none(), "{builder:?}");
         assert!(builder.config.backoff_policy.is_none(), "{builder:?}");
         assert!(builder.project_id.is_none(), "{builder:?}");
+        assert!(!builder.storage_read_enabled, "{builder:?}");
+        assert!(builder.storage_read_endpoint.is_none(), "{builder:?}");
 
         Ok(())
     }
@@ -254,6 +300,10 @@ mod tests {
             .with_retry_policy(RetryableErrors)
             .with_backoff_policy(ExponentialBackoff::default())
             .with_tracing();
+        #[cfg(google_cloud_unstable_bigquery_storage_read)]
+        let builder = builder
+            .with_storage_read(true)
+            .with_storage_read_endpoint("test-storage-endpoint.com");
 
         assert_eq!(builder.project_id, Some("test-project".to_string()));
         assert_eq!(
@@ -268,6 +318,14 @@ mod tests {
         assert!(builder.config.tracing);
         assert!(builder.config.retry_policy.is_some(), "{builder:?}");
         assert!(builder.config.backoff_policy.is_some(), "{builder:?}");
+        #[cfg(google_cloud_unstable_bigquery_storage_read)]
+        {
+            assert!(builder.storage_read_enabled);
+            assert_eq!(
+                builder.storage_read_endpoint,
+                Some("test-storage-endpoint.com".to_string())
+            );
+        }
 
         Ok(())
     }
