@@ -18,6 +18,8 @@ pub mod change_file_storage_class;
 pub mod compose_file;
 pub mod copy_file;
 pub mod copy_file_archived_generation;
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub mod create_and_write_appendable_object;
 pub mod delete_file;
 pub mod delete_file_archived_generation;
 pub mod download_byte_range;
@@ -26,6 +28,8 @@ pub mod download_file;
 pub mod download_public_file;
 pub mod file_download_into_memory;
 pub mod file_upload_from_memory;
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub mod finalize_appendable_object_upload;
 pub mod generate_encryption_key;
 pub mod generate_signed_post_policy_v4;
 pub mod generate_signed_url_v4;
@@ -42,21 +46,17 @@ pub mod make_public;
 pub mod move_file;
 pub mod object_csek_to_cmek;
 #[cfg(google_cloud_unstable_storage_bidi)]
-pub mod open_appendable_object_finalize;
-#[cfg(google_cloud_unstable_storage_bidi)]
-pub mod open_appendable_object_pause_resume;
-#[cfg(google_cloud_unstable_storage_bidi)]
-pub mod open_appendable_object_read_tail;
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub mod open_appendable_object_send_and_append;
-#[cfg(google_cloud_unstable_storage_bidi)]
-pub mod open_appendable_object_write;
 pub mod open_multiple_objects_ranged_read;
 pub mod open_object_multiple_ranged_read;
 pub mod open_object_read_full_object;
 pub mod open_object_single_ranged_read;
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub mod pause_and_resume_appendable_upload;
 pub mod print_file_acl;
 pub mod print_file_acl_for_user;
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub mod read_appendable_object_tail;
 pub mod release_event_based_hold;
 pub mod release_temporary_hold;
 #[allow(dead_code)]
