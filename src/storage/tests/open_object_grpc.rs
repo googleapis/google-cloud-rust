@@ -503,12 +503,10 @@ async fn recv_request(
 
 /// Extracts the single `ReadRange` from a `BidiReadObjectRequest`.
 fn single_range(request: &BidiReadObjectRequest) -> ProtoRange {
-    let [range] = request
-        .read_ranges
-        .clone()
-        .try_into()
-        .expect("expected exactly one range");
-    range
+    match request.read_ranges.as_slice() {
+        [range] => range.clone(),
+        _ => panic!("expected exactly one range"),
+    }
 }
 
 mod conformance {
@@ -551,7 +549,7 @@ mod conformance {
     async fn handle_redirect_error() -> anyhow::Result<()> {
         // Arrange
         const ROUTING_TOKEN: &str = "test-redirect-routing-token";
-        let (resumed_tx, resumed_rx) = tokio::sync::oneshot::channel::<BidiReadObjectRequest>();
+        let (resumed_tx, mut resumed_rx) = tokio::sync::mpsc::channel::<BidiReadObjectRequest>(1);
 
         let mut mock = MockStorage::new();
         let mut seq = mockall::Sequence::new();
@@ -585,7 +583,6 @@ mod conformance {
             });
 
         // Resumed stream: sends remaining data after redirect
-        let resumed_tx = Arc::new(tokio::sync::Mutex::new(Some(resumed_tx)));
         mock.expect_bidi_read_object()
             .once()
             .in_sequence(&mut seq)
@@ -596,11 +593,8 @@ mod conformance {
 
                 tokio::spawn(async move {
                     let first = recv_request(&mut requests).await;
-                    if let Some(chan) = resumed_tx.lock().await.take() {
-                        let _ = chan.send(first.clone());
-                    }
-
                     let range = single_range(&first);
+                    let _ = resumed_tx.send(first).await;
 
                     tx.send(Ok(initial_response_with_data(
                         range,
@@ -626,7 +620,10 @@ mod conformance {
         assert_eq!(payload, &OBJECT_CONTENT[10..18]);
 
         // Assert: Resumed request has redirect routing token and read_handle
-        let resumed_req = resumed_rx.await?;
+        let resumed_req = resumed_rx
+            .recv()
+            .await
+            .context("expected resumed stream request")?;
         let spec = resumed_req
             .read_object_spec
             .expect("resumed request must contain read_object_spec");
@@ -653,7 +650,7 @@ mod conformance {
     async fn handle_redirect_error_on_open() -> anyhow::Result<()> {
         // Arrange
         const ROUTING_TOKEN: &str = "test-open-redirect-token";
-        let (resumed_tx, resumed_rx) = tokio::sync::oneshot::channel::<BidiReadObjectRequest>();
+        let (resumed_tx, mut resumed_rx) = tokio::sync::mpsc::channel::<BidiReadObjectRequest>(1);
 
         let mut mock = MockStorage::new();
         let mut seq = mockall::Sequence::new();
@@ -665,7 +662,6 @@ mod conformance {
             .returning(|_| Err(redirect_status(ROUTING_TOKEN)));
 
         // Second stream attempt: server succeeds with initial metadata
-        let resumed_tx = Arc::new(tokio::sync::Mutex::new(Some(resumed_tx)));
         mock.expect_bidi_read_object()
             .once()
             .in_sequence(&mut seq)
@@ -676,9 +672,7 @@ mod conformance {
 
                 tokio::spawn(async move {
                     let first = recv_request(&mut requests).await;
-                    if let Some(chan) = resumed_tx.lock().await.take() {
-                        let _ = chan.send(first);
-                    }
+                    let _ = resumed_tx.send(first).await;
 
                     tx.send(Ok(initial_response()))
                         .await
@@ -696,7 +690,7 @@ mod conformance {
         assert_eq!(descriptor.object().name, OBJECT_NAME);
 
         // Assert: second attempt contained the updated routing token and handle
-        let second_req = resumed_rx.await?;
+        let second_req = resumed_rx.recv().await.context("expected retry request")?;
         let spec = second_req
             .read_object_spec
             .expect("retry request must contain read_object_spec");
@@ -1057,11 +1051,8 @@ mod conformance {
             .await;
 
         // Assert: Client detects short read and returns an error
-        assert!(
-            result.is_err(),
-            "expected error when server completes without requested data"
-        );
-        let err_str = result.err().unwrap().to_string();
+        let err = result.expect_err("expected error when server completes without requested data");
+        let err_str = err.to_string();
         assert!(
             err_str.contains("missing 10 bytes"),
             "expected missing bytes error, got: {err_str}"
