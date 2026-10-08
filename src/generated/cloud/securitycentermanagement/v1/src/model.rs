@@ -2570,7 +2570,7 @@ impl SimulateSecurityHealthAnalyticsCustomModuleRequest {
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::simulate_security_health_analytics_custom_module_request::SimulatedResource>
-    {
+{
         self.resource = std::option::Option::Some(v.into());
         self
     }
@@ -2586,7 +2586,7 @@ impl SimulateSecurityHealthAnalyticsCustomModuleRequest {
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::simulate_security_health_analytics_custom_module_request::SimulatedResource>
-    {
+{
         self.resource = v.map(|x| x.into());
         self
     }
@@ -3482,7 +3482,7 @@ impl SimulateSecurityHealthAnalyticsCustomModuleResponse {
     /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::simulate_security_health_analytics_custom_module_response::SimulatedResult>
-    {
+{
         self.result = std::option::Option::Some(v.into());
         self
     }
@@ -3498,7 +3498,7 @@ impl SimulateSecurityHealthAnalyticsCustomModuleResponse {
     /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::simulate_security_health_analytics_custom_module_response::SimulatedResult>
-    {
+{
         self.result = v.map(|x| x.into());
         self
     }
@@ -3545,7 +3545,7 @@ pub mod simulate_security_health_analytics_custom_module_response {
         ///     google_cloud_securitycentermanagement_v1::model::simulate_security_health_analytics_custom_module_response::simulated_result::Result::Finding(SimulatedFinding::default().into())));
         /// ```
         pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::simulate_security_health_analytics_custom_module_response::simulated_result::Result>>>(mut self, v: T) -> Self
-        {
+{
             self.result = v.into();
             self
         }
@@ -5366,7 +5366,7 @@ impl ValidateEventThreatDetectionCustomModuleResponse {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::validate_event_threat_detection_custom_module_response::CustomModuleValidationError>
-    {
+{
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
         self

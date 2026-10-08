@@ -19,10 +19,8 @@ use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::{
-    ExplicitBeginParams, ReadContextTransactionSelector, TransactionState,
-};
-use crate::request_id_interceptor::REQUEST_ID_HEADER;
+use crate::read_only_transaction::{ExplicitBeginParams, ReadContextTransactionSelector};
+use crate::request_id_interceptor::update_request_id_attempt;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::retry_policy::SpannerRetryPolicy;
 use crate::row::Row;
@@ -32,11 +30,10 @@ use gaxi::prost::FromProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use google_cloud_gax::options::internal::RequestOptionsExt;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
-use http::{HeaderMap, HeaderValue};
+use http::HeaderMap;
 use prost_types::Value;
 use std::collections::VecDeque;
 use std::mem::take;
@@ -419,14 +416,10 @@ impl ResultSet {
     /// ```
     /// # use google_cloud_spanner::result::ResultSet;
     /// # use futures::TryStreamExt;
-    /// # use std::future::ready;
     /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
-    /// let rows: Vec<_> = result_set
+    /// let ids: Vec<String> = result_set
     ///     .into_stream()
-    ///     .try_filter(|row| {
-    ///         let id = row.get::<String, _>("Id");
-    ///         ready(id == "id1")
-    ///     })
+    ///     .and_then(|row| async move { row.get("Id") })
     ///     .try_collect()
     ///     .await?;
     /// # Ok(())
@@ -535,16 +528,10 @@ impl ResultSet {
                         .read_timestamp
                         .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
                 )?;
-            } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
-                let is_started = matches!(
-                    &*lazy.lock().expect("transaction state mutex poisoned"),
-                    TransactionState::Started(_, _)
-                );
-                if !is_started {
-                    return Err(internal_error(
-                        "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
-                    ));
-                }
+            } else if selector.is_lazy() && !selector.is_started() {
+                return Err(internal_error(
+                    "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
+                ));
             }
         }
         self.local_metadata = Some(meta);
@@ -732,16 +719,8 @@ impl ResultSet {
         // the attempt number suffix on the existing `x-goog-spanner-request-id` header in `RequestOptions`.
         // When `gaxi` invokes `SpannerRequestIdInterceptor` with attempt 1 for the retried stream,
         // the interceptor takes the maximum (`existing_attempt.max(attempt)`), preserving our bumped attempt number.
-        if self.retry_count > 0
-            && let Some(headers) = self.gax_options.get_extension_mut::<HeaderMap>()
-            && let Some(val) = headers.get(&REQUEST_ID_HEADER)
-            && let Ok(s) = val.to_str()
-            && let Some((base, _)) = s.rsplit_once('.')
-        {
-            let new_id = format!("{}.{}", base, self.retry_count + 1);
-            if let Ok(new_val) = HeaderValue::from_str(&new_id) {
-                headers.insert(REQUEST_ID_HEADER.clone(), new_val);
-            }
+        if self.retry_count > 0 {
+            update_request_id_attempt(&mut self.gax_options, (self.retry_count + 1) as u32);
         }
 
         self.attempt_start_time = Instant::now();

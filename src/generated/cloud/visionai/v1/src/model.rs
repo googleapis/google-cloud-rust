@@ -385,7 +385,7 @@ pub mod personal_protective_equipment_detection_output {
         /// ```
         pub fn set_normalized_bounding_box<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::personal_protective_equipment_detection_output::NormalizedBoundingBox>
-        {
+{
             self.normalized_bounding_box = std::option::Option::Some(v.into());
             self
         }
@@ -401,7 +401,7 @@ pub mod personal_protective_equipment_detection_output {
         /// ```
         pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::personal_protective_equipment_detection_output::NormalizedBoundingBox>
-        {
+{
             self.normalized_bounding_box = v.map(|x| x.into());
             self
         }
@@ -513,7 +513,7 @@ pub mod personal_protective_equipment_detection_output {
         /// ```
         pub fn set_normalized_bounding_box<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::personal_protective_equipment_detection_output::NormalizedBoundingBox>
-        {
+{
             self.normalized_bounding_box = std::option::Option::Some(v.into());
             self
         }
@@ -529,7 +529,7 @@ pub mod personal_protective_equipment_detection_output {
         /// ```
         pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::personal_protective_equipment_detection_output::NormalizedBoundingBox>
-        {
+{
             self.normalized_bounding_box = v.map(|x| x.into());
             self
         }
@@ -658,7 +658,7 @@ pub mod personal_protective_equipment_detection_output {
         /// ```
         pub fn set_detected_person_identified_box<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::personal_protective_equipment_detection_output::PersonIdentifiedBox>
-        {
+{
             self.detected_person_identified_box = std::option::Option::Some(v.into());
             self
         }
@@ -674,7 +674,7 @@ pub mod personal_protective_equipment_detection_output {
         /// ```
         pub fn set_or_clear_detected_person_identified_box<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::personal_protective_equipment_detection_output::PersonIdentifiedBox>
-        {
+{
             self.detected_person_identified_box = v.map(|x| x.into());
             self
         }
@@ -1086,7 +1086,7 @@ pub mod object_detection_prediction_result {
         /// ```
         pub fn set_normalized_bounding_box<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::object_detection_prediction_result::identified_box::NormalizedBoundingBox>
-        {
+{
             self.normalized_bounding_box = std::option::Option::Some(v.into());
             self
         }
@@ -1102,7 +1102,7 @@ pub mod object_detection_prediction_result {
         /// ```
         pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::object_detection_prediction_result::identified_box::NormalizedBoundingBox>
-        {
+{
             self.normalized_bounding_box = v.map(|x| x.into());
             self
         }
@@ -2559,7 +2559,7 @@ pub mod occupancy_counting_prediction_result {
         /// ```
         pub fn set_normalized_bounding_box<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::occupancy_counting_prediction_result::identified_box::NormalizedBoundingBox>
-        {
+{
             self.normalized_bounding_box = std::option::Option::Some(v.into());
             self
         }
@@ -2575,7 +2575,7 @@ pub mod occupancy_counting_prediction_result {
         /// ```
         pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::occupancy_counting_prediction_result::identified_box::NormalizedBoundingBox>
-        {
+{
             self.normalized_bounding_box = v.map(|x| x.into());
             self
         }
@@ -3146,7 +3146,7 @@ pub mod occupancy_counting_prediction_result {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::occupancy_counting_prediction_result::stats::AccumulatedObjectCount>
-            {
+{
                 use std::iter::Iterator;
                 self.accumulated_positive_direction_counts =
                     v.into_iter().map(|i| i.into()).collect();
@@ -3169,7 +3169,7 @@ pub mod occupancy_counting_prediction_result {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::occupancy_counting_prediction_result::stats::AccumulatedObjectCount>
-            {
+{
                 use std::iter::Iterator;
                 self.accumulated_negative_direction_counts =
                     v.into_iter().map(|i| i.into()).collect();
@@ -15922,7 +15922,7 @@ pub mod processor_io_spec {
         /// let x = InstanceResourceInputBindingSpec::new().set_resource_type(Some(ResourceType::ConfigTypeUri("example".to_string())));
         /// ```
         pub fn set_resource_type<T: std::convert::Into<std::option::Option<crate::model::processor_io_spec::instance_resource_input_binding_spec::ResourceType>>>(mut self, v: T) -> Self
-        {
+{
             self.resource_type = v.into();
             self
         }

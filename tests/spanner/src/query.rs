@@ -211,7 +211,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         &["dup".to_string(), "dup".to_string()]
     );
 
-    let val: i64 = row_dup.get("dup");
+    let val: i64 = row_dup.get("dup")?;
     assert_eq!(val, 1);
 
     Ok(())
@@ -663,7 +663,7 @@ pub async fn query_with_options(db_client: &DatabaseClient) -> anyhow::Result<()
 
     let mut rs = rot.execute_query(stmt).await?;
     let row = rs.next().await.transpose()?.expect("should yield a row");
-    let val: i64 = row.get(0);
+    let val: i64 = row.get(0)?;
     assert_eq!(val, 1);
 
     Ok(())
@@ -795,70 +795,70 @@ pub async fn query_json_value(db_client: &DatabaseClient) -> anyhow::Result<()> 
     let row = &rows[0];
 
     // Deserialize id (INT64) as serde_json::Value
-    let id_val: serde_json::Value = row.try_get("id")?;
+    let id_val: serde_json::Value = row.get("id")?;
     assert_eq!(id_val, serde_json::json!("1"));
 
     // Deserialize inventory (ARRAY<STRUCT<fruit STRING, quantity INT64>>) as serde_json::Value
-    let inventory_val: serde_json::Value = row.try_get("inventory")?;
+    let inventory_val: serde_json::Value = row.get("inventory")?;
     assert_eq!(
         inventory_val,
         serde_json::json!([{"fruit": "apple", "quantity": "5"}])
     );
 
     // Deserialize payload (JSON) as serde_json::Value
-    let payload_val: serde_json::Value = row.try_get("payload")?;
+    let payload_val: serde_json::Value = row.get("payload")?;
     assert_eq!(payload_val, serde_json::json!({"a": 1, "b": [true, false]}));
 
     // Deserialize col_bool (BOOL) as serde_json::Value
-    let col_bool: serde_json::Value = row.try_get("col_bool")?;
+    let col_bool: serde_json::Value = row.get("col_bool")?;
     assert_eq!(col_bool, serde_json::json!(true));
 
     // Deserialize col_string (STRING) as serde_json::Value
-    let col_string: serde_json::Value = row.try_get("col_string")?;
+    let col_string: serde_json::Value = row.get("col_string")?;
     assert_eq!(col_string, serde_json::json!("hello"));
 
     // Deserialize col_bytes (BYTES) as serde_json::Value (should be Base64-encoded)
-    let col_bytes: serde_json::Value = row.try_get("col_bytes")?;
+    let col_bytes: serde_json::Value = row.get("col_bytes")?;
     assert_eq!(col_bytes, serde_json::json!("aGVsbG8="));
 
     // Deserialize col_numeric (NUMERIC) as serde_json::Value
-    let col_numeric: serde_json::Value = row.try_get("col_numeric")?;
+    let col_numeric: serde_json::Value = row.get("col_numeric")?;
     assert_eq!(col_numeric, serde_json::json!("9.99"));
 
     // Deserialize col_date (DATE) as serde_json::Value
-    let col_date: serde_json::Value = row.try_get("col_date")?;
+    let col_date: serde_json::Value = row.get("col_date")?;
     assert_eq!(col_date, serde_json::json!("2026-06-10"));
 
     // Deserialize col_timestamp (TIMESTAMP) as serde_json::Value
-    let col_timestamp: serde_json::Value = row.try_get("col_timestamp")?;
+    let col_timestamp: serde_json::Value = row.get("col_timestamp")?;
     assert_eq!(col_timestamp, serde_json::json!("2026-06-10T10:00:00Z"));
 
     // Deserialize col_float64_nan (FLOAT64 NaN) as serde_json::Value (should be null)
-    let col_float64_nan: serde_json::Value = row.try_get("col_float64_nan")?;
+    let col_float64_nan: serde_json::Value = row.get("col_float64_nan")?;
     assert_eq!(col_float64_nan, serde_json::Value::Null);
 
     // Deserialize col_float64_inf (FLOAT64 Infinity) as serde_json::Value (should be null)
-    let col_float64_inf: serde_json::Value = row.try_get("col_float64_inf")?;
+    let col_float64_inf: serde_json::Value = row.get("col_float64_inf")?;
     assert_eq!(col_float64_inf, serde_json::Value::Null);
 
     // Deserialize col_float64_neginf (FLOAT64 -Infinity) as serde_json::Value (should be null)
-    let col_float64_neginf: serde_json::Value = row.try_get("col_float64_neginf")?;
+    let col_float64_neginf: serde_json::Value = row.get("col_float64_neginf")?;
     assert_eq!(col_float64_neginf, serde_json::Value::Null);
 
     // Deserialize col_float32_nan (FLOAT32 NaN) as serde_json::Value (should be null)
-    let col_float32_nan: serde_json::Value = row.try_get("col_float32_nan")?;
+    let col_float32_nan: serde_json::Value = row.get("col_float32_nan")?;
     assert_eq!(col_float32_nan, serde_json::Value::Null);
 
     // Deserialize col_float32_inf (FLOAT32 Infinity) as serde_json::Value (should be null)
-    let col_float32_inf: serde_json::Value = row.try_get("col_float32_inf")?;
+    let col_float32_inf: serde_json::Value = row.get("col_float32_inf")?;
     assert_eq!(col_float32_inf, serde_json::Value::Null);
 
     // Deserialize col_float32_neginf (FLOAT32 -Infinity) as serde_json::Value (should be null)
-    let col_float32_neginf: serde_json::Value = row.try_get("col_float32_neginf")?;
+    let col_float32_neginf: serde_json::Value = row.get("col_float32_neginf")?;
     assert_eq!(col_float32_neginf, serde_json::Value::Null);
 
     // Deserialize col_null (NULL) as serde_json::Value (should be null)
-    let col_null: serde_json::Value = row.try_get("col_null")?;
+    let col_null: serde_json::Value = row.get("col_null")?;
     assert_eq!(col_null, serde_json::Value::Null);
 
     Ok(())
@@ -906,33 +906,33 @@ pub async fn query_non_finite_float_parameters(db_client: &DatabaseClient) -> an
         .transpose()?
         .ok_or_else(|| anyhow::anyhow!("query should yield a row"))?;
 
-    let f64_nan: f64 = row.try_get("col_f64_nan")?;
+    let f64_nan: f64 = row.get("col_f64_nan")?;
     assert!(f64_nan.is_nan(), "expected NaN for col_f64_nan");
 
-    let f64_inf: f64 = row.try_get("col_f64_inf")?;
+    let f64_inf: f64 = row.get("col_f64_inf")?;
     assert_eq!(f64_inf, f64::INFINITY, "expected Infinity for col_f64_inf");
 
-    let f64_neginf: f64 = row.try_get("col_f64_neginf")?;
+    let f64_neginf: f64 = row.get("col_f64_neginf")?;
     assert_eq!(
         f64_neginf,
         f64::NEG_INFINITY,
         "expected -Infinity for col_f64_neginf"
     );
 
-    let f32_nan: f32 = row.try_get("col_f32_nan")?;
+    let f32_nan: f32 = row.get("col_f32_nan")?;
     assert!(f32_nan.is_nan(), "expected NaN for col_f32_nan");
 
-    let f32_inf: f32 = row.try_get("col_f32_inf")?;
+    let f32_inf: f32 = row.get("col_f32_inf")?;
     assert_eq!(f32_inf, f32::INFINITY, "expected Infinity for col_f32_inf");
 
-    let f32_neginf: f32 = row.try_get("col_f32_neginf")?;
+    let f32_neginf: f32 = row.get("col_f32_neginf")?;
     assert_eq!(
         f32_neginf,
         f32::NEG_INFINITY,
         "expected -Infinity for col_f32_neginf"
     );
 
-    let f64_array: Vec<f64> = row.try_get("col_f64_arr")?;
+    let f64_array: Vec<f64> = row.get("col_f64_arr")?;
     assert_eq!(f64_array.len(), 3, "expected 3 elements in col_f64_arr");
     assert!(f64_array[0].is_nan(), "expected NaN for col_f64_arr[0]");
     assert_eq!(
@@ -946,7 +946,7 @@ pub async fn query_non_finite_float_parameters(db_client: &DatabaseClient) -> an
         "expected -Infinity for col_f64_arr[2]"
     );
 
-    let f32_array: Vec<f32> = row.try_get("col_f32_arr")?;
+    let f32_array: Vec<f32> = row.get("col_f32_arr")?;
     assert_eq!(f32_array.len(), 3, "expected 3 elements in col_f32_arr");
     assert!(f32_array[0].is_nan(), "expected NaN for col_f32_arr[0]");
     assert_eq!(
@@ -1014,13 +1014,13 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
         .transpose()?
         .expect("row should exist after mutation insert");
 
-    let f64_val: f64 = row.try_get("ColFloat64")?;
+    let f64_val: f64 = row.get("ColFloat64")?;
     assert!(f64_val.is_nan(), "expected NaN for ColFloat64");
 
-    let f32_val: f32 = row.try_get("ColFloat32")?;
+    let f32_val: f32 = row.get("ColFloat32")?;
     assert!(f32_val.is_nan(), "expected NaN for ColFloat32");
 
-    let f64_array: Vec<f64> = row.try_get("ColArrayFloat64")?;
+    let f64_array: Vec<f64> = row.get("ColArrayFloat64")?;
     assert_eq!(f64_array.len(), 3, "expected 3 elements in ColArrayFloat64");
     assert!(f64_array[0].is_nan(), "expected NaN for ColArrayFloat64[0]");
     assert_eq!(
@@ -1034,7 +1034,7 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
         "expected -Infinity for ColArrayFloat64[2]"
     );
 
-    let f32_array: Vec<f32> = row.try_get("ColArrayFloat32")?;
+    let f32_array: Vec<f32> = row.get("ColArrayFloat32")?;
     assert_eq!(f32_array.len(), 3, "expected 3 elements in ColArrayFloat32");
     assert!(f32_array[0].is_nan(), "expected NaN for ColArrayFloat32[0]");
     assert_eq!(
@@ -1087,14 +1087,14 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
         .transpose()?
         .expect("row should match untyped float query parameter");
 
-    let updated_f64: f64 = query_row.try_get("ColFloat64")?;
+    let updated_f64: f64 = query_row.get("ColFloat64")?;
     assert_eq!(
         updated_f64,
         f64::INFINITY,
         "expected Infinity for ColFloat64 after update"
     );
 
-    let updated_f32: f32 = query_row.try_get("ColFloat32")?;
+    let updated_f32: f32 = query_row.get("ColFloat32")?;
     assert_eq!(
         updated_f32,
         f32::NEG_INFINITY,
@@ -1138,11 +1138,11 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
         .transpose()?
         .expect("row should match IS_NAN(ColFloat64) AND IS_NAN(ColFloat32)");
 
-    let is_nan_id: String = is_nan_row.get("Id");
+    let is_nan_id: String = is_nan_row.get("Id")?;
     assert_eq!(is_nan_id, row_id, "expected matching row ID for IS_NAN");
-    let is_nan_float64: f64 = is_nan_row.try_get("ColFloat64")?;
+    let is_nan_float64: f64 = is_nan_row.get("ColFloat64")?;
     assert!(is_nan_float64.is_nan(), "expected NaN for ColFloat64");
-    let is_nan_float32: f32 = is_nan_row.try_get("ColFloat32")?;
+    let is_nan_float32: f32 = is_nan_row.get("ColFloat32")?;
     assert!(is_nan_float32.is_nan(), "expected NaN for ColFloat32");
 
     // 7. Cleanup the test row.

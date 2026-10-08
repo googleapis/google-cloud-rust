@@ -51342,6 +51342,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SipTrunk {
             __expected_hostname,
             __connections,
             __display_name,
+            __peer_hostnames,
+            __google_root_cert_file,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -51368,6 +51370,10 @@ impl<'de> serde::de::Deserialize<'de> for super::SipTrunk {
                             "connections" => Ok(__FieldTag::__connections),
                             "displayName" => Ok(__FieldTag::__display_name),
                             "display_name" => Ok(__FieldTag::__display_name),
+                            "peerHostnames" => Ok(__FieldTag::__peer_hostnames),
+                            "peer_hostnames" => Ok(__FieldTag::__peer_hostnames),
+                            "googleRootCertFile" => Ok(__FieldTag::__google_root_cert_file),
+                            "google_root_cert_file" => Ok(__FieldTag::__google_root_cert_file),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -51427,6 +51433,26 @@ impl<'de> serde::de::Deserialize<'de> for super::SipTrunk {
                             }
                             result.display_name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__peer_hostnames => {
+                            if !fields.insert(__FieldTag::__peer_hostnames) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for peer_hostnames",
+                                ));
+                            }
+                            result.peer_hostnames = map.next_value::<std::option::Option<std::vec::Vec<crate::model::SipHostname>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__google_root_cert_file => {
+                            if !fields.insert(__FieldTag::__google_root_cert_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_root_cert_file",
+                                ));
+                            }
+                            result.google_root_cert_file =
+                                map.next_value::<std::option::Option<
+                                    crate::model::sip_trunk::GoogleRootCertFile,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -51640,6 +51666,367 @@ impl<'de> serde::de::Deserialize<'de> for super::connection::ErrorDetails {
                             }
                             result.error_message =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::SipHostname {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __peer_hostname,
+            __enabled_sip_ping,
+            __ping_interval,
+            __peer_socket_address,
+            __probe_details,
+            __connection_state,
+            __error_details,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SipHostname")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "peerHostname" => Ok(__FieldTag::__peer_hostname),
+                            "peer_hostname" => Ok(__FieldTag::__peer_hostname),
+                            "enabledSipPing" => Ok(__FieldTag::__enabled_sip_ping),
+                            "enabled_sip_ping" => Ok(__FieldTag::__enabled_sip_ping),
+                            "pingInterval" => Ok(__FieldTag::__ping_interval),
+                            "ping_interval" => Ok(__FieldTag::__ping_interval),
+                            "peerSocketAddress" => Ok(__FieldTag::__peer_socket_address),
+                            "peer_socket_address" => Ok(__FieldTag::__peer_socket_address),
+                            "probeDetails" => Ok(__FieldTag::__probe_details),
+                            "probe_details" => Ok(__FieldTag::__probe_details),
+                            "connectionState" => Ok(__FieldTag::__connection_state),
+                            "connection_state" => Ok(__FieldTag::__connection_state),
+                            "errorDetails" => Ok(__FieldTag::__error_details),
+                            "error_details" => Ok(__FieldTag::__error_details),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::SipHostname;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SipHostname")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__peer_hostname => {
+                            if !fields.insert(__FieldTag::__peer_hostname) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for peer_hostname",
+                                ));
+                            }
+                            result.peer_hostname = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enabled_sip_ping => {
+                            if !fields.insert(__FieldTag::__enabled_sip_ping) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled_sip_ping",
+                                ));
+                            }
+                            result.enabled_sip_ping = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ping_interval => {
+                            if !fields.insert(__FieldTag::__ping_interval) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ping_interval",
+                                ));
+                            }
+                            result.ping_interval =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__peer_socket_address => {
+                            if !fields.insert(__FieldTag::__peer_socket_address) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for peer_socket_address",
+                                ));
+                            }
+                            result.peer_socket_address = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__probe_details => {
+                            if !fields.insert(__FieldTag::__probe_details) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for probe_details",
+                                ));
+                            }
+                            result.probe_details = map
+                                .next_value::<std::option::Option<crate::model::ProbeDetails>>()?;
+                        }
+                        __FieldTag::__connection_state => {
+                            if !fields.insert(__FieldTag::__connection_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_state",
+                                ));
+                            }
+                            result.connection_state =
+                                map.next_value::<std::option::Option<
+                                    crate::model::sip_hostname::ConnectionState,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__error_details => {
+                            if !fields.insert(__FieldTag::__error_details) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for error_details",
+                                ));
+                            }
+                            result.error_details = map.next_value::<std::option::Option<
+                                crate::model::sip_hostname::HostnameErrorDetails,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::sip_hostname::HostnameErrorDetails {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __certificate_state,
+            __error_message,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for HostnameErrorDetails")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "certificateState" => Ok(__FieldTag::__certificate_state),
+                            "certificate_state" => Ok(__FieldTag::__certificate_state),
+                            "errorMessage" => Ok(__FieldTag::__error_message),
+                            "error_message" => Ok(__FieldTag::__error_message),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::sip_hostname::HostnameErrorDetails;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct HostnameErrorDetails")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__certificate_state => {
+                            if !fields.insert(__FieldTag::__certificate_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for certificate_state",
+                                ));
+                            }
+                            result.certificate_state = map
+                                .next_value::<std::option::Option<
+                                    crate::model::sip_hostname::HostnameCertificateState,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__error_message => {
+                            if !fields.insert(__FieldTag::__error_message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for error_message",
+                                ));
+                            }
+                            result.error_message = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ProbeDetails {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __options_latency,
+            __probe_status,
+            __init_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ProbeDetails")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "optionsLatency" => Ok(__FieldTag::__options_latency),
+                            "options_latency" => Ok(__FieldTag::__options_latency),
+                            "probeStatus" => Ok(__FieldTag::__probe_status),
+                            "probe_status" => Ok(__FieldTag::__probe_status),
+                            "initTime" => Ok(__FieldTag::__init_time),
+                            "init_time" => Ok(__FieldTag::__init_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ProbeDetails;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ProbeDetails")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__options_latency => {
+                            if !fields.insert(__FieldTag::__options_latency) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options_latency",
+                                ));
+                            }
+                            result.options_latency =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__probe_status => {
+                            if !fields.insert(__FieldTag::__probe_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for probe_status",
+                                ));
+                            }
+                            result.probe_status = map.next_value::<std::option::Option<crate::model::probe_details::ProbeStatus>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__init_time => {
+                            if !fields.insert(__FieldTag::__init_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for init_time",
+                                ));
+                            }
+                            result.init_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

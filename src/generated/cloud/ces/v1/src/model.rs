@@ -10645,7 +10645,7 @@ pub mod evaluation_metrics_thresholds {
         /// ```
         pub fn set_turn_level_metrics_thresholds<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::evaluation_metrics_thresholds::golden_evaluation_metrics_thresholds::TurnLevelMetricsThresholds>
-        {
+{
             self.turn_level_metrics_thresholds = std::option::Option::Some(v.into());
             self
         }
@@ -10661,7 +10661,7 @@ pub mod evaluation_metrics_thresholds {
         /// ```
         pub fn set_or_clear_turn_level_metrics_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::evaluation_metrics_thresholds::golden_evaluation_metrics_thresholds::TurnLevelMetricsThresholds>
-        {
+{
             self.turn_level_metrics_thresholds = v.map(|x| x.into());
             self
         }
@@ -10676,7 +10676,7 @@ pub mod evaluation_metrics_thresholds {
         /// ```
         pub fn set_expectation_level_metrics_thresholds<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::evaluation_metrics_thresholds::golden_evaluation_metrics_thresholds::ExpectationLevelMetricsThresholds>
-        {
+{
             self.expectation_level_metrics_thresholds = std::option::Option::Some(v.into());
             self
         }
@@ -10692,7 +10692,7 @@ pub mod evaluation_metrics_thresholds {
         /// ```
         pub fn set_or_clear_expectation_level_metrics_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::evaluation_metrics_thresholds::golden_evaluation_metrics_thresholds::ExpectationLevelMetricsThresholds>
-        {
+{
             self.expectation_level_metrics_thresholds = v.map(|x| x.into());
             self
         }
@@ -19151,7 +19151,7 @@ pub mod data_store_tool {
             /// ```
             pub fn set_boost_control_spec<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::data_store_tool::boost_spec::condition_boost_spec::BoostControlSpec>
-            {
+{
                 self.boost_control_spec = std::option::Option::Some(v.into());
                 self
             }
@@ -19167,7 +19167,7 @@ pub mod data_store_tool {
             /// ```
             pub fn set_or_clear_boost_control_spec<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::data_store_tool::boost_spec::condition_boost_spec::BoostControlSpec>
-            {
+{
                 self.boost_control_spec = v.map(|x| x.into());
                 self
             }
@@ -19279,7 +19279,7 @@ pub mod data_store_tool {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::data_store_tool::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint>
-                {
+{
                     use std::iter::Iterator;
                     self.control_points = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -26517,7 +26517,7 @@ pub mod omnichannel_integration_config {
         ///     google_cloud_ces_v1::model::omnichannel_integration_config::subscriber_config::SubscriberConfig::CesAppConfig(CesAppConfig::default().into())));
         /// ```
         pub fn set_subscriber_config<T: std::convert::Into<std::option::Option<crate::model::omnichannel_integration_config::subscriber_config::SubscriberConfig>>>(mut self, v: T) -> Self
-        {
+{
             self.subscriber_config = v.into();
             self
         }

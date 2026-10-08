@@ -221,7 +221,7 @@ impl ConvertError {
     ///     .await?;
     ///
     /// if let Some(row) = result_set.next().await {
-    ///     let result: Result<i64, _> = row?.try_get("text");
+    ///     let result: Result<i64, _> = row?.get("text");
     ///     if let Err(error) = result {
     ///         if let Some(convert_error) = ConvertError::extract(&error) {
     ///             println!("Conversion failed: {convert_error}");
@@ -525,12 +525,11 @@ fn borrowed_list_value_to_json(
         }
 
         _ => {
-            let element_type =
-                spanner_type.and_then(|target_type| target_type.array_element_type());
+            let element_type = spanner_type.and_then(Type::array_element_type);
             let mut array = Vec::with_capacity(list_value.values.len());
             for proto_value in &list_value.values {
                 let val = Value::from_ref(proto_value);
-                array.push(from_value_recursive(val, element_type.as_ref(), depth)?);
+                array.push(from_value_recursive(val, element_type, depth)?);
             }
             Ok(JsonValue::Array(array))
         }
@@ -622,15 +621,10 @@ fn list_value_to_json(
         }
 
         _ => {
-            let element_type =
-                spanner_type.and_then(|target_type| target_type.array_element_type());
+            let element_type = spanner_type.and_then(Type::array_element_type);
             let mut array = Vec::with_capacity(list_value.values.len());
             for proto_value in list_value.values {
-                array.push(value_to_json(
-                    Value(proto_value),
-                    element_type.as_ref(),
-                    depth,
-                )?);
+                array.push(value_to_json(Value(proto_value), element_type, depth)?);
             }
             Ok(JsonValue::Array(array))
         }
@@ -984,7 +978,7 @@ where
                     // `Value` is a `#[repr(transparent)]` wrapper around `ProtoValue`.
                     // We use `from_ref` to safely cast the pointer and avoid cloning elements.
                     let val = Value::from_ref(v);
-                    vec.push(T::from_value(val, &element_type)?);
+                    vec.push(T::from_value(val, element_type)?);
                 }
                 Ok(vec)
             }
@@ -1011,7 +1005,7 @@ where
             Some(ProtoKind::ListValue(list_value)) => {
                 let mut vector = Vec::with_capacity(list_value.values.len());
                 for proto_value in list_value.values {
-                    vector.push(T::from_owned_value(Value(proto_value), &element_type)?);
+                    vector.push(T::from_owned_value(Value(proto_value), element_type)?);
                 }
                 Ok(vector)
             }

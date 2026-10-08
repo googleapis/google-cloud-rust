@@ -179,6 +179,30 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn get_boundary(
+        &self,
+        req: crate::model::GetBoundaryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Boundary>>;
+
+    async fn update_boundary(
+        &self,
+        req: crate::model::UpdateBoundaryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_extended_metadata_schema(
+        &self,
+        req: crate::model::GetExtendedMetadataSchemaRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExtendedMetadataSchema>>;
+
+    async fn list_extended_metadata_schemas(
+        &self,
+        req: crate::model::ListExtendedMetadataSchemasRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListExtendedMetadataSchemasResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -493,6 +517,42 @@ impl<T: super::AppHub> AppHub for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_application(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_boundary(
+        &self,
+        req: crate::model::GetBoundaryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Boundary>> {
+        T::get_boundary(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_boundary(
+        &self,
+        req: crate::model::UpdateBoundaryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_boundary(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_extended_metadata_schema(
+        &self,
+        req: crate::model::GetExtendedMetadataSchemaRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExtendedMetadataSchema>> {
+        T::get_extended_metadata_schema(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_extended_metadata_schemas(
+        &self,
+        req: crate::model::ListExtendedMetadataSchemasRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListExtendedMetadataSchemasResponse>> {
+        T::list_extended_metadata_schemas(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

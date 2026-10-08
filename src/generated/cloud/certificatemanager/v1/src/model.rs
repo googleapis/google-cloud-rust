@@ -709,7 +709,7 @@ pub mod certificate_issuance_config {
         ///     google_cloud_certificatemanager_v1::model::certificate_issuance_config::certificate_authority_config::Kind::CertificateAuthorityServiceConfig(CertificateAuthorityServiceConfig::default().into())));
         /// ```
         pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::certificate_issuance_config::certificate_authority_config::Kind>>>(mut self, v: T) -> Self
-        {
+{
             self.kind = v.into();
             self
         }

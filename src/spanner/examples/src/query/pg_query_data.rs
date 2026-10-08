@@ -27,9 +27,9 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
     let mut result_set = transaction.execute_query(statement).await?;
 
     while let Some(row) = result_set.next().await.transpose()? {
-        let singer_id: i64 = row.get("SingerId");
-        let first_name: String = row.get("FirstName");
-        let last_name: String = row.get("LastName");
+        let singer_id: i64 = row.get("SingerId")?;
+        let first_name: String = row.get("FirstName")?;
+        let last_name: String = row.get("LastName")?;
         println!("{singer_id} {first_name} {last_name}");
     }
     Ok(())

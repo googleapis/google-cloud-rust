@@ -57,9 +57,8 @@ use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::cmp::min;
 use std::mem::take;
-use std::sync::Arc;
-use std::sync::Mutex;
 use std::sync::atomic::{AtomicI64, Ordering};
+use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::Duration;
 use tokio::time::Instant;
 
@@ -76,6 +75,7 @@ pub(crate) struct ReadWriteTransactionBuilder {
     begin_transaction_option: BeginTransactionOption,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
+    rollback_gax_options: Option<RequestOptions>,
     affinity: Option<Arc<TransactionAffinity>>,
 }
 
@@ -93,6 +93,7 @@ impl ReadWriteTransactionBuilder {
             begin_transaction_option: BeginTransactionOption::InlineBegin,
             begin_gax_options: None,
             commit_gax_options: None,
+            rollback_gax_options: None,
             affinity: None,
         }
     }
@@ -168,6 +169,11 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
+    pub(crate) fn with_rollback_request_options(mut self, options: Option<RequestOptions>) -> Self {
+        self.rollback_gax_options = options;
+        self
+    }
+
     async fn begin<'a>(
         &self,
         session_name: String,
@@ -237,6 +243,7 @@ impl ReadWriteTransactionBuilder {
             mutations: Arc::new(Mutex::new(Vec::new())),
             begin_gax_options: self.begin_gax_options,
             commit_gax_options: self.commit_gax_options,
+            rollback_gax_options: self.rollback_gax_options,
             _location_routing_drop_guard,
         })
     }
@@ -405,6 +412,7 @@ pub struct ReadWriteTransaction {
     mutations: Arc<Mutex<Vec<ProtoMutation>>>,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
+    rollback_gax_options: Option<RequestOptions>,
     _location_routing_drop_guard: Arc<LocationRoutingDropGuard>,
 }
 
@@ -432,10 +440,7 @@ impl ReadWriteTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let mut guard = self
-            .mutations
-            .lock()
-            .map_err(|_| crate::error::internal_error("mutations mutex poisoned"))?;
+        let mut guard = self.lock_mutations();
         for mutation in mutations {
             guard.push(mutation.build_proto());
         }
@@ -624,8 +629,24 @@ impl ReadWriteTransaction {
             .await
     }
 
-    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
+    pub(crate) fn is_starting(&self) -> bool {
         self.context.transaction_selector.is_starting()
+    }
+
+    /// Acquires an exclusive mutex lock on the buffered mutations, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `mutations` protects the in-memory buffered mutation list (`Vec<ProtoMutation>`). Standard
+    /// library `Vec` collections remain memory-safe and structurally sound in Rust even if a thread
+    /// panicked while appending or clearing mutations. Recovering the guard via `into_inner()` prevents
+    /// an isolated panic in a caller task from permanently disabling mutation buffering, allowing
+    /// subsequent statements, error handlers, or rollback routines to inspect or clear the transaction
+    /// state cleanly without crashing.
+    fn lock_mutations(&self) -> MutexGuard<'_, Vec<ProtoMutation>> {
+        match self.mutations.lock() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
     }
 
     fn commit_request_options(&self) -> Option<crate::model::RequestOptions> {
@@ -669,10 +690,10 @@ impl ReadWriteTransaction {
 
     async fn commit_internal(&self) -> Result<CommitResponse> {
         self.context.transaction_selector.check_failed()?;
-        let mutations = take(&mut *self.mutations.lock().expect("mutations mutex poisoned"));
+        let mutations = take(&mut *self.lock_mutations());
         let mut id = self.context.transaction_selector.get_id_no_wait()?;
         if id.is_none() {
-            if self.is_starting()? {
+            if self.is_starting() {
                 return Err(internal_error(
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
@@ -743,8 +764,11 @@ impl ReadWriteTransaction {
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id);
 
-        let mut gax_options = RequestOptions::default();
-        self.amend_gax_options(&mut gax_options);
+        let mut gax_options = self.rollback_gax_options.clone().unwrap_or_default();
+        amend_gax_options_for_rollback(
+            self.context.client.leader_aware_routing_enabled,
+            &mut gax_options,
+        );
 
         self.context
             .client
@@ -767,6 +791,24 @@ impl ReadWriteTransaction {
     pub(crate) fn affinity(&self) -> Option<&TransactionAffinity> {
         self.context.affinity()
     }
+}
+
+pub(crate) const DEFAULT_ROLLBACK_TIMEOUT: Duration = Duration::from_secs(30);
+
+pub(crate) fn amend_gax_options_for_rollback(
+    leader_aware_routing_enabled: bool,
+    options: &mut GaxRequestOptions,
+) {
+    if options.idempotent().is_none() {
+        options.set_idempotency(true);
+    }
+    let timeout = (*options.attempt_timeout()).unwrap_or(DEFAULT_ROLLBACK_TIMEOUT);
+    let rollback_deadline = Instant::now() + DEFAULT_ROLLBACK_TIMEOUT.max(timeout);
+    amend_gax_options(
+        leader_aware_routing_enabled,
+        Some(rollback_deadline),
+        options,
+    );
 }
 
 pub(crate) fn amend_gax_options(
@@ -808,10 +850,16 @@ struct TransactionBoundedRetryPolicy {
 
 impl RetryPolicy for TransactionBoundedRetryPolicy {
     fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
+        if Instant::now() >= self.deadline {
+            return RetryResult::Exhausted(error);
+        }
         self.inner.on_error(state, error)
     }
 
     fn on_throttle(&self, state: &RetryState, error: GaxError) -> ThrottleResult {
+        if Instant::now() >= self.deadline {
+            return ThrottleResult::Exhausted(error);
+        }
         self.inner.on_throttle(state, error)
     }
 
@@ -3585,7 +3633,7 @@ mod tests {
                         .await
                         .expect("Expected row option")
                         .expect("Expected valid row");
-                    assert_eq!(row.get::<String, _>(0), "alice");
+                    assert_eq!(row.get::<String>(0)?, "alice");
                     Ok(())
                 }
             })
@@ -3705,7 +3753,7 @@ mod tests {
                     .await
                     .expect("Expected first row")
                     .expect("First row should be Ok");
-                assert_eq!(row.get::<String, _>(0), "alice");
+                assert_eq!(row.get::<String>(0)?, "alice");
                 // Second next() fails
                 let next_result = result_set.next().await.expect("Expected stream item");
                 assert!(next_result.is_err(), "Second row fetch must fail");
@@ -4308,6 +4356,283 @@ mod tests {
             remaining >= StdDuration::from_millis(9500)
                 && remaining <= StdDuration::from_millis(10500)
         );
+    }
+
+    #[test]
+    fn amend_gax_options_for_rollback_defaults_and_custom() {
+        // Case 1: Default timeout and retry policy
+        let mut options = RequestOptions::default();
+        amend_gax_options_for_rollback(false, &mut options);
+        let timeout = options.attempt_timeout().expect("attempt timeout missing");
+        assert!(
+            timeout >= StdDuration::from_millis(28000)
+                && timeout <= StdDuration::from_millis(32000),
+            "rollback timeout should default to ~30s, got: {:?}",
+            timeout
+        );
+        assert!(
+            options.retry_policy().is_some(),
+            "retry policy should be wrapped in TransactionBoundedRetryPolicy"
+        );
+        assert_eq!(
+            options.idempotent(),
+            Some(true),
+            "rollback should be configured as idempotent"
+        );
+
+        // Case 2: Custom attempt timeout
+        let mut options = RequestOptions::default();
+        let custom_timeout = StdDuration::from_secs(2);
+        options.set_attempt_timeout(custom_timeout);
+        amend_gax_options_for_rollback(false, &mut options);
+        let timeout = options.attempt_timeout().expect("attempt timeout missing");
+        assert!(
+            timeout >= StdDuration::from_millis(1800) && timeout <= StdDuration::from_millis(2200),
+            "rollback timeout should match custom timeout (~2s), got: {:?}",
+            timeout
+        );
+
+        // Case 3: Leader-aware routing enabled
+        let mut options = RequestOptions::default();
+        amend_gax_options_for_rollback(true, &mut options);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap extension missing");
+        assert_eq!(
+            headers
+                .get("x-goog-spanner-route-to-leader")
+                .expect("route to leader header")
+                .to_str()
+                .expect("valid str"),
+            "true"
+        );
+
+        // Case 4: Explicit non-idempotent configuration preserved
+        let mut options = RequestOptions::default();
+        options.set_idempotency(false);
+        amend_gax_options_for_rollback(false, &mut options);
+        assert_eq!(
+            options.idempotent(),
+            Some(false),
+            "explicit non-idempotent setting must be preserved"
+        );
+    }
+
+    #[test]
+    fn transaction_bounded_retry_policy_exhausted_on_deadline() {
+        #[derive(Debug)]
+        struct ContinualPolicy;
+        impl RetryPolicy for ContinualPolicy {
+            fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
+                RetryResult::Continue(error)
+            }
+            fn on_throttle(&self, _state: &RetryState, error: GaxError) -> ThrottleResult {
+                ThrottleResult::Continue(error)
+            }
+        }
+
+        let inner: Arc<dyn RetryPolicy> = Arc::new(ContinualPolicy);
+        // Expired deadline (in the past)
+        let expired_deadline = Instant::now() - StdDuration::from_millis(100);
+        let bounded_expired = TransactionBoundedRetryPolicy {
+            inner: Arc::clone(&inner),
+            deadline: expired_deadline,
+        };
+
+        let state = RetryState::new(true);
+        let make_error = || {
+            let status = Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("unavailable");
+            GaxError::service(status)
+        };
+
+        let error_result = bounded_expired.on_error(&state, make_error());
+        assert!(
+            matches!(error_result, RetryResult::Exhausted(_)),
+            "on_error must return Exhausted when deadline has passed"
+        );
+
+        let throttle_result = bounded_expired.on_throttle(&state, make_error());
+        assert!(
+            matches!(throttle_result, ThrottleResult::Exhausted(_)),
+            "on_throttle must return Exhausted when deadline has passed"
+        );
+
+        // Future deadline: delegates to inner policy
+        let future_deadline = Instant::now() + StdDuration::from_secs(60);
+        let bounded_future = TransactionBoundedRetryPolicy {
+            inner,
+            deadline: future_deadline,
+        };
+
+        let error_result_future = bounded_future.on_error(&state, make_error());
+        assert!(
+            matches!(error_result_future, RetryResult::Continue(_)),
+            "on_error must delegate to inner when before deadline"
+        );
+
+        let throttle_result_future = bounded_future.on_throttle(&state, make_error());
+        assert!(
+            matches!(throttle_result_future, ThrottleResult::Continue(_)),
+            "on_throttle must delegate to inner when before deadline"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn rollback_under_expired_deadline_uses_graceful_timeout() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![1, 2, 3, 4];
+        let id_clone = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: id_clone.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        let id_clone_rollback = transaction_id.clone();
+        mock.expect_rollback().once().returning(move |request| {
+            let duration = parse_grpc_timeout(request.metadata())
+                .expect("valid grpc-timeout header on rollback");
+            assert!(
+                duration >= StdDuration::from_millis(28000)
+                    && duration <= StdDuration::from_millis(32000),
+                "rollback timeout should use default graceful timeout (~30s), got: {:?}",
+                duration
+            );
+            let inner_request = request.into_inner();
+            assert_eq!(inner_request.transaction_id, id_clone_rollback);
+            Ok(tonic::Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        // Build a transaction with a short deadline that will expire before rollback
+        let deadline = Instant::now() + StdDuration::from_millis(50);
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(Some(deadline))
+            .await?;
+
+        // Sleep until transaction deadline has expired
+        tokio::time::sleep(StdDuration::from_millis(60)).await;
+
+        // Executing rollback when deadline has already expired should succeed and use graceful timeout
+        transaction.rollback().await?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn rollback_under_expired_deadline_respects_custom_timeout() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![5, 6, 7, 8];
+        let id_clone = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: id_clone.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        let id_clone_rollback = transaction_id.clone();
+        mock.expect_rollback().once().returning(move |request| {
+            let duration = parse_grpc_timeout(request.metadata())
+                .expect("valid grpc-timeout header on rollback");
+            assert!(
+                duration >= StdDuration::from_millis(1800)
+                    && duration <= StdDuration::from_millis(2200),
+                "rollback timeout should match configured custom timeout (~2s), got: {:?}",
+                duration
+            );
+            let inner_request = request.into_inner();
+            assert_eq!(inner_request.transaction_id, id_clone_rollback);
+            Ok(tonic::Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let mut rollback_options = RequestOptions::default();
+        rollback_options.set_attempt_timeout(StdDuration::from_secs(2));
+
+        let deadline = Instant::now() + StdDuration::from_millis(50);
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_rollback_request_options(Some(rollback_options))
+            .build(Some(deadline))
+            .await?;
+
+        // Sleep until transaction deadline has expired
+        tokio::time::sleep(StdDuration::from_millis(60)).await;
+
+        transaction.rollback().await?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn rollback_retries_on_unavailable_with_standard_retry_policy() -> anyhow::Result<()> {
+        use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+
+        let mut mock = create_session_mock();
+        let transaction_id = vec![10, 20, 30, 40];
+        let transaction_id_clone = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: transaction_id_clone.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        let rollback_attempts = Arc::new(AtomicU32::new(0));
+        let attempts_clone = Arc::clone(&rollback_attempts);
+        let transaction_id_for_rollback = transaction_id.clone();
+        mock.expect_rollback().times(2).returning(move |request| {
+            let inner_request = request.into_inner();
+            assert_eq!(
+                inner_request.transaction_id, transaction_id_for_rollback,
+                "transaction id in rollback request must match"
+            );
+            let attempt = attempts_clone.fetch_add(1, Ordering::SeqCst);
+            if attempt == 0 {
+                Err(tonic::Status::unavailable("transient unavailable error"))
+            } else {
+                Ok(tonic::Response::new(()))
+            }
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let mut rollback_options = RequestOptions::default();
+        rollback_options.set_backoff_policy(
+            ExponentialBackoffBuilder::new()
+                .with_initial_delay(StdDuration::from_millis(1))
+                .with_maximum_delay(StdDuration::from_millis(2))
+                .build()
+                .expect("valid backoff policy"),
+        );
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_rollback_request_options(Some(rollback_options))
+            .build(None)
+            .await?;
+
+        transaction.rollback().await?;
+        assert_eq!(
+            rollback_attempts.load(Ordering::SeqCst),
+            2,
+            "rollback should have retried after transient unavailable error"
+        );
+        Ok(())
     }
 
     #[tokio_test_no_panics]
@@ -6552,7 +6877,7 @@ mod tests {
                     leader_rpc_received.notified().await;
                     yield_now().await;
                     assert!(
-                        transaction.is_starting()?,
+                        transaction.is_starting(),
                         "Leader must be in Starting state before cancellation"
                     );
 
@@ -6588,6 +6913,50 @@ mod tests {
                 .is_some(),
             "Expected commit timestamp"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_recovers_from_poisoned_mutations_lock() -> crate::Result<()> {
+        use std::mem::take;
+        use std::panic::catch_unwind;
+
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        // Deliberately poison the mutations mutex.
+        let mutations_clone = Arc::clone(&transaction.mutations);
+        let _ = catch_unwind(move || {
+            let _guard = mutations_clone
+                .lock()
+                .expect("mutex lock before deliberate panic");
+            panic!("deliberate panic to poison mutations mutex");
+        });
+        assert!(
+            transaction.mutations.is_poisoned(),
+            "mutations mutex must be poisoned"
+        );
+
+        // Verify buffer() recovers from the poisoned lock and successfully buffers mutations.
+        use crate::key::KeySet;
+        let mutation = Mutation::delete("Users", KeySet::all());
+        transaction.buffer(vec![mutation])?;
+
+        // Verify lock_mutations() recovers from the poisoned lock and exposes the mutation.
+        let mut guard = transaction.lock_mutations();
+        assert_eq!(
+            guard.len(),
+            1,
+            "expected one buffered mutation after poison recovery"
+        );
+        let drained: Vec<_> = take(&mut *guard);
+        assert_eq!(drained.len(), 1, "expected one drained mutation");
+
         Ok(())
     }
 }

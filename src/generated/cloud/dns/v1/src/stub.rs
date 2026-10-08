@@ -104,6 +104,40 @@ pub trait DnsKeys: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::Locations].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Locations`.  In other use-cases, application developers only
+/// use `client::Locations` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait Locations: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Locations::get].
+    fn get(
+        &self,
+        _req: crate::model::locations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Location>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Locations::list].
+    fn list(
+        &self,
+        _req: crate::model::locations::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListLocationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::ManagedZoneOperations].
 ///
 /// Application developers may need to implement this trait to mock
@@ -287,6 +321,131 @@ pub trait ManagedZones: std::fmt::Debug + Send + Sync {
         _options: &crate::RequestOptions,
     ) -> google_cloud_lro::PollerOptions {
         google_cloud_lro::PollerOptions::default()
+    }
+}
+
+/// Defines the trait used to implement [super::client::Operations].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Operations`.  In other use-cases, application developers only
+/// use `client::Operations` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait Operations: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Operations::cancel].
+    fn cancel(
+        &self,
+        _req: crate::model::operations::CancelRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Empty>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Operations::delete].
+    fn delete(
+        &self,
+        _req: crate::model::operations::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Empty>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Operations::get].
+    fn get(
+        &self,
+        _req: crate::model::operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Operations::list].
+    fn list(
+        &self,
+        _req: crate::model::operations::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::GoogleLongrunningListOperationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::OutboundEndpoints].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::OutboundEndpoints`.  In other use-cases, application developers only
+/// use `client::OutboundEndpoints` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait OutboundEndpoints: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::OutboundEndpoints::create].
+    fn create(
+        &self,
+        _req: crate::model::outbound_endpoints::CreateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OutboundEndpoints::delete].
+    fn delete(
+        &self,
+        _req: crate::model::outbound_endpoints::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OutboundEndpoints::get].
+    fn get(
+        &self,
+        _req: crate::model::outbound_endpoints::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::OutboundEndpoint>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OutboundEndpoints::list].
+    fn list(
+        &self,
+        _req: crate::model::outbound_endpoints::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListOutboundEndpointsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OutboundEndpoints::patch].
+    fn patch(
+        &self,
+        _req: crate::model::outbound_endpoints::PatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
     }
 }
 

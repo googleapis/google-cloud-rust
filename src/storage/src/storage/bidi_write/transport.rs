@@ -14,6 +14,7 @@
 
 use super::coalescing_buffer::CoalescingBuffer;
 use super::connector::{Connection, Connector};
+use super::replay_buffer::{ReplayBuffer, ReplayChunk};
 use super::worker::{UploadIntent, Worker};
 use super::{Client, MAX_WRITE_CHUNK_SIZE, TonicStreaming, is_finalized, persisted_size};
 use crate::google::storage::v2::BidiWriteObjectResponse;
@@ -42,9 +43,14 @@ use tokio::sync::oneshot;
 ///    memory predictably capped around 10 MiB before foreground `.append()` calls suspend.
 const CHANNEL_BUFFER_SIZE: usize = 4;
 
-#[derive(Clone, Copy, Debug)]
+/// The payload sent in the opening request of an open-and-append stream.
+///
+/// It is kept past the opening request to seed the running CRC32C checksum and the worker's
+/// replay buffer, so a stream failure before the server acknowledges it is recovered like any
+/// other append.
+#[derive(Debug)]
 struct InitialPayload {
-    len: usize,
+    data: Bytes,
     crc32c: u32,
 }
 
@@ -97,7 +103,7 @@ impl AppendableObjectWriterTransport {
         let first_chunk_crc = crc32c::crc32c(&first_chunk);
 
         let (initial, connection) = connector
-            .connect_open_and_append(req, Some(first_chunk))
+            .connect_open_and_append(req, Some(first_chunk.clone()))
             .await?;
 
         let mut transport = Self::start_worker(
@@ -106,7 +112,7 @@ impl AppendableObjectWriterTransport {
             connection,
             0,
             Some(InitialPayload {
-                len: first_chunk_len,
+                data: first_chunk,
                 crc32c: first_chunk_crc,
             }),
         )?;
@@ -158,7 +164,7 @@ impl AppendableObjectWriterTransport {
         // calculation. Default is `None`. We will then see if we can establish
         // a valid CRC32C baseline.
         let mut running_crc32c = None;
-        if let Some(payload) = initial_payload {
+        if let Some(ref payload) = initial_payload {
             running_crc32c = Some(payload.crc32c);
         } else if persisted_size == 0 {
             // A brand new object or takeover an existing object with 0 bytes written,
@@ -177,11 +183,24 @@ impl AppendableObjectWriterTransport {
         // If persisted_size > 0 but the server didn't provide a checksum,
         // we can't reliably continue a running checksum, so it remains `None`.
 
+        let initial_len = initial_payload.as_ref().map_or(0, |p| p.data.len() as i64);
+
+        // Seed the replay buffer with the opening payload so that a stream failure before the
+        // server acknowledges it is recovered like any other append. Acknowledge the bytes the
+        // open response already reports as persisted right away: a reconnect handshake would ack
+        // them anyway, but dropping them now keeps the buffer's unpersisted total, and therefore
+        // its watermark accounting, accurate and releases their memory early.
+        let mut replay_buffer = ReplayBuffer::new();
+        if let Some(payload) = initial_payload {
+            replay_buffer.push(ReplayChunk::new(0, payload.data, payload.crc32c));
+            replay_buffer.ack(persisted_size);
+        }
+
         let (tx, rx) = tokio::sync::mpsc::channel(CHANNEL_BUFFER_SIZE);
-        let worker = Worker::new(connector).with_persisted_size(persisted_size);
+        let worker = Worker::with_replay_buffer(connector, replay_buffer)
+            .with_persisted_size(persisted_size);
         let worker_handle = Some(tokio::spawn(worker.run(connection, rx)));
 
-        let initial_len = initial_payload.map(|p| p.len as i64).unwrap_or(0);
         let write_offset = std::cmp::max(persisted_size, initial_len);
 
         Ok(Self {
@@ -1227,6 +1246,60 @@ mod tests {
         Ok(connector)
     }
 
+    /// Handles returned by [`setup_mock_reconnecting_open_transport_connector`]: the connector,
+    /// the response senders for stream 1 and stream 2, and a channel that yields stream 2's
+    /// request receiver once the connector reconnects.
+    type ReconnectingOpenTransportContext = (
+        Connector<SharedMockClient>,
+        mpsc::Sender<TonicResult<BidiWriteObjectResponse>>,
+        mpsc::Sender<TonicResult<BidiWriteObjectResponse>>,
+        mpsc::Receiver<mpsc::Receiver<BidiWriteObjectRequest>>,
+    );
+
+    /// Like [`setup_mock_open_transport_connector`], but the opening response reports `size` bytes
+    /// already persisted and a second `start` call (the reconnect) yields stream 2.
+    ///
+    /// Stream 1's request receiver is dropped inside the first `start` closure, so any request the
+    /// worker sends on stream 1 after that fails and is replayed on stream 2.
+    async fn setup_mock_reconnecting_open_transport_connector(
+        generation: i64,
+        size: i64,
+    ) -> anyhow::Result<ReconnectingOpenTransportContext> {
+        let (tx1, rx1) = mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+        let (tx2, rx2) = mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream2 = TonicResponse::from(rx2);
+        let (captured_stream2_req_tx, captured_stream2_req_rx) =
+            mpsc::channel::<mpsc::Receiver<BidiWriteObjectRequest>>(1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, req_rx, _, _, _| {
+                let _ = captured_stream2_req_tx.try_send(req_rx);
+                Ok(Ok(stream2))
+            });
+        let connector = mock_connector(mock);
+
+        tx1.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                size,
+                generation,
+                finalize_time: None,
+                ..Default::default()
+            })),
+            ..Default::default()
+        }))
+        .await?;
+
+        Ok((connector, tx1, tx2, captured_stream2_req_rx))
+    }
+
     #[tokio::test]
     async fn open_and_append_initial_state() -> anyhow::Result<()> {
         // Arrange: Small payload to establish baseline state on open.
@@ -1318,6 +1391,133 @@ mod tests {
         assert_eq!(transport.write_offset, MAX_WRITE_CHUNK_SIZE as i64);
         assert_eq!(transport.running_crc32c, Some(expected_first_crc));
         assert_eq!(transport.coalescing_buffer.len(), ONE_MIB);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_and_append_replays_initial_chunk_on_reconnect() -> anyhow::Result<()> {
+        // Arrange.
+        // Opening response creates generation 42 with size = 0 (initial_chunk not yet persisted).
+        let (connector, tx1, tx2, mut captured_stream2_req_rx) =
+            setup_mock_reconnecting_open_transport_connector(42, 0).await?;
+        let initial_chunk = Bytes::from_static(b"initial-chunk-payload");
+        let len = initial_chunk.len() as i64;
+
+        let mut transport = AppendableObjectWriterTransport::new_open_and_append(
+            connector,
+            test_open_request(),
+            initial_chunk.clone(),
+        )
+        .await?;
+        assert_eq!(transport.persisted_size(), 0);
+        assert_eq!(transport.write_offset, len);
+
+        // Act.
+        // Break stream 1 before initial_chunk is persisted; stream 2 reports PersistedSize(0) in
+        // its opening response.
+        drop(tx1);
+        tx2.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(0)),
+            ..Default::default()
+        }))
+        .await?;
+
+        let flush_task = tokio::spawn(async move { transport.flush().await });
+
+        // Assert.
+        // The handshake carries the spec only; the connector must not re-attach initial_chunk.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let handshake = stream2_req_rx.recv().await.unwrap();
+        assert!(handshake.first_message.is_some());
+        assert!(handshake.data.is_none(), "{handshake:?}");
+        assert!(handshake.state_lookup, "{handshake:?}");
+
+        // The second message on stream 2 must be the replayed initial_chunk at write_offset 0, as
+        // a plain append.
+        let replayed = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed.write_offset, 0);
+        assert!(replayed.first_message.is_none(), "{replayed:?}");
+        assert!(!replayed.flush, "{replayed:?}");
+        assert!(!replayed.state_lookup, "{replayed:?}");
+        if let Some(Data::ChecksummedData(cd)) = replayed.data {
+            assert_eq!(cd.content, initial_chunk);
+            assert_eq!(cd.crc32c, Some(crc32c::crc32c(&initial_chunk)));
+        } else {
+            panic!("expected replayed ChecksummedData for initial_chunk");
+        }
+
+        // Wait for the flush request on stream 2 before replying with the persisted size.
+        let flush_req = stream2_req_rx.recv().await.unwrap();
+        assert!(flush_req.flush);
+        assert!(flush_req.state_lookup);
+        assert_eq!(flush_req.write_offset, len);
+
+        tx2.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(len)),
+            ..Default::default()
+        }))
+        .await?;
+
+        let persisted = flush_task.await??;
+        assert_eq!(persisted, len);
+        // Nothing else was sent: no duplicate of initial_chunk and no watermark probe.
+        assert!(stream2_req_rx.try_recv().is_err());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_and_append_does_not_replay_persisted_initial_chunk() -> anyhow::Result<()> {
+        // Arrange.
+        let initial_chunk = Bytes::from_static(b"initial-chunk-payload");
+        let len = initial_chunk.len() as i64;
+        // The opening response already reports every byte of initial_chunk as persisted.
+        let (connector, tx1, tx2, mut captured_stream2_req_rx) =
+            setup_mock_reconnecting_open_transport_connector(42, len).await?;
+
+        let mut transport = AppendableObjectWriterTransport::new_open_and_append(
+            connector,
+            test_open_request(),
+            initial_chunk,
+        )
+        .await?;
+        assert_eq!(transport.persisted_size(), len);
+        assert_eq!(transport.write_offset, len);
+
+        // Act.
+        // Break stream 1; the reconnect handshake on stream 2 reports the same persisted size.
+        drop(tx1);
+        tx2.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(len)),
+            ..Default::default()
+        }))
+        .await?;
+
+        // Wait for the handshake before issuing the flush. Otherwise the handshake could satisfy
+        // a pending flush itself, and the flush would never appear as its own request on stream 2.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let handshake = stream2_req_rx.recv().await.unwrap();
+        assert!(handshake.first_message.is_some());
+
+        let flush_task = tokio::spawn(async move { transport.flush().await });
+
+        // Assert.
+        // The message after the handshake is the flush itself: `ack(len)` dropped initial_chunk
+        // from the replay buffer at open, so no data chunk precedes it.
+        let flush_req = stream2_req_rx.recv().await.unwrap();
+        assert!(flush_req.data.is_none(), "{flush_req:?}");
+        assert!(flush_req.flush, "{flush_req:?}");
+        assert!(flush_req.state_lookup, "{flush_req:?}");
+        assert_eq!(flush_req.write_offset, len);
+
+        tx2.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(len)),
+            ..Default::default()
+        }))
+        .await?;
+
+        let persisted = flush_task.await??;
+        assert_eq!(persisted, len);
+        assert!(stream2_req_rx.try_recv().is_err());
         Ok(())
     }
 }

@@ -183,7 +183,7 @@ impl Value {
     /// Spanner encodes non-finite IEEE 754 floats (`NaN`, `Infinity`, and `-Infinity`)
     /// as string values on the wire. Consequently, `as_f64()` returns `None` for non-finite
     /// floats. To decode floating point values with full IEEE 754 support including `NaN`
-    /// and infinity, use [`Row::try_get`](crate::row::Row::try_get) or [`FromValue`].
+    /// and infinity, use [`Row::get`](crate::row::Row::get) or [`FromValue`].
     pub fn as_f64(&self) -> Option<f64> {
         match &self.0.kind {
             Some(ProtoKind::NumberValue(number_value)) => Some(*number_value),

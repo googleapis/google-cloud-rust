@@ -95,6 +95,18 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn start_split(
+        &self,
+        req: crate::model::StartSplitRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_split_status(
+        &self,
+        req: crate::model::GetSplitStatusRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SplitStatus>>;
+
     async fn establish_volume_peering(
         &self,
         req: crate::model::EstablishVolumePeeringRequest,
@@ -443,6 +455,24 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ExecuteOntapPatchResponse>>;
 
+    async fn restore_volume(
+        &self,
+        req: crate::model::RestoreVolumeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_backup_configs(
+        &self,
+        req: crate::model::ListBackupConfigsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupConfigsResponse>>;
+
+    async fn update_backup_config(
+        &self,
+        req: crate::model::UpdateBackupConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -613,6 +643,24 @@ impl<T: super::NetApp> NetApp for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::revert_volume(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn start_split(
+        &self,
+        req: crate::model::StartSplitRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::start_split(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_split_status(
+        &self,
+        req: crate::model::GetSplitStatusRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SplitStatus>> {
+        T::get_split_status(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1135,6 +1183,33 @@ impl<T: super::NetApp> NetApp for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ExecuteOntapPatchResponse>> {
         T::execute_ontap_patch(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn restore_volume(
+        &self,
+        req: crate::model::RestoreVolumeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::restore_volume(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_backup_configs(
+        &self,
+        req: crate::model::ListBackupConfigsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupConfigsResponse>> {
+        T::list_backup_configs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_backup_config(
+        &self,
+        req: crate::model::UpdateBackupConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_backup_config(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

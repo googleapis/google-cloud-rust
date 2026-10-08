@@ -98,6 +98,8 @@ impl std::fmt::Debug for super::AppGateway {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("allocated_connections", &self.allocated_connections);
         debug_struct.field("host_type", &self.host_type);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

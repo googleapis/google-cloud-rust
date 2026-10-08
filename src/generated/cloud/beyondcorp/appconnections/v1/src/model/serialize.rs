@@ -342,6 +342,12 @@ impl serde::ser::Serialize for super::AppConnection {
         if self.gateway.is_some() {
             state.serialize_entry("gateway", &self.gateway)?;
         }
+        if self.satisfies_pzs.is_some() {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if self.satisfies_pzi.is_some() {
+            state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -415,6 +421,9 @@ impl serde::ser::Serialize for super::app_connection::Gateway {
         }
         if !self.app_gateway.is_empty() {
             state.serialize_entry("appGateway", &self.app_gateway)?;
+        }
+        if !self.l7psc.is_empty() {
+            state.serialize_entry("l7psc", &self.l7psc)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
