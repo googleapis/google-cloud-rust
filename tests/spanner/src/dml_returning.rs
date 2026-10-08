@@ -50,8 +50,8 @@ pub async fn dml_then_return_execute_query(db_client: &DatabaseClient) -> Result
                 .transpose()?
                 .expect("Expected to find returned DML row");
 
-            let returned_id: String = row.get("Id");
-            let col_bool: bool = row.get("ColBool");
+            let returned_id: String = row.get("Id")?;
+            let col_bool: bool = row.get("ColBool")?;
 
             assert_eq!(returned_id, id, "Row ID mismatch");
             assert!(col_bool, "ColBool should have been updated to true");
@@ -150,8 +150,8 @@ pub async fn dml_then_return_unconsumed_query(db_client: &DatabaseClient) -> Res
         .transpose()?
         .expect("Expected to find row inserted by unconsumed query");
 
-    let returned_id: String = row.get("Id");
-    let col_bool: bool = row.get("ColBool");
+    let returned_id: String = row.get("Id")?;
+    let col_bool: bool = row.get("ColBool")?;
 
     assert_eq!(returned_id, id, "Row ID mismatch");
     assert!(col_bool, "ColBool must be true");
@@ -184,7 +184,7 @@ pub async fn dml_then_return_multiple_execute_queries(db_client: &DatabaseClient
                 .await
                 .transpose()?
                 .expect("Expected to find returned row 1");
-            let returned_id1: String = row1.get("Id");
+            let returned_id1: String = row1.get("Id")?;
             assert_eq!(returned_id1, id1, "Returned ID 1 mismatch");
 
             let stmt2 = Statement::builder(
@@ -200,7 +200,7 @@ pub async fn dml_then_return_multiple_execute_queries(db_client: &DatabaseClient
                 .await
                 .transpose()?
                 .expect("Expected to find returned row 2");
-            let returned_id2: String = row2.get("Id");
+            let returned_id2: String = row2.get("Id")?;
             assert_eq!(returned_id2, id2, "Returned ID 2 mismatch");
 
             Ok(())

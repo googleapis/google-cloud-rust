@@ -95,7 +95,7 @@ async fn streaming_sql_happy_path_records_all_metrics_and_time_series() -> anyho
 
     let mut row_count = 0;
     while let Some(row) = result_set.next().await.transpose()? {
-        let value: i64 = row.get("num");
+        let value: i64 = row.get("num")?;
         assert_eq!(value, 42, "Returned value should match mock data");
         row_count += 1;
     }
@@ -372,7 +372,7 @@ async fn streaming_read_happy_path_records_all_metrics() -> anyhow::Result<()> {
 
     let mut count = 0;
     while let Some(row) = result_set.next().await.transpose()? {
-        let value: i64 = row.get("num");
+        let value: i64 = row.get("num")?;
         assert_eq!(value, 100);
         count += 1;
     }
@@ -629,7 +629,7 @@ async fn streaming_sql_transient_retry_records_multiple_attempts_and_single_oper
     let mut row_count = 0;
     while let Some(row) = result_set.next().await {
         let row = row?;
-        let value: i64 = row.get("num");
+        let value: i64 = row.get("num")?;
         assert_eq!(value, 77);
         row_count += 1;
     }
@@ -781,7 +781,7 @@ async fn streaming_sql_missing_server_timing_increments_gfe_connectivity_error()
     let mut result_set = single_use_transaction.execute_query(statement).await?;
 
     while let Some(row) = result_set.next().await.transpose()? {
-        let value: i64 = row.get("num");
+        let value: i64 = row.get("num")?;
         assert_eq!(value, 123);
     }
 
@@ -1631,7 +1631,7 @@ async fn streaming_sql_midstream_resumption_records_both_attempts_and_single_ope
 
     let mut rows = Vec::new();
     while let Some(row) = result_set.next().await.transpose()? {
-        let value: i64 = row.get("num");
+        let value: i64 = row.get("num")?;
         rows.push(value);
     }
     assert_eq!(

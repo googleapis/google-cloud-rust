@@ -643,7 +643,7 @@ impl Spanner {
     ///
     /// while let Some(row) = rs.next().await {
     ///     let row = row?;
-    ///     let val: i64 = row.get(0);
+    ///     let val: i64 = row.get(0)?;
     ///     assert_eq!(val, 1);
     /// }
     /// # Ok(())

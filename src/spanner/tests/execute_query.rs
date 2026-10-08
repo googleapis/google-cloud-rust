@@ -389,33 +389,33 @@ async fn execute_query_with_non_finite_float_params() -> anyhow::Result<()> {
         .await
         .ok_or_else(|| anyhow::anyhow!("result set should yield at least one row"))??;
 
-    let f64_nan_val: f64 = row.try_get("f64_nan")?;
+    let f64_nan_val: f64 = row.get("f64_nan")?;
     assert!(f64_nan_val.is_nan(), "expected NaN for f64_nan");
 
-    let f64_inf_val: f64 = row.try_get("f64_inf")?;
+    let f64_inf_val: f64 = row.get("f64_inf")?;
     assert_eq!(f64_inf_val, f64::INFINITY, "expected Infinity for f64_inf");
 
-    let f64_neginf_val: f64 = row.try_get("f64_neginf")?;
+    let f64_neginf_val: f64 = row.get("f64_neginf")?;
     assert_eq!(
         f64_neginf_val,
         f64::NEG_INFINITY,
         "expected -Infinity for f64_neginf"
     );
 
-    let f32_nan_val: f32 = row.try_get("f32_nan")?;
+    let f32_nan_val: f32 = row.get("f32_nan")?;
     assert!(f32_nan_val.is_nan(), "expected NaN for f32_nan");
 
-    let f32_inf_val: f32 = row.try_get("f32_inf")?;
+    let f32_inf_val: f32 = row.get("f32_inf")?;
     assert_eq!(f32_inf_val, f32::INFINITY, "expected Infinity for f32_inf");
 
-    let f32_neginf_val: f32 = row.try_get("f32_neginf")?;
+    let f32_neginf_val: f32 = row.get("f32_neginf")?;
     assert_eq!(
         f32_neginf_val,
         f32::NEG_INFINITY,
         "expected -Infinity for f32_neginf"
     );
 
-    let f64_array_val: Vec<f64> = row.try_get("f64_array")?;
+    let f64_array_val: Vec<f64> = row.get("f64_array")?;
     assert_eq!(f64_array_val.len(), 3, "expected 3 elements in f64_array");
     assert!(f64_array_val[0].is_nan(), "expected NaN for f64_array[0]");
     assert_eq!(
@@ -429,7 +429,7 @@ async fn execute_query_with_non_finite_float_params() -> anyhow::Result<()> {
         "expected -Infinity for f64_array[2]"
     );
 
-    let f32_array_val: Vec<f32> = row.try_get("f32_array")?;
+    let f32_array_val: Vec<f32> = row.get("f32_array")?;
     assert_eq!(f32_array_val.len(), 3, "expected 3 elements in f32_array");
     assert!(f32_array_val[0].is_nan(), "expected NaN for f32_array[0]");
     assert_eq!(

@@ -28,9 +28,9 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
 
     println!("Reading albums data:");
     while let Some(row) = result_set.next().await.transpose()? {
-        let singer_id = row.get::<i64, _>("SingerId");
-        let album_id = row.get::<i64, _>("AlbumId");
-        let album_title = row.get::<String, _>("AlbumTitle");
+        let singer_id: i64 = row.get("SingerId")?;
+        let album_id: i64 = row.get("AlbumId")?;
+        let album_title: String = row.get("AlbumTitle")?;
         println!("SingerId: {singer_id}, AlbumId: {album_id}, AlbumTitle: {album_title}");
     }
     println!("Done reading albums.");
