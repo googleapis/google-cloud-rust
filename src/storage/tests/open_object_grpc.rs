@@ -504,7 +504,7 @@ async fn recv_request(
 /// Extracts the single `ReadRange` from a `BidiReadObjectRequest`.
 fn single_range(request: &BidiReadObjectRequest) -> ProtoRange {
     match request.read_ranges.as_slice() {
-        [range] => range.clone(),
+        [range] => *range,
         _ => panic!("expected exactly one range"),
     }
 }
