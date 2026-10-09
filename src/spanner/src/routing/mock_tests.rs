@@ -310,6 +310,10 @@ async fn read_write_transaction_batch_dml_ingests_cache_update() -> anyhow::Resu
                     "tablet-4001-leader.spanner.internal:15000",
                     "tablet-4001-follower.spanner.internal:15000",
                 )),
+                stats: Some(mock_v1::ResultSetStats {
+                    row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
                 ..Default::default()
             }],
             status: Some(Status {

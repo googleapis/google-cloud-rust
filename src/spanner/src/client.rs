@@ -178,6 +178,10 @@ pub trait SpannerBuilderExt: sealed::SpannerBuilderExt {
     ///
     /// Accepts any configuration convertible into [`ChannelPoolConfig`], such as
     /// [`StaticChannelPoolConfig`] or [`DynamicChannelPoolConfig`].
+    ///
+    /// By default, the client uses a dynamic channel pool ([`DynamicChannelPoolConfig`])
+    /// starting with 4 channels and scaling up to 256 channels based on RPC concurrency and error feedback.
+    /// When connecting to the Spanner emulator, the client defaults to a static pool with 1 channel.
     fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self;
 
     /// Sets the target [`InstanceType`] (`Cloud` vs `Omni`) for the Spanner client.
@@ -472,8 +476,10 @@ fn resolve_pool_config_with(
     }
     let enable_dynamic = dynamic_pool_lookup()
         .as_deref()
+        .map(str::trim)
+        .filter(|value| !value.is_empty())
         .map(is_truthy)
-        .unwrap_or(false);
+        .unwrap_or(!is_emulator);
 
     let num_channels = match num_channels_lookup() {
         Some(value) => {
@@ -2882,6 +2888,39 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
+    async fn builder_default_channel_pool() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client with default configuration");
+
+        assert_eq!(
+            client.active_channel_count(),
+            4,
+            "Client with default configuration should have 4 initial channels"
+        );
+        match client.channel_pool().config() {
+            ChannelPoolConfig::Dynamic(config) => {
+                assert_eq!(
+                    config,
+                    &DynamicChannelPoolConfig::default(),
+                    "Default channel pool configuration must match DynamicChannelPoolConfig::default()"
+                );
+            }
+            ChannelPoolConfig::Static(_) => {
+                panic!("Expected dynamic pool config by default, got static");
+            }
+        }
+    }
+
+    #[tokio_test_no_panics]
     async fn builder_invalid_channel_pool_config_propagates_error() {
         // Case 1: Invalid static pool config
         let result = Spanner::builder()
@@ -2997,8 +3036,8 @@ mod tests {
             .expect("default pool config should resolve");
         assert_eq!(
             pool_config,
-            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 4 }),
-            "default static pool has 4 channels"
+            ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            "default pool is dynamic"
         );
 
         // Case 2: Emulator defaults to 1 channel when SPANNER_NUM_CHANNELS is not set
@@ -3022,15 +3061,34 @@ mod tests {
             "SPANNER_NUM_CHANNELS should override emulator default"
         );
 
-        // Case 3: SPANNER_NUM_CHANNELS valid integer
+        // Case 3: SPANNER_NUM_CHANNELS valid integer with default dynamic pool
         let mut config = ClientConfig::default();
         let pool_config =
             resolve_pool_config_with(&mut config, false, || Some("2".to_string()), || None)
                 .expect("pool config with SPANNER_NUM_CHANNELS=2 should resolve");
         assert_eq!(
             pool_config,
+            ChannelPoolConfig::Dynamic(
+                DynamicChannelPoolConfig::default()
+                    .with_initial_channels(2)
+                    .with_min_channels(2)
+            ),
+            "configured channels should configure dynamic pool when dynamic is default"
+        );
+
+        // Case 3b: SPANNER_NUM_CHANNELS valid integer with SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=false
+        let mut config = ClientConfig::default();
+        let pool_config = resolve_pool_config_with(
+            &mut config,
+            false,
+            || Some("2".to_string()),
+            || Some("false".to_string()),
+        )
+        .expect("static pool with SPANNER_NUM_CHANNELS=2 should resolve");
+        assert_eq!(
+            pool_config,
             ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 2 }),
-            "configured static channels should be 2"
+            "configured channels should configure static pool when dynamic is disabled"
         );
 
         // Case 4: SPANNER_NUM_CHANNELS unparsable integer string
@@ -3048,10 +3106,25 @@ mod tests {
             "error should indicate invalid digit: {debug_error}"
         );
 
-        // Case 5: SPANNER_NUM_CHANNELS zero (validation failure)
+        // Case 5: SPANNER_NUM_CHANNELS zero (validation failure with default dynamic pool)
         let mut config = ClientConfig::default();
         let error = resolve_pool_config_with(&mut config, false, || Some("0".to_string()), || None)
             .expect_err("should fail when SPANNER_NUM_CHANNELS is 0");
+        let debug_error = format!("{error:?}");
+        assert!(
+            debug_error.contains("min_channels must be at least 1"),
+            "error should indicate min_channels must be at least 1: {debug_error}"
+        );
+
+        // Case 5b: SPANNER_NUM_CHANNELS zero with SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=false
+        let mut config = ClientConfig::default();
+        let error = resolve_pool_config_with(
+            &mut config,
+            false,
+            || Some("0".to_string()),
+            || Some("false".to_string()),
+        )
+        .expect_err("should fail when SPANNER_NUM_CHANNELS is 0 with dynamic disabled");
         let debug_error = format!("{error:?}");
         assert!(
             debug_error.contains("num_channels must be at least 1"),
@@ -3097,8 +3170,30 @@ mod tests {
                 .expect("whitespace SPANNER_NUM_CHANNELS should resolve to default");
         assert_eq!(
             pool_config,
-            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 4 }),
-            "whitespace SPANNER_NUM_CHANNELS should default to 4 channels"
+            ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            "whitespace SPANNER_NUM_CHANNELS should default to dynamic pool"
+        );
+
+        // Case 8b: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL empty or whitespace string falls back to default (!is_emulator)
+        let mut config = ClientConfig::default();
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || None, || Some("   ".to_string()))
+                .expect("whitespace SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL should resolve to default");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            "whitespace SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL should default to dynamic pool"
+        );
+
+        // Case 8c: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true explicitly overrides emulator static default
+        let mut config = ClientConfig::default();
+        let pool_config =
+            resolve_pool_config_with(&mut config, true, || None, || Some("true".to_string()))
+                .expect("SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true on emulator should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            "SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true must enable dynamic pool even on emulator"
         );
 
         // Case 9: Extension override with dynamic channel pool configuration

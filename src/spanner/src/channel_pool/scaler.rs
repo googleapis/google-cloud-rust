@@ -14,7 +14,7 @@
 
 //! Background scaling workers, parallel channel priming, and debounced draining.
 //!
-//! This module implements the autonomous scaling engine for Dynamic Channel Pooling:
+//! This module implements the scaling engine for Dynamic Channel Pooling:
 //! - **Scale-Up Worker**: Reacts to high-load picker notifications, dials physical TCP
 //!   connections in parallel, primes backend caches with `SELECT 1` queries using the
 //!   multiplexed session, and publishes ready channels immediately with unique logical IDs.

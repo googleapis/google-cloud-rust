@@ -543,6 +543,26 @@ impl<S> OpenAppendableObject<S> {
         self
     }
 
+    /// Sets the [storage class] for the new object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_storage_class("STANDARD")
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [storage class]: https://cloud.google.com/storage/docs/storage-classes
+    pub fn set_storage_class(mut self, v: impl Into<String>) -> Self {
+        self.mut_resource().storage_class = v.into();
+        self
+    }
+
     /// Sets the resource name of the [Customer-managed encryption key] for this
     /// object.
     ///
@@ -681,6 +701,7 @@ mod tests {
             "projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key",
         )
         .set_metadata([("test-only", "true".to_string())])
+        .set_storage_class("STANDARD")
         .set_contexts(ObjectContexts::new().set_custom([(
             "context-key",
             ObjectCustomContextPayload::new().set_value("context-value"),
@@ -709,6 +730,7 @@ mod tests {
             r.metadata.get("test-only").map(|s: &String| s.as_str()),
             Some("true")
         );
+        assert_eq!(r.storage_class, "STANDARD");
         assert_eq!(
             r.contexts
                 .as_ref()
