@@ -191,18 +191,80 @@ impl ArrowCell {
             }),
         }
     }
+
+    /// Returns the cell's decimal value as a formatted string.
+    pub(crate) fn as_decimal_str(&self) -> Result<String, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Decimal128(_, _) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal128Type>(
+                    &self.array,
+                );
+                Ok(arr.value_as_string(self.row_idx))
+            }
+            arrow::datatypes::DataType::Decimal256(_, _) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal256Type>(
+                    &self.array,
+                );
+                Ok(arr.value_as_string(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Decimal128Array or Decimal256Array".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns the cell's `Decimal128` value along with its non-negative scale.
+    pub(crate) fn as_decimal128_with_scale(&self) -> Result<(i128, u32), ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Decimal128(_, scale) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal128Type>(
+                    &self.array,
+                );
+                let scale =
+                    u32::try_from(*scale).map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok((arr.value(self.row_idx), scale))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Decimal128Array".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use arrow::array::{
-        BinaryArray, BooleanArray, Float32Array, Float64Array, Int32Array, Int64Array,
-        LargeBinaryArray, LargeStringArray, StringArray,
+        BinaryArray, BooleanArray, Decimal128Array, Decimal256Array, Float32Array, Float64Array,
+        Int32Array, Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
     };
-    use arrow::datatypes::DataType;
+    use arrow::datatypes::{DataType, i256};
     use std::sync::Arc;
     use test_case::test_case;
+
+    fn decimal128_array(values: Vec<Option<i128>>, precision: u8, scale: i8) -> ArrayRef {
+        Arc::new(
+            Decimal128Array::from(values)
+                .with_precision_and_scale(precision, scale)
+                .unwrap(),
+        )
+    }
+
+    fn decimal256_array(values: Vec<Option<i256>>, precision: u8, scale: i8) -> ArrayRef {
+        Arc::new(
+            Decimal256Array::from(values)
+                .with_precision_and_scale(precision, scale)
+                .unwrap(),
+        )
+    }
 
     #[derive(Debug, PartialEq)]
     enum TestConvertError {
@@ -317,6 +379,33 @@ mod tests {
         ArrowCell::new(arr, row_idx)
             .as_bytes()
             .map(<[u8]>::to_vec)
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "decimal str from Decimal128Array")]
+    #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Ok("-123.456".to_string()) ; "decimal str negative from Decimal128Array")]
+    #[test_case(decimal128_array(vec![None], 10, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal128Array")]
+    #[test_case(decimal256_array(vec![Some(i256::from_i128(789_012))], 20, 3), 0 => Ok("789.012".to_string()) ; "decimal str from Decimal256Array")]
+    #[test_case(decimal256_array(vec![None], 20, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal256Array")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array", "Int64")) ; "decimal str type mismatch")]
+    fn as_decimal_str(arr: ArrayRef, row_idx: usize) -> Result<String, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_decimal_str()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok((123_456, 3)) ; "decimal128 valid")]
+    #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Ok((-123_456, 3)) ; "decimal128 negative")]
+    #[test_case(decimal128_array(vec![Some(12)], 10, -2), 0 => Err(TestConvertError::Convert("out of range integral type conversion attempted".to_string())) ; "decimal128 negative scale")]
+    #[test_case(decimal128_array(vec![None], 10, 3), 0 => Err(TestConvertError::NotNull) ; "decimal128 null")]
+    #[test_case(decimal256_array(vec![Some(i256::from_i128(123))], 20, 3), 0 => Err(TestConvertError::type_mismatch("Decimal128Array", "Decimal256(20, 3)")) ; "decimal128 type mismatch Decimal256Array")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Decimal128Array", "Int64")) ; "decimal128 type mismatch Int64Array")]
+    fn as_decimal128_with_scale(
+        arr: ArrayRef,
+        row_idx: usize,
+    ) -> Result<(i128, u32), TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_decimal128_with_scale()
             .map_err(TestConvertError::from)
     }
 }
