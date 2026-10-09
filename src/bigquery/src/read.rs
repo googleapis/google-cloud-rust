@@ -15,4 +15,4 @@
 //! Types related to reading with a [Read][crate::client::Read] client.
 
 /// Defines a default retry policy for the BigQuery Storage Read API.
-pub mod retry_policy;
+pub(crate) mod retry_policy;

@@ -26,21 +26,19 @@ use google_cloud_gax::retry_state::RetryState;
 /// This policy is used for when to reconnect a read stream, such as after
 /// transient network/transport errors, HTTP/2 stream resets, rate-limit errors
 /// (`ResourceExhausted`), and transient server statuses (`Unavailable`,
-/// `Internal`, `Aborted`, `Cancelled`, `DeadlineExceeded`) when the operation
-/// is idempotent.
+/// `Internal`, `Aborted`, `Cancelled`, `DeadlineExceeded`). Reconnection is
+/// always assumed to be idempotent.
 ///
 /// This policy must be decorated to limit the duration of the retry loop or
 /// the number of attempts.
+#[allow(dead_code)]
 #[derive(Clone, Debug, Default)]
 pub struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {
-    fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
+    fn on_error(&self, _state: &RetryState, error: Error) -> RetryResult {
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
-        }
-        if !state.idempotent {
-            return RetryResult::Permanent(error);
         }
         if error.is_io() || error.is_timeout() || error.is_connect() {
             return RetryResult::Continue(error);
@@ -86,9 +84,10 @@ mod tests {
             RetryableErrors.on_error(&RetryState::new(true), err()),
             RetryResult::Continue(_)
         ));
+        // Reads are always considered idempotent.
         assert!(matches!(
             RetryableErrors.on_error(&RetryState::new(false), err()),
-            RetryResult::Permanent(_)
+            RetryResult::Continue(_)
         ));
     }
 
