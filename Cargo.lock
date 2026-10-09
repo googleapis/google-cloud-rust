@@ -3587,6 +3587,7 @@ dependencies = [
  "bytes",
  "echo-server",
  "futures",
+ "google-cloud-api",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
@@ -7131,8 +7132,11 @@ name = "integration-tests"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "bytes",
  "google-cloud-aiplatform-v1",
+ "google-cloud-api",
  "google-cloud-auth",
+ "google-cloud-build-v1",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-speech-v2",
