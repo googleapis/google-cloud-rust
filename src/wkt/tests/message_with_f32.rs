@@ -56,7 +56,10 @@ mod tests {
     #[test_case(MessageWithF32::new().set_map([("", 0_f32);0]), json!({}))]
     #[test_case(MessageWithF32::new().set_map([("a", 0_f32), ("b", 1_f32)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
     fn test_de(want: MessageWithF32, input: Value) -> Result {
+        let s = input.to_string();
         let got = serde_json::from_value::<MessageWithF32>(input)?;
+        assert_eq!(got, want);
+        let got = serde_json::from_str::<MessageWithF32>(&s)?;
         assert_eq!(got, want);
         Ok(())
     }
