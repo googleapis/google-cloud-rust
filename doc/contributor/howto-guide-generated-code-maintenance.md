@@ -10,10 +10,11 @@ when the generator changes.
 Make sure your workstation has up-to-date versions of Rust and Go. Follow the
 instructions in [Set Up Development Environment].
 
-The generator formats the code with `cargo fmt`, so the output depends on your
-local `rustfmt` version. Use the latest stable release of Rust, which is what CI
-uses. With older versions you may see unexpected formatting changes in the
-generated code.
+The generator formats the code with `cargo fmt`. Inside the repository, `rustup`
+uses the toolchain pinned in `rust-toolchain.toml`, which is the same version CI
+uses, so the formatting matches. Do not override the toolchain (for example with
+`cargo +stable` or `RUSTUP_TOOLCHAIN`), or you may see unexpected formatting
+changes in the generated code.
 
 To install the generator dependencies use `librarian install`:
 

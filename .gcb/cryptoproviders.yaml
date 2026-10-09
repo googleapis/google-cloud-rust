@@ -39,13 +39,13 @@ steps:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Download dependencies'
-    name: 'rust:${_RUST_VERSION}-bookworm'
+    name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
     args: ['.gcb/scripts/cargo-fetch.sh']
   - id: Validate default crypto provider behavior
-    name: 'rust:${_RUST_VERSION}-bookworm'
+    name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
@@ -70,7 +70,6 @@ steps:
       done
 
 substitutions:
-  _RUST_VERSION: '1.99'
   _SCCACHE_VERSION: 'v0.12.0'
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
   _POOL_REGION: us-central1

@@ -43,7 +43,7 @@ steps:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Download dependencies'
-    name: 'rust:${_RUST_VERSION}-bookworm'
+    name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
@@ -59,7 +59,7 @@ steps:
       URL="https://releases.hashicorp.com/terraform/${_TERRAFORM_VERSION}/terraform_${_TERRAFORM_VERSION}_linux_amd64.zip"
       curl -fsSL --retry 5 --retry-delay 15 "${URL}" -o /workspace/.download/terraform.zip
       sha256sum -c <(echo "${_TERRAFORM_SHA256} */workspace/.download/terraform.zip")
-  - name: 'rust:${_RUST_VERSION}-bookworm'
+  - name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
@@ -72,7 +72,7 @@ steps:
         cargo install typos-cli --version 1.45.0 --locked || \
         cargo install typos-cli --version 1.45.0 --locked
       typos
-  - name: 'rust:${_RUST_VERSION}-bookworm'
+  - name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
@@ -84,7 +84,7 @@ steps:
       git ls-files -z -- '*.yaml' '*.yml' '*.toml' '*.go' '*.rs' \
         ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' ':!:**/generated/**/prost/**' | \
         xargs -0 -r -P "$(nproc)" -n 50 target/release/check-copyright
-  - name: 'rust:${_RUST_VERSION}-bookworm'
+  - name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
@@ -98,7 +98,7 @@ steps:
         cargo install taplo-cli --version 0.10.0 --locked
       git ls-files -z -- '*.toml' ':!:testdata/**' ':!:**/generated/**' | \
         xargs -0 taplo fmt
-  - name: 'rust:${_RUST_VERSION}-bookworm'
+  - name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
@@ -161,7 +161,7 @@ steps:
   # Maybe we should use the terraform docker image here. However, it does not
   # `git`. We could install `git` on that image, but that is as hard / slow as
   # installing `terraform` on Debian.
-  - name: 'rust:${_RUST_VERSION}-bookworm'
+  - name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
@@ -175,7 +175,7 @@ steps:
       git ls-files -z -- '*.tf' ':!:testdata/**' ':!:**/generated/**' | \
         xargs -0 /workspace/.bin/terraform fmt
     waitFor: ['Install terraform']
-  - name: 'rust:${_RUST_VERSION}-bookworm'
+  - name: 'rust:bookworm'
     id: 'Detect miscellanous formatting problems'
     script: git diff --exit-code
 substitutions:
@@ -183,7 +183,6 @@ substitutions:
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
-  _RUST_VERSION: '1.99'
   _GO_VERSION: '1.26.7'
   _PYTHON_VERSION: '3.14'
   _TERRAFORM_VERSION: '1.14.0'

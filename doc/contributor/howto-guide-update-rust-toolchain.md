@@ -8,10 +8,11 @@ Supported Rust Version (MSRV) updates are managed.
 
 The repository tracks two distinct Rust version configurations:
 
-1. **Current Stable Compiler (`_RUST_VERSION` / `CURRENT_RUST_VERSION`)**:
-   Updated when the Rust project releases a new stable minor release (e.g.
-   `1.97` -> `1.98`). All CI checks, formatting, and clippy verification run on
-   the latest stable compiler.
+1. **Current Stable Compiler (`rust-toolchain.toml`)**: Updated when the Rust
+   project releases a new stable minor release (e.g. `1.97` -> `1.98`). Local
+   development, CI checks, formatting, and clippy verification all use the
+   toolchain pinned in this file. Only the minor version is pinned, so patch
+   releases are picked up without changes.
 1. **Minimum Supported Rust Version (MSRV)**: Managed independently under the
    **1-year policy** (`Cargo.toml` `rust-version = "1.XX.0"` and
    `.gcb/msrv.yaml`). Support for an MSRV release is dropped only after 1 year
@@ -37,7 +38,8 @@ The script will:
 1. Compare the configured version against the latest release in `RELEASES.md`.
 1. Automatically create and check out a branch `chore-bump-rust-toolchain-1.XX`
    based on `main`.
-1. Update your local compiler (`rustup update stable`).
+1. Update `channel` in `rust-toolchain.toml` and install that toolchain
+   (`rustup toolchain install`).
 1. Attempt to automatically apply machine-applicable clippy suggestions
    (`cargo clippy --fix`).
 1. Verify that generated code was not modified.
@@ -49,8 +51,8 @@ The script will:
 Inspect `git status` after running the check script:
 
 - **If the script exits successfully and only handwritten crates were
-  modified:** Proceed to Step 3. These fixes will be committed alongside the CI
-  version updates.
+  modified:** Proceed to Step 3. These fixes will be committed alongside the
+  `rust-toolchain.toml` update.
 - **If the script fails because generated code (`**/generated/**`) was
   modified:** **Do not edit generated code manually.**
   1. Inspect the diff to see what changes the new compiler expects:
@@ -75,49 +77,16 @@ Inspect `git status` after running the check script:
   the changes, including any changes to generated code. The generator formats
   its output with `cargo fmt`, so the result matches what it would produce.
 
-### Step 3: Update CI Configuration Files
+### Step 3: Validate and Submit PR
 
-> [!NOTE]
-> The list of CI configuration files below may change over time as new workflows
-> or build steps are added. Always search the repository for the old compiler
-> version number to ensure all references are found.
-
-Search for all occurrences of the old compiler version across the repository
-(escape the dot, e.g. `1\.97`):
-
-```bash
-git grep -n "1\.XX"
-```
-
-You can also search for key configuration variables:
-
-```bash
-git grep -n "_RUST_VERSION"
-git grep -n "CURRENT_RUST_VERSION"
-git grep -n "GHA_RUST_VERSIONS"
-```
+The `channel` in `rust-toolchain.toml` is the only version that needs to change.
+GitHub Actions and Google Cloud Build install the toolchain pinned in that file,
+so no CI configuration files need to be updated.
 
 > [!WARNING]
 > Do NOT modify MSRV configurations: `.gcb/msrv.yaml` or `Cargo.toml`
 > (`rust-version`). Those track the MSRV and are updated independently under the
 > 1-year policy.
-
-Common files to update include:
-
-1. **GitHub Actions:**
-   - `.github/workflows/sdk.yaml`
-     (`GHA_RUST_VERSIONS: '{ "rust:current": "1.XX" }'`)
-   - `.github/workflows/rust-toolchain-check.yaml`
-     (`CURRENT_RUST_VERSION: '1.XX'`)
-1. **Google Cloud Build Configurations (`_RUST_VERSION: '1.XX'`):**
-   - `.gcb/format.yaml`
-   - `.gcb/complex.yaml`
-   - `.gcb/cryptoproviders.yaml`
-   - `.gcb/coverage.yaml`
-   - `.gcb/integration.yaml`
-   - `src/auth/.gcb/integration.yaml`
-
-### Step 4: Validate and Submit PR
 
 1. Verify formatting and workspace builds:
    ```bash
@@ -127,7 +96,7 @@ Common files to update include:
 1. Commit your changes following the commit message guidelines in
    [Contributing Guide]:
    ```bash
-   git commit -am "chore(ci): update Rust toolchain to 1.XX" -m "Update stable compiler version to 1.XX across GitHub Actions and Google Cloud Build configurations."
+   git commit -am "chore: update Rust toolchain to 1.XX" -m "Update the stable compiler version in rust-toolchain.toml to 1.XX."
    ```
 
 ## Updating the Minimum Supported Rust Version (MSRV)
