@@ -53,7 +53,7 @@ rust_decimal.workspace       = true
 uuid.workspace               = true
 
 [target.'cfg(any(google_cloud_unstable_bigquery_arrow, google_cloud_unstable_bigquery_storage_read))'.dependencies]
-arrow.workspace = true
+arrow = { workspace = true, features = ["ipc"] }
 
 [dev-dependencies]
 anyhow.workspace            = true
