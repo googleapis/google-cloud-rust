@@ -126,8 +126,8 @@ pub(crate) enum ReaderState {
 /// resuming from the current row offset.
 #[derive(Debug)]
 pub struct Reader {
-    retry_policy: Arc<dyn RetryPolicy>,
-    backoff_policy: Arc<dyn BackoffPolicy>,
+    retry_policy: Arc<dyn RetryPolicy + Send>,
+    backoff_policy: Arc<dyn BackoffPolicy + Send>,
     retry_throttler: SharedRetryThrottler,
     request: ReadRows,
     /// Encapsulates all mutable state for the [`Reader`]. Any new mutable
