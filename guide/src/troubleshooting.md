@@ -23,18 +23,8 @@ The best way to troubleshoot is by enabling logging. See
 
 ## How can I trace gRPC issues?
 
-When working with libraries that use gRPC, you can use the underlying gRPC
-environment variables to enable logging. Most Rust clients use pure-Rust gRPC
-implementations like `tonic`.
-
-### Prerequisites
-
-Ensure your crate includes the necessary features for the gRPC transport. You
-can verify your dependencies in `Cargo.toml`.
-
-### Transport logging with gRPC
-
-The primary method for debugging gRPC calls in Rust is using the `tracing`
+Clients that use gRPC use [`tonic`][tonic] for the underlying transport. The
+primary method for debugging gRPC calls in Rust is using the `tracing`
 subscriber filters. You can target specific gRPC crates to see underlying
 transport details.
 
@@ -66,11 +56,9 @@ unless you are certain that it belongs elsewhere. The maintainers may move it to
 a different repository where appropriate, but you will be notified of this using
 the email associated with your GitHub account.
 
-When filing an issue, include as much of the following information as possible.
-This will enable us to help you quickly.
-
-[client-configuration]: /configure_client.md
+[client-configuration]: configure_client.md#4-configuring-a-proxy
 [enable-logging]: https://docs.cloud.google.com/rust/enable-logging
 [google-cloud-rust]: https://github.com/googleapis/google-cloud-rust
 [support]: https://cloud.google.com/support/
+[tonic]: https://docs.rs/tonic/latest/tonic/
 [tracing_subscriber]: https://docs.rs/tracing-subscriber/latest/tracing_subscriber/fmt/index.html

@@ -66,22 +66,15 @@ cases of high contention.
 
 ### Steps of the loop:
 
-| \----------------- |
-\---------------------------------------------------------------------------------------------------------------------------------------------------------
-|
-\-------------------------------------------------------------------------------------------------------
-| | **Read** | Fetch the current resource state, including the `etag`. |
-`let mut policy = client.get_iam_policy(request).await?;` | | **Modify** | Apply
-the changes to the local struct. | `policy.bindings.push(new_binding);` | |
-**Write/Check** | Attempt to save the modified resource using the old `etag`.
-This action is checked for specific error codes. |
-`match client.set_iam_policy(request).await { Ok(p) => return Ok(p), Err(e) => { /* retry logic */ } }`
-| | **Success/Retry** | If the write succeeds, exit the loop. If it fails with a
-concurrency error, increment the retry counter and continue the loop (go back to
-the Read step). | |
+| **Step**          | **Action**                                                                                                                                                | **Implementation example**                                                                                                                    |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Read**          | Fetch the current resource state, including the `etag`.                                                                                                   | `let mut policy = client.get_iam_policy().set_resource(&secret_name).send().await?;`                                                          |
+| **Modify**        | Apply the changes to the local struct.                                                                                                                    | `policy.bindings.push(new_binding);`                                                                                                          |
+| **Write/Check**   | Attempt to save the modified resource using the old `etag`. This action is checked for specific error codes.                                              | `match client.set_iam_policy().set_resource(&secret_name).set_policy(policy).send().await { Ok(p) => return Ok(p), Err(e) => { /* ... */ } }` |
+| **Success/Retry** | If the write succeeds, exit the loop. If it fails with a concurrency error, increment the retry counter and continue the loop (go back to the Read step). |                                                                                                                                               |
 
 The following code provides an example of how to implement the OCC loop using an
-IAM policy on a Project resource as the target.
+IAM policy on a Secret resource as the target.
 
 **Note**: This example assumes the use of the Secret Manager client, but the
 same OCC pattern applies to any service or database that implements versioned

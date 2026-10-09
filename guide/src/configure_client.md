@@ -17,9 +17,7 @@ limitations under the License.
 # How to configure a client
 
 The Google Cloud Rust Client Libraries let you configure client behavior using a
-configuration object passed to the client constructor. This configuration is
-typically handled by a `ClientConfig` or `Config` struct provided by the
-specific service crate.
+[`ClientBuilder`][client-builder] obtained by calling `Client::builder()`.
 
 ## 1. Customizing the API endpoint
 
@@ -28,9 +26,9 @@ See [Override the default endpoint][override-endpoint].
 ## 2. Authentication configuration
 
 While the client attempts to find [Application Default Credentials (ADC)][adc]
-automatically, you can explicitly provide them using the `with_auth` or
-`with_api_key` methods on the configuration object. See
-[`Override the default authentication method`][authentication] for details and
+automatically, you can explicitly provide credentials using the
+`with_credentials` method on the client builder. See
+[Override the default authentication method][authentication] for details and
 examples.
 
 ## 3. Logging
@@ -51,20 +49,11 @@ export https_proxy="http://proxy.example.com:3128"
 
 ## 5. Configuring retries
 
-See [Configuring retry policies](/configuring_retry_policies.md)
-
-## 6. Other common configuration options
-
-To override the default authentication, including using API keys, see
-[Override the default authentication method][override-authentication]. To
-override the default endpoint, see
-[Override the default endpoint][override-endpoint].
-
-**NOTE**: To use API keys, you can use the
+See [Configuring retry policies](configuring_retry_policies.md).
 
 [adc]: https://cloud.google.com/docs/authentication/application-default-credentials
 [authentication]: https://docs.cloud.google.com/rust/override-default-authentication
+[client-builder]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/client_builder/struct.ClientBuilder.html
 [enable-logging]: https://docs.cloud.google.com/rust/enable-logging
-[envvars]: https://grpc.github.io/grpc/core/md_doc_environment_variables.html
-[override-authentication]: https://docs.cloud.google.com/rust/override-default-authentication
+[envvars]: https://docs.rs/reqwest/latest/reqwest/index.html#proxies
 [override-endpoint]: https://docs.cloud.google.com/rust/override-default-endpoint
