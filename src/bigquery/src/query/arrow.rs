@@ -147,6 +147,7 @@ impl ArrowReader {
     pub(crate) fn can_fallback_to_rest(&self) -> bool {
         match self {
             Self::Response(_) => false,
+            // TODO(#7038): Storage(r) => !r.is_stream_opened(), so StorageReader can fall back to REST if opening the stream failed
         }
     }
 }
