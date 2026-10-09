@@ -15,6 +15,7 @@
 //! Helpers for extracting server-recommended retry delays from errors, status objects, and trailers.
 
 use crate::Error;
+use crate::error::underlying_spanner_error;
 use crate::google::rpc::Status as ProtoStatus;
 use base64::Engine as _;
 use base64::prelude::{BASE64_STANDARD, BASE64_STANDARD_NO_PAD};
@@ -42,11 +43,15 @@ pub(crate) struct ProtoRetryInfo {
 
 /// Extracts the gRPC status code from an [`Error`], inspecting GAX status, nested [`Error`] instances, and nested [`TonicStatus`].
 pub(crate) fn extract_status_code_from_error(error: &Error) -> Option<Code> {
+    const MAX_SOURCE_DEPTH: usize = 64;
+    let error = underlying_spanner_error(error);
+
     if let Some(status) = error.status() {
         return Some(status.code);
     }
 
     let mut current_source = error.source();
+    let mut depth = 0;
     while let Some(source) = current_source {
         if let Some(inner_error) = source.downcast_ref::<Error>()
             && let Some(status) = inner_error.status()
@@ -56,6 +61,10 @@ pub(crate) fn extract_status_code_from_error(error: &Error) -> Option<Code> {
         if let Some(status) = source.downcast_ref::<TonicStatus>() {
             return Some(Code::from(status.code() as i32));
         }
+        depth += 1;
+        if depth >= MAX_SOURCE_DEPTH {
+            break;
+        }
         current_source = source.source();
     }
 
@@ -64,6 +73,9 @@ pub(crate) fn extract_status_code_from_error(error: &Error) -> Option<Code> {
 
 /// Extracts the server-recommended retry delay from an [`Error`], if present.
 pub(crate) fn extract_retry_delay_from_error(error: &Error) -> Option<Duration> {
+    const MAX_SOURCE_DEPTH: usize = 64;
+    let error = underlying_spanner_error(error);
+
     if let Some(delay) = error.status().and_then(extract_retry_delay_from_status) {
         return Some(delay);
     }
@@ -75,6 +87,7 @@ pub(crate) fn extract_retry_delay_from_error(error: &Error) -> Option<Duration> 
     }
 
     let mut current_source = error.source();
+    let mut depth = 0;
     while let Some(source) = current_source {
         if let Some(inner_error) = source.downcast_ref::<Error>() {
             if let Some(delay) = inner_error
@@ -95,6 +108,10 @@ pub(crate) fn extract_retry_delay_from_error(error: &Error) -> Option<Duration> 
             .and_then(extract_retry_delay_from_tonic_status)
         {
             return Some(delay);
+        }
+        depth += 1;
+        if depth >= MAX_SOURCE_DEPTH {
+            break;
         }
         current_source = source.source();
     }
