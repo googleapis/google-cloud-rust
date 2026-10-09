@@ -100,4 +100,116 @@ mod requests {
             .await?;
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn http_body_request_receive_trigger_webhook() -> anyhow::Result<()> {
+        use google_cloud_api::model::HttpBody;
+        use google_cloud_build_v1::client::CloudBuild;
+
+        let raw_payload = b"raw-webhook-payload";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/test-project/triggers/test-trigger:webhook",
+                ),
+                request::headers(contains(("content-type", "application/x-custom-webhook"))),
+                request::body(raw_payload.as_slice()),
+            ])
+            .respond_with(
+                status_code(200)
+                    .insert_header("content-type", "application/json")
+                    .body("{}"),
+            ),
+        );
+
+        let endpoint = server.url_str("");
+        let client = CloudBuild::builder()
+            .with_endpoint(endpoint.trim_end_matches('/'))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        client
+            .receive_trigger_webhook()
+            .set_project_id("test-project")
+            .set_trigger("test-trigger")
+            .set_body(
+                HttpBody::new()
+                    .set_content_type("application/x-custom-webhook")
+                    .set_data(bytes::Bytes::from_static(raw_payload)),
+            )
+            .send()
+            .await?;
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn http_body_response_binary_payload() -> anyhow::Result<()> {
+        let binary_response = b"\x89PNG\r\n\x1a\nraw-binary-bytes";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/test-project/locations/us-central1/endpoints/test-endpoint:rawPredict",
+            ))
+            .respond_with(
+                status_code(200)
+                    .insert_header("content-type", "image/png")
+                    .body(binary_response.as_slice()),
+            ),
+        );
+
+        let endpoint = server.url_str("");
+        let client = PredictionService::builder()
+            .with_endpoint(endpoint.trim_end_matches('/'))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let response = client
+            .raw_predict()
+            .set_endpoint("projects/test-project/locations/us-central1/endpoints/test-endpoint")
+            .send()
+            .await?;
+
+        assert_eq!(response.content_type, "image/png");
+        assert_eq!(response.data.as_ref(), binary_response);
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn http_body_response_json_payload() -> anyhow::Result<()> {
+        let json_response = br#"{"predictions": [1, 2, 3]}"#;
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/test-project/locations/us-central1/endpoints/test-endpoint:rawPredict",
+            ))
+            .respond_with(
+                status_code(200)
+                    .insert_header("content-type", "application/json")
+                    .body(json_response.as_slice()),
+            ),
+        );
+
+        let endpoint = server.url_str("");
+        let client = PredictionService::builder()
+            .with_endpoint(endpoint.trim_end_matches('/'))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let response = client
+            .raw_predict()
+            .set_endpoint("projects/test-project/locations/us-central1/endpoints/test-endpoint")
+            .send()
+            .await?;
+
+        assert_eq!(response.content_type, "application/json");
+        assert_eq!(response.data.as_ref(), json_response);
+        Ok(())
+    }
 }

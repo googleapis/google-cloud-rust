@@ -28,11 +28,14 @@ run-integration-tests = []
 
 [dependencies]
 anyhow.workspace                = true
+bytes.workspace                 = true
+google-cloud-api.workspace      = true
 google-cloud-auth               = { workspace = true, features = ["default"] }
 google-cloud-gax                = { workspace = true, features = ["unstable-stream"] }
 gaxi                            = { workspace = true, features = ["_internal-http-client"] }
 google-cloud-test-utils         = { workspace = true }
 google-cloud-aiplatform-v1      = { workspace = true, features = ["default-rustls-provider", "prediction-service"] }
+google-cloud-build-v1           = { path = "../../src/generated/devtools/cloudbuild/v1" }
 google-cloud-speech-v2          = { workspace = true, features = ["default"] }
 google-cloud-storage            = { workspace = true, features = ["default"] }
 google-cloud-telcoautomation-v1 = { workspace = true, features = ["default"] }

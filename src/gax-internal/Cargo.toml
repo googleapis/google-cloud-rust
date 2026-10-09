@@ -40,7 +40,14 @@ default = ["_default-rustls-provider"]
 #
 # Currently this is based on reqwest, and this crate implicitly uses the same
 # features of reqwest that `google-cloud-auth` does.
-_internal-http-client = ["_internal-common", "dep:hyper", "dep:reqwest", "dep:serde", "dep:serde_json"]
+_internal-http-client = [
+  "_internal-common",
+  "dep:google-cloud-api",
+  "dep:hyper",
+  "dep:reqwest",
+  "dep:serde",
+  "dep:serde_json",
+]
 # Enables the gRPC client.
 #
 # Currently this is based on Tonic, and this crate implicitly uses the same
@@ -128,6 +135,7 @@ tower                              = { workspace = true, optional = true }
 tracing                            = { workspace = true, optional = true }
 tracing-opentelemetry              = { workspace = true, optional = true }
 # Local crates
+google-cloud-api  = { workspace = true, optional = true }
 google-cloud-auth = { workspace = true, optional = true }
 google-cloud-gax  = { workspace = true, optional = true }
 google-cloud-rpc  = { workspace = true, optional = true }
