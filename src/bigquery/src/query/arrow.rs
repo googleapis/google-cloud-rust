@@ -216,7 +216,7 @@ impl ArrowCell {
                 let arr = arrow::array::as_primitive_array::<
                     arrow::datatypes::TimestampNanosecondType,
                 >(&self.array);
-                Ok(arr.value(self.row_idx) / 1_000)
+                Ok(arr.value(self.row_idx).div_euclid(1_000))
             }
             arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Second, _) => {
                 let arr = arrow::array::as_primitive_array::<arrow::datatypes::TimestampSecondType>(
@@ -267,7 +267,7 @@ impl ArrowCell {
                 let arr = arrow::array::as_primitive_array::<arrow::datatypes::Time64NanosecondType>(
                     &self.array,
                 );
-                Ok(arr.value(self.row_idx) / 1_000)
+                Ok(arr.value(self.row_idx).div_euclid(1_000))
             }
             _ => Err(ConvertError::TypeMismatch {
                 expected: "Time64MicrosecondArray".to_string(),
@@ -409,6 +409,7 @@ mod tests {
     #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp microsecond")]
     #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(1_779_982_200_123)])), 0 => Ok(1_779_982_200_123_000) ; "timestamp millisecond")]
     #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(1_779_982_200_123_456_789)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp nanosecond")]
+    #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(-1_500)])), 0 => Ok(-2) ; "timestamp nanosecond pre epoch floor")]
     #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(1_779_982_200)])), 0 => Ok(1_779_982_200_000_000) ; "timestamp second")]
     #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert("timestamp overflow".to_string())) ; "timestamp millisecond overflow")]
     #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert("timestamp overflow".to_string())) ; "timestamp second overflow")]
