@@ -1,0 +1,1333 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//! Helpers to reconnect a [ReadRows] stream.
+
+use crate::builder::read::ReadRows;
+use crate::model::ReadRowsResponse;
+use crate::read::retry_policy::RetryableErrors;
+use crate::{Error, Result};
+use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyArg, RetryPolicyExt};
+use google_cloud_gax::retry_result::RetryResult;
+use google_cloud_gax::retry_state::RetryState;
+use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg, SharedRetryThrottler};
+use google_cloud_gax::streaming::ResponseStream;
+use google_cloud_gax::throttle_result::ThrottleResult;
+use std::sync::{Arc, Mutex};
+use std::time::Duration;
+use tokio::time::Instant;
+
+const INITIAL_DELAY: Duration = Duration::from_millis(100);
+const MAXIMUM_DELAY: Duration = Duration::from_secs(60);
+const SCALING_FACTOR: f64 = 1.3;
+const MAX_ATTEMPTS: u32 = 10;
+
+/// Default retry policy for mid-stream `read_rows` reconnections.
+///
+/// - `max_times` (10): Limits total consecutive failed reconnection attempts when no data progress is made.
+fn default_retry_policy() -> Arc<dyn RetryPolicy> {
+    Arc::new(RetryableErrors.with_attempt_limit(MAX_ATTEMPTS))
+}
+
+/// Default backoff policy for mid-stream `read_rows` reconnections.
+///
+/// - `min_delay` (100ms): Starts with a short initial backoff to quickly recover from brief network blips.
+/// - `max_delay` (60s): Caps the backoff delay so exponential growth (100ms -> 130ms -> 169ms ...) does not produce excessively long single delays.
+/// - `factor` (1.3): Multiplier scaling factor for exponential backoff (matching Python BigQuery Storage client standard).
+fn default_backoff_policy() -> Arc<ExponentialBackoff> {
+    Arc::new(
+        ExponentialBackoffBuilder::new()
+            .with_initial_delay(INITIAL_DELAY)
+            .with_maximum_delay(MAXIMUM_DELAY)
+            .with_scaling(SCALING_FACTOR)
+            .build()
+            .expect("hardcoded value guaranteed to be valid"),
+    )
+}
+
+/// Default retry throttler for mid-stream `read_rows` reconnections.
+fn default_retry_throttler() -> SharedRetryThrottler {
+    Arc::new(Mutex::new(CircuitBreaker::default()))
+}
+
+/// State machine for reconnection logic. If reading fails at some point,
+/// attempt to reconnect with the current row offset.
+///
+/// All mutable runtime state for a [`Reader`] (such as the current row offset,
+/// active stream, and retry progress) must be stored in [`ReaderState`] rather
+/// than as separate fields on [`Reader`], keeping state transitions explicit
+/// and self-contained.
+///
+/// ```text
+///                Start here
+///                    │
+///              ┌─────▼──────┐      Retryable       ┌─────────┐
+///        ┌─────┼ Connecting ┼─────────────────────►│ Backoff │
+///        │     └─────┬──────┘◄─────────────────────┼         │
+///        │           │          Deadline elapsed   └────▲────┘
+///   Exhausted        │                                  │
+///    Retries         │                             Retryable
+///       or           │                               Error
+/// Unrecoverable      │                  (retains retry_state if Some, or
+///      Error   ┌─────▼──────┐            starts fresh RetryState if None)
+///        │     │  Reading   ┼───────────────────────────┘
+///        │     └─────┬──────┘ (clears retry_state
+///        │           │         on first message)
+///        │           ▼
+///        │      Unrecoverable
+///        │      Error or EOF
+///        │           │            ┌────────────┐
+///        │           └───────────►│            │
+///        └───────────────────────►│ Terminated │
+///                                 │            │
+///                                 └────────────┘
+/// ```
+#[derive(Debug)]
+pub(crate) enum ReaderState {
+    /// Connect or reconnect to the BigQuery read stream.
+    Connecting {
+        offset: i64,
+        retry_state: RetryState,
+    },
+    /// Waiting until `deadline` before reconnecting to the BigQuery read stream.
+    Backoff {
+        offset: i64,
+        retry_state: RetryState,
+        deadline: Instant,
+    },
+    /// Reading messages from an open BigQuery read stream.
+    ///
+    /// `retry_state` is `Some` while waiting for the first message after connecting
+    /// (so failures before any data progress retain the retry count from `Connecting`),
+    /// and is cleared to `None` once the first message is successfully received.
+    Reading {
+        offset: i64,
+        retry_state: Option<RetryState>,
+        stream: ResponseStream<ReadRowsResponse>,
+    },
+    /// Stream completed cleanly, fatal error occurred, or consumer dropped the receiver.
+    Terminated(Option<Error>),
+}
+
+/// A stream reader for [`ReadRows`] that automatically reconnects on transient errors,
+/// resuming from the current row offset.
+#[derive(Debug)]
+pub struct Reader {
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+    retry_throttler: SharedRetryThrottler,
+    request: ReadRows,
+    /// Encapsulates all mutable state for the [`Reader`]. Any new mutable
+    /// runtime state should be added to [`ReaderState`] rather than [`Reader`].
+    state: ReaderState,
+}
+
+impl Reader {
+    pub(crate) fn new(request: ReadRows) -> Self {
+        Self {
+            retry_policy: default_retry_policy(),
+            backoff_policy: default_backoff_policy(),
+            retry_throttler: default_retry_throttler(),
+            request,
+            state: ReaderState::Connecting {
+                offset: 0,
+                retry_state: RetryState::new(true),
+            },
+        }
+    }
+
+    /// Sets the initial row offset for the [`Reader`].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Read;
+    /// # async fn sample(client: Read) -> anyhow::Result<()> {
+    /// let mut reader = client
+    ///     .read_rows()
+    ///     .set_read_stream("projects/my-project/locations/us/sessions/s1/streams/st1")
+    ///     .into_reader()
+    ///     .with_offset(1_000);
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_offset<T: Into<i64>>(mut self, v: T) -> Self {
+        if let ReaderState::Connecting { offset, .. } = &mut self.state {
+            *offset = v.into();
+        }
+        self
+    }
+
+    /// Configure the retry policy for reconnecting the stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Read;
+    /// # async fn sample(client: Read) -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::read::retry_policy::RetryableErrors;
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
+    /// let mut reader = client
+    ///     .read_rows()
+    ///     .set_read_stream("projects/my-project/locations/us/sessions/s1/streams/st1")
+    ///     .into_reader()
+    ///     .with_retry_policy(RetryableErrors.with_attempt_limit(5));
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_policy = v.into().into();
+        self
+    }
+
+    /// Configure the retry backoff policy for reconnecting the stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Read;
+    /// # async fn sample(client: Read) -> anyhow::Result<()> {
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// let mut reader = client
+    ///     .read_rows()
+    ///     .set_read_stream("projects/my-project/locations/us/sessions/s1/streams/st1")
+    ///     .into_reader()
+    ///     .with_backoff_policy(ExponentialBackoff::default());
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.backoff_policy = v.into().into();
+        self
+    }
+
+    /// Configure the retry throttler for reconnecting the stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Read;
+    /// # async fn sample(client: Read) -> anyhow::Result<()> {
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
+    /// let mut reader = client
+    ///     .read_rows()
+    ///     .set_read_stream("projects/my-project/locations/us/sessions/s1/streams/st1")
+    ///     .into_reader()
+    ///     .with_retry_throttler(AdaptiveThrottler::default());
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.retry_throttler = v.into().into();
+        self
+    }
+
+    fn record_success(&self) {
+        self.retry_throttler
+            .lock()
+            .expect("retry throttler lock is poisoned")
+            .on_success();
+    }
+
+    fn handle_error(&self, offset: i64, mut retry_state: RetryState, err: Error) -> ReaderState {
+        retry_state.attempt_count += 1;
+        let flow = self.retry_policy.on_error(&retry_state, err);
+        self.retry_throttler
+            .lock()
+            .expect("retry throttler lock is poisoned")
+            .on_retry_failure(&flow);
+        let prev_err = match flow {
+            RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
+                return ReaderState::Terminated(Some(e));
+            }
+            RetryResult::Continue(e) => e,
+        };
+
+        let throttled = self
+            .retry_throttler
+            .lock()
+            .expect("retry throttler lock is poisoned")
+            .throttle_retry_attempt();
+        let prev_err = if throttled {
+            retry_state.attempt_count += 1;
+            match self.retry_policy.on_throttle(&retry_state, prev_err) {
+                ThrottleResult::Exhausted(e) => return ReaderState::Terminated(Some(e)),
+                ThrottleResult::Continue(e) => e,
+            }
+        } else {
+            prev_err
+        };
+
+        let delay = self.backoff_policy.on_failure(&retry_state);
+        if self
+            .retry_policy
+            .remaining_time(&retry_state)
+            .is_some_and(|remaining| remaining <= delay)
+        {
+            return ReaderState::Terminated(Some(Error::exhausted(prev_err)));
+        }
+        ReaderState::Backoff {
+            offset,
+            retry_state,
+            deadline: Instant::now() + delay,
+        }
+    }
+
+    /// Advances the state machine by a single transition, returning a
+    /// [`ReadRowsResponse`] if one was read during this step.
+    async fn step(&mut self) -> Option<ReadRowsResponse> {
+        match &mut self.state {
+            ReaderState::Connecting {
+                offset,
+                retry_state,
+            } => {
+                let offset = *offset;
+                let retry_state = retry_state.clone();
+                let req = self.request.clone().set_offset(offset);
+                match req.send().await {
+                    Ok(stream) => {
+                        self.state = ReaderState::Reading {
+                            offset,
+                            retry_state: Some(retry_state),
+                            stream,
+                        };
+                    }
+                    Err(err) => {
+                        self.state = self.handle_error(offset, retry_state, err);
+                    }
+                }
+                None
+            }
+            ReaderState::Backoff {
+                offset,
+                retry_state,
+                deadline,
+            } => {
+                tokio::time::sleep_until(*deadline).await;
+                self.state = ReaderState::Connecting {
+                    offset: *offset,
+                    retry_state: retry_state.clone(),
+                };
+                None
+            }
+            ReaderState::Reading {
+                offset,
+                retry_state,
+                stream,
+            } => match stream.next().await {
+                Some(Ok(response)) => {
+                    let next_offset = match advance_offset(*offset, response.row_count) {
+                        Ok(o) => o,
+                        Err(err) => {
+                            self.state = ReaderState::Terminated(Some(err));
+                            return None;
+                        }
+                    };
+                    *offset = next_offset;
+                    // Data progress was made: clear `retry_state` so any future
+                    // mid-stream failure starts a fresh `RetryState::new(true)`.
+                    *retry_state = None;
+                    self.record_success();
+                    Some(response)
+                }
+                Some(Err(err)) => {
+                    let offset = *offset;
+                    let retry_state = retry_state.take().unwrap_or_else(|| RetryState::new(true));
+                    self.state = self.handle_error(offset, retry_state, err);
+                    None
+                }
+                None => {
+                    self.record_success();
+                    self.state = ReaderState::Terminated(None);
+                    None
+                }
+            },
+            ReaderState::Terminated(_) => None,
+        }
+    }
+
+    /// Receives the next [`ReadRowsResponse`] from the stream, reconnecting if a
+    /// retryable error occurs, or returns `None` when the stream completes.
+    pub async fn next(&mut self) -> Option<Result<ReadRowsResponse>> {
+        loop {
+            if let Some(response) = self.step().await {
+                return Some(Ok(response));
+            }
+            if let ReaderState::Terminated(err) = &mut self.state {
+                return err.take().map(Err);
+            }
+        }
+    }
+}
+
+fn advance_offset(offset: i64, row_count: i64) -> Result<i64> {
+    if row_count < 0 {
+        return Err(Error::deser(format!(
+            "ReadRowsResponse contained negative row_count: {row_count}"
+        )));
+    }
+    offset.checked_add(row_count).ok_or_else(|| {
+        Error::deser(format!(
+            "ReadRowsResponse row_count ({row_count}) overflowed stream offset ({offset})"
+        ))
+    })
+}
+
+impl ReadRows {
+    /// Returns a [`Reader`], which automatically reconnects and resumes reading
+    /// from the latest row offset if the stream is interrupted by a retryable error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::builder::read::ReadRows;
+    /// # async fn sample(builder: ReadRows) -> google_cloud_bigquery::Result<()> {
+    /// let mut rows = builder.into_reader();
+    /// while let Some(response) = rows.next().await.transpose()? {
+    ///     println!("Read {} rows", response.row_count);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn into_reader(self) -> Reader {
+        Reader::new(self)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::client::Read;
+    use crate::model::ReadRowsRequest;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::retry_throttler::RetryThrottler;
+    use std::error::Error as _;
+    use tokio::sync::mpsc;
+
+    #[derive(Debug, Default)]
+    struct NoBackoff;
+
+    impl BackoffPolicy for NoBackoff {
+        fn on_failure(&self, _state: &RetryState) -> Duration {
+            Duration::ZERO
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> Duration;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        ReadStub {}
+        impl crate::stub::Read for ReadStub {
+            async fn read_rows(
+                &self,
+                req: ReadRowsRequest,
+                options: RequestOptions,
+            ) -> Result<ResponseStream<ReadRowsResponse>>;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryPolicy {}
+        impl RetryPolicy for RetryPolicy {
+            fn on_error(&self, state: &RetryState, error: Error) -> RetryResult;
+            fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult;
+            fn remaining_time(&self, state: &RetryState) -> Option<Duration>;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryThrottler {}
+        impl RetryThrottler for RetryThrottler {
+            fn throttle_retry_attempt(&self) -> bool;
+            fn on_retry_failure(&mut self, flow: &RetryResult);
+            fn on_success(&mut self);
+        }
+    }
+
+    /// A `MockRetryPolicy` without an overall deadline.
+    fn mock_retry_policy() -> MockRetryPolicy {
+        let mut retry = MockRetryPolicy::new();
+        retry.expect_remaining_time().returning(|_| None);
+        retry
+    }
+
+    fn transient_error() -> Error {
+        Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("transient failure"),
+        )
+    }
+
+    fn permanent_error() -> Error {
+        Error::service(
+            Status::default()
+                .set_code(Code::PermissionDenied)
+                .set_message("permission denied"),
+        )
+    }
+
+    #[test]
+    fn traits() {
+        static_assertions::assert_impl_all!(Reader: Send, std::fmt::Debug);
+    }
+
+    #[tokio::test]
+    async fn step_connecting_to_reading() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().once().returning(|req, _| {
+            assert_eq!(req.read_stream, "streams/1");
+            assert_eq!(req.offset, 42);
+            let (_tx, rx) = mpsc::channel(1);
+            Ok(ResponseStream::from(rx))
+        });
+
+        let mut retry = mock_retry_policy();
+        retry.expect_on_error().never();
+        let mut backoff = MockBackoffPolicy::new();
+        backoff.expect_on_failure().never();
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        let initial_retry = RetryState::new(true).set_attempt_count(2_u32);
+        reader.state = ReaderState::Connecting {
+            offset: 42,
+            retry_state: initial_retry,
+        };
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        let ReaderState::Reading {
+            offset,
+            retry_state: Some(retry_state),
+            ..
+        } = &reader.state
+        else {
+            anyhow::bail!(
+                "expected Reading state with Some(retry_state), got: {:?}",
+                reader.state
+            );
+        };
+        assert_eq!(*offset, 42);
+        assert_eq!(retry_state.attempt_count, 2);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn step_connecting_retryable_error() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows()
+            .once()
+            .returning(|_, _| Err(transient_error()));
+
+        let mut retry = mock_retry_policy();
+        retry
+            .expect_on_error()
+            .withf(|state, e| {
+                state.attempt_count == 2 && e.status().is_some_and(|s| s.code == Code::Unavailable)
+            })
+            .once()
+            .returning(|_, e| RetryResult::Continue(e));
+
+        let expected_delay = Duration::from_millis(250);
+        let mut backoff = MockBackoffPolicy::new();
+        backoff
+            .expect_on_failure()
+            .withf(|state| state.attempt_count == 2)
+            .once()
+            .return_const(expected_delay);
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        let initial_retry = RetryState::new(true).set_attempt_count(1_u32);
+        reader.state = ReaderState::Connecting {
+            offset: 10,
+            retry_state: initial_retry,
+        };
+        let expected_deadline = Instant::now() + expected_delay;
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        let ReaderState::Backoff {
+            offset,
+            retry_state,
+            deadline,
+        } = &reader.state
+        else {
+            anyhow::bail!("expected Backoff state, got: {:?}", reader.state);
+        };
+        assert_eq!(*offset, 10);
+        assert_eq!(retry_state.attempt_count, 2);
+        assert_eq!(*deadline, expected_deadline);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn step_connecting_permanent_error() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows()
+            .once()
+            .returning(|_, _| Err(permanent_error()));
+
+        let mut retry = mock_retry_policy();
+        retry
+            .expect_on_error()
+            .withf(|state, e| {
+                state.attempt_count == 1
+                    && e.status().is_some_and(|s| s.code == Code::PermissionDenied)
+            })
+            .once()
+            .returning(|_, e| RetryResult::Permanent(e));
+
+        let mut backoff = MockBackoffPolicy::new();
+        backoff.expect_on_failure().never();
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        reader.state = ReaderState::Connecting {
+            offset: 0,
+            retry_state: RetryState::new(true),
+        };
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        let ReaderState::Terminated(Some(err)) = &reader.state else {
+            anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
+        };
+        assert_eq!(err.status().map(|s| s.code), Some(Code::PermissionDenied));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn step_connecting_deadline_exhausted() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows()
+            .once()
+            .returning(|_, _| Err(transient_error()));
+
+        let mut retry = MockRetryPolicy::new();
+        retry
+            .expect_remaining_time()
+            .returning(|_| Some(Duration::from_secs(1)));
+        retry
+            .expect_on_error()
+            .once()
+            .returning(|_, e| RetryResult::Continue(e));
+
+        let mut backoff = MockBackoffPolicy::new();
+        backoff
+            .expect_on_failure()
+            .once()
+            .return_const(Duration::from_secs(60));
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        reader.state = ReaderState::Connecting {
+            offset: 0,
+            retry_state: RetryState::new(true),
+        };
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        let ReaderState::Terminated(Some(err)) = &reader.state else {
+            anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
+        };
+        assert!(err.is_exhausted(), "{err:?}");
+        let last_error = err.source().expect("the error should have a source");
+        assert!(
+            last_error.to_string().contains("transient failure"),
+            "{last_error:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn step_backoff_to_connecting() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().never();
+        let mut retry = mock_retry_policy();
+        retry.expect_on_error().never();
+        let mut backoff = MockBackoffPolicy::new();
+        backoff.expect_on_failure().never();
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        let deadline = Instant::now() + Duration::from_millis(500);
+        reader.state = ReaderState::Backoff {
+            offset: 42,
+            retry_state: RetryState::new(true).set_attempt_count(2_u32),
+            deadline,
+        };
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        assert_eq!(Instant::now(), deadline);
+        let ReaderState::Connecting {
+            offset,
+            retry_state,
+        } = &reader.state
+        else {
+            anyhow::bail!("expected Connecting state, got: {:?}", reader.state);
+        };
+        assert_eq!(*offset, 42);
+        assert_eq!(retry_state.attempt_count, 2);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn step_first_message_clears_retry_state() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().never();
+        let mut retry = mock_retry_policy();
+        retry.expect_on_error().never();
+        let mut backoff = MockBackoffPolicy::new();
+        backoff.expect_on_failure().never();
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Ok(ReadRowsResponse::new().set_row_count(5)))
+            .await?;
+        let stream = ResponseStream::from(rx);
+
+        reader.state = ReaderState::Reading {
+            offset: 10,
+            retry_state: Some(RetryState::new(true).set_attempt_count(3_u32)),
+            stream,
+        };
+        let resp = reader.step().await.expect("expected Some(response)");
+        let ReaderState::Reading {
+            offset,
+            retry_state,
+            ..
+        } = &reader.state
+        else {
+            anyhow::bail!("expected Reading state, got: {:?}", reader.state);
+        };
+        assert_eq!(resp.row_count, 5);
+        assert_eq!(*offset, 15);
+        assert!(
+            retry_state.is_none(),
+            "expected retry_state to be cleared to None after first message, got: {retry_state:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn step_first_message_retryable_error_retains_retry_state() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().never();
+
+        let mut retry = mock_retry_policy();
+        retry
+            .expect_on_error()
+            .withf(|state, e| {
+                state.attempt_count == 3 && e.status().is_some_and(|s| s.code == Code::Unavailable)
+            })
+            .once()
+            .returning(|_, e| RetryResult::Continue(e));
+
+        let expected_delay = Duration::from_millis(130);
+        let mut backoff = MockBackoffPolicy::new();
+        backoff
+            .expect_on_failure()
+            .withf(|state| state.attempt_count == 3)
+            .once()
+            .return_const(expected_delay);
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Err(transient_error())).await?;
+        let stream = ResponseStream::from(rx);
+
+        // Waiting for the first message starts with attempt_count = 2 from prior Connecting attempts.
+        let prior_retry = RetryState::new(true).set_attempt_count(2_u32);
+        reader.state = ReaderState::Reading {
+            offset: 7,
+            retry_state: Some(prior_retry),
+            stream,
+        };
+        let expected_deadline = Instant::now() + expected_delay;
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        let ReaderState::Backoff {
+            offset,
+            retry_state,
+            deadline,
+        } = &reader.state
+        else {
+            anyhow::bail!("expected Backoff state, got: {:?}", reader.state);
+        };
+        assert_eq!(*offset, 7);
+        assert_eq!(retry_state.attempt_count, 3);
+        assert_eq!(*deadline, expected_deadline);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn step_reading_to_reading() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().never();
+        let mut retry = mock_retry_policy();
+        retry.expect_on_error().never();
+        let mut backoff = MockBackoffPolicy::new();
+        backoff.expect_on_failure().never();
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Ok(ReadRowsResponse::new().set_row_count(3)))
+            .await?;
+        let stream = ResponseStream::from(rx);
+
+        reader.state = ReaderState::Reading {
+            offset: 5,
+            retry_state: None,
+            stream,
+        };
+        let resp = reader.step().await.expect("expected Some(response)");
+        let ReaderState::Reading {
+            offset,
+            retry_state,
+            ..
+        } = &reader.state
+        else {
+            anyhow::bail!("expected Reading state, got: {:?}", reader.state);
+        };
+        assert_eq!(resp.row_count, 3);
+        assert_eq!(*offset, 8);
+        assert!(retry_state.is_none());
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn step_reading_retryable_error_resets_retry_state() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().never();
+
+        let mut retry = mock_retry_policy();
+        retry
+            .expect_on_error()
+            .withf(|state, e| {
+                // Once retry_state is None, the first failure from Reading has attempt_count == 1.
+                state.attempt_count == 1 && e.status().is_some_and(|s| s.code == Code::Unavailable)
+            })
+            .once()
+            .returning(|_, e| RetryResult::Continue(e));
+
+        let expected_delay = Duration::from_millis(100);
+        let mut backoff = MockBackoffPolicy::new();
+        backoff
+            .expect_on_failure()
+            .withf(|state| state.attempt_count == 1)
+            .once()
+            .return_const(expected_delay);
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Err(transient_error())).await?;
+        let stream = ResponseStream::from(rx);
+
+        reader.state = ReaderState::Reading {
+            offset: 12,
+            retry_state: None,
+            stream,
+        };
+        let expected_deadline = Instant::now() + expected_delay;
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        let ReaderState::Backoff {
+            offset,
+            retry_state,
+            deadline,
+        } = &reader.state
+        else {
+            anyhow::bail!("expected Backoff state, got: {:?}", reader.state);
+        };
+        assert_eq!(*offset, 12);
+        assert_eq!(retry_state.attempt_count, 1);
+        assert_eq!(*deadline, expected_deadline);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn step_reading_permanent_error_to_terminated() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().never();
+
+        let mut retry = mock_retry_policy();
+        retry
+            .expect_on_error()
+            .withf(|state, e| {
+                state.attempt_count == 1
+                    && e.status().is_some_and(|s| s.code == Code::PermissionDenied)
+            })
+            .once()
+            .returning(|_, e| RetryResult::Permanent(e));
+
+        let mut backoff = MockBackoffPolicy::new();
+        backoff.expect_on_failure().never();
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req)
+            .with_retry_policy(retry)
+            .with_backoff_policy(backoff);
+
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Err(permanent_error())).await?;
+        let stream = ResponseStream::from(rx);
+
+        reader.state = ReaderState::Reading {
+            offset: 0,
+            retry_state: None,
+            stream,
+        };
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        let ReaderState::Terminated(Some(err)) = &reader.state else {
+            anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
+        };
+        assert_eq!(err.status().map(|s| s.code), Some(Code::PermissionDenied));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn step_reading_eof_to_terminated() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().never();
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req);
+
+        let (tx, rx) = mpsc::channel(1);
+        drop(tx);
+        let stream = ResponseStream::from(rx);
+
+        reader.state = ReaderState::Reading {
+            offset: 0,
+            retry_state: None,
+            stream,
+        };
+        let resp = reader.step().await;
+        assert!(resp.is_none());
+        assert!(
+            matches!(reader.state, ReaderState::Terminated(None)),
+            "expected Terminated(None), got: {:?}",
+            reader.state
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn step_terminated_stays_terminated() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().never();
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req);
+
+        reader.state = ReaderState::Terminated(None);
+        assert!(reader.step().await.is_none());
+        assert!(
+            matches!(reader.state, ReaderState::Terminated(None)),
+            "expected Terminated(None), got: {:?}",
+            reader.state
+        );
+
+        reader.state = ReaderState::Terminated(Some(permanent_error()));
+        assert!(reader.step().await.is_none());
+        let ReaderState::Terminated(Some(err)) = &reader.state else {
+            anyhow::bail!("expected Terminated(Some(_)), got: {:?}", reader.state);
+        };
+        assert_eq!(err.status().map(|s| s.code), Some(Code::PermissionDenied));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_rows_success() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().once().returning(|req, _| {
+            assert_eq!(req.read_stream, "streams/1");
+            assert_eq!(req.offset, 0);
+            let (tx, rx) = mpsc::channel(4);
+            tokio::spawn(async move {
+                let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(5))).await;
+                let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(3))).await;
+            });
+            Ok(ResponseStream::from(rx))
+        });
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req).with_backoff_policy(NoBackoff);
+
+        let r1 = reader.next().await.transpose()?.expect("row batch 1");
+        assert_eq!(r1.row_count, 5);
+        let r2 = reader.next().await.transpose()?.expect("row batch 2");
+        assert_eq!(r2.row_count, 3);
+        assert!(reader.next().await.is_none());
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_mid_stream_resumes_at_offset() -> anyhow::Result<()> {
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockReadStub::new();
+
+        // First stream yields 5 rows, then 3 rows, then fails with Unavailable.
+        mock.expect_read_rows()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.offset, 0);
+                let (tx, rx) = mpsc::channel(4);
+                tokio::spawn(async move {
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(5))).await;
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(3))).await;
+                    let _ = tx.send(Err(transient_error())).await;
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        // Second stream should reconnect at offset 8 (5 + 3).
+        mock.expect_read_rows()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.offset, 8);
+                let (tx, rx) = mpsc::channel(4);
+                tokio::spawn(async move {
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(2))).await;
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req).with_backoff_policy(NoBackoff);
+
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 5);
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 3);
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 2);
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn with_offset_starts_and_reconnects_from_initial_offset() -> anyhow::Result<()> {
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockReadStub::new();
+
+        mock.expect_read_rows()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.offset, 1_000);
+                let (tx, rx) = mpsc::channel(4);
+                tokio::spawn(async move {
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(25))).await;
+                    let _ = tx
+                        .send(Err(Error::service(
+                            Status::default()
+                                .set_code(Code::ResourceExhausted)
+                                .set_message("rate limited"),
+                        )))
+                        .await;
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        mock.expect_read_rows()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.offset, 1_025);
+                let (tx, rx) = mpsc::channel(4);
+                tokio::spawn(async move {
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(10))).await;
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        let client = Read::from_stub(mock);
+        let mut reader = client
+            .read_rows()
+            .set_read_stream("streams/1")
+            .into_reader()
+            .with_offset(1_000)
+            .with_backoff_policy(NoBackoff);
+
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 25);
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 10);
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn next_is_cancel_safe_while_waiting_for_stream() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        let (tx, rx) = mpsc::channel(4);
+
+        mock.expect_read_rows()
+            .once()
+            .return_once(move |_, _| Ok(ResponseStream::from(rx)));
+
+        let client = Read::from_stub(mock);
+        let mut reader = client
+            .read_rows()
+            .set_read_stream("streams/1")
+            .into_reader()
+            .with_backoff_policy(NoBackoff);
+
+        tx.send(Ok(ReadRowsResponse::new().set_row_count(4)))
+            .await?;
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 4);
+
+        // Cancel `reader.next()` via timeout while the stream has no message ready yet.
+        let timed_out = tokio::time::timeout(Duration::from_millis(10), reader.next()).await;
+        assert!(timed_out.is_err(), "expected timeout while stream is idle");
+
+        // Now send the next batch on the same stream; the reader must not have dropped
+        // the stream or transitioned to Terminated(None).
+        tx.send(Ok(ReadRowsResponse::new().set_row_count(6)))
+            .await?;
+        drop(tx);
+
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 6);
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn next_is_cancel_safe_during_backoff() -> anyhow::Result<()> {
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockReadStub::new();
+
+        // First stream yields 4 rows, then fails with Unavailable.
+        mock.expect_read_rows()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.offset, 0);
+                let (tx, rx) = mpsc::channel(4);
+                tokio::spawn(async move {
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(4))).await;
+                    let _ = tx.send(Err(transient_error())).await;
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        // Second stream should only be opened once the full backoff deadline elapses.
+        mock.expect_read_rows()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.offset, 4);
+                let (tx, rx) = mpsc::channel(4);
+                tokio::spawn(async move {
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(6))).await;
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        let backoff_delay = Duration::from_secs(10);
+        let mut backoff = MockBackoffPolicy::new();
+        backoff
+            .expect_on_failure()
+            .once()
+            .return_const(backoff_delay);
+
+        let client = Read::from_stub(mock);
+        let mut reader = client
+            .read_rows()
+            .set_read_stream("streams/1")
+            .into_reader()
+            .with_backoff_policy(backoff);
+
+        let r1 = reader.next().await.transpose()?.expect("row batch 1");
+        assert_eq!(r1.row_count, 4);
+
+        let error_time = Instant::now();
+
+        // Cancel `reader.next()` after 3s of the 10s backoff.
+        let timed_out = tokio::time::timeout(Duration::from_secs(3), reader.next()).await;
+        assert!(timed_out.is_err(), "expected timeout during backoff");
+        assert!(
+            matches!(reader.state, ReaderState::Backoff { .. }),
+            "expected Reader to remain in Backoff state after cancellation, got: {:?}",
+            reader.state
+        );
+
+        // Cancel again after another 3s (6s elapsed total, 4s remaining); must not reconnect early.
+        let timed_out = tokio::time::timeout(Duration::from_secs(3), reader.next()).await;
+        assert!(
+            timed_out.is_err(),
+            "expected second timeout during remaining backoff"
+        );
+        assert!(
+            matches!(reader.state, ReaderState::Backoff { .. }),
+            "expected Reader to remain in Backoff state after second cancellation, got: {:?}",
+            reader.state
+        );
+
+        // Resume `reader.next()`; it should finish the remaining 4s of backoff and reconnect.
+        let r2 = reader.next().await.transpose()?.expect("row batch 2");
+        assert_eq!(r2.row_count, 6);
+        assert_eq!(Instant::now().duration_since(error_time), backoff_delay);
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_throttler_stops_retries_when_exhausted() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows()
+            .once()
+            .returning(|_, _| Err(transient_error()));
+
+        let mut throttler = MockRetryThrottler::new();
+        throttler.expect_on_retry_failure().once().return_const(());
+        throttler
+            .expect_throttle_retry_attempt()
+            .once()
+            .return_const(true);
+
+        let mut retry = mock_retry_policy();
+        retry
+            .expect_on_error()
+            .once()
+            .returning(|_, e| RetryResult::Continue(e));
+        retry
+            .expect_on_throttle()
+            .withf(|state, _| state.attempt_count == 2)
+            .once()
+            .returning(|_, e| ThrottleResult::Exhausted(Error::exhausted(e)));
+
+        let client = Read::from_stub(mock);
+        let mut reader = client
+            .read_rows()
+            .set_read_stream("streams/1")
+            .into_reader()
+            .with_retry_policy(retry)
+            .with_backoff_policy(NoBackoff)
+            .with_retry_throttler(throttler);
+
+        let err = reader
+            .next()
+            .await
+            .expect("should return error")
+            .expect_err("should be exhausted by throttler");
+        assert!(err.is_exhausted(), "{err:?}");
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn negative_or_overflowing_row_count_returns_deser_error() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().once().returning(|_, _| {
+            let (tx, rx) = mpsc::channel(2);
+            tokio::spawn(async move {
+                let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(-1))).await;
+            });
+            Ok(ResponseStream::from(rx))
+        });
+
+        let client = Read::from_stub(mock);
+        let mut reader = client
+            .read_rows()
+            .set_read_stream("streams/1")
+            .into_reader();
+
+        let err = reader
+            .next()
+            .await
+            .expect("should return error")
+            .expect_err("negative row_count should error");
+        assert!(err.is_deserialization(), "{err:?}");
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn permanent_error_terminates_immediately() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().once().returning(|_, _| {
+            let (tx, rx) = mpsc::channel(2);
+            tokio::spawn(async move {
+                let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(5))).await;
+                let _ = tx.send(Err(permanent_error())).await;
+            });
+            Ok(ResponseStream::from(rx))
+        });
+
+        let client = Read::from_stub(mock);
+        let req = client.read_rows().set_read_stream("streams/1");
+        let mut reader = Reader::new(req).with_backoff_policy(NoBackoff);
+
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 5);
+        let err = reader
+            .next()
+            .await
+            .expect("should return error")
+            .expect_err("should be permanent error");
+        assert_eq!(err.status().map(|s| s.code), Some(Code::PermissionDenied));
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+}
