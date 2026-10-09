@@ -13,8 +13,144 @@
 // limitations under the License.
 
 use crate::error::ConvertError;
+use crate::error::RowError;
 use arrow::array::ArrayRef;
+use arrow::record_batch::RecordBatch;
 use std::sync::Arc;
+
+/// Incremental Arrow IPC stream decoder that parses an initial `ArrowSchema`
+/// once and decodes incoming `ArrowRecordBatch` frames without re-parsing the
+/// schema on every message.
+#[cfg_attr(not(test), allow(dead_code))]
+#[derive(Debug)]
+pub(crate) struct ArrowStreamDecoder {
+    decoder: arrow::ipc::reader::StreamDecoder,
+}
+
+#[cfg_attr(not(test), allow(dead_code))]
+impl ArrowStreamDecoder {
+    pub(crate) fn new() -> Self {
+        Self {
+            decoder: arrow::ipc::reader::StreamDecoder::new(),
+        }
+    }
+
+    /// Feeds serialized Arrow IPC schema bytes into the underlying decoder.
+    pub(crate) fn set_schema_bytes(&mut self, schema_bytes: &[u8]) -> Result<(), RowError> {
+        if schema_bytes.is_empty() {
+            return Ok(());
+        }
+        let mut buf = arrow::buffer::Buffer::from_slice_ref(schema_bytes);
+        while let Some(_msg) = self.decoder.decode(&mut buf).map_err(|e| {
+            RowError::InvalidRowFormat(format!("failed to decode arrow schema: {e}"))
+        })? {}
+        Ok(())
+    }
+
+    /// Decodes a single Arrow IPC record batch frame from a byte slice.
+    pub(crate) fn decode_batch(
+        &mut self,
+        batch_bytes: &[u8],
+    ) -> Result<Option<RecordBatch>, RowError> {
+        let mut buf = arrow::buffer::Buffer::from_slice_ref(batch_bytes);
+        self.decode_buffer(&mut buf)
+    }
+
+    /// Decodes the next Arrow IPC record batch from an advancing [`arrow::buffer::Buffer`].
+    pub(crate) fn decode_buffer(
+        &mut self,
+        buf: &mut arrow::buffer::Buffer,
+    ) -> Result<Option<RecordBatch>, RowError> {
+        self.decoder
+            .decode(buf)
+            .map_err(|e| RowError::InvalidRowFormat(format!("failed to decode arrow batch: {e}")))
+    }
+
+    /// Signals end-of-stream and validates that no partial frame remains in the decoder.
+    pub(crate) fn finish(&mut self) -> Result<(), RowError> {
+        self.decoder
+            .finish()
+            .map_err(|e| RowError::InvalidRowFormat(format!("failed to decode arrow stream: {e}")))
+    }
+}
+
+/// An asynchronous source of decoded Arrow [`RecordBatch`]es.
+#[cfg_attr(not(test), allow(dead_code))]
+pub(crate) trait RecordBatchSource {
+    /// Returns the next non-empty [`RecordBatch`], or `Ok(None)` when the stream is exhausted.
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError>;
+}
+
+/// Reads Arrow [`RecordBatch`]es from in-memory `jobs.query` response buffers.
+#[cfg_attr(not(test), allow(dead_code))]
+#[derive(Debug)]
+pub(crate) struct ArrowResponseReader {
+    decoder: ArrowStreamDecoder,
+    schema_bytes: Option<bytes::Bytes>,
+    batch_buf: arrow::buffer::Buffer,
+}
+
+#[cfg_attr(not(test), allow(dead_code))]
+impl ArrowResponseReader {
+    pub(crate) fn new(
+        serialized_schema: bytes::Bytes,
+        serialized_record_batch: bytes::Bytes,
+    ) -> Self {
+        Self {
+            decoder: ArrowStreamDecoder::new(),
+            schema_bytes: (!serialized_schema.is_empty()).then_some(serialized_schema),
+            batch_buf: arrow::buffer::Buffer::from(serialized_record_batch),
+        }
+    }
+}
+
+impl RecordBatchSource for ArrowResponseReader {
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        if let Some(schema_bytes) = self.schema_bytes.take() {
+            self.decoder.set_schema_bytes(&schema_bytes)?;
+        }
+        while !self.batch_buf.is_empty() {
+            let prev_len = self.batch_buf.len();
+            if let Some(batch) = self.decoder.decode_buffer(&mut self.batch_buf)?
+                && batch.num_rows() > 0
+            {
+                return Ok(Some(batch));
+            }
+            if self.batch_buf.len() == prev_len {
+                break;
+            }
+        }
+        self.decoder.finish()?;
+        Ok(None)
+    }
+}
+
+/// Unified Arrow [`RecordBatch`] reader over inline query responses or BigQuery Storage Read streams.
+#[cfg_attr(not(test), allow(dead_code))]
+#[derive(Debug)]
+pub(crate) enum ArrowReader {
+    Response(ArrowResponseReader),
+    // TODO(#7038): add a Storage(StorageReader) variant for BigQuery Storage Read API streams
+}
+
+impl RecordBatchSource for ArrowReader {
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        match self {
+            Self::Response(r) => r.next_record_batch().await,
+        }
+    }
+}
+
+#[cfg_attr(not(test), allow(dead_code))]
+impl ArrowReader {
+    /// Returns `true` if a failed read attempt can fall back to REST `jobs.getQueryResults` pagination.
+    pub(crate) fn can_fallback_to_rest(&self) -> bool {
+        match self {
+            Self::Response(_) => false,
+            // TODO(#7038): Storage(r) => !r.is_stream_opened(), so StorageReader can fall back to REST if opening the stream failed
+        }
+    }
+}
 
 /// A reference to a single cell within an Arrow array.
 #[derive(Clone, Debug)]
@@ -318,5 +454,134 @@ mod tests {
             .as_bytes()
             .map(<[u8]>::to_vec)
             .map_err(TestConvertError::from)
+    }
+
+    fn create_test_arrow_schema() -> Arc<arrow::datatypes::Schema> {
+        use arrow::datatypes::{Field, Schema as ArrowSchema};
+
+        Arc::new(ArrowSchema::new(vec![
+            Field::new("col", DataType::Utf8, false),
+            Field::new("num", DataType::Int64, false),
+        ]))
+    }
+
+    fn create_test_arrow_schema_bytes() -> bytes::Bytes {
+        use arrow::ipc::writer::StreamWriter;
+
+        let arrow_schema = create_test_arrow_schema();
+        let mut schema_buf = Vec::new();
+        let _ =
+            StreamWriter::try_new(&mut schema_buf, &arrow_schema).expect("valid test arrow schema");
+        schema_buf.into()
+    }
+
+    #[test]
+    fn arrow_stream_decoder_batches() -> anyhow::Result<()> {
+        use arrow::ipc::writer::StreamWriter;
+
+        let arrow_schema = create_test_arrow_schema();
+        let schema_bytes = create_test_arrow_schema_bytes();
+
+        let batch = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![
+                Arc::new(StringArray::from(vec!["a", "b"])),
+                Arc::new(Int64Array::from(vec![1, 2])),
+            ],
+        )?;
+
+        let mut stream_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut stream_buf, &arrow_schema)?;
+        writer.write(&batch)?;
+        writer.finish()?;
+        let batch_bytes = &stream_buf[schema_bytes.len()..];
+
+        let mut decoder = ArrowStreamDecoder::new();
+        decoder.set_schema_bytes(&[])?;
+        decoder.set_schema_bytes(&schema_bytes)?;
+
+        let decoded = decoder
+            .decode_batch(batch_bytes)?
+            .expect("should decode batch");
+        assert_eq!(decoded.num_rows(), 2);
+        decoder.finish()?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn arrow_response_reader_multiple_batches() -> anyhow::Result<()> {
+        use arrow::ipc::writer::StreamWriter;
+
+        let arrow_schema = create_test_arrow_schema();
+        let schema_bytes = create_test_arrow_schema_bytes();
+
+        let batch1 = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![
+                Arc::new(StringArray::from(vec!["hello", "world"])),
+                Arc::new(Int64Array::from(vec![42, 100])),
+            ],
+        )?;
+        let empty_batch = RecordBatch::new_empty(arrow_schema.clone());
+        let batch2 = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![
+                Arc::new(StringArray::from(vec!["last"])),
+                Arc::new(Int64Array::from(vec![999])),
+            ],
+        )?;
+
+        let mut stream_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut stream_buf, &arrow_schema)?;
+        writer.write(&batch1)?;
+        writer.write(&empty_batch)?;
+        writer.write(&batch2)?;
+        writer.finish()?;
+        let batch_buf = stream_buf[schema_bytes.len()..].to_vec();
+
+        let mut reader =
+            ArrowReader::Response(ArrowResponseReader::new(schema_bytes, batch_buf.into()));
+        assert!(!reader.can_fallback_to_rest());
+
+        let b1 = reader
+            .next_record_batch()
+            .await?
+            .expect("should return first batch");
+        assert_eq!(b1.num_rows(), 2);
+
+        let b2 = reader
+            .next_record_batch()
+            .await?
+            .expect("should return second non-empty batch");
+        assert_eq!(b2.num_rows(), 1);
+
+        assert!(reader.next_record_batch().await?.is_none());
+        Ok(())
+    }
+
+    #[test_case(
+        bytes::Bytes::from_static(b"invalid arrow schema bytes"),
+        bytes::Bytes::new();
+        "malformed schema"
+    )]
+    #[test_case(
+        create_test_arrow_schema_bytes(),
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00corrupted_batch_header");
+        "malformed record batch"
+    )]
+    #[tokio::test]
+    async fn arrow_response_reader_malformed_ipc(
+        serialized_schema: bytes::Bytes,
+        serialized_record_batch: bytes::Bytes,
+    ) {
+        let mut reader = ArrowReader::Response(ArrowResponseReader::new(
+            serialized_schema,
+            serialized_record_batch,
+        ));
+        let err = reader
+            .next_record_batch()
+            .await
+            .expect_err("should fail on malformed IPC");
+        assert!(matches!(err, RowError::InvalidRowFormat(_)), "{err:?}");
     }
 }
