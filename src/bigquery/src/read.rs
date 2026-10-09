@@ -16,7 +16,4 @@
 
 mod reader;
 
-/// Defines the retry policy for the BigQuery Storage Read API.
-pub mod retry_policy;
-
 pub use reader::Reader;

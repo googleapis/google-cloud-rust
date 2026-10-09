@@ -16,17 +16,14 @@
 
 use crate::builder::read::ReadRows;
 use crate::model::ReadRowsResponse;
-use crate::read::retry_policy::RetryableErrors;
 use crate::{Error, Result};
 use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyArg, RetryPolicyExt};
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
-use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg, SharedRetryThrottler};
 use google_cloud_gax::streaming::ResponseStream;
-use google_cloud_gax::throttle_result::ThrottleResult;
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 use std::time::Duration;
 use tokio::time::Instant;
 
@@ -39,7 +36,7 @@ const MAX_ATTEMPTS: u32 = 10;
 ///
 /// - `max_times` (10): Limits total consecutive failed reconnection attempts when no data progress is made.
 fn default_retry_policy() -> Arc<dyn RetryPolicy> {
-    Arc::new(RetryableErrors.with_attempt_limit(MAX_ATTEMPTS))
+    Arc::new(Aip194Strict.with_attempt_limit(MAX_ATTEMPTS))
 }
 
 /// Default backoff policy for mid-stream `read_rows` reconnections.
@@ -56,11 +53,6 @@ fn default_backoff_policy() -> Arc<ExponentialBackoff> {
             .build()
             .expect("hardcoded value guaranteed to be valid"),
     )
-}
-
-/// Default retry throttler for mid-stream `read_rows` reconnections.
-fn default_retry_throttler() -> SharedRetryThrottler {
-    Arc::new(Mutex::new(CircuitBreaker::default()))
 }
 
 /// State machine for reconnection logic. If reading fails at some point,
@@ -128,7 +120,6 @@ pub(crate) enum ReaderState {
 pub struct Reader {
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
-    retry_throttler: SharedRetryThrottler,
     request: ReadRows,
     /// Encapsulates all mutable state for the [`Reader`]. Any new mutable
     /// runtime state should be added to [`ReaderState`] rather than [`Reader`].
@@ -140,7 +131,6 @@ impl Reader {
         Self {
             retry_policy: default_retry_policy(),
             backoff_policy: default_backoff_policy(),
-            retry_throttler: default_retry_throttler(),
             request,
             state: ReaderState::Connecting {
                 offset: 0,
@@ -176,13 +166,12 @@ impl Reader {
     /// ```
     /// # use google_cloud_bigquery::client::Read;
     /// # async fn sample(client: Read) -> anyhow::Result<()> {
-    /// use google_cloud_bigquery::read::retry_policy::RetryableErrors;
-    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
+    /// use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     /// let mut reader = client
     ///     .read_rows()
     ///     .set_read_stream("projects/my-project/locations/us/sessions/s1/streams/st1")
     ///     .into_reader()
-    ///     .with_retry_policy(RetryableErrors.with_attempt_limit(5));
+    ///     .with_retry_policy(Aip194Strict.with_attempt_limit(5));
     /// # Ok(())
     /// # }
     /// ```
@@ -211,60 +200,13 @@ impl Reader {
         self
     }
 
-    /// Configure the retry throttler for reconnecting the stream.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery::client::Read;
-    /// # async fn sample(client: Read) -> anyhow::Result<()> {
-    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
-    /// let mut reader = client
-    ///     .read_rows()
-    ///     .set_read_stream("projects/my-project/locations/us/sessions/s1/streams/st1")
-    ///     .into_reader()
-    ///     .with_retry_throttler(AdaptiveThrottler::default());
-    /// # Ok(())
-    /// # }
-    /// ```
-    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
-        self.retry_throttler = v.into().into();
-        self
-    }
-
-    fn record_success(&self) {
-        self.retry_throttler
-            .lock()
-            .expect("retry throttler lock is poisoned")
-            .on_success();
-    }
-
     fn handle_error(&self, offset: i64, mut retry_state: RetryState, err: Error) -> ReaderState {
         retry_state.attempt_count += 1;
-        let flow = self.retry_policy.on_error(&retry_state, err);
-        self.retry_throttler
-            .lock()
-            .expect("retry throttler lock is poisoned")
-            .on_retry_failure(&flow);
-        let prev_err = match flow {
+        let prev_err = match self.retry_policy.on_error(&retry_state, err) {
             RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                 return ReaderState::Terminated(Some(e));
             }
             RetryResult::Continue(e) => e,
-        };
-
-        let throttled = self
-            .retry_throttler
-            .lock()
-            .expect("retry throttler lock is poisoned")
-            .throttle_retry_attempt();
-        let prev_err = if throttled {
-            retry_state.attempt_count += 1;
-            match self.retry_policy.on_throttle(&retry_state, prev_err) {
-                ThrottleResult::Exhausted(e) => return ReaderState::Terminated(Some(e)),
-                ThrottleResult::Continue(e) => e,
-            }
-        } else {
-            prev_err
         };
 
         let delay = self.backoff_policy.on_failure(&retry_state);
@@ -336,7 +278,6 @@ impl Reader {
                     // Data progress was made: clear `retry_state` so any future
                     // mid-stream failure starts a fresh `RetryState::new(true)`.
                     *retry_state = None;
-                    self.record_success();
                     Some(response)
                 }
                 Some(Err(err)) => {
@@ -346,7 +287,6 @@ impl Reader {
                     None
                 }
                 None => {
-                    self.record_success();
                     self.state = ReaderState::Terminated(None);
                     None
                 }
@@ -409,7 +349,7 @@ mod tests {
     use crate::model::ReadRowsRequest;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::retry_throttler::RetryThrottler;
+    use google_cloud_gax::throttle_result::ThrottleResult;
     use std::error::Error as _;
     use tokio::sync::mpsc;
 
@@ -449,16 +389,6 @@ mod tests {
             fn on_error(&self, state: &RetryState, error: Error) -> RetryResult;
             fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult;
             fn remaining_time(&self, state: &RetryState) -> Option<Duration>;
-        }
-    }
-
-    mockall::mock! {
-        #[derive(Debug)]
-        pub RetryThrottler {}
-        impl RetryThrottler for RetryThrottler {
-            fn throttle_retry_attempt(&self) -> bool;
-            fn on_retry_failure(&mut self, flow: &RetryResult);
-            fn on_success(&mut self);
         }
     }
 
@@ -1076,13 +1006,7 @@ mod tests {
                 let (tx, rx) = mpsc::channel(4);
                 tokio::spawn(async move {
                     let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(25))).await;
-                    let _ = tx
-                        .send(Err(Error::service(
-                            Status::default()
-                                .set_code(Code::ResourceExhausted)
-                                .set_message("rate limited"),
-                        )))
-                        .await;
+                    let _ = tx.send(Err(transient_error())).await;
                 });
                 Ok(ResponseStream::from(rx))
             });
@@ -1224,50 +1148,6 @@ mod tests {
         let r2 = reader.next().await.transpose()?.expect("row batch 2");
         assert_eq!(r2.row_count, 6);
         assert_eq!(Instant::now().duration_since(error_time), backoff_delay);
-        assert!(reader.next().await.is_none());
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn retry_throttler_stops_retries_when_exhausted() -> anyhow::Result<()> {
-        let mut mock = MockReadStub::new();
-        mock.expect_read_rows()
-            .once()
-            .returning(|_, _| Err(transient_error()));
-
-        let mut throttler = MockRetryThrottler::new();
-        throttler.expect_on_retry_failure().once().return_const(());
-        throttler
-            .expect_throttle_retry_attempt()
-            .once()
-            .return_const(true);
-
-        let mut retry = mock_retry_policy();
-        retry
-            .expect_on_error()
-            .once()
-            .returning(|_, e| RetryResult::Continue(e));
-        retry
-            .expect_on_throttle()
-            .withf(|state, _| state.attempt_count == 2)
-            .once()
-            .returning(|_, e| ThrottleResult::Exhausted(Error::exhausted(e)));
-
-        let client = Read::from_stub(mock);
-        let mut reader = client
-            .read_rows()
-            .set_read_stream("streams/1")
-            .into_reader()
-            .with_retry_policy(retry)
-            .with_backoff_policy(NoBackoff)
-            .with_retry_throttler(throttler);
-
-        let err = reader
-            .next()
-            .await
-            .expect("should return error")
-            .expect_err("should be exhausted by throttler");
-        assert!(err.is_exhausted(), "{err:?}");
         assert!(reader.next().await.is_none());
         Ok(())
     }
