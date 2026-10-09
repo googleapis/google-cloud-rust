@@ -17,7 +17,8 @@ limitations under the License.
 # How to configure a client
 
 The Google Cloud Rust Client Libraries let you configure client behavior using a
-[`ClientBuilder`][client-builder] obtained by calling `Client::builder()`.
+[`ClientBuilder`][client-builder] obtained by calling the service client's
+`builder()` method (for example, `SecretManagerService::builder()`).
 
 ## 1. Customizing the API endpoint
 
