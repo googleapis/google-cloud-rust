@@ -66,12 +66,19 @@ mod tests {
         assert_eq!(got, want);
         let rt = F64::deserialize_as(got)?;
         assert_double_eq(input, rt);
+
+        let mut s = Vec::new();
+        F64::serialize_as(&input, &mut serde_json::Serializer::new(&mut s))?;
+        let s = String::from_utf8(s)?;
+        let rt = F64::deserialize_as(&mut serde_json::Deserializer::from_str(&s))?;
+        assert_double_eq(input, rt);
         Ok(())
     }
 
     #[test_case("0", 0.0)]
     #[test_case("0.0", 0.0; "zero with trailing")]
     #[test_case("0.5", 0.5)]
+    #[test_case("0.8", 0.8)]
     #[test_case("-0.75", -0.75)]
     #[test_case("123", 123.0)]
     #[test_case("-234", -234.0)]
@@ -84,7 +91,25 @@ mod tests {
     where
         T: Into<String> + std::fmt::Display + Clone,
     {
-        let got = F64::deserialize_as(Value::String(input.clone().into()))?;
+        let s: String = input.clone().into();
+        let got = F64::deserialize_as(Value::String(s.clone()))?;
+        assert_eq!(got, want, "{input}");
+
+        let quoted = serde_json::to_string(&s)?;
+        let got = F64::deserialize_as(&mut serde_json::Deserializer::from_str(&quoted))?;
+        assert_eq!(got, want, "{input}");
+        Ok(())
+    }
+
+    #[test_case("0", 0.0)]
+    #[test_case("0.0", 0.0; "zero with trailing")]
+    #[test_case("0.5", 0.5)]
+    #[test_case("0.8", 0.8)]
+    #[test_case("-0.75", -0.75)]
+    #[test_case("123", 123.0)]
+    #[test_case("-234", -234.0)]
+    fn parse_number_str_f64(input: &str, want: f64) -> Result {
+        let got = F64::deserialize_as(&mut serde_json::Deserializer::from_str(input))?;
         assert_eq!(got, want, "{input}");
         Ok(())
     }
@@ -100,16 +125,33 @@ mod tests {
         let value = json!(input);
         let got = F64::deserialize_as(value)?;
         assert_double_eq(got, want);
+
+        let s = serde_json::to_string(&input)?;
+        let got = F64::deserialize_as(&mut serde_json::Deserializer::from_str(&s))?;
+        assert_double_eq(got, want);
         Ok(())
     }
 
     #[test_case(json!("some string"))]
     #[test_case(json!(true))]
+    #[test_case(json!({}))]
+    #[test_case(json!({"a": 1}))]
     #[test_case(json!("-1.89769e+308"); "range negative")] // Used in ProtoJSON conformance test
     #[test_case(json!("1.89769e+308"); "range positive")] // Used in ProtoJSON conformance test
     fn deserialize_expect_err_64(input: Value) {
+        let s = input.to_string();
         let err = F64::deserialize_as(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");
+
+        let err = F64::deserialize_as(&mut serde_json::Deserializer::from_str(&s)).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+    }
+
+    #[test_case("1.89769e+308")]
+    #[test_case("-1.89769e+308")]
+    fn deserialize_str_out_of_f64_range_64(input: &str) {
+        let err = F64::deserialize_as(&mut serde_json::Deserializer::from_str(input)).unwrap_err();
+        assert!(err.is_data() || err.is_syntax(), "{err:?}");
     }
 
     impl_assert_float_eq!(assert_double_eq, f64);
