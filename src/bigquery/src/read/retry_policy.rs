@@ -20,12 +20,14 @@ use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 
-/// Follows the RPC retry strategy recommended for the BigQuery Storage Read API.
+/// The default RPC retry/reconnect strategy recommended for the BigQuery
+/// Storage Read API.
 ///
-/// This policy retries transient network/transport errors, HTTP/2 stream resets,
-/// rate-limit errors (`ResourceExhausted`), and transient server statuses
-/// (`Unavailable`, `Internal`, `Aborted`, `Cancelled`, `DeadlineExceeded`) when
-/// the operation is idempotent.
+/// This policy is used for when to reconnect a read stream, such as after
+/// transient network/transport errors, HTTP/2 stream resets, rate-limit errors
+/// (`ResourceExhausted`), and transient server statuses (`Unavailable`,
+/// `Internal`, `Aborted`, `Cancelled`, `DeadlineExceeded`) when the operation
+/// is idempotent.
 ///
 /// This policy must be decorated to limit the duration of the retry loop or
 /// the number of attempts.
