@@ -126,8 +126,8 @@ pub(crate) enum ReaderState {
 /// resuming from the current row offset.
 #[derive(Debug)]
 pub struct Reader {
-    retry_policy: Arc<dyn RetryPolicy + Send>,
-    backoff_policy: Arc<dyn BackoffPolicy + Send>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
     request: ReadRows,
     /// Encapsulates all mutable state for the [`Reader`]. Any new mutable
@@ -483,6 +483,11 @@ mod tests {
                 .set_code(Code::PermissionDenied)
                 .set_message("permission denied"),
         )
+    }
+
+    #[test]
+    fn traits() {
+        static_assertions::assert_impl_all!(Reader: Send, std::fmt::Debug);
     }
 
     #[tokio::test]
