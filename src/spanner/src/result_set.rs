@@ -442,11 +442,14 @@ impl ResultSet {
         &mut self,
         mut partial_result_set: PartialResultSet,
     ) -> crate::Result<()> {
+        // `FromProto::cnv` for `MultiplexedSessionPrecommitToken` is infallible
+        // (it only converts `Vec<u8>` to `Bytes` and copies `seq_num`), so `.ok()`
+        // never discards an error.
         self.precommit_token_tracker.update(
             partial_result_set
                 .precommit_token
-                .clone()
-                .map(|t| t.cnv().expect("failed to convert precommit token")),
+                .take()
+                .and_then(|token| token.cnv().ok()),
         );
 
         if partial_result_set.last {
