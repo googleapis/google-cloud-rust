@@ -111,10 +111,11 @@ impl BucketType {
 }
 
 /// Creates a bucket, runs `f` on it, and deletes the bucket even if `f` fails or panics.
-async fn with_bucket<F>(clients: &Clients, bucket_type: BucketType, f: F) -> anyhow::Result<()>
-where
-    F: AsyncFnOnce(&str, BucketType) -> anyhow::Result<()>,
-{
+async fn with_bucket(
+    clients: &Clients,
+    bucket_type: BucketType,
+    f: impl AsyncFnOnce(&str, BucketType) -> anyhow::Result<()>,
+) -> anyhow::Result<()> {
     let bucket_id = random_bucket_id();
     println!("\n========================================================");
     println!(" Testing Bucket Type: {}", bucket_type.label());
