@@ -1143,6 +1143,22 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn http_body_response_missing_content_type() -> anyhow::Result<()> {
+        let raw_bytes: &[u8] = b"raw-bytes-without-content-type";
+        let http_resp = http::Response::builder()
+            .status(reqwest::StatusCode::OK)
+            .body(raw_bytes.to_vec())?;
+        let response: reqwest::Response = http_resp.into();
+
+        let response =
+            super::to_http_response::<google_cloud_api::model::HttpBody>(response).await?;
+        let body = response.into_body();
+        assert_eq!(body.content_type, "");
+        assert_eq!(body.data, bytes::Bytes::from_static(raw_bytes));
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn http_body_response_no_content() -> anyhow::Result<()> {
         let http_resp = http::Response::builder()
             .header("Content-Type", "application/json")
@@ -1188,6 +1204,16 @@ mod tests {
                     .append_header("Content-Type", "application/json")
                     .body("{}"),
             ),
+        );
+        server.expect(
+            httptest::Expectation::matching(httptest::matchers::all_of![
+                httptest::matchers::request::method_path("POST", "/no-content-type"),
+                httptest::matchers::not(httptest::matchers::request::headers(
+                    httptest::matchers::contains(httptest::matchers::key("content-type")),
+                )),
+                httptest::matchers::request::body("raw without content-type"),
+            ])
+            .respond_with(httptest::responders::status_code(200).body("response without header")),
         );
         server.expect(
             httptest::Expectation::matching(httptest::matchers::request::method_path(
@@ -1238,7 +1264,21 @@ mod tests {
             .await?;
         assert_eq!(resp.into_body(), wkt::Empty::default());
 
-        // 3. NoBody request -> HttpBody response
+        // 3. HttpBody request with empty content_type but non-empty data -> HttpBody response without Content-Type
+        let req_body = google_cloud_api::model::HttpBody::new()
+            .set_data(bytes::Bytes::from_static(b"raw without content-type"));
+        let builder = client.builder(Method::POST, "no-content-type".to_string());
+        let resp: Response<google_cloud_api::model::HttpBody> = client
+            .execute(builder, Some(req_body), RequestOptions::default())
+            .await?;
+        let body = resp.into_body();
+        assert_eq!(body.content_type, "");
+        assert_eq!(
+            body.data,
+            bytes::Bytes::from_static(b"response without header")
+        );
+
+        // 4. NoBody request -> HttpBody response
         let builder = client.builder(Method::GET, "geotiff".to_string());
         let resp: Response<google_cloud_api::model::HttpBody> = client
             .execute(builder, None::<NoBody>, RequestOptions::default())
@@ -1247,7 +1287,7 @@ mod tests {
         assert_eq!(body.content_type, "image/tiff");
         assert_eq!(body.data, bytes::Bytes::from_static(b"TIFF_DATA"));
 
-        // 4. HttpBody request -> HttpBody response
+        // 5. HttpBody request -> HttpBody response
         let req_body = google_cloud_api::model::HttpBody::new()
             .set_content_type("text/plain")
             .set_data(bytes::Bytes::from_static(b"raw input"));
