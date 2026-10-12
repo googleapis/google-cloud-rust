@@ -619,13 +619,12 @@ impl ReadWriteTransaction {
 
     pub(crate) async fn begin_explicitly_if_not_started(
         &self,
-        is_stream_fallback: bool,
         mutation_key: Option<crate::model::Mutation>,
     ) -> crate::Result<bool> {
         let mut begin_options = self.begin_gax_options.clone().unwrap_or_default();
         self.amend_gax_options(&mut begin_options);
         self.context
-            .begin_explicitly_if_not_started(begin_options, is_stream_fallback, mutation_key)
+            .begin_explicitly_if_not_started(begin_options, mutation_key)
             .await
     }
 
@@ -699,10 +698,7 @@ impl ReadWriteTransaction {
                 ));
             }
             let mutation_key = Mutation::select_mutation_key(&mutations);
-            if self
-                .begin_explicitly_if_not_started(false, mutation_key)
-                .await?
-            {
+            if self.begin_explicitly_if_not_started(mutation_key).await? {
                 self.context.transaction_selector.check_failed()?;
                 id = self.context.transaction_selector.get_id_no_wait()?;
             }
