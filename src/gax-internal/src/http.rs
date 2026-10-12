@@ -674,15 +674,17 @@ fn deserialize_body<O: serde::de::DeserializeOwned + Default + 'static>(
     content: bytes::Bytes,
     headers: &http::HeaderMap,
 ) -> Result<O> {
-    let mut response = O::default();
-    if let Some(http_body) = <dyn Any>::downcast_mut::<HttpBody>(&mut response) {
-        if let Some(content_type) = headers
-            .get(http::header::CONTENT_TYPE)
-            .and_then(|v| v.to_str().ok())
-        {
-            http_body.content_type = content_type.to_string();
+    if std::any::TypeId::of::<O>() == std::any::TypeId::of::<HttpBody>() {
+        let mut response = O::default();
+        if let Some(http_body) = <dyn Any>::downcast_mut::<HttpBody>(&mut response) {
+            if let Some(content_type) = headers
+                .get(http::header::CONTENT_TYPE)
+                .and_then(|v| v.to_str().ok())
+            {
+                http_body.content_type = content_type.to_string();
+            }
+            http_body.data = content;
         }
-        http_body.data = content;
         return Ok(response);
     }
     serde_json::from_slice::<O>(&content).map_err(Error::deser)
