@@ -18,13 +18,16 @@ use bytes::Bytes;
 use futures::FutureExt as _;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptionsBuilder as _;
+use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::retry_policy::RetryPolicyExt as _;
+use google_cloud_lro::Poller as _;
+use google_cloud_storage::appendable_object_writer::AppendableObjectWriter;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use google_cloud_storage::model::bucket::{
     CustomPlacementConfig, HierarchicalNamespace, IamConfig,
 };
-use google_cloud_storage::model::{Bucket, Object};
+use google_cloud_storage::model::{Bucket, Object, RapidCache};
 use google_cloud_storage::model_ext::ReadRange;
 use google_cloud_storage::retry_policy::RetryableErrors;
 use google_cloud_test_utils::resource_names::{LowercaseAlphanumeric, random_bucket_id};
@@ -32,7 +35,7 @@ use google_cloud_test_utils::runtime_config::{project_id, region_id, zone_id};
 use std::panic::AssertUnwindSafe;
 use std::time::Duration;
 
-/// Runs the bidi write conformance tests against the supported Zonal Rapid bucket type.
+/// Runs the bidi write conformance tests against each supported Rapid bucket type.
 pub async fn run() -> anyhow::Result<()> {
     println!("\n========================================================");
     println!(" Running Bidi Write Conformance Integration Test Suite");
@@ -40,14 +43,16 @@ pub async fn run() -> anyhow::Result<()> {
 
     let clients = Clients::new().await?;
 
-    with_bucket(&clients, BucketType::ZonalRapid, async |bucket, bucket_type| {
-        test_appendable_upload_empty_object(&clients, bucket, bucket_type).await?;
-        test_multi_chunk_appendable_upload(&clients, bucket, bucket_type).await?;
-        test_explicit_flush(&clients, bucket, bucket_type).await?;
-        test_appendable_upload_takeover(&clients, bucket, bucket_type).await?;
-        test_takeover_just_to_finalize(&clients, bucket, bucket_type).await
-    })
-    .await?;
+    for bucket_type in [BucketType::ZonalRapid, BucketType::RegionalRapid] {
+        with_bucket(&clients, bucket_type, async |bucket, bucket_type| {
+            test_appendable_upload_empty_object(&clients, bucket, bucket_type).await?;
+            test_multi_chunk_appendable_upload(&clients, bucket, bucket_type).await?;
+            test_explicit_flush(&clients, bucket, bucket_type).await?;
+            test_appendable_upload_takeover(&clients, bucket, bucket_type).await?;
+            test_takeover_just_to_finalize(&clients, bucket, bucket_type).await
+        })
+        .await?;
+    }
 
     println!("\n>>> All Bidi Write Conformance integration tests completed successfully! <<<\n");
     Ok(())
@@ -89,13 +94,19 @@ impl Clients {
 #[derive(Clone, Copy, Debug)]
 enum BucketType {
     ZonalRapid,
+    RegionalRapid,
 }
 
 impl BucketType {
     fn label(self) -> &'static str {
         match self {
             Self::ZonalRapid => "Zonal Rapid",
+            Self::RegionalRapid => "Regional Rapid (HNS)",
         }
+    }
+
+    fn has_rapid_cache(self) -> bool {
+        matches!(self, Self::RegionalRapid)
     }
 }
 
@@ -114,16 +125,22 @@ where
     let result = AssertUnwindSafe(f(&bucket.name, bucket_type))
         .catch_unwind()
         .await;
-    cleanup_bucket(&clients.control, &bucket.name).await;
+    cleanup_bucket(
+        &clients.control,
+        &bucket.name,
+        bucket_type.has_rapid_cache(),
+    )
+    .await;
     match result {
         Ok(result) => result,
         Err(panic) => std::panic::resume_unwind(panic),
     }
 }
 
+/// For Regional Rapid, also attaches the cache, and deletes the bucket if that fails.
 async fn create_bucket(
     control: &StorageControl,
-    _bucket_type: BucketType,
+    bucket_type: BucketType,
     bucket_id: String,
 ) -> anyhow::Result<Bucket> {
     let zone = zone_id();
@@ -134,8 +151,8 @@ async fn create_bucket(
         .map(|(r, _)| r.to_string())
         .unwrap_or_else(region_id);
 
-    // Zonal Rapid is only supported with HNS enabled.
-    let bucket = Bucket::new()
+    // Zonal Rapid and Regional Rapid are only supported with HNS enabled.
+    let mut bucket = Bucket::new()
         .set_project(format!("projects/{}", project_id()?))
         .set_location(region)
         .set_labels([("integration-test", "true")])
@@ -143,9 +160,13 @@ async fn create_bucket(
         .set_iam_config(
             IamConfig::new()
                 .set_uniform_bucket_level_access(UniformBucketLevelAccess::new().set_enabled(true)),
-        )
-        .set_custom_placement_config(CustomPlacementConfig::new().set_data_locations([&zone]))
-        .set_storage_class("RAPID");
+        );
+
+    if matches!(bucket_type, BucketType::ZonalRapid) {
+        bucket = bucket
+            .set_custom_placement_config(CustomPlacementConfig::new().set_data_locations([&zone]))
+            .set_storage_class("RAPID");
+    }
 
     let bucket = control
         .create_bucket()
@@ -156,11 +177,35 @@ async fn create_bucket(
         .send()
         .await?;
 
+    if bucket_type.has_rapid_cache() {
+        let rapid_cache = RapidCache::new()
+            .set_name(format!("{}/rapidCaches/{zone}", bucket.name))
+            .set_zone(&zone)
+            .set_cache_type("rapid-cache-ultra");
+
+        println!("Attaching rapid-cache-ultra in {zone} (this can take a minute or more)...");
+        let attached = control
+            .create_rapid_cache()
+            .set_parent(&bucket.name)
+            .set_rapid_cache(rapid_cache)
+            .poller()
+            .until_done()
+            .await;
+        if let Err(e) = attached {
+            cleanup_bucket(control, &bucket.name, true).await;
+            return Err(e.into());
+        }
+        println!("SUCCESS: attached rapid-cache-ultra in {zone}");
+    }
+
     Ok(bucket)
 }
 
 /// Deletes a bucket and everything in it. Failures are printed, not returned.
-async fn cleanup_bucket(control: &StorageControl, bucket_name: &str) {
+async fn cleanup_bucket(control: &StorageControl, bucket_name: &str, has_rapid_cache: bool) {
+    if has_rapid_cache {
+        disable_rapid_caches(control, bucket_name).await;
+    }
     let result = match project_id() {
         Ok(project_id) => {
             storage_samples::cleanup_bucket(control.clone(), bucket_name.to_string(), project_id)
@@ -173,6 +218,54 @@ async fn cleanup_bucket(control: &StorageControl, bucket_name: &str) {
     }
 }
 
+async fn disable_rapid_caches(control: &StorageControl, bucket_name: &str) {
+    let mut caches = control
+        .list_rapid_caches()
+        .set_parent(bucket_name)
+        .by_item();
+    while let Some(cache) = caches.next().await {
+        let cache = match cache {
+            Ok(cache) => cache,
+            Err(e) => {
+                eprintln!(
+                    "Warning: failed to list rapid caches in {bucket_name} during teardown: {e:?}"
+                );
+                return;
+            }
+        };
+        println!("Disabling rapid cache {}...", cache.name);
+        // TODO(b/565175323): Remove this timeout workaround once server-side LRO completion is fixed.
+        let result = tokio::time::timeout(
+            Duration::from_secs(5),
+            control
+                .disable_rapid_cache()
+                .set_name(&cache.name)
+                .poller()
+                .until_done(),
+        )
+        .await;
+        match result {
+            Ok(Ok(_)) => println!("SUCCESS: disabled rapid cache {}", cache.name),
+            Ok(Err(e)) => {
+                if !format!("{e:?}").contains("neither result nor error set in LRO result") {
+                    eprintln!(
+                        "Warning: failed to disable rapid cache {}: {e:?}",
+                        cache.name
+                    );
+                } else {
+                    println!("SUCCESS: disabled rapid cache {}", cache.name);
+                }
+            }
+            Err(_) => {
+                println!(
+                    "SUCCESS: disabled rapid cache {} (timed out waiting for LRO)",
+                    cache.name
+                );
+            }
+        }
+    }
+}
+
 fn random_object_name(prefix: &str) -> String {
     format!(
         "bidi_write/{prefix}_{}.txt",
@@ -182,6 +275,40 @@ fn random_object_name(prefix: &str) -> String {
 
 fn test_payload(len: usize) -> Bytes {
     Bytes::from_iter((b'a'..=b'z').cycle().take(len))
+}
+
+/// Opens an appendable upload for the given bucket type.
+///
+/// For `RegionalRapid`, the bucket's default storage class is `STANDARD`, so the
+/// object must explicitly specify `storage_class: "RAPID"` to write into the
+/// attached zonal cache.
+async fn open_appendable_object(
+    client: &Storage,
+    bucket_name: &str,
+    object_name: &str,
+    bucket_type: BucketType,
+) -> anyhow::Result<AppendableObjectWriter> {
+    let mut attempts = 0;
+    loop {
+        attempts += 1;
+        let mut builder = client.open_appendable_object(bucket_name, object_name);
+        if matches!(bucket_type, BucketType::RegionalRapid) {
+            builder = builder.set_storage_class("RAPID");
+        }
+        match builder.send().await {
+            Ok(writer) => return Ok(writer),
+            Err(e)
+                if attempts < 5
+                    && format!("{e:?}").contains("GRPC_APPENDABLE_OBJECT_NOT_SUPPORTED") =>
+            {
+                println!(
+                    "Waiting for rapid cache to propagate to data plane (attempt {attempts}/5)..."
+                );
+                tokio::time::sleep(Duration::from_secs(3)).await;
+            }
+            Err(e) => return Err(e.into()),
+        }
+    }
 }
 
 /// Verifies the finalized `Object` metadata (name, size, cumulative CRC32C) and reads
@@ -228,11 +355,8 @@ async fn test_appendable_upload_empty_object(
     let object_name = random_object_name("empty");
 
     // Act
-    let writer = clients
-        .grpc
-        .open_appendable_object(bucket_name, &object_name)
-        .send()
-        .await?;
+    let writer =
+        open_appendable_object(&clients.grpc, bucket_name, &object_name, bucket_type).await?;
     let object = writer.finalize().await?;
 
     // Assert
@@ -266,11 +390,8 @@ async fn test_multi_chunk_appendable_upload(
     let chunk2 = payload.slice(mid..);
 
     // Act
-    let mut writer = clients
-        .grpc
-        .open_appendable_object(bucket_name, &object_name)
-        .send()
-        .await?;
+    let mut writer =
+        open_appendable_object(&clients.grpc, bucket_name, &object_name, bucket_type).await?;
     writer.append(chunk1).await?;
     writer.append(chunk2).await?;
     let object = writer.finalize().await?;
@@ -299,11 +420,8 @@ async fn test_explicit_flush(
     let payload = test_payload(10_000);
 
     // Act & Assert: Intermediate Flush Checkpoint
-    let mut writer = clients
-        .grpc
-        .open_appendable_object(bucket_name, &object_name)
-        .send()
-        .await?;
+    let mut writer =
+        open_appendable_object(&clients.grpc, bucket_name, &object_name, bucket_type).await?;
     writer.append(payload.slice(..1)).await?;
     let persisted = writer.flush().await?;
     assert_eq!(persisted, 1);
@@ -342,11 +460,8 @@ async fn test_appendable_upload_takeover(
     let chunk1_len = chunk1.len() as i64;
 
     // Act: Session 1 (Write chunk 1 and close without finalizing)
-    let mut writer1 = clients
-        .grpc
-        .open_appendable_object(bucket_name, &object_name)
-        .send()
-        .await?;
+    let mut writer1 =
+        open_appendable_object(&clients.grpc, bucket_name, &object_name, bucket_type).await?;
     writer1.append(chunk1).await?;
     let generation = writer1.generation();
     let persisted = writer1.close().await?;
@@ -393,11 +508,8 @@ async fn test_takeover_just_to_finalize(
     let payload_len = payload.len() as i64;
 
     // Act: Session 1 (Write full payload and close without finalizing)
-    let mut writer1 = clients
-        .grpc
-        .open_appendable_object(bucket_name, &object_name)
-        .send()
-        .await?;
+    let mut writer1 =
+        open_appendable_object(&clients.grpc, bucket_name, &object_name, bucket_type).await?;
     writer1.append(payload.clone()).await?;
     let generation = writer1.generation();
     let persisted = writer1.close().await?;
