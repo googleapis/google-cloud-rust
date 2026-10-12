@@ -18,8 +18,8 @@ use crate::database_client::DatabaseClient;
 use crate::model::{ExecuteSqlRequest, PartitionOptions, ReadRequest};
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
-    BeginTransactionOption, MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
-    ReadContextTransactionSelector,
+    AbortedState, BeginTransactionOption, MultiUseReadOnlyTransaction,
+    MultiUseReadOnlyTransactionBuilder, ReadContextTransactionSelector,
 };
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::server_streaming::stream::PartialResultSetStream;
@@ -476,6 +476,7 @@ impl Partition {
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(attempt_start_time),
             affinity: None,
+            aborted_state: AbortedState::new_noop(),
         })
         .await
     }
@@ -511,6 +512,7 @@ impl Partition {
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(attempt_start_time),
             affinity: None,
+            aborted_state: AbortedState::new_noop(),
         })
         .await
     }

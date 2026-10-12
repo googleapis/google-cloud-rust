@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Error;
 use crate::RequestOptions;
+use crate::Result;
 use crate::channel_pool::TransactionAffinity;
 use crate::database_client::DatabaseClient;
 use crate::model::CommitResponse;
@@ -23,12 +25,15 @@ use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::read_only_transaction::{BeginTransactionOption, ReadContextTransactionSelector};
 use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBuilder};
 use crate::transaction_retry_policy::{
-    BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
+    AbortBackoffParams, BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted,
+    default_retry_backoff, extract_retry_delay, is_aborted_or_emulator_error,
 };
+use bytes::Bytes;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
+use std::ops::AsyncFnMut;
 use std::sync::Arc;
-
 use std::time::Duration;
 use tokio::time::Instant;
 use wkt::Timestamp;
@@ -674,14 +679,14 @@ impl TransactionRunner {
     ///
     /// If the transaction is aborted by Spanner due to concurrency contention, the closure
     /// is automatically retried according to the configured `TransactionRetryPolicy`.
-    pub async fn run<T, F>(mut self, mut work: F) -> crate::Result<TransactionResult<T>>
+    pub async fn run<T, F>(mut self, mut work: F) -> Result<TransactionResult<T>>
     where
-        F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,
+        F: AsyncFnMut(ReadWriteTransaction) -> Result<T>,
     {
         let start_time = Instant::now();
         let mut attempts: u32 = 0;
-        let backoff = crate::transaction_retry_policy::default_retry_backoff();
-        let deadline = self.timeout.map(|t| start_time + t);
+        let backoff = default_retry_backoff();
+        let deadline = self.timeout.map(|timeout| start_time + timeout);
 
         let mut force_explicit_begin = false;
         loop {
@@ -694,7 +699,6 @@ impl TransactionRunner {
             // channel, while allowing retries to avoid channels that began draining or
             // became degraded during the previous attempt.
             let channel_pool_affinity = Arc::new(TransactionAffinity::new_read_write());
-            let mut current_tx_id = None;
             let attempt_result = async {
                 let mut builder = self
                     .builder
@@ -704,95 +708,283 @@ impl TransactionRunner {
                     builder =
                         builder.set_begin_transaction_option(BeginTransactionOption::ExplicitBegin);
                 }
-                let transaction = builder.build(deadline).await.map_err(|e| (e, None))?;
-                let selector = transaction.context.transaction_selector.clone();
+                let transaction = builder
+                    .build(deadline)
+                    .await
+                    .map_err(|error| self.handle_explicit_begin_error(error))?;
 
                 let result = match work(transaction.clone()).await {
-                    Ok(res) => res,
-                    Err(e) => {
-                        // We call `get_id_no_wait` here to retrieve the transaction ID without waiting.
-                        // We do not require the transaction ID to be unconditionally available here;
-                        // we only wish to capture it if the transaction successfully started prior to
-                        // failing, so it can be used as the previous transaction ID if the transaction
-                        // was aborted.
-                        let id = selector.get_id_no_wait().ok().flatten();
-                        // Rollback if the closure failed and it was not an Aborted error.
-                        // `rollback()` automatically clears location-aware routing affinity in its post-route hook.
-                        // Aborted transactions are not rolled back, so we explicitly clear location-aware
-                        // routing affinity here before entering retry backoff.
-                        // Note: Channel pool affinity (`channel_pool_affinity`) is retained across retries
-                        // to keep subsequent attempts pinned to the same physical gRPC connection.
-                        if !is_aborted(&e) {
-                            let _ = transaction.rollback().await;
-                        } else {
-                            self.builder
-                                .client
-                                .clear_transaction_affinity_routing(id.as_deref());
-                        }
-                        current_tx_id = id;
-                        return Err((e, Some(selector)));
+                    Ok(result) => result,
+                    Err(error) => {
+                        return Err(self.handle_work_error(&transaction, error).await);
                     }
                 };
 
-                // `commit()` consumes `transaction`. If the commit RPC fails with an Aborted error,
-                // we still need access to the transaction ID so we can provide it as `previous_transaction_id`
-                // on retry. Cloning only `transaction_selector` preserves access to the internal state efficiently.
-                let commit_result = transaction.commit().await;
-                current_tx_id = selector.get_id_no_wait().ok().flatten();
-                let commit_response = match commit_result {
-                    Ok(r) => r,
-                    Err(e) => return Err((e, Some(selector))),
-                };
-                Ok::<TransactionResult<T>, (crate::Error, Option<ReadContextTransactionSelector>)>(
-                    TransactionResult {
-                        result,
-                        commit_response,
-                    },
-                )
+                let commit_response = transaction
+                    .commit()
+                    .await
+                    .map_err(|error| self.handle_commit_error(&transaction, error))?;
+
+                Ok(TransactionResult {
+                    result,
+                    commit_response,
+                })
             }
             .await;
 
             // Every exit path inside the `attempt_result` async block (`?` and `return`)
             // returns only from that inner block, so execution always reaches this point
-            // before sleeping in `backoff_if_aborted` or returning from `run` (even when
+            // before sleeping in retry backoff or returning from `run` (even when
             // `work` fails with `Aborted` and skips `rollback()`, or if the user closure
             // retains a cloned `ReadWriteTransaction`). If the `run` future itself is
             // cancelled/dropped mid-attempt, dropping `channel_pool_affinity` releases the guard via RAII.
             channel_pool_affinity.release_rw_guard();
 
-            match attempt_result {
-                Ok(res) => return Ok(res),
-                Err((e, selector_opt)) => {
-                    if is_aborted(&e) {
-                        self.builder = self.builder.set_previous_transaction_id(current_tx_id);
-                        if selector_opt
-                            .as_ref()
-                            .is_some_and(|s| s.is_first_statement_failed())
-                        {
-                            // When an inlined-begin statement fails with a non-retryable error, Spanner never
-                            // started a transaction. If the closure handled or ignored that error and continued,
-                            // subsequent operations or commit failed fast with a synthetic Aborted error.
-                            // Switching to an explicit BeginTransaction RPC on retry ensures an active
-                            // transaction ID exists before the closure runs, allowing subsequent statements
-                            // to proceed inside a real transaction.
-                            force_explicit_begin = true;
-                        }
-                    }
+            let error = match attempt_result {
+                Ok(response) => return Ok(response),
+                Err(error) => error,
+            };
 
-                    backoff_if_aborted(
-                        e,
-                        attempts,
-                        start_time.elapsed(),
-                        self.retry_policy.as_ref(),
-                        &backoff,
-                        self.builder.client.is_emulator(),
-                        deadline,
-                    )
-                    .await?;
+            self.handle_attempt_error(
+                error,
+                attempts,
+                start_time.elapsed(),
+                &backoff,
+                deadline,
+                &mut force_explicit_begin,
+            )
+            .await?;
+        }
+    }
+
+    fn is_aborted_error(&self, error: &Error) -> bool {
+        is_aborted_or_emulator_error(error, self.builder.client.is_emulator())
+    }
+
+    /// Handles an error returned when explicitly beginning a transaction via the `BeginTransaction` RPC.
+    ///
+    /// This is invoked when `builder.build(deadline).await` fails, which only occurs when
+    /// [`BeginTransactionOption::ExplicitBegin`] is active (either configured explicitly or forced
+    /// after a `FirstStatementFailed` error on a prior attempt).
+    ///
+    /// - Non-aborted errors (`NotFound`, `PermissionDenied`, etc.) terminate the runner immediately.
+    /// - Aborted errors preserve any previously established `previous_transaction_id` so wound-wait
+    ///   priority is retained into the retry attempt.
+    fn handle_explicit_begin_error(&self, error: Error) -> AttemptError {
+        if !self.is_aborted_error(&error) {
+            return AttemptError::NonAborted(error);
+        }
+        let retry_delay = extract_retry_delay(&error);
+        AttemptError::Aborted {
+            spanner_error: error,
+            retry_delay,
+            previous_transaction_id: PreviousTransactionIdAction::Keep,
+            is_first_statement_failed: false,
+        }
+    }
+
+    async fn handle_work_error(
+        &self,
+        transaction: &ReadWriteTransaction,
+        error: Error,
+    ) -> AttemptError {
+        let selector = &transaction.context.transaction_selector;
+        // Genuine server abort: Spanner aborted during statement execution or streaming.
+        // The server already released locks, so do not roll back.
+        // Inherit wound-wait priority by carrying transaction_id into retry.
+        if let Some(info) = transaction.aborted_info() {
+            let retry_delay = info.retry_delay.or_else(|| extract_retry_delay(&error));
+            let spanner_error = if self.is_aborted_error(&error) {
+                error
+            } else {
+                info.to_error()
+            };
+            return self.build_aborted_attempt_error(
+                selector,
+                spanner_error,
+                retry_delay,
+                TransactionIdInheritance::Inherit,
+            );
+        }
+
+        // The transaction was not aborted by Spanner. If an active server-side
+        // transaction exists, roll it back to release database locks before exiting or retrying.
+        let _ = transaction.rollback().await;
+
+        // If the application returned an Aborted error without Spanner aborting the
+        // transaction, enter retry. Do not carry transaction_id as previous_transaction_id:
+        // a rolled-back transaction has no wound-wait priority to inherit.
+        if self.is_aborted_error(&error) {
+            let retry_delay = extract_retry_delay(&error);
+            return self.build_aborted_attempt_error(
+                selector,
+                error,
+                retry_delay,
+                TransactionIdInheritance::Discard,
+            );
+        }
+
+        AttemptError::NonAborted(error)
+    }
+
+    fn handle_commit_error(
+        &self,
+        transaction: &ReadWriteTransaction,
+        error: Error,
+    ) -> AttemptError {
+        if !self.is_aborted_error(&error) {
+            return AttemptError::NonAborted(error);
+        }
+        let retry_delay = transaction
+            .aborted_info()
+            .and_then(|info| info.retry_delay)
+            .or_else(|| extract_retry_delay(&error));
+        self.build_aborted_attempt_error(
+            &transaction.context.transaction_selector,
+            error,
+            retry_delay,
+            TransactionIdInheritance::Inherit,
+        )
+    }
+
+    /// Constructs an [`AttemptError::Aborted`] when an attempt fails due to an aborted transaction.
+    ///
+    /// This method performs the following teardown and retry setup:
+    /// 1. **Routing Cleanup**: Cleans up any transaction-affinity routing entry registered in the
+    ///    client's location router for the aborted transaction ID.
+    /// 2. **Initial Statement Non-Aborted Failure Detection**: Checks whether the initial statement
+    ///    with inlined `BeginTransaction` failed with a *non-aborted* error (`FirstStatementFailed`,
+    ///    such as `InvalidArgument` or a syntax error). In that scenario, Spanner never started a
+    ///    transaction. If the user closure catches that error and attempts subsequent statements or
+    ///    commit, the SDK returns a synthetic `Aborted` error so the runner can recover. When true,
+    ///    [`handle_attempt_error`][Self::handle_attempt_error] bypasses retry backoff (since no server
+    ///    lock contention occurred) and forces an explicit `BeginTransaction` RPC on the subsequent
+    ///    attempt. (Note: If the initial statement failed with a genuine `Aborted` error, the state is
+    ///    `FirstStatementAborted` instead, which keeps `InlineBegin` and applies normal backoff).
+    /// 3. **Lock Priority Inheritance (`previous_transaction_id`)**:
+    ///    - If an active server transaction ID was allocated and `inheritance` is
+    ///      [`TransactionIdInheritance::Inherit`] (genuine server abort), the ID is captured via
+    ///      [`PreviousTransactionIdAction::Set`] so the next attempt can inherit wound-wait lock
+    ///      priority via `multiplexed_session_previous_transaction_id`.
+    ///    - If an active transaction ID existed but `inheritance` is
+    ///      [`TransactionIdInheritance::Discard`] (e.g. client-fabricated abort where the
+    ///      transaction was rolled back), it is explicitly cleared
+    ///      ([`PreviousTransactionIdAction::Clear`]) to avoid carrying invalid priority into the retry.
+    ///    - If no transaction ID was ever established during this attempt (e.g. initial statement failed
+    ///      before receiving an ID), any previously established `previous_transaction_id` from earlier
+    ///      attempts is preserved ([`PreviousTransactionIdAction::Keep`]).
+    fn build_aborted_attempt_error(
+        &self,
+        selector: &ReadContextTransactionSelector,
+        spanner_error: Error,
+        retry_delay: Option<Duration>,
+        inheritance: TransactionIdInheritance,
+    ) -> AttemptError {
+        let transaction_id = selector.get_id_no_wait().ok().flatten();
+        self.builder
+            .client
+            .clear_transaction_affinity_routing(transaction_id.as_deref());
+        let is_first_statement_failed = selector.is_first_statement_failed();
+        let previous_transaction_id = match (transaction_id, inheritance) {
+            (Some(id), TransactionIdInheritance::Inherit) => PreviousTransactionIdAction::Set(id),
+            (Some(_), TransactionIdInheritance::Discard) => PreviousTransactionIdAction::Clear,
+            (None, _) => PreviousTransactionIdAction::Keep,
+        };
+        AttemptError::Aborted {
+            spanner_error,
+            retry_delay,
+            previous_transaction_id,
+            is_first_statement_failed,
+        }
+    }
+
+    /// Evaluates the outcome of a failed attempt.
+    ///
+    /// - Returns `Ok(())` if the attempt should be retried.
+    /// - Returns `Err(error)` if the attempt failed permanently or retries are exhausted.
+    async fn handle_attempt_error(
+        &mut self,
+        attempt_error: AttemptError,
+        attempts: u32,
+        elapsed: Duration,
+        backoff: &ExponentialBackoff,
+        deadline: Option<Instant>,
+        force_explicit_begin: &mut bool,
+    ) -> Result<()> {
+        match attempt_error {
+            // Non-aborted errors (e.g. PermissionDenied, NotFound) fail immediately.
+            AttemptError::NonAborted(error) => Err(error),
+
+            AttemptError::Aborted {
+                spanner_error,
+                retry_delay,
+                previous_transaction_id,
+                is_first_statement_failed,
+            } => {
+                // 1. Update transaction selector state for the retry attempt.
+                match previous_transaction_id {
+                    PreviousTransactionIdAction::Set(id) => {
+                        self.builder = self.builder.clone().set_previous_transaction_id(id);
+                    }
+                    PreviousTransactionIdAction::Clear => {
+                        self.builder = self
+                            .builder
+                            .clone()
+                            .set_previous_transaction_id(Bytes::new());
+                    }
+                    PreviousTransactionIdAction::Keep => {}
                 }
+
+                // 2. Initial statement non-aborted failures force explicit begin and retry
+                // immediately without backoff delay (no server lock contention occurred).
+                if is_first_statement_failed {
+                    *force_explicit_begin = true;
+                    return Ok(());
+                }
+
+                // 3. Normal aborts back off according to the retry policy before retrying.
+                backoff_if_aborted(
+                    spanner_error,
+                    AbortBackoffParams {
+                        retry_delay,
+                        attempts,
+                        elapsed,
+                        policy: self.retry_policy.as_ref(),
+                        backoff,
+                        is_emulator: self.builder.client.is_emulator(),
+                        deadline,
+                    },
+                )
+                .await
             }
         }
     }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum TransactionIdInheritance {
+    /// Inherits the aborted transaction ID so the retry attempt carries wound-wait lock priority.
+    Inherit,
+    /// Discards the transaction ID because the transaction was rolled back or not aborted by Spanner.
+    Discard,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+enum PreviousTransactionIdAction {
+    Keep,
+    Set(Bytes),
+    Clear,
+}
+
+#[derive(Debug)]
+enum AttemptError {
+    Aborted {
+        spanner_error: Error,
+        retry_delay: Option<Duration>,
+        previous_transaction_id: PreviousTransactionIdAction,
+        is_first_statement_failed: bool,
+    },
+    NonAborted(Error),
 }
 
 #[cfg(test)]
@@ -802,13 +994,16 @@ mod tests {
     use crate::batch_dml::BatchDml;
     use crate::channel_pool::entry::{ChannelEntry, ChannelState};
     use crate::channel_pool::scaler::sweep_draining_channels;
+    use crate::error::{aborted_due_to_failed_initial_statement, internal_error};
     use crate::key::KeySet;
     use crate::mutation::Mutation;
     use crate::read::ReadRequest;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::result_set::tests::adapt;
     use crate::statement::Statement;
+    use crate::transaction_retry_policy::is_aborted;
     use crate::transaction_retry_policy::tests::create_aborted_status;
+    use crate::types::TypeCode;
     use gaxi::grpc::tonic;
     use gaxi::grpc::tonic::MetadataMap;
     use gaxi::grpc::tonic::{Code, Response, Status};
@@ -823,14 +1018,23 @@ mod tests {
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::rpc::Status as RpcStatus;
     use spanner_grpc_mock::google::spanner::v1;
-    use spanner_grpc_mock::google::spanner::v1::CommitResponse;
     use spanner_grpc_mock::google::spanner::v1::commit_request::Transaction as CommitTransaction;
-    use spanner_grpc_mock::google::spanner::v1::commit_response::CommitStats;
+    use spanner_grpc_mock::google::spanner::v1::commit_response::{
+        CommitStats, MultiplexedSessionRetry,
+    };
     use spanner_grpc_mock::google::spanner::v1::mutation::Operation;
+    use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
+    use spanner_grpc_mock::google::spanner::v1::struct_type;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
     use spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector as ProtoSelector;
+    use spanner_grpc_mock::google::spanner::v1::{
+        CommitResponse, ExecuteBatchDmlResponse, MultiplexedSessionPrecommitToken,
+        PartialResultSet, ResultSet as ProtoResultSet, ResultSetMetadata, ResultSetStats,
+        StructType, Transaction as ProtoTransaction, TransactionSelector, Type,
+    };
     use std::fmt::Debug;
     use std::net::SocketAddr;
+    use std::result::Result;
     use std::sync::Mutex;
     use std::sync::atomic::{AtomicU32, AtomicUsize, Ordering};
     use std::sync::mpsc::channel as std_channel;
@@ -1573,7 +1777,6 @@ mod tests {
 
         let res = execute_test_runner(mock, begin_transaction_option).await;
 
-        // Verify the user unequivocally receives the PRIMARY original error
         assert!(res.is_err());
         let err = res.unwrap_err();
         if let Some(status) = err.status() {
@@ -7140,8 +7343,8 @@ mod tests {
                     assert!(
                         follower_error
                             .to_string()
-                            .contains("Aborted due to failed initial statement"),
-                        "Expected follower to receive synthetic Aborted, got: {follower_error}"
+                            .contains("test transaction aborted"),
+                        "Expected follower to receive real server abort, got: {follower_error}"
                     );
 
                     return Err(follower_error);
@@ -7845,8 +8048,8 @@ mod tests {
                     assert!(
                         follower_error
                             .to_string()
-                            .contains("Aborted due to failed initial statement"),
-                        "Expected synthetic abort error message, got: {follower_error}"
+                            .contains("test transaction aborted"),
+                        "Expected abort error message from initial statement, got: {follower_error}"
                     );
 
                     return Err(follower_error);
@@ -8750,6 +8953,2249 @@ mod tests {
             "Expected successful execution on attempt 2"
         );
 
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_run_streaming_query_aborted_mid_stream_retries_and_succeeds() {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: begin explicit
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.session, "projects/p/instances/i/databases/d/sessions/123",
+                    "session must match"
+                );
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: streaming query returns 1 partial result set then Aborted status
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_request| {
+                let metadata = ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![struct_type::Field {
+                            name: "val".to_string(),
+                            r#type: Some(Type {
+                                code: i32::from(TypeCode::Int64),
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = PartialResultSet {
+                    metadata: Some(metadata),
+                    values: vec![ProtoValue {
+                        kind: Some(Kind::StringValue("42".to_string())),
+                    }],
+                    ..Default::default()
+                };
+                let (sender, receiver) = channel(2);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("channel send should succeed");
+                sender
+                    .try_send(Err(create_aborted_status(StdDuration::from_nanos(1))))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Attempt 2: begin explicit on retry
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.session, "projects/p/instances/i/databases/d/sessions/123",
+                    "session must match"
+                );
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![8, 8, 8],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: streaming query succeeds with 1 row
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_request| {
+                let metadata = ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![struct_type::Field {
+                            name: "val".to_string(),
+                            r#type: Some(Type {
+                                code: i32::from(TypeCode::Int64),
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = PartialResultSet {
+                    metadata: Some(metadata),
+                    values: vec![ProtoValue {
+                        kind: Some(Kind::StringValue("100".to_string())),
+                    }],
+                    ..Default::default()
+                };
+                let (sender, receiver) = channel(1);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_request| commit_response());
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build();
+
+        let mut attempts = 0;
+        let result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT val FROM Accounts")
+                    .await?;
+                let mut values = Vec::new();
+                while let Some(row) = result_set.next().await.transpose()? {
+                    let value: i64 = row.get("val")?;
+                    values.push(value);
+                }
+                Ok(values.into_iter().sum::<i64>())
+            })
+            .await;
+
+        let transaction_result =
+            result.expect("runner should succeed on retry attempt 2 after streaming query abort");
+        assert_eq!(
+            transaction_result.result, 100,
+            "streaming query should report value 100"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn explicit_begin_transaction_aborts_retries_and_succeeds() -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: BeginTransaction fails with Aborted
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // Attempt 2: BeginTransaction succeeds
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![77],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: execute_sql succeeds
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request
+                        .transaction
+                        .as_ref()
+                        .and_then(|transaction| transaction.selector.as_ref()),
+                    Some(&ProtoSelector::Id(vec![77]))
+                );
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![77]))
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                attempt_counter_clone.fetch_add(1, Ordering::SeqCst);
+                let updated = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(updated)
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            1,
+            "User closure only runs once on attempt 2"
+        );
+        assert_eq!(transaction_result.result, 1, "expected update count of 1");
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_retains_previous_transaction_id_across_build_aborts()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [42]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: Statement fails with Aborted
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // Attempt 2: ExplicitBegin with previous_transaction_id = [42], but begin fails with Aborted!
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![42],
+                            "attempt 2 must send previous_transaction_id = [42]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Err(create_aborted_status(StdDuration::from_nanos(1)))
+            });
+
+        // Attempt 3: ExplicitBegin must STILL send previous_transaction_id = [42]!
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![42],
+                            "attempt 3 must still retain previous_transaction_id = [42]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![43],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 3: execute_sql succeeds with transaction ID [43]
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request
+                        .transaction
+                        .as_ref()
+                        .and_then(|transaction| transaction.selector.as_ref()),
+                    Some(&ProtoSelector::Id(vec![43]))
+                );
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 3: Commit succeeds with transaction ID [43]
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![43]))
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(4))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                attempt_counter_clone.fetch_add(1, Ordering::SeqCst);
+                let updated = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(updated)
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "User closure runs on attempt 1 and attempt 3 (attempt 2 aborted in build)"
+        );
+        assert_eq!(transaction_result.result, 1, "expected update count of 1");
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_emulator_internal_error_retries_and_succeeds() -> Result<(), Error>
+    {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: execute_sql fails with emulator Action Manager internal error on inline begin
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(Status::new(
+                    Code::Internal,
+                    "Schema generation error: was not registered with the Action Manager",
+                ))
+            });
+
+        // Attempt 2: Since Attempt 1 aborted (rather than a non-aborted failure),
+        // runner retries with InlineBegin!
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert!(
+                    matches!(
+                        request
+                            .transaction
+                            .as_ref()
+                            .and_then(|transaction| transaction.selector.as_ref()),
+                        Some(ProtoSelector::Begin(_))
+                    ),
+                    "Attempt 2 must retry with inline begin"
+                );
+                Ok(Response::new(ProtoResultSet {
+                    metadata: Some(ResultSetMetadata {
+                        transaction: Some(ProtoTransaction {
+                            id: vec![99],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![99]))
+                );
+                commit_response()
+            });
+
+        let (mut database_client, _server) = setup_db_client(mock).await;
+        database_client.spanner.is_emulator = true;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                attempt_counter_clone.fetch_add(1, Ordering::SeqCst);
+                let updated = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(updated)
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "User closure runs on attempt 1 and attempt 2"
+        );
+        assert_eq!(transaction_result.result, 1, "expected update count of 1");
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_closure_swallows_stream_abort_and_returns_ok_still_retries()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [1, 1, 1]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![1, 1, 1],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: streaming query returns 1 partial result set then Aborted status
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let metadata = ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![struct_type::Field {
+                            name: "val".to_string(),
+                            r#type: Some(Type {
+                                code: i32::from(TypeCode::Int64),
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = PartialResultSet {
+                    metadata: Some(metadata),
+                    values: vec![ProtoValue {
+                        kind: Some(Kind::StringValue("42".to_string())),
+                    }],
+                    ..Default::default()
+                };
+                let (sender, receiver) = channel(2);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("channel send should succeed");
+                sender
+                    .try_send(Err(create_aborted_status(StdDuration::from_nanos(1))))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Note: Commit is NOT called on attempt 1 because commit_internal detects the recorded
+        // aborted status and fails fast without calling the gRPC Commit RPC.
+
+        // Attempt 2: ExplicitBegin with previous_transaction_id = [1, 1, 1]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![1, 1, 1],
+                            "attempt 2 must send previous_transaction_id = [1, 1, 1]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![2, 2, 2],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: streaming query succeeds with 1 row
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let metadata = ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![struct_type::Field {
+                            name: "val".to_string(),
+                            r#type: Some(Type {
+                                code: i32::from(TypeCode::Int64),
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = PartialResultSet {
+                    metadata: Some(metadata),
+                    values: vec![ProtoValue {
+                        kind: Some(Kind::StringValue("100".to_string())),
+                    }],
+                    ..Default::default()
+                };
+                let (sender, receiver) = channel(1);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![2, 2, 2])),
+                    "commit must be called with attempt 2 transaction id"
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT val FROM Accounts")
+                    .await?;
+                // Consume all rows; ignore any stream error on attempt 1
+                while let Some(Ok(_row)) = result_set.next().await {}
+                Ok("swallowed")
+            })
+            .await?;
+
+        assert_eq!(
+            transaction_result.result, "swallowed",
+            "runner result should match swallowed string"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_closure_maps_stream_abort_to_custom_error_still_retries()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [11, 11]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![11, 11],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: streaming query returns 1 partial result set then Aborted status
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let metadata = ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![struct_type::Field {
+                            name: "val".to_string(),
+                            r#type: Some(Type {
+                                code: i32::from(TypeCode::Int64),
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = PartialResultSet {
+                    metadata: Some(metadata),
+                    values: vec![ProtoValue {
+                        kind: Some(Kind::StringValue("42".to_string())),
+                    }],
+                    ..Default::default()
+                };
+                let (sender, receiver) = channel(2);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("channel send should succeed");
+                sender
+                    .try_send(Err(create_aborted_status(StdDuration::from_nanos(1))))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Note: Rollback is NOT called on attempt 1 because handle_work_error checks
+        // transaction.aborted_info() and recognizes the transaction was aborted, avoiding rollback.
+
+        // Attempt 2: ExplicitBegin with previous_transaction_id = [11, 11]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![11, 11],
+                            "attempt 2 must send previous_transaction_id = [11, 11]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![22, 22],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: streaming query succeeds with 1 row
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let metadata = ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![struct_type::Field {
+                            name: "val".to_string(),
+                            r#type: Some(Type {
+                                code: i32::from(TypeCode::Int64),
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = PartialResultSet {
+                    metadata: Some(metadata),
+                    values: vec![ProtoValue {
+                        kind: Some(Kind::StringValue("100".to_string())),
+                    }],
+                    ..Default::default()
+                };
+                let (sender, receiver) = channel(1);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![22, 22])),
+                    "commit must be called with attempt 2 transaction id"
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT val FROM Accounts")
+                    .await?;
+                let mut values = Vec::new();
+                while let Some(row_result) = result_set.next().await {
+                    match row_result {
+                        Ok(row) => {
+                            let value: i64 = row.get("val")?;
+                            values.push(value);
+                        }
+                        Err(_error) => {
+                            // Map the stream abort error to a custom non-aborted error
+                            return Err(internal_error("custom non-aborted application error"));
+                        }
+                    }
+                }
+                Ok(values.into_iter().sum::<i64>())
+            })
+            .await?;
+
+        assert_eq!(
+            transaction_result.result, 100,
+            "streaming query should report value 100 on retry attempt"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_batch_update_aborts_retries_and_succeeds() -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [33, 33]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![33, 33],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: execute_batch_dml fails with Aborted status
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // Note: Rollback is NOT called because runner recognizes the aborted status.
+
+        // Attempt 2: ExplicitBegin with previous_transaction_id = [33, 33]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![33, 33],
+                            "attempt 2 must send previous_transaction_id = [33, 33]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![44, 44],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: execute_batch_dml succeeds with row counts [1, 2]
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let transaction = request
+                    .transaction
+                    .as_ref()
+                    .expect("transaction selector required");
+                assert_eq!(
+                    transaction.selector,
+                    Some(ProtoSelector::Id(vec![44, 44])),
+                    "Expected Selector::Id on attempt 2 batch DML"
+                );
+                Ok(Response::new(ExecuteBatchDmlResponse {
+                    result_sets: vec![
+                        ProtoResultSet {
+                            stats: Some(ResultSetStats {
+                                row_count: Some(RowCount::RowCountExact(1)),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        },
+                        ProtoResultSet {
+                            stats: Some(ResultSetStats {
+                                row_count: Some(RowCount::RowCountExact(2)),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        },
+                    ],
+                    status: Some(RpcStatus {
+                        code: 0,
+                        message: "OK".into(),
+                        details: vec![],
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![44, 44]))
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let statements = vec![
+                    Statement::builder("UPDATE Users SET active = true WHERE id = 1").build(),
+                    Statement::builder("UPDATE Users SET active = false WHERE id = 2").build(),
+                ];
+                let row_counts = transaction.execute_batch_update(statements).await?;
+                Ok(row_counts)
+            })
+            .await?;
+
+        assert_eq!(
+            transaction_result.result,
+            vec![1, 2],
+            "batch DML should report row counts [1, 2]"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_stream_unavailable_then_restart_aborts_retries_and_succeeds()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [1, 1, 1]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![1, 1, 1],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1, Stream call 1: streaming query yields 1 row, then fails with Unavailable
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let metadata = ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![struct_type::Field {
+                            name: "val".to_string(),
+                            r#type: Some(Type {
+                                code: i32::from(TypeCode::Int64),
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = PartialResultSet {
+                    metadata: Some(metadata),
+                    values: vec![ProtoValue {
+                        kind: Some(Kind::StringValue("42".to_string())),
+                    }],
+                    resume_token: vec![1, 2, 3],
+                    ..Default::default()
+                };
+                let (sender, receiver) = channel(2);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("channel send should succeed");
+                sender
+                    .try_send(Err(Status::new(
+                        Code::Unavailable,
+                        "transient network glitch",
+                    )))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Attempt 1, Stream call 2: restart_stream() is invoked by ResultSet, and server returns Aborted!
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let (sender, receiver) = channel(1);
+                sender
+                    .try_send(Err(create_aborted_status(StdDuration::from_nanos(1))))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Note: Commit is NOT called on attempt 1 because commit_internal detects the recorded
+        // aborted status and fails fast without calling the gRPC Commit RPC.
+
+        // Attempt 2: ExplicitBegin with previous_transaction_id = [1, 1, 1]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![1, 1, 1],
+                            "attempt 2 must send previous_transaction_id = [1, 1, 1]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![2, 2, 2],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2, Stream call 3: streaming query succeeds with 1 row
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let metadata = ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![struct_type::Field {
+                            name: "val".to_string(),
+                            r#type: Some(Type {
+                                code: i32::from(TypeCode::Int64),
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = PartialResultSet {
+                    metadata: Some(metadata),
+                    values: vec![ProtoValue {
+                        kind: Some(Kind::StringValue("100".to_string())),
+                    }],
+                    ..Default::default()
+                };
+                let (sender, receiver) = channel(1);
+                sender
+                    .try_send(Ok(partial_result_set))
+                    .expect("channel send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![2, 2, 2])),
+                    "commit must be called with attempt 2 transaction id"
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT val FROM Accounts")
+                    .await?;
+                // Consume all rows; ignore any stream error on attempt 1
+                while let Some(Ok(_row)) = result_set.next().await {}
+                Ok("swallowed")
+            })
+            .await?;
+
+        assert_eq!(
+            transaction_result.result, "swallowed",
+            "runner result should match swallowed string"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_closure_swallows_update_abort_and_returns_ok_still_retries()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [10, 10]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![10, 10],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: execute_update fails with Aborted
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // Note: Commit is NOT called on attempt 1 because commit_internal detects the recorded
+        // aborted status and fails fast without calling the gRPC Commit RPC.
+
+        // Attempt 2: ExplicitBegin with previous_transaction_id = [10, 10]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![10, 10],
+                            "attempt 2 must send previous_transaction_id = [10, 10]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![20, 20],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: execute_update succeeds
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request
+                        .transaction
+                        .as_ref()
+                        .and_then(|transaction| transaction.selector.as_ref()),
+                    Some(&ProtoSelector::Id(vec![20, 20]))
+                );
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![20, 20]))
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                // Closure catches and swallows the update abort
+                let _ = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await;
+                Ok("swallowed")
+            })
+            .await?;
+
+        assert_eq!(
+            transaction_result.result, "swallowed",
+            "runner result should match swallowed string"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_closure_maps_update_abort_to_custom_error_still_retries()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [30, 30]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![30, 30],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: execute_update fails with Aborted
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // Note: Rollback is NOT called on attempt 1 because handle_work_error checks
+        // transaction.aborted_info() and recognizes the transaction was aborted, avoiding rollback.
+
+        // Attempt 2: ExplicitBegin with previous_transaction_id = [30, 30]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![30, 30],
+                            "attempt 2 must send previous_transaction_id = [30, 30]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![40, 40],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: execute_update succeeds
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request
+                        .transaction
+                        .as_ref()
+                        .and_then(|transaction| transaction.selector.as_ref()),
+                    Some(&ProtoSelector::Id(vec![40, 40]))
+                );
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![40, 40]))
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                match transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await
+                {
+                    Ok(count) => Ok(count),
+                    Err(_error) => {
+                        // Map the update abort error to a custom application domain error
+                        Err(internal_error("custom application domain error"))
+                    }
+                }
+            })
+            .await?;
+
+        assert_eq!(transaction_result.result, 1, "expected update count of 1");
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_fabricated_abort_triggers_rollback_and_retries() -> Result<(), Error>
+    {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [10, 10]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![10, 10],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: Statement 1 (update) succeeds on Spanner
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: Spanner did not abort, but closure returned Aborted.
+        // The runner MUST roll back the live transaction to release locks!
+        mock.expect_rollback()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction_id,
+                    vec![10, 10],
+                    "Rollback must target attempt 1 transaction"
+                );
+                Ok(Response::new(()))
+            });
+
+        // Attempt 2: ExplicitBegin starts fresh transaction.
+        // It must NOT inherit previous_transaction_id because attempt 1 was rolled back!
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("transaction options must be present");
+                match options.mode {
+                    Some(Mode::ReadWrite(read_write)) => {
+                        assert!(
+                            read_write
+                                .multiplexed_session_previous_transaction_id
+                                .is_empty(),
+                            "Attempt 2 must NOT inherit previous_transaction_id after rollback"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![20, 20],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Statement 1 (update) succeeds on Spanner
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![20, 20])),
+                    "Commit must use attempt 2 transaction ID"
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                if attempts == 1 {
+                    // Application-fabricated abort error: Spanner never aborted the transaction
+                    let status = GaxStatus::default()
+                        .set_code(GaxCode::Aborted)
+                        .set_message("application requested retry");
+                    return Err(Error::service(status));
+                }
+                Ok("fabricated_abort_recovered")
+            })
+            .await?;
+
+        assert_eq!(
+            transaction_result.result, "fabricated_abort_recovered",
+            "runner result should match expected string"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_closure_swallows_batch_update_abort_and_returns_ok_still_retries()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExplicitBegin starts transaction with ID [50, 50]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![50, 50],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: execute_batch_dml fails with Aborted status
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // Attempt 2: ExplicitBegin with previous_transaction_id = [50, 50]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("transaction options must be present");
+                match options.mode {
+                    Some(Mode::ReadWrite(read_write)) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![50, 50],
+                            "Attempt 2 must inherit previous_transaction_id from swallowed abort"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![51, 51],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: execute_batch_dml succeeds
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let transaction = request
+                    .transaction
+                    .as_ref()
+                    .expect("transaction selector required");
+                assert_eq!(
+                    transaction.selector,
+                    Some(ProtoSelector::Id(vec![51, 51])),
+                    "Expected Selector::Id on attempt 2 batch DML"
+                );
+                Ok(Response::new(ExecuteBatchDmlResponse {
+                    result_sets: vec![ProtoResultSet {
+                        stats: Some(ResultSetStats {
+                            row_count: Some(RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![51, 51])),
+                    "Commit must use attempt 2 transaction ID"
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                // Closure catches and swallows the batch update abort
+                let statements =
+                    vec![Statement::builder("UPDATE Users SET active = true WHERE id = 1").build()];
+                let _ = transaction.execute_batch_update(statements).await;
+                Ok("swallowed_batch")
+            })
+            .await?;
+
+        assert_eq!(
+            transaction_result.result, "swallowed_batch",
+            "runner result should match swallowed string"
+        );
+        assert_eq!(
+            attempts, 2,
+            "runner should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_fabricated_abort_after_genuine_abort_clears_previous_transaction_id()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. Attempt 1: ExplicitBegin starts transaction with ID [10, 10]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![10, 10],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: Statement fails with genuine server abort
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // 2. Attempt 2: ExplicitBegin with previous_transaction_id = [10, 10]
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert_eq!(
+                            read_write.multiplexed_session_previous_transaction_id,
+                            vec![10, 10],
+                            "attempt 2 must send previous_transaction_id = [10, 10]"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![20, 20],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Statement succeeds, but user closure fabricates an Aborted error.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Because Attempt 2 was not aborted by Spanner, runner must roll it back!
+        mock.expect_rollback()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction_id,
+                    vec![20, 20],
+                    "attempt 2 must rollback transaction [20, 20]"
+                );
+                Ok(Response::new(()))
+            });
+
+        // 3. Attempt 3: ExplicitBegin must NOT send [10, 10] or [20, 20]!
+        // A rolled-back transaction clears previous_transaction_id.
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let options = request
+                    .options
+                    .expect("options must be present for BeginTransaction");
+                match options.mode.expect("mode must be present") {
+                    Mode::ReadWrite(read_write) => {
+                        assert!(
+                            read_write
+                                .multiplexed_session_previous_transaction_id
+                                .is_empty(),
+                            "attempt 3 must clear previous_transaction_id after rollback"
+                        );
+                    }
+                    _ => panic!("expected ReadWrite mode"),
+                }
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![30, 30],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![30, 30])),
+                    "Commit must use attempt 3 transaction ID"
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(4))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                if attempts == 2 {
+                    // Fabricate an Aborted error without Spanner aborting the transaction
+                    let status = GaxStatus::default()
+                        .set_code(GaxCode::Aborted)
+                        .set_message("user fabricated abort");
+                    return Err(Error::service(status));
+                }
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(transaction_result.result, 1, "update count should be 1");
+        assert_eq!(
+            attempts, 3,
+            "runner should have executed exactly 3 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_inline_begin_abort_after_genuine_abort_retains_previous_transaction_id()
+    -> Result<(), Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. Attempt 1: First statement with inline begin succeeds and returns transaction ID [10, 10]
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(ProtoResultSet {
+                    metadata: Some(ResultSetMetadata {
+                        transaction: Some(ProtoTransaction {
+                            id: vec![10, 10],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: Second statement fails with genuine server abort
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        // 2. Attempt 2: First statement with inline begin sends previous_transaction_id = [10, 10]
+        // But this statement aborts on Spanner before returning a transaction ID.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let selector = request
+                    .transaction
+                    .and_then(|transaction| transaction.selector);
+                match selector {
+                    Some(ProtoSelector::Begin(options)) => match options.mode {
+                        Some(Mode::ReadWrite(read_write)) => {
+                            assert_eq!(
+                                read_write.multiplexed_session_previous_transaction_id,
+                                vec![10, 10],
+                                "attempt 2 must send previous_transaction_id = [10, 10]"
+                            );
+                        }
+                        _ => panic!("expected ReadWrite mode"),
+                    },
+                    _ => panic!("expected Begin selector"),
+                }
+                Err(create_aborted_status(StdDuration::from_nanos(1)))
+            });
+
+        // 3. Attempt 3: Because Attempt 2 yielded no transaction ID, it must RETAIN [10, 10]!
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let selector = request
+                    .transaction
+                    .and_then(|transaction| transaction.selector);
+                match selector {
+                    Some(ProtoSelector::Begin(options)) => match options.mode {
+                        Some(Mode::ReadWrite(read_write)) => {
+                            assert_eq!(
+                                read_write.multiplexed_session_previous_transaction_id,
+                                vec![10, 10],
+                                "attempt 3 must retain previous_transaction_id = [10, 10]"
+                            );
+                        }
+                        _ => panic!("expected ReadWrite mode"),
+                    },
+                    _ => panic!("expected Begin selector"),
+                }
+                Ok(Response::new(ProtoResultSet {
+                    metadata: Some(ResultSetMetadata {
+                        transaction: Some(ProtoTransaction {
+                            id: vec![30, 30],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![30, 30])),
+                    "Commit must use attempt 3 transaction ID"
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(4))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let count1 = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                if attempts == 1 {
+                    // Run second statement which aborts on Spanner
+                    let _ = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                        .await?;
+                }
+                Ok(count1)
+            })
+            .await?;
+
+        assert_eq!(transaction_result.result, 1, "update count should be 1");
+        assert_eq!(
+            attempts, 3,
+            "runner should have executed exactly 3 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_inline_begin_first_statement_failed_retries_with_explicit_begin()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: Statement 1 with InlineBegin fails with InvalidArgument (Column not found).
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                let transaction = inner.transaction.expect("transaction options required");
+                assert!(
+                    matches!(transaction.selector, Some(ProtoSelector::Begin(_))),
+                    "Expected inline begin on attempt 1"
+                );
+                Err(Status::new(
+                    Code::InvalidArgument,
+                    "Column 'non_existing' does not exist",
+                ))
+            });
+
+        // Attempt 2: Because Attempt 1 failed with non-aborted error on the inline-begin statement,
+        // Attempt 2 forces ExplicitBegin (via BeginTransaction RPC).
+        expect_begin_transaction(&mut mock, 1, vec![91]);
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_eq!(
+                    inner.transaction,
+                    Some(TransactionSelector {
+                        selector: Some(ProtoSelector::Id(vec![91])),
+                    }),
+                    "Attempt 2 statement 1 must use explicit transaction ID [91]"
+                );
+                row_count_exact_response(1)
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| commit_response());
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                if attempts == 1 {
+                    // Statement 1 fails with InvalidArgument
+                    let first_result = transaction
+                        .execute_update("UPDATE Users SET non_existing = 1 WHERE id = 1")
+                        .await;
+                    assert!(first_result.is_err(), "first statement must fail");
+
+                    // Statement 2 encounters FirstStatementFailed and returns Aborted
+                    let second_error = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                        .await
+                        .expect_err("second statement must fail fast with synthetic aborted");
+                    return Err(second_error);
+                }
+
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(attempts, 2, "runner must have executed 2 attempts");
+        assert_eq!(transaction_result.result, 1, "update count should be 1");
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_handle_attempt_error_first_statement_failed_bypasses_backoff_and_sets_explicit_begin()
+    -> anyhow::Result<()> {
+        let mock = create_session_mock();
+        let (database_client, _server) = setup_db_client(mock).await;
+        let mut runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let backoff = default_retry_backoff();
+        // Set a deadline in the past. If backoff were evaluated, it would immediately fail
+        // with the expired deadline error.
+        let expired_deadline = Some(Instant::now() - Duration::from_secs(60));
+
+        let mut force_explicit_begin = false;
+        let attempt_error = AttemptError::Aborted {
+            spanner_error: aborted_due_to_failed_initial_statement(),
+            retry_delay: None,
+            previous_transaction_id: PreviousTransactionIdAction::Clear,
+            is_first_statement_failed: true,
+        };
+
+        // When is_first_statement_failed is true, it MUST bypass handle_aborted_retry (ignoring the
+        // expired deadline) and set force_explicit_begin to true.
+        let result = runner
+            .handle_attempt_error(
+                attempt_error,
+                1,
+                Duration::from_secs(100),
+                &backoff,
+                expired_deadline,
+                &mut force_explicit_begin,
+            )
+            .await;
+
+        assert!(
+            result.is_ok(),
+            "handle_attempt_error must return Ok(()) when is_first_statement_failed is true"
+        );
+        assert!(
+            force_explicit_begin,
+            "force_explicit_begin must be true when is_first_statement_failed is true"
+        );
+
+        // Conversely, when is_first_statement_failed is false, handle_attempt_error MUST evaluate
+        // the retry policy and deadline, failing on the expired deadline.
+        let mut force_explicit_begin = false;
+        let normal_aborted = AttemptError::Aborted {
+            spanner_error: aborted_due_to_failed_initial_statement(),
+            retry_delay: None,
+            previous_transaction_id: PreviousTransactionIdAction::Clear,
+            is_first_statement_failed: false,
+        };
+
+        let result = runner
+            .handle_attempt_error(
+                normal_aborted,
+                1,
+                Duration::from_secs(100),
+                &backoff,
+                expired_deadline,
+                &mut force_explicit_begin,
+            )
+            .await;
+
+        assert!(
+            result.is_err(),
+            "handle_attempt_error must fail when is_first_statement_failed is false with an expired deadline"
+        );
+        assert!(
+            !force_explicit_begin,
+            "force_explicit_begin must remain false when is_first_statement_failed is false"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_first_statement_failed_user_closure_returns_non_aborted_error_does_not_retry()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: Statement 1 fails with InvalidArgument
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::new(Code::InvalidArgument, "Column does not exist")));
+
+        // Crucial expectation: NO BeginTransaction, NO execute_sql, NO commit on Attempt 2!
+        // The runner must NOT retry a user-returned non-aborted application error.
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let run_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                // Statement 1 fails with InvalidArgument
+                let _ = transaction
+                    .execute_update("UPDATE Users SET non_existing = 1 WHERE id = 1")
+                    .await;
+
+                // Statement 2 fails with synthetic Aborted
+                let _second_error = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                    .await
+                    .expect_err("second statement must fail fast");
+
+                // User closure maps error to a non-aborted custom/client error
+                Err::<(), _>(internal_error("fatal application error do not retry"))
+            })
+            .await;
+
+        let error = run_result.expect_err("runner must return the non-aborted application error");
+        assert!(
+            error
+                .to_string()
+                .contains("fatal application error do not retry"),
+            "Expected user application error, got: {error}"
+        );
+        assert_eq!(
+            attempts, 1,
+            "runner must NOT retry when user closure returns a non-aborted error when Spanner never aborted"
+        );
+        Ok(())
+    }
+
+    fn assert_inline_begin_selector(
+        selector: Option<&TransactionSelector>,
+        expected_previous_transaction_id: Option<&[u8]>,
+    ) {
+        let selector = selector.and_then(|transaction| transaction.selector.as_ref());
+        match selector {
+            Some(ProtoSelector::Begin(options)) => match &options.mode {
+                Some(Mode::ReadWrite(read_write)) => {
+                    let actual_previous_id = (!read_write
+                        .multiplexed_session_previous_transaction_id
+                        .is_empty())
+                    .then_some(
+                        read_write
+                            .multiplexed_session_previous_transaction_id
+                            .as_slice(),
+                    );
+                    assert_eq!(
+                        actual_previous_id, expected_previous_transaction_id,
+                        "multiplexed_session_previous_transaction_id mismatch in inline begin"
+                    );
+                }
+                _ => panic!("expected ReadWrite mode in begin options"),
+            },
+            _ => panic!("expected Selector::Begin in inline begin statement"),
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_commit_precommit_token_retry_aborts_retries_and_succeeds()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: First statement (execute_sql) inlines BeginTransaction, returns tx ID [10, 10]
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_inline_begin_selector(request.transaction.as_ref(), None);
+                Ok(Response::new(ProtoResultSet {
+                    metadata: Some(ResultSetMetadata {
+                        transaction: Some(ProtoTransaction {
+                            id: vec![10, 10],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: Initial Commit returns precommit token requesting a retry
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![101, 102],
+                            seq_num: 1,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: Precommit-token retry Commit fails with Aborted!
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10])),
+                    "retry commit must keep attempt 1 transaction ID"
+                );
+                assert!(
+                    request.mutations.is_empty(),
+                    "retry commit must have empty mutations"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![101, 102],
+                        seq_num: 1,
+                    })
+                );
+                Err(Status::new(
+                    Code::Aborted,
+                    "lock conflict on precommit retry",
+                ))
+            });
+
+        // Attempt 2: Initial statement with InlineBegin sends previous_transaction_id = [10, 10]!
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_inline_begin_selector(request.transaction.as_ref(), Some(&[10, 10]));
+                Ok(Response::new(ProtoResultSet {
+                    metadata: Some(ResultSetMetadata {
+                        transaction: Some(ProtoTransaction {
+                            id: vec![20, 20],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![20, 20]))
+                );
+                commit_response()
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(transaction_result.result, 1);
+        assert_eq!(
+            attempts, 2,
+            "runner must retry after precommit retry commit aborts"
+        );
         Ok(())
     }
 }

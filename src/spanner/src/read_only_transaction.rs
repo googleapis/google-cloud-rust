@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
 use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::database_client::DatabaseClient;
 use crate::error::{SpannerInternalError, aborted_due_to_failed_initial_statement, internal_error};
@@ -23,18 +22,20 @@ use crate::model::{
 };
 use crate::precommit::PrecommitTokenTracker;
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
+use crate::retry_delay::extract_retry_delay_from_error;
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
-use crate::transaction_retry_policy::is_aborted;
+use crate::transaction_retry_policy::is_aborted_or_emulator_error;
+use crate::{Error, Result};
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
-use google_cloud_gax::error::rpc::{Status, StatusDetails};
+use google_cloud_gax::error::rpc::Status;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use http::HeaderMap;
 use std::error::Error as _;
 use std::mem::replace;
-use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
+use std::sync::{Arc, Mutex, MutexGuard, OnceLock, PoisonError};
 use std::time::{Duration, Instant};
 use tokio::sync::Notify;
 use tokio::sync::futures::OwnedNotified;
@@ -121,6 +122,7 @@ impl SingleUseReadOnlyTransactionBuilder {
                 transaction_tag: None,
                 begin_transaction_request_options: None,
                 affinity: None,
+                aborted_state: AbortedState::new_noop(),
             },
         }
     }
@@ -444,6 +446,7 @@ impl MultiUseReadOnlyTransactionBuilder {
                 transaction_tag: None,
                 begin_transaction_request_options: self.begin_gax_options,
                 affinity,
+                aborted_state: AbortedState::new_noop(),
             },
         })
     }
@@ -600,7 +603,6 @@ pub(crate) enum TransactionState {
     Started(crate::model::TransactionSelector, Option<wkt::Timestamp>),
     Failed(TransactionStartFailure),
     FirstStatementFailed,
-    FirstStatementAborted(Vec<StatusDetails>),
 }
 
 enum SelectorStatus {
@@ -734,13 +736,8 @@ impl ReadContextTransactionSelector {
             // When in this state, the transaction must first call an explicit BeginTransaction RPC.
             // Any subsequent statements or commit attempts should fail fast.
             // Returning Aborted signals the TransactionRunner to retry the transaction with an explicit BeginTransaction RPC.
-            // FirstStatementAborted is reached if the initial statement fails with an Aborted error.
-            // Returning Aborted signals the TransactionRunner to retry the transaction, retaining inline begin.
             TransactionState::FirstStatementFailed => {
-                Err(aborted_due_to_failed_initial_statement(Vec::new()))
-            }
-            TransactionState::FirstStatementAborted(details) => {
-                Err(aborted_due_to_failed_initial_statement(details.clone()))
+                Err(aborted_due_to_failed_initial_statement())
             }
             // Transaction is starting. Register the Notified future while holding the lock to prevent lost wakeups.
             TransactionState::Starting(_, notify) => {
@@ -784,8 +781,8 @@ impl ReadContextTransactionSelector {
         // - If `Starting` and this thread is a follower, it waits for the leader's `Notify`
         //   and loops back to re-evaluate the state upon waking up. Re-checking is essential:
         //   1. If the leader succeeded, the state is `Started` and we return `Ok(())`.
-        //   2. If the leader failed, the state is `Failed` (or `FirstStatementFailed` /
-        //      `FirstStatementAborted`) and we return the leader's error rather than Ok(()).
+        //   2. If the leader failed, the state is `Failed` (or `FirstStatementFailed`)
+        //      and we return the leader's error rather than Ok(()).
         //   3. If the leader was cancelled before completing, `on_cancelled_starting` reset the
         //      state to `NotStarted`, allowing this follower to elect itself as the new leader
         //      and begin the transaction.
@@ -820,12 +817,9 @@ impl ReadContextTransactionSelector {
                     TransactionState::Failed(failure) => {
                         FallbackAction::Done(Err(failure.to_error()))
                     }
-                    TransactionState::FirstStatementFailed => FallbackAction::Done(Err(
-                        aborted_due_to_failed_initial_statement(Vec::new()),
-                    )),
-                    TransactionState::FirstStatementAborted(details) => FallbackAction::Done(Err(
-                        aborted_due_to_failed_initial_statement(details.clone()),
-                    )),
+                    TransactionState::FirstStatementFailed => {
+                        FallbackAction::Done(Err(aborted_due_to_failed_initial_statement()))
+                    }
                 }
             };
 
@@ -1009,8 +1003,8 @@ impl ReadContextTransactionSelector {
     /// - If the transaction has already started (`Started`), returns the established selector.
     /// - If the transaction is in the process of starting (`Starting`), returns a selector
     ///   with the inlined begin options so the restart request can re-attempt the inlined begin.
-    /// - If the transaction reached a failure state (`Failed`, `FirstStatementFailed`, or
-    ///   `FirstStatementAborted`), returns the corresponding error immediately.
+    /// - If the transaction reached a failure state (`Failed` or `FirstStatementFailed`),
+    ///   returns the corresponding error immediately.
     /// - A stream restart should never occur when the selector is `NotStarted`, as a stream
     ///   must have already been initiated to require a restart.
     pub(crate) fn selector_for_restart(&self) -> crate::Result<crate::model::TransactionSelector> {
@@ -1028,10 +1022,7 @@ impl ReadContextTransactionSelector {
                     )),
                     TransactionState::Failed(failure) => Err(failure.to_error()),
                     TransactionState::FirstStatementFailed => {
-                        Err(aborted_due_to_failed_initial_statement(Vec::new()))
-                    }
-                    TransactionState::FirstStatementAborted(details) => {
-                        Err(aborted_due_to_failed_initial_statement(details.clone()))
+                        Err(aborted_due_to_failed_initial_statement())
                     }
                 }
             }
@@ -1050,8 +1041,8 @@ impl ReadContextTransactionSelector {
     /// option and fails before receiving a transaction ID:
     /// - **Read-Write Transactions**: We must not automatically begin a transaction or
     ///   restart the stream. The error is returned directly to the application closure.
-    ///   If the error is `Aborted`, the state transitions to `FirstStatementAborted`.
-    ///   Parked followers wake up and fail fast with `Aborted` without creating orphaned
+    ///   If the error is `Aborted` (or emulator error), the state transitions to `Failed`.
+    ///   Parked followers wake up and fail fast with the leader's error without creating orphaned
     ///   transactions, while the runner retry loop retries with an inlined begin.
     ///   If non-retryable (e.g., `InvalidArgument`), the state transitions to
     ///   `FirstStatementFailed` and wakes any concurrent waiters. The runner will retry
@@ -1062,7 +1053,11 @@ impl ReadContextTransactionSelector {
     ///   acquire the read timestamp and restarts the stream.
     /// - **Already Started / Non-Lazy**: If the transaction is already established, this is
     ///   just a standard stream failure, so we return `true` to propagate the error.
-    pub(crate) fn handle_stream_initialization_error(&self, err: &crate::Error) -> bool {
+    pub(crate) fn handle_stream_initialization_error(
+        &self,
+        error: &Error,
+        is_emulator: bool,
+    ) -> bool {
         let Some(guard) = self.lock_state() else {
             // Non-lazy selectors do not inline begin transactions; propagate error directly.
             return true;
@@ -1072,7 +1067,7 @@ impl ReadContextTransactionSelector {
                 let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
                 drop(guard);
                 if is_read_write {
-                    self.set_failed(err);
+                    self.set_failed(error, is_emulator);
                     true
                 } else {
                     // For read-only transactions, stay in Starting and return false so the
@@ -1084,25 +1079,27 @@ impl ReadContextTransactionSelector {
         }
     }
 
-    pub(crate) fn set_failed(&self, err: &crate::Error) {
+    pub(crate) fn set_failed(&self, error: &Error, is_emulator: bool) {
         let Some(mut guard) = self.lock_state() else {
             return;
         };
         if let TransactionState::Starting(options, notify) = &*guard {
             let notify = Arc::clone(notify);
             let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
-            if is_read_write {
-                if is_aborted(err) {
-                    let details = err
-                        .status()
-                        .map(|status| status.details.clone())
-                        .unwrap_or_default();
-                    *guard = TransactionState::FirstStatementAborted(details);
-                } else {
-                    *guard = TransactionState::FirstStatementFailed;
-                }
+            // If the initial statement in a ReadWrite transaction failed with a non-aborted error
+            // (e.g. InvalidArgument or syntax error), Spanner never started a transaction.
+            // Marking `FirstStatementFailed` ensures that if the application catches this error
+            // and attempts subsequent statements, they fail fast with a synthetic Aborted error,
+            // signaling TransactionRunner to retry with an explicit BeginTransaction RPC so that
+            // subsequent operations can execute within an active transaction.
+            //
+            // If the initial statement failed with a genuine Aborted error (concurrency conflict),
+            // retrying with InlineBegin is still preferred to preserve single-hop efficiency, so
+            // we transition to `Failed` and let the runner perform a normal backoff retry.
+            if is_read_write && !is_aborted_or_emulator_error(error, is_emulator) {
+                *guard = TransactionState::FirstStatementFailed;
             } else {
-                *guard = TransactionState::Failed(TransactionStartFailure::from_error(err));
+                *guard = TransactionState::Failed(TransactionStartFailure::from_error(error));
             }
             drop(guard);
             notify.notify_waiters();
@@ -1116,10 +1113,7 @@ impl ReadContextTransactionSelector {
         match &*guard {
             TransactionState::Failed(failure) => Err(failure.to_error()),
             TransactionState::FirstStatementFailed => {
-                Err(aborted_due_to_failed_initial_statement(Vec::new()))
-            }
-            TransactionState::FirstStatementAborted(details) => {
-                Err(aborted_due_to_failed_initial_statement(details.clone()))
+                Err(aborted_due_to_failed_initial_statement())
             }
             _ => Ok(()),
         }
@@ -1171,6 +1165,67 @@ impl Drop for LazyTransactionStartGuard {
 }
 
 #[derive(Clone, Debug)]
+pub(crate) struct AbortedInfo {
+    pub(crate) status: Status,
+    pub(crate) retry_delay: Option<Duration>,
+}
+
+impl AbortedInfo {
+    pub(crate) fn from_error(error: &Error) -> Option<Self> {
+        let status = error.status()?.clone();
+        let retry_delay = extract_retry_delay_from_error(error);
+        Some(Self {
+            status,
+            retry_delay,
+        })
+    }
+
+    pub(crate) fn to_error(&self) -> Error {
+        Error::service(self.status.clone())
+    }
+}
+
+#[derive(Clone, Debug)]
+pub(crate) enum AbortedState {
+    NoOp,
+    Track(Arc<OnceLock<AbortedInfo>>),
+}
+
+impl AbortedState {
+    pub(crate) fn new() -> Self {
+        Self::Track(Arc::new(OnceLock::new()))
+    }
+
+    pub(crate) fn new_noop() -> Self {
+        Self::NoOp
+    }
+
+    pub(crate) fn record(&self, error: &Error, is_emulator: bool) {
+        if let Self::Track(info_lock) = self {
+            if info_lock.get().is_some() || !is_aborted_or_emulator_error(error, is_emulator) {
+                return;
+            }
+            if let Some(info) = AbortedInfo::from_error(error) {
+                let _ = info_lock.set(info);
+            }
+        }
+    }
+
+    pub(crate) fn aborted_info(&self) -> Option<&AbortedInfo> {
+        match self {
+            Self::Track(info_lock) => info_lock.get(),
+            Self::NoOp => None,
+        }
+    }
+}
+
+impl Default for AbortedState {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+#[derive(Clone, Debug)]
 pub(crate) struct ReadContext {
     pub(crate) session_name: String,
     pub(crate) client: DatabaseClient,
@@ -1179,6 +1234,7 @@ pub(crate) struct ReadContext {
     pub(crate) transaction_tag: Option<String>,
     pub(crate) begin_transaction_request_options: Option<GaxRequestOptions>,
     pub(crate) affinity: Option<Arc<TransactionAffinity>>,
+    pub(crate) aborted_state: AbortedState,
 }
 
 impl ReadContext {
@@ -1229,7 +1285,8 @@ impl ReadContext {
                 mutation_key,
                 affinity: self.affinity.as_ref().map(Arc::clone),
             })
-            .await?;
+            .await
+            .inspect_err(|error| self.record_if_aborted(error))?;
         Ok(true)
     }
 
@@ -1237,6 +1294,18 @@ impl ReadContext {
     #[allow(dead_code)]
     pub(crate) fn affinity(&self) -> Option<&TransactionAffinity> {
         self.affinity.as_deref()
+    }
+
+    pub(crate) async fn selector(&self) -> Result<crate::model::TransactionSelector> {
+        self.transaction_selector.selector().await
+    }
+
+    pub(crate) fn record_if_aborted(&self, error: &Error) {
+        self.aborted_state.record(error, self.client.is_emulator());
+    }
+
+    pub(crate) fn aborted_info(&self) -> Option<&AbortedInfo> {
+        self.aborted_state.aborted_info()
     }
 }
 
@@ -1271,6 +1340,9 @@ fn merge_request_options(
 /// Helper macro to execute a streaming SQL or streaming read RPC with retry logic.
 macro_rules! execute_stream_with_retry {
     ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path, $method_name:expr) => {{
+        if let Some(info) = $self.aborted_info() {
+            return Err(info.to_error());
+        }
         let operation_start_time = Instant::now();
         let mut attempt_start_time = operation_start_time;
         let is_starting = matches!(
@@ -1312,10 +1384,11 @@ macro_rules! execute_stream_with_retry {
                         .o11y
                         .record_operation($method_name, elapsed_op, Some(err));
                 };
+                $self.record_if_aborted(&e);
                 if !is_starting
                     || $self
                         .transaction_selector
-                        .handle_stream_initialization_error(&e)
+                        .handle_stream_initialization_error(&e, $self.client.is_emulator())
                 {
                     start_guard.disarm();
                     record_op_failure(&e);
@@ -1384,12 +1457,16 @@ macro_rules! execute_stream_with_retry {
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(operation_start_time),
             affinity: $self.affinity.as_ref().map(Arc::clone),
+            aborted_state: $self.aborted_state.clone(),
         }))
         .await;
 
         if is_starting {
             if let Err(ref e) = result {
-                $self.transaction_selector.set_failed(e);
+                $self.record_if_aborted(e);
+                $self
+                    .transaction_selector
+                    .set_failed(e, $self.client.is_emulator());
             }
         }
         start_guard.disarm();
@@ -1403,12 +1480,16 @@ impl ReadContext {
         statement: T,
         seqno: Option<i64>,
     ) -> Result<ResultSet> {
+        if let Some(info) = self.aborted_info() {
+            return Err(info.to_error());
+        }
         let statement = statement.into();
         let gax_options = statement.gax_options().clone();
+        let selector = self.selector().await?;
         let mut request = statement
             .into_request()
             .set_session(self.session_name.clone())
-            .set_transaction(self.transaction_selector.selector().await?)
+            .set_transaction(selector)
             .set_seqno(seqno.unwrap_or(0));
         request.request_options = self.amend_request_options(request.request_options);
 
@@ -1426,12 +1507,16 @@ impl ReadContext {
         &self,
         read: T,
     ) -> Result<ResultSet> {
+        if let Some(info) = self.aborted_info() {
+            return Err(info.to_error());
+        }
         let read = read.into();
         let gax_options = read.gax_options.clone();
+        let selector = self.selector().await?;
         let mut request = read
             .into_request()
             .set_session(self.session_name.clone())
-            .set_transaction(self.transaction_selector.selector().await?);
+            .set_transaction(selector);
         request.request_options = self.amend_request_options(request.request_options);
 
         execute_stream_with_retry!(
@@ -1458,8 +1543,10 @@ pub(crate) mod tests {
     use gaxi::grpc::tonic::{self, Code, Response, Status};
     use google_cloud_gax::error::rpc::Code as GaxCode;
     use google_cloud_gax::error::rpc::Status as GaxStatus;
+    use google_cloud_gax::error::rpc::StatusDetails;
     use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
     use google_cloud_gax::retry_policy::NeverRetry;
+    use google_cloud_rpc::model::RetryInfo;
     use google_cloud_test_macros::tokio_test_no_panics;
     use http::{HeaderMap, HeaderName, HeaderValue};
     use mock_v1::transaction_selector::Selector;
@@ -1470,10 +1557,12 @@ pub(crate) mod tests {
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::sync::mpsc::channel as std_channel;
     use std::sync::{Arc, Mutex as StdMutex};
+    use std::time::Duration as StdDuration;
     use tokio::spawn;
     use tokio::sync::oneshot::channel as oneshot_channel;
     use tokio::sync::{Barrier, Mutex, Notify, mpsc};
     use tokio::task::yield_now;
+    use wkt::Duration as WktDuration;
 
     #[test]
     fn auto_traits() {
@@ -4255,16 +4344,17 @@ pub(crate) mod tests {
         )));
 
         let initial_err = crate::error::internal_error("initial statement error");
-        selector.set_failed(&initial_err);
+        selector.set_failed(&initial_err, false);
 
         assert!(selector.is_first_statement_failed());
 
         let res = selector.check_failed();
-        assert!(res.is_err());
-        let err = res.unwrap_err();
+        assert!(res.is_err(), "selector.check_failed must return an error");
+        let err = res.expect_err("res must be err");
         assert!(
             err.to_string()
-                .contains("Aborted due to failed initial statement")
+                .contains("Aborted due to failed initial statement"),
+            "error message must contain expected text"
         );
     }
 
@@ -4299,6 +4389,7 @@ pub(crate) mod tests {
             transaction_tag: None,
             begin_transaction_request_options: None,
             affinity: None,
+            aborted_state: AbortedState::new_noop(),
         };
 
         // Poison the mutex
@@ -4923,21 +5014,7 @@ pub(crate) mod tests {
             "Expected aborted error, got: {error}"
         );
 
-        // 6. FirstStatementAborted returns synthetic Aborted
-        let selector = ReadContextTransactionSelector::Lazy(Arc::new(StdMutex::new(
-            TransactionState::FirstStatementAborted(Vec::new()),
-        )));
-        let result = selector.selector_for_restart();
-        assert!(result.is_err(), "FirstStatementAborted must return error");
-        let error = result.expect_err("FirstStatementAborted returns error");
-        assert!(
-            error
-                .to_string()
-                .contains("Aborted due to failed initial statement"),
-            "Expected aborted error, got: {error}"
-        );
-
-        // 7. Fixed returns the fixed selector
+        // 6. Fixed returns the fixed selector
         let fixed_selector = TransactionSelector::default().set_id(vec![4, 5, 6]);
         let selector = ReadContextTransactionSelector::Fixed(fixed_selector.clone(), None);
         let result = selector.selector_for_restart();
@@ -5199,6 +5276,29 @@ pub(crate) mod tests {
             "Subsequent begin_explicitly on Failed transaction must return Err"
         );
 
+        // Call to begin_explicitly in FirstStatementFailed state must return synthetic Aborted
+        if let ReadContextTransactionSelector::Lazy(ref state) =
+            transaction.context.transaction_selector
+        {
+            let mut guard = state.lock().expect("lock state");
+            *guard = TransactionState::FirstStatementFailed;
+        }
+        let third_result = transaction
+            .context
+            .begin_explicitly_if_not_started(GaxRequestOptions::default(), false, None)
+            .await;
+        assert!(
+            third_result.is_err(),
+            "begin_explicitly in FirstStatementFailed state must return Err"
+        );
+        let third_error = third_result.expect_err("expected synthetic aborted error");
+        assert!(
+            third_error
+                .to_string()
+                .contains("Aborted due to failed initial statement"),
+            "Expected synthetic aborted error, got: {third_error}"
+        );
+
         Ok(())
     }
 
@@ -5339,12 +5439,12 @@ pub(crate) mod tests {
         // For read-only, handle_stream_initialization_error returns false (caller should begin explicitly).
         let test_error = internal_error("transient stream error");
         assert!(
-            !selector.handle_stream_initialization_error(&test_error),
+            !selector.handle_stream_initialization_error(&test_error, false),
             "read-only transactions must return false for stream fallback"
         );
 
         // set_failed marks the selector as Failed despite lock poisoning.
-        selector.set_failed(&test_error);
+        selector.set_failed(&test_error, false);
 
         let check_result = selector.check_failed();
         assert!(
@@ -5428,5 +5528,135 @@ pub(crate) mod tests {
         }
 
         Ok(())
+    }
+
+    #[test]
+    fn aborted_state_record_and_get() {
+        let state = AbortedState::default();
+        assert!(
+            state.aborted_info().is_none(),
+            "initially aborted_info must be None"
+        );
+
+        let retry_info = RetryInfo::default().set_retry_delay(WktDuration::clamp(5, 42_000_000));
+        let status = GaxStatus::default()
+            .set_code(GaxCode::Aborted)
+            .set_message("transaction was aborted")
+            .set_details(vec![StatusDetails::RetryInfo(retry_info)]);
+        let error = Error::service(status);
+
+        state.record(&error, false);
+        let info = state
+            .aborted_info()
+            .expect("aborted_info must be present after recording abort");
+        assert_eq!(
+            info.status.code,
+            GaxCode::Aborted,
+            "status code must be Aborted"
+        );
+        assert_eq!(
+            info.status.message, "transaction was aborted",
+            "status message must match"
+        );
+        assert_eq!(
+            info.retry_delay,
+            Some(StdDuration::new(5, 42_000_000)),
+            "retry delay must be extracted from RetryInfo"
+        );
+
+        let reconstructed = info.to_error();
+        assert_eq!(
+            reconstructed.status().map(|status| status.code),
+            Some(GaxCode::Aborted),
+            "reconstructed error must have Aborted code"
+        );
+        assert_eq!(
+            reconstructed.status().map(|status| status.message.as_str()),
+            Some("transaction was aborted"),
+            "reconstructed error must preserve message"
+        );
+    }
+
+    #[test]
+    fn aborted_state_first_abort_wins() {
+        let state = AbortedState::default();
+
+        let status1 = GaxStatus::default()
+            .set_code(GaxCode::Aborted)
+            .set_message("first abort");
+        let error1 = Error::service(status1);
+
+        let status2 = GaxStatus::default()
+            .set_code(GaxCode::Aborted)
+            .set_message("second abort");
+        let error2 = Error::service(status2);
+
+        state.record(&error1, false);
+        state.record(&error2, false);
+
+        let info = state
+            .aborted_info()
+            .expect("aborted_info must be present after recording abort");
+        assert_eq!(
+            info.status.message, "first abort",
+            "first abort message must be preserved"
+        );
+    }
+
+    #[test]
+    fn aborted_state_ignores_non_aborted_errors() {
+        let state = AbortedState::default();
+
+        let status = GaxStatus::default()
+            .set_code(GaxCode::NotFound)
+            .set_message("not found");
+        let error = Error::service(status);
+
+        state.record(&error, false);
+        assert!(
+            state.aborted_info().is_none(),
+            "non-aborted error must not be recorded"
+        );
+    }
+
+    #[test]
+    fn aborted_state_emulator_internal_error_handling() {
+        let state = AbortedState::default();
+
+        let status = GaxStatus::default()
+            .set_code(GaxCode::Internal)
+            .set_message("Schema generation error: was not registered with the Action Manager");
+        let error = Error::service(status);
+
+        // When not in emulator mode, Internal error is NOT treated as aborted.
+        state.record(&error, false);
+        assert!(
+            state.aborted_info().is_none(),
+            "emulator internal error must not be recorded when is_emulator is false"
+        );
+
+        // When in emulator mode, it IS treated as aborted.
+        state.record(&error, true);
+        let info = state
+            .aborted_info()
+            .expect("emulator internal error must be recorded when is_emulator is true");
+        assert_eq!(
+            info.status.code,
+            GaxCode::Internal,
+            "recorded status must be Internal"
+        );
+    }
+
+    #[test]
+    fn aborted_state_noop_ignores_all_errors() {
+        let state = AbortedState::new_noop();
+        let status = GaxStatus::default().set_code(GaxCode::Aborted);
+        let error = Error::service(status);
+        state.record(&error, false);
+        state.record(&error, true);
+        assert!(
+            state.aborted_info().is_none(),
+            "noop state must ignore all errors"
+        );
     }
 }
