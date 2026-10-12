@@ -197,6 +197,8 @@ async fn create_bucket(
             return Err(e.into());
         }
         println!("SUCCESS: attached rapid-cache-ultra in {zone}");
+        // Give the control plane cache attachment time to propagate to the data plane.
+        tokio::time::sleep(Duration::from_secs(5)).await;
     }
 
     Ok(bucket)
@@ -300,7 +302,8 @@ async fn open_appendable_object(
             Ok(writer) => return Ok(writer),
             Err(e)
                 if attempts < 5
-                    && format!("{e:?}").contains("GRPC_APPENDABLE_OBJECT_NOT_SUPPORTED") =>
+                    && (format!("{e:?}").contains("GRPC_APPENDABLE_OBJECT_NOT_SUPPORTED")
+                        || format!("{e:?}").contains("RAPID_BUCKET_REQUIRED")) =>
             {
                 println!(
                     "Waiting for rapid cache to propagate to data plane (attempt {attempts}/5)..."
