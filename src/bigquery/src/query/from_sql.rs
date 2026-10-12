@@ -212,6 +212,11 @@ impl FromSql for String {
         match value.inner {
             SqlValueInner::String(s) => Ok(s),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell.as_str().map(str::to_owned),
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -228,6 +233,11 @@ impl FromSql for i32 {
                 .parse::<i32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell.as_i32(),
             other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
     }
@@ -243,6 +253,11 @@ impl FromSql for i64 {
                 .parse::<i64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell.as_i64(),
             other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
     }
@@ -259,6 +274,11 @@ impl FromSql for f32 {
                 .parse::<f32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell.as_f32(),
             other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
     }
@@ -274,6 +294,11 @@ impl FromSql for f64 {
                 .parse::<f64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell.as_f64(),
             other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
     }
@@ -287,6 +312,11 @@ impl FromSql for bool {
                 .parse::<bool>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell.as_bool(),
             other => Err(ConvertError::type_mismatch("bool or string", &other)),
         }
     }
@@ -296,6 +326,11 @@ impl<T: FromSql> FromSql for Option<T> {
     fn from_value(value: SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
             SqlValueInner::Null => Ok(None),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) if cell.is_null() => Ok(None),
             other => T::from_value(SqlValue::from_inner(other)).map(Some),
         }
     }
@@ -472,6 +507,11 @@ impl FromSql for Vec<u8> {
                 .decode(s)
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell.as_bytes().map(<[u8]>::to_vec),
             other => Err(ConvertError::type_mismatch(
                 "string (base64 encoded)",
                 &other,
@@ -961,43 +1001,111 @@ mod tests {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
-    use arrow::array::{ArrayRef, BooleanArray, Float64Array, Int64Array, StringArray};
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
-    use std::sync::Arc;
+    mod arrow_tests {
+        use super::*;
+        use arrow::array::{
+            ArrayRef, BinaryArray, BooleanArray, Float32Array, Float64Array, Int32Array,
+            Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
+        };
+        use std::sync::Arc;
+        use test_case::test_case;
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
-    #[test_case(Arc::new(BooleanArray::from(vec![true])) => "Boolean" ; "arrow boolean")]
-    #[test_case(Arc::new(Int64Array::from(vec![42])) => "Int64" ; "arrow int64")]
-    #[test_case(Arc::new(Float64Array::from(vec![3.25])) => "Float64" ; "arrow float64")]
-    #[test_case(Arc::new(StringArray::from(vec!["hello"])) => "Utf8" ; "arrow utf8")]
-    fn test_sql_value_inner_arrow_type_name(arr: ArrayRef) -> String {
-        let val = SqlValueInner::Arrow(ArrowCell::new(arr, 0));
-        let err = ConvertError::type_mismatch("expected_type", &val);
-        assert!(matches!(
-            err,
-            ConvertError::TypeMismatch { ref expected, ref got }
-                if expected == "expected_type" && got == &val.type_name()
-        ));
-        val.type_name()
-    }
+        fn arrow_val(arr: ArrayRef, row_idx: usize) -> SqlValue {
+            SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, row_idx)))
+        }
 
-    // TODO(#7032): Remove this test once wkt::Value conversion for Arrow cells is implemented.
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
-    #[test]
-    fn test_from_sql_value_arrow_not_implemented() {
-        let arr: ArrayRef = Arc::new(Int64Array::from(vec![42]));
-        let val = SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, 0)));
-        let err = wkt::Value::from_value(val).unwrap_err();
-        assert!(matches!(err, ConvertError::Convert(_)));
-        assert!(err.to_string().contains("not yet implemented"), "{err}");
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => "Boolean" ; "arrow boolean")]
+        #[test_case(Arc::new(Int64Array::from(vec![42])) => "Int64" ; "arrow int64")]
+        #[test_case(Arc::new(Float64Array::from(vec![3.25])) => "Float64" ; "arrow float64")]
+        #[test_case(Arc::new(StringArray::from(vec!["hello"])) => "Utf8" ; "arrow utf8")]
+        fn test_sql_value_inner_arrow_type_name(arr: ArrayRef) -> String {
+            let val = SqlValueInner::Arrow(ArrowCell::new(arr, 0));
+            let err = ConvertError::type_mismatch("expected_type", &val);
+            assert!(matches!(
+                err,
+                ConvertError::TypeMismatch { ref expected, ref got }
+                    if expected == "expected_type" && got == &val.type_name()
+            ));
+            val.type_name()
+        }
+
+        // TODO(#7032): Remove this test once wkt::Value conversion for Arrow cells is implemented.
+        #[test]
+        fn test_from_sql_value_arrow_not_implemented() {
+            let arr: ArrayRef = Arc::new(Int64Array::from(vec![42]));
+            let err = wkt::Value::from_value(arrow_val(arr, 0)).unwrap_err();
+            assert!(matches!(err, ConvertError::Convert(_)));
+            assert!(err.to_string().contains("not yet implemented"), "{err}");
+        }
+
+        #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Ok(true) ; "bool true")]
+        #[test_case(Arc::new(BooleanArray::from(vec![Some(false)])) => Ok(false) ; "bool false")]
+        #[test_case(Arc::new(BooleanArray::from(vec![None])) => Err(TestConvertError::NotNull) ; "bool null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("BooleanArray")) ; "bool type mismatch")]
+        fn test_from_sql_arrow_bool(arr: ArrayRef) -> Result<bool, TestConvertError> {
+            bool::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(Int32Array::from(vec![Some(123)])) => Ok(123) ; "i32 from Int32Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![Some(456)])) => Ok(456) ; "i32 from Int64Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![Some(i64::from(i32::MAX) + 1)])) => Err(TestConvertError::Convert("out of range integral type conversion attempted".to_string())) ; "i32 overflow from Int64Array")]
+        #[test_case(Arc::new(Int32Array::from(vec![None])) => Err(TestConvertError::NotNull) ; "i32 null")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("Int64Array or Int32Array")) ; "i32 type mismatch")]
+        fn test_from_sql_arrow_i32(arr: ArrayRef) -> Result<i32, TestConvertError> {
+            i32::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(Int64Array::from(vec![Some(42)])) => Ok(42) ; "i64 valid")]
+        #[test_case(Arc::new(Int64Array::from(vec![None])) => Err(TestConvertError::NotNull) ; "i64 null")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("Int64Array")) ; "i64 type mismatch")]
+        fn test_from_sql_arrow_i64(arr: ArrayRef) -> Result<i64, TestConvertError> {
+            i64::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(Float32Array::from(vec![Some(1.5_f32)])) => Ok(1.5) ; "f32 from Float32Array")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(2.5_f64)])) => Ok(2.5) ; "f32 from Float64Array")]
+        #[test_case(Arc::new(Float32Array::from(vec![None])) => Err(TestConvertError::NotNull) ; "f32 null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Float64Array or Float32Array")) ; "f32 type mismatch")]
+        fn test_from_sql_arrow_f32(arr: ArrayRef) -> Result<f32, TestConvertError> {
+            f32::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(Float64Array::from(vec![Some(3.25)])) => Ok(3.25) ; "f64 valid")]
+        #[test_case(Arc::new(Float64Array::from(vec![None])) => Err(TestConvertError::NotNull) ; "f64 null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Float64Array")) ; "f64 type mismatch")]
+        fn test_from_sql_arrow_f64(arr: ArrayRef) -> Result<f64, TestConvertError> {
+            f64::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(StringArray::from(vec![Some("hello")])) => Ok("hello".to_string()) ; "string from StringArray")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])) => Ok("world".to_string()) ; "string from LargeStringArray")]
+        #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "string null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "string type mismatch")]
+        fn test_from_sql_arrow_string(arr: ArrayRef) -> Result<String, TestConvertError> {
+            String::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(BinaryArray::from(vec![Some(b"abc".as_slice())])) => Ok(b"abc".to_vec()) ; "vec u8 from BinaryArray")]
+        #[test_case(Arc::new(LargeBinaryArray::from(vec![Some(b"xyz".as_slice())])) => Ok(b"xyz".to_vec()) ; "vec u8 from LargeBinaryArray")]
+        #[test_case(Arc::new(BinaryArray::from(vec![None::<&[u8]>])) => Err(TestConvertError::NotNull) ; "vec u8 null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("BinaryArray or LargeBinaryArray")) ; "vec u8 type mismatch")]
+        fn test_from_sql_arrow_vec_u8(arr: ArrayRef) -> Result<Vec<u8>, TestConvertError> {
+            Vec::<u8>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(BinaryArray::from(vec![Some(b"abc".as_slice())])) => Ok(bytes::Bytes::from_static(b"abc")) ; "bytes from BinaryArray")]
+        #[test_case(Arc::new(LargeBinaryArray::from(vec![Some(b"xyz".as_slice())])) => Ok(bytes::Bytes::from_static(b"xyz")) ; "bytes from LargeBinaryArray")]
+        #[test_case(Arc::new(BinaryArray::from(vec![None::<&[u8]>])) => Err(TestConvertError::NotNull) ; "bytes null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("BinaryArray or LargeBinaryArray")) ; "bytes type mismatch")]
+        fn test_from_sql_arrow_bytes(arr: ArrayRef) -> Result<bytes::Bytes, TestConvertError> {
+            bytes::Bytes::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(Int64Array::from(vec![Some(42)])) => Ok(Some(42)) ; "option some i64")]
+        #[test_case(Arc::new(Int64Array::from(vec![None])) => Ok(None) ; "option null")]
+        #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Err(TestConvertError::type_mismatch("Int64Array")) ; "option type mismatch")]
+        fn test_from_sql_arrow_option(arr: ArrayRef) -> Result<Option<i64>, TestConvertError> {
+            Option::<i64>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
     }
 }

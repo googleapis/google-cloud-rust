@@ -1,13 +1,18 @@
 ---
 name: rust-toolchain-bump
-description: Checks for new stable Rust minor releases (e.g. 1.98.0), updates local stable toolchain, runs strict workspace clippy verification, and updates CI configurations across .gcb/*.yaml and GitHub Actions workflows in google-cloud-rust.
+description: Checks for new stable Rust minor releases (e.g. 1.98), updates the channel in rust-toolchain.toml, runs strict workspace clippy verification, and applies rustfmt changes in google-cloud-rust.
 ---
 
 # Stable Rust Toolchain Bump (`google-cloud-rust`)
 
 This skill automates checking for new stable minor compiler releases from the
-Rust project (released every 6 weeks), verifying workspace clippy lints, and
-synchronizing compiler version definitions across CI configurations.
+Rust project (released every 6 weeks), updating the toolchain pinned in
+`rust-toolchain.toml`, and verifying workspace clippy lints.
+
+`rust-toolchain.toml` is the single source of truth for the stable compiler.
+Local development, GitHub Actions, and Google Cloud Build all install the
+toolchain pinned there. Only the minor version (`1.XX`) is pinned, so patch
+releases do not require a bump.
 
 > [!NOTE]
 > Bumping the Minimum Supported Rust Version (MSRV) is managed independently
@@ -26,12 +31,12 @@ Run the automated toolchain check script (requires network access /
 
 The script will:
 
-1. Extract `CURRENT_RUST_VERSION` deterministically from
-   `.github/workflows/rust-toolchain-check.yaml`.
+1. Read the current version from `channel` in `rust-toolchain.toml`.
 1. Compare against the latest stable release in `RELEASES.md`.
 1. Check out a feature branch (`chore-bump-rust-toolchain-1.XX`) based on
    `main`.
-1. Update the local stable compiler (`rustup update stable`).
+1. Update `channel` in `rust-toolchain.toml` and install that toolchain
+   (`rustup toolchain install`).
 1. Attempt to automatically apply machine-applicable clippy suggestions
    (`cargo clippy --fix ...`).
 1. Check if generated code (`**/generated/**`) was modified, failing early if
@@ -80,57 +85,23 @@ Check `git status` to inspect any changes made by automatic clippy fixes:
   - Bump `cargo-semver-checks` to the latest version in both
     `.gcb/scripts/semver-checks.sh` and `librarian.yaml`, then re-run.
 
+- **If the new `rustfmt` formats code differently:**
+
+  - Run `cargo fmt` and commit the changes, including any changes to generated
+    code. The generator formats its output with `cargo fmt`, so the result
+    matches what it would produce.
+
 ______________________________________________________________________
 
-## Step 3: Update CI Configuration Files
+## Step 3: Validate and Prepare PR
 
-> [!NOTE]
-> The list of CI configuration files below may change over time as new workflows
-> or build steps are added. Always search the repository for the old compiler
-> version number to ensure all references are found.
-
-Search for all occurrences of the old compiler version across the repository
-(escape the dot, e.g. `1\.97`):
-
-```bash
-git grep -n "1\.XX"
-```
-
-You can also search for key configuration variables:
-
-```bash
-git grep -n "_RUST_VERSION"
-git grep -n "CURRENT_RUST_VERSION"
-git grep -n "GHA_RUST_VERSIONS"
-```
+No CI configuration files need to be updated: the `channel` in
+`rust-toolchain.toml` is the only version that changes.
 
 > [!WARNING]
 > Do NOT modify MSRV configurations: `.gcb/msrv.yaml` or `Cargo.toml`
 > (`rust-version`). Those track the MSRV, which is managed independently under
 > the 1-year policy.
-
-Common files to update include:
-
-1. **GitHub Actions Workflows**:
-
-   - `.github/workflows/sdk.yaml`
-     (`GHA_RUST_VERSIONS: '{ "rust:current": "1.XX" }'`)
-   - `.github/workflows/rust-toolchain-check.yaml`
-     (`CURRENT_RUST_VERSION: '1.XX'`)
-
-1. **Google Cloud Build Configurations**: Update all `_RUST_VERSION: '1.XX'`
-   entries across `.gcb/` and `src/**/.gcb/` (excluding `msrv.yaml`):
-
-   - `.gcb/format.yaml`
-   - `.gcb/complex.yaml`
-   - `.gcb/cryptoproviders.yaml`
-   - `.gcb/coverage.yaml`
-   - `.gcb/integration.yaml`
-   - `src/auth/.gcb/integration.yaml`
-
-______________________________________________________________________
-
-## Step 4: Validate and Prepare PR
 
 1. Verify formatting and check builds:
    ```bash
@@ -139,5 +110,5 @@ ______________________________________________________________________
    ```
 1. Commit all changes following `CONTRIBUTING.md#commit-messages`:
    ```bash
-   git commit -am "chore(ci): update Rust toolchain to 1.XX" -m "Update stable compiler version to 1.XX across GitHub Actions and Google Cloud Build configurations."
+   git commit -am "chore: update Rust toolchain to 1.XX" -m "Update the stable compiler version in rust-toolchain.toml to 1.XX."
    ```
