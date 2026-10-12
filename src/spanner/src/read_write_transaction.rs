@@ -48,6 +48,7 @@ use crate::retry_policy::SpannerRetryPolicy;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::is_aborted;
 use crate::write_only_transaction::create_commit_request;
+use bytes::Bytes;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
@@ -57,10 +58,13 @@ use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::cmp::min;
 use std::mem::take;
-use std::sync::atomic::{AtomicI64, Ordering};
+use std::panic::{AssertUnwindSafe, catch_unwind};
+use std::sync::atomic::{AtomicBool, AtomicI64, Ordering};
 use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::Duration;
+use tokio::runtime::Handle;
 use tokio::time::Instant;
+use tracing::debug;
 
 /// A builder for [ReadWriteTransaction].
 #[derive(Clone, Debug)]
@@ -220,9 +224,14 @@ impl ReadWriteTransactionBuilder {
             )),
         };
 
-        let _location_routing_drop_guard = Arc::new(LocationRoutingDropGuard::new(
+        let tokio_handle = Handle::try_current().ok();
+        let drop_guard = Arc::new(ReadWriteTransactionDropGuard::new(
             self.client.clone(),
+            self.session_name.clone(),
             transaction_selector.clone(),
+            affinity.as_ref().map(Arc::clone),
+            self.rollback_gax_options,
+            tokio_handle,
         ));
 
         Ok(ReadWriteTransaction {
@@ -243,8 +252,7 @@ impl ReadWriteTransactionBuilder {
             mutations: Arc::new(Mutex::new(Vec::new())),
             begin_gax_options: self.begin_gax_options,
             commit_gax_options: self.commit_gax_options,
-            rollback_gax_options: self.rollback_gax_options,
-            _location_routing_drop_guard,
+            drop_guard,
         })
     }
 
@@ -351,9 +359,17 @@ macro_rules! execute_with_retry {
     }};
 }
 
-/// RAII guard ensuring that any uncommitted, un-rolled-back location-aware routing
-/// affinity (stored in [`LocationRouter`]) is cleaned up when all handles to a
-/// [`ReadWriteTransaction`] are dropped.
+/// RAII drop guard for read-write transactions.
+///
+/// When a [`ReadWriteTransaction`] is dropped without being committed or rolled back
+/// (for example, due to async cancellation via `tokio::time::timeout`, task abortion,
+/// early return, or panic), this guard releases held resources:
+/// 1. Synchronously releases client-side channel pool active RW guard accounting, allowing
+///    draining channels to close while preserving the pinned channel for routing.
+/// 2. Cleans up the transaction ID entry in [`LocationRouter`]'s affinity table.
+/// 3. Spawns a best-effort background task on the Tokio runtime to issue a [`RollbackRequest`]
+///    to Cloud Spanner, releasing server-side pessimistic locks immediately instead of holding
+///    them until Spanner's lock wait timeout expires (10 seconds).
 ///
 /// # Two Kinds of Affinity in Cloud Spanner Client
 /// The Spanner client utilizes the term "affinity" in two completely distinct mechanisms
@@ -364,8 +380,8 @@ macro_rules! execute_with_retry {
 ///    - **Purpose**: Pins all gRPC requests of a transaction to the exact same physical HTTP/2 connection.
 ///    - **Lifecycle**: Managed by `RwTransactionAffinityGuard`. Automatically decremented when the guard
 ///      drops, or explicitly via `release_rw_guard()` on commit/rollback. In
-///      [`TransactionRunner`][crate::transaction_runner::TransactionRunner], the same channel pool
-///      affinity is reused across all retry attempts.
+///      [`TransactionRunner`][crate::transaction_runner::TransactionRunner], each retry attempt
+///      creates a fresh channel pool affinity handle to allow retries to avoid degraded channels.
 ///
 /// 2. **Location-Aware Routing Affinity** ([`LocationRouter`]):
 ///    - **Scope**: Remote Spanner backend server topology.
@@ -375,28 +391,115 @@ macro_rules! execute_with_retry {
 ///    - **Lifecycle**: Recorded when the transaction begins on a specific tablet. Cleared when the transaction
 ///      completes (commit, rollback, abort, or drop). Each retry attempt gets a new transaction ID from Spanner,
 ///      so location routing affinity is strictly scoped to a single transaction ID.
-///
-/// This guard handles **Location-Aware Routing Affinity**. It guarantees that if a [`ReadWriteTransaction`]
-/// is dropped without calling `commit()` or `rollback()` (for example, due to an application error, early
-/// return, or panic), the transaction ID entry in [`LocationRouter`]'s affinity table is cleaned up immediately.
 #[derive(Debug)]
-struct LocationRoutingDropGuard {
+struct ReadWriteTransactionDropGuard {
     client: DatabaseClient,
+    session_name: String,
     selector: ReadContextTransactionSelector,
+    affinity: Option<Arc<TransactionAffinity>>,
+    rollback_gax_options: Option<RequestOptions>,
+    tokio_handle: Option<Handle>,
+    disarmed: AtomicBool,
 }
 
-impl LocationRoutingDropGuard {
-    fn new(client: DatabaseClient, selector: ReadContextTransactionSelector) -> Self {
-        Self { client, selector }
+impl ReadWriteTransactionDropGuard {
+    fn new(
+        client: DatabaseClient,
+        session_name: String,
+        selector: ReadContextTransactionSelector,
+        affinity: Option<Arc<TransactionAffinity>>,
+        rollback_gax_options: Option<RequestOptions>,
+        tokio_handle: Option<Handle>,
+    ) -> Self {
+        Self {
+            client,
+            session_name,
+            selector,
+            affinity,
+            rollback_gax_options,
+            tokio_handle,
+            disarmed: AtomicBool::new(false),
+        }
+    }
+
+    fn disarm(&self) {
+        self.disarmed.store(true, Ordering::Release);
     }
 }
 
-impl Drop for LocationRoutingDropGuard {
+struct AffinityCleanupGuard {
+    client: DatabaseClient,
+    transaction_id: Bytes,
+}
+
+impl Drop for AffinityCleanupGuard {
     fn drop(&mut self) {
-        if let Ok(Some(transaction_id)) = self.selector.get_id_no_wait() {
+        self.client
+            .clear_transaction_affinity_routing(Some(self.transaction_id.as_ref()));
+    }
+}
+
+impl Drop for ReadWriteTransactionDropGuard {
+    fn drop(&mut self) {
+        // Synchronously release client-side channel pool active RW guard accounting,
+        // allowing draining channels to close while preserving the pinned entry ID for routing.
+        // This runs unconditionally, even if the transaction never established a transaction ID
+        // (for example, if the initial statement failed or was cancelled before returning an ID).
+        if let Some(affinity) = &self.affinity {
+            affinity.release_rw_guard();
+        }
+
+        let Ok(Some(transaction_id)) = self.selector.get_id_no_wait() else {
+            return;
+        };
+
+        if *self.disarmed.get_mut() {
+            // Rollback was disarmed (e.g. committed, explicitly rolled back, or aborted).
+            // Location router affinity is cleaned up here if not already cleared.
             self.client
                 .clear_transaction_affinity_routing(Some(transaction_id.as_ref()));
+            return;
         }
+
+        // We only reach this point if the transaction was not committed,
+        // rolled back, or aborted.
+        let handle = self
+            .tokio_handle
+            .take()
+            .or_else(|| Handle::try_current().ok());
+        let Some(handle) = handle else {
+            self.client
+                .clear_transaction_affinity_routing(Some(transaction_id.as_ref()));
+            return;
+        };
+
+        let client = self.client.clone();
+        let session_name = take(&mut self.session_name);
+        let affinity = self.affinity.take();
+        let mut gax_options = self.rollback_gax_options.take().unwrap_or_default();
+        amend_gax_options_for_rollback(client.leader_aware_routing_enabled, &mut gax_options);
+
+        let cleanup_guard = AffinityCleanupGuard {
+            client: client.clone(),
+            transaction_id,
+        };
+
+        let _ = catch_unwind(AssertUnwindSafe(move || {
+            handle.spawn(async move {
+                let _cleanup_guard = cleanup_guard;
+                let request = RollbackRequest::default()
+                    .set_session(session_name)
+                    .set_transaction_id(_cleanup_guard.transaction_id.clone());
+                // When location-aware routing is enabled, client.rollback calls pre_route_rollback
+                // (which routes to the tablet holding the locks using the transaction affinity)
+                // and post_route_rollback (which clears the transaction affinity upon completion).
+                // Channel pool affinity ensures routing over the same pinned channel.
+                let target = affinity.as_deref();
+                if let Err(error) = client.rollback(request, gax_options, target).await {
+                    debug!(%error, "Background rollback on drop failed");
+                }
+            });
+        }));
     }
 }
 
@@ -412,8 +515,7 @@ pub struct ReadWriteTransaction {
     mutations: Arc<Mutex<Vec<ProtoMutation>>>,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
-    rollback_gax_options: Option<RequestOptions>,
-    _location_routing_drop_guard: Arc<LocationRoutingDropGuard>,
+    drop_guard: Arc<ReadWriteTransactionDropGuard>,
 }
 
 impl ReadWriteTransaction {
@@ -676,6 +778,11 @@ impl ReadWriteTransaction {
         )
     }
 
+    /// Disarms the automatic rollback-on-drop guard.
+    pub(crate) fn disarm_rollback(&self) {
+        self.drop_guard.disarm();
+    }
+
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> Result<CommitResponse> {
         let result = self.commit_internal().await;
@@ -714,6 +821,10 @@ impl ReadWriteTransaction {
 
         let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
         self.amend_gax_options(&mut gax_options);
+
+        // Disarm rollback immediately before sending the commit RPC.
+        // Once commit is dispatched, the transaction must not be rolled back.
+        self.disarm_rollback();
 
         let response = self
             .context
@@ -760,11 +871,18 @@ impl ReadWriteTransaction {
             return Ok(());
         };
 
+        // Disarm rollback once a transaction ID has been observed and rollback is dispatched.
+        self.disarm_rollback();
+
         let request = RollbackRequest::default()
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id);
 
-        let mut gax_options = self.rollback_gax_options.clone().unwrap_or_default();
+        let mut gax_options = self
+            .drop_guard
+            .rollback_gax_options
+            .clone()
+            .unwrap_or_default();
         amend_gax_options_for_rollback(
             self.context.client.leader_aware_routing_enabled,
             &mut gax_options,
@@ -4919,6 +5037,7 @@ mod tests {
     #[tokio_test_no_panics]
     async fn read_write_transaction_releases_rw_guard_on_commit_rollback_and_drop()
     -> anyhow::Result<()> {
+        use crate::channel_pool::affinity::ChannelTarget;
         use crate::client::Spanner;
         use crate::read_only_transaction::tests::setup_select1_with_transaction_id;
         use crate::result_set::tests::adapt;
@@ -5062,6 +5181,46 @@ mod tests {
                 pinned_entry.active_rw_count(),
                 0,
                 "pinned entry active_rw_count must drop to 0 when uncommitted transaction is dropped"
+            );
+        }
+
+        // 4. Dropping a transaction before a transaction ID is established also releases the active R/W guard
+        {
+            let pinned_entry;
+            {
+                let affinity = Arc::new(TransactionAffinity::new_read_write());
+                let pinned_id = entries.first().expect("at least one active entry").id;
+                affinity
+                    .compare_and_set_entry_id(0, pinned_id)
+                    .expect("pin entry");
+                let target = ChannelTarget::from(&affinity);
+                let lease = spanner.pick_channel_for_target(&target);
+                affinity.ensure_rw_guard(&lease);
+
+                pinned_entry = entries
+                    .iter()
+                    .find(|entry| entry.id == pinned_id)
+                    .cloned()
+                    .expect("pinned entry must exist");
+                assert_eq!(
+                    pinned_entry.active_rw_count(),
+                    1,
+                    "pinned entry active_rw_count must be 1 with active guard"
+                );
+
+                let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                    .with_affinity(affinity)
+                    .build(None)
+                    .await?;
+
+                // Dropping transaction without ever starting a statement (no transaction ID)
+                drop(transaction);
+            }
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                0,
+                "pinned entry active_rw_count must drop to 0 when transaction without ID is dropped"
             );
         }
 
@@ -5699,10 +5858,12 @@ mod tests {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
         use spanner_grpc_mock::google::spanner::v1::Transaction;
         use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
 
         let mut mock = create_session_mock();
         mock.expect_fetch_cache_update().returning(|_| {
-            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            let (_sender, receiver) = channel(1);
             Ok(tonic::Response::from(receiver))
         });
         mock.expect_begin_transaction().returning(|_| {
@@ -5711,6 +5872,12 @@ mod tests {
                 read_timestamp: None,
                 ..Default::default()
             }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
         });
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
@@ -5754,15 +5921,412 @@ mod tests {
         // Dropping transaction without commit or rollback must trigger RAII drop guard.
         drop(transaction);
 
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
         assert_eq!(
-            router.get_transaction_affinity(&transaction_id),
-            None,
-            "LocationRoutingDropGuard must clear location router affinity when dropped"
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must rollback the active transaction ID"
+        );
+
+        let mut affinity_cleared = false;
+        for _ in 0..100 {
+            tokio::task::yield_now().await;
+            if router.get_transaction_affinity(&transaction_id).is_none() {
+                affinity_cleared = true;
+                break;
+            }
+        }
+        assert!(
+            affinity_cleared,
+            "ReadWriteTransactionDropGuard must clear location router affinity after rollback completes"
         );
         assert_eq!(
             router.affinity_count(),
             0,
             "location router affinity count must be 0 after drop"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_drop_clears_location_router_affinity_when_disarmed()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![53, 53],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+        mock.expect_rollback().never();
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![53, 53];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should be 1"
+        );
+
+        // Disarm rollback (as happens during commit or explicit rollback)
+        transaction.disarm_rollback();
+
+        // Dropping transaction must still clear location routing affinity immediately
+        drop(transaction);
+
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "location router affinity must be cleared on drop even when rollback is disarmed"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after drop"
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn read_write_transaction_drop_guard_outside_tokio_runtime_does_not_panic() {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+        use std::thread;
+        use tokio::runtime::Builder as RuntimeBuilder;
+        use tokio::sync::mpsc::channel;
+
+        let runtime = RuntimeBuilder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("build runtime");
+        let (database_client, transaction) = runtime.block_on(async {
+            let mut mock = create_session_mock();
+            mock.expect_fetch_cache_update().returning(|_| {
+                let (_sender, receiver) = channel(1);
+                Ok(tonic::Response::from(receiver))
+            });
+            mock.expect_begin_transaction().once().returning(|_| {
+                Ok(Response::new(Transaction {
+                    id: vec![77, 78],
+                    ..Default::default()
+                }))
+            });
+            let (address, _server) = start("127.0.0.1:0", mock).await.expect("start mock");
+            let client = Spanner::builder()
+                .with_endpoint(address)
+                .with_instance_type(InstanceType::Omni)
+                .with_credentials(Anonymous::new().build())
+                .build()
+                .await
+                .expect("build client");
+            let database_client = client
+                .database_client("projects/p/instances/i/databases/d")
+                .with_location_aware_routing(true)
+                .build()
+                .await
+                .expect("build db client");
+            let router = database_client
+                .location_router()
+                .expect("location router must be present");
+            let transaction_id = vec![77, 78];
+            router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+
+            let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+                .build(None)
+                .await
+                .expect("build transaction");
+            (database_client, transaction)
+        });
+        // Shut down the runtime completely.
+        drop(runtime);
+
+        // Dropping the transaction after the runtime has shut down must NOT panic,
+        // and must reliably clear LocationRouter affinity via AffinityCleanupGuard.
+        let join_result = thread::spawn(move || {
+            drop(transaction);
+        })
+        .join();
+
+        assert!(
+            join_result.is_ok(),
+            "dropping transaction after runtime shutdown must not panic"
+        );
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present");
+        assert_eq!(
+            router.get_transaction_affinity(&[77, 78]),
+            None,
+            "location router affinity must be cleared when transaction is dropped after runtime shutdown"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "affinity count must be 0 after drop"
+        );
+    }
+
+    #[test]
+    fn read_write_transaction_drop_guard_without_handle_outside_runtime_clears_affinity_safely() {
+        use crate::model::TransactionSelector;
+        use bytes::Bytes;
+        use std::thread;
+        use tokio::runtime::Builder as RuntimeBuilder;
+
+        let runtime = RuntimeBuilder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("build runtime");
+        let (database_client, selector, affinity) = runtime.block_on(async {
+            let mock = create_session_mock();
+            let (database_client, _server) = setup_db_client(mock).await;
+            let transaction_id = Bytes::from_static(b"drop-no-handle-test");
+            let selector = ReadContextTransactionSelector::Fixed(
+                TransactionSelector::new().set_id(transaction_id),
+                None,
+            );
+            let affinity = Arc::new(TransactionAffinity::new_read_write());
+            (database_client, selector, affinity)
+        });
+        drop(runtime);
+
+        // Construct guard with tokio_handle: None on a thread without Tokio runtime.
+        let join_result = thread::spawn(move || {
+            let guard = ReadWriteTransactionDropGuard::new(
+                database_client,
+                "test-session".to_string(),
+                selector,
+                Some(affinity),
+                None,
+                None,
+            );
+            drop(guard);
+        })
+        .join();
+
+        assert!(
+            join_result.is_ok(),
+            "dropping guard without handle outside Tokio runtime must not panic"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_background_rollback_on_drop_handles_rpc_failure()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![88, 89],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Err(tonic::Status::permission_denied(
+                "simulated background rollback permission failure",
+            ))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![88, 89];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+
+        // Dropping transaction triggers background rollback which encounters RPC error.
+        drop(transaction);
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must attempt to rollback the active transaction ID"
+        );
+
+        let mut affinity_cleared = false;
+        for _ in 0..100 {
+            tokio::task::yield_now().await;
+            if router.get_transaction_affinity(&transaction_id).is_none() {
+                affinity_cleared = true;
+                break;
+            }
+        }
+        assert!(
+            affinity_cleared,
+            "location router affinity must be cleared even when rollback RPC fails"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after failed rollback"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_drop_guard_preserves_custom_rollback_gax_options()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+        use std::time::Duration as StdDuration;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![91, 92],
+                ..Default::default()
+            }))
+        });
+
+        let (timeout_sender, mut timeout_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let timeout_header = request
+                .metadata()
+                .get("grpc-timeout")
+                .and_then(|header_value| header_value.to_str().ok())
+                .map(|header_str| header_str.to_string());
+            let _ = timeout_sender.try_send(timeout_header);
+            Ok(Response::new(()))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let custom_timeout = StdDuration::from_secs(12);
+        let mut custom_options = RequestOptions::default();
+        custom_options.set_attempt_timeout(custom_timeout);
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_rollback_request_options(Some(custom_options))
+            .build(None)
+            .await?;
+
+        // Dropping transaction triggers background rollback with custom options
+        drop(transaction);
+
+        let timeout_header = timeout(StdDuration::from_secs(2), timeout_receiver.recv())
+            .await
+            .expect("rollback must complete within timeout")
+            .expect("timeout receiver must receive header");
+
+        assert!(
+            timeout_header.is_some(),
+            "grpc-timeout header must be sent on background rollback RPC"
+        );
+        let header_str = timeout_header.expect("header present");
+        assert!(
+            header_str == "12000000u" || header_str.ends_with('u') || header_str.ends_with('S'),
+            "grpc-timeout header must reflect the 12s attempt timeout: {header_str}"
         );
 
         Ok(())
@@ -5943,6 +6507,7 @@ mod tests {
         });
         mock.expect_commit()
             .returning(|_| Err(tonic::Status::invalid_argument("simulated commit failure")));
+        mock.expect_rollback().never();
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
         let client = Spanner::builder()
@@ -6015,10 +6580,12 @@ mod tests {
             ResultSet, ResultSetMetadata, ResultSetStats, StructType, Transaction,
         };
         use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
 
         let mut mock = create_session_mock();
         mock.expect_fetch_cache_update().returning(|_| {
-            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            let (_sender, receiver) = channel(1);
             Ok(tonic::Response::from(receiver))
         });
 
@@ -6042,6 +6609,12 @@ mod tests {
                 }),
                 ..Default::default()
             }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
         });
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
@@ -6087,13 +6660,30 @@ mod tests {
             "location router affinity count should be 1"
         );
 
-        // Dropping inline transaction after starting must clear the affinity
+        // Dropping inline transaction after starting must clear the affinity and rollback
         drop(transaction);
 
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
         assert_eq!(
-            router.get_transaction_affinity(&transaction_id),
-            None,
-            "LocationRoutingDropGuard must clear location router affinity when inline transaction is dropped"
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must rollback the inline begin transaction ID"
+        );
+
+        let mut affinity_cleared = false;
+        for _ in 0..100 {
+            tokio::task::yield_now().await;
+            if router.get_transaction_affinity(&transaction_id).is_none() {
+                affinity_cleared = true;
+                break;
+            }
+        }
+        assert!(
+            affinity_cleared,
+            "ReadWriteTransactionDropGuard must clear location router affinity after rollback completes"
         );
         assert_eq!(
             router.affinity_count(),
@@ -6115,6 +6705,7 @@ mod tests {
             let (_sender, receiver) = tokio::sync::mpsc::channel(1);
             Ok(tonic::Response::from(receiver))
         });
+        mock.expect_rollback().never();
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
         let client = Spanner::builder()
@@ -6159,10 +6750,12 @@ mod tests {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
         use spanner_grpc_mock::google::spanner::v1::Transaction;
         use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
 
         let mut mock = create_session_mock();
         mock.expect_fetch_cache_update().returning(|_| {
-            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            let (_sender, receiver) = channel(1);
             Ok(tonic::Response::from(receiver))
         });
         mock.expect_begin_transaction().returning(|_| {
@@ -6171,6 +6764,12 @@ mod tests {
                 read_timestamp: None,
                 ..Default::default()
             }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
         });
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
@@ -6226,6 +6825,10 @@ mod tests {
             1,
             "location router affinity count should still be 1"
         );
+        assert!(
+            rollback_receiver.try_recv().is_err(),
+            "rollback must not be dispatched while clones exist"
+        );
 
         // Dropping the first clone should not clear affinity
         drop(clone_first);
@@ -6239,13 +6842,35 @@ mod tests {
             1,
             "location router affinity count should still be 1"
         );
+        assert!(
+            rollback_receiver.try_recv().is_err(),
+            "rollback must not be dispatched while one clone remains"
+        );
 
         // Dropping the final clone must invoke drop guard cleanup and clear affinity
         drop(clone_second);
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
         assert_eq!(
-            router.get_transaction_affinity(&transaction_id),
-            None,
-            "drop guard on final clone must clear location router affinity"
+            rolled_back_transaction_id, transaction_id,
+            "drop guard on final clone must rollback the active transaction ID"
+        );
+
+        let mut affinity_cleared = false;
+        for _ in 0..100 {
+            tokio::task::yield_now().await;
+            if router.get_transaction_affinity(&transaction_id).is_none() {
+                affinity_cleared = true;
+                break;
+            }
+        }
+        assert!(
+            affinity_cleared,
+            "drop guard on final clone must clear location router affinity after rollback"
         );
         assert_eq!(
             router.affinity_count(),
