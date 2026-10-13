@@ -602,6 +602,17 @@ libraries:
     apis:
       - path: google/bigtable/admin/v2
     copyright_year: "2025"
+    keep:
+      - src/wait_for_consistency.rs
+    rust:
+      package_dependencies:
+        - name: tokio
+          package: tokio
+          force_used: true
+      extensible_builders:
+        - .google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency
+      internal_modules:
+        - wait_for_consistency
   - name: google-cloud-billing-v1
     version: 1.13.0
     copyright_year: "2025"
