@@ -192,6 +192,90 @@ impl ArrowCell {
         }
     }
 
+    /// Returns timestamp value in microseconds since Unix epoch.
+    pub(crate) fn as_timestamp_micros(&self) -> Result<i64, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Microsecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampMicrosecondType,
+                >(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Millisecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampMillisecondType,
+                >(&self.array);
+                arr.value(self.row_idx)
+                    .checked_mul(1_000)
+                    .ok_or_else(|| ConvertError::Convert("timestamp overflow".into()))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Nanosecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampNanosecondType,
+                >(&self.array);
+                Ok(arr.value(self.row_idx).div_euclid(1_000))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Second, _) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::TimestampSecondType>(
+                    &self.array,
+                );
+                arr.value(self.row_idx)
+                    .checked_mul(1_000_000)
+                    .ok_or_else(|| ConvertError::Convert("timestamp overflow".into()))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "TimestampArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns date value in days since Unix epoch.
+    pub(crate) fn as_date32(&self) -> Result<i32, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Date32 => {
+                let arr =
+                    arrow::array::as_primitive_array::<arrow::datatypes::Date32Type>(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Date32Array".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns time value in microseconds since midnight.
+    pub(crate) fn as_time64_micros(&self) -> Result<i64, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Time64(arrow::datatypes::TimeUnit::Microsecond) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Time64MicrosecondType>(
+                    &self.array,
+                );
+                Ok(arr.value(self.row_idx))
+            }
+            arrow::datatypes::DataType::Time64(arrow::datatypes::TimeUnit::Nanosecond) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Time64NanosecondType>(
+                    &self.array,
+                );
+                Ok(arr.value(self.row_idx).div_euclid(1_000))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Time64MicrosecondArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
     /// Returns the cell's decimal value as a formatted string.
     pub(crate) fn as_decimal_str(&self) -> Result<String, ConvertError> {
         if self.is_null() {
@@ -218,23 +302,19 @@ impl ArrowCell {
     }
 
     /// Returns the cell's `Decimal128` value along with its non-negative scale.
-    pub(crate) fn as_decimal128_with_scale(&self) -> Result<(i128, u32), ConvertError> {
+    pub(crate) fn as_decimal128_with_scale(&self) -> Option<(i128, u32)> {
         if self.is_null() {
-            return Err(ConvertError::NotNull);
+            return None;
         }
         match self.array.data_type() {
             arrow::datatypes::DataType::Decimal128(_, scale) => {
                 let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal128Type>(
                     &self.array,
                 );
-                let scale =
-                    u32::try_from(*scale).map_err(|e| ConvertError::Convert(Box::new(e)))?;
-                Ok((arr.value(self.row_idx), scale))
+                let scale = u32::try_from(*scale).ok()?;
+                Some((arr.value(self.row_idx), scale))
             }
-            _ => Err(ConvertError::TypeMismatch {
-                expected: "Decimal128Array".to_string(),
-                got: self.data_type_str(),
-            }),
+            _ => None,
         }
     }
 }
@@ -243,8 +323,10 @@ impl ArrowCell {
 mod tests {
     use super::*;
     use arrow::array::{
-        BinaryArray, BooleanArray, Decimal128Array, Decimal256Array, Float32Array, Float64Array,
-        Int32Array, Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
+        BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array, Float32Array,
+        Float64Array, Int32Array, Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
+        Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
+        TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray,
     };
     use arrow::datatypes::{DataType, i256};
     use std::sync::Arc;
@@ -382,6 +464,40 @@ mod tests {
             .map_err(TestConvertError::from)
     }
 
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp microsecond")]
+    #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(1_779_982_200_123)])), 0 => Ok(1_779_982_200_123_000) ; "timestamp millisecond")]
+    #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(1_779_982_200_123_456_789)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp nanosecond")]
+    #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(-1_500)])), 0 => Ok(-2) ; "timestamp nanosecond pre epoch floor")]
+    #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(1_779_982_200)])), 0 => Ok(1_779_982_200_000_000) ; "timestamp second")]
+    #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert("timestamp overflow".to_string())) ; "timestamp millisecond overflow")]
+    #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert("timestamp overflow".to_string())) ; "timestamp second overflow")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "timestamp null")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("TimestampArray", "Int64")) ; "timestamp type mismatch")]
+    fn as_timestamp_micros(arr: ArrayRef, row_idx: usize) -> Result<i64, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_timestamp_micros()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])), 0 => Ok(20_601) ; "date32 valid")]
+    #[test_case(Arc::new(Date32Array::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "date32 null")]
+    #[test_case(Arc::new(Int32Array::from(vec![20_601])), 0 => Err(TestConvertError::type_mismatch("Date32Array", "Int32")) ; "date32 type mismatch")]
+    fn as_date32(arr: ArrayRef, row_idx: usize) -> Result<i32, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_date32()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_123_456)])), 0 => Ok(55_800_123_456) ; "time64 microsecond")]
+    #[test_case(Arc::new(Time64NanosecondArray::from(vec![Some(55_800_123_456_789)])), 0 => Ok(55_800_123_456) ; "time64 nanosecond")]
+    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "time64 null")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Time64MicrosecondArray", "Int64")) ; "time64 type mismatch")]
+    fn as_time64_micros(arr: ArrayRef, row_idx: usize) -> Result<i64, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_time64_micros()
+            .map_err(TestConvertError::from)
+    }
+
     #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "decimal str from Decimal128Array")]
     #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Ok("-123.456".to_string()) ; "decimal str negative from Decimal128Array")]
     #[test_case(decimal128_array(vec![None], 10, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal128Array")]
@@ -394,18 +510,13 @@ mod tests {
             .map_err(TestConvertError::from)
     }
 
-    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok((123_456, 3)) ; "decimal128 valid")]
-    #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Ok((-123_456, 3)) ; "decimal128 negative")]
-    #[test_case(decimal128_array(vec![Some(12)], 10, -2), 0 => Err(TestConvertError::Convert("out of range integral type conversion attempted".to_string())) ; "decimal128 negative scale")]
-    #[test_case(decimal128_array(vec![None], 10, 3), 0 => Err(TestConvertError::NotNull) ; "decimal128 null")]
-    #[test_case(decimal256_array(vec![Some(i256::from_i128(123))], 20, 3), 0 => Err(TestConvertError::type_mismatch("Decimal128Array", "Decimal256(20, 3)")) ; "decimal128 type mismatch Decimal256Array")]
-    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Decimal128Array", "Int64")) ; "decimal128 type mismatch Int64Array")]
-    fn as_decimal128_with_scale(
-        arr: ArrayRef,
-        row_idx: usize,
-    ) -> Result<(i128, u32), TestConvertError> {
-        ArrowCell::new(arr, row_idx)
-            .as_decimal128_with_scale()
-            .map_err(TestConvertError::from)
+    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Some((123_456, 3)) ; "decimal128 valid")]
+    #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Some((-123_456, 3)) ; "decimal128 negative")]
+    #[test_case(decimal128_array(vec![Some(12)], 10, -2), 0 => None ; "decimal128 negative scale")]
+    #[test_case(decimal128_array(vec![None], 10, 3), 0 => None ; "decimal128 null")]
+    #[test_case(decimal256_array(vec![Some(i256::from_i128(123))], 20, 3), 0 => None ; "decimal128 type mismatch Decimal256Array")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => None ; "decimal128 type mismatch Int64Array")]
+    fn as_decimal128_with_scale(arr: ArrayRef, row_idx: usize) -> Option<(i128, u32)> {
+        ArrowCell::new(arr, row_idx).as_decimal128_with_scale()
     }
 }
