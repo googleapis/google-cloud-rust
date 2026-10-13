@@ -150,22 +150,48 @@ mod storage {
         }
     }
 
-    #[tokio::test(flavor = "multi_thread")]
     #[cfg(google_cloud_unstable_storage_bidi)]
-    async fn run_storage_bidi_write() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let result = integration_tests_storage::bidi_write::run(&bucket.name)
-            .await
-            .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+    mod bidi_write {
+        use super::*;
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn features() -> anyhow::Result<()> {
+            use futures::FutureExt as _;
+
+            let _guard = enable_tracing();
+            let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
                 .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
+                .inspect_err(anydump)?;
+            let result = std::panic::AssertUnwindSafe(
+                integration_tests_storage::bidi_write::features::run(&bucket.name),
+            )
+            .catch_unwind()
+            .await;
+            let _ = storage_samples::cleanup_bucket(
+                control,
+                bucket.name.clone(),
+                bucket.project.clone(),
+            )
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
+            match result {
+                Ok(result) => result,
+                Err(panic) => std::panic::resume_unwind(panic),
+            }
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn conformance() -> anyhow::Result<()> {
+            let _guard = enable_tracing();
+            if std::env::var("GOOGLE_CLOUD_TEST_GRPC_ENDPOINT").is_err() {
+                println!("Skipping Bidi Write Conformance tests");
+                return Ok(());
+            }
+            integration_tests_storage::bidi_write::conformance::run()
+                .await
+                .inspect_err(anydump)
+        }
     }
 
     #[tokio::test(flavor = "multi_thread")]

@@ -44,12 +44,12 @@ steps:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Download dependencies'
-    name: 'rust:${_RUST_VERSION}-bookworm'
+    name: 'rust:bookworm'
     args: ['.gcb/scripts/cargo-fetch.sh']
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
-  - name: 'rust:${_RUST_VERSION}-bookworm'
+  - name: 'rust:bookworm'
     volumes:
       - name: 'fetched'
         path: /builder/home/.cargo
@@ -59,7 +59,6 @@ substitutions:
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
-  _RUST_VERSION: '1.99'
 # The workspace-minimal-versions build can take over 1h (the default). This is
 # harmless (other than wasting CPU time) for other builds.
 timeout: 7200s

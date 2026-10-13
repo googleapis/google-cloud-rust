@@ -22,7 +22,6 @@ on:
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:current": "1.99" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.26.7" }'
   # Define the unstable flags once
   UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming --cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_bigquery_arrow --cfg google_cloud_unstable_bigquery_storage_read'
@@ -43,14 +42,11 @@ jobs:
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', '.github/workflows/sdk.yaml') }}
         if: matrix.os != 'macos-14' && github.event_name != 'release'
       - name: Setup Rust ${{ matrix.rust-version }}
-        env:
-          RUST_VERSION: ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-        run: |
-          rustup toolchain install ${RUST_VERSION}
-          rustup default ${RUST_VERSION}
+        # Installs the toolchain pinned in `rust-toolchain.toml`.
+        run: rustup toolchain install
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
@@ -72,11 +68,8 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust ${{ matrix.rust-version }}
-        env:
-          RUST_VERSION: ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-        run: |
-          rustup toolchain install ${RUST_VERSION}
-          rustup default ${RUST_VERSION}
+        # Installs the toolchain pinned in `rust-toolchain.toml`.
+        run: rustup toolchain install
       - name: Verify library versions
         run: cargo run --package check-versions
 
@@ -96,7 +89,7 @@ jobs:
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', '.github/workflows/sdk.yaml') }}
         if: github.event_name != 'release'
       - name: Check for major breaks in key libraries
         # TODO(#3265) - replace with a standard tool or a program in Go or Rust.
@@ -170,19 +163,17 @@ jobs:
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', '.github/workflows/sdk.yaml') }}
           # Disable caching completely during release runs. This gives us peace
           # of mind w.r.t. cache poisoning attacks that install nefarious
           # versions of `mdbook` or otherwise create evil instances of the
           # user guide.
           if: github.event_name != 'release'
       - name: Setup Rust ${{ matrix.rust-version }}
-        env:
-          RUST_VERSION: ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+        # Installs the toolchain pinned in `rust-toolchain.toml`.
         run: |
           set -e
-          rustup toolchain install ${RUST_VERSION}
-          rustup default ${RUST_VERSION}
+          rustup toolchain install
           cargo install mdbook --version ^0.5 --locked
       - run: mdbook build guide
       - run: mdbook test guide

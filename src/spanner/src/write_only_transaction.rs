@@ -14,6 +14,7 @@
 
 use crate::channel_pool::TransactionAffinity;
 use crate::client::{DatabaseClient, amend_request_options_for_lar};
+use crate::model::commit_response::MultiplexedSessionRetry;
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::{
@@ -21,6 +22,7 @@ use crate::model::{
     Mutation as ProtoMutation, RequestOptions, TransactionOptions,
 };
 use crate::mutation::Mutation;
+use crate::precommit::PrecommitTokenTracker;
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
@@ -463,11 +465,14 @@ impl WriteOnlyTransaction {
                         .lock()
                         .expect("previous_transaction_id mutex poisoned") = transaction.id.clone();
 
+                    let precommit_token_tracker = PrecommitTokenTracker::new();
+                    precommit_token_tracker.update(transaction.precommit_token);
+
                     let commit_request = create_commit_request(
                         session_name.clone(),
                         transaction.id.clone(),
                         mutations_proto,
-                        transaction.precommit_token,
+                        precommit_token_tracker.get(),
                         Some(req_options.clone()),
                         max_commit_delay,
                         return_commit_stats,
@@ -479,12 +484,15 @@ impl WriteOnlyTransaction {
 
                     // If a commit_response with a precommit_token is returned, then we need to
                     // retry the commit with the new precommit_token and without any mutations.
-                    if let Some(new_token) = response.precommit_token().map(|b| *b.clone()) {
+                    if let Some(MultiplexedSessionRetry::PrecommitToken(new_token)) =
+                        response.multiplexed_session_retry
+                    {
+                        precommit_token_tracker.update(Some(*new_token));
                         let retry_commit_request = create_commit_request(
                             session_name.clone(),
                             transaction.id,
                             Vec::new(),
-                            Some(new_token),
+                            precommit_token_tracker.get(),
                             Some(req_options),
                             max_commit_delay,
                             return_commit_stats,
@@ -1782,5 +1790,107 @@ mod tests {
             0,
             "nanos should be 0 when clamped at max seconds"
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_with_commit_retry_preserves_higher_seq_num_precommit_token() -> anyhow::Result<()>
+    {
+        use crate::key::KeySet;
+        use mockall::Sequence;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken;
+        use spanner_grpc_mock::google::spanner::v1::commit_response::MultiplexedSessionRetry as MockMultiplexedSessionRetry;
+
+        let mut mock = MockSpanner::new();
+        let mut sequence = Sequence::new();
+
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(Session {
+                    name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(Transaction {
+                    id: vec![42],
+                    precommit_token: Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![50, 60],
+                        seq_num: 5,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![50, 60],
+                        seq_num: 5,
+                    }),
+                    "First CommitRequest must include the precommit_token with seq_num 5"
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MockMultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![10, 20],
+                            seq_num: 2,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert!(
+                    request.mutations.is_empty(),
+                    "Expected mutations to be empty on commit retry"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![50, 60],
+                        seq_num: 5,
+                    }),
+                    "Retry CommitRequest must retain the higher seq_num precommit_token (seq_num 5)"
+                );
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 9999,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let mutation = Mutation::delete("Users", KeySet::all());
+        let response = database_client
+            .write_only_transaction()
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        assert!(
+            response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
     }
 }

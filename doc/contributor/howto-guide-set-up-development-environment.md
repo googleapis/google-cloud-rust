@@ -22,10 +22,14 @@ If you need to upgrade, consider:
 rustup update
 ```
 
-To format code with `cargo fmt` you need the latest stable release of Rust. Our
-CI formats the code, including the generated code, with that version. Older
-versions of `rustfmt` may format some code differently and produce unexpected
-diffs. The version used in CI is the `_RUST_VERSION` in `.gcb/format.yaml`.
+The repository pins the Rust toolchain used for development in
+`rust-toolchain.toml`. When you run `cargo` in the repository, `rustup` uses
+that toolchain, so `cargo fmt` and `cargo clippy` produce the same results as
+CI. To install the pinned toolchain, run this from the repository root:
+
+```shell
+rustup toolchain install
+```
 
 ## Installing Go
 
