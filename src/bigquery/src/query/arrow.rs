@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use crate::error::ConvertError;
-use arrow::array::ArrayRef;
+use arrow::array::{ArrayRef, as_primitive_array, as_struct_array};
+use arrow::datatypes::{DataType, IntervalMonthDayNano, IntervalMonthDayNanoType, IntervalUnit};
 use std::sync::Arc;
 
 /// A reference to a single cell within an Arrow array.
@@ -276,6 +277,23 @@ impl ArrowCell {
         }
     }
 
+    /// Returns the cell's value as an `IntervalMonthDayNano`.
+    pub(crate) fn as_interval(&self) -> Result<IntervalMonthDayNano, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            DataType::Interval(IntervalUnit::MonthDayNano) => {
+                let arr = as_primitive_array::<IntervalMonthDayNanoType>(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "IntervalMonthDayNanoArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
     /// Returns the cell's decimal value as a formatted string.
     pub(crate) fn as_decimal_str(&self) -> Result<String, ConvertError> {
         if self.is_null() {
@@ -317,6 +335,26 @@ impl ArrowCell {
             _ => None,
         }
     }
+
+    /// Extracts a child `ArrowCell` by field name from a `StructArray`.
+    pub(crate) fn struct_field_by_name(&self, name: &str) -> Result<ArrowCell, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            DataType::Struct(_) => {
+                let struct_arr = as_struct_array(&self.array);
+                let col = struct_arr
+                    .column_by_name(name)
+                    .ok_or_else(|| ConvertError::MissingField(name.to_string()))?;
+                Ok(ArrowCell::new(col.clone(), self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "StructArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
 }
 
 #[cfg(test)]
@@ -324,11 +362,14 @@ mod tests {
     use super::*;
     use arrow::array::{
         BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array, Float32Array,
-        Float64Array, Int32Array, Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
-        Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
-        TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray,
+        Float64Array, Int32Array, Int64Array, IntervalMonthDayNanoArray, IntervalYearMonthArray,
+        LargeBinaryArray, LargeStringArray, StringArray, StructArray, Time64MicrosecondArray,
+        Time64NanosecondArray, TimestampMicrosecondArray, TimestampMillisecondArray,
+        TimestampNanosecondArray, TimestampSecondArray,
     };
+    use arrow::buffer::NullBuffer;
     use arrow::datatypes::{DataType, i256};
+    use arrow::datatypes::{Field, Fields};
     use std::sync::Arc;
     use test_case::test_case;
 
@@ -518,5 +559,54 @@ mod tests {
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => None ; "decimal128 type mismatch Int64Array")]
     fn as_decimal128_with_scale(arr: ArrayRef, row_idx: usize) -> Option<(i128, u32)> {
         ArrowCell::new(arr, row_idx).as_decimal128_with_scale()
+    }
+
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 456))])), 0 => Ok(IntervalMonthDayNano::new(14, 3, 456)) ; "interval valid")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-14, -3, -456))])), 0 => Ok(IntervalMonthDayNano::new(-14, -3, -456)) ; "interval negative")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "interval null")]
+    #[test_case(Arc::new(IntervalYearMonthArray::from(vec![Some(14)])), 0 => Err(TestConvertError::type_mismatch("IntervalMonthDayNanoArray", "Interval(YearMonth)")) ; "interval wrong unit")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("IntervalMonthDayNanoArray", "Int64")) ; "interval type mismatch")]
+    fn as_interval(
+        arr: ArrayRef,
+        row_idx: usize,
+    ) -> Result<IntervalMonthDayNano, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_interval()
+            .map_err(TestConvertError::from)
+    }
+
+    fn sample_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+        let fields = Fields::from(vec![
+            Field::new("start", DataType::Int64, true),
+            Field::new("end", DataType::Int64, true),
+        ]);
+        let start_col: ArrayRef = Arc::new(Int64Array::from(vec![Some(10), None]));
+        let end_col: ArrayRef = Arc::new(Int64Array::from(vec![Some(20), Some(30)]));
+        Arc::new(StructArray::new(fields, vec![start_col, end_col], nulls))
+    }
+
+    #[test_case(sample_struct_array(None), 0, "start" => Ok(Some(10)) ; "struct field start row 0")]
+    #[test_case(sample_struct_array(None), 0, "end" => Ok(Some(20)) ; "struct field end row 0")]
+    #[test_case(sample_struct_array(None), 1, "start" => Ok(None) ; "struct field null child row 1")]
+    #[test_case(sample_struct_array(None), 1, "end" => Ok(Some(30)) ; "struct field end row 1")]
+    #[test_case(sample_struct_array(Some(NullBuffer::from(vec![false, true]))), 0, "start" => Err(TestConvertError::NotNull) ; "struct null row")]
+    #[test_case(sample_struct_array(None), 0, "missing" => Err(TestConvertError::MissingField("missing".to_string())) ; "struct missing field")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0, "start" => Err(TestConvertError::type_mismatch("StructArray", "Int64")) ; "struct type mismatch")]
+    fn struct_field_by_name(
+        arr: ArrayRef,
+        row_idx: usize,
+        name: &str,
+    ) -> Result<Option<i64>, TestConvertError> {
+        let field_cell = ArrowCell::new(arr, row_idx)
+            .struct_field_by_name(name)
+            .map_err(TestConvertError::from)?;
+        if field_cell.is_null() {
+            Ok(None)
+        } else {
+            field_cell
+                .as_i64()
+                .map(Some)
+                .map_err(TestConvertError::from)
+        }
     }
 }

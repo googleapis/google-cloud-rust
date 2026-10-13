@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.47.0
+version: v0.48.1-0.20261013181707-f64425b9a042
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -591,6 +591,8 @@ libraries:
         - name: uuid
           package: uuid
           force_used: true
+      extensible_builders:
+        - .google.cloud.bigquery.v2.JobService.InsertJob
   - name: google-cloud-bigtable
     copyright_year: "2025"
     output: src/bigtable
