@@ -204,9 +204,35 @@ async fn create_bucket(
     Ok(bucket)
 }
 
+/// Deletes all objects in the bucket before disabling rapid cache, so the
+/// cache doesn't spend minutes to hours draining data offline.
+async fn empty_bucket_objects(control: &StorageControl, bucket_name: &str) {
+    let mut objects = control
+        .list_objects()
+        .set_parent(bucket_name)
+        .set_versions(true)
+        .by_item();
+    let mut pending = Vec::new();
+    while let Some(item) = objects.next().await {
+        let Ok(object) = item else {
+            continue;
+        };
+        pending.push(
+            control
+                .delete_object()
+                .set_bucket(object.bucket)
+                .set_object(object.name)
+                .set_generation(object.generation)
+                .send(),
+        );
+    }
+    let _ = futures::future::join_all(pending).await;
+}
+
 /// Deletes a bucket and everything in it. Failures are printed, not returned.
 async fn cleanup_bucket(control: &StorageControl, bucket_name: &str, has_rapid_cache: bool) {
     if has_rapid_cache {
+        empty_bucket_objects(control, bucket_name).await;
         disable_rapid_caches(control, bucket_name).await;
     }
     let result = match project_id() {
@@ -237,9 +263,8 @@ async fn disable_rapid_caches(control: &StorageControl, bucket_name: &str) {
             }
         };
         println!("Disabling rapid cache {}...", cache.name);
-        // TODO(b/565175323): Remove this timeout workaround once server-side LRO completion is fixed.
         let result = tokio::time::timeout(
-            Duration::from_secs(5),
+            Duration::from_secs(60),
             control
                 .disable_rapid_cache()
                 .set_name(&cache.name)
@@ -260,8 +285,8 @@ async fn disable_rapid_caches(control: &StorageControl, bucket_name: &str) {
                 }
             }
             Err(_) => {
-                println!(
-                    "SUCCESS: disabled rapid cache {} (timed out waiting for LRO)",
+                eprintln!(
+                    "Warning: timed out waiting for rapid cache {} to disable",
                     cache.name
                 );
             }
