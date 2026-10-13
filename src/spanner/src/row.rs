@@ -439,10 +439,12 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use crate::value::Date;
+    use bytes::Bytes;
     use rust_decimal::Decimal;
     use serde_json::{Value as JsonValue, json};
     use std::collections::BTreeMap;
     use std::sync::Arc;
+    use uuid::Uuid;
     use wkt::Timestamp;
 
     fn empty_row() -> Row {
@@ -553,6 +555,11 @@ mod tests {
             "expected bytes at index 4"
         );
         assert_eq!(
+            row.get::<Bytes>(4).expect("Bytes at 4"),
+            Bytes::from_static(&[1, 2, 3]),
+            "expected Bytes at index 4"
+        );
+        assert_eq!(
             row.get::<Decimal>(5).expect("decimal at 5"),
             decimal,
             "expected numeric at index 5"
@@ -598,6 +605,11 @@ mod tests {
             "expected uuid at index 10"
         );
         assert_eq!(
+            row.get::<Uuid>(10).expect("Uuid at 10"),
+            Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").expect("valid uuid"),
+            "expected Uuid at index 10"
+        );
+        assert_eq!(
             row.get::<String>(11).expect("interval at 11"),
             "P1Y2M3D",
             "expected interval at index 11"
@@ -627,6 +639,12 @@ mod tests {
             row.get::<Vec<u8>>("col_bytes").expect("col_bytes by name"),
             vec![1_u8, 2, 3],
             "expected col_bytes by name"
+        );
+        assert_eq!(
+            row.get::<Bytes>("col_bytes")
+                .expect("col_bytes by name as Bytes"),
+            Bytes::from_static(&[1, 2, 3]),
+            "expected col_bytes by name as Bytes"
         );
         assert_eq!(
             row.get::<Decimal>("col_numeric")
@@ -677,6 +695,12 @@ mod tests {
             row.get::<String>("col_uuid").expect("col_uuid by name"),
             "123e4567-e89b-12d3-a456-426614174000",
             "expected col_uuid by name"
+        );
+        assert_eq!(
+            row.get::<Uuid>("col_uuid")
+                .expect("col_uuid by name as Uuid"),
+            Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").expect("valid uuid"),
+            "expected col_uuid by name as Uuid"
         );
         assert_eq!(
             row.get::<String>("col_interval")
@@ -1754,6 +1778,80 @@ mod tests {
         assert!(
             row.is_null("col_int").expect("is_null"),
             "column must be null after take"
+        );
+    }
+
+    #[test]
+    fn row_get_and_take_bytes_and_uuid() {
+        let raw_bytes = b"sample binary payload";
+        let uuid_string = "123e4567-e89b-12d3-a456-426614174000";
+        let expected_uuid = Uuid::parse_str(uuid_string).expect("valid uuid string");
+
+        let mut row = Row {
+            values: vec![
+                Bytes::from_static(raw_bytes).to_value(),
+                expected_uuid.to_value(),
+                Value::null(),
+                Value::null(),
+            ],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![
+                    "col_bytes".to_string(),
+                    "col_uuid".to_string(),
+                    "col_null_bytes".to_string(),
+                    "col_null_uuid".to_string(),
+                ]),
+                column_types: Arc::new(vec![
+                    types::bytes(),
+                    types::uuid(),
+                    types::bytes(),
+                    types::uuid(),
+                ]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // row.get
+        let bytes_value: Bytes = row.get("col_bytes").expect("get col_bytes as Bytes");
+        assert_eq!(
+            bytes_value,
+            Bytes::from_static(raw_bytes),
+            "expected matching Bytes value"
+        );
+
+        let uuid_value: Uuid = row.get("col_uuid").expect("get col_uuid as Uuid");
+        assert_eq!(uuid_value, expected_uuid, "expected matching Uuid value");
+
+        let optional_bytes: Option<Bytes> = row
+            .get("col_null_bytes")
+            .expect("get col_null_bytes as Option<Bytes>");
+        assert_eq!(optional_bytes, None, "expected None for null Bytes column");
+
+        let optional_uuid: Option<Uuid> = row
+            .get("col_null_uuid")
+            .expect("get col_null_uuid as Option<Uuid>");
+        assert_eq!(optional_uuid, None, "expected None for null Uuid column");
+
+        // row.take
+        let taken_bytes: Bytes = row.take("col_bytes").expect("take col_bytes as Bytes");
+        assert_eq!(
+            taken_bytes,
+            Bytes::from_static(raw_bytes),
+            "expected matching taken Bytes value"
+        );
+        assert!(
+            row.is_null("col_bytes").expect("is_null"),
+            "column col_bytes must be null after take"
+        );
+
+        let taken_uuid: Uuid = row.take("col_uuid").expect("take col_uuid as Uuid");
+        assert_eq!(
+            taken_uuid, expected_uuid,
+            "expected matching taken Uuid value"
+        );
+        assert!(
+            row.is_null("col_uuid").expect("is_null"),
+            "column col_uuid must be null after take"
         );
     }
 }

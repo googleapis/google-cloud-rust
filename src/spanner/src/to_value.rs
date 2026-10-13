@@ -18,13 +18,16 @@ use crate::value::SPANNER_TIMESTAMP_FORMAT;
 pub use crate::value::Value;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use bytes::Bytes;
 use google_cloud_type::model::Date;
 use prost_types::Value as ProtoValue;
+use prost_types::value::Kind as ProtoKind;
 use rust_decimal::Decimal;
 use std::time::SystemTime;
 #[cfg(feature = "unstable-time")]
 use time::Date as TimeDate;
 use time::OffsetDateTime;
+use uuid::Uuid;
 
 /// Converts Rust types to Spanner [Value].
 ///
@@ -333,6 +336,40 @@ impl ToValue for &[u8] {
     }
 }
 
+/// Encodes a [`Bytes`] buffer as a Spanner [`Value`].
+///
+/// Encodes the binary payload as a base64 string matching Spanner's `BYTES` wire format.
+impl ToValue for Bytes {
+    fn to_value(&self) -> Value {
+        (**self).to_value()
+    }
+}
+
+/// Converts a [`Bytes`] buffer into a Spanner [`Value`].
+impl From<Bytes> for Value {
+    fn from(byte_buffer: Bytes) -> Self {
+        byte_buffer.to_value()
+    }
+}
+
+/// Encodes a [`Uuid`] as a Spanner [`Value`].
+///
+/// Formats the UUID as a lowercase hyphenated string matching Spanner's `UUID` wire format.
+impl ToValue for Uuid {
+    fn to_value(&self) -> Value {
+        Value(ProtoValue {
+            kind: Some(ProtoKind::StringValue(self.to_string())),
+        })
+    }
+}
+
+/// Converts a [`Uuid`] into a Spanner [`Value`].
+impl From<Uuid> for Value {
+    fn from(uuid: Uuid) -> Self {
+        uuid.to_value()
+    }
+}
+
 impl<T> ToValue for Vec<T>
 where
     T: ToValue,
@@ -568,8 +605,51 @@ mod tests {
 
         let slice: &[u8] = &[1, 2, 3];
         let value = bind_param(slice);
-        assert_eq!(value.kind(), Kind::String);
-        assert_eq!(value.as_str(), Some("AQID"));
+        assert_eq!(value.kind(), Kind::String, "slice must serialize to string");
+        assert_eq!(value.as_str(), Some("AQID"), "expected base64 encoding");
+    }
+
+    #[test]
+    fn to_value_bytes_crate() {
+        let byte_buffer = Bytes::from_static(b"hello world");
+        let value = byte_buffer.to_value();
+        assert_eq!(value.kind(), Kind::String, "bytes must serialize to string");
+        assert_eq!(
+            value.as_str(),
+            Some("aGVsbG8gd29ybGQ="),
+            "expected base64 representation"
+        );
+
+        let into_value: Value = byte_buffer.clone().into();
+        assert_eq!(into_value, value, "Into<Value> must match to_value");
+
+        let reference_value: Value = (&byte_buffer).into();
+        assert_eq!(
+            reference_value, value,
+            "&Bytes Into<Value> must match to_value"
+        );
+    }
+
+    #[test]
+    fn to_value_uuid() {
+        let uuid_string = "123e4567-e89b-12d3-a456-426614174000";
+        let uuid = Uuid::parse_str(uuid_string).expect("valid uuid string");
+        let value = uuid.to_value();
+        assert_eq!(value.kind(), Kind::String, "uuid must serialize to string");
+        assert_eq!(
+            value.as_str(),
+            Some(uuid_string),
+            "expected uuid string representation"
+        );
+
+        let into_value: Value = uuid.into();
+        assert_eq!(into_value, value, "Into<Value> must match to_value");
+
+        let reference_value: Value = (&uuid).into();
+        assert_eq!(
+            reference_value, value,
+            "&Uuid Into<Value> must match to_value"
+        );
     }
 
     #[test]
