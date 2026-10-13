@@ -309,6 +309,46 @@ impl MultiUseReadOnlyTransactionBuilder {
     ///    upfront before any statements are executed, allowing subsequent statements to continue executing
     ///    at the same snapshot read timestamp even if an earlier statement fails.
     ///
+    /// # Example: Retrying an Initial Query with ExplicitBegin
+    ///
+    /// Applications that want the latency benefit of `InlineBegin` for the
+    /// initial query, but want to fall back to `ExplicitBegin` if the first
+    /// statement fails, can implement a retry loop:
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::DatabaseClient;
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # use google_cloud_spanner::transaction::{
+    /// #     BeginTransactionOption, MultiUseReadOnlyTransaction,
+    /// # };
+    /// # async fn execute_query_with_retry(
+    /// #     database_client: &DatabaseClient,
+    /// #     statement: &Statement,
+    /// # ) -> Result<(MultiUseReadOnlyTransaction, ResultSet), google_cloud_spanner::Error> {
+    /// // Note: For read-only transactions that execute queries in parallel at the start,
+    /// // the recommendation is to use ExplicitBegin directly, rather than a retry loop.
+    /// let mut last_error = None;
+    /// for option in [
+    ///     BeginTransactionOption::InlineBegin,
+    ///     BeginTransactionOption::ExplicitBegin,
+    /// ] {
+    ///     let transaction = database_client
+    ///         .read_only_transaction()
+    ///         .set_begin_transaction_option(option)
+    ///         .build()
+    ///         .await?;
+    ///
+    ///     match transaction.execute_query(statement.clone()).await {
+    ///         Ok(result_set) => return Ok((transaction, result_set)),
+    ///         Err(error) => last_error = Some(error),
+    ///     }
+    /// }
+    ///
+    /// Err(last_error.expect("at least one attempt failed"))
+    /// # }
+    /// ```
+    ///
     /// Default is `BeginTransactionOption::InlineBegin`.
     pub fn set_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
         self.begin_transaction_option = option;
