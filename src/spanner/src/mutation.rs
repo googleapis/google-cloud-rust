@@ -532,6 +532,56 @@ mod tests {
     }
 
     #[test]
+    fn mutation_proto_and_proto_enum() {
+        use base64::Engine;
+        use base64::prelude::BASE64_STANDARD;
+
+        let proto_payload = b"customer-proto-address";
+        let proto_base64 = BASE64_STANDARD.encode(proto_payload);
+
+        let mutation = Mutation::new_insert_builder("Orders")
+            .set("address")
+            .to(proto_payload.to_vec())
+            .set("status")
+            .to(3_i64)
+            .set("address_list")
+            .to(vec![proto_payload.to_vec()])
+            .set("status_list")
+            .to(vec![1_i64, 2_i64])
+            .build();
+
+        let proto_mutation = mutation.build_proto();
+        let proto_write = proto_mutation.insert().expect("expected insert write");
+
+        assert_eq!(proto_write.values.len(), 1, "expected 1 row of values");
+        let row = proto_write.values.first().expect("row should exist");
+        assert_eq!(row.len(), 4, "expected 4 columns in mutation row");
+        assert_eq!(
+            row.first(),
+            Some(&JsonValue::String(proto_base64.clone())),
+            "address proto column must serialize as base64 string"
+        );
+        assert_eq!(
+            row.get(1),
+            Some(&JsonValue::String("3".to_string())),
+            "status enum column must serialize as numeric string"
+        );
+        assert_eq!(
+            row.get(2),
+            Some(&JsonValue::Array(vec![JsonValue::String(proto_base64)])),
+            "address_list must serialize as array of base64 strings"
+        );
+        assert_eq!(
+            row.get(3),
+            Some(&JsonValue::Array(vec![
+                JsonValue::String("1".to_string()),
+                JsonValue::String("2".to_string()),
+            ])),
+            "status_list must serialize as array of numeric strings"
+        );
+    }
+
+    #[test]
     fn auto_traits() {
         static_assertions::assert_impl_all!(Mutation: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(Write: Send, Sync, Clone, std::fmt::Debug);

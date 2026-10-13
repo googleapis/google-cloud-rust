@@ -30,7 +30,7 @@ use time::OffsetDateTime;
 
 #[test]
 fn external_uses_typed_param_constructors() {
-    let statement = Statement::builder("SELECT @ts, @s, @n, @d")
+    let statement = Statement::builder("SELECT @ts, @s, @n, @d, @p, @e")
         .add_typed_param("ts", Timestamp::clamp(1_700_000_000, 0), types::timestamp())
         .add_typed_param("s", "hello".to_string(), types::string())
         .add_typed_param("n", 42i64, types::int64())
@@ -39,9 +39,22 @@ fn external_uses_typed_param_constructors() {
             Date::new().set_year(2025).set_month(1).set_day(1),
             types::date(),
         )
+        .add_typed_param(
+            "p",
+            vec![1u8, 2, 3],
+            types::proto("examples.shipping.Address"),
+        )
+        .add_typed_param(
+            "e",
+            1i64,
+            types::proto_enum("examples.shipping.OrderStatus"),
+        )
         .build();
 
-    assert!(statement.sql().contains("SELECT @ts, @s, @n, @d"));
+    assert!(
+        statement.sql().contains("SELECT @ts, @s, @n, @d, @p, @e"),
+        "expected statement SQL to contain all typed parameters"
+    );
 
     #[cfg(feature = "unstable-time")]
     {
@@ -71,5 +84,7 @@ fn external_reaches_all_primitive_constructors() {
     let _ = types::pg_numeric();
     let _ = types::pg_jsonb();
     let _ = types::pg_oid();
+    let _ = types::proto("examples.shipping.Address");
+    let _ = types::proto_enum("examples.shipping.OrderStatus");
     let _ = types::array(types::int64());
 }
