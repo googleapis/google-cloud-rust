@@ -208,7 +208,7 @@ impl InsertJob {
         JobPoller::new(self)
     }
 
-    /// Creates a [Poller][google_cloud_lro::Poller] to work with `InsertJob`.
+    /// Creates a [Poller] to work with `InsertJob`.
     pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Job, crate::model::Job> {
         let req = self.0.request.clone();
         let stub = self.0.stub.clone();
