@@ -576,8 +576,6 @@ mod tests {
             .map_err(TestConvertError::from)
     }
 
-
-
     fn create_test_arrow_schema() -> Arc<arrow::datatypes::Schema> {
         use arrow::datatypes::{Field, Schema as ArrowSchema};
 
