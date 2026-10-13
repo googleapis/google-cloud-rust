@@ -575,15 +575,14 @@ mod tests {
         use crate::query::SqlValue;
         use crate::query::from_sql::ArrowCell;
         use arrow::array::{
-            ArrayRef, BooleanArray, Int64Array, IntervalMonthDayNanoArray, StructArray,
+            ArrayRef, BooleanArray, Date32Array, Int64Array, IntervalMonthDayNanoArray,
+            StructArray, TimestampMicrosecondArray,
         };
         use arrow::buffer::NullBuffer;
         use arrow::datatypes::{DataType, Field, Fields, IntervalMonthDayNano};
+        use google_cloud_type::model::{Date, DateTime};
         use std::sync::Arc;
         use test_case::test_case;
-
-        impl sealed::RangeElement for i64 {}
-        impl RangeElement for i64 {}
 
         fn arrow_val(arr: ArrayRef, row_idx: usize) -> SqlValue {
             SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, row_idx)))
@@ -593,17 +592,17 @@ mod tests {
             Arc::new(IntervalMonthDayNanoArray::from(vec![val]))
         }
 
-        fn range_struct_arr(
-            start: Option<i64>,
-            end: Option<i64>,
+        fn date_range_struct_arr(
+            start: Option<i32>,
+            end: Option<i32>,
             nulls: Option<NullBuffer>,
         ) -> ArrayRef {
             let fields = Fields::from(vec![
-                Field::new("start", DataType::Int64, true),
-                Field::new("end", DataType::Int64, true),
+                Field::new("start", DataType::Date32, true),
+                Field::new("end", DataType::Date32, true),
             ]);
-            let start_col: ArrayRef = Arc::new(Int64Array::from(vec![start]));
-            let end_col: ArrayRef = Arc::new(Int64Array::from(vec![end]));
+            let start_col: ArrayRef = Arc::new(Date32Array::from(vec![start]));
+            let end_col: ArrayRef = Arc::new(Date32Array::from(vec![end]));
             Arc::new(StructArray::new(fields, vec![start_col, end_col], nulls))
         }
 
@@ -684,23 +683,32 @@ mod tests {
         }
 
         #[test_case(
-            range_struct_arr(Some(10), Some(20), None)
-            => Ok(Range { start: Some(10), end: Some(20) }) ; "bounded range"
+            date_range_struct_arr(Some(20_601), Some(20_602), None)
+            => Ok(Range {
+                start: Some(Date::new().set_year(2026).set_month(5).set_day(28)),
+                end: Some(Date::new().set_year(2026).set_month(5).set_day(29)),
+            }) ; "bounded date range"
         )]
         #[test_case(
-            range_struct_arr(Some(10), None, None)
-            => Ok(Range { start: Some(10), end: None }) ; "unbounded end"
+            date_range_struct_arr(Some(20_601), None, None)
+            => Ok(Range {
+                start: Some(Date::new().set_year(2026).set_month(5).set_day(28)),
+                end: None,
+            }) ; "unbounded end"
         )]
         #[test_case(
-            range_struct_arr(None, Some(20), None)
-            => Ok(Range { start: None, end: Some(20) }) ; "unbounded start"
+            date_range_struct_arr(None, Some(20_602), None)
+            => Ok(Range {
+                start: None,
+                end: Some(Date::new().set_year(2026).set_month(5).set_day(29)),
+            }) ; "unbounded start"
         )]
         #[test_case(
-            range_struct_arr(None, None, None)
+            date_range_struct_arr(None, None, None)
             => Ok(Range { start: None, end: None }) ; "unbounded both"
         )]
         #[test_case(
-            range_struct_arr(Some(10), Some(20), Some(NullBuffer::from(vec![false])))
+            date_range_struct_arr(Some(20_601), Some(20_602), Some(NullBuffer::from(vec![false])))
             => Err(TestConvertError::NotNull) ; "null struct range"
         )]
         #[test_case(
@@ -708,11 +716,11 @@ mod tests {
             => Err(TestConvertError::TypeMismatch("StructArray".to_string())) ; "type mismatch range"
         )]
         #[test_case(
-            struct_arr_with_fields(&["end"], vec![Arc::new(Int64Array::from(vec![Some(20)]))])
+            struct_arr_with_fields(&["end"], vec![Arc::new(Date32Array::from(vec![Some(20_602)]))])
             => Err(TestConvertError::MissingField("start".to_string())) ; "missing start field"
         )]
         #[test_case(
-            struct_arr_with_fields(&["start"], vec![Arc::new(Int64Array::from(vec![Some(10)]))])
+            struct_arr_with_fields(&["start"], vec![Arc::new(Date32Array::from(vec![Some(20_601)]))])
             => Err(TestConvertError::MissingField("end".to_string())) ; "missing end field"
         )]
         #[test_case(
@@ -720,23 +728,65 @@ mod tests {
                 &["start", "end"],
                 vec![
                     Arc::new(BooleanArray::from(vec![Some(true)])),
-                    Arc::new(Int64Array::from(vec![Some(20)])),
+                    Arc::new(Date32Array::from(vec![Some(20_602)])),
                 ],
             )
-            => Err(TestConvertError::TypeMismatch("Int64Array".to_string())) ; "invalid start element type"
+            => Err(TestConvertError::TypeMismatch("Date32Array".to_string())) ; "invalid start element type"
         )]
         #[test_case(
             struct_arr_with_fields(
                 &["start", "end"],
                 vec![
-                    Arc::new(Int64Array::from(vec![Some(10)])),
+                    Arc::new(Date32Array::from(vec![Some(20_601)])),
                     Arc::new(BooleanArray::from(vec![Some(false)])),
                 ],
             )
-            => Err(TestConvertError::TypeMismatch("Int64Array".to_string())) ; "invalid end element type"
+            => Err(TestConvertError::TypeMismatch("Date32Array".to_string())) ; "invalid end element type"
         )]
-        fn test_from_sql_arrow_range(arr: ArrayRef) -> Result<Range<i64>, TestConvertError> {
-            Range::<i64>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        fn test_from_sql_arrow_date_range(arr: ArrayRef) -> Result<Range<Date>, TestConvertError> {
+            Range::<Date>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test]
+        fn test_from_sql_arrow_datetime_and_timestamp_range() {
+            let arr = struct_arr_with_fields(
+                &["start", "end"],
+                vec![
+                    Arc::new(TimestampMicrosecondArray::from(vec![Some(
+                        1_779_982_200_000_000,
+                    )])),
+                    Arc::new(TimestampMicrosecondArray::from(vec![None])),
+                ],
+            );
+
+            let dt_range = Range::<DateTime>::from_value(arrow_val(arr.clone(), 0))
+                .expect("valid datetime range");
+            assert_eq!(
+                dt_range,
+                Range {
+                    start: Some(
+                        DateTime::new()
+                            .set_year(2026)
+                            .set_month(5)
+                            .set_day(28)
+                            .set_hours(15)
+                            .set_minutes(30)
+                            .set_seconds(0)
+                            .set_nanos(0)
+                    ),
+                    end: None,
+                }
+            );
+
+            let ts_range = Range::<wkt::Timestamp>::from_value(arrow_val(arr, 0))
+                .expect("valid timestamp range");
+            assert_eq!(
+                ts_range,
+                Range {
+                    start: Some(wkt::Timestamp::clamp(1_779_982_200, 0)),
+                    end: None,
+                }
+            );
         }
     }
 }
