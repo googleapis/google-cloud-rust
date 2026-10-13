@@ -702,10 +702,12 @@ mod tests {
     use super::*;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
+    use google_cloud_api::model::HttpBody;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider};
     use google_cloud_auth::errors::CredentialsError;
     use http::{HeaderMap, HeaderValue, Method};
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::serial;
     use test_case::test_case;
@@ -1117,8 +1119,7 @@ mod tests {
             .body(raw_bytes.to_vec())?;
         let response: reqwest::Response = http_resp.into();
 
-        let response =
-            super::to_http_response::<google_cloud_api::model::HttpBody>(response).await?;
+        let response = super::to_http_response::<HttpBody>(response).await?;
         let body = response.into_body();
         assert_eq!(body.content_type, "image/tiff");
         assert_eq!(body.data, bytes::Bytes::from_static(raw_bytes));
@@ -1134,8 +1135,7 @@ mod tests {
             .body(json_bytes.to_vec())?;
         let response: reqwest::Response = http_resp.into();
 
-        let response =
-            super::to_http_response::<google_cloud_api::model::HttpBody>(response).await?;
+        let response = super::to_http_response::<HttpBody>(response).await?;
         let body = response.into_body();
         assert_eq!(body.content_type, "application/json");
         assert_eq!(body.data, bytes::Bytes::from_static(json_bytes));
@@ -1150,8 +1150,7 @@ mod tests {
             .body(raw_bytes.to_vec())?;
         let response: reqwest::Response = http_resp.into();
 
-        let response =
-            super::to_http_response::<google_cloud_api::model::HttpBody>(response).await?;
+        let response = super::to_http_response::<HttpBody>(response).await?;
         let body = response.into_body();
         assert_eq!(body.content_type, "");
         assert_eq!(body.data, bytes::Bytes::from_static(raw_bytes));
@@ -1166,76 +1165,62 @@ mod tests {
             .body(Vec::<u8>::new())?;
         let response: reqwest::Response = http_resp.into();
 
-        let response =
-            super::to_http_response::<google_cloud_api::model::HttpBody>(response).await?;
+        let response = super::to_http_response::<HttpBody>(response).await?;
         let body = response.into_body();
-        assert_eq!(body, google_cloud_api::model::HttpBody::default());
+        assert_eq!(body, HttpBody::default());
         Ok(())
     }
 
     #[tokio::test]
     async fn execute_http_body_request_and_response() -> anyhow::Result<()> {
-        let server = httptest::Server::run();
+        let server = Server::run();
         server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("POST", "/webhook"),
-                httptest::matchers::request::headers(httptest::matchers::contains((
-                    "content-type",
-                    "application/octet-stream",
-                ))),
-                httptest::matchers::request::body(b"\x00\x01\x02\x03".as_slice()),
+            Expectation::matching(all_of![
+                request::method_path("POST", "/webhook"),
+                request::headers(contains(("content-type", "application/octet-stream"))),
+                request::body(b"\x00\x01\x02\x03".as_slice()),
             ])
             .respond_with(
-                httptest::responders::status_code(200)
+                status_code(200)
                     .append_header("Content-Type", "application/json")
                     .body("{}"),
             ),
         );
         server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("POST", "/empty-webhook"),
-                httptest::matchers::not(httptest::matchers::request::headers(
-                    httptest::matchers::contains(httptest::matchers::key("content-type")),
-                )),
-                httptest::matchers::request::body(""),
+            Expectation::matching(all_of![
+                request::method_path("POST", "/empty-webhook"),
+                not(request::headers(contains(key("content-type")))),
+                request::body(""),
             ])
             .respond_with(
-                httptest::responders::status_code(200)
+                status_code(200)
                     .append_header("Content-Type", "application/json")
                     .body("{}"),
             ),
         );
         server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("POST", "/no-content-type"),
-                httptest::matchers::not(httptest::matchers::request::headers(
-                    httptest::matchers::contains(httptest::matchers::key("content-type")),
-                )),
-                httptest::matchers::request::body("raw without content-type"),
+            Expectation::matching(all_of![
+                request::method_path("POST", "/no-content-type"),
+                not(request::headers(contains(key("content-type")))),
+                request::body("raw without content-type"),
             ])
-            .respond_with(httptest::responders::status_code(200).body("response without header")),
+            .respond_with(status_code(200).body("response without header")),
         );
         server.expect(
-            httptest::Expectation::matching(httptest::matchers::request::method_path(
-                "GET", "/geotiff",
-            ))
-            .respond_with(
-                httptest::responders::status_code(200)
+            Expectation::matching(request::method_path("GET", "/geotiff")).respond_with(
+                status_code(200)
                     .append_header("Content-Type", "image/tiff")
                     .body(b"TIFF_DATA".as_slice()),
             ),
         );
         server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("POST", "/echo-raw"),
-                httptest::matchers::request::headers(httptest::matchers::contains((
-                    "content-type",
-                    "text/plain",
-                ))),
-                httptest::matchers::request::body("raw input"),
+            Expectation::matching(all_of![
+                request::method_path("POST", "/echo-raw"),
+                request::headers(contains(("content-type", "text/plain"))),
+                request::body("raw input"),
             ])
             .respond_with(
-                httptest::responders::status_code(200)
+                status_code(200)
                     .append_header("Content-Type", "text/plain")
                     .body("raw output"),
             ),
@@ -1246,7 +1231,7 @@ mod tests {
         let client = ReqwestClient::new(config, &server.url_str("/")).await?;
 
         // 1. HttpBody request -> JSON response
-        let req_body = google_cloud_api::model::HttpBody::new()
+        let req_body = HttpBody::new()
             .set_content_type("application/octet-stream")
             .set_data(bytes::Bytes::from_static(b"\x00\x01\x02\x03"));
         let builder = client.builder(Method::POST, "webhook".to_string());
@@ -1256,8 +1241,7 @@ mod tests {
         assert_eq!(resp.into_body(), wkt::Empty::default());
 
         // 2. Default HttpBody request (empty Content-Type from handle_empty on POST) -> JSON response
-        let default_body =
-            super::handle_empty(None::<google_cloud_api::model::HttpBody>, &Method::POST);
+        let default_body = super::handle_empty(None::<HttpBody>, &Method::POST);
         let builder = client.builder(Method::POST, "empty-webhook".to_string());
         let resp: Response<wkt::Empty> = client
             .execute(builder, default_body, RequestOptions::default())
@@ -1265,10 +1249,10 @@ mod tests {
         assert_eq!(resp.into_body(), wkt::Empty::default());
 
         // 3. HttpBody request with empty content_type but non-empty data -> HttpBody response without Content-Type
-        let req_body = google_cloud_api::model::HttpBody::new()
-            .set_data(bytes::Bytes::from_static(b"raw without content-type"));
+        let req_body =
+            HttpBody::new().set_data(bytes::Bytes::from_static(b"raw without content-type"));
         let builder = client.builder(Method::POST, "no-content-type".to_string());
-        let resp: Response<google_cloud_api::model::HttpBody> = client
+        let resp: Response<HttpBody> = client
             .execute(builder, Some(req_body), RequestOptions::default())
             .await?;
         let body = resp.into_body();
@@ -1280,7 +1264,7 @@ mod tests {
 
         // 4. NoBody request -> HttpBody response
         let builder = client.builder(Method::GET, "geotiff".to_string());
-        let resp: Response<google_cloud_api::model::HttpBody> = client
+        let resp: Response<HttpBody> = client
             .execute(builder, None::<NoBody>, RequestOptions::default())
             .await?;
         let body = resp.into_body();
@@ -1288,11 +1272,11 @@ mod tests {
         assert_eq!(body.data, bytes::Bytes::from_static(b"TIFF_DATA"));
 
         // 5. HttpBody request -> HttpBody response
-        let req_body = google_cloud_api::model::HttpBody::new()
+        let req_body = HttpBody::new()
             .set_content_type("text/plain")
             .set_data(bytes::Bytes::from_static(b"raw input"));
         let builder = client.builder(Method::POST, "echo-raw".to_string());
-        let resp: Response<google_cloud_api::model::HttpBody> = client
+        let resp: Response<HttpBody> = client
             .execute(builder, Some(req_body), RequestOptions::default())
             .await?;
         let body = resp.into_body();
