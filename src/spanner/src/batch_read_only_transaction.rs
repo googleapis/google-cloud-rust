@@ -433,14 +433,11 @@ impl Partition {
             transaction_selector: Some(ReadContextTransactionSelector::Fixed(transaction, None)),
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
-            session_name: request.session.clone(),
-            transaction_tag: None,
             operation: StreamOperation::Query(request.clone()),
             gax_options,
             method_name: "ExecuteStreamingSql",
             affinity: None,
             aborted_state: AbortedState::new_noop(),
-            begin_transaction_request_options: None,
         })
         .await
     }
@@ -459,14 +456,11 @@ impl Partition {
             transaction_selector: Some(ReadContextTransactionSelector::Fixed(transaction, None)),
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
-            session_name: request.session.clone(),
-            transaction_tag: None,
             operation: StreamOperation::Read(request.clone()),
             gax_options,
             method_name: "StreamingRead",
             affinity: None,
             aborted_state: AbortedState::new_noop(),
-            begin_transaction_request_options: None,
         })
         .await
     }
