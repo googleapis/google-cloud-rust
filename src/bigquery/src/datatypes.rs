@@ -215,6 +215,36 @@ impl FromSql for Interval {
                 })
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let v = cell.as_interval()?;
+                let ym_sign = if v.months < 0 { -1 } else { 1 };
+                let total_months = v.months.unsigned_abs();
+                let years = (total_months / 12) as i32 * ym_sign;
+                let months = (total_months % 12) as i32 * ym_sign;
+
+                let time_sign = if v.nanoseconds < 0 { -1 } else { 1 };
+                let total_nanos = v.nanoseconds.unsigned_abs();
+                let nanos = (total_nanos % 1_000_000_000) as i32 * time_sign;
+                let total_secs = total_nanos / 1_000_000_000;
+                let seconds = (total_secs % 60) as i32 * time_sign;
+                let total_mins = total_secs / 60;
+                let minutes = (total_mins % 60) as i32 * time_sign;
+                let hours = (total_mins / 60) as i32 * time_sign;
+
+                Ok(Interval {
+                    years,
+                    months,
+                    days: v.days,
+                    hours,
+                    minutes,
+                    seconds,
+                    nanos,
+                })
+            }
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -369,6 +399,24 @@ impl<T: RangeElement> FromSql for Range<T> {
                 Ok(Range { start, end })
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                if cell.is_null() {
+                    return Err(ConvertError::NotNull);
+                }
+                let take = |key: &str| -> Result<Option<T>, ConvertError> {
+                    let field_cell = cell.struct_field_by_name(key)?;
+                    Option::<T>::from_value(crate::query::SqlValue::from_inner(
+                        SqlValueInner::Arrow(field_cell),
+                    ))
+                };
+                let start = take("start")?;
+                let end = take("end")?;
+                Ok(Range { start, end })
+            }
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -384,6 +432,7 @@ mod tests {
         NotNull,
         TypeMismatch(String),
         Convert(String),
+        MissingField(String),
     }
 
     impl From<ConvertError> for TestConvertError {
@@ -392,7 +441,7 @@ mod tests {
                 ConvertError::NotNull => Self::NotNull,
                 ConvertError::TypeMismatch { expected, .. } => Self::TypeMismatch(expected),
                 ConvertError::Convert(e) => Self::Convert(e.to_string()),
-                ConvertError::MissingField(f) => Self::Convert(format!("missing field: {f}")),
+                ConvertError::MissingField(f) => Self::MissingField(f),
             }
         }
     }
@@ -515,5 +564,229 @@ mod tests {
                 end: Some(d3),
             }
         );
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    mod arrow_tests {
+        use super::*;
+        use crate::query::SqlValue;
+        use crate::query::from_sql::ArrowCell;
+        use arrow::array::{
+            ArrayRef, BooleanArray, Date32Array, Int64Array, IntervalMonthDayNanoArray,
+            StructArray, TimestampMicrosecondArray,
+        };
+        use arrow::buffer::NullBuffer;
+        use arrow::datatypes::{DataType, Field, Fields, IntervalMonthDayNano};
+        use google_cloud_type::model::{Date, DateTime};
+        use std::sync::Arc;
+        use test_case::test_case;
+
+        fn arrow_val(arr: ArrayRef, row_idx: usize) -> SqlValue {
+            SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, row_idx)))
+        }
+
+        fn interval_arr(val: Option<IntervalMonthDayNano>) -> ArrayRef {
+            Arc::new(IntervalMonthDayNanoArray::from(vec![val]))
+        }
+
+        fn date_range_struct_arr(
+            start: Option<i32>,
+            end: Option<i32>,
+            nulls: Option<NullBuffer>,
+        ) -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("start", DataType::Date32, true),
+                Field::new("end", DataType::Date32, true),
+            ]);
+            let start_col: ArrayRef = Arc::new(Date32Array::from(vec![start]));
+            let end_col: ArrayRef = Arc::new(Date32Array::from(vec![end]));
+            Arc::new(StructArray::new(fields, vec![start_col, end_col], nulls))
+        }
+
+        fn struct_arr_with_fields(names: &[&str], cols: Vec<ArrayRef>) -> ArrayRef {
+            let fields = Fields::from(
+                names
+                    .iter()
+                    .zip(cols.iter())
+                    .map(|(name, col)| Field::new(*name, col.data_type().clone(), true))
+                    .collect::<Vec<_>>(),
+            );
+            Arc::new(StructArray::new(fields, cols, None))
+        }
+
+        #[test_case(
+            interval_arr(Some(IntervalMonthDayNano::new(
+                14,
+                3,
+                ((4 * 3600 + 5 * 60 + 6) * 1_000_000_000) + 789_123_456,
+            ))) => Ok(Interval {
+                years: 1,
+                months: 2,
+                days: 3,
+                hours: 4,
+                minutes: 5,
+                seconds: 6,
+                nanos: 789_123_456,
+            }) ; "positive interval with nanos"
+        )]
+        #[test_case(
+            interval_arr(Some(IntervalMonthDayNano::new(0, 0, 0))) => Ok(Interval::new()) ; "zero interval"
+        )]
+        #[test_case(
+            interval_arr(Some(IntervalMonthDayNano::new(
+                -14,
+                3,
+                -(((4 * 3600 + 5 * 60 + 6) * 1_000_000_000) + 123_000_000),
+            ))) => Ok(Interval {
+                years: -1,
+                months: -2,
+                days: 3,
+                hours: -4,
+                minutes: -5,
+                seconds: -6,
+                nanos: -123_000_000,
+            }) ; "mixed signs interval"
+        )]
+        #[test_case(
+            interval_arr(Some(IntervalMonthDayNano::new(
+                -14,
+                -3,
+                -(((4 * 3600 + 5 * 60 + 6) * 1_000_000_000) + 123_000_000),
+            ))) => Ok(Interval {
+                years: -1,
+                months: -2,
+                days: -3,
+                hours: -4,
+                minutes: -5,
+                seconds: -6,
+                nanos: -123_000_000,
+            }) ; "all negative interval"
+        )]
+        #[test_case(
+            interval_arr(Some(IntervalMonthDayNano::new(0, 0, 744 * 3600 * 1_000_000_000)))
+            => Ok(Interval::new().set_hours(744)) ; "hours beyond a day"
+        )]
+        #[test_case(
+            interval_arr(Some(IntervalMonthDayNano::new(0, 0, -744 * 3600 * 1_000_000_000)))
+            => Ok(Interval::new().set_hours(-744)) ; "negative hours beyond a day"
+        )]
+        #[test_case(interval_arr(None) => Err(TestConvertError::NotNull) ; "null interval")]
+        #[test_case(
+            Arc::new(Int64Array::from(vec![123]))
+            => Err(TestConvertError::TypeMismatch("IntervalMonthDayNanoArray".to_string())) ; "type mismatch interval"
+        )]
+        fn test_from_sql_arrow_interval(arr: ArrayRef) -> Result<Interval, TestConvertError> {
+            Interval::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(
+            date_range_struct_arr(Some(20_601), Some(20_602), None)
+            => Ok(Range {
+                start: Some(Date::new().set_year(2026).set_month(5).set_day(28)),
+                end: Some(Date::new().set_year(2026).set_month(5).set_day(29)),
+            }) ; "bounded date range"
+        )]
+        #[test_case(
+            date_range_struct_arr(Some(20_601), None, None)
+            => Ok(Range {
+                start: Some(Date::new().set_year(2026).set_month(5).set_day(28)),
+                end: None,
+            }) ; "unbounded end"
+        )]
+        #[test_case(
+            date_range_struct_arr(None, Some(20_602), None)
+            => Ok(Range {
+                start: None,
+                end: Some(Date::new().set_year(2026).set_month(5).set_day(29)),
+            }) ; "unbounded start"
+        )]
+        #[test_case(
+            date_range_struct_arr(None, None, None)
+            => Ok(Range { start: None, end: None }) ; "unbounded both"
+        )]
+        #[test_case(
+            date_range_struct_arr(Some(20_601), Some(20_602), Some(NullBuffer::from(vec![false])))
+            => Err(TestConvertError::NotNull) ; "null struct range"
+        )]
+        #[test_case(
+            Arc::new(Int64Array::from(vec![123]))
+            => Err(TestConvertError::TypeMismatch("StructArray".to_string())) ; "type mismatch range"
+        )]
+        #[test_case(
+            struct_arr_with_fields(&["end"], vec![Arc::new(Date32Array::from(vec![Some(20_602)]))])
+            => Err(TestConvertError::MissingField("start".to_string())) ; "missing start field"
+        )]
+        #[test_case(
+            struct_arr_with_fields(&["start"], vec![Arc::new(Date32Array::from(vec![Some(20_601)]))])
+            => Err(TestConvertError::MissingField("end".to_string())) ; "missing end field"
+        )]
+        #[test_case(
+            struct_arr_with_fields(
+                &["start", "end"],
+                vec![
+                    Arc::new(BooleanArray::from(vec![Some(true)])),
+                    Arc::new(Date32Array::from(vec![Some(20_602)])),
+                ],
+            )
+            => Err(TestConvertError::TypeMismatch("Date32Array".to_string())) ; "invalid start element type"
+        )]
+        #[test_case(
+            struct_arr_with_fields(
+                &["start", "end"],
+                vec![
+                    Arc::new(Date32Array::from(vec![Some(20_601)])),
+                    Arc::new(BooleanArray::from(vec![Some(false)])),
+                ],
+            )
+            => Err(TestConvertError::TypeMismatch("Date32Array".to_string())) ; "invalid end element type"
+        )]
+        fn test_from_sql_arrow_date_range(arr: ArrayRef) -> Result<Range<Date>, TestConvertError> {
+            Range::<Date>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test]
+        fn test_from_sql_arrow_datetime_and_timestamp_range() {
+            let arr = struct_arr_with_fields(
+                &["start", "end"],
+                vec![
+                    Arc::new(TimestampMicrosecondArray::from(vec![Some(
+                        1_779_982_200_000_000,
+                    )])),
+                    Arc::new(TimestampMicrosecondArray::from(vec![None])),
+                ],
+            );
+
+            let dt_range = Range::<DateTime>::from_value(arrow_val(arr.clone(), 0))
+                .expect("valid datetime range");
+            assert_eq!(
+                dt_range,
+                Range {
+                    start: Some(
+                        DateTime::new()
+                            .set_year(2026)
+                            .set_month(5)
+                            .set_day(28)
+                            .set_hours(15)
+                            .set_minutes(30)
+                            .set_seconds(0)
+                            .set_nanos(0)
+                    ),
+                    end: None,
+                }
+            );
+
+            let ts_range = Range::<wkt::Timestamp>::from_value(arrow_val(arr, 0))
+                .expect("valid timestamp range");
+            assert_eq!(
+                ts_range,
+                Range {
+                    start: Some(wkt::Timestamp::clamp(1_779_982_200, 0)),
+                    end: None,
+                }
+            );
+        }
     }
 }

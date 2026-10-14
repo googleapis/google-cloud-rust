@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use crate::error::ConvertError;
-use arrow::array::ArrayRef;
+use arrow::array::{ArrayRef, as_primitive_array, as_struct_array};
+use arrow::datatypes::{DataType, IntervalMonthDayNano, IntervalMonthDayNanoType, IntervalUnit};
 use std::sync::Arc;
 
 /// A reference to a single cell within an Arrow array.
@@ -191,16 +192,141 @@ impl ArrowCell {
             }),
         }
     }
+
+    /// Returns timestamp value in microseconds since Unix epoch.
+    pub(crate) fn as_timestamp_micros(&self) -> Result<i64, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Microsecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampMicrosecondType,
+                >(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Millisecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampMillisecondType,
+                >(&self.array);
+                arr.value(self.row_idx)
+                    .checked_mul(1_000)
+                    .ok_or_else(|| ConvertError::Convert("timestamp overflow".into()))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Nanosecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampNanosecondType,
+                >(&self.array);
+                Ok(arr.value(self.row_idx).div_euclid(1_000))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Second, _) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::TimestampSecondType>(
+                    &self.array,
+                );
+                arr.value(self.row_idx)
+                    .checked_mul(1_000_000)
+                    .ok_or_else(|| ConvertError::Convert("timestamp overflow".into()))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "TimestampArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns date value in days since Unix epoch.
+    pub(crate) fn as_date32(&self) -> Result<i32, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Date32 => {
+                let arr =
+                    arrow::array::as_primitive_array::<arrow::datatypes::Date32Type>(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Date32Array".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns time value in microseconds since midnight.
+    pub(crate) fn as_time64_micros(&self) -> Result<i64, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Time64(arrow::datatypes::TimeUnit::Microsecond) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Time64MicrosecondType>(
+                    &self.array,
+                );
+                Ok(arr.value(self.row_idx))
+            }
+            arrow::datatypes::DataType::Time64(arrow::datatypes::TimeUnit::Nanosecond) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Time64NanosecondType>(
+                    &self.array,
+                );
+                Ok(arr.value(self.row_idx).div_euclid(1_000))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Time64MicrosecondArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns the cell's value as an `IntervalMonthDayNano`.
+    pub(crate) fn as_interval(&self) -> Result<IntervalMonthDayNano, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            DataType::Interval(IntervalUnit::MonthDayNano) => {
+                let arr = as_primitive_array::<IntervalMonthDayNanoType>(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "IntervalMonthDayNanoArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Extracts a child `ArrowCell` by field name from a `StructArray`.
+    pub(crate) fn struct_field_by_name(&self, name: &str) -> Result<ArrowCell, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            DataType::Struct(_) => {
+                let struct_arr = as_struct_array(&self.array);
+                let col = struct_arr
+                    .column_by_name(name)
+                    .ok_or_else(|| ConvertError::MissingField(name.to_string()))?;
+                Ok(ArrowCell::new(col.clone(), self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "StructArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use arrow::array::{
-        BinaryArray, BooleanArray, Float32Array, Float64Array, Int32Array, Int64Array,
-        LargeBinaryArray, LargeStringArray, StringArray,
+        BinaryArray, BooleanArray, Date32Array, Float32Array, Float64Array, Int32Array, Int64Array,
+        IntervalMonthDayNanoArray, IntervalYearMonthArray, LargeBinaryArray, LargeStringArray,
+        StringArray, StructArray, Time64MicrosecondArray, Time64NanosecondArray,
+        TimestampMicrosecondArray, TimestampMillisecondArray, TimestampNanosecondArray,
+        TimestampSecondArray,
     };
-    use arrow::datatypes::DataType;
+    use arrow::buffer::NullBuffer;
+    use arrow::datatypes::{Field, Fields};
     use std::sync::Arc;
     use test_case::test_case;
 
@@ -318,5 +444,88 @@ mod tests {
             .as_bytes()
             .map(<[u8]>::to_vec)
             .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp microsecond")]
+    #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(1_779_982_200_123)])), 0 => Ok(1_779_982_200_123_000) ; "timestamp millisecond")]
+    #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(1_779_982_200_123_456_789)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp nanosecond")]
+    #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(-1_500)])), 0 => Ok(-2) ; "timestamp nanosecond pre epoch floor")]
+    #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(1_779_982_200)])), 0 => Ok(1_779_982_200_000_000) ; "timestamp second")]
+    #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert("timestamp overflow".to_string())) ; "timestamp millisecond overflow")]
+    #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert("timestamp overflow".to_string())) ; "timestamp second overflow")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "timestamp null")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("TimestampArray", "Int64")) ; "timestamp type mismatch")]
+    fn as_timestamp_micros(arr: ArrayRef, row_idx: usize) -> Result<i64, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_timestamp_micros()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])), 0 => Ok(20_601) ; "date32 valid")]
+    #[test_case(Arc::new(Date32Array::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "date32 null")]
+    #[test_case(Arc::new(Int32Array::from(vec![20_601])), 0 => Err(TestConvertError::type_mismatch("Date32Array", "Int32")) ; "date32 type mismatch")]
+    fn as_date32(arr: ArrayRef, row_idx: usize) -> Result<i32, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_date32()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_123_456)])), 0 => Ok(55_800_123_456) ; "time64 microsecond")]
+    #[test_case(Arc::new(Time64NanosecondArray::from(vec![Some(55_800_123_456_789)])), 0 => Ok(55_800_123_456) ; "time64 nanosecond")]
+    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "time64 null")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Time64MicrosecondArray", "Int64")) ; "time64 type mismatch")]
+    fn as_time64_micros(arr: ArrayRef, row_idx: usize) -> Result<i64, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_time64_micros()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 456))])), 0 => Ok(IntervalMonthDayNano::new(14, 3, 456)) ; "interval valid")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-14, -3, -456))])), 0 => Ok(IntervalMonthDayNano::new(-14, -3, -456)) ; "interval negative")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "interval null")]
+    #[test_case(Arc::new(IntervalYearMonthArray::from(vec![Some(14)])), 0 => Err(TestConvertError::type_mismatch("IntervalMonthDayNanoArray", "Interval(YearMonth)")) ; "interval wrong unit")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("IntervalMonthDayNanoArray", "Int64")) ; "interval type mismatch")]
+    fn as_interval(
+        arr: ArrayRef,
+        row_idx: usize,
+    ) -> Result<IntervalMonthDayNano, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_interval()
+            .map_err(TestConvertError::from)
+    }
+
+    fn sample_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+        let fields = Fields::from(vec![
+            Field::new("start", DataType::Int64, true),
+            Field::new("end", DataType::Int64, true),
+        ]);
+        let start_col: ArrayRef = Arc::new(Int64Array::from(vec![Some(10), None]));
+        let end_col: ArrayRef = Arc::new(Int64Array::from(vec![Some(20), Some(30)]));
+        Arc::new(StructArray::new(fields, vec![start_col, end_col], nulls))
+    }
+
+    #[test_case(sample_struct_array(None), 0, "start" => Ok(Some(10)) ; "struct field start row 0")]
+    #[test_case(sample_struct_array(None), 0, "end" => Ok(Some(20)) ; "struct field end row 0")]
+    #[test_case(sample_struct_array(None), 1, "start" => Ok(None) ; "struct field null child row 1")]
+    #[test_case(sample_struct_array(None), 1, "end" => Ok(Some(30)) ; "struct field end row 1")]
+    #[test_case(sample_struct_array(Some(NullBuffer::from(vec![false, true]))), 0, "start" => Err(TestConvertError::NotNull) ; "struct null row")]
+    #[test_case(sample_struct_array(None), 0, "missing" => Err(TestConvertError::MissingField("missing".to_string())) ; "struct missing field")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0, "start" => Err(TestConvertError::type_mismatch("StructArray", "Int64")) ; "struct type mismatch")]
+    fn struct_field_by_name(
+        arr: ArrayRef,
+        row_idx: usize,
+        name: &str,
+    ) -> Result<Option<i64>, TestConvertError> {
+        let field_cell = ArrowCell::new(arr, row_idx)
+            .struct_field_by_name(name)
+            .map_err(TestConvertError::from)?;
+        if field_cell.is_null() {
+            Ok(None)
+        } else {
+            field_cell
+                .as_i64()
+                .map(Some)
+                .map_err(TestConvertError::from)
+        }
     }
 }
