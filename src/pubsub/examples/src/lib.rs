@@ -17,6 +17,7 @@ mod schema;
 mod subscriber;
 mod subscription;
 mod topic;
+mod use_emulator;
 
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
@@ -175,6 +176,16 @@ pub async fn run_publisher_samples(topic_names: &mut Vec<String>) -> anyhow::Res
     publisher::publish_with_retry_settings::sample(&project, &topic_id).await?;
     publisher::resume_publish_with_ordering_keys::sample(&project, &topic_id).await?;
 
+    Ok(())
+}
+
+/// Runs the samples that target the Pub/Sub emulator.
+///
+/// Requires `PUBSUB_EMULATOR_HOST` to be set to a running emulator.
+pub async fn run_emulator_samples() -> anyhow::Result<()> {
+    // The emulator accepts any project ID.
+    let project_id = "test-project";
+    use_emulator::sample(project_id, &random_topic_id()).await?;
     Ok(())
 }
 

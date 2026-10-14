@@ -67,7 +67,7 @@ where
         .await
         .transpose()?
         .expect("Expected row to be inserted and readable");
-    let value: i64 = row.get("ColInt64");
+    let value: i64 = row.get("ColInt64")?;
     assert_eq!(value, val, "Expected inserted value to match");
 
     Ok(())
