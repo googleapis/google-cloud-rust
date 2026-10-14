@@ -4567,6 +4567,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableConfig {
             __app_profile_id,
             __service_account_email,
             __write_metadata,
+            __column_family_mapping,
             __state,
             Unknown(std::string::String),
         }
@@ -4595,6 +4596,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableConfig {
                             "service_account_email" => Ok(__FieldTag::__service_account_email),
                             "writeMetadata" => Ok(__FieldTag::__write_metadata),
                             "write_metadata" => Ok(__FieldTag::__write_metadata),
+                            "columnFamilyMapping" => Ok(__FieldTag::__column_family_mapping),
+                            "column_family_mapping" => Ok(__FieldTag::__column_family_mapping),
                             "state" => Ok(__FieldTag::__state),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -4661,6 +4664,28 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableConfig {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__column_family_mapping => {
+                            if !fields.insert(__FieldTag::__column_family_mapping) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for column_family_mapping",
+                                ));
+                            }
+                            if result.message_mapping.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `message_mapping`, a oneof with full ID .google.pubsub.v1.BigtableConfig.column_family_mapping, latest field was columnFamilyMapping",
+                                ));
+                            }
+                            result.message_mapping = std::option::Option::Some(
+                                crate::model::bigtable_config::MessageMapping::ColumnFamilyMapping(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::model::bigtable_config::ColumnFamilyMapping,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::__state => {
                             if !fields.insert(__FieldTag::__state) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -4668,6 +4693,283 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableConfig {
                                 ));
                             }
                             result.state = map.next_value::<std::option::Option<crate::model::bigtable_config::State>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::bigtable_config::ColumnFamilyMapping {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __row_key_schema,
+            __delimited_key,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ColumnFamilyMapping")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "rowKeySchema" => Ok(__FieldTag::__row_key_schema),
+                            "row_key_schema" => Ok(__FieldTag::__row_key_schema),
+                            "delimitedKey" => Ok(__FieldTag::__delimited_key),
+                            "delimited_key" => Ok(__FieldTag::__delimited_key),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::bigtable_config::ColumnFamilyMapping;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ColumnFamilyMapping")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__row_key_schema => {
+                            if !fields.insert(__FieldTag::__row_key_schema) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for row_key_schema",
+                                ));
+                            }
+                            if result.key_definition.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_definition`, a oneof with full ID .google.pubsub.v1.BigtableConfig.ColumnFamilyMapping.row_key_schema, latest field was rowKeySchema",
+                                ));
+                            }
+                            result.key_definition = std::option::Option::Some(
+                                crate::model::bigtable_config::column_family_mapping::KeyDefinition::RowKeySchema(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::bigtable_config::column_family_mapping::RowKeySchema>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__delimited_key => {
+                            if !fields.insert(__FieldTag::__delimited_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delimited_key",
+                                ));
+                            }
+                            if result.key_definition.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_definition`, a oneof with full ID .google.pubsub.v1.BigtableConfig.ColumnFamilyMapping.delimited_key, latest field was delimitedKey",
+                                ));
+                            }
+                            result.key_definition = std::option::Option::Some(
+                                crate::model::bigtable_config::column_family_mapping::KeyDefinition::DelimitedKey(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::bigtable_config::column_family_mapping::DelimitedKey>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::bigtable_config::column_family_mapping::RowKeySchema
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RowKeySchema")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::bigtable_config::column_family_mapping::RowKeySchema;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RowKeySchema")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::bigtable_config::column_family_mapping::DelimitedKey
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __key_fields,
+            __delimiter,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DelimitedKey")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "keyFields" => Ok(__FieldTag::__key_fields),
+                            "key_fields" => Ok(__FieldTag::__key_fields),
+                            "delimiter" => Ok(__FieldTag::__delimiter),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::bigtable_config::column_family_mapping::DelimitedKey;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DelimitedKey")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__key_fields => {
+                            if !fields.insert(__FieldTag::__key_fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_fields",
+                                ));
+                            }
+                            result.key_fields = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__delimiter => {
+                            if !fields.insert(__FieldTag::__delimiter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delimiter",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.delimiter = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

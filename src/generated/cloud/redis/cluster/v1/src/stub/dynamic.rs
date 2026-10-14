@@ -23,15 +23,33 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListClustersResponse>>;
 
+    async fn list_acl_policies(
+        &self,
+        req: crate::model::ListAclPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclPoliciesResponse>>;
+
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Cluster>>;
 
+    async fn get_acl_policy(
+        &self,
+        req: crate::model::GetAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicy>>;
+
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_acl_policy(
+        &self,
+        req: crate::model::UpdateAclPolicyRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
@@ -41,11 +59,35 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn delete_acl_policy(
+        &self,
+        req: crate::model::DeleteAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_acl_policy_revision(
+        &self,
+        req: crate::model::GetAclPolicyRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicyRevision>>;
+
+    async fn list_acl_policy_revisions(
+        &self,
+        req: crate::model::ListAclPolicyRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>>;
+
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn create_acl_policy(
+        &self,
+        req: crate::model::CreateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicy>>;
 
     async fn get_cluster_certificate_authority(
         &self,
@@ -104,6 +146,54 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
     async fn backup_cluster(
         &self,
         req: crate::model::BackupClusterRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_token_auth_users(
+        &self,
+        req: crate::model::ListTokenAuthUsersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTokenAuthUsersResponse>>;
+
+    async fn get_token_auth_user(
+        &self,
+        req: crate::model::GetTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TokenAuthUser>>;
+
+    async fn list_auth_tokens(
+        &self,
+        req: crate::model::ListAuthTokensRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAuthTokensResponse>>;
+
+    async fn get_auth_token(
+        &self,
+        req: crate::model::GetAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuthToken>>;
+
+    async fn add_token_auth_user(
+        &self,
+        req: crate::model::AddTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_token_auth_user(
+        &self,
+        req: crate::model::DeleteTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn add_auth_token(
+        &self,
+        req: crate::model::AddAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_auth_token(
+        &self,
+        req: crate::model::DeleteAuthTokenRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
@@ -172,12 +262,30 @@ impl<T: super::CloudRedisCluster> CloudRedisCluster for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn list_acl_policies(
+        &self,
+        req: crate::model::ListAclPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclPoliciesResponse>> {
+        T::list_acl_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Cluster>> {
         T::get_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_acl_policy(
+        &self,
+        req: crate::model::GetAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicy>> {
+        T::get_acl_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -190,6 +298,15 @@ impl<T: super::CloudRedisCluster> CloudRedisCluster for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_acl_policy(
+        &self,
+        req: crate::model::UpdateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_acl_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
@@ -199,12 +316,48 @@ impl<T: super::CloudRedisCluster> CloudRedisCluster for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn delete_acl_policy(
+        &self,
+        req: crate::model::DeleteAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_acl_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_acl_policy_revision(
+        &self,
+        req: crate::model::GetAclPolicyRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicyRevision>> {
+        T::get_acl_policy_revision(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_acl_policy_revisions(
+        &self,
+        req: crate::model::ListAclPolicyRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>> {
+        T::list_acl_policy_revisions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_acl_policy(
+        &self,
+        req: crate::model::CreateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicy>> {
+        T::create_acl_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -295,6 +448,78 @@ impl<T: super::CloudRedisCluster> CloudRedisCluster for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::backup_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_token_auth_users(
+        &self,
+        req: crate::model::ListTokenAuthUsersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTokenAuthUsersResponse>> {
+        T::list_token_auth_users(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_token_auth_user(
+        &self,
+        req: crate::model::GetTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TokenAuthUser>> {
+        T::get_token_auth_user(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_auth_tokens(
+        &self,
+        req: crate::model::ListAuthTokensRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAuthTokensResponse>> {
+        T::list_auth_tokens(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_auth_token(
+        &self,
+        req: crate::model::GetAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuthToken>> {
+        T::get_auth_token(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_token_auth_user(
+        &self,
+        req: crate::model::AddTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::add_token_auth_user(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_token_auth_user(
+        &self,
+        req: crate::model::DeleteTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_token_auth_user(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_auth_token(
+        &self,
+        req: crate::model::AddAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::add_auth_token(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_auth_token(
+        &self,
+        req: crate::model::DeleteAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_auth_token(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
