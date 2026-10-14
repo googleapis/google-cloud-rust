@@ -23,22 +23,27 @@ mod tests {
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::*;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
-    use google_cloud_gax_internal::grpc;
-    use grpc_server::{builder, google, start_echo_server};
+    use grpc_server::transport::{EchoTransport, transport_builder};
+    use grpc_server::{both_transports, google, start_echo_server};
+    use pretty_assertions::assert_eq;
     use std::error::Error as _;
 
-    type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_auth_headers() -> Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        test_auth_headers
+    );
+    async fn test_auth_headers<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(mock_credentials())
             .build()
             .await?;
 
+        // Act
         let response = send_request(client, "great success!").await?;
+
+        // Assert
         assert_eq!(
             response.metadata.get("auth-key-1").map(String::as_str),
             Some("auth-value-1")
@@ -50,26 +55,33 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn auth_error_retryable() -> Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        auth_error_retryable
+    );
+    async fn auth_error_retryable<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
 
         let retry_count = 3;
         let mut mock = MockCredentials::new();
         mock.expect_headers()
-            .times(retry_count..)
+            .times(retry_count)
             .returning(|_extensions| Err(CredentialsError::from_msg(true, "mock retryable error")));
         mock.expect_universe_domain().returning(|| None);
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(Credentials::from(mock))
             .with_retry_policy(retry_policy)
             .with_backoff_policy(test_backoff())
             .build()
             .await?;
 
+        // Act
         let result = send_request(client, "auth fail").await;
+
+        // Assert
         let e = result
             .as_ref()
             .err()
@@ -79,8 +91,9 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn auth_error_non_retryable() -> Result<()> {
+    both_transports!(auth_error_non_retryable);
+    async fn auth_error_non_retryable<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let headers_response = Err(CredentialsError::from_msg(
             false,
             "mock non-retryable error",
@@ -93,12 +106,15 @@ mod tests {
             .returning(move |_extensions| headers_response.clone());
         mock.expect_universe_domain().returning(|| None);
 
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 
+        // Act
         let result = send_request(client, "auth fail").await;
+
+        // Assert
         let e = result
             .as_ref()
             .err()
@@ -118,31 +134,16 @@ mod tests {
             .expect("a valid backoff policy")
     }
 
-    async fn send_request(
-        client: grpc::Client,
+    async fn send_request<C: EchoTransport>(
+        client: C,
         msg: &str,
     ) -> google_cloud_gax::Result<google::test::v1::EchoResponse> {
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
         let request = google::test::v1::EchoRequest {
             message: msg.into(),
             ..Default::default()
         };
         client
-            .execute(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                request,
-                RequestOptions::default(),
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
+            .echo(request, RequestOptions::default(), "name=test-only")
             .await
             .map(tonic::Response::into_inner)
     }
