@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![recursion_limit = "256"]
+
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod storage {
     use google_cloud_storage::client::Storage;
