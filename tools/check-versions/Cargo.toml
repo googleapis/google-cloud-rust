@@ -26,7 +26,7 @@ repository.workspace = true
 cargo_metadata.workspace = true
 toml_edit                = { workspace = true, features = ["display", "parse"] }
 serde                    = { workspace = true, features = ["derive"] }
-serde_yaml.workspace     = true
+serde-saphyr.workspace   = true
 anyhow.workspace         = true
 
 [dev-dependencies]

@@ -534,6 +534,13 @@ impl FromSql for google_cloud_type::model::Decimal {
                 Ok(google_cloud_type::model::Decimal::new().set_value(n.to_string()))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell
+                .as_decimal_str()
+                .map(|s| google_cloud_type::model::Decimal::new().set_value(s)),
             other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
@@ -558,6 +565,21 @@ impl FromSql for rust_decimal::Decimal {
                 }
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                if let Some((val, scale)) = cell.as_decimal128_with_scale()
+                    && let Ok(d) = rust_decimal::Decimal::try_from_i128_with_scale(val, scale)
+                {
+                    return Ok(d.normalize());
+                }
+                cell.as_decimal_str()?
+                    .parse::<rust_decimal::Decimal>()
+                    .map(|d| d.normalize())
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
             other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
@@ -1067,16 +1089,33 @@ mod tests {
     mod arrow_tests {
         use super::*;
         use arrow::array::{
-            ArrayRef, BinaryArray, BooleanArray, Date32Array, Float32Array, Float64Array,
-            Int32Array, Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
-            Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
+            ArrayRef, BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array,
+            Float32Array, Float64Array, Int32Array, Int64Array, LargeBinaryArray, LargeStringArray,
+            StringArray, Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
             TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray,
         };
+        use arrow::datatypes::i256;
         use std::sync::Arc;
         use test_case::test_case;
 
         fn arrow_val(arr: ArrayRef, row_idx: usize) -> SqlValue {
             SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, row_idx)))
+        }
+
+        fn decimal128_array(values: Vec<Option<i128>>, precision: u8, scale: i8) -> ArrayRef {
+            Arc::new(
+                Decimal128Array::from(values)
+                    .with_precision_and_scale(precision, scale)
+                    .unwrap(),
+            )
+        }
+
+        fn decimal256_array(values: Vec<Option<i256>>, precision: u8, scale: i8) -> ArrayRef {
+            Arc::new(
+                Decimal256Array::from(values)
+                    .with_precision_and_scale(precision, scale)
+                    .unwrap(),
+            )
         }
 
         #[test_case(Arc::new(BooleanArray::from(vec![true])) => "Boolean" ; "arrow boolean")]
@@ -1164,6 +1203,54 @@ mod tests {
         #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("BinaryArray or LargeBinaryArray")) ; "bytes type mismatch")]
         fn test_from_sql_arrow_bytes(arr: ArrayRef) -> Result<bytes::Bytes, TestConvertError> {
             bytes::Bytes::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(Decimal::new().set_value("123.456")) ; "decimal from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3) => Ok(Decimal::new().set_value("-123.456")) ; "decimal negative from Decimal128Array")]
+        #[test_case(decimal256_array(vec![Some(i256::from_i128(789_012))], 20, 3) => Ok(Decimal::new().set_value("789.012")) ; "decimal from Decimal256Array")]
+        #[test_case(decimal128_array(vec![None], 10, 3) => Err(TestConvertError::NotNull) ; "decimal null Decimal128Array")]
+        #[test_case(decimal256_array(vec![None], 20, 3) => Err(TestConvertError::NotNull) ; "decimal null Decimal256Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array")) ; "decimal type mismatch")]
+        fn test_from_sql_arrow_decimal(arr: ArrayRef) -> Result<Decimal, TestConvertError> {
+            Decimal::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3) => Ok(RustDecimal::from_str_exact("-123.456").unwrap()) ; "rust_decimal negative from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(100_000_000_000_000_000_000_000_000_000_i128)], 38, 9) => Ok(RustDecimal::from_str_exact("100000000000000000000").unwrap()) ; "rust_decimal from Decimal128Array with trailing zeros exceeding 96 bits unscaled")]
+        #[test_case(decimal128_array(vec![Some(12)], 10, -2) => Ok(RustDecimal::from(1200)) ; "rust_decimal from Decimal128Array with negative scale")]
+        #[test_case(decimal128_array(vec![Some(i128::MAX)], 38, 9) => Err(TestConvertError::Convert("Invalid decimal: overflow from too many digits".to_string())) ; "rust_decimal overflow from Decimal128Array")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("123456789012345678900000000000000000000000000000").unwrap())], 76, 38) => Ok(RustDecimal::from_str_exact("1234567890.123456789").unwrap()) ; "rust_decimal from Decimal256Array with trailing zeros")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("4200000000000000000000000000000000000000").unwrap())], 76, 38) => Ok(RustDecimal::from(42)) ; "rust_decimal from Decimal256Array integer with trailing zeros")]
+        #[test_case(decimal256_array(vec![Some(i256::from_i128(12))], 20, -2) => Ok(RustDecimal::from(1200)) ; "rust_decimal from Decimal256Array without decimal point")]
+        #[test_case(decimal256_array(vec![Some(i256::MAX)], 76, 38) => Err(TestConvertError::Convert("Invalid decimal: overflow from too many digits".to_string())) ; "rust_decimal overflow from Decimal256Array")]
+        #[test_case(decimal128_array(vec![None], 10, 3) => Err(TestConvertError::NotNull) ; "rust_decimal null Decimal128Array")]
+        #[test_case(decimal256_array(vec![None], 20, 3) => Err(TestConvertError::NotNull) ; "rust_decimal null Decimal256Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array")) ; "rust_decimal type mismatch")]
+        fn test_from_sql_arrow_rust_decimal(
+            arr: ArrayRef,
+        ) -> Result<RustDecimal, TestConvertError> {
+            RustDecimal::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(
+            decimal128_array(vec![Some(42_500_000_000)], 38, 9)
+            => ("42.5".to_string(), 1)
+            ; "Decimal128 fractional trailing zeros normalized"
+        )]
+        #[test_case(
+            decimal128_array(vec![Some(42_000_000_000)], 38, 9)
+            => ("42".to_string(), 0)
+            ; "Decimal128 integer trailing zeros normalized"
+        )]
+        #[test_case(
+            decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38)
+            => ("42.5".to_string(), 1)
+            ; "Decimal256 fractional trailing zeros normalized"
+        )]
+        fn test_from_sql_arrow_rust_decimal_scale(arr: ArrayRef) -> (String, u32) {
+            let d = RustDecimal::from_value(arrow_val(arr, 0)).unwrap();
+            (d.to_string(), d.scale())
         }
 
         #[test_case(Arc::new(Int64Array::from(vec![Some(42)])) => Ok(Some(42)) ; "option some i64")]

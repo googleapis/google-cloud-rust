@@ -3247,9 +3247,72 @@ pub struct BigtableConfig {
     pub write_metadata: bool,
     #[prost(enumeration = "bigtable_config::State", tag = "4")]
     pub state: i32,
+    #[prost(oneof = "bigtable_config::MessageMapping", tags = "6")]
+    pub message_mapping: ::core::option::Option<bigtable_config::MessageMapping>,
 }
 /// Nested message and enum types in `BigtableConfig`.
 pub mod bigtable_config {
+    #[allow(clippy::large_enum_variant)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct ColumnFamilyMapping {
+        #[prost(oneof = "column_family_mapping::KeyDefinition", tags = "1, 2")]
+        pub key_definition: ::core::option::Option<column_family_mapping::KeyDefinition>,
+    }
+    /// Nested message and enum types in `ColumnFamilyMapping`.
+    pub mod column_family_mapping {
+        #[allow(clippy::large_enum_variant)]
+        #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct RowKeySchema {}
+        impl ::prost::Name for RowKeySchema {
+            const NAME: &'static str = "RowKeySchema";
+            const PACKAGE: &'static str = "google.pubsub.v1";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.pubsub.v1.BigtableConfig.ColumnFamilyMapping.RowKeySchema".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.pubsub.v1.BigtableConfig.ColumnFamilyMapping.RowKeySchema"
+                    .into()
+            }
+        }
+        #[allow(clippy::large_enum_variant)]
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct DelimitedKey {
+            #[prost(string, repeated, tag = "1")]
+            pub key_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+            #[prost(bytes = "vec", tag = "2")]
+            pub delimiter: ::prost::alloc::vec::Vec<u8>,
+        }
+        impl ::prost::Name for DelimitedKey {
+            const NAME: &'static str = "DelimitedKey";
+            const PACKAGE: &'static str = "google.pubsub.v1";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.pubsub.v1.BigtableConfig.ColumnFamilyMapping.DelimitedKey".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.pubsub.v1.BigtableConfig.ColumnFamilyMapping.DelimitedKey"
+                    .into()
+            }
+        }
+        #[allow(clippy::large_enum_variant)]
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+        pub enum KeyDefinition {
+            #[prost(message, tag = "1")]
+            RowKeySchema(RowKeySchema),
+            #[prost(message, tag = "2")]
+            DelimitedKey(DelimitedKey),
+        }
+    }
+    impl ::prost::Name for ColumnFamilyMapping {
+        const NAME: &'static str = "ColumnFamilyMapping";
+        const PACKAGE: &'static str = "google.pubsub.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.pubsub.v1.BigtableConfig.ColumnFamilyMapping".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.pubsub.v1.BigtableConfig.ColumnFamilyMapping"
+                .into()
+        }
+    }
     #[allow(clippy::large_enum_variant)]
     #[derive(
         Clone,
@@ -3308,6 +3371,12 @@ pub mod bigtable_config {
                 _ => None,
             }
         }
+    }
+    #[allow(clippy::large_enum_variant)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+    pub enum MessageMapping {
+        #[prost(message, tag = "6")]
+        ColumnFamilyMapping(ColumnFamilyMapping),
     }
 }
 impl ::prost::Name for BigtableConfig {

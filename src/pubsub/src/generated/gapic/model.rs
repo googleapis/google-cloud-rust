@@ -6452,14 +6452,9 @@ pub mod big_query_config {
     }
 }
 
-/// Configuration for a Bigtable subscription. The Pub/Sub message will be
-/// written to a Bigtable row as follows:
-///
-/// - row key: subscription name, message ID hash, and message ID delimited by
-///   `#`.
-/// - columns: message bytes written to a single column family `data` with an
-///   empty-string column qualifier.
-/// - cell timestamp: the message publish timestamp.
+/// Configuration for a Bigtable subscription, which will write a Pub/Sub message
+/// to a Bigtable row. See the ColumnFamilyMapping documentation below for
+/// details on how the row keys and columns will be written.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigtableConfig {
@@ -6493,6 +6488,18 @@ pub struct BigtableConfig {
     /// Output only. An output-only field that indicates whether or not the
     /// subscription can receive messages.
     pub state: crate::model::bigtable_config::State,
+
+    /// How to write a Pub/Sub message to a Bigtable row, notably for defining keys
+    /// and columns.
+    ///
+    /// If not specified, the default is the following:
+    ///
+    /// - row key: subscription name, message ID hash, and message ID delimited by
+    ///   `#`.
+    /// - columns: message bytes written to a single column family `data` with an
+    ///   empty-string column qualifier.
+    /// - cell timestamp: the message publish timestamp.
+    pub message_mapping: std::option::Option<crate::model::bigtable_config::MessageMapping>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6571,6 +6578,69 @@ impl BigtableConfig {
         self.state = v.into();
         self
     }
+
+    /// Sets the value of [message_mapping][crate::model::BigtableConfig::message_mapping].
+    ///
+    /// Note that all the setters affecting `message_mapping` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigtableConfig;
+    /// use google_cloud_pubsub::model::bigtable_config::ColumnFamilyMapping;
+    /// let x = BigtableConfig::new().set_message_mapping(Some(
+    ///     google_cloud_pubsub::model::bigtable_config::MessageMapping::ColumnFamilyMapping(ColumnFamilyMapping::default().into())));
+    /// ```
+    pub fn set_message_mapping<
+        T: std::convert::Into<std::option::Option<crate::model::bigtable_config::MessageMapping>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message_mapping = v.into();
+        self
+    }
+
+    /// The value of [message_mapping][crate::model::BigtableConfig::message_mapping]
+    /// if it holds a `ColumnFamilyMapping`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn column_family_mapping(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::bigtable_config::ColumnFamilyMapping>>
+    {
+        #[allow(unreachable_patterns)]
+        self.message_mapping.as_ref().and_then(|v| match v {
+            crate::model::bigtable_config::MessageMapping::ColumnFamilyMapping(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [message_mapping][crate::model::BigtableConfig::message_mapping]
+    /// to hold a `ColumnFamilyMapping`.
+    ///
+    /// Note that all the setters affecting `message_mapping` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigtableConfig;
+    /// use google_cloud_pubsub::model::bigtable_config::ColumnFamilyMapping;
+    /// let x = BigtableConfig::new().set_column_family_mapping(ColumnFamilyMapping::default()/* use setters */);
+    /// assert!(x.column_family_mapping().is_some());
+    /// ```
+    pub fn set_column_family_mapping<
+        T: std::convert::Into<std::boxed::Box<crate::model::bigtable_config::ColumnFamilyMapping>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message_mapping = std::option::Option::Some(
+            crate::model::bigtable_config::MessageMapping::ColumnFamilyMapping(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for BigtableConfig {
@@ -6583,6 +6653,286 @@ impl wkt::message::Message for BigtableConfig {
 pub mod bigtable_config {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Configuration for writing a Pub/Sub message to a Bigtable row with a
+    /// user-defined key and writing to column families.
+    ///
+    /// If this field is set:
+    ///
+    /// - The subscription messages must be formatted as JSON.
+    /// - The row key mapping is configured in the `key_definition` section.
+    /// - The top-level fields will be written either:
+    ///   - By default, they will be written to the `data` column family with the
+    ///     field name as the column qualifier.
+    ///   - But if the field name matches an existing column family (except for
+    ///     the default `data` column), then that field will be written to that
+    ///     column family, either as a scalar or its next level nested fields if
+    ///     it's a JSON object.
+    /// - The cell timestamp will be the message publish timestamp.
+    ///
+    /// If the field is not set, the default behavior is to write:
+    ///
+    /// - row key: subscription name, message ID hash, and message ID delimited by
+    ///   `#`.
+    /// - columns: message bytes written to a single column family `data` with an
+    ///   empty-string column qualifier.
+    /// - cell timestamp: the message publish timestamp.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ColumnFamilyMapping {
+        /// How to construct the row key from the Pub/Sub message.
+        /// If not specified, the default behavior is to construct the row key from
+        /// the subscription name, message ID hash, and message ID delimited by `#`.
+        pub key_definition: std::option::Option<
+            crate::model::bigtable_config::column_family_mapping::KeyDefinition,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ColumnFamilyMapping {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [key_definition][crate::model::bigtable_config::ColumnFamilyMapping::key_definition].
+        ///
+        /// Note that all the setters affecting `key_definition` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::bigtable_config::ColumnFamilyMapping;
+        /// use google_cloud_pubsub::model::bigtable_config::column_family_mapping::RowKeySchema;
+        /// let x = ColumnFamilyMapping::new().set_key_definition(Some(
+        ///     google_cloud_pubsub::model::bigtable_config::column_family_mapping::KeyDefinition::RowKeySchema(RowKeySchema::default().into())));
+        /// ```
+        pub fn set_key_definition<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::bigtable_config::column_family_mapping::KeyDefinition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.key_definition = v.into();
+            self
+        }
+
+        /// The value of [key_definition][crate::model::bigtable_config::ColumnFamilyMapping::key_definition]
+        /// if it holds a `RowKeySchema`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn row_key_schema(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::bigtable_config::column_family_mapping::RowKeySchema>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.key_definition.as_ref().and_then(|v| match v {
+                crate::model::bigtable_config::column_family_mapping::KeyDefinition::RowKeySchema(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [key_definition][crate::model::bigtable_config::ColumnFamilyMapping::key_definition]
+        /// to hold a `RowKeySchema`.
+        ///
+        /// Note that all the setters affecting `key_definition` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::bigtable_config::ColumnFamilyMapping;
+        /// use google_cloud_pubsub::model::bigtable_config::column_family_mapping::RowKeySchema;
+        /// let x = ColumnFamilyMapping::new().set_row_key_schema(RowKeySchema::default()/* use setters */);
+        /// assert!(x.row_key_schema().is_some());
+        /// assert!(x.delimited_key().is_none());
+        /// ```
+        pub fn set_row_key_schema<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::bigtable_config::column_family_mapping::RowKeySchema,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.key_definition = std::option::Option::Some(
+                crate::model::bigtable_config::column_family_mapping::KeyDefinition::RowKeySchema(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [key_definition][crate::model::bigtable_config::ColumnFamilyMapping::key_definition]
+        /// if it holds a `DelimitedKey`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn delimited_key(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::bigtable_config::column_family_mapping::DelimitedKey>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.key_definition.as_ref().and_then(|v| match v {
+                crate::model::bigtable_config::column_family_mapping::KeyDefinition::DelimitedKey(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [key_definition][crate::model::bigtable_config::ColumnFamilyMapping::key_definition]
+        /// to hold a `DelimitedKey`.
+        ///
+        /// Note that all the setters affecting `key_definition` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::bigtable_config::ColumnFamilyMapping;
+        /// use google_cloud_pubsub::model::bigtable_config::column_family_mapping::DelimitedKey;
+        /// let x = ColumnFamilyMapping::new().set_delimited_key(DelimitedKey::default()/* use setters */);
+        /// assert!(x.delimited_key().is_some());
+        /// assert!(x.row_key_schema().is_none());
+        /// ```
+        pub fn set_delimited_key<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::bigtable_config::column_family_mapping::DelimitedKey,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.key_definition = std::option::Option::Some(
+                crate::model::bigtable_config::column_family_mapping::KeyDefinition::DelimitedKey(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for ColumnFamilyMapping {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.pubsub.v1.BigtableConfig.ColumnFamilyMapping"
+        }
+    }
+
+    /// Defines additional types related to [ColumnFamilyMapping].
+    pub mod column_family_mapping {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Row key definition that reads the input message fields based on the field
+        /// names of the table's structured row key
+        /// ({$universe.dns_names.final_documentation_domain}/bigtable/docs/manage-row-key-schemas).
+        /// Note that if the field is nullable in the structured row key, then it
+        /// need not be present in the message; null will be used instead.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RowKeySchema {
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RowKeySchema {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
+
+        impl wkt::message::Message for RowKeySchema {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.pubsub.v1.BigtableConfig.ColumnFamilyMapping.RowKeySchema"
+            }
+        }
+
+        /// Row key definition based on fields from the message.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct DelimitedKey {
+            /// Required. The key fields to construct from the row key. The fields must
+            /// be present in the message as a top-level field, i.e. JSON path
+            /// expressions will not traverse into nested objects.
+            pub key_fields: std::vec::Vec<std::string::String>,
+
+            /// Optional. Byte sequence used to delimit concatenated fields. Must be
+            /// specified if multiple key fields are used. The delimiter must contain
+            /// at least 1 character and at most 50 characters.
+            pub delimiter: ::bytes::Bytes,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl DelimitedKey {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key_fields][crate::model::bigtable_config::column_family_mapping::DelimitedKey::key_fields].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_pubsub::model::bigtable_config::column_family_mapping::DelimitedKey;
+            /// let x = DelimitedKey::new().set_key_fields(["a", "b", "c"]);
+            /// ```
+            pub fn set_key_fields<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.key_fields = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [delimiter][crate::model::bigtable_config::column_family_mapping::DelimitedKey::delimiter].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_pubsub::model::bigtable_config::column_family_mapping::DelimitedKey;
+            /// let x = DelimitedKey::new().set_delimiter(bytes::Bytes::from_static(b"example"));
+            /// ```
+            pub fn set_delimiter<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+                self.delimiter = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for DelimitedKey {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.pubsub.v1.BigtableConfig.ColumnFamilyMapping.DelimitedKey"
+            }
+        }
+
+        /// How to construct the row key from the Pub/Sub message.
+        /// If not specified, the default behavior is to construct the row key from
+        /// the subscription name, message ID hash, and message ID delimited by `#`.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum KeyDefinition {
+            /// Optional. If set, the row key is constructed from the field names of
+            /// the table's structured row key
+            /// ({$universe.dns_names.final_documentation_domain}/bigtable/docs/manage-row-key-schemas).
+            /// Note that if the field is nullable in the structured row key, then it
+            /// need not be present in the message; null will be used instead.
+            RowKeySchema(
+                std::boxed::Box<crate::model::bigtable_config::column_family_mapping::RowKeySchema>,
+            ),
+            /// Optional. If set, the row key is constructed from the given key fields
+            /// and delimiter. All key fields must be present in the message;
+            /// otherwise, the message remains in the subscription backlog.
+            DelimitedKey(
+                std::boxed::Box<crate::model::bigtable_config::column_family_mapping::DelimitedKey>,
+            ),
+        }
+    }
 
     /// Possible states for a Bigtable subscription.
     /// Note: more states could be added in the future. Please code accordingly.
@@ -6768,6 +7118,25 @@ pub mod bigtable_config {
                 ".google.pubsub.v1.BigtableConfig.State",
             ))
         }
+    }
+
+    /// How to write a Pub/Sub message to a Bigtable row, notably for defining keys
+    /// and columns.
+    ///
+    /// If not specified, the default is the following:
+    ///
+    /// - row key: subscription name, message ID hash, and message ID delimited by
+    ///   `#`.
+    /// - columns: message bytes written to a single column family `data` with an
+    ///   empty-string column qualifier.
+    /// - cell timestamp: the message publish timestamp.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MessageMapping {
+        /// Optional. Configuration that allows writing row keys and/or columns based
+        /// on fields in the input message. The input message format must be JSON if
+        /// this field is set.
+        ColumnFamilyMapping(std::boxed::Box<crate::model::bigtable_config::ColumnFamilyMapping>),
     }
 }
 
