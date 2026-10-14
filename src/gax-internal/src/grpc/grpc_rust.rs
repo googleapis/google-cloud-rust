@@ -273,7 +273,8 @@ impl GrpcRustClient {
             request_params,
             &options,
         )?;
-        let headers = grpc_helpers::add_auth_headers(headers, &self.inner.credentials).await?;
+        let mut headers = grpc_helpers::add_auth_headers(headers, &self.inner.credentials).await?;
+        crate::observability::propagation::inject_context(&tracing::Span::current(), &mut headers);
         let metadata = from_header_map(&headers)?;
         let request_headers = RequestHeaders::new()
             .with_method_name(path.as_str())
