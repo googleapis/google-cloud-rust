@@ -4558,11 +4558,38 @@ impl serde::ser::Serialize for super::conversation::quality_metadata::AgentInfo 
         if !self.team.is_empty() {
             state.serialize_entry("team", &self.team)?;
         }
+        if !self.teams.is_empty() {
+            state.serialize_entry("teams", &self.teams)?;
+        }
         if !self.disposition_code.is_empty() {
             state.serialize_entry("dispositionCode", &self.disposition_code)?;
         }
         if !wkt::internal::is_default(&self.agent_type) {
             state.serialize_entry("agentType", &self.agent_type)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self.deployment_id.is_empty() {
+            state.serialize_entry("deploymentId", &self.deployment_id)?;
+        }
+        if !self.deployment_display_name.is_empty() {
+            state.serialize_entry("deploymentDisplayName", &self.deployment_display_name)?;
+        }
+        if !self.version_id.is_empty() {
+            state.serialize_entry("versionId", &self.version_id)?;
+        }
+        if !self.version_display_name.is_empty() {
+            state.serialize_entry("versionDisplayName", &self.version_display_name)?;
+        }
+        if !self.entry_subagent_display_name.is_empty() {
+            state.serialize_entry(
+                "entrySubagentDisplayName",
+                &self.entry_subagent_display_name,
+            )?;
+        }
+        if !self.entry_subagent_id.is_empty() {
+            state.serialize_entry("entrySubagentId", &self.entry_subagent_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

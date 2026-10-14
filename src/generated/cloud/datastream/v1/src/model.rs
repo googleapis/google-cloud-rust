@@ -324,6 +324,8 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(
         mut self,
@@ -365,6 +367,8 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
         mut self,
@@ -408,6 +412,8 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_postgresql_rdbms<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
@@ -455,6 +461,8 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.postgresql_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_sql_server_rdbms<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
@@ -500,6 +508,8 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.postgresql_rdbms().is_none());
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_salesforce_org<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
@@ -545,6 +555,8 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.postgresql_rdbms().is_none());
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_mongodb_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
@@ -554,6 +566,102 @@ impl DiscoverConnectionProfileRequest {
     ) -> Self {
         self.data_object = std::option::Option::Some(
             crate::model::discover_connection_profile_request::DataObject::MongodbCluster(v.into()),
+        );
+        self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `SpannerDatabase`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spanner_database(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SpannerDatabase>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::SpannerDatabase(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// to hold a `SpannerDatabase`.
+    ///
+    /// Note that all the setters affecting `data_object` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
+    /// use google_cloud_datastream_v1::model::SpannerDatabase;
+    /// let x = DiscoverConnectionProfileRequest::new().set_spanner_database(SpannerDatabase::default()/* use setters */);
+    /// assert!(x.spanner_database().is_some());
+    /// assert!(x.oracle_rdbms().is_none());
+    /// assert!(x.mysql_rdbms().is_none());
+    /// assert!(x.postgresql_rdbms().is_none());
+    /// assert!(x.sql_server_rdbms().is_none());
+    /// assert!(x.salesforce_org().is_none());
+    /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.source_catalog().is_none());
+    /// ```
+    pub fn set_spanner_database<
+        T: std::convert::Into<std::boxed::Box<crate::model::SpannerDatabase>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_object = std::option::Option::Some(
+            crate::model::discover_connection_profile_request::DataObject::SpannerDatabase(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `SourceCatalog`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_catalog(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceCatalog>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::SourceCatalog(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// to hold a `SourceCatalog`.
+    ///
+    /// Note that all the setters affecting `data_object` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = DiscoverConnectionProfileRequest::new().set_source_catalog(SourceCatalog::default()/* use setters */);
+    /// assert!(x.source_catalog().is_some());
+    /// assert!(x.oracle_rdbms().is_none());
+    /// assert!(x.mysql_rdbms().is_none());
+    /// assert!(x.postgresql_rdbms().is_none());
+    /// assert!(x.sql_server_rdbms().is_none());
+    /// assert!(x.salesforce_org().is_none());
+    /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// ```
+    pub fn set_source_catalog<
+        T: std::convert::Into<std::boxed::Box<crate::model::SourceCatalog>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_object = std::option::Option::Some(
+            crate::model::discover_connection_profile_request::DataObject::SourceCatalog(v.into()),
         );
         self
     }
@@ -574,9 +682,9 @@ pub mod discover_connection_profile_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Target {
-        /// An ad-hoc connection profile configuration.
+        /// Optional. An ad-hoc connection profile configuration.
         ConnectionProfile(std::boxed::Box<crate::model::ConnectionProfile>),
-        /// A reference to an existing connection profile.
+        /// Optional. A reference to an existing connection profile.
         ConnectionProfileName(std::string::String),
     }
 
@@ -584,10 +692,11 @@ pub mod discover_connection_profile_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Hierarchy {
-        /// Whether to retrieve the full hierarchy of data objects (TRUE) or only the
-        /// current level (FALSE).
+        /// Optional. Whether to retrieve the full hierarchy of data objects (TRUE)
+        /// or only the current level (FALSE).
         FullHierarchy(bool),
-        /// The number of hierarchy levels below the current level to be retrieved.
+        /// Optional. The number of hierarchy levels below the current level to be
+        /// retrieved.
         HierarchyDepth(i32),
     }
 
@@ -595,18 +704,26 @@ pub mod discover_connection_profile_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DataObject {
-        /// Oracle RDBMS to enrich with child data objects and metadata.
+        /// Optional. Oracle RDBMS to enrich with child data objects and metadata.
         OracleRdbms(std::boxed::Box<crate::model::OracleRdbms>),
-        /// MySQL RDBMS to enrich with child data objects and metadata.
+        /// Optional. MySQL RDBMS to enrich with child data objects and metadata.
         MysqlRdbms(std::boxed::Box<crate::model::MysqlRdbms>),
-        /// PostgreSQL RDBMS to enrich with child data objects and metadata.
+        /// Optional. PostgreSQL RDBMS to enrich with child data objects and
+        /// metadata.
         PostgresqlRdbms(std::boxed::Box<crate::model::PostgresqlRdbms>),
-        /// SQLServer RDBMS to enrich with child data objects and metadata.
+        /// Optional. SQLServer RDBMS to enrich with child data objects and metadata.
         SqlServerRdbms(std::boxed::Box<crate::model::SqlServerRdbms>),
-        /// Salesforce organization to enrich with child data objects and metadata.
+        /// Optional. Salesforce organization to enrich with child data objects and
+        /// metadata.
         SalesforceOrg(std::boxed::Box<crate::model::SalesforceOrg>),
-        /// MongoDB cluster to enrich with child data objects and metadata.
+        /// Optional. MongoDB cluster to enrich with child data objects and metadata.
         MongodbCluster(std::boxed::Box<crate::model::MongodbCluster>),
+        /// Optional. Spanner database to enrich with child data objects and
+        /// metadata.
+        SpannerDatabase(std::boxed::Box<crate::model::SpannerDatabase>),
+        /// Optional. Source catalog to enrich with child data objects and metadata.
+        /// This is mainly used to represent SaaS sources databases.
+        SourceCatalog(std::boxed::Box<crate::model::SourceCatalog>),
     }
 }
 
@@ -681,6 +798,8 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(
         mut self,
@@ -722,6 +841,8 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
         mut self,
@@ -765,6 +886,8 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_postgresql_rdbms<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
@@ -812,6 +935,8 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.postgresql_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_sql_server_rdbms<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
@@ -859,6 +984,8 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.postgresql_rdbms().is_none());
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_salesforce_org<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
@@ -904,6 +1031,8 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.postgresql_rdbms().is_none());
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// assert!(x.source_catalog().is_none());
     /// ```
     pub fn set_mongodb_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
@@ -915,6 +1044,102 @@ impl DiscoverConnectionProfileResponse {
             crate::model::discover_connection_profile_response::DataObject::MongodbCluster(
                 v.into(),
             ),
+        );
+        self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `SpannerDatabase`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spanner_database(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SpannerDatabase>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::SpannerDatabase(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// to hold a `SpannerDatabase`.
+    ///
+    /// Note that all the setters affecting `data_object` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
+    /// use google_cloud_datastream_v1::model::SpannerDatabase;
+    /// let x = DiscoverConnectionProfileResponse::new().set_spanner_database(SpannerDatabase::default()/* use setters */);
+    /// assert!(x.spanner_database().is_some());
+    /// assert!(x.oracle_rdbms().is_none());
+    /// assert!(x.mysql_rdbms().is_none());
+    /// assert!(x.postgresql_rdbms().is_none());
+    /// assert!(x.sql_server_rdbms().is_none());
+    /// assert!(x.salesforce_org().is_none());
+    /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.source_catalog().is_none());
+    /// ```
+    pub fn set_spanner_database<
+        T: std::convert::Into<std::boxed::Box<crate::model::SpannerDatabase>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_object = std::option::Option::Some(
+            crate::model::discover_connection_profile_response::DataObject::SpannerDatabase(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `SourceCatalog`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_catalog(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceCatalog>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::SourceCatalog(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// to hold a `SourceCatalog`.
+    ///
+    /// Note that all the setters affecting `data_object` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = DiscoverConnectionProfileResponse::new().set_source_catalog(SourceCatalog::default()/* use setters */);
+    /// assert!(x.source_catalog().is_some());
+    /// assert!(x.oracle_rdbms().is_none());
+    /// assert!(x.mysql_rdbms().is_none());
+    /// assert!(x.postgresql_rdbms().is_none());
+    /// assert!(x.sql_server_rdbms().is_none());
+    /// assert!(x.salesforce_org().is_none());
+    /// assert!(x.mongodb_cluster().is_none());
+    /// assert!(x.spanner_database().is_none());
+    /// ```
+    pub fn set_source_catalog<
+        T: std::convert::Into<std::boxed::Box<crate::model::SourceCatalog>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_object = std::option::Option::Some(
+            crate::model::discover_connection_profile_response::DataObject::SourceCatalog(v.into()),
         );
         self
     }
@@ -947,6 +1172,11 @@ pub mod discover_connection_profile_response {
         SalesforceOrg(std::boxed::Box<crate::model::SalesforceOrg>),
         /// Enriched MongoDB cluster.
         MongodbCluster(std::boxed::Box<crate::model::MongodbCluster>),
+        /// Enriched Spanner database.
+        SpannerDatabase(std::boxed::Box<crate::model::SpannerDatabase>),
+        /// Enriched source catalog. This is mainly used to represent SaaS sources
+        /// databases.
+        SourceCatalog(std::boxed::Box<crate::model::SourceCatalog>),
     }
 }
 
@@ -958,10 +1188,10 @@ pub struct FetchStaticIpsRequest {
     /// returned. Must be in the format `projects/*/locations/*`.
     pub name: std::string::String,
 
-    /// Maximum number of Ips to return, will likely not be specified.
+    /// Optional. Maximum number of Ips to return, will likely not be specified.
     pub page_size: i32,
 
-    /// A page token, received from a previous `ListStaticIps` call.
+    /// Optional. A page token, received from a previous `ListStaticIps` call.
     /// will likely not be specified.
     pub page_token: std::string::String,
 
@@ -1080,22 +1310,22 @@ pub struct ListConnectionProfilesRequest {
     /// Required. The parent that owns the collection of connection profiles.
     pub parent: std::string::String,
 
-    /// Maximum number of connection profiles to return.
+    /// Optional. Maximum number of connection profiles to return.
     /// If unspecified, at most 50 connection profiles will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     pub page_size: i32,
 
-    /// Page token received from a previous `ListConnectionProfiles` call.
-    /// Provide this to retrieve the subsequent page.
+    /// Optional. Page token received from a previous `ListConnectionProfiles`
+    /// call. Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListConnectionProfiles`
     /// must match the call that provided the page token.
     pub page_token: std::string::String,
 
-    /// Filter request.
+    /// Optional. Filter request.
     pub filter: std::string::String,
 
-    /// Order by fields for the result.
+    /// Optional. Order by fields for the result.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1684,22 +1914,22 @@ pub struct ListStreamsRequest {
     /// Required. The parent that owns the collection of streams.
     pub parent: std::string::String,
 
-    /// Maximum number of streams to return.
+    /// Optional. Maximum number of streams to return.
     /// If unspecified, at most 50 streams will  be returned. The maximum
     /// value is 1000; values above 1000 will be coerced to 1000.
     pub page_size: i32,
 
-    /// Page token received from a previous `ListStreams` call.
+    /// Optional. Page token received from a previous `ListStreams` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListStreams`
     /// must match the call that provided the page token.
     pub page_token: std::string::String,
 
-    /// Filter request.
+    /// Optional. Filter request.
     pub filter: std::string::String,
 
-    /// Order by fields for the result.
+    /// Optional. Order by fields for the result.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2491,6 +2721,11 @@ pub struct StartBackfillJobRequest {
     /// for.
     pub object: std::string::String,
 
+    /// Optional. Optional event filter. If not set, or empty, the backfill will be
+    /// performed on the entire object. This is currently used for partial backfill
+    /// and only supported for SQL sources.
+    pub event_filter: std::option::Option<crate::model::EventFilter>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2513,6 +2748,39 @@ impl StartBackfillJobRequest {
     /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
+        self
+    }
+
+    /// Sets the value of [event_filter][crate::model::StartBackfillJobRequest::event_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::StartBackfillJobRequest;
+    /// use google_cloud_datastream_v1::model::EventFilter;
+    /// let x = StartBackfillJobRequest::new().set_event_filter(EventFilter::default()/* use setters */);
+    /// ```
+    pub fn set_event_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EventFilter>,
+    {
+        self.event_filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [event_filter][crate::model::StartBackfillJobRequest::event_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::StartBackfillJobRequest;
+    /// use google_cloud_datastream_v1::model::EventFilter;
+    /// let x = StartBackfillJobRequest::new().set_or_clear_event_filter(Some(EventFilter::default()/* use setters */));
+    /// let x = StartBackfillJobRequest::new().set_or_clear_event_filter(None::<EventFilter>);
+    /// ```
+    pub fn set_or_clear_event_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EventFilter>,
+    {
+        self.event_filter = v.map(|x| x.into());
         self
     }
 }
@@ -2683,12 +2951,12 @@ pub struct ListStreamObjectsRequest {
     /// Required. The parent stream that owns the collection of objects.
     pub parent: std::string::String,
 
-    /// Maximum number of objects to return. Default is 50.
+    /// Optional. Maximum number of objects to return. Default is 50.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     pub page_size: i32,
 
-    /// Page token received from a previous `ListStreamObjectsRequest` call.
-    /// Provide this to retrieve the subsequent page.
+    /// Optional. Page token received from a previous `ListStreamObjectsRequest`
+    /// call. Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to
     /// `ListStreamObjectsRequest` must match the call that provided the page
@@ -3199,18 +3467,18 @@ pub struct ListPrivateConnectionsRequest {
     /// 1000.
     pub page_size: i32,
 
-    /// Page token received from a previous `ListPrivateConnections` call.
-    /// Provide this to retrieve the subsequent page.
+    /// Optional. Page token received from a previous `ListPrivateConnections`
+    /// call. Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to
     /// `ListPrivateConnections` must match the call that provided the page
     /// token.
     pub page_token: std::string::String,
 
-    /// Filter request.
+    /// Optional. Filter request.
     pub filter: std::string::String,
 
-    /// Order by fields for the result.
+    /// Optional. Order by fields for the result.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3628,13 +3896,13 @@ pub struct ListRoutesRequest {
     /// Required. The parent that owns the collection of Routess.
     pub parent: std::string::String,
 
-    /// Maximum number of Routes to return. The service may return
+    /// Optional. Maximum number of Routes to return. The service may return
     /// fewer than this value. If unspecified, at most 50 Routes
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     pub page_size: i32,
 
-    /// Page token received from a previous `ListRoutes` call.
+    /// Optional. Page token received from a previous `ListRoutes` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to
@@ -3642,10 +3910,10 @@ pub struct ListRoutesRequest {
     /// token.
     pub page_token: std::string::String,
 
-    /// Filter request.
+    /// Optional. Filter request.
     pub filter: std::string::String,
 
-    /// Order by fields for the result.
+    /// Optional. Order by fields for the result.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3927,7 +4195,7 @@ impl wkt::message::Message for GetRouteRequest {
     }
 }
 
-/// Oracle database profile.
+/// Profile for connecting to an Oracle source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleProfile {
@@ -4316,7 +4584,7 @@ impl wkt::message::Message for OracleAsmConfig {
     }
 }
 
-/// MySQL database profile.
+/// Profile for connecting to a MySQL source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlProfile {
@@ -4452,7 +4720,7 @@ impl wkt::message::Message for MysqlProfile {
     }
 }
 
-/// PostgreSQL database profile.
+/// Profile for connecting to a PostgreSQL source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlProfile {
@@ -4607,7 +4875,7 @@ impl wkt::message::Message for PostgresqlProfile {
     }
 }
 
-/// SQLServer database profile.
+/// Profile for connecting to a SQLServer source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerProfile {
@@ -4626,6 +4894,9 @@ pub struct SqlServerProfile {
 
     /// Required. Database for the SQLServer connection.
     pub database: std::string::String,
+
+    /// Optional. SSL configuration for the SQLServer connection.
+    pub ssl_config: std::option::Option<crate::model::SqlServerSslConfig>,
 
     /// Optional. A reference to a Secret Manager resource name storing the
     /// SQLServer connection password. Mutually exclusive with the `password`
@@ -4701,6 +4972,39 @@ impl SqlServerProfile {
         self
     }
 
+    /// Sets the value of [ssl_config][crate::model::SqlServerProfile::ssl_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SqlServerProfile;
+    /// use google_cloud_datastream_v1::model::SqlServerSslConfig;
+    /// let x = SqlServerProfile::new().set_ssl_config(SqlServerSslConfig::default()/* use setters */);
+    /// ```
+    pub fn set_ssl_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SqlServerSslConfig>,
+    {
+        self.ssl_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ssl_config][crate::model::SqlServerProfile::ssl_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SqlServerProfile;
+    /// use google_cloud_datastream_v1::model::SqlServerSslConfig;
+    /// let x = SqlServerProfile::new().set_or_clear_ssl_config(Some(SqlServerSslConfig::default()/* use setters */));
+    /// let x = SqlServerProfile::new().set_or_clear_ssl_config(None::<SqlServerSslConfig>);
+    /// ```
+    pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SqlServerSslConfig>,
+    {
+        self.ssl_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [secret_manager_stored_password][crate::model::SqlServerProfile::secret_manager_stored_password].
     ///
     /// # Example
@@ -4723,7 +5027,7 @@ impl wkt::message::Message for SqlServerProfile {
     }
 }
 
-/// Salesforce profile
+/// Profile for connecting to a Salesforce source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceProfile {
@@ -4762,9 +5066,9 @@ impl SalesforceProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datastream_v1::model::SalesforceProfile;
-    /// use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
+    /// use google_cloud_datastream_v1::model::salesforce_profile::Oauth2ClientCredentials;
     /// let x = SalesforceProfile::new().set_credentials(Some(
-    ///     google_cloud_datastream_v1::model::salesforce_profile::Credentials::UserCredentials(UserCredentials::default().into())));
+    ///     google_cloud_datastream_v1::model::salesforce_profile::Credentials::Oauth2ClientCredentials(Oauth2ClientCredentials::default().into())));
     /// ```
     pub fn set_credentials<
         T: std::convert::Into<std::option::Option<crate::model::salesforce_profile::Credentials>>,
@@ -4779,6 +5083,7 @@ impl SalesforceProfile {
     /// The value of [credentials][crate::model::SalesforceProfile::credentials]
     /// if it holds a `UserCredentials`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn user_credentials(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>
@@ -4806,6 +5111,7 @@ impl SalesforceProfile {
     /// assert!(x.user_credentials().is_some());
     /// assert!(x.oauth2_client_credentials().is_none());
     /// ```
+    #[deprecated]
     pub fn set_user_credentials<
         T: std::convert::Into<std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>,
     >(
@@ -4875,9 +5181,11 @@ pub mod salesforce_profile {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Username-password credentials.
+    /// Deprecated: Salesforce is retiring Username-Password authentication.
+    /// Use `Oauth2ClientCredentials` instead.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
+    #[deprecated]
     pub struct UserCredentials {
         /// Required. Username for the Salesforce connection.
         pub username: std::string::String,
@@ -5067,7 +5375,9 @@ pub mod salesforce_profile {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Credentials {
-        /// User-password authentication.
+        /// Deprecated: Salesforce is retiring Username-Password authentication.
+        /// Use `oauth2_client_credentials` instead.
+        #[deprecated]
         UserCredentials(std::boxed::Box<crate::model::salesforce_profile::UserCredentials>),
         /// Connected app authentication.
         Oauth2ClientCredentials(
@@ -5076,7 +5386,7 @@ pub mod salesforce_profile {
     }
 }
 
-/// MongoDB profile.
+/// Profile for connecting to a MongoDB source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbProfile {
@@ -5105,6 +5415,19 @@ pub struct MongodbProfile {
 
     /// Optional. SSL configuration for the MongoDB connection.
     pub ssl_config: std::option::Option<crate::model::MongodbSslConfig>,
+
+    /// Optional. Specifies additional options for the MongoDB connection.
+    ///
+    /// The options should be sent as key-value pairs, for example:
+    /// `additional_options =
+    /// {"serverSelectionTimeoutMS": "10000", "directConnection": "true"}`.
+    ///
+    /// Keys are case-sensitive and should match the official MongoDB connection
+    /// string options:
+    /// <https://www.mongodb.com/docs/manual/reference/connection-string-options/>
+    ///
+    /// The server will not modify the values provided by the user.
+    pub additional_options: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// MongoDB connection format.
     /// Must specify either srv_connection_format or standard_connection_format.
@@ -5223,6 +5546,27 @@ impl MongodbProfile {
         T: std::convert::Into<crate::model::MongodbSslConfig>,
     {
         self.ssl_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [additional_options][crate::model::MongodbProfile::additional_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::MongodbProfile;
+    /// let x = MongodbProfile::new().set_additional_options([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_additional_options<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.additional_options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5409,6 +5753,710 @@ impl wkt::message::Message for HostAddress {
     }
 }
 
+/// Profile for connecting to a Spanner source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpannerProfile {
+    /// Required. Immutable. Cloud Spanner database resource.
+    /// This field is immutable.
+    /// Must be in the format:
+    /// projects/{project}/instances/{instance}/databases/{database_id}.
+    pub database: std::string::String,
+
+    /// Optional. The Spanner endpoint to connect to. Defaults to the global
+    /// endpoint (<https://spanner.googleapis.com>). Must be in the format:
+    /// https://spanner.{region}.rep.googleapis.com.
+    pub host: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SpannerProfile {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::SpannerProfile::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerProfile;
+    /// let x = SpannerProfile::new().set_database("example");
+    /// ```
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [host][crate::model::SpannerProfile::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerProfile;
+    /// let x = SpannerProfile::new().set_host("example");
+    /// ```
+    pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.host = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SpannerProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SpannerProfile"
+    }
+}
+
+/// OAuth Client Credentials.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OauthClientCredentials {
+    /// Required. Client ID for OAuth Client Credentials.
+    pub client_id: std::string::String,
+
+    /// Required. Client secret for OAuth Client Credentials.
+    pub client_secret: std::option::Option<crate::model::Secret>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OauthClientCredentials {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [client_id][crate::model::OauthClientCredentials::client_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// let x = OauthClientCredentials::new().set_client_id("example");
+    /// ```
+    pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_id = v.into();
+        self
+    }
+
+    /// Sets the value of [client_secret][crate::model::OauthClientCredentials::client_secret].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// use google_cloud_datastream_v1::model::Secret;
+    /// let x = OauthClientCredentials::new().set_client_secret(Secret::default()/* use setters */);
+    /// ```
+    pub fn set_client_secret<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.client_secret = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_secret][crate::model::OauthClientCredentials::client_secret].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// use google_cloud_datastream_v1::model::Secret;
+    /// let x = OauthClientCredentials::new().set_or_clear_client_secret(Some(Secret::default()/* use setters */));
+    /// let x = OauthClientCredentials::new().set_or_clear_client_secret(None::<Secret>);
+    /// ```
+    pub fn set_or_clear_client_secret<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.client_secret = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for OauthClientCredentials {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.OauthClientCredentials"
+    }
+}
+
+/// OAuth Refresh Token Credentials.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OauthRefreshTokenCredentials {
+    /// Required. Specifies the OAuth Client Credentials.
+    pub oauth_client_credentials: std::option::Option<crate::model::OauthClientCredentials>,
+
+    /// Required. Specifies the OAuth Refresh Token.
+    pub refresh_token: std::option::Option<crate::model::Secret>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OauthRefreshTokenCredentials {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [oauth_client_credentials][crate::model::OauthRefreshTokenCredentials::oauth_client_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::OauthRefreshTokenCredentials;
+    /// use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// let x = OauthRefreshTokenCredentials::new().set_oauth_client_credentials(OauthClientCredentials::default()/* use setters */);
+    /// ```
+    pub fn set_oauth_client_credentials<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OauthClientCredentials>,
+    {
+        self.oauth_client_credentials = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [oauth_client_credentials][crate::model::OauthRefreshTokenCredentials::oauth_client_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::OauthRefreshTokenCredentials;
+    /// use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// let x = OauthRefreshTokenCredentials::new().set_or_clear_oauth_client_credentials(Some(OauthClientCredentials::default()/* use setters */));
+    /// let x = OauthRefreshTokenCredentials::new().set_or_clear_oauth_client_credentials(None::<OauthClientCredentials>);
+    /// ```
+    pub fn set_or_clear_oauth_client_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OauthClientCredentials>,
+    {
+        self.oauth_client_credentials = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [refresh_token][crate::model::OauthRefreshTokenCredentials::refresh_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::OauthRefreshTokenCredentials;
+    /// use google_cloud_datastream_v1::model::Secret;
+    /// let x = OauthRefreshTokenCredentials::new().set_refresh_token(Secret::default()/* use setters */);
+    /// ```
+    pub fn set_refresh_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.refresh_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [refresh_token][crate::model::OauthRefreshTokenCredentials::refresh_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::OauthRefreshTokenCredentials;
+    /// use google_cloud_datastream_v1::model::Secret;
+    /// let x = OauthRefreshTokenCredentials::new().set_or_clear_refresh_token(Some(Secret::default()/* use setters */));
+    /// let x = OauthRefreshTokenCredentials::new().set_or_clear_refresh_token(None::<Secret>);
+    /// ```
+    pub fn set_or_clear_refresh_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.refresh_token = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for OauthRefreshTokenCredentials {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.OauthRefreshTokenCredentials"
+    }
+}
+
+/// User-password credentials.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UserPasswordCredentials {
+    /// Required. Username for the connection.
+    pub username: std::string::String,
+
+    /// Required. Password for the connection.
+    pub password: std::option::Option<crate::model::Secret>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UserPasswordCredentials {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [username][crate::model::UserPasswordCredentials::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::UserPasswordCredentials;
+    /// let x = UserPasswordCredentials::new().set_username("example");
+    /// ```
+    pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.username = v.into();
+        self
+    }
+
+    /// Sets the value of [password][crate::model::UserPasswordCredentials::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::UserPasswordCredentials;
+    /// use google_cloud_datastream_v1::model::Secret;
+    /// let x = UserPasswordCredentials::new().set_password(Secret::default()/* use setters */);
+    /// ```
+    pub fn set_password<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.password = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [password][crate::model::UserPasswordCredentials::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::UserPasswordCredentials;
+    /// use google_cloud_datastream_v1::model::Secret;
+    /// let x = UserPasswordCredentials::new().set_or_clear_password(Some(Secret::default()/* use setters */));
+    /// let x = UserPasswordCredentials::new().set_or_clear_password(None::<Secret>);
+    /// ```
+    pub fn set_or_clear_password<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.password = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UserPasswordCredentials {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.UserPasswordCredentials"
+    }
+}
+
+/// Profile for connecting to a Salesforce Marketing Cloud source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SalesforceMarketingCloudProfile {
+    /// Required. Subdomain for the Salesforce Marketing Cloud connection.
+    /// Example: if your specific endpoint is
+    /// `https://{your-specific-subdomain}.rest.marketingcloudapis.com/`,
+    /// the subdomain is `{your-specific-subdomain}`.
+    /// Must be 1-63 characters, start and end with an alphanumeric character,
+    /// and contain only lowercase letters, numbers, and hyphens (-).
+    pub subdomain: std::string::String,
+
+    /// Required. Input only. Credentials for authenticating with the Salesforce
+    /// Marketing Cloud API.
+    pub oauth_client_credentials: std::option::Option<crate::model::OauthClientCredentials>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SalesforceMarketingCloudProfile {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [subdomain][crate::model::SalesforceMarketingCloudProfile::subdomain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudProfile;
+    /// let x = SalesforceMarketingCloudProfile::new().set_subdomain("example");
+    /// ```
+    pub fn set_subdomain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subdomain = v.into();
+        self
+    }
+
+    /// Sets the value of [oauth_client_credentials][crate::model::SalesforceMarketingCloudProfile::oauth_client_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudProfile;
+    /// use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// let x = SalesforceMarketingCloudProfile::new().set_oauth_client_credentials(OauthClientCredentials::default()/* use setters */);
+    /// ```
+    pub fn set_oauth_client_credentials<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OauthClientCredentials>,
+    {
+        self.oauth_client_credentials = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [oauth_client_credentials][crate::model::SalesforceMarketingCloudProfile::oauth_client_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudProfile;
+    /// use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// let x = SalesforceMarketingCloudProfile::new().set_or_clear_oauth_client_credentials(Some(OauthClientCredentials::default()/* use setters */));
+    /// let x = SalesforceMarketingCloudProfile::new().set_or_clear_oauth_client_credentials(None::<OauthClientCredentials>);
+    /// ```
+    pub fn set_or_clear_oauth_client_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OauthClientCredentials>,
+    {
+        self.oauth_client_credentials = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SalesforceMarketingCloudProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SalesforceMarketingCloudProfile"
+    }
+}
+
+/// Profile for connecting to a Dataverse source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataverseProfile {
+    /// Required. Tenant id of the Microsoft Dataverse instance.
+    pub tenant_id: std::string::String,
+
+    /// Required. Environment URL of the Microsoft Dataverse instance.
+    /// Example:  `<subdomain>.crm.dynamics.com`
+    pub environment_url: std::string::String,
+
+    /// Required. Credentials for authenticating with the Dataverse API.
+    pub oauth_client_credentials: std::option::Option<crate::model::OauthClientCredentials>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataverseProfile {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tenant_id][crate::model::DataverseProfile::tenant_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseProfile;
+    /// let x = DataverseProfile::new().set_tenant_id("example");
+    /// ```
+    pub fn set_tenant_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tenant_id = v.into();
+        self
+    }
+
+    /// Sets the value of [environment_url][crate::model::DataverseProfile::environment_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseProfile;
+    /// let x = DataverseProfile::new().set_environment_url("example");
+    /// ```
+    pub fn set_environment_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.environment_url = v.into();
+        self
+    }
+
+    /// Sets the value of [oauth_client_credentials][crate::model::DataverseProfile::oauth_client_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseProfile;
+    /// use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// let x = DataverseProfile::new().set_oauth_client_credentials(OauthClientCredentials::default()/* use setters */);
+    /// ```
+    pub fn set_oauth_client_credentials<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OauthClientCredentials>,
+    {
+        self.oauth_client_credentials = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [oauth_client_credentials][crate::model::DataverseProfile::oauth_client_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseProfile;
+    /// use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// let x = DataverseProfile::new().set_or_clear_oauth_client_credentials(Some(OauthClientCredentials::default()/* use setters */));
+    /// let x = DataverseProfile::new().set_or_clear_oauth_client_credentials(None::<OauthClientCredentials>);
+    /// ```
+    pub fn set_or_clear_oauth_client_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OauthClientCredentials>,
+    {
+        self.oauth_client_credentials = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DataverseProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.DataverseProfile"
+    }
+}
+
+/// Profile for connecting to a ServiceNow source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ServiceNowProfile {
+    /// Required. The instance of the ServiceNow account. This is the `<instance>`
+    /// part of the URL `https://<instance>.service-now.com`.
+    pub instance: std::string::String,
+
+    /// Authentication credentials.
+    pub credentials: std::option::Option<crate::model::service_now_profile::Credentials>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ServiceNowProfile {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::ServiceNowProfile::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowProfile;
+    /// let x = ServiceNowProfile::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [credentials][crate::model::ServiceNowProfile::credentials].
+    ///
+    /// Note that all the setters affecting `credentials` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowProfile;
+    /// use google_cloud_datastream_v1::model::UserPasswordCredentials;
+    /// let x = ServiceNowProfile::new().set_credentials(Some(
+    ///     google_cloud_datastream_v1::model::service_now_profile::Credentials::UserPasswordCredentials(UserPasswordCredentials::default().into())));
+    /// ```
+    pub fn set_credentials<
+        T: std::convert::Into<std::option::Option<crate::model::service_now_profile::Credentials>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.credentials = v.into();
+        self
+    }
+
+    /// The value of [credentials][crate::model::ServiceNowProfile::credentials]
+    /// if it holds a `UserPasswordCredentials`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_password_credentials(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UserPasswordCredentials>> {
+        #[allow(unreachable_patterns)]
+        self.credentials.as_ref().and_then(|v| match v {
+            crate::model::service_now_profile::Credentials::UserPasswordCredentials(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [credentials][crate::model::ServiceNowProfile::credentials]
+    /// to hold a `UserPasswordCredentials`.
+    ///
+    /// Note that all the setters affecting `credentials` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowProfile;
+    /// use google_cloud_datastream_v1::model::UserPasswordCredentials;
+    /// let x = ServiceNowProfile::new().set_user_password_credentials(UserPasswordCredentials::default()/* use setters */);
+    /// assert!(x.user_password_credentials().is_some());
+    /// assert!(x.oauth_client_credentials().is_none());
+    /// ```
+    pub fn set_user_password_credentials<
+        T: std::convert::Into<std::boxed::Box<crate::model::UserPasswordCredentials>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.credentials = std::option::Option::Some(
+            crate::model::service_now_profile::Credentials::UserPasswordCredentials(v.into()),
+        );
+        self
+    }
+
+    /// The value of [credentials][crate::model::ServiceNowProfile::credentials]
+    /// if it holds a `OauthClientCredentials`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oauth_client_credentials(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OauthClientCredentials>> {
+        #[allow(unreachable_patterns)]
+        self.credentials.as_ref().and_then(|v| match v {
+            crate::model::service_now_profile::Credentials::OauthClientCredentials(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [credentials][crate::model::ServiceNowProfile::credentials]
+    /// to hold a `OauthClientCredentials`.
+    ///
+    /// Note that all the setters affecting `credentials` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowProfile;
+    /// use google_cloud_datastream_v1::model::OauthClientCredentials;
+    /// let x = ServiceNowProfile::new().set_oauth_client_credentials(OauthClientCredentials::default()/* use setters */);
+    /// assert!(x.oauth_client_credentials().is_some());
+    /// assert!(x.user_password_credentials().is_none());
+    /// ```
+    pub fn set_oauth_client_credentials<
+        T: std::convert::Into<std::boxed::Box<crate::model::OauthClientCredentials>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.credentials = std::option::Option::Some(
+            crate::model::service_now_profile::Credentials::OauthClientCredentials(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceNowProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.ServiceNowProfile"
+    }
+}
+
+/// Defines additional types related to [ServiceNowProfile].
+pub mod service_now_profile {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Authentication credentials.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Credentials {
+        /// User-password authentication.
+        UserPasswordCredentials(std::boxed::Box<crate::model::UserPasswordCredentials>),
+        /// Credentials for authenticating with the ServiceNow API.
+        OauthClientCredentials(std::boxed::Box<crate::model::OauthClientCredentials>),
+    }
+}
+
+/// Profile for connecting to a Workday source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkdayProfile {
+    /// Required. Host for the Workday connection. Must be a valid hostname (e.g.,
+    /// `wd3-impl-services1.workday.com`).
+    pub host: std::string::String,
+
+    /// Required. Tenant for the Workday connection (e.g., `google12`).
+    pub tenant: std::string::String,
+
+    /// Required. Credentials for authenticating with the Workday API.
+    /// OAuth Refresh Token credentials for authenticating with the Workday API.
+    pub oauth_refresh_token_credentials:
+        std::option::Option<crate::model::OauthRefreshTokenCredentials>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkdayProfile {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [host][crate::model::WorkdayProfile::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdayProfile;
+    /// let x = WorkdayProfile::new().set_host("example");
+    /// ```
+    pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.host = v.into();
+        self
+    }
+
+    /// Sets the value of [tenant][crate::model::WorkdayProfile::tenant].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdayProfile;
+    /// let x = WorkdayProfile::new().set_tenant("example");
+    /// ```
+    pub fn set_tenant<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tenant = v.into();
+        self
+    }
+
+    /// Sets the value of [oauth_refresh_token_credentials][crate::model::WorkdayProfile::oauth_refresh_token_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdayProfile;
+    /// use google_cloud_datastream_v1::model::OauthRefreshTokenCredentials;
+    /// let x = WorkdayProfile::new().set_oauth_refresh_token_credentials(OauthRefreshTokenCredentials::default()/* use setters */);
+    /// ```
+    pub fn set_oauth_refresh_token_credentials<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OauthRefreshTokenCredentials>,
+    {
+        self.oauth_refresh_token_credentials = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [oauth_refresh_token_credentials][crate::model::WorkdayProfile::oauth_refresh_token_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdayProfile;
+    /// use google_cloud_datastream_v1::model::OauthRefreshTokenCredentials;
+    /// let x = WorkdayProfile::new().set_or_clear_oauth_refresh_token_credentials(Some(OauthRefreshTokenCredentials::default()/* use setters */));
+    /// let x = WorkdayProfile::new().set_or_clear_oauth_refresh_token_credentials(None::<OauthRefreshTokenCredentials>);
+    /// ```
+    pub fn set_or_clear_oauth_refresh_token_credentials<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::OauthRefreshTokenCredentials>,
+    {
+        self.oauth_refresh_token_credentials = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkdayProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.WorkdayProfile"
+    }
+}
+
 /// Srv connection format.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5433,8 +6481,12 @@ impl wkt::message::Message for SrvConnectionFormat {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StandardConnectionFormat {
-    /// Optional. Specifies whether the client connects directly to the host[:port]
-    /// in the connection URI.
+    /// Optional. Deprecated: Use the `additional_options` map to specify the
+    /// `directConnection` parameter instead.
+    /// For example: `additional_options = {"directConnection": "true"}`.
+    /// Specifies whether the client connects directly to the host[:port] in the
+    /// connection URI.
+    #[deprecated]
     pub direct_connection: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5453,6 +6505,7 @@ impl StandardConnectionFormat {
     /// # use google_cloud_datastream_v1::model::StandardConnectionFormat;
     /// let x = StandardConnectionFormat::new().set_direct_connection(true);
     /// ```
+    #[deprecated]
     pub fn set_direct_connection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.direct_connection = v.into();
         self
@@ -5465,14 +6518,14 @@ impl wkt::message::Message for StandardConnectionFormat {
     }
 }
 
-/// Cloud Storage bucket profile.
+/// Profile for connecting to a Cloud Storage destination.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsProfile {
     /// Required. The Cloud Storage bucket name.
     pub bucket: std::string::String,
 
-    /// The root path inside the Cloud Storage bucket.
+    /// Optional. The root path inside the Cloud Storage bucket.
     pub root_path: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5515,7 +6568,7 @@ impl wkt::message::Message for GcsProfile {
     }
 }
 
-/// BigQuery warehouse profile.
+/// Profile for connecting to a BigQuery destination.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryProfile {
@@ -5570,7 +6623,7 @@ pub struct ForwardSshTunnelConnectivity {
     /// Port for the SSH tunnel, default value is 22.
     pub port: i32,
 
-    #[allow(missing_docs)]
+    /// SSH authentication method.
     pub authentication_method:
         std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>,
 
@@ -5724,7 +6777,7 @@ pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
+    /// SSH authentication method.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuthenticationMethod {
@@ -6561,6 +7614,128 @@ impl wkt::message::Message for Route {
     }
 }
 
+/// A confidential piece of information where the actual value is either directly
+/// specified in the message as a raw string or stored in GCP secret manager.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Secret {
+    /// The actual value of the secret.
+    pub value: std::option::Option<crate::model::secret::Value>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Secret {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [value][crate::model::Secret::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::Secret;
+    /// use google_cloud_datastream_v1::model::secret::Value;
+    /// let x = Secret::new().set_value(Some(Value::RawValue("example".to_string())));
+    /// ```
+    pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::secret::Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value = v.into();
+        self
+    }
+
+    /// The value of [value][crate::model::Secret::value]
+    /// if it holds a `RawValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn raw_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::secret::Value::RawValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [value][crate::model::Secret::value]
+    /// to hold a `RawValue`.
+    ///
+    /// Note that all the setters affecting `value` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::Secret;
+    /// let x = Secret::new().set_raw_value("example");
+    /// assert!(x.raw_value().is_some());
+    /// assert!(x.secret_version().is_none());
+    /// ```
+    pub fn set_raw_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = std::option::Option::Some(crate::model::secret::Value::RawValue(v.into()));
+        self
+    }
+
+    /// The value of [value][crate::model::Secret::value]
+    /// if it holds a `SecretVersion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn secret_version(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::secret::Value::SecretVersion(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [value][crate::model::Secret::value]
+    /// to hold a `SecretVersion`.
+    ///
+    /// Note that all the setters affecting `value` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::Secret;
+    /// let x = Secret::new().set_secret_version("example");
+    /// assert!(x.secret_version().is_some());
+    /// assert!(x.raw_value().is_none());
+    /// ```
+    pub fn set_secret_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value =
+            std::option::Option::Some(crate::model::secret::Value::SecretVersion(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for Secret {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.Secret"
+    }
+}
+
+/// Defines additional types related to [Secret].
+pub mod secret {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The actual value of the secret.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Value {
+        /// Optional. Input only. The actual raw value of the secret as plain text.
+        RawValue(std::string::String),
+        /// Optional. A Secret Manager resource name storing the actual value of the
+        /// secret. Supported formats:
+        ///
+        /// * projects/{project}/locations/{location}/secrets/{secret}/versions/{version}
+        /// * projects/{project}/secrets/{secret}/versions/{version}
+        SecretVersion(std::string::String),
+    }
+}
+
 /// MongoDB SSL configuration information.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -6891,6 +8066,349 @@ impl OracleSslConfig {
 impl wkt::message::Message for OracleSslConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.datastream.v1.OracleSslConfig"
+    }
+}
+
+/// SQL Server SSL configuration information.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlServerSslConfig {
+    /// The encryption settings available for SQL Server connection profiles.
+    /// This captures various options like no TLS encryption from client if server
+    /// doesn't ask for it, only encryption without validation and both encryption
+    /// as well as validation of server certificate.
+    pub encryption_setting:
+        std::option::Option<crate::model::sql_server_ssl_config::EncryptionSetting>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlServerSslConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [encryption_setting][crate::model::SqlServerSslConfig::encryption_setting].
+    ///
+    /// Note that all the setters affecting `encryption_setting` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SqlServerSslConfig;
+    /// use google_cloud_datastream_v1::model::sql_server_ssl_config::EncryptionNotEnforced;
+    /// let x = SqlServerSslConfig::new().set_encryption_setting(Some(
+    ///     google_cloud_datastream_v1::model::sql_server_ssl_config::EncryptionSetting::EncryptionNotEnforced(EncryptionNotEnforced::default().into())));
+    /// ```
+    pub fn set_encryption_setting<
+        T: std::convert::Into<
+                std::option::Option<crate::model::sql_server_ssl_config::EncryptionSetting>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_setting = v.into();
+        self
+    }
+
+    /// The value of [encryption_setting][crate::model::SqlServerSslConfig::encryption_setting]
+    /// if it holds a `EncryptionNotEnforced`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn encryption_not_enforced(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::sql_server_ssl_config::EncryptionNotEnforced>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.encryption_setting.as_ref().and_then(|v| match v {
+            crate::model::sql_server_ssl_config::EncryptionSetting::EncryptionNotEnforced(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [encryption_setting][crate::model::SqlServerSslConfig::encryption_setting]
+    /// to hold a `EncryptionNotEnforced`.
+    ///
+    /// Note that all the setters affecting `encryption_setting` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SqlServerSslConfig;
+    /// use google_cloud_datastream_v1::model::sql_server_ssl_config::EncryptionNotEnforced;
+    /// let x = SqlServerSslConfig::new().set_encryption_not_enforced(EncryptionNotEnforced::default()/* use setters */);
+    /// assert!(x.encryption_not_enforced().is_some());
+    /// assert!(x.basic_encryption().is_none());
+    /// assert!(x.encryption_and_server_validation().is_none());
+    /// ```
+    pub fn set_encryption_not_enforced<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::sql_server_ssl_config::EncryptionNotEnforced>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_setting = std::option::Option::Some(
+            crate::model::sql_server_ssl_config::EncryptionSetting::EncryptionNotEnforced(v.into()),
+        );
+        self
+    }
+
+    /// The value of [encryption_setting][crate::model::SqlServerSslConfig::encryption_setting]
+    /// if it holds a `BasicEncryption`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn basic_encryption(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::sql_server_ssl_config::BasicEncryption>>
+    {
+        #[allow(unreachable_patterns)]
+        self.encryption_setting.as_ref().and_then(|v| match v {
+            crate::model::sql_server_ssl_config::EncryptionSetting::BasicEncryption(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [encryption_setting][crate::model::SqlServerSslConfig::encryption_setting]
+    /// to hold a `BasicEncryption`.
+    ///
+    /// Note that all the setters affecting `encryption_setting` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SqlServerSslConfig;
+    /// use google_cloud_datastream_v1::model::sql_server_ssl_config::BasicEncryption;
+    /// let x = SqlServerSslConfig::new().set_basic_encryption(BasicEncryption::default()/* use setters */);
+    /// assert!(x.basic_encryption().is_some());
+    /// assert!(x.encryption_not_enforced().is_none());
+    /// assert!(x.encryption_and_server_validation().is_none());
+    /// ```
+    pub fn set_basic_encryption<
+        T: std::convert::Into<std::boxed::Box<crate::model::sql_server_ssl_config::BasicEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_setting = std::option::Option::Some(
+            crate::model::sql_server_ssl_config::EncryptionSetting::BasicEncryption(v.into()),
+        );
+        self
+    }
+
+    /// The value of [encryption_setting][crate::model::SqlServerSslConfig::encryption_setting]
+    /// if it holds a `EncryptionAndServerValidation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn encryption_and_server_validation(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::sql_server_ssl_config::EncryptionAndServerValidation>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.encryption_setting.as_ref().and_then(|v| match v {
+            crate::model::sql_server_ssl_config::EncryptionSetting::EncryptionAndServerValidation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [encryption_setting][crate::model::SqlServerSslConfig::encryption_setting]
+    /// to hold a `EncryptionAndServerValidation`.
+    ///
+    /// Note that all the setters affecting `encryption_setting` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SqlServerSslConfig;
+    /// use google_cloud_datastream_v1::model::sql_server_ssl_config::EncryptionAndServerValidation;
+    /// let x = SqlServerSslConfig::new().set_encryption_and_server_validation(EncryptionAndServerValidation::default()/* use setters */);
+    /// assert!(x.encryption_and_server_validation().is_some());
+    /// assert!(x.encryption_not_enforced().is_none());
+    /// assert!(x.basic_encryption().is_none());
+    /// ```
+    pub fn set_encryption_and_server_validation<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::sql_server_ssl_config::EncryptionAndServerValidation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_setting = std::option::Option::Some(
+            crate::model::sql_server_ssl_config::EncryptionSetting::EncryptionAndServerValidation(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SqlServerSslConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SqlServerSslConfig"
+    }
+}
+
+/// Defines additional types related to [SqlServerSslConfig].
+pub mod sql_server_ssl_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Message to represent the option where encryption is not enforced. An empty
+    /// message right now to allow future extensibility.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EncryptionNotEnforced {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EncryptionNotEnforced {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for EncryptionNotEnforced {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SqlServerSslConfig.EncryptionNotEnforced"
+        }
+    }
+
+    /// Message to represent the option where Datastream will enforce encryption
+    /// without authenticating server identity. Server certificates will be trusted
+    /// by default.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BasicEncryption {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BasicEncryption {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for BasicEncryption {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SqlServerSslConfig.BasicEncryption"
+        }
+    }
+
+    /// Message to represent the option where Datastream will enforce encryption
+    /// and authenticate server identity. ca_certificate must be set if user
+    /// selects this option.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EncryptionAndServerValidation {
+        /// Optional. Input only. PEM-encoded certificate of the CA that signed the
+        /// source database server's certificate.
+        pub ca_certificate: std::string::String,
+
+        /// Optional. The hostname mentioned in the Subject or SAN extension of the
+        /// server certificate. This field is used for bypassing the hostname
+        /// validation while verifying server certificate. This is required for
+        /// scenarios where the host name that datastream connects to is different
+        /// from the certificate's subject. This specifically happens for private
+        /// connectivity. It could also happen when the customer provides
+        /// a public IP in connection profile but the same is not present in the
+        /// server certificate.
+        pub server_certificate_hostname: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EncryptionAndServerValidation {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [ca_certificate][crate::model::sql_server_ssl_config::EncryptionAndServerValidation::ca_certificate].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::sql_server_ssl_config::EncryptionAndServerValidation;
+        /// let x = EncryptionAndServerValidation::new().set_ca_certificate("example");
+        /// ```
+        pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ca_certificate = v.into();
+            self
+        }
+
+        /// Sets the value of [server_certificate_hostname][crate::model::sql_server_ssl_config::EncryptionAndServerValidation::server_certificate_hostname].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::sql_server_ssl_config::EncryptionAndServerValidation;
+        /// let x = EncryptionAndServerValidation::new().set_server_certificate_hostname("example");
+        /// ```
+        pub fn set_server_certificate_hostname<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.server_certificate_hostname = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [server_certificate_hostname][crate::model::sql_server_ssl_config::EncryptionAndServerValidation::server_certificate_hostname].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::sql_server_ssl_config::EncryptionAndServerValidation;
+        /// let x = EncryptionAndServerValidation::new().set_or_clear_server_certificate_hostname(Some("example"));
+        /// let x = EncryptionAndServerValidation::new().set_or_clear_server_certificate_hostname(None::<String>);
+        /// ```
+        pub fn set_or_clear_server_certificate_hostname<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.server_certificate_hostname = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for EncryptionAndServerValidation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SqlServerSslConfig.EncryptionAndServerValidation"
+        }
+    }
+
+    /// The encryption settings available for SQL Server connection profiles.
+    /// This captures various options like no TLS encryption from client if server
+    /// doesn't ask for it, only encryption without validation and both encryption
+    /// as well as validation of server certificate.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EncryptionSetting {
+        /// If set, Datastream will not enforce encryption. If the DB server mandates
+        /// encryption, then connection will be encrypted but server identity will
+        /// not be authenticated.
+        EncryptionNotEnforced(
+            std::boxed::Box<crate::model::sql_server_ssl_config::EncryptionNotEnforced>,
+        ),
+        /// If set, Datastream will enforce encryption without authenticating server
+        /// identity. Server certificates will be trusted by default.
+        BasicEncryption(std::boxed::Box<crate::model::sql_server_ssl_config::BasicEncryption>),
+        /// If set, Datastream will enforce encryption and authenticate server
+        /// identity.
+        EncryptionAndServerValidation(
+            std::boxed::Box<crate::model::sql_server_ssl_config::EncryptionAndServerValidation>,
+        ),
     }
 }
 
@@ -7498,6 +9016,11 @@ impl ConnectionProfile {
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
     /// ```
     pub fn set_oracle_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::OracleProfile>>,
@@ -7543,6 +9066,11 @@ impl ConnectionProfile {
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
     /// ```
     pub fn set_gcs_profile<T: std::convert::Into<std::boxed::Box<crate::model::GcsProfile>>>(
         mut self,
@@ -7588,6 +9116,11 @@ impl ConnectionProfile {
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
     /// ```
     pub fn set_mysql_profile<T: std::convert::Into<std::boxed::Box<crate::model::MysqlProfile>>>(
         mut self,
@@ -7633,6 +9166,11 @@ impl ConnectionProfile {
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
     /// ```
     pub fn set_bigquery_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryProfile>>,
@@ -7680,6 +9218,11 @@ impl ConnectionProfile {
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
     /// ```
     pub fn set_postgresql_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlProfile>>,
@@ -7727,6 +9270,11 @@ impl ConnectionProfile {
     /// assert!(x.postgresql_profile().is_none());
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
     /// ```
     pub fn set_sql_server_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerProfile>>,
@@ -7774,6 +9322,11 @@ impl ConnectionProfile {
     /// assert!(x.postgresql_profile().is_none());
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
     /// ```
     pub fn set_salesforce_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceProfile>>,
@@ -7821,6 +9374,11 @@ impl ConnectionProfile {
     /// assert!(x.postgresql_profile().is_none());
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.salesforce_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
     /// ```
     pub fn set_mongodb_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::MongodbProfile>>,
@@ -7830,6 +9388,266 @@ impl ConnectionProfile {
     ) -> Self {
         self.profile = std::option::Option::Some(
             crate::model::connection_profile::Profile::MongodbProfile(v.into()),
+        );
+        self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `SpannerProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spanner_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SpannerProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::SpannerProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
+    /// to hold a `SpannerProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
+    /// use google_cloud_datastream_v1::model::SpannerProfile;
+    /// let x = ConnectionProfile::new().set_spanner_profile(SpannerProfile::default()/* use setters */);
+    /// assert!(x.spanner_profile().is_some());
+    /// assert!(x.oracle_profile().is_none());
+    /// assert!(x.gcs_profile().is_none());
+    /// assert!(x.mysql_profile().is_none());
+    /// assert!(x.bigquery_profile().is_none());
+    /// assert!(x.postgresql_profile().is_none());
+    /// assert!(x.sql_server_profile().is_none());
+    /// assert!(x.salesforce_profile().is_none());
+    /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
+    /// ```
+    pub fn set_spanner_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::SpannerProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::connection_profile::Profile::SpannerProfile(v.into()),
+        );
+        self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `DataverseProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dataverse_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataverseProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::DataverseProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
+    /// to hold a `DataverseProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
+    /// use google_cloud_datastream_v1::model::DataverseProfile;
+    /// let x = ConnectionProfile::new().set_dataverse_profile(DataverseProfile::default()/* use setters */);
+    /// assert!(x.dataverse_profile().is_some());
+    /// assert!(x.oracle_profile().is_none());
+    /// assert!(x.gcs_profile().is_none());
+    /// assert!(x.mysql_profile().is_none());
+    /// assert!(x.bigquery_profile().is_none());
+    /// assert!(x.postgresql_profile().is_none());
+    /// assert!(x.sql_server_profile().is_none());
+    /// assert!(x.salesforce_profile().is_none());
+    /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
+    /// ```
+    pub fn set_dataverse_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataverseProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::connection_profile::Profile::DataverseProfile(v.into()),
+        );
+        self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `SalesforceMarketingCloudProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_marketing_cloud_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceMarketingCloudProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::SalesforceMarketingCloudProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
+    /// to hold a `SalesforceMarketingCloudProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
+    /// use google_cloud_datastream_v1::model::SalesforceMarketingCloudProfile;
+    /// let x = ConnectionProfile::new().set_salesforce_marketing_cloud_profile(SalesforceMarketingCloudProfile::default()/* use setters */);
+    /// assert!(x.salesforce_marketing_cloud_profile().is_some());
+    /// assert!(x.oracle_profile().is_none());
+    /// assert!(x.gcs_profile().is_none());
+    /// assert!(x.mysql_profile().is_none());
+    /// assert!(x.bigquery_profile().is_none());
+    /// assert!(x.postgresql_profile().is_none());
+    /// assert!(x.sql_server_profile().is_none());
+    /// assert!(x.salesforce_profile().is_none());
+    /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
+    /// ```
+    pub fn set_salesforce_marketing_cloud_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceMarketingCloudProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::connection_profile::Profile::SalesforceMarketingCloudProfile(v.into()),
+        );
+        self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `ServiceNowProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn service_now_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ServiceNowProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::ServiceNowProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
+    /// to hold a `ServiceNowProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
+    /// use google_cloud_datastream_v1::model::ServiceNowProfile;
+    /// let x = ConnectionProfile::new().set_service_now_profile(ServiceNowProfile::default()/* use setters */);
+    /// assert!(x.service_now_profile().is_some());
+    /// assert!(x.oracle_profile().is_none());
+    /// assert!(x.gcs_profile().is_none());
+    /// assert!(x.mysql_profile().is_none());
+    /// assert!(x.bigquery_profile().is_none());
+    /// assert!(x.postgresql_profile().is_none());
+    /// assert!(x.sql_server_profile().is_none());
+    /// assert!(x.salesforce_profile().is_none());
+    /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.workday_profile().is_none());
+    /// ```
+    pub fn set_service_now_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::ServiceNowProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::connection_profile::Profile::ServiceNowProfile(v.into()),
+        );
+        self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `WorkdayProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn workday_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::WorkdayProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::WorkdayProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
+    /// to hold a `WorkdayProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
+    /// use google_cloud_datastream_v1::model::WorkdayProfile;
+    /// let x = ConnectionProfile::new().set_workday_profile(WorkdayProfile::default()/* use setters */);
+    /// assert!(x.workday_profile().is_some());
+    /// assert!(x.oracle_profile().is_none());
+    /// assert!(x.gcs_profile().is_none());
+    /// assert!(x.mysql_profile().is_none());
+    /// assert!(x.bigquery_profile().is_none());
+    /// assert!(x.postgresql_profile().is_none());
+    /// assert!(x.sql_server_profile().is_none());
+    /// assert!(x.salesforce_profile().is_none());
+    /// assert!(x.mongodb_profile().is_none());
+    /// assert!(x.spanner_profile().is_none());
+    /// assert!(x.dataverse_profile().is_none());
+    /// assert!(x.salesforce_marketing_cloud_profile().is_none());
+    /// assert!(x.service_now_profile().is_none());
+    /// ```
+    pub fn set_workday_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::WorkdayProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::connection_profile::Profile::WorkdayProfile(v.into()),
         );
         self
     }
@@ -7998,22 +9816,34 @@ pub mod connection_profile {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Profile {
-        /// Oracle ConnectionProfile configuration.
+        /// Profile for connecting to an Oracle source.
         OracleProfile(std::boxed::Box<crate::model::OracleProfile>),
-        /// Cloud Storage ConnectionProfile configuration.
+        /// Profile for connecting to a Cloud Storage destination.
         GcsProfile(std::boxed::Box<crate::model::GcsProfile>),
-        /// MySQL ConnectionProfile configuration.
+        /// Profile for connecting to a MySQL source.
         MysqlProfile(std::boxed::Box<crate::model::MysqlProfile>),
-        /// BigQuery Connection Profile configuration.
+        /// Profile for connecting to a BigQuery destination.
         BigqueryProfile(std::boxed::Box<crate::model::BigQueryProfile>),
-        /// PostgreSQL Connection Profile configuration.
+        /// Profile for connecting to a PostgreSQL source.
         PostgresqlProfile(std::boxed::Box<crate::model::PostgresqlProfile>),
-        /// SQLServer Connection Profile configuration.
+        /// Profile for connecting to a SQLServer source.
         SqlServerProfile(std::boxed::Box<crate::model::SqlServerProfile>),
-        /// Salesforce Connection Profile configuration.
+        /// Profile for connecting to a Salesforce source.
         SalesforceProfile(std::boxed::Box<crate::model::SalesforceProfile>),
-        /// MongoDB Connection Profile configuration.
+        /// Profile for connecting to a MongoDB source.
         MongodbProfile(std::boxed::Box<crate::model::MongodbProfile>),
+        /// Profile for connecting to a Spanner source.
+        SpannerProfile(std::boxed::Box<crate::model::SpannerProfile>),
+        /// Profile for connecting to a Dataverse source.
+        DataverseProfile(std::boxed::Box<crate::model::DataverseProfile>),
+        /// Profile for connecting to a Salesforce Marketing Cloud source.
+        SalesforceMarketingCloudProfile(
+            std::boxed::Box<crate::model::SalesforceMarketingCloudProfile>,
+        ),
+        /// Profile for connecting to a ServiceNow source.
+        ServiceNowProfile(std::boxed::Box<crate::model::ServiceNowProfile>),
+        /// Optional. Profile for connecting to a Workday source.
+        WorkdayProfile(std::boxed::Box<crate::model::WorkdayProfile>),
     }
 
     /// Connectivity options used to establish a connection to the profile.
@@ -8033,7 +9863,7 @@ pub mod connection_profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleColumn {
-    /// Column name.
+    /// The column name.
     pub column: std::string::String,
 
     /// The Oracle data type.
@@ -8188,7 +10018,7 @@ impl wkt::message::Message for OracleColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleTable {
-    /// Table name.
+    /// The table name.
     pub table: std::string::String,
 
     /// Oracle columns in the schema.
@@ -8250,7 +10080,7 @@ impl wkt::message::Message for OracleTable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleSchema {
-    /// Schema name.
+    /// The schema name.
     pub schema: std::string::String,
 
     /// Tables in the schema.
@@ -8351,14 +10181,14 @@ impl wkt::message::Message for OracleRdbms {
     }
 }
 
-/// Oracle data source configuration
+/// Configuration for syncing data from an Oracle source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleSourceConfig {
-    /// Oracle objects to include in the stream.
+    /// The Oracle objects to include in the stream.
     pub include_objects: std::option::Option<crate::model::OracleRdbms>,
 
-    /// Oracle objects to exclude from the stream.
+    /// The Oracle objects to exclude from the stream.
     pub exclude_objects: std::option::Option<crate::model::OracleRdbms>,
 
     /// Maximum number of concurrent CDC tasks. The number should be non-negative.
@@ -9025,7 +10855,7 @@ pub mod oracle_source_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlColumn {
-    /// Column name.
+    /// The column name.
     pub column: std::string::String,
 
     /// The PostgreSQL data type.
@@ -9165,7 +10995,7 @@ impl wkt::message::Message for PostgresqlColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlTable {
-    /// Table name.
+    /// The table name.
     pub table: std::string::String,
 
     /// PostgreSQL columns in the schema.
@@ -9227,7 +11057,7 @@ impl wkt::message::Message for PostgresqlTable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlSchema {
-    /// Schema name.
+    /// The schema name.
     pub schema: std::string::String,
 
     /// Tables in the schema.
@@ -9328,14 +11158,14 @@ impl wkt::message::Message for PostgresqlRdbms {
     }
 }
 
-/// PostgreSQL data source configuration
+/// Configuration for syncing data from a PostgreSQL source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlSourceConfig {
-    /// PostgreSQL objects to include in the stream.
+    /// The PostgreSQL objects to include in the stream.
     pub include_objects: std::option::Option<crate::model::PostgresqlRdbms>,
 
-    /// PostgreSQL objects to exclude from the stream.
+    /// The PostgreSQL objects to exclude from the stream.
     pub exclude_objects: std::option::Option<crate::model::PostgresqlRdbms>,
 
     /// Required. Immutable. The name of the logical replication slot that's
@@ -9476,7 +11306,7 @@ impl wkt::message::Message for PostgresqlSourceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerColumn {
-    /// Column name.
+    /// The column name.
     pub column: std::string::String,
 
     /// The SQLServer data type.
@@ -9616,7 +11446,7 @@ impl wkt::message::Message for SqlServerColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerTable {
-    /// Table name.
+    /// The table name.
     pub table: std::string::String,
 
     /// SQLServer columns in the schema.
@@ -9678,7 +11508,7 @@ impl wkt::message::Message for SqlServerTable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerSchema {
-    /// Schema name.
+    /// The schema name.
     pub schema: std::string::String,
 
     /// Tables in the schema.
@@ -9779,14 +11609,14 @@ impl wkt::message::Message for SqlServerRdbms {
     }
 }
 
-/// SQLServer data source configuration
+/// Configuration for syncing data from a SQLServer source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerSourceConfig {
-    /// SQLServer objects to include in the stream.
+    /// The SQLServer objects to include in the stream.
     pub include_objects: std::option::Option<crate::model::SqlServerRdbms>,
 
-    /// SQLServer objects to exclude from the stream.
+    /// The SQLServer objects to exclude from the stream.
     pub exclude_objects: std::option::Option<crate::model::SqlServerRdbms>,
 
     /// Max concurrent CDC tasks.
@@ -10048,6 +11878,9 @@ impl wkt::message::Message for SqlServerTransactionLogs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerChangeTables {
+    /// Optional. DDL configuration for change tables.
+    pub ddl_config: std::option::Option<crate::model::sql_server_change_tables::SqlServerDdlConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10055,6 +11888,39 @@ impl SqlServerChangeTables {
     /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [ddl_config][crate::model::SqlServerChangeTables::ddl_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SqlServerChangeTables;
+    /// use google_cloud_datastream_v1::model::sql_server_change_tables::SqlServerDdlConfig;
+    /// let x = SqlServerChangeTables::new().set_ddl_config(SqlServerDdlConfig::default()/* use setters */);
+    /// ```
+    pub fn set_ddl_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::sql_server_change_tables::SqlServerDdlConfig>,
+    {
+        self.ddl_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ddl_config][crate::model::SqlServerChangeTables::ddl_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SqlServerChangeTables;
+    /// use google_cloud_datastream_v1::model::sql_server_change_tables::SqlServerDdlConfig;
+    /// let x = SqlServerChangeTables::new().set_or_clear_ddl_config(Some(SqlServerDdlConfig::default()/* use setters */));
+    /// let x = SqlServerChangeTables::new().set_or_clear_ddl_config(None::<SqlServerDdlConfig>);
+    /// ```
+    pub fn set_or_clear_ddl_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::sql_server_change_tables::SqlServerDdlConfig>,
+    {
+        self.ddl_config = v.map(|x| x.into());
+        self
     }
 }
 
@@ -10064,11 +11930,79 @@ impl wkt::message::Message for SqlServerChangeTables {
     }
 }
 
+/// Defines additional types related to [SqlServerChangeTables].
+pub mod sql_server_change_tables {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// DDL configuration for change tables.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SqlServerDdlConfig {
+        /// Optional. If set to true, Datastream will automatically create a new
+        /// capture instance when DDL is detected on a table.The customer will be
+        /// responsible for deleting it so that the next set of DDLs can be handled.
+        /// The default is false and it means that DDL's will not be handled .
+        pub auto_create_new_capture_instance_on_ddl: bool,
+
+        /// Optional. If set to true, Datastream will automatically delete the old
+        /// capture instance after creating a new one to support a DDL change. The
+        /// default is false and means that the customer has to delete the old
+        /// capture instance manually.
+        pub auto_delete_old_capture_instance: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SqlServerDdlConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [auto_create_new_capture_instance_on_ddl][crate::model::sql_server_change_tables::SqlServerDdlConfig::auto_create_new_capture_instance_on_ddl].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::sql_server_change_tables::SqlServerDdlConfig;
+        /// let x = SqlServerDdlConfig::new().set_auto_create_new_capture_instance_on_ddl(true);
+        /// ```
+        pub fn set_auto_create_new_capture_instance_on_ddl<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auto_create_new_capture_instance_on_ddl = v.into();
+            self
+        }
+
+        /// Sets the value of [auto_delete_old_capture_instance][crate::model::sql_server_change_tables::SqlServerDdlConfig::auto_delete_old_capture_instance].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::sql_server_change_tables::SqlServerDdlConfig;
+        /// let x = SqlServerDdlConfig::new().set_auto_delete_old_capture_instance(true);
+        /// ```
+        pub fn set_auto_delete_old_capture_instance<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auto_delete_old_capture_instance = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SqlServerDdlConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SqlServerChangeTables.SqlServerDdlConfig"
+        }
+    }
+}
+
 /// MySQL Column.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlColumn {
-    /// Column name.
+    /// The column name.
     pub column: std::string::String,
 
     /// The MySQL data type. Full data types list can be found here:
@@ -10224,7 +12158,7 @@ impl wkt::message::Message for MysqlColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlTable {
-    /// Table name.
+    /// The table name.
     pub table: std::string::String,
 
     /// MySQL columns in the database.
@@ -10286,7 +12220,7 @@ impl wkt::message::Message for MysqlTable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlDatabase {
-    /// Database name.
+    /// The database name.
     pub database: std::string::String,
 
     /// Tables in the database.
@@ -10387,14 +12321,14 @@ impl wkt::message::Message for MysqlRdbms {
     }
 }
 
-/// MySQL source configuration
+/// Configuration for syncing data from a MySQL source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlSourceConfig {
-    /// MySQL objects to retrieve from the source.
+    /// The MySQL objects to retrieve from the source.
     pub include_objects: std::option::Option<crate::model::MysqlRdbms>,
 
-    /// MySQL objects to exclude from the stream.
+    /// The MySQL objects to exclude from the stream.
     pub exclude_objects: std::option::Option<crate::model::MysqlRdbms>,
 
     /// Maximum number of concurrent CDC tasks. The number should be non negative.
@@ -10673,19 +12607,19 @@ pub mod mysql_source_config {
     }
 }
 
-/// Salesforce source configuration
+/// Configuration for syncing data from a Salesforce source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceSourceConfig {
-    /// Salesforce objects to retrieve from the source.
+    /// The Salesforce objects to retrieve from the source.
     pub include_objects: std::option::Option<crate::model::SalesforceOrg>,
 
-    /// Salesforce objects to exclude from the stream.
+    /// The Salesforce objects to exclude from the stream.
     pub exclude_objects: std::option::Option<crate::model::SalesforceOrg>,
 
     /// Required. Salesforce objects polling interval. The interval at which new
-    /// changes will be polled for each object. The duration must be between 5
-    /// minutes and 24 hours.
+    /// changes will be polled for each object. The duration must be from `5
+    /// minutes` to `24 hours`, inclusive.
     pub polling_interval: std::option::Option<wkt::Duration>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10852,7 +12786,7 @@ impl wkt::message::Message for SalesforceOrg {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceObject {
-    /// Object name.
+    /// The object name.
     pub object_name: std::string::String,
 
     /// Salesforce fields.
@@ -10915,7 +12849,7 @@ impl wkt::message::Message for SalesforceObject {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceField {
-    /// Field name.
+    /// The field name.
     pub name: std::string::String,
 
     /// The data type.
@@ -10976,20 +12910,23 @@ impl wkt::message::Message for SalesforceField {
     }
 }
 
-/// MongoDB source configuration.
+/// Configuration for syncing data from a MongoDB source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbSourceConfig {
-    /// MongoDB collections to include in the stream.
+    /// The MongoDB collections to include in the stream.
     pub include_objects: std::option::Option<crate::model::MongodbCluster>,
 
-    /// MongoDB collections to exclude from the stream.
+    /// The MongoDB collections to exclude from the stream.
     pub exclude_objects: std::option::Option<crate::model::MongodbCluster>,
 
     /// Optional. Maximum number of concurrent backfill tasks. The number should be
     /// non-negative and less than or equal to 50. If not set (or set to 0), the
     /// system's default value is used
     pub max_concurrent_backfill_tasks: i32,
+
+    /// Optional. MongoDB JSON mode to use for the stream.
+    pub json_mode: crate::model::MongodbJsonMode,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -11077,6 +13014,23 @@ impl MongodbSourceConfig {
         self.max_concurrent_backfill_tasks = v.into();
         self
     }
+
+    /// Sets the value of [json_mode][crate::model::MongodbSourceConfig::json_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::MongodbSourceConfig;
+    /// use google_cloud_datastream_v1::model::MongodbJsonMode;
+    /// let x0 = MongodbSourceConfig::new().set_json_mode(MongodbJsonMode::Strict);
+    /// let x1 = MongodbSourceConfig::new().set_json_mode(MongodbJsonMode::Canonical);
+    /// ```
+    pub fn set_json_mode<T: std::convert::Into<crate::model::MongodbJsonMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.json_mode = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for MongodbSourceConfig {
@@ -11134,7 +13088,7 @@ impl wkt::message::Message for MongodbCluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbDatabase {
-    /// Database name.
+    /// The database name.
     pub database: std::string::String,
 
     /// Collections in the database.
@@ -11194,7 +13148,7 @@ impl wkt::message::Message for MongodbDatabase {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbCollection {
-    /// Collection name.
+    /// The collection name.
     pub collection: std::string::String,
 
     /// Fields in the collection.
@@ -11254,7 +13208,7 @@ impl wkt::message::Message for MongodbCollection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbField {
-    /// Field name.
+    /// The field name.
     pub field: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11282,6 +13236,1337 @@ impl MongodbField {
 impl wkt::message::Message for MongodbField {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.datastream.v1.MongodbField"
+    }
+}
+
+/// Configuration for syncing data from a Spanner source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpannerSourceConfig {
+    /// Required. Immutable. The change stream name to use for the stream.
+    pub change_stream_name: std::string::String,
+
+    /// Optional. The RPC priority to use for the stream.
+    pub spanner_rpc_priority: crate::model::spanner_source_config::SpannerRpcPriority,
+
+    /// Optional. The FGAC role to use for the stream.
+    pub fgac_role: std::string::String,
+
+    /// Optional. Maximum number of concurrent CDC tasks.
+    pub max_concurrent_cdc_tasks: i32,
+
+    /// Optional. Maximum number of concurrent backfill tasks.
+    pub max_concurrent_backfill_tasks: i32,
+
+    /// Optional. The Spanner objects to retrieve from the data source. If some
+    /// objects are both included and excluded, an error will be thrown.
+    pub include_objects: std::option::Option<crate::model::SpannerDatabase>,
+
+    /// Optional. The Spanner objects to avoid retrieving. If some objects are both
+    /// included and excluded, an error will be thrown.
+    pub exclude_objects: std::option::Option<crate::model::SpannerDatabase>,
+
+    /// Optional. Whether to use Data Boost for Spanner backfills. Defaults to
+    /// false if not set.
+    pub backfill_data_boost_enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SpannerSourceConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [change_stream_name][crate::model::SpannerSourceConfig::change_stream_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// let x = SpannerSourceConfig::new().set_change_stream_name("example");
+    /// ```
+    pub fn set_change_stream_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.change_stream_name = v.into();
+        self
+    }
+
+    /// Sets the value of [spanner_rpc_priority][crate::model::SpannerSourceConfig::spanner_rpc_priority].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// use google_cloud_datastream_v1::model::spanner_source_config::SpannerRpcPriority;
+    /// let x0 = SpannerSourceConfig::new().set_spanner_rpc_priority(SpannerRpcPriority::Low);
+    /// let x1 = SpannerSourceConfig::new().set_spanner_rpc_priority(SpannerRpcPriority::Medium);
+    /// let x2 = SpannerSourceConfig::new().set_spanner_rpc_priority(SpannerRpcPriority::High);
+    /// ```
+    pub fn set_spanner_rpc_priority<
+        T: std::convert::Into<crate::model::spanner_source_config::SpannerRpcPriority>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.spanner_rpc_priority = v.into();
+        self
+    }
+
+    /// Sets the value of [fgac_role][crate::model::SpannerSourceConfig::fgac_role].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// let x = SpannerSourceConfig::new().set_fgac_role("example");
+    /// ```
+    pub fn set_fgac_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.fgac_role = v.into();
+        self
+    }
+
+    /// Sets the value of [max_concurrent_cdc_tasks][crate::model::SpannerSourceConfig::max_concurrent_cdc_tasks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// let x = SpannerSourceConfig::new().set_max_concurrent_cdc_tasks(42);
+    /// ```
+    pub fn set_max_concurrent_cdc_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_concurrent_cdc_tasks = v.into();
+        self
+    }
+
+    /// Sets the value of [max_concurrent_backfill_tasks][crate::model::SpannerSourceConfig::max_concurrent_backfill_tasks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// let x = SpannerSourceConfig::new().set_max_concurrent_backfill_tasks(42);
+    /// ```
+    pub fn set_max_concurrent_backfill_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_concurrent_backfill_tasks = v.into();
+        self
+    }
+
+    /// Sets the value of [include_objects][crate::model::SpannerSourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// use google_cloud_datastream_v1::model::SpannerDatabase;
+    /// let x = SpannerSourceConfig::new().set_include_objects(SpannerDatabase::default()/* use setters */);
+    /// ```
+    pub fn set_include_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SpannerDatabase>,
+    {
+        self.include_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [include_objects][crate::model::SpannerSourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// use google_cloud_datastream_v1::model::SpannerDatabase;
+    /// let x = SpannerSourceConfig::new().set_or_clear_include_objects(Some(SpannerDatabase::default()/* use setters */));
+    /// let x = SpannerSourceConfig::new().set_or_clear_include_objects(None::<SpannerDatabase>);
+    /// ```
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SpannerDatabase>,
+    {
+        self.include_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exclude_objects][crate::model::SpannerSourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// use google_cloud_datastream_v1::model::SpannerDatabase;
+    /// let x = SpannerSourceConfig::new().set_exclude_objects(SpannerDatabase::default()/* use setters */);
+    /// ```
+    pub fn set_exclude_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SpannerDatabase>,
+    {
+        self.exclude_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exclude_objects][crate::model::SpannerSourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// use google_cloud_datastream_v1::model::SpannerDatabase;
+    /// let x = SpannerSourceConfig::new().set_or_clear_exclude_objects(Some(SpannerDatabase::default()/* use setters */));
+    /// let x = SpannerSourceConfig::new().set_or_clear_exclude_objects(None::<SpannerDatabase>);
+    /// ```
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SpannerDatabase>,
+    {
+        self.exclude_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backfill_data_boost_enabled][crate::model::SpannerSourceConfig::backfill_data_boost_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// let x = SpannerSourceConfig::new().set_backfill_data_boost_enabled(true);
+    /// ```
+    pub fn set_backfill_data_boost_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.backfill_data_boost_enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SpannerSourceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SpannerSourceConfig"
+    }
+}
+
+/// Defines additional types related to [SpannerSourceConfig].
+pub mod spanner_source_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The RPC priority to use for the stream.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SpannerRpcPriority {
+        /// Unspecified RPC priority.
+        Unspecified,
+        /// Low RPC priority.
+        Low,
+        /// Medium RPC priority.
+        Medium,
+        /// High RPC priority.
+        High,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SpannerRpcPriority::value] or
+        /// [SpannerRpcPriority::name].
+        UnknownValue(spanner_rpc_priority::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod spanner_rpc_priority {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SpannerRpcPriority {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Low => std::option::Option::Some(1),
+                Self::Medium => std::option::Option::Some(2),
+                Self::High => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SPANNER_RPC_PRIORITY_UNSPECIFIED"),
+                Self::Low => std::option::Option::Some("LOW"),
+                Self::Medium => std::option::Option::Some("MEDIUM"),
+                Self::High => std::option::Option::Some("HIGH"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SpannerRpcPriority {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SpannerRpcPriority {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SpannerRpcPriority {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Low,
+                2 => Self::Medium,
+                3 => Self::High,
+                _ => Self::UnknownValue(spanner_rpc_priority::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SpannerRpcPriority {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SPANNER_RPC_PRIORITY_UNSPECIFIED" => Self::Unspecified,
+                "LOW" => Self::Low,
+                "MEDIUM" => Self::Medium,
+                "HIGH" => Self::High,
+                _ => Self::UnknownValue(spanner_rpc_priority::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SpannerRpcPriority {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Low => serializer.serialize_i32(1),
+                Self::Medium => serializer.serialize_i32(2),
+                Self::High => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SpannerRpcPriority {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SpannerRpcPriority>::new(
+                ".google.cloud.datastream.v1.SpannerSourceConfig.SpannerRpcPriority",
+            ))
+        }
+    }
+}
+
+/// Spanner database structure.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpannerDatabase {
+    /// Optional. Spanner schemas in the database.
+    pub schemas: std::vec::Vec<crate::model::SpannerSchema>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SpannerDatabase {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [schemas][crate::model::SpannerDatabase::schemas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerDatabase;
+    /// use google_cloud_datastream_v1::model::SpannerSchema;
+    /// let x = SpannerDatabase::new()
+    ///     .set_schemas([
+    ///         SpannerSchema::default()/* use setters */,
+    ///         SpannerSchema::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_schemas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SpannerSchema>,
+    {
+        use std::iter::Iterator;
+        self.schemas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SpannerDatabase {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SpannerDatabase"
+    }
+}
+
+/// Spanner schema.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpannerSchema {
+    /// Required. The schema name.
+    pub schema: std::string::String,
+
+    /// Optional. Spanner tables in the schema.
+    pub tables: std::vec::Vec<crate::model::SpannerTable>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SpannerSchema {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [schema][crate::model::SpannerSchema::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSchema;
+    /// let x = SpannerSchema::new().set_schema("example");
+    /// ```
+    pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.schema = v.into();
+        self
+    }
+
+    /// Sets the value of [tables][crate::model::SpannerSchema::tables].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerSchema;
+    /// use google_cloud_datastream_v1::model::SpannerTable;
+    /// let x = SpannerSchema::new()
+    ///     .set_tables([
+    ///         SpannerTable::default()/* use setters */,
+    ///         SpannerTable::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SpannerTable>,
+    {
+        use std::iter::Iterator;
+        self.tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SpannerSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SpannerSchema"
+    }
+}
+
+/// Spanner table.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpannerTable {
+    /// Required. The table name.
+    pub table: std::string::String,
+
+    /// Optional. Spanner columns in the table.
+    pub columns: std::vec::Vec<crate::model::SpannerColumn>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SpannerTable {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table][crate::model::SpannerTable::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerTable;
+    /// let x = SpannerTable::new().set_table("example");
+    /// ```
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+
+    /// Sets the value of [columns][crate::model::SpannerTable::columns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerTable;
+    /// use google_cloud_datastream_v1::model::SpannerColumn;
+    /// let x = SpannerTable::new()
+    ///     .set_columns([
+    ///         SpannerColumn::default()/* use setters */,
+    ///         SpannerColumn::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_columns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SpannerColumn>,
+    {
+        use std::iter::Iterator;
+        self.columns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SpannerTable {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SpannerTable"
+    }
+}
+
+/// Spanner column.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpannerColumn {
+    /// Required. The column name.
+    pub column: std::string::String,
+
+    /// Optional. Spanner data type.
+    pub data_type: std::string::String,
+
+    /// Optional. Whether or not the column is a primary key.
+    pub is_primary_key: bool,
+
+    /// Optional. The ordinal position of the column in the table.
+    pub ordinal_position: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SpannerColumn {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [column][crate::model::SpannerColumn::column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerColumn;
+    /// let x = SpannerColumn::new().set_column("example");
+    /// ```
+    pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.column = v.into();
+        self
+    }
+
+    /// Sets the value of [data_type][crate::model::SpannerColumn::data_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerColumn;
+    /// let x = SpannerColumn::new().set_data_type("example");
+    /// ```
+    pub fn set_data_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_type = v.into();
+        self
+    }
+
+    /// Sets the value of [is_primary_key][crate::model::SpannerColumn::is_primary_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerColumn;
+    /// let x = SpannerColumn::new().set_is_primary_key(true);
+    /// ```
+    pub fn set_is_primary_key<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_primary_key = v.into();
+        self
+    }
+
+    /// Sets the value of [ordinal_position][crate::model::SpannerColumn::ordinal_position].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerColumn;
+    /// let x = SpannerColumn::new().set_ordinal_position(42);
+    /// ```
+    pub fn set_ordinal_position<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.ordinal_position = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SpannerColumn {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SpannerColumn"
+    }
+}
+
+/// Configuration for syncing data from a Dataverse source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataverseSourceConfig {
+    /// Optional. The objects to retrieve from the source.
+    pub include_objects: std::option::Option<crate::model::SourceCatalog>,
+
+    /// Optional. The objects to exclude from the stream.
+    pub exclude_objects: std::option::Option<crate::model::SourceCatalog>,
+
+    /// Required. Incremental sync polling interval for all objects. If not set, a
+    /// default value of `5 minutes` is used. The duration must be from `5 minutes`
+    /// to `24 hours`, inclusive.
+    pub polling_interval: std::option::Option<wkt::Duration>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataverseSourceConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [include_objects][crate::model::DataverseSourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = DataverseSourceConfig::new().set_include_objects(SourceCatalog::default()/* use setters */);
+    /// ```
+    pub fn set_include_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.include_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [include_objects][crate::model::DataverseSourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = DataverseSourceConfig::new().set_or_clear_include_objects(Some(SourceCatalog::default()/* use setters */));
+    /// let x = DataverseSourceConfig::new().set_or_clear_include_objects(None::<SourceCatalog>);
+    /// ```
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.include_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exclude_objects][crate::model::DataverseSourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = DataverseSourceConfig::new().set_exclude_objects(SourceCatalog::default()/* use setters */);
+    /// ```
+    pub fn set_exclude_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.exclude_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exclude_objects][crate::model::DataverseSourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = DataverseSourceConfig::new().set_or_clear_exclude_objects(Some(SourceCatalog::default()/* use setters */));
+    /// let x = DataverseSourceConfig::new().set_or_clear_exclude_objects(None::<SourceCatalog>);
+    /// ```
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.exclude_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [polling_interval][crate::model::DataverseSourceConfig::polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseSourceConfig;
+    /// use wkt::Duration;
+    /// let x = DataverseSourceConfig::new().set_polling_interval(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_polling_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.polling_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [polling_interval][crate::model::DataverseSourceConfig::polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::DataverseSourceConfig;
+    /// use wkt::Duration;
+    /// let x = DataverseSourceConfig::new().set_or_clear_polling_interval(Some(Duration::default()/* use setters */));
+    /// let x = DataverseSourceConfig::new().set_or_clear_polling_interval(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.polling_interval = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DataverseSourceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.DataverseSourceConfig"
+    }
+}
+
+/// Configuration for syncing data from a Salesforce Marketing Cloud source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SalesforceMarketingCloudSourceConfig {
+    /// Optional. The objects to retrieve from the source.
+    pub include_objects: std::option::Option<crate::model::SourceCatalog>,
+
+    /// Optional. The objects to exclude from the stream.
+    pub exclude_objects: std::option::Option<crate::model::SourceCatalog>,
+
+    /// Required. Incremental sync polling interval for all objects. If not set, a
+    /// default value of `5 minutes` is used. The duration must be from `5 minutes`
+    /// to `24 hours`, inclusive.
+    pub polling_interval: std::option::Option<wkt::Duration>,
+
+    /// Required. Specifies the polling interval for a full refresh of objects that
+    /// do not support incremental sync. If not set, a default value of 24 hours is
+    /// used. The duration must be between 1 and 24 hours, inclusive.
+    pub full_refresh_polling_interval: std::option::Option<wkt::Duration>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SalesforceMarketingCloudSourceConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [include_objects][crate::model::SalesforceMarketingCloudSourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_include_objects(SourceCatalog::default()/* use setters */);
+    /// ```
+    pub fn set_include_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.include_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [include_objects][crate::model::SalesforceMarketingCloudSourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_or_clear_include_objects(Some(SourceCatalog::default()/* use setters */));
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_or_clear_include_objects(None::<SourceCatalog>);
+    /// ```
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.include_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exclude_objects][crate::model::SalesforceMarketingCloudSourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_exclude_objects(SourceCatalog::default()/* use setters */);
+    /// ```
+    pub fn set_exclude_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.exclude_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exclude_objects][crate::model::SalesforceMarketingCloudSourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_or_clear_exclude_objects(Some(SourceCatalog::default()/* use setters */));
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_or_clear_exclude_objects(None::<SourceCatalog>);
+    /// ```
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.exclude_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [polling_interval][crate::model::SalesforceMarketingCloudSourceConfig::polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// use wkt::Duration;
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_polling_interval(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_polling_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.polling_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [polling_interval][crate::model::SalesforceMarketingCloudSourceConfig::polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// use wkt::Duration;
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_or_clear_polling_interval(Some(Duration::default()/* use setters */));
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_or_clear_polling_interval(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.polling_interval = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [full_refresh_polling_interval][crate::model::SalesforceMarketingCloudSourceConfig::full_refresh_polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// use wkt::Duration;
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_full_refresh_polling_interval(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_full_refresh_polling_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.full_refresh_polling_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [full_refresh_polling_interval][crate::model::SalesforceMarketingCloudSourceConfig::full_refresh_polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// use wkt::Duration;
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_or_clear_full_refresh_polling_interval(Some(Duration::default()/* use setters */));
+    /// let x = SalesforceMarketingCloudSourceConfig::new().set_or_clear_full_refresh_polling_interval(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_full_refresh_polling_interval<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.full_refresh_polling_interval = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SalesforceMarketingCloudSourceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SalesforceMarketingCloudSourceConfig"
+    }
+}
+
+/// Configuration for syncing data from a ServiceNow source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ServiceNowSourceConfig {
+    /// Optional. The objects to retrieve from the source.
+    pub include_objects: std::option::Option<crate::model::SourceCatalog>,
+
+    /// Optional. The objects to exclude from the stream.
+    pub exclude_objects: std::option::Option<crate::model::SourceCatalog>,
+
+    /// Required. Incremental sync polling interval for all objects. If not set, a
+    /// default value of `5 minutes` is used. The duration must be from `5 minutes`
+    /// to `24 hours`, inclusive.
+    pub polling_interval: std::option::Option<wkt::Duration>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ServiceNowSourceConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [include_objects][crate::model::ServiceNowSourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = ServiceNowSourceConfig::new().set_include_objects(SourceCatalog::default()/* use setters */);
+    /// ```
+    pub fn set_include_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.include_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [include_objects][crate::model::ServiceNowSourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = ServiceNowSourceConfig::new().set_or_clear_include_objects(Some(SourceCatalog::default()/* use setters */));
+    /// let x = ServiceNowSourceConfig::new().set_or_clear_include_objects(None::<SourceCatalog>);
+    /// ```
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.include_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exclude_objects][crate::model::ServiceNowSourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = ServiceNowSourceConfig::new().set_exclude_objects(SourceCatalog::default()/* use setters */);
+    /// ```
+    pub fn set_exclude_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.exclude_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exclude_objects][crate::model::ServiceNowSourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowSourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = ServiceNowSourceConfig::new().set_or_clear_exclude_objects(Some(SourceCatalog::default()/* use setters */));
+    /// let x = ServiceNowSourceConfig::new().set_or_clear_exclude_objects(None::<SourceCatalog>);
+    /// ```
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.exclude_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [polling_interval][crate::model::ServiceNowSourceConfig::polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowSourceConfig;
+    /// use wkt::Duration;
+    /// let x = ServiceNowSourceConfig::new().set_polling_interval(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_polling_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.polling_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [polling_interval][crate::model::ServiceNowSourceConfig::polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::ServiceNowSourceConfig;
+    /// use wkt::Duration;
+    /// let x = ServiceNowSourceConfig::new().set_or_clear_polling_interval(Some(Duration::default()/* use setters */));
+    /// let x = ServiceNowSourceConfig::new().set_or_clear_polling_interval(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.polling_interval = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceNowSourceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.ServiceNowSourceConfig"
+    }
+}
+
+/// Configuration for syncing data from a Workday source.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkdaySourceConfig {
+    /// Optional. The objects to retrieve from the source.
+    pub include_objects: std::option::Option<crate::model::SourceCatalog>,
+
+    /// Optional. The objects to exclude from the stream.
+    pub exclude_objects: std::option::Option<crate::model::SourceCatalog>,
+
+    /// Required. Incremental sync polling interval for all objects. If not set, a
+    /// default value of `5 minutes` is used. The duration must be from `5 minutes`
+    /// to `24 hours`, inclusive.
+    pub polling_interval: std::option::Option<wkt::Duration>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkdaySourceConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [include_objects][crate::model::WorkdaySourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdaySourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = WorkdaySourceConfig::new().set_include_objects(SourceCatalog::default()/* use setters */);
+    /// ```
+    pub fn set_include_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.include_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [include_objects][crate::model::WorkdaySourceConfig::include_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdaySourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = WorkdaySourceConfig::new().set_or_clear_include_objects(Some(SourceCatalog::default()/* use setters */));
+    /// let x = WorkdaySourceConfig::new().set_or_clear_include_objects(None::<SourceCatalog>);
+    /// ```
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.include_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exclude_objects][crate::model::WorkdaySourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdaySourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = WorkdaySourceConfig::new().set_exclude_objects(SourceCatalog::default()/* use setters */);
+    /// ```
+    pub fn set_exclude_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.exclude_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exclude_objects][crate::model::WorkdaySourceConfig::exclude_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdaySourceConfig;
+    /// use google_cloud_datastream_v1::model::SourceCatalog;
+    /// let x = WorkdaySourceConfig::new().set_or_clear_exclude_objects(Some(SourceCatalog::default()/* use setters */));
+    /// let x = WorkdaySourceConfig::new().set_or_clear_exclude_objects(None::<SourceCatalog>);
+    /// ```
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCatalog>,
+    {
+        self.exclude_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [polling_interval][crate::model::WorkdaySourceConfig::polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdaySourceConfig;
+    /// use wkt::Duration;
+    /// let x = WorkdaySourceConfig::new().set_polling_interval(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_polling_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.polling_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [polling_interval][crate::model::WorkdaySourceConfig::polling_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::WorkdaySourceConfig;
+    /// use wkt::Duration;
+    /// let x = WorkdaySourceConfig::new().set_or_clear_polling_interval(Some(Duration::default()/* use setters */));
+    /// let x = WorkdaySourceConfig::new().set_or_clear_polling_interval(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.polling_interval = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkdaySourceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.WorkdaySourceConfig"
+    }
+}
+
+/// Source catalog.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SourceCatalog {
+    /// Optional. Source objects in the catalog.
+    pub objects: std::vec::Vec<crate::model::SourceObject>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SourceCatalog {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [objects][crate::model::SourceCatalog::objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceCatalog;
+    /// use google_cloud_datastream_v1::model::SourceObject;
+    /// let x = SourceCatalog::new()
+    ///     .set_objects([
+    ///         SourceObject::default()/* use setters */,
+    ///         SourceObject::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_objects<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SourceObject>,
+    {
+        use std::iter::Iterator;
+        self.objects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SourceCatalog {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SourceCatalog"
+    }
+}
+
+/// Source object.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SourceObject {
+    /// Required. The object name.
+    pub object_name: std::string::String,
+
+    /// Optional. Source properties. When unspecified as part of include objects,
+    /// includes everything, when unspecified as part of exclude objects, excludes
+    /// nothing.
+    pub properties: std::vec::Vec<crate::model::SourceProperty>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SourceObject {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [object_name][crate::model::SourceObject::object_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceObject;
+    /// let x = SourceObject::new().set_object_name("example");
+    /// ```
+    pub fn set_object_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.object_name = v.into();
+        self
+    }
+
+    /// Sets the value of [properties][crate::model::SourceObject::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceObject;
+    /// use google_cloud_datastream_v1::model::SourceProperty;
+    /// let x = SourceObject::new()
+    ///     .set_properties([
+    ///         SourceProperty::default()/* use setters */,
+    ///         SourceProperty::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SourceProperty>,
+    {
+        use std::iter::Iterator;
+        self.properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SourceObject {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SourceObject"
+    }
+}
+
+/// Source property.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SourceProperty {
+    /// Required. The property name.
+    pub property_name: std::string::String,
+
+    /// Optional. Source properties. When specified, it means that the current
+    /// property contains nested properties of its own. When unspecified as part of
+    /// include objects, includes everything, when unspecified as part of exclude
+    /// objects, excludes nothing.
+    pub properties: std::vec::Vec<crate::model::SourceProperty>,
+
+    /// Optional. Whether or not the property is a primary key.
+    pub primary_key: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SourceProperty {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [property_name][crate::model::SourceProperty::property_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceProperty;
+    /// let x = SourceProperty::new().set_property_name("example");
+    /// ```
+    pub fn set_property_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.property_name = v.into();
+        self
+    }
+
+    /// Sets the value of [properties][crate::model::SourceProperty::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceProperty;
+    /// let x = SourceProperty::new()
+    ///     .set_properties([
+    ///         SourceProperty::default()/* use setters */,
+    ///         SourceProperty::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SourceProperty>,
+    {
+        use std::iter::Iterator;
+        self.properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [primary_key][crate::model::SourceProperty::primary_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceProperty;
+    /// let x = SourceProperty::new().set_primary_key(true);
+    /// ```
+    pub fn set_primary_key<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.primary_key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SourceProperty {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SourceProperty"
     }
 }
 
@@ -11377,6 +14662,11 @@ impl SourceConfig {
     /// assert!(x.sql_server_source_config().is_none());
     /// assert!(x.salesforce_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
     /// ```
     pub fn set_oracle_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::OracleSourceConfig>>,
@@ -11422,6 +14712,11 @@ impl SourceConfig {
     /// assert!(x.sql_server_source_config().is_none());
     /// assert!(x.salesforce_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
     /// ```
     pub fn set_mysql_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::MysqlSourceConfig>>,
@@ -11467,6 +14762,11 @@ impl SourceConfig {
     /// assert!(x.sql_server_source_config().is_none());
     /// assert!(x.salesforce_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
     /// ```
     pub fn set_postgresql_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlSourceConfig>>,
@@ -11512,6 +14812,11 @@ impl SourceConfig {
     /// assert!(x.postgresql_source_config().is_none());
     /// assert!(x.salesforce_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
     /// ```
     pub fn set_sql_server_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerSourceConfig>>,
@@ -11557,6 +14862,11 @@ impl SourceConfig {
     /// assert!(x.postgresql_source_config().is_none());
     /// assert!(x.sql_server_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
     /// ```
     pub fn set_salesforce_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceSourceConfig>>,
@@ -11602,6 +14912,11 @@ impl SourceConfig {
     /// assert!(x.postgresql_source_config().is_none());
     /// assert!(x.sql_server_source_config().is_none());
     /// assert!(x.salesforce_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
     /// ```
     pub fn set_mongodb_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::MongodbSourceConfig>>,
@@ -11611,6 +14926,257 @@ impl SourceConfig {
     ) -> Self {
         self.source_stream_config = std::option::Option::Some(
             crate::model::source_config::SourceStreamConfig::MongodbSourceConfig(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `SpannerSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spanner_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SpannerSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::SpannerSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// to hold a `SpannerSourceConfig`.
+    ///
+    /// Note that all the setters affecting `source_stream_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceConfig;
+    /// use google_cloud_datastream_v1::model::SpannerSourceConfig;
+    /// let x = SourceConfig::new().set_spanner_source_config(SpannerSourceConfig::default()/* use setters */);
+    /// assert!(x.spanner_source_config().is_some());
+    /// assert!(x.oracle_source_config().is_none());
+    /// assert!(x.mysql_source_config().is_none());
+    /// assert!(x.postgresql_source_config().is_none());
+    /// assert!(x.sql_server_source_config().is_none());
+    /// assert!(x.salesforce_source_config().is_none());
+    /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
+    /// ```
+    pub fn set_spanner_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::SpannerSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_stream_config = std::option::Option::Some(
+            crate::model::source_config::SourceStreamConfig::SpannerSourceConfig(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `DataverseSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dataverse_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataverseSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::DataverseSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// to hold a `DataverseSourceConfig`.
+    ///
+    /// Note that all the setters affecting `source_stream_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceConfig;
+    /// use google_cloud_datastream_v1::model::DataverseSourceConfig;
+    /// let x = SourceConfig::new().set_dataverse_source_config(DataverseSourceConfig::default()/* use setters */);
+    /// assert!(x.dataverse_source_config().is_some());
+    /// assert!(x.oracle_source_config().is_none());
+    /// assert!(x.mysql_source_config().is_none());
+    /// assert!(x.postgresql_source_config().is_none());
+    /// assert!(x.sql_server_source_config().is_none());
+    /// assert!(x.salesforce_source_config().is_none());
+    /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
+    /// ```
+    pub fn set_dataverse_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataverseSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_stream_config = std::option::Option::Some(
+            crate::model::source_config::SourceStreamConfig::DataverseSourceConfig(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `SalesforceMarketingCloudSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_marketing_cloud_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceMarketingCloudSourceConfig>>
+    {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::SalesforceMarketingCloudSourceConfig(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// to hold a `SalesforceMarketingCloudSourceConfig`.
+    ///
+    /// Note that all the setters affecting `source_stream_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceConfig;
+    /// use google_cloud_datastream_v1::model::SalesforceMarketingCloudSourceConfig;
+    /// let x = SourceConfig::new().set_salesforce_marketing_cloud_source_config(SalesforceMarketingCloudSourceConfig::default()/* use setters */);
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_some());
+    /// assert!(x.oracle_source_config().is_none());
+    /// assert!(x.mysql_source_config().is_none());
+    /// assert!(x.postgresql_source_config().is_none());
+    /// assert!(x.sql_server_source_config().is_none());
+    /// assert!(x.salesforce_source_config().is_none());
+    /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
+    /// ```
+    pub fn set_salesforce_marketing_cloud_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceMarketingCloudSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_stream_config = std::option::Option::Some(
+            crate::model::source_config::SourceStreamConfig::SalesforceMarketingCloudSourceConfig(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `ServiceNowSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn service_now_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ServiceNowSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::ServiceNowSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// to hold a `ServiceNowSourceConfig`.
+    ///
+    /// Note that all the setters affecting `source_stream_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceConfig;
+    /// use google_cloud_datastream_v1::model::ServiceNowSourceConfig;
+    /// let x = SourceConfig::new().set_service_now_source_config(ServiceNowSourceConfig::default()/* use setters */);
+    /// assert!(x.service_now_source_config().is_some());
+    /// assert!(x.oracle_source_config().is_none());
+    /// assert!(x.mysql_source_config().is_none());
+    /// assert!(x.postgresql_source_config().is_none());
+    /// assert!(x.sql_server_source_config().is_none());
+    /// assert!(x.salesforce_source_config().is_none());
+    /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.workday_source_config().is_none());
+    /// ```
+    pub fn set_service_now_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::ServiceNowSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_stream_config = std::option::Option::Some(
+            crate::model::source_config::SourceStreamConfig::ServiceNowSourceConfig(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `WorkdaySourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn workday_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::WorkdaySourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::WorkdaySourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// to hold a `WorkdaySourceConfig`.
+    ///
+    /// Note that all the setters affecting `source_stream_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceConfig;
+    /// use google_cloud_datastream_v1::model::WorkdaySourceConfig;
+    /// let x = SourceConfig::new().set_workday_source_config(WorkdaySourceConfig::default()/* use setters */);
+    /// assert!(x.workday_source_config().is_some());
+    /// assert!(x.oracle_source_config().is_none());
+    /// assert!(x.mysql_source_config().is_none());
+    /// assert!(x.postgresql_source_config().is_none());
+    /// assert!(x.sql_server_source_config().is_none());
+    /// assert!(x.salesforce_source_config().is_none());
+    /// assert!(x.mongodb_source_config().is_none());
+    /// assert!(x.spanner_source_config().is_none());
+    /// assert!(x.dataverse_source_config().is_none());
+    /// assert!(x.salesforce_marketing_cloud_source_config().is_none());
+    /// assert!(x.service_now_source_config().is_none());
+    /// ```
+    pub fn set_workday_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::WorkdaySourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_stream_config = std::option::Option::Some(
+            crate::model::source_config::SourceStreamConfig::WorkdaySourceConfig(v.into()),
         );
         self
     }
@@ -11643,6 +15209,18 @@ pub mod source_config {
         SalesforceSourceConfig(std::boxed::Box<crate::model::SalesforceSourceConfig>),
         /// MongoDB data source configuration.
         MongodbSourceConfig(std::boxed::Box<crate::model::MongodbSourceConfig>),
+        /// Spanner data source configuration.
+        SpannerSourceConfig(std::boxed::Box<crate::model::SpannerSourceConfig>),
+        /// Dataverse data source configuration.
+        DataverseSourceConfig(std::boxed::Box<crate::model::DataverseSourceConfig>),
+        /// Salesforce Marketing Cloud data source configuration.
+        SalesforceMarketingCloudSourceConfig(
+            std::boxed::Box<crate::model::SalesforceMarketingCloudSourceConfig>,
+        ),
+        /// ServiceNow data source configuration.
+        ServiceNowSourceConfig(std::boxed::Box<crate::model::ServiceNowSourceConfig>),
+        /// Optional. Workday data source configuration.
+        WorkdaySourceConfig(std::boxed::Box<crate::model::WorkdaySourceConfig>),
     }
 }
 
@@ -12000,6 +15578,434 @@ pub mod json_file_format {
     }
 }
 
+/// BigQuery clustering configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BigQueryClustering {
+    /// Required. Column names to set as clustering columns.
+    pub columns: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BigQueryClustering {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [columns][crate::model::BigQueryClustering::columns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::BigQueryClustering;
+    /// let x = BigQueryClustering::new().set_columns(["a", "b", "c"]);
+    /// ```
+    pub fn set_columns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.columns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BigQueryClustering {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.BigQueryClustering"
+    }
+}
+
+/// Ingestion time partitioning. see
+/// <https://cloud.google.com/bigquery/docs/partitioned-tables#ingestion_time>
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IngestionTimePartition {
+    /// Optional. Partition granularity
+    pub partitioning_time_granularity: crate::model::PartitioningTimeGranularity,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IngestionTimePartition {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [partitioning_time_granularity][crate::model::IngestionTimePartition::partitioning_time_granularity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::IngestionTimePartition;
+    /// use google_cloud_datastream_v1::model::PartitioningTimeGranularity;
+    /// let x0 = IngestionTimePartition::new().set_partitioning_time_granularity(PartitioningTimeGranularity::Hour);
+    /// let x1 = IngestionTimePartition::new().set_partitioning_time_granularity(PartitioningTimeGranularity::Day);
+    /// let x2 = IngestionTimePartition::new().set_partitioning_time_granularity(PartitioningTimeGranularity::Month);
+    /// ```
+    pub fn set_partitioning_time_granularity<
+        T: std::convert::Into<crate::model::PartitioningTimeGranularity>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partitioning_time_granularity = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for IngestionTimePartition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.IngestionTimePartition"
+    }
+}
+
+/// Time unit column partitioning. see
+/// <https://cloud.google.com/bigquery/docs/partitioned-tables#date_timestamp_partitioned_tables>
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TimeUnitPartition {
+    /// Required. The partitioning column.
+    pub column: std::string::String,
+
+    /// Optional. Partition granularity.
+    pub partitioning_time_granularity: crate::model::PartitioningTimeGranularity,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TimeUnitPartition {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [column][crate::model::TimeUnitPartition::column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::TimeUnitPartition;
+    /// let x = TimeUnitPartition::new().set_column("example");
+    /// ```
+    pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.column = v.into();
+        self
+    }
+
+    /// Sets the value of [partitioning_time_granularity][crate::model::TimeUnitPartition::partitioning_time_granularity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::TimeUnitPartition;
+    /// use google_cloud_datastream_v1::model::PartitioningTimeGranularity;
+    /// let x0 = TimeUnitPartition::new().set_partitioning_time_granularity(PartitioningTimeGranularity::Hour);
+    /// let x1 = TimeUnitPartition::new().set_partitioning_time_granularity(PartitioningTimeGranularity::Day);
+    /// let x2 = TimeUnitPartition::new().set_partitioning_time_granularity(PartitioningTimeGranularity::Month);
+    /// ```
+    pub fn set_partitioning_time_granularity<
+        T: std::convert::Into<crate::model::PartitioningTimeGranularity>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partitioning_time_granularity = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TimeUnitPartition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.TimeUnitPartition"
+    }
+}
+
+/// Integer range partitioning. see
+/// <https://cloud.google.com/bigquery/docs/partitioned-tables#integer_range>
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IntegerRangePartition {
+    /// Required. The partitioning column.
+    pub column: std::string::String,
+
+    /// Required. The starting value for range partitioning (inclusive).
+    pub start: i64,
+
+    /// Required. The ending value for range partitioning (exclusive).
+    pub end: i64,
+
+    /// Required. The interval of each range within the partition.
+    pub interval: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IntegerRangePartition {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [column][crate::model::IntegerRangePartition::column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::IntegerRangePartition;
+    /// let x = IntegerRangePartition::new().set_column("example");
+    /// ```
+    pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.column = v.into();
+        self
+    }
+
+    /// Sets the value of [start][crate::model::IntegerRangePartition::start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::IntegerRangePartition;
+    /// let x = IntegerRangePartition::new().set_start(42);
+    /// ```
+    pub fn set_start<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.start = v.into();
+        self
+    }
+
+    /// Sets the value of [end][crate::model::IntegerRangePartition::end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::IntegerRangePartition;
+    /// let x = IntegerRangePartition::new().set_end(42);
+    /// ```
+    pub fn set_end<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.end = v.into();
+        self
+    }
+
+    /// Sets the value of [interval][crate::model::IntegerRangePartition::interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::IntegerRangePartition;
+    /// let x = IntegerRangePartition::new().set_interval(42);
+    /// ```
+    pub fn set_interval<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.interval = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for IntegerRangePartition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.IntegerRangePartition"
+    }
+}
+
+/// BigQuery partitioning configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BigQueryPartitioning {
+    /// Optional. If true, queries over the table require a partition filter.
+    pub require_partition_filter: bool,
+
+    /// Partitioning to apply on the table.
+    pub partitioning: std::option::Option<crate::model::big_query_partitioning::Partitioning>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BigQueryPartitioning {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [require_partition_filter][crate::model::BigQueryPartitioning::require_partition_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::BigQueryPartitioning;
+    /// let x = BigQueryPartitioning::new().set_require_partition_filter(true);
+    /// ```
+    pub fn set_require_partition_filter<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_partition_filter = v.into();
+        self
+    }
+
+    /// Sets the value of [partitioning][crate::model::BigQueryPartitioning::partitioning].
+    ///
+    /// Note that all the setters affecting `partitioning` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::BigQueryPartitioning;
+    /// use google_cloud_datastream_v1::model::IntegerRangePartition;
+    /// let x = BigQueryPartitioning::new().set_partitioning(Some(
+    ///     google_cloud_datastream_v1::model::big_query_partitioning::Partitioning::IntegerRangePartition(IntegerRangePartition::default().into())));
+    /// ```
+    pub fn set_partitioning<
+        T: std::convert::Into<std::option::Option<crate::model::big_query_partitioning::Partitioning>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partitioning = v.into();
+        self
+    }
+
+    /// The value of [partitioning][crate::model::BigQueryPartitioning::partitioning]
+    /// if it holds a `IntegerRangePartition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn integer_range_partition(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IntegerRangePartition>> {
+        #[allow(unreachable_patterns)]
+        self.partitioning.as_ref().and_then(|v| match v {
+            crate::model::big_query_partitioning::Partitioning::IntegerRangePartition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [partitioning][crate::model::BigQueryPartitioning::partitioning]
+    /// to hold a `IntegerRangePartition`.
+    ///
+    /// Note that all the setters affecting `partitioning` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::BigQueryPartitioning;
+    /// use google_cloud_datastream_v1::model::IntegerRangePartition;
+    /// let x = BigQueryPartitioning::new().set_integer_range_partition(IntegerRangePartition::default()/* use setters */);
+    /// assert!(x.integer_range_partition().is_some());
+    /// assert!(x.time_unit_partition().is_none());
+    /// assert!(x.ingestion_time_partition().is_none());
+    /// ```
+    pub fn set_integer_range_partition<
+        T: std::convert::Into<std::boxed::Box<crate::model::IntegerRangePartition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partitioning = std::option::Option::Some(
+            crate::model::big_query_partitioning::Partitioning::IntegerRangePartition(v.into()),
+        );
+        self
+    }
+
+    /// The value of [partitioning][crate::model::BigQueryPartitioning::partitioning]
+    /// if it holds a `TimeUnitPartition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn time_unit_partition(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TimeUnitPartition>> {
+        #[allow(unreachable_patterns)]
+        self.partitioning.as_ref().and_then(|v| match v {
+            crate::model::big_query_partitioning::Partitioning::TimeUnitPartition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [partitioning][crate::model::BigQueryPartitioning::partitioning]
+    /// to hold a `TimeUnitPartition`.
+    ///
+    /// Note that all the setters affecting `partitioning` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::BigQueryPartitioning;
+    /// use google_cloud_datastream_v1::model::TimeUnitPartition;
+    /// let x = BigQueryPartitioning::new().set_time_unit_partition(TimeUnitPartition::default()/* use setters */);
+    /// assert!(x.time_unit_partition().is_some());
+    /// assert!(x.integer_range_partition().is_none());
+    /// assert!(x.ingestion_time_partition().is_none());
+    /// ```
+    pub fn set_time_unit_partition<
+        T: std::convert::Into<std::boxed::Box<crate::model::TimeUnitPartition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partitioning = std::option::Option::Some(
+            crate::model::big_query_partitioning::Partitioning::TimeUnitPartition(v.into()),
+        );
+        self
+    }
+
+    /// The value of [partitioning][crate::model::BigQueryPartitioning::partitioning]
+    /// if it holds a `IngestionTimePartition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ingestion_time_partition(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IngestionTimePartition>> {
+        #[allow(unreachable_patterns)]
+        self.partitioning.as_ref().and_then(|v| match v {
+            crate::model::big_query_partitioning::Partitioning::IngestionTimePartition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [partitioning][crate::model::BigQueryPartitioning::partitioning]
+    /// to hold a `IngestionTimePartition`.
+    ///
+    /// Note that all the setters affecting `partitioning` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::BigQueryPartitioning;
+    /// use google_cloud_datastream_v1::model::IngestionTimePartition;
+    /// let x = BigQueryPartitioning::new().set_ingestion_time_partition(IngestionTimePartition::default()/* use setters */);
+    /// assert!(x.ingestion_time_partition().is_some());
+    /// assert!(x.integer_range_partition().is_none());
+    /// assert!(x.time_unit_partition().is_none());
+    /// ```
+    pub fn set_ingestion_time_partition<
+        T: std::convert::Into<std::boxed::Box<crate::model::IngestionTimePartition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partitioning = std::option::Option::Some(
+            crate::model::big_query_partitioning::Partitioning::IngestionTimePartition(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for BigQueryPartitioning {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.BigQueryPartitioning"
+    }
+}
+
+/// Defines additional types related to [BigQueryPartitioning].
+pub mod big_query_partitioning {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Partitioning to apply on the table.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Partitioning {
+        /// Integer range partitioning.
+        IntegerRangePartition(std::boxed::Box<crate::model::IntegerRangePartition>),
+        /// Time unit column partitioning.
+        TimeUnitPartition(std::boxed::Box<crate::model::TimeUnitPartition>),
+        /// Ingestion time partitioning.
+        IngestionTimePartition(std::boxed::Box<crate::model::IngestionTimePartition>),
+    }
+}
+
 /// Google Cloud Storage destination configuration
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -12228,7 +16234,7 @@ pub struct BigQueryDestinationConfig {
     pub dataset_config:
         std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
 
-    #[allow(missing_docs)]
+    /// Destination write mode.
     pub write_mode: std::option::Option<crate::model::big_query_destination_config::WriteMode>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13196,7 +17202,7 @@ pub mod big_query_destination_config {
         ),
     }
 
-    #[allow(missing_docs)]
+    /// Destination write mode.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum WriteMode {
@@ -13425,6 +17431,9 @@ pub struct Stream {
 
     /// Output only. Reserved for future use.
     pub satisfies_pzi: std::option::Option<bool>,
+
+    /// Optional. Rule sets to apply to the stream.
+    pub rule_sets: std::vec::Vec<crate::model::stream::RuleSet>,
 
     /// Stream backfill strategy.
     pub backfill_strategy: std::option::Option<crate::model::stream::BackfillStrategy>,
@@ -13784,6 +17793,28 @@ impl Stream {
         self
     }
 
+    /// Sets the value of [rule_sets][crate::model::Stream::rule_sets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::Stream;
+    /// use google_cloud_datastream_v1::model::stream::RuleSet;
+    /// let x = Stream::new()
+    ///     .set_rule_sets([
+    ///         RuleSet::default()/* use setters */,
+    ///         RuleSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rule_sets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::stream::RuleSet>,
+    {
+        use std::iter::Iterator;
+        self.rule_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy].
     ///
     /// Note that all the setters affecting `backfill_strategy` are mutually
@@ -13970,6 +18001,8 @@ pub mod stream {
         /// assert!(x.sql_server_excluded_objects().is_none());
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
+        /// assert!(x.spanner_excluded_objects().is_none());
+        /// assert!(x.saas_excluded_objects().is_none());
         /// ```
         pub fn set_oracle_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>,
@@ -14015,6 +18048,8 @@ pub mod stream {
         /// assert!(x.sql_server_excluded_objects().is_none());
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
+        /// assert!(x.spanner_excluded_objects().is_none());
+        /// assert!(x.saas_excluded_objects().is_none());
         /// ```
         pub fn set_mysql_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>,
@@ -14060,6 +18095,8 @@ pub mod stream {
         /// assert!(x.sql_server_excluded_objects().is_none());
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
+        /// assert!(x.spanner_excluded_objects().is_none());
+        /// assert!(x.saas_excluded_objects().is_none());
         /// ```
         pub fn set_postgresql_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
@@ -14105,6 +18142,8 @@ pub mod stream {
         /// assert!(x.postgresql_excluded_objects().is_none());
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
+        /// assert!(x.spanner_excluded_objects().is_none());
+        /// assert!(x.saas_excluded_objects().is_none());
         /// ```
         pub fn set_sql_server_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
@@ -14150,6 +18189,8 @@ pub mod stream {
         /// assert!(x.postgresql_excluded_objects().is_none());
         /// assert!(x.sql_server_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
+        /// assert!(x.spanner_excluded_objects().is_none());
+        /// assert!(x.saas_excluded_objects().is_none());
         /// ```
         pub fn set_salesforce_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
@@ -14195,6 +18236,8 @@ pub mod stream {
         /// assert!(x.postgresql_excluded_objects().is_none());
         /// assert!(x.sql_server_excluded_objects().is_none());
         /// assert!(x.salesforce_excluded_objects().is_none());
+        /// assert!(x.spanner_excluded_objects().is_none());
+        /// assert!(x.saas_excluded_objects().is_none());
         /// ```
         pub fn set_mongodb_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
@@ -14206,6 +18249,100 @@ pub mod stream {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::MongodbExcludedObjects(
                     v.into()
                 )
+            );
+            self
+        }
+
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `SpannerExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn spanner_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SpannerDatabase>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SpannerExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// to hold a `SpannerExcludedObjects`.
+        ///
+        /// Note that all the setters affecting `excluded_objects` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
+        /// use google_cloud_datastream_v1::model::SpannerDatabase;
+        /// let x = BackfillAllStrategy::new().set_spanner_excluded_objects(SpannerDatabase::default()/* use setters */);
+        /// assert!(x.spanner_excluded_objects().is_some());
+        /// assert!(x.oracle_excluded_objects().is_none());
+        /// assert!(x.mysql_excluded_objects().is_none());
+        /// assert!(x.postgresql_excluded_objects().is_none());
+        /// assert!(x.sql_server_excluded_objects().is_none());
+        /// assert!(x.salesforce_excluded_objects().is_none());
+        /// assert!(x.mongodb_excluded_objects().is_none());
+        /// assert!(x.saas_excluded_objects().is_none());
+        /// ```
+        pub fn set_spanner_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::SpannerDatabase>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.excluded_objects = std::option::Option::Some(
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SpannerExcludedObjects(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `SaasExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn saas_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SourceCatalog>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SaasExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// to hold a `SaasExcludedObjects`.
+        ///
+        /// Note that all the setters affecting `excluded_objects` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
+        /// use google_cloud_datastream_v1::model::SourceCatalog;
+        /// let x = BackfillAllStrategy::new().set_saas_excluded_objects(SourceCatalog::default()/* use setters */);
+        /// assert!(x.saas_excluded_objects().is_some());
+        /// assert!(x.oracle_excluded_objects().is_none());
+        /// assert!(x.mysql_excluded_objects().is_none());
+        /// assert!(x.postgresql_excluded_objects().is_none());
+        /// assert!(x.sql_server_excluded_objects().is_none());
+        /// assert!(x.salesforce_excluded_objects().is_none());
+        /// assert!(x.mongodb_excluded_objects().is_none());
+        /// assert!(x.spanner_excluded_objects().is_none());
+        /// ```
+        pub fn set_saas_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::SourceCatalog>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.excluded_objects = std::option::Option::Some(
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SaasExcludedObjects(
+                    v.into(),
+                ),
             );
             self
         }
@@ -14238,6 +18375,11 @@ pub mod stream {
             SalesforceExcludedObjects(std::boxed::Box<crate::model::SalesforceOrg>),
             /// MongoDB data source objects to avoid backfilling
             MongodbExcludedObjects(std::boxed::Box<crate::model::MongodbCluster>),
+            /// Spanner data source objects to avoid backfilling.
+            SpannerExcludedObjects(std::boxed::Box<crate::model::SpannerDatabase>),
+            /// Source catalog data source objects to avoid backfilling. This is mainly
+            /// used to represent SaaS applications objects.
+            SaasExcludedObjects(std::boxed::Box<crate::model::SourceCatalog>),
         }
     }
 
@@ -14258,6 +18400,347 @@ pub mod stream {
     impl wkt::message::Message for BackfillNoneStrategy {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.datastream.v1.Stream.BackfillNoneStrategy"
+        }
+    }
+
+    /// A set of rules to apply to a set of objects.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RuleSet {
+        /// Required. List of customization rules to apply.
+        pub customization_rules: std::vec::Vec<crate::model::stream::rule_set::CustomizationRule>,
+
+        /// Required. Object filter to apply the customization rules to.
+        pub object_filter: std::option::Option<crate::model::stream::rule_set::ObjectFilter>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RuleSet {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [customization_rules][crate::model::stream::RuleSet::customization_rules].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::stream::RuleSet;
+        /// use google_cloud_datastream_v1::model::stream::rule_set::CustomizationRule;
+        /// let x = RuleSet::new()
+        ///     .set_customization_rules([
+        ///         CustomizationRule::default()/* use setters */,
+        ///         CustomizationRule::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_customization_rules<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::stream::rule_set::CustomizationRule>,
+        {
+            use std::iter::Iterator;
+            self.customization_rules = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [object_filter][crate::model::stream::RuleSet::object_filter].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::stream::RuleSet;
+        /// use google_cloud_datastream_v1::model::stream::rule_set::ObjectFilter;
+        /// let x = RuleSet::new().set_object_filter(ObjectFilter::default()/* use setters */);
+        /// ```
+        pub fn set_object_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::stream::rule_set::ObjectFilter>,
+        {
+            self.object_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [object_filter][crate::model::stream::RuleSet::object_filter].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::stream::RuleSet;
+        /// use google_cloud_datastream_v1::model::stream::rule_set::ObjectFilter;
+        /// let x = RuleSet::new().set_or_clear_object_filter(Some(ObjectFilter::default()/* use setters */));
+        /// let x = RuleSet::new().set_or_clear_object_filter(None::<ObjectFilter>);
+        /// ```
+        pub fn set_or_clear_object_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::stream::rule_set::ObjectFilter>,
+        {
+            self.object_filter = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for RuleSet {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.Stream.RuleSet"
+        }
+    }
+
+    /// Defines additional types related to [RuleSet].
+    pub mod rule_set {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Object filter to apply the rules to.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ObjectFilter {
+            /// The filter to apply.
+            pub filter_type:
+                std::option::Option<crate::model::stream::rule_set::object_filter::FilterType>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ObjectFilter {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [filter_type][crate::model::stream::rule_set::ObjectFilter::filter_type].
+            ///
+            /// Note that all the setters affecting `filter_type` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_datastream_v1::model::stream::rule_set::ObjectFilter;
+            /// use google_cloud_datastream_v1::model::SourceObjectIdentifier;
+            /// let x = ObjectFilter::new().set_filter_type(Some(
+            ///     google_cloud_datastream_v1::model::stream::rule_set::object_filter::FilterType::SourceObjectIdentifier(SourceObjectIdentifier::default().into())));
+            /// ```
+            pub fn set_filter_type<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::stream::rule_set::object_filter::FilterType,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.filter_type = v.into();
+                self
+            }
+
+            /// The value of [filter_type][crate::model::stream::rule_set::ObjectFilter::filter_type]
+            /// if it holds a `SourceObjectIdentifier`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn source_object_identifier(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::SourceObjectIdentifier>>
+            {
+                #[allow(unreachable_patterns)]
+                self.filter_type.as_ref().and_then(|v| match v {
+                    crate::model::stream::rule_set::object_filter::FilterType::SourceObjectIdentifier(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [filter_type][crate::model::stream::rule_set::ObjectFilter::filter_type]
+            /// to hold a `SourceObjectIdentifier`.
+            ///
+            /// Note that all the setters affecting `filter_type` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_datastream_v1::model::stream::rule_set::ObjectFilter;
+            /// use google_cloud_datastream_v1::model::SourceObjectIdentifier;
+            /// let x = ObjectFilter::new().set_source_object_identifier(SourceObjectIdentifier::default()/* use setters */);
+            /// assert!(x.source_object_identifier().is_some());
+            /// ```
+            pub fn set_source_object_identifier<
+                T: std::convert::Into<std::boxed::Box<crate::model::SourceObjectIdentifier>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.filter_type = std::option::Option::Some(
+                    crate::model::stream::rule_set::object_filter::FilterType::SourceObjectIdentifier(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for ObjectFilter {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.datastream.v1.Stream.RuleSet.ObjectFilter"
+            }
+        }
+
+        /// Defines additional types related to [ObjectFilter].
+        pub mod object_filter {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The filter to apply.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum FilterType {
+                /// Specific source object identifier.
+                SourceObjectIdentifier(std::boxed::Box<crate::model::SourceObjectIdentifier>),
+            }
+        }
+
+        /// A customization rule to apply to a set of objects.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct CustomizationRule {
+            /// The rule to apply.
+            pub rule: std::option::Option<crate::model::stream::rule_set::customization_rule::Rule>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CustomizationRule {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [rule][crate::model::stream::rule_set::CustomizationRule::rule].
+            ///
+            /// Note that all the setters affecting `rule` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_datastream_v1::model::stream::rule_set::CustomizationRule;
+            /// use google_cloud_datastream_v1::model::BigQueryPartitioning;
+            /// let x = CustomizationRule::new().set_rule(Some(
+            ///     google_cloud_datastream_v1::model::stream::rule_set::customization_rule::Rule::BigqueryPartitioning(BigQueryPartitioning::default().into())));
+            /// ```
+            pub fn set_rule<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::stream::rule_set::customization_rule::Rule,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.rule = v.into();
+                self
+            }
+
+            /// The value of [rule][crate::model::stream::rule_set::CustomizationRule::rule]
+            /// if it holds a `BigqueryPartitioning`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn bigquery_partitioning(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryPartitioning>>
+            {
+                #[allow(unreachable_patterns)]
+                self.rule.as_ref().and_then(|v| match v {
+                    crate::model::stream::rule_set::customization_rule::Rule::BigqueryPartitioning(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [rule][crate::model::stream::rule_set::CustomizationRule::rule]
+            /// to hold a `BigqueryPartitioning`.
+            ///
+            /// Note that all the setters affecting `rule` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_datastream_v1::model::stream::rule_set::CustomizationRule;
+            /// use google_cloud_datastream_v1::model::BigQueryPartitioning;
+            /// let x = CustomizationRule::new().set_bigquery_partitioning(BigQueryPartitioning::default()/* use setters */);
+            /// assert!(x.bigquery_partitioning().is_some());
+            /// assert!(x.bigquery_clustering().is_none());
+            /// ```
+            pub fn set_bigquery_partitioning<
+                T: std::convert::Into<std::boxed::Box<crate::model::BigQueryPartitioning>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.rule = std::option::Option::Some(
+                    crate::model::stream::rule_set::customization_rule::Rule::BigqueryPartitioning(
+                        v.into(),
+                    ),
+                );
+                self
+            }
+
+            /// The value of [rule][crate::model::stream::rule_set::CustomizationRule::rule]
+            /// if it holds a `BigqueryClustering`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn bigquery_clustering(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryClustering>>
+            {
+                #[allow(unreachable_patterns)]
+                self.rule.as_ref().and_then(|v| match v {
+                    crate::model::stream::rule_set::customization_rule::Rule::BigqueryClustering(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [rule][crate::model::stream::rule_set::CustomizationRule::rule]
+            /// to hold a `BigqueryClustering`.
+            ///
+            /// Note that all the setters affecting `rule` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_datastream_v1::model::stream::rule_set::CustomizationRule;
+            /// use google_cloud_datastream_v1::model::BigQueryClustering;
+            /// let x = CustomizationRule::new().set_bigquery_clustering(BigQueryClustering::default()/* use setters */);
+            /// assert!(x.bigquery_clustering().is_some());
+            /// assert!(x.bigquery_partitioning().is_none());
+            /// ```
+            pub fn set_bigquery_clustering<
+                T: std::convert::Into<std::boxed::Box<crate::model::BigQueryClustering>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.rule = std::option::Option::Some(
+                    crate::model::stream::rule_set::customization_rule::Rule::BigqueryClustering(
+                        v.into(),
+                    ),
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for CustomizationRule {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.datastream.v1.Stream.RuleSet.CustomizationRule"
+            }
+        }
+
+        /// Defines additional types related to [CustomizationRule].
+        pub mod customization_rule {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The rule to apply.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Rule {
+                /// BigQuery partitioning rule.
+                BigqueryPartitioning(std::boxed::Box<crate::model::BigQueryPartitioning>),
+                /// BigQuery clustering rule.
+                BigqueryClustering(std::boxed::Box<crate::model::BigQueryClustering>),
+            }
         }
     }
 
@@ -14476,6 +18959,11 @@ pub struct StreamObject {
     /// The object identifier in the data source.
     pub source_object: std::option::Option<crate::model::SourceObjectIdentifier>,
 
+    /// Output only. The customization rules for the object. These rules are
+    /// derived from the parent Stream's `rule_sets` and represent the intended
+    /// configuration for the object.
+    pub customization_rules: std::vec::Vec<crate::model::stream::rule_set::CustomizationRule>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14666,6 +19154,28 @@ impl StreamObject {
         self.source_object = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [customization_rules][crate::model::StreamObject::customization_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::StreamObject;
+    /// use google_cloud_datastream_v1::model::stream::rule_set::CustomizationRule;
+    /// let x = StreamObject::new()
+    ///     .set_customization_rules([
+    ///         CustomizationRule::default()/* use setters */,
+    ///         CustomizationRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_customization_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::stream::rule_set::CustomizationRule>,
+    {
+        use std::iter::Iterator;
+        self.customization_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for StreamObject {
@@ -14749,6 +19259,7 @@ impl SourceObjectIdentifier {
     /// assert!(x.sql_server_identifier().is_none());
     /// assert!(x.salesforce_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
+    /// assert!(x.spanner_identifier().is_none());
     /// ```
     pub fn set_oracle_identifier<
         T: std::convert::Into<
@@ -14798,6 +19309,7 @@ impl SourceObjectIdentifier {
     /// assert!(x.sql_server_identifier().is_none());
     /// assert!(x.salesforce_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
+    /// assert!(x.spanner_identifier().is_none());
     /// ```
     pub fn set_mysql_identifier<
         T: std::convert::Into<
@@ -14847,6 +19359,7 @@ impl SourceObjectIdentifier {
     /// assert!(x.sql_server_identifier().is_none());
     /// assert!(x.salesforce_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
+    /// assert!(x.spanner_identifier().is_none());
     /// ```
     pub fn set_postgresql_identifier<
         T: std::convert::Into<
@@ -14898,6 +19411,7 @@ impl SourceObjectIdentifier {
     /// assert!(x.postgresql_identifier().is_none());
     /// assert!(x.salesforce_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
+    /// assert!(x.spanner_identifier().is_none());
     /// ```
     pub fn set_sql_server_identifier<
         T: std::convert::Into<
@@ -14947,6 +19461,7 @@ impl SourceObjectIdentifier {
     /// assert!(x.postgresql_identifier().is_none());
     /// assert!(x.sql_server_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
+    /// assert!(x.spanner_identifier().is_none());
     /// ```
     pub fn set_salesforce_identifier<
         T: std::convert::Into<
@@ -14998,6 +19513,7 @@ impl SourceObjectIdentifier {
     /// assert!(x.postgresql_identifier().is_none());
     /// assert!(x.sql_server_identifier().is_none());
     /// assert!(x.salesforce_identifier().is_none());
+    /// assert!(x.spanner_identifier().is_none());
     /// ```
     pub fn set_mongodb_identifier<
         T: std::convert::Into<
@@ -15009,6 +19525,56 @@ impl SourceObjectIdentifier {
     ) -> Self {
         self.source_identifier = std::option::Option::Some(
             crate::model::source_object_identifier::SourceIdentifier::MongodbIdentifier(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `SpannerIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spanner_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::SpannerObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::SpannerIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// to hold a `SpannerIdentifier`.
+    ///
+    /// Note that all the setters affecting `source_identifier` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SourceObjectIdentifier;
+    /// use google_cloud_datastream_v1::model::source_object_identifier::SpannerObjectIdentifier;
+    /// let x = SourceObjectIdentifier::new().set_spanner_identifier(SpannerObjectIdentifier::default()/* use setters */);
+    /// assert!(x.spanner_identifier().is_some());
+    /// assert!(x.oracle_identifier().is_none());
+    /// assert!(x.mysql_identifier().is_none());
+    /// assert!(x.postgresql_identifier().is_none());
+    /// assert!(x.sql_server_identifier().is_none());
+    /// assert!(x.salesforce_identifier().is_none());
+    /// assert!(x.mongodb_identifier().is_none());
+    /// ```
+    pub fn set_spanner_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::SpannerObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_identifier = std::option::Option::Some(
+            crate::model::source_object_identifier::SourceIdentifier::SpannerIdentifier(v.into()),
         );
         self
     }
@@ -15310,6 +19876,56 @@ pub mod source_object_identifier {
         }
     }
 
+    /// Spanner data source object identifier.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SpannerObjectIdentifier {
+        /// Optional. The schema name.
+        pub schema: std::string::String,
+
+        /// Required. The table name.
+        pub table: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SpannerObjectIdentifier {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [schema][crate::model::source_object_identifier::SpannerObjectIdentifier::schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::source_object_identifier::SpannerObjectIdentifier;
+        /// let x = SpannerObjectIdentifier::new().set_schema("example");
+        /// ```
+        pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.schema = v.into();
+            self
+        }
+
+        /// Sets the value of [table][crate::model::source_object_identifier::SpannerObjectIdentifier::table].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::source_object_identifier::SpannerObjectIdentifier;
+        /// let x = SpannerObjectIdentifier::new().set_table("example");
+        /// ```
+        pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.table = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SpannerObjectIdentifier {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SourceObjectIdentifier.SpannerObjectIdentifier"
+        }
+    }
+
     /// The identifier for an object in the data source.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -15338,6 +19954,10 @@ pub mod source_object_identifier {
         MongodbIdentifier(
             std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>,
         ),
+        /// Spanner data source object identifier.
+        SpannerIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::SpannerObjectIdentifier>,
+        ),
     }
 }
 
@@ -15359,6 +19979,9 @@ pub struct BackfillJob {
 
     /// Output only. Errors which caused the backfill job to fail.
     pub errors: std::vec::Vec<crate::model::Error>,
+
+    /// Output only. The filter for performing a partial backfill.
+    pub event_filter: std::option::Option<crate::model::EventFilter>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -15489,6 +20112,39 @@ impl BackfillJob {
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [event_filter][crate::model::BackfillJob::event_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::BackfillJob;
+    /// use google_cloud_datastream_v1::model::EventFilter;
+    /// let x = BackfillJob::new().set_event_filter(EventFilter::default()/* use setters */);
+    /// ```
+    pub fn set_event_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EventFilter>,
+    {
+        self.event_filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [event_filter][crate::model::BackfillJob::event_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::BackfillJob;
+    /// use google_cloud_datastream_v1::model::EventFilter;
+    /// let x = BackfillJob::new().set_or_clear_event_filter(Some(EventFilter::default()/* use setters */));
+    /// let x = BackfillJob::new().set_or_clear_event_filter(None::<EventFilter>);
+    /// ```
+    pub fn set_or_clear_event_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EventFilter>,
+    {
+        self.event_filter = v.map(|x| x.into());
         self
     }
 }
@@ -15805,6 +20461,98 @@ pub mod backfill_job {
                 ".google.cloud.datastream.v1.BackfillJob.Trigger",
             ))
         }
+    }
+}
+
+/// Represents a filter for included data on a stream object.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EventFilter {
+    /// A filter type.
+    pub filter: std::option::Option<crate::model::event_filter::Filter>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EventFilter {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [filter][crate::model::EventFilter::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::EventFilter;
+    /// use google_cloud_datastream_v1::model::event_filter::Filter;
+    /// let x = EventFilter::new().set_filter(Some(Filter::SqlWhereClause("example".to_string())));
+    /// ```
+    pub fn set_filter<
+        T: std::convert::Into<std::option::Option<crate::model::event_filter::Filter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// The value of [filter][crate::model::EventFilter::filter]
+    /// if it holds a `SqlWhereClause`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_where_clause(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::event_filter::Filter::SqlWhereClause(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [filter][crate::model::EventFilter::filter]
+    /// to hold a `SqlWhereClause`.
+    ///
+    /// Note that all the setters affecting `filter` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::EventFilter;
+    /// let x = EventFilter::new().set_sql_where_clause("example");
+    /// assert!(x.sql_where_clause().is_some());
+    /// ```
+    pub fn set_sql_where_clause<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filter =
+            std::option::Option::Some(crate::model::event_filter::Filter::SqlWhereClause(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for EventFilter {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.EventFilter"
+    }
+}
+
+/// Defines additional types related to [EventFilter].
+pub mod event_filter {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A filter type.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Filter {
+        /// An SQL-query Where clause selecting which data should be included, not
+        /// including the "WHERE" keyword. e.g., `t.key1 = 'value1' AND t.key2 =
+        /// 'value2'`
+        SqlWhereClause(std::string::String),
     }
 }
 
@@ -16687,7 +21435,7 @@ pub mod cdc_strategy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpecificStartPosition {
-        #[allow(missing_docs)]
+        /// Change Data Capture (CDC) read position.
         pub position:
             std::option::Option<crate::model::cdc_strategy::specific_start_position::Position>,
 
@@ -16756,6 +21504,8 @@ pub mod cdc_strategy {
         /// assert!(x.oracle_scn_position().is_none());
         /// assert!(x.sql_server_lsn_position().is_none());
         /// assert!(x.mysql_gtid_position().is_none());
+        /// assert!(x.mongodb_change_stream_position().is_none());
+        /// assert!(x.spanner_change_stream_position().is_none());
         /// ```
         pub fn set_mysql_log_position<
             T: std::convert::Into<std::boxed::Box<crate::model::MysqlLogPosition>>,
@@ -16799,6 +21549,8 @@ pub mod cdc_strategy {
         /// assert!(x.mysql_log_position().is_none());
         /// assert!(x.sql_server_lsn_position().is_none());
         /// assert!(x.mysql_gtid_position().is_none());
+        /// assert!(x.mongodb_change_stream_position().is_none());
+        /// assert!(x.spanner_change_stream_position().is_none());
         /// ```
         pub fn set_oracle_scn_position<
             T: std::convert::Into<std::boxed::Box<crate::model::OracleScnPosition>>,
@@ -16842,6 +21594,8 @@ pub mod cdc_strategy {
         /// assert!(x.mysql_log_position().is_none());
         /// assert!(x.oracle_scn_position().is_none());
         /// assert!(x.mysql_gtid_position().is_none());
+        /// assert!(x.mongodb_change_stream_position().is_none());
+        /// assert!(x.spanner_change_stream_position().is_none());
         /// ```
         pub fn set_sql_server_lsn_position<
             T: std::convert::Into<std::boxed::Box<crate::model::SqlServerLsnPosition>>,
@@ -16885,6 +21639,8 @@ pub mod cdc_strategy {
         /// assert!(x.mysql_log_position().is_none());
         /// assert!(x.oracle_scn_position().is_none());
         /// assert!(x.sql_server_lsn_position().is_none());
+        /// assert!(x.mongodb_change_stream_position().is_none());
+        /// assert!(x.spanner_change_stream_position().is_none());
         /// ```
         pub fn set_mysql_gtid_position<
             T: std::convert::Into<std::boxed::Box<crate::model::MysqlGtidPosition>>,
@@ -16896,6 +21652,98 @@ pub mod cdc_strategy {
                 crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(
                     v.into(),
                 ),
+            );
+            self
+        }
+
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `MongodbChangeStreamPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn mongodb_change_stream_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbChangeStreamPosition>>
+        {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::MongodbChangeStreamPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// to hold a `MongodbChangeStreamPosition`.
+        ///
+        /// Note that all the setters affecting `position` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::cdc_strategy::SpecificStartPosition;
+        /// use google_cloud_datastream_v1::model::MongodbChangeStreamPosition;
+        /// let x = SpecificStartPosition::new().set_mongodb_change_stream_position(MongodbChangeStreamPosition::default()/* use setters */);
+        /// assert!(x.mongodb_change_stream_position().is_some());
+        /// assert!(x.mysql_log_position().is_none());
+        /// assert!(x.oracle_scn_position().is_none());
+        /// assert!(x.sql_server_lsn_position().is_none());
+        /// assert!(x.mysql_gtid_position().is_none());
+        /// assert!(x.spanner_change_stream_position().is_none());
+        /// ```
+        pub fn set_mongodb_change_stream_position<
+            T: std::convert::Into<std::boxed::Box<crate::model::MongodbChangeStreamPosition>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.position = std::option::Option::Some(
+                crate::model::cdc_strategy::specific_start_position::Position::MongodbChangeStreamPosition(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `SpannerChangeStreamPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn spanner_change_stream_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SpannerChangeStreamPosition>>
+        {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::SpannerChangeStreamPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// to hold a `SpannerChangeStreamPosition`.
+        ///
+        /// Note that all the setters affecting `position` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_datastream_v1::model::cdc_strategy::SpecificStartPosition;
+        /// use google_cloud_datastream_v1::model::SpannerChangeStreamPosition;
+        /// let x = SpecificStartPosition::new().set_spanner_change_stream_position(SpannerChangeStreamPosition::default()/* use setters */);
+        /// assert!(x.spanner_change_stream_position().is_some());
+        /// assert!(x.mysql_log_position().is_none());
+        /// assert!(x.oracle_scn_position().is_none());
+        /// assert!(x.sql_server_lsn_position().is_none());
+        /// assert!(x.mysql_gtid_position().is_none());
+        /// assert!(x.mongodb_change_stream_position().is_none());
+        /// ```
+        pub fn set_spanner_change_stream_position<
+            T: std::convert::Into<std::boxed::Box<crate::model::SpannerChangeStreamPosition>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.position = std::option::Option::Some(
+                crate::model::cdc_strategy::specific_start_position::Position::SpannerChangeStreamPosition(
+                    v.into()
+                )
             );
             self
         }
@@ -16912,7 +21760,7 @@ pub mod cdc_strategy {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
+        /// Change Data Capture (CDC) read position.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Position {
@@ -16924,6 +21772,10 @@ pub mod cdc_strategy {
             SqlServerLsnPosition(std::boxed::Box<crate::model::SqlServerLsnPosition>),
             /// MySQL GTID set to start replicating from.
             MysqlGtidPosition(std::boxed::Box<crate::model::MysqlGtidPosition>),
+            /// MongoDB change stream position to start replicating from.
+            MongodbChangeStreamPosition(std::boxed::Box<crate::model::MongodbChangeStreamPosition>),
+            /// Optional. Spanner change stream position to start replicating from.
+            SpannerChangeStreamPosition(std::boxed::Box<crate::model::SpannerChangeStreamPosition>),
         }
     }
 
@@ -17118,5 +21970,401 @@ impl MysqlGtidPosition {
 impl wkt::message::Message for MysqlGtidPosition {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.datastream.v1.MysqlGtidPosition"
+    }
+}
+
+/// MongoDB change stream position
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MongodbChangeStreamPosition {
+    /// Required. The timestamp to start change stream from.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MongodbChangeStreamPosition {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::MongodbChangeStreamPosition::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::MongodbChangeStreamPosition;
+    /// use wkt::Timestamp;
+    /// let x = MongodbChangeStreamPosition::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::MongodbChangeStreamPosition::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::MongodbChangeStreamPosition;
+    /// use wkt::Timestamp;
+    /// let x = MongodbChangeStreamPosition::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MongodbChangeStreamPosition::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for MongodbChangeStreamPosition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MongodbChangeStreamPosition"
+    }
+}
+
+/// Represents a position in a Spanner change stream from which to start
+/// replicating.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpannerChangeStreamPosition {
+    /// Required. The timestamp to start change stream queries from.
+    /// The timestamp must be a positive value.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SpannerChangeStreamPosition {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::SpannerChangeStreamPosition::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerChangeStreamPosition;
+    /// use wkt::Timestamp;
+    /// let x = SpannerChangeStreamPosition::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::SpannerChangeStreamPosition::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_datastream_v1::model::SpannerChangeStreamPosition;
+    /// use wkt::Timestamp;
+    /// let x = SpannerChangeStreamPosition::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SpannerChangeStreamPosition::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SpannerChangeStreamPosition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SpannerChangeStreamPosition"
+    }
+}
+
+/// MongoDB JSON mode.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum MongodbJsonMode {
+    /// Unspecified JSON mode.
+    Unspecified,
+    /// Strict JSON mode.
+    Strict,
+    /// Canonical JSON mode.
+    Canonical,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [MongodbJsonMode::value] or
+    /// [MongodbJsonMode::name].
+    UnknownValue(mongodb_json_mode::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod mongodb_json_mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl MongodbJsonMode {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Strict => std::option::Option::Some(1),
+            Self::Canonical => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("MONGODB_JSON_MODE_UNSPECIFIED"),
+            Self::Strict => std::option::Option::Some("STRICT"),
+            Self::Canonical => std::option::Option::Some("CANONICAL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for MongodbJsonMode {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for MongodbJsonMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for MongodbJsonMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Strict,
+            2 => Self::Canonical,
+            _ => Self::UnknownValue(mongodb_json_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for MongodbJsonMode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "MONGODB_JSON_MODE_UNSPECIFIED" => Self::Unspecified,
+            "STRICT" => Self::Strict,
+            "CANONICAL" => Self::Canonical,
+            _ => Self::UnknownValue(mongodb_json_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for MongodbJsonMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Strict => serializer.serialize_i32(1),
+            Self::Canonical => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for MongodbJsonMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<MongodbJsonMode>::new(
+            ".google.cloud.datastream.v1.MongodbJsonMode",
+        ))
+    }
+}
+
+/// Partitioning granularity for time partitions.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum PartitioningTimeGranularity {
+    /// Unspecified partitioing interval.
+    Unspecified,
+    /// Hourly partitioning.
+    Hour,
+    /// Daily partitioning.
+    Day,
+    /// Monthly partitioning.
+    Month,
+    /// Yearly partitioning.
+    Year,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [PartitioningTimeGranularity::value] or
+    /// [PartitioningTimeGranularity::name].
+    UnknownValue(partitioning_time_granularity::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod partitioning_time_granularity {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl PartitioningTimeGranularity {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Hour => std::option::Option::Some(1),
+            Self::Day => std::option::Option::Some(2),
+            Self::Month => std::option::Option::Some(3),
+            Self::Year => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => {
+                std::option::Option::Some("PARTITIONING_TIME_GRANULARITY_UNSPECIFIED")
+            }
+            Self::Hour => std::option::Option::Some("PARTITIONING_TIME_GRANULARITY_HOUR"),
+            Self::Day => std::option::Option::Some("PARTITIONING_TIME_GRANULARITY_DAY"),
+            Self::Month => std::option::Option::Some("PARTITIONING_TIME_GRANULARITY_MONTH"),
+            Self::Year => std::option::Option::Some("PARTITIONING_TIME_GRANULARITY_YEAR"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for PartitioningTimeGranularity {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for PartitioningTimeGranularity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for PartitioningTimeGranularity {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Hour,
+            2 => Self::Day,
+            3 => Self::Month,
+            4 => Self::Year,
+            _ => Self::UnknownValue(partitioning_time_granularity::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for PartitioningTimeGranularity {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "PARTITIONING_TIME_GRANULARITY_UNSPECIFIED" => Self::Unspecified,
+            "PARTITIONING_TIME_GRANULARITY_HOUR" => Self::Hour,
+            "PARTITIONING_TIME_GRANULARITY_DAY" => Self::Day,
+            "PARTITIONING_TIME_GRANULARITY_MONTH" => Self::Month,
+            "PARTITIONING_TIME_GRANULARITY_YEAR" => Self::Year,
+            _ => Self::UnknownValue(partitioning_time_granularity::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for PartitioningTimeGranularity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Hour => serializer.serialize_i32(1),
+            Self::Day => serializer.serialize_i32(2),
+            Self::Month => serializer.serialize_i32(3),
+            Self::Year => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for PartitioningTimeGranularity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(
+            wkt::internal::EnumVisitor::<PartitioningTimeGranularity>::new(
+                ".google.cloud.datastream.v1.PartitioningTimeGranularity",
+            ),
+        )
     }
 }

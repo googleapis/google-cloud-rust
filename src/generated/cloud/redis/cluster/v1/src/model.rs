@@ -148,6 +148,119 @@ impl wkt::message::Message for CreateClusterRequest {
     }
 }
 
+/// Request for `CreateAclPolicy`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAclPolicyRequest {
+    /// Required. The resource name of the cluster location using the form:
+    /// `projects/{project_id}/locations/{location_id}`
+    /// where `location_id` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Required. The logical name of the ACL policy in the customer project
+    /// with the following restrictions:
+    ///
+    /// * Must contain only lowercase letters, numbers, and hyphens.
+    /// * Must start with a letter.
+    /// * Must be between 1-63 characters.
+    /// * Must end with a number or a letter.
+    /// * Must be unique within the customer project / location
+    pub acl_policy_id: std::string::String,
+
+    /// Required. The ACL policy that is to be created.
+    pub acl_policy: std::option::Option<crate::model::AclPolicy>,
+
+    /// Optional. Idempotent request UUID.
+    /// .
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAclPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAclPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::CreateAclPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAclPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_id][crate::model::CreateAclPolicyRequest::acl_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::CreateAclPolicyRequest;
+    /// let x = CreateAclPolicyRequest::new().set_acl_policy_id("example");
+    /// ```
+    pub fn set_acl_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.acl_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy][crate::model::CreateAclPolicyRequest::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::CreateAclPolicyRequest;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = CreateAclPolicyRequest::new().set_acl_policy(AclPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_acl_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.acl_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acl_policy][crate::model::CreateAclPolicyRequest::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::CreateAclPolicyRequest;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = CreateAclPolicyRequest::new().set_or_clear_acl_policy(Some(AclPolicy::default()/* use setters */));
+    /// let x = CreateAclPolicyRequest::new().set_or_clear_acl_policy(None::<AclPolicy>);
+    /// ```
+    pub fn set_or_clear_acl_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.acl_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateAclPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::CreateAclPolicyRequest;
+    /// let x = CreateAclPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAclPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.CreateAclPolicyRequest"
+    }
+}
+
 /// Request for [ListClusters][CloudRedis.ListClusters].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -329,6 +442,351 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListClustersRes
     }
 }
 
+/// Request for `ListAclPolicies`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAclPoliciesRequest {
+    /// Required. The resource name of the ACL policy location using the form:
+    /// `projects/{project_id}/locations/{location_id}`
+    /// where `location_id` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    ///
+    /// If not specified, a default value of 1000 will be used by the service.
+    /// Regardless of the page_size value, the response may include a partial list
+    /// and a caller should only rely on response's
+    /// [`next_page_token`][google.cloud.redis.cluster.v1.ListAclPoliciesResponse.next_page_token]
+    /// to determine if there are more ACL policies left to be queried.
+    ///
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    ///
+    /// [google.cloud.redis.cluster.v1.ListAclPoliciesResponse.next_page_token]: crate::model::ListAclPoliciesResponse::next_page_token
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// `ListAclPolicies` request, if any.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAclPoliciesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAclPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPoliciesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAclPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAclPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPoliciesRequest;
+    /// let x = ListAclPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAclPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPoliciesRequest;
+    /// let x = ListAclPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAclPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ListAclPoliciesRequest"
+    }
+}
+
+/// Response for `ListAclPolicies`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAclPoliciesResponse {
+    /// A list of ACL policies in the project in the specified location,
+    /// or across all locations.
+    ///
+    /// If the `location_id` in the parent field of the request is "-", all regions
+    /// available to the project are queried, and the results aggregated.
+    pub acl_policies: std::vec::Vec<crate::model::AclPolicy>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAclPoliciesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [acl_policies][crate::model::ListAclPoliciesResponse::acl_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPoliciesResponse;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = ListAclPoliciesResponse::new()
+    ///     .set_acl_policies([
+    ///         AclPolicy::default()/* use setters */,
+    ///         AclPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_acl_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclPolicy>,
+    {
+        use std::iter::Iterator;
+        self.acl_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAclPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPoliciesResponse;
+    /// let x = ListAclPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAclPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPoliciesResponse;
+    /// let x = ListAclPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAclPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ListAclPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAclPoliciesResponse {
+    type PageItem = crate::model::AclPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.acl_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for `ListAclPolicyRevisions`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAclPolicyRevisionsRequest {
+    /// Required. The name of the ACL policy to list revisions for.
+    /// Format:
+    /// "projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// `ListAclPolicyRevisions` request, if any.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAclPolicyRevisionsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAclPolicyRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPolicyRevisionsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = ListAclPolicyRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAclPolicyRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPolicyRevisionsRequest;
+    /// let x = ListAclPolicyRevisionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAclPolicyRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPolicyRevisionsRequest;
+    /// let x = ListAclPolicyRevisionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAclPolicyRevisionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ListAclPolicyRevisionsRequest"
+    }
+}
+
+/// Response for `ListAclPolicyRevisions`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAclPolicyRevisionsResponse {
+    /// A list of ACL policy revisions.
+    pub acl_policy_revisions: std::vec::Vec<crate::model::AclPolicyRevision>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAclPolicyRevisionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [acl_policy_revisions][crate::model::ListAclPolicyRevisionsResponse::acl_policy_revisions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPolicyRevisionsResponse;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicyRevision;
+    /// let x = ListAclPolicyRevisionsResponse::new()
+    ///     .set_acl_policy_revisions([
+    ///         AclPolicyRevision::default()/* use setters */,
+    ///         AclPolicyRevision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_acl_policy_revisions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclPolicyRevision>,
+    {
+        use std::iter::Iterator;
+        self.acl_policy_revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAclPolicyRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPolicyRevisionsResponse;
+    /// let x = ListAclPolicyRevisionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAclPolicyRevisionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAclPolicyRevisionsResponse;
+    /// let x = ListAclPolicyRevisionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAclPolicyRevisionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ListAclPolicyRevisionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAclPolicyRevisionsResponse {
+    type PageItem = crate::model::AclPolicyRevision;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.acl_policy_revisions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request for [UpdateCluster][CloudRedis.UpdateCluster].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -444,6 +902,117 @@ impl wkt::message::Message for UpdateClusterRequest {
     }
 }
 
+/// Request for `UpdateAclPolicy`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAclPolicyRequest {
+    /// Required. The ACL policy to be updated.
+    pub acl_policy: std::option::Option<crate::model::AclPolicy>,
+
+    /// Optional. Mask of fields to be updated. At least one path must be supplied
+    /// in this field. The elements of the repeated paths field may only include
+    /// these fields from `AclPolicy`:
+    ///
+    /// * `rules`
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. Idempotent request UUID.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAclPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [acl_policy][crate::model::UpdateAclPolicyRequest::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::UpdateAclPolicyRequest;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = UpdateAclPolicyRequest::new().set_acl_policy(AclPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_acl_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.acl_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acl_policy][crate::model::UpdateAclPolicyRequest::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::UpdateAclPolicyRequest;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = UpdateAclPolicyRequest::new().set_or_clear_acl_policy(Some(AclPolicy::default()/* use setters */));
+    /// let x = UpdateAclPolicyRequest::new().set_or_clear_acl_policy(None::<AclPolicy>);
+    /// ```
+    pub fn set_or_clear_acl_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.acl_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAclPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::UpdateAclPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAclPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAclPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::UpdateAclPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAclPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAclPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateAclPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::UpdateAclPolicyRequest;
+    /// let x = UpdateAclPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAclPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.UpdateAclPolicyRequest"
+    }
+}
+
 /// Request for [GetCluster][CloudRedis.GetCluster].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -481,6 +1050,87 @@ impl GetClusterRequest {
 impl wkt::message::Message for GetClusterRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.redis.cluster.v1.GetClusterRequest"
+    }
+}
+
+/// Request for `GetAclPolicy`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAclPolicyRequest {
+    /// Required. Redis ACL policy resource name using the form:
+    /// `projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}`
+    /// where `location_id` refers to a Google Cloud region.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAclPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAclPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::GetAclPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = GetAclPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAclPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.GetAclPolicyRequest"
+    }
+}
+
+/// Request for `GetAclPolicyRevision`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAclPolicyRevisionRequest {
+    /// Required. Redis ACL policy revision resource name using the form:
+    /// `projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}`
+    /// where `location_id` refers to a Google Cloud region.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAclPolicyRevisionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAclPolicyRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::GetAclPolicyRevisionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// # let revision_id = "revision_id";
+    /// let x = GetAclPolicyRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAclPolicyRevisionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.GetAclPolicyRevisionRequest"
     }
 }
 
@@ -536,6 +1186,77 @@ impl DeleteClusterRequest {
 impl wkt::message::Message for DeleteClusterRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.redis.cluster.v1.DeleteClusterRequest"
+    }
+}
+
+/// Request for `DeleteAclPolicy`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAclPolicyRequest {
+    /// Required. Redis ACL policy resource name using the form:
+    /// `projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}`
+    /// where `location_id` refers to a Google Cloud region.
+    pub name: std::string::String,
+
+    /// Optional. Idempotent request UUID.
+    pub request_id: std::string::String,
+
+    /// Optional. Etag of the ACL policy. If this is different from the server's
+    /// etag, the request will fail with an ABORTED error.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAclPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAclPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::DeleteAclPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = DeleteAclPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteAclPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::DeleteAclPolicyRequest;
+    /// let x = DeleteAclPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteAclPolicyRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::DeleteAclPolicyRequest;
+    /// let x = DeleteAclPolicyRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAclPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.DeleteAclPolicyRequest"
     }
 }
 
@@ -1293,6 +2014,761 @@ impl wkt::message::Message for BackupClusterRequest {
     }
 }
 
+/// Request message for [ListTokenAuthUsers][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTokenAuthUsersRequest {
+    /// Required. The parent resource that this token based auth user will be
+    /// listed for. Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    ///
+    /// If not specified, a default value of 1000 will be used by the service.
+    /// Regardless of the page_size value, the response may include a partial list
+    /// and a caller should only rely on response's
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    /// [`next_page_token`][google.cloud.redis.cluster.v1.ListTokenAuthUsersResponse.next_page_token]
+    /// to determine if there are more clusters left to be queried.
+    ///
+    /// [google.cloud.redis.cluster.v1.ListTokenAuthUsersResponse.next_page_token]: crate::model::ListTokenAuthUsersResponse::next_page_token
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// [ListTokenAuthUsers] request, if any.
+    pub page_token: std::string::String,
+
+    /// Optional. Expression for filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Sort results by a defined order.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTokenAuthUsersRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListTokenAuthUsersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListTokenAuthUsersRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListTokenAuthUsersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListTokenAuthUsersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListTokenAuthUsersRequest;
+    /// let x = ListTokenAuthUsersRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListTokenAuthUsersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListTokenAuthUsersRequest;
+    /// let x = ListTokenAuthUsersRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListTokenAuthUsersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListTokenAuthUsersRequest;
+    /// let x = ListTokenAuthUsersRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListTokenAuthUsersRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListTokenAuthUsersRequest;
+    /// let x = ListTokenAuthUsersRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTokenAuthUsersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ListTokenAuthUsersRequest"
+    }
+}
+
+/// Response message for [ListTokenAuthUsers][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTokenAuthUsersResponse {
+    /// A list of token auth users in the project.
+    pub token_auth_users: std::vec::Vec<crate::model::TokenAuthUser>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Token auth users that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTokenAuthUsersResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [token_auth_users][crate::model::ListTokenAuthUsersResponse::token_auth_users].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListTokenAuthUsersResponse;
+    /// use google_cloud_redis_cluster_v1::model::TokenAuthUser;
+    /// let x = ListTokenAuthUsersResponse::new()
+    ///     .set_token_auth_users([
+    ///         TokenAuthUser::default()/* use setters */,
+    ///         TokenAuthUser::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_token_auth_users<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TokenAuthUser>,
+    {
+        use std::iter::Iterator;
+        self.token_auth_users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTokenAuthUsersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListTokenAuthUsersResponse;
+    /// let x = ListTokenAuthUsersResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListTokenAuthUsersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListTokenAuthUsersResponse;
+    /// let x = ListTokenAuthUsersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTokenAuthUsersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ListTokenAuthUsersResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTokenAuthUsersResponse {
+    type PageItem = crate::model::TokenAuthUser;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.token_auth_users
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for [GetTokenAuthUser][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetTokenAuthUserRequest {
+    /// Required. The name of token auth user for a token based auth enabled
+    /// cluster. Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}/tokenAuthUsers/{token_auth_user}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetTokenAuthUserRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetTokenAuthUserRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::GetTokenAuthUserRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = GetTokenAuthUserRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetTokenAuthUserRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.GetTokenAuthUserRequest"
+    }
+}
+
+/// Request message for [ListAuthTokens][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuthTokensRequest {
+    /// Required. The parent resource that this auth token will be listed for.
+    /// Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}/tokenAuthUsers/{token_auth_user}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return. The maximum value is 1000;
+    /// values above 1000 will be coerced to 1000. If not specified, a default
+    /// value of 1000 will be used by the service. Regardless of the page_size
+    /// value, the response may include a partial list and a caller should only
+    /// rely on response's
+    /// [`next_page_token`][google.cloud.redis.cluster.v1.ListTokenAuthUsersResponse.next_page_token]
+    /// to determine if there are more clusters left to be queried.
+    ///
+    /// [google.cloud.redis.cluster.v1.ListTokenAuthUsersResponse.next_page_token]: crate::model::ListTokenAuthUsersResponse::next_page_token
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// [ListTokenAuthUsers] request, if any.
+    pub page_token: std::string::String,
+
+    /// Optional. Expression for filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Sort results by a defined order.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuthTokensRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAuthTokensRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAuthTokensRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = ListAuthTokensRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAuthTokensRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAuthTokensRequest;
+    /// let x = ListAuthTokensRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAuthTokensRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAuthTokensRequest;
+    /// let x = ListAuthTokensRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListAuthTokensRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAuthTokensRequest;
+    /// let x = ListAuthTokensRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListAuthTokensRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAuthTokensRequest;
+    /// let x = ListAuthTokensRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuthTokensRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ListAuthTokensRequest"
+    }
+}
+
+/// Response message for [ListAuthTokens][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuthTokensResponse {
+    /// A list of auth tokens in the project.
+    pub auth_tokens: std::vec::Vec<crate::model::AuthToken>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Auth tokens that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuthTokensResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [auth_tokens][crate::model::ListAuthTokensResponse::auth_tokens].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAuthTokensResponse;
+    /// use google_cloud_redis_cluster_v1::model::AuthToken;
+    /// let x = ListAuthTokensResponse::new()
+    ///     .set_auth_tokens([
+    ///         AuthToken::default()/* use setters */,
+    ///         AuthToken::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_auth_tokens<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthToken>,
+    {
+        use std::iter::Iterator;
+        self.auth_tokens = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuthTokensResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAuthTokensResponse;
+    /// let x = ListAuthTokensResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAuthTokensResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ListAuthTokensResponse;
+    /// let x = ListAuthTokensResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuthTokensResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ListAuthTokensResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAuthTokensResponse {
+    type PageItem = crate::model::AuthToken;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.auth_tokens
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for [GetAuthToken][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAuthTokenRequest {
+    /// Required. The name of auth token for a token based auth enabled cluster.
+    /// Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}/tokenAuthUsers/{token_auth_user}/authTokens/{auth_token}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAuthTokenRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAuthTokenRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::GetAuthTokenRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// # let auth_token_id = "auth_token_id";
+    /// let x = GetAuthTokenRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAuthTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.GetAuthTokenRequest"
+    }
+}
+
+/// Request message for [AddTokenAuthUser][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AddTokenAuthUserRequest {
+    /// Required. The cluster resource that this token auth user will be added for.
+    /// Format: projects/{project}/locations/{location}/clusters/{cluster}
+    pub cluster: std::string::String,
+
+    /// Required. The id of the token auth user to add.
+    pub token_auth_user: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AddTokenAuthUserRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cluster][crate::model::AddTokenAuthUserRequest::cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AddTokenAuthUserRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = AddTokenAuthUserRequest::new().set_cluster(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
+    /// ```
+    pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cluster = v.into();
+        self
+    }
+
+    /// Sets the value of [token_auth_user][crate::model::AddTokenAuthUserRequest::token_auth_user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AddTokenAuthUserRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = AddTokenAuthUserRequest::new().set_token_auth_user(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_token_auth_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token_auth_user = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AddTokenAuthUserRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.AddTokenAuthUserRequest"
+    }
+}
+
+/// Request message for [DeleteTokenAuthUser][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteTokenAuthUserRequest {
+    /// Required. The name of the token auth user to delete.
+    /// Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}/tokenAuthUsers/{token_auth_user}
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    /// Optional. If set to true, any child auth tokens of this user will also be
+    /// deleted. Otherwise, the request will only work if the user has no auth
+    /// tokens.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteTokenAuthUserRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteTokenAuthUserRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::DeleteTokenAuthUserRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = DeleteTokenAuthUserRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteTokenAuthUserRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::DeleteTokenAuthUserRequest;
+    /// let x = DeleteTokenAuthUserRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteTokenAuthUserRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::DeleteTokenAuthUserRequest;
+    /// let x = DeleteTokenAuthUserRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteTokenAuthUserRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.DeleteTokenAuthUserRequest"
+    }
+}
+
+/// Request message for [AddAuthToken][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AddAuthTokenRequest {
+    /// Required. The name of the token auth user resource that this auth token
+    /// will be added for. Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}/tokenAuthUsers/{token_auth_user}
+    pub token_auth_user: std::string::String,
+
+    /// Required. The auth token to add.
+    pub auth_token: std::option::Option<crate::model::AuthToken>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AddAuthTokenRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [token_auth_user][crate::model::AddAuthTokenRequest::token_auth_user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AddAuthTokenRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = AddAuthTokenRequest::new().set_token_auth_user(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_token_auth_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token_auth_user = v.into();
+        self
+    }
+
+    /// Sets the value of [auth_token][crate::model::AddAuthTokenRequest::auth_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AddAuthTokenRequest;
+    /// use google_cloud_redis_cluster_v1::model::AuthToken;
+    /// let x = AddAuthTokenRequest::new().set_auth_token(AuthToken::default()/* use setters */);
+    /// ```
+    pub fn set_auth_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthToken>,
+    {
+        self.auth_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auth_token][crate::model::AddAuthTokenRequest::auth_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AddAuthTokenRequest;
+    /// use google_cloud_redis_cluster_v1::model::AuthToken;
+    /// let x = AddAuthTokenRequest::new().set_or_clear_auth_token(Some(AuthToken::default()/* use setters */));
+    /// let x = AddAuthTokenRequest::new().set_or_clear_auth_token(None::<AuthToken>);
+    /// ```
+    pub fn set_or_clear_auth_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthToken>,
+    {
+        self.auth_token = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AddAuthTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.AddAuthTokenRequest"
+    }
+}
+
+/// Request message for [DeleteAuthToken][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAuthTokenRequest {
+    /// Required. The name of the token auth user resource that this auth token
+    /// will be deleted from. Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}/tokenAuthUsers/{token_auth_user}/authTokens/{auth_token}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAuthTokenRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAuthTokenRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::DeleteAuthTokenRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// # let auth_token_id = "auth_token_id";
+    /// let x = DeleteAuthTokenRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAuthTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.DeleteAuthTokenRequest"
+    }
+}
+
 /// A cluster instance.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1414,6 +2890,12 @@ pub struct Cluster {
 
     /// Optional. Input only. Rotate the server certificates.
     pub rotate_server_certificate: std::option::Option<bool>,
+
+    /// Optional. The ACL policy to be applied to the cluster.
+    pub acl_policy: std::string::String,
+
+    /// Output only. Details of the applied ACL policy.
+    pub acl_policy_info: std::option::Option<crate::model::AclPolicyInfo>,
 
     /// The source to import from.
     pub import_sources: std::option::Option<crate::model::cluster::ImportSources>,
@@ -1541,6 +3023,7 @@ impl Cluster {
     /// use google_cloud_redis_cluster_v1::model::AuthorizationMode;
     /// let x0 = Cluster::new().set_authorization_mode(AuthorizationMode::AuthModeIamAuth);
     /// let x1 = Cluster::new().set_authorization_mode(AuthorizationMode::AuthModeDisabled);
+    /// let x2 = Cluster::new().set_authorization_mode(AuthorizationMode::AuthModeTokenAuth);
     /// ```
     pub fn set_authorization_mode<T: std::convert::Into<crate::model::AuthorizationMode>>(
         mut self,
@@ -2307,6 +3790,54 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [acl_policy][crate::model::Cluster::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::Cluster;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = Cluster::new().set_acl_policy(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_acl_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.acl_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_info][crate::model::Cluster::acl_policy_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::Cluster;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicyInfo;
+    /// let x = Cluster::new().set_acl_policy_info(AclPolicyInfo::default()/* use setters */);
+    /// ```
+    pub fn set_acl_policy_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicyInfo>,
+    {
+        self.acl_policy_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acl_policy_info][crate::model::Cluster::acl_policy_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::Cluster;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicyInfo;
+    /// let x = Cluster::new().set_or_clear_acl_policy_info(Some(AclPolicyInfo::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_acl_policy_info(None::<AclPolicyInfo>);
+    /// ```
+    pub fn set_or_clear_acl_policy_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicyInfo>,
+    {
+        self.acl_policy_info = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [import_sources][crate::model::Cluster::import_sources].
     ///
     /// Note that all the setters affecting `import_sources` are mutually
@@ -2847,6 +4378,990 @@ pub mod cluster {
         GcsSource(std::boxed::Box<crate::model::cluster::GcsBackupSource>),
         /// Optional. Backups generated and managed by memorystore service.
         ManagedBackupSource(std::boxed::Box<crate::model::cluster::ManagedBackupSource>),
+    }
+}
+
+/// Details of the applied ACL policy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclPolicyInfo {
+    /// Output only. The resource name of the applied ACL policy.
+    /// Format: "projects/{project}/locations/{location}/aclPolicies/{acl_policy}"
+    pub applied_acl_policy: std::string::String,
+
+    /// Output only. The resource name of the applied ACL policy revision.
+    /// Format:
+    /// "projects/{project}/locations/{location}/aclPolicies/{acl_policy}/revisions/{revision}"
+    pub applied_acl_policy_revision: std::string::String,
+
+    /// Output only. The revision number of the applied ACL policy revision.
+    pub applied_acl_policy_revision_number: i64,
+
+    /// Output only. A list of status for various revisions of this ACL policy on
+    /// the cluster.
+    pub acl_policy_revision_statuses: std::vec::Vec<crate::model::AclPolicyRevisionStatus>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclPolicyInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [applied_acl_policy][crate::model::AclPolicyInfo::applied_acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyInfo;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = AclPolicyInfo::new().set_applied_acl_policy(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_applied_acl_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.applied_acl_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [applied_acl_policy_revision][crate::model::AclPolicyInfo::applied_acl_policy_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyInfo;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// # let revision_id = "revision_id";
+    /// let x = AclPolicyInfo::new().set_applied_acl_policy_revision(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_applied_acl_policy_revision<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.applied_acl_policy_revision = v.into();
+        self
+    }
+
+    /// Sets the value of [applied_acl_policy_revision_number][crate::model::AclPolicyInfo::applied_acl_policy_revision_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyInfo;
+    /// let x = AclPolicyInfo::new().set_applied_acl_policy_revision_number(42);
+    /// ```
+    pub fn set_applied_acl_policy_revision_number<T: std::convert::Into<i64>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.applied_acl_policy_revision_number = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_revision_statuses][crate::model::AclPolicyInfo::acl_policy_revision_statuses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyInfo;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicyRevisionStatus;
+    /// let x = AclPolicyInfo::new()
+    ///     .set_acl_policy_revision_statuses([
+    ///         AclPolicyRevisionStatus::default()/* use setters */,
+    ///         AclPolicyRevisionStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_acl_policy_revision_statuses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclPolicyRevisionStatus>,
+    {
+        use std::iter::Iterator;
+        self.acl_policy_revision_statuses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AclPolicyInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.AclPolicyInfo"
+    }
+}
+
+/// The ACL policy resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclPolicy {
+    /// Identifier. Full resource path of the ACL policy.
+    pub name: std::string::String,
+
+    /// Required. The ACL rules within the ACL policy.
+    pub rules: std::vec::Vec<crate::model::AclRule>,
+
+    /// Output only. The state of the ACL policy.
+    pub state: crate::model::acl_policy::State,
+
+    /// Output only. Etag for the ACL policy.
+    pub etag: std::option::Option<std::string::String>,
+
+    /// Output only. The ACL policy attachment status for each attached cluster.
+    pub cluster_acl_policy_attachments: std::vec::Vec<crate::model::ClusterAclPolicyAttachment>,
+
+    /// Output only. The timestamp that the ACL policy was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp that the ACL policy was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AclPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = AclPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::AclPolicy::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use google_cloud_redis_cluster_v1::model::AclRule;
+    /// let x = AclPolicy::new()
+    ///     .set_rules([
+    ///         AclRule::default()/* use setters */,
+    ///         AclRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AclPolicy::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use google_cloud_redis_cluster_v1::model::acl_policy::State;
+    /// let x0 = AclPolicy::new().set_state(State::Active);
+    /// let x1 = AclPolicy::new().set_state(State::Updating);
+    /// let x2 = AclPolicy::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::acl_policy::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::AclPolicy::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = AclPolicy::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.etag = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [etag][crate::model::AclPolicy::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = AclPolicy::new().set_or_clear_etag(Some("example"));
+    /// let x = AclPolicy::new().set_or_clear_etag(None::<String>);
+    /// ```
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.etag = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cluster_acl_policy_attachments][crate::model::AclPolicy::cluster_acl_policy_attachments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use google_cloud_redis_cluster_v1::model::ClusterAclPolicyAttachment;
+    /// let x = AclPolicy::new()
+    ///     .set_cluster_acl_policy_attachments([
+    ///         ClusterAclPolicyAttachment::default()/* use setters */,
+    ///         ClusterAclPolicyAttachment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_cluster_acl_policy_attachments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ClusterAclPolicyAttachment>,
+    {
+        use std::iter::Iterator;
+        self.cluster_acl_policy_attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AclPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AclPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AclPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AclPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AclPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AclPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AclPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.AclPolicy"
+    }
+}
+
+/// Defines additional types related to [AclPolicy].
+pub mod acl_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the different states of an ACL policy.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// ACL policy has been created and is fully usable. Since ACL policy
+        /// creation is synchronous and not an LRO, there is no CREATING state.
+        Active,
+        /// ACL policy is being updated.
+        Updating,
+        /// ACL policy is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Updating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Updating,
+                3 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Updating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.redis.cluster.v1.AclPolicy.State",
+            ))
+        }
+    }
+}
+
+/// AclPolicyRevisionStatus stores the per-revision status for an attached
+/// cluster.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclPolicyRevisionStatus {
+    /// Output only. The resource name of the ACL policy revision this status
+    /// refers to. Format:
+    /// "projects/{project}/locations/{location}/aclPolicies/{acl_policy}/revisions/{revision}"
+    pub acl_policy_revision: std::string::String,
+
+    /// Output only. The revision number of the ACL policy revision this status
+    /// refers to.
+    pub acl_policy_revision_number: i64,
+
+    /// Output only. AclPolicyRevision state.
+    pub state: crate::model::acl_policy_revision_status::State,
+
+    /// Output only. Human-readable error message providing more details for FAILED
+    /// states.
+    pub error_message: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclPolicyRevisionStatus {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [acl_policy_revision][crate::model::AclPolicyRevisionStatus::acl_policy_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevisionStatus;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// # let revision_id = "revision_id";
+    /// let x = AclPolicyRevisionStatus::new().set_acl_policy_revision(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_acl_policy_revision<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.acl_policy_revision = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_revision_number][crate::model::AclPolicyRevisionStatus::acl_policy_revision_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevisionStatus;
+    /// let x = AclPolicyRevisionStatus::new().set_acl_policy_revision_number(42);
+    /// ```
+    pub fn set_acl_policy_revision_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.acl_policy_revision_number = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AclPolicyRevisionStatus::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevisionStatus;
+    /// use google_cloud_redis_cluster_v1::model::acl_policy_revision_status::State;
+    /// let x0 = AclPolicyRevisionStatus::new().set_state(State::Applying);
+    /// let x1 = AclPolicyRevisionStatus::new().set_state(State::Applied);
+    /// let x2 = AclPolicyRevisionStatus::new().set_state(State::Failed);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::acl_policy_revision_status::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [error_message][crate::model::AclPolicyRevisionStatus::error_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevisionStatus;
+    /// let x = AclPolicyRevisionStatus::new().set_error_message("example");
+    /// ```
+    pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AclPolicyRevisionStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.AclPolicyRevisionStatus"
+    }
+}
+
+/// Defines additional types related to [AclPolicyRevisionStatus].
+pub mod acl_policy_revision_status {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum indicating the status of this ACL policy revision on the cluster.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The cluster is attempting to apply this revision.
+        Applying,
+        /// The cluster has successfully applied this revision.
+        Applied,
+        /// The cluster failed to apply this revision.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Applying => std::option::Option::Some(1),
+                Self::Applied => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Applying => std::option::Option::Some("APPLYING"),
+                Self::Applied => std::option::Option::Some("APPLIED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Applying,
+                2 => Self::Applied,
+                3 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "APPLYING" => Self::Applying,
+                "APPLIED" => Self::Applied,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Applying => serializer.serialize_i32(1),
+                Self::Applied => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.redis.cluster.v1.AclPolicyRevisionStatus.State",
+            ))
+        }
+    }
+}
+
+/// ClusterAclPolicyAttachment stores the ACL policy status for an attached
+/// cluster for the revisions successfully applied, under application or failed.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ClusterAclPolicyAttachment {
+    /// Output only. The resource name of the attached Cluster.
+    /// Format:
+    /// "projects/{project}/locations/{location}/clusters/{cluster}"
+    pub cluster: std::string::String,
+
+    /// Output only. A list of status for various revisions of this ACL policy on
+    /// the cluster.
+    pub acl_policy_revision_statuses: std::vec::Vec<crate::model::AclPolicyRevisionStatus>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ClusterAclPolicyAttachment {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cluster][crate::model::ClusterAclPolicyAttachment::cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ClusterAclPolicyAttachment;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ClusterAclPolicyAttachment::new().set_cluster(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"));
+    /// ```
+    pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cluster = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_revision_statuses][crate::model::ClusterAclPolicyAttachment::acl_policy_revision_statuses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ClusterAclPolicyAttachment;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicyRevisionStatus;
+    /// let x = ClusterAclPolicyAttachment::new()
+    ///     .set_acl_policy_revision_statuses([
+    ///         AclPolicyRevisionStatus::default()/* use setters */,
+    ///         AclPolicyRevisionStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_acl_policy_revision_statuses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclPolicyRevisionStatus>,
+    {
+        use std::iter::Iterator;
+        self.acl_policy_revision_statuses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ClusterAclPolicyAttachment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.ClusterAclPolicyAttachment"
+    }
+}
+
+/// The ACL policy revision resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclPolicyRevision {
+    /// Identifier. The name of the ACL policy revision.
+    /// Format:
+    /// "projects/{project}/locations/{location}/aclPolicies/{acl_policy}/revisions/{revision}"
+    pub name: std::string::String,
+
+    /// Output only. The revision number of the ACL policy revision.
+    pub revision_number: i64,
+
+    /// Output only. The snapshot of the ACL policy at the time of revision
+    /// creation.
+    pub snapshot: std::option::Option<crate::model::AclPolicy>,
+
+    /// Output only. The timestamp that the revision was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. A list of clusters that are attached to this ACL policy
+    /// revision.
+    pub attached_clusters: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclPolicyRevision {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AclPolicyRevision::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevision;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// # let revision_id = "revision_id";
+    /// let x = AclPolicyRevision::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [revision_number][crate::model::AclPolicyRevision::revision_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevision;
+    /// let x = AclPolicyRevision::new().set_revision_number(42);
+    /// ```
+    pub fn set_revision_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.revision_number = v.into();
+        self
+    }
+
+    /// Sets the value of [snapshot][crate::model::AclPolicyRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevision;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = AclPolicyRevision::new().set_snapshot(AclPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [snapshot][crate::model::AclPolicyRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevision;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// let x = AclPolicyRevision::new().set_or_clear_snapshot(Some(AclPolicy::default()/* use setters */));
+    /// let x = AclPolicyRevision::new().set_or_clear_snapshot(None::<AclPolicy>);
+    /// ```
+    pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.snapshot = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AclPolicyRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevision;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicyRevision::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AclPolicyRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevision;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicyRevision::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AclPolicyRevision::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [attached_clusters][crate::model::AclPolicyRevision::attached_clusters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclPolicyRevision;
+    /// let x = AclPolicyRevision::new().set_attached_clusters(["a", "b", "c"]);
+    /// ```
+    pub fn set_attached_clusters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.attached_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AclPolicyRevision {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.AclPolicyRevision"
+    }
+}
+
+/// A single ACL rule which defines the policy for a user.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclRule {
+    /// Required. Specifies the IAM user or service account to be added to the ACL
+    /// policy. This username will be directly set on the Redis OSS.
+    pub username: std::string::String,
+
+    /// Required. The rule to be applied to the username. Ex: "on >password123 ~*
+    /// +@all" The format of the rule is defined by Redis OSS:
+    /// <https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/>
+    pub rule: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclRule {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [username][crate::model::AclRule::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclRule;
+    /// let x = AclRule::new().set_username("example");
+    /// ```
+    pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.username = v.into();
+        self
+    }
+
+    /// Sets the value of [rule][crate::model::AclRule::rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AclRule;
+    /// let x = AclRule::new().set_rule("example");
+    /// ```
+    pub fn set_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.rule = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AclRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.AclRule"
     }
 }
 
@@ -5935,6 +8450,482 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
+/// Represents a token based auth user for the cluster.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TokenAuthUser {
+    /// Identifier. The resource name of the token based auth user.
+    /// Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}/tokenAuthUsers/{token_auth_user}
+    pub name: std::string::String,
+
+    /// Output only. The state of the token based auth user.
+    pub state: crate::model::token_auth_user::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TokenAuthUser {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::TokenAuthUser::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::TokenAuthUser;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = TokenAuthUser::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::TokenAuthUser::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::TokenAuthUser;
+    /// use google_cloud_redis_cluster_v1::model::token_auth_user::State;
+    /// let x0 = TokenAuthUser::new().set_state(State::Active);
+    /// let x1 = TokenAuthUser::new().set_state(State::Creating);
+    /// let x2 = TokenAuthUser::new().set_state(State::Updating);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::token_auth_user::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TokenAuthUser {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.TokenAuthUser"
+    }
+}
+
+/// Defines additional types related to [TokenAuthUser].
+pub mod token_auth_user {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the different states of a token based auth user.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The auth user is active.
+        Active,
+        /// The auth user is being created.
+        Creating,
+        /// The auth user is being updated.
+        Updating,
+        /// The auth user is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Updating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Updating,
+                4 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Updating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.redis.cluster.v1.TokenAuthUser.State",
+            ))
+        }
+    }
+}
+
+/// Auth token for the cluster.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AuthToken {
+    /// Identifier. Name of the auth token.
+    /// Format:
+    /// projects/{project}/locations/{location}/clusters/{cluster}/tokenAuthUsers/{token_auth_user}/authTokens/{auth_token}
+    pub name: std::string::String,
+
+    /// Output only. The service generated authentication token used to connect to
+    /// the Redis cluster.
+    pub token: std::string::String,
+
+    /// Output only. Create time of the auth token.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. State of the auth token.
+    pub state: crate::model::auth_token::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AuthToken {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AuthToken::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AuthToken;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cluster_id = "cluster_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// # let auth_token_id = "auth_token_id";
+    /// let x = AuthToken::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [token][crate::model::AuthToken::token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AuthToken;
+    /// let x = AuthToken::new().set_token("example");
+    /// ```
+    pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AuthToken::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AuthToken;
+    /// use wkt::Timestamp;
+    /// let x = AuthToken::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AuthToken::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AuthToken;
+    /// use wkt::Timestamp;
+    /// let x = AuthToken::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuthToken::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AuthToken::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::AuthToken;
+    /// use google_cloud_redis_cluster_v1::model::auth_token::State;
+    /// let x0 = AuthToken::new().set_state(State::Active);
+    /// let x1 = AuthToken::new().set_state(State::Creating);
+    /// let x2 = AuthToken::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::auth_token::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AuthToken {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.redis.cluster.v1.AuthToken"
+    }
+}
+
+/// Defines additional types related to [AuthToken].
+pub mod auth_token {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the different states of an auth token.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The auth token is active.
+        Active,
+        /// The auth token is being created.
+        Creating,
+        /// The auth token is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.redis.cluster.v1.AuthToken.State",
+            ))
+        }
+    }
+}
+
 /// Redis cluster certificate authority
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -7887,6 +10878,8 @@ pub enum AuthorizationMode {
     AuthModeIamAuth,
     /// Authorization disabled mode
     AuthModeDisabled,
+    /// Token based authorization mode
+    AuthModeTokenAuth,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [AuthorizationMode::value] or
@@ -7912,6 +10905,7 @@ impl AuthorizationMode {
             Self::AuthModeUnspecified => std::option::Option::Some(0),
             Self::AuthModeIamAuth => std::option::Option::Some(1),
             Self::AuthModeDisabled => std::option::Option::Some(2),
+            Self::AuthModeTokenAuth => std::option::Option::Some(3),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -7925,6 +10919,7 @@ impl AuthorizationMode {
             Self::AuthModeUnspecified => std::option::Option::Some("AUTH_MODE_UNSPECIFIED"),
             Self::AuthModeIamAuth => std::option::Option::Some("AUTH_MODE_IAM_AUTH"),
             Self::AuthModeDisabled => std::option::Option::Some("AUTH_MODE_DISABLED"),
+            Self::AuthModeTokenAuth => std::option::Option::Some("AUTH_MODE_TOKEN_AUTH"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -7949,6 +10944,7 @@ impl std::convert::From<i32> for AuthorizationMode {
             0 => Self::AuthModeUnspecified,
             1 => Self::AuthModeIamAuth,
             2 => Self::AuthModeDisabled,
+            3 => Self::AuthModeTokenAuth,
             _ => Self::UnknownValue(authorization_mode::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -7963,6 +10959,7 @@ impl std::convert::From<&str> for AuthorizationMode {
             "AUTH_MODE_UNSPECIFIED" => Self::AuthModeUnspecified,
             "AUTH_MODE_IAM_AUTH" => Self::AuthModeIamAuth,
             "AUTH_MODE_DISABLED" => Self::AuthModeDisabled,
+            "AUTH_MODE_TOKEN_AUTH" => Self::AuthModeTokenAuth,
             _ => Self::UnknownValue(authorization_mode::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -7979,6 +10976,7 @@ impl serde::ser::Serialize for AuthorizationMode {
             Self::AuthModeUnspecified => serializer.serialize_i32(0),
             Self::AuthModeIamAuth => serializer.serialize_i32(1),
             Self::AuthModeDisabled => serializer.serialize_i32(2),
+            Self::AuthModeTokenAuth => serializer.serialize_i32(3),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
