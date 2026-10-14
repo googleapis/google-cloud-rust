@@ -19,7 +19,7 @@
 //! transport for a generic test function.
 
 use crate::google::test::v1::{EchoRequest, EchoResponse};
-use gaxi::options::ClientConfig;
+use gaxi::options::{ClientConfig, InstrumentationClientInfo};
 use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::client_builder::ClientBuilder;
 use google_cloud_gax::client_builder::Result as ClientBuilderResult;
@@ -53,13 +53,34 @@ pub trait EchoTransport: Clone + Send + Sync + 'static {
         default_endpoint: &str,
     ) -> impl Future<Output = ClientBuilderResult<Self>> + Send;
 
+    /// Like [`connect`](Self::connect), with `instrumentation` in the
+    /// client's telemetry.
+    fn connect_with_instrumentation(
+        config: ClientConfig,
+        endpoint: &str,
+        instrumentation: &'static InstrumentationClientInfo,
+    ) -> impl Future<Output = ClientBuilderResult<Self>> + Send;
+
+    /// Calls the unary echo service method at `path`, such as
+    /// `/google.test.v1.EchoService/Echo`.
+    fn unary(
+        &self,
+        path: &'static str,
+        request: EchoRequest,
+        options: RequestOptions,
+        request_params: &str,
+    ) -> impl Future<Output = google_cloud_gax::Result<tonic::Response<EchoResponse>>> + Send;
+
     /// Calls `google.test.v1.EchoService/Echo`.
     fn echo(
         &self,
         request: EchoRequest,
         options: RequestOptions,
         request_params: &str,
-    ) -> impl Future<Output = google_cloud_gax::Result<tonic::Response<EchoResponse>>> + Send;
+    ) -> impl Future<Output = google_cloud_gax::Result<tonic::Response<EchoResponse>>> + Send {
+        let path = "/google.test.v1.EchoService/Echo";
+        self.unary(path, request, options, request_params)
+    }
 
     /// Opens a `google.test.v1.EchoService/Chat` stream that sends `requests`.
     fn chat<S>(
@@ -130,15 +151,26 @@ macro_rules! impl_echo_transport {
                 Self::new(config, default_endpoint).await
             }
 
-            async fn echo(
+            async fn connect_with_instrumentation(
+                config: ClientConfig,
+                endpoint: &str,
+                instrumentation: &'static InstrumentationClientInfo,
+            ) -> ClientBuilderResult<Self> {
+                Self::new_with_instrumentation(config, endpoint, instrumentation).await
+            }
+
+            async fn unary(
                 &self,
+                path: &'static str,
                 request: EchoRequest,
                 options: RequestOptions,
                 request_params: &str,
             ) -> google_cloud_gax::Result<tonic::Response<EchoResponse>> {
+                // `GrpcMethod` wants the bare method name: the last path segment.
+                let method = path.rsplit('/').next().unwrap_or_default();
                 self.execute(
-                    extensions("Echo"),
-                    http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                    extensions(method),
+                    http::uri::PathAndQuery::from_static(path),
                     request,
                     options,
                     API_CLIENT_HEADER,

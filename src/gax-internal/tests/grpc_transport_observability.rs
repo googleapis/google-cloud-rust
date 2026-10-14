@@ -20,7 +20,8 @@ mod tests {
         ClientRequestAttributes, DurationMetric, RequestRecorder,
     };
     use google_cloud_gax_internal::options::InstrumentationClientInfo;
-    use grpc_server::{google, start_echo_server};
+    use grpc_server::transport::EchoTransport;
+    use grpc_server::{both_transports, google, start_echo_server};
     use opentelemetry::trace::{Status as SpanStatus, TracerProvider};
     use opentelemetry_appender_tracing::layer::OpenTelemetryTracingBridge;
     use opentelemetry_sdk::logs::{BatchLogProcessor, InMemoryLogExporter, SdkLoggerProvider};
@@ -102,7 +103,7 @@ mod tests {
         }
     }
 
-    pub async fn recorded_request_grpc_stub(url: &str) -> Result<String, Error> {
+    pub async fn recorded_request_grpc_stub<C: EchoTransport>(url: &str) -> Result<String, Error> {
         let recorder = RequestRecorder::current().expect("current recorder should be available");
         recorder.on_client_request(
             ClientRequestAttributes::default()
@@ -118,27 +119,17 @@ mod tests {
         ));
         config.cred = Some(Anonymous::new().build());
 
-        let client = google_cloud_gax_internal::grpc::Client::new_with_instrumentation(
-            config, url, &TEST_INFO,
-        )
-        .await
-        .map_err(|e| Error::io(e.to_string()))?;
+        let client = C::connect_with_instrumentation(config, url, &TEST_INFO)
+            .await
+            .map_err(|e| Error::io(e.to_string()))?;
 
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new("google.test.v1.EchoService", "Echo"));
-            e
-        };
         let request = google::test::v1::EchoRequest::default();
         // We expect an error (InvalidArgument) because EchoRequest::default() is empty,
         // which triggers error handling and asserts on error signals.
         let response = client
-            .execute::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+            .echo(
                 request,
                 google_cloud_gax::options::RequestOptions::default(),
-                "test-client",
                 "",
             )
             .await;
@@ -149,24 +140,32 @@ mod tests {
         }
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn grpc_transport_signals() -> anyhow::Result<()> {
+    // Each test sets the global meter provider, so they must not run in parallel.
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        #[serial_test::serial]
+        grpc_transport_signals
+    );
+    async fn grpc_transport_signals<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
         let signals = SignalProviders::new();
 
         // DurationMetric::new uses the global provider, which we just set in SignalProviders::new()
         let metric = DurationMetric::new(&TEST_INFO);
 
+        // Act
         let (span, pending) = google_cloud_gax_internal::client_request_signals!(
             metric: metric.clone(),
             info: *TEST_INFO,
             method: "FakeGrpcClient::some_rust_function",
-            recorded_request_grpc_stub(&endpoint)
+            recorded_request_grpc_stub::<C>(&endpoint)
         );
         let result = pending.await;
         assert!(result.is_err(), "{result:?}");
         drop(span);
 
+        // Assert
         signals.force_flush()?;
 
         let metrics = signals.metric_exporter.get_finished_metrics()?;
