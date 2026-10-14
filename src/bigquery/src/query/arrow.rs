@@ -36,23 +36,23 @@ impl ArrowStreamDecoder {
     }
 
     /// Feeds serialized Arrow IPC schema bytes into the underlying decoder.
-    pub(crate) fn set_schema_bytes(&mut self, schema_bytes: &[u8]) -> Result<(), RowError> {
+    pub(crate) fn set_schema_bytes(&mut self, schema_bytes: bytes::Bytes) -> Result<(), RowError> {
         if schema_bytes.is_empty() {
             return Ok(());
         }
-        let mut buf = arrow::buffer::Buffer::from_slice_ref(schema_bytes);
+        let mut buf = arrow::buffer::Buffer::from(schema_bytes);
         while let Some(_msg) = self.decoder.decode(&mut buf).map_err(|e| {
             RowError::InvalidRowFormat(format!("failed to decode arrow schema: {e}"))
         })? {}
         Ok(())
     }
 
-    /// Decodes a single Arrow IPC record batch frame from a byte slice.
+    /// Decodes a single Arrow IPC record batch frame from [`bytes::Bytes`].
     pub(crate) fn decode_batch(
         &mut self,
-        batch_bytes: &[u8],
+        batch_bytes: bytes::Bytes,
     ) -> Result<Option<RecordBatch>, RowError> {
-        let mut buf = arrow::buffer::Buffer::from_slice_ref(batch_bytes);
+        let mut buf = arrow::buffer::Buffer::from(batch_bytes);
         self.decode_buffer(&mut buf)
     }
 
@@ -107,17 +107,13 @@ impl ArrowResponseReader {
 impl RecordBatchSource for ArrowResponseReader {
     async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
         if let Some(schema_bytes) = self.schema_bytes.take() {
-            self.decoder.set_schema_bytes(&schema_bytes)?;
+            self.decoder.set_schema_bytes(schema_bytes)?;
         }
         while !self.batch_buf.is_empty() {
-            let prev_len = self.batch_buf.len();
             if let Some(batch) = self.decoder.decode_buffer(&mut self.batch_buf)?
                 && batch.num_rows() > 0
             {
                 return Ok(Some(batch));
-            }
-            if self.batch_buf.len() == prev_len {
-                break;
             }
         }
         self.decoder.finish()?;
@@ -614,11 +610,11 @@ mod tests {
         let mut writer = StreamWriter::try_new(&mut stream_buf, &arrow_schema)?;
         writer.write(&batch)?;
         writer.finish()?;
-        let batch_bytes = &stream_buf[schema_bytes.len()..];
+        let batch_bytes = bytes::Bytes::copy_from_slice(&stream_buf[schema_bytes.len()..]);
 
         let mut decoder = ArrowStreamDecoder::new();
-        decoder.set_schema_bytes(&[])?;
-        decoder.set_schema_bytes(&schema_bytes)?;
+        decoder.set_schema_bytes(bytes::Bytes::new())?;
+        decoder.set_schema_bytes(schema_bytes)?;
 
         let decoded = decoder
             .decode_batch(batch_bytes)?
