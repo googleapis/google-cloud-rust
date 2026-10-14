@@ -19,10 +19,8 @@ use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::{
-    ExplicitBeginParams, ReadContextTransactionSelector, merge_request_options,
-};
-use crate::request_id_interceptor::{REQUEST_ID_HEADER, update_request_id_attempt};
+use crate::read_only_transaction::ReadContextTransactionSelector;
+use crate::request_id_interceptor::update_request_id_attempt;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::retry_delay::extract_retry_delay_from_error;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -33,7 +31,6 @@ use gaxi::prost::FromProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
@@ -78,8 +75,6 @@ pub struct ResultSet {
 
     // Fields for retries and buffering of a stream of PartialResultSets.
     client: DatabaseClient,
-    session_name: String,
-    transaction_tag: Option<String>,
     operation: StreamOperation,
     last_resume_token: Bytes,
     partial_result_sets_buffer: VecDeque<PartialResultSet>,
@@ -96,7 +91,6 @@ pub struct ResultSet {
     operation_recorded: bool,
     affinity: Arc<TransactionAffinity>,
     affinity_configured: bool,
-    begin_transaction_request_options: Option<GaxRequestOptions>,
 }
 
 #[derive(Debug, Clone)]
@@ -109,13 +103,10 @@ pub(crate) struct ResultSetParams {
     pub transaction_selector: Option<ReadContextTransactionSelector>,
     pub precommit_token_tracker: PrecommitTokenTracker,
     pub client: DatabaseClient,
-    pub session_name: String,
-    pub transaction_tag: Option<String>,
     pub operation: StreamOperation,
     pub gax_options: GaxRequestOptions,
     pub method_name: &'static str,
     pub affinity: Option<Arc<TransactionAffinity>>,
-    pub begin_transaction_request_options: Option<GaxRequestOptions>,
 }
 
 // The maximum number of PartialResultSets to buffer without a resume token.
@@ -144,13 +135,10 @@ impl ResultSet {
             transaction_selector,
             precommit_token_tracker,
             client,
-            session_name,
-            transaction_tag,
             operation,
             gax_options,
             method_name,
             affinity,
-            begin_transaction_request_options,
         } = params;
 
         let gax_options = Self::apply_defaults(gax_options);
@@ -168,8 +156,6 @@ impl ResultSet {
             stats: None,
             precommit_token_tracker,
             client,
-            session_name,
-            transaction_tag,
             operation,
             last_resume_token: Bytes::new(),
             partial_result_sets_buffer: VecDeque::new(),
@@ -187,7 +173,6 @@ impl ResultSet {
             operation_recorded: false,
             affinity,
             affinity_configured,
-            begin_transaction_request_options,
         }
     }
 
@@ -589,51 +574,14 @@ impl ResultSet {
             }
         }
 
-        // Check if this stream included an inlined BeginTransaction option
-        // and has not yet returned a transaction ID. If so, we explicitly
-        // begin the transaction and restart the stream.
-        let Some(selector) = self.transaction_selector.as_ref() else {
-            return Err(e);
-        };
-
-        // TODO(#7173): Do not fall back to explicit BeginTransaction if transient error retries
-        // have already been exhausted. Fallback should only occur for non-retryable statement errors.
-        if selector.handle_stream_initialization_error(&e) {
-            return Err(e);
+        // If this stream included an inlined BeginTransaction option and has not
+        // yet returned a transaction ID, mark the transaction as failed on the selector
+        // and wake any waiting concurrent operations.
+        if let Some(selector) = self.transaction_selector.as_ref() {
+            selector.set_failed(&e);
         }
 
-        let begin_options = self.merge_begin_fallback_options();
-
-        selector
-            .begin_explicitly(ExplicitBeginParams {
-                client: self.client.clone(),
-                session_name: self.session_name.clone(),
-                transaction_tag: self.transaction_tag.clone(),
-                request_options: begin_options,
-                is_stream_fallback: true,
-                precommit_token_tracker: self.precommit_token_tracker.clone(),
-                mutation_key: None,
-                affinity: Some(Arc::clone(&self.affinity)),
-            })
-            .await?;
-
-        self.partial_result_sets_buffer.clear();
-        self.restart_stream().await?;
-        Ok(())
-    }
-
-    /// Merges the streaming query's request options with the transaction's begin options
-    /// for a fallback `BeginTransaction` RPC, stripping any existing request ID header
-    /// so that `BeginTransaction` generates its own unique request ID.
-    fn merge_begin_fallback_options(&self) -> GaxRequestOptions {
-        let mut options = merge_request_options(
-            self.gax_options.clone(),
-            self.begin_transaction_request_options.as_ref(),
-        );
-        if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
-            headers.remove(&REQUEST_ID_HEADER);
-        }
-        options
+        Err(e)
     }
 
     fn handle_stream_end(&mut self) -> crate::Result<()> {
@@ -928,11 +876,11 @@ pub(crate) mod tests {
     use gaxi::grpc::tonic::{Code as GrpcCode, MetadataMap, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
-    use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::retry_policy::{Aip194Strict, NeverRetry, RetryPolicyExt};
+    use google_cloud_gax::error::rpc::Code as GaxCode;
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
-    use http::{HeaderName, HeaderValue};
+    use http::HeaderValue;
     #[cfg(feature = "builtin-metrics")]
     use opentelemetry::KeyValue;
     #[cfg(feature = "builtin-metrics")]
@@ -2006,7 +1954,7 @@ pub(crate) mod tests {
             .returning(|_request| {
                 let mut status = Status::unavailable("connection reset");
                 let mut headers = std::mem::take(status.metadata_mut()).into_headers();
-                headers.insert("content-type", http::HeaderValue::from_static("text/html"));
+                headers.insert("content-type", HeaderValue::from_static("text/html"));
                 *status.metadata_mut() = MetadataMap::from_headers(headers);
                 let stream = adapt([
                     Ok(PartialResultSet {
@@ -2706,13 +2654,10 @@ pub(crate) mod tests {
             transaction_selector: None,
             precommit_token_tracker: tracker.clone(),
             client: db_client,
-            session_name: "session".to_string(),
-            transaction_tag: None,
             operation: StreamOperation::Query(req),
             gax_options: GaxRequestOptions::default(),
             method_name: "ExecuteStreamingSql",
             affinity: None,
-            begin_transaction_request_options: None,
         })
         .await?;
 
@@ -3157,7 +3102,7 @@ pub(crate) mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn result_set_inline_begin_stream_error_fallback() -> anyhow::Result<()> {
+    async fn result_set_inline_begin_stream_error_fails_fast() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -3171,42 +3116,8 @@ pub(crate) mod tests {
                 Ok(Response::from(stream))
             });
 
-        // 2. The explicit BeginTransaction fallback gets triggered.
-        mock.expect_begin_transaction()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_| {
-                Ok(Response::new(spanner_v1::Transaction {
-                    id: vec![7, 8, 9],
-                    read_timestamp: Some(prost_types::Timestamp {
-                        seconds: 123456789,
-                        nanos: 0,
-                    }),
-                    ..Default::default()
-                }))
-            });
-
-        // 3. The ResultSet gracefully restarts the stream using the transaction ID returned by BeginTransaction.
-        mock.expect_execute_streaming_sql()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|req| {
-                let req = req.into_inner();
-                // Ensure the explicitly yielded ID is routed into the new stream transaction selector
-                match req.transaction.unwrap().selector.unwrap() {
-                    spanner_v1::transaction_selector::Selector::Id(id) => {
-                        assert_eq!(id, vec![7, 8, 9]);
-                    }
-                    _ => panic!("Expected Selector::Id"),
-                }
-
-                let stream = adapt([Ok(PartialResultSet {
-                    metadata: metadata(1),
-                    values: vec![string_val("1")],
-                    ..Default::default()
-                })]);
-                Ok(Response::from(stream))
-            });
+        // 2. BeginTransaction must NEVER be called as a fallback.
+        mock.expect_begin_transaction().never();
 
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(Session {
@@ -3226,20 +3137,41 @@ pub(crate) mod tests {
 
         let db_client = client.database_client("db").build().await?;
 
-        let tx = db_client
+        let transaction = db_client
             .read_only_transaction()
             .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
-        let mut rs = tx.execute_query("SELECT 1").await?;
+        let result = transaction.execute_query("SELECT 1").await;
+        assert!(
+            result.is_err(),
+            "Expected execute_query to fail fast on invalid query"
+        );
+        let error = result.expect_err("first query failed");
+        assert!(
+            error.to_string().contains("Invalid query"),
+            "Expected original error message to propagate: {error}"
+        );
 
-        let row1 = rs.next().await.ok_or_else(|| {
-            anyhow::anyhow!("Expected row returned successfully despite stream breaking")
-        })??;
+        // Subsequent query on the failed transaction must also fail fast without any network calls.
+        let second_result = transaction.execute_query("SELECT 1").await;
+        assert!(
+            second_result.is_err(),
+            "Expected subsequent query on failed transaction to also fail fast"
+        );
+        let second_error = second_result.expect_err("second query failed");
+        let status = second_error
+            .status()
+            .expect("Service status error must be preserved on subsequent query failure");
         assert_eq!(
-            row1.raw_values()[0].0,
-            string_val("1"),
-            "Verify the returned stream successfully resumed with the correct payload"
+            status.code,
+            GaxCode::InvalidArgument,
+            "Status code must match original failure"
+        );
+        assert_eq!(
+            status.message,
+            "Transaction cannot be used: initial statement failed with: Invalid query",
+            "Subsequent query error message must explicitly explain transaction cannot be used"
         );
 
         Ok(())
@@ -5812,85 +5744,6 @@ pub(crate) mod tests {
         assert!(
             error_message_number.contains("Incompatible types for merging chunked values"),
             "Expected error message to contain 'Incompatible types for merging chunked values', but got: {error_message_number}"
-        );
-
-        Ok(())
-    }
-
-    #[tokio_test_no_panics]
-    async fn merge_begin_fallback_options() -> anyhow::Result<()> {
-        let mut result_set = run_mock_query(vec![PartialResultSet {
-            metadata: metadata(1),
-            values: vec![string_val("a")],
-            last: true,
-            ..Default::default()
-        }])
-        .await;
-
-        // Case 1: Request ID header in gax_options is stripped
-        let mut destination_headers = HeaderMap::new();
-        destination_headers.insert(
-            REQUEST_ID_HEADER.clone(),
-            HeaderValue::from_static("12345.1"),
-        );
-        destination_headers.insert(
-            HeaderName::from_static("x-goog-spanner-route-to-leader"),
-            HeaderValue::from_static("true"),
-        );
-        result_set.gax_options = RequestOptions::default().insert_extension(destination_headers);
-        result_set.begin_transaction_request_options = None;
-
-        let merged = result_set.merge_begin_fallback_options();
-        let merged_headers = merged
-            .get_extension::<HeaderMap>()
-            .expect("merged HeaderMap should be present");
-        assert!(
-            merged_headers.get(&REQUEST_ID_HEADER).is_none(),
-            "REQUEST_ID_HEADER should be stripped from fallback options"
-        );
-        assert_eq!(
-            merged_headers
-                .get("x-goog-spanner-route-to-leader")
-                .expect("route to leader header should be preserved")
-                .to_str()
-                .expect("valid ascii"),
-            "true"
-        );
-
-        // Case 2: Request ID header in begin_transaction_request_options is also stripped
-        let mut source = RequestOptions::default();
-        source.set_retry_policy(NeverRetry);
-        let mut source_headers = HeaderMap::new();
-        source_headers.insert(
-            REQUEST_ID_HEADER.clone(),
-            HeaderValue::from_static("99999.1"),
-        );
-        source_headers.insert(
-            HeaderName::from_static("x-custom-header"),
-            HeaderValue::from_static("custom-value"),
-        );
-        source = source.insert_extension(source_headers);
-        result_set.begin_transaction_request_options = Some(source);
-
-        let merged = result_set.merge_begin_fallback_options();
-        assert!(
-            merged.retry_policy().is_some(),
-            "retry policy should be inherited from begin_transaction_request_options"
-        );
-        let merged_headers = merged
-            .get_extension::<HeaderMap>()
-            .expect("merged HeaderMap should be present");
-        assert!(
-            merged_headers.get(&REQUEST_ID_HEADER).is_none(),
-            "REQUEST_ID_HEADER from source should be stripped from fallback options"
-        );
-        assert_eq!(
-            merged_headers
-                .get("x-custom-header")
-                .expect("custom header should be preserved")
-                .to_str()
-                .expect("valid ascii"),
-            "custom-value"
         );
 
         Ok(())
