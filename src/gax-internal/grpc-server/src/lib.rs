@@ -33,6 +33,8 @@ pub mod google {
     }
 }
 
+pub mod transport;
+
 pub async fn start_echo_server() -> anyhow::Result<(String, JoinHandle<()>)> {
     start_echo_server_with_address("127.0.0.1:0").await
 }
