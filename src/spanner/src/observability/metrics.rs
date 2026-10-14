@@ -2223,4 +2223,49 @@ mod tests {
         assert!(!o11y.is_enabled());
         assert!(o11y.metrics.is_empty());
     }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[test]
+    fn observability_drop_current_thread_does_not_deadlock() {
+        use crate::observability::exporter::GcpMonitoringExporter;
+        use crate::observability::exporter::MockMetricService;
+        use google_cloud_monitoring_v3::client::MetricService;
+        use tokio::runtime::Builder;
+
+        let runtime = Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("runtime build failed");
+
+        runtime.block_on(async {
+            let mock_service = Arc::new(MockMetricService::default());
+            let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+            let exporter = GcpMonitoringExporter::new(client, "test-project");
+            let reader = PeriodicReader::builder(exporter).build();
+            let provider = SdkMeterProvider::builder().with_reader(reader).build();
+            let meter = provider.meter(INSTRUMENTATION_SCOPE);
+            let metrics = SpannerMetrics::new(&meter);
+
+            let observability = Observability {
+                metrics: vec![metrics],
+                common_attributes: [
+                    KeyValue::new("client_uid", "test-uid"),
+                    KeyValue::new("client_name", "test-name"),
+                    KeyValue::new("database", "test-db"),
+                ],
+                meter_provider: Some(Arc::new(provider)),
+                caller_meter_provider: None,
+            };
+
+            observability.record_operation("ExecuteSql", Duration::from_millis(50), None);
+
+            let start = Instant::now();
+            drop(observability);
+            let elapsed = start.elapsed();
+            assert!(
+                elapsed < Duration::from_secs(2),
+                "Observability drop hung for {elapsed:?}! Deadlock detected!"
+            );
+        });
+    }
 }

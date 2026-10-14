@@ -19,6 +19,7 @@ use crate::value::SPANNER_DATE_FORMAT;
 use crate::value::Value;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use bytes::Bytes;
 use google_cloud_type::model::Date;
 use prost_types::ListValue as ProtoListValue;
 use prost_types::value::Kind as ProtoKind;
@@ -33,6 +34,7 @@ use time::Date as TimeDate;
 use time::OffsetDateTime;
 #[cfg(feature = "unstable-time")]
 use time::format_description::well_known::Rfc3339;
+use uuid::Uuid;
 use wkt::Timestamp;
 
 /// Represent failures in converting a Spanner Value to a Rust type.
@@ -744,6 +746,22 @@ impl FromValue for i32 {
     }
 }
 
+/// Converts a Spanner `TypeCode::Numeric` column into a `Decimal`.
+///
+/// Supports both standard fixed-point decimal notation (e.g., `"123.456"`) and
+/// scientific notation format (e.g., `"1e5"`, `"1.5e-3"`).
+///
+/// # Precision Limitations
+///
+/// Cloud Spanner `NUMERIC` supports up to 38 decimal digits of precision (up to 29
+/// digits before the decimal point and 9 digits after). However, [`Decimal`] uses a
+/// 96-bit unsigned integer mantissa, which can represent at most ~28–29 total decimal
+/// digits (and at most 19–20 digits before the decimal point when scale is 9).
+///
+/// If a Spanner numeric value exceeds the 96-bit limit of [`Decimal`], or if a PostgreSQL
+/// dialect database returns `"NaN"`, converting to [`Decimal`] will return a
+/// [`ConvertError::Convert`]. For values that exceed 96 bits or for PostgreSQL `"NaN"`,
+/// callers should read the column as a [`String`] instead (e.g., `row.try_get::<String, _>()`).
 impl FromValue for Decimal {
     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
         if spanner_type.code() != TypeCode::Numeric {
@@ -752,15 +770,23 @@ impl FromValue for Decimal {
                 got: spanner_type.code(),
             });
         }
-        match &value.0.kind {
-            Some(ProtoKind::StringValue(s)) => {
-                Decimal::from_str_exact(s).map_err(ConvertError::custom)
+        let string_value = match &value.0.kind {
+            Some(ProtoKind::StringValue(string_value)) => string_value,
+            Some(ProtoKind::NullValue(_)) | None => return Err(ConvertError::NotNull),
+            _ => {
+                return Err(ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: value.kind(),
+                });
             }
-            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
-            _ => Err(ConvertError::KindMismatch {
-                want: Kind::String,
-                got: value.kind(),
-            }),
+        };
+
+        match Decimal::from_str_exact(string_value) {
+            Ok(decimal) => Ok(decimal),
+            Err(_) if string_value.contains(['e', 'E']) => {
+                Decimal::from_scientific(string_value).map_err(ConvertError::custom)
+            }
+            Err(error) => Err(ConvertError::custom(error)),
         }
     }
 }
@@ -944,8 +970,69 @@ impl FromValue for Vec<u8> {
             });
         }
         match &value.0.kind {
-            Some(ProtoKind::StringValue(s)) => {
-                BASE64_STANDARD.decode(s).map_err(ConvertError::custom)
+            Some(ProtoKind::StringValue(string_value)) => BASE64_STANDARD
+                .decode(string_value)
+                .map_err(ConvertError::custom),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            _ => Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: value.kind(),
+            }),
+        }
+    }
+
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        if spanner_type.code() != TypeCode::Bytes && spanner_type.code() != TypeCode::Proto {
+            return Err(ConvertError::TypeMismatch {
+                want: TypeCode::Bytes,
+                got: spanner_type.code(),
+            });
+        }
+        match value.0.kind {
+            Some(ProtoKind::StringValue(string_value)) => BASE64_STANDARD
+                .decode(string_value)
+                .map_err(ConvertError::custom),
+            Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
+            other => Err(ConvertError::KindMismatch {
+                want: Kind::String,
+                got: Kind::from(other),
+            }),
+        }
+    }
+}
+
+/// Deserializes a byte buffer from a Spanner [`Value`].
+///
+/// Accepts Spanner [`TypeCode::Bytes`] and [`TypeCode::Proto`].
+/// Values are decoded from the wire base64-encoded string representation.
+impl FromValue for Bytes {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        Vec::<u8>::from_value(value, spanner_type).map(Bytes::from)
+    }
+
+    fn from_owned_value(value: Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        Vec::<u8>::from_owned_value(value, spanner_type).map(Bytes::from)
+    }
+}
+
+/// Deserializes a UUID from a Spanner [`Value`].
+///
+/// Accepts Spanner [`TypeCode::Uuid`] and [`TypeCode::String`].
+/// Values are parsed from the wire 8-4-4-4-12 hex string representation.
+impl FromValue for Uuid {
+    fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+        match spanner_type.code() {
+            TypeCode::Uuid | TypeCode::String => {}
+            got => {
+                return Err(ConvertError::TypeMismatch {
+                    want: TypeCode::Uuid,
+                    got,
+                });
+            }
+        }
+        match &value.0.kind {
+            Some(ProtoKind::StringValue(string_value)) => {
+                Uuid::parse_str(string_value).map_err(ConvertError::custom)
             }
             Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
@@ -1025,6 +1112,7 @@ mod tests {
     use crate::row::RowError;
     use crate::to_value::ToValue;
     use crate::types;
+    use prost_types::Value as ProtoValue;
     use serde_json::{Value as JsonValue, json};
     #[cfg(feature = "unstable-time")]
     use time::Month;
@@ -1428,15 +1516,167 @@ mod tests {
     }
 
     #[test]
-    fn test_from_value_decimal() {
-        let d = Decimal::from_str_exact("123.456").unwrap();
-        let v = d.to_value();
-        let res = Decimal::from_value(&v, &types::numeric()).unwrap();
-        assert_eq!(res, d);
+    fn from_value_decimal() -> Result<(), ConvertError> {
+        let numeric_type = types::numeric();
 
-        let v = "invalid decimal".to_string().to_value();
-        let err = Decimal::from_value(&v, &types::numeric()).unwrap_err();
-        assert!(format!("{}", err).contains("cannot convert value"));
+        let decimal = Decimal::from_str_exact("123.456").expect("valid decimal");
+        let value = decimal.to_value();
+        let result = Decimal::from_value(&value, &numeric_type)?;
+        assert_eq!(result, decimal);
+
+        // Fixed-point sign and zero variations
+        let valid_cases = [
+            ("+123.456", "123.456"),
+            ("-123.456", "-123.456"),
+            ("+1", "1"),
+            ("-1", "-1"),
+            ("0", "0"),
+            ("0.0", "0"),
+            ("+0", "0"),
+            ("-0", "0"),
+            (".1", "0.1"),
+            ("+.1", "0.1"),
+            ("-.1", "-0.1"),
+            ("1.", "1"),
+            ("+1.", "1"),
+            ("-1.", "-1"),
+            ("100000000000000000000.1", "100000000000000000000.1"),
+        ];
+
+        for (input_str, expected_str) in valid_cases {
+            let value = input_str.to_string().to_value();
+            let parsed = Decimal::from_value(&value, &numeric_type)
+                .expect("valid decimal conversion from supported format");
+            assert_eq!(
+                parsed,
+                Decimal::from_str_exact(expected_str).expect("valid decimal"),
+                "mismatch for {input_str}"
+            );
+        }
+
+        let value = "invalid decimal".to_string().to_value();
+        let error =
+            Decimal::from_value(&value, &numeric_type).expect_err("invalid decimal should fail");
+        assert!(format!("{error}").contains("cannot convert value"));
+
+        Ok(())
+    }
+
+    #[test]
+    fn from_value_decimal_scientific_notation() -> Result<(), ConvertError> {
+        let numeric_type = types::numeric();
+
+        let valid_scientific_cases = [
+            // Integer scientific notation
+            ("1e5", "100000"),
+            ("+1e5", "100000"),
+            ("-1e5", "-100000"),
+            // Positive exponent with explicit plus sign
+            ("1E+1", "10"),
+            ("1e+1", "10"),
+            ("1E1", "10"),
+            ("01e1", "10"),
+            ("1e01", "10"),
+            // Negative exponent
+            ("1E-1", "0.1"),
+            ("1e-1", "0.1"),
+            ("01e-1", "0.1"),
+            ("1e-01", "0.1"),
+            // Fractional base with exponent
+            ("1.e2", "100"),
+            (".5e2", "50"),
+            ("+.5e-2", "0.005"),
+            ("-.5e-2", "-0.005"),
+            // Fractional base with positive exponent plus sign
+            (".5e+2", "50"),
+            ("1.e+2", "100"),
+            ("-1.e+2", "-100"),
+            // Zero mantissa in scientific notation
+            ("0e0", "0"),
+            ("0e5", "0"),
+            ("0e-5", "0"),
+            ("-0e0", "0"),
+            ("+0e0", "0"),
+            // Zero exponent in scientific notation
+            ("1e0", "1"),
+            ("1E0", "1"),
+            ("1e+0", "1"),
+            ("1e-0", "1"),
+        ];
+
+        for (input_str, expected_str) in valid_scientific_cases {
+            let value = input_str.to_string().to_value();
+            assert_eq!(
+                Decimal::from_value(&value, &numeric_type)?,
+                Decimal::from_str_exact(expected_str).expect("valid decimal"),
+                "mismatch for {input_str}"
+            );
+        }
+
+        // Owned value conversion
+        let value = "2.5e3".to_string().to_value();
+        assert_eq!(
+            Decimal::from_owned_value(value, &numeric_type)?,
+            Decimal::from_str_exact("2500").expect("valid decimal")
+        );
+
+        // Optional decimal with scientific notation and null
+        let value = "1e5".to_string().to_value();
+        assert_eq!(
+            Option::<Decimal>::from_value(&value, &numeric_type)?,
+            Some(Decimal::from_str_exact("100000").expect("valid decimal"))
+        );
+
+        let value = None::<Decimal>.to_value();
+        assert_eq!(Option::<Decimal>::from_value(&value, &numeric_type)?, None);
+
+        // Array with mixed scientific notation and null elements
+        let array_type = types::array(types::numeric());
+        let list_value = vec![Some("1e2".to_string()), None, Some("1e-1".to_string())].to_value();
+        assert_eq!(
+            Vec::<Option<Decimal>>::from_value(&list_value, &array_type)?,
+            vec![
+                Some(Decimal::from_str_exact("100").expect("valid decimal")),
+                None,
+                Some(Decimal::from_str_exact("0.1").expect("valid decimal")),
+            ]
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn from_value_decimal_scientific_notation_errors() {
+        let numeric_type = types::numeric();
+
+        let invalid_cases = [
+            "1e",
+            "1E",
+            "1e+",
+            "1e-",
+            "e1",
+            "1e5e5",
+            "1e50",  // Overflow scale exceeds maximum precision
+            "1e-50", // Underflow scale exceeds maximum precision
+            // Values exceeding rust_decimal 96-bit mantissa limit (even if valid in Spanner NUMERIC)
+            // (2^96 - 1 ≈ 7.9228e28, up to 28-29 digits total)
+            "99999999999999999999999999999.999999999", // 38 digits (max Spanner NUMERIC)
+            "100000000000000000000.123456789",         // 30 digits
+            "100000000000000000000000000000",          // 30 integer digits
+            "8e28",
+            // PostgreSQL dialect PG_NUMERIC NaN
+            "NaN",
+        ];
+
+        for invalid_string in invalid_cases {
+            let value = invalid_string.to_string().to_value();
+            let error = Decimal::from_value(&value, &numeric_type)
+                .expect_err("malformed or out-of-range scientific notation should fail");
+            assert!(
+                matches!(error, ConvertError::Convert(_)),
+                "expected ConvertError::Convert for {invalid_string}, got {error:?}"
+            );
+        }
     }
 
     #[test]
@@ -3593,6 +3833,275 @@ mod tests {
         assert!(
             format!("{error}").contains("expected String, got Bool"),
             "expected KindMismatch error message"
+        );
+    }
+
+    #[test]
+    fn from_value_bytes_crate() {
+        let bytes_type = types::bytes();
+        let proto_type = types::proto_type("com.example.CustomerProto");
+        let raw_bytes = b"hello binary world";
+        let encoded_value = raw_bytes.to_vec().to_value();
+
+        let decoded_borrowed = Bytes::from_value(&encoded_value, &bytes_type)
+            .expect("borrowed Bytes from_value should succeed");
+        assert_eq!(
+            decoded_borrowed,
+            Bytes::from_static(raw_bytes),
+            "borrowed Bytes content must match"
+        );
+
+        let decoded_proto = Bytes::from_value(&encoded_value, &proto_type)
+            .expect("borrowed Bytes from proto type should succeed");
+        assert_eq!(
+            decoded_proto,
+            Bytes::from_static(raw_bytes),
+            "proto Bytes content must match"
+        );
+
+        let decoded_owned = Bytes::from_owned_value(encoded_value, &bytes_type)
+            .expect("owned Bytes from_owned_value should succeed");
+        assert_eq!(
+            decoded_owned,
+            Bytes::from_static(raw_bytes),
+            "owned Bytes content must match"
+        );
+
+        let null_error = Bytes::from_value(&Value::null(), &bytes_type)
+            .expect_err("null Bytes must return NotNull");
+        assert!(
+            matches!(null_error, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+
+        let type_mismatch_error =
+            Bytes::from_value(&raw_bytes.to_vec().to_value(), &types::string())
+                .expect_err("string type for Bytes must return TypeMismatch");
+        assert!(
+            matches!(
+                type_mismatch_error,
+                ConvertError::TypeMismatch {
+                    want: TypeCode::Bytes,
+                    got: TypeCode::String
+                }
+            ),
+            "expected TypeMismatch error"
+        );
+
+        let kind_mismatch_error = Bytes::from_value(&true.to_value(), &bytes_type)
+            .expect_err("bool value for Bytes must return KindMismatch");
+        assert!(
+            matches!(
+                kind_mismatch_error,
+                ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: Kind::Bool
+                }
+            ),
+            "expected KindMismatch error"
+        );
+
+        let invalid_base64_value = Value::from("not-valid-base64!@#$");
+        let decode_error = Bytes::from_value(&invalid_base64_value, &bytes_type)
+            .expect_err("invalid base64 must return Convert error");
+        assert!(
+            matches!(decode_error, ConvertError::Convert(_)),
+            "expected Convert error for invalid base64"
+        );
+
+        let empty_bytes = Bytes::from_static(b"");
+        let empty_value = empty_bytes.clone().to_value();
+        let decoded_empty = Bytes::from_value(&empty_value, &bytes_type)
+            .expect("empty Bytes from_value should succeed");
+        assert_eq!(decoded_empty, empty_bytes, "empty Bytes must match");
+
+        let owned_type_mismatch =
+            Bytes::from_owned_value(raw_bytes.to_vec().to_value(), &types::string())
+                .expect_err("owned string type for Bytes must return TypeMismatch");
+        assert!(
+            matches!(
+                owned_type_mismatch,
+                ConvertError::TypeMismatch {
+                    want: TypeCode::Bytes,
+                    got: TypeCode::String
+                }
+            ),
+            "expected TypeMismatch error for owned Bytes"
+        );
+
+        let owned_null_error = Bytes::from_owned_value(Value::null(), &bytes_type)
+            .expect_err("owned null Bytes must return NotNull");
+        assert!(
+            matches!(owned_null_error, ConvertError::NotNull),
+            "expected NotNull error for owned Bytes"
+        );
+
+        let owned_kind_mismatch = Bytes::from_owned_value(true.to_value(), &bytes_type)
+            .expect_err("owned bool value for Bytes must return KindMismatch");
+        assert!(
+            matches!(
+                owned_kind_mismatch,
+                ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: Kind::Bool
+                }
+            ),
+            "expected KindMismatch error for owned Bytes"
+        );
+
+        let owned_decode_error =
+            Bytes::from_owned_value(Value::from("not-valid-base64!@#$"), &bytes_type)
+                .expect_err("owned invalid base64 must return Convert error");
+        assert!(
+            matches!(owned_decode_error, ConvertError::Convert(_)),
+            "expected Convert error for owned invalid base64"
+        );
+    }
+
+    #[test]
+    fn from_value_uuid() {
+        let uuid_type = types::uuid();
+        let string_type = types::string();
+        let uuid_string = "123e4567-e89b-12d3-a456-426614174000";
+        let expected_uuid = Uuid::parse_str(uuid_string).expect("valid uuid string");
+        let uuid_value = Value::from(uuid_string);
+
+        let decoded_borrowed = Uuid::from_value(&uuid_value, &uuid_type)
+            .expect("borrowed Uuid from_value should succeed with uuid type");
+        assert_eq!(decoded_borrowed, expected_uuid, "borrowed Uuid must match");
+
+        let decoded_from_string_type = Uuid::from_value(&uuid_value, &string_type)
+            .expect("borrowed Uuid from_value should succeed with string type");
+        assert_eq!(
+            decoded_from_string_type, expected_uuid,
+            "Uuid from string type must match"
+        );
+
+        let decoded_owned = Uuid::from_owned_value(uuid_value, &uuid_type)
+            .expect("owned Uuid from_owned_value should succeed");
+        assert_eq!(decoded_owned, expected_uuid, "owned Uuid must match");
+
+        let null_error = Uuid::from_value(&Value::null(), &uuid_type)
+            .expect_err("null Uuid must return NotNull");
+        assert!(
+            matches!(null_error, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+
+        let kind_none_error = Uuid::from_value(&Value(ProtoValue { kind: None }), &uuid_type)
+            .expect_err("kind None for Uuid must return NotNull");
+        assert!(
+            matches!(kind_none_error, ConvertError::NotNull),
+            "expected NotNull error for kind None"
+        );
+
+        let type_mismatch_error = Uuid::from_value(&Value::from(uuid_string), &types::int64())
+            .expect_err("int64 type for Uuid must return TypeMismatch");
+        assert!(
+            matches!(
+                type_mismatch_error,
+                ConvertError::TypeMismatch {
+                    want: TypeCode::Uuid,
+                    got: TypeCode::Int64
+                }
+            ),
+            "expected TypeMismatch error"
+        );
+
+        let kind_mismatch_error = Uuid::from_value(&true.to_value(), &uuid_type)
+            .expect_err("bool kind for Uuid must return KindMismatch");
+        assert!(
+            matches!(
+                kind_mismatch_error,
+                ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: Kind::Bool
+                }
+            ),
+            "expected KindMismatch error"
+        );
+
+        let invalid_uuid_value = Value::from("not-a-valid-uuid");
+        let parse_error = Uuid::from_value(&invalid_uuid_value, &uuid_type)
+            .expect_err("malformed uuid string must return Convert error");
+        assert!(
+            matches!(parse_error, ConvertError::Convert(_)),
+            "expected Convert error for invalid uuid format"
+        );
+    }
+
+    #[test]
+    fn from_value_bytes_and_uuid_in_collections() {
+        let uuid_type = types::uuid();
+        let bytes_type = types::bytes();
+        let uuid_string = "123e4567-e89b-12d3-a456-426614174000";
+        let expected_uuid = Uuid::parse_str(uuid_string).expect("valid uuid string");
+
+        // Option<Uuid>
+        let present_uuid = Option::<Uuid>::from_value(&Value::from(uuid_string), &uuid_type)
+            .expect("present Option<Uuid> should succeed");
+        assert_eq!(present_uuid, Some(expected_uuid), "expected Some(uuid)");
+
+        let null_uuid = Option::<Uuid>::from_value(&Value::null(), &uuid_type)
+            .expect("null Option<Uuid> should succeed");
+        assert_eq!(null_uuid, None, "expected None for null Option<Uuid>");
+
+        // Option<Bytes>
+        let raw_bytes = b"sample bytes";
+        let encoded_bytes = raw_bytes.to_vec().to_value();
+        let present_bytes = Option::<Bytes>::from_value(&encoded_bytes, &bytes_type)
+            .expect("present Option<Bytes> should succeed");
+        assert_eq!(
+            present_bytes,
+            Some(Bytes::from_static(raw_bytes)),
+            "expected Some(Bytes)"
+        );
+
+        let null_bytes = Option::<Bytes>::from_value(&Value::null(), &bytes_type)
+            .expect("null Option<Bytes> should succeed");
+        assert_eq!(null_bytes, None, "expected None for null Option<Bytes>");
+
+        // Vec<Uuid>
+        let array_uuid_type = types::array(types::uuid());
+        let uuid_list_value = Value::from(vec![uuid_string.to_string(), uuid_string.to_string()]);
+        let uuid_vector = Vec::<Uuid>::from_value(&uuid_list_value, &array_uuid_type)
+            .expect("Vec<Uuid> from_value should succeed");
+        assert_eq!(
+            uuid_vector,
+            vec![expected_uuid, expected_uuid],
+            "expected matching uuid vector"
+        );
+
+        let invalid_uuid_list_value = Value::from(vec!["not-a-uuid".to_string()]);
+        let uuid_collection_error =
+            Vec::<Uuid>::from_value(&invalid_uuid_list_value, &array_uuid_type)
+                .expect_err("invalid uuid element in collection must error");
+        assert!(
+            matches!(uuid_collection_error, ConvertError::Convert(_)),
+            "expected Convert error in Vec<Uuid>"
+        );
+
+        // Vec<Bytes>
+        let array_bytes_type = types::array(types::bytes());
+        let bytes_list_value = Value::from(vec![
+            raw_bytes.to_vec().to_value(),
+            raw_bytes.to_vec().to_value(),
+        ]);
+        let bytes_vector = Vec::<Bytes>::from_value(&bytes_list_value, &array_bytes_type)
+            .expect("Vec<Bytes> from_value should succeed");
+        assert_eq!(
+            bytes_vector,
+            vec![Bytes::from_static(raw_bytes), Bytes::from_static(raw_bytes)],
+            "expected matching bytes vector"
+        );
+
+        let invalid_bytes_list_value = Value::from(vec![Value::from("invalid-base64!#%")]);
+        let bytes_collection_error =
+            Vec::<Bytes>::from_value(&invalid_bytes_list_value, &array_bytes_type)
+                .expect_err("invalid base64 element in collection must error");
+        assert!(
+            matches!(bytes_collection_error, ConvertError::Convert(_)),
+            "expected Convert error in Vec<Bytes>"
         );
     }
 }

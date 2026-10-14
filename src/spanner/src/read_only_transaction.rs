@@ -35,7 +35,7 @@ use http::HeaderMap;
 use std::error::Error as _;
 use std::mem::replace;
 use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
-use std::time::{Duration, Instant};
+use std::time::Duration;
 use tokio::sync::Notify;
 use tokio::sync::futures::OwnedNotified;
 
@@ -1292,7 +1292,7 @@ impl ReadContext {
 
 /// Merges the configured fields from a `source` `RequestOptions` into a `destination` `RequestOptions`.
 /// Configured options in `source` will override those in `destination`.
-fn merge_request_options(
+pub(crate) fn merge_request_options(
     mut destination: GaxRequestOptions,
     source: Option<&GaxRequestOptions>,
 ) -> GaxRequestOptions {
@@ -1309,20 +1309,18 @@ fn merge_request_options(
     if let Some(backoff) = source.backoff_policy() {
         destination.set_backoff_policy(backoff.clone());
     }
-    if let Some(src_headers) = source.get_extension::<HeaderMap>() {
-        let dest_headers = destination.get_extension_or_default_mut::<HeaderMap>();
-        for (name, value) in src_headers.iter() {
-            dest_headers.insert(name.clone(), value.clone());
+    if let Some(source_headers) = source.get_extension::<HeaderMap>() {
+        let destination_headers = destination.get_extension_or_default_mut::<HeaderMap>();
+        for (name, value) in source_headers.iter() {
+            destination_headers.insert(name.clone(), value.clone());
         }
     }
     destination
 }
 
-/// Helper macro to execute a streaming SQL or streaming read RPC.
-macro_rules! execute_stream {
-    ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path, $method_name:expr) => {{
-        let operation_start_time = Instant::now();
-        let attempt_start_time = operation_start_time;
+/// Helper macro to execute a streaming SQL or streaming read RPC with lazy transaction start tracking.
+macro_rules! execute_stream_with_retry {
+    ($self:expr, $request:ident, $gax_options:ident, $operation_variant:path, $method_name:expr) => {{
         let is_starting = matches!(
             $request
                 .transaction
@@ -1342,42 +1340,13 @@ macro_rules! execute_stream {
         // as an unexpected cancellation.
         let mut start_guard =
             LazyTransactionStartGuard::new(is_starting.then(|| $self.transaction_selector.clone()));
-        let builder =
-            $self
-                .client
-                .$rpc_method($request.clone(), $gax_options.clone(), $self.affinity());
-        let request_options = builder.options().clone();
-        let stream = match builder.send().await {
-            Ok(s) => s,
-            Err(e) => {
-                let elapsed_attempt = attempt_start_time.elapsed();
-                $self
-                    .client
-                    .o11y
-                    .record_attempt($method_name, elapsed_attempt, Some(&e), None);
-                let elapsed_op = operation_start_time.elapsed();
-                $self
-                    .client
-                    .o11y
-                    .record_operation($method_name, elapsed_op, Some(&e));
-                if is_starting {
-                    $self.transaction_selector.set_failed(&e);
-                }
-                start_guard.disarm();
-                return Err(e);
-            }
-        };
-
         let result = Box::pin(ResultSet::create(ResultSetParams {
-            stream,
             transaction_selector: Some($self.transaction_selector.clone()),
             precommit_token_tracker: $self.precommit_token_tracker.clone(),
             client: $self.client.clone(),
             operation: $operation_variant($request),
-            gax_options: request_options,
+            gax_options: $gax_options,
             method_name: $method_name,
-            attempt_start_time: Some(attempt_start_time),
-            operation_start_time: Some(operation_start_time),
             affinity: $self.affinity.as_ref().map(Arc::clone),
         }))
         .await;
@@ -1407,11 +1376,10 @@ impl ReadContext {
             .set_seqno(seqno.unwrap_or(0));
         request.request_options = self.amend_request_options(request.request_options);
 
-        execute_stream!(
+        execute_stream_with_retry!(
             self,
             request,
             gax_options,
-            execute_streaming_sql,
             StreamOperation::Query,
             "ExecuteStreamingSql"
         )
@@ -1429,11 +1397,10 @@ impl ReadContext {
             .set_transaction(self.transaction_selector.selector().await?);
         request.request_options = self.amend_request_options(request.request_options);
 
-        execute_stream!(
+        execute_stream_with_retry!(
             self,
             request,
             gax_options,
-            streaming_read,
             StreamOperation::Read,
             "StreamingRead"
         )
@@ -1443,18 +1410,24 @@ impl ReadContext {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::RequestOptions;
     use crate::key::KeySet;
+    use crate::model::ExecuteSqlRequest;
     use crate::model::transaction_selector::Selector as ModelSelector;
     use crate::read::ReadRequest;
+    use crate::request_id_interceptor::REQUEST_ID_HEADER;
     use crate::result_set::tests::adapt;
     use crate::result_set::tests::string_val;
+    use crate::retry_policy::SpannerRetryPolicy;
     use crate::statement::Statement;
     use crate::value::Value;
     use gaxi::grpc::tonic::{self, Code, Response, Status};
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::error::rpc::Code as GaxCode;
     use google_cloud_gax::error::rpc::Status as GaxStatus;
     use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-    use google_cloud_gax::retry_policy::NeverRetry;
+    use google_cloud_gax::retry_policy::{NeverRetry, RetryPolicyExt};
+    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
     use http::{HeaderMap, HeaderName, HeaderValue};
     use mock_v1::transaction_selector::Selector;
@@ -1464,10 +1437,19 @@ pub(crate) mod tests {
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::sync::mpsc::channel as std_channel;
     use std::sync::{Arc, Mutex as StdMutex};
+    use std::time::Duration;
     use tokio::spawn;
     use tokio::sync::oneshot::channel as oneshot_channel;
     use tokio::sync::{Barrier, Mutex, Notify, mpsc};
     use tokio::task::yield_now;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> Duration;
+        }
+    }
 
     #[test]
     fn auto_traits() {
@@ -3397,37 +3379,141 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn execute_inline_begin_with_transient_failure() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
 
         // 1. First attempt fails transiently.
         mock.expect_execute_streaming_sql()
             .times(1)
+            .in_sequence(&mut sequence)
             .returning(|_| Err(Status::new(Code::Unavailable, "Transient 1")));
 
-        // 2. BeginTransaction must NEVER be called as a fallback.
-        mock.expect_begin_transaction().never();
+        // 2. The retry of the query statement retains the inline-begin selector and succeeds.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let selector = request
+                    .transaction
+                    .expect("transaction selector must be present")
+                    .selector
+                    .expect("selector kind must be present");
+                assert!(
+                    matches!(selector, Selector::Begin(_)),
+                    "Expected Selector::Begin for retried query with inline begin"
+                );
+                let mut result_set_partial = setup_select1();
+                result_set_partial
+                    .metadata
+                    .as_mut()
+                    .expect("metadata should be present")
+                    .transaction = Some(mock_v1::Transaction {
+                    id: vec![1, 2, 3],
+                    ..Default::default()
+                });
+                let (tx, rx) = mpsc::channel(1);
+                tx.try_send(Ok(result_set_partial))
+                    .expect("send should succeed");
+                Ok(Response::from(rx))
+            });
 
         let (db_client, _server) = setup_db_client(mock).await;
-        let tx = db_client
+        let transaction = db_client
             .read_only_transaction()
             .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
-        let first_result = tx
-            .execute_query(Statement::builder("SELECT 1").build())
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .returning(|_| Duration::from_nanos(1));
+
+        let mut result_set = transaction
+            .execute_query(
+                Statement::builder("SELECT 1")
+                    .with_backoff_policy(mock_backoff)
+                    .build(),
+            )
+            .await?;
+        assert!(
+            result_set.next().await.is_some(),
+            "expected first row to be present"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should be exhausted"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_inline_begin_fails_fast_when_retries_exhaust() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. Initial attempt fails transiently.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::new(Code::Unavailable, "Transient 1")));
+
+        // 2. Retry attempt fails transiently, exhausting the retry limit (2 attempts).
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::new(Code::Unavailable, "Transient 2")));
+
+        // 3. BeginTransaction must NEVER be called as a fallback.
+        mock.expect_begin_transaction().never();
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = db_client
+            .read_only_transaction()
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build()
+            .await?;
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .returning(|_| Duration::from_nanos(1));
+
+        let first_result = transaction
+            .execute_query(
+                Statement::builder("SELECT 1")
+                    .with_backoff_policy(mock_backoff)
+                    .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(2))
+                    .build(),
+            )
             .await;
         assert!(
             first_result.is_err(),
-            "Expected first query to fail with Unavailable"
+            "Expected first query to fail with Unavailable after retries exhaust"
+        );
+        let first_error = first_result.expect_err("first query should fail");
+        assert_eq!(
+            first_error.status().expect("status").code,
+            GaxCode::Unavailable,
+            "Expected Unavailable status code on first query failure"
         );
 
         // Subsequent query fails fast without any RPCs.
-        let second_result = tx
+        let second_result = transaction
             .execute_query(Statement::builder("SELECT 1").build())
             .await;
         assert!(
             second_result.is_err(),
             "Expected second query to fail fast on a failed read-only transaction"
+        );
+        let second_error = second_result.expect_err("second query should fail fast");
+        assert_eq!(
+            second_error.status().expect("status").code,
+            GaxCode::Unavailable,
+            "Subsequent query error status code should match initial error"
         );
 
         Ok(())
@@ -3973,6 +4059,40 @@ pub(crate) mod tests {
             1,
             "source HeaderMap must remain isolated and unmodified"
         );
+
+        // Case 6: Pure merge_request_options preserves all headers intact, including request ID header
+        let mut destination = RequestOptions::default();
+        let mut destination_headers = HeaderMap::new();
+        destination_headers.insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("12345.1"),
+        );
+        destination_headers.insert(
+            HeaderName::from_static("x-goog-spanner-route-to-leader"),
+            HeaderValue::from_static("true"),
+        );
+        destination = destination.insert_extension(destination_headers);
+
+        let merged = merge_request_options(destination, None);
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("merged HeaderMap should be present");
+        assert_eq!(
+            merged_headers
+                .get(&REQUEST_ID_HEADER)
+                .expect("REQUEST_ID_HEADER should be preserved by pure merge_request_options")
+                .to_str()
+                .expect("valid ascii"),
+            "12345.1"
+        );
+        assert_eq!(
+            merged_headers
+                .get("x-goog-spanner-route-to-leader")
+                .expect("route to leader header should be preserved")
+                .to_str()
+                .expect("valid ascii"),
+            "true"
+        );
     }
 
     #[test]
@@ -4045,18 +4165,17 @@ pub(crate) mod tests {
             .set_session(context.session_name.clone())
             .set_transaction(transaction_selector);
 
-        let gax_options = google_cloud_gax::options::RequestOptions::default();
+        let gax_options = RequestOptions::default();
 
         async fn run_macro(
             context: &ReadContext,
-            request: crate::model::ExecuteSqlRequest,
-            gax_options: google_cloud_gax::options::RequestOptions,
+            request: ExecuteSqlRequest,
+            gax_options: RequestOptions,
         ) -> crate::Result<ResultSet> {
-            execute_stream!(
+            execute_stream_with_retry!(
                 context,
                 request,
                 gax_options,
-                execute_streaming_sql,
                 StreamOperation::Query,
                 "ExecuteStreamingSql"
             )
