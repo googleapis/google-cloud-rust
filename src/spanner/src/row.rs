@@ -1756,4 +1756,54 @@ mod tests {
             "column must be null after take"
         );
     }
+
+    #[test]
+    fn row_get_decimal_scientific_notation() {
+        let column_names = vec!["col_numeric_sci".to_string()];
+        let column_types = vec![types::numeric()];
+        let values = vec!["1.5e3".to_string().to_value()];
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let expected_decimal = Decimal::from_str_exact("1500").expect("valid decimal");
+        assert_eq!(
+            row.get::<Decimal>(0).expect("get decimal by index"),
+            expected_decimal,
+            "expected decimal from scientific notation by index"
+        );
+        assert_eq!(
+            row.get::<Decimal>("col_numeric_sci")
+                .expect("get decimal by name"),
+            expected_decimal,
+            "expected decimal from scientific notation by name"
+        );
+        assert_eq!(
+            row.get::<Option<Decimal>>("col_numeric_sci")
+                .expect("get optional decimal"),
+            Some(expected_decimal),
+            "expected optional decimal from scientific notation"
+        );
+        assert_eq!(
+            row.take::<Decimal>("col_numeric_sci")
+                .expect("take decimal"),
+            expected_decimal,
+            "expected take decimal from scientific notation"
+        );
+        assert!(
+            row.is_null("col_numeric_sci").expect("is_null"),
+            "column must be null after take"
+        );
+        assert_eq!(
+            row.get::<Option<Decimal>>("col_numeric_sci")
+                .expect("get optional decimal after take"),
+            None,
+            "column must be None after take"
+        );
+    }
 }

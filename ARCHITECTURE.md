@@ -15,8 +15,7 @@ Only the public API is stable, the rest is subject to change without notice.
 
 The goal of the libraries is to provide idiomatic Rust libraries to access
 services in [Google Cloud](https://cloud.google.com). All services are in scope.
-As of 2025-03 we have over 100 libraries, covering most Google Cloud services.
-The APIs are not stable, they are **not** ready for use in production code.
+We have over 200 libraries, covering most Google Cloud services.
 
 What do we mean by idiomatic? We mean that Rust developers will find the APIs
 familiar, or "natural", that these APIs will fit well with the rest of the Rust
@@ -30,7 +29,7 @@ More specifically, the functionality offered by these libraries include:
   formatting.
 - All RPCs are asynchronous and work well with [Tokio]. The clients do not own
   any threads and rely on the runtime for scheduling.
-- It is not possible to start a RPC without providing the parameters needed to
+- It is not possible to start an RPC without providing the parameters needed to
   format the request (with [some limitations](#what-these-libraries-do-not-do)).
 - Optional parameters can be provided as needed, there is no need to initialize
   parameters to their default values.
@@ -111,6 +110,11 @@ services that support gRPC. This choice offers several benefits:
   binary size.
 - **Interoperability:** REST/JSON is universally supported and easier to debug
   with standard tools.
+
+We use gRPC (via `tonic` and `prost`) for streaming RPCs and in hand-crafted
+libraries where performance requires it (such as Storage, Pub/Sub, Spanner, and
+BigQuery). In these cases, the `prost` wire types remain private to the crate so
+they do not leak into the public API.
 
 ### Crate naming and versioning
 
@@ -219,6 +223,10 @@ specification of the service API. We create one Rust crate for each Protobuf
 package. This means that some crates contain only types used by one or more
 service APIs. But in general, each crate contains a client library.
 
+Some services (such as Storage, Pub/Sub, Spanner, and BigQuery) have
+hand-crafted libraries that wrap generated code to provide higher-level,
+service-specific APIs.
+
 ## Where is the code?
 
 The code is structured to easily distinguish automatically generated code from
@@ -237,17 +245,23 @@ hand-crafted code. The main directories are:
   libraries. Types in this crate are **not** intended for application developers
   to use.
 - `src/lro`: support code for long-running operations.
+- `src/bigquery`, `src/pubsub`, `src/spanner`, `src/storage`: hand-crafted
+  client libraries for services that benefit from custom, high-level APIs. Any
+  generated code used internally by these libraries lives in
+  `src/*/src/generated`.
 - `tests/integration`: the integration tests. These run against production and
   validate (using a small number of services) that the generator produces
   working code.
 - `tests/endurance`: a smoke test for leaks or crashes. This test executes many
-  RPCs in the generated code, the expectation is that we can complex over one
+  RPCs in the generated code, the expectation is that we can complete over one
   billion requests without crashes, panics, or memory leaks.
 - `tests/integration-auth`: the auth library integration tests. These run
   against production and validate (using a small number of services) that the
   different authentication flows work as expected.
 - `tests/protojson-conformance`: validate our JSON parsing using the ProtoJSON
   conformance tests.
+- `doc/contributor`: contributor how-to guides (including generated code
+  maintenance and development environment setup).
 - `guide/src`: the user guide, a "Rust Book" containing several tutorials for
   `google-cloud-rust`.
 - `guide/samples`: the code samples for the user guide. In general, we want the
