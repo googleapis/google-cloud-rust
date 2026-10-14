@@ -20,6 +20,7 @@ mod tests {
     use google_cloud_gax::error::Error;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::options::internal::RequestOptionsExt;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax_internal::grpc;
@@ -201,41 +202,177 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn credentials_error() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        credentials_error
+    );
+    async fn credentials_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(error_credentials(false))
             .build()
             .await?;
+
+        // Act
         let response = send_request(client, "credentials error", "").await;
-        let err = response.unwrap_err();
+
+        // Assert
+        let err = response.expect_err("the credentials error should be returned");
         assert!(err.is_authentication(), "{err:?}");
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn connection_error() -> anyhow::Result<()> {
-        let client = builder("http://127.0.0.1:1")
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        connection_error
+    );
+    async fn connection_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let client = transport_builder::<C>("http://127.0.0.1:1")
             .with_credentials(test_credentials())
             .build()
             .await;
         let client = client.expect("clients should use lazy connections");
+
+        // Act
         let response = send_request(client, "connection error", "").await;
-        let err = response.unwrap_err();
+
+        // Assert
+        let err = response.expect_err("the connection should fail");
         assert!(err.is_connect(), "{err:?}");
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn endpoint_error() -> anyhow::Result<()> {
-        let client = builder("http:/invalid-invalid")
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        endpoint_error
+    );
+    async fn endpoint_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Act
+        let client = transport_builder::<C>("http:/invalid-invalid")
             .with_credentials(test_credentials())
             .build()
             .await;
-        let err = client.unwrap_err();
+
+        // Assert
+        let err = client
+            .err()
+            .expect("an invalid endpoint should be rejected");
         assert!(err.is_transport(), "{err:?}");
+        Ok(())
+    }
+
+    both_transports!(custom_global_headers);
+    async fn custom_global_headers<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        const CUSTOM_HEADER: &str = "x-custom-global-header";
+        const CUSTOM_VALUE: &str = "global-value";
+        let (endpoint, _server) = start_echo_server().await?;
+        let mut global_headers = HeaderMap::new();
+        global_headers.insert(
+            HeaderName::from_static(CUSTOM_HEADER),
+            HeaderValue::from_static(CUSTOM_VALUE),
+        );
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
+            .with_extension(global_headers)
+            .build()
+            .await?;
+
+        // Act
+        let response = send_request(client, "test message", "").await?;
+
+        // Assert
+        assert_eq!(&response.message, "test message");
+        assert_eq!(
+            response.metadata.get(CUSTOM_HEADER).map(String::as_str),
+            Some(CUSTOM_VALUE)
+        );
+        Ok(())
+    }
+
+    both_transports!(custom_binary_header);
+    async fn custom_binary_header<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        const GLOBAL_BIN_HEADER: &str = "x-global-bin";
+        const BIN_HEADER: &str = "x-test-bin";
+        const RAW_VALUE: &[u8] = &[0x00, 0x01, 0xFE, 0xFF];
+        let (endpoint, _server) = start_echo_server().await?;
+        // A `HeaderMap` holds `-bin` values in base64 wire form: `"AAH+/w"` and
+        // `"AAH+/w=="` are `RAW_VALUE` without and with padding.
+        let mut global_headers = HeaderMap::new();
+        global_headers.insert(
+            HeaderName::from_static(GLOBAL_BIN_HEADER),
+            HeaderValue::from_static("AAH+/w"),
+        );
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
+            .with_extension(global_headers)
+            .build()
+            .await?;
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            HeaderName::from_static(BIN_HEADER),
+            HeaderValue::from_static("AAH+/w=="),
+        );
+        let options = RequestOptions::default().insert_extension(headers);
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..google::test::v1::EchoRequest::default()
+        };
+
+        // Act
+        let response = client.echo(request, options, "").await?.into_inner();
+
+        // Assert
+        // The server echoes the wire value; decode it to compare the raw bytes.
+        for name in [GLOBAL_BIN_HEADER, BIN_HEADER] {
+            let echoed = response
+                .metadata
+                .get(name)
+                .expect("the binary header should be echoed");
+            let mut echoed_headers = HeaderMap::new();
+            echoed_headers.insert(
+                HeaderName::from_static(name),
+                HeaderValue::from_str(echoed)?,
+            );
+            let got = tonic::metadata::MetadataMap::from_headers(echoed_headers)
+                .get_bin(name)
+                .expect("the echoed header should be a binary header")
+                .to_bytes()?;
+            assert_eq!(got.as_ref(), RAW_VALUE, "{name}");
+        }
+        Ok(())
+    }
+
+    // Tonic appends ` tonic/<version>` to the user agent, while grpc-rust
+    // sends it exactly as set.
+    #[cfg(google_cloud_unstable_grpc_rust)]
+    #[tokio::test]
+    async fn explicit_user_agent_grpc_rust() -> anyhow::Result<()> {
+        // Arrange
+        const USER_AGENT: &str = "test-agent/1.0";
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<grpc_server::transport::GrpcRustClient>(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        let mut options = RequestOptions::default();
+        options.set_user_agent(USER_AGENT);
+        let request = google::test::v1::EchoRequest {
+            message: "hello".into(),
+            ..google::test::v1::EchoRequest::default()
+        };
+
+        // Act
+        let response = client.echo(request, options, "").await?.into_inner();
+
+        // Assert
+        assert_eq!(
+            response.metadata.get("user-agent").map(String::as_str),
+            Some(USER_AGENT)
+        );
         Ok(())
     }
 
