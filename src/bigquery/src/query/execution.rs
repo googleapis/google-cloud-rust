@@ -179,7 +179,7 @@ impl RetryContext {
     async fn execute_jobs_insert(&self, project_id: &str) -> Result<QueryHandle> {
         let job_service = self.template.job_service.clone();
         let page_size = self.template.request.page_size;
-        let options = self.template.options.clone();
+        let options = &self.template.options;
 
         let job_config: JobConfiguration = self.template.request.clone().into();
         let job_ref = generate_job_reference(project_id, &self.template.request.location);
@@ -201,7 +201,7 @@ impl RetryContext {
                 // A fresh job ID is generated per attempt, so a duplicate means
                 // an earlier attempt of this request reached the service. Adopt
                 // the job it created rather than fail a running, billing query.
-                let existing_job = match build_get_job(&job_service, &job_ref, options.clone()) {
+                let existing_job = match build_get_job(&job_service, &job_ref, options) {
                     Some(get) => {
                         // The original error names the running job, and unlike a
                         // `jobs.get` failure it never makes the job retry loop
@@ -226,7 +226,7 @@ impl RetryContext {
             job,
             Some(self),
             page_size,
-            options,
+            options.clone(),
         ))
     }
 
@@ -234,7 +234,7 @@ impl RetryContext {
     async fn execute_jobs_query(&self, project_id: &str) -> Result<QueryHandle> {
         let job_service = self.template.job_service.clone();
         let page_size = self.template.request.page_size;
-        let options = self.template.options.clone();
+        let options = &self.template.options;
 
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         let query_request: QueryRequest = self.template.request.clone().into();
@@ -258,7 +258,7 @@ impl RetryContext {
                 // attempt created. That job ran and was billed, so we try to
                 // attach to it.
                 let get = parse_duplicate_job_reference(&err)
-                    .and_then(|job_ref| build_get_job(&job_service, &job_ref, options.clone()));
+                    .and_then(|job_ref| build_get_job(&job_service, &job_ref, options));
                 let existing_job = match get {
                     Some(get) => {
                         // The original error names the running job, and unlike a
@@ -279,7 +279,7 @@ impl RetryContext {
                     check_job_status(existing_job)?,
                     Some(self),
                     page_size,
-                    options,
+                    options.clone(),
                 ));
             }
             Err(err) => return Err(err),
@@ -290,7 +290,7 @@ impl RetryContext {
             res,
             Some(self),
             page_size,
-            options,
+            options.clone(),
         ))
     }
 }

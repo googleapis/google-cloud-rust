@@ -188,7 +188,7 @@ impl Query {
         build_get_job(
             &self.job_service,
             self.metadata.job_reference.as_ref()?,
-            self.options.clone(),
+            &self.options,
         )
     }
 
@@ -480,11 +480,7 @@ impl CompleteQuery {
     /// # }
     /// ```
     pub fn get_job(&self) -> Option<GetJob> {
-        build_get_job(
-            &self.job_service,
-            self.job_ref.as_ref()?,
-            self.options.clone(),
-        )
+        build_get_job(&self.job_service, self.job_ref.as_ref()?, &self.options)
     }
 }
 
@@ -494,7 +490,7 @@ impl CompleteQuery {
 pub(crate) fn build_get_job(
     job_service: &JobService,
     job_ref: &JobReference,
-    options: RequestOptions,
+    options: &RequestOptions,
 ) -> Option<GetJob> {
     if job_ref.job_id.is_empty() {
         return None;
@@ -502,7 +498,7 @@ pub(crate) fn build_get_job(
 
     let req = job_service
         .get_job()
-        .with_options(options)
+        .with_options(options.clone())
         .set_job_id(job_ref.job_id.clone())
         .set_project_id(job_ref.project_id.clone());
 
