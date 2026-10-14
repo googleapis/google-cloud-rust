@@ -30,7 +30,6 @@ use crate::headers::{X_GOOG_API_CLIENT, X_GOOG_USER_PROJECT, sanitize_custom_hea
 use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::reqwest::Url;
-use google_cloud_api::model::HttpBody;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -54,7 +53,6 @@ use google_cloud_gax::retry_throttler::SharedRetryThrottler;
 use http::Extensions;
 pub use http_request_builder::HttpRequestBuilder;
 use reqwest::Method;
-use std::any::Any;
 use std::sync::Arc;
 use std::time::Duration;
 use tracing::Instrument;
@@ -268,17 +266,14 @@ impl ReqwestClient {
         Ok(HttpRequestBuilder::new(self.clone(), builder))
     }
 
-    pub async fn execute<
-        I: serde::ser::Serialize + 'static,
-        O: serde::de::DeserializeOwned + Default + 'static,
-    >(
+    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
         &self,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
         options: RequestOptions,
     ) -> Result<Response<O>> {
         if let Some(body) = body {
-            builder = self::apply_body(builder, body);
+            builder = builder.json(&body);
         }
         self.retry_loop::<O>(builder, options).await
     }
@@ -383,7 +378,7 @@ impl ReqwestClient {
             .map_err(BuilderError::cred)
     }
 
-    async fn retry_loop<O: serde::de::DeserializeOwned + Default + 'static>(
+    async fn retry_loop<O: serde::de::DeserializeOwned + Default>(
         &self,
         builder: reqwest::RequestBuilder,
         options: RequestOptions,
@@ -633,21 +628,7 @@ pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
     Err(error)
 }
 
-fn apply_body<I: serde::ser::Serialize + 'static>(
-    mut builder: reqwest::RequestBuilder,
-    mut body: I,
-) -> reqwest::RequestBuilder {
-    if let Some(http_body) = <dyn Any>::downcast_mut::<HttpBody>(&mut body) {
-        if !http_body.content_type.is_empty() {
-            builder = builder.header(::reqwest::header::CONTENT_TYPE, &http_body.content_type);
-        }
-        builder.body(std::mem::take(&mut http_body.data))
-    } else {
-        builder.json(&body)
-    }
-}
-
-async fn to_http_response<O: serde::de::DeserializeOwned + Default + 'static>(
+async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
     response: reqwest::Response,
 ) -> Result<Response<O>> {
     // 204 No Content has no body and throws EOF error if we try to parse with serde::json
@@ -661,33 +642,13 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default + 'static>(
 
     let response = match body.to_bytes() {
         content if (content.is_empty() && no_content_status) => O::default(),
-        content => self::deserialize_body(content, &parts.headers)?,
+        content => serde_json::from_slice::<O>(&content).map_err(Error::deser)?,
     };
 
     Ok(Response::from_parts(
         Parts::new().set_headers(parts.headers),
         response,
     ))
-}
-
-fn deserialize_body<O: serde::de::DeserializeOwned + Default + 'static>(
-    content: bytes::Bytes,
-    headers: &http::HeaderMap,
-) -> Result<O> {
-    if std::any::TypeId::of::<O>() == std::any::TypeId::of::<HttpBody>() {
-        let mut response = O::default();
-        if let Some(http_body) = <dyn Any>::downcast_mut::<HttpBody>(&mut response) {
-            if let Some(content_type) = headers
-                .get(http::header::CONTENT_TYPE)
-                .and_then(|v| v.to_str().ok())
-            {
-                http_body.content_type = content_type.to_string();
-            }
-            http_body.data = content;
-        }
-        return Ok(response);
-    }
-    serde_json::from_slice::<O>(&content).map_err(Error::deser)
 }
 
 #[cfg(test)]
@@ -702,12 +663,10 @@ mod tests {
     use super::*;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
-    use google_cloud_api::model::HttpBody;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider};
     use google_cloud_auth::errors::CredentialsError;
     use http::{HeaderMap, HeaderValue, Method};
-    use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::serial;
     use test_case::test_case;
@@ -1107,182 +1066,6 @@ mod tests {
             }
         );
         assert_eq!(result.err().unwrap().http_status_code(), Some(308));
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn http_body_response_binary() -> anyhow::Result<()> {
-        let raw_bytes: &[u8] = b"\x49\x49\x2a\x00\x08\x00\x00\x00";
-        let http_resp = http::Response::builder()
-            .header("Content-Type", "image/tiff")
-            .status(reqwest::StatusCode::OK)
-            .body(raw_bytes.to_vec())?;
-        let response: reqwest::Response = http_resp.into();
-
-        let response = super::to_http_response::<HttpBody>(response).await?;
-        let body = response.into_body();
-        assert_eq!(body.content_type, "image/tiff");
-        assert_eq!(body.data, bytes::Bytes::from_static(raw_bytes));
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn http_body_response_json_bytes() -> anyhow::Result<()> {
-        let json_bytes = br#"{"format-version": 2, "table-uuid": "1234"}"#;
-        let http_resp = http::Response::builder()
-            .header("Content-Type", "application/json")
-            .status(reqwest::StatusCode::OK)
-            .body(json_bytes.to_vec())?;
-        let response: reqwest::Response = http_resp.into();
-
-        let response = super::to_http_response::<HttpBody>(response).await?;
-        let body = response.into_body();
-        assert_eq!(body.content_type, "application/json");
-        assert_eq!(body.data, bytes::Bytes::from_static(json_bytes));
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn http_body_response_missing_content_type() -> anyhow::Result<()> {
-        let raw_bytes: &[u8] = b"raw-bytes-without-content-type";
-        let http_resp = http::Response::builder()
-            .status(reqwest::StatusCode::OK)
-            .body(raw_bytes.to_vec())?;
-        let response: reqwest::Response = http_resp.into();
-
-        let response = super::to_http_response::<HttpBody>(response).await?;
-        let body = response.into_body();
-        assert_eq!(body.content_type, "");
-        assert_eq!(body.data, bytes::Bytes::from_static(raw_bytes));
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn http_body_response_no_content() -> anyhow::Result<()> {
-        let http_resp = http::Response::builder()
-            .header("Content-Type", "application/json")
-            .status(reqwest::StatusCode::NO_CONTENT)
-            .body(Vec::<u8>::new())?;
-        let response: reqwest::Response = http_resp.into();
-
-        let response = super::to_http_response::<HttpBody>(response).await?;
-        let body = response.into_body();
-        assert_eq!(body, HttpBody::default());
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn execute_http_body_request_and_response() -> anyhow::Result<()> {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/webhook"),
-                request::headers(contains(("content-type", "application/octet-stream"))),
-                request::body(b"\x00\x01\x02\x03".as_slice()),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("Content-Type", "application/json")
-                    .body("{}"),
-            ),
-        );
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/empty-webhook"),
-                not(request::headers(contains(key("content-type")))),
-                request::body(""),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("Content-Type", "application/json")
-                    .body("{}"),
-            ),
-        );
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/no-content-type"),
-                not(request::headers(contains(key("content-type")))),
-                request::body("raw without content-type"),
-            ])
-            .respond_with(status_code(200).body("response without header")),
-        );
-        server.expect(
-            Expectation::matching(request::method_path("GET", "/geotiff")).respond_with(
-                status_code(200)
-                    .append_header("Content-Type", "image/tiff")
-                    .body(b"TIFF_DATA".as_slice()),
-            ),
-        );
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/echo-raw"),
-                request::headers(contains(("content-type", "text/plain"))),
-                request::body("raw input"),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("Content-Type", "text/plain")
-                    .body("raw output"),
-            ),
-        );
-
-        let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
-        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
-
-        // 1. HttpBody request -> JSON response
-        let req_body = HttpBody::new()
-            .set_content_type("application/octet-stream")
-            .set_data(bytes::Bytes::from_static(b"\x00\x01\x02\x03"));
-        let builder = client.builder(Method::POST, "webhook".to_string());
-        let resp: Response<wkt::Empty> = client
-            .execute(builder, Some(req_body), RequestOptions::default())
-            .await?;
-        assert_eq!(resp.into_body(), wkt::Empty::default());
-
-        // 2. Default HttpBody request (empty Content-Type from handle_empty on POST) -> JSON response
-        let default_body = super::handle_empty(None::<HttpBody>, &Method::POST);
-        let builder = client.builder(Method::POST, "empty-webhook".to_string());
-        let resp: Response<wkt::Empty> = client
-            .execute(builder, default_body, RequestOptions::default())
-            .await?;
-        assert_eq!(resp.into_body(), wkt::Empty::default());
-
-        // 3. HttpBody request with empty content_type but non-empty data -> HttpBody response without Content-Type
-        let req_body =
-            HttpBody::new().set_data(bytes::Bytes::from_static(b"raw without content-type"));
-        let builder = client.builder(Method::POST, "no-content-type".to_string());
-        let resp: Response<HttpBody> = client
-            .execute(builder, Some(req_body), RequestOptions::default())
-            .await?;
-        let body = resp.into_body();
-        assert_eq!(body.content_type, "");
-        assert_eq!(
-            body.data,
-            bytes::Bytes::from_static(b"response without header")
-        );
-
-        // 4. NoBody request -> HttpBody response
-        let builder = client.builder(Method::GET, "geotiff".to_string());
-        let resp: Response<HttpBody> = client
-            .execute(builder, None::<NoBody>, RequestOptions::default())
-            .await?;
-        let body = resp.into_body();
-        assert_eq!(body.content_type, "image/tiff");
-        assert_eq!(body.data, bytes::Bytes::from_static(b"TIFF_DATA"));
-
-        // 5. HttpBody request -> HttpBody response
-        let req_body = HttpBody::new()
-            .set_content_type("text/plain")
-            .set_data(bytes::Bytes::from_static(b"raw input"));
-        let builder = client.builder(Method::POST, "echo-raw".to_string());
-        let resp: Response<HttpBody> = client
-            .execute(builder, Some(req_body), RequestOptions::default())
-            .await?;
-        let body = resp.into_body();
-        assert_eq!(body.content_type, "text/plain");
-        assert_eq!(body.data, bytes::Bytes::from_static(b"raw output"));
-
         Ok(())
     }
 }
