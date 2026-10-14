@@ -597,6 +597,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AppGateway {
             __uri,
             __allocated_connections,
             __host_type,
+            __satisfies_pzs,
+            __satisfies_pzi,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -633,6 +635,10 @@ impl<'de> serde::de::Deserialize<'de> for super::AppGateway {
                             "allocated_connections" => Ok(__FieldTag::__allocated_connections),
                             "hostType" => Ok(__FieldTag::__host_type),
                             "host_type" => Ok(__FieldTag::__host_type),
+                            "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfiesPzi" => Ok(__FieldTag::__satisfies_pzi),
+                            "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -769,6 +775,22 @@ impl<'de> serde::de::Deserialize<'de> for super::AppGateway {
                                 ));
                             }
                             result.host_type = map.next_value::<std::option::Option<crate::model::app_gateway::HostType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__satisfies_pzs => {
+                            if !fields.insert(__FieldTag::__satisfies_pzs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzs",
+                                ));
+                            }
+                            result.satisfies_pzs = map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__satisfies_pzi => {
+                            if !fields.insert(__FieldTag::__satisfies_pzi) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzi",
+                                ));
+                            }
+                            result.satisfies_pzi = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

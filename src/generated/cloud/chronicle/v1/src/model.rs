@@ -2389,7 +2389,7 @@ pub mod dashboard_chart {
                 /// ```
                 pub fn set_value<T>(mut self, v: T) -> Self
                 where T: std::convert::Into<crate::model::dashboard_chart::visualization::series::UserSelectedValues>
-                {
+{
                     self.value = std::option::Option::Some(v.into());
                     self
                 }
@@ -2405,7 +2405,7 @@ pub mod dashboard_chart {
                 /// ```
                 pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
                 where T: std::convert::Into<crate::model::dashboard_chart::visualization::series::UserSelectedValues>
-                {
+{
                     self.value = v.map(|x| x.into());
                     self
                 }
@@ -3323,7 +3323,7 @@ pub mod dashboard_chart {
             /// ```
             pub fn set_data_settings<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::DataSettings>
-            {
+{
                 self.data_settings = std::option::Option::Some(v.into());
                 self
             }
@@ -3339,7 +3339,7 @@ pub mod dashboard_chart {
             /// ```
             pub fn set_or_clear_data_settings<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::DataSettings>
-            {
+{
                 self.data_settings = v.map(|x| x.into());
                 self
             }
@@ -3372,7 +3372,7 @@ pub mod dashboard_chart {
             /// ```
             pub fn set_map_position<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::MapPosition>
-            {
+{
                 self.map_position = std::option::Option::Some(v.into());
                 self
             }
@@ -3388,7 +3388,7 @@ pub mod dashboard_chart {
             /// ```
             pub fn set_or_clear_map_position<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::MapPosition>
-            {
+{
                 self.map_position = v.map(|x| x.into());
                 self
             }
@@ -3403,7 +3403,7 @@ pub mod dashboard_chart {
             /// ```
             pub fn set_point_settings<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::PointSettings>
-            {
+{
                 self.point_settings = std::option::Option::Some(v.into());
                 self
             }
@@ -3419,7 +3419,7 @@ pub mod dashboard_chart {
             /// ```
             pub fn set_or_clear_point_settings<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::dashboard_chart::visualization::google_maps_config::PointSettings>
-            {
+{
                 self.point_settings = v.map(|x| x.into());
                 self
             }
@@ -4189,7 +4189,7 @@ pub mod dashboard_chart {
                 ///     google_cloud_chronicle_v1::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action::Query(DrillDownQuery::default().into())));
                 /// ```
                 pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::Action>>>(mut self, v: T) -> Self
-                {
+{
                     self.action = v.into();
                     self
                 }
@@ -4383,7 +4383,7 @@ pub mod dashboard_chart {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<crate::model::dashboard_chart::drill_down_config::drill_down::custom_drill_down_settings::drill_down_filter::DrillDownDashboardFilter>
-                    {
+{
                         use std::iter::Iterator;
                         self.dashboard_filters = v.into_iter().map(|i| i.into()).collect();
                         self
@@ -39498,7 +39498,7 @@ pub mod detection_exclusion_activity {
         /// let x = DetectionExclusionDetectorActivity::new().set_detector_name(Some(DetectorName::CuratedRule("example".to_string())));
         /// ```
         pub fn set_detector_name<T: std::convert::Into<std::option::Option<crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName>>>(mut self, v: T) -> Self
-        {
+{
             self.detector_name = v.into();
             self
         }

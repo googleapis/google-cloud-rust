@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Cloud DNS
 //!
-//! This client library was generated from the "20260915" revision of the API.
+//! This client library was generated from the "20261002" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Cloud DNS
 //! Most applications will use the structs defined in the [client] module.
@@ -31,8 +31,11 @@
 //!
 //! * [Changes](client/struct.Changes.html)
 //! * [DnsKeys](client/struct.DnsKeys.html)
+//! * [Locations](client/struct.Locations.html)
 //! * [ManagedZoneOperations](client/struct.ManagedZoneOperations.html)
 //! * [ManagedZones](client/struct.ManagedZones.html)
+//! * [Operations](client/struct.Operations.html)
+//! * [OutboundEndpoints](client/struct.OutboundEndpoints.html)
 //! * [Policies](client/struct.Policies.html)
 //! * [Projects](client/struct.Projects.html)
 //! * [ResourceRecordSets](client/struct.ResourceRecordSets.html)

@@ -340,6 +340,155 @@ impl DnsKeys {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_dns_v1::client::Locations;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = Locations::builder().build().await?;
+///     let response = client.get()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `locations` resource.
+///
+/// # Configuration
+///
+/// To configure `Locations` use the `with_*` methods in the type returned
+/// by [builder()][Locations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dns.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::locations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::locations::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Locations` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Locations` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct Locations {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Locations>,
+}
+
+impl Locations {
+    /// Returns a builder for [Locations].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_dns_v1::client::Locations;
+    /// let client = Locations::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::locations::ClientBuilder {
+        crate::new_client_builder(super::builder::locations::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::Locations + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Locations>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Locations> {
+        super::transport::Locations::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Locations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Locations::new)
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Locations;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Locations
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::locations::Get {
+        super::builder::locations::Get::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service. This method lists locations based on the resource scope provided in the ListLocationsRequest.name field: * **Global locations**: If `name` is empty, the method lists the public locations available to all projects. * **Project-specific locations**: If `name` follows the format `projects/{project}`, the method lists locations visible to that specific project. This includes public, private, or other project-specific locations enabled for the project. For gRPC and client library implementations, the resource name is passed as the `name` field. For direct service calls, the resource name is incorporated into the request path based on the specific service implementation and version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Locations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Locations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list(&self) -> super::builder::locations::List {
+        super::builder::locations::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud DNS.
+///
+/// # Example
+/// ```
 /// # use google_cloud_dns_v1::client::ManagedZoneOperations;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -793,6 +942,405 @@ impl ManagedZones {
     /// ```
     pub fn get_operation(&self) -> super::builder::managed_zones::GetOperation {
         super::builder::managed_zones::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud DNS.
+///
+/// # Example
+/// ```
+/// # use google_cloud_dns_v1::client::Operations;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = Operations::builder().build().await?;
+///     let response = client.cancel()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `operations` resource.
+///
+/// # Configuration
+///
+/// To configure `Operations` use the `with_*` methods in the type returned
+/// by [builder()][Operations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dns.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::operations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::operations::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Operations` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Operations` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct Operations {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Operations>,
+}
+
+impl Operations {
+    /// Returns a builder for [Operations].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_dns_v1::client::Operations;
+    /// let client = Operations::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::operations::ClientBuilder {
+        crate::new_client_builder(super::builder::operations::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::Operations + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Operations>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Operations> {
+        super::transport::Operations::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Operations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Operations::new)
+    }
+
+    /// Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Operations;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Operations
+    /// ) -> Result<()> {
+    ///     let response = client.cancel()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel(&self) -> super::builder::operations::Cancel {
+        super::builder::operations::Cancel::new(self.inner.clone())
+    }
+
+    /// Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Operations;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Operations
+    /// ) -> Result<()> {
+    ///     let response = client.delete()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete(&self) -> super::builder::operations::Delete {
+        super::builder::operations::Delete::new(self.inner.clone())
+    }
+
+    /// Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Operations;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Operations
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::operations::Get {
+        super::builder::operations::Get::new(self.inner.clone())
+    }
+
+    /// Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Operations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Operations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list(&self) -> super::builder::operations::List {
+        super::builder::operations::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud DNS.
+///
+/// # Example
+/// ```
+/// # use google_cloud_dns_v1::client::OutboundEndpoints;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = OutboundEndpoints::builder().build().await?;
+///     let response = client.create()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `outboundEndpoints` resource.
+///
+/// # Configuration
+///
+/// To configure `OutboundEndpoints` use the `with_*` methods in the type returned
+/// by [builder()][OutboundEndpoints::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dns.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::outbound_endpoints::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::outbound_endpoints::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `OutboundEndpoints` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `OutboundEndpoints` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct OutboundEndpoints {
+    inner: std::sync::Arc<dyn super::stub::dynamic::OutboundEndpoints>,
+}
+
+impl OutboundEndpoints {
+    /// Returns a builder for [OutboundEndpoints].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_dns_v1::client::OutboundEndpoints;
+    /// let client = OutboundEndpoints::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::outbound_endpoints::ClientBuilder {
+        crate::new_client_builder(super::builder::outbound_endpoints::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::OutboundEndpoints + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::OutboundEndpoints>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::OutboundEndpoints> {
+        super::transport::OutboundEndpoints::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::OutboundEndpoints> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::OutboundEndpoints::new)
+    }
+
+    /// Creates a new Outbound Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::OutboundEndpoints;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &OutboundEndpoints
+    /// ) -> Result<()> {
+    ///     let response = client.create()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create(&self) -> super::builder::outbound_endpoints::Create {
+        super::builder::outbound_endpoints::Create::new(self.inner.clone())
+    }
+
+    /// Deletes a previously created Outbound Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::OutboundEndpoints;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &OutboundEndpoints
+    /// ) -> Result<()> {
+    ///     let response = client.delete()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete(&self) -> super::builder::outbound_endpoints::Delete {
+        super::builder::outbound_endpoints::Delete::new(self.inner.clone())
+    }
+
+    /// Fetches the representation of an existing Outbound Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::OutboundEndpoints;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &OutboundEndpoints
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::outbound_endpoints::Get {
+        super::builder::outbound_endpoints::Get::new(self.inner.clone())
+    }
+
+    /// Enumerates all Outbound Endpoints associated with a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::OutboundEndpoints;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &OutboundEndpoints
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list(&self) -> super::builder::outbound_endpoints::List {
+        super::builder::outbound_endpoints::List::new(self.inner.clone())
+    }
+
+    /// Updates an existing Outbound Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::OutboundEndpoints;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &OutboundEndpoints
+    /// ) -> Result<()> {
+    ///     let response = client.patch()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn patch(&self) -> super::builder::outbound_endpoints::Patch {
+        super::builder::outbound_endpoints::Patch::new(self.inner.clone())
     }
 }
 

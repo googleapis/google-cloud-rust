@@ -1682,6 +1682,7 @@ impl gaxi::prost::ToProto<Fulfillment> for crate::model::Fulfillment {
             webhook: self.webhook.to_proto()?,
             return_partial_responses: self.return_partial_responses.to_proto()?,
             tag: self.tag.to_proto()?,
+            code_block_function: self.code_block_function.to_proto()?,
             set_parameter_actions: self
                 .set_parameter_actions
                 .into_iter()
@@ -1723,6 +1724,7 @@ impl gaxi::prost::FromProto<crate::model::Fulfillment> for Fulfillment {
             .set_webhook(self.webhook)
             .set_return_partial_responses(self.return_partial_responses)
             .set_tag(self.tag)
+            .set_code_block_function(self.code_block_function)
             .set_set_parameter_actions(
                 self.set_parameter_actions
                     .into_iter()

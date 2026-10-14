@@ -6831,7 +6831,7 @@ pub mod task_tracking_view_config {
         /// let x = VisibilityOption::new().set_visibility_option(Some(VisibilityOptionOneOf::RemainingStopCountThreshold(42)));
         /// ```
         pub fn set_visibility_option<T: std::convert::Into<std::option::Option<crate::model::task_tracking_view_config::visibility_option::VisibilityOption>>>(mut self, v: T) -> Self
-        {
+{
             self.visibility_option = v.into();
             self
         }

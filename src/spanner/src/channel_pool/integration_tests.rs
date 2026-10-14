@@ -42,6 +42,7 @@ use crate::statement::Statement;
 use anyhow::{Error, Result};
 use gaxi::grpc::tonic::{Response, Status};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::retry_policy::NeverRetry;
 use google_cloud_test_macros::tokio_test_no_panics;
 use mockall::Sequence;
 use prost_types::Timestamp;
@@ -106,22 +107,12 @@ async fn setup_client_with_dynamic_pool(
 }
 
 fn total_in_flight(spanner: &Spanner) -> u32 {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
+    let active_guard = spanner.channel_pool().inner.read_active_entries();
     active_guard.iter().map(|entry| entry.in_flight()).sum()
 }
 
 fn total_active_rw(spanner: &Spanner) -> u32 {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
+    let active_guard = spanner.channel_pool().inner.read_active_entries();
     active_guard
         .iter()
         .map(|entry| entry.active_rw_count())
@@ -129,13 +120,7 @@ fn total_active_rw(spanner: &Spanner) -> u32 {
 }
 
 fn active_channel_entries(spanner: &Spanner) -> Vec<Arc<ChannelEntry>> {
-    let active_guard = spanner
-        .channel_pool()
-        .inner
-        .active_entries
-        .read()
-        .expect("lock poisoned");
-    active_guard.clone()
+    spanner.channel_pool().active_entries()
 }
 
 async fn wait_for_in_flight(spanner: &Spanner, expected: u32, timeout_duration: Duration) {
@@ -329,7 +314,11 @@ async fn streaming_query_initial_error_releases_in_flight_and_applies_penalty() 
     let query_result = database_client
         .single_use()
         .build()
-        .execute_query(Statement::builder("SELECT 1").build())
+        .execute_query(
+            Statement::builder("SELECT 1")
+                .with_retry_policy(NeverRetry)
+                .build(),
+        )
         .await;
 
     assert!(
@@ -1608,7 +1597,11 @@ async fn p2c_avoids_channel_with_error_penalty() -> Result<()> {
         database_client
             .single_use()
             .build()
-            .execute_query(Statement::builder("SELECT 1").build())
+            .execute_query(
+                Statement::builder("SELECT 1")
+                    .with_retry_policy(NeverRetry)
+                    .build(),
+            )
             .await
             .is_err(),
         "Expected query to fail to apply penalty"

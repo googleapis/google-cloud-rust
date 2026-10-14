@@ -92,4 +92,11 @@ mod tests {
         }
         result
     }
+
+    // Requires a running Pub/Sub emulator, with `PUBSUB_EMULATOR_HOST` set.
+    #[cfg(feature = "skipped-integration-tests")]
+    #[tokio::test]
+    async fn emulator_samples() -> anyhow::Result<()> {
+        run_emulator_samples().await.inspect_err(anydump)
+    }
 }

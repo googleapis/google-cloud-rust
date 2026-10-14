@@ -104,6 +104,19 @@ where
         *self.spec.lock().expect("never poisoned") = state;
     }
 
+    /// Records the `write_handle` and `generation` carried by a response read from a live stream.
+    ///
+    /// The service periodically refreshes the write handle in otherwise empty responses. Storing
+    /// it here ensures the next [`reconnect`][Self::reconnect] opens its stream with the latest
+    /// handle rather than the one from the original handshake. The handshake response itself is
+    /// recorded by `connect_attempt`, so callers only need this for later messages.
+    pub(crate) fn handle_response(&self, response: &BidiWriteObjectResponse) {
+        self.spec
+            .lock()
+            .expect("never poisoned")
+            .handle_response(response);
+    }
+
     pub async fn connect_open(
         &mut self,
         req: crate::model_ext::OpenAppendableObjectRequest,

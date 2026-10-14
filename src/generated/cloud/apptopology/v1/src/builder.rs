@@ -242,6 +242,127 @@ pub mod app_topology {
         }
     }
 
+    /// The request builder for [AppTopology::explore_schema][crate::client::AppTopology::explore_schema] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apptopology_v1::builder::app_topology::ExploreSchema;
+    /// # async fn sample() -> google_cloud_apptopology_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ExploreSchema {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExploreSchema(RequestBuilder<crate::model::ExploreSchemaRequest>);
+
+    impl ExploreSchema {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppTopology>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExploreSchemaRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ExploreSchemaResponse> {
+            (*self.0.stub)
+                .explore_schema(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ExploreSchemaResponse, crate::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ExploreSchemaResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][crate::model::ExploreSchemaRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [start_labels][crate::model::ExploreSchemaRequest::start_labels].
+        pub fn set_start_labels<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.start_labels = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [depth][crate::model::ExploreSchemaRequest::depth].
+        pub fn set_depth<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.depth = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ExploreSchemaRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ExploreSchemaRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ExploreSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [AppTopology::get_domain][crate::client::AppTopology::get_domain] calls.
     ///
     /// # Example

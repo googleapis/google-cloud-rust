@@ -3468,7 +3468,7 @@ pub mod dataset_config {
             /// let x = CloudStorageBucket::new().set_cloud_storage_bucket(Some(CloudStorageBucketOneOf::BucketName("example".to_string())));
             /// ```
             pub fn set_cloud_storage_bucket<T: std::convert::Into<std::option::Option<crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket>>>(mut self, v: T) -> Self
-            {
+{
                 self.cloud_storage_bucket = v.into();
                 self
             }

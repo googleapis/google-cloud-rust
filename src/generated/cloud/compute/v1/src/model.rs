@@ -540,7 +540,7 @@ impl AcceleratorTopologiesInfoAcceleratorTopologyInfoInfoPerTopologyState {
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::accelerator_topologies_info_accelerator_topology_info_info_per_topology_state::State>
-    {
+{
         self.state = std::option::Option::Some(v.into());
         self
     }
@@ -558,7 +558,7 @@ impl AcceleratorTopologiesInfoAcceleratorTopologyInfoInfoPerTopologyState {
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::accelerator_topologies_info_accelerator_topology_info_info_per_topology_state::State>
-    {
+{
         self.state = v.map(|x| x.into());
         self
     }
@@ -9953,7 +9953,7 @@ impl AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk {
     /// ```
     pub fn set_interface<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::allocation_specific_sku_allocation_allocated_instance_properties_reserved_disk::Interface>
-    {
+{
         self.interface = std::option::Option::Some(v.into());
         self
     }
@@ -9969,7 +9969,7 @@ impl AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk {
     /// ```
     pub fn set_or_clear_interface<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::allocation_specific_sku_allocation_allocated_instance_properties_reserved_disk::Interface>
-    {
+{
         self.interface = v.map(|x| x.into());
         self
     }
@@ -10209,7 +10209,7 @@ impl AllocationSpecificSKUAllocationReservedInstanceProperties {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk>
-    {
+{
         use std::iter::Iterator;
         self.local_ssds = v.into_iter().map(|i| i.into()).collect();
         self
@@ -29872,7 +29872,7 @@ impl BackendServiceConnectionTrackingPolicy {
     /// ```
     pub fn set_connection_persistence_on_unhealthy_backends<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::backend_service_connection_tracking_policy::ConnectionPersistenceOnUnhealthyBackends>
-    {
+{
         self.connection_persistence_on_unhealthy_backends = std::option::Option::Some(v.into());
         self
     }
@@ -29889,7 +29889,7 @@ impl BackendServiceConnectionTrackingPolicy {
     /// ```
     pub fn set_or_clear_connection_persistence_on_unhealthy_backends<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::backend_service_connection_tracking_policy::ConnectionPersistenceOnUnhealthyBackends>
-    {
+{
         self.connection_persistence_on_unhealthy_backends = v.map(|x| x.into());
         self
     }
@@ -33935,7 +33935,7 @@ impl BackendServiceNetworkPassThroughLbTrafficPolicyZonalAffinity {
     /// ```
     pub fn set_spillover<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::backend_service_network_pass_through_lb_traffic_policy_zonal_affinity::Spillover>
-    {
+{
         self.spillover = std::option::Option::Some(v.into());
         self
     }
@@ -33952,7 +33952,7 @@ impl BackendServiceNetworkPassThroughLbTrafficPolicyZonalAffinity {
     /// ```
     pub fn set_or_clear_spillover<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::backend_service_network_pass_through_lb_traffic_policy_zonal_affinity::Spillover>
-    {
+{
         self.spillover = v.map(|x| x.into());
         self
     }
@@ -42305,7 +42305,7 @@ impl CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelection {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelectionAttachedDisk>
-    {
+{
         use std::iter::Iterator;
         self.disks = v.into_iter().map(|i| i.into()).collect();
         self
@@ -42418,7 +42418,7 @@ impl CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelectionAttachedDisk
     /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::capacity_advice_request_instance_flexibility_policy_instance_selection_attached_disk::Type>
-    {
+{
         self.r#type = std::option::Option::Some(v.into());
         self
     }
@@ -42434,7 +42434,7 @@ impl CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelectionAttachedDisk
     /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::capacity_advice_request_instance_flexibility_policy_instance_selection_attached_disk::Type>
-    {
+{
         self.r#type = v.map(|x| x.into());
         self
     }
@@ -42646,7 +42646,7 @@ impl CapacityAdviceRequestInstancePropertiesScheduling {
     /// ```
     pub fn set_provisioning_model<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::capacity_advice_request_instance_properties_scheduling::ProvisioningModel>
-    {
+{
         self.provisioning_model = std::option::Option::Some(v.into());
         self
     }
@@ -42664,7 +42664,7 @@ impl CapacityAdviceRequestInstancePropertiesScheduling {
     /// ```
     pub fn set_or_clear_provisioning_model<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::capacity_advice_request_instance_properties_scheduling::ProvisioningModel>
-    {
+{
         self.provisioning_model = v.map(|x| x.into());
         self
     }
@@ -43897,7 +43897,7 @@ impl CapacityHistoryRequestInstancePropertiesScheduling {
     /// ```
     pub fn set_provisioning_model<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::capacity_history_request_instance_properties_scheduling::ProvisioningModel>
-    {
+{
         self.provisioning_model = std::option::Option::Some(v.into());
         self
     }
@@ -43915,7 +43915,7 @@ impl CapacityHistoryRequestInstancePropertiesScheduling {
     /// ```
     pub fn set_or_clear_provisioning_model<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::capacity_history_request_instance_properties_scheduling::ProvisioningModel>
-    {
+{
         self.provisioning_model = v.map(|x| x.into());
         self
     }
@@ -51050,7 +51050,7 @@ impl CompositeHealthChecksGetHealthResponseHealthSourceHealth {
     /// ```
     pub fn set_health_state<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::composite_health_checks_get_health_response_health_source_health::HealthState>
-    {
+{
         self.health_state = std::option::Option::Some(v.into());
         self
     }
@@ -51067,7 +51067,7 @@ impl CompositeHealthChecksGetHealthResponseHealthSourceHealth {
     /// ```
     pub fn set_or_clear_health_state<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::composite_health_checks_get_health_response_health_source_health::HealthState>
-    {
+{
         self.health_state = v.map(|x| x.into());
         self
     }
@@ -98535,7 +98535,7 @@ impl GlobalVmExtensionPolicyRolloutOperationRolloutInput {
     /// ```
     pub fn set_predefined_rollout_plan<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::global_vm_extension_policy_rollout_operation_rollout_input::PredefinedRolloutPlan>
-    {
+{
         self.predefined_rollout_plan = std::option::Option::Some(v.into());
         self
     }
@@ -98552,7 +98552,7 @@ impl GlobalVmExtensionPolicyRolloutOperationRolloutInput {
     /// ```
     pub fn set_or_clear_predefined_rollout_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::global_vm_extension_policy_rollout_operation_rollout_input::PredefinedRolloutPlan>
-    {
+{
         self.predefined_rollout_plan = v.map(|x| x.into());
         self
     }
@@ -98855,7 +98855,7 @@ impl GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadata {
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
         V: std::convert::Into<crate::model::GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadataLocationRolloutStatus>,
-    {
+{
         use std::iter::Iterator;
         self.location_rollout_status = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
@@ -98935,7 +98935,7 @@ impl GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadata {
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::global_vm_extension_policy_rollout_operation_rollout_status_rollout_metadata::State>
-    {
+{
         self.state = std::option::Option::Some(v.into());
         self
     }
@@ -98953,7 +98953,7 @@ impl GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadata {
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::global_vm_extension_policy_rollout_operation_rollout_status_rollout_metadata::State>
-    {
+{
         self.state = v.map(|x| x.into());
         self
     }
@@ -99127,7 +99127,7 @@ impl GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadataLocation
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::global_vm_extension_policy_rollout_operation_rollout_status_rollout_metadata_location_rollout_status::State>
-    {
+{
         self.state = std::option::Option::Some(v.into());
         self
     }
@@ -99145,7 +99145,7 @@ impl GlobalVmExtensionPolicyRolloutOperationRolloutStatusRolloutMetadataLocation
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::global_vm_extension_policy_rollout_operation_rollout_status_rollout_metadata_location_rollout_status::State>
-    {
+{
         self.state = v.map(|x| x.into());
         self
     }
@@ -137262,7 +137262,7 @@ impl InstanceGroupManagerInstanceLifecyclePolicy {
     /// ```
     pub fn set_default_action_on_failure<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::instance_group_manager_instance_lifecycle_policy::DefaultActionOnFailure>
-    {
+{
         self.default_action_on_failure = std::option::Option::Some(v.into());
         self
     }
@@ -137278,7 +137278,7 @@ impl InstanceGroupManagerInstanceLifecyclePolicy {
     /// ```
     pub fn set_or_clear_default_action_on_failure<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::instance_group_manager_instance_lifecycle_policy::DefaultActionOnFailure>
-    {
+{
         self.default_action_on_failure = v.map(|x| x.into());
         self
     }
@@ -137820,7 +137820,7 @@ impl InstanceGroupManagerInstanceLifecyclePolicyOnRepair {
     /// ```
     pub fn set_allow_changing_zone<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::instance_group_manager_instance_lifecycle_policy_on_repair::AllowChangingZone>
-    {
+{
         self.allow_changing_zone = std::option::Option::Some(v.into());
         self
     }
@@ -137836,7 +137836,7 @@ impl InstanceGroupManagerInstanceLifecyclePolicyOnRepair {
     /// ```
     pub fn set_or_clear_allow_changing_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::instance_group_manager_instance_lifecycle_policy_on_repair::AllowChangingZone>
-    {
+{
         self.allow_changing_zone = v.map(|x| x.into());
         self
     }
@@ -139766,7 +139766,7 @@ pub mod instance_group_manager_resize_request_status {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::instance_group_manager_resize_request_status::error::errors::ErrorDetails>
-            {
+{
                 use std::iter::Iterator;
                 self.error_details = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -140166,7 +140166,7 @@ pub mod instance_group_manager_resize_request_status_last_attempt {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::instance_group_manager_resize_request_status_last_attempt::error::Errors>
-        {
+{
             use std::iter::Iterator;
             self.errors = v.into_iter().map(|i| i.into()).collect();
             self
@@ -140280,7 +140280,7 @@ pub mod instance_group_manager_resize_request_status_last_attempt {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::instance_group_manager_resize_request_status_last_attempt::error::errors::ErrorDetails>
-            {
+{
                 use std::iter::Iterator;
                 self.error_details = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -140856,7 +140856,7 @@ pub mod instance_group_manager_resize_requests_list_response {
         /// ```
         pub fn set_code<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::instance_group_manager_resize_requests_list_response::warning::Code>
-        {
+{
             self.code = std::option::Option::Some(v.into());
             self
         }
@@ -140874,7 +140874,7 @@ pub mod instance_group_manager_resize_requests_list_response {
         /// ```
         pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::instance_group_manager_resize_requests_list_response::warning::Code>
-        {
+{
             self.code = v.map(|x| x.into());
             self
         }
@@ -140895,7 +140895,7 @@ pub mod instance_group_manager_resize_requests_list_response {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::instance_group_manager_resize_requests_list_response::warning::Data>
-        {
+{
             use std::iter::Iterator;
             self.data = v.into_iter().map(|i| i.into()).collect();
             self
@@ -142132,7 +142132,7 @@ impl InstanceGroupManagerStatusAcceleratorTopology {
     /// ```
     pub fn set_state_details<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::InstanceGroupManagerStatusAcceleratorTopologyAcceleratorTopologyStateDetails>
-    {
+{
         self.state_details = std::option::Option::Some(v.into());
         self
     }
@@ -142148,7 +142148,7 @@ impl InstanceGroupManagerStatusAcceleratorTopology {
     /// ```
     pub fn set_or_clear_state_details<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::InstanceGroupManagerStatusAcceleratorTopologyAcceleratorTopologyStateDetails>
-    {
+{
         self.state_details = v.map(|x| x.into());
         self
     }
@@ -142355,7 +142355,7 @@ impl InstanceGroupManagerStatusAcceleratorTopologyAcceleratorTopologyStateDetail
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::instance_group_manager_status_accelerator_topology_accelerator_topology_state_details::Error>
-    {
+{
         self.error = std::option::Option::Some(v.into());
         self
     }
@@ -142371,7 +142371,7 @@ impl InstanceGroupManagerStatusAcceleratorTopologyAcceleratorTopologyStateDetail
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::instance_group_manager_status_accelerator_topology_accelerator_topology_state_details::Error>
-    {
+{
         self.error = v.map(|x| x.into());
         self
     }
@@ -142475,7 +142475,7 @@ pub mod instance_group_manager_status_accelerator_topology_accelerator_topology_
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::instance_group_manager_status_accelerator_topology_accelerator_topology_state_details::error::Errors>
-        {
+{
             use std::iter::Iterator;
             self.errors = v.into_iter().map(|i| i.into()).collect();
             self
@@ -142589,7 +142589,7 @@ pub mod instance_group_manager_status_accelerator_topology_accelerator_topology_
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::instance_group_manager_status_accelerator_topology_accelerator_topology_state_details::error::errors::ErrorDetails>
-            {
+{
                 use std::iter::Iterator;
                 self.error_details = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -143112,7 +143112,7 @@ impl InstanceGroupManagerStatusBulkInstanceOperationLastProgressCheck {
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::instance_group_manager_status_bulk_instance_operation_last_progress_check::Error>
-    {
+{
         self.error = std::option::Option::Some(v.into());
         self
     }
@@ -143128,7 +143128,7 @@ impl InstanceGroupManagerStatusBulkInstanceOperationLastProgressCheck {
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::instance_group_manager_status_bulk_instance_operation_last_progress_check::Error>
-    {
+{
         self.error = v.map(|x| x.into());
         self
     }
@@ -143230,7 +143230,7 @@ pub mod instance_group_manager_status_bulk_instance_operation_last_progress_chec
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::instance_group_manager_status_bulk_instance_operation_last_progress_check::error::Errors>
-        {
+{
             use std::iter::Iterator;
             self.errors = v.into_iter().map(|i| i.into()).collect();
             self
@@ -143344,7 +143344,7 @@ pub mod instance_group_manager_status_bulk_instance_operation_last_progress_chec
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::instance_group_manager_status_bulk_instance_operation_last_progress_check::error::errors::ErrorDetails>
-            {
+{
                 use std::iter::Iterator;
                 self.error_details = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -145941,7 +145941,7 @@ impl InstanceGroupManagersApplyUpdatesRequest {
     /// ```
     pub fn set_most_disruptive_allowed_action<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::instance_group_managers_apply_updates_request::MostDisruptiveAllowedAction>
-    {
+{
         self.most_disruptive_allowed_action = std::option::Option::Some(v.into());
         self
     }
@@ -145959,7 +145959,7 @@ impl InstanceGroupManagersApplyUpdatesRequest {
     /// ```
     pub fn set_or_clear_most_disruptive_allowed_action<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::instance_group_managers_apply_updates_request::MostDisruptiveAllowedAction>
-    {
+{
         self.most_disruptive_allowed_action = v.map(|x| x.into());
         self
     }
@@ -146788,7 +146788,7 @@ pub mod instance_group_managers_list_per_instance_configs_resp {
         /// ```
         pub fn set_code<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::instance_group_managers_list_per_instance_configs_resp::warning::Code>
-        {
+{
             self.code = std::option::Option::Some(v.into());
             self
         }
@@ -146806,7 +146806,7 @@ pub mod instance_group_managers_list_per_instance_configs_resp {
         /// ```
         pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::instance_group_managers_list_per_instance_configs_resp::warning::Code>
-        {
+{
             self.code = v.map(|x| x.into());
             self
         }
@@ -146827,7 +146827,7 @@ pub mod instance_group_managers_list_per_instance_configs_resp {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::instance_group_managers_list_per_instance_configs_resp::warning::Data>
-        {
+{
             use std::iter::Iterator;
             self.data = v.into_iter().map(|i| i.into()).collect();
             self
@@ -158260,7 +158260,7 @@ impl InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
     /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::instances_get_effective_firewalls_response_effective_firewall_policy::Type>
-    {
+{
         self.r#type = std::option::Option::Some(v.into());
         self
     }
@@ -158278,7 +158278,7 @@ impl InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
     /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::instances_get_effective_firewalls_response_effective_firewall_policy::Type>
-    {
+{
         self.r#type = v.map(|x| x.into());
         self
     }
@@ -166906,7 +166906,7 @@ impl InterconnectApplicationAwareInterconnectBandwidthPercentage {
     /// ```
     pub fn set_traffic_class<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::interconnect_application_aware_interconnect_bandwidth_percentage::TrafficClass>
-    {
+{
         self.traffic_class = std::option::Option::Some(v.into());
         self
     }
@@ -166924,7 +166924,7 @@ impl InterconnectApplicationAwareInterconnectBandwidthPercentage {
     /// ```
     pub fn set_or_clear_traffic_class<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::interconnect_application_aware_interconnect_bandwidth_percentage::TrafficClass>
-    {
+{
         self.traffic_class = v.map(|x| x.into());
         self
     }
@@ -171627,7 +171627,7 @@ impl InterconnectAttachmentGroupConfiguredAvailabilitySLA {
     /// ```
     pub fn set_effective_sla<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::interconnect_attachment_group_configured_availability_sla::EffectiveSla>
-    {
+{
         self.effective_sla = std::option::Option::Some(v.into());
         self
     }
@@ -171645,7 +171645,7 @@ impl InterconnectAttachmentGroupConfiguredAvailabilitySLA {
     /// ```
     pub fn set_or_clear_effective_sla<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::interconnect_attachment_group_configured_availability_sla::EffectiveSla>
-    {
+{
         self.effective_sla = v.map(|x| x.into());
         self
     }
@@ -171666,7 +171666,7 @@ impl InterconnectAttachmentGroupConfiguredAvailabilitySLA {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::InterconnectAttachmentGroupConfiguredAvailabilitySLAIntendedSlaBlockers>
-    {
+{
         use std::iter::Iterator;
         self.intended_sla_blockers = v.into_iter().map(|i| i.into()).collect();
         self
@@ -171874,7 +171874,7 @@ impl InterconnectAttachmentGroupConfiguredAvailabilitySLAIntendedSlaBlockers {
     /// ```
     pub fn set_blocker_type<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::interconnect_attachment_group_configured_availability_sla_intended_sla_blockers::BlockerType>
-    {
+{
         self.blocker_type = std::option::Option::Some(v.into());
         self
     }
@@ -171892,7 +171892,7 @@ impl InterconnectAttachmentGroupConfiguredAvailabilitySLAIntendedSlaBlockers {
     /// ```
     pub fn set_or_clear_blocker_type<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::interconnect_attachment_group_configured_availability_sla_intended_sla_blockers::BlockerType>
-    {
+{
         self.blocker_type = v.map(|x| x.into());
         self
     }
@@ -174129,7 +174129,7 @@ impl InterconnectAttachmentGroupsOperationalStatusAttachmentStatus {
     /// ```
     pub fn set_is_active<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::interconnect_attachment_groups_operational_status_attachment_status::IsActive>
-    {
+{
         self.is_active = std::option::Option::Some(v.into());
         self
     }
@@ -174146,7 +174146,7 @@ impl InterconnectAttachmentGroupsOperationalStatusAttachmentStatus {
     /// ```
     pub fn set_or_clear_is_active<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::interconnect_attachment_groups_operational_status_attachment_status::IsActive>
-    {
+{
         self.is_active = v.map(|x| x.into());
         self
     }
@@ -174163,7 +174163,7 @@ impl InterconnectAttachmentGroupsOperationalStatusAttachmentStatus {
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::interconnect_attachment_groups_operational_status_attachment_status::Status>
-    {
+{
         self.status = std::option::Option::Some(v.into());
         self
     }
@@ -174181,7 +174181,7 @@ impl InterconnectAttachmentGroupsOperationalStatusAttachmentStatus {
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::interconnect_attachment_groups_operational_status_attachment_status::Status>
-    {
+{
         self.status = v.map(|x| x.into());
         self
     }
@@ -174779,7 +174779,7 @@ impl InterconnectAttachmentL2ForwardingApplianceMapping {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::InterconnectAttachmentL2ForwardingApplianceMappingInnerVlanToApplianceMapping>
-    {
+{
         use std::iter::Iterator;
         self.inner_vlan_to_appliance_mappings = v.into_iter().map(|i| i.into()).collect();
         self
@@ -178847,7 +178847,7 @@ impl InterconnectGroupConfiguredTopologyCapability {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::InterconnectGroupConfiguredTopologyCapabilityIntendedCapabilityBlockers>
-    {
+{
         use std::iter::Iterator;
         self.intended_capability_blockers = v.into_iter().map(|i| i.into()).collect();
         self
@@ -179077,7 +179077,7 @@ impl InterconnectGroupConfiguredTopologyCapabilityIntendedCapabilityBlockers {
     /// ```
     pub fn set_blocker_type<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::interconnect_group_configured_topology_capability_intended_capability_blockers::BlockerType>
-    {
+{
         self.blocker_type = std::option::Option::Some(v.into());
         self
     }
@@ -179095,7 +179095,7 @@ impl InterconnectGroupConfiguredTopologyCapabilityIntendedCapabilityBlockers {
     /// ```
     pub fn set_or_clear_blocker_type<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::interconnect_group_configured_topology_capability_intended_capability_blockers::BlockerType>
-    {
+{
         self.blocker_type = v.map(|x| x.into());
         self
     }
@@ -180387,7 +180387,7 @@ impl InterconnectGroupsCreateMembersInterconnectInput {
     /// ```
     pub fn set_interconnect_type<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::interconnect_groups_create_members_interconnect_input::InterconnectType>
-    {
+{
         self.interconnect_type = std::option::Option::Some(v.into());
         self
     }
@@ -180404,7 +180404,7 @@ impl InterconnectGroupsCreateMembersInterconnectInput {
     /// ```
     pub fn set_or_clear_interconnect_type<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::interconnect_groups_create_members_interconnect_input::InterconnectType>
-    {
+{
         self.interconnect_type = v.map(|x| x.into());
         self
     }
@@ -180556,7 +180556,7 @@ impl InterconnectGroupsCreateMembersInterconnectInput {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::interconnect_groups_create_members_interconnect_input::RequestedFeatures>
-    {
+{
         use std::iter::Iterator;
         self.requested_features = v.into_iter().map(|i| i.into()).collect();
         self
@@ -229982,7 +229982,7 @@ impl NetworksGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
     /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::networks_get_effective_firewalls_response_effective_firewall_policy::Type>
-    {
+{
         self.r#type = std::option::Option::Some(v.into());
         self
     }
@@ -230000,7 +230000,7 @@ impl NetworksGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
     /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::networks_get_effective_firewalls_response_effective_firewall_policy::Type>
-    {
+{
         self.r#type = v.map(|x| x.into());
         self
     }
@@ -262220,7 +262220,7 @@ impl PreviewFeatureRolloutOperationRolloutInput {
     /// ```
     pub fn set_predefined_rollout_plan<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::preview_feature_rollout_operation_rollout_input::PredefinedRolloutPlan>
-    {
+{
         self.predefined_rollout_plan = std::option::Option::Some(v.into());
         self
     }
@@ -262237,7 +262237,7 @@ impl PreviewFeatureRolloutOperationRolloutInput {
     /// ```
     pub fn set_or_clear_predefined_rollout_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::preview_feature_rollout_operation_rollout_input::PredefinedRolloutPlan>
-    {
+{
         self.predefined_rollout_plan = v.map(|x| x.into());
         self
     }
@@ -279444,7 +279444,7 @@ pub mod region_instance_group_manager_resize_requests_list_response {
         /// ```
         pub fn set_code<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::region_instance_group_manager_resize_requests_list_response::warning::Code>
-        {
+{
             self.code = std::option::Option::Some(v.into());
             self
         }
@@ -279462,7 +279462,7 @@ pub mod region_instance_group_manager_resize_requests_list_response {
         /// ```
         pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::region_instance_group_manager_resize_requests_list_response::warning::Code>
-        {
+{
             self.code = v.map(|x| x.into());
             self
         }
@@ -279483,7 +279483,7 @@ pub mod region_instance_group_manager_resize_requests_list_response {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::region_instance_group_manager_resize_requests_list_response::warning::Data>
-        {
+{
             use std::iter::Iterator;
             self.data = v.into_iter().map(|i| i.into()).collect();
             self
@@ -280225,7 +280225,7 @@ impl RegionInstanceGroupManagersApplyUpdatesRequest {
     /// ```
     pub fn set_most_disruptive_allowed_action<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::region_instance_group_managers_apply_updates_request::MostDisruptiveAllowedAction>
-    {
+{
         self.most_disruptive_allowed_action = std::option::Option::Some(v.into());
         self
     }
@@ -280243,7 +280243,7 @@ impl RegionInstanceGroupManagersApplyUpdatesRequest {
     /// ```
     pub fn set_or_clear_most_disruptive_allowed_action<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::region_instance_group_managers_apply_updates_request::MostDisruptiveAllowedAction>
-    {
+{
         self.most_disruptive_allowed_action = v.map(|x| x.into());
         self
     }
@@ -280921,7 +280921,7 @@ pub mod region_instance_group_managers_list_instance_configs_resp {
         /// ```
         pub fn set_code<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::region_instance_group_managers_list_instance_configs_resp::warning::Code>
-        {
+{
             self.code = std::option::Option::Some(v.into());
             self
         }
@@ -280939,7 +280939,7 @@ pub mod region_instance_group_managers_list_instance_configs_resp {
         /// ```
         pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::region_instance_group_managers_list_instance_configs_resp::warning::Code>
-        {
+{
             self.code = v.map(|x| x.into());
             self
         }
@@ -280960,7 +280960,7 @@ pub mod region_instance_group_managers_list_instance_configs_resp {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::region_instance_group_managers_list_instance_configs_resp::warning::Data>
-        {
+{
             use std::iter::Iterator;
             self.data = v.into_iter().map(|i| i.into()).collect();
             self
@@ -284055,7 +284055,7 @@ impl RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponse {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponseEffectiveFirewallPolicy>
-    {
+{
         use std::iter::Iterator;
         self.firewall_policys = v.into_iter().map(|i| i.into()).collect();
         self
@@ -284276,7 +284276,7 @@ impl RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponseEffectiveFirewall
     /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::region_network_firewall_policies_get_effective_firewalls_response_effective_firewall_policy::Type>
-    {
+{
         self.r#type = std::option::Option::Some(v.into());
         self
     }
@@ -284294,7 +284294,7 @@ impl RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponseEffectiveFirewall
     /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::region_network_firewall_policies_get_effective_firewalls_response_effective_firewall_policy::Type>
-    {
+{
         self.r#type = v.map(|x| x.into());
         self
     }
@@ -302786,7 +302786,7 @@ impl ResourcePolicySnapshotSchedulePolicyRetentionPolicy {
     /// ```
     pub fn set_on_source_disk_delete<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::resource_policy_snapshot_schedule_policy_retention_policy::OnSourceDiskDelete>
-    {
+{
         self.on_source_disk_delete = std::option::Option::Some(v.into());
         self
     }
@@ -302803,7 +302803,7 @@ impl ResourcePolicySnapshotSchedulePolicyRetentionPolicy {
     /// ```
     pub fn set_or_clear_on_source_disk_delete<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::resource_policy_snapshot_schedule_policy_retention_policy::OnSourceDiskDelete>
-    {
+{
         self.on_source_disk_delete = v.map(|x| x.into());
         self
     }
@@ -333641,7 +333641,7 @@ impl SecurityPolicyAdaptiveProtectionConfigLayer7DdosDefenseConfig {
     /// ```
     pub fn set_rule_visibility<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::security_policy_adaptive_protection_config_layer_7_ddos_defense_config::RuleVisibility>
-    {
+{
         self.rule_visibility = std::option::Option::Some(v.into());
         self
     }
@@ -333657,7 +333657,7 @@ impl SecurityPolicyAdaptiveProtectionConfigLayer7DdosDefenseConfig {
     /// ```
     pub fn set_or_clear_rule_visibility<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::security_policy_adaptive_protection_config_layer_7_ddos_defense_config::RuleVisibility>
-    {
+{
         self.rule_visibility = v.map(|x| x.into());
         self
     }
@@ -333678,7 +333678,7 @@ impl SecurityPolicyAdaptiveProtectionConfigLayer7DdosDefenseConfig {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::SecurityPolicyAdaptiveProtectionConfigLayer7DdosDefenseConfigThresholdConfig>
-    {
+{
         use std::iter::Iterator;
         self.threshold_configs = v.into_iter().map(|i| i.into()).collect();
         self
@@ -334159,7 +334159,7 @@ impl SecurityPolicyAdaptiveProtectionConfigLayer7DdosDefenseConfigThresholdConfi
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::SecurityPolicyAdaptiveProtectionConfigLayer7DdosDefenseConfigThresholdConfigTrafficGranularityConfig>
-    {
+{
         use std::iter::Iterator;
         self.traffic_granularity_configs = v.into_iter().map(|i| i.into()).collect();
         self
@@ -338565,7 +338565,7 @@ impl SecurityPolicyRulePreconfiguredWafConfigExclusionFieldParams {
     /// ```
     pub fn set_op<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::security_policy_rule_preconfigured_waf_config_exclusion_field_params::Op>
-    {
+{
         self.op = std::option::Option::Some(v.into());
         self
     }
@@ -338583,7 +338583,7 @@ impl SecurityPolicyRulePreconfiguredWafConfigExclusionFieldParams {
     /// ```
     pub fn set_or_clear_op<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::security_policy_rule_preconfigured_waf_config_exclusion_field_params::Op>
-    {
+{
         self.op = v.map(|x| x.into());
         self
     }
@@ -339509,7 +339509,7 @@ impl SecurityPolicyRuleRateLimitOptionsEnforceOnKeyConfig {
     /// ```
     pub fn set_enforce_on_key_type<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::security_policy_rule_rate_limit_options_enforce_on_key_config::EnforceOnKeyType>
-    {
+{
         self.enforce_on_key_type = std::option::Option::Some(v.into());
         self
     }
@@ -339527,7 +339527,7 @@ impl SecurityPolicyRuleRateLimitOptionsEnforceOnKeyConfig {
     /// ```
     pub fn set_or_clear_enforce_on_key_type<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::security_policy_rule_rate_limit_options_enforce_on_key_config::EnforceOnKeyType>
-    {
+{
         self.enforce_on_key_type = v.map(|x| x.into());
         self
     }
@@ -345562,7 +345562,7 @@ impl SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>
-    {
+{
         self.state = std::option::Option::Some(v.into());
         self
     }
@@ -345580,7 +345580,7 @@ impl SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>
-    {
+{
         self.state = v.map(|x| x.into());
         self
     }
@@ -413015,7 +413015,7 @@ impl VpnGatewayStatusHighAvailabilityRequirementState {
     /// ```
     pub fn set_unsatisfied_reason<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::vpn_gateway_status_high_availability_requirement_state::UnsatisfiedReason>
-    {
+{
         self.unsatisfied_reason = std::option::Option::Some(v.into());
         self
     }
@@ -413031,7 +413031,7 @@ impl VpnGatewayStatusHighAvailabilityRequirementState {
     /// ```
     pub fn set_or_clear_unsatisfied_reason<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::vpn_gateway_status_high_availability_requirement_state::UnsatisfiedReason>
-    {
+{
         self.unsatisfied_reason = v.map(|x| x.into());
         self
     }

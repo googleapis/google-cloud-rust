@@ -15151,6 +15151,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Fulfillment {
             __webhook,
             __return_partial_responses,
             __tag,
+            __code_block_function,
             __set_parameter_actions,
             __conditional_cases,
             __advanced_settings,
@@ -15183,6 +15184,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Fulfillment {
                                 Ok(__FieldTag::__return_partial_responses)
                             }
                             "tag" => Ok(__FieldTag::__tag),
+                            "codeBlockFunction" => Ok(__FieldTag::__code_block_function),
+                            "code_block_function" => Ok(__FieldTag::__code_block_function),
                             "setParameterActions" => Ok(__FieldTag::__set_parameter_actions),
                             "set_parameter_actions" => Ok(__FieldTag::__set_parameter_actions),
                             "conditionalCases" => Ok(__FieldTag::__conditional_cases),
@@ -15260,6 +15263,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Fulfillment {
                                 ));
                             }
                             result.tag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__code_block_function => {
+                            if !fields.insert(__FieldTag::__code_block_function) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for code_block_function",
+                                ));
+                            }
+                            result.code_block_function = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }

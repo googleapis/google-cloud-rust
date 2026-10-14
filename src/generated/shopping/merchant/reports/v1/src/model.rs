@@ -3112,7 +3112,7 @@ pub mod product_view {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::product_view::item_issue::item_issue_severity::IssueSeverityPerReportingContext>
-            {
+{
                 use std::iter::Iterator;
                 self.severity_per_reporting_context = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -3130,7 +3130,7 @@ pub mod product_view {
             /// ```
             pub fn set_aggregated_severity<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::product_view::item_issue::item_issue_severity::AggregatedIssueSeverity>
-            {
+{
                 self.aggregated_severity = std::option::Option::Some(v.into());
                 self
             }
@@ -3148,7 +3148,7 @@ pub mod product_view {
             /// ```
             pub fn set_or_clear_aggregated_severity<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::product_view::item_issue::item_issue_severity::AggregatedIssueSeverity>
-            {
+{
                 self.aggregated_severity = v.map(|x| x.into());
                 self
             }

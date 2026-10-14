@@ -15,6 +15,7 @@
 //! Retains unacknowledged chunks, trims acknowledged data, and provides chunks
 //! for resending upon stream reconnect.
 
+use super::MAX_WRITE_CHUNK_SIZE;
 use crate::google::storage::v2::{
     BidiWriteObjectRequest, ChecksummedData, bidi_write_object_request::Data,
 };
@@ -24,6 +25,13 @@ use std::collections::VecDeque;
 /// Defines the default capacity of the [`ReplayBuffer`] in bytes (32 MiB).
 // TODO(#5716): Remove once ReplayBuffer capacity is configured via CommonOptions.
 pub const DEFAULT_REPLAY_BUFFER_SIZE: usize = 32 * 1024 * 1024;
+
+/// Defines the smallest capacity a [`ReplayBuffer`] may have.
+///
+/// Must exceed `2 * MAX_WRITE_CHUNK_SIZE` so the worker's high watermark
+/// (`capacity - 2 * MAX_WRITE_CHUNK_SIZE`) is non-zero and leaves room for at least one chunk.
+// TODO(#5716): Enforce this when ReplayBuffer capacity becomes configurable.
+pub const MIN_REPLAY_BUFFER_SIZE: usize = 2 * MAX_WRITE_CHUNK_SIZE + 1;
 
 /// Represents an unacknowledged data chunk retained in the [`ReplayBuffer`].
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -85,11 +93,13 @@ impl ReplayBuffer {
     }
 
     /// Creates a new, empty [`ReplayBuffer`] with a specified capacity in bytes.
+    ///
+    /// Clamps `capacity` to at least [`MIN_REPLAY_BUFFER_SIZE`].
     pub fn with_capacity(capacity: usize) -> Self {
         Self {
             queue: VecDeque::new(),
             unpersisted_bytes: 0,
-            capacity,
+            capacity: std::cmp::max(capacity, MIN_REPLAY_BUFFER_SIZE),
         }
     }
 
@@ -109,20 +119,17 @@ impl ReplayBuffer {
     /// If `persisted_size` lands inside a chunk, that chunk is sliced in-place
     /// and its CRC32C is recomputed for the unpersisted sub-slice only.
     pub fn ack(&mut self, persisted_size: i64) {
-        while let Some(front) = self.queue.front() {
-            if front.end_offset() <= persisted_size {
-                self.unpersisted_bytes -= front.data.len();
-                self.queue.pop_front();
-            } else {
-                break;
-            }
+        while let Some(front) = self.queue.front()
+            && front.end_offset() <= persisted_size
+        {
+            self.unpersisted_bytes -= front.data.len();
+            self.queue.pop_front();
         }
 
         if let Some(front) = self.queue.front_mut()
             && front.write_offset < persisted_size
         {
             let trimmed_bytes = (persisted_size - front.write_offset) as usize;
-            // Invariant: persisted_size is guaranteed to be within the bounds of the chunk because front.write_offset < persisted_size and front.end_offset() > persisted_size.
             front.data = front.data.slice(trimmed_bytes..);
             front.write_offset = persisted_size;
             front.crc32c = crc32c::crc32c(&front.data);
@@ -141,6 +148,7 @@ impl ReplayBuffer {
     }
 
     /// Returns the number of chunks currently held in the [`ReplayBuffer`].
+    #[cfg(test)]
     pub fn num_chunks(&self) -> usize {
         self.queue.len()
     }
@@ -155,10 +163,9 @@ impl ReplayBuffer {
         self.queue.iter()
     }
 
-    /// Clears all chunks from the [`ReplayBuffer`] and resets byte tracking.
-    pub fn clear(&mut self) {
-        self.queue.clear();
-        self.unpersisted_bytes = 0;
+    /// Returns the end offset (exclusive) of the newest unacknowledged chunk, if any.
+    pub fn end_offset(&self) -> Option<i64> {
+        self.queue.back().map(|chunk| chunk.end_offset())
     }
 }
 
@@ -304,23 +311,6 @@ mod tests {
     }
 
     #[test]
-    fn clear_resets_size_and_queue() {
-        // Arrange.
-        let mut buf = ReplayBuffer::new();
-        let chunk = Bytes::from_static(b"test data");
-        buf.push(ReplayChunk::new(0, chunk, 0));
-        assert!(!buf.is_empty());
-        assert!(buf.unpersisted_bytes() > 0);
-
-        // Act.
-        buf.clear();
-
-        // Assert.
-        assert!(buf.is_empty());
-        assert_eq!(buf.unpersisted_bytes(), 0);
-    }
-
-    #[test]
     fn with_capacity_default() {
         // Arrange & Act.
         let buf = ReplayBuffer::new();
@@ -344,9 +334,9 @@ mod tests {
     #[test]
     fn is_full_with_custom_capacity() {
         // Arrange.
-        // Use a micro-capacity of 100 bytes for deterministic testing.
-        let mut buf = ReplayBuffer::with_capacity(100);
-        let chunk = Bytes::from(vec![0u8; 100]);
+        // The smallest capacity the buffer accepts, so the test stays deterministic.
+        let mut buf = ReplayBuffer::with_capacity(MIN_REPLAY_BUFFER_SIZE);
+        let chunk = Bytes::from(vec![0u8; MIN_REPLAY_BUFFER_SIZE]);
 
         // Act.
         buf.push(ReplayChunk::new(0, chunk, 0));
@@ -359,5 +349,18 @@ mod tests {
 
         // Assert.
         assert!(!buf.is_full());
+    }
+
+    #[test]
+    fn with_capacity_enforces_minimum() {
+        // Arrange & Act. A capacity at or below the worker's two-chunk headroom would saturate its
+        // watermark to zero, and a zero capacity would make the buffer permanently full.
+        let buf = ReplayBuffer::with_capacity(0);
+        let two_chunks = ReplayBuffer::with_capacity(2 * MAX_WRITE_CHUNK_SIZE);
+
+        // Assert.
+        assert_eq!(buf.capacity(), MIN_REPLAY_BUFFER_SIZE);
+        assert!(!buf.is_full());
+        assert_eq!(two_chunks.capacity(), MIN_REPLAY_BUFFER_SIZE);
     }
 }

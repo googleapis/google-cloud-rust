@@ -1721,7 +1721,7 @@ pub mod generic_http_endpoint_config {
         /// let x = BearerTokenAuthentication::new().set_token(Some(Token::TokenSecretVersion("example".to_string())));
         /// ```
         pub fn set_token<T: std::convert::Into<std::option::Option<crate::model::generic_http_endpoint_config::bearer_token_authentication::Token>>>(mut self, v: T) -> Self
-        {
+{
             self.token = v.into();
             self
         }

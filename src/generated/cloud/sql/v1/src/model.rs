@@ -2300,6 +2300,2105 @@ pub mod backup {
     }
 }
 
+/// A `BlueGreenDeployment` resource represents a Cloud SQL blue-green deployment
+/// setup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BlueGreenDeployment {
+    /// Output only. Identifier. The full resource name of the deployment.
+    /// Format:
+    /// projects/{project}/locations/{location}/blueGreenDeployments/{deployment_id}
+    pub name: std::string::String,
+
+    /// Optional. User-provided description for the deployment.
+    /// The description can be up to 255 characters long.
+    pub description: std::string::String,
+
+    /// Output only. The time when the deployment was created.
+    /// Example: `2024-01-01T00:00:00Z`
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The current state of the blue-green deployment.
+    pub state: crate::model::blue_green_deployment::State,
+
+    /// Required. Immutable. Required on create, and immutable. The full resource
+    /// name of the source instance (the "blue" instance). Format:
+    /// projects/{project}/instances/{instance}
+    pub source_instance: std::string::String,
+
+    /// Output only. The full resource name of the primary target instance (the
+    /// "green" instance) that will be promoted during switchover. This field is
+    /// always populated once the deployment is created. Format:
+    /// projects/{project}/instances/{instance}
+    pub switchover_target_instance: std::string::String,
+
+    /// Output only. Provides details on why switchover is not possible.
+    /// This field is empty unless a switchover attempt failed or the state is
+    /// `SWITCHOVER_NOT_READY`.
+    /// Example: "The target database version does not match the source instance
+    /// database version."
+    pub error_detail: std::string::String,
+
+    /// Output only. A list representing the pairs of source and target instances
+    /// in the deployment.
+    pub deployment_mappings:
+        std::vec::Vec<crate::model::blue_green_deployment::SourceTargetPairedNode>,
+
+    /// Output only. Combined list of tasks for all paired nodes.
+    pub deployment_tasks: std::option::Option<crate::model::blue_green_deployment::DeploymentTasks>,
+
+    /// Optional. Immutable. Optional on create, and immutable. The configuration
+    /// intended for the target instance(s) when the deployment was created.
+    pub requested_config: std::option::Option<crate::model::blue_green_deployment::RequestedConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BlueGreenDeployment {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BlueGreenDeployment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let blue_green_deployment_id = "blue_green_deployment_id";
+    /// let x = BlueGreenDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/blueGreenDeployments/{blue_green_deployment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::BlueGreenDeployment::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// let x = BlueGreenDeployment::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BlueGreenDeployment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// use wkt::Timestamp;
+    /// let x = BlueGreenDeployment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BlueGreenDeployment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// use wkt::Timestamp;
+    /// let x = BlueGreenDeployment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BlueGreenDeployment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BlueGreenDeployment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// use google_cloud_sql_v1::model::blue_green_deployment::State;
+    /// let x0 = BlueGreenDeployment::new().set_state(State::Provisioning);
+    /// let x1 = BlueGreenDeployment::new().set_state(State::SwitchoverReady);
+    /// let x2 = BlueGreenDeployment::new().set_state(State::SwitchoverNotReady);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::blue_green_deployment::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [source_instance][crate::model::BlueGreenDeployment::source_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// let x = BlueGreenDeployment::new().set_source_instance("example");
+    /// ```
+    pub fn set_source_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_instance = v.into();
+        self
+    }
+
+    /// Sets the value of [switchover_target_instance][crate::model::BlueGreenDeployment::switchover_target_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// let x = BlueGreenDeployment::new().set_switchover_target_instance("example");
+    /// ```
+    pub fn set_switchover_target_instance<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.switchover_target_instance = v.into();
+        self
+    }
+
+    /// Sets the value of [error_detail][crate::model::BlueGreenDeployment::error_detail].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// let x = BlueGreenDeployment::new().set_error_detail("example");
+    /// ```
+    pub fn set_error_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_detail = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_mappings][crate::model::BlueGreenDeployment::deployment_mappings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// use google_cloud_sql_v1::model::blue_green_deployment::SourceTargetPairedNode;
+    /// let x = BlueGreenDeployment::new()
+    ///     .set_deployment_mappings([
+    ///         SourceTargetPairedNode::default()/* use setters */,
+    ///         SourceTargetPairedNode::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_deployment_mappings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::blue_green_deployment::SourceTargetPairedNode>,
+    {
+        use std::iter::Iterator;
+        self.deployment_mappings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deployment_tasks][crate::model::BlueGreenDeployment::deployment_tasks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// use google_cloud_sql_v1::model::blue_green_deployment::DeploymentTasks;
+    /// let x = BlueGreenDeployment::new().set_deployment_tasks(DeploymentTasks::default()/* use setters */);
+    /// ```
+    pub fn set_deployment_tasks<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::blue_green_deployment::DeploymentTasks>,
+    {
+        self.deployment_tasks = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment_tasks][crate::model::BlueGreenDeployment::deployment_tasks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// use google_cloud_sql_v1::model::blue_green_deployment::DeploymentTasks;
+    /// let x = BlueGreenDeployment::new().set_or_clear_deployment_tasks(Some(DeploymentTasks::default()/* use setters */));
+    /// let x = BlueGreenDeployment::new().set_or_clear_deployment_tasks(None::<DeploymentTasks>);
+    /// ```
+    pub fn set_or_clear_deployment_tasks<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::blue_green_deployment::DeploymentTasks>,
+    {
+        self.deployment_tasks = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [requested_config][crate::model::BlueGreenDeployment::requested_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// use google_cloud_sql_v1::model::blue_green_deployment::RequestedConfig;
+    /// let x = BlueGreenDeployment::new().set_requested_config(RequestedConfig::default()/* use setters */);
+    /// ```
+    pub fn set_requested_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::blue_green_deployment::RequestedConfig>,
+    {
+        self.requested_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [requested_config][crate::model::BlueGreenDeployment::requested_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// use google_cloud_sql_v1::model::blue_green_deployment::RequestedConfig;
+    /// let x = BlueGreenDeployment::new().set_or_clear_requested_config(Some(RequestedConfig::default()/* use setters */));
+    /// let x = BlueGreenDeployment::new().set_or_clear_requested_config(None::<RequestedConfig>);
+    /// ```
+    pub fn set_or_clear_requested_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::blue_green_deployment::RequestedConfig>,
+    {
+        self.requested_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for BlueGreenDeployment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeployment"
+    }
+}
+
+/// Defines additional types related to [BlueGreenDeployment].
+pub mod blue_green_deployment {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration specified by the user at creation time for the target (green)
+    /// instance.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RequestedConfig {
+        /// Optional. The target database major version for the upgrade. For example,
+        /// `MYSQL_8_0` or `POSTGRES_15`.
+        pub database_version: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RequestedConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [database_version][crate::model::blue_green_deployment::RequestedConfig::database_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment::RequestedConfig;
+        /// let x = RequestedConfig::new().set_database_version("example");
+        /// ```
+        pub fn set_database_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.database_version = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RequestedConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeployment.RequestedConfig"
+        }
+    }
+
+    /// Combined list of tasks for all paired nodes in the deployment.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DeploymentTasks {
+        /// Output only. Tasks performed or being performed on the paired nodes
+        /// of the deployment at a consolidated level.
+        pub task: std::vec::Vec<
+            crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DeploymentTasks {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [task][crate::model::blue_green_deployment::DeploymentTasks::task].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment::DeploymentTasks;
+        /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::DeploymentTask;
+        /// let x = DeploymentTasks::new()
+        ///     .set_task([
+        ///         DeploymentTask::default()/* use setters */,
+        ///         DeploymentTask::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_task<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask,
+                >,
+        {
+            use std::iter::Iterator;
+            self.task = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DeploymentTasks {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeployment.DeploymentTasks"
+        }
+    }
+
+    /// Represents a pairing of a source instance node and a target instance node.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SourceTargetPairedNode {
+        /// Output only. Specifies the resource name of the source instance in this
+        /// pair.
+        pub source: std::option::Option<
+            crate::model::blue_green_deployment::source_target_paired_node::NodeInfo,
+        >,
+
+        /// Output only. Specifies details of the corresponding target instance in
+        /// this pair.
+        pub target: std::option::Option<
+            crate::model::blue_green_deployment::source_target_paired_node::NodeInfo,
+        >,
+
+        /// Output only. Specifies the current state of this specific source-target
+        /// pair.
+        pub state: crate::model::blue_green_deployment::source_target_paired_node::State,
+
+        /// Output only. Describes the list of differences for the
+        /// `SourceTargetPairedNode`.
+        pub diffs: std::vec::Vec<
+            crate::model::blue_green_deployment::source_target_paired_node::ConfigDiff,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SourceTargetPairedNode {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [source][crate::model::blue_green_deployment::SourceTargetPairedNode::source].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment::SourceTargetPairedNode;
+        /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::NodeInfo;
+        /// let x = SourceTargetPairedNode::new().set_source(NodeInfo::default()/* use setters */);
+        /// ```
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::blue_green_deployment::source_target_paired_node::NodeInfo,
+                >,
+        {
+            self.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::blue_green_deployment::SourceTargetPairedNode::source].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment::SourceTargetPairedNode;
+        /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::NodeInfo;
+        /// let x = SourceTargetPairedNode::new().set_or_clear_source(Some(NodeInfo::default()/* use setters */));
+        /// let x = SourceTargetPairedNode::new().set_or_clear_source(None::<NodeInfo>);
+        /// ```
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::blue_green_deployment::source_target_paired_node::NodeInfo,
+                >,
+        {
+            self.source = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [target][crate::model::blue_green_deployment::SourceTargetPairedNode::target].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment::SourceTargetPairedNode;
+        /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::NodeInfo;
+        /// let x = SourceTargetPairedNode::new().set_target(NodeInfo::default()/* use setters */);
+        /// ```
+        pub fn set_target<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::blue_green_deployment::source_target_paired_node::NodeInfo,
+                >,
+        {
+            self.target = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target][crate::model::blue_green_deployment::SourceTargetPairedNode::target].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment::SourceTargetPairedNode;
+        /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::NodeInfo;
+        /// let x = SourceTargetPairedNode::new().set_or_clear_target(Some(NodeInfo::default()/* use setters */));
+        /// let x = SourceTargetPairedNode::new().set_or_clear_target(None::<NodeInfo>);
+        /// ```
+        pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::blue_green_deployment::source_target_paired_node::NodeInfo,
+                >,
+        {
+            self.target = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [state][crate::model::blue_green_deployment::SourceTargetPairedNode::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment::SourceTargetPairedNode;
+        /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::State;
+        /// let x0 = SourceTargetPairedNode::new().set_state(State::Provisioning);
+        /// let x1 = SourceTargetPairedNode::new().set_state(State::Provisioned);
+        /// let x2 = SourceTargetPairedNode::new().set_state(State::Upgrading);
+        /// ```
+        pub fn set_state<
+            T: std::convert::Into<
+                    crate::model::blue_green_deployment::source_target_paired_node::State,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [diffs][crate::model::blue_green_deployment::SourceTargetPairedNode::diffs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment::SourceTargetPairedNode;
+        /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::ConfigDiff;
+        /// let x = SourceTargetPairedNode::new()
+        ///     .set_diffs([
+        ///         ConfigDiff::default()/* use setters */,
+        ///         ConfigDiff::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_diffs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::blue_green_deployment::source_target_paired_node::ConfigDiff,
+                >,
+        {
+            use std::iter::Iterator;
+            self.diffs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SourceTargetPairedNode {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeployment.SourceTargetPairedNode"
+        }
+    }
+
+    /// Defines additional types related to [SourceTargetPairedNode].
+    pub mod source_target_paired_node {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents a specific configuration difference between blue and green
+        /// instances.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ConfigDiff {
+            /// Output only. The name of the field that differs in the blue and green
+            /// instances, fully-qualified. Example: `settings.tier`
+            pub field: std::string::String,
+
+            /// Output only. The value on the source instance.
+            pub source_value: std::string::String,
+
+            /// Output only. The value on the target instance.
+            pub target_value: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ConfigDiff {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [field][crate::model::blue_green_deployment::source_target_paired_node::ConfigDiff::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::ConfigDiff;
+            /// let x = ConfigDiff::new().set_field("example");
+            /// ```
+            pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.field = v.into();
+                self
+            }
+
+            /// Sets the value of [source_value][crate::model::blue_green_deployment::source_target_paired_node::ConfigDiff::source_value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::ConfigDiff;
+            /// let x = ConfigDiff::new().set_source_value("example");
+            /// ```
+            pub fn set_source_value<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.source_value = v.into();
+                self
+            }
+
+            /// Sets the value of [target_value][crate::model::blue_green_deployment::source_target_paired_node::ConfigDiff::target_value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::ConfigDiff;
+            /// let x = ConfigDiff::new().set_target_value("example");
+            /// ```
+            pub fn set_target_value<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.target_value = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ConfigDiff {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeployment.SourceTargetPairedNode.ConfigDiff"
+            }
+        }
+
+        /// Details about an instance within the deployment.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct NodeInfo {
+            /// Output only. The full resource name of the instance.
+            /// Format: projects/{project}/instances/{instance}
+            pub instance: std::string::String,
+
+            /// Output only. The instance connection name.
+            pub connection: std::string::String,
+
+            /// Output only. The unique DNS name for this instance.
+            pub dns: std::string::String,
+
+            /// Output only. The list of IP addresses for this instance.
+            pub ip_mappings: std::vec::Vec<crate::model::IpMapping>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl NodeInfo {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [instance][crate::model::blue_green_deployment::source_target_paired_node::NodeInfo::instance].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::NodeInfo;
+            /// let x = NodeInfo::new().set_instance("example");
+            /// ```
+            pub fn set_instance<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.instance = v.into();
+                self
+            }
+
+            /// Sets the value of [connection][crate::model::blue_green_deployment::source_target_paired_node::NodeInfo::connection].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::NodeInfo;
+            /// let x = NodeInfo::new().set_connection("example");
+            /// ```
+            pub fn set_connection<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.connection = v.into();
+                self
+            }
+
+            /// Sets the value of [dns][crate::model::blue_green_deployment::source_target_paired_node::NodeInfo::dns].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::NodeInfo;
+            /// let x = NodeInfo::new().set_dns("example");
+            /// ```
+            pub fn set_dns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.dns = v.into();
+                self
+            }
+
+            /// Sets the value of [ip_mappings][crate::model::blue_green_deployment::source_target_paired_node::NodeInfo::ip_mappings].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::NodeInfo;
+            /// use google_cloud_sql_v1::model::IpMapping;
+            /// let x = NodeInfo::new()
+            ///     .set_ip_mappings([
+            ///         IpMapping::default()/* use setters */,
+            ///         IpMapping::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_ip_mappings<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::IpMapping>,
+            {
+                use std::iter::Iterator;
+                self.ip_mappings = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for NodeInfo {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeployment.SourceTargetPairedNode.NodeInfo"
+            }
+        }
+
+        /// Represents a task executed as part of the deployment on a target
+        /// instance.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct DeploymentTask {
+
+            /// Output only. The type of the task.
+            pub r#type: crate::model::blue_green_deployment::source_target_paired_node::deployment_task::Type,
+
+            /// Output only. The current state of the task.
+            pub state: crate::model::blue_green_deployment::source_target_paired_node::deployment_task::State,
+
+            /// Output only. Task start time.
+            pub start_time: std::option::Option<wkt::Timestamp>,
+
+            /// Output only. Task end time (if completed).
+            pub end_time: std::option::Option<wkt::Timestamp>,
+
+            /// Output only. Optional error details if the task state is `FAILED`.
+            pub error_message: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl DeploymentTask {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [r#type][crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask::type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::DeploymentTask;
+            /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::deployment_task::Type;
+            /// let x0 = DeploymentTask::new().set_type(Type::Provision);
+            /// let x1 = DeploymentTask::new().set_type(Type::Upgrade);
+            /// let x2 = DeploymentTask::new().set_type(Type::Switchover);
+            /// ```
+            pub fn set_type<T: std::convert::Into<crate::model::blue_green_deployment::source_target_paired_node::deployment_task::Type>>(mut self, v: T) -> Self{
+                self.r#type = v.into();
+                self
+            }
+
+            /// Sets the value of [state][crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask::state].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::DeploymentTask;
+            /// use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::deployment_task::State;
+            /// let x0 = DeploymentTask::new().set_state(State::Pending);
+            /// let x1 = DeploymentTask::new().set_state(State::Running);
+            /// let x2 = DeploymentTask::new().set_state(State::Succeeded);
+            /// ```
+            pub fn set_state<T: std::convert::Into<crate::model::blue_green_deployment::source_target_paired_node::deployment_task::State>>(mut self, v: T) -> Self{
+                self.state = v.into();
+                self
+            }
+
+            /// Sets the value of [start_time][crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask::start_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::DeploymentTask;
+            /// use wkt::Timestamp;
+            /// let x = DeploymentTask::new().set_start_time(Timestamp::default()/* use setters */);
+            /// ```
+            pub fn set_start_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.start_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [start_time][crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask::start_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::DeploymentTask;
+            /// use wkt::Timestamp;
+            /// let x = DeploymentTask::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+            /// let x = DeploymentTask::new().set_or_clear_start_time(None::<Timestamp>);
+            /// ```
+            pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.start_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [end_time][crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask::end_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::DeploymentTask;
+            /// use wkt::Timestamp;
+            /// let x = DeploymentTask::new().set_end_time(Timestamp::default()/* use setters */);
+            /// ```
+            pub fn set_end_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.end_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [end_time][crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask::end_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::DeploymentTask;
+            /// use wkt::Timestamp;
+            /// let x = DeploymentTask::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+            /// let x = DeploymentTask::new().set_or_clear_end_time(None::<Timestamp>);
+            /// ```
+            pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.end_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [error_message][crate::model::blue_green_deployment::source_target_paired_node::DeploymentTask::error_message].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::blue_green_deployment::source_target_paired_node::DeploymentTask;
+            /// let x = DeploymentTask::new().set_error_message("example");
+            /// ```
+            pub fn set_error_message<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.error_message = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for DeploymentTask {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeployment.SourceTargetPairedNode.DeploymentTask"
+            }
+        }
+
+        /// Defines additional types related to [DeploymentTask].
+        pub mod deployment_task {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The type of the task.
+            /// This enum type `Type` is prone to change, and new values may be added
+            /// in the future.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Type {
+                /// The default value. This value is used if the type is omitted.
+                Unspecified,
+                /// Provisions the green environment, which includes creating the target
+                /// instance.
+                Provision,
+                /// Upgrades the green environment, for example, performing a major
+                /// version upgrade on the target instance.
+                Upgrade,
+                /// Promotes the target instance and then demotes the source instance for
+                /// this pair.
+                Switchover,
+                /// Deletes the blue-green deployment, including underlying resources.
+                Delete,
+                /// Post-switchover operations, including cleaning up resources of the
+                /// old instance, taking final backups, and updating metadata.
+                PostSwitchoverOperations,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [Type::value] or
+                /// [Type::name].
+                UnknownValue(r#type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod r#type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl Type {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Provision => std::option::Option::Some(1),
+                        Self::Upgrade => std::option::Option::Some(2),
+                        Self::Switchover => std::option::Option::Some(3),
+                        Self::Delete => std::option::Option::Some(4),
+                        Self::PostSwitchoverOperations => std::option::Option::Some(5),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                        Self::Provision => std::option::Option::Some("PROVISION"),
+                        Self::Upgrade => std::option::Option::Some("UPGRADE"),
+                        Self::Switchover => std::option::Option::Some("SWITCHOVER"),
+                        Self::Delete => std::option::Option::Some("DELETE"),
+                        Self::PostSwitchoverOperations => {
+                            std::option::Option::Some("POST_SWITCHOVER_OPERATIONS")
+                        }
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for Type {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for Type {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Provision,
+                        2 => Self::Upgrade,
+                        3 => Self::Switchover,
+                        4 => Self::Delete,
+                        5 => Self::PostSwitchoverOperations,
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for Type {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "PROVISION" => Self::Provision,
+                        "UPGRADE" => Self::Upgrade,
+                        "SWITCHOVER" => Self::Switchover,
+                        "DELETE" => Self::Delete,
+                        "POST_SWITCHOVER_OPERATIONS" => Self::PostSwitchoverOperations,
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for Type {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Provision => serializer.serialize_i32(1),
+                        Self::Upgrade => serializer.serialize_i32(2),
+                        Self::Switchover => serializer.serialize_i32(3),
+                        Self::Delete => serializer.serialize_i32(4),
+                        Self::PostSwitchoverOperations => serializer.serialize_i32(5),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Type {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                        ".google.cloud.sql.v1.BlueGreenDeployment.SourceTargetPairedNode.DeploymentTask.Type"))
+                }
+            }
+
+            /// The state of the task.
+            /// This enum is not frozen, and new values may be added in the future.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum State {
+                /// The state of the task is unknown.
+                Unspecified,
+                /// The task is pending.
+                Pending,
+                /// The task is running.
+                Running,
+                /// The task has succeeded.
+                Succeeded,
+                /// The task has failed.
+                Failed,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [State::value] or
+                /// [State::name].
+                UnknownValue(state::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod state {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl State {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Pending => std::option::Option::Some(1),
+                        Self::Running => std::option::Option::Some(2),
+                        Self::Succeeded => std::option::Option::Some(3),
+                        Self::Failed => std::option::Option::Some(4),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                        Self::Pending => std::option::Option::Some("PENDING"),
+                        Self::Running => std::option::Option::Some("RUNNING"),
+                        Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                        Self::Failed => std::option::Option::Some("FAILED"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for State {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for State {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for State {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Pending,
+                        2 => Self::Running,
+                        3 => Self::Succeeded,
+                        4 => Self::Failed,
+                        _ => Self::UnknownValue(state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for State {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "STATE_UNSPECIFIED" => Self::Unspecified,
+                        "PENDING" => Self::Pending,
+                        "RUNNING" => Self::Running,
+                        "SUCCEEDED" => Self::Succeeded,
+                        "FAILED" => Self::Failed,
+                        _ => Self::UnknownValue(state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for State {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Pending => serializer.serialize_i32(1),
+                        Self::Running => serializer.serialize_i32(2),
+                        Self::Succeeded => serializer.serialize_i32(3),
+                        Self::Failed => serializer.serialize_i32(4),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for State {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                        ".google.cloud.sql.v1.BlueGreenDeployment.SourceTargetPairedNode.DeploymentTask.State"))
+                }
+            }
+        }
+
+        /// The state of a pair of source and target instances in deployment (paired
+        /// node).
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum State {
+            /// The state of the paired node is unknown.
+            Unspecified,
+            /// The paired node is being provisioned.
+            Provisioning,
+            /// The paired node is provisioned.
+            Provisioned,
+            /// The paired node is upgrading.
+            Upgrading,
+            /// The paired node is upgraded.
+            Upgraded,
+            /// Upgrade failed on the paired node.
+            UpgradeFailed,
+            /// Switchover is in progress.
+            SwitchoverInProgress,
+            /// Switchover failed on the paired node.
+            SwitchoverFailed,
+            /// Switchover completed successfully.
+            SwitchoverSucceeded,
+            /// The paired node is being deleted.
+            Deleting,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [State::value] or
+            /// [State::name].
+            UnknownValue(state::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl State {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Provisioning => std::option::Option::Some(1),
+                    Self::Provisioned => std::option::Option::Some(2),
+                    Self::Upgrading => std::option::Option::Some(3),
+                    Self::Upgraded => std::option::Option::Some(4),
+                    Self::UpgradeFailed => std::option::Option::Some(5),
+                    Self::SwitchoverInProgress => std::option::Option::Some(6),
+                    Self::SwitchoverFailed => std::option::Option::Some(7),
+                    Self::SwitchoverSucceeded => std::option::Option::Some(8),
+                    Self::Deleting => std::option::Option::Some(11),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                    Self::Provisioning => std::option::Option::Some("PROVISIONING"),
+                    Self::Provisioned => std::option::Option::Some("PROVISIONED"),
+                    Self::Upgrading => std::option::Option::Some("UPGRADING"),
+                    Self::Upgraded => std::option::Option::Some("UPGRADED"),
+                    Self::UpgradeFailed => std::option::Option::Some("UPGRADE_FAILED"),
+                    Self::SwitchoverInProgress => {
+                        std::option::Option::Some("SWITCHOVER_IN_PROGRESS")
+                    }
+                    Self::SwitchoverFailed => std::option::Option::Some("SWITCHOVER_FAILED"),
+                    Self::SwitchoverSucceeded => std::option::Option::Some("SWITCHOVER_SUCCEEDED"),
+                    Self::Deleting => std::option::Option::Some("DELETING"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for State {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Provisioning,
+                    2 => Self::Provisioned,
+                    3 => Self::Upgrading,
+                    4 => Self::Upgraded,
+                    5 => Self::UpgradeFailed,
+                    6 => Self::SwitchoverInProgress,
+                    7 => Self::SwitchoverFailed,
+                    8 => Self::SwitchoverSucceeded,
+                    11 => Self::Deleting,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for State {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "STATE_UNSPECIFIED" => Self::Unspecified,
+                    "PROVISIONING" => Self::Provisioning,
+                    "PROVISIONED" => Self::Provisioned,
+                    "UPGRADING" => Self::Upgrading,
+                    "UPGRADED" => Self::Upgraded,
+                    "UPGRADE_FAILED" => Self::UpgradeFailed,
+                    "SWITCHOVER_IN_PROGRESS" => Self::SwitchoverInProgress,
+                    "SWITCHOVER_FAILED" => Self::SwitchoverFailed,
+                    "SWITCHOVER_SUCCEEDED" => Self::SwitchoverSucceeded,
+                    "DELETING" => Self::Deleting,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Provisioning => serializer.serialize_i32(1),
+                    Self::Provisioned => serializer.serialize_i32(2),
+                    Self::Upgrading => serializer.serialize_i32(3),
+                    Self::Upgraded => serializer.serialize_i32(4),
+                    Self::UpgradeFailed => serializer.serialize_i32(5),
+                    Self::SwitchoverInProgress => serializer.serialize_i32(6),
+                    Self::SwitchoverFailed => serializer.serialize_i32(7),
+                    Self::SwitchoverSucceeded => serializer.serialize_i32(8),
+                    Self::Deleting => serializer.serialize_i32(11),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                    ".google.cloud.sql.v1.BlueGreenDeployment.SourceTargetPairedNode.State",
+                ))
+            }
+        }
+    }
+
+    /// The state of the blue-green deployment.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value. This value is used if the state is omitted or unknown.
+        Unspecified,
+        /// The deployment is being provisioned.
+        Provisioning,
+        /// The deployment is ready for switchover.
+        SwitchoverReady,
+        /// The deployment is not ready for switchover.
+        SwitchoverNotReady,
+        /// The deployment is in the process of switching over.
+        SwitchoverInProgress,
+        /// The deployment has completed switchover.
+        SwitchoverCompleted,
+        /// The deployment is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Provisioning => std::option::Option::Some(1),
+                Self::SwitchoverReady => std::option::Option::Some(2),
+                Self::SwitchoverNotReady => std::option::Option::Some(3),
+                Self::SwitchoverInProgress => std::option::Option::Some(4),
+                Self::SwitchoverCompleted => std::option::Option::Some(5),
+                Self::Deleting => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Provisioning => std::option::Option::Some("PROVISIONING"),
+                Self::SwitchoverReady => std::option::Option::Some("SWITCHOVER_READY"),
+                Self::SwitchoverNotReady => std::option::Option::Some("SWITCHOVER_NOT_READY"),
+                Self::SwitchoverInProgress => std::option::Option::Some("SWITCHOVER_IN_PROGRESS"),
+                Self::SwitchoverCompleted => std::option::Option::Some("SWITCHOVER_COMPLETED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Provisioning,
+                2 => Self::SwitchoverReady,
+                3 => Self::SwitchoverNotReady,
+                4 => Self::SwitchoverInProgress,
+                5 => Self::SwitchoverCompleted,
+                6 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PROVISIONING" => Self::Provisioning,
+                "SWITCHOVER_READY" => Self::SwitchoverReady,
+                "SWITCHOVER_NOT_READY" => Self::SwitchoverNotReady,
+                "SWITCHOVER_IN_PROGRESS" => Self::SwitchoverInProgress,
+                "SWITCHOVER_COMPLETED" => Self::SwitchoverCompleted,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Provisioning => serializer.serialize_i32(1),
+                Self::SwitchoverReady => serializer.serialize_i32(2),
+                Self::SwitchoverNotReady => serializer.serialize_i32(3),
+                Self::SwitchoverInProgress => serializer.serialize_i32(4),
+                Self::SwitchoverCompleted => serializer.serialize_i32(5),
+                Self::Deleting => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.sql.v1.BlueGreenDeployment.State",
+            ))
+        }
+    }
+}
+
+/// The request message for creating a `BlueGreenDeployment` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateBlueGreenDeploymentRequest {
+    /// Required. The parent resource where this blue-green deployment will be
+    /// created. Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the blue-green deployment, which will become
+    /// the final component of the deployment's resource name. The ID must be
+    /// unique within the given project and location and between 2-63 characters.
+    pub blue_green_deployment_id: std::string::String,
+
+    /// Required. The `BlueGreenDeployment` resource to create.
+    pub blue_green_deployment: std::option::Option<crate::model::BlueGreenDeployment>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateBlueGreenDeploymentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateBlueGreenDeploymentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CreateBlueGreenDeploymentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateBlueGreenDeploymentRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [blue_green_deployment_id][crate::model::CreateBlueGreenDeploymentRequest::blue_green_deployment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CreateBlueGreenDeploymentRequest;
+    /// let x = CreateBlueGreenDeploymentRequest::new().set_blue_green_deployment_id("example");
+    /// ```
+    pub fn set_blue_green_deployment_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.blue_green_deployment_id = v.into();
+        self
+    }
+
+    /// Sets the value of [blue_green_deployment][crate::model::CreateBlueGreenDeploymentRequest::blue_green_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CreateBlueGreenDeploymentRequest;
+    /// use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// let x = CreateBlueGreenDeploymentRequest::new().set_blue_green_deployment(BlueGreenDeployment::default()/* use setters */);
+    /// ```
+    pub fn set_blue_green_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BlueGreenDeployment>,
+    {
+        self.blue_green_deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [blue_green_deployment][crate::model::CreateBlueGreenDeploymentRequest::blue_green_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CreateBlueGreenDeploymentRequest;
+    /// use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// let x = CreateBlueGreenDeploymentRequest::new().set_or_clear_blue_green_deployment(Some(BlueGreenDeployment::default()/* use setters */));
+    /// let x = CreateBlueGreenDeploymentRequest::new().set_or_clear_blue_green_deployment(None::<BlueGreenDeployment>);
+    /// ```
+    pub fn set_or_clear_blue_green_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BlueGreenDeployment>,
+    {
+        self.blue_green_deployment = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateBlueGreenDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.CreateBlueGreenDeploymentRequest"
+    }
+}
+
+/// The request message for getting a BlueGreenDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetBlueGreenDeploymentRequest {
+    /// Required. The name of the blue-green deployment to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/blueGreenDeployments/{blue_green_deployment}
+    pub name: std::string::String,
+
+    /// Optional. Specifies whether to return the basic or detailed view of the
+    /// resource in the response.
+    pub view: crate::model::get_blue_green_deployment_request::BlueGreenDeploymentView,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBlueGreenDeploymentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBlueGreenDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GetBlueGreenDeploymentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let blue_green_deployment_id = "blue_green_deployment_id";
+    /// let x = GetBlueGreenDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/blueGreenDeployments/{blue_green_deployment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [view][crate::model::GetBlueGreenDeploymentRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GetBlueGreenDeploymentRequest;
+    /// use google_cloud_sql_v1::model::get_blue_green_deployment_request::BlueGreenDeploymentView;
+    /// let x0 = GetBlueGreenDeploymentRequest::new().set_view(BlueGreenDeploymentView::Basic);
+    /// let x1 = GetBlueGreenDeploymentRequest::new().set_view(BlueGreenDeploymentView::Detailed);
+    /// ```
+    pub fn set_view<
+        T: std::convert::Into<
+                crate::model::get_blue_green_deployment_request::BlueGreenDeploymentView,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBlueGreenDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.GetBlueGreenDeploymentRequest"
+    }
+}
+
+/// Defines additional types related to [GetBlueGreenDeploymentRequest].
+pub mod get_blue_green_deployment_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The view of a `BlueGreenDeployment` resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BlueGreenDeploymentView {
+        /// Blue-green deployment view enumeration. This allows the caller to specify
+        /// what view they query. If unspecified
+        /// (BLUE_GREEN_DEPLOYMENT_VIEW_UNSPECIFIED), the behavior is the same as
+        /// BASIC.
+        Unspecified,
+        /// Includes basic metadata about the blue-green deployment.
+        /// `BASIC` is the default view.
+        Basic,
+        /// Includes basic metadata and configuration differences between source and
+        /// target instances (`database_version`, `tier`, `edition`,
+        /// `availability_type`, `data_disk_size_gb`, and `data_disk_type`).
+        Detailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BlueGreenDeploymentView::value] or
+        /// [BlueGreenDeploymentView::name].
+        UnknownValue(blue_green_deployment_view::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod blue_green_deployment_view {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BlueGreenDeploymentView {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Basic => std::option::Option::Some(1),
+                Self::Detailed => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("BLUE_GREEN_DEPLOYMENT_VIEW_UNSPECIFIED")
+                }
+                Self::Basic => std::option::Option::Some("BASIC"),
+                Self::Detailed => std::option::Option::Some("DETAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BlueGreenDeploymentView {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BlueGreenDeploymentView {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BlueGreenDeploymentView {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Basic,
+                2 => Self::Detailed,
+                _ => Self::UnknownValue(blue_green_deployment_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BlueGreenDeploymentView {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BLUE_GREEN_DEPLOYMENT_VIEW_UNSPECIFIED" => Self::Unspecified,
+                "BASIC" => Self::Basic,
+                "DETAILED" => Self::Detailed,
+                _ => Self::UnknownValue(blue_green_deployment_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BlueGreenDeploymentView {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Basic => serializer.serialize_i32(1),
+                Self::Detailed => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BlueGreenDeploymentView {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<BlueGreenDeploymentView>::new(
+                    ".google.cloud.sql.v1.GetBlueGreenDeploymentRequest.BlueGreenDeploymentView",
+                ),
+            )
+        }
+    }
+}
+
+/// Request message for switching over a `BlueGreenDeployment` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SwitchoverBlueGreenDeploymentRequest {
+    /// Required. The name of the blue-green deployment to switch over.
+    /// Format:
+    /// projects/{project}/locations/{location}/blueGreenDeployments/{blue_green_deployment}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SwitchoverBlueGreenDeploymentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SwitchoverBlueGreenDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SwitchoverBlueGreenDeploymentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let blue_green_deployment_id = "blue_green_deployment_id";
+    /// let x = SwitchoverBlueGreenDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/blueGreenDeployments/{blue_green_deployment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SwitchoverBlueGreenDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.SwitchoverBlueGreenDeploymentRequest"
+    }
+}
+
+/// The request message for listing blue-green deployment resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBlueGreenDeploymentsRequest {
+    /// Required. The parent resource whose blue-green deployments are to be
+    /// listed. Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of deployments to return. The service may
+    /// return fewer deployments than this value. If unspecified, at most 500
+    /// deployments are returned. The maximum value is 1000; values above 1000
+    /// are treated as 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListBlueGreenDeployments`
+    /// call. Provide this to retrieve the subsequent page.
+    pub page_token: std::string::String,
+
+    /// Optional. A filter expression that filters the results.
+    pub filter: std::string::String,
+
+    /// Optional. A comma-separated list of fields to order the results by.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBlueGreenDeploymentsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBlueGreenDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListBlueGreenDeploymentsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListBlueGreenDeploymentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBlueGreenDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListBlueGreenDeploymentsRequest;
+    /// let x = ListBlueGreenDeploymentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBlueGreenDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListBlueGreenDeploymentsRequest;
+    /// let x = ListBlueGreenDeploymentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListBlueGreenDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListBlueGreenDeploymentsRequest;
+    /// let x = ListBlueGreenDeploymentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListBlueGreenDeploymentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListBlueGreenDeploymentsRequest;
+    /// let x = ListBlueGreenDeploymentsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBlueGreenDeploymentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.ListBlueGreenDeploymentsRequest"
+    }
+}
+
+/// The response message for listing blue-green deployment resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBlueGreenDeploymentsResponse {
+    /// The list of blue-green deployment resources.
+    pub blue_green_deployments: std::vec::Vec<crate::model::BlueGreenDeployment>,
+
+    /// A token to retrieve the next page of results, or empty if there are no
+    /// more results.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBlueGreenDeploymentsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [blue_green_deployments][crate::model::ListBlueGreenDeploymentsResponse::blue_green_deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListBlueGreenDeploymentsResponse;
+    /// use google_cloud_sql_v1::model::BlueGreenDeployment;
+    /// let x = ListBlueGreenDeploymentsResponse::new()
+    ///     .set_blue_green_deployments([
+    ///         BlueGreenDeployment::default()/* use setters */,
+    ///         BlueGreenDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_blue_green_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BlueGreenDeployment>,
+    {
+        use std::iter::Iterator;
+        self.blue_green_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBlueGreenDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListBlueGreenDeploymentsResponse;
+    /// let x = ListBlueGreenDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBlueGreenDeploymentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.ListBlueGreenDeploymentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBlueGreenDeploymentsResponse {
+    type PageItem = crate::model::BlueGreenDeployment;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.blue_green_deployments
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for deleting a BlueGreenDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteBlueGreenDeploymentRequest {
+    /// Required. The name of the blue-green deployment to delete.
+    /// Format:
+    /// projects/{project}/locations/{location}/blueGreenDeployments/{blue_green_deployment}
+    pub name: std::string::String,
+
+    /// Optional. If set to true, and the switchover is complete, this deletes the
+    /// old source instance along with the deployment.
+    pub delete_old_source: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteBlueGreenDeploymentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteBlueGreenDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DeleteBlueGreenDeploymentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let blue_green_deployment_id = "blue_green_deployment_id";
+    /// let x = DeleteBlueGreenDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/blueGreenDeployments/{blue_green_deployment_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [delete_old_source][crate::model::DeleteBlueGreenDeploymentRequest::delete_old_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DeleteBlueGreenDeploymentRequest;
+    /// let x = DeleteBlueGreenDeploymentRequest::new().set_delete_old_source(true);
+    /// ```
+    pub fn set_delete_old_source<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.delete_old_source = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteBlueGreenDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.DeleteBlueGreenDeploymentRequest"
+    }
+}
+
 /// Connect settings retrieval request.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -9874,6 +11973,11 @@ pub struct InstancesRestoreBackupRequest {
     /// With the difference that these fields are cleared in the settings.
     pub restore_instance_clear_overrides_field_names: std::vec::Vec<std::string::String>,
 
+    /// Optional. If true, the restore operation proceeds even if the target
+    /// instance's maintenance version is older than the source instance's
+    /// maintenance version.
+    pub ignore_maintenance_version: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9990,6 +12094,18 @@ impl InstancesRestoreBackupRequest {
         use std::iter::Iterator;
         self.restore_instance_clear_overrides_field_names =
             v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ignore_maintenance_version][crate::model::InstancesRestoreBackupRequest::ignore_maintenance_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesRestoreBackupRequest;
+    /// let x = InstancesRestoreBackupRequest::new().set_ignore_maintenance_version(true);
+    /// ```
+    pub fn set_ignore_maintenance_version<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.ignore_maintenance_version = v.into();
         self
     }
 }
@@ -11767,6 +13883,10 @@ pub struct DatabaseInstance {
     /// instance is initiated.
     pub include_replicas_for_major_version_upgrade: std::option::Option<wkt::BoolValue>,
 
+    /// Optional. Input only. Determines whether the precheck step is skipped
+    /// during a major version upgrade.
+    pub skip_precheck: std::option::Option<wkt::BoolValue>,
+
     /// Optional. Input only. Immutable. Tag keys and tag values that are bound to
     /// this instance. You must represent each item in the map as:
     /// `"<tag-key-namespaced-name>" : "<tag-value-short-name>"`.
@@ -11791,6 +13911,10 @@ pub struct DatabaseInstance {
 
     /// Output only. The list of DNS names used by this instance.
     pub dns_names: std::vec::Vec<crate::model::DnsNameMapping>,
+
+    /// Output only. Deployment info for the instance. This is set if the instance
+    /// is currently part of any blue-green setup.
+    pub deployment_info: std::option::Option<crate::model::BlueGreenDeploymentInfo>,
 
     /// Optional. If true, instance metadata is sent to the Database Center. If
     /// false, instance metadata is not sent to the Database Center.
@@ -12945,6 +15069,39 @@ impl DatabaseInstance {
         self
     }
 
+    /// Sets the value of [skip_precheck][crate::model::DatabaseInstance::skip_precheck].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_skip_precheck(BoolValue::default()/* use setters */);
+    /// ```
+    pub fn set_skip_precheck<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.skip_precheck = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [skip_precheck][crate::model::DatabaseInstance::skip_precheck].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_or_clear_skip_precheck(Some(BoolValue::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_skip_precheck(None::<BoolValue>);
+    /// ```
+    pub fn set_or_clear_skip_precheck<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.skip_precheck = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [tags][crate::model::DatabaseInstance::tags].
     ///
     /// # Example
@@ -13038,6 +15195,39 @@ impl DatabaseInstance {
     {
         use std::iter::Iterator;
         self.dns_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deployment_info][crate::model::DatabaseInstance::deployment_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// let x = DatabaseInstance::new().set_deployment_info(BlueGreenDeploymentInfo::default()/* use setters */);
+    /// ```
+    pub fn set_deployment_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BlueGreenDeploymentInfo>,
+    {
+        self.deployment_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment_info][crate::model::DatabaseInstance::deployment_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// let x = DatabaseInstance::new().set_or_clear_deployment_info(Some(BlueGreenDeploymentInfo::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_deployment_info(None::<BlueGreenDeploymentInfo>);
+    /// ```
+    pub fn set_or_clear_deployment_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BlueGreenDeploymentInfo>,
+    {
+        self.deployment_info = v.map(|x| x.into());
         self
     }
 
@@ -14308,6 +16498,473 @@ pub mod database_instance {
                 ),
             )
         }
+    }
+}
+
+/// Blue-green deployment metadata for a database instance. In a blue-green
+/// deployment, we maintain two environments, one of which is live.
+/// This message contains details about the blue-green deployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BlueGreenDeploymentInfo {
+    /// Output only. The resource ID of the blue-green deployment.
+    pub deployment_id: std::option::Option<std::string::String>,
+
+    /// Output only. The current state of blue-green-deployment for UI tags
+    pub state: std::option::Option<crate::model::blue_green_deployment_info::State>,
+
+    /// The role of the instance in the blue-green deployment.
+    pub role_details: std::option::Option<crate::model::blue_green_deployment_info::RoleDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BlueGreenDeploymentInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deployment_id][crate::model::BlueGreenDeploymentInfo::deployment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// let x = BlueGreenDeploymentInfo::new().set_deployment_id("example");
+    /// ```
+    pub fn set_deployment_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.deployment_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment_id][crate::model::BlueGreenDeploymentInfo::deployment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// let x = BlueGreenDeploymentInfo::new().set_or_clear_deployment_id(Some("example"));
+    /// let x = BlueGreenDeploymentInfo::new().set_or_clear_deployment_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_deployment_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.deployment_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BlueGreenDeploymentInfo::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// use google_cloud_sql_v1::model::blue_green_deployment_info::State;
+    /// let x0 = BlueGreenDeploymentInfo::new().set_state(State::PreSwitchover);
+    /// let x1 = BlueGreenDeploymentInfo::new().set_state(State::PostSwitchover);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::blue_green_deployment_info::State>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::BlueGreenDeploymentInfo::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// use google_cloud_sql_v1::model::blue_green_deployment_info::State;
+    /// let x0 = BlueGreenDeploymentInfo::new().set_or_clear_state(Some(State::PreSwitchover));
+    /// let x1 = BlueGreenDeploymentInfo::new().set_or_clear_state(Some(State::PostSwitchover));
+    /// let x_none = BlueGreenDeploymentInfo::new().set_or_clear_state(None::<State>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::blue_green_deployment_info::State>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [role_details][crate::model::BlueGreenDeploymentInfo::role_details].
+    ///
+    /// Note that all the setters affecting `role_details` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// use google_cloud_sql_v1::model::blue_green_deployment_info::SourceRole;
+    /// let x = BlueGreenDeploymentInfo::new().set_role_details(Some(
+    ///     google_cloud_sql_v1::model::blue_green_deployment_info::RoleDetails::Source(SourceRole::default().into())));
+    /// ```
+    pub fn set_role_details<
+        T: std::convert::Into<
+                std::option::Option<crate::model::blue_green_deployment_info::RoleDetails>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.role_details = v.into();
+        self
+    }
+
+    /// The value of [role_details][crate::model::BlueGreenDeploymentInfo::role_details]
+    /// if it holds a `Source`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::blue_green_deployment_info::SourceRole>>
+    {
+        #[allow(unreachable_patterns)]
+        self.role_details.as_ref().and_then(|v| match v {
+            crate::model::blue_green_deployment_info::RoleDetails::Source(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [role_details][crate::model::BlueGreenDeploymentInfo::role_details]
+    /// to hold a `Source`.
+    ///
+    /// Note that all the setters affecting `role_details` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// use google_cloud_sql_v1::model::blue_green_deployment_info::SourceRole;
+    /// let x = BlueGreenDeploymentInfo::new().set_source(SourceRole::default()/* use setters */);
+    /// assert!(x.source().is_some());
+    /// assert!(x.target().is_none());
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::blue_green_deployment_info::SourceRole>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.role_details = std::option::Option::Some(
+            crate::model::blue_green_deployment_info::RoleDetails::Source(v.into()),
+        );
+        self
+    }
+
+    /// The value of [role_details][crate::model::BlueGreenDeploymentInfo::role_details]
+    /// if it holds a `Target`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn target(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::blue_green_deployment_info::TargetRole>>
+    {
+        #[allow(unreachable_patterns)]
+        self.role_details.as_ref().and_then(|v| match v {
+            crate::model::blue_green_deployment_info::RoleDetails::Target(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [role_details][crate::model::BlueGreenDeploymentInfo::role_details]
+    /// to hold a `Target`.
+    ///
+    /// Note that all the setters affecting `role_details` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BlueGreenDeploymentInfo;
+    /// use google_cloud_sql_v1::model::blue_green_deployment_info::TargetRole;
+    /// let x = BlueGreenDeploymentInfo::new().set_target(TargetRole::default()/* use setters */);
+    /// assert!(x.target().is_some());
+    /// assert!(x.source().is_none());
+    /// ```
+    pub fn set_target<
+        T: std::convert::Into<std::boxed::Box<crate::model::blue_green_deployment_info::TargetRole>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.role_details = std::option::Option::Some(
+            crate::model::blue_green_deployment_info::RoleDetails::Target(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for BlueGreenDeploymentInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeploymentInfo"
+    }
+}
+
+/// Defines additional types related to [BlueGreenDeploymentInfo].
+pub mod blue_green_deployment_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The source instance for the Blue-Green deployment.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SourceRole {
+        /// Output only. The target instance paired with this source instance in a
+        /// blue-green deployment.
+        pub target_id: std::option::Option<crate::model::InstanceReference>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SourceRole {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [target_id][crate::model::blue_green_deployment_info::SourceRole::target_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment_info::SourceRole;
+        /// use google_cloud_sql_v1::model::InstanceReference;
+        /// let x = SourceRole::new().set_target_id(InstanceReference::default()/* use setters */);
+        /// ```
+        pub fn set_target_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceReference>,
+        {
+            self.target_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target_id][crate::model::blue_green_deployment_info::SourceRole::target_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment_info::SourceRole;
+        /// use google_cloud_sql_v1::model::InstanceReference;
+        /// let x = SourceRole::new().set_or_clear_target_id(Some(InstanceReference::default()/* use setters */));
+        /// let x = SourceRole::new().set_or_clear_target_id(None::<InstanceReference>);
+        /// ```
+        pub fn set_or_clear_target_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceReference>,
+        {
+            self.target_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for SourceRole {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeploymentInfo.SourceRole"
+        }
+    }
+
+    /// The target instance for the Blue-Green deployment.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TargetRole {
+        /// Output only. The source instance paired with this target instance in a
+        /// blue-green deployment.
+        pub source_id: std::option::Option<crate::model::InstanceReference>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TargetRole {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [source_id][crate::model::blue_green_deployment_info::TargetRole::source_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment_info::TargetRole;
+        /// use google_cloud_sql_v1::model::InstanceReference;
+        /// let x = TargetRole::new().set_source_id(InstanceReference::default()/* use setters */);
+        /// ```
+        pub fn set_source_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceReference>,
+        {
+            self.source_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source_id][crate::model::blue_green_deployment_info::TargetRole::source_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::blue_green_deployment_info::TargetRole;
+        /// use google_cloud_sql_v1::model::InstanceReference;
+        /// let x = TargetRole::new().set_or_clear_source_id(Some(InstanceReference::default()/* use setters */));
+        /// let x = TargetRole::new().set_or_clear_source_id(None::<InstanceReference>);
+        /// ```
+        pub fn set_or_clear_source_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceReference>,
+        {
+            self.source_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for TargetRole {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.sql.v1.BlueGreenDeploymentInfo.TargetRole"
+        }
+    }
+
+    /// The state of blue-green-deployment for UI tags
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The state of the deployment is unknown.
+        Unspecified,
+        /// The deployment is pre-switchover.
+        PreSwitchover,
+        /// The deployment is post-switchover.
+        PostSwitchover,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PreSwitchover => std::option::Option::Some(1),
+                Self::PostSwitchover => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::PreSwitchover => std::option::Option::Some("PRE_SWITCHOVER"),
+                Self::PostSwitchover => std::option::Option::Some("POST_SWITCHOVER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PreSwitchover,
+                2 => Self::PostSwitchover,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PRE_SWITCHOVER" => Self::PreSwitchover,
+                "POST_SWITCHOVER" => Self::PostSwitchover,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PreSwitchover => serializer.serialize_i32(1),
+                Self::PostSwitchover => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.sql.v1.BlueGreenDeploymentInfo.State",
+            ))
+        }
+    }
+
+    /// The role of the instance in the blue-green deployment.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RoleDetails {
+        /// Output only. The source instance for the Blue-Green deployment.
+        Source(std::boxed::Box<crate::model::blue_green_deployment_info::SourceRole>),
+        /// Output only. The target instance for the Blue-Green deployment.
+        Target(std::boxed::Box<crate::model::blue_green_deployment_info::TargetRole>),
     }
 }
 
@@ -15835,6 +18492,13 @@ pub mod sql_external_sync_setting_error {
         /// The replication user is missing specific privileges to setup DDL
         /// replication. (e.g. CREATE EVENT TRIGGER, CREATE SCHEMA) for PostgreSQL.
         PgDdlReplicationInsufficientPrivilege,
+        /// Read replicas of the Writable Destination instance will be recreated
+        /// after external synchronization is complete, causing downtime on read
+        /// replicas.
+        WritableDestinationReplicaRecreationDowntime,
+        /// A warning that disk storage auto increase is disabled on the destination
+        /// instance for a Writable Destination migration.
+        WritableDestinationStorageAutoIncreaseDisabled,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [SqlExternalSyncSettingErrorType::value] or
@@ -15916,6 +18580,10 @@ pub mod sql_external_sync_setting_error {
                 Self::PromptDeleteExisting => std::option::Option::Some(56),
                 Self::WillDeleteExisting => std::option::Option::Some(57),
                 Self::PgDdlReplicationInsufficientPrivilege => std::option::Option::Some(58),
+                Self::WritableDestinationReplicaRecreationDowntime => std::option::Option::Some(59),
+                Self::WritableDestinationStorageAutoIncreaseDisabled => {
+                    std::option::Option::Some(60)
+                }
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -16059,6 +18727,12 @@ pub mod sql_external_sync_setting_error {
                 Self::PgDdlReplicationInsufficientPrivilege => {
                     std::option::Option::Some("PG_DDL_REPLICATION_INSUFFICIENT_PRIVILEGE")
                 }
+                Self::WritableDestinationReplicaRecreationDowntime => {
+                    std::option::Option::Some("WRITABLE_DESTINATION_REPLICA_RECREATION_DOWNTIME")
+                }
+                Self::WritableDestinationStorageAutoIncreaseDisabled => {
+                    std::option::Option::Some("WRITABLE_DESTINATION_STORAGE_AUTO_INCREASE_DISABLED")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -16139,6 +18813,8 @@ pub mod sql_external_sync_setting_error {
                 56 => Self::PromptDeleteExisting,
                 57 => Self::WillDeleteExisting,
                 58 => Self::PgDdlReplicationInsufficientPrivilege,
+                59 => Self::WritableDestinationReplicaRecreationDowntime,
+                60 => Self::WritableDestinationStorageAutoIncreaseDisabled,
                 _ => Self::UnknownValue(sql_external_sync_setting_error_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -16219,6 +18895,12 @@ pub mod sql_external_sync_setting_error {
                 "PG_DDL_REPLICATION_INSUFFICIENT_PRIVILEGE" => {
                     Self::PgDdlReplicationInsufficientPrivilege
                 }
+                "WRITABLE_DESTINATION_REPLICA_RECREATION_DOWNTIME" => {
+                    Self::WritableDestinationReplicaRecreationDowntime
+                }
+                "WRITABLE_DESTINATION_STORAGE_AUTO_INCREASE_DISABLED" => {
+                    Self::WritableDestinationStorageAutoIncreaseDisabled
+                }
                 _ => Self::UnknownValue(sql_external_sync_setting_error_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -16291,6 +18973,10 @@ pub mod sql_external_sync_setting_error {
                 Self::PromptDeleteExisting => serializer.serialize_i32(56),
                 Self::WillDeleteExisting => serializer.serialize_i32(57),
                 Self::PgDdlReplicationInsufficientPrivilege => serializer.serialize_i32(58),
+                Self::WritableDestinationReplicaRecreationDowntime => serializer.serialize_i32(59),
+                Self::WritableDestinationStorageAutoIncreaseDisabled => {
+                    serializer.serialize_i32(60)
+                }
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -16891,7 +19577,7 @@ impl wkt::message::Message for ReplicaConfiguration {
     }
 }
 
-/// Execute SQL statements request.
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesExecuteSqlRequest {
@@ -17006,6 +19692,7 @@ pub struct ExecuteSqlPayload {
     pub sql_statement: std::string::String,
 
     /// Optional. Name of the database on which the statement will be executed.
+    /// For Postgres and SQL Server it's required, for MySQL it's optional.
     pub database: std::string::String,
 
     /// Optional. The maximum number of rows returned per SQL statement.
@@ -17370,7 +20057,7 @@ pub mod execute_sql_payload {
     }
 }
 
-/// Execute SQL statements response.
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesExecuteSqlResponse {
@@ -20134,6 +22821,9 @@ pub struct PreCheckMajorVersionUpgradeContext {
     /// Optional. This is always `sql#preCheckMajorVersionUpgradeContext`.
     pub kind: std::string::String,
 
+    /// Optional. The maximum allowed runtime for the precheck operation.
+    pub max_runtime: std::option::Option<wkt::Duration>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -20192,6 +22882,39 @@ impl PreCheckMajorVersionUpgradeContext {
     /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [max_runtime][crate::model::PreCheckMajorVersionUpgradeContext::max_runtime].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PreCheckMajorVersionUpgradeContext;
+    /// use wkt::Duration;
+    /// let x = PreCheckMajorVersionUpgradeContext::new().set_max_runtime(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_max_runtime<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_runtime = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_runtime][crate::model::PreCheckMajorVersionUpgradeContext::max_runtime].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PreCheckMajorVersionUpgradeContext;
+    /// use wkt::Duration;
+    /// let x = PreCheckMajorVersionUpgradeContext::new().set_or_clear_max_runtime(Some(Duration::default()/* use setters */));
+    /// let x = PreCheckMajorVersionUpgradeContext::new().set_or_clear_max_runtime(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_max_runtime<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_runtime = v.map(|x| x.into());
         self
     }
 }
@@ -24120,7 +26843,7 @@ pub struct PscConfig {
 
     /// Optional. The network attachment of the consumer network that the
     /// Private Service Connect enabled Cloud SQL instance is
-    /// authorized to connect via PSC interface.
+    /// authorized to connect using the PSC interface.
     /// format: projects/PROJECT/regions/REGION/networkAttachments/ID
     pub network_attachment_uri: std::string::String,
 
@@ -25414,11 +28137,20 @@ impl wkt::message::Message for MySqlReplicaConfiguration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiskEncryptionConfiguration {
-    /// Resource name of KMS key for disk encryption
+    /// Resource name of KMS key for disk encryption.
     pub kms_key_name: std::string::String,
 
     /// This is always `sql#diskEncryptionConfiguration`.
     pub kind: std::string::String,
+
+    /// Optional. If true, enables Confidential Mode for the instance's Hyperdisk
+    /// Balanced volumes. Only supported for zonal C4A instances currently.
+    pub confidential_mode: std::option::Option<bool>,
+
+    /// Optional. Whether to enforce CMEK log encryption at source. When enforced,
+    /// transaction logs are encrypted prior to being uploaded to Cloud Storage. If
+    /// not enforced, then CMEK logs are encrypted by the Cloud Storage service.
+    pub cmek_source_log_encryption_enforced: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -25450,6 +28182,71 @@ impl DiskEncryptionConfiguration {
     /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [confidential_mode][crate::model::DiskEncryptionConfiguration::confidential_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = DiskEncryptionConfiguration::new().set_confidential_mode(true);
+    /// ```
+    pub fn set_confidential_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.confidential_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [confidential_mode][crate::model::DiskEncryptionConfiguration::confidential_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = DiskEncryptionConfiguration::new().set_or_clear_confidential_mode(Some(false));
+    /// let x = DiskEncryptionConfiguration::new().set_or_clear_confidential_mode(None::<bool>);
+    /// ```
+    pub fn set_or_clear_confidential_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.confidential_mode = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cmek_source_log_encryption_enforced][crate::model::DiskEncryptionConfiguration::cmek_source_log_encryption_enforced].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = DiskEncryptionConfiguration::new().set_cmek_source_log_encryption_enforced(true);
+    /// ```
+    pub fn set_cmek_source_log_encryption_enforced<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.cmek_source_log_encryption_enforced = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cmek_source_log_encryption_enforced][crate::model::DiskEncryptionConfiguration::cmek_source_log_encryption_enforced].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = DiskEncryptionConfiguration::new().set_or_clear_cmek_source_log_encryption_enforced(Some(false));
+    /// let x = DiskEncryptionConfiguration::new().set_or_clear_cmek_source_log_encryption_enforced(None::<bool>);
+    /// ```
+    pub fn set_or_clear_cmek_source_log_encryption_enforced<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.cmek_source_log_encryption_enforced = v.map(|x| x.into());
         self
     }
 }
@@ -25786,6 +28583,30 @@ pub struct Operation {
     /// and the results of the check (including any warnings or errors found).
     pub pre_check_major_version_upgrade_context:
         std::option::Option<crate::model::PreCheckMajorVersionUpgradeContext>,
+
+    /// The context for the `StartWorkloadCapture` operation, which contains
+    /// details to start recording the workload (SQL queries) on a Cloud SQL
+    /// instance.
+    pub start_workload_capture_context:
+        std::option::Option<crate::model::StartWorkloadCaptureContext>,
+
+    /// The context for the `StopWorkloadCapture` operation, which contains
+    /// details to stop recording the workload (SQL queries) on a Cloud SQL
+    /// instance.
+    pub stop_workload_capture_context:
+        std::option::Option<crate::model::StopWorkloadCaptureContext>,
+
+    /// The context for the `StartWorkloadReplay` operation, which contains details
+    /// about starting the execution of a captured workload (recorded read and
+    /// write SQL queries) on a replay instance (the Cloud SQL
+    /// instance where the recorded SQL queries are executed).
+    pub start_workload_replay_context:
+        std::option::Option<crate::model::StartWorkloadReplayContext>,
+
+    /// The context for the `StopWorkloadReplay` operation, which contains details
+    /// about stopping the execution of a captured workload (recorded read and
+    /// write SQL queries) on a replay instance.
+    pub stop_workload_replay_context: std::option::Option<crate::model::StopWorkloadReplayContext>,
 
     /// An identifier that uniquely identifies the operation. You can use this
     /// identifier to retrieve the Operations resource that has information about
@@ -26188,6 +29009,147 @@ impl Operation {
         self
     }
 
+    /// Sets the value of [start_workload_capture_context][crate::model::Operation::start_workload_capture_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::StartWorkloadCaptureContext;
+    /// let x = Operation::new().set_start_workload_capture_context(StartWorkloadCaptureContext::default()/* use setters */);
+    /// ```
+    pub fn set_start_workload_capture_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StartWorkloadCaptureContext>,
+    {
+        self.start_workload_capture_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_workload_capture_context][crate::model::Operation::start_workload_capture_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::StartWorkloadCaptureContext;
+    /// let x = Operation::new().set_or_clear_start_workload_capture_context(Some(StartWorkloadCaptureContext::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_start_workload_capture_context(None::<StartWorkloadCaptureContext>);
+    /// ```
+    pub fn set_or_clear_start_workload_capture_context<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::StartWorkloadCaptureContext>,
+    {
+        self.start_workload_capture_context = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [stop_workload_capture_context][crate::model::Operation::stop_workload_capture_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::StopWorkloadCaptureContext;
+    /// let x = Operation::new().set_stop_workload_capture_context(StopWorkloadCaptureContext::default()/* use setters */);
+    /// ```
+    pub fn set_stop_workload_capture_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StopWorkloadCaptureContext>,
+    {
+        self.stop_workload_capture_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [stop_workload_capture_context][crate::model::Operation::stop_workload_capture_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::StopWorkloadCaptureContext;
+    /// let x = Operation::new().set_or_clear_stop_workload_capture_context(Some(StopWorkloadCaptureContext::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_stop_workload_capture_context(None::<StopWorkloadCaptureContext>);
+    /// ```
+    pub fn set_or_clear_stop_workload_capture_context<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::StopWorkloadCaptureContext>,
+    {
+        self.stop_workload_capture_context = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_workload_replay_context][crate::model::Operation::start_workload_replay_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::StartWorkloadReplayContext;
+    /// let x = Operation::new().set_start_workload_replay_context(StartWorkloadReplayContext::default()/* use setters */);
+    /// ```
+    pub fn set_start_workload_replay_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StartWorkloadReplayContext>,
+    {
+        self.start_workload_replay_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_workload_replay_context][crate::model::Operation::start_workload_replay_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::StartWorkloadReplayContext;
+    /// let x = Operation::new().set_or_clear_start_workload_replay_context(Some(StartWorkloadReplayContext::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_start_workload_replay_context(None::<StartWorkloadReplayContext>);
+    /// ```
+    pub fn set_or_clear_start_workload_replay_context<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::StartWorkloadReplayContext>,
+    {
+        self.start_workload_replay_context = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [stop_workload_replay_context][crate::model::Operation::stop_workload_replay_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::StopWorkloadReplayContext;
+    /// let x = Operation::new().set_stop_workload_replay_context(StopWorkloadReplayContext::default()/* use setters */);
+    /// ```
+    pub fn set_stop_workload_replay_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StopWorkloadReplayContext>,
+    {
+        self.stop_workload_replay_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [stop_workload_replay_context][crate::model::Operation::stop_workload_replay_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::StopWorkloadReplayContext;
+    /// let x = Operation::new().set_or_clear_stop_workload_replay_context(Some(StopWorkloadReplayContext::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_stop_workload_replay_context(None::<StopWorkloadReplayContext>);
+    /// ```
+    pub fn set_or_clear_stop_workload_replay_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StopWorkloadReplayContext>,
+    {
+        self.stop_workload_replay_context = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [name][crate::model::Operation::name].
     ///
     /// # Example
@@ -26469,6 +29431,12 @@ pub mod operation {
         /// migration workflow: including configuration, replication,
         /// switchover/back, and data reseeding, as defined by operation's intent.
         SetupMigration,
+        /// Creates a new Blue-Green deployment.
+        CreateBlueGreenDeployment,
+        /// Switches over a Blue-Green deployment.
+        SwitchoverBlueGreenDeployment,
+        /// Deletes a Blue-Green deployment.
+        DeleteBlueGreenDeployment,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [SqlOperationType::value] or
@@ -26545,6 +29513,9 @@ pub mod operation {
                 Self::CreateReadPool => std::option::Option::Some(53),
                 Self::PreCheckMajorVersionUpgrade => std::option::Option::Some(54),
                 Self::SetupMigration => std::option::Option::Some(55),
+                Self::CreateBlueGreenDeployment => std::option::Option::Some(56),
+                Self::SwitchoverBlueGreenDeployment => std::option::Option::Some(57),
+                Self::DeleteBlueGreenDeployment => std::option::Option::Some(58),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -26613,6 +29584,15 @@ pub mod operation {
                     std::option::Option::Some("PRE_CHECK_MAJOR_VERSION_UPGRADE")
                 }
                 Self::SetupMigration => std::option::Option::Some("SETUP_MIGRATION"),
+                Self::CreateBlueGreenDeployment => {
+                    std::option::Option::Some("CREATE_BLUE_GREEN_DEPLOYMENT")
+                }
+                Self::SwitchoverBlueGreenDeployment => {
+                    std::option::Option::Some("SWITCHOVER_BLUE_GREEN_DEPLOYMENT")
+                }
+                Self::DeleteBlueGreenDeployment => {
+                    std::option::Option::Some("DELETE_BLUE_GREEN_DEPLOYMENT")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -26688,6 +29668,9 @@ pub mod operation {
                 53 => Self::CreateReadPool,
                 54 => Self::PreCheckMajorVersionUpgrade,
                 55 => Self::SetupMigration,
+                56 => Self::CreateBlueGreenDeployment,
+                57 => Self::SwitchoverBlueGreenDeployment,
+                58 => Self::DeleteBlueGreenDeployment,
                 _ => Self::UnknownValue(sql_operation_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -26753,6 +29736,9 @@ pub mod operation {
                 "CREATE_READ_POOL" => Self::CreateReadPool,
                 "PRE_CHECK_MAJOR_VERSION_UPGRADE" => Self::PreCheckMajorVersionUpgrade,
                 "SETUP_MIGRATION" => Self::SetupMigration,
+                "CREATE_BLUE_GREEN_DEPLOYMENT" => Self::CreateBlueGreenDeployment,
+                "SWITCHOVER_BLUE_GREEN_DEPLOYMENT" => Self::SwitchoverBlueGreenDeployment,
+                "DELETE_BLUE_GREEN_DEPLOYMENT" => Self::DeleteBlueGreenDeployment,
                 _ => Self::UnknownValue(sql_operation_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -26820,6 +29806,9 @@ pub mod operation {
                 Self::CreateReadPool => serializer.serialize_i32(53),
                 Self::PreCheckMajorVersionUpgrade => serializer.serialize_i32(54),
                 Self::SetupMigration => serializer.serialize_i32(55),
+                Self::CreateBlueGreenDeployment => serializer.serialize_i32(56),
+                Self::SwitchoverBlueGreenDeployment => serializer.serialize_i32(57),
+                Self::DeleteBlueGreenDeployment => serializer.serialize_i32(58),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -27743,7 +30732,8 @@ pub struct Settings {
     /// Insights configuration, for now relevant only for Postgres.
     pub insights_config: std::option::Option<crate::model::InsightsConfig>,
 
-    /// The local user password validation policy of the instance.
+    /// The local user password validation policy of the instance for PostgreSQL
+    /// and MySQL.
     pub password_validation_policy: std::option::Option<crate::model::PasswordValidationPolicy>,
 
     /// SQL Server specific audit configuration.
@@ -32338,6 +35328,211 @@ pub mod dns_name_mapping {
     }
 }
 
+/// The context for the `StartWorkloadCapture` operation, which contains
+/// details to start recording the workload (SQL queries) on a Cloud SQL
+/// instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartWorkloadCaptureContext {
+    /// Optional. If true, the captured workload is simultaneously executed on a
+    /// separate, ephemeral Cloud SQL instance. This "live replay" instance
+    /// is automatically provisioned and is cloned from the source instance. If
+    /// false (the default), the workload is only stored and no live replay occurs.
+    /// It can be replayed later using a separate `StartWorkloadReplayRequest`.
+    /// Note: The workload capture runs continuously until an explicit
+    /// `StopWorkloadCaptureRequest` is issued.
+    pub enable_live_replay: bool,
+
+    /// Optional. Required if `enable_live_replay` is true.
+    /// The name of the Cloud SQL instance where the captured workload
+    /// (SQL queries) is being executed, excluding the project ID (for example,
+    /// `my-replay-instance`). The instance name must start with a lowercase letter
+    /// and contain only lowercase letters, numbers, and hyphens. The combined
+    /// length of `project-ID:instance-name` must be 98 characters or less.
+    pub replay_instance: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartWorkloadCaptureContext {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enable_live_replay][crate::model::StartWorkloadCaptureContext::enable_live_replay].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::StartWorkloadCaptureContext;
+    /// let x = StartWorkloadCaptureContext::new().set_enable_live_replay(true);
+    /// ```
+    pub fn set_enable_live_replay<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_live_replay = v.into();
+        self
+    }
+
+    /// Sets the value of [replay_instance][crate::model::StartWorkloadCaptureContext::replay_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::StartWorkloadCaptureContext;
+    /// let x = StartWorkloadCaptureContext::new().set_replay_instance("example");
+    /// ```
+    pub fn set_replay_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.replay_instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [replay_instance][crate::model::StartWorkloadCaptureContext::replay_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::StartWorkloadCaptureContext;
+    /// let x = StartWorkloadCaptureContext::new().set_or_clear_replay_instance(Some("example"));
+    /// let x = StartWorkloadCaptureContext::new().set_or_clear_replay_instance(None::<String>);
+    /// ```
+    pub fn set_or_clear_replay_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.replay_instance = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for StartWorkloadCaptureContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.StartWorkloadCaptureContext"
+    }
+}
+
+/// The context for the `StopWorkloadCapture` operation, which contains
+/// details to stop recording the workload (SQL queries) on a Cloud SQL
+/// instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StopWorkloadCaptureContext {
+    /// Optional. If true, immediately aborts the concurrent live replay and
+    /// discards any un-replayed traffic alongside stopping the capture. If false
+    /// (the default), the capture stops recording new traffic, but the live replay
+    /// will continue executing until the entire backlog of captured traffic has
+    /// been replayed.
+    pub abort_live_replay: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StopWorkloadCaptureContext {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [abort_live_replay][crate::model::StopWorkloadCaptureContext::abort_live_replay].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::StopWorkloadCaptureContext;
+    /// let x = StopWorkloadCaptureContext::new().set_abort_live_replay(true);
+    /// ```
+    pub fn set_abort_live_replay<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.abort_live_replay = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StopWorkloadCaptureContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.StopWorkloadCaptureContext"
+    }
+}
+
+/// The context for the `StartWorkloadReplay` operation, which contains details
+/// about starting the execution of a captured workload (recorded read and
+/// write SQL queries) on a replay instance (the Cloud SQL
+/// instance where the recorded SQL queries are executed).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartWorkloadReplayContext {
+    /// Required. The name of the Cloud SQL instance where the captured workload
+    /// (SQL queries) is being executed, excluding the project ID (for example,
+    /// `my-replay-instance`). The instance name must start with a lowercase letter
+    /// and contain only lowercase letters, numbers, and hyphens. The combined
+    /// length of `project-ID:instance-name` must be 98 characters or less.
+    pub replay_instance: std::string::String,
+
+    /// Output only. The ID of the workload to start executing on the replay
+    /// instance. Each workload capture generates a unique ID in the format
+    /// `workload-<epoch_timestamp>` (for example, `workload-1786046400`). Use this
+    /// ID to start executing the recorded SQL queries.
+    pub workload_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartWorkloadReplayContext {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [replay_instance][crate::model::StartWorkloadReplayContext::replay_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::StartWorkloadReplayContext;
+    /// let x = StartWorkloadReplayContext::new().set_replay_instance("example");
+    /// ```
+    pub fn set_replay_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.replay_instance = v.into();
+        self
+    }
+
+    /// Sets the value of [workload_id][crate::model::StartWorkloadReplayContext::workload_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::StartWorkloadReplayContext;
+    /// let x = StartWorkloadReplayContext::new().set_workload_id("example");
+    /// ```
+    pub fn set_workload_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.workload_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StartWorkloadReplayContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.StartWorkloadReplayContext"
+    }
+}
+
+/// The context for the `StopWorkloadReplay` operation, which represents an
+/// operation that stops an active workload replay on a target Cloud SQL replay
+/// instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StopWorkloadReplayContext {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StopWorkloadReplayContext {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for StopWorkloadReplayContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.StopWorkloadReplayContext"
+    }
+}
+
 #[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -34286,8 +37481,8 @@ pub mod user {
         /// Read-only. Login for a service account that belongs to the
         /// Cloud IAM group.
         CloudIamGroupServiceAccount,
-        /// Cloud IAM workforce identity user managed via workforce identity
-        /// federation.
+        /// Cloud IAM workforce identity managed by Workforce Identity
+        /// Federation.
         CloudIamWorkforceIdentity,
         /// Microsoft Entra ID user.
         EntraidUser,
@@ -34719,10 +37914,10 @@ pub mod user {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerUserDetails {
-    /// If the user has been disabled
+    /// Indicates if the user has been disabled.
     pub disabled: bool,
 
-    /// The server roles for this user
+    /// Indicates the server roles for this user.
     pub server_roles: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -34844,6 +38039,895 @@ impl UsersListResponse {
 impl wkt::message::Message for UsersListResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.sql.v1.UsersListResponse"
+    }
+}
+
+/// Request to start recording traffic from the primary instance (captured
+/// workload).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadCapturesStartRequest {
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Optional. Contains details about the start workload capture operation.
+    pub start_workload_capture_context:
+        std::option::Option<crate::model::StartWorkloadCaptureContext>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadCapturesStartRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project][crate::model::WorkloadCapturesStartRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartRequest;
+    /// let x = WorkloadCapturesStartRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::WorkloadCapturesStartRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartRequest;
+    /// let x = WorkloadCapturesStartRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [start_workload_capture_context][crate::model::WorkloadCapturesStartRequest::start_workload_capture_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartRequest;
+    /// use google_cloud_sql_v1::model::StartWorkloadCaptureContext;
+    /// let x = WorkloadCapturesStartRequest::new().set_start_workload_capture_context(StartWorkloadCaptureContext::default()/* use setters */);
+    /// ```
+    pub fn set_start_workload_capture_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StartWorkloadCaptureContext>,
+    {
+        self.start_workload_capture_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_workload_capture_context][crate::model::WorkloadCapturesStartRequest::start_workload_capture_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartRequest;
+    /// use google_cloud_sql_v1::model::StartWorkloadCaptureContext;
+    /// let x = WorkloadCapturesStartRequest::new().set_or_clear_start_workload_capture_context(Some(StartWorkloadCaptureContext::default()/* use setters */));
+    /// let x = WorkloadCapturesStartRequest::new().set_or_clear_start_workload_capture_context(None::<StartWorkloadCaptureContext>);
+    /// ```
+    pub fn set_or_clear_start_workload_capture_context<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::StartWorkloadCaptureContext>,
+    {
+        self.start_workload_capture_context = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadCapturesStartRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.WorkloadCapturesStartRequest"
+    }
+}
+
+/// Request to stop recording traffic from the primary instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadCapturesStopRequest {
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Optional. Contains details about the stop workload capture operation.
+    pub stop_workload_capture_context:
+        std::option::Option<crate::model::StopWorkloadCaptureContext>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadCapturesStopRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project][crate::model::WorkloadCapturesStopRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStopRequest;
+    /// let x = WorkloadCapturesStopRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::WorkloadCapturesStopRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStopRequest;
+    /// let x = WorkloadCapturesStopRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [stop_workload_capture_context][crate::model::WorkloadCapturesStopRequest::stop_workload_capture_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStopRequest;
+    /// use google_cloud_sql_v1::model::StopWorkloadCaptureContext;
+    /// let x = WorkloadCapturesStopRequest::new().set_stop_workload_capture_context(StopWorkloadCaptureContext::default()/* use setters */);
+    /// ```
+    pub fn set_stop_workload_capture_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StopWorkloadCaptureContext>,
+    {
+        self.stop_workload_capture_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [stop_workload_capture_context][crate::model::WorkloadCapturesStopRequest::stop_workload_capture_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStopRequest;
+    /// use google_cloud_sql_v1::model::StopWorkloadCaptureContext;
+    /// let x = WorkloadCapturesStopRequest::new().set_or_clear_stop_workload_capture_context(Some(StopWorkloadCaptureContext::default()/* use setters */));
+    /// let x = WorkloadCapturesStopRequest::new().set_or_clear_stop_workload_capture_context(None::<StopWorkloadCaptureContext>);
+    /// ```
+    pub fn set_or_clear_stop_workload_capture_context<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::StopWorkloadCaptureContext>,
+    {
+        self.stop_workload_capture_context = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadCapturesStopRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.WorkloadCapturesStopRequest"
+    }
+}
+
+/// Request to start executing a captured workload on a replay instance (the
+/// Cloud SQL instance where the recorded SQL queries are executed).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadCapturesStartReplayRequest {
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Required. Contains details about the start workload replay operation.
+    pub start_workload_replay_context:
+        std::option::Option<crate::model::StartWorkloadReplayContext>,
+
+    /// Required. The ID of the workload to replay.
+    pub workload_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadCapturesStartReplayRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project][crate::model::WorkloadCapturesStartReplayRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartReplayRequest;
+    /// let x = WorkloadCapturesStartReplayRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::WorkloadCapturesStartReplayRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartReplayRequest;
+    /// let x = WorkloadCapturesStartReplayRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [start_workload_replay_context][crate::model::WorkloadCapturesStartReplayRequest::start_workload_replay_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartReplayRequest;
+    /// use google_cloud_sql_v1::model::StartWorkloadReplayContext;
+    /// let x = WorkloadCapturesStartReplayRequest::new().set_start_workload_replay_context(StartWorkloadReplayContext::default()/* use setters */);
+    /// ```
+    pub fn set_start_workload_replay_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StartWorkloadReplayContext>,
+    {
+        self.start_workload_replay_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_workload_replay_context][crate::model::WorkloadCapturesStartReplayRequest::start_workload_replay_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartReplayRequest;
+    /// use google_cloud_sql_v1::model::StartWorkloadReplayContext;
+    /// let x = WorkloadCapturesStartReplayRequest::new().set_or_clear_start_workload_replay_context(Some(StartWorkloadReplayContext::default()/* use setters */));
+    /// let x = WorkloadCapturesStartReplayRequest::new().set_or_clear_start_workload_replay_context(None::<StartWorkloadReplayContext>);
+    /// ```
+    pub fn set_or_clear_start_workload_replay_context<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::StartWorkloadReplayContext>,
+    {
+        self.start_workload_replay_context = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [workload_id][crate::model::WorkloadCapturesStartReplayRequest::workload_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStartReplayRequest;
+    /// let x = WorkloadCapturesStartReplayRequest::new().set_workload_id("example");
+    /// ```
+    pub fn set_workload_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.workload_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadCapturesStartReplayRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.WorkloadCapturesStartReplayRequest"
+    }
+}
+
+/// Request to stop an active workload replay on a target Cloud SQL replay
+/// instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadCapturesStopReplayRequest {
+    /// Required. Project ID of the project that contains the target replay
+    /// instance.
+    pub project: std::string::String,
+
+    /// Required. Cloud SQL instance ID of the target replay instance. This does
+    /// not include the project ID.
+    pub instance: std::string::String,
+
+    /// Optional. Contains details about the stop workload replay operation. If
+    /// omitted, default values are used.
+    pub stop_workload_replay_context: std::option::Option<crate::model::StopWorkloadReplayContext>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadCapturesStopReplayRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project][crate::model::WorkloadCapturesStopReplayRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStopReplayRequest;
+    /// let x = WorkloadCapturesStopReplayRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::WorkloadCapturesStopReplayRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStopReplayRequest;
+    /// let x = WorkloadCapturesStopReplayRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [stop_workload_replay_context][crate::model::WorkloadCapturesStopReplayRequest::stop_workload_replay_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStopReplayRequest;
+    /// use google_cloud_sql_v1::model::StopWorkloadReplayContext;
+    /// let x = WorkloadCapturesStopReplayRequest::new().set_stop_workload_replay_context(StopWorkloadReplayContext::default()/* use setters */);
+    /// ```
+    pub fn set_stop_workload_replay_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StopWorkloadReplayContext>,
+    {
+        self.stop_workload_replay_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [stop_workload_replay_context][crate::model::WorkloadCapturesStopReplayRequest::stop_workload_replay_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesStopReplayRequest;
+    /// use google_cloud_sql_v1::model::StopWorkloadReplayContext;
+    /// let x = WorkloadCapturesStopReplayRequest::new().set_or_clear_stop_workload_replay_context(Some(StopWorkloadReplayContext::default()/* use setters */));
+    /// let x = WorkloadCapturesStopReplayRequest::new().set_or_clear_stop_workload_replay_context(None::<StopWorkloadReplayContext>);
+    /// ```
+    pub fn set_or_clear_stop_workload_replay_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StopWorkloadReplayContext>,
+    {
+        self.stop_workload_replay_context = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadCapturesStopReplayRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.WorkloadCapturesStopReplayRequest"
+    }
+}
+
+/// Instance list captured workloads request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlWorkloadCapturesListRequest {
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlWorkloadCapturesListRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project][crate::model::SqlWorkloadCapturesListRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlWorkloadCapturesListRequest;
+    /// let x = SqlWorkloadCapturesListRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::SqlWorkloadCapturesListRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlWorkloadCapturesListRequest;
+    /// let x = SqlWorkloadCapturesListRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SqlWorkloadCapturesListRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.SqlWorkloadCapturesListRequest"
+    }
+}
+
+/// Instance list captured workloads response.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadCapturesListResponse {
+    /// List of captured workloads for the instance.
+    pub workload_captures: std::vec::Vec<crate::model::WorkloadCapture>,
+
+    /// This is always `sql#workloadCapturesList`.
+    pub kind: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadCapturesListResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [workload_captures][crate::model::WorkloadCapturesListResponse::workload_captures].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesListResponse;
+    /// use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapturesListResponse::new()
+    ///     .set_workload_captures([
+    ///         WorkloadCapture::default()/* use setters */,
+    ///         WorkloadCapture::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_workload_captures<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::WorkloadCapture>,
+    {
+        use std::iter::Iterator;
+        self.workload_captures = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::WorkloadCapturesListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapturesListResponse;
+    /// let x = WorkloadCapturesListResponse::new().set_kind("example");
+    /// ```
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadCapturesListResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.WorkloadCapturesListResponse"
+    }
+}
+
+/// Captured workload for an instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadCapture {
+    /// Output only. The ID of the captured workload.
+    pub workload_id: std::string::String,
+
+    /// Output only. The name of the source instance.
+    pub source_instance: std::string::String,
+
+    /// Output only. The state of the workload capture.
+    pub workload_capture_state: crate::model::workload_capture::State,
+
+    /// Output only. The start time of the workload capture.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The end time of the workload capture.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The name of the replay instance, if live replay was enabled.
+    pub replay_instance: std::option::Option<std::string::String>,
+
+    /// Output only. The retention period in days for the captured workload.
+    pub retention_days: std::option::Option<i32>,
+
+    /// Output only. The base backup ID associated with the workload capture.
+    pub backup_id: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadCapture {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [workload_id][crate::model::WorkloadCapture::workload_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapture::new().set_workload_id("example");
+    /// ```
+    pub fn set_workload_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.workload_id = v.into();
+        self
+    }
+
+    /// Sets the value of [source_instance][crate::model::WorkloadCapture::source_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapture::new().set_source_instance("example");
+    /// ```
+    pub fn set_source_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_instance = v.into();
+        self
+    }
+
+    /// Sets the value of [workload_capture_state][crate::model::WorkloadCapture::workload_capture_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// use google_cloud_sql_v1::model::workload_capture::State;
+    /// let x0 = WorkloadCapture::new().set_workload_capture_state(State::Running);
+    /// let x1 = WorkloadCapture::new().set_workload_capture_state(State::Completed);
+    /// let x2 = WorkloadCapture::new().set_workload_capture_state(State::Failed);
+    /// ```
+    pub fn set_workload_capture_state<
+        T: std::convert::Into<crate::model::workload_capture::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.workload_capture_state = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::WorkloadCapture::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadCapture::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::WorkloadCapture::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadCapture::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkloadCapture::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::WorkloadCapture::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadCapture::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::WorkloadCapture::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadCapture::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkloadCapture::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [replay_instance][crate::model::WorkloadCapture::replay_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapture::new().set_replay_instance("example");
+    /// ```
+    pub fn set_replay_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.replay_instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [replay_instance][crate::model::WorkloadCapture::replay_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapture::new().set_or_clear_replay_instance(Some("example"));
+    /// let x = WorkloadCapture::new().set_or_clear_replay_instance(None::<String>);
+    /// ```
+    pub fn set_or_clear_replay_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.replay_instance = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [retention_days][crate::model::WorkloadCapture::retention_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapture::new().set_retention_days(42);
+    /// ```
+    pub fn set_retention_days<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.retention_days = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retention_days][crate::model::WorkloadCapture::retention_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapture::new().set_or_clear_retention_days(Some(42));
+    /// let x = WorkloadCapture::new().set_or_clear_retention_days(None::<i32>);
+    /// ```
+    pub fn set_or_clear_retention_days<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.retention_days = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backup_id][crate::model::WorkloadCapture::backup_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapture::new().set_backup_id("example");
+    /// ```
+    pub fn set_backup_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backup_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_id][crate::model::WorkloadCapture::backup_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// let x = WorkloadCapture::new().set_or_clear_backup_id(Some("example"));
+    /// let x = WorkloadCapture::new().set_or_clear_backup_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backup_id = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadCapture {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.WorkloadCapture"
+    }
+}
+
+/// Defines additional types related to [WorkloadCapture].
+pub mod workload_capture {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State of the workload capture.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Workload capture is currently running.
+        Running,
+        /// Workload capture completed successfully. This state is set when the user
+        /// explicitly stops the capture.
+        Completed,
+        /// Workload capture failed.
+        Failed,
+        /// Workload capture was terminated automatically. This state is set when
+        /// Cloud SQL automatically stops the capture due to a conflicting operation
+        /// or when the maximum duration is reached.
+        Terminated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Completed => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Terminated => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Completed => std::option::Option::Some("COMPLETED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Terminated => std::option::Option::Some("TERMINATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Completed,
+                3 => Self::Failed,
+                4 => Self::Terminated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "COMPLETED" => Self::Completed,
+                "FAILED" => Self::Failed,
+                "TERMINATED" => Self::Terminated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Completed => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Terminated => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.sql.v1.WorkloadCapture.State",
+            ))
+        }
     }
 }
 
@@ -35768,6 +39852,9 @@ pub enum SqlInstanceType {
     ReadReplicaInstance,
     /// A Cloud SQL read pool.
     ReadPoolInstance,
+    /// A Cloud SQL instance acting as a Blue-Green deployment target primary.
+    /// (MySQL only)
+    GreenInstance,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [SqlInstanceType::value] or
@@ -35795,6 +39882,7 @@ impl SqlInstanceType {
             Self::OnPremisesInstance => std::option::Option::Some(2),
             Self::ReadReplicaInstance => std::option::Option::Some(3),
             Self::ReadPoolInstance => std::option::Option::Some(5),
+            Self::GreenInstance => std::option::Option::Some(7),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -35810,6 +39898,7 @@ impl SqlInstanceType {
             Self::OnPremisesInstance => std::option::Option::Some("ON_PREMISES_INSTANCE"),
             Self::ReadReplicaInstance => std::option::Option::Some("READ_REPLICA_INSTANCE"),
             Self::ReadPoolInstance => std::option::Option::Some("READ_POOL_INSTANCE"),
+            Self::GreenInstance => std::option::Option::Some("GREEN_INSTANCE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -35836,6 +39925,7 @@ impl std::convert::From<i32> for SqlInstanceType {
             2 => Self::OnPremisesInstance,
             3 => Self::ReadReplicaInstance,
             5 => Self::ReadPoolInstance,
+            7 => Self::GreenInstance,
             _ => Self::UnknownValue(sql_instance_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -35852,6 +39942,7 @@ impl std::convert::From<&str> for SqlInstanceType {
             "ON_PREMISES_INSTANCE" => Self::OnPremisesInstance,
             "READ_REPLICA_INSTANCE" => Self::ReadReplicaInstance,
             "READ_POOL_INSTANCE" => Self::ReadPoolInstance,
+            "GREEN_INSTANCE" => Self::GreenInstance,
             _ => Self::UnknownValue(sql_instance_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -35870,6 +39961,7 @@ impl serde::ser::Serialize for SqlInstanceType {
             Self::OnPremisesInstance => serializer.serialize_i32(2),
             Self::ReadReplicaInstance => serializer.serialize_i32(3),
             Self::ReadPoolInstance => serializer.serialize_i32(5),
+            Self::GreenInstance => serializer.serialize_i32(7),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

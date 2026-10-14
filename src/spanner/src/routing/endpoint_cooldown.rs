@@ -26,8 +26,8 @@
 use google_cloud_gax::error::rpc::Code;
 use rand::random_range;
 use std::collections::{HashMap, HashSet};
-use std::sync::RwLock;
 use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::{PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard};
 use std::time::{Duration, Instant};
 
 /// Default initial cooldown duration when an endpoint first returns `RESOURCE_EXHAUSTED`.
@@ -115,6 +115,27 @@ impl EndpointCooldownTracker {
         }
     }
 
+    /// Acquires a shared read lock on the endpoint cooldown states, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `state` stores an in-memory `HashMap<String, EndpointCooldownState>`. In Rust, standard collections
+    /// remain memory-safe and structurally sound even if an earlier thread panicked while reading or writing.
+    /// Cooldown states track transient failure counts and decay timestamps; any partially applied or interrupted
+    /// update is safely corrected or pruned on subsequent checks. Recovering the guard via `into_inner()` prevents
+    /// an isolated panic in an application RPC or maintenance cleanup task from permanently disabling cooldown
+    /// tracking and cascading into routing failures.
+    fn read_state(&self) -> RwLockReadGuard<'_, HashMap<String, EndpointCooldownState>> {
+        self.state.read().unwrap_or_else(PoisonError::into_inner)
+    }
+
+    /// Acquires an exclusive write lock on the endpoint cooldown states, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// See [`read_state`](Self::read_state).
+    fn write_state(&self) -> RwLockWriteGuard<'_, HashMap<String, EndpointCooldownState>> {
+        self.state.write().unwrap_or_else(PoisonError::into_inner)
+    }
+
     /// Returns `true` if the given endpoint address is currently on active cooldown.
     pub(crate) fn is_cooling_down(&self, endpoint: &str) -> bool {
         self.is_cooling_down_at(endpoint, Instant::now())
@@ -131,10 +152,7 @@ impl EndpointCooldownTracker {
         }
 
         {
-            let guard = self
-                .state
-                .read()
-                .expect("EndpointCooldownTracker read lock poisoned");
+            let guard = self.read_state();
             let Some(entry) = guard.get(endpoint) else {
                 return false;
             };
@@ -146,10 +164,7 @@ impl EndpointCooldownTracker {
             }
         }
 
-        let mut guard = self
-            .state
-            .write()
-            .expect("EndpointCooldownTracker write lock poisoned");
+        let mut guard = self.write_state();
         if let Some(entry) = guard.get(endpoint) {
             // Re-validate cooling down status under write lock to eliminate TOCTOU race
             // if a failure was recorded concurrently between dropping read lock and acquiring write lock.
@@ -252,10 +267,7 @@ impl EndpointCooldownTracker {
             return Duration::ZERO;
         }
 
-        let mut guard = self
-            .state
-            .write()
-            .expect("EndpointCooldownTracker write lock poisoned");
+        let mut guard = self.write_state();
 
         // `guard` is the tracker's internal map of endpoints with recorded failures (not the cluster's endpoints).
         // - `Some(existing)`: The endpoint already has a failure entry in this tracker from a prior failure.
@@ -302,19 +314,13 @@ impl EndpointCooldownTracker {
 
         // Fast path: avoid acquiring an exclusive write lock for healthy endpoints not in the tracker.
         {
-            let guard = self
-                .state
-                .read()
-                .expect("EndpointCooldownTracker read lock poisoned");
+            let guard = self.read_state();
             if !guard.contains_key(endpoint) {
                 return;
             }
         }
 
-        let mut guard = self
-            .state
-            .write()
-            .expect("EndpointCooldownTracker write lock poisoned");
+        let mut guard = self.write_state();
 
         let Some(entry) = guard.get_mut(endpoint) else {
             return;
@@ -678,10 +684,7 @@ impl EndpointCooldownTracker {
             return;
         }
         {
-            let guard = self
-                .state
-                .read()
-                .expect("EndpointCooldownTracker read lock poisoned");
+            let guard = self.read_state();
             let has_expired = guard
                 .values()
                 .any(|entry| entry.is_idle(now, self.reset_after));
@@ -690,10 +693,7 @@ impl EndpointCooldownTracker {
             }
         }
 
-        let mut guard = self
-            .state
-            .write()
-            .expect("EndpointCooldownTracker write lock poisoned");
+        let mut guard = self.write_state();
         guard.retain(|_, entry| !entry.is_idle(now, self.reset_after));
         self.tracked_entry_count
             .store(guard.len(), Ordering::Release);
@@ -701,10 +701,7 @@ impl EndpointCooldownTracker {
 
     /// Clears all tracked endpoint cooldowns.
     pub(crate) fn clear(&self) {
-        let mut guard = self
-            .state
-            .write()
-            .expect("EndpointCooldownTracker write lock poisoned");
+        let mut guard = self.write_state();
         guard.clear();
         self.tracked_entry_count.store(0, Ordering::Release);
     }
@@ -719,45 +716,34 @@ impl EndpointCooldownTracker {
 mod tests {
     use super::*;
     use std::fmt::Debug;
+    use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::Barrier;
     use std::thread;
 
     impl EndpointCooldownTracker {
         fn consecutive_failures(&self, endpoint: &str) -> usize {
-            let guard = self
-                .state
-                .read()
-                .expect("EndpointCooldownTracker read lock poisoned");
+            let guard = self.read_state();
             guard.get(endpoint).map_or(0, |entry| {
                 entry.overload.failures.max(entry.unavailable.failures)
             })
         }
 
         fn overload_failures(&self, endpoint: &str) -> usize {
-            let guard = self
-                .state
-                .read()
-                .expect("EndpointCooldownTracker read lock poisoned");
+            let guard = self.read_state();
             guard
                 .get(endpoint)
                 .map_or(0, |entry| entry.overload.failures)
         }
 
         fn unavailable_failures(&self, endpoint: &str) -> usize {
-            let guard = self
-                .state
-                .read()
-                .expect("EndpointCooldownTracker read lock poisoned");
+            let guard = self.read_state();
             guard
                 .get(endpoint)
                 .map_or(0, |entry| entry.unavailable.failures)
         }
 
         fn successes_toward_repair(&self, endpoint: &str) -> usize {
-            let guard = self
-                .state
-                .read()
-                .expect("EndpointCooldownTracker read lock poisoned");
+            let guard = self.read_state();
             guard
                 .get(endpoint)
                 .map_or(0, |entry| entry.successes_toward_repair)
@@ -1924,10 +1910,7 @@ mod tests {
             later_timestamp,
         );
 
-        let guard = tracker
-            .state
-            .read()
-            .expect("EndpointCooldownTracker read lock poisoned");
+        let guard = tracker.read_state();
         let initial_entry = guard
             .get(endpoint)
             .copied()
@@ -1949,10 +1932,7 @@ mod tests {
             earlier_timestamp,
         );
 
-        let guard = tracker
-            .state
-            .read()
-            .expect("EndpointCooldownTracker read lock poisoned");
+        let guard = tracker.read_state();
         let updated_entry = guard
             .get(endpoint)
             .copied()
@@ -1968,6 +1948,74 @@ mod tests {
         assert!(
             updated_entry.overload.cooldown_until >= initial_entry.overload.cooldown_until,
             "deadline must not regress"
+        );
+    }
+
+    #[test]
+    fn endpoint_cooldown_tracker_recovers_from_poisoned_write_lock() {
+        let tracker = EndpointCooldownTracker::new();
+        let target_endpoint = "spanner-endpoint-1.googleapis.com:443";
+        let base_now = Instant::now();
+
+        // Intentionally poison the RwLock by panicking while holding the write guard.
+        let poison_attempt = catch_unwind(AssertUnwindSafe(|| {
+            let mut guard = tracker.write_state();
+            guard.clear();
+            panic!("deliberate panic to poison endpoint cooldown tracker state write lock");
+        }));
+        assert!(
+            poison_attempt.is_err(),
+            "panic should be caught and confirm poisoning setup"
+        );
+
+        // Verify that write recovery works by recording an error.
+        let cooldown = tracker.record_failure_at(target_endpoint, base_now);
+        assert!(
+            cooldown > Duration::ZERO,
+            "cooldown duration must be non-zero after recording error on poisoned tracker"
+        );
+        assert_eq!(
+            tracker.len(),
+            1,
+            "tracker length must reflect recorded error after recovering from poisoned lock"
+        );
+        assert!(
+            !tracker.is_empty(),
+            "tracker must not be empty after recording error on poisoned lock"
+        );
+
+        // Verify that read recovery works.
+        assert!(
+            tracker.is_cooling_down_at(target_endpoint, base_now),
+            "endpoint must be cooling down after recovering from poisoned lock"
+        );
+
+        // Verify that operations continuing after read panics still operate cleanly.
+        let read_panic_attempt = catch_unwind(AssertUnwindSafe(|| {
+            let _read_guard = tracker.read_state();
+            panic!("deliberate panic while holding recovered read lock");
+        }));
+        assert!(
+            read_panic_attempt.is_err(),
+            "read guard panic should be caught"
+        );
+
+        // Verify that repair and success recording operate cleanly on poisoned lock.
+        tracker.record_success_at(target_endpoint, base_now + Duration::from_secs(60));
+
+        // Verify pruning expired entries operates cleanly on poisoned lock.
+        tracker.clear_expired_at(base_now + Duration::from_secs(3600));
+
+        // Verify clear operates cleanly on poisoned lock.
+        tracker.clear();
+        assert_eq!(
+            tracker.len(),
+            0,
+            "tracker must be empty after clear on poisoned lock"
+        );
+        assert!(
+            tracker.is_empty(),
+            "tracker is_empty must be true after clear on poisoned lock"
         );
     }
 }

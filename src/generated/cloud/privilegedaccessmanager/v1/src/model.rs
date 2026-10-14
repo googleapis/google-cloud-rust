@@ -722,7 +722,7 @@ pub mod entitlement {
         ///     google_cloud_privilegedaccessmanager_v1::model::entitlement::requester_justification_config::JustificationType::NotMandatory(NotMandatory::default().into())));
         /// ```
         pub fn set_justification_type<T: std::convert::Into<std::option::Option<crate::model::entitlement::requester_justification_config::JustificationType>>>(mut self, v: T) -> Self
-        {
+{
             self.justification_type = v.into();
             self
         }

@@ -859,7 +859,128 @@ impl AppHub {
         super::builder::app_hub::DeleteApplication::new(self.inner.clone())
     }
 
+    /// Gets a Boundary.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_boundary()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/boundary"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_boundary(&self) -> super::builder::app_hub::GetBoundary {
+        super::builder::app_hub::GetBoundary::new(self.inner.clone())
+    }
+
+    /// Updates a Boundary.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apphub_v1::model::Boundary;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_boundary()
+    ///         .set_boundary(
+    ///             Boundary::new().set_name(format!("projects/{project_id}/locations/{location_id}/boundary"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_boundary(&self) -> super::builder::app_hub::UpdateBoundary {
+        super::builder::app_hub::UpdateBoundary::new(self.inner.clone())
+    }
+
+    /// Gets an Extended Metadata Schema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, project_id: &str, location_id: &str, extended_metadata_schema_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_extended_metadata_schema()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/extendedMetadataSchemas/{extended_metadata_schema_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_extended_metadata_schema(
+        &self,
+    ) -> super::builder::app_hub::GetExtendedMetadataSchema {
+        super::builder::app_hub::GetExtendedMetadataSchema::new(self.inner.clone())
+    }
+
+    /// Lists Extended Metadata Schemas available in a host project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_extended_metadata_schemas()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_extended_metadata_schemas(
+        &self,
+    ) -> super::builder::app_hub::ListExtendedMetadataSchemas {
+        super::builder::app_hub::ListExtendedMetadataSchemas::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

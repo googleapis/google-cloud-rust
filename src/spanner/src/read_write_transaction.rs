@@ -29,6 +29,7 @@ use crate::model::ResultSet as ProtoResultSet;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
+use crate::model::commit_response::MultiplexedSessionRetry;
 use crate::model::execute_batch_dml_request::Statement as ExecuteBatchDmlStatement;
 use crate::model::request_options::Priority;
 use crate::model::result_set_stats::RowCount;
@@ -57,9 +58,8 @@ use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::cmp::min;
 use std::mem::take;
-use std::sync::Arc;
-use std::sync::Mutex;
 use std::sync::atomic::{AtomicI64, Ordering};
+use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::Duration;
 use tokio::time::Instant;
 
@@ -76,6 +76,7 @@ pub(crate) struct ReadWriteTransactionBuilder {
     begin_transaction_option: BeginTransactionOption,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
+    rollback_gax_options: Option<RequestOptions>,
     affinity: Option<Arc<TransactionAffinity>>,
 }
 
@@ -93,6 +94,7 @@ impl ReadWriteTransactionBuilder {
             begin_transaction_option: BeginTransactionOption::InlineBegin,
             begin_gax_options: None,
             commit_gax_options: None,
+            rollback_gax_options: None,
             affinity: None,
         }
     }
@@ -168,11 +170,17 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
+    pub(crate) fn with_rollback_request_options(mut self, options: Option<RequestOptions>) -> Self {
+        self.rollback_gax_options = options;
+        self
+    }
+
     async fn begin<'a>(
         &self,
         session_name: String,
         channel_target: impl Into<ChannelTarget<'a>>,
         request_options: RequestOptions,
+        precommit_token_tracker: &PrecommitTokenTracker,
     ) -> Result<ReadContextTransactionSelector> {
         let response = execute_begin_transaction(
             &self.client,
@@ -184,6 +192,8 @@ impl ReadWriteTransactionBuilder {
             None,
         )
         .await?;
+
+        precommit_token_tracker.update(response.precommit_token);
 
         Ok(ReadContextTransactionSelector::Fixed(
             TransactionSelector::default().set_id(response.id),
@@ -197,6 +207,7 @@ impl ReadWriteTransactionBuilder {
                 .take()
                 .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_write())),
         );
+        let precommit_token_tracker = PrecommitTokenTracker::new();
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
                 let mut options = self.begin_gax_options.clone().unwrap_or_default();
@@ -206,8 +217,13 @@ impl ReadWriteTransactionBuilder {
                     &mut options,
                 );
 
-                self.begin(self.session_name.clone(), &affinity, options)
-                    .await?
+                self.begin(
+                    self.session_name.clone(),
+                    &affinity,
+                    options,
+                    &precommit_token_tracker,
+                )
+                .await?
             }
             BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
                 Mutex::new(TransactionState::NotStarted(self.options)),
@@ -224,7 +240,7 @@ impl ReadWriteTransactionBuilder {
                 session_name: self.session_name,
                 client: self.client,
                 transaction_selector,
-                precommit_token_tracker: PrecommitTokenTracker::new(),
+                precommit_token_tracker,
                 transaction_tag: self.transaction_tag,
                 begin_transaction_request_options: None,
                 affinity,
@@ -237,6 +253,7 @@ impl ReadWriteTransactionBuilder {
             mutations: Arc::new(Mutex::new(Vec::new())),
             begin_gax_options: self.begin_gax_options,
             commit_gax_options: self.commit_gax_options,
+            rollback_gax_options: self.rollback_gax_options,
             _location_routing_drop_guard,
         })
     }
@@ -302,11 +319,11 @@ macro_rules! execute_with_retry {
             .await;
 
         let response = match response_result {
-            Ok(response) => {
+            Ok(mut response) => {
                 $self
                     .context
                     .precommit_token_tracker
-                    .update(response.precommit_token.clone());
+                    .update(response.precommit_token.take());
                 if is_starting {
                     guard.disarm();
                     let service_error = response.check_service_error();
@@ -405,6 +422,7 @@ pub struct ReadWriteTransaction {
     mutations: Arc<Mutex<Vec<ProtoMutation>>>,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
+    rollback_gax_options: Option<RequestOptions>,
     _location_routing_drop_guard: Arc<LocationRoutingDropGuard>,
 }
 
@@ -432,10 +450,7 @@ impl ReadWriteTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let mut guard = self
-            .mutations
-            .lock()
-            .map_err(|_| crate::error::internal_error("mutations mutex poisoned"))?;
+        let mut guard = self.lock_mutations();
         for mutation in mutations {
             guard.push(mutation.build_proto());
         }
@@ -624,8 +639,24 @@ impl ReadWriteTransaction {
             .await
     }
 
-    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
+    pub(crate) fn is_starting(&self) -> bool {
         self.context.transaction_selector.is_starting()
+    }
+
+    /// Acquires an exclusive mutex lock on the buffered mutations, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `mutations` protects the in-memory buffered mutation list (`Vec<ProtoMutation>`). Standard
+    /// library `Vec` collections remain memory-safe and structurally sound in Rust even if a thread
+    /// panicked while appending or clearing mutations. Recovering the guard via `into_inner()` prevents
+    /// an isolated panic in a caller task from permanently disabling mutation buffering, allowing
+    /// subsequent statements, error handlers, or rollback routines to inspect or clear the transaction
+    /// state cleanly without crashing.
+    fn lock_mutations(&self) -> MutexGuard<'_, Vec<ProtoMutation>> {
+        match self.mutations.lock() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
     }
 
     fn commit_request_options(&self) -> Option<crate::model::RequestOptions> {
@@ -669,10 +700,10 @@ impl ReadWriteTransaction {
 
     async fn commit_internal(&self) -> Result<CommitResponse> {
         self.context.transaction_selector.check_failed()?;
-        let mutations = take(&mut *self.mutations.lock().expect("mutations mutex poisoned"));
+        let mutations = take(&mut *self.lock_mutations());
         let mut id = self.context.transaction_selector.get_id_no_wait()?;
         if id.is_none() {
-            if self.is_starting()? {
+            if self.is_starting() {
                 return Err(internal_error(
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
@@ -700,24 +731,28 @@ impl ReadWriteTransaction {
             .commit(request, gax_options, self.affinity())
             .await?;
 
-        let response =
-            if let Some(new_precommit_token) = response.precommit_token().map(|b| (*b).clone()) {
-                let retry_commit_req = self.build_commit_request(
-                    transaction_id,
-                    Vec::new(), // mutations are never re-sent in retry requests
-                    Some(*new_precommit_token),
-                );
+        let response = if let Some(MultiplexedSessionRetry::PrecommitToken(new_precommit_token)) =
+            response.multiplexed_session_retry
+        {
+            self.context
+                .precommit_token_tracker
+                .update(Some(*new_precommit_token));
+            let retry_commit_req = self.build_commit_request(
+                transaction_id,
+                Vec::new(), // mutations are never re-sent in retry requests
+                self.context.precommit_token_tracker.get(),
+            );
 
-                let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
-                self.amend_gax_options(&mut gax_options);
+            let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
+            self.amend_gax_options(&mut gax_options);
 
-                self.context
-                    .client
-                    .commit(retry_commit_req, gax_options, self.affinity())
-                    .await?
-            } else {
-                response
-            };
+            self.context
+                .client
+                .commit(retry_commit_req, gax_options, self.affinity())
+                .await?
+        } else {
+            response
+        };
 
         Ok(response)
     }
@@ -743,8 +778,11 @@ impl ReadWriteTransaction {
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id);
 
-        let mut gax_options = RequestOptions::default();
-        self.amend_gax_options(&mut gax_options);
+        let mut gax_options = self.rollback_gax_options.clone().unwrap_or_default();
+        amend_gax_options_for_rollback(
+            self.context.client.leader_aware_routing_enabled,
+            &mut gax_options,
+        );
 
         self.context
             .client
@@ -767,6 +805,24 @@ impl ReadWriteTransaction {
     pub(crate) fn affinity(&self) -> Option<&TransactionAffinity> {
         self.context.affinity()
     }
+}
+
+pub(crate) const DEFAULT_ROLLBACK_TIMEOUT: Duration = Duration::from_secs(30);
+
+pub(crate) fn amend_gax_options_for_rollback(
+    leader_aware_routing_enabled: bool,
+    options: &mut GaxRequestOptions,
+) {
+    if options.idempotent().is_none() {
+        options.set_idempotency(true);
+    }
+    let timeout = (*options.attempt_timeout()).unwrap_or(DEFAULT_ROLLBACK_TIMEOUT);
+    let rollback_deadline = Instant::now() + DEFAULT_ROLLBACK_TIMEOUT.max(timeout);
+    amend_gax_options(
+        leader_aware_routing_enabled,
+        Some(rollback_deadline),
+        options,
+    );
 }
 
 pub(crate) fn amend_gax_options(
@@ -808,10 +864,16 @@ struct TransactionBoundedRetryPolicy {
 
 impl RetryPolicy for TransactionBoundedRetryPolicy {
     fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
+        if Instant::now() >= self.deadline {
+            return RetryResult::Exhausted(error);
+        }
         self.inner.on_error(state, error)
     }
 
     fn on_throttle(&self, state: &RetryState, error: GaxError) -> ThrottleResult {
+        if Instant::now() >= self.deadline {
+            return ThrottleResult::Exhausted(error);
+        }
         self.inner.on_throttle(state, error)
     }
 
@@ -3585,7 +3647,7 @@ mod tests {
                         .await
                         .expect("Expected row option")
                         .expect("Expected valid row");
-                    assert_eq!(row.get::<String, _>(0), "alice");
+                    assert_eq!(row.get::<String>(0)?, "alice");
                     Ok(())
                 }
             })
@@ -3705,7 +3767,7 @@ mod tests {
                     .await
                     .expect("Expected first row")
                     .expect("First row should be Ok");
-                assert_eq!(row.get::<String, _>(0), "alice");
+                assert_eq!(row.get::<String>(0)?, "alice");
                 // Second next() fails
                 let next_result = result_set.next().await.expect("Expected stream item");
                 assert!(next_result.is_err(), "Second row fetch must fail");
@@ -4310,6 +4372,283 @@ mod tests {
         );
     }
 
+    #[test]
+    fn amend_gax_options_for_rollback_defaults_and_custom() {
+        // Case 1: Default timeout and retry policy
+        let mut options = RequestOptions::default();
+        amend_gax_options_for_rollback(false, &mut options);
+        let timeout = options.attempt_timeout().expect("attempt timeout missing");
+        assert!(
+            timeout >= StdDuration::from_millis(28000)
+                && timeout <= StdDuration::from_millis(32000),
+            "rollback timeout should default to ~30s, got: {:?}",
+            timeout
+        );
+        assert!(
+            options.retry_policy().is_some(),
+            "retry policy should be wrapped in TransactionBoundedRetryPolicy"
+        );
+        assert_eq!(
+            options.idempotent(),
+            Some(true),
+            "rollback should be configured as idempotent"
+        );
+
+        // Case 2: Custom attempt timeout
+        let mut options = RequestOptions::default();
+        let custom_timeout = StdDuration::from_secs(2);
+        options.set_attempt_timeout(custom_timeout);
+        amend_gax_options_for_rollback(false, &mut options);
+        let timeout = options.attempt_timeout().expect("attempt timeout missing");
+        assert!(
+            timeout >= StdDuration::from_millis(1800) && timeout <= StdDuration::from_millis(2200),
+            "rollback timeout should match custom timeout (~2s), got: {:?}",
+            timeout
+        );
+
+        // Case 3: Leader-aware routing enabled
+        let mut options = RequestOptions::default();
+        amend_gax_options_for_rollback(true, &mut options);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap extension missing");
+        assert_eq!(
+            headers
+                .get("x-goog-spanner-route-to-leader")
+                .expect("route to leader header")
+                .to_str()
+                .expect("valid str"),
+            "true"
+        );
+
+        // Case 4: Explicit non-idempotent configuration preserved
+        let mut options = RequestOptions::default();
+        options.set_idempotency(false);
+        amend_gax_options_for_rollback(false, &mut options);
+        assert_eq!(
+            options.idempotent(),
+            Some(false),
+            "explicit non-idempotent setting must be preserved"
+        );
+    }
+
+    #[test]
+    fn transaction_bounded_retry_policy_exhausted_on_deadline() {
+        #[derive(Debug)]
+        struct ContinualPolicy;
+        impl RetryPolicy for ContinualPolicy {
+            fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
+                RetryResult::Continue(error)
+            }
+            fn on_throttle(&self, _state: &RetryState, error: GaxError) -> ThrottleResult {
+                ThrottleResult::Continue(error)
+            }
+        }
+
+        let inner: Arc<dyn RetryPolicy> = Arc::new(ContinualPolicy);
+        // Expired deadline (in the past)
+        let expired_deadline = Instant::now() - StdDuration::from_millis(100);
+        let bounded_expired = TransactionBoundedRetryPolicy {
+            inner: Arc::clone(&inner),
+            deadline: expired_deadline,
+        };
+
+        let state = RetryState::new(true);
+        let make_error = || {
+            let status = Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("unavailable");
+            GaxError::service(status)
+        };
+
+        let error_result = bounded_expired.on_error(&state, make_error());
+        assert!(
+            matches!(error_result, RetryResult::Exhausted(_)),
+            "on_error must return Exhausted when deadline has passed"
+        );
+
+        let throttle_result = bounded_expired.on_throttle(&state, make_error());
+        assert!(
+            matches!(throttle_result, ThrottleResult::Exhausted(_)),
+            "on_throttle must return Exhausted when deadline has passed"
+        );
+
+        // Future deadline: delegates to inner policy
+        let future_deadline = Instant::now() + StdDuration::from_secs(60);
+        let bounded_future = TransactionBoundedRetryPolicy {
+            inner,
+            deadline: future_deadline,
+        };
+
+        let error_result_future = bounded_future.on_error(&state, make_error());
+        assert!(
+            matches!(error_result_future, RetryResult::Continue(_)),
+            "on_error must delegate to inner when before deadline"
+        );
+
+        let throttle_result_future = bounded_future.on_throttle(&state, make_error());
+        assert!(
+            matches!(throttle_result_future, ThrottleResult::Continue(_)),
+            "on_throttle must delegate to inner when before deadline"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn rollback_under_expired_deadline_uses_graceful_timeout() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![1, 2, 3, 4];
+        let id_clone = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: id_clone.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        let id_clone_rollback = transaction_id.clone();
+        mock.expect_rollback().once().returning(move |request| {
+            let duration = parse_grpc_timeout(request.metadata())
+                .expect("valid grpc-timeout header on rollback");
+            assert!(
+                duration >= StdDuration::from_millis(28000)
+                    && duration <= StdDuration::from_millis(32000),
+                "rollback timeout should use default graceful timeout (~30s), got: {:?}",
+                duration
+            );
+            let inner_request = request.into_inner();
+            assert_eq!(inner_request.transaction_id, id_clone_rollback);
+            Ok(tonic::Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        // Build a transaction with a short deadline that will expire before rollback
+        let deadline = Instant::now() + StdDuration::from_millis(50);
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(Some(deadline))
+            .await?;
+
+        // Sleep until transaction deadline has expired
+        tokio::time::sleep(StdDuration::from_millis(60)).await;
+
+        // Executing rollback when deadline has already expired should succeed and use graceful timeout
+        transaction.rollback().await?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn rollback_under_expired_deadline_respects_custom_timeout() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![5, 6, 7, 8];
+        let id_clone = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: id_clone.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        let id_clone_rollback = transaction_id.clone();
+        mock.expect_rollback().once().returning(move |request| {
+            let duration = parse_grpc_timeout(request.metadata())
+                .expect("valid grpc-timeout header on rollback");
+            assert!(
+                duration >= StdDuration::from_millis(1800)
+                    && duration <= StdDuration::from_millis(2200),
+                "rollback timeout should match configured custom timeout (~2s), got: {:?}",
+                duration
+            );
+            let inner_request = request.into_inner();
+            assert_eq!(inner_request.transaction_id, id_clone_rollback);
+            Ok(tonic::Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let mut rollback_options = RequestOptions::default();
+        rollback_options.set_attempt_timeout(StdDuration::from_secs(2));
+
+        let deadline = Instant::now() + StdDuration::from_millis(50);
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_rollback_request_options(Some(rollback_options))
+            .build(Some(deadline))
+            .await?;
+
+        // Sleep until transaction deadline has expired
+        tokio::time::sleep(StdDuration::from_millis(60)).await;
+
+        transaction.rollback().await?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn rollback_retries_on_unavailable_with_standard_retry_policy() -> anyhow::Result<()> {
+        use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+
+        let mut mock = create_session_mock();
+        let transaction_id = vec![10, 20, 30, 40];
+        let transaction_id_clone = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: transaction_id_clone.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        let rollback_attempts = Arc::new(AtomicU32::new(0));
+        let attempts_clone = Arc::clone(&rollback_attempts);
+        let transaction_id_for_rollback = transaction_id.clone();
+        mock.expect_rollback().times(2).returning(move |request| {
+            let inner_request = request.into_inner();
+            assert_eq!(
+                inner_request.transaction_id, transaction_id_for_rollback,
+                "transaction id in rollback request must match"
+            );
+            let attempt = attempts_clone.fetch_add(1, Ordering::SeqCst);
+            if attempt == 0 {
+                Err(tonic::Status::unavailable("transient unavailable error"))
+            } else {
+                Ok(tonic::Response::new(()))
+            }
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let mut rollback_options = RequestOptions::default();
+        rollback_options.set_backoff_policy(
+            ExponentialBackoffBuilder::new()
+                .with_initial_delay(StdDuration::from_millis(1))
+                .with_maximum_delay(StdDuration::from_millis(2))
+                .build()
+                .expect("valid backoff policy"),
+        );
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_rollback_request_options(Some(rollback_options))
+            .build(None)
+            .await?;
+
+        transaction.rollback().await?;
+        assert_eq!(
+            rollback_attempts.load(Ordering::SeqCst),
+            2,
+            "rollback should have retried after transient unavailable error"
+        );
+        Ok(())
+    }
+
     #[tokio_test_no_panics]
     async fn read_write_transaction_commit_observes_cache_update() -> anyhow::Result<()> {
         use crate::client::{Spanner, SpannerBuilderExt};
@@ -4399,8 +4738,10 @@ mod tests {
         use crate::routing::key_range_cache::RangeMode;
         use crate::statement::Statement;
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
         use spanner_grpc_mock::google::spanner::v1::{
-            CacheUpdate, CommitResponse, ExecuteBatchDmlResponse, Group, Range, ResultSet, Tablet,
+            CacheUpdate, CommitResponse, ExecuteBatchDmlResponse, Group, Range, ResultSet,
+            ResultSetStats, Tablet,
         };
         use spanner_grpc_mock::start;
 
@@ -4445,6 +4786,10 @@ mod tests {
                         ..Default::default()
                     }),
                     cache_update: Some(cache_update),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
                     ..Default::default()
                 }],
                 status: Some(spanner_grpc_mock::google::rpc::Status {
@@ -6552,7 +6897,7 @@ mod tests {
                     leader_rpc_received.notified().await;
                     yield_now().await;
                     assert!(
-                        transaction.is_starting()?,
+                        transaction.is_starting(),
                         "Leader must be in Starting state before cancellation"
                     );
 
@@ -6588,6 +6933,727 @@ mod tests {
                 .is_some(),
             "Expected commit timestamp"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_recovers_from_poisoned_mutations_lock() -> crate::Result<()> {
+        use std::mem::take;
+        use std::panic::catch_unwind;
+
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        // Deliberately poison the mutations mutex.
+        let mutations_clone = Arc::clone(&transaction.mutations);
+        let _ = catch_unwind(move || {
+            let _guard = mutations_clone
+                .lock()
+                .expect("mutex lock before deliberate panic");
+            panic!("deliberate panic to poison mutations mutex");
+        });
+        assert!(
+            transaction.mutations.is_poisoned(),
+            "mutations mutex must be poisoned"
+        );
+
+        // Verify buffer() recovers from the poisoned lock and successfully buffers mutations.
+        use crate::key::KeySet;
+        let mutation = Mutation::delete("Users", KeySet::all());
+        transaction.buffer(vec![mutation])?;
+
+        // Verify lock_mutations() recovers from the poisoned lock and exposes the mutation.
+        let mut guard = transaction.lock_mutations();
+        assert_eq!(
+            guard.len(),
+            1,
+            "expected one buffered mutation after poison recovery"
+        );
+        let drained: Vec<_> = take(&mut *guard);
+        assert_eq!(drained.len(), 1, "expected one drained mutation");
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_explicit_begin_tracks_precommit_token() -> anyhow::Result<()> {
+        use crate::key::KeySet;
+        use mockall::Sequence;
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(v1::Transaction {
+                    id: vec![1, 2, 3],
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![10, 20, 30],
+                        seq_num: 5,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(v1::ResultSet {
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1, 2, 3],
+                        seq_num: 2,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![10, 20, 30],
+                        seq_num: 5,
+                    }),
+                    "CommitRequest must retain the higher seq_num precommit_token from ExplicitBegin"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        transaction
+            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .await?;
+        transaction.buffer([Mutation::delete("Users", KeySet::all())])?;
+        let response = transaction.commit().await?;
+        assert!(
+            response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_retry_preserves_higher_seq_num_precommit_token()
+    -> anyhow::Result<()> {
+        use crate::key::KeySet;
+        use mockall::Sequence;
+        use v1::commit_response::MultiplexedSessionRetry as MockMultiplexedSessionRetry;
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(v1::Transaction {
+                    id: vec![1, 2, 3],
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![50, 60],
+                        seq_num: 5,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![50, 60],
+                        seq_num: 5,
+                    }),
+                    "First CommitRequest must include the precommit_token with seq_num 5"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    multiplexed_session_retry: Some(MockMultiplexedSessionRetry::PrecommitToken(
+                        v1::MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![10, 20],
+                            seq_num: 2,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert!(
+                    request.mutations.is_empty(),
+                    "Expected mutations to be empty on commit retry"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![50, 60],
+                        seq_num: 5,
+                    }),
+                    "Retry CommitRequest must retain the higher seq_num precommit_token (seq_num 5)"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        transaction.buffer([Mutation::delete("Users", KeySet::all())])?;
+        let response = transaction.commit().await?;
+        assert!(
+            response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_batch_dml_tracks_precommit_token() -> anyhow::Result<()> {
+        use mockall::Sequence;
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![
+                        v1::ResultSet {
+                            metadata: Some(v1::ResultSetMetadata {
+                                transaction: Some(v1::Transaction {
+                                    id: vec![4, 5, 6],
+                                    ..Default::default()
+                                }),
+                                ..Default::default()
+                            }),
+                            stats: Some(v1::ResultSetStats {
+                                row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        },
+                        v1::ResultSet {
+                            stats: Some(v1::ResultSetStats {
+                                row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        },
+                    ],
+                    status: Some(RpcStatus {
+                        code: Code::Ok as i32,
+                        message: "OK".into(),
+                        details: vec![],
+                    }),
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![70, 80],
+                        seq_num: 3,
+                    }),
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![70, 80],
+                        seq_num: 3,
+                    }),
+                    "CommitRequest must include the precommit_token returned by ExecuteBatchDml"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        let batch = BatchDml::builder()
+            .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .add_statement("UPDATE Users SET Name = 'Bob' WHERE Id = 2")
+            .build();
+        let update_counts = transaction.execute_batch_update(batch).await?;
+        assert_eq!(update_counts, vec![1, 1], "Expected 2 updated rows");
+
+        let response = transaction.commit().await?;
+        assert!(
+            response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_batch_dml_partial_failure_tracks_precommit_token()
+    -> anyhow::Result<()> {
+        use mockall::Sequence;
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![v1::ResultSet {
+                        metadata: Some(v1::ResultSetMetadata {
+                            transaction: Some(v1::Transaction {
+                                id: vec![7, 8, 9],
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    status: Some(RpcStatus {
+                        code: Code::AlreadyExists as i32,
+                        message: "row already exists".into(),
+                        details: vec![],
+                    }),
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![90, 100],
+                        seq_num: 4,
+                    }),
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![90, 100],
+                        seq_num: 4,
+                    }),
+                    "CommitRequest must include the precommit_token from a partially failed ExecuteBatchDmlResponse"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        let batch = BatchDml::builder()
+            .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .add_statement("INSERT INTO Users (Id) VALUES (2)")
+            .build();
+        let batch_result = transaction.execute_batch_update(batch).await;
+        assert!(
+            batch_result.is_err(),
+            "Expected partial failure error from execute_batch_update"
+        );
+
+        let response = transaction.commit().await?;
+        assert!(
+            response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_inline_begin_tracks_precommit_token()
+    -> anyhow::Result<()> {
+        use crate::key::KeySet;
+        use mockall::Sequence;
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert!(
+                    request.mutation_key.is_some(),
+                    "Expected mutation_key on BeginTransactionRequest for mutation-only inline begin"
+                );
+                Ok(Response::new(v1::Transaction {
+                    id: vec![11, 22],
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![33, 44],
+                        seq_num: 2,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![33, 44],
+                        seq_num: 2,
+                    }),
+                    "CommitRequest must include the precommit_token returned by fallback BeginTransaction"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        transaction.buffer([Mutation::delete("Users", KeySet::all())])?;
+        let response = transaction.commit().await?;
+        assert!(
+            response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_execute_query_tracks_highest_precommit_token()
+    -> anyhow::Result<()> {
+        use mockall::Sequence;
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let first_chunk = v1::PartialResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        row_type: Some(v1::StructType {
+                            fields: vec![v1::struct_type::Field {
+                                name: "Id".to_string(),
+                                r#type: Some(v1::Type {
+                                    code: v1::TypeCode::Int64 as i32,
+                                    ..Default::default()
+                                }),
+                            }],
+                        }),
+                        transaction: Some(v1::Transaction {
+                            id: vec![21, 22],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    values: vec![string_val("1")],
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![40, 41],
+                        seq_num: 4,
+                    }),
+                    ..Default::default()
+                };
+                let second_chunk = v1::PartialResultSet {
+                    values: vec![string_val("2")],
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![20, 21],
+                        seq_num: 2,
+                    }),
+                    last: true,
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(first_chunk), Ok(second_chunk)])))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![40, 41],
+                        seq_num: 4,
+                    }),
+                    "CommitRequest must include the highest seq_num precommit_token from PartialResultSet chunks"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        let mut result_set = transaction.execute_query("SELECT Id FROM Users").await?;
+        while let Some(row) = result_set.next().await {
+            row?;
+        }
+
+        let response = transaction.commit().await?;
+        assert!(
+            response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_execute_read_tracks_highest_precommit_token()
+    -> anyhow::Result<()> {
+        use crate::key::KeySet;
+        use crate::read::ReadRequest;
+        use mockall::Sequence;
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_streaming_read()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let first_chunk = v1::PartialResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        row_type: Some(v1::StructType {
+                            fields: vec![v1::struct_type::Field {
+                                name: "Id".to_string(),
+                                r#type: Some(v1::Type {
+                                    code: v1::TypeCode::Int64 as i32,
+                                    ..Default::default()
+                                }),
+                            }],
+                        }),
+                        transaction: Some(v1::Transaction {
+                            id: vec![31, 32],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    values: vec![string_val("1")],
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![20, 21],
+                        seq_num: 2,
+                    }),
+                    ..Default::default()
+                };
+                let second_chunk = v1::PartialResultSet {
+                    values: vec![string_val("2")],
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![60, 61],
+                        seq_num: 6,
+                    }),
+                    last: true,
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(first_chunk), Ok(second_chunk)])))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![60, 61],
+                        seq_num: 6,
+                    }),
+                    "CommitRequest must include the highest seq_num precommit_token from StreamingRead chunks"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Failed to build transaction");
+
+        let read_request = ReadRequest::builder("Users", vec!["Id"])
+            .with_keys(KeySet::all())
+            .build();
+        let mut result_set = transaction.execute_read(read_request).await?;
+        while let Some(row) = result_set.next().await {
+            row?;
+        }
+
+        let response = transaction.commit().await?;
+        assert!(
+            response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_first_statement_failed_explicit_begin_fallback_tracks_precommit_token()
+    -> anyhow::Result<()> {
+        use mockall::Sequence;
+
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(tonic::Status::invalid_argument("invalid SQL")));
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(v1::Transaction {
+                    id: vec![88, 99],
+                    precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![77, 88],
+                        seq_num: 7,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(tonic::Status::invalid_argument("invalid SQL")));
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.precommit_token,
+                    Some(v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![77, 88],
+                        seq_num: 7,
+                    }),
+                    "CommitRequest must include the precommit_token returned by ExplicitBegin fallback"
+                );
+                Ok(Response::new(v1::CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client.read_write_transaction().build();
+
+        let result = runner
+            .run(async move |transaction| {
+                let _ = transaction.execute_update("INVALID SQL").await;
+                Ok(())
+            })
+            .await?;
+
+        assert!(
+            result.commit_response.commit_timestamp.is_some(),
+            "Expected commit timestamp in CommitResponse"
+        );
+
         Ok(())
     }
 }

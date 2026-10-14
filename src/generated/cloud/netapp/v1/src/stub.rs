@@ -179,6 +179,27 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::NetApp::start_split].
+    fn start_split(
+        &self,
+        _req: crate::model::StartSplitRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::get_split_status].
+    fn get_split_status(
+        &self,
+        _req: crate::model::GetSplitStatusRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::SplitStatus>>>
+    + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::NetApp::establish_volume_peering].
     fn establish_volume_peering(
         &self,
@@ -806,6 +827,39 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ExecuteOntapPatchResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::restore_volume].
+    fn restore_volume(
+        &self,
+        _req: crate::model::RestoreVolumeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::list_backup_configs].
+    fn list_backup_configs(
+        &self,
+        _req: crate::model::ListBackupConfigsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListBackupConfigsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::update_backup_config].
+    fn update_backup_config(
+        &self,
+        _req: crate::model::UpdateBackupConfigRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

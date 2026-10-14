@@ -2278,7 +2278,7 @@ pub mod scan_config {
             ///     google_cloud_websecurityscanner_v1::model::scan_config::authentication::iap_credential::IapCredentials::IapTestServiceAccountInfo(IapTestServiceAccountInfo::default().into())));
             /// ```
             pub fn set_iap_credentials<T: std::convert::Into<std::option::Option<crate::model::scan_config::authentication::iap_credential::IapCredentials>>>(mut self, v: T) -> Self
-            {
+{
                 self.iap_credentials = v.into();
                 self
             }

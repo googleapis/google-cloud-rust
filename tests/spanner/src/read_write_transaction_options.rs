@@ -120,7 +120,7 @@ pub async fn client_routing_success(_db_client: &DatabaseClient) -> anyhow::Resu
         .await
         .transpose()?
         .expect("Expected row to be inserted and readable");
-    let value: i64 = row.get("ColInt64");
+    let value: i64 = row.get("ColInt64")?;
     assert_eq!(value, 42, "Expected inserted value to be 42");
 
     Ok(())
@@ -176,7 +176,7 @@ pub async fn timeout_exceeded_transaction_abort(db_client: &DatabaseClient) -> a
                 let statement = Statement::builder("SELECT * FROM AllTypes").build();
                 let mut result_set = transaction.execute_query(statement).await?;
                 while let Some(row) = result_set.next().await.transpose()? {
-                    let _: String = row.get("Id");
+                    let _: String = row.get("Id")?;
                 }
                 sleep(Duration::from_millis(1)).await;
             }

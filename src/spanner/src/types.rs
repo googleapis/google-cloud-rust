@@ -127,11 +127,17 @@ impl Type {
     }
 
     /// Returns the element type of the array, or `None` if this type is not an array.
-    pub fn array_element_type(&self) -> Option<Type> {
-        self.0
-            .array_element_type
-            .as_deref()
-            .map(|t| Type(t.clone()))
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_spanner::types::{array, int64};
+    ///
+    /// let array_type = array(int64());
+    /// assert_eq!(array_type.array_element_type(), Some(&int64()));
+    /// ```
+    pub fn array_element_type(&self) -> Option<&Type> {
+        self.0.array_element_type.as_deref().map(Type::from_ref)
     }
 
     /// Returns the struct type metadata, or `None` if this type is not a struct.
@@ -447,14 +453,31 @@ mod tests {
     }
 
     #[test]
-    fn test_array_element_type() {
-        let arr = array(int64());
-        assert_eq!(arr.array_element_type(), Some(int64()));
+    fn array_element_type() {
+        let expected_element_type = int64();
+        let array_type = array(expected_element_type.clone());
+        assert_eq!(
+            array_type.array_element_type(),
+            Some(&expected_element_type),
+            "array element type should match the configured element type"
+        );
 
         // Non-array types should return None
-        assert_eq!(int64().array_element_type(), None);
-        assert_eq!(string().array_element_type(), None);
-        assert_eq!(Type::default().array_element_type(), None);
+        assert_eq!(
+            int64().array_element_type(),
+            None,
+            "int64 should not have an array element type"
+        );
+        assert_eq!(
+            string().array_element_type(),
+            None,
+            "string should not have an array element type"
+        );
+        assert_eq!(
+            Type::default().array_element_type(),
+            None,
+            "default Type should not have an array element type"
+        );
     }
 
     #[test]

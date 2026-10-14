@@ -17,6 +17,7 @@ use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::database_client::DatabaseClient;
 use crate::error::{SpannerInternalError, aborted_due_to_failed_initial_statement, internal_error};
 use crate::model::transaction_options::{Mode, ReadOnly};
+use crate::model::transaction_selector::Selector;
 use crate::model::{
     BeginTransactionRequest, Mutation, Transaction, TransactionOptions, TransactionSelector,
 };
@@ -33,8 +34,8 @@ use google_cloud_gax::retry_policy::RetryPolicyArg;
 use http::HeaderMap;
 use std::error::Error as _;
 use std::mem::replace;
-use std::sync::{Arc, Mutex, PoisonError};
-use std::time::{Duration, Instant};
+use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
+use std::time::Duration;
 use tokio::sync::Notify;
 use tokio::sync::futures::OwnedNotified;
 
@@ -648,6 +649,40 @@ impl TransactionStartFailure {
 }
 
 impl ReadContextTransactionSelector {
+    /// Acquires an exclusive mutex lock on the inner lazy transaction state, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// Returns `None` if this is a `Fixed` transaction selector.
+    ///
+    /// # Poison Recovery Rationale
+    /// `lazy` protects the transaction lifecycle state (`TransactionState`). State transitions are
+    /// atomic enum assignments; the underlying data is always memory-safe and structurally sound
+    /// in Rust even if an earlier thread panicked. Recovering the guard via `into_inner()` ensures
+    /// that an isolated panic in an application query, streaming task, or fallback routine does not
+    /// permanently poison the selector lock and cascade into fatal panics across concurrent waiters,
+    /// subsequent statements, commit attempts, or cleanup routines.
+    fn lock_state(&self) -> Option<MutexGuard<'_, TransactionState>> {
+        match self {
+            Self::Lazy(lazy) => Some(lazy.lock().unwrap_or_else(PoisonError::into_inner)),
+            Self::Fixed(_, _) => None,
+        }
+    }
+
+    /// Returns whether this is a lazy transaction selector.
+    pub(crate) fn is_lazy(&self) -> bool {
+        matches!(self, Self::Lazy(_))
+    }
+
+    /// Returns whether the transaction has successfully started.
+    pub(crate) fn is_started(&self) -> bool {
+        if let Self::Fixed(selector, _) = self {
+            return matches!(selector.selector, Some(Selector::Id(_)));
+        }
+        if let Some(guard) = self.lock_state() {
+            return matches!(&*guard, TransactionState::Started(_, _));
+        }
+        false
+    }
+
     pub(crate) async fn selector(&self) -> crate::Result<crate::model::TransactionSelector> {
         match self {
             Self::Fixed(selector, _) => Ok(selector.clone()),
@@ -663,10 +698,9 @@ impl ReadContextTransactionSelector {
     /// Inspects the current lazy selector state returning whether it is ready,
     /// failed, or needs to wait for the transaction to start.
     fn poll_selector_status(&self) -> crate::Result<SelectorStatus> {
-        let Self::Lazy(lazy) = self else {
+        let Some(mut guard) = self.lock_state() else {
             unreachable!("poll_selector_status called on non-Lazy selector");
         };
-        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
 
         // Fast path: Transaction is already started.
         if let TransactionState::Started(selector, _) = &*guard {
@@ -734,9 +768,9 @@ impl ReadContextTransactionSelector {
     /// the client to force the start of a transaction if the first statement
     /// failed.
     pub(crate) async fn begin_explicitly(&self, params: ExplicitBeginParams) -> crate::Result<()> {
-        let Self::Lazy(lazy) = self else {
+        if !self.is_lazy() {
             return Ok(());
-        };
+        }
 
         enum FallbackAction {
             Begin(crate::model::TransactionOptions, Option<Arc<Notify>>),
@@ -758,9 +792,9 @@ impl ReadContextTransactionSelector {
         // - If already in a terminal state (`Started` or `Failed`), return the result immediately.
         let (options, notify_opt) = loop {
             let action = {
-                let mut guard = lazy
-                    .lock()
-                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
+                let Some(mut guard) = self.lock_state() else {
+                    return Ok(());
+                };
                 match &*guard {
                     TransactionState::NotStarted(options) => {
                         // The transaction has not started yet. This thread becomes the "leader"
@@ -820,11 +854,12 @@ impl ReadContextTransactionSelector {
         {
             Ok(r) => r,
             Err(e) => {
-                let mut guard = lazy.lock().expect("transaction state mutex poisoned");
-                *guard = TransactionState::Failed(TransactionStartFailure::from_error(&e));
+                if let Some(mut guard) = self.lock_state() {
+                    *guard = TransactionState::Failed(TransactionStartFailure::from_error(&e));
+                    drop(guard);
+                }
                 // Release the lock and notify all the waiting queries that
                 // the transaction has failed.
-                drop(guard);
                 if let Some(notify) = notify_opt {
                     notify.notify_waiters();
                 }
@@ -856,10 +891,9 @@ impl ReadContextTransactionSelector {
         id: bytes::Bytes,
         timestamp: Option<wkt::Timestamp>,
     ) -> crate::Result<()> {
-        let Self::Lazy(lazy) = self else {
+        let Some(mut guard) = self.lock_state() else {
             return Ok(());
         };
-        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
 
         if matches!(
             &*guard,
@@ -904,19 +938,15 @@ impl ReadContextTransactionSelector {
     /// transaction has already started. It returns `None` if the transaction
     /// has not yet started or is in a state without an ID.
     pub(crate) fn get_id_no_wait(&self) -> crate::Result<Option<bytes::Bytes>> {
-        use crate::model::transaction_selector::Selector;
         match self {
             Self::Fixed(selector, _) => {
                 if let Some(Selector::Id(id)) = &selector.selector {
                     return Ok(Some(id.clone()));
                 }
             }
-            Self::Lazy(lazy) => {
-                let guard = match lazy.lock() {
-                    Ok(guard) => guard,
-                    Err(poisoned) => poisoned.into_inner(),
-                };
-                if let TransactionState::Started(selector, _) = &*guard
+            Self::Lazy(_) => {
+                if let Some(guard) = self.lock_state()
+                    && let TransactionState::Started(selector, _) = &*guard
                     && let Some(Selector::Id(id)) = &selector.selector
                 {
                     return Ok(Some(id.clone()));
@@ -927,16 +957,11 @@ impl ReadContextTransactionSelector {
     }
 
     /// Returns whether the transaction selector is currently in the `Starting` state.
-    pub(crate) fn is_starting(&self) -> crate::Result<bool> {
-        match self {
-            Self::Lazy(lazy) => {
-                let guard = lazy
-                    .lock()
-                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
-                Ok(matches!(&*guard, TransactionState::Starting(_, _)))
-            }
-            _ => Ok(false),
-        }
+    pub(crate) fn is_starting(&self) -> bool {
+        let Some(guard) = self.lock_state() else {
+            return false;
+        };
+        matches!(&*guard, TransactionState::Starting(_, _))
     }
 
     /// Handles the cancellation of an operation that was starting the transaction.
@@ -948,11 +973,10 @@ impl ReadContextTransactionSelector {
     /// - For read-only transactions: resets to `NotStarted`, allowing another query to attempt
     ///   the inlined begin.
     pub(crate) fn on_cancelled_starting(&self) {
-        let Self::Lazy(lazy) = self else {
+        let Some(mut guard) = self.lock_state() else {
             return;
         };
 
-        let mut guard = lazy.lock().unwrap_or_else(PoisonError::into_inner);
         if let TransactionState::Starting(options, notify) = &*guard {
             let notify = Arc::clone(notify);
             let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
@@ -967,10 +991,9 @@ impl ReadContextTransactionSelector {
     }
 
     pub(crate) fn is_first_statement_failed(&self) -> bool {
-        let Self::Lazy(lazy) = self else {
+        let Some(guard) = self.lock_state() else {
             return false;
         };
-        let guard = lazy.lock().expect("transaction state mutex poisoned");
         matches!(&*guard, TransactionState::FirstStatementFailed)
     }
 
@@ -994,7 +1017,7 @@ impl ReadContextTransactionSelector {
         match self {
             Self::Fixed(selector, _) => Ok(selector.clone()),
             Self::Lazy(lazy) => {
-                let guard = lazy.lock().expect("transaction state mutex poisoned");
+                let guard = lazy.lock().unwrap_or_else(PoisonError::into_inner);
                 match &*guard {
                     TransactionState::Started(selector, _) => Ok(selector.clone()),
                     TransactionState::Starting(options, _) => {
@@ -1040,11 +1063,10 @@ impl ReadContextTransactionSelector {
     /// - **Already Started / Non-Lazy**: If the transaction is already established, this is
     ///   just a standard stream failure, so we return `true` to propagate the error.
     pub(crate) fn handle_stream_initialization_error(&self, err: &crate::Error) -> bool {
-        let Self::Lazy(lazy) = self else {
+        let Some(guard) = self.lock_state() else {
             // Non-lazy selectors do not inline begin transactions; propagate error directly.
             return true;
         };
-        let guard = lazy.lock().expect("transaction state mutex poisoned");
         match &*guard {
             TransactionState::Starting(options, _) => {
                 let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
@@ -1053,6 +1075,9 @@ impl ReadContextTransactionSelector {
                     self.set_failed(err);
                     true
                 } else {
+                    // TODO(#7173): Consider checking whether `err` was a retryable transient error
+                    // whose retry budget was exhausted. If so, return true to propagate the error
+                    // directly rather than falling back to an explicit BeginTransaction.
                     // For read-only transactions, stay in Starting and return false so the
                     // caller begins explicitly and restarts the stream.
                     false
@@ -1063,10 +1088,9 @@ impl ReadContextTransactionSelector {
     }
 
     pub(crate) fn set_failed(&self, err: &crate::Error) {
-        let Self::Lazy(lazy) = self else {
+        let Some(mut guard) = self.lock_state() else {
             return;
         };
-        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
         if let TransactionState::Starting(options, notify) = &*guard {
             let notify = Arc::clone(notify);
             let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
@@ -1089,10 +1113,9 @@ impl ReadContextTransactionSelector {
     }
 
     pub(crate) fn check_failed(&self) -> crate::Result<()> {
-        let Self::Lazy(lazy) = self else {
+        let Some(guard) = self.lock_state() else {
             return Ok(());
         };
-        let guard = lazy.lock().expect("transaction state mutex poisoned");
         match &*guard {
             TransactionState::Failed(failure) => Err(failure.to_error()),
             TransactionState::FirstStatementFailed => {
@@ -1113,14 +1136,10 @@ impl ReadContextTransactionSelector {
     pub(crate) fn read_timestamp(&self) -> Option<wkt::Timestamp> {
         match self {
             Self::Fixed(_, timestamp) => *timestamp,
-            Self::Lazy(lazy) => {
-                let guard = lazy.lock().expect("transaction state mutex poisoned");
-                if let TransactionState::Started(_, timestamp) = &*guard {
-                    *timestamp
-                } else {
-                    None
-                }
-            }
+            Self::Lazy(_) => match self.lock_state().as_deref() {
+                Some(TransactionState::Started(_, timestamp)) => *timestamp,
+                _ => None,
+            },
         }
     }
 }
@@ -1193,14 +1212,7 @@ impl ReadContext {
         is_stream_fallback: bool,
         mutation_key: Option<Mutation>,
     ) -> Result<bool> {
-        let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
-            return Ok(false);
-        };
-        let is_started = matches!(
-            &*lazy.lock().expect("transaction state mutex poisoned"),
-            TransactionState::Started(_, _)
-        );
-        if is_started {
+        if !self.transaction_selector.is_lazy() || self.transaction_selector.is_started() {
             return Ok(false);
         }
 
@@ -1233,7 +1245,7 @@ impl ReadContext {
 
 /// Merges the configured fields from a `source` `RequestOptions` into a `destination` `RequestOptions`.
 /// Configured options in `source` will override those in `destination`.
-fn merge_request_options(
+pub(crate) fn merge_request_options(
     mut destination: GaxRequestOptions,
     source: Option<&GaxRequestOptions>,
 ) -> GaxRequestOptions {
@@ -1250,20 +1262,18 @@ fn merge_request_options(
     if let Some(backoff) = source.backoff_policy() {
         destination.set_backoff_policy(backoff.clone());
     }
-    if let Some(src_headers) = source.get_extension::<HeaderMap>() {
-        let dest_headers = destination.get_extension_or_default_mut::<HeaderMap>();
-        for (name, value) in src_headers.iter() {
-            dest_headers.insert(name.clone(), value.clone());
+    if let Some(source_headers) = source.get_extension::<HeaderMap>() {
+        let destination_headers = destination.get_extension_or_default_mut::<HeaderMap>();
+        for (name, value) in source_headers.iter() {
+            destination_headers.insert(name.clone(), value.clone());
         }
     }
     destination
 }
 
-/// Helper macro to execute a streaming SQL or streaming read RPC with retry logic.
+/// Helper macro to execute a streaming SQL or streaming read RPC with lazy transaction start tracking.
 macro_rules! execute_stream_with_retry {
-    ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path, $method_name:expr) => {{
-        let operation_start_time = Instant::now();
-        let mut attempt_start_time = operation_start_time;
+    ($self:expr, $request:ident, $gax_options:ident, $operation_variant:path, $method_name:expr) => {{
         let is_starting = matches!(
             $request
                 .transaction
@@ -1283,98 +1293,17 @@ macro_rules! execute_stream_with_retry {
         // as an unexpected cancellation.
         let mut start_guard =
             LazyTransactionStartGuard::new(is_starting.then(|| $self.transaction_selector.clone()));
-        let builder =
-            $self
-                .client
-                .$rpc_method($request.clone(), $gax_options.clone(), $self.affinity());
-        let request_options = builder.options().clone();
-        let stream = match builder.send().await {
-            Ok(s) => s,
-            Err(e) => {
-                let elapsed_attempt = attempt_start_time.elapsed();
-                $self
-                    .client
-                    .o11y
-                    .record_attempt($method_name, elapsed_attempt, Some(&e), None);
-                let record_op_failure = |err: &crate::Error| {
-                    let elapsed_op = operation_start_time.elapsed();
-                    $self
-                        .client
-                        .o11y
-                        .record_operation($method_name, elapsed_op, Some(err));
-                };
-                if !is_starting
-                    || $self
-                        .transaction_selector
-                        .handle_stream_initialization_error(&e)
-                {
-                    start_guard.disarm();
-                    record_op_failure(&e);
-                    return Err(e);
-                }
-                let begin_result = $self
-                    .begin_explicitly_if_not_started($gax_options.clone(), true, None)
-                    .await;
-                let started = match begin_result {
-                    Ok(started) => started,
-                    Err(begin_err) => {
-                        start_guard.disarm();
-                        record_op_failure(&begin_err);
-                        return Err(begin_err);
-                    }
-                };
-                if !started {
-                    start_guard.disarm();
-                    record_op_failure(&e);
-                    return Err(e);
-                }
-                let selector = match $self.transaction_selector.selector().await {
-                    Ok(s) => s,
-                    Err(selector_err) => {
-                        start_guard.disarm();
-                        record_op_failure(&selector_err);
-                        return Err(selector_err);
-                    }
-                };
-                $request.transaction = Some(selector);
-                // Reset attempt timestamp for the retry attempt
-                attempt_start_time = Instant::now();
-                let retry_builder = $self.client.$rpc_method(
-                    $request.clone(),
-                    request_options.clone(),
-                    $self.affinity(),
-                );
-                match retry_builder.send().await {
-                    Ok(s) => s,
-                    Err(retry_err) => {
-                        start_guard.disarm();
-                        let elapsed_attempt = attempt_start_time.elapsed();
-                        $self.client.o11y.record_attempt(
-                            $method_name,
-                            elapsed_attempt,
-                            Some(&retry_err),
-                            None,
-                        );
-                        record_op_failure(&retry_err);
-                        return Err(retry_err);
-                    }
-                }
-            }
-        };
-
         let result = Box::pin(ResultSet::create(ResultSetParams {
-            stream,
             transaction_selector: Some($self.transaction_selector.clone()),
             precommit_token_tracker: $self.precommit_token_tracker.clone(),
             client: $self.client.clone(),
             session_name: $self.session_name.clone(),
             transaction_tag: $self.transaction_tag.clone(),
             operation: $operation_variant($request),
-            gax_options: request_options,
+            gax_options: $gax_options,
             method_name: $method_name,
-            attempt_start_time: Some(attempt_start_time),
-            operation_start_time: Some(operation_start_time),
             affinity: $self.affinity.as_ref().map(Arc::clone),
+            begin_transaction_request_options: $self.begin_transaction_request_options.clone(),
         }))
         .await;
 
@@ -1407,7 +1336,6 @@ impl ReadContext {
             self,
             request,
             gax_options,
-            execute_streaming_sql,
             StreamOperation::Query,
             "ExecuteStreamingSql"
         )
@@ -1429,7 +1357,6 @@ impl ReadContext {
             self,
             request,
             gax_options,
-            streaming_read,
             StreamOperation::Read,
             "StreamingRead"
         )
@@ -1439,32 +1366,80 @@ impl ReadContext {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::RequestOptions;
+    use crate::google::rpc::Status as ProtoStatus;
     use crate::key::KeySet;
+    use crate::model::ExecuteSqlRequest;
     use crate::model::transaction_selector::Selector as ModelSelector;
     use crate::read::ReadRequest;
+    use crate::request_id_interceptor::REQUEST_ID_HEADER;
     use crate::result_set::tests::adapt;
     use crate::result_set::tests::string_val;
+    use crate::retry_delay::{ProtoRetryInfo, RETRY_INFO_TYPE_URL};
+    use crate::retry_policy::SpannerRetryPolicy;
     use crate::statement::Statement;
     use crate::value::Value;
-    use gaxi::grpc::tonic::{self, Code, Response, Status};
+    use gaxi::grpc::tonic::{self, Code, MetadataMap, Response, Status};
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::error::rpc::Code as GaxCode;
     use google_cloud_gax::error::rpc::Status as GaxStatus;
     use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-    use google_cloud_gax::retry_policy::NeverRetry;
+    use google_cloud_gax::retry_policy::{NeverRetry, RetryPolicyExt};
+    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
     use http::{HeaderMap, HeaderName, HeaderValue};
     use mock_v1::transaction_selector::Selector;
     use mockall::Sequence;
-    use prost_types::Timestamp;
+    use prost::Message;
     use prost_types::value::Kind;
+    use prost_types::{Any as ProtoAny, Duration as ProtoDuration, Timestamp};
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::sync::mpsc::channel as std_channel;
     use std::sync::{Arc, Mutex as StdMutex};
+    use std::time::Duration;
     use tokio::spawn;
     use tokio::sync::oneshot::channel as oneshot_channel;
     use tokio::sync::{Barrier, Mutex, Notify, mpsc};
     use tokio::task::yield_now;
+
+    fn unavailable_with_retry_info(seconds: i64, nanos: i32) -> Status {
+        let mut retry_bytes = Vec::new();
+        ProtoRetryInfo {
+            retry_delay: Some(ProtoDuration { seconds, nanos }),
+        }
+        .encode(&mut retry_bytes)
+        .expect("encoding ProtoRetryInfo must succeed");
+
+        let any_detail = ProtoAny {
+            type_url: RETRY_INFO_TYPE_URL.to_string(),
+            value: retry_bytes,
+        };
+        let proto_status = ProtoStatus {
+            code: Code::Unavailable as i32,
+            message: "transient error".to_string(),
+            details: vec![any_detail],
+        };
+        let mut status_bytes = Vec::new();
+        proto_status
+            .encode(&mut status_bytes)
+            .expect("encoding ProtoStatus must succeed");
+
+        Status::with_details_and_metadata(
+            Code::Unavailable,
+            "transient error",
+            status_bytes.into(),
+            MetadataMap::new(),
+        )
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> Duration;
+        }
+    }
 
     #[test]
     fn auto_traits() {
@@ -3435,18 +3410,98 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn execute_inline_begin_with_transient_failure() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
-        let mut seq = mockall::Sequence::new();
+        let mut sequence = Sequence::new();
 
         // 1. First attempt fails transiently.
         mock.expect_execute_streaming_sql()
             .times(1)
-            .in_sequence(&mut seq)
+            .in_sequence(&mut sequence)
             .returning(|_| Err(Status::new(Code::Unavailable, "Transient 1")));
 
-        // 2. Fallback BeginTransaction succeeds.
+        // 2. The retry of the query statement retains the inline-begin selector and succeeds.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let selector = request
+                    .transaction
+                    .expect("transaction selector must be present")
+                    .selector
+                    .expect("selector kind must be present");
+                assert!(
+                    matches!(selector, Selector::Begin(_)),
+                    "Expected Selector::Begin for retried query with inline begin"
+                );
+                let mut result_set_partial = setup_select1();
+                result_set_partial
+                    .metadata
+                    .as_mut()
+                    .expect("metadata should be present")
+                    .transaction = Some(mock_v1::Transaction {
+                    id: vec![1, 2, 3],
+                    ..Default::default()
+                });
+                let (tx, rx) = mpsc::channel(1);
+                tx.try_send(Ok(result_set_partial))
+                    .expect("send should succeed");
+                Ok(Response::from(rx))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = db_client
+            .read_only_transaction()
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build()
+            .await?;
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .returning(|_| Duration::from_nanos(1));
+
+        let mut result_set = transaction
+            .execute_query(
+                Statement::builder("SELECT 1")
+                    .with_backoff_policy(mock_backoff)
+                    .build(),
+            )
+            .await?;
+        assert!(
+            result_set.next().await.is_some(),
+            "expected first row to be present"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should be exhausted"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_inline_begin_fallback_to_explicit_begin_when_retries_exhaust()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. Initial attempt fails transiently.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::new(Code::Unavailable, "Transient 1")));
+
+        // 2. Retry attempt fails transiently, exhausting the retry limit (2 attempts).
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::new(Code::Unavailable, "Transient 2")));
+
+        // 3. Fallback BeginTransaction succeeds after retries exhausted.
         mock.expect_begin_transaction()
             .times(1)
-            .in_sequence(&mut seq)
+            .in_sequence(&mut sequence)
             .returning(|_| {
                 Ok(Response::new(mock_v1::Transaction {
                     id: vec![7, 8, 9],
@@ -3454,11 +3509,22 @@ pub(crate) mod tests {
                 }))
             });
 
-        // 3. The manual retry of the query (which happens after explicit begin fallback).
+        // 4. Retrying the query with established transaction ID succeeds.
         mock.expect_execute_streaming_sql()
             .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_| {
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let selector = request
+                    .transaction
+                    .expect("transaction selector must be present")
+                    .selector
+                    .expect("selector kind must be present");
+                assert_eq!(
+                    selector,
+                    Selector::Id(vec![7, 8, 9]),
+                    "transaction id should match explicit begin response"
+                );
                 let (tx, rx) = mpsc::channel(1);
                 tx.try_send(Ok(setup_select1()))
                     .expect("send should succeed");
@@ -3466,17 +3532,34 @@ pub(crate) mod tests {
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
-        let tx = db_client
+        let transaction = db_client
             .read_only_transaction()
             .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
-        let mut rs = tx
-            .execute_query(Statement::builder("SELECT 1").build())
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .returning(|_| Duration::from_nanos(1));
+
+        let mut result_set = transaction
+            .execute_query(
+                Statement::builder("SELECT 1")
+                    .with_backoff_policy(mock_backoff)
+                    .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(2))
+                    .build(),
+            )
             .await?;
-        assert!(rs.next().await.is_some());
-        assert!(rs.next().await.is_none());
+        assert!(
+            result_set.next().await.is_some(),
+            "expected first row to be present"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should be exhausted"
+        );
 
         Ok(())
     }
@@ -3818,13 +3901,16 @@ pub(crate) mod tests {
         let mut mock = MockSpanner::new();
         let mut sequence = mockall::Sequence::new();
 
-        // 1. First query execution fails with Unavailable (transient error)
+        // 1. Initial query execution fails with Unavailable (transient error).
+        // The statement has an attempt limit of 2, so it retries once before retries exhaust.
         mock.expect_execute_streaming_sql()
-            .once()
+            .times(2)
             .in_sequence(&mut sequence)
-            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+            .returning(|_| Err(unavailable_with_retry_info(0, 1)));
 
-        // 2. Fallback explicit BeginTransaction is executed exactly once and fails
+        // 2. Fallback explicit BeginTransaction is executed exactly once and fails.
+        // Because the transaction builder configured with_begin_retry_policy(NeverRetry),
+        // the fallback RPC is NOT retried.
         mock.expect_begin_transaction()
             .once()
             .in_sequence(&mut sequence)
@@ -3847,15 +3933,21 @@ pub(crate) mod tests {
             .build()
             .await?;
 
-        let stmt = Statement::builder("SELECT 1").build();
-        let res = transaction.execute_query(stmt).await;
+        let statement = Statement::builder("SELECT 1")
+            .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(2))
+            .build();
+        let result = transaction.execute_query(statement).await;
 
         assert!(
-            res.is_err(),
+            result.is_err(),
             "should fail immediately during fallback without retrying the fallback RPC"
         );
-        let err = res.unwrap_err();
-        assert_eq!(err.status().expect("status").code, GaxCode::Unavailable);
+        let error = result.expect_err("res should be an Err");
+        assert_eq!(
+            error.status().expect("status").code,
+            GaxCode::Unavailable,
+            "expected Unavailable status code"
+        );
 
         Ok(())
     }
@@ -3942,13 +4034,14 @@ pub(crate) mod tests {
     async fn read_only_transaction_lazy_begin_fallback_uses_statement_options_when_unconfigured()
     -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
-        let mut sequence = mockall::Sequence::new();
+        let mut sequence = Sequence::new();
 
-        // 1. First query execution fails with Unavailable (transient error)
+        // 1. Initial query execution fails with Unavailable (transient error).
+        // The statement has an attempt limit of 2, so it retries once before retries exhaust.
         mock.expect_execute_streaming_sql()
-            .once()
+            .times(2)
             .in_sequence(&mut sequence)
-            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+            .returning(|_| Err(unavailable_with_retry_info(0, 1)));
 
         // 2. Fallback explicit BeginTransaction is executed. Since the transaction itself has no
         // custom options, it must inherit the statement options, which set attempt_timeout to 5 seconds.
@@ -3961,7 +4054,10 @@ pub(crate) mod tests {
                     timeout_header.is_some(),
                     "grpc-timeout header should be present"
                 );
-                let val = timeout_header.unwrap().to_str().unwrap();
+                let val = timeout_header
+                    .expect("timeout header should be present")
+                    .to_str()
+                    .expect("valid header string");
                 assert!(
                     val.contains("5000") || val.contains("5"),
                     "timeout header value '{}' should represent 5 seconds",
@@ -4020,14 +4116,15 @@ pub(crate) mod tests {
             .build()
             .await?;
 
-        let mut stmt_opts = crate::RequestOptions::default();
-        stmt_opts.set_attempt_timeout(Duration::from_secs(5));
-        let stmt = Statement::builder("SELECT 1")
+        let mut statement_options = RequestOptions::default();
+        statement_options.set_attempt_timeout(Duration::from_secs(5));
+        statement_options.set_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(2));
+        let statement = Statement::builder("SELECT 1")
             .build()
-            .with_gax_options(stmt_opts);
+            .with_gax_options(statement_options);
 
-        let mut rs = transaction.execute_query(stmt).await?;
-        let row = rs.next().await.expect("has row")?;
+        let mut result_set = transaction.execute_query(statement).await?;
+        let row = result_set.next().await.expect("has row")?;
         assert_eq!(row.raw_values(), [Value(string_val("1"))]);
 
         Ok(())
@@ -4037,13 +4134,14 @@ pub(crate) mod tests {
     async fn read_only_transaction_lazy_begin_fallback_merges_custom_options() -> anyhow::Result<()>
     {
         let mut mock = MockSpanner::new();
-        let mut sequence = mockall::Sequence::new();
+        let mut sequence = Sequence::new();
 
-        // 1. First query execution fails with Unavailable (transient error)
+        // 1. Initial query execution fails with Unavailable (transient error).
+        // The statement has an attempt limit of 2, so it retries once before retries exhaust.
         mock.expect_execute_streaming_sql()
-            .once()
+            .times(2)
             .in_sequence(&mut sequence)
-            .returning(|_| Err(tonic::Status::unavailable("transient error")));
+            .returning(|_| Err(unavailable_with_retry_info(0, 1)));
 
         // 2. Fallback explicit BeginTransaction must have BOTH:
         // - attempt_timeout of 5 seconds (inherited from statement's options)
@@ -4058,7 +4156,10 @@ pub(crate) mod tests {
                     timeout_header.is_some(),
                     "grpc-timeout header should be present"
                 );
-                let val = timeout_header.unwrap().to_str().unwrap();
+                let val = timeout_header
+                    .expect("timeout header should be present")
+                    .to_str()
+                    .expect("valid header string");
                 assert!(
                     val.contains("5000") || val.contains("5"),
                     "timeout header value '{}' should represent 5 seconds",
@@ -4085,20 +4186,25 @@ pub(crate) mod tests {
             .build()
             .await?;
 
-        let mut stmt_opts = crate::RequestOptions::default();
-        stmt_opts.set_attempt_timeout(Duration::from_secs(5));
-        let stmt = Statement::builder("SELECT 1")
+        let mut statement_options = RequestOptions::default();
+        statement_options.set_attempt_timeout(Duration::from_secs(5));
+        statement_options.set_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(2));
+        let statement = Statement::builder("SELECT 1")
             .build()
-            .with_gax_options(stmt_opts);
+            .with_gax_options(statement_options);
 
-        let res = transaction.execute_query(stmt).await;
+        let result = transaction.execute_query(statement).await;
 
         assert!(
-            res.is_err(),
+            result.is_err(),
             "should fail immediately because of NeverRetry"
         );
-        let err = res.unwrap_err();
-        assert_eq!(err.status().expect("status").code, GaxCode::Unavailable);
+        let error = result.expect_err("result should be an Err");
+        assert_eq!(
+            error.status().expect("status").code,
+            GaxCode::Unavailable,
+            "expected Unavailable status code"
+        );
 
         Ok(())
     }
@@ -4233,6 +4339,40 @@ pub(crate) mod tests {
             1,
             "source HeaderMap must remain isolated and unmodified"
         );
+
+        // Case 6: Pure merge_request_options preserves all headers intact, including request ID header
+        let mut destination = RequestOptions::default();
+        let mut destination_headers = HeaderMap::new();
+        destination_headers.insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("12345.1"),
+        );
+        destination_headers.insert(
+            HeaderName::from_static("x-goog-spanner-route-to-leader"),
+            HeaderValue::from_static("true"),
+        );
+        destination = destination.insert_extension(destination_headers);
+
+        let merged = merge_request_options(destination, None);
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("merged HeaderMap should be present");
+        assert_eq!(
+            merged_headers
+                .get(&REQUEST_ID_HEADER)
+                .expect("REQUEST_ID_HEADER should be preserved by pure merge_request_options")
+                .to_str()
+                .expect("valid ascii"),
+            "12345.1"
+        );
+        assert_eq!(
+            merged_headers
+                .get("x-goog-spanner-route-to-leader")
+                .expect("route to leader header should be preserved")
+                .to_str()
+                .expect("valid ascii"),
+            "true"
+        );
     }
 
     #[test]
@@ -4305,18 +4445,17 @@ pub(crate) mod tests {
             .set_session(context.session_name.clone())
             .set_transaction(transaction_selector);
 
-        let gax_options = google_cloud_gax::options::RequestOptions::default();
+        let gax_options = RequestOptions::default();
 
         async fn run_macro(
             context: &ReadContext,
-            mut request: crate::model::ExecuteSqlRequest,
-            gax_options: google_cloud_gax::options::RequestOptions,
+            request: ExecuteSqlRequest,
+            gax_options: RequestOptions,
         ) -> crate::Result<ResultSet> {
             execute_stream_with_retry!(
                 context,
                 request,
                 gax_options,
-                execute_streaming_sql,
                 StreamOperation::Query,
                 "ExecuteStreamingSql"
             )
@@ -5122,7 +5261,7 @@ pub(crate) mod tests {
         leader_rpc_received.notified().await;
         yield_now().await;
         assert!(
-            selector.is_starting()?,
+            selector.is_starting(),
             "Leader must be in Starting state before cancellation"
         );
 
@@ -5221,6 +5360,202 @@ pub(crate) mod tests {
                 .contains("Spanner failed to return a transaction ID"),
             "Expected missing transaction ID error message, got: {error}"
         );
+
+        Ok(())
+    }
+
+    #[test]
+    fn transaction_selector_recovers_from_poisoned_lock_on_start() -> crate::Result<()> {
+        use bytes::Bytes;
+        use std::panic::catch_unwind;
+
+        let inner_state = Arc::new(StdMutex::new(TransactionState::NotStarted(
+            TransactionOptions::default().set_read_only(ReadOnly::default()),
+        )));
+        let selector = ReadContextTransactionSelector::Lazy(Arc::clone(&inner_state));
+
+        // Deliberately poison the mutex.
+        let inner_state_clone = Arc::clone(&inner_state);
+        let _ = catch_unwind(move || {
+            let _guard = inner_state_clone
+                .lock()
+                .expect("lock must succeed before poison");
+            panic!("deliberate panic to poison mutex");
+        });
+        assert!(
+            inner_state.is_poisoned(),
+            "transaction state mutex must be poisoned"
+        );
+
+        // Verify query methods recover under poison.
+        assert!(
+            selector.is_lazy(),
+            "selector must be identified as lazy even if poisoned"
+        );
+        assert!(
+            !selector.is_started(),
+            "selector must not be started initially"
+        );
+        assert!(
+            !selector.is_starting(),
+            "selector must not be starting initially"
+        );
+
+        // Verify poll_selector_status successfully transitions under poison.
+        let status = selector.poll_selector_status()?;
+        match status {
+            SelectorStatus::Ready(transaction_selector) => {
+                assert!(
+                    transaction_selector.begin().is_some(),
+                    "expected begin options in ready status"
+                );
+            }
+            SelectorStatus::Wait(_) => {
+                panic!("first poller should become leader, not waiter");
+            }
+        }
+        assert!(
+            selector.is_starting(),
+            "selector must be starting after poll_selector_status"
+        );
+
+        // Verify update succeeds and transitions to Started under poison.
+        let timestamp = wkt::Timestamp::clamp(12345, 6789);
+        selector.update(Bytes::from_static(b"test-tx-id"), Some(timestamp))?;
+
+        assert!(
+            selector.is_started(),
+            "selector must be started after update"
+        );
+        assert_eq!(
+            selector.get_id_no_wait()?,
+            Some(Bytes::from_static(b"test-tx-id")),
+            "expected transaction ID"
+        );
+        assert_eq!(
+            selector.read_timestamp(),
+            Some(timestamp),
+            "expected read timestamp"
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn transaction_selector_recovers_from_poisoned_lock_on_failure() -> crate::Result<()> {
+        use std::panic::catch_unwind;
+
+        let notify = Arc::new(Notify::new());
+        let options = TransactionOptions::default().set_read_only(ReadOnly::default());
+        let inner_state = Arc::new(StdMutex::new(TransactionState::Starting(
+            options,
+            Arc::clone(&notify),
+        )));
+        let selector = ReadContextTransactionSelector::Lazy(Arc::clone(&inner_state));
+
+        // Deliberately poison the mutex.
+        let inner_state_clone = Arc::clone(&inner_state);
+        let _ = catch_unwind(move || {
+            let _guard = inner_state_clone
+                .lock()
+                .expect("lock must succeed before poison");
+            panic!("deliberate panic to poison mutex");
+        });
+        assert!(
+            inner_state.is_poisoned(),
+            "transaction state mutex must be poisoned"
+        );
+
+        // For read-only, handle_stream_initialization_error returns false (caller should begin explicitly).
+        let test_error = internal_error("transient stream error");
+        assert!(
+            !selector.handle_stream_initialization_error(&test_error),
+            "read-only transactions must return false for stream fallback"
+        );
+
+        // set_failed marks the selector as Failed despite lock poisoning.
+        selector.set_failed(&test_error);
+
+        let check_result = selector.check_failed();
+        assert!(
+            check_result.is_err(),
+            "check_failed must return error after set_failed on poisoned lock"
+        );
+
+        let restart_result = selector.selector_for_restart();
+        assert!(
+            restart_result.is_err(),
+            "selector_for_restart must return error for Failed transaction on poisoned lock"
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn transaction_selector_on_cancelled_starting_recovers_from_poisoned_lock() -> crate::Result<()>
+    {
+        use std::panic::catch_unwind;
+
+        // Test read-write cancellation transitions to FirstStatementFailed.
+        {
+            use crate::model::transaction_options::ReadWrite;
+            let notify = Arc::new(Notify::new());
+            let read_write_options =
+                TransactionOptions::default().set_read_write(ReadWrite::default());
+            let inner_state = Arc::new(StdMutex::new(TransactionState::Starting(
+                read_write_options,
+                Arc::clone(&notify),
+            )));
+            let selector = ReadContextTransactionSelector::Lazy(Arc::clone(&inner_state));
+
+            let inner_state_clone = Arc::clone(&inner_state);
+            let _ = catch_unwind(move || {
+                let _guard = inner_state_clone
+                    .lock()
+                    .expect("lock must succeed before poison");
+                panic!("deliberate panic to poison mutex");
+            });
+            assert!(
+                inner_state.is_poisoned(),
+                "read-write transaction mutex must be poisoned"
+            );
+
+            selector.on_cancelled_starting();
+            assert!(
+                selector.is_first_statement_failed(),
+                "read-write selector must transition to FirstStatementFailed on cancellation"
+            );
+        }
+
+        // Test read-only cancellation transitions back to NotStarted.
+        {
+            let notify = Arc::new(Notify::new());
+            let read_only_options =
+                TransactionOptions::default().set_read_only(ReadOnly::default());
+            let inner_state = Arc::new(StdMutex::new(TransactionState::Starting(
+                read_only_options,
+                Arc::clone(&notify),
+            )));
+            let selector = ReadContextTransactionSelector::Lazy(Arc::clone(&inner_state));
+
+            let inner_state_clone = Arc::clone(&inner_state);
+            let _ = catch_unwind(move || {
+                let _guard = inner_state_clone
+                    .lock()
+                    .expect("lock must succeed before poison");
+                panic!("deliberate panic to poison mutex");
+            });
+            assert!(
+                inner_state.is_poisoned(),
+                "read-only transaction mutex must be poisoned"
+            );
+
+            selector.on_cancelled_starting();
+            assert!(
+                !selector.is_starting(),
+                "read-only selector must reset from Starting back to NotStarted on cancellation"
+            );
+        }
 
         Ok(())
     }

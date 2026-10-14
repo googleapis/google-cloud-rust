@@ -15,9 +15,12 @@
 //! An attempt interceptor that maintains the attempt counter suffix in `x-goog-spanner-request-id` headers.
 
 use gaxi::attempt_interceptor::AttemptInterceptor;
+use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::options::internal::RequestOptionsExt;
 use http::HeaderMap;
 use http::header::{HeaderName, HeaderValue};
 use std::io::Write as _;
+use std::str::from_utf8;
 
 pub(crate) static REQUEST_ID_HEADER: HeaderName =
     HeaderName::from_static("x-goog-spanner-request-id");
@@ -43,7 +46,7 @@ impl AttemptInterceptor for SpannerRequestIdInterceptor {
             return;
         };
         let base_prefix = &bytes[..=dot_index];
-        let existing_attempt = std::str::from_utf8(&bytes[dot_index + 1..])
+        let existing_attempt = from_utf8(&bytes[dot_index + 1..])
             .ok()
             .and_then(|s| s.parse::<u32>().ok())
             .unwrap_or(0);
@@ -92,6 +95,17 @@ impl AttemptInterceptor for SpannerRequestIdInterceptor {
         if let Ok(new_val) = HeaderValue::from_bytes(&buffer[..total_len]) {
             headers.insert(REQUEST_ID_HEADER.clone(), new_val);
         }
+    }
+}
+
+/// Updates the attempt number on the `x-goog-spanner-request-id` header in `RequestOptions`
+/// when restarting a streaming RPC after a transient failure.
+pub(crate) fn update_request_id_attempt(options: &mut RequestOptions, attempt: u32) {
+    if attempt <= 1 {
+        return;
+    }
+    if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+        SpannerRequestIdInterceptor.intercept(headers, attempt);
     }
 }
 
@@ -268,5 +282,54 @@ mod tests {
             .expect("header should be present")
             .as_bytes();
         assert_eq!(value, non_ascii);
+    }
+
+    #[test]
+    fn update_request_id_attempt_updates_options_header() {
+        let mut options = RequestOptions::default();
+        options.get_extension_or_default_mut::<HeaderMap>().insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("1.a1b2c3.1.2.3.1"),
+        );
+
+        update_request_id_attempt(&mut options, 2);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("headers extension present");
+        let value = headers
+            .get(&REQUEST_ID_HEADER)
+            .expect("header should be present")
+            .to_str()
+            .expect("header should be valid ASCII");
+        assert_eq!(
+            value, "1.a1b2c3.1.2.3.2",
+            "expected updated attempt suffix .2"
+        );
+    }
+
+    #[test]
+    fn update_request_id_attempt_ignores_attempt_one_or_less() {
+        let mut options = RequestOptions::default();
+        options.get_extension_or_default_mut::<HeaderMap>().insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("1.a1b2c3.1.2.3.1"),
+        );
+
+        update_request_id_attempt(&mut options, 1);
+        update_request_id_attempt(&mut options, 0);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("headers extension present");
+        let value = headers
+            .get(&REQUEST_ID_HEADER)
+            .expect("header should be present")
+            .to_str()
+            .expect("header should be valid ASCII");
+        assert_eq!(
+            value, "1.a1b2c3.1.2.3.1",
+            "attempt 1 or 0 must not mutate header"
+        );
     }
 }

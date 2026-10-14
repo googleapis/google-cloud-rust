@@ -54,6 +54,12 @@ where
     }
 
     async fn send_buffered_resumable(self, hint: SizeHint) -> Result<Object> {
+        // Resumable uploads are always treated as idempotent (regardless of
+        // preconditions or `with_idempotency()`), so stamp the deduplication
+        // token once before the retry loop to ensure every attempt at creating
+        // the session reuses the identical `x-goog-gcs-idempotency-token`.
+        let options = crate::idempotency::add_token(self.options.gax());
+
         let mut progress = InProgressUpload::new(self.options.resumable_upload_buffer_size(), hint);
         let mut url = None;
         let throttler = self.options.retry_throttler.clone();
@@ -63,12 +69,16 @@ where
         let inner = async move |_| {
             let previous = count;
             count += 1;
-            self.buffered_resumable_attempt(&mut progress, &mut url, previous)
+            self.buffered_resumable_attempt(&mut progress, &mut url, previous, &options)
                 .await
         };
         google_cloud_gax::retry_loop_internal::retry_loop(
             inner,
             async |duration| tokio::time::sleep(duration).await,
+            // Resumable uploads are always idempotent, regardless of
+            // `with_idempotency()`. Extra sessions created by retries have no
+            // observable side-effects; they are never used and eventually
+            // garbage collected. A session can be finalized at most once.
             true,
             throttler,
             retry,
@@ -84,12 +94,15 @@ where
         progress: &mut InProgressUpload,
         url: &mut Option<String>,
         attempt_count: u32,
+        options: &google_cloud_gax::options::RequestOptions,
     ) -> Result<Object> {
         let is_resume = url.is_some();
         let upload_url = if let Some(u) = url.as_deref() {
             u
         } else {
-            let u = self.start_resumable_upload_attempt(attempt_count).await?;
+            let u = self
+                .start_resumable_upload_attempt(attempt_count, options)
+                .await?;
             url.insert(u).as_str()
         };
 

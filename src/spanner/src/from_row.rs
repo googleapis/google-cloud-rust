@@ -34,9 +34,9 @@ use crate::row::Row;
 /// impl FromRow for UserRecord {
 ///     fn from_row(mut row: Row) -> Result<Self, Error> {
 ///         Ok(Self {
-///             id: row.try_take("id")?,
-///             age: row.try_take("age")?,
-///             nickname: row.try_take("nickname")?,
+///             id: row.take("id")?,
+///             age: row.take("age")?,
+///             nickname: row.take("nickname")?,
 ///         })
 ///     }
 /// }
@@ -60,7 +60,7 @@ use crate::row::Row;
 ///
 /// This trait is designed for zero-copy row consumption. The implementing method
 /// takes ownership of [`Row`], allowing callers to move heap-allocated types
-/// (such as [`String`], `Vec<T>`, and `Vec<u8>`) using [`Row::try_take`]
+/// (such as [`String`], `Vec<T>`, and `Vec<u8>`) using [`Row::take`]
 /// without cloning.
 ///
 /// `FromRow` is also implemented for [`Row`] (identity) and standard tuples up to
@@ -120,7 +120,7 @@ impl TryFrom<Row> for () {
 }
 
 // Implements `FromRow` and `TryFrom<Row>` for standard tuples from 1 to 12 elements.
-// Each tuple element is extracted positionally from the row using `row.try_take(index)`.
+// Each tuple element is extracted positionally from the row using `row.take(index)`.
 macro_rules! impl_from_row_for_tuple {
     ( $( $idx:tt => $T:ident ),+ ) => {
         impl<$($T),+> FromRow for ($($T,)+)
@@ -130,7 +130,7 @@ macro_rules! impl_from_row_for_tuple {
             fn from_row(mut row: Row) -> Result<Self> {
                 Ok((
                     $(
-                        row.try_take($idx as usize)?,
+                        row.take($idx as usize)?,
                     )+
                 ))
             }
@@ -188,11 +188,11 @@ mod tests {
     impl FromRow for UserRecord {
         fn from_row(mut row: Row) -> Result<Self> {
             Ok(Self {
-                id: row.try_take("id")?,
-                age: row.try_take("age")?,
-                active: row.try_take("active")?,
-                nickname: row.try_take("nickname")?,
-                created_at: row.try_take("created_at")?,
+                id: row.take("id")?,
+                age: row.take("age")?,
+                active: row.take("active")?,
+                nickname: row.take("nickname")?,
+                created_at: row.take("created_at")?,
             })
         }
     }
@@ -210,7 +210,7 @@ mod tests {
 
     impl FromRow for Coordinates {
         fn from_row(mut row: Row) -> Result<Self> {
-            Ok(Self(row.try_take(0usize)?, row.try_take(1usize)?))
+            Ok(Self(row.take(0usize)?, row.take(1usize)?))
         }
     }
 

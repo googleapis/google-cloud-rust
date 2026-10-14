@@ -131,7 +131,7 @@ impl ConvertError {
     ) -> Self {
         Self::TypeMismatch {
             expected: expected.into(),
-            got: got.type_name().to_string(),
+            got: got.type_name(),
         }
     }
 }

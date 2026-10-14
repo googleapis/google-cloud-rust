@@ -29,6 +29,7 @@
 //!
 //! * [SqlBackupRunsService](client/struct.SqlBackupRunsService.html)
 //! * [SqlBackupsService](client/struct.SqlBackupsService.html)
+//! * [BlueGreenDeploymentsService](client/struct.BlueGreenDeploymentsService.html)
 //! * [SqlConnectService](client/struct.SqlConnectService.html)
 //! * [SqlDatabasesService](client/struct.SqlDatabasesService.html)
 //! * [SqlFlagsService](client/struct.SqlFlagsService.html)
@@ -37,6 +38,7 @@
 //! * [SqlSslCertsService](client/struct.SqlSslCertsService.html)
 //! * [SqlTiersService](client/struct.SqlTiersService.html)
 //! * [SqlUsersService](client/struct.SqlUsersService.html)
+//! * [SqlWorkloadCapturesService](client/struct.SqlWorkloadCapturesService.html)
 //!
 //! # Features
 //!

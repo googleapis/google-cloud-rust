@@ -1080,7 +1080,7 @@ impl ReadRowsRequest {
     ///     google_cloud_bigquery::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(ArrowSerializationOptions::default().into())));
     /// ```
     pub fn set_output_format_serialization_options<T: std::convert::Into<std::option::Option<crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.output_format_serialization_options = v.into();
         self
     }
@@ -2266,7 +2266,7 @@ impl AppendRowsRequest {
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
         V: std::convert::Into<crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation>,
-    {
+{
         use std::iter::Iterator;
         self.missing_value_interpretations =
             v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -5237,7 +5237,7 @@ pub mod read_session {
         /// ```
         pub fn set_response_compression_codec<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec>
-        {
+{
             self.response_compression_codec = std::option::Option::Some(v.into());
             self
         }
@@ -5253,7 +5253,7 @@ pub mod read_session {
         /// ```
         pub fn set_or_clear_response_compression_codec<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec>
-        {
+{
             self.response_compression_codec = v.map(|x| x.into());
             self
         }
@@ -5271,7 +5271,7 @@ pub mod read_session {
         ///     google_cloud_bigquery::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(ArrowSerializationOptions::default().into())));
         /// ```
         pub fn set_output_format_serialization_options<T: std::convert::Into<std::option::Option<crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions>>>(mut self, v: T) -> Self
-        {
+{
             self.output_format_serialization_options = v.into();
             self
         }

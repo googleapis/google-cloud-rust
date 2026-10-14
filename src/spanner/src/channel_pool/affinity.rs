@@ -18,9 +18,8 @@
 //! channel and support both hard affinity (Read/Write transactions) and soft affinity (Read-Only transactions).
 
 use crate::channel_pool::entry::{ChannelLease, RwTransactionAffinityGuard};
-use std::sync::Arc;
-use std::sync::Mutex;
 use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::{Arc, Mutex, MutexGuard};
 
 /// Caller-owned handle managing channel affinity across multi-statement transactions.
 #[derive(Debug)]
@@ -76,16 +75,26 @@ impl TransactionAffinity {
             .map(|_| ())
     }
 
+    /// Acquires an exclusive mutex lock on the RW guard state, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `rw_guard` protects the channel affinity guard lifecycle state (`RwGuardState`). State transitions
+    /// are atomic enum assignments; recovering via `into_inner()` ensures that cleanup (`release_rw_guard`)
+    /// and channel guard attachments proceed safely even if a panic unwound during an earlier operation on the handle.
+    fn lock_rw_guard(&self) -> MutexGuard<'_, RwGuardState> {
+        match self.rw_guard.lock() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        }
+    }
+
     /// Ensures that an `RwTransactionAffinityGuard` is attached for the leased channel entry.
     ///
     /// If an existing guard already protects `lease.entry_id()`, or if [`Self::release_rw_guard`]
     /// has already been called on this handle, this is a no-op that avoids allocating a new guard
     /// or mutating active transaction atomic counters.
     pub(crate) fn ensure_rw_guard(&self, lease: &ChannelLease) {
-        let mut state = self
-            .rw_guard
-            .lock()
-            .expect("affinity rw_guard lock poisoned");
+        let mut state = self.lock_rw_guard();
         match &mut *state {
             RwGuardState::Released => {}
             RwGuardState::Active(slot) => {
@@ -108,10 +117,7 @@ impl TransactionAffinity {
     /// channels to close once the transaction attempt completes and preventing any
     /// late/concurrent operations on the same handle from re-acquiring a guard.
     pub(crate) fn release_rw_guard(&self) {
-        let mut state = self
-            .rw_guard
-            .lock()
-            .expect("affinity rw_guard lock poisoned");
+        let mut state = self.lock_rw_guard();
         *state = RwGuardState::Released;
     }
 }
@@ -198,21 +204,12 @@ impl TransactionAffinity {
 
     pub(crate) fn reset(&self) {
         self.entry_id.store(0, Ordering::Release);
-        let mut state = self
-            .rw_guard
-            .lock()
-            .expect("affinity rw_guard lock poisoned");
+        let mut state = self.lock_rw_guard();
         *state = RwGuardState::Active(None);
     }
 
     pub(crate) fn has_rw_guard(&self) -> bool {
-        matches!(
-            &*self
-                .rw_guard
-                .lock()
-                .expect("affinity rw_guard lock poisoned"),
-            RwGuardState::Active(Some(_))
-        )
+        matches!(&*self.lock_rw_guard(), RwGuardState::Active(Some(_)))
     }
 }
 
@@ -223,6 +220,7 @@ mod tests {
     use crate::client::Channel;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use std::fmt::Debug;
+    use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::ptr;
     use std::sync::Arc;
     use std::time::Duration;
@@ -240,10 +238,7 @@ mod tests {
 
     impl TransactionAffinity {
         fn attach_rw_guard(&self, guard: RwTransactionAffinityGuard) {
-            let mut state = self
-                .rw_guard
-                .lock()
-                .expect("affinity rw_guard lock poisoned");
+            let mut state = self.lock_rw_guard();
             if let RwGuardState::Active(slot) = &mut *state {
                 match slot.as_ref() {
                     Some(existing) if existing.entry_id() == guard.entry_id() => {}
@@ -251,6 +246,46 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn transaction_affinity_recovers_from_poisoned_rw_guard_lock() {
+        let affinity = TransactionAffinity::new_read_write();
+
+        // Intentionally poison the rw_guard mutex by panicking while holding the lock.
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = affinity.lock_rw_guard();
+            panic!("deliberately poisoning rw_guard lock for test");
+        }));
+        assert!(panic_result.is_err(), "catch_unwind should capture panic");
+
+        assert!(
+            affinity.rw_guard.is_poisoned(),
+            "rw_guard lock must be poisoned"
+        );
+
+        // Verify that operations recover seamlessly via into_inner() without panicking.
+        assert!(
+            !affinity.has_rw_guard(),
+            "has_rw_guard must return false on newly initialized handle"
+        );
+        let channel_entry = Arc::new(ChannelEntry::new(1, 1, Channel::new_for_test(DummyStub)));
+        let lease = ChannelLease::new(ActiveRpcGuard::new(channel_entry, 0, Duration::ZERO, 0));
+        affinity.ensure_rw_guard(&lease);
+        assert!(
+            affinity.has_rw_guard(),
+            "ensure_rw_guard must attach guard despite poisoned lock"
+        );
+        affinity.release_rw_guard();
+        assert!(
+            !affinity.has_rw_guard(),
+            "has_rw_guard must return false after release"
+        );
+        affinity.reset();
+        assert!(
+            !affinity.has_rw_guard(),
+            "has_rw_guard must return false after reset"
+        );
     }
 
     #[test]

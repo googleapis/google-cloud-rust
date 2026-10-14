@@ -22,6 +22,15 @@ If you need to upgrade, consider:
 rustup update
 ```
 
+The repository pins the Rust toolchain used for development in
+`rust-toolchain.toml`. When you run `cargo` in the repository, `rustup` uses
+that toolchain, so `cargo fmt` and `cargo clippy` produce the same results as
+CI. To install the pinned toolchain, run this from the repository root:
+
+```shell
+rustup toolchain install
+```
+
 ## Installing Go
 
 The code generator is implemented in [Go](https://go.dev). Follow the

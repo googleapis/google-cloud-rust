@@ -429,6 +429,243 @@ impl SqlBackupsService {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_sql_v1::client::BlueGreenDeploymentsService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = BlueGreenDeploymentsService::builder().build().await?;
+///     let mut list = client.list_blue_green_deployments()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing blue-green deployments.
+///
+/// # Configuration
+///
+/// To configure `BlueGreenDeploymentsService` use the `with_*` methods in the type returned
+/// by [builder()][BlueGreenDeploymentsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::blue_green_deployments_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::blue_green_deployments_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `BlueGreenDeploymentsService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `BlueGreenDeploymentsService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct BlueGreenDeploymentsService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::BlueGreenDeploymentsService>,
+}
+
+impl BlueGreenDeploymentsService {
+    /// Returns a builder for [BlueGreenDeploymentsService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_sql_v1::client::BlueGreenDeploymentsService;
+    /// let client = BlueGreenDeploymentsService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::blue_green_deployments_service::ClientBuilder {
+        crate::new_client_builder(super::builder::blue_green_deployments_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::BlueGreenDeploymentsService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::BlueGreenDeploymentsService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::BlueGreenDeploymentsService> {
+        super::transport::BlueGreenDeploymentsService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::BlueGreenDeploymentsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::BlueGreenDeploymentsService::new)
+    }
+
+    /// Creates a blue-green deployment under a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::BlueGreenDeploymentsService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &BlueGreenDeploymentsService
+    /// ) -> Result<()> {
+    ///     let response = client.create_blue_green_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_blue_green_deployment(
+        &self,
+    ) -> super::builder::blue_green_deployments_service::CreateBlueGreenDeployment {
+        super::builder::blue_green_deployments_service::CreateBlueGreenDeployment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Retrieves a blue-green deployment resource under a given project and
+    /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::BlueGreenDeploymentsService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &BlueGreenDeploymentsService, project_id: &str, location_id: &str, blue_green_deployment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_blue_green_deployment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/blueGreenDeployments/{blue_green_deployment_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_blue_green_deployment(
+        &self,
+    ) -> super::builder::blue_green_deployments_service::GetBlueGreenDeployment {
+        super::builder::blue_green_deployments_service::GetBlueGreenDeployment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Switches over to green instance for a blue-green deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::BlueGreenDeploymentsService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &BlueGreenDeploymentsService
+    /// ) -> Result<()> {
+    ///     let response = client.switchover_blue_green_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn switchover_blue_green_deployment(
+        &self,
+    ) -> super::builder::blue_green_deployments_service::SwitchoverBlueGreenDeployment {
+        super::builder::blue_green_deployments_service::SwitchoverBlueGreenDeployment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists blue-green deployments under a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::BlueGreenDeploymentsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &BlueGreenDeploymentsService, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_blue_green_deployments()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_blue_green_deployments(
+        &self,
+    ) -> super::builder::blue_green_deployments_service::ListBlueGreenDeployments {
+        super::builder::blue_green_deployments_service::ListBlueGreenDeployments::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a blue-green deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::BlueGreenDeploymentsService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &BlueGreenDeploymentsService, project_id: &str, location_id: &str, blue_green_deployment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_blue_green_deployment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/blueGreenDeployments/{blue_green_deployment_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_blue_green_deployment(
+        &self,
+    ) -> super::builder::blue_green_deployments_service::DeleteBlueGreenDeployment {
+        super::builder::blue_green_deployments_service::DeleteBlueGreenDeployment::new(
+            self.inner.clone(),
+        )
+    }
+}
+
+/// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_sql_v1::client::SqlConnectService;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -2702,5 +2939,220 @@ impl SqlUsersService {
     /// ```
     pub fn update(&self) -> super::builder::sql_users_service::Update {
         super::builder::sql_users_service::Update::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_sql_v1::client::SqlWorkloadCapturesService;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = SqlWorkloadCapturesService::builder().build().await?;
+///     let response = client.start()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Cloud SQL Workload Captures service.
+///
+/// # Configuration
+///
+/// To configure `SqlWorkloadCapturesService` use the `with_*` methods in the type returned
+/// by [builder()][SqlWorkloadCapturesService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_workload_captures_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_workload_captures_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SqlWorkloadCapturesService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `SqlWorkloadCapturesService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct SqlWorkloadCapturesService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SqlWorkloadCapturesService>,
+}
+
+impl SqlWorkloadCapturesService {
+    /// Returns a builder for [SqlWorkloadCapturesService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_sql_v1::client::SqlWorkloadCapturesService;
+    /// let client = SqlWorkloadCapturesService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::sql_workload_captures_service::ClientBuilder {
+        crate::new_client_builder(super::builder::sql_workload_captures_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::SqlWorkloadCapturesService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::SqlWorkloadCapturesService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SqlWorkloadCapturesService> {
+        super::transport::SqlWorkloadCapturesService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SqlWorkloadCapturesService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SqlWorkloadCapturesService::new)
+    }
+
+    /// Starts capturing the SQL queries, transactions, and other operations
+    /// executed on the primary instance. This traffic is securely stored and forms
+    /// a "captured workload". This workload can be replayed later on a different
+    /// instance to safely test performance impacts, database upgrades,
+    /// configuration changes etc. before applying them to production.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlWorkloadCapturesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlWorkloadCapturesService
+    /// ) -> Result<()> {
+    ///     let response = client.start()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start(&self) -> super::builder::sql_workload_captures_service::Start {
+        super::builder::sql_workload_captures_service::Start::new(self.inner.clone())
+    }
+
+    /// Stops capturing the query traffic and related operations executed on the
+    /// primary instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlWorkloadCapturesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlWorkloadCapturesService
+    /// ) -> Result<()> {
+    ///     let response = client.stop()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stop(&self) -> super::builder::sql_workload_captures_service::Stop {
+        super::builder::sql_workload_captures_service::Stop::new(self.inner.clone())
+    }
+
+    /// Starts executing a captured workload on a separate Cloud SQL instance
+    /// provisioned for workload replay. This target instance simulates the
+    /// production environment without affecting the primary instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlWorkloadCapturesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlWorkloadCapturesService
+    /// ) -> Result<()> {
+    ///     let response = client.start_replay()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start_replay(&self) -> super::builder::sql_workload_captures_service::StartReplay {
+        super::builder::sql_workload_captures_service::StartReplay::new(self.inner.clone())
+    }
+
+    /// Stops an active workload replay on the target Cloud SQL replay instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlWorkloadCapturesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlWorkloadCapturesService
+    /// ) -> Result<()> {
+    ///     let response = client.stop_replay()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stop_replay(&self) -> super::builder::sql_workload_captures_service::StopReplay {
+        super::builder::sql_workload_captures_service::StopReplay::new(self.inner.clone())
+    }
+
+    /// Lists all captured workloads associated with the instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlWorkloadCapturesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlWorkloadCapturesService
+    /// ) -> Result<()> {
+    ///     let response = client.list()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list(&self) -> super::builder::sql_workload_captures_service::List {
+        super::builder::sql_workload_captures_service::List::new(self.inner.clone())
     }
 }

@@ -2768,6 +2768,281 @@ impl wkt::message::Message for GetSchemaRequest {
     }
 }
 
+/// Request for ExploreSchema.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExploreSchemaRequest {
+    /// Required. The name of the singleton domain schema resource.
+    /// Format: `projects/{project}/locations/{location}/domains/{domain}/schema`
+    pub name: std::string::String,
+
+    /// Optional. Starting label names to begin traversal.
+    /// Substring, case-insensitive matches are performed against allowed label
+    /// names in the schema. A maximum of 10 `start_labels` can be specified;
+    /// providing more will result in an `INVALID_ARGUMENT` error.
+    /// If `start_labels` is unset or empty, all authorized node types will be used
+    /// as the starting set.
+    pub start_labels: std::vec::Vec<std::string::String>,
+
+    /// Optional. The maximum depth of BFS traversal hops to perform from the
+    /// starting node types or label names. Defaults to 0 if unspecified.
+    pub depth: i32,
+
+    /// Optional. The maximum number of schema elements to return in a single page.
+    ///
+    /// - The service might return fewer elements than this value if adding another
+    ///   edge and its required endpoint nodes exceeds `page_size`.
+    /// - If omitted or set to 0, default (100) will be used.
+    /// - Minimum page_size is 3 to ensure at least one edge and its endpoint
+    ///   nodes fit on a page; values below 3 (e.g. 1 or 2) are changed to 3.
+    /// - Maximum value is 500.
+    pub page_size: i32,
+
+    /// Optional. A page token received from a previous `ExploreSchema` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters (except page_size) provided to
+    /// `ExploreSchema` must match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExploreSchemaRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExploreSchemaRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let domain_id = "domain_id";
+    /// let x = ExploreSchemaRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/domains/{domain_id}/schema"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [start_labels][crate::model::ExploreSchemaRequest::start_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaRequest;
+    /// let x = ExploreSchemaRequest::new().set_start_labels(["a", "b", "c"]);
+    /// ```
+    pub fn set_start_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.start_labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [depth][crate::model::ExploreSchemaRequest::depth].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaRequest;
+    /// let x = ExploreSchemaRequest::new().set_depth(42);
+    /// ```
+    pub fn set_depth<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.depth = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ExploreSchemaRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaRequest;
+    /// let x = ExploreSchemaRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ExploreSchemaRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaRequest;
+    /// let x = ExploreSchemaRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExploreSchemaRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apptopology.v1.ExploreSchemaRequest"
+    }
+}
+
+/// Response for ExploreSchema.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExploreSchemaResponse {
+    /// A list of `NodeType`s defined within this schema.
+    /// Refer to the documentation of `NodeType` for more details.
+    pub node_types: std::vec::Vec<crate::model::NodeType>,
+
+    /// A list of `EdgeType`s defined within this schema.
+    /// Refer to the documentation of `EdgeType` for more details.
+    pub edge_types: std::vec::Vec<crate::model::EdgeType>,
+
+    /// A list of supported labels and corresponding properties.
+    pub label_properties: std::vec::Vec<crate::model::LabelProperties>,
+
+    /// Edge rules. These will indicate which node types can be connected and
+    /// through what edge type. This is a list of (source_node_type, edge_type,
+    /// destination_node_type) tuples.
+    pub edge_rules: std::vec::Vec<crate::model::EdgeRule>,
+
+    /// A token to retrieve the next page of results, or empty if there are no
+    /// more results in the traversal set.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExploreSchemaResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [node_types][crate::model::ExploreSchemaResponse::node_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaResponse;
+    /// use google_cloud_apptopology_v1::model::NodeType;
+    /// let x = ExploreSchemaResponse::new()
+    ///     .set_node_types([
+    ///         NodeType::default()/* use setters */,
+    ///         NodeType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_node_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NodeType>,
+    {
+        use std::iter::Iterator;
+        self.node_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [edge_types][crate::model::ExploreSchemaResponse::edge_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaResponse;
+    /// use google_cloud_apptopology_v1::model::EdgeType;
+    /// let x = ExploreSchemaResponse::new()
+    ///     .set_edge_types([
+    ///         EdgeType::default()/* use setters */,
+    ///         EdgeType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_edge_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EdgeType>,
+    {
+        use std::iter::Iterator;
+        self.edge_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [label_properties][crate::model::ExploreSchemaResponse::label_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaResponse;
+    /// use google_cloud_apptopology_v1::model::LabelProperties;
+    /// let x = ExploreSchemaResponse::new()
+    ///     .set_label_properties([
+    ///         LabelProperties::default()/* use setters */,
+    ///         LabelProperties::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_label_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LabelProperties>,
+    {
+        use std::iter::Iterator;
+        self.label_properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [edge_rules][crate::model::ExploreSchemaResponse::edge_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaResponse;
+    /// use google_cloud_apptopology_v1::model::EdgeRule;
+    /// let x = ExploreSchemaResponse::new()
+    ///     .set_edge_rules([
+    ///         EdgeRule::default()/* use setters */,
+    ///         EdgeRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_edge_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EdgeRule>,
+    {
+        use std::iter::Iterator;
+        self.edge_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ExploreSchemaResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apptopology_v1::model::ExploreSchemaResponse;
+    /// let x = ExploreSchemaResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExploreSchemaResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.apptopology.v1.ExploreSchemaResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ExploreSchemaResponse {
+    type PageItem = crate::model::NodeType;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.node_types
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request for GetDomain.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]

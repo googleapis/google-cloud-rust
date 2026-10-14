@@ -2249,7 +2249,7 @@ impl FeaturedContentNativeDashboardService {
     /// }
     /// ```
     pub fn list_featured_content_native_dashboards(&self) -> super::builder::featured_content_native_dashboard_service::ListFeaturedContentNativeDashboards
-    {
+{
         super::builder::featured_content_native_dashboard_service::ListFeaturedContentNativeDashboards::new(self.inner.clone())
     }
 
@@ -2270,7 +2270,7 @@ impl FeaturedContentNativeDashboardService {
     /// }
     /// ```
     pub fn install_featured_content_native_dashboard(&self) -> super::builder::featured_content_native_dashboard_service::InstallFeaturedContentNativeDashboard
-    {
+{
         super::builder::featured_content_native_dashboard_service::InstallFeaturedContentNativeDashboard::new(self.inner.clone())
     }
 

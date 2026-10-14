@@ -7823,7 +7823,7 @@ pub mod intelligence_finding {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution>
-        {
+{
             use std::iter::Iterator;
             self.top_buckets = v.into_iter().map(|i| i.into()).collect();
             self
@@ -7917,7 +7917,7 @@ pub mod intelligence_finding {
             ///     google_cloud_storage::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details::Contribution(Contribution::default().into())));
             /// ```
             pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details>>>(mut self, v: T) -> Self
-            {
+{
                 self.details = v.into();
                 self
             }
@@ -8045,7 +8045,7 @@ pub mod intelligence_finding {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution>
-                {
+{
                     use std::iter::Iterator;
                     self.top_prefixes = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -8239,7 +8239,7 @@ pub mod intelligence_finding {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::intelligence_finding::cross_region_egress_spike::BucketContribution>
-        {
+{
             use std::iter::Iterator;
             self.top_buckets = v.into_iter().map(|i| i.into()).collect();
             self
@@ -8335,7 +8335,7 @@ pub mod intelligence_finding {
             ///     google_cloud_storage::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details::Contribution(Contribution::default().into())));
             /// ```
             pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details>>>(mut self, v: T) -> Self
-            {
+{
                 self.details = v.into();
                 self
             }
@@ -8463,7 +8463,7 @@ pub mod intelligence_finding {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution>
-                {
+{
                     use std::iter::Iterator;
                     self.top_prefixes = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -8755,7 +8755,7 @@ pub mod intelligence_finding {
             ///     google_cloud_storage::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details::Contribution(Contribution::default().into())));
             /// ```
             pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details>>>(mut self, v: T) -> Self
-            {
+{
                 self.details = v.into();
                 self
             }
@@ -8883,7 +8883,7 @@ pub mod intelligence_finding {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution>
-                {
+{
                     use std::iter::Iterator;
                     self.top_prefixes = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -9074,7 +9074,7 @@ pub mod intelligence_finding {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::intelligence_finding::storage_growth_above_trend::BucketContribution>
-        {
+{
             use std::iter::Iterator;
             self.top_buckets = v.into_iter().map(|i| i.into()).collect();
             self
@@ -9171,7 +9171,7 @@ pub mod intelligence_finding {
             ///     google_cloud_storage::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details::Error(Status::default().into())));
             /// ```
             pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details>>>(mut self, v: T) -> Self
-            {
+{
                 self.details = v.into();
                 self
             }

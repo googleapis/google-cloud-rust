@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::builder::bigquery::Query;
+use crate::client::Read;
 use crate::error::QueryError;
 use crate::query::client_builder::ClientBuilder;
 use crate::query::execution::check_job_status;
@@ -65,6 +66,8 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct BigQuery {
     job_service: Arc<JobService>,
+    // TODO(#7037): Thread read_client through Query and CompleteQuery.
+    read_client: Option<Arc<Read>>,
     project_id: Option<String>,
 }
 
@@ -92,13 +95,13 @@ impl BigQuery {
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let mut job_service_builder = JobService::builder();
-        if let Some(creds) = builder.config.cred {
+        if let Some(creds) = builder.config.cred.clone() {
             job_service_builder = job_service_builder.with_credentials(creds);
         }
         if let Some(endpoint) = builder.config.endpoint {
             job_service_builder = job_service_builder.with_endpoint(endpoint);
         }
-        if let Some(universe_domain) = builder.config.universe_domain {
+        if let Some(universe_domain) = builder.config.universe_domain.clone() {
             job_service_builder = job_service_builder.with_universe_domain(universe_domain);
         }
         if builder.config.tracing {
@@ -127,10 +130,36 @@ impl BigQuery {
 
         let job_service = Arc::new(job_service_builder.build().await?);
 
+        let read_client = if builder.storage_read_enabled {
+            let mut read_builder = Read::builder();
+            if let Some(creds) = builder.config.cred {
+                read_builder = read_builder.with_credentials(creds);
+            }
+            if let Some(endpoint) = builder.storage_read_endpoint {
+                read_builder = read_builder.with_endpoint(endpoint);
+            }
+            if let Some(universe_domain) = builder.config.universe_domain {
+                read_builder = read_builder.with_universe_domain(universe_domain);
+            }
+            if builder.config.tracing {
+                read_builder = read_builder.with_tracing();
+            }
+            Some(Arc::new(read_builder.build().await?))
+        } else {
+            None
+        };
+
         Ok(BigQuery {
             job_service,
+            read_client,
             project_id: builder.project_id,
         })
+    }
+
+    /// Returns `true` if BigQuery Storage Read API acceleration is enabled on this client.
+    #[cfg_attr(not(test), allow(dead_code))]
+    pub(crate) fn is_storage_read_enabled(&self) -> bool {
+        self.read_client.is_some()
     }
 
     /// Creates a request builder to configure and execute a SQL query.
@@ -263,6 +292,7 @@ mod tests {
         fn from_job_service(job_service: Arc<JobService>, project_id: Option<String>) -> Self {
             Self {
                 job_service,
+                read_client: None,
                 project_id,
             }
         }
@@ -275,6 +305,41 @@ mod tests {
             .build()
             .await?;
         assert!(client.project_id.is_none());
+        assert!(!client.is_storage_read_enabled());
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_bigquery_storage_read)]
+    #[tokio::test]
+    async fn test_bigquery_storage_read_forwards_config() -> anyhow::Result<()> {
+        use google_cloud_auth::credentials::mds;
+
+        let creds = mds::Builder::default()
+            .with_universe_domain("my-universe.com")
+            .build()?;
+        let client = BigQuery::builder()
+            .with_storage_read(true)
+            .with_storage_read_endpoint("https://custom.storage.endpoint:1234")
+            .with_credentials(creds)
+            .with_universe_domain("my-universe.com")
+            .with_tracing()
+            .build()
+            .await?;
+        assert!(client.is_storage_read_enabled());
+        let debug_str = format!("{:?}", client.read_client);
+        assert!(
+            debug_str.contains("custom.storage.endpoint"),
+            "expected custom storage endpoint in read_client debug output, got: {debug_str}"
+        );
+        assert!(
+            debug_str.contains("my-universe.com"),
+            "expected universe domain in read_client debug output, got: {debug_str}"
+        );
+        assert!(
+            debug_str.contains("tracing_attributes: Some"),
+            "expected tracing attributes in read_client debug output, got: {debug_str}"
+        );
+
         Ok(())
     }
 

@@ -12616,7 +12616,7 @@ pub mod big_query_destination_config {
         /// ```
         pub fn set_dataset_template<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate>
-        {
+{
             self.dataset_template = std::option::Option::Some(v.into());
             self
         }
@@ -12632,7 +12632,7 @@ pub mod big_query_destination_config {
         /// ```
         pub fn set_or_clear_dataset_template<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate>
-        {
+{
             self.dataset_template = v.map(|x| x.into());
             self
         }

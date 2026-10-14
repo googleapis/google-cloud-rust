@@ -50,8 +50,10 @@ pub struct ListAppConnectionsRequest {
     /// If not specified, a default value of 50 will be used by the service.
     /// Regardless of the page_size value, the response may include a partial list
     /// and a caller should only rely on response's
-    /// [next_page_token][BeyondCorp.ListAppConnectionsResponse.next_page_token] to
-    /// determine if there are more instances left to be queried.
+    /// [next_page_token][google.cloud.beyondcorp.appconnections.v1.ListAppConnectionsResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.beyondcorp.appconnections.v1.ListAppConnectionsResponse.next_page_token]: crate::model::ListAppConnectionsResponse::next_page_token
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -302,9 +304,9 @@ pub struct CreateAppConnectionRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if the original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
@@ -441,9 +443,9 @@ pub struct UpdateAppConnectionRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if the original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
@@ -589,9 +591,9 @@ pub struct DeleteAppConnectionRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes after the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if the original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
@@ -675,8 +677,10 @@ pub struct ResolveAppConnectionsRequest {
     /// If not specified, a default value of 50 will be used by the service.
     /// Regardless of the page_size value, the response may include a partial list
     /// and a caller should only rely on response's
-    /// [next_page_token][BeyondCorp.ResolveAppConnectionsResponse.next_page_token]
+    /// [next_page_token][google.cloud.beyondcorp.appconnections.v1.ResolveAppConnectionsResponse.next_page_token]
     /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.beyondcorp.appconnections.v1.ResolveAppConnectionsResponse.next_page_token]: crate::model::ResolveAppConnectionsResponse::next_page_token
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -934,7 +938,7 @@ pub mod resolve_app_connections_response {
 /// A BeyondCorp AppConnection resource represents a BeyondCorp protected
 /// AppConnection to a remote application. It creates all the necessary GCP
 /// components needed for creating a BeyondCorp protected AppConnection. Multiple
-/// connectors can be authorised for a single AppConnection.
+/// connectors can be authorized for a single AppConnection.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppConnection {
@@ -968,7 +972,7 @@ pub struct AppConnection {
         std::option::Option<crate::model::app_connection::ApplicationEndpoint>,
 
     /// Optional. List of [google.cloud.beyondcorp.v1main.Connector.name] that are
-    /// authorised to be associated with this AppConnection.
+    /// authorized to be associated with this AppConnection.
     pub connectors: std::vec::Vec<std::string::String>,
 
     /// Output only. The current state of the AppConnection.
@@ -976,6 +980,12 @@ pub struct AppConnection {
 
     /// Optional. Gateway used by the AppConnection.
     pub gateway: std::option::Option<crate::model::app_connection::Gateway>,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzi: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1228,6 +1238,68 @@ impl AppConnection {
         self.gateway = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [satisfies_pzs][crate::model::AppConnection::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
+    /// let x = AppConnection::new().set_satisfies_pzs(true);
+    /// ```
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::AppConnection::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
+    /// let x = AppConnection::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = AppConnection::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::AppConnection::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
+    /// let x = AppConnection::new().set_satisfies_pzi(true);
+    /// ```
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::AppConnection::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
+    /// let x = AppConnection::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = AppConnection::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for AppConnection {
@@ -1310,6 +1382,9 @@ pub mod app_connection {
         /// `projects/{project_id}/locations/{location_id}/appgateways/{gateway_id}`
         pub app_gateway: std::string::String,
 
+        /// Output only. L7 private service connection for this resource.
+        pub l7psc: std::string::String,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1368,6 +1443,18 @@ pub mod app_connection {
         /// ```
         pub fn set_app_gateway<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.app_gateway = v.into();
+            self
+        }
+
+        /// Sets the value of [l7psc][crate::model::app_connection::Gateway::l7psc].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Gateway;
+        /// let x = Gateway::new().set_l7psc("example");
+        /// ```
+        pub fn set_l7psc<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.l7psc = v.into();
             self
         }
     }
@@ -1815,9 +1902,13 @@ pub struct AppConnectionOperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
+    ///
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

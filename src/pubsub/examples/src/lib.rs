@@ -17,6 +17,7 @@ mod schema;
 mod subscriber;
 mod subscription;
 mod topic;
+mod use_emulator;
 
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
@@ -100,6 +101,14 @@ pub async fn run_subscription_samples(
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     subscription::enable_subscription_ordering::sample(&client, &project_id, topic_id, &id).await?;
 
+    // The sample creates this subscription when it finds it does not exist.
+    let id = random_subscription_id();
+    subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
+    slow_tasks.spawn({
+        let (project_id, topic_id, id) = (project_id.clone(), topic_id.to_string(), id.clone());
+        async move { subscriber::optimistic_subscribe::sample(&project_id, &topic_id, &id).await }
+    });
+
     let (topic_admin, dead_letter_topic) = create_test_topic().await?;
     let dead_letter_topic_id = dead_letter_topic
         .name
@@ -167,6 +176,16 @@ pub async fn run_publisher_samples(topic_names: &mut Vec<String>) -> anyhow::Res
     publisher::publish_with_retry_settings::sample(&project, &topic_id).await?;
     publisher::resume_publish_with_ordering_keys::sample(&project, &topic_id).await?;
 
+    Ok(())
+}
+
+/// Runs the samples that target the Pub/Sub emulator.
+///
+/// Requires `PUBSUB_EMULATOR_HOST` to be set to a running emulator.
+pub async fn run_emulator_samples() -> anyhow::Result<()> {
+    // The emulator accepts any project ID.
+    let project_id = "test-project";
+    use_emulator::sample(project_id, &random_topic_id()).await?;
     Ok(())
 }
 

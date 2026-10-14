@@ -892,6 +892,500 @@ pub mod sql_backups_service {
     }
 }
 
+/// Request and client builders for [BlueGreenDeploymentsService][crate::client::BlueGreenDeploymentsService].
+pub mod blue_green_deployments_service {
+    use crate::Result;
+
+    /// A builder for [BlueGreenDeploymentsService][crate::client::BlueGreenDeploymentsService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::blue_green_deployments_service::ClientBuilder;
+    /// # use client::BlueGreenDeploymentsService;
+    /// let builder : ClientBuilder = BlueGreenDeploymentsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::BlueGreenDeploymentsService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = BlueGreenDeploymentsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::BlueGreenDeploymentsService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [BlueGreenDeploymentsService::create_blue_green_deployment][crate::client::BlueGreenDeploymentsService::create_blue_green_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::blue_green_deployments_service::CreateBlueGreenDeployment;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateBlueGreenDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateBlueGreenDeployment(
+        RequestBuilder<crate::model::CreateBlueGreenDeploymentRequest>,
+    );
+
+    impl CreateBlueGreenDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateBlueGreenDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .create_blue_green_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateBlueGreenDeploymentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [blue_green_deployment_id][crate::model::CreateBlueGreenDeploymentRequest::blue_green_deployment_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_blue_green_deployment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.blue_green_deployment_id = v.into();
+            self
+        }
+
+        /// Sets the value of [blue_green_deployment][crate::model::CreateBlueGreenDeploymentRequest::blue_green_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_blue_green_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BlueGreenDeployment>,
+        {
+            self.0.request.blue_green_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [blue_green_deployment][crate::model::CreateBlueGreenDeploymentRequest::blue_green_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_blue_green_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BlueGreenDeployment>,
+        {
+            self.0.request.blue_green_deployment = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateBlueGreenDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BlueGreenDeploymentsService::get_blue_green_deployment][crate::client::BlueGreenDeploymentsService::get_blue_green_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::blue_green_deployments_service::GetBlueGreenDeployment;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetBlueGreenDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetBlueGreenDeployment(RequestBuilder<crate::model::GetBlueGreenDeploymentRequest>);
+
+    impl GetBlueGreenDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetBlueGreenDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::BlueGreenDeployment> {
+            (*self.0.stub)
+                .get_blue_green_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetBlueGreenDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [view][crate::model::GetBlueGreenDeploymentRequest::view].
+        pub fn set_view<
+            T: Into<crate::model::get_blue_green_deployment_request::BlueGreenDeploymentView>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.view = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetBlueGreenDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BlueGreenDeploymentsService::switchover_blue_green_deployment][crate::client::BlueGreenDeploymentsService::switchover_blue_green_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::blue_green_deployments_service::SwitchoverBlueGreenDeployment;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SwitchoverBlueGreenDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SwitchoverBlueGreenDeployment(
+        RequestBuilder<crate::model::SwitchoverBlueGreenDeploymentRequest>,
+    );
+
+    impl SwitchoverBlueGreenDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SwitchoverBlueGreenDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .switchover_blue_green_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::SwitchoverBlueGreenDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SwitchoverBlueGreenDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BlueGreenDeploymentsService::list_blue_green_deployments][crate::client::BlueGreenDeploymentsService::list_blue_green_deployments] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::blue_green_deployments_service::ListBlueGreenDeployments;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListBlueGreenDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListBlueGreenDeployments(
+        RequestBuilder<crate::model::ListBlueGreenDeploymentsRequest>,
+    );
+
+    impl ListBlueGreenDeployments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListBlueGreenDeploymentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListBlueGreenDeploymentsResponse> {
+            (*self.0.stub)
+                .list_blue_green_deployments(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListBlueGreenDeploymentsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBlueGreenDeploymentsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListBlueGreenDeploymentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListBlueGreenDeploymentsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListBlueGreenDeploymentsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListBlueGreenDeploymentsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListBlueGreenDeploymentsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListBlueGreenDeployments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BlueGreenDeploymentsService::delete_blue_green_deployment][crate::client::BlueGreenDeploymentsService::delete_blue_green_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::blue_green_deployments_service::DeleteBlueGreenDeployment;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteBlueGreenDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteBlueGreenDeployment(
+        RequestBuilder<crate::model::DeleteBlueGreenDeploymentRequest>,
+    );
+
+    impl DeleteBlueGreenDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteBlueGreenDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete_blue_green_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteBlueGreenDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [delete_old_source][crate::model::DeleteBlueGreenDeploymentRequest::delete_old_source].
+        pub fn set_delete_old_source<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.delete_old_source = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteBlueGreenDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 /// Request and client builders for [SqlConnectService][crate::client::SqlConnectService].
 pub mod sql_connect_service {
     use crate::Result;
@@ -7425,6 +7919,525 @@ pub mod sql_users_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+/// Request and client builders for [SqlWorkloadCapturesService][crate::client::SqlWorkloadCapturesService].
+pub mod sql_workload_captures_service {
+    use crate::Result;
+
+    /// A builder for [SqlWorkloadCapturesService][crate::client::SqlWorkloadCapturesService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_workload_captures_service::ClientBuilder;
+    /// # use client::SqlWorkloadCapturesService;
+    /// let builder : ClientBuilder = SqlWorkloadCapturesService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlWorkloadCapturesService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = SqlWorkloadCapturesService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::SqlWorkloadCapturesService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [SqlWorkloadCapturesService::start][crate::client::SqlWorkloadCapturesService::start] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_workload_captures_service::Start;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Start {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Start(RequestBuilder<crate::model::WorkloadCapturesStartRequest>);
+
+    impl Start {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::WorkloadCapturesStartRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .start(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::WorkloadCapturesStartRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [instance][crate::model::WorkloadCapturesStartRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [start_workload_capture_context][crate::model::WorkloadCapturesStartRequest::start_workload_capture_context].
+        pub fn set_start_workload_capture_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StartWorkloadCaptureContext>,
+        {
+            self.0.request.start_workload_capture_context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_workload_capture_context][crate::model::WorkloadCapturesStartRequest::start_workload_capture_context].
+        pub fn set_or_clear_start_workload_capture_context<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::StartWorkloadCaptureContext>,
+        {
+            self.0.request.start_workload_capture_context = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Start {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlWorkloadCapturesService::stop][crate::client::SqlWorkloadCapturesService::stop] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_workload_captures_service::Stop;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Stop {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Stop(RequestBuilder<crate::model::WorkloadCapturesStopRequest>);
+
+    impl Stop {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::WorkloadCapturesStopRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .stop(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::WorkloadCapturesStopRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [instance][crate::model::WorkloadCapturesStopRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [stop_workload_capture_context][crate::model::WorkloadCapturesStopRequest::stop_workload_capture_context].
+        pub fn set_stop_workload_capture_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StopWorkloadCaptureContext>,
+        {
+            self.0.request.stop_workload_capture_context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stop_workload_capture_context][crate::model::WorkloadCapturesStopRequest::stop_workload_capture_context].
+        pub fn set_or_clear_stop_workload_capture_context<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::StopWorkloadCaptureContext>,
+        {
+            self.0.request.stop_workload_capture_context = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Stop {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlWorkloadCapturesService::start_replay][crate::client::SqlWorkloadCapturesService::start_replay] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_workload_captures_service::StartReplay;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StartReplay {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StartReplay(RequestBuilder<crate::model::WorkloadCapturesStartReplayRequest>);
+
+    impl StartReplay {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::WorkloadCapturesStartReplayRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .start_replay(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::WorkloadCapturesStartReplayRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [instance][crate::model::WorkloadCapturesStartReplayRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [start_workload_replay_context][crate::model::WorkloadCapturesStartReplayRequest::start_workload_replay_context].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_start_workload_replay_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StartWorkloadReplayContext>,
+        {
+            self.0.request.start_workload_replay_context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_workload_replay_context][crate::model::WorkloadCapturesStartReplayRequest::start_workload_replay_context].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_start_workload_replay_context<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::StartWorkloadReplayContext>,
+        {
+            self.0.request.start_workload_replay_context = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [workload_id][crate::model::WorkloadCapturesStartReplayRequest::workload_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_workload_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.workload_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StartReplay {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlWorkloadCapturesService::stop_replay][crate::client::SqlWorkloadCapturesService::stop_replay] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_workload_captures_service::StopReplay;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StopReplay {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StopReplay(RequestBuilder<crate::model::WorkloadCapturesStopReplayRequest>);
+
+    impl StopReplay {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::WorkloadCapturesStopReplayRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .stop_replay(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::WorkloadCapturesStopReplayRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [instance][crate::model::WorkloadCapturesStopReplayRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [stop_workload_replay_context][crate::model::WorkloadCapturesStopReplayRequest::stop_workload_replay_context].
+        pub fn set_stop_workload_replay_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StopWorkloadReplayContext>,
+        {
+            self.0.request.stop_workload_replay_context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stop_workload_replay_context][crate::model::WorkloadCapturesStopReplayRequest::stop_workload_replay_context].
+        pub fn set_or_clear_stop_workload_replay_context<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::StopWorkloadReplayContext>,
+        {
+            self.0.request.stop_workload_replay_context = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StopReplay {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlWorkloadCapturesService::list][crate::client::SqlWorkloadCapturesService::list] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_workload_captures_service::List;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct List(RequestBuilder<crate::model::SqlWorkloadCapturesListRequest>);
+
+    impl List {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlWorkloadCapturesListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::WorkloadCapturesListResponse> {
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::SqlWorkloadCapturesListRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [instance][crate::model::SqlWorkloadCapturesListRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for List {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

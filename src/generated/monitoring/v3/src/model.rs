@@ -17764,7 +17764,7 @@ pub mod uptime_check_config {
             /// let x = ResponseStatusCode::new().set_status_code(Some(StatusCode::StatusValue(42)));
             /// ```
             pub fn set_status_code<T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::http_check::response_status_code::StatusCode>>>(mut self, v: T) -> Self
-            {
+{
                 self.status_code = v.into();
                 self
             }

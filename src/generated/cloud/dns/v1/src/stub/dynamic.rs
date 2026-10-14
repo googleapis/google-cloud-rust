@@ -105,6 +105,44 @@ impl<T: super::DnsKeys> DnsKeys for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::Locations].
+#[async_trait::async_trait]
+pub trait Locations: std::fmt::Debug + Send + Sync {
+    async fn get(
+        &self,
+        req: crate::model::locations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Location>>;
+
+    async fn list(
+        &self,
+        req: crate::model::locations::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListLocationsResponse>>;
+}
+
+/// All implementations of [super::Locations] also implement [Locations].
+#[async_trait::async_trait]
+impl<T: super::Locations> Locations for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::locations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Location>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::locations::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListLocationsResponse>> {
+        T::list(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::ManagedZoneOperations].
 #[async_trait::async_trait]
 pub trait ManagedZoneOperations: std::fmt::Debug + Send + Sync {
@@ -334,6 +372,157 @@ impl<T: super::ManagedZones> ManagedZones for T {
         options: &crate::RequestOptions,
     ) -> google_cloud_lro::PollerOptions {
         T::get_poller_options(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::Operations].
+#[async_trait::async_trait]
+pub trait Operations: std::fmt::Debug + Send + Sync {
+    async fn cancel(
+        &self,
+        req: crate::model::operations::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Empty>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::operations::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Empty>>;
+
+    async fn get(
+        &self,
+        req: crate::model::operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::operations::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningListOperationsResponse>>;
+}
+
+/// All implementations of [super::Operations] also implement [Operations].
+#[async_trait::async_trait]
+impl<T: super::Operations> Operations for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel(
+        &self,
+        req: crate::model::operations::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Empty>> {
+        T::cancel(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::operations::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Empty>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::operations::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningListOperationsResponse>> {
+        T::list(self, req, options).await
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::OutboundEndpoints].
+#[async_trait::async_trait]
+pub trait OutboundEndpoints: std::fmt::Debug + Send + Sync {
+    async fn create(
+        &self,
+        req: crate::model::outbound_endpoints::CreateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::outbound_endpoints::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::outbound_endpoints::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OutboundEndpoint>>;
+
+    async fn list(
+        &self,
+        req: crate::model::outbound_endpoints::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOutboundEndpointsResponse>>;
+
+    async fn patch(
+        &self,
+        req: crate::model::outbound_endpoints::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>>;
+}
+
+/// All implementations of [super::OutboundEndpoints] also implement [OutboundEndpoints].
+#[async_trait::async_trait]
+impl<T: super::OutboundEndpoints> OutboundEndpoints for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create(
+        &self,
+        req: crate::model::outbound_endpoints::CreateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>> {
+        T::create(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::outbound_endpoints::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::outbound_endpoints::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OutboundEndpoint>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::outbound_endpoints::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOutboundEndpointsResponse>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn patch(
+        &self,
+        req: crate::model::outbound_endpoints::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleLongrunningOperation>> {
+        T::patch(self, req, options).await
     }
 }
 

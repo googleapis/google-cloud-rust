@@ -9327,7 +9327,7 @@ pub mod conversational_search_response {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::conversational_search_response::followup_question::SuggestedAnswer>
-        {
+{
             use std::iter::Iterator;
             self.suggested_answers = v.into_iter().map(|i| i.into()).collect();
             self
@@ -9513,7 +9513,7 @@ pub mod conversational_search_response {
         /// ```
         pub fn set_additional_filter<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>
-        {
+{
             self.additional_filter = std::option::Option::Some(v.into());
             self
         }
@@ -9529,7 +9529,7 @@ pub mod conversational_search_response {
         /// ```
         pub fn set_or_clear_additional_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>
-        {
+{
             self.additional_filter = v.map(|x| x.into());
             self
         }
@@ -22947,7 +22947,7 @@ pub mod search_request {
             /// let x = UserAnswer::new().set_type(Some(Type::TextAnswer("example".to_string())));
             /// ```
             pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::search_request::conversational_search_spec::user_answer::Type>>>(mut self, v: T) -> Self
-            {
+{
                 self.r#type = v.into();
                 self
             }

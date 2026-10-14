@@ -16,6 +16,7 @@
 mod spanner {
     use integration_tests_spanner::batch_write;
     use integration_tests_spanner::client;
+    use integration_tests_spanner::write;
 
     /// Defines the integration test suites and manages their lifecycle.
     ///
@@ -62,6 +63,7 @@ mod spanner {
             integration_tests_spanner::query::simple_query(db_client).await?;
             integration_tests_spanner::query::query_json_value(db_client).await?;
             integration_tests_spanner::query::query_with_parameters(db_client).await?;
+            integration_tests_spanner::query::query_numeric_values(db_client).await?;
             integration_tests_spanner::query::query_non_finite_float_parameters(db_client).await?;
             integration_tests_spanner::query::mutation_and_untyped_query_non_finite_floats(db_client).await?;
             integration_tests_spanner::query::result_set_metadata(db_client).await?;
@@ -81,15 +83,11 @@ mod spanner {
         }
 
         async fn run_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
-            let _ = db_client;
-            #[cfg(false)] // TODO(#5826) - disable because it flakes
-            {
-                integration_tests_spanner::write::write_only_transaction(db_client).await?;
-                integration_tests_spanner::write::write(db_client).await?;
-                integration_tests_spanner::write::all_data_types_roundtrip(db_client).await?;
-                integration_tests_spanner::write::all_data_types_parameter_binding(db_client).await?;
-                integration_tests_spanner::write::interval_parameter_binding(db_client).await?;
-            }
+            write::write_only_transaction(db_client).await?;
+            write::write(db_client).await?;
+            write::all_data_types_roundtrip(db_client).await?;
+            write::all_data_types_parameter_binding(db_client).await?;
+            write::interval_parameter_binding(db_client).await?;
             Ok(())
         }
 

@@ -67,27 +67,34 @@ export SPANNER_EMULATOR_HOST=localhost:9010
 ```
 
 The client builder automatically detects this variable, connects to the emulator
-endpoint, and configures anonymous credentials.
+endpoint, configures anonymous credentials, and defaults to a single static
+channel instead of a dynamic pool.
 
 ### Configuring the Channel Pool
 
-By default, the client uses a static pool of 4 gRPC channels. You can configure
-the channel pool using `with_channel_pool`:
+By default, the client uses a dynamic channel pool starting with 4 channels and
+scaling up to 256 channels based on RPC concurrency and error feedback. You can
+customize the dynamic channel pool or configure a static pool using
+`with_channel_pool`:
 
 ```rust
 use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
 use google_cloud_spanner::channel_pool::{DynamicChannelPoolConfig, StaticChannelPoolConfig};
 
 # async fn sample() -> Result<(), google_cloud_spanner::Error> {
-// Custom static pool:
+// Custom dynamic load-based channel pool:
 let spanner = Spanner::builder()
-    .with_channel_pool(StaticChannelPoolConfig::new(8))
+    .with_channel_pool(
+        DynamicChannelPoolConfig::new()
+            .with_min_channels(2)
+            .with_max_channels(16),
+    )
     .build()
     .await?;
 
-// Or dynamic load-based channel pool:
+// Or fixed-size static channel pool:
 let spanner = Spanner::builder()
-    .with_channel_pool(DynamicChannelPoolConfig::new())
+    .with_channel_pool(StaticChannelPoolConfig::new(8))
     .build()
     .await?;
 # Ok(())

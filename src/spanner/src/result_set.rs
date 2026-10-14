@@ -21,10 +21,11 @@ use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
-    ExplicitBeginParams, ReadContextTransactionSelector, TransactionState,
+    ExplicitBeginParams, ReadContextTransactionSelector, merge_request_options,
 };
-use crate::request_id_interceptor::REQUEST_ID_HEADER;
+use crate::request_id_interceptor::{REQUEST_ID_HEADER, update_request_id_attempt};
 use crate::result_set_metadata::ResultSetMetadata;
+use crate::retry_delay::extract_retry_delay_from_error;
 use crate::retry_policy::SpannerRetryPolicy;
 use crate::row::Row;
 use crate::server_streaming::stream::PartialResultSetStream;
@@ -33,12 +34,13 @@ use gaxi::prost::FromProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use google_cloud_gax::options::internal::RequestOptionsExt;
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
-use http::{HeaderMap, HeaderValue};
+use http::HeaderMap;
 use prost_types::Value;
+use prost_types::value::Kind;
 use std::collections::VecDeque;
 use std::mem::take;
 use std::sync::Arc;
@@ -94,6 +96,8 @@ pub struct ResultSet {
     attempt_recorded: bool,
     operation_recorded: bool,
     affinity: Arc<TransactionAffinity>,
+    affinity_configured: bool,
+    begin_transaction_request_options: Option<GaxRequestOptions>,
 }
 
 #[derive(Debug, Clone)]
@@ -103,7 +107,6 @@ pub(crate) enum StreamOperation {
 }
 
 pub(crate) struct ResultSetParams {
-    pub stream: PartialResultSetStream,
     pub transaction_selector: Option<ReadContextTransactionSelector>,
     pub precommit_token_tracker: PrecommitTokenTracker,
     pub client: DatabaseClient,
@@ -112,9 +115,8 @@ pub(crate) struct ResultSetParams {
     pub operation: StreamOperation,
     pub gax_options: GaxRequestOptions,
     pub method_name: &'static str,
-    pub attempt_start_time: Option<Instant>,
-    pub operation_start_time: Option<Instant>,
     pub affinity: Option<Arc<TransactionAffinity>>,
+    pub begin_transaction_request_options: Option<GaxRequestOptions>,
 }
 
 // The maximum number of PartialResultSets to buffer without a resume token.
@@ -140,7 +142,6 @@ impl ResultSet {
     /// Creates a new result set.
     fn new(params: ResultSetParams) -> Self {
         let ResultSetParams {
-            stream,
             transaction_selector,
             precommit_token_tracker,
             client,
@@ -149,19 +150,17 @@ impl ResultSet {
             operation,
             gax_options,
             method_name,
-            attempt_start_time,
-            operation_start_time,
             affinity,
+            begin_transaction_request_options,
         } = params;
 
         let gax_options = Self::apply_defaults(gax_options);
-        let attempt_start = attempt_start_time.unwrap_or_else(Instant::now);
-        let operation_start = operation_start_time.unwrap_or(attempt_start);
-        let headers = stream.headers().clone();
+        let now = Instant::now();
+        let affinity_configured = affinity.is_some();
         let affinity = affinity.unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_only()));
 
         Self {
-            stream: Some(stream),
+            stream: None,
             buffered_values: VecDeque::new(),
             chunked: false,
             seen_last: false,
@@ -182,13 +181,14 @@ impl ResultSet {
             gax_options,
             tokio_handle: Handle::try_current().ok(),
             method_name,
-            headers,
-            // TODO: Refactor stream initialization to happen entirely inside ResultSet in a follow-up PR.
-            attempt_start_time: attempt_start,
-            operation_start_time: operation_start,
+            headers: HeaderMap::new(),
+            attempt_start_time: now,
+            operation_start_time: now,
             attempt_recorded: false,
             operation_recorded: false,
             affinity,
+            affinity_configured,
+            begin_transaction_request_options,
         }
     }
 
@@ -230,7 +230,25 @@ impl ResultSet {
             .record_operation(self.method_name, elapsed, error);
     }
 
+    fn record_error_and_return(&mut self, error: crate::Error) -> Option<crate::Result<Row>> {
+        self.seen_last = true;
+        self.stream = None;
+        self.ready_rows.clear();
+        self.buffered_values.clear();
+        self.chunked = false;
+        self.last_resume_token = Bytes::new();
+        self.partial_result_sets_buffer.clear();
+        self.safe_to_retry = false;
+        self.record_current_attempt(Some(&error));
+        self.record_operation_complete(Some(&error));
+        Some(Err(error))
+    }
+
     async fn init_stream(&mut self) -> crate::Result<()> {
+        if let Err(error) = self.restart_stream().await {
+            self.handle_stream_error(error).await?;
+        }
+
         // We loop here because if an initial stream failure occurs and is retriable (e.g., UNAVAILABLE),
         // we restart the stream and retry fetching the initial chunk.
         loop {
@@ -367,48 +385,34 @@ impl ResultSet {
             }
 
             if self.seen_last {
+                let stream = self.stream.take();
                 if let Some(handle) = &self.tokio_handle
-                    && let Some(s) = self.stream.take()
+                    && let Some(stream) = stream
                 {
-                    drain_stream_in_background(handle, s);
+                    drain_stream_in_background(handle, stream);
+                }
+                if let Err(error) = self.validate_stream_termination() {
+                    return self.record_error_and_return(error);
                 }
                 self.record_current_attempt(None);
                 self.record_operation_complete(None);
                 return None;
             }
 
-            let stream_result = match &mut self.stream {
-                Some(s) => s.next_message().await,
-                None => {
-                    self.record_current_attempt(None);
-                    self.record_operation_complete(None);
-                    return None;
-                }
+            let Some(stream) = &mut self.stream else {
+                return None;
             };
 
-            match stream_result {
-                Some(Ok(partial_result_set)) => {
-                    if let Err(e) = self.handle_partial_result_set(partial_result_set) {
-                        self.record_current_attempt(Some(&e));
-                        self.record_operation_complete(Some(&e));
-                        return Some(Err(e));
-                    }
-                }
-                Some(Err(e)) => {
-                    if let Err(err) = self.handle_stream_error(e).await {
-                        self.record_operation_complete(Some(&err));
-                        return Some(Err(err));
-                    }
-                }
-                None => match self.handle_stream_end() {
-                    Ok(Some(row)) => return Some(Ok(row)),
-                    Ok(None) => return None,
-                    Err(e) => {
-                        self.record_current_attempt(Some(&e));
-                        self.record_operation_complete(Some(&e));
-                        return Some(Err(e));
-                    }
-                },
+            let stream_result = stream.next_message().await;
+
+            let result = match stream_result {
+                Some(Ok(partial_result_set)) => self.handle_partial_result_set(partial_result_set),
+                Some(Err(stream_error)) => self.handle_stream_error(stream_error).await,
+                None => self.handle_stream_end(),
+            };
+
+            if let Err(error) = result {
+                return self.record_error_and_return(error);
             }
         }
     }
@@ -444,14 +448,10 @@ impl ResultSet {
     /// ```
     /// # use google_cloud_spanner::result::ResultSet;
     /// # use futures::TryStreamExt;
-    /// # use std::future::ready;
     /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
-    /// let rows: Vec<_> = result_set
+    /// let ids: Vec<String> = result_set
     ///     .into_stream()
-    ///     .try_filter(|row| {
-    ///         let id = row.get::<String, _>("Id");
-    ///         ready(id == "id1")
-    ///     })
+    ///     .and_then(|row| async move { row.get("Id") })
     ///     .try_collect()
     ///     .await?;
     /// # Ok(())
@@ -501,11 +501,14 @@ impl ResultSet {
         &mut self,
         mut partial_result_set: PartialResultSet,
     ) -> crate::Result<()> {
+        // `FromProto::cnv` for `MultiplexedSessionPrecommitToken` is infallible
+        // (it only converts `Vec<u8>` to `Bytes` and copies `seq_num`), so `.ok()`
+        // never discards an error.
         self.precommit_token_tracker.update(
             partial_result_set
                 .precommit_token
-                .clone()
-                .map(|t| t.cnv().expect("failed to convert precommit token")),
+                .take()
+                .and_then(|token| token.cnv().ok()),
         );
 
         if partial_result_set.last {
@@ -567,11 +570,6 @@ impl ResultSet {
 
         if self.seen_last {
             self.flush_buffer()?;
-            if self.chunked {
-                return Err(crate::error::internal_error(
-                    "Stream ended with chunked_value=true",
-                ));
-            }
         }
 
         Ok(())
@@ -588,16 +586,10 @@ impl ResultSet {
                         .read_timestamp
                         .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
                 )?;
-            } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
-                let is_started = matches!(
-                    &*lazy.lock().expect("transaction state mutex poisoned"),
-                    TransactionState::Started(_, _)
-                );
-                if !is_started {
-                    return Err(internal_error(
-                        "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
-                    ));
-                }
+            } else if selector.is_lazy() && !selector.is_started() {
+                return Err(internal_error(
+                    "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
+                ));
             }
         }
         self.local_metadata = Some(meta);
@@ -614,6 +606,7 @@ impl ResultSet {
             // with the new error and the loop repeats, passing it through `check_retry` and
             // applying backoff for each subsequent attempt.
             loop {
+                let retry_delay = extract_retry_delay_from_error(&e);
                 match self.check_retry(e) {
                     Ok(()) => {
                         self.retry_count += 1;
@@ -621,11 +614,16 @@ impl ResultSet {
                         // resume_token that we have seen.
                         self.partial_result_sets_buffer.clear();
 
-                        // Apply backoff delay if policy is present
-                        if let Some(policy) = self.gax_options.backoff_policy() {
-                            let state = RetryState::new(self.safe_to_retry)
-                                .set_attempt_count(self.retry_count as u32);
-                            let delay = policy.on_failure(&state);
+                        // Apply backoff delay: prefer server-recommended retry delay if present,
+                        // otherwise use configured backoff policy.
+                        let delay = retry_delay.or_else(|| {
+                            self.gax_options.backoff_policy().as_ref().map(|policy| {
+                                let state = RetryState::new(self.safe_to_retry)
+                                    .set_attempt_count(self.retry_count as u32);
+                                policy.on_failure(&state)
+                            })
+                        });
+                        if let Some(delay) = delay {
                             sleep(delay).await;
                         }
 
@@ -651,16 +649,20 @@ impl ResultSet {
             return Err(e);
         };
 
+        // TODO(#7173): Do not fall back to explicit BeginTransaction if transient error retries
+        // have already been exhausted. Fallback should only occur for non-retryable statement errors.
         if selector.handle_stream_initialization_error(&e) {
             return Err(e);
         }
+
+        let begin_options = self.merge_begin_fallback_options();
 
         selector
             .begin_explicitly(ExplicitBeginParams {
                 client: self.client.clone(),
                 session_name: self.session_name.clone(),
                 transaction_tag: self.transaction_tag.clone(),
-                request_options: self.gax_options.clone(),
+                request_options: begin_options,
                 is_stream_fallback: true,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
                 mutation_key: None,
@@ -673,26 +675,34 @@ impl ResultSet {
         Ok(())
     }
 
-    fn handle_stream_end(&mut self) -> crate::Result<Option<Row>> {
-        // We are at the end of the stream. Return any buffered rows as long
-        // as there are any. If there are no buffered rows, return None.
+    /// Merges the streaming query's request options with the transaction's begin options
+    /// for a fallback `BeginTransaction` RPC, stripping any existing request ID header
+    /// so that `BeginTransaction` generates its own unique request ID.
+    fn merge_begin_fallback_options(&self) -> GaxRequestOptions {
+        let mut options = merge_request_options(
+            self.gax_options.clone(),
+            self.begin_transaction_request_options.as_ref(),
+        );
+        if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+            headers.remove(&REQUEST_ID_HEADER);
+        }
+        options
+    }
 
-        // First flush any PartialResultSets that we had received without a resume_token.
-        if !self.partial_result_sets_buffer.is_empty() {
-            self.flush_buffer()?;
-        }
+    fn handle_stream_end(&mut self) -> crate::Result<()> {
+        self.stream.take();
+        self.seen_last = true;
+        self.flush_buffer()
+    }
+
+    fn validate_stream_termination(&self) -> crate::Result<()> {
         if self.chunked {
-            // This should never happen.
-            return Err(crate::error::internal_error(
-                "Stream ended with chunked_value=true",
-            ));
+            return Err(internal_error("Stream ended with chunked_value=true"));
         }
-        self.record_current_attempt(None);
-        self.record_operation_complete(None);
-        if let Some(row) = self.ready_rows.pop_front() {
-            return Ok(Some(row));
+        if !self.buffered_values.is_empty() {
+            return Err(internal_error("Stream ended before row is complete"));
         }
-        Ok(None)
+        Ok(())
     }
 
     fn flush_buffer(&mut self) -> crate::Result<()> {
@@ -785,42 +795,48 @@ impl ResultSet {
         // the attempt number suffix on the existing `x-goog-spanner-request-id` header in `RequestOptions`.
         // When `gaxi` invokes `SpannerRequestIdInterceptor` with attempt 1 for the retried stream,
         // the interceptor takes the maximum (`existing_attempt.max(attempt)`), preserving our bumped attempt number.
-        if self.retry_count > 0
-            && let Some(headers) = self.gax_options.get_extension_mut::<HeaderMap>()
-            && let Some(val) = headers.get(&REQUEST_ID_HEADER)
-            && let Ok(s) = val.to_str()
-            && let Some((base, _)) = s.rsplit_once('.')
-        {
-            let new_id = format!("{}.{}", base, self.retry_count + 1);
-            if let Ok(new_val) = HeaderValue::from_str(&new_id) {
-                headers.insert(REQUEST_ID_HEADER.clone(), new_val);
-            }
+        if self.retry_count > 0 {
+            update_request_id_attempt(&mut self.gax_options, (self.retry_count + 1) as u32);
         }
 
         self.attempt_start_time = Instant::now();
         self.attempt_recorded = false;
         self.headers.clear();
 
+        let affinity_target =
+            if self.affinity_configured || self.affinity.pinned_entry_id().is_some() {
+                Some(&*self.affinity)
+            } else {
+                None
+            };
+
+        if let Some(selector) = transaction_selector {
+            match &mut self.operation {
+                StreamOperation::Query(req) => req.transaction = Some(selector),
+                StreamOperation::Read(req) => req.transaction = Some(selector),
+            }
+        }
+
         let stream_result = match &mut self.operation {
             StreamOperation::Query(req) => {
                 req.resume_token = self.last_resume_token.clone();
-                req.transaction = transaction_selector
-                    .clone()
-                    .or_else(|| req.transaction.take());
-                self.client
-                    .execute_streaming_sql(req.clone(), self.gax_options.clone(), &self.affinity)
-                    .send()
-                    .await
+                let builder = self.client.execute_streaming_sql(
+                    req.clone(),
+                    self.gax_options.clone(),
+                    affinity_target,
+                );
+                self.gax_options = builder.options().clone();
+                builder.send().await
             }
             StreamOperation::Read(req) => {
                 req.resume_token = self.last_resume_token.clone();
-                req.transaction = transaction_selector
-                    .clone()
-                    .or_else(|| req.transaction.take());
-                self.client
-                    .streaming_read(req.clone(), self.gax_options.clone(), &self.affinity)
-                    .send()
-                    .await
+                let builder = self.client.streaming_read(
+                    req.clone(),
+                    self.gax_options.clone(),
+                    affinity_target,
+                );
+                self.gax_options = builder.options().clone();
+                builder.send().await
             }
         };
         let stream = match stream_result {
@@ -903,13 +919,12 @@ fn drain_stream_in_background(handle: &Handle, mut stream: PartialResultSetStrea
 ///
 /// This function handles the concatenation of split `StringValue` and `ListValue` types.
 fn merge_values(target: &mut Value, source: Value) -> crate::Result<()> {
-    use prost_types::value::Kind;
     match (&mut target.kind, source.kind) {
-        (Some(Kind::StringValue(s)), Some(Kind::StringValue(source_s))) => {
-            s.push_str(&source_s);
+        (Some(Kind::StringValue(target_string)), Some(Kind::StringValue(source_string))) => {
+            target_string.push_str(&source_string);
             Ok(())
         }
-        (Some(Kind::ListValue(target_list)), Some(Kind::ListValue(mut source_list))) => {
+        (Some(Kind::ListValue(target_list)), Some(Kind::ListValue(source_list))) => {
             if source_list.values.is_empty() {
                 return Ok(());
             }
@@ -918,8 +933,12 @@ fn merge_values(target: &mut Value, source: Value) -> crate::Result<()> {
                 return Ok(());
             }
 
-            let source_first = source_list.values.remove(0);
-            if let Some(target_last) = target_list.values.last_mut() {
+            let mut source_iterator = source_list.values.into_iter();
+            if let Some(source_first) = source_iterator.next() {
+                let target_last = target_list
+                    .values
+                    .last_mut()
+                    .expect("target_list.values is non-empty");
                 match (&target_last.kind, &source_first.kind) {
                     (Some(Kind::StringValue(_)), Some(Kind::StringValue(_)))
                     | (Some(Kind::ListValue(_)), Some(Kind::ListValue(_))) => {
@@ -929,10 +948,8 @@ fn merge_values(target: &mut Value, source: Value) -> crate::Result<()> {
                         target_list.values.push(source_first);
                     }
                 }
-            } else {
-                target_list.values.push(source_first);
             }
-            target_list.values.extend(source_list.values);
+            target_list.values.extend(source_iterator);
             Ok(())
         }
         // This is not expected to happen and indicates that Spanner returned data that
@@ -956,6 +973,8 @@ pub(crate) mod tests {
     use super::*;
     use crate::client::Spanner;
     use crate::key::KeySet;
+    #[cfg(feature = "builtin-metrics")]
+    use crate::observability::metrics::{Observability, SpannerMetrics};
     use crate::read::ReadRequest;
     use crate::row::RowError;
     use crate::statement::Statement;
@@ -963,11 +982,22 @@ pub(crate) mod tests {
     use gaxi::grpc::tonic::{Code as GrpcCode, MetadataMap, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
-    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::retry_policy::{Aip194Strict, NeverRetry, RetryPolicyExt};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use http::{HeaderName, HeaderValue};
     #[cfg(feature = "builtin-metrics")]
-    use opentelemetry_sdk::metrics::data::ResourceMetrics;
+    use opentelemetry::KeyValue;
+    #[cfg(feature = "builtin-metrics")]
+    use opentelemetry::metrics::MeterProvider;
+    #[cfg(feature = "builtin-metrics")]
+    use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
+    #[cfg(feature = "builtin-metrics")]
+    use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
+    use prost_types::value::Kind;
+    use serde::Deserialize;
+    use serde_json::Value as JsonValue;
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
     use spanner_grpc_mock::google::spanner::v1::struct_type::Field;
@@ -1382,6 +1412,393 @@ pub(crate) mod tests {
         Ok(())
     }
 
+    async fn assert_stream_error(result_set: &mut ResultSet, expected_substring: &str) {
+        let response = result_set
+            .next()
+            .await
+            .expect("Expected next() to return Some(Err(..)) but got None");
+        let error = response.expect_err("Expected next() to return Err but got Ok(Row)");
+        let error_string = error.to_string();
+        assert!(
+            error_string.contains(expected_substring),
+            "Expected error to contain '{expected_substring}', but got: '{error_string}'"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "Stream should be fused and return None after error on first check"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "Stream should remain fused and return None after error on repeated check"
+        );
+    }
+
+    async fn assert_next_row_values(
+        result_set: &mut ResultSet,
+        first_column_value: &str,
+        second_column_value: &str,
+    ) -> anyhow::Result<()> {
+        let row = result_set
+            .next()
+            .await
+            .expect("Expected next row to be Some")?;
+        assert_eq!(
+            row.raw_values()[0].0,
+            string_val(first_column_value),
+            "Expected column 0 to match {first_column_value}"
+        );
+        assert_eq!(
+            row.raw_values()[1].0,
+            string_val(second_column_value),
+            "Expected column 1 to match {second_column_value}"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn single_chunk_with_exact_column_count_and_chunked_value_errors() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("partial_val2")],
+            chunked_value: true,
+            last: true,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn error_resets_all_internal_buffers_and_flags() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            chunked_value: true,
+            last: true,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        let response = result_set.next().await.expect("Expected Some(Err(..))");
+        assert!(response.is_err(), "Expected error response");
+
+        assert!(
+            result_set.seen_last,
+            "seen_last must be true after terminal error"
+        );
+        assert!(
+            result_set.stream.is_none(),
+            "stream must be dropped after terminal error"
+        );
+        assert!(result_set.ready_rows.is_empty(), "ready_rows must be empty");
+        assert!(
+            result_set.buffered_values.is_empty(),
+            "buffered_values must be empty"
+        );
+        assert!(!result_set.chunked, "chunked must be false");
+        assert!(
+            result_set.partial_result_sets_buffer.is_empty(),
+            "partial_result_sets_buffer must be empty"
+        );
+        assert!(
+            result_set.last_resume_token.is_empty(),
+            "last_resume_token must be empty"
+        );
+        assert!(!result_set.safe_to_retry, "safe_to_retry must be false");
+        assert!(
+            result_set.next().await.is_none(),
+            "Stream must remain fused on first poll"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "Stream must remain fused on repeated poll"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_ended_with_chunked_value_and_resume_token() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            chunked_value: true,
+            last: true,
+            resume_token: b"token-with-chunked".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_ended_with_incomplete_row_on_last_flag() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            last: true,
+            resume_token: b"token-with-partial".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_ended_with_incomplete_row_on_transport_eof() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            last: false,
+            resume_token: b"token-with-partial".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_ended_with_chunked_value_on_transport_eof() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            chunked_value: true,
+            last: false,
+            resume_token: b"token-with-chunked".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn complete_rows_yielded_before_stream_ended_with_incomplete_row() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            last: true,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn complete_rows_yielded_before_transport_eof_with_incomplete_row() -> anyhow::Result<()>
+    {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            last: false,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn complete_rows_yielded_before_stream_ended_with_chunked_value() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            chunked_value: true,
+            last: true,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn complete_rows_yielded_before_transport_eof_with_chunked_value() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            chunked_value: true,
+            last: false,
+            resume_token: b"token".to_vec(),
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn chunked_value_followed_by_empty_last_chunk_errors() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("id1"), string_val("partial_val")],
+                chunked_value: true,
+                resume_token: b"token-1".to_vec(),
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![],
+                last: true,
+                resume_token: b"token-2".to_vec(),
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn incomplete_row_followed_by_empty_last_chunk_errors() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("id1")],
+                resume_token: b"token-1".to_vec(),
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![],
+                last: true,
+                resume_token: b"token-2".to_vec(),
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn unresumable_buffered_chunk_ending_in_error_flushed_on_eof() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1")],
+            last: false,
+            resume_token: vec![],
+            ..Default::default()
+        }])
+        .await;
+
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn unresumable_buffered_chunk_with_complete_rows_before_incomplete_row_on_transport_eof()
+    -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            last: false,
+            resume_token: vec![],
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn unresumable_buffered_chunk_with_complete_rows_before_chunked_value_on_transport_eof()
+    -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("val1"), string_val("val2"), string_val("val3")],
+            chunked_value: true,
+            last: false,
+            resume_token: vec![],
+            ..Default::default()
+        }])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended with chunked_value=true").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn multi_chunk_resumable_followed_by_unresumable_truncated_chunk() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("val1"), string_val("val2")],
+                resume_token: b"tok1".to_vec(),
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("val3")],
+                last: false,
+                resume_token: vec![],
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        assert_next_row_values(&mut result_set, "val1", "val2").await?;
+        assert_stream_error(&mut result_set, "Stream ended before row is complete").await;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn unresumable_buffered_chunk_with_incompatible_types_flushed_on_eof_fails()
+    -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("a"), string_val("b")],
+                chunked_value: true,
+                last: false,
+                resume_token: vec![],
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![Value {
+                    kind: Some(Kind::BoolValue(true)),
+                }],
+                last: false,
+                resume_token: vec![],
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        assert_stream_error(
+            &mut result_set,
+            "Incompatible types for merging chunked values",
+        )
+        .await;
+        Ok(())
+    }
+
     #[tokio_test_no_panics]
     async fn test_result_set_duplicate_metadata() -> anyhow::Result<()> {
         let mut rs = run_mock_query(vec![
@@ -1533,6 +1950,145 @@ pub(crate) mod tests {
         assert_eq!(row2.raw_values()[0].0, string_val("row2"));
 
         assert!(rs.next().await.is_none());
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_initial_handshake_retry_read_stream() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. Initial streaming read handshake fails with transient Unavailable error
+        mock.expect_streaming_read()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::unavailable("handshake transient failure")));
+
+        // 2. Retried streaming read handshake succeeds and returns the data stream
+        mock.expect_streaming_read()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let stream = adapt([Ok(PartialResultSet {
+                    metadata: metadata(2),
+                    values: vec![string_val("row1"), string_val("b")],
+                    last: true,
+                    ..Default::default()
+                })]);
+                Ok(Response::from(stream))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+
+        let read_request = ReadRequest::builder("table", vec!["Id", "Value"])
+            .with_keys(KeySet::all())
+            .with_backoff_policy(mock_backoff)
+            .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(2))
+            .build();
+        let mut result_set: ResultSet = transaction.execute_read(read_request).await?;
+
+        let row = result_set.next().await.expect("Stream should yield row")?;
+        assert_eq!(
+            row.raw_values()[0].0,
+            string_val("row1"),
+            "row value should match expected mock output"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should be exhausted after single row"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_initial_handshake_retry_query_stream() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. Initial execute streaming SQL handshake fails with transient Unavailable error
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::unavailable("handshake transient failure")));
+
+        // 2. Retried execute streaming SQL handshake succeeds and returns the data stream
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let stream = adapt([Ok(PartialResultSet {
+                    metadata: metadata(1),
+                    values: vec![string_val("1")],
+                    last: true,
+                    ..Default::default()
+                })]);
+                Ok(Response::from(stream))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+
+        let statement = Statement::builder("SELECT 1")
+            .with_backoff_policy(mock_backoff)
+            .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(2))
+            .build();
+        let mut result_set: ResultSet = transaction.execute_query(statement).await?;
+
+        let row = result_set.next().await.expect("Stream should yield row")?;
+        assert_eq!(
+            row.raw_values()[0].0,
+            string_val("1"),
+            "row value should match expected mock output"
+        );
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should be exhausted after single row"
+        );
 
         Ok(())
     }
@@ -2317,8 +2873,11 @@ pub(crate) mod tests {
             .await
             .expect("Failed to build client");
 
-        let db_client: crate::database_client::DatabaseClient =
-            client.database_client("db").build().await.unwrap();
+        let db_client = client
+            .database_client("db")
+            .build()
+            .await
+            .expect("db client should build");
 
         let tracker = PrecommitTokenTracker::new();
 
@@ -2326,13 +2885,7 @@ pub(crate) mod tests {
             .set_session("session".to_string())
             .set_sql("SELECT 1".to_string());
 
-        let stream = db_client
-            .execute_streaming_sql(req.clone(), GaxRequestOptions::default(), None)
-            .send()
-            .await?;
-
         let mut rs = ResultSet::create(ResultSetParams {
-            stream,
             transaction_selector: None,
             precommit_token_tracker: tracker.clone(),
             client: db_client,
@@ -2341,9 +2894,8 @@ pub(crate) mod tests {
             operation: StreamOperation::Query(req),
             gax_options: GaxRequestOptions::default(),
             method_name: "ExecuteStreamingSql",
-            attempt_start_time: None,
-            operation_start_time: None,
             affinity: None,
+            begin_transaction_request_options: None,
         })
         .await?;
 
@@ -4355,14 +4907,6 @@ pub(crate) mod tests {
     #[tokio_test_no_panics]
     async fn initial_stream_send_failure_records_attempt_and_operation_metrics()
     -> anyhow::Result<()> {
-        use crate::observability::metrics::{Observability, SpannerMetrics};
-        use opentelemetry::KeyValue;
-        use opentelemetry::metrics::MeterProvider;
-        use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData};
-        use opentelemetry_sdk::metrics::{
-            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
-        };
-
         let mut mock = MockSpanner::new();
         mock.expect_execute_streaming_sql()
             .returning(|_| Err(Status::new(GrpcCode::Unavailable, "connection refused")));
@@ -4402,15 +4946,34 @@ pub(crate) mod tests {
         };
         db_client.o11y = Arc::new(o11y);
 
-        let tx = db_client.single_use().build();
-        let query_res = tx.execute_query("SELECT 1").await;
-        assert!(query_res.is_err());
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .returning(|_| Duration::from_nanos(1));
 
-        let read_req = ReadRequest::builder("table", vec!["Id"])
-            .with_keys(crate::key::KeySet::all())
+        let transaction = db_client.single_use().build();
+        let query_result = transaction
+            .execute_query(
+                Statement::builder("SELECT 1")
+                    .with_backoff_policy(mock_backoff)
+                    .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(2))
+                    .build(),
+            )
+            .await;
+        assert!(
+            query_result.is_err(),
+            "query should fail after retries exhaust"
+        );
+
+        let read_request = ReadRequest::builder("table", vec!["Id"])
+            .with_keys(KeySet::all())
             .build();
-        let read_res = tx.execute_read(read_req).await;
-        assert!(read_res.is_err());
+        let read_result = transaction.execute_read(read_request).await;
+        assert!(
+            read_result.is_err(),
+            "read should fail on permission denied"
+        );
 
         provider.force_flush().expect("force_flush should succeed");
 
@@ -4425,10 +4988,14 @@ pub(crate) mod tests {
                         && let AggregatedMetrics::U64(MetricData::Sum(sum)) = metric.data()
                     {
                         for data_point in sum.data_points() {
+                            let mut status = None;
                             for key_value in data_point.attributes() {
                                 if key_value.key.as_str() == "status" {
-                                    attempt_statuses.push(key_value.value.as_str().to_string());
+                                    status = Some(key_value.value.as_str().to_string());
                                 }
+                            }
+                            if let Some(status) = status {
+                                attempt_statuses.push((status, data_point.value()));
                             }
                         }
                     }
@@ -4447,16 +5014,23 @@ pub(crate) mod tests {
             }
         }
 
-        assert!(
-            attempt_statuses.contains(&"UNAVAILABLE".to_string()),
-            "Expected UNAVAILABLE attempt status recorded on initial query send failure: {attempt_statuses:?}"
+        let unavailable_attempts: u64 = attempt_statuses
+            .iter()
+            .filter(|(s, _)| s == "UNAVAILABLE")
+            .map(|(_, val)| *val)
+            .sum();
+        assert_eq!(
+            unavailable_attempts, 2,
+            "Expected 2 UNAVAILABLE attempt statuses recorded (initial + retry): {attempt_statuses:?}"
         );
         assert!(
             operation_statuses.contains(&"UNAVAILABLE".to_string()),
             "Expected UNAVAILABLE operation status recorded on initial query send failure: {operation_statuses:?}"
         );
         assert!(
-            attempt_statuses.contains(&"PERMISSION_DENIED".to_string()),
+            attempt_statuses
+                .iter()
+                .any(|(s, _)| s == "PERMISSION_DENIED"),
             "Expected PERMISSION_DENIED attempt status recorded on initial read send failure: {attempt_statuses:?}"
         );
         assert!(
@@ -4560,5 +5134,948 @@ pub(crate) mod tests {
                 "Expected metric {expected} to be recorded in exported metrics: {recorded:?}"
             );
         }
+    }
+
+    #[derive(Deserialize)]
+    struct AcceptanceTestSuite {
+        tests: Vec<AcceptanceTestCase>,
+    }
+
+    #[derive(Deserialize)]
+    struct AcceptanceTestCase {
+        name: String,
+        chunks: Vec<String>,
+        result: AcceptanceTestResult,
+    }
+
+    #[derive(Deserialize)]
+    struct AcceptanceTestResult {
+        value: JsonValue,
+    }
+
+    fn json_to_type(json_type: &JsonValue) -> Option<spanner_v1::Type> {
+        let code_str = json_type.get("code")?.as_str()?;
+        let type_code = spanner_v1::TypeCode::from_str_name(code_str)?;
+        let array_element_type = json_type
+            .get("arrayElementType")
+            .and_then(json_to_type)
+            .map(Box::new);
+        let struct_type = json_type.get("structType").and_then(json_to_struct_type);
+        Some(spanner_v1::Type {
+            code: type_code as i32,
+            array_element_type,
+            struct_type,
+            type_annotation: 0,
+            proto_type_fqn: String::new(),
+        })
+    }
+
+    fn json_to_struct_type(json_struct: &JsonValue) -> Option<spanner_v1::StructType> {
+        let fields_json = json_struct.get("fields")?.as_array()?;
+        let fields = fields_json
+            .iter()
+            .map(|field| {
+                let name = field
+                    .get("name")
+                    .and_then(|field_name| field_name.as_str())
+                    .unwrap_or_default()
+                    .to_string();
+                let field_type = field.get("type").and_then(json_to_type);
+                Field {
+                    name,
+                    r#type: field_type,
+                }
+            })
+            .collect();
+        Some(spanner_v1::StructType { fields })
+    }
+
+    fn json_to_metadata(json_meta: &JsonValue) -> Option<ResultSetMetadata> {
+        let row_type = json_meta.get("rowType").and_then(json_to_struct_type);
+        Some(ResultSetMetadata {
+            row_type,
+            transaction: None,
+            undeclared_parameters: None,
+        })
+    }
+
+    fn json_to_prost_value(value: JsonValue) -> Value {
+        match value {
+            JsonValue::Null => Value {
+                kind: Some(Kind::NullValue(0)),
+            },
+            JsonValue::Bool(boolean_value) => Value {
+                kind: Some(Kind::BoolValue(boolean_value)),
+            },
+            JsonValue::Number(number_value) => {
+                if let Some(float_value) = number_value.as_f64() {
+                    Value {
+                        kind: Some(Kind::NumberValue(float_value)),
+                    }
+                } else {
+                    Value {
+                        kind: Some(Kind::NullValue(0)),
+                    }
+                }
+            }
+            JsonValue::String(string_value) => Value {
+                kind: Some(Kind::StringValue(string_value)),
+            },
+            JsonValue::Array(array_values) => Value {
+                kind: Some(Kind::ListValue(prost_types::ListValue {
+                    values: array_values.into_iter().map(json_to_prost_value).collect(),
+                })),
+            },
+            JsonValue::Object(object_values) => Value {
+                kind: Some(Kind::StructValue(prost_types::Struct {
+                    fields: object_values
+                        .into_iter()
+                        .map(|(key, val)| (key, json_to_prost_value(val)))
+                        .collect(),
+                })),
+            },
+        }
+    }
+
+    fn parse_partial_result_set(chunk_string: &str) -> PartialResultSet {
+        let chunk_json: JsonValue =
+            serde_json::from_str(chunk_string).expect("chunk should be valid JSON");
+        let metadata = chunk_json.get("metadata").and_then(json_to_metadata);
+        let values = chunk_json
+            .get("values")
+            .and_then(|v| v.as_array())
+            .map(|array| array.iter().cloned().map(json_to_prost_value).collect())
+            .unwrap_or_default();
+        let chunked_value = chunk_json
+            .get("chunkedValue")
+            .and_then(|v| v.as_bool())
+            .unwrap_or(false);
+        let resume_token = chunk_json
+            .get("resumeToken")
+            .and_then(|v| v.as_str())
+            .map(|token_string| token_string.as_bytes().to_vec())
+            .unwrap_or_default();
+
+        PartialResultSet {
+            metadata,
+            values,
+            chunked_value,
+            resume_token,
+            stats: None,
+            precommit_token: None,
+            last: false,
+            cache_update: None,
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_read_acceptance_tests() -> anyhow::Result<()> {
+        let json_content = include_str!("../testdata/streaming_read_acceptance_test.json");
+        let suite: AcceptanceTestSuite =
+            serde_json::from_str(json_content).expect("acceptance test suite JSON must parse");
+
+        for test_case in suite.tests {
+            let partial_result_sets: Vec<PartialResultSet> = test_case
+                .chunks
+                .iter()
+                .map(|chunk| parse_partial_result_set(chunk))
+                .collect();
+
+            let mut result_set = run_mock_query(partial_result_sets).await;
+            let mut actual_rows = Vec::new();
+            while let Some(row_result) = result_set.next().await {
+                let row = match row_result {
+                    Ok(r) => r,
+                    Err(error) => {
+                        panic!("test '{}': row retrieval failed: {error}", test_case.name)
+                    }
+                };
+                let row_values: Vec<JsonValue> = row
+                    .raw_values()
+                    .iter()
+                    .cloned()
+                    .map(|val| val.into_serde_value())
+                    .collect();
+                actual_rows.push(JsonValue::Array(row_values));
+            }
+
+            let actual_value = JsonValue::Array(actual_rows);
+            assert_eq!(
+                actual_value, test_case.result.value,
+                "test '{}' result mismatch",
+                test_case.name
+            );
+        }
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn chunked_values_empty_string_start() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("")],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![
+                    string_val("tail-after-empty"),
+                    string_val("val2"),
+                    string_val("val3"),
+                    string_val(""),
+                ],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("tail-2")],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let row1 = result_set
+            .next()
+            .await
+            .expect("row 1 should exist")
+            .expect("row 1 should be ok");
+        assert_eq!(
+            row1.raw_values().len(),
+            2,
+            "row 1 should contain exactly 2 columns"
+        );
+        assert_eq!(
+            row1.raw_values()[0].as_str(),
+            Some("tail-after-empty"),
+            "column 0 should match concatenation with empty prefix"
+        );
+        assert_eq!(
+            row1.raw_values()[1].as_str(),
+            Some("val2"),
+            "column 1 should match value"
+        );
+
+        let row2 = result_set
+            .next()
+            .await
+            .expect("row 2 should exist")
+            .expect("row 2 should be ok");
+        assert_eq!(
+            row2.raw_values().len(),
+            2,
+            "row 2 should contain exactly 2 columns"
+        );
+        assert_eq!(
+            row2.raw_values()[0].as_str(),
+            Some("val3"),
+            "column 0 should match value"
+        );
+        assert_eq!(
+            row2.raw_values()[1].as_str(),
+            Some("tail-2"),
+            "column 1 should match concatenation with empty prefix"
+        );
+
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should have no more rows"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn chunked_values_empty_list_head_and_tail() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![list_val(vec![])],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![
+                    list_val(vec![string_val("a"), string_val("b")]),
+                    list_val(vec![]),
+                ],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![
+                    list_val(vec![string_val("v1"), string_val("v2")]),
+                    list_val(vec![string_val("x"), string_val("y")]),
+                ],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![
+                    list_val(vec![]),
+                    list_val(vec![string_val("w1"), string_val("w2")]),
+                ],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![list_val(vec![]), list_val(vec![])],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![
+                    list_val(vec![]),
+                    list_val(vec![string_val("z1"), string_val("z2")]),
+                ],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let row1 = result_set
+            .next()
+            .await
+            .expect("row 1 should exist")
+            .expect("row 1 should be ok");
+        let list1_col0 = row1.raw_values()[0].as_list().expect("column 0 is list");
+        assert_eq!(
+            list1_col0.len(),
+            2,
+            "row 1 column 0 list length should be 2"
+        );
+        assert_eq!(
+            list1_col0.get(0).expect("element 0").as_str(),
+            Some("a"),
+            "row 1 column 0 element 0 should match"
+        );
+        assert_eq!(
+            list1_col0.get(1).expect("element 1").as_str(),
+            Some("b"),
+            "row 1 column 0 element 1 should match"
+        );
+        let list1_col1 = row1.raw_values()[1].as_list().expect("column 1 is list");
+        assert_eq!(
+            list1_col1.len(),
+            2,
+            "row 1 column 1 list length should be 2"
+        );
+        assert_eq!(
+            list1_col1.get(0).expect("element 0").as_str(),
+            Some("v1"),
+            "row 1 column 1 element 0 should match"
+        );
+        assert_eq!(
+            list1_col1.get(1).expect("element 1").as_str(),
+            Some("v2"),
+            "row 1 column 1 element 1 should match"
+        );
+
+        let row2 = result_set
+            .next()
+            .await
+            .expect("row 2 should exist")
+            .expect("row 2 should be ok");
+        let list2_col0 = row2.raw_values()[0].as_list().expect("column 0 is list");
+        assert_eq!(
+            list2_col0.len(),
+            2,
+            "row 2 column 0 list length should be 2"
+        );
+        assert_eq!(
+            list2_col0.get(0).expect("element 0").as_str(),
+            Some("x"),
+            "row 2 column 0 element 0 should match"
+        );
+        assert_eq!(
+            list2_col0.get(1).expect("element 1").as_str(),
+            Some("y"),
+            "row 2 column 0 element 1 should match"
+        );
+        let list2_col1 = row2.raw_values()[1].as_list().expect("column 1 is list");
+        assert_eq!(
+            list2_col1.len(),
+            2,
+            "row 2 column 1 list length should be 2"
+        );
+        assert_eq!(
+            list2_col1.get(0).expect("element 0").as_str(),
+            Some("w1"),
+            "row 2 column 1 element 0 should match"
+        );
+        assert_eq!(
+            list2_col1.get(1).expect("element 1").as_str(),
+            Some("w2"),
+            "row 2 column 1 element 1 should match"
+        );
+
+        let row3 = result_set
+            .next()
+            .await
+            .expect("row 3 should exist")
+            .expect("row 3 should be ok");
+        let list3_col0 = row3.raw_values()[0].as_list().expect("column 0 is list");
+        assert!(list3_col0.is_empty(), "row 3 column 0 list should be empty");
+        let list3_col1 = row3.raw_values()[1].as_list().expect("column 1 is list");
+        assert_eq!(
+            list3_col1.len(),
+            2,
+            "row 3 column 1 list length should be 2"
+        );
+        assert_eq!(
+            list3_col1.get(0).expect("element 0").as_str(),
+            Some("z1"),
+            "row 3 column 1 element 0 should match"
+        );
+        assert_eq!(
+            list3_col1.get(1).expect("element 1").as_str(),
+            Some("z2"),
+            "row 3 column 1 element 1 should match"
+        );
+
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should have no more rows"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn chunked_values_bytes_and_bytes_array() -> anyhow::Result<()> {
+        use base64::Engine as _;
+        use base64::engine::general_purpose::STANDARD as BASE64;
+
+        let full_bytes = b"hello-chunked-bytes-world";
+        let full_base64 = BASE64.encode(full_bytes);
+        let (base64_part1, base64_part2) = full_base64.split_at(10);
+
+        let element1 = BASE64.encode(b"first-elem");
+        let element2_raw = b"second-chunked-element";
+        let element2_base64 = BASE64.encode(element2_raw);
+        let (element2_part1, element2_part2) = element2_base64.split_at(8);
+        let element3 = BASE64.encode(b"third-elem");
+
+        fn null_value() -> Value {
+            Value {
+                kind: Some(Kind::NullValue(0)),
+            }
+        }
+
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val(base64_part1)],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![
+                    string_val(base64_part2),
+                    list_val(vec![
+                        string_val(&element1),
+                        null_value(),
+                        string_val(element2_part1),
+                    ]),
+                ],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![list_val(vec![
+                    string_val(element2_part2),
+                    string_val(&element3),
+                ])],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let row = result_set
+            .next()
+            .await
+            .expect("row should exist")
+            .expect("row should be ok");
+
+        assert_eq!(
+            row.raw_values()[0].as_str(),
+            Some(full_base64.as_str()),
+            "raw bytes column should be fully assembled"
+        );
+
+        let list = row.raw_values()[1]
+            .as_list()
+            .expect("bytes array column should be list");
+        assert_eq!(list.len(), 4, "bytes array should contain 4 elements");
+        assert_eq!(
+            list.get(0).expect("element 0").as_str(),
+            Some(element1.as_str()),
+            "element 0 should match"
+        );
+        assert!(
+            list.get(1).expect("element 1").is_null(),
+            "element 1 should be null"
+        );
+        assert_eq!(
+            list.get(2).expect("element 2").as_str(),
+            Some(element2_base64.as_str()),
+            "element 2 should match assembled bytes"
+        );
+        assert_eq!(
+            list.get(3).expect("element 3").as_str(),
+            Some(element3.as_str()),
+            "element 3 should match"
+        );
+
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should have no more rows"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn chunked_values_intermediate_single_value_chunk() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("id1"), string_val("hello-")],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("world-")],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("again"), string_val("id2"), string_val("text2")],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let row1 = result_set
+            .next()
+            .await
+            .expect("row 1 should exist")
+            .expect("row 1 should be ok");
+        assert_eq!(
+            row1.raw_values()[0].as_str(),
+            Some("id1"),
+            "row 1 id should match"
+        );
+        assert_eq!(
+            row1.raw_values()[1].as_str(),
+            Some("hello-world-again"),
+            "row 1 text should match concatenated across intermediate single chunk"
+        );
+
+        let row2 = result_set
+            .next()
+            .await
+            .expect("row 2 should exist")
+            .expect("row 2 should be ok");
+        assert_eq!(
+            row2.raw_values()[0].as_str(),
+            Some("id2"),
+            "row 2 id should match"
+        );
+        assert_eq!(
+            row2.raw_values()[1].as_str(),
+            Some("text2"),
+            "row 2 text should match"
+        );
+
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should have no more rows"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn retry_after_chunked_value_with_resume_token() -> anyhow::Result<()> {
+        use std::sync::atomic::{AtomicUsize, Ordering};
+
+        let mut mock = MockSpanner::new();
+        let attempts = Arc::new(AtomicUsize::new(0));
+        let attempts_clone = attempts.clone();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_streaming_sql()
+            .returning(move |request| {
+                let current_attempt = attempts_clone.fetch_add(1, Ordering::SeqCst);
+                if current_attempt == 0 {
+                    let rx = adapt(vec![
+                        Ok(PartialResultSet {
+                            metadata: metadata(2),
+                            values: vec![string_val("id1"), string_val("part1-")],
+                            chunked_value: true,
+                            resume_token: b"token-1".to_vec(),
+                            ..Default::default()
+                        }),
+                        Err(Status::new(
+                            GrpcCode::Unavailable,
+                            "transient error during chunked scalar",
+                        )),
+                    ]);
+                    Ok(Response::from(rx))
+                } else {
+                    let req = request.into_inner();
+                    assert_eq!(
+                        req.resume_token,
+                        Bytes::from("token-1"),
+                        "Expected resume token 'token-1' on stream restart"
+                    );
+                    let rx = adapt(vec![
+                        Ok(PartialResultSet {
+                            values: vec![string_val("part2-actual-")],
+                            chunked_value: true,
+                            resume_token: b"token-2".to_vec(),
+                            ..Default::default()
+                        }),
+                        Ok(PartialResultSet {
+                            values: vec![string_val("part3-")],
+                            chunked_value: true,
+                            ..Default::default()
+                        }),
+                        Ok(PartialResultSet {
+                            values: vec![
+                                string_val("part4"),
+                                string_val("id2"),
+                                string_val("data2"),
+                            ],
+                            last: true,
+                            ..Default::default()
+                        }),
+                    ]);
+                    Ok(Response::from(rx))
+                }
+            });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client.database_client("db").build().await?;
+        let single_use_transaction = database_client.single_use().build();
+
+        let mut result_set = single_use_transaction
+            .execute_query(Statement::builder("SELECT id, data FROM table").build())
+            .await?;
+
+        let row1 = result_set
+            .next()
+            .await
+            .expect("row 1 should exist")
+            .expect("row 1 should be ok");
+        assert_eq!(
+            row1.raw_values()[0].as_str(),
+            Some("id1"),
+            "row 1 id should match"
+        );
+        assert_eq!(
+            row1.raw_values()[1].as_str(),
+            Some("part1-part2-actual-part3-part4"),
+            "row 1 data should match merged value across retry"
+        );
+
+        let row2 = result_set
+            .next()
+            .await
+            .expect("row 2 should exist")
+            .expect("row 2 should be ok");
+        assert_eq!(
+            row2.raw_values()[0].as_str(),
+            Some("id2"),
+            "row 2 id should match"
+        );
+        assert_eq!(
+            row2.raw_values()[1].as_str(),
+            Some("data2"),
+            "row 2 data should match"
+        );
+
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should have no more rows"
+        );
+        assert_eq!(
+            attempts.load(Ordering::SeqCst),
+            2,
+            "query should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn retry_after_chunked_array_with_resume_token() -> anyhow::Result<()> {
+        use std::sync::atomic::{AtomicUsize, Ordering};
+
+        let mut mock = MockSpanner::new();
+        let attempts = Arc::new(AtomicUsize::new(0));
+        let attempts_clone = attempts.clone();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_streaming_sql()
+            .returning(move |request| {
+                let current_attempt = attempts_clone.fetch_add(1, Ordering::SeqCst);
+                if current_attempt == 0 {
+                    let rx = adapt(vec![
+                        Ok(PartialResultSet {
+                            metadata: metadata(2),
+                            values: vec![
+                                string_val("id1"),
+                                list_val(vec![string_val("tag1"), string_val("tag2-")]),
+                            ],
+                            chunked_value: true,
+                            resume_token: b"token-array".to_vec(),
+                            ..Default::default()
+                        }),
+                        Err(Status::new(
+                            GrpcCode::Unavailable,
+                            "transient error during chunked array",
+                        )),
+                    ]);
+                    Ok(Response::from(rx))
+                } else {
+                    let req = request.into_inner();
+                    assert_eq!(
+                        req.resume_token,
+                        Bytes::from("token-array"),
+                        "Expected resume token 'token-array' on stream restart"
+                    );
+                    let rx = adapt(vec![Ok(PartialResultSet {
+                        values: vec![list_val(vec![string_val("tag2-tail"), string_val("tag3")])],
+                        last: true,
+                        ..Default::default()
+                    })]);
+                    Ok(Response::from(rx))
+                }
+            });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client.database_client("db").build().await?;
+        let single_use_transaction = database_client.single_use().build();
+
+        let mut result_set = single_use_transaction
+            .execute_query(Statement::builder("SELECT id, tags FROM table").build())
+            .await?;
+
+        let row = result_set
+            .next()
+            .await
+            .expect("row should exist")
+            .expect("row should be ok");
+        assert_eq!(
+            row.raw_values()[0].as_str(),
+            Some("id1"),
+            "row id should match"
+        );
+        let tags = row.raw_values()[1]
+            .as_list()
+            .expect("tags column should be list");
+        assert_eq!(tags.len(), 3, "tags list should have 3 elements");
+        assert_eq!(
+            tags.get(0).expect("tag 0").as_str(),
+            Some("tag1"),
+            "tag 0 should match"
+        );
+        assert_eq!(
+            tags.get(1).expect("tag 1").as_str(),
+            Some("tag2-tag2-tail"),
+            "tag 1 should match merged continuation"
+        );
+        assert_eq!(
+            tags.get(2).expect("tag 2").as_str(),
+            Some("tag3"),
+            "tag 2 should match"
+        );
+
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should have no more rows"
+        );
+        assert_eq!(
+            attempts.load(Ordering::SeqCst),
+            2,
+            "query should have executed exactly 2 attempts"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn chunked_values_incompatible_types_error() -> anyhow::Result<()> {
+        fn number_val(n: f64) -> Value {
+            Value {
+                kind: Some(Kind::NumberValue(n)),
+            }
+        }
+
+        // Test 1: StringValue chunk followed by ListValue chunk (type mismatch)
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(1),
+                values: vec![string_val("hello")],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![list_val(vec![string_val("world")])],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let result = result_set
+            .next()
+            .await
+            .expect("stream should yield an error result");
+        let error =
+            result.expect_err("stream should fail on incompatible types for chunked values");
+        let error_message = error.to_string();
+        assert!(
+            error_message.contains("Incompatible types for merging chunked values"),
+            "Expected error message to contain 'Incompatible types for merging chunked values', but got: {error_message}"
+        );
+
+        // Test 2: Unchunkable type (NumberValue) with chunked_value=true
+        let mut result_set_number = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(1),
+                values: vec![number_val(42.0)],
+                chunked_value: true,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![number_val(10.0)],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let result_number = result_set_number
+            .next()
+            .await
+            .expect("stream should yield an error result");
+        let error_number =
+            result_number.expect_err("stream should fail when unchunkable number value is chunked");
+        let error_message_number = error_number.to_string();
+        assert!(
+            error_message_number.contains("Incompatible types for merging chunked values"),
+            "Expected error message to contain 'Incompatible types for merging chunked values', but got: {error_message_number}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn merge_begin_fallback_options() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(1),
+            values: vec![string_val("a")],
+            last: true,
+            ..Default::default()
+        }])
+        .await;
+
+        // Case 1: Request ID header in gax_options is stripped
+        let mut destination_headers = HeaderMap::new();
+        destination_headers.insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("12345.1"),
+        );
+        destination_headers.insert(
+            HeaderName::from_static("x-goog-spanner-route-to-leader"),
+            HeaderValue::from_static("true"),
+        );
+        result_set.gax_options = RequestOptions::default().insert_extension(destination_headers);
+        result_set.begin_transaction_request_options = None;
+
+        let merged = result_set.merge_begin_fallback_options();
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("merged HeaderMap should be present");
+        assert!(
+            merged_headers.get(&REQUEST_ID_HEADER).is_none(),
+            "REQUEST_ID_HEADER should be stripped from fallback options"
+        );
+        assert_eq!(
+            merged_headers
+                .get("x-goog-spanner-route-to-leader")
+                .expect("route to leader header should be preserved")
+                .to_str()
+                .expect("valid ascii"),
+            "true"
+        );
+
+        // Case 2: Request ID header in begin_transaction_request_options is also stripped
+        let mut source = RequestOptions::default();
+        source.set_retry_policy(NeverRetry);
+        let mut source_headers = HeaderMap::new();
+        source_headers.insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("99999.1"),
+        );
+        source_headers.insert(
+            HeaderName::from_static("x-custom-header"),
+            HeaderValue::from_static("custom-value"),
+        );
+        source = source.insert_extension(source_headers);
+        result_set.begin_transaction_request_options = Some(source);
+
+        let merged = result_set.merge_begin_fallback_options();
+        assert!(
+            merged.retry_policy().is_some(),
+            "retry policy should be inherited from begin_transaction_request_options"
+        );
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("merged HeaderMap should be present");
+        assert!(
+            merged_headers.get(&REQUEST_ID_HEADER).is_none(),
+            "REQUEST_ID_HEADER from source should be stripped from fallback options"
+        );
+        assert_eq!(
+            merged_headers
+                .get("x-custom-header")
+                .expect("custom header should be preserved")
+                .to_str()
+                .expect("valid ascii"),
+            "custom-value"
+        );
+
+        Ok(())
     }
 }

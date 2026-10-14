@@ -31683,7 +31683,7 @@ pub mod model {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::model::multi_class_classification_metrics::confusion_matrix::Row>
-            {
+{
                 use std::iter::Iterator;
                 self.rows = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -31828,7 +31828,7 @@ pub mod model {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::model::multi_class_classification_metrics::confusion_matrix::Entry>
-                {
+{
                     use std::iter::Iterator;
                     self.entries = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -32118,7 +32118,7 @@ pub mod model {
                 ///     google_cloud_bigquery_v2::model::model::clustering_metrics::cluster::feature_value::Value::NumericalValue(DoubleValue::default().into())));
                 /// ```
                 pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::model::clustering_metrics::cluster::feature_value::Value>>>(mut self, v: T) -> Self
-                {
+{
                     self.value = v.into();
                     self
                 }
@@ -32246,7 +32246,7 @@ pub mod model {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<crate::model::model::clustering_metrics::cluster::feature_value::categorical_value::CategoryCount>
-                    {
+{
                         use std::iter::Iterator;
                         self.category_counts = v.into_iter().map(|i| i.into()).collect();
                         self
@@ -32565,7 +32565,7 @@ pub mod model {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics>
-        {
+{
             use std::iter::Iterator;
             self.arima_single_model_forecasting_metrics = v.into_iter().map(|i| i.into()).collect();
             self
@@ -37202,7 +37202,7 @@ pub mod model {
             /// ```
             pub fn set_reservation_affinity_type<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::model::training_run::training_options::ReservationAffinityType>
-            {
+{
                 self.reservation_affinity_type = std::option::Option::Some(v.into());
                 self
             }
@@ -37220,7 +37220,7 @@ pub mod model {
             /// ```
             pub fn set_or_clear_reservation_affinity_type<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::model::training_run::training_options::ReservationAffinityType>
-            {
+{
                 self.reservation_affinity_type = v.map(|x| x.into());
                 self
             }
@@ -37973,7 +37973,7 @@ pub mod model {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo>
-                {
+{
                     use std::iter::Iterator;
                     self.arima_model_info = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -38218,7 +38218,7 @@ pub mod model {
                     /// ```
                     pub fn set_arima_coefficients<T>(mut self, v: T) -> Self
                     where T: std::convert::Into<crate::model::model::training_run::iteration_result::arima_result::ArimaCoefficients>
-                    {
+{
                         self.arima_coefficients = std::option::Option::Some(v.into());
                         self
                     }
@@ -38234,7 +38234,7 @@ pub mod model {
                     /// ```
                     pub fn set_or_clear_arima_coefficients<T>(mut self, v: std::option::Option<T>) -> Self
                     where T: std::convert::Into<crate::model::model::training_run::iteration_result::arima_result::ArimaCoefficients>
-                    {
+{
                         self.arima_coefficients = v.map(|x| x.into());
                         self
                     }

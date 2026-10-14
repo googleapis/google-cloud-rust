@@ -1195,7 +1195,7 @@ pub mod contextual_content {
             /// ```
             pub fn set_highlighted_text<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::contextual_content::justification::review_justification::HighlightedText>
-            {
+{
                 self.highlighted_text = std::option::Option::Some(v.into());
                 self
             }
@@ -1211,7 +1211,7 @@ pub mod contextual_content {
             /// ```
             pub fn set_or_clear_highlighted_text<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::contextual_content::justification::review_justification::HighlightedText>
-            {
+{
                 self.highlighted_text = v.map(|x| x.into());
                 self
             }
@@ -1315,7 +1315,7 @@ pub mod contextual_content {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::contextual_content::justification::review_justification::highlighted_text::HighlightedTextRange>
-                {
+{
                     use std::iter::Iterator;
                     self.highlighted_text_ranges = v.into_iter().map(|i| i.into()).collect();
                     self

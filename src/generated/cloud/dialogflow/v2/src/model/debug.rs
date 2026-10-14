@@ -6993,6 +6993,8 @@ impl std::fmt::Debug for super::SipTrunk {
         debug_struct.field("expected_hostname", &self.expected_hostname);
         debug_struct.field("connections", &self.connections);
         debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("peer_hostnames", &self.peer_hostnames);
+        debug_struct.field("google_root_cert_file", &self.google_root_cert_file);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7021,6 +7023,51 @@ impl std::fmt::Debug for super::connection::ErrorDetails {
         let mut debug_struct = f.debug_struct("ErrorDetails");
         debug_struct.field("certificate_state", &self.certificate_state);
         debug_struct.field("error_message", &self.error_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::SipHostname {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SipHostname");
+        debug_struct.field("peer_hostname", &self.peer_hostname);
+        debug_struct.field("enabled_sip_ping", &self.enabled_sip_ping);
+        debug_struct.field("ping_interval", &self.ping_interval);
+        debug_struct.field("peer_socket_address", &self.peer_socket_address);
+        debug_struct.field("probe_details", &self.probe_details);
+        debug_struct.field("connection_state", &self.connection_state);
+        debug_struct.field("error_details", &self.error_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::sip_hostname::HostnameErrorDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HostnameErrorDetails");
+        debug_struct.field("certificate_state", &self.certificate_state);
+        debug_struct.field("error_message", &self.error_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::ProbeDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProbeDetails");
+        debug_struct.field("options_latency", &self.options_latency);
+        debug_struct.field("probe_status", &self.probe_status);
+        debug_struct.field("init_time", &self.init_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
