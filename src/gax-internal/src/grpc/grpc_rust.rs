@@ -26,7 +26,6 @@ use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
-use google_cloud_gax::retry_loop_internal::retry_loop;
 use grpc::client::{CallOptions, Channel, RequestHeaders};
 use grpc::credentials::rustls::client::{ClientTlsConfig, RustlsChannelCredentials};
 use grpc::credentials::{ChannelCredentials, LocalChannelCredentials};
@@ -120,35 +119,21 @@ impl GrpcRustClient {
         Request: prost::Message + Clone,
         Response: prost::Message + Default,
     {
-        let idempotent = options.idempotent().unwrap_or(false);
-        let retry_throttler = self.inner.transport_policies.get_retry_throttler(&options);
-        let retry_policy = self.inner.transport_policies.get_retry_policy(&options);
-        let backoff_policy = self.inner.transport_policies.get_backoff_policy(&options);
-
         let this = self.clone();
-        let mut prior_attempt_count: i64 = 0;
-        let inner = async move |remaining_time: Option<Duration>| {
-            let current_attempt = prior_attempt_count;
-            prior_attempt_count += 1;
-            this.clone()
-                .request_attempt::<Request, Response>(
+        grpc_helpers::run_retry_loop(
+            &self.inner.transport_policies,
+            options,
+            async move |options, prior_attempt_count, remaining_time| {
+                this.request_attempt::<Request, Response>(
                     path.clone(),
                     request.clone(),
-                    &options,
+                    options,
                     remaining_time,
                     headers.clone(),
-                    current_attempt,
+                    prior_attempt_count,
                 )
                 .await
-        };
-        let sleep = async |d| tokio::time::sleep(d).await;
-        retry_loop(
-            inner,
-            sleep,
-            idempotent,
-            retry_throttler,
-            retry_policy,
-            backoff_policy,
+            },
         )
         .await
     }
@@ -173,7 +158,6 @@ impl GrpcRustClient {
             prior_attempt_count,
         );
 
-        #[allow(unused_mut)]
         let mut headers = grpc_helpers::add_auth_headers(headers, &self.inner.credentials).await?;
 
         crate::observability::propagation::inject_context(&span, &mut headers);
