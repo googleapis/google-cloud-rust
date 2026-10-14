@@ -511,7 +511,9 @@ fn single_range(request: &BidiReadObjectRequest) -> ProtoRange {
 
 mod conformance {
     use super::*;
+    use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::retry_policy::{AlwaysRetry, NeverRetry, RetryPolicyExt as _};
+    use google_cloud_storage::error::ReadError;
     use google_cloud_storage::model_ext::KeyAes256;
     use google_cloud_storage::read_resume_policy::{
         NeverResume, ReadResumePolicyExt as _, Recommended,
@@ -519,6 +521,7 @@ mod conformance {
     use pretty_assertions::assert_eq;
     use prost::Message as _;
     use sha2::{Digest as _, Sha256};
+    use std::error::Error as _;
     use std::sync::Arc;
     use std::sync::atomic::{AtomicUsize, Ordering};
     use storage_grpc_mock::google::rpc::Status as RpcStatus;
@@ -549,7 +552,10 @@ mod conformance {
     async fn handle_redirect_error() -> anyhow::Result<()> {
         // Arrange
         const ROUTING_TOKEN: &str = "test-redirect-routing-token";
-        let (resumed_tx, mut resumed_rx) = tokio::sync::mpsc::channel::<BidiReadObjectRequest>(1);
+        let (resumed_tx, mut resumed_rx) = tokio::sync::mpsc::channel::<(
+            gaxi::grpc::tonic::MetadataMap,
+            BidiReadObjectRequest,
+        )>(1);
 
         let mut mock = MockStorage::new();
         let mut seq = mockall::Sequence::new();
@@ -587,14 +593,14 @@ mod conformance {
             .once()
             .in_sequence(&mut seq)
             .returning(move |request| {
-                let (_, _, mut requests) = request.into_parts();
+                let (metadata, _, mut requests) = request.into_parts();
                 let (tx, rx) = tokio::sync::mpsc::channel(2);
                 let resumed_tx = resumed_tx.clone();
 
                 tokio::spawn(async move {
                     let first = recv_request(&mut requests).await;
                     let range = single_range(&first);
-                    let _ = resumed_tx.send(first).await;
+                    let _ = resumed_tx.send((metadata, first)).await;
 
                     tx.send(Ok(initial_response_with_data(
                         range,
@@ -620,10 +626,16 @@ mod conformance {
         assert_eq!(payload, &OBJECT_CONTENT[10..18]);
 
         // Assert: Resumed request has redirect routing token and read_handle
-        let resumed_req = resumed_rx
+        let (resumed_meta, resumed_req) = resumed_rx
             .recv()
             .await
             .context("expected resumed stream request")?;
+        assert_eq!(
+            resumed_meta
+                .get("x-goog-request-params")
+                .and_then(|v| v.to_str().ok()),
+            Some(format!("bucket={BUCKET_NAME}&routing_token={ROUTING_TOKEN}").as_str())
+        );
         let spec = resumed_req
             .read_object_spec
             .expect("resumed request must contain read_object_spec");
@@ -650,7 +662,10 @@ mod conformance {
     async fn handle_redirect_error_on_open() -> anyhow::Result<()> {
         // Arrange
         const ROUTING_TOKEN: &str = "test-open-redirect-token";
-        let (resumed_tx, mut resumed_rx) = tokio::sync::mpsc::channel::<BidiReadObjectRequest>(1);
+        let (resumed_tx, mut resumed_rx) = tokio::sync::mpsc::channel::<(
+            gaxi::grpc::tonic::MetadataMap,
+            BidiReadObjectRequest,
+        )>(1);
 
         let mut mock = MockStorage::new();
         let mut seq = mockall::Sequence::new();
@@ -666,13 +681,13 @@ mod conformance {
             .once()
             .in_sequence(&mut seq)
             .returning(move |request| {
-                let (_, _, mut requests) = request.into_parts();
+                let (metadata, _, mut requests) = request.into_parts();
                 let (tx, rx) = tokio::sync::mpsc::channel(1);
                 let resumed_tx = resumed_tx.clone();
 
                 tokio::spawn(async move {
                     let first = recv_request(&mut requests).await;
-                    let _ = resumed_tx.send(first).await;
+                    let _ = resumed_tx.send((metadata, first)).await;
 
                     tx.send(Ok(initial_response()))
                         .await
@@ -690,7 +705,14 @@ mod conformance {
         assert_eq!(descriptor.object().name, OBJECT_NAME);
 
         // Assert: second attempt contained the updated routing token and handle
-        let second_req = resumed_rx.recv().await.context("expected retry request")?;
+        let (second_meta, second_req) =
+            resumed_rx.recv().await.context("expected retry request")?;
+        assert_eq!(
+            second_meta
+                .get("x-goog-request-params")
+                .and_then(|v| v.to_str().ok()),
+            Some(format!("bucket={BUCKET_NAME}&routing_token={ROUTING_TOKEN}").as_str())
+        );
         let spec = second_req
             .read_object_spec
             .expect("retry request must contain read_object_spec");
@@ -755,7 +777,7 @@ mod conformance {
                 let range = single_range(&first);
 
                 if attempt == 0 {
-                    // First attempt sends partial data then fails
+                    // First attempt sends partial data then fails mid-stream
                     tx.send(Ok(initial_response_with_data(
                         range,
                         slice_range_for_len(OBJECT_CONTENT, &range, 2).to_vec(),
@@ -763,9 +785,16 @@ mod conformance {
                     )))
                     .await
                     .expect("failed to send initial partial data");
+                } else {
+                    // Subsequent attempts complete the stream open handshake so that
+                    // `connect()` succeeds and the subsequent failure is evaluated by
+                    // `Connector::reconnect` against `read_resume_policy`.
+                    tx.send(Ok(initial_response()))
+                        .await
+                        .expect("failed to send initial response on reconnect");
                 }
 
-                // Stream is terminated by transient error
+                // Stream is terminated mid-read by a transient error
                 tx.send(Err(TonicStatus::unavailable(format!(
                     "transient error attempt {attempt}"
                 ))))
@@ -787,11 +816,26 @@ mod conformance {
 
         let result = read_all_bytes(reader).await;
 
-        // Assert: read failed due to resume attempt limit exhaustion
-        assert!(
-            result.is_err(),
-            "expected read error after max resume attempts"
-        );
+        // Assert: read failed due to resume attempt limit exhaustion with Unavailable status
+        let err = result.expect_err("expected read error after max resume attempts");
+        let storage_err = err
+            .downcast_ref::<google_cloud_storage::Error>()
+            .expect("expected google_cloud_storage::Error");
+        assert!(storage_err.is_io(), "{storage_err:?}");
+        let read_err = storage_err
+            .source()
+            .and_then(|e| e.downcast_ref::<ReadError>())
+            .expect("expected ReadError source");
+        match read_err {
+            ReadError::UnrecoverableBidiReadInterrupt(interrupt_err) => {
+                assert_eq!(
+                    interrupt_err.status().map(|s| s.code),
+                    Some(Code::Unavailable),
+                    "{interrupt_err:?}"
+                );
+            }
+            other => panic!("expected UnrecoverableBidiReadInterrupt, got: {other:?}"),
+        }
         // Attempt 0 (initial) + Attempt 1 (first resume) = 2 attempts total
         assert_eq!(attempts.load(Ordering::SeqCst), 2);
 
@@ -860,23 +904,7 @@ mod conformance {
 
         // Assert: Metadata headers
         let metadata = observed_meta_rx.await?;
-        let user_agent = metadata
-            .get(http::header::USER_AGENT.as_str())
-            .and_then(|v| v.to_str().ok())
-            .expect("user-agent header must be present");
-        assert!(user_agent.contains(USER_AGENT), "{user_agent}");
-        assert_eq!(
-            metadata
-                .get("x-goog-user-project")
-                .and_then(|v| v.to_str().ok()),
-            Some(QUOTA_PROJECT)
-        );
-        assert_eq!(
-            metadata
-                .get("x-goog-request-params")
-                .and_then(|v| v.to_str().ok()),
-            Some(format!("bucket={BUCKET_NAME}").as_str())
-        );
+        assert_request_metadata(&metadata, USER_AGENT, QUOTA_PROJECT);
 
         // Assert: Protobuf request spec
         let req = observed_req_rx.await?;
@@ -1052,11 +1080,13 @@ mod conformance {
 
         // Assert: Client detects short read and returns an error
         let err = result.expect_err("expected error when server completes without requested data");
-        let err_str = err.to_string();
-        assert!(
-            err_str.contains("missing 10 bytes"),
-            "expected missing bytes error, got: {err_str}"
-        );
+        assert!(err.is_io(), "{err:?}");
+        let read_err = err
+            .source()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<ReadError>())
+            .expect("expected ReadError::ShortRead source");
+        assert!(matches!(read_err, ReadError::ShortRead(10)), "{read_err:?}");
 
         Ok(())
     }
@@ -1143,8 +1173,13 @@ mod conformance {
             .send()
             .await;
 
-        // Assert: fails immediately without retry
-        assert!(result.is_err(), "expected open_object to fail on NotFound");
+        // Assert: fails immediately without retry and reports NotFound status
+        let err = result.expect_err("expected open_object to fail on NotFound");
+        assert_eq!(
+            err.status().map(|s| s.code),
+            Some(Code::NotFound),
+            "{err:?}"
+        );
         assert_eq!(
             attempts.load(Ordering::SeqCst),
             1,
