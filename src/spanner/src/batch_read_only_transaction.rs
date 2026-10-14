@@ -16,6 +16,7 @@ use crate::Error;
 use crate::database_client::DatabaseClient;
 use crate::model::{ExecuteSqlRequest, PartitionOptions, ReadRequest};
 use crate::precommit::PrecommitTokenTracker;
+use crate::read::ReadRequest as SpannerReadRequest;
 use crate::read_only_transaction::{
     BeginTransactionOption, MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
     ReadContextTransactionSelector,
@@ -147,14 +148,26 @@ impl BatchReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn partition_query<T: Into<Statement>>(
+    ///
+    /// Request options configured on the [`Statement`] (such as timeouts via
+    /// [`StatementBuilder::with_attempt_timeout`](crate::statement::StatementBuilder::with_attempt_timeout) or retry policies via
+    /// [`StatementBuilder::with_retry_policy`](crate::statement::StatementBuilder::with_retry_policy)) apply strictly to this
+    /// partition planning RPC. Execution options for the resulting partitions must be configured
+    /// on each returned [`Partition`] (e.g. via [`Partition::with_attempt_timeout`]) prior to calling
+    /// [`Partition::execute`], as partitions can be executed independently on worker nodes.
+    ///
+    /// Query attributes such as SQL text, parameters, query mode, and request tags are preserved
+    /// and propagated to each partition's execution request.
+    pub async fn partition_query(
         &self,
-        statement: T,
+        statement: impl Into<Statement>,
         options: PartitionOptions,
     ) -> crate::Result<Vec<Partition>> {
         let selector = self.inner.context.transaction_selector.selector().await?;
-        let statement = statement.into();
-        let request = statement
+        let mut statement = statement.into();
+        let gax_options = std::mem::take(&mut statement.gax_options);
+
+        let partition_request = statement
             .clone()
             .into_partition_query_request()
             .set_session(self.inner.context.session_name.clone())
@@ -166,24 +179,26 @@ impl BatchReadOnlyTransaction {
             .context
             .client
             .partition_query(
-                request,
-                crate::RequestOptions::default(),
+                partition_request,
+                gax_options,
                 self.inner.context.affinity(),
             )
             .await?;
 
+        let mut base_request = statement.into_request();
+        base_request.session = self.inner.context.session_name.clone();
+        base_request.transaction = Some(selector);
+
         Ok(response
             .partitions
             .into_iter()
-            .map(|p| {
-                let mut req = statement.clone().into_request();
-                req.session = self.inner.context.session_name.clone();
-                req.transaction = Some(selector.clone());
-                req.partition_token = p.partition_token;
+            .map(|partition| {
+                let mut request = base_request.clone();
+                request.partition_token = partition.partition_token;
 
                 Partition {
                     version: CURRENT_WIRE_VERSION,
-                    inner: PartitionedOperation::Query(req),
+                    inner: PartitionedOperation::Query(request),
                     gax_options: GaxRequestOptions::default(),
                 }
             })
@@ -211,14 +226,26 @@ impl BatchReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn partition_read<T: Into<crate::read::ReadRequest>>(
+    ///
+    /// Request options configured on the [`ReadRequest`](SpannerReadRequest) (such as timeouts via
+    /// [`ConfiguredReadRequestBuilder::with_attempt_timeout`](crate::read::ConfiguredReadRequestBuilder::with_attempt_timeout) or retry policies via
+    /// [`ConfiguredReadRequestBuilder::with_retry_policy`](crate::read::ConfiguredReadRequestBuilder::with_retry_policy)) apply strictly to this
+    /// partition planning RPC. Execution options for the resulting partitions must be configured
+    /// on each returned [`Partition`] (e.g. via [`Partition::with_attempt_timeout`]) prior to calling
+    /// [`Partition::execute`], as partitions can be executed independently on worker nodes.
+    ///
+    /// Read attributes such as table name, column list, key set, index, and request tags are preserved
+    /// and propagated to each partition's execution request.
+    pub async fn partition_read(
         &self,
-        read: T,
+        read: impl Into<SpannerReadRequest>,
         options: PartitionOptions,
     ) -> crate::Result<Vec<Partition>> {
         let selector = self.inner.context.transaction_selector.selector().await?;
-        let read = read.into();
-        let request = read
+        let mut read = read.into();
+        let gax_options = std::mem::take(&mut read.gax_options);
+
+        let partition_request = read
             .clone()
             .into_partition_read_request()
             .set_session(self.inner.context.session_name.clone())
@@ -230,24 +257,26 @@ impl BatchReadOnlyTransaction {
             .context
             .client
             .partition_read(
-                request,
-                crate::RequestOptions::default(),
+                partition_request,
+                gax_options,
                 self.inner.context.affinity(),
             )
             .await?;
 
+        let mut base_request = read.into_request();
+        base_request.session = self.inner.context.session_name.clone();
+        base_request.transaction = Some(selector);
+
         Ok(response
             .partitions
             .into_iter()
-            .map(|p| {
-                let mut req = read.clone().into_request();
-                req.session = self.inner.context.session_name.clone();
-                req.transaction = Some(selector.clone());
-                req.partition_token = p.partition_token;
+            .map(|partition| {
+                let mut request = base_request.clone();
+                request.partition_token = partition.partition_token;
 
                 Partition {
                     version: CURRENT_WIRE_VERSION,
-                    inner: PartitionedOperation::Read(req),
+                    inner: PartitionedOperation::Read(request),
                     gax_options: GaxRequestOptions::default(),
                 }
             })
@@ -386,13 +415,33 @@ impl Partition {
     /// # async fn run_read(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.batch_read_only_transaction().build().await?;
-    /// let req = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all()).build();
-    /// let partitions = transaction.partition_read(req, PartitionOptions::default()).await?;
+    /// let request = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all()).build();
+    /// let partitions = transaction.partition_read(request, PartitionOptions::default()).await?;
     ///
     /// // ... send partitions to other workers ...
     ///
     /// // On a worker receiving a partition, execute it:
     /// let mut result_set = partitions[0].execute(&db_client).await?;
+    /// while let Some(row) = result_set.next().await.transpose()? {
+    ///     // process row
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// # Example: executing a partition with a custom timeout
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::batch::Partition;
+    /// # use std::time::Duration;
+    /// # async fn run_worker(spanner: Spanner, partition: Partition) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    ///
+    /// // Configure a custom attempt timeout before executing the partition:
+    /// let mut result_set = partition
+    ///     .with_attempt_timeout(Duration::from_secs(60))
+    ///     .execute(&db_client)
+    ///     .await?;
     /// while let Some(row) = result_set.next().await.transpose()? {
     ///     // process row
     /// }
@@ -556,6 +605,7 @@ pub(crate) mod tests {
     use crate::transaction::TimestampBound;
     use crate::value::Value;
     use gaxi::grpc::tonic::{Response, Status};
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
     use mockall::Sequence;
     use prost_types::Timestamp;
@@ -991,6 +1041,232 @@ pub(crate) mod tests {
             }
             _ => panic!("Expected Read partition"),
         }
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn partition_query_respects_gax_options() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![1, 2, 3],
+                read_timestamp: Some(Timestamp {
+                    seconds: 123456789,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_partition_query().once().returning(|request| {
+            let timeout = request
+                .metadata()
+                .get("grpc-timeout")
+                .expect("Missing grpc-timeout header");
+            assert_eq!(timeout, "5000000u", "timeout header must match 5 seconds");
+            Ok(Response::new(PartitionResponse {
+                partitions: vec![MockPartition {
+                    partition_token: vec![10],
+                }],
+                transaction: None,
+            }))
+        });
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(request.sql, "SELECT 1");
+                assert_eq!(request.partition_token, vec![10]);
+                Ok(Response::from(adapt([Ok(setup_select1())])))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = database_client
+            .batch_read_only_transaction()
+            .build()
+            .await?;
+
+        let statement = Statement::builder("SELECT 1")
+            .with_attempt_timeout(Duration::from_secs(5))
+            .build();
+        let partitions = transaction
+            .partition_query(statement, PartitionOptions::default())
+            .await?;
+
+        assert_eq!(partitions.len(), 1, "expected 1 partition");
+        assert_eq!(
+            partitions[0].gax_options.attempt_timeout(),
+            &None,
+            "partition gax_options must remain default host-local options"
+        );
+
+        let mut result_set = partitions[0].execute(&database_client).await?;
+        let row = result_set
+            .next()
+            .await
+            .transpose()?
+            .expect("row should be present");
+        assert_eq!(
+            row.raw_values(),
+            [Value(string_val("1"))],
+            "row value should match expected query result"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn partition_read_respects_gax_options() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![1, 2, 3],
+                read_timestamp: Some(Timestamp {
+                    seconds: 123456789,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_partition_read().once().returning(|request| {
+            let timeout = request
+                .metadata()
+                .get("grpc-timeout")
+                .expect("Missing grpc-timeout header");
+            assert_eq!(timeout, "7000000u", "timeout header must match 7 seconds");
+            Ok(Response::new(PartitionResponse {
+                partitions: vec![MockPartition {
+                    partition_token: vec![20],
+                }],
+                transaction: None,
+            }))
+        });
+
+        mock.expect_streaming_read().once().returning(|request| {
+            let request = request.into_inner();
+            assert_eq!(request.table, "Users");
+            assert_eq!(request.partition_token, vec![20]);
+            Ok(Response::from(adapt([Ok(setup_select1())])))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = database_client
+            .batch_read_only_transaction()
+            .build()
+            .await?;
+
+        let read_request = SpannerReadRequest::builder("Users", vec!["Id", "Name"])
+            .with_keys(KeySet::all())
+            .with_attempt_timeout(Duration::from_secs(7))
+            .build();
+        let partitions = transaction
+            .partition_read(read_request, PartitionOptions::default())
+            .await?;
+
+        assert_eq!(partitions.len(), 1, "expected 1 partition");
+        assert_eq!(
+            partitions[0].gax_options.attempt_timeout(),
+            &None,
+            "partition gax_options must remain default host-local options"
+        );
+
+        let mut result_set = partitions[0].execute(&database_client).await?;
+        let row = result_set
+            .next()
+            .await
+            .transpose()?
+            .expect("row should be present");
+        assert_eq!(
+            row.raw_values(),
+            [Value(string_val("1"))],
+            "row value should match expected query result"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn partition_query_respects_never_retry_policy() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![1, 2, 3],
+                read_timestamp: Some(Timestamp {
+                    seconds: 123456789,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_partition_query()
+            .once()
+            .returning(|_| Err(Status::unavailable("simulated unavailable")));
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = database_client
+            .batch_read_only_transaction()
+            .build()
+            .await?;
+
+        let statement = Statement::builder("SELECT 1")
+            .with_retry_policy(NeverRetry)
+            .build();
+        let result = transaction
+            .partition_query(statement, PartitionOptions::default())
+            .await;
+
+        assert!(
+            result.is_err(),
+            "partition_query with NeverRetry must fail immediately without retrying"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn partition_read_respects_never_retry_policy() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![1, 2, 3],
+                read_timestamp: Some(Timestamp {
+                    seconds: 123456789,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_partition_read()
+            .once()
+            .returning(|_| Err(Status::unavailable("simulated unavailable")));
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = database_client
+            .batch_read_only_transaction()
+            .build()
+            .await?;
+
+        let read_request = SpannerReadRequest::builder("Users", vec!["Id", "Name"])
+            .with_keys(KeySet::all())
+            .with_retry_policy(NeverRetry)
+            .build();
+        let result = transaction
+            .partition_read(read_request, PartitionOptions::default())
+            .await;
+
+        assert!(
+            result.is_err(),
+            "partition_read with NeverRetry must fail immediately without retrying"
+        );
+
         Ok(())
     }
 
