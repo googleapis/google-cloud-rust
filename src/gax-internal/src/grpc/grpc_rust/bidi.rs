@@ -36,9 +36,6 @@ pub struct GrpcRustStreaming<Response> {
     responses: Option<Receiver<tonic::Result<Option<RecvItem<Response>>>>>,
     receive_task: Option<ReceiveTask>,
     send_state: SendState,
-    /// Holds a pre-decoded initial response message (e.g. from stream setup or handshake)
-    /// to yield on the first call to [`GrpcRustStreaming::message`] before polling `responses`.
-    pending_response: Option<Response>,
 }
 
 impl<Response> GrpcRustStreaming<Response>
@@ -55,23 +52,7 @@ where
             responses: Some(responses),
             receive_task: Some(receive_task),
             send_state,
-            pending_response: None,
         }
-    }
-
-    /// Creates a new [`GrpcRustStreaming`] instance with a pre-decoded initial response message.
-    ///
-    /// The first call to [`GrpcRustStreaming::message`] will yield `pending` before returning
-    /// subsequent items from the response channel.
-    fn new_with_pending(
-        responses: Receiver<tonic::Result<Option<RecvItem<Response>>>>,
-        receive_task: ReceiveTask,
-        send_state: SendState,
-        pending: Response,
-    ) -> Self {
-        let mut stream = Self::new(responses, receive_task, send_state);
-        stream.pending_response = Some(pending);
-        stream
     }
 
     /// Creates a terminal (already closed) [`GrpcRustStreaming`] instance.
@@ -82,15 +63,11 @@ where
             responses: None,
             receive_task: None,
             send_state: SendState::Complete,
-            pending_response: None,
         }
     }
 
     /// Yields the next response message from the stream, or `Ok(None)` if the stream has ended.
     pub async fn message(&mut self) -> tonic::Result<Option<Response>> {
-        if let Some(message) = self.pending_response.take() {
-            return Ok(Some(message));
-        }
         // If the response stream is absent, signal end-of-stream.
         let Some(responses) = self.responses.as_mut() else {
             return Ok(None);
@@ -108,9 +85,13 @@ where
                 response = responses.recv() => match response {
                     // Successfully received a response message.
                     Some(Ok(Some(RecvItem::Message(message)))) => return Ok(Some(message)),
-                    // Ignore additional headers received mid-stream.
-                    // TODO(#5991): Consider logging (e.g. tracing::debug!) for unexpected mid-stream headers.
-                    Some(Ok(Some(RecvItem::Headers(_)))) => continue,
+                    // Defensive: `RecvStreamValidator` reports repeated headers as an error.
+                    Some(Ok(Some(RecvItem::Headers(_)))) => {
+                        self.terminate();
+                        return Err(tonic::Status::internal(
+                            "grpc-rust stream received unexpected headers",
+                        ));
+                    }
                     // Terminal with clean termination. If sending failed, some requests were not
                     // delivered, so return that failure.
                     Some(Ok(None)) => {
@@ -158,7 +139,6 @@ where
 impl<Response> std::fmt::Debug for GrpcRustStreaming<Response> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("GrpcRustStreaming")
-            .field("pending_response", &self.pending_response.is_some())
             .field("is_terminal", &self.responses.is_none())
             .finish_non_exhaustive()
     }
@@ -194,16 +174,10 @@ where
                         tonic::Extensions::new(),
                     ));
                 }
-                Some(Ok(Some(RecvItem::Message(pending)))) => {
-                    return Ok(tonic::Response::from_parts(
-                        tonic::metadata::MetadataMap::new(),
-                        GrpcRustStreaming::new_with_pending(
-                            responses,
-                            receive_task,
-                            send_state,
-                            pending,
-                        ),
-                        tonic::Extensions::new(),
+                // Defensive: `RecvStreamValidator` reports messages before headers as an error.
+                Some(Ok(Some(RecvItem::Message(_)))) => {
+                    return Err(tonic::Status::internal(
+                        "grpc-rust stream received a message before headers",
                     ));
                 }
                 Some(Ok(None)) => {
@@ -561,6 +535,62 @@ mod tests {
         assert_eq!(err.code(), tonic::Code::PermissionDenied);
         assert_eq!(err.message(), ERROR_MESSAGE);
 
+        // Subsequent reads signal end-of-stream.
+        assert_eq!(stream.message().await?, None);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bidi_call_rejects_message_before_headers() {
+        // Arrange
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        let invoker = MockInvoker::new(
+            MockSendStream::default(),
+            MockRecvStream::new([
+                MockRecvAction::Message(TestMessage::new("response")),
+                MockRecvAction::Trailers(Trailers::new(Ok(()))),
+            ]),
+        );
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+
+        // Act
+        let err =
+            invoke_bidi::<TestMessage, TestMessage, _>(&invoker, headers, tokio_stream::empty())
+                .await
+                .expect_err("a message before headers should be rejected");
+
+        // Assert
+        assert_eq!(err.code(), tonic::Code::Internal);
+        assert!(err.message().contains("without headers"), "{err:?}");
+    }
+
+    #[tokio::test]
+    async fn bidi_stream_rejects_repeated_headers() -> anyhow::Result<()> {
+        // Arrange
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        let invoker = MockInvoker::new(
+            MockSendStream::default(),
+            MockRecvStream::new([
+                MockRecvAction::Headers(ResponseHeaders::new(test_connection_info())),
+                MockRecvAction::Headers(ResponseHeaders::new(test_connection_info())),
+                MockRecvAction::Trailers(Trailers::new(Ok(()))),
+            ]),
+        );
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+        let mut stream =
+            invoke_bidi::<TestMessage, TestMessage, _>(&invoker, headers, tokio_stream::empty())
+                .await?
+                .into_inner();
+
+        // Act
+        let err = stream
+            .message()
+            .await
+            .expect_err("repeated headers should be rejected");
+
+        // Assert
+        assert_eq!(err.code(), tonic::Code::Internal);
+        assert!(err.message().contains("multiple headers"), "{err:?}");
         // Subsequent reads signal end-of-stream.
         assert_eq!(stream.message().await?, None);
         Ok(())
