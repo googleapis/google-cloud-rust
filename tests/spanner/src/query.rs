@@ -17,6 +17,7 @@ use crate::client::{
 };
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
+use google_cloud_spanner::Decimal;
 use google_cloud_spanner::client::{DatabaseClient, Spanner};
 use google_cloud_spanner::key;
 use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
@@ -211,7 +212,7 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
         &["dup".to_string(), "dup".to_string()]
     );
 
-    let val: i64 = row_dup.get("dup");
+    let val: i64 = row_dup.get("dup")?;
     assert_eq!(val, 1);
 
     Ok(())
@@ -663,7 +664,7 @@ pub async fn query_with_options(db_client: &DatabaseClient) -> anyhow::Result<()
 
     let mut rs = rot.execute_query(stmt).await?;
     let row = rs.next().await.transpose()?.expect("should yield a row");
-    let val: i64 = row.get(0);
+    let val: i64 = row.get(0)?;
     assert_eq!(val, 1);
 
     Ok(())
@@ -795,70 +796,70 @@ pub async fn query_json_value(db_client: &DatabaseClient) -> anyhow::Result<()> 
     let row = &rows[0];
 
     // Deserialize id (INT64) as serde_json::Value
-    let id_val: serde_json::Value = row.try_get("id")?;
+    let id_val: serde_json::Value = row.get("id")?;
     assert_eq!(id_val, serde_json::json!("1"));
 
     // Deserialize inventory (ARRAY<STRUCT<fruit STRING, quantity INT64>>) as serde_json::Value
-    let inventory_val: serde_json::Value = row.try_get("inventory")?;
+    let inventory_val: serde_json::Value = row.get("inventory")?;
     assert_eq!(
         inventory_val,
         serde_json::json!([{"fruit": "apple", "quantity": "5"}])
     );
 
     // Deserialize payload (JSON) as serde_json::Value
-    let payload_val: serde_json::Value = row.try_get("payload")?;
+    let payload_val: serde_json::Value = row.get("payload")?;
     assert_eq!(payload_val, serde_json::json!({"a": 1, "b": [true, false]}));
 
     // Deserialize col_bool (BOOL) as serde_json::Value
-    let col_bool: serde_json::Value = row.try_get("col_bool")?;
+    let col_bool: serde_json::Value = row.get("col_bool")?;
     assert_eq!(col_bool, serde_json::json!(true));
 
     // Deserialize col_string (STRING) as serde_json::Value
-    let col_string: serde_json::Value = row.try_get("col_string")?;
+    let col_string: serde_json::Value = row.get("col_string")?;
     assert_eq!(col_string, serde_json::json!("hello"));
 
     // Deserialize col_bytes (BYTES) as serde_json::Value (should be Base64-encoded)
-    let col_bytes: serde_json::Value = row.try_get("col_bytes")?;
+    let col_bytes: serde_json::Value = row.get("col_bytes")?;
     assert_eq!(col_bytes, serde_json::json!("aGVsbG8="));
 
     // Deserialize col_numeric (NUMERIC) as serde_json::Value
-    let col_numeric: serde_json::Value = row.try_get("col_numeric")?;
+    let col_numeric: serde_json::Value = row.get("col_numeric")?;
     assert_eq!(col_numeric, serde_json::json!("9.99"));
 
     // Deserialize col_date (DATE) as serde_json::Value
-    let col_date: serde_json::Value = row.try_get("col_date")?;
+    let col_date: serde_json::Value = row.get("col_date")?;
     assert_eq!(col_date, serde_json::json!("2026-06-10"));
 
     // Deserialize col_timestamp (TIMESTAMP) as serde_json::Value
-    let col_timestamp: serde_json::Value = row.try_get("col_timestamp")?;
+    let col_timestamp: serde_json::Value = row.get("col_timestamp")?;
     assert_eq!(col_timestamp, serde_json::json!("2026-06-10T10:00:00Z"));
 
     // Deserialize col_float64_nan (FLOAT64 NaN) as serde_json::Value (should be null)
-    let col_float64_nan: serde_json::Value = row.try_get("col_float64_nan")?;
+    let col_float64_nan: serde_json::Value = row.get("col_float64_nan")?;
     assert_eq!(col_float64_nan, serde_json::Value::Null);
 
     // Deserialize col_float64_inf (FLOAT64 Infinity) as serde_json::Value (should be null)
-    let col_float64_inf: serde_json::Value = row.try_get("col_float64_inf")?;
+    let col_float64_inf: serde_json::Value = row.get("col_float64_inf")?;
     assert_eq!(col_float64_inf, serde_json::Value::Null);
 
     // Deserialize col_float64_neginf (FLOAT64 -Infinity) as serde_json::Value (should be null)
-    let col_float64_neginf: serde_json::Value = row.try_get("col_float64_neginf")?;
+    let col_float64_neginf: serde_json::Value = row.get("col_float64_neginf")?;
     assert_eq!(col_float64_neginf, serde_json::Value::Null);
 
     // Deserialize col_float32_nan (FLOAT32 NaN) as serde_json::Value (should be null)
-    let col_float32_nan: serde_json::Value = row.try_get("col_float32_nan")?;
+    let col_float32_nan: serde_json::Value = row.get("col_float32_nan")?;
     assert_eq!(col_float32_nan, serde_json::Value::Null);
 
     // Deserialize col_float32_inf (FLOAT32 Infinity) as serde_json::Value (should be null)
-    let col_float32_inf: serde_json::Value = row.try_get("col_float32_inf")?;
+    let col_float32_inf: serde_json::Value = row.get("col_float32_inf")?;
     assert_eq!(col_float32_inf, serde_json::Value::Null);
 
     // Deserialize col_float32_neginf (FLOAT32 -Infinity) as serde_json::Value (should be null)
-    let col_float32_neginf: serde_json::Value = row.try_get("col_float32_neginf")?;
+    let col_float32_neginf: serde_json::Value = row.get("col_float32_neginf")?;
     assert_eq!(col_float32_neginf, serde_json::Value::Null);
 
     // Deserialize col_null (NULL) as serde_json::Value (should be null)
-    let col_null: serde_json::Value = row.try_get("col_null")?;
+    let col_null: serde_json::Value = row.get("col_null")?;
     assert_eq!(col_null, serde_json::Value::Null);
 
     Ok(())
@@ -906,33 +907,33 @@ pub async fn query_non_finite_float_parameters(db_client: &DatabaseClient) -> an
         .transpose()?
         .ok_or_else(|| anyhow::anyhow!("query should yield a row"))?;
 
-    let f64_nan: f64 = row.try_get("col_f64_nan")?;
+    let f64_nan: f64 = row.get("col_f64_nan")?;
     assert!(f64_nan.is_nan(), "expected NaN for col_f64_nan");
 
-    let f64_inf: f64 = row.try_get("col_f64_inf")?;
+    let f64_inf: f64 = row.get("col_f64_inf")?;
     assert_eq!(f64_inf, f64::INFINITY, "expected Infinity for col_f64_inf");
 
-    let f64_neginf: f64 = row.try_get("col_f64_neginf")?;
+    let f64_neginf: f64 = row.get("col_f64_neginf")?;
     assert_eq!(
         f64_neginf,
         f64::NEG_INFINITY,
         "expected -Infinity for col_f64_neginf"
     );
 
-    let f32_nan: f32 = row.try_get("col_f32_nan")?;
+    let f32_nan: f32 = row.get("col_f32_nan")?;
     assert!(f32_nan.is_nan(), "expected NaN for col_f32_nan");
 
-    let f32_inf: f32 = row.try_get("col_f32_inf")?;
+    let f32_inf: f32 = row.get("col_f32_inf")?;
     assert_eq!(f32_inf, f32::INFINITY, "expected Infinity for col_f32_inf");
 
-    let f32_neginf: f32 = row.try_get("col_f32_neginf")?;
+    let f32_neginf: f32 = row.get("col_f32_neginf")?;
     assert_eq!(
         f32_neginf,
         f32::NEG_INFINITY,
         "expected -Infinity for col_f32_neginf"
     );
 
-    let f64_array: Vec<f64> = row.try_get("col_f64_arr")?;
+    let f64_array: Vec<f64> = row.get("col_f64_arr")?;
     assert_eq!(f64_array.len(), 3, "expected 3 elements in col_f64_arr");
     assert!(f64_array[0].is_nan(), "expected NaN for col_f64_arr[0]");
     assert_eq!(
@@ -946,7 +947,7 @@ pub async fn query_non_finite_float_parameters(db_client: &DatabaseClient) -> an
         "expected -Infinity for col_f64_arr[2]"
     );
 
-    let f32_array: Vec<f32> = row.try_get("col_f32_arr")?;
+    let f32_array: Vec<f32> = row.get("col_f32_arr")?;
     assert_eq!(f32_array.len(), 3, "expected 3 elements in col_f32_arr");
     assert!(f32_array[0].is_nan(), "expected NaN for col_f32_arr[0]");
     assert_eq!(
@@ -1014,13 +1015,13 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
         .transpose()?
         .expect("row should exist after mutation insert");
 
-    let f64_val: f64 = row.try_get("ColFloat64")?;
+    let f64_val: f64 = row.get("ColFloat64")?;
     assert!(f64_val.is_nan(), "expected NaN for ColFloat64");
 
-    let f32_val: f32 = row.try_get("ColFloat32")?;
+    let f32_val: f32 = row.get("ColFloat32")?;
     assert!(f32_val.is_nan(), "expected NaN for ColFloat32");
 
-    let f64_array: Vec<f64> = row.try_get("ColArrayFloat64")?;
+    let f64_array: Vec<f64> = row.get("ColArrayFloat64")?;
     assert_eq!(f64_array.len(), 3, "expected 3 elements in ColArrayFloat64");
     assert!(f64_array[0].is_nan(), "expected NaN for ColArrayFloat64[0]");
     assert_eq!(
@@ -1034,7 +1035,7 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
         "expected -Infinity for ColArrayFloat64[2]"
     );
 
-    let f32_array: Vec<f32> = row.try_get("ColArrayFloat32")?;
+    let f32_array: Vec<f32> = row.get("ColArrayFloat32")?;
     assert_eq!(f32_array.len(), 3, "expected 3 elements in ColArrayFloat32");
     assert!(f32_array[0].is_nan(), "expected NaN for ColArrayFloat32[0]");
     assert_eq!(
@@ -1087,14 +1088,14 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
         .transpose()?
         .expect("row should match untyped float query parameter");
 
-    let updated_f64: f64 = query_row.try_get("ColFloat64")?;
+    let updated_f64: f64 = query_row.get("ColFloat64")?;
     assert_eq!(
         updated_f64,
         f64::INFINITY,
         "expected Infinity for ColFloat64 after update"
     );
 
-    let updated_f32: f32 = query_row.try_get("ColFloat32")?;
+    let updated_f32: f32 = query_row.get("ColFloat32")?;
     assert_eq!(
         updated_f32,
         f32::NEG_INFINITY,
@@ -1138,14 +1139,222 @@ pub async fn mutation_and_untyped_query_non_finite_floats(
         .transpose()?
         .expect("row should match IS_NAN(ColFloat64) AND IS_NAN(ColFloat32)");
 
-    let is_nan_id: String = is_nan_row.get("Id");
+    let is_nan_id: String = is_nan_row.get("Id")?;
     assert_eq!(is_nan_id, row_id, "expected matching row ID for IS_NAN");
-    let is_nan_float64: f64 = is_nan_row.try_get("ColFloat64")?;
+    let is_nan_float64: f64 = is_nan_row.get("ColFloat64")?;
     assert!(is_nan_float64.is_nan(), "expected NaN for ColFloat64");
-    let is_nan_float32: f32 = is_nan_row.try_get("ColFloat32")?;
+    let is_nan_float32: f32 = is_nan_row.get("ColFloat32")?;
     assert!(is_nan_float32.is_nan(), "expected NaN for ColFloat32");
 
     // 7. Cleanup the test row.
+    let delete_mutation = Mutation::delete("AllTypes", key![row_id].into());
+    let cleanup_transaction = db_client.write_only_transaction().build();
+    cleanup_transaction.write(vec![delete_mutation]).await?;
+
+    Ok(())
+}
+
+pub async fn query_numeric_values(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let transaction = db_client.single_use().build();
+
+    // 1. Query literal NUMERIC values in standard fixed-point and scientific notation formats.
+    let sql = r#"
+    SELECT
+      NUMERIC '123.456' AS col_fixed,
+      NUMERIC '1e5' AS col_sci_int,
+      NUMERIC '-1.5e3' AS col_sci_neg,
+      NUMERIC '1E-1' AS col_sci_frac,
+      NUMERIC '+.5e-2' AS col_sci_small,
+      [NUMERIC '1e5', NUMERIC '1E-1', NUMERIC '123.456'] AS col_sci_array
+    "#;
+
+    let statement = Statement::builder(sql).build();
+    let mut result_set = transaction.execute_query(statement).await?;
+
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .ok_or_else(|| anyhow::anyhow!("query should yield a row"))?;
+
+    let column_fixed: Decimal = row.get("col_fixed")?;
+    assert_eq!(
+        column_fixed,
+        Decimal::from_str_exact("123.456").expect("valid decimal"),
+        "expected exact decimal for col_fixed"
+    );
+
+    let column_scientific_integer: Decimal = row.get("col_sci_int")?;
+    assert_eq!(
+        column_scientific_integer,
+        Decimal::from_str_exact("100000").expect("valid decimal"),
+        "expected 100000 for col_sci_int"
+    );
+
+    let column_scientific_negative: Decimal = row.get("col_sci_neg")?;
+    assert_eq!(
+        column_scientific_negative,
+        Decimal::from_str_exact("-1500").expect("valid decimal"),
+        "expected -1500 for col_sci_neg"
+    );
+
+    let column_scientific_fraction: Decimal = row.get("col_sci_frac")?;
+    assert_eq!(
+        column_scientific_fraction,
+        Decimal::from_str_exact("0.1").expect("valid decimal"),
+        "expected 0.1 for col_sci_frac"
+    );
+
+    let column_scientific_small: Decimal = row.get("col_sci_small")?;
+    assert_eq!(
+        column_scientific_small,
+        Decimal::from_str_exact("0.005").expect("valid decimal"),
+        "expected 0.005 for col_sci_small"
+    );
+
+    let column_scientific_array: Vec<Decimal> = row.get("col_sci_array")?;
+    assert_eq!(
+        column_scientific_array,
+        vec![
+            Decimal::from_str_exact("100000").expect("valid decimal"),
+            Decimal::from_str_exact("0.1").expect("valid decimal"),
+            Decimal::from_str_exact("123.456").expect("valid decimal"),
+        ],
+        "expected matching Decimal elements in col_sci_array"
+    );
+
+    // 2. Query with parameters using Decimal and scientific notation strings.
+    let parameter_sql = r#"
+    SELECT
+      @fixed_param AS col_fixed_param,
+      @sci_param AS col_sci_param,
+      @array_param AS col_array_param
+    "#;
+
+    let parameter_statement = Statement::builder(parameter_sql)
+        .add_typed_param(
+            "fixed_param",
+            Decimal::from_str_exact("123.456").expect("valid decimal"),
+            types::numeric(),
+        )
+        .add_typed_param(
+            "sci_param",
+            Decimal::from_scientific("1e5").expect("valid decimal"),
+            types::numeric(),
+        )
+        .add_typed_param(
+            "array_param",
+            vec![
+                Decimal::from_str_exact("100000").expect("valid decimal"),
+                Decimal::from_str_exact("0.1").expect("valid decimal"),
+            ],
+            types::array(types::numeric()),
+        )
+        .build();
+
+    let mut parameter_result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(parameter_statement)
+        .await?;
+
+    let parameter_row = parameter_result_set
+        .next()
+        .await
+        .transpose()?
+        .ok_or_else(|| anyhow::anyhow!("query with numeric parameters should yield a row"))?;
+
+    let fixed_parameter_out: Decimal = parameter_row.get("col_fixed_param")?;
+    assert_eq!(
+        fixed_parameter_out,
+        Decimal::from_str_exact("123.456").expect("valid decimal"),
+        "expected matching fixed parameter"
+    );
+
+    let scientific_parameter_out: Decimal = parameter_row.get("col_sci_param")?;
+    assert_eq!(
+        scientific_parameter_out,
+        Decimal::from_str_exact("100000").expect("valid decimal"),
+        "expected matching scientific parameter"
+    );
+
+    let array_parameter_out: Vec<Decimal> = parameter_row.get("col_array_param")?;
+    assert_eq!(
+        array_parameter_out,
+        vec![
+            Decimal::from_str_exact("100000").expect("valid decimal"),
+            Decimal::from_str_exact("0.1").expect("valid decimal"),
+        ],
+        "expected matching array parameter"
+    );
+
+    // 3. Write a row into AllTypes with ColNumeric and ColArrayNumeric and read back.
+    let row_id = format!("numeric-{}", LowercaseAlphanumeric.random_string(10));
+
+    let mutation = Mutation::new_insert_or_update_builder("AllTypes")
+        .set("Id")
+        .to(&row_id)
+        .set("ColNumeric")
+        .to(Decimal::from_scientific("2.5e3").expect("valid decimal"))
+        .set("ColArrayNumeric")
+        .to(vec![
+            Decimal::from_str_exact("100").expect("valid decimal"),
+            Decimal::from_scientific("1e-1").expect("valid decimal"),
+        ])
+        .build();
+
+    let write_transaction = db_client.write_only_transaction().build();
+    write_transaction.write(vec![mutation]).await?;
+
+    // Read back via execute_read
+    let read_request =
+        ReadRequest::builder("AllTypes", vec!["Id", "ColNumeric", "ColArrayNumeric"])
+            .with_keys(key![row_id.clone()])
+            .build();
+
+    let mut read_result_set = db_client
+        .single_use()
+        .build()
+        .execute_read(read_request)
+        .await?;
+
+    let read_row = read_result_set
+        .next()
+        .await
+        .transpose()?
+        .ok_or_else(|| anyhow::anyhow!("row should exist after mutation insert"))?;
+
+    let numeric_value: Decimal = read_row.get("ColNumeric")?;
+    assert_eq!(
+        numeric_value,
+        Decimal::from_str_exact("2500").expect("valid decimal"),
+        "expected 2500 for ColNumeric after mutation"
+    );
+
+    let array_value: Vec<Decimal> = read_row.get("ColArrayNumeric")?;
+    assert_eq!(
+        array_value,
+        vec![
+            Decimal::from_str_exact("100").expect("valid decimal"),
+            Decimal::from_str_exact("0.1").expect("valid decimal"),
+        ],
+        "expected matching ColArrayNumeric"
+    );
+
+    // Also read back via take
+    let mut owned_row = read_row.clone();
+    let taken_numeric: Decimal = owned_row.take("ColNumeric")?;
+    assert_eq!(
+        taken_numeric,
+        Decimal::from_str_exact("2500").expect("valid decimal"),
+        "expected 2500 for taken ColNumeric"
+    );
+    assert!(
+        owned_row.is_null("ColNumeric")?,
+        "ColNumeric must be null after take"
+    );
+
+    // Cleanup test row
     let delete_mutation = Mutation::delete("AllTypes", key![row_id].into());
     let cleanup_transaction = db_client.write_only_transaction().build();
     cleanup_transaction.write(vec![delete_mutation]).await?;

@@ -128,8 +128,8 @@ mod tests {
 
             let mut matched_singer_name = None;
             while let Some(row) = result_set.next().await.transpose()? {
-                let first_name: String = row.get("FirstName");
-                let last_name: String = row.get("LastName");
+                let first_name: String = row.get("FirstName")?;
+                let last_name: String = row.get("LastName")?;
                 matched_singer_name = Some(format!("{first_name} {last_name}"));
             }
 

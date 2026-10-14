@@ -13,8 +13,18 @@
 // limitations under the License.
 
 use crate::error::{ConvertError, RowError};
+#[cfg(any(
+    google_cloud_unstable_bigquery_arrow,
+    google_cloud_unstable_bigquery_storage_read
+))]
+use crate::query::from_sql::ArrowCell;
 use crate::query::from_sql::SqlValueInner;
 use crate::query::{FromSql, Schema};
+#[cfg(any(
+    google_cloud_unstable_bigquery_arrow,
+    google_cloud_unstable_bigquery_storage_read
+))]
+use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery_v2::model::TableFieldSchema;
 use std::sync::Arc;
 use wkt::{ListValue, Struct, Value};
@@ -63,8 +73,22 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// ```
 #[derive(Clone, Debug)]
 pub struct Row {
-    pub(crate) values: Vec<SqlValueInner>,
+    pub(crate) inner: RowInner,
     pub(crate) schema: Arc<Schema>,
+}
+
+#[derive(Clone, Debug)]
+pub(crate) enum RowInner {
+    Json(Vec<SqlValueInner>),
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[cfg_attr(not(test), allow(dead_code))]
+    Arrow {
+        batch: Arc<RecordBatch>,
+        row_idx: usize,
+    },
 }
 
 mod sealed {
@@ -187,7 +211,41 @@ impl Row {
         let values = convert_row(row, schema.fields())?;
 
         Ok(Self {
-            values,
+            inner: RowInner::Json(values),
+            schema: schema.clone(),
+        })
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[cfg_attr(not(test), allow(dead_code))]
+    pub(crate) fn try_new_from_arrow(
+        batch: &Arc<RecordBatch>,
+        row_idx: usize,
+        schema: &Arc<Schema>,
+    ) -> Result<Self> {
+        if batch.num_columns() != schema.len() {
+            return Err(RowError::InvalidRowFormat(format!(
+                "schema and row cell mismatch (expected {}, got {})",
+                schema.len(),
+                batch.num_columns()
+            )));
+        }
+        if row_idx >= batch.num_rows() {
+            return Err(RowError::InvalidRowFormat(format!(
+                "row index out of bounds (row_idx {}, num_rows {})",
+                row_idx,
+                batch.num_rows()
+            )));
+        }
+
+        Ok(Self {
+            inner: RowInner::Arrow {
+                batch: Arc::clone(batch),
+                row_idx,
+            },
             schema: schema.clone(),
         })
     }
@@ -232,15 +290,30 @@ impl Row {
     /// ```
     pub fn get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
-        let val = self
-            .values
-            .get(idx)
-            .ok_or_else(|| RowError::IndexOutOfRange {
-                index: idx,
-                len: self.schema.len(),
-            })?;
-
-        self.convert_value_at(idx, val.clone())
+        match &self.inner {
+            RowInner::Json(values) => {
+                let val = values.get(idx).ok_or_else(|| RowError::IndexOutOfRange {
+                    index: idx,
+                    len: self.schema.len(),
+                })?;
+                self.convert_value_at(idx, val.clone())
+            }
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            RowInner::Arrow { batch, row_idx } => {
+                let col = batch
+                    .columns()
+                    .get(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
+                let val = SqlValueInner::Arrow(ArrowCell::new(col.clone(), *row_idx));
+                self.convert_value_at(idx, val)
+            }
+        }
     }
 
     /// Takes ownership of a value from the row by column name or zero-based
@@ -283,18 +356,35 @@ impl Row {
     /// ```
     pub fn take<T: FromSql, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
+        match &mut self.inner {
+            RowInner::Json(values) => {
+                let val = values
+                    .get_mut(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
 
-        let val = self
-            .values
-            .get_mut(idx)
-            .ok_or_else(|| RowError::IndexOutOfRange {
-                index: idx,
-                len: self.schema.len(),
-            })?;
-
-        // swap out the value in-place to avoid clones
-        let owned_val = std::mem::replace(val, SqlValueInner::Null);
-        self.convert_value_at(idx, owned_val)
+                // swap out the value in-place to avoid clones
+                let owned_val = std::mem::replace(val, SqlValueInner::Null);
+                self.convert_value_at(idx, owned_val)
+            }
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            RowInner::Arrow { batch, row_idx } => {
+                let col = batch
+                    .columns()
+                    .get(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
+                let val = SqlValueInner::Arrow(ArrowCell::new(col.clone(), *row_idx));
+                self.convert_value_at(idx, val)
+            }
+        }
     }
 }
 
@@ -1385,5 +1475,145 @@ mod tests {
         let converted = GenericTupleRow::<i64, String>::try_from(row)?;
         assert_eq!(converted, GenericTupleRow(42, None, "hello".to_string()));
         Ok(())
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    mod arrow_tests {
+        use super::*;
+        use crate::query::SqlValue;
+        use arrow::array::{Int64Array, StringArray};
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchema};
+
+        #[derive(Debug, PartialEq)]
+        struct ArrowI64(i64);
+
+        impl FromSql for ArrowI64 {
+            fn from_value(value: SqlValue) -> std::result::Result<Self, ConvertError> {
+                match value.inner {
+                    SqlValueInner::Arrow(cell) => cell.as_i64().map(Self),
+                    other => Err(ConvertError::type_mismatch("Int64Array", &other)),
+                }
+            }
+        }
+
+        #[derive(Debug, PartialEq)]
+        struct ArrowString(String);
+
+        impl FromSql for ArrowString {
+            fn from_value(value: SqlValue) -> std::result::Result<Self, ConvertError> {
+                match value.inner {
+                    SqlValueInner::Arrow(cell) => cell.as_str().map(|s| Self(s.to_owned())),
+                    other => Err(ConvertError::type_mismatch("StringArray", &other)),
+                }
+            }
+        }
+
+        #[derive(FromRow, Debug, PartialEq)]
+        struct ArrowUserRow {
+            name: ArrowString,
+            age: ArrowI64,
+        }
+
+        fn sample_batch_and_schema() -> anyhow::Result<(Arc<RecordBatch>, Arc<Schema>)> {
+            let arrow_schema = Arc::new(ArrowSchema::new(vec![
+                Field::new("name", DataType::Utf8, false),
+                Field::new("age", DataType::Int64, true),
+            ]));
+            let batch = Arc::new(RecordBatch::try_new(
+                arrow_schema.clone(),
+                vec![
+                    Arc::new(StringArray::from(vec!["Alice", "Bob"])),
+                    Arc::new(Int64Array::from(vec![Some(30), None])),
+                ],
+            )?);
+            let schema = Arc::new(Schema::from_arrow_schema(&arrow_schema));
+            Ok((batch, schema))
+        }
+
+        #[test]
+        fn try_new_from_arrow_validation() -> TestResult {
+            let (batch, schema) = sample_batch_and_schema()?;
+
+            let mismatched_schema = Arc::new(Schema::new(
+                TableSchema::new().set_fields([TableFieldSchema::new()
+                    .set_name("only_one")
+                    .set_type("STRING")]),
+            ));
+            let err = Row::try_new_from_arrow(&batch, 0, &mismatched_schema).unwrap_err();
+            assert!(
+                matches!(&err, RowError::InvalidRowFormat(msg) if msg.contains("expected 1, got 2")),
+                "unexpected error: {err:?}"
+            );
+
+            let err = Row::try_new_from_arrow(&batch, 2, &schema).unwrap_err();
+            assert!(
+                matches!(&err, RowError::InvalidRowFormat(msg) if msg.contains("row_idx 2, num_rows 2")),
+                "unexpected error: {err:?}"
+            );
+
+            Ok(())
+        }
+
+        #[test]
+        fn arrow_row_get_take_and_from_row() -> TestResult {
+            let (batch, schema) = sample_batch_and_schema()?;
+
+            let mut row0 = Row::try_new_from_arrow(&batch, 0, &schema)?;
+            assert_eq!(
+                row0.get::<ArrowString, _>("name")?,
+                ArrowString("Alice".to_string())
+            );
+            assert_eq!(row0.get::<ArrowI64, _>(1)?, ArrowI64(30));
+            assert_eq!(
+                row0.take::<ArrowString, _>(0)?,
+                ArrowString("Alice".to_string())
+            );
+            assert_eq!(row0.take::<ArrowI64, _>("age")?, ArrowI64(30));
+
+            let derived = ArrowUserRow::try_from(Row::try_new_from_arrow(&batch, 0, &schema)?)?;
+            assert_eq!(
+                derived,
+                ArrowUserRow {
+                    name: ArrowString("Alice".to_string()),
+                    age: ArrowI64(30),
+                }
+            );
+
+            let mut row1 = Row::try_new_from_arrow(&batch, 1, &schema)?;
+            assert_eq!(
+                row1.get::<ArrowString, _>("name")?,
+                ArrowString("Bob".to_string())
+            );
+
+            let err = row1.get::<ArrowI64, _>("age").unwrap_err();
+            assert!(
+                matches!(
+                    &err,
+                    RowError::TypeConversion {
+                        column,
+                        sql_type,
+                        source: ConvertError::NotNull,
+                    } if column == "age" && sql_type == "INTEGER"
+                ),
+                "unexpected error: {err:?}"
+            );
+
+            let err = row1.take::<ArrowI64, _>("missing").unwrap_err();
+            assert!(
+                matches!(&err, RowError::ColumnNotFound(col) if col == "missing"),
+                "unexpected error: {err:?}"
+            );
+
+            let err = row1.get::<ArrowI64, _>(99).unwrap_err();
+            assert!(
+                matches!(&err, RowError::ColumnNotFound(col) if col == "99"),
+                "unexpected error: {err:?}"
+            );
+
+            Ok(())
+        }
     }
 }

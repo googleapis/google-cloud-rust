@@ -1988,7 +1988,7 @@ mod tests {
         assert_eq!(
             database_client.active_channel_count(),
             4,
-            "Default static pool must have 4 active channels"
+            "Default dynamic pool must have 4 active channels"
         );
     }
 

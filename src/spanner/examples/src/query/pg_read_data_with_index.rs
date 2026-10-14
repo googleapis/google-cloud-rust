@@ -26,8 +26,8 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
     let mut result_set = transaction.execute_read(read_request).await?;
 
     while let Some(row) = result_set.next().await.transpose()? {
-        let album_id: i64 = row.get(0);
-        let album_title: String = row.get(1);
+        let album_id: i64 = row.get(0)?;
+        let album_title: String = row.get(1)?;
         println!("{album_id} {album_title}");
     }
 

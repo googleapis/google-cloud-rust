@@ -32,7 +32,7 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
             let mut result_set1 = transaction.execute_query(select_statement1).await?;
             let mut album2_budget = 0i64;
             if let Some(row) = result_set1.next().await.transpose()? {
-                album2_budget = row.get("MarketingBudget");
+                album2_budget = row.get("MarketingBudget")?;
             }
 
             let transfer = 200000i64;
@@ -49,7 +49,7 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
             let mut result_set2 = transaction.execute_query(select_statement2).await?;
             let mut album1_budget = 0i64;
             if let Some(row) = result_set2.next().await.transpose()? {
-                album1_budget = row.get("MarketingBudget");
+                album1_budget = row.get("MarketingBudget")?;
             }
 
             album1_budget += transfer;

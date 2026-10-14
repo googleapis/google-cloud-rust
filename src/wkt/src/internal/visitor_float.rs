@@ -34,7 +34,7 @@ macro_rules! impl_visitor {
     ($name: ident, $t: ty, $msg: literal) => {
         struct $name;
 
-        impl serde::de::Visitor<'_> for $name {
+        impl<'de> serde::de::Visitor<'de> for $name {
             type Value = $t;
 
             fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
@@ -79,13 +79,34 @@ macro_rules! impl_visitor {
             {
                 // This is trivial for `f64`. For `f32`, casting f64 to f32
                 // is guaranteed to produce the closest possible float
-                // value:
+                // value (or +/-infinity if out of range):
                 //     https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-                match value {
-                    _ if value < <$t>::MIN as f64 => Err(self::value_error(value, $msg)),
-                    _ if value > <$t>::MAX as f64 => Err(self::value_error(value, $msg)),
-                    _ => Ok(value as Self::Value),
+                let narrowed = value as Self::Value;
+                if narrowed.is_finite() {
+                    Ok(narrowed)
+                } else {
+                    Err(self::value_error(value, $msg))
                 }
+            }
+
+            // With serde_json's `arbitrary_precision` feature enabled,
+            // non-integer numbers are passed to `deserialize_any` as a
+            // single-entry map `{"$serde_json::private::Number": "..."}`.
+            fn visit_map<A>(self, map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                use serde::de::Deserialize as _;
+                let number = serde_json::Number::deserialize(
+                    serde::de::value::MapAccessDeserializer::new(map),
+                )?;
+                let value = number.as_f64().ok_or_else(|| {
+                    serde::de::Error::invalid_value(
+                        serde::de::Unexpected::Other(&number.to_string()),
+                        &$msg,
+                    )
+                })?;
+                self.visit_f64(value)
             }
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {

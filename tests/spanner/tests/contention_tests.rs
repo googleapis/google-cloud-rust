@@ -589,7 +589,7 @@ async fn dynamic_channel_pool_scales_up_and_reduces_contention() -> Result<()> {
             let transaction = client_clone.single_use().build();
             let mut result_set = transaction.execute_query(statement).await?;
             while let Some(row) = result_set.next().await.transpose()? {
-                let _: i64 = row.get(0_usize);
+                let _: i64 = row.get(0_usize)?;
             }
             Ok::<_, Error>(())
         });
@@ -626,7 +626,7 @@ async fn dynamic_channel_pool_scales_up_and_reduces_contention() -> Result<()> {
                     .build();
                 let mut result_set = transaction.execute_query(statement).await?;
                 while let Some(row) = result_set.next().await.transpose()? {
-                    let _: i64 = row.get(0_usize);
+                    let _: i64 = row.get(0_usize)?;
                 }
                 latencies.push(start_time.elapsed());
             }
@@ -671,7 +671,7 @@ async fn dynamic_channel_pool_scales_up_and_reduces_contention() -> Result<()> {
                     .build();
                 let mut result_set = transaction.execute_query(statement).await?;
                 while let Some(row) = result_set.next().await.transpose()? {
-                    let _: i64 = row.get(0_usize);
+                    let _: i64 = row.get(0_usize)?;
                 }
                 Ok::<_, Error>(start_time.elapsed())
             });
@@ -772,7 +772,7 @@ async fn static_channel_pool_remains_at_fixed_size_under_contention() -> Result<
                     .build();
                 let mut result_set = transaction.execute_query(statement).await?;
                 while let Some(row) = result_set.next().await.transpose()? {
-                    let _: i64 = row.get(0_usize);
+                    let _: i64 = row.get(0_usize)?;
                 }
                 let _ = start_time.elapsed();
             }
@@ -812,8 +812,8 @@ async fn warm_up_database_client(
             .build();
         let mut result_set = transaction.execute_query(statement).await?;
         while let Some(row) = result_set.next().await.transpose()? {
-            let _: i64 = row.get(0_usize);
-            let _: String = row.get(1_usize);
+            let _: i64 = row.get(0_usize)?;
+            let _: String = row.get(1_usize)?;
         }
     }
     contention_manager.reset_counters();
@@ -847,8 +847,8 @@ async fn run_database_client_point_select_workload(
                     .build();
                 let mut result_set = transaction.execute_query(statement).await?;
                 while let Some(row) = result_set.next().await.transpose()? {
-                    let _: i64 = row.get(0_usize);
-                    let _: String = row.get(1_usize);
+                    let _: i64 = row.get(0_usize)?;
+                    let _: String = row.get(1_usize)?;
                 }
                 worker_latencies.push(start_time.elapsed());
             }
@@ -1099,7 +1099,7 @@ async fn replication_dynamic_pool_4s_cooldown_bottleneck_under_short_burst() -> 
                     .build();
                 let mut result_set = transaction.execute_query(statement).await?;
                 while let Some(row) = result_set.next().await.transpose()? {
-                    let _: i64 = row.get(0_usize);
+                    let _: i64 = row.get(0_usize)?;
                 }
                 latencies.push(start_time.elapsed());
             }
@@ -1201,7 +1201,7 @@ async fn replication_dynamic_pool_fast_cooldown_recovers_under_burst() -> Result
                     .build();
                 let mut result_set = transaction.execute_query(statement).await?;
                 while let Some(row) = result_set.next().await.transpose()? {
-                    let _: i64 = row.get(0_usize);
+                    let _: i64 = row.get(0_usize)?;
                 }
                 latencies.push(start_time.elapsed());
             }
