@@ -936,7 +936,7 @@ impl PrincipalAccessBoundaryPolicies {
     /// }
     /// ```
     pub fn search_principal_access_boundary_policy_bindings(&self) -> super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
-    {
+{
         super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings::new(self.inner.clone())
     }
 

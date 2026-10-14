@@ -14881,6 +14881,12 @@ impl serde::ser::Serialize for super::SipTrunk {
         if !self.display_name.is_empty() {
             state.serialize_entry("displayName", &self.display_name)?;
         }
+        if !self.peer_hostnames.is_empty() {
+            state.serialize_entry("peerHostnames", &self.peer_hostnames)?;
+        }
+        if !wkt::internal::is_default(&self.google_root_cert_file) {
+            state.serialize_entry("googleRootCertFile", &self.google_root_cert_file)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -14938,6 +14944,102 @@ impl serde::ser::Serialize for super::connection::ErrorDetails {
         }
         if self.error_message.is_some() {
             state.serialize_entry("errorMessage", &self.error_message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SipHostname {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.peer_hostname.is_empty() {
+            state.serialize_entry("peerHostname", &self.peer_hostname)?;
+        }
+        if !wkt::internal::is_default(&self.enabled_sip_ping) {
+            state.serialize_entry("enabledSipPing", &self.enabled_sip_ping)?;
+        }
+        if self.ping_interval.is_some() {
+            state.serialize_entry("pingInterval", &self.ping_interval)?;
+        }
+        if !self.peer_socket_address.is_empty() {
+            state.serialize_entry("peerSocketAddress", &self.peer_socket_address)?;
+        }
+        if self.probe_details.is_some() {
+            state.serialize_entry("probeDetails", &self.probe_details)?;
+        }
+        if !wkt::internal::is_default(&self.connection_state) {
+            state.serialize_entry("connectionState", &self.connection_state)?;
+        }
+        if self.error_details.is_some() {
+            state.serialize_entry("errorDetails", &self.error_details)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::sip_hostname::HostnameErrorDetails {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.certificate_state) {
+            state.serialize_entry("certificateState", &self.certificate_state)?;
+        }
+        if !self.error_message.is_empty() {
+            state.serialize_entry("errorMessage", &self.error_message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ProbeDetails {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.options_latency.is_some() {
+            state.serialize_entry("optionsLatency", &self.options_latency)?;
+        }
+        if !wkt::internal::is_default(&self.probe_status) {
+            state.serialize_entry("probeStatus", &self.probe_status)?;
+        }
+        if self.init_time.is_some() {
+            state.serialize_entry("initTime", &self.init_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

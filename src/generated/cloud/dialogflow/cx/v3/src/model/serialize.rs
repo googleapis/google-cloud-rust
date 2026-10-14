@@ -4413,6 +4413,9 @@ impl serde::ser::Serialize for super::Fulfillment {
         if !self.tag.is_empty() {
             state.serialize_entry("tag", &self.tag)?;
         }
+        if !self.code_block_function.is_empty() {
+            state.serialize_entry("codeBlockFunction", &self.code_block_function)?;
+        }
         if !self.set_parameter_actions.is_empty() {
             state.serialize_entry("setParameterActions", &self.set_parameter_actions)?;
         }

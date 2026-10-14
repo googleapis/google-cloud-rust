@@ -948,7 +948,7 @@ pub mod security_center_management {
         /// This is a **required** field for requests.
         pub fn set_resource<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::simulate_security_health_analytics_custom_module_request::SimulatedResource>
-        {
+{
             self.0.request.resource = std::option::Option::Some(v.into());
             self
         }
@@ -958,7 +958,7 @@ pub mod security_center_management {
         /// This is a **required** field for requests.
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::simulate_security_health_analytics_custom_module_request::SimulatedResource>
-        {
+{
             self.0.request.resource = v.map(|x| x.into());
             self
         }

@@ -22155,7 +22155,7 @@ impl GoldengateOracleConnectionProperties {
     /// let x = GoldengateOracleConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_oracle_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -22636,7 +22636,7 @@ impl GoldengateGoldengateConnectionProperties {
     /// let x = GoldengateGoldengateConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_goldengate_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -24530,7 +24530,7 @@ impl GoldengateKafkaSchemaRegistryConnectionProperties {
     /// let x = GoldengateKafkaSchemaRegistryConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_kafka_schema_registry_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -24616,7 +24616,7 @@ impl GoldengateKafkaSchemaRegistryConnectionProperties {
     /// let x = GoldengateKafkaSchemaRegistryConnectionProperties::new().set_trust_store_password_options(Some(TrustStorePasswordOptions::TrustStorePassword("example".to_string())));
     /// ```
     pub fn set_trust_store_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_kafka_schema_registry_connection_properties::TrustStorePasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.trust_store_password_options = v.into();
         self
     }
@@ -24705,7 +24705,7 @@ impl GoldengateKafkaSchemaRegistryConnectionProperties {
     /// let x = GoldengateKafkaSchemaRegistryConnectionProperties::new().set_key_store_password_options(Some(KeyStorePasswordOptions::KeyStorePassword("example".to_string())));
     /// ```
     pub fn set_key_store_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_kafka_schema_registry_connection_properties::KeyStorePasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.key_store_password_options = v.into();
         self
     }
@@ -24794,7 +24794,7 @@ impl GoldengateKafkaSchemaRegistryConnectionProperties {
     /// let x = GoldengateKafkaSchemaRegistryConnectionProperties::new().set_ssl_key_password_options(Some(SslKeyPasswordOptions::SslKeyPassword("example".to_string())));
     /// ```
     pub fn set_ssl_key_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_kafka_schema_registry_connection_properties::SslKeyPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.ssl_key_password_options = v.into();
         self
     }
@@ -25643,7 +25643,7 @@ impl GoldengateAzureSynapseAnalyticsConnectionProperties {
     /// let x = GoldengateAzureSynapseAnalyticsConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_azure_synapse_analytics_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -25999,7 +25999,7 @@ impl GoldengatePostgresqlConnectionProperties {
     /// let x = GoldengatePostgresqlConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_postgresql_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -26570,7 +26570,7 @@ impl GoldengateMicrosoftSqlserverConnectionProperties {
     /// let x = GoldengateMicrosoftSqlserverConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_microsoft_sqlserver_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -27238,7 +27238,7 @@ impl GoldengateJavaMessageServiceConnectionProperties {
     /// let x = GoldengateJavaMessageServiceConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_java_message_service_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -27324,7 +27324,7 @@ impl GoldengateJavaMessageServiceConnectionProperties {
     /// let x = GoldengateJavaMessageServiceConnectionProperties::new().set_trust_store_password_options(Some(TrustStorePasswordOptions::TrustStorePassword("example".to_string())));
     /// ```
     pub fn set_trust_store_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_java_message_service_connection_properties::TrustStorePasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.trust_store_password_options = v.into();
         self
     }
@@ -27413,7 +27413,7 @@ impl GoldengateJavaMessageServiceConnectionProperties {
     /// let x = GoldengateJavaMessageServiceConnectionProperties::new().set_key_store_password_options(Some(KeyStorePasswordOptions::KeyStorePassword("example".to_string())));
     /// ```
     pub fn set_key_store_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_java_message_service_connection_properties::KeyStorePasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.key_store_password_options = v.into();
         self
     }
@@ -27502,7 +27502,7 @@ impl GoldengateJavaMessageServiceConnectionProperties {
     /// let x = GoldengateJavaMessageServiceConnectionProperties::new().set_ssl_key_password_options(Some(SslKeyPasswordOptions::SslKeyPassword("example".to_string())));
     /// ```
     pub fn set_ssl_key_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_java_message_service_connection_properties::SslKeyPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.ssl_key_password_options = v.into();
         self
     }
@@ -28072,7 +28072,7 @@ impl GoldengateMongodbConnectionProperties {
     /// let x = GoldengateMongodbConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_mongodb_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -28158,7 +28158,7 @@ impl GoldengateMongodbConnectionProperties {
     /// let x = GoldengateMongodbConnectionProperties::new().set_tls_certificate_key_file_password_options(Some(TlsCertificateKeyFilePasswordOptions::TlsCertificateKeyFilePassword("example".to_string())));
     /// ```
     pub fn set_tls_certificate_key_file_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_mongodb_connection_properties::TlsCertificateKeyFilePasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.tls_certificate_key_file_password_options = v.into();
         self
     }
@@ -28710,7 +28710,7 @@ impl GoldengateSnowflakeConnectionProperties {
     /// let x = GoldengateSnowflakeConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_snowflake_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -29021,7 +29021,7 @@ impl GoldengateAmazonRedshiftConnectionProperties {
     /// let x = GoldengateAmazonRedshiftConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_amazon_redshift_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -29252,7 +29252,7 @@ impl GoldengateElasticsearchConnectionProperties {
     /// let x = GoldengateElasticsearchConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_elasticsearch_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }
@@ -31102,7 +31102,7 @@ impl GoldengateDatabricksConnectionProperties {
     /// let x = GoldengateDatabricksConnectionProperties::new().set_connection_password_options(Some(ConnectionPasswordOptions::Password("example".to_string())));
     /// ```
     pub fn set_connection_password_options<T: std::convert::Into<std::option::Option<crate::model::goldengate_databricks_connection_properties::ConnectionPasswordOptions>>>(mut self, v: T) -> Self
-    {
+{
         self.connection_password_options = v.into();
         self
     }

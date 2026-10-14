@@ -19,8 +19,14 @@ use percent_encoding::{AsciiSet, utf8_percent_encode};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 
-/// Same encoding set as used in https://cloud.google.com/storage/docs/request-endpoints#encoding
-/// but for signed URLs, we do not encode '/'.
+/// The set of characters to percent-encode in signed URL object names.
+///
+/// Same as [`ENCODED_CHARS`], except `/` is left unencoded as it is the
+/// [resource path] separator. Encoding all other non-unreserved
+/// characters means URL parsers and HTTP clients send the path unchanged, so it
+/// matches the canonical URI that we sign.
+///
+/// [resource path]: https://cloud.google.com/storage/docs/authentication/canonical-requests#resource-path
 const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 
 /// Creates [Signed URLs].
@@ -645,6 +651,7 @@ mod tests {
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccount;
     use google_cloud_auth::signer::{Result as SignResult, Signer, SigningError, SigningProvider};
     use jiff::Timestamp;
+    use pretty_assertions::assert_eq;
     use serde::Deserialize;
     use std::collections::HashMap;
     use tokio::time::Duration;
@@ -800,12 +807,37 @@ mod tests {
         UrlStyle::PathStyle,
         "https://storage.googleapis.com/test-bucket"
     ; "list objects")]
+    #[test_case::test_case(
+        Some(r#"folder/"<>\^`{|}"#),
+        None,
+        UrlStyle::PathStyle,
+        "https://storage.googleapis.com/test-bucket/folder/%22%3C%3E%5C%5E%60%7B%7C%7D"
+    ; "escape special ascii")]
+    #[test_case::test_case(
+        Some(r"tenant-a/uploads\..\..\tenant-b/secret"),
+        None,
+        UrlStyle::PathStyle,
+        "https://storage.googleapis.com/test-bucket/tenant-a/uploads%5C..%5C..%5Ctenant-b/secret"
+    ; "escape backslash")]
+    #[test_case::test_case(
+        Some("folder/100%.txt"),
+        None,
+        UrlStyle::VirtualHostedStyle,
+        "https://test-bucket.storage.googleapis.com/folder/100%25.txt"
+    ; "escape percent")]
+    #[test_case::test_case(
+        Some("folder/AZaz09-._~"),
+        None,
+        UrlStyle::PathStyle,
+        "https://storage.googleapis.com/test-bucket/folder/AZaz09-._~"
+    ; "keep unreserved")]
     fn test_signed_url_canonical_url(
         object: Option<&str>,
         endpoint: Option<&str>,
         url_style: UrlStyle,
         expected_url: &str,
     ) -> TestResult {
+        // Arrange
         let builder = if let Some(object) = object {
             SignedUrlBuilder::for_object("projects/_/buckets/test-bucket", object)
         } else {
@@ -817,9 +849,30 @@ mod tests {
         });
 
         let endpoint = builder.resolve_endpoint_url()?;
+        // Act
         let url = endpoint.canonical_url(&builder.scope, builder.url_style);
+        // Assert
         assert_eq!(url, expected_url);
 
+        Ok(())
+    }
+
+    /// Parsing the signed URL must not change its path, i.e.
+    /// `url::Url` must not rewrite `\`, collapse dot segments, or re-encode
+    /// characters in the signed path.
+    #[test_case::test_case(r#"folder/"<>\^`{|}"#; "special ascii")]
+    #[test_case::test_case(r"tenant-a/uploads\..\..\tenant-b/secret"; "backslash dot segments")]
+    #[test_case::test_case("tenant-a/uploads/.%2e/%2e%2e/tenant-b/secret"; "percent encoded dot segments")]
+    fn signed_url_path_survives_url_parsing(object: &str) -> TestResult {
+        // Arrange
+        let builder = SignedUrlBuilder::for_object("projects/_/buckets/test-bucket", object);
+        let endpoint = builder.resolve_endpoint_url()?;
+        // Act
+        let canonical_url = endpoint.canonical_url(&builder.scope, builder.url_style);
+        let canonical_uri = builder.scope.canonical_uri(builder.url_style);
+        // Assert
+        let parsed = url::Url::parse(&canonical_url)?;
+        assert_eq!(parsed.path(), canonical_uri);
         Ok(())
     }
 

@@ -82,7 +82,7 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
         .execute_query("SELECT CURRENT_TIMESTAMP")
         .await?;
     let row: Row = rs.next().await.transpose()?.expect("current timestamp row");
-    let snapshot_time: Timestamp = row.try_get(0)?;
+    let snapshot_time: Timestamp = row.get(0)?;
 
     // 3. Setup Table 2 (Does NOT exist at snapshot time)
     let statement = format!(

@@ -2032,6 +2032,7 @@ impl std::fmt::Debug for super::Fulfillment {
         debug_struct.field("webhook", &self.webhook);
         debug_struct.field("return_partial_responses", &self.return_partial_responses);
         debug_struct.field("tag", &self.tag);
+        debug_struct.field("code_block_function", &self.code_block_function);
         debug_struct.field("set_parameter_actions", &self.set_parameter_actions);
         debug_struct.field("conditional_cases", &self.conditional_cases);
         debug_struct.field("advanced_settings", &self.advanced_settings);

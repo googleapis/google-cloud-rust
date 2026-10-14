@@ -16900,7 +16900,7 @@ pub mod upgrade_cluster_status {
         /// ```
         pub fn set_upgrade_stats<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats>
-        {
+{
             self.upgrade_stats = std::option::Option::Some(v.into());
             self
         }
@@ -16916,7 +16916,7 @@ pub mod upgrade_cluster_status {
         /// ```
         pub fn set_or_clear_upgrade_stats<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats>
-        {
+{
             self.upgrade_stats = v.map(|x| x.into());
             self
         }

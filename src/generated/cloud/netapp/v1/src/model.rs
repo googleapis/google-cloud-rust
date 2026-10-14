@@ -1109,10 +1109,9 @@ pub struct Backup {
     /// policy.
     pub backup_type: crate::model::backup::Type,
 
-    /// Volume full name of this backup belongs to.
-    /// Either source_volume or ontap_source should be provided.
-    /// Format:
-    /// `projects/{projects_id}/locations/{location}/volumes/{volume_id}`
+    /// The resource name of the volume that this backup belongs to. You must
+    /// provide either `source_volume` or `ontap_source`. Format:
+    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`
     pub source_volume: std::string::String,
 
     /// If specified, backup will be created from the given snapshot.
@@ -1147,6 +1146,10 @@ pub struct Backup {
 
     /// Output only. The time until which the backup is not deletable.
     pub enforced_retention_end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Represents source details for ONTAP backups.
+    /// Either source_volume or ontap_source should be provided.
+    pub ontap_source: std::option::Option<crate::model::OntapSource>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1427,6 +1430,39 @@ impl Backup {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.enforced_retention_end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ontap_source][crate::model::Backup::ontap_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// use google_cloud_netapp_v1::model::OntapSource;
+    /// let x = Backup::new().set_ontap_source(OntapSource::default()/* use setters */);
+    /// ```
+    pub fn set_ontap_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OntapSource>,
+    {
+        self.ontap_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ontap_source][crate::model::Backup::ontap_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// use google_cloud_netapp_v1::model::OntapSource;
+    /// let x = Backup::new().set_or_clear_ontap_source(Some(OntapSource::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_ontap_source(None::<OntapSource>);
+    /// ```
+    pub fn set_or_clear_ontap_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OntapSource>,
+    {
+        self.ontap_source = v.map(|x| x.into());
         self
     }
 }
@@ -2213,6 +2249,98 @@ impl UpdateBackupRequest {
 impl wkt::message::Message for UpdateBackupRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.netapp.v1.UpdateBackupRequest"
+    }
+}
+
+/// Represents ONTAP source details.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OntapSource {
+    /// Required. Name of the storage pool. This must be specified for creating
+    /// backups for ONTAP mode volumes. Format:
+    /// `projects/{projects_id}/locations/{location}/storagePools/{storage_pool_id}`
+    pub storage_pool: std::option::Option<std::string::String>,
+
+    /// Required. The UUID of the ONTAP source volume.
+    pub volume_uuid: std::string::String,
+
+    /// Optional. The UUID of the ONTAP source snapshot.
+    pub snapshot_uuid: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OntapSource {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [storage_pool][crate::model::OntapSource::storage_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::OntapSource;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = OntapSource::new().set_storage_pool(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
+    /// ```
+    pub fn set_storage_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.storage_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [storage_pool][crate::model::OntapSource::storage_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::OntapSource;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = OntapSource::new().set_or_clear_storage_pool(Some(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}")));
+    /// let x = OntapSource::new().set_or_clear_storage_pool(None::<String>);
+    /// ```
+    pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.storage_pool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [volume_uuid][crate::model::OntapSource::volume_uuid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::OntapSource;
+    /// let x = OntapSource::new().set_volume_uuid("example");
+    /// ```
+    pub fn set_volume_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.volume_uuid = v.into();
+        self
+    }
+
+    /// Sets the value of [snapshot_uuid][crate::model::OntapSource::snapshot_uuid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::OntapSource;
+    /// let x = OntapSource::new().set_snapshot_uuid("example");
+    /// ```
+    pub fn set_snapshot_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.snapshot_uuid = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for OntapSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.OntapSource"
     }
 }
 
@@ -3192,7 +3320,7 @@ pub struct BackupVault {
     /// Default is IN_REGION.
     pub backup_vault_type: crate::model::backup_vault::BackupVaultType,
 
-    /// Output only. Region in which the backup vault is created.
+    /// Optional. Region in which the backup vault is created.
     /// Format: `projects/{project_id}/locations/{location}`
     pub source_region: std::string::String,
 
@@ -4700,6 +4828,9 @@ pub struct LocationMetadata {
     /// Output only. Indicates if the location has ONTAP Proxy support.
     pub has_ontap_proxy: bool,
 
+    /// Output only. Indicates the flex performance tier of this location.
+    pub flex_performance_tier: crate::model::location_metadata::FlexPerformanceTier,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4775,11 +4906,160 @@ impl LocationMetadata {
         self.has_ontap_proxy = v.into();
         self
     }
+
+    /// Sets the value of [flex_performance_tier][crate::model::LocationMetadata::flex_performance_tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::LocationMetadata;
+    /// use google_cloud_netapp_v1::model::location_metadata::FlexPerformanceTier;
+    /// let x0 = LocationMetadata::new().set_flex_performance_tier(FlexPerformanceTier::Limited);
+    /// ```
+    pub fn set_flex_performance_tier<
+        T: std::convert::Into<crate::model::location_metadata::FlexPerformanceTier>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.flex_performance_tier = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for LocationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.netapp.v1.LocationMetadata"
+    }
+}
+
+/// Defines additional types related to [LocationMetadata].
+pub mod location_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The flex performance tier of this location.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FlexPerformanceTier {
+        /// Unspecified flex performance tier.
+        Unspecified,
+        /// Flex performance tier is limited.
+        Limited,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FlexPerformanceTier::value] or
+        /// [FlexPerformanceTier::name].
+        UnknownValue(flex_performance_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod flex_performance_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl FlexPerformanceTier {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Limited => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FLEX_PERFORMANCE_TIER_UNSPECIFIED"),
+                Self::Limited => std::option::Option::Some("LIMITED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for FlexPerformanceTier {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for FlexPerformanceTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for FlexPerformanceTier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Limited,
+                _ => Self::UnknownValue(flex_performance_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for FlexPerformanceTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FLEX_PERFORMANCE_TIER_UNSPECIFIED" => Self::Unspecified,
+                "LIMITED" => Self::Limited,
+                _ => Self::UnknownValue(flex_performance_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for FlexPerformanceTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Limited => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FlexPerformanceTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<FlexPerformanceTier>::new(
+                ".google.cloud.netapp.v1.LocationMetadata.FlexPerformanceTier",
+            ))
+        }
     }
 }
 
@@ -6362,7 +6642,7 @@ impl wkt::message::Message for VerifyKmsConfigResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KmsConfig {
-    /// Identifier. Name of the KmsConfig.
+    /// Identifier. Name of the `KmsConfig`.
     /// Format: `projects/{project}/locations/{location}/kmsConfigs/{kms_config}`
     pub name: std::string::String,
 
@@ -6777,7 +7057,7 @@ pub struct ExecuteOntapPostRequest {
     /// ```
     pub body: std::option::Option<wkt::Struct>,
 
-    /// Required. The resource path of the ONTAP resource.
+    /// Required. The path of the ONTAP resource.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/storagePools/{storage_pool_id}/ontap/{ontap_resource_path}`.
     /// For example:
@@ -12275,8 +12555,8 @@ pub struct StoragePool {
     pub r#type: std::option::Option<crate::model::StoragePoolType>,
 
     /// Optional. Mode of the storage pool. This field is used to control whether
-    /// the user can perform the ONTAP operations on the storage pool using the
-    /// GCNV ONTAP Mode APIs. If not specified during creation, it defaults to
+    /// the user can perform ONTAP operations on the storage pool using the GCNV
+    /// ONTAP Mode APIs. If not specified during creation, it defaults to
     /// `DEFAULT`.
     pub mode: std::option::Option<crate::model::Mode>,
 
@@ -13280,6 +13560,275 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListVolumesResp
     }
 }
 
+/// Message for requesting list of BackupConfigs in a StoragePool.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBackupConfigsRequest {
+    /// Required. The ONTAP StoragePool for which to retrieve backup configuration
+    /// information, in the format
+    /// `projects/{project}/locations/{location}/storagePools/{storage_pool}`.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return. The service may return
+    /// fewer than this value. The maximum value is 1000; values above 1000 will be
+    /// coerced to 1000. If unspecified or set to 0, a default of 50 will be used.
+    pub page_size: i32,
+
+    /// Optional. The next_page_token value to use if there are additional
+    /// results to retrieve for this list request.
+    pub page_token: std::string::String,
+
+    /// Optional. Sort results. Supported values are "volume_id" or ""
+    pub order_by: std::string::String,
+
+    /// Optional. The standard list filter.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupConfigsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBackupConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListBackupConfigsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = ListBackupConfigsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBackupConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListBackupConfigsRequest;
+    /// let x = ListBackupConfigsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBackupConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListBackupConfigsRequest;
+    /// let x = ListBackupConfigsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListBackupConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListBackupConfigsRequest;
+    /// let x = ListBackupConfigsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListBackupConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListBackupConfigsRequest;
+    /// let x = ListBackupConfigsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupConfigsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ListBackupConfigsRequest"
+    }
+}
+
+/// Message for response to listing BackupConfigs in an ONTAP StoragePool.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBackupConfigsResponse {
+    /// A list of backup configurations for volumes in the pool.
+    pub volume_backup_configs: std::vec::Vec<crate::model::VolumeBackupConfig>,
+
+    /// The token you can use to retrieve the next page of results. Not returned
+    /// if there are no more results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupConfigsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [volume_backup_configs][crate::model::ListBackupConfigsResponse::volume_backup_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListBackupConfigsResponse;
+    /// use google_cloud_netapp_v1::model::VolumeBackupConfig;
+    /// let x = ListBackupConfigsResponse::new()
+    ///     .set_volume_backup_configs([
+    ///         VolumeBackupConfig::default()/* use setters */,
+    ///         VolumeBackupConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_volume_backup_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::VolumeBackupConfig>,
+    {
+        use std::iter::Iterator;
+        self.volume_backup_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListBackupConfigsResponse;
+    /// let x = ListBackupConfigsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBackupConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListBackupConfigsResponse;
+    /// let x = ListBackupConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupConfigsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ListBackupConfigsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupConfigsResponse {
+    type PageItem = crate::model::VolumeBackupConfig;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.volume_backup_configs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Backup configuration for a volume in a pool.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VolumeBackupConfig {
+    /// Provides the Ontap UUID of the volume within the pool.
+    pub volume_uuid: std::string::String,
+
+    /// Backup configuration for the volume.
+    pub backup_config: std::option::Option<crate::model::BackupConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VolumeBackupConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [volume_uuid][crate::model::VolumeBackupConfig::volume_uuid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::VolumeBackupConfig;
+    /// let x = VolumeBackupConfig::new().set_volume_uuid("example");
+    /// ```
+    pub fn set_volume_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.volume_uuid = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_config][crate::model::VolumeBackupConfig::backup_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::VolumeBackupConfig;
+    /// use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = VolumeBackupConfig::new().set_backup_config(BackupConfig::default()/* use setters */);
+    /// ```
+    pub fn set_backup_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupConfig>,
+    {
+        self.backup_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_config][crate::model::VolumeBackupConfig::backup_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::VolumeBackupConfig;
+    /// use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = VolumeBackupConfig::new().set_or_clear_backup_config(Some(BackupConfig::default()/* use setters */));
+    /// let x = VolumeBackupConfig::new().set_or_clear_backup_config(None::<BackupConfig>);
+    /// ```
+    pub fn set_or_clear_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupConfig>,
+    {
+        self.backup_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for VolumeBackupConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.VolumeBackupConfig"
+    }
+}
+
 /// Message for getting a Volume
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -13613,6 +14162,158 @@ impl RevertVolumeRequest {
 impl wkt::message::Message for RevertVolumeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.netapp.v1.RevertVolumeRequest"
+    }
+}
+
+/// Request message for splitting a volume.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartSplitRequest {
+    /// Required. The full name of the clone volume to be split from its source.
+    /// Format: projects/{project_number}/locations/{location}/volumes/{volume_id}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartSplitRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StartSplitRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::StartSplitRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = StartSplitRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StartSplitRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.StartSplitRequest"
+    }
+}
+
+/// Request message for GetSplitStatus.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSplitStatusRequest {
+    /// Required. The full name of the volume.
+    /// Format: projects/{project_number}/locations/{location}/volumes/{volume_id}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSplitStatusRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSplitStatusRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::GetSplitStatusRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let volume_id = "volume_id";
+    /// let x = GetSplitStatusRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSplitStatusRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.GetSplitStatusRequest"
+    }
+}
+
+/// Message for SplitStatus.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SplitStatus {
+    /// Output only. The current state of the clone split operation.
+    pub split_state: crate::model::SplitState,
+
+    /// Output only. Human-readable details about the current state. Mostly used
+    /// for displaying error messages during split failure Examples: "Split in
+    /// progress", "Error: insufficient capacity".
+    pub state_details: std::string::String,
+
+    /// Output only. The estimated progress percentage of the split operation
+    /// (0-100). This is meaningful primarily when split_state is IN_PROGRESS.
+    pub progress_percent: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SplitStatus {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [split_state][crate::model::SplitStatus::split_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::SplitStatus;
+    /// use google_cloud_netapp_v1::model::SplitState;
+    /// let x0 = SplitStatus::new().set_split_state(SplitState::NotSplitting);
+    /// let x1 = SplitStatus::new().set_split_state(SplitState::InProgress);
+    /// let x2 = SplitStatus::new().set_split_state(SplitState::Failed);
+    /// ```
+    pub fn set_split_state<T: std::convert::Into<crate::model::SplitState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.split_state = v.into();
+        self
+    }
+
+    /// Sets the value of [state_details][crate::model::SplitStatus::state_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::SplitStatus;
+    /// let x = SplitStatus::new().set_state_details("example");
+    /// ```
+    pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state_details = v.into();
+        self
+    }
+
+    /// Sets the value of [progress_percent][crate::model::SplitStatus::progress_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::SplitStatus;
+    /// let x = SplitStatus::new().set_progress_percent(42);
+    /// ```
+    pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.progress_percent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SplitStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.SplitStatus"
     }
 }
 
@@ -14649,6 +15350,9 @@ pub mod volume {
         /// based on size of source snapshot.
         pub shared_space_gib: i64,
 
+        /// Output only. The current state of the clone split operation.
+        pub split_state: crate::model::SplitState,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -14704,6 +15408,24 @@ pub mod volume {
         /// ```
         pub fn set_shared_space_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.shared_space_gib = v.into();
+            self
+        }
+
+        /// Sets the value of [split_state][crate::model::volume::CloneDetails::split_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_netapp_v1::model::volume::CloneDetails;
+        /// use google_cloud_netapp_v1::model::SplitState;
+        /// let x0 = CloneDetails::new().set_split_state(SplitState::NotSplitting);
+        /// let x1 = CloneDetails::new().set_split_state(SplitState::InProgress);
+        /// let x2 = CloneDetails::new().set_split_state(SplitState::Failed);
+        /// ```
+        pub fn set_split_state<T: std::convert::Into<crate::model::SplitState>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.split_state = v.into();
             self
         }
     }
@@ -14899,7 +15621,7 @@ pub mod volume {
 }
 
 /// Configuration for a Large Capacity Volume. A Large Capacity Volume
-/// supports sizes ranging from 4.8 TiB to 20 PiB, it is composed of multiple
+/// supports sizes ranging from 4.8 TiB to 20 PiB; it is composed of multiple
 /// internal constituents, and must be created in a large capacity pool.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -16577,7 +17299,7 @@ pub mod restore_parameters {
         SourceSnapshot(std::string::String),
         /// Full name of the backup resource.
         /// Format for standard backup:
-        /// projects/{project}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}
+        /// projects/{project}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}.
         /// Format for BackupDR backup:
         /// projects/{project}/locations/{location}/backupVaults/{backup_vault}/dataSources/{data_source}/backups/{backup}
         SourceBackup(std::string::String),
@@ -18476,6 +19198,329 @@ impl wkt::message::Message for RestoreBackupFilesResponse {
     }
 }
 
+/// Request message for `RestoreVolume` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreVolumeRequest {
+    /// Required. The resource name of the ONTAP mode storage pool, in the format
+    /// of `projects/{project}/locations/{location}/storagePools/{storage_pool}`
+    pub name: std::string::String,
+
+    /// The source of the restore operation.
+    pub source: std::option::Option<crate::model::restore_volume_request::Source>,
+
+    /// The target of the restore operation.
+    pub target: std::option::Option<crate::model::restore_volume_request::Target>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreVolumeRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestoreVolumeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreVolumeRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = RestoreVolumeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::RestoreVolumeRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreVolumeRequest;
+    /// use google_cloud_netapp_v1::model::BackupSource;
+    /// let x = RestoreVolumeRequest::new().set_source(Some(
+    ///     google_cloud_netapp_v1::model::restore_volume_request::Source::BackupSource(BackupSource::default().into())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::restore_volume_request::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::RestoreVolumeRequest::source]
+    /// if it holds a `BackupSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn backup_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::restore_volume_request::Source::BackupSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::RestoreVolumeRequest::source]
+    /// to hold a `BackupSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreVolumeRequest;
+    /// use google_cloud_netapp_v1::model::BackupSource;
+    /// let x = RestoreVolumeRequest::new().set_backup_source(BackupSource::default()/* use setters */);
+    /// assert!(x.backup_source().is_some());
+    /// ```
+    pub fn set_backup_source<T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::restore_volume_request::Source::BackupSource(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [target][crate::model::RestoreVolumeRequest::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreVolumeRequest;
+    /// use google_cloud_netapp_v1::model::OntapVolumeTarget;
+    /// let x = RestoreVolumeRequest::new().set_target(Some(
+    ///     google_cloud_netapp_v1::model::restore_volume_request::Target::OntapVolumeTarget(OntapVolumeTarget::default().into())));
+    /// ```
+    pub fn set_target<
+        T: std::convert::Into<std::option::Option<crate::model::restore_volume_request::Target>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// The value of [target][crate::model::RestoreVolumeRequest::target]
+    /// if it holds a `OntapVolumeTarget`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ontap_volume_target(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OntapVolumeTarget>> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::restore_volume_request::Target::OntapVolumeTarget(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target][crate::model::RestoreVolumeRequest::target]
+    /// to hold a `OntapVolumeTarget`.
+    ///
+    /// Note that all the setters affecting `target` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreVolumeRequest;
+    /// use google_cloud_netapp_v1::model::OntapVolumeTarget;
+    /// let x = RestoreVolumeRequest::new().set_ontap_volume_target(OntapVolumeTarget::default()/* use setters */);
+    /// assert!(x.ontap_volume_target().is_some());
+    /// ```
+    pub fn set_ontap_volume_target<
+        T: std::convert::Into<std::boxed::Box<crate::model::OntapVolumeTarget>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target = std::option::Option::Some(
+            crate::model::restore_volume_request::Target::OntapVolumeTarget(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreVolumeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.RestoreVolumeRequest"
+    }
+}
+
+/// Defines additional types related to [RestoreVolumeRequest].
+pub mod restore_volume_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The source of the restore operation.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// The backup source of the restore operation.
+        BackupSource(std::boxed::Box<crate::model::BackupSource>),
+    }
+
+    /// The target of the restore operation.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Target {
+        /// The ONTAP volume target of the restore operation.
+        OntapVolumeTarget(std::boxed::Box<crate::model::OntapVolumeTarget>),
+    }
+}
+
+/// Represents the backup source of the restore operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupSource {
+    /// Required. The backup resource name.
+    pub backup: std::string::String,
+
+    /// Optional. List of files to be restored in the form of their absolute path
+    /// as in source volume. If provided, only these files will be restored. If not
+    /// provided, the entire backup will be restored (Full Backup Restore)
+    pub file_list: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupSource {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup][crate::model::BackupSource::backup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BackupSource;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_vault_id = "backup_vault_id";
+    /// # let backup_id = "backup_id";
+    /// let x = BackupSource::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"));
+    /// ```
+    pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup = v.into();
+        self
+    }
+
+    /// Sets the value of [file_list][crate::model::BackupSource::file_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BackupSource;
+    /// let x = BackupSource::new().set_file_list(["a", "b", "c"]);
+    /// ```
+    pub fn set_file_list<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.file_list = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.BackupSource"
+    }
+}
+
+/// Represents the ONTAP volume target of the restore operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OntapVolumeTarget {
+    /// Required. The UUID of the ONTAP volume to restore to.
+    pub volume_uuid: std::string::String,
+
+    /// Optional. Absolute directory path in the destination volume.
+    pub restore_destination_path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OntapVolumeTarget {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [volume_uuid][crate::model::OntapVolumeTarget::volume_uuid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::OntapVolumeTarget;
+    /// let x = OntapVolumeTarget::new().set_volume_uuid("example");
+    /// ```
+    pub fn set_volume_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.volume_uuid = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_destination_path][crate::model::OntapVolumeTarget::restore_destination_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::OntapVolumeTarget;
+    /// let x = OntapVolumeTarget::new().set_restore_destination_path("example");
+    /// ```
+    pub fn set_restore_destination_path<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_destination_path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for OntapVolumeTarget {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.OntapVolumeTarget"
+    }
+}
+
+/// Response message for `RestoreVolume` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreVolumeResponse {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreVolumeResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for RestoreVolumeResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.RestoreVolumeResponse"
+    }
+}
+
 /// EstablishVolumePeeringRequest establishes cluster and svm peerings between
 /// the source and destination clusters.
 #[derive(Clone, Default, PartialEq)]
@@ -18493,7 +19538,7 @@ pub struct EstablishVolumePeeringRequest {
     /// destination vserver svm.
     pub peer_svm_name: std::string::String,
 
-    /// Optional. List of IPv4 ip addresses to be used for peering.
+    /// Optional. List of IPv4 IP addresses to be used for peering.
     pub peer_ip_addresses: std::vec::Vec<std::string::String>,
 
     /// Required. Name of the user's local source volume to be peered with the
@@ -18587,6 +19632,206 @@ impl EstablishVolumePeeringRequest {
 impl wkt::message::Message for EstablishVolumePeeringRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.netapp.v1.EstablishVolumePeeringRequest"
+    }
+}
+
+/// Request message for UpdateBackupConfig
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateBackupConfigRequest {
+    /// Required. The resource name of the StoragePool, in the format:
+    /// projects/{projectNumber}/locations/{locationId}/storagePools/{poolId}
+    pub name: std::string::String,
+
+    /// Required. The UUID of the ONTAP-mode volume.
+    pub volume_uuid: std::string::String,
+
+    /// Required. Backup configuration to apply.
+    pub backup_config: std::option::Option<crate::model::BackupConfig>,
+
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// BackupConfig for the Volume.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateBackupConfigRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::UpdateBackupConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let storage_pool_id = "storage_pool_id";
+    /// let x = UpdateBackupConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [volume_uuid][crate::model::UpdateBackupConfigRequest::volume_uuid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigRequest;
+    /// let x = UpdateBackupConfigRequest::new().set_volume_uuid("example");
+    /// ```
+    pub fn set_volume_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.volume_uuid = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_config][crate::model::UpdateBackupConfigRequest::backup_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigRequest;
+    /// use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = UpdateBackupConfigRequest::new().set_backup_config(BackupConfig::default()/* use setters */);
+    /// ```
+    pub fn set_backup_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupConfig>,
+    {
+        self.backup_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_config][crate::model::UpdateBackupConfigRequest::backup_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigRequest;
+    /// use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = UpdateBackupConfigRequest::new().set_or_clear_backup_config(Some(BackupConfig::default()/* use setters */));
+    /// let x = UpdateBackupConfigRequest::new().set_or_clear_backup_config(None::<BackupConfig>);
+    /// ```
+    pub fn set_or_clear_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupConfig>,
+    {
+        self.backup_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateBackupConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBackupConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateBackupConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.UpdateBackupConfigRequest"
+    }
+}
+
+/// Response message for UpdateBackupConfig
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateBackupConfigResponse {
+    /// The UUID of the ONTAP-mode volume.
+    pub volume_uuid: std::string::String,
+
+    /// The updated Backup configuration for the volume.
+    pub backup_config: std::option::Option<crate::model::BackupConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateBackupConfigResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [volume_uuid][crate::model::UpdateBackupConfigResponse::volume_uuid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigResponse;
+    /// let x = UpdateBackupConfigResponse::new().set_volume_uuid("example");
+    /// ```
+    pub fn set_volume_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.volume_uuid = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_config][crate::model::UpdateBackupConfigResponse::backup_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigResponse;
+    /// use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = UpdateBackupConfigResponse::new().set_backup_config(BackupConfig::default()/* use setters */);
+    /// ```
+    pub fn set_backup_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupConfig>,
+    {
+        self.backup_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_config][crate::model::UpdateBackupConfigResponse::backup_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateBackupConfigResponse;
+    /// use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = UpdateBackupConfigResponse::new().set_or_clear_backup_config(Some(BackupConfig::default()/* use setters */));
+    /// let x = UpdateBackupConfigResponse::new().set_or_clear_backup_config(None::<BackupConfig>);
+    /// ```
+    pub fn set_or_clear_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupConfig>,
+    {
+        self.backup_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateBackupConfigResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.UpdateBackupConfigResponse"
     }
 }
 
@@ -19968,6 +21213,8 @@ pub enum Protocols {
     Smb,
     /// ISCSI protocol
     Iscsi,
+    /// NVMe protocol
+    Nvme,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [Protocols::value] or
@@ -19995,6 +21242,7 @@ impl Protocols {
             Self::Nfsv4 => std::option::Option::Some(2),
             Self::Smb => std::option::Option::Some(3),
             Self::Iscsi => std::option::Option::Some(4),
+            Self::Nvme => std::option::Option::Some(5),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -20010,6 +21258,7 @@ impl Protocols {
             Self::Nfsv4 => std::option::Option::Some("NFSV4"),
             Self::Smb => std::option::Option::Some("SMB"),
             Self::Iscsi => std::option::Option::Some("ISCSI"),
+            Self::Nvme => std::option::Option::Some("NVME"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -20036,6 +21285,7 @@ impl std::convert::From<i32> for Protocols {
             2 => Self::Nfsv4,
             3 => Self::Smb,
             4 => Self::Iscsi,
+            5 => Self::Nvme,
             _ => Self::UnknownValue(protocols::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -20052,6 +21302,7 @@ impl std::convert::From<&str> for Protocols {
             "NFSV4" => Self::Nfsv4,
             "SMB" => Self::Smb,
             "ISCSI" => Self::Iscsi,
+            "NVME" => Self::Nvme,
             _ => Self::UnknownValue(protocols::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -20070,6 +21321,7 @@ impl serde::ser::Serialize for Protocols {
             Self::Nfsv4 => serializer.serialize_i32(2),
             Self::Smb => serializer.serialize_i32(3),
             Self::Iscsi => serializer.serialize_i32(4),
+            Self::Nvme => serializer.serialize_i32(5),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -20403,6 +21655,145 @@ impl<'de> serde::de::Deserialize<'de> for SMBSettings {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SMBSettings>::new(
             ".google.cloud.netapp.v1.SMBSettings",
+        ))
+    }
+}
+
+/// Enum to indicate the state of the clone in relation to the split process.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SplitState {
+    /// State is not specified.
+    Unspecified,
+    /// The volume is a thin clone, sharing blocks with its source.
+    NotSplitting,
+    /// A split operation is currently active and in progress.
+    InProgress,
+    /// The attempt to split the volume failed.
+    Failed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SplitState::value] or
+    /// [SplitState::name].
+    UnknownValue(split_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod split_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SplitState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::NotSplitting => std::option::Option::Some(1),
+            Self::InProgress => std::option::Option::Some(2),
+            Self::Failed => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SPLIT_STATE_UNSPECIFIED"),
+            Self::NotSplitting => std::option::Option::Some("SPLIT_STATE_NOT_SPLITTING"),
+            Self::InProgress => std::option::Option::Some("SPLIT_STATE_IN_PROGRESS"),
+            Self::Failed => std::option::Option::Some("SPLIT_STATE_FAILED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for SplitState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SplitState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SplitState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::NotSplitting,
+            2 => Self::InProgress,
+            3 => Self::Failed,
+            _ => Self::UnknownValue(split_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SplitState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SPLIT_STATE_UNSPECIFIED" => Self::Unspecified,
+            "SPLIT_STATE_NOT_SPLITTING" => Self::NotSplitting,
+            "SPLIT_STATE_IN_PROGRESS" => Self::InProgress,
+            "SPLIT_STATE_FAILED" => Self::Failed,
+            _ => Self::UnknownValue(split_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SplitState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::NotSplitting => serializer.serialize_i32(1),
+            Self::InProgress => serializer.serialize_i32(2),
+            Self::Failed => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SplitState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SplitState>::new(
+            ".google.cloud.netapp.v1.SplitState",
         ))
     }
 }

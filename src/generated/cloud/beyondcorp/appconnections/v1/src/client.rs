@@ -56,6 +56,9 @@
 /// The AppConnectionsService service provides methods to manage
 /// (create/read/update/delete) BeyondCorp AppConnections.
 ///
+/// Deprecated: App Connector is deprecated and creation of new App Connector
+/// resources is no longer permitted. Use Security Gateway instead.
+///
 /// # Configuration
 ///
 /// To configure `AppConnectionsService` use the `with_*` methods in the type returned
@@ -83,6 +86,7 @@
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AppConnectionsService {
     inner: std::sync::Arc<dyn super::stub::dynamic::AppConnectionsService>,
 }
@@ -161,6 +165,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn list_app_connections(
         &self,
     ) -> super::builder::app_connections_service::ListAppConnections {
@@ -183,6 +188,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn get_app_connection(&self) -> super::builder::app_connections_service::GetAppConnection {
         super::builder::app_connections_service::GetAppConnection::new(self.inner.clone())
     }
@@ -218,6 +224,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn create_app_connection(
         &self,
     ) -> super::builder::app_connections_service::CreateAppConnection {
@@ -257,6 +264,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn update_app_connection(
         &self,
     ) -> super::builder::app_connections_service::UpdateAppConnection {
@@ -289,6 +297,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn delete_app_connection(
         &self,
     ) -> super::builder::app_connections_service::DeleteAppConnection {
@@ -316,6 +325,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
+    #[deprecated]
     pub fn resolve_app_connections(
         &self,
     ) -> super::builder::app_connections_service::ResolveAppConnections {
@@ -323,6 +333,23 @@ impl AppConnectionsService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

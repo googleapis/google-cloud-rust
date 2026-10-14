@@ -54,12 +54,14 @@ pub(crate) struct ActiveRequestGuard {
 
 impl Drop for ActiveRequestGuard {
     fn drop(&mut self) {
-        let _ =
-            self.inner
-                .active_requests
-                .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |val| {
-                    Some(val.saturating_sub(1))
-                });
+        #[allow(deprecated)]
+        let _ = self
+            .inner
+            .active_requests
+            // TODO(#7108): use `try_update` once the MSRV is bumped to 1.95.
+            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |val| {
+                Some(val.saturating_sub(1))
+            });
     }
 }
 
@@ -152,12 +154,14 @@ impl ServerConnection {
 
     /// Decrements the active inflight request count for this connection without underflow.
     pub(crate) fn decrement_active_requests(&self) {
-        let _ =
-            self.inner
-                .active_requests
-                .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |val| {
-                    Some(val.saturating_sub(1))
-                });
+        #[allow(deprecated)]
+        let _ = self
+            .inner
+            .active_requests
+            // TODO(#7108): use `try_update` once the MSRV is bumped to 1.95.
+            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |val| {
+                Some(val.saturating_sub(1))
+            });
     }
 }
 

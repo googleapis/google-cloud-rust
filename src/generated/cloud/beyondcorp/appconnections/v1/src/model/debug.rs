@@ -152,6 +152,8 @@ impl std::fmt::Debug for super::AppConnection {
         debug_struct.field("connectors", &self.connectors);
         debug_struct.field("state", &self.state);
         debug_struct.field("gateway", &self.gateway);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -178,6 +180,7 @@ impl std::fmt::Debug for super::app_connection::Gateway {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("ingress_port", &self.ingress_port);
         debug_struct.field("app_gateway", &self.app_gateway);
+        debug_struct.field("l7psc", &self.l7psc);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

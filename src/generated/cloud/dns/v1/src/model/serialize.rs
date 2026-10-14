@@ -255,6 +255,25 @@ impl serde::ser::Serialize for super::DnsKeysListResponse {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::Empty {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::Expr {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -546,6 +565,34 @@ impl serde::ser::Serialize for super::GoogleIamV1TestIamPermissionsResponse {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GoogleLongrunningListOperationsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.operations.is_empty() {
+            state.serialize_entry("operations", &self.operations)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::GoogleLongrunningOperation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -569,6 +616,93 @@ impl serde::ser::Serialize for super::GoogleLongrunningOperation {
         }
         if self.response.is_some() {
             state.serialize_entry("response", &self.response)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListLocationsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.locations.is_empty() {
+            state.serialize_entry("locations", &self.locations)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListOutboundEndpointsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.outbound_endpoints.is_empty() {
+            state.serialize_entry("outboundEndpoints", &self.outbound_endpoints)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Location {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.display_name.is_some() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.location_id.is_some() {
+            state.serialize_entry("locationId", &self.location_id)?;
+        }
+        if self.metadata.is_some() {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -729,6 +863,9 @@ impl serde::ser::Serialize for super::ManagedZoneForwardingConfig {
         if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
+        if !self.outbound_endpoints.is_empty() {
+            state.serialize_entry("outboundEndpoints", &self.outbound_endpoints)?;
+        }
         if !self.target_name_servers.is_empty() {
             state.serialize_entry("targetNameServers", &self.target_name_servers)?;
         }
@@ -765,6 +902,31 @@ impl serde::ser::Serialize for super::ManagedZoneForwardingConfigNameServerTarge
         }
         if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ManagedZoneForwardingConfigOutboundEndpoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1131,6 +1293,95 @@ impl serde::ser::Serialize for super::OperationManagedZoneContext {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::OperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.api_version.is_some() {
+            state.serialize_entry("apiVersion", &self.api_version)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if self.requested_cancellation.is_some() {
+            state.serialize_entry("requestedCancellation", &self.requested_cancellation)?;
+        }
+        if self.status_message.is_some() {
+            state.serialize_entry("statusMessage", &self.status_message)?;
+        }
+        if self.target.is_some() {
+            state.serialize_entry("target", &self.target)?;
+        }
+        if self.verb.is_some() {
+            state.serialize_entry("verb", &self.verb)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::OutboundEndpoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.annotations.is_empty() {
+            state.serialize_entry("annotations", &self.annotations)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.endpoint_ip.is_some() {
+            state.serialize_entry("endpointIp", &self.endpoint_ip)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.network.is_some() {
+            state.serialize_entry("network", &self.network)?;
+        }
+        if self.subnetwork.is_some() {
+            state.serialize_entry("subnetwork", &self.subnetwork)?;
+        }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::PoliciesListResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1275,8 +1526,36 @@ impl serde::ser::Serialize for super::PolicyAlternativeNameServerConfig {
         if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
+        if !self.outbound_endpoints.is_empty() {
+            state.serialize_entry("outboundEndpoints", &self.outbound_endpoints)?;
+        }
         if !self.target_name_servers.is_empty() {
             state.serialize_entry("targetNameServers", &self.target_name_servers)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PolicyAlternativeNameServerConfigOutboundEndpoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1661,6 +1940,40 @@ impl serde::ser::Serialize for super::Quota {
             state.serialize_entry(
                 "networksPerResponsePolicy",
                 &__With(&self.networks_per_response_policy),
+            )?;
+        }
+        if self.outbound_endpoints_per_managed_zone.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "outboundEndpointsPerManagedZone",
+                &__With(&self.outbound_endpoints_per_managed_zone),
+            )?;
+        }
+        if self.outbound_endpoints_per_policy.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "outboundEndpointsPerPolicy",
+                &__With(&self.outbound_endpoints_per_policy),
             )?;
         }
         if self.peering_zones_per_target_network.is_some() {

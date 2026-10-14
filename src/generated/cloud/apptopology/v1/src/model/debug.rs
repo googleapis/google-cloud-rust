@@ -334,6 +334,36 @@ impl std::fmt::Debug for super::GetSchemaRequest {
     }
 }
 
+impl std::fmt::Debug for super::ExploreSchemaRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExploreSchemaRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("start_labels", &self.start_labels);
+        debug_struct.field("depth", &self.depth);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExploreSchemaResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExploreSchemaResponse");
+        debug_struct.field("node_types", &self.node_types);
+        debug_struct.field("edge_types", &self.edge_types);
+        debug_struct.field("label_properties", &self.label_properties);
+        debug_struct.field("edge_rules", &self.edge_rules);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetDomainRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDomainRequest");

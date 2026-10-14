@@ -23,7 +23,7 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
 
     println!("Query results:");
     while let Some(row) = result_set.next().await.transpose()? {
-        let value: i64 = row.get(0);
+        let value: i64 = row.get(0)?;
         println!("{value}");
     }
 

@@ -93,6 +93,17 @@ pub trait AppConnectorsService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::AppConnectorsService::resolve_instance_config].
+    fn resolve_instance_config(
+        &self,
+        _req: crate::model::ResolveInstanceConfigRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ResolveInstanceConfigResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::AppConnectorsService::report_status].
     fn report_status(
         &self,

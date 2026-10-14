@@ -22312,7 +22312,7 @@ pub mod data_profile_result {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::data_profile_result::profile::field::profile_info::TopNValue>
-                {
+{
                     use std::iter::Iterator;
                     self.top_n_values = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -22331,7 +22331,7 @@ pub mod data_profile_result {
                 ///     google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::FieldInfo::StringProfile(StringFieldInfo::default().into())));
                 /// ```
                 pub fn set_field_info<T: std::convert::Into<std::option::Option<crate::model::data_profile_result::profile::field::profile_info::FieldInfo>>>(mut self, v: T) -> Self
-                {
+{
                     self.field_info = v.into();
                     self
                 }
@@ -22871,7 +22871,7 @@ pub mod data_profile_result {
         /// ```
         pub fn set_bigquery_export_result<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::data_profile_result::post_scan_actions_result::BigQueryExportResult>
-        {
+{
             self.bigquery_export_result = std::option::Option::Some(v.into());
             self
         }
@@ -22887,7 +22887,7 @@ pub mod data_profile_result {
         /// ```
         pub fn set_or_clear_bigquery_export_result<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::data_profile_result::post_scan_actions_result::BigQueryExportResult>
-        {
+{
             self.bigquery_export_result = v.map(|x| x.into());
             self
         }
@@ -24113,7 +24113,7 @@ pub mod data_quality_result {
         /// ```
         pub fn set_bigquery_export_result<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::data_quality_result::post_scan_actions_result::BigQueryExportResult>
-        {
+{
             self.bigquery_export_result = std::option::Option::Some(v.into());
             self
         }
@@ -24129,7 +24129,7 @@ pub mod data_quality_result {
         /// ```
         pub fn set_or_clear_bigquery_export_result<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::data_quality_result::post_scan_actions_result::BigQueryExportResult>
-        {
+{
             self.bigquery_export_result = v.map(|x| x.into());
             self
         }
@@ -26585,7 +26585,7 @@ pub mod data_quality_rule {
             ///     google_cloud_dataplex_v1::model::data_quality_rule::rule_source::rule_path_element::SourceType::EntrySource(EntrySource::default().into())));
             /// ```
             pub fn set_source_type<T: std::convert::Into<std::option::Option<crate::model::data_quality_rule::rule_source::rule_path_element::SourceType>>>(mut self, v: T) -> Self
-            {
+{
                 self.source_type = v.into();
                 self
             }

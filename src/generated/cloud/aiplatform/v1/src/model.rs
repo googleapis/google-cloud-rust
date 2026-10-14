@@ -7118,7 +7118,7 @@ pub mod generation_config {
             /// ```
             pub fn set_model_routing_preference<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::generation_config::routing_config::auto_routing_mode::ModelRoutingPreference>
-            {
+{
                 self.model_routing_preference = std::option::Option::Some(v.into());
                 self
             }
@@ -7136,7 +7136,7 @@ pub mod generation_config {
             /// ```
             pub fn set_or_clear_model_routing_preference<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::generation_config::routing_config::auto_routing_mode::ModelRoutingPreference>
-            {
+{
                 self.model_routing_preference = v.map(|x| x.into());
                 self
             }
@@ -54091,7 +54091,7 @@ pub mod fetch_feature_values_response {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::fetch_feature_values_response::feature_name_value_pair_list::FeatureNameValuePair>
-        {
+{
             use std::iter::Iterator;
             self.features = v.into_iter().map(|i| i.into()).collect();
             self
@@ -54158,7 +54158,7 @@ pub mod fetch_feature_values_response {
             ///     google_cloud_aiplatform_v1::model::fetch_feature_values_response::feature_name_value_pair_list::feature_name_value_pair::Data::Value(FeatureValue::default().into())));
             /// ```
             pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::fetch_feature_values_response::feature_name_value_pair_list::feature_name_value_pair::Data>>>(mut self, v: T) -> Self
-            {
+{
                 self.data = v.into();
                 self
             }
@@ -55567,7 +55567,7 @@ pub mod feature_view_direct_write_request {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::feature_view_direct_write_request::data_key_and_feature_values::Feature>
-        {
+{
             use std::iter::Iterator;
             self.features = v.into_iter().map(|i| i.into()).collect();
             self
@@ -55634,7 +55634,7 @@ pub mod feature_view_direct_write_request {
             ///     google_cloud_aiplatform_v1::model::feature_view_direct_write_request::data_key_and_feature_values::feature::DataOneof::Value(FeatureValue::default().into())));
             /// ```
             pub fn set_data_oneof<T: std::convert::Into<std::option::Option<crate::model::feature_view_direct_write_request::data_key_and_feature_values::feature::DataOneof>>>(mut self, v: T) -> Self
-            {
+{
                 self.data_oneof = v.into();
                 self
             }
@@ -79112,7 +79112,7 @@ impl SearchModelDeploymentMonitoringStatsAnomaliesRequest {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<crate::model::search_model_deployment_monitoring_stats_anomalies_request::StatsAnomaliesObjective>
-    {
+{
         use std::iter::Iterator;
         self.objectives = v.into_iter().map(|i| i.into()).collect();
         self
@@ -87137,7 +87137,7 @@ pub mod migratable_resource {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::migratable_resource::data_labeling_dataset::DataLabelingAnnotatedDataset>
-        {
+{
             use std::iter::Iterator;
             self.data_labeling_annotated_datasets = v.into_iter().map(|i| i.into()).collect();
             self
@@ -88027,7 +88027,7 @@ pub mod migrate_resource_request {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::migrate_resource_request::migrate_data_labeling_dataset_config::MigrateDataLabelingAnnotatedDatasetConfig>
-        {
+{
             use std::iter::Iterator;
             self.migrate_data_labeling_annotated_dataset_configs =
                 v.into_iter().map(|i| i.into()).collect();
@@ -88524,7 +88524,7 @@ pub mod batch_migrate_resources_operation_metadata {
         /// let x = PartialResult::new().set_result(Some(Result::Model("example".to_string())));
         /// ```
         pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::batch_migrate_resources_operation_metadata::partial_result::Result>>>(mut self, v: T) -> Self
-        {
+{
             self.result = v.into();
             self
         }
@@ -95630,7 +95630,7 @@ pub mod model_evaluation_slice {
                 ///     google_cloud_aiplatform_v1::model::model_evaluation_slice::slice::slice_spec::slice_config::Kind::Value(Value::default().into())));
                 /// ```
                 pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::model_evaluation_slice::slice::slice_spec::slice_config::Kind>>>(mut self, v: T) -> Self
-                {
+{
                     self.kind = v.into();
                     self
                 }
@@ -95900,7 +95900,7 @@ pub mod model_evaluation_slice {
                 /// let x = Value::new().set_kind(Some(Kind::StringValue("example".to_string())));
                 /// ```
                 pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::model_evaluation_slice::slice::slice_spec::value::Kind>>>(mut self, v: T) -> Self
-                {
+{
                     self.kind = v.into();
                     self
                 }
@@ -97060,7 +97060,7 @@ impl ModelMonitoringObjectiveConfig {
     /// ```
     pub fn set_training_prediction_skew_detection_config<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::model_monitoring_objective_config::TrainingPredictionSkewDetectionConfig>
-    {
+{
         self.training_prediction_skew_detection_config = std::option::Option::Some(v.into());
         self
     }
@@ -97076,7 +97076,7 @@ impl ModelMonitoringObjectiveConfig {
     /// ```
     pub fn set_or_clear_training_prediction_skew_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::model_monitoring_objective_config::TrainingPredictionSkewDetectionConfig>
-    {
+{
         self.training_prediction_skew_detection_config = v.map(|x| x.into());
         self
     }
@@ -97285,7 +97285,7 @@ pub mod model_monitoring_objective_config {
         /// let x = TrainingDataset::new().set_data_source(Some(DataSource::Dataset("example".to_string())));
         /// ```
         pub fn set_data_source<T: std::convert::Into<std::option::Option<crate::model::model_monitoring_objective_config::training_dataset::DataSource>>>(mut self, v: T) -> Self
-        {
+{
             self.data_source = v.into();
             self
         }
@@ -97722,7 +97722,7 @@ pub mod model_monitoring_objective_config {
         /// ```
         pub fn set_explanation_baseline<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::model_monitoring_objective_config::explanation_config::ExplanationBaseline>
-        {
+{
             self.explanation_baseline = std::option::Option::Some(v.into());
             self
         }
@@ -97738,7 +97738,7 @@ pub mod model_monitoring_objective_config {
         /// ```
         pub fn set_or_clear_explanation_baseline<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::model_monitoring_objective_config::explanation_config::ExplanationBaseline>
-        {
+{
             self.explanation_baseline = v.map(|x| x.into());
             self
         }
@@ -97812,7 +97812,7 @@ pub mod model_monitoring_objective_config {
             ///     google_cloud_aiplatform_v1::model::model_monitoring_objective_config::explanation_config::explanation_baseline::Destination::Gcs(GcsDestination::default().into())));
             /// ```
             pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::model_monitoring_objective_config::explanation_config::explanation_baseline::Destination>>>(mut self, v: T) -> Self
-            {
+{
                 self.destination = v.into();
                 self
             }
@@ -121863,7 +121863,7 @@ pub mod publisher_model {
             /// let x = Deploy::new().set_prediction_resources(Some(PredictionResources::SharedResources("example".to_string())));
             /// ```
             pub fn set_prediction_resources<T: std::convert::Into<std::option::Option<crate::model::publisher_model::call_to_action::deploy::PredictionResources>>>(mut self, v: T) -> Self
-            {
+{
                 self.prediction_resources = v.into();
                 self
             }
@@ -123807,7 +123807,7 @@ pub mod reasoning_engine_spec {
             /// ```
             pub fn set_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::reasoning_engine_spec::source_code_spec::DeveloperConnectConfig>
-            {
+{
                 self.config = std::option::Option::Some(v.into());
                 self
             }
@@ -123823,7 +123823,7 @@ pub mod reasoning_engine_spec {
             /// ```
             pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::reasoning_engine_spec::source_code_spec::DeveloperConnectConfig>
-            {
+{
                 self.config = v.map(|x| x.into());
                 self
             }
@@ -133578,7 +133578,7 @@ pub mod study_spec {
             ///     google_cloud_aiplatform_v1::model::study_spec::parameter_spec::conditional_parameter_spec::ParentValueCondition::ParentDiscreteValues(DiscreteValueCondition::default().into())));
             /// ```
             pub fn set_parent_value_condition<T: std::convert::Into<std::option::Option<crate::model::study_spec::parameter_spec::conditional_parameter_spec::ParentValueCondition>>>(mut self, v: T) -> Self
-            {
+{
                 self.parent_value_condition = v.into();
                 self
             }

@@ -5656,7 +5656,7 @@ pub mod shared_regional_certificate_authority {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::shared_regional_certificate_authority::regional_managed_certificate_authority::RegionalCertChain>
-        {
+{
             use std::iter::Iterator;
             self.ca_certs = v.into_iter().map(|i| i.into()).collect();
             self

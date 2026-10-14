@@ -139,6 +139,61 @@ where
     }
 }
 
+/// Implements a [Locations](super::stub::Locations) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct Locations<T>
+where
+    T: super::stub::Locations + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> Locations<T>
+where
+    T: super::stub::Locations + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::Locations for Locations<T>
+where
+    T: super::stub::Locations + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::locations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Location>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Locations::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::locations::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListLocationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Locations::list",
+            self.inner.list(req, options));
+        pending.await
+    }
+}
+
 /// Implements a [ManagedZoneOperations](super::stub::ManagedZoneOperations) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ManagedZoneOperations<T>
@@ -399,6 +454,186 @@ where
         let details = google_cloud_lro::TracingDetails::default();
         opts.tracing = Some(details);
         opts
+    }
+}
+
+/// Implements a [Operations](super::stub::Operations) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct Operations<T>
+where
+    T: super::stub::Operations + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> Operations<T>
+where
+    T: super::stub::Operations + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::Operations for Operations<T>
+where
+    T: super::stub::Operations + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel(
+        &self,
+        req: crate::model::operations::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Empty>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Operations::cancel",
+            self.inner.cancel(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete(
+        &self,
+        req: crate::model::operations::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Empty>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Operations::delete",
+            self.inner.delete(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GoogleLongrunningOperation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Operations::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::operations::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GoogleLongrunningListOperationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Operations::list",
+            self.inner.list(req, options));
+        pending.await
+    }
+}
+
+/// Implements a [OutboundEndpoints](super::stub::OutboundEndpoints) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct OutboundEndpoints<T>
+where
+    T: super::stub::OutboundEndpoints + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> OutboundEndpoints<T>
+where
+    T: super::stub::OutboundEndpoints + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::OutboundEndpoints for OutboundEndpoints<T>
+where
+    T: super::stub::OutboundEndpoints + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create(
+        &self,
+        req: crate::model::outbound_endpoints::CreateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GoogleLongrunningOperation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OutboundEndpoints::create",
+            self.inner.create(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete(
+        &self,
+        req: crate::model::outbound_endpoints::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GoogleLongrunningOperation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OutboundEndpoints::delete",
+            self.inner.delete(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::outbound_endpoints::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OutboundEndpoint>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OutboundEndpoints::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::outbound_endpoints::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOutboundEndpointsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OutboundEndpoints::list",
+            self.inner.list(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn patch(
+        &self,
+        req: crate::model::outbound_endpoints::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GoogleLongrunningOperation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OutboundEndpoints::patch",
+            self.inner.patch(req, options));
+        pending.await
     }
 }
 

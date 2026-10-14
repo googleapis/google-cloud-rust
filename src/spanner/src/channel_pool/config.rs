@@ -34,9 +34,13 @@ pub(crate) enum ChannelSelectionStrategy {
 /// # Example
 /// ```
 /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
-/// # use google_cloud_spanner::channel_pool::{ChannelPoolConfig, StaticChannelPoolConfig};
+/// # use google_cloud_spanner::channel_pool::{ChannelPoolConfig, DynamicChannelPoolConfig};
 /// # async fn sample() -> anyhow::Result<()> {
-/// let config = ChannelPoolConfig::from(StaticChannelPoolConfig::new(8));
+/// let config = ChannelPoolConfig::from(
+///     DynamicChannelPoolConfig::new()
+///         .with_min_channels(2)
+///         .with_max_channels(16),
+/// );
 /// let client = Spanner::builder()
 ///     .with_channel_pool(config)
 ///     .build()
@@ -44,19 +48,20 @@ pub(crate) enum ChannelSelectionStrategy {
 /// # Ok(()) }
 /// ```
 ///
-/// Supports either static fixed-size channel pooling or autonomous dynamic load-based channel scaling.
+/// Supports either dynamic load-based channel scaling (the default) or
+/// static fixed-size channel pooling.
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ChannelPoolConfig {
-    /// Fixed-size static channel pool (default: 4 channels).
+    /// Fixed-size static channel pool.
     Static(StaticChannelPoolConfig),
-    /// Dynamic load-based channel pool.
+    /// Dynamic load-based channel pool (default: 4 initial channels, min 4, max 256).
     Dynamic(DynamicChannelPoolConfig),
 }
 
 impl Default for ChannelPoolConfig {
     fn default() -> Self {
-        Self::Static(StaticChannelPoolConfig::default())
+        Self::Dynamic(DynamicChannelPoolConfig::default())
     }
 }
 
@@ -189,7 +194,7 @@ impl From<StaticChannelPoolConfig> for ChannelPoolConfig {
 /// # Ok(()) }
 /// ```
 ///
-/// Manages autonomous elastic scaling of gRPC channels based on in-flight RPC load and error feedback.
+/// Manages elastic scaling of gRPC channels based on in-flight RPC load and error feedback.
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct DynamicChannelPoolConfig {
@@ -671,8 +676,8 @@ mod tests {
         let default_pool_config = ChannelPoolConfig::default();
         assert_eq!(
             default_pool_config,
-            ChannelPoolConfig::Static(StaticChannelPoolConfig::default()),
-            "Default ChannelPoolConfig must be Static"
+            ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            "Default ChannelPoolConfig must be Dynamic"
         );
 
         let from_static: ChannelPoolConfig = static_config.into();

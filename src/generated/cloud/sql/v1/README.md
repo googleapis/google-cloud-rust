@@ -16,6 +16,7 @@ The main types to work with this crate are the clients:
 
 - [SqlBackupRunsService]
 - [SqlBackupsService]
+- [BlueGreenDeploymentsService]
 - [SqlConnectService]
 - [SqlDatabasesService]
 - [SqlFlagsService]
@@ -24,6 +25,7 @@ The main types to work with this crate are the clients:
 - [SqlSslCertsService]
 - [SqlTiersService]
 - [SqlUsersService]
+- [SqlWorkloadCapturesService]
 
 ## Features
 
@@ -41,6 +43,7 @@ The main types to work with this crate are the clients:
 [ring]: https://crates.io/crates/ring
 [SqlBackupRunsService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlBackupRunsService.html
 [SqlBackupsService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlBackupsService.html
+[BlueGreenDeploymentsService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.BlueGreenDeploymentsService.html
 [SqlConnectService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlConnectService.html
 [SqlDatabasesService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlDatabasesService.html
 [SqlFlagsService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlFlagsService.html
@@ -49,3 +52,4 @@ The main types to work with this crate are the clients:
 [SqlSslCertsService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlSslCertsService.html
 [SqlTiersService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlTiersService.html
 [SqlUsersService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlUsersService.html
+[SqlWorkloadCapturesService]: https://docs.rs/google-cloud-sql-v1/2.11.0/google_cloud_sql_v1/client/struct.SqlWorkloadCapturesService.html

@@ -145,6 +145,7 @@ impl std::fmt::Debug for super::Backup {
             "enforced_retention_end_time",
             &self.enforced_retention_end_time,
         );
+        debug_struct.field("ontap_source", &self.ontap_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -220,6 +221,19 @@ impl std::fmt::Debug for super::UpdateBackupRequest {
         let mut debug_struct = f.debug_struct("UpdateBackupRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("backup", &self.backup);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::OntapSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OntapSource");
+        debug_struct.field("storage_pool", &self.storage_pool);
+        debug_struct.field("volume_uuid", &self.volume_uuid);
+        debug_struct.field("snapshot_uuid", &self.snapshot_uuid);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -469,6 +483,7 @@ impl std::fmt::Debug for super::LocationMetadata {
         );
         debug_struct.field("has_vcp", &self.has_vcp);
         debug_struct.field("has_ontap_proxy", &self.has_ontap_proxy);
+        debug_struct.field("flex_performance_tier", &self.flex_performance_tier);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1383,6 +1398,46 @@ impl std::fmt::Debug for super::ListVolumesResponse {
     }
 }
 
+impl std::fmt::Debug for super::ListBackupConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListBackupConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupConfigsResponse");
+        debug_struct.field("volume_backup_configs", &self.volume_backup_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::VolumeBackupConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VolumeBackupConfig");
+        debug_struct.field("volume_uuid", &self.volume_uuid);
+        debug_struct.field("backup_config", &self.backup_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetVolumeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetVolumeRequest");
@@ -1436,6 +1491,41 @@ impl std::fmt::Debug for super::RevertVolumeRequest {
         let mut debug_struct = f.debug_struct("RevertVolumeRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("snapshot_id", &self.snapshot_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StartSplitRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartSplitRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetSplitStatusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSplitStatusRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SplitStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SplitStatus");
+        debug_struct.field("split_state", &self.split_state);
+        debug_struct.field("state_details", &self.state_details);
+        debug_struct.field("progress_percent", &self.progress_percent);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1506,6 +1596,7 @@ impl std::fmt::Debug for super::volume::CloneDetails {
         debug_struct.field("source_snapshot", &self.source_snapshot);
         debug_struct.field("source_volume", &self.source_volume);
         debug_struct.field("shared_space_gib", &self.shared_space_gib);
+        debug_struct.field("split_state", &self.split_state);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1799,6 +1890,53 @@ impl std::fmt::Debug for super::RestoreBackupFilesResponse {
     }
 }
 
+impl std::fmt::Debug for super::RestoreVolumeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreVolumeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BackupSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupSource");
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("file_list", &self.file_list);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::OntapVolumeTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OntapVolumeTarget");
+        debug_struct.field("volume_uuid", &self.volume_uuid);
+        debug_struct.field("restore_destination_path", &self.restore_destination_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RestoreVolumeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreVolumeResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::EstablishVolumePeeringRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EstablishVolumePeeringRequest");
@@ -1807,6 +1945,32 @@ impl std::fmt::Debug for super::EstablishVolumePeeringRequest {
         debug_struct.field("peer_svm_name", &self.peer_svm_name);
         debug_struct.field("peer_ip_addresses", &self.peer_ip_addresses);
         debug_struct.field("peer_volume_name", &self.peer_volume_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateBackupConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("volume_uuid", &self.volume_uuid);
+        debug_struct.field("backup_config", &self.backup_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateBackupConfigResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupConfigResponse");
+        debug_struct.field("volume_uuid", &self.volume_uuid);
+        debug_struct.field("backup_config", &self.backup_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

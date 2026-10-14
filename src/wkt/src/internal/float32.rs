@@ -68,17 +68,26 @@ mod tests {
         assert_eq!(got, want);
         let rt = F32::deserialize_as(got)?;
         assert_float_eq(input, rt);
+
+        let mut s = Vec::new();
+        F32::serialize_as(&input, &mut serde_json::Serializer::new(&mut s))?;
+        let s = String::from_utf8(s)?;
+        let rt = F32::deserialize_as(&mut serde_json::Deserializer::from_str(&s))?;
+        assert_float_eq(input, rt);
         Ok(())
     }
 
     #[test_case("0", 0.0)]
     #[test_case("0.0", 0.0; "zero with trailing")]
     #[test_case("0.5", 0.5)]
+    #[test_case("0.8", 0.8)]
     #[test_case("-0.75", -0.75)]
     #[test_case("123", 123.0)]
     #[test_case("-234", -234.0)]
-    #[test_case(format!("{:.1}", f32::MAX), f32::MAX)]
-    #[test_case(format!("{:.1}", f32::MIN), f32::MIN)]
+    #[test_case(format!("{}", f32::MAX), f32::MAX)]
+    #[test_case(format!("{}", f32::MIN), f32::MIN)]
+    #[test_case(format!("{:.1}", f32::MAX), f32::MAX; "MAX with .1")]
+    #[test_case(format!("{:.1}", f32::MIN), f32::MIN; "MIN with .1")]
     #[test_case(format!("{}", f32::EPSILON), f32::EPSILON)]
     #[test_case(format!("{}", f32::MIN_POSITIVE), f32::MIN_POSITIVE)]
     #[test_case(format!("{}", -f32::MIN_POSITIVE), -f32::MIN_POSITIVE; "negative of MIN_POSITIVE")]
@@ -86,7 +95,25 @@ mod tests {
     where
         T: Into<String> + std::fmt::Display + Clone,
     {
-        let got = F32::deserialize_as(Value::String(input.clone().into()))?;
+        let s: String = input.clone().into();
+        let got = F32::deserialize_as(Value::String(s.clone()))?;
+        assert_eq!(got, want, "{input}");
+
+        let quoted = serde_json::to_string(&s)?;
+        let got = F32::deserialize_as(&mut serde_json::Deserializer::from_str(&quoted))?;
+        assert_eq!(got, want, "{input}");
+        Ok(())
+    }
+
+    #[test_case("0", 0.0)]
+    #[test_case("0.0", 0.0; "zero with trailing")]
+    #[test_case("0.5", 0.5)]
+    #[test_case("0.8", 0.8)]
+    #[test_case("-0.75", -0.75)]
+    #[test_case("123", 123.0)]
+    #[test_case("-234", -234.0)]
+    fn parse_number_str_f32(input: &str, want: f32) -> Result {
+        let got = F32::deserialize_as(&mut serde_json::Deserializer::from_str(input))?;
         assert_eq!(got, want, "{input}");
         Ok(())
     }
@@ -102,18 +129,35 @@ mod tests {
         let value = json!(input);
         let got = F32::deserialize_as(value)?;
         assert_float_eq(got, want);
+
+        let s = serde_json::to_string(&input)?;
+        let got = F32::deserialize_as(&mut serde_json::Deserializer::from_str(&s))?;
+        assert_float_eq(got, want);
         Ok(())
     }
 
     #[test_case(json!("some string"))]
     #[test_case(json!(true))]
+    #[test_case(json!({}))]
+    #[test_case(json!({"a": 1}))]
     #[test_case(json!(f32::MAX as f64 * 2.0))]
     #[test_case(json!(f32::MIN as f64 * 2.0))]
     #[test_case(json!(-3.502823e+38); "range negative")] // Used in ProtoJSON conformance test
     #[test_case(json!(3.502823e+38); "range positive")] // Used in ProtoJSON conformance test
     fn deserialize_expect_err_32(input: Value) {
+        let s = input.to_string();
         let err = F32::deserialize_as(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");
+
+        let err = F32::deserialize_as(&mut serde_json::Deserializer::from_str(&s)).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+    }
+
+    #[test_case("1.89769e+308")]
+    #[test_case("-1.89769e+308")]
+    fn deserialize_str_out_of_f64_range_32(input: &str) {
+        let err = F32::deserialize_as(&mut serde_json::Deserializer::from_str(input)).unwrap_err();
+        assert!(err.is_data() || err.is_syntax(), "{err:?}");
     }
 
     impl_assert_float_eq!(assert_float_eq, f32);

@@ -338,6 +338,49 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::AppHub::get_boundary].
+    fn get_boundary(
+        &self,
+        _req: crate::model::GetBoundaryRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Boundary>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AppHub::update_boundary].
+    fn update_boundary(
+        &self,
+        _req: crate::model::UpdateBoundaryRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AppHub::get_extended_metadata_schema].
+    fn get_extended_metadata_schema(
+        &self,
+        _req: crate::model::GetExtendedMetadataSchemaRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ExtendedMetadataSchema>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AppHub::list_extended_metadata_schemas].
+    fn list_extended_metadata_schemas(
+        &self,
+        _req: crate::model::ListExtendedMetadataSchemasRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListExtendedMetadataSchemasResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::AppHub::list_locations].
     fn list_locations(
         &self,

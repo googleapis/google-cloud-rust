@@ -718,6 +718,71 @@ pub mod app_connectors_service {
         }
     }
 
+    /// The request builder for [AppConnectorsService::resolve_instance_config][crate::client::AppConnectorsService::resolve_instance_config] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::ResolveInstanceConfig;
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ResolveInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ResolveInstanceConfig(RequestBuilder<crate::model::ResolveInstanceConfigRequest>);
+
+    impl ResolveInstanceConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ResolveInstanceConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ResolveInstanceConfigResponse> {
+            (*self.0.stub)
+                .resolve_instance_config(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [app_connector][crate::model::ResolveInstanceConfigRequest::app_connector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_app_connector<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.app_connector = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ResolveInstanceConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [AppConnectorsService::report_status][crate::client::AppConnectorsService::report_status] calls.
     ///
     /// # Example

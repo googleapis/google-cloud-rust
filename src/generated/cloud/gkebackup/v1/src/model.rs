@@ -3649,7 +3649,7 @@ pub mod backup_plan_binding {
             /// let x = BackupConfigDetails::new().set_backup_scope(Some(BackupScope::AllNamespaces(true)));
             /// ```
             pub fn set_backup_scope<T: std::convert::Into<std::option::Option<crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope>>>(mut self, v: T) -> Self
-            {
+{
                 self.backup_scope = v.into();
                 self
             }

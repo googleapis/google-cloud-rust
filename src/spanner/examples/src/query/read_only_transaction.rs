@@ -26,9 +26,9 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
     let mut result_set = transaction.execute_query(statement).await?;
     println!("Results from query:");
     while let Some(row) = result_set.next().await.transpose()? {
-        let singer_id: i64 = row.get(0);
-        let album_id: i64 = row.get(1);
-        let album_title: String = row.get(2);
+        let singer_id: i64 = row.get(0)?;
+        let album_id: i64 = row.get(1)?;
+        let album_title: String = row.get(2)?;
         println!("{singer_id} {album_id} {album_title}");
     }
 
@@ -39,9 +39,9 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
     let mut result_set = transaction.execute_read(read_request).await?;
     println!("Results from read:");
     while let Some(row) = result_set.next().await.transpose()? {
-        let singer_id: i64 = row.get(0);
-        let album_id: i64 = row.get(1);
-        let album_title: String = row.get(2);
+        let singer_id: i64 = row.get(0)?;
+        let album_id: i64 = row.get(1)?;
+        let album_title: String = row.get(2)?;
         println!("{singer_id} {album_id} {album_title}");
     }
 

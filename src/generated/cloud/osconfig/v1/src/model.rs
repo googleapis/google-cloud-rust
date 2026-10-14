@@ -6472,7 +6472,7 @@ pub mod os_policy_assignment_report {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance>
-        {
+{
             use std::iter::Iterator;
             self.os_policy_resource_compliances = v.into_iter().map(|i| i.into()).collect();
             self
@@ -6564,7 +6564,7 @@ pub mod os_policy_assignment_report {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep>
-            {
+{
                 use std::iter::Iterator;
                 self.config_steps = v.into_iter().map(|i| i.into()).collect();
                 self
@@ -6612,7 +6612,7 @@ pub mod os_policy_assignment_report {
             ///     google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output::ExecResourceOutput(ExecResourceOutput::default().into())));
             /// ```
             pub fn set_output<T: std::convert::Into<std::option::Option<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output>>>(mut self, v: T) -> Self
-            {
+{
                 self.output = v.into();
                 self
             }

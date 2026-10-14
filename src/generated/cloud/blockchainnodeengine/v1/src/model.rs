@@ -942,7 +942,7 @@ pub mod blockchain_node {
             /// ```
             pub fn set_garbage_collection_mode<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::blockchain_node::ethereum_details::geth_details::GarbageCollectionMode>
-            {
+{
                 self.garbage_collection_mode = std::option::Option::Some(v.into());
                 self
             }
@@ -959,7 +959,7 @@ pub mod blockchain_node {
             /// ```
             pub fn set_or_clear_garbage_collection_mode<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::blockchain_node::ethereum_details::geth_details::GarbageCollectionMode>
-            {
+{
                 self.garbage_collection_mode = v.map(|x| x.into());
                 self
             }

@@ -144,6 +144,71 @@ pub trait SqlBackupsService: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::BlueGreenDeploymentsService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::BlueGreenDeploymentsService`.  In other use-cases, application developers only
+/// use `client::BlueGreenDeploymentsService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait BlueGreenDeploymentsService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::BlueGreenDeploymentsService::create_blue_green_deployment].
+    fn create_blue_green_deployment(
+        &self,
+        _req: crate::model::CreateBlueGreenDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BlueGreenDeploymentsService::get_blue_green_deployment].
+    fn get_blue_green_deployment(
+        &self,
+        _req: crate::model::GetBlueGreenDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::BlueGreenDeployment>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BlueGreenDeploymentsService::switchover_blue_green_deployment].
+    fn switchover_blue_green_deployment(
+        &self,
+        _req: crate::model::SwitchoverBlueGreenDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BlueGreenDeploymentsService::list_blue_green_deployments].
+    fn list_blue_green_deployments(
+        &self,
+        _req: crate::model::ListBlueGreenDeploymentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListBlueGreenDeploymentsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BlueGreenDeploymentsService::delete_blue_green_deployment].
+    fn delete_blue_green_deployment(
+        &self,
+        _req: crate::model::DeleteBlueGreenDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::SqlConnectService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -934,6 +999,70 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::SqlWorkloadCapturesService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::SqlWorkloadCapturesService`.  In other use-cases, application developers only
+/// use `client::SqlWorkloadCapturesService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait SqlWorkloadCapturesService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::SqlWorkloadCapturesService::start].
+    fn start(
+        &self,
+        _req: crate::model::WorkloadCapturesStartRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlWorkloadCapturesService::stop].
+    fn stop(
+        &self,
+        _req: crate::model::WorkloadCapturesStopRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlWorkloadCapturesService::start_replay].
+    fn start_replay(
+        &self,
+        _req: crate::model::WorkloadCapturesStartReplayRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlWorkloadCapturesService::stop_replay].
+    fn stop_replay(
+        &self,
+        _req: crate::model::WorkloadCapturesStopReplayRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlWorkloadCapturesService::list].
+    fn list(
+        &self,
+        _req: crate::model::SqlWorkloadCapturesListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::WorkloadCapturesListResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

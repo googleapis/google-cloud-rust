@@ -6740,7 +6740,7 @@ pub mod document {
             /// ```
             pub fn set_page_span<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>
-            {
+{
                 self.page_span = std::option::Option::Some(v.into());
                 self
             }
@@ -6756,7 +6756,7 @@ pub mod document {
             /// ```
             pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>
-            {
+{
                 self.page_span = v.map(|x| x.into());
                 self
             }
@@ -7206,7 +7206,7 @@ pub mod document {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutTableRow>
-                {
+{
                     use std::iter::Iterator;
                     self.header_rows = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -7228,7 +7228,7 @@ pub mod document {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutTableRow>
-                {
+{
                     use std::iter::Iterator;
                     self.body_rows = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -7323,7 +7323,7 @@ pub mod document {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutTableCell>
-                {
+{
                     use std::iter::Iterator;
                     self.cells = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -7453,7 +7453,7 @@ pub mod document {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutListEntry>
-                {
+{
                     use std::iter::Iterator;
                     self.list_entries = v.into_iter().map(|i| i.into()).collect();
                     self
@@ -7633,7 +7633,7 @@ pub mod document {
                 /// let x = LayoutImageBlock::new().set_image_source(Some(ImageSource::BlobAssetId("example".to_string())));
                 /// ```
                 pub fn set_image_source<T: std::convert::Into<std::option::Option<crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource>>>(mut self, v: T) -> Self
-                {
+{
                     self.image_source = v.into();
                     self
                 }
@@ -8322,7 +8322,7 @@ pub mod document {
                 /// let x = ImageChunkField::new().set_image_source(Some(ImageSource::BlobAssetId("example".to_string())));
                 /// ```
                 pub fn set_image_source<T: std::convert::Into<std::option::Option<crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource>>>(mut self, v: T) -> Self
-                {
+{
                     self.image_source = v.into();
                     self
                 }
@@ -8556,7 +8556,7 @@ pub mod document {
                 ///     google_cloud_documentai_v1::model::document::chunked_document::chunk::chunk_field::FieldType::ImageChunkField(ImageChunkField::default().into())));
                 /// ```
                 pub fn set_field_type<T: std::convert::Into<std::option::Option<crate::model::document::chunked_document::chunk::chunk_field::FieldType>>>(mut self, v: T) -> Self
-                {
+{
                     self.field_type = v.into();
                     self
                 }
