@@ -1177,42 +1177,42 @@ pub async fn query_numeric_values(db_client: &DatabaseClient) -> anyhow::Result<
         .transpose()?
         .ok_or_else(|| anyhow::anyhow!("query should yield a row"))?;
 
-    let column_fixed: Decimal = row.try_get("col_fixed")?;
+    let column_fixed: Decimal = row.get("col_fixed")?;
     assert_eq!(
         column_fixed,
         Decimal::from_str_exact("123.456").expect("valid decimal"),
         "expected exact decimal for col_fixed"
     );
 
-    let column_scientific_integer: Decimal = row.try_get("col_sci_int")?;
+    let column_scientific_integer: Decimal = row.get("col_sci_int")?;
     assert_eq!(
         column_scientific_integer,
         Decimal::from_str_exact("100000").expect("valid decimal"),
         "expected 100000 for col_sci_int"
     );
 
-    let column_scientific_negative: Decimal = row.try_get("col_sci_neg")?;
+    let column_scientific_negative: Decimal = row.get("col_sci_neg")?;
     assert_eq!(
         column_scientific_negative,
         Decimal::from_str_exact("-1500").expect("valid decimal"),
         "expected -1500 for col_sci_neg"
     );
 
-    let column_scientific_fraction: Decimal = row.try_get("col_sci_frac")?;
+    let column_scientific_fraction: Decimal = row.get("col_sci_frac")?;
     assert_eq!(
         column_scientific_fraction,
         Decimal::from_str_exact("0.1").expect("valid decimal"),
         "expected 0.1 for col_sci_frac"
     );
 
-    let column_scientific_small: Decimal = row.try_get("col_sci_small")?;
+    let column_scientific_small: Decimal = row.get("col_sci_small")?;
     assert_eq!(
         column_scientific_small,
         Decimal::from_str_exact("0.005").expect("valid decimal"),
         "expected 0.005 for col_sci_small"
     );
 
-    let column_scientific_array: Vec<Decimal> = row.try_get("col_sci_array")?;
+    let column_scientific_array: Vec<Decimal> = row.get("col_sci_array")?;
     assert_eq!(
         column_scientific_array,
         vec![
@@ -1264,21 +1264,21 @@ pub async fn query_numeric_values(db_client: &DatabaseClient) -> anyhow::Result<
         .transpose()?
         .ok_or_else(|| anyhow::anyhow!("query with numeric parameters should yield a row"))?;
 
-    let fixed_parameter_out: Decimal = parameter_row.try_get("col_fixed_param")?;
+    let fixed_parameter_out: Decimal = parameter_row.get("col_fixed_param")?;
     assert_eq!(
         fixed_parameter_out,
         Decimal::from_str_exact("123.456").expect("valid decimal"),
         "expected matching fixed parameter"
     );
 
-    let scientific_parameter_out: Decimal = parameter_row.try_get("col_sci_param")?;
+    let scientific_parameter_out: Decimal = parameter_row.get("col_sci_param")?;
     assert_eq!(
         scientific_parameter_out,
         Decimal::from_str_exact("100000").expect("valid decimal"),
         "expected matching scientific parameter"
     );
 
-    let array_parameter_out: Vec<Decimal> = parameter_row.try_get("col_array_param")?;
+    let array_parameter_out: Vec<Decimal> = parameter_row.get("col_array_param")?;
     assert_eq!(
         array_parameter_out,
         vec![
@@ -1324,14 +1324,14 @@ pub async fn query_numeric_values(db_client: &DatabaseClient) -> anyhow::Result<
         .transpose()?
         .ok_or_else(|| anyhow::anyhow!("row should exist after mutation insert"))?;
 
-    let numeric_value: Decimal = read_row.try_get("ColNumeric")?;
+    let numeric_value: Decimal = read_row.get("ColNumeric")?;
     assert_eq!(
         numeric_value,
         Decimal::from_str_exact("2500").expect("valid decimal"),
         "expected 2500 for ColNumeric after mutation"
     );
 
-    let array_value: Vec<Decimal> = read_row.try_get("ColArrayNumeric")?;
+    let array_value: Vec<Decimal> = read_row.get("ColArrayNumeric")?;
     assert_eq!(
         array_value,
         vec![
@@ -1341,17 +1341,17 @@ pub async fn query_numeric_values(db_client: &DatabaseClient) -> anyhow::Result<
         "expected matching ColArrayNumeric"
     );
 
-    // Also read back via try_take
+    // Also read back via take
     let mut owned_row = read_row.clone();
-    let taken_numeric: Decimal = owned_row.try_take("ColNumeric")?;
+    let taken_numeric: Decimal = owned_row.take("ColNumeric")?;
     assert_eq!(
         taken_numeric,
         Decimal::from_str_exact("2500").expect("valid decimal"),
         "expected 2500 for taken ColNumeric"
     );
     assert!(
-        owned_row.is_null("ColNumeric"),
-        "ColNumeric must be null after try_take"
+        owned_row.is_null("ColNumeric")?,
+        "ColNumeric must be null after take"
     );
 
     // Cleanup test row

@@ -1502,180 +1502,52 @@ mod tests {
     fn from_value_decimal_scientific_notation() -> Result<(), ConvertError> {
         let numeric_type = types::numeric();
 
-        // Integer scientific notation
-        let value = "1e5".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("100000").expect("valid decimal")
-        );
+        let valid_scientific_cases = [
+            // Integer scientific notation
+            ("1e5", "100000"),
+            ("+1e5", "100000"),
+            ("-1e5", "-100000"),
+            // Positive exponent with explicit plus sign
+            ("1E+1", "10"),
+            ("1e+1", "10"),
+            ("1E1", "10"),
+            ("01e1", "10"),
+            ("1e01", "10"),
+            // Negative exponent
+            ("1E-1", "0.1"),
+            ("1e-1", "0.1"),
+            ("01e-1", "0.1"),
+            ("1e-01", "0.1"),
+            // Fractional base with exponent
+            ("1.e2", "100"),
+            (".5e2", "50"),
+            ("+.5e-2", "0.005"),
+            ("-.5e-2", "-0.005"),
+            // Fractional base with positive exponent plus sign
+            (".5e+2", "50"),
+            ("1.e+2", "100"),
+            ("-1.e+2", "-100"),
+            // Zero mantissa in scientific notation
+            ("0e0", "0"),
+            ("0e5", "0"),
+            ("0e-5", "0"),
+            ("-0e0", "0"),
+            ("+0e0", "0"),
+            // Zero exponent in scientific notation
+            ("1e0", "1"),
+            ("1E0", "1"),
+            ("1e+0", "1"),
+            ("1e-0", "1"),
+        ];
 
-        let value = "+1e5".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("100000").expect("valid decimal")
-        );
-
-        let value = "-1e5".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("-100000").expect("valid decimal")
-        );
-
-        // Positive exponent with explicit plus sign
-        let value = "1E+1".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("10").expect("valid decimal")
-        );
-
-        let value = "1e+1".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("10").expect("valid decimal")
-        );
-
-        let value = "1E1".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("10").expect("valid decimal")
-        );
-
-        let value = "01e1".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("10").expect("valid decimal")
-        );
-
-        let value = "1e01".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("10").expect("valid decimal")
-        );
-
-        // Negative exponent
-        let value = "1E-1".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0.1").expect("valid decimal")
-        );
-
-        let value = "1e-1".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0.1").expect("valid decimal")
-        );
-
-        let value = "01e-1".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0.1").expect("valid decimal")
-        );
-
-        let value = "1e-01".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0.1").expect("valid decimal")
-        );
-
-        // Fractional base with exponent
-        let value = "1.e2".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("100").expect("valid decimal")
-        );
-
-        let value = ".5e2".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("50").expect("valid decimal")
-        );
-
-        let value = "+.5e-2".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0.005").expect("valid decimal")
-        );
-
-        let value = "-.5e-2".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("-0.005").expect("valid decimal")
-        );
-
-        // Fractional base with positive exponent plus sign
-        let value = ".5e+2".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("50").expect("valid decimal")
-        );
-
-        let value = "1.e+2".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("100").expect("valid decimal")
-        );
-
-        let value = "-1.e+2".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("-100").expect("valid decimal")
-        );
-
-        // Zero mantissa in scientific notation
-        let value = "0e0".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0").expect("valid decimal")
-        );
-
-        let value = "0e5".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0").expect("valid decimal")
-        );
-
-        let value = "0e-5".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0").expect("valid decimal")
-        );
-
-        let value = "-0e0".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0").expect("valid decimal")
-        );
-
-        let value = "+0e0".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("0").expect("valid decimal")
-        );
-
-        // Zero exponent in scientific notation
-        let value = "1e0".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("1").expect("valid decimal")
-        );
-
-        let value = "1E0".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("1").expect("valid decimal")
-        );
-
-        let value = "1e+0".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("1").expect("valid decimal")
-        );
-
-        let value = "1e-0".to_string().to_value();
-        assert_eq!(
-            Decimal::from_value(&value, &numeric_type)?,
-            Decimal::from_str_exact("1").expect("valid decimal")
-        );
+        for (input_str, expected_str) in valid_scientific_cases {
+            let value = input_str.to_string().to_value();
+            assert_eq!(
+                Decimal::from_value(&value, &numeric_type)?,
+                Decimal::from_str_exact(expected_str).expect("valid decimal"),
+                "mismatch for {input_str}"
+            );
+        }
 
         // Owned value conversion
         let value = "2.5e3".to_string().to_value();

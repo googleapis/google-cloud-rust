@@ -641,42 +641,42 @@ async fn execute_query_numeric_scientific_notation() -> anyhow::Result<()> {
         .transpose()?
         .ok_or_else(|| anyhow::anyhow!("result set should yield a row"))?;
 
-    let column_scientific: Decimal = row.try_get("col_sci")?;
+    let column_scientific: Decimal = row.get("col_sci")?;
     assert_eq!(
         column_scientific,
         Decimal::from_str_exact("100000").expect("valid decimal"),
         "expected 100000 for col_sci"
     );
 
-    let optional_column_scientific: Option<Decimal> = row.try_get("col_sci")?;
+    let optional_column_scientific: Option<Decimal> = row.get("col_sci")?;
     assert_eq!(
         optional_column_scientific,
         Some(Decimal::from_str_exact("100000").expect("valid decimal")),
         "expected Some(100000) for optional col_sci"
     );
 
-    let column_negative_scientific: Decimal = row.try_get("col_neg_sci")?;
+    let column_negative_scientific: Decimal = row.get("col_neg_sci")?;
     assert_eq!(
         column_negative_scientific,
         Decimal::from_str_exact("-1500").expect("valid decimal"),
         "expected -1500 for col_neg_sci"
     );
 
-    let column_fraction_scientific: Decimal = row.try_get("col_frac_sci")?;
+    let column_fraction_scientific: Decimal = row.get("col_frac_sci")?;
     assert_eq!(
         column_fraction_scientific,
         Decimal::from_str_exact("0.1").expect("valid decimal"),
         "expected 0.1 for col_frac_sci"
     );
 
-    let column_zero_scientific: Decimal = row.try_get("col_zero_sci")?;
+    let column_zero_scientific: Decimal = row.get("col_zero_sci")?;
     assert_eq!(
         column_zero_scientific,
         Decimal::from_str_exact("0").expect("valid decimal"),
         "expected 0 for col_zero_sci"
     );
 
-    let column_array_scientific: Vec<Decimal> = row.try_get("col_array_sci")?;
+    let column_array_scientific: Vec<Decimal> = row.get("col_array_sci")?;
     assert_eq!(
         column_array_scientific,
         vec![
@@ -686,7 +686,7 @@ async fn execute_query_numeric_scientific_notation() -> anyhow::Result<()> {
         "expected matching Decimal elements in col_array_sci"
     );
 
-    let column_array_with_nulls: Vec<Option<Decimal>> = row.try_get("col_array_with_nulls")?;
+    let column_array_with_nulls: Vec<Option<Decimal>> = row.get("col_array_with_nulls")?;
     assert_eq!(
         column_array_with_nulls,
         vec![
@@ -697,22 +697,22 @@ async fn execute_query_numeric_scientific_notation() -> anyhow::Result<()> {
         "expected matching elements with null in col_array_with_nulls"
     );
 
-    // Also test try_take on owned row
+    // Also test take on owned row
     let mut owned_row = row;
-    let taken_scientific: Decimal = owned_row.try_take("col_sci")?;
+    let taken_scientific: Decimal = owned_row.take("col_sci")?;
     assert_eq!(
         taken_scientific,
         Decimal::from_str_exact("100000").expect("valid decimal"),
         "expected 100000 for taken_scientific"
     );
     assert!(
-        owned_row.is_null("col_sci"),
-        "col_sci must be null after try_take"
+        owned_row.is_null("col_sci")?,
+        "col_sci must be null after take"
     );
     assert_eq!(
-        owned_row.try_get::<Option<Decimal>, _>("col_sci")?,
+        owned_row.get::<Option<Decimal>>("col_sci")?,
         None,
-        "col_sci must be None after try_take"
+        "col_sci must be None after take"
     );
 
     assert!(

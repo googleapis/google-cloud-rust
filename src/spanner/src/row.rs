@@ -1773,40 +1773,35 @@ mod tests {
 
         let expected_decimal = Decimal::from_str_exact("1500").expect("valid decimal");
         assert_eq!(
-            row.get::<Decimal, _>(0),
+            row.get::<Decimal>(0).expect("get decimal by index"),
             expected_decimal,
             "expected decimal from scientific notation by index"
         );
         assert_eq!(
-            row.get::<Decimal, _>("col_numeric_sci"),
+            row.get::<Decimal>("col_numeric_sci")
+                .expect("get decimal by name"),
             expected_decimal,
             "expected decimal from scientific notation by name"
         );
         assert_eq!(
-            row.try_get::<Decimal, _>("col_numeric_sci")
-                .expect("valid try_get decimal"),
-            expected_decimal,
-            "expected try_get decimal from scientific notation"
-        );
-        assert_eq!(
-            row.try_get::<Option<Decimal>, _>("col_numeric_sci")
-                .expect("valid try_get optional decimal"),
+            row.get::<Option<Decimal>>("col_numeric_sci")
+                .expect("get optional decimal"),
             Some(expected_decimal),
-            "expected try_get optional decimal from scientific notation"
+            "expected optional decimal from scientific notation"
         );
         assert_eq!(
-            row.try_take::<Decimal, _>("col_numeric_sci")
-                .expect("valid try_take decimal"),
+            row.take::<Decimal>("col_numeric_sci")
+                .expect("take decimal"),
             expected_decimal,
-            "expected try_take decimal from scientific notation"
+            "expected take decimal from scientific notation"
         );
         assert!(
-            row.is_null("col_numeric_sci"),
+            row.is_null("col_numeric_sci").expect("is_null"),
             "column must be null after take"
         );
         assert_eq!(
-            row.try_get::<Option<Decimal>, _>("col_numeric_sci")
-                .expect("valid try_get optional decimal after take"),
+            row.get::<Option<Decimal>>("col_numeric_sci")
+                .expect("get optional decimal after take"),
             None,
             "column must be None after take"
         );
