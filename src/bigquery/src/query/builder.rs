@@ -124,7 +124,7 @@ impl Query {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_user_agent<S: Into<String>>(mut self, user_agent: S) -> Self {
+    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
         self.options.set_user_agent(user_agent);
         self
     }
