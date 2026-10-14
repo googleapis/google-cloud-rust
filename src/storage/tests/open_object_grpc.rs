@@ -937,8 +937,11 @@ mod conformance {
     #[tokio::test]
     async fn failed_stream_restart_should_fail_all_pending_reads() -> anyhow::Result<()> {
         // Arrange
+        let (observed_ranges_tx, observed_ranges_rx) =
+            tokio::sync::oneshot::channel::<Vec<ProtoRange>>();
+
         let mut mock = MockStorage::new();
-        mock.expect_bidi_read_object().return_once(|request| {
+        mock.expect_bidi_read_object().return_once(move |request| {
             let (_, _, mut requests) = request.into_parts();
             let (tx, rx) = tokio::sync::mpsc::channel(2);
 
@@ -951,10 +954,15 @@ mod conformance {
                     .await
                     .expect("failed to send initial response");
 
-                // Client requests a range
-                let _ = requests.recv().await;
+                // Wait until the server has received all 3 concurrent range read requests
+                let mut received_ranges = Vec::new();
+                while received_ranges.len() < 3 {
+                    let req = recv_request(&mut requests).await;
+                    received_ranges.extend(req.read_ranges);
+                }
+                let _ = observed_ranges_tx.send(received_ranges);
 
-                // Stream fails with unrecoverable / non-resumed error
+                // Stream fails with unrecoverable / non-resumed error while all 3 reads are pending
                 tx.send(Err(TonicStatus::unavailable("stream crash")))
                     .await
                     .expect("failed to send stream error");
@@ -971,20 +979,55 @@ mod conformance {
             .send()
             .await?;
 
-        // Act: Request a range read
-        let reader = descriptor.read_range(ReadRange::segment(0, 10)).await;
-        let result = read_all_bytes(reader).await;
-
-        // Assert: The active read fails with an error
-        assert!(
-            result.is_err(),
-            "expected pending read to fail after stream error"
+        // Act: Issue 3 concurrent range reads before the stream fails
+        let reader1 = descriptor.read_range(ReadRange::segment(1, 1)).await;
+        let reader2 = descriptor.read_range(ReadRange::segment(2, 2)).await;
+        let reader3 = descriptor.read_range(ReadRange::segment(3, 3)).await;
+        let (res1, res2, res3) = tokio::join!(
+            read_all_bytes(reader1),
+            read_all_bytes(reader2),
+            read_all_bytes(reader3),
         );
 
-        // Assert: Subsequent read on the broken descriptor also fails
+        // Assert: Server received all 3 range requests before failing the stream
+        let observed_ranges = observed_ranges_rx.await?;
+        let got_segments: Vec<(i64, i64)> = observed_ranges
+            .iter()
+            .map(|r| (r.read_offset, r.read_length))
+            .collect();
+        assert_eq!(got_segments, vec![(1, 1), (2, 2), (3, 3)]);
+
+        let assert_unavailable_interrupt = |result: anyhow::Result<Vec<u8>>| {
+            let err = result.expect_err("expected read to fail after stream error");
+            let storage_err = err
+                .downcast_ref::<google_cloud_storage::Error>()
+                .expect("expected google_cloud_storage::Error");
+            assert!(storage_err.is_io(), "{storage_err:?}");
+            let read_err = storage_err
+                .source()
+                .and_then(|e| e.downcast_ref::<ReadError>())
+                .expect("expected ReadError source");
+            match read_err {
+                ReadError::UnrecoverableBidiReadInterrupt(interrupt_err) => {
+                    assert_eq!(
+                        interrupt_err.status().map(|s| s.code),
+                        Some(Code::Unavailable),
+                        "{interrupt_err:?}"
+                    );
+                }
+                other => panic!("expected UnrecoverableBidiReadInterrupt, got: {other:?}"),
+            }
+        };
+
+        // Assert: All 3 concurrent pending reads fail with Unavailable
+        assert_unavailable_interrupt(res1);
+        assert_unavailable_interrupt(res2);
+        assert_unavailable_interrupt(res3);
+
+        // Assert: Subsequent read on the broken descriptor also fails with Unavailable
         let next_reader = descriptor.read_range(ReadRange::segment(10, 5)).await;
         let next_result = read_all_bytes(next_reader).await;
-        assert!(next_result.is_err(), "expected subsequent read to fail");
+        assert_unavailable_interrupt(next_result);
 
         Ok(())
     }
