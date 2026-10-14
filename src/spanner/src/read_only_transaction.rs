@@ -1128,18 +1128,22 @@ impl ReadContextTransactionSelector {
         if let TransactionState::Starting(options, notify) = &*guard {
             let notify = Arc::clone(notify);
             let is_read_write = matches!(&options.mode, Some(Mode::ReadWrite(_)));
-            // If the initial statement in a ReadWrite transaction failed with a non-aborted error
-            // (e.g. InvalidArgument or syntax error), Spanner never started a transaction.
-            // Marking `FirstStatementFailed` ensures that if the application catches this error
-            // and attempts subsequent statements, they fail fast with a synthetic Aborted error,
-            // signaling TransactionRunner to retry with an explicit BeginTransaction RPC so that
-            // subsequent operations can execute within an active transaction.
-            //
-            // If the initial statement failed with a genuine Aborted error (concurrency conflict),
-            // retrying with InlineBegin is still preferred to preserve single-hop efficiency, so
-            // we transition to `Failed` and let the runner perform a normal backoff retry.
-            if is_read_write && !is_aborted_or_emulator_error(error, is_emulator) {
-                *guard = TransactionState::FirstStatementFailed;
+            if is_read_write {
+                // If the initial statement in a ReadWrite transaction failed with a non-aborted error
+                // (e.g. InvalidArgument or syntax error), Spanner never started a transaction.
+                // Marking `FirstStatementFailed` ensures that if the application catches this error
+                // and attempts subsequent statements, they fail fast with a synthetic Aborted error,
+                // signaling TransactionRunner to retry with an explicit BeginTransaction RPC so that
+                // subsequent operations can execute within an active transaction.
+                //
+                // If the initial statement failed with a genuine Aborted error (concurrency conflict),
+                // retrying with InlineBegin is still preferred to preserve single-hop efficiency, so
+                // we transition to `Failed` and let the runner perform a normal backoff retry.
+                if !is_aborted_or_emulator_error(error, is_emulator) {
+                    *guard = TransactionState::FirstStatementFailed;
+                } else {
+                    *guard = TransactionState::Failed(TransactionStartFailure::from_error(error));
+                }
             } else {
                 tracing::debug!(
                     "Initial statement in read-only transaction failed; marking transaction as permanently failed. \
