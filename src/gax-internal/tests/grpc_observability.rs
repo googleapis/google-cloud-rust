@@ -752,6 +752,66 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(google_cloud_unstable_grpc_rust)]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn propagate_trace_context_bidi_streaming_grpc_rust() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(test_credentials());
+        let client = grpc::GrpcRustClient::new(config, &endpoint).await?;
+
+        // Wire up OpenTelemetry so spans get a valid trace ID to propagate.
+        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
+        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
+        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
+        use tracing_subscriber::layer::SubscriberExt;
+        let subscriber = tracing_subscriber::registry().with(telemetry);
+        let _guard = tracing::subscriber::set_default(subscriber);
+
+        // Prepare the bidi message stream.
+        let (tx, rx) = tokio::sync::mpsc::channel(4);
+        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        // Act
+        // Open the bidi stream inside a span so its trace ID is injected into headers.
+        use tracing::Instrument;
+        let span = tracing::info_span!("parent_span");
+        let mut response_stream = client
+            .bidi_stream::<_, google::test::v1::EchoResponse>(
+                tonic::Extensions::new(),
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                request_stream,
+                RequestOptions::default(),
+                "test-client",
+                "name=test-only",
+            )
+            .instrument(span)
+            .await?
+            .into_inner();
+        tx.send(request).await?;
+        let response = response_stream
+            .message()
+            .await?
+            .expect("stream should yield a response");
+        drop(tx);
+
+        // Assert
+        assert!(
+            response.metadata.contains_key("traceparent"),
+            "Metadata should contain traceparent. Metadata: {:?}",
+            response.metadata
+        );
+
+        Ok(())
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn propagate_trace_context_server_streaming() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
