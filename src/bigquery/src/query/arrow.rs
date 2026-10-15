@@ -38,13 +38,10 @@ impl ArrowStreamDecoder {
 
     /// Feeds serialized Arrow IPC schema bytes into the underlying decoder.
     pub(crate) fn set_schema_bytes(&mut self, schema_bytes: bytes::Bytes) -> Result<(), RowError> {
-        if schema_bytes.is_empty() {
-            return Ok(());
-        }
         let mut buf = arrow::buffer::Buffer::from(schema_bytes);
-        while let Some(_msg) = self.decoder.decode(&mut buf).map_err(|e| {
+        self.decoder.decode(&mut buf).map_err(|e| {
             RowError::InvalidRowFormat(format!("failed to decode arrow schema: {e}"))
-        })? {}
+        })?;
         Ok(())
     }
 
@@ -99,7 +96,7 @@ impl ArrowResponseReader {
     ) -> Self {
         Self {
             decoder: ArrowStreamDecoder::new(),
-            schema_bytes: (!serialized_schema.is_empty()).then_some(serialized_schema),
+            schema_bytes: Some(serialized_schema),
             batch_buf: arrow::buffer::Buffer::from(serialized_record_batch),
         }
     }
@@ -500,8 +497,8 @@ mod tests {
         TimestampNanosecondArray, TimestampSecondArray,
     };
     use arrow::buffer::NullBuffer;
-    use arrow::datatypes::{DataType, i256};
-    use arrow::datatypes::{Field, Fields};
+    use arrow::datatypes::{DataType, Field, Fields, Schema as ArrowSchema, i256};
+    use arrow::ipc::writer::StreamWriter;
     use std::sync::Arc;
     use test_case::test_case;
 
@@ -743,8 +740,6 @@ mod tests {
     }
 
     fn create_test_arrow_schema() -> Arc<arrow::datatypes::Schema> {
-        use arrow::datatypes::{Field, Schema as ArrowSchema};
-
         Arc::new(ArrowSchema::new(vec![
             Field::new("col", DataType::Utf8, false),
             Field::new("num", DataType::Int64, false),
@@ -752,8 +747,6 @@ mod tests {
     }
 
     fn create_test_arrow_schema_bytes() -> bytes::Bytes {
-        use arrow::ipc::writer::StreamWriter;
-
         let arrow_schema = create_test_arrow_schema();
         let mut schema_buf = Vec::new();
         let _ =
@@ -763,8 +756,6 @@ mod tests {
 
     #[test]
     fn arrow_stream_decoder_batches() -> anyhow::Result<()> {
-        use arrow::ipc::writer::StreamWriter;
-
         let arrow_schema = create_test_arrow_schema();
         let schema_bytes = create_test_arrow_schema_bytes();
 
@@ -796,8 +787,6 @@ mod tests {
 
     #[tokio::test]
     async fn arrow_response_reader_multiple_batches() -> anyhow::Result<()> {
-        use arrow::ipc::writer::StreamWriter;
-
         let arrow_schema = create_test_arrow_schema();
         let schema_bytes = create_test_arrow_schema_bytes();
 
