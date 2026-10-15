@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::builder::bigquery::Query;
 use crate::client::Read;
 use crate::error::QueryError;
@@ -271,6 +272,7 @@ impl BigQuery {
             check_job_status(job)?,
             None,
             None,
+            RequestOptions::default(),
         ))
     }
 }

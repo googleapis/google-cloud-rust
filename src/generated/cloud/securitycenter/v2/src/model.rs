@@ -2472,6 +2472,11 @@ pub struct BigQueryExport {
     /// upload data to the BigQuery dataset.
     pub principal: std::string::String,
 
+    /// Optional. Indicates whether the notifications will be sent for deleted
+    /// findings. When enabled, the filter is still respected when sending deletion
+    /// notifications.
+    pub deletion_notifications_enabled: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2622,6 +2627,18 @@ impl BigQueryExport {
     /// ```
     pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal = v.into();
+        self
+    }
+
+    /// Sets the value of [deletion_notifications_enabled][crate::model::BigQueryExport::deletion_notifications_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_deletion_notifications_enabled(true);
+    /// ```
+    pub fn set_deletion_notifications_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deletion_notifications_enabled = v.into();
         self
     }
 }
@@ -14429,6 +14446,11 @@ pub struct NotificationConfig {
     /// updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
+    /// Optional. Indicates whether the notifications will be sent for deleted
+    /// findings. When enabled, the filter defined in the streaming config is still
+    /// respected when sending deletion notifications.
+    pub deletion_notifications_enabled: bool,
+
     /// The config for triggering notifications.
     pub notify_config: std::option::Option<crate::model::notification_config::NotifyConfig>,
 
@@ -14522,6 +14544,18 @@ impl NotificationConfig {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [deletion_notifications_enabled][crate::model::NotificationConfig::deletion_notifications_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = NotificationConfig::new().set_deletion_notifications_enabled(true);
+    /// ```
+    pub fn set_deletion_notifications_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deletion_notifications_enabled = v.into();
         self
     }
 
@@ -14675,6 +14709,9 @@ pub struct NotificationMessage {
     /// The Cloud resource tied to this notification's Finding.
     pub resource: std::option::Option<crate::model::Resource>,
 
+    /// Indicates whether the finding is deleted.
+    pub deleted_finding: bool,
+
     /// Notification Event.
     pub event: std::option::Option<crate::model::notification_message::Event>,
 
@@ -14732,6 +14769,18 @@ impl NotificationMessage {
         T: std::convert::Into<crate::model::Resource>,
     {
         self.resource = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [deleted_finding][crate::model::NotificationMessage::deleted_finding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::NotificationMessage;
+    /// let x = NotificationMessage::new().set_deleted_finding(true);
+    /// ```
+    pub fn set_deleted_finding<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deleted_finding = v.into();
         self
     }
 

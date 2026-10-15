@@ -2309,6 +2309,12 @@ impl serde::ser::Serialize for super::BuildOptions {
         if !wkt::internal::is_default(&self.enable_structured_logging) {
             state.serialize_entry("enableStructuredLogging", &self.enable_structured_logging)?;
         }
+        if !self.worker_release.is_empty() {
+            state.serialize_entry("workerRelease", &self.worker_release)?;
+        }
+        if !self.resolved_worker_release.is_empty() {
+            state.serialize_entry("resolvedWorkerRelease", &self.resolved_worker_release)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2330,6 +2336,12 @@ impl serde::ser::Serialize for super::build_options::PoolOption {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if !self.worker_release.is_empty() {
+            state.serialize_entry("workerRelease", &self.worker_release)?;
+        }
+        if !self.resolved_worker_release.is_empty() {
+            state.serialize_entry("resolvedWorkerRelease", &self.resolved_worker_release)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2592,6 +2604,9 @@ impl serde::ser::Serialize for super::private_pool_v_1_config::WorkerConfig {
                 "enableNestedVirtualization",
                 &self.enable_nested_virtualization,
             )?;
+        }
+        if !self.worker_release.is_empty() {
+            state.serialize_entry("workerRelease", &self.worker_release)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -34,8 +34,7 @@ use tonic::Status;
 use tonic::body::Body;
 use tonic::transport::Channel;
 
-/// Verifies that concurrent queries using "inline begin" (lazy transaction initialization)
-/// maintain snapshot consistency and handle stream failures correctly.
+/// Verifies that concurrent queries maintain snapshot consistency and handle stream failures correctly.
 ///
 /// This test:
 /// 1. Captures a snapshot timestamp.
@@ -46,10 +45,10 @@ use tonic::transport::Channel;
 ///    - Queries that trigger transient stream failures (should be retried and succeed).
 ///    - Queries that trigger permanent failures (should fail as expected).
 ///
-/// This ensures that even though the transaction ID is acquired lazily by whatever query
-/// happens to win the race, all concurrent queries share that same transaction ID and
-/// see the database state as of the original snapshot timestamp.
-pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow::Result<()> {
+/// For concurrent queries executed in parallel at the start of a transaction, `ExplicitBegin`
+/// is used so that all queries share the established transaction ID and see the database
+/// state as of the original snapshot timestamp, even if individual queries fail.
+pub async fn test_concurrent_explicit_begin_with_snapshot_consistency() -> anyhow::Result<()> {
     let emulator_host = match get_emulator_host() {
         Some(host) => host,
         None => return Ok(()),
@@ -215,7 +214,7 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     let tx = intercepted_db
         .read_only_transaction()
         .set_timestamp_bound(TimestampBound::read_timestamp(snapshot_time))
-        .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
         .build()
         .await?;
     let tx = Arc::new(tx);

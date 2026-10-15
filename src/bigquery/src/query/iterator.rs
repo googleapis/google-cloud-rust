@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::error::RowError;
 #[cfg(any(
     google_cloud_unstable_bigquery_arrow,
@@ -76,6 +77,7 @@ pub struct RowIterator {
     row_index: usize,
     rows: VecDeque<wkt::Struct>,
     page_size: Option<u32>,
+    options: RequestOptions,
     #[cfg(any(
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
@@ -132,6 +134,7 @@ impl RowIterator {
             row_index: 0,
             rows,
             page_size: q.page_size,
+            options: q.options,
             #[cfg(any(
                 google_cloud_unstable_bigquery_arrow,
                 google_cloud_unstable_bigquery_storage_read
@@ -271,6 +274,7 @@ impl RowIterator {
         let res = self
             .job_service
             .get_query_results()
+            .with_options(self.options.clone())
             .with_request(req)
             .send()
             .await?;
@@ -587,6 +591,34 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn test_row_iterator_inherits_user_agent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|_, options| {
+                assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("page_row")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let res = QueryResponse::new()
+            .set_schema(create_test_schema())
+            .set_job_reference(create_test_job_ref())
+            .set_page_token("token_1");
+        let mut q = CompleteQuery::from_query_response(job_service, res, None);
+        q.options.set_user_agent("my-app/1.2.3");
+        let mut iter = q.read();
+
+        let row = iter.next().await.expect("should have row")?;
+        assert_eq!(row.get::<String, _>("col")?, "page_row");
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
     #[cfg(any(
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
@@ -640,6 +672,7 @@ mod tests {
             page_token: None,
             metadata: Default::default(),
             page_size: None,
+            options: Default::default(),
         };
 
         let mut iter = q.read();
@@ -709,6 +742,7 @@ mod tests {
             page_token: None,
             metadata: Default::default(),
             page_size: None,
+            options: Default::default(),
         };
 
         let mut iter = q.read();
