@@ -210,7 +210,9 @@ impl RowIterator {
                             self.row_index = 0;
                             continue;
                         }
-                        Ok(None) => return None,
+                        Ok(None) => {
+                            self.arrow_reader = None;
+                        }
                         Err(_err) if arrow_reader.can_fallback_to_rest() => {
                             // Fall back to JSON pagination if read stream opening failed
                             self.arrow_reader = None;
@@ -688,6 +690,71 @@ mod tests {
         let row3 = iter.next().await.expect("row 3")?;
         assert_eq!(row3.get::<String, _>("col")?, "last");
         assert_eq!(row3.get::<i64, _>("num")?, 999);
+
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[tokio::test]
+    async fn test_row_iterator_cached_arrow_then_fetch_page() -> TestResult {
+        use arrow::array::StringArray;
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchema};
+        use arrow::ipc::writer::StreamWriter;
+
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "token_page_1");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("from_json_page")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![Field::new(
+            "col",
+            DataType::Utf8,
+            false,
+        )]));
+        let mut schema_buf = Vec::new();
+        let _ = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
+
+        let batch = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![Arc::new(StringArray::from(vec!["from_arrow_batch"]))],
+        )?;
+        let mut stream_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut stream_buf, &arrow_schema)?;
+        writer.write(&batch)?;
+        writer.finish()?;
+        let batch_buf = stream_buf[schema_buf.len()..].to_vec();
+
+        let job_service = create_job_service(mock);
+        let q = CompleteQuery {
+            job_service,
+            job_ref: Some(create_test_job_ref()),
+            cached_data: CachedData::Arrow {
+                serialized_schema: schema_buf.into(),
+                serialized_record_batch: batch_buf.into(),
+            },
+            page_token: Some("token_page_1".to_string()),
+            metadata: Default::default(),
+            page_size: None,
+            options: Default::default(),
+        };
+
+        let mut iter = q.read();
+
+        let row1 = iter.next().await.expect("row 1")?;
+        assert_eq!(row1.get::<String, _>("col")?, "from_arrow_batch");
+
+        let row2 = iter.next().await.expect("row 2")?;
+        assert_eq!(row2.get::<String, _>("col")?, "from_json_page");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
