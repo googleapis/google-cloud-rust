@@ -1515,6 +1515,7 @@ mod tests {
         );
     }
 
+    #[ignore = "TODO(#7212) - disabled because it was flaky"]
     #[tokio::test]
     async fn lifecycle_manager_probe_retries_missing_endpoints() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");

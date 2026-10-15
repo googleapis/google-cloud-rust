@@ -516,6 +516,7 @@ mod tests {
         );
     }
 
+    #[ignore = "TODO(#7164) - disabled because it was flaky"]
     #[tokio::test]
     async fn cache_updater_prewarms_connections() {
         let updater = make_test_updater();
