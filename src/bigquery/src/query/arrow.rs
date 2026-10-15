@@ -386,11 +386,10 @@ impl ArrowCell {
     /// Extracts a child `ArrowCell` by element index from a `ListArray` or `LargeListArray`.
     pub(crate) fn list_element_cell(&self, index: usize) -> Result<ArrowCell, ConvertError> {
         let value_arr = self.list_array_ref()?;
-        if index < value_arr.len() {
-            Ok(ArrowCell::new(value_arr, index))
-        } else {
-            Err(ConvertError::MissingField(index.to_string()))
+        if index >= value_arr.len() {
+            return Err(ConvertError::MissingField(index.to_string()));
         }
+        Ok(ArrowCell::new(value_arr, index))
     }
 }
 
@@ -637,13 +636,12 @@ mod tests {
             .struct_field_cell(&name)
             .map_err(TestConvertError::from)?;
         if field_cell.is_null() {
-            Ok(None)
-        } else {
-            field_cell
-                .as_i64()
-                .map(Some)
-                .map_err(TestConvertError::from)
+            return Ok(None);
         }
+        field_cell
+            .as_i64()
+            .map(Some)
+            .map_err(TestConvertError::from)
     }
 
     #[test_case(sample_struct_array(None), 0, 0 => Ok(Some(10)) ; "struct field index 0 row 0")]
@@ -661,13 +659,12 @@ mod tests {
             .struct_field_cell(&col_idx)
             .map_err(TestConvertError::from)?;
         if field_cell.is_null() {
-            Ok(None)
-        } else {
-            field_cell
-                .as_i64()
-                .map(Some)
-                .map_err(TestConvertError::from)
+            return Ok(None);
         }
+        field_cell
+            .as_i64()
+            .map(Some)
+            .map_err(TestConvertError::from)
     }
 
     fn sample_list_array(nulls: Option<NullBuffer>) -> ArrayRef {
@@ -708,9 +705,8 @@ mod tests {
             .list_element_cell(elem_idx)
             .map_err(TestConvertError::from)?;
         if elem_cell.is_null() {
-            Ok(None)
-        } else {
-            elem_cell.as_i64().map(Some).map_err(TestConvertError::from)
+            return Ok(None);
         }
+        elem_cell.as_i64().map(Some).map_err(TestConvertError::from)
     }
 }
