@@ -13,4 +13,5 @@
 // limitations under the License.
 
 pub mod error_details;
+pub mod http_body;
 mod traversal;
