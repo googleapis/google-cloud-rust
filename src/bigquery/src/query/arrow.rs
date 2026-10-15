@@ -522,7 +522,7 @@ mod tests {
     enum TestConvertError {
         NotNull,
         TypeMismatch { expected: String, got: String },
-        Convert(String),
+        Convert,
         MissingField(String),
     }
 
@@ -542,7 +542,7 @@ mod tests {
                 ConvertError::TypeMismatch { expected, got } => {
                     Self::TypeMismatch { expected, got }
                 }
-                ConvertError::Convert(e) => Self::Convert(e.to_string()),
+                ConvertError::Convert(_) => Self::Convert,
                 ConvertError::MissingField(f) => Self::MissingField(f),
             }
         }
@@ -585,7 +585,7 @@ mod tests {
     #[test_case(Arc::new(Int32Array::from(vec![Some(123)])), 0 => Ok(123) ; "i32 from Int32Array")]
     #[test_case(Arc::new(Int32Array::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "i32 null")]
     #[test_case(Arc::new(Int64Array::from(vec![Some(456)])), 0 => Ok(456) ; "i32 from Int64Array")]
-    #[test_case(Arc::new(Int64Array::from(vec![Some(i64::from(i32::MAX) + 1)])), 0 => Err(TestConvertError::Convert("out of range integral type conversion attempted".to_string())) ; "i32 overflow from Int64Array")]
+    #[test_case(Arc::new(Int64Array::from(vec![Some(i64::from(i32::MAX) + 1)])), 0 => Err(TestConvertError::Convert) ; "i32 overflow from Int64Array")]
     #[test_case(Arc::new(BooleanArray::from(vec![true])), 0 => Err(TestConvertError::type_mismatch("Int64Array or Int32Array", "Boolean")) ; "i32 type mismatch")]
     fn as_i32(arr: ArrayRef, row_idx: usize) -> Result<i32, TestConvertError> {
         ArrowCell::new(arr, row_idx)
@@ -639,8 +639,8 @@ mod tests {
     #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(1_779_982_200_123_456_789)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp nanosecond")]
     #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(-1_500)])), 0 => Ok(-2) ; "timestamp nanosecond pre epoch floor")]
     #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(1_779_982_200)])), 0 => Ok(1_779_982_200_000_000) ; "timestamp second")]
-    #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert("timestamp overflow".to_string())) ; "timestamp millisecond overflow")]
-    #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert("timestamp overflow".to_string())) ; "timestamp second overflow")]
+    #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert) ; "timestamp millisecond overflow")]
+    #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert) ; "timestamp second overflow")]
     #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "timestamp null")]
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("TimestampArray", "Int64")) ; "timestamp type mismatch")]
     fn as_timestamp_micros(arr: ArrayRef, row_idx: usize) -> Result<i64, TestConvertError> {
