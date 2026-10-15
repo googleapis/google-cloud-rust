@@ -1023,7 +1023,8 @@ mod tests {
         mock.expect_get_query_results()
             .in_sequence(&mut seq)
             .times(1)
-            .returning(|req, _| {
+            .returning(|req, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("some_project"));
                 assert_eq!(req.job_id, "initial_job_id");
                 let err_proto = ErrorProto::new()
                     .set_reason("backendError")
@@ -1035,7 +1036,8 @@ mod tests {
         mock.expect_query()
             .in_sequence(&mut seq)
             .times(1)
-            .returning(|req, _| {
+            .returning(|req, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("some_project"));
                 let req_id = &req.query_request.as_ref().unwrap().request_id;
                 assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX));
                 assert!(uuid::Uuid::parse_str(&req_id[QUERY_REQUEST_ID_PREFIX.len()..]).is_ok());
@@ -1053,7 +1055,8 @@ mod tests {
         mock.expect_get_query_results()
             .in_sequence(&mut seq)
             .times(1)
-            .returning(|req, _| {
+            .returning(|req, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("some_project"));
                 assert_eq!(req.job_id, "reissued_job_id");
                 let res = GetQueryResultsResponse::new()
                     .set_job_complete(true)
@@ -1071,21 +1074,21 @@ mod tests {
 
         let query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
             .with_project_id("some_project");
+        let options = query_builder.options.clone();
         let mut retry_context = RetryContext::new(query_builder);
         retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(
-            job_service,
-            query_res,
-            Some(&retry_context),
-            None,
-            RequestOptions::default(),
-        );
+        let query =
+            Query::from_query_response(job_service, query_res, Some(&retry_context), None, options);
 
         let completed = query.until_done().await?;
         assert_eq!(
             completed.job_ref.as_ref().unwrap().job_id,
             "reissued_job_id"
+        );
+        assert_eq!(
+            completed.options.quota_project().as_deref(),
+            Some("some_project")
         );
         Ok(())
     }
@@ -1530,6 +1533,71 @@ mod tests {
 
         let mut options = RequestOptions::default();
         options.set_user_agent("my-app/1.2.3");
+        let query = Query::from_query_response(job_service, query_res, None, None, options);
+        let job = query.get_job().unwrap().send().await?;
+        assert_eq!(job.user_email, "test@example.com");
+
+        let complete_query = query.until_done().await?;
+        let job = complete_query.get_job().unwrap().send().await?;
+        assert_eq!(job.user_email, "test@example.com");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_until_done_polls_with_quota_project() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .returning(|req, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("some_project"));
+                let res = GetQueryResultsResponse::new()
+                    .set_job_complete(true)
+                    .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                    .set_schema(TableSchema::new());
+                Ok(Response::from(res))
+            })
+            .times(1);
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref);
+
+        let mut options = RequestOptions::default();
+        options.set_quota_project("some_project");
+        let query = Query::from_query_response(job_service, query_res, None, None, options);
+
+        let completed = query.until_done().await?;
+        assert_eq!(
+            completed.options.quota_project().as_deref(),
+            Some("some_project")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_get_job_with_quota_project() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().times(2).returning(|req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("some_project"));
+            let res = Job::new()
+                .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                .set_user_email("test@example.com");
+            Ok(Response::from(res))
+        });
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(true)
+            .set_schema(TableSchema::new())
+            .set_job_reference(job_ref);
+
+        let mut options = RequestOptions::default();
+        options.set_quota_project("some_project");
         let query = Query::from_query_response(job_service, query_res, None, None, options);
         let job = query.get_job().unwrap().send().await?;
         assert_eq!(job.user_email, "test@example.com");
