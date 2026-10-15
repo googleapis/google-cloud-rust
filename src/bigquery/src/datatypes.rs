@@ -408,7 +408,7 @@ impl<T: RangeElement> FromSql for Range<T> {
                     return Err(ConvertError::NotNull);
                 }
                 let take = |key: &str| -> Result<Option<T>, ConvertError> {
-                    let field_cell = cell.struct_field_by_name(key)?;
+                    let field_cell = cell.struct_field_cell(&key)?;
                     Option::<T>::from_value(crate::query::SqlValue::from_inner(
                         SqlValueInner::Arrow(field_cell),
                     ))

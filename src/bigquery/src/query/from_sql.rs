@@ -344,6 +344,19 @@ impl<T: FromSql> FromSql for Vec<T> {
                 .map(|v| T::from_value(SqlValue::from_inner(v)))
                 .collect(),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let value_arr = cell.list_array_ref()?;
+                (0..value_arr.len())
+                    .map(|i| {
+                        let elem_cell = ArrowCell::new(value_arr.clone(), i);
+                        T::from_value(SqlValue::from_inner(SqlValueInner::Arrow(elem_cell)))
+                    })
+                    .collect()
+            }
             other => Err(ConvertError::type_mismatch("array", &other)),
         }
     }
@@ -1068,15 +1081,41 @@ mod tests {
         use super::*;
         use arrow::array::{
             ArrayRef, BinaryArray, BooleanArray, Date32Array, Float32Array, Float64Array,
-            Int32Array, Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
-            Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
+            Int32Array, Int64Array, LargeBinaryArray, LargeListArray, LargeStringArray, ListArray,
+            StringArray, Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
             TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray,
         };
+        use arrow::buffer::{NullBuffer, OffsetBuffer};
+        use arrow::datatypes::{DataType, Field};
         use std::sync::Arc;
         use test_case::test_case;
 
         fn arrow_val(arr: ArrayRef, row_idx: usize) -> SqlValue {
             SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, row_idx)))
+        }
+
+        fn sample_list_i64(values: Vec<Option<i64>>, nulls: Option<NullBuffer>) -> ArrayRef {
+            let len = values.len();
+            let val_arr: ArrayRef = Arc::new(Int64Array::from(values));
+            let offsets = OffsetBuffer::from_lengths(vec![len]);
+            Arc::new(ListArray::new(
+                Arc::new(Field::new("item", DataType::Int64, true)),
+                offsets,
+                val_arr,
+                nulls,
+            ))
+        }
+
+        fn sample_large_list_i64(values: Vec<Option<i64>>) -> ArrayRef {
+            let len = values.len();
+            let val_arr: ArrayRef = Arc::new(Int64Array::from(values));
+            let offsets = OffsetBuffer::from_lengths(vec![len]);
+            Arc::new(LargeListArray::new(
+                Arc::new(Field::new("item", DataType::Int64, true)),
+                offsets,
+                val_arr,
+                None,
+            ))
         }
 
         #[test_case(Arc::new(BooleanArray::from(vec![true])) => "Boolean" ; "arrow boolean")]
@@ -1222,6 +1261,36 @@ mod tests {
         ) -> Result<google_cloud_type::model::DateTime, TestConvertError> {
             google_cloud_type::model::DateTime::from_value(arrow_val(arr, 0))
                 .map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_list_i64(vec![Some(10), Some(20), Some(30)], None) => Ok(vec![10, 20, 30]) ; "vec from ListArray")]
+        #[test_case(sample_large_list_i64(vec![Some(40), Some(50)]) => Ok(vec![40, 50]) ; "vec from LargeListArray")]
+        #[test_case(sample_list_i64(vec![], None) => Ok(vec![]) ; "vec empty ListArray")]
+        #[test_case(sample_list_i64(vec![Some(10)], Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "vec null ListArray")]
+        #[test_case(sample_list_i64(vec![Some(10), None], None) => Err(TestConvertError::NotNull) ; "vec null element in non-optional Vec")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("ListArray or LargeListArray")) ; "vec type mismatch")]
+        fn test_from_sql_arrow_vec_i64(arr: ArrayRef) -> Result<Vec<i64>, TestConvertError> {
+            Vec::<i64>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_list_i64(vec![Some(10), None, Some(30)], None) => Ok(vec![Some(10), None, Some(30)]) ; "vec option i64 with null element")]
+        fn test_from_sql_arrow_vec_option_i64(
+            arr: ArrayRef,
+        ) -> Result<Vec<Option<i64>>, TestConvertError> {
+            Vec::<Option<i64>>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test]
+        fn test_sql_value_take_arrow_list_by_index() -> anyhow::Result<()> {
+            let mut list_val = arrow_val(sample_list_i64(vec![Some(10), Some(20)], None), 0);
+            assert_eq!(list_val.take::<i64, _>(0)?, 10);
+            assert_eq!(list_val.take::<i64, _>(1)?, 20);
+            assert!(matches!(
+                list_val.take::<i64, _>(2),
+                Err(ConvertError::MissingField(ref f)) if f == "2"
+            ));
+
+            Ok(())
         }
     }
 }
