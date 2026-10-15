@@ -243,8 +243,8 @@ mod spanner {
             Ok(())
         }
 
-        async fn run_concurrent_inline_begin_tests(_db_client: &DatabaseClient) -> anyhow::Result<()> {
-            integration_tests_spanner::concurrent_inline_begin::test_concurrent_inline_begin_with_snapshot_consistency().await?;
+        async fn run_read_only_transaction_concurrent_queries_tests(_db_client: &DatabaseClient) -> anyhow::Result<()> {
+            integration_tests_spanner::read_only_transaction_concurrent_queries::test_concurrent_explicit_begin_with_snapshot_consistency().await?;
             Ok(())
         }
 

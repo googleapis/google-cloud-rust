@@ -4695,9 +4695,22 @@ pub struct Instance {
     pub query_insights_config:
         std::option::Option<crate::model::instance::QueryInsightsInstanceConfig>,
 
+    /// Output only. Instance level Query Insights information, which is read-only
+    /// and available in the output only. Contains the effective query insights
+    /// settings for this instance, by merging customer's provided
+    /// `QueryInsightsInstanceConfig` with the Query Insights defaults.
+    pub query_insights_info: std::option::Option<crate::model::instance::QueryInsightsInstanceInfo>,
+
     /// Configuration for observability.
     pub observability_config:
         std::option::Option<crate::model::instance::ObservabilityInstanceConfig>,
+
+    /// Output only. Instance level observability information, contains the
+    /// effective values of observability settings for this instance, by merging
+    /// customer's provided `ObservabilityInstanceConfig` with the
+    /// Observability defaults.
+    pub observability_instance_info:
+        std::option::Option<crate::model::instance::ObservabilityInstanceInfo>,
 
     /// Read pool instance configuration.
     /// This is required if the value of instanceType is READ_POOL.
@@ -5131,6 +5144,39 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [query_insights_info][crate::model::Instance::query_insights_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_v1::model::Instance;
+    /// use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceInfo;
+    /// let x = Instance::new().set_query_insights_info(QueryInsightsInstanceInfo::default()/* use setters */);
+    /// ```
+    pub fn set_query_insights_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::QueryInsightsInstanceInfo>,
+    {
+        self.query_insights_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_insights_info][crate::model::Instance::query_insights_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_v1::model::Instance;
+    /// use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceInfo;
+    /// let x = Instance::new().set_or_clear_query_insights_info(Some(QueryInsightsInstanceInfo::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_query_insights_info(None::<QueryInsightsInstanceInfo>);
+    /// ```
+    pub fn set_or_clear_query_insights_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::QueryInsightsInstanceInfo>,
+    {
+        self.query_insights_info = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [observability_config][crate::model::Instance::observability_config].
     ///
     /// # Example
@@ -5161,6 +5207,39 @@ impl Instance {
         T: std::convert::Into<crate::model::instance::ObservabilityInstanceConfig>,
     {
         self.observability_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [observability_instance_info][crate::model::Instance::observability_instance_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_v1::model::Instance;
+    /// use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+    /// let x = Instance::new().set_observability_instance_info(ObservabilityInstanceInfo::default()/* use setters */);
+    /// ```
+    pub fn set_observability_instance_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::ObservabilityInstanceInfo>,
+    {
+        self.observability_instance_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [observability_instance_info][crate::model::Instance::observability_instance_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_v1::model::Instance;
+    /// use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+    /// let x = Instance::new().set_or_clear_observability_instance_info(Some(ObservabilityInstanceInfo::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_observability_instance_info(None::<ObservabilityInstanceInfo>);
+    /// ```
+    pub fn set_or_clear_observability_instance_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::ObservabilityInstanceInfo>,
+    {
+        self.observability_instance_info = v.map(|x| x.into());
         self
     }
 
@@ -5744,6 +5823,102 @@ pub mod instance {
         }
     }
 
+    /// Instance level Query Insights information, which is read-only and available
+    /// in the output only.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct QueryInsightsInstanceInfo {
+        /// Output only. Whether Query Insights is enabled.
+        pub enabled: bool,
+
+        /// Output only. Whether to record application tags.
+        pub record_application_tags: bool,
+
+        /// Output only. Whether to record client address.
+        pub record_client_address: bool,
+
+        /// Output only. Maximum query string length.
+        pub query_string_length: u32,
+
+        /// Output only. Number of query execution plans captured per minute.
+        pub query_plans_per_minute: u32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl QueryInsightsInstanceInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::instance::QueryInsightsInstanceInfo::enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceInfo;
+        /// let x = QueryInsightsInstanceInfo::new().set_enabled(true);
+        /// ```
+        pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [record_application_tags][crate::model::instance::QueryInsightsInstanceInfo::record_application_tags].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceInfo;
+        /// let x = QueryInsightsInstanceInfo::new().set_record_application_tags(true);
+        /// ```
+        pub fn set_record_application_tags<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.record_application_tags = v.into();
+            self
+        }
+
+        /// Sets the value of [record_client_address][crate::model::instance::QueryInsightsInstanceInfo::record_client_address].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceInfo;
+        /// let x = QueryInsightsInstanceInfo::new().set_record_client_address(true);
+        /// ```
+        pub fn set_record_client_address<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.record_client_address = v.into();
+            self
+        }
+
+        /// Sets the value of [query_string_length][crate::model::instance::QueryInsightsInstanceInfo::query_string_length].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceInfo;
+        /// let x = QueryInsightsInstanceInfo::new().set_query_string_length(42_u32);
+        /// ```
+        pub fn set_query_string_length<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
+            self.query_string_length = v.into();
+            self
+        }
+
+        /// Sets the value of [query_plans_per_minute][crate::model::instance::QueryInsightsInstanceInfo::query_plans_per_minute].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceInfo;
+        /// let x = QueryInsightsInstanceInfo::new().set_query_plans_per_minute(42_u32);
+        /// ```
+        pub fn set_query_plans_per_minute<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
+            self.query_plans_per_minute = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for QueryInsightsInstanceInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.Instance.QueryInsightsInstanceInfo"
+        }
+    }
+
     /// Observability Instance specific configuration.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -6044,6 +6219,148 @@ pub mod instance {
     impl wkt::message::Message for ObservabilityInstanceConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.alloydb.v1.Instance.ObservabilityInstanceConfig"
+        }
+    }
+
+    #[allow(missing_docs)]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ObservabilityInstanceInfo {
+        /// Output only. Observability feature status for an instance.
+        pub enabled: bool,
+
+        /// Output only. Preserve comments in query string for an instance.
+        pub preserve_comments: bool,
+
+        /// Output only. Track wait events during query execution for an instance.
+        pub track_wait_events: bool,
+
+        /// Output only. Track wait event types during query execution for an
+        /// instance.
+        pub track_wait_event_types: bool,
+
+        /// Output only. Query string length. The default value is 10k.
+        pub max_query_string_length: i32,
+
+        /// Output only. Record application tags for an instance.
+        pub record_application_tags: bool,
+
+        /// Output only. Number of query execution plans captured by Insights per
+        /// minute for all queries combined.
+        pub query_plans_per_minute: i32,
+
+        /// Output only. Track actively running queries on the instance.
+        pub track_active_queries: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ObservabilityInstanceInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::instance::ObservabilityInstanceInfo::enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+        /// let x = ObservabilityInstanceInfo::new().set_enabled(true);
+        /// ```
+        pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [preserve_comments][crate::model::instance::ObservabilityInstanceInfo::preserve_comments].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+        /// let x = ObservabilityInstanceInfo::new().set_preserve_comments(true);
+        /// ```
+        pub fn set_preserve_comments<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.preserve_comments = v.into();
+            self
+        }
+
+        /// Sets the value of [track_wait_events][crate::model::instance::ObservabilityInstanceInfo::track_wait_events].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+        /// let x = ObservabilityInstanceInfo::new().set_track_wait_events(true);
+        /// ```
+        pub fn set_track_wait_events<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.track_wait_events = v.into();
+            self
+        }
+
+        /// Sets the value of [track_wait_event_types][crate::model::instance::ObservabilityInstanceInfo::track_wait_event_types].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+        /// let x = ObservabilityInstanceInfo::new().set_track_wait_event_types(true);
+        /// ```
+        pub fn set_track_wait_event_types<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.track_wait_event_types = v.into();
+            self
+        }
+
+        /// Sets the value of [max_query_string_length][crate::model::instance::ObservabilityInstanceInfo::max_query_string_length].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+        /// let x = ObservabilityInstanceInfo::new().set_max_query_string_length(42);
+        /// ```
+        pub fn set_max_query_string_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_query_string_length = v.into();
+            self
+        }
+
+        /// Sets the value of [record_application_tags][crate::model::instance::ObservabilityInstanceInfo::record_application_tags].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+        /// let x = ObservabilityInstanceInfo::new().set_record_application_tags(true);
+        /// ```
+        pub fn set_record_application_tags<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.record_application_tags = v.into();
+            self
+        }
+
+        /// Sets the value of [query_plans_per_minute][crate::model::instance::ObservabilityInstanceInfo::query_plans_per_minute].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+        /// let x = ObservabilityInstanceInfo::new().set_query_plans_per_minute(42);
+        /// ```
+        pub fn set_query_plans_per_minute<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.query_plans_per_minute = v.into();
+            self
+        }
+
+        /// Sets the value of [track_active_queries][crate::model::instance::ObservabilityInstanceInfo::track_active_queries].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceInfo;
+        /// let x = ObservabilityInstanceInfo::new().set_track_active_queries(true);
+        /// ```
+        pub fn set_track_active_queries<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.track_active_queries = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ObservabilityInstanceInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.Instance.ObservabilityInstanceInfo"
         }
     }
 
