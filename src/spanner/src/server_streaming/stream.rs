@@ -19,35 +19,21 @@ use crate::retry_delay::extract_status_code_from_error;
 use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::Streaming;
+use gaxi::prost::ToProto;
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::streaming::ResponseStream;
 use http::HeaderMap;
 use std::fmt::{Debug, Formatter, Result as FmtResult};
+use std::future::Future;
+use std::pin::Pin;
 use std::sync::Arc;
 use std::time::Duration;
-
-/// Trait for stream lifetime drop guards capable of recording RPC error codes for dynamic channel pooling
-/// and routing feedback for location-aware routing.
-pub(crate) trait StreamGuard: Debug + Send + Sync + 'static {
-    fn record_error_code(&self, _code: Code) {}
-
-    fn record_error(&self, error: &Error) {
-        if let Some(code) = extract_status_code_from_error(error) {
-            self.record_error_code(code);
-        }
-    }
-
-    fn record_first_response(&self, _latency: Duration) {}
-
-    fn record_success(&self) {}
-}
-
-/// Type alias for stream lifetime drop guards.
-pub(crate) type StreamLifetimeGuard = Arc<dyn StreamGuard>;
+use tokio::sync::Mutex;
 
 /// Generic wrapper around gRPC server-streaming responses with lifetime management.
 #[derive(Debug)]
 pub(crate) struct SpannerServerStream<T> {
-    pub(crate) inner: Streaming<T>,
+    pub(crate) inner: StreamSource<T>,
     pub(crate) headers: HeaderMap,
     pub(crate) lifetime_guard: Option<StreamLifetimeGuard>,
     pub(crate) on_first_transaction_id: Option<TransactionIdCallback>,
@@ -60,7 +46,25 @@ impl<T> SpannerServerStream<T> {
         lifetime_guard: Option<StreamLifetimeGuard>,
     ) -> Self {
         Self {
-            inner,
+            inner: StreamSource::Grpc(Box::new(inner)),
+            headers,
+            lifetime_guard,
+            on_first_transaction_id: None,
+        }
+    }
+
+    /// Creates a stream from an inbound [`ResponseStream`] backed by an in-memory stub or mock.
+    pub(crate) fn from_response_stream<Message>(
+        stream: ResponseStream<Message>,
+        headers: HeaderMap,
+        lifetime_guard: Option<StreamLifetimeGuard>,
+    ) -> Self
+    where
+        Message: ToProto<T, Output = T> + Send + 'static,
+        T: Send + 'static,
+    {
+        Self {
+            inner: StreamSource::Stub(Box::new(StubResponseStream::new(stream))),
             headers,
             lifetime_guard,
             on_first_transaction_id: None,
@@ -96,7 +100,14 @@ impl<T: StreamTransactionIdExtractor> SpannerServerStream<T> {
     /// `None` when the stream concludes naturally, or `Some(Err(_))` on RPC errors.
     /// Drops the attached lifetime guard on EOF or stream errors to release active in-flight accounting early.
     pub(crate) async fn next_message(&mut self) -> Option<Result<T>> {
-        let message = match self.inner.message().await.map_err(to_gax_error).transpose() {
+        let raw_message = match &mut self.inner {
+            StreamSource::Grpc(streaming) => {
+                streaming.message().await.map_err(to_gax_error).transpose()
+            }
+            StreamSource::Stub(stub_stream) => stub_stream.next_message().await,
+        };
+
+        let message = match raw_message {
             Some(Ok(message)) => message,
             Some(Err(err)) => {
                 if let Some(guard) = self.lifetime_guard.take() {
@@ -124,6 +135,87 @@ impl<T: StreamTransactionIdExtractor> SpannerServerStream<T> {
         Some(Ok(message))
     }
 }
+
+/// Internal source for a server streaming RPC, supporting both tonic gRPC streaming and in-memory mock stubs.
+pub(crate) enum StreamSource<T> {
+    Grpc(Box<Streaming<T>>),
+    Stub(Box<dyn DynamicStream<T> + Send + Sync>),
+}
+
+impl<T> Debug for StreamSource<T> {
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> FmtResult {
+        match self {
+            Self::Grpc(streaming) => formatter.debug_tuple("Grpc").field(streaming).finish(),
+            Self::Stub(stub_stream) => formatter.debug_tuple("Stub").field(stub_stream).finish(),
+        }
+    }
+}
+
+/// Type-erased trait for asynchronous streaming sources capable of yielding stream messages.
+pub(crate) trait DynamicStream<T>: Debug + Send + Sync {
+    fn next_message<'a>(
+        &'a mut self,
+    ) -> Pin<Box<dyn Future<Output = Option<Result<T>>> + Send + 'a>>;
+}
+
+struct StubResponseStream<Message> {
+    stream: Mutex<ResponseStream<Message>>,
+}
+
+impl<Message> Debug for StubResponseStream<Message> {
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> FmtResult {
+        formatter.debug_struct("StubResponseStream").finish()
+    }
+}
+
+impl<Message> StubResponseStream<Message> {
+    fn new(stream: ResponseStream<Message>) -> Self {
+        Self {
+            stream: Mutex::new(stream),
+        }
+    }
+}
+
+impl<Message, ProtoMessage> DynamicStream<ProtoMessage> for StubResponseStream<Message>
+where
+    Message: ToProto<ProtoMessage, Output = ProtoMessage> + Send + 'static,
+    ProtoMessage: Send + 'static,
+{
+    fn next_message<'a>(
+        &'a mut self,
+    ) -> Pin<Box<dyn Future<Output = Option<Result<ProtoMessage>>> + Send + 'a>> {
+        Box::pin(async move {
+            let mut stream_guard = self.stream.lock().await;
+            match stream_guard.next().await {
+                Some(Ok(message)) => match message.to_proto() {
+                    Ok(proto_message) => Some(Ok(proto_message)),
+                    Err(error) => Some(Err(Error::deser(error))),
+                },
+                Some(Err(error)) => Some(Err(error)),
+                None => None,
+            }
+        })
+    }
+}
+
+/// Trait for stream lifetime drop guards capable of recording RPC error codes for dynamic channel pooling
+/// and routing feedback for location-aware routing.
+pub(crate) trait StreamGuard: Debug + Send + Sync + 'static {
+    fn record_error_code(&self, _code: Code) {}
+
+    fn record_error(&self, error: &Error) {
+        if let Some(code) = extract_status_code_from_error(error) {
+            self.record_error_code(code);
+        }
+    }
+
+    fn record_first_response(&self, _latency: Duration) {}
+
+    fn record_success(&self) {}
+}
+
+/// Type alias for stream lifetime drop guards.
+pub(crate) type StreamLifetimeGuard = Arc<dyn StreamGuard>;
 
 /// Trait implemented by stream response message types capable of carrying a transaction ID.
 pub(crate) trait StreamTransactionIdExtractor {
@@ -181,9 +273,15 @@ pub(crate) type CacheUpdateStream = SpannerServerStream<ProtoCacheUpdate>;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::model::ExecuteSqlRequest;
+    use crate::model::{
+        ExecuteSqlRequest, PartialResultSet as ModelPartialResultSet, ResultSetMetadata,
+        Transaction as ModelTransaction,
+    };
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
+    use bytes::Bytes;
     use gaxi::grpc::tonic::{Response, Status};
+    use google_cloud_gax::error::Error as GaxError;
+    use google_cloud_gax::error::rpc::Status as GaxStatus;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1::{
@@ -193,6 +291,7 @@ mod tests {
     use std::fmt::Debug;
     use std::sync::atomic::{AtomicBool, Ordering};
     use std::sync::{Arc, Mutex};
+    use tokio::sync::mpsc::channel;
 
     #[test]
     fn auto_traits() {
@@ -423,7 +522,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let request = crate::model::ExecuteSqlRequest::default()
+        let request = ExecuteSqlRequest::default()
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
@@ -598,5 +697,187 @@ mod tests {
         }
 
         Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn from_response_stream_yields_messages_and_terminates() -> anyhow::Result<()> {
+        let (sender, receiver) = channel(2);
+        let partial_result_set =
+            ModelPartialResultSet::default().set_values(vec![wkt::Value::from("val1")]);
+        sender.send(Ok(partial_result_set)).await.expect("send ok");
+        drop(sender);
+
+        let mut stream =
+            SpannerServerStream::from_response_stream(receiver.into(), HeaderMap::new(), None);
+
+        let first = stream.next_message().await;
+        assert!(first.is_some(), "expected first message");
+        let first_message = first.expect("first message present")?;
+        assert_eq!(
+            first_message.values.len(),
+            1,
+            "expected 1 value in first message"
+        );
+
+        let second = stream.next_message().await;
+        assert!(second.is_none(), "expected stream EOF");
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn from_response_stream_invokes_transaction_id_callback() -> anyhow::Result<()> {
+        let (sender, receiver) = channel(1);
+        let partial_result_set = ModelPartialResultSet::default().set_metadata(
+            ResultSetMetadata::default().set_transaction(
+                ModelTransaction::default().set_id(Bytes::from_static(b"tx-stub-123")),
+            ),
+        );
+        sender.send(Ok(partial_result_set)).await.expect("send ok");
+
+        let recorded_transaction_id = Arc::new(Mutex::new(None));
+        let recorded_transaction_id_clone = Arc::clone(&recorded_transaction_id);
+        let callback = TransactionIdCallback::new(move |transaction_id| {
+            *recorded_transaction_id_clone
+                .lock()
+                .expect("lock not poisoned") = Some(transaction_id.to_vec());
+        });
+
+        let mut stream =
+            SpannerServerStream::from_response_stream(receiver.into(), HeaderMap::new(), None)
+                .with_transaction_id_callback(callback);
+
+        let message = stream.next_message().await;
+        assert!(message.is_some(), "expected message");
+        assert_eq!(
+            recorded_transaction_id
+                .lock()
+                .expect("lock not poisoned")
+                .as_deref(),
+            Some(b"tx-stub-123".as_slice()),
+            "transaction ID callback must be invoked with extracted transaction ID"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn from_response_stream_records_error_and_success_on_guard() -> anyhow::Result<()> {
+        let recorded_error = Arc::new(Mutex::new(None));
+        let recorded_success = Arc::new(AtomicBool::new(false));
+        let guard = Arc::new(TestDropGuard {
+            dropped: Arc::new(AtomicBool::new(false)),
+            recorded_code: Arc::clone(&recorded_error),
+            recorded_success: Arc::clone(&recorded_success),
+        });
+
+        let (sender, receiver) = channel::<Result<ModelPartialResultSet>>(1);
+        let status = GaxStatus::default()
+            .set_code(Code::Unavailable)
+            .set_message("stub unavailable");
+        sender
+            .send(Err(GaxError::service(status)))
+            .await
+            .expect("send error");
+
+        let mut stream = SpannerServerStream::from_response_stream(
+            receiver.into(),
+            HeaderMap::new(),
+            Some(guard),
+        );
+
+        let error_message = stream.next_message().await;
+        assert!(error_message.is_some(), "expected error message");
+        assert!(
+            error_message.expect("message present").is_err(),
+            "expected Err"
+        );
+        assert_eq!(
+            *recorded_error.lock().expect("lock not poisoned"),
+            Some(Code::Unavailable),
+            "guard must record Code::Unavailable on stream error"
+        );
+
+        let recorded_error_ok = Arc::new(Mutex::new(None));
+        let recorded_success_ok = Arc::new(AtomicBool::new(false));
+        let guard_ok = Arc::new(TestDropGuard {
+            dropped: Arc::new(AtomicBool::new(false)),
+            recorded_code: Arc::clone(&recorded_error_ok),
+            recorded_success: Arc::clone(&recorded_success_ok),
+        });
+
+        let (sender_ok, receiver_ok) = channel::<Result<ModelPartialResultSet>>(1);
+        drop(sender_ok);
+
+        let mut stream_ok = SpannerServerStream::from_response_stream(
+            receiver_ok.into(),
+            HeaderMap::new(),
+            Some(guard_ok),
+        );
+
+        let eof = stream_ok.next_message().await;
+        assert!(eof.is_none(), "expected EOF");
+        assert!(
+            recorded_success_ok.load(Ordering::Acquire),
+            "guard must record success on EOF"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_debug_formatting() -> anyhow::Result<()> {
+        let (_sender, receiver) = channel::<Result<ModelPartialResultSet>>(1);
+        let stub_stream =
+            SpannerServerStream::from_response_stream(receiver.into(), HeaderMap::new(), None);
+        let stub_debug = format!("{stub_stream:?}");
+        assert!(
+            stub_debug.contains("Stub"),
+            "debug format should show Stub variant"
+        );
+        assert!(
+            stub_debug.contains("StubResponseStream"),
+            "debug format should show StubResponseStream"
+        );
+
+        let mut mock = create_session_mock();
+        let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_| Ok(Response::from(receiver)));
+        let (database_client, _server) = setup_db_client(mock).await;
+        let request = ExecuteSqlRequest::default()
+            .set_session(database_client.session_name())
+            .set_sql("SELECT 1");
+        let grpc_stream = database_client
+            .execute_streaming_sql(request, RequestOptions::default(), None)
+            .send()
+            .await?;
+        let grpc_debug = format!("{grpc_stream:?}");
+        assert!(
+            grpc_debug.contains("Grpc"),
+            "debug format should show Grpc variant"
+        );
+
+        Ok(())
+    }
+
+    #[derive(Debug)]
+    struct FailingToProto;
+
+    impl ToProto<PartialResultSet> for FailingToProto {
+        type Output = PartialResultSet;
+        fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+            Err(gaxi::prost::ConvertError::Unimplemented)
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn from_response_stream_to_proto_error() {
+        let (sender, receiver) = channel::<Result<FailingToProto>>(1);
+        sender.send(Ok(FailingToProto)).await.expect("send ok");
+        let mut stream =
+            SpannerServerStream::from_response_stream(receiver.into(), HeaderMap::new(), None);
+        let message = stream.next_message().await;
+        assert!(message.is_some(), "expected message");
+        let error = message.expect("message present");
+        assert!(error.is_err(), "expected conversion error");
     }
 }
