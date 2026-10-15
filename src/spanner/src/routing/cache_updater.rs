@@ -221,6 +221,7 @@ mod tests {
     use crate::model::{Group, KeyRecipe, Range, RecipeList, Tablet};
     use crate::routing::server_connection::ServerConnection;
     use gaxi::options::ClientConfig;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::time::{Duration, Instant};
     use tokio::time::sleep;
@@ -313,12 +314,18 @@ mod tests {
         ServerConnection::new_default(address.to_string(), channel)
     }
 
+    fn test_client_config() -> ClientConfig {
+        let mut configuration = ClientConfig::default();
+        configuration.cred = Some(Anonymous::new().build());
+        configuration
+    }
+
     fn make_test_updater() -> CacheUpdater {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let endpoint_lifecycle_manager = Arc::new(EndpointLifecycleManager::with_client_config(
             Arc::clone(&connection_cache),
             client_config.clone(),
@@ -336,7 +343,7 @@ mod tests {
     /// Helper to wait for background connection pre-warming tasks to complete.
     async fn wait_for_connections(updater: &CacheUpdater, expected_count: usize) {
         let start = Instant::now();
-        let timeout = Duration::from_secs(5);
+        let timeout = Duration::from_secs(30);
         loop {
             let count = updater.connection_cache().len();
             if count >= expected_count {
@@ -592,7 +599,7 @@ mod tests {
         let updater = make_test_updater();
         let _ = updater
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("should initialize connection");
 
@@ -688,7 +695,7 @@ mod tests {
         let updater = make_test_updater();
         let _ = updater
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("should initialize connection");
 

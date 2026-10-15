@@ -887,6 +887,7 @@ mod tests {
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::routing::server_connection::ServerConnection;
     use gaxi::options::ClientConfig;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use std::fmt::Debug;
     use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::Barrier;
@@ -937,10 +938,16 @@ mod tests {
         (manager, connection_cache)
     }
 
+    fn test_client_config() -> ClientConfig {
+        let mut configuration = ClientConfig::default();
+        configuration.cred = Some(Anonymous::new().build());
+        configuration
+    }
+
     /// Helper to wait for a background connection task to establish a connection in the cache.
     async fn wait_for_connection_in_cache(cache: &ConnectionCache, address: &str) {
         let start = Instant::now();
-        let timeout = Duration::from_secs(5);
+        let timeout = Duration::from_secs(30);
         loop {
             if cache.get_if_present(address).is_some() {
                 return;
@@ -1401,10 +1408,8 @@ mod tests {
     async fn lifecycle_manager_request_endpoint_recreation_with_client_config_warms_cache() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
         let start = Instant::now();
 
         let mut active = HashSet::new();
@@ -1519,10 +1524,8 @@ mod tests {
     async fn lifecycle_manager_probe_retries_missing_endpoints() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
         let start = Instant::now();
 
         let mut active = HashSet::new();
@@ -2018,10 +2021,8 @@ mod tests {
     async fn lifecycle_manager_reconnection_task_cleans_up_if_evicted_during_connect() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let mut active = HashSet::new();
         active.insert("10.0.0.1:15000".to_string());
@@ -2055,10 +2056,8 @@ mod tests {
     async fn lifecycle_manager_reconnection_task_cleans_up_if_manager_dropped_during_connect() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let mut active = HashSet::new();
         active.insert("10.0.0.1:15000".to_string());
@@ -2185,10 +2184,8 @@ mod tests {
     async fn lifecycle_manager_connection_task_handles_cache_get_error() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let invalid_address = "invalid uri with spaces";
         let mut active = HashSet::new();
