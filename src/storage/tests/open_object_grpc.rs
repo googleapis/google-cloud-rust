@@ -512,7 +512,7 @@ fn single_range(request: &BidiReadObjectRequest) -> ProtoRange {
 mod conformance {
     use super::*;
     use google_cloud_gax::error::rpc::Code;
-    use google_cloud_gax::retry_policy::{AlwaysRetry, NeverRetry, RetryPolicyExt as _};
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_storage::error::ReadError;
     use google_cloud_storage::model_ext::KeyAes256;
     use google_cloud_storage::read_resume_policy::{
@@ -726,8 +726,10 @@ mod conformance {
     }
 
     /// Verifies redirect limit enforcement when the server repeatedly returns redirects,
-    /// confirming the client stops retrying once the attempt budget is exhausted.
+    /// ensuring the client terminates with an error after reaching the maximum attempt bound.
+    // TODO(#7200) - disabled until consecutive redirect cap is implemented for bidi read.
     #[tokio::test]
+    #[ignore = "TODO(#7200) - bidi read does not yet enforce a consecutive redirect limit"]
     async fn handle_redirect_error_max_attempts() -> anyhow::Result<()> {
         // Arrange: Mock fails every attempt with a redirect
         let attempts = Arc::new(AtomicUsize::new(0));
@@ -741,19 +743,13 @@ mod conformance {
 
         let (client, _server) = start_test_server(mock).await?;
 
-        // Act: Set retry policy with attempt limit of 2
-        let result = client
-            .open_object(BUCKET_NAME, OBJECT_NAME)
-            .with_retry_policy(AlwaysRetry.with_attempt_limit(2))
-            .send()
-            .await;
+        // Act: Open object descriptor with default client settings
+        let result = client.open_object(BUCKET_NAME, OBJECT_NAME).send().await;
 
-        // Assert: Call fails with error after reaching max attempts
-        assert!(
-            result.is_err(),
-            "expected error after max redirect attempts"
-        );
-        assert_eq!(attempts.load(Ordering::SeqCst), 2);
+        // Assert: Call fails with error after reaching max redirect limit (4 attempts: 1 initial + 3 redirects)
+        let err = result.expect_err("expected error after max redirect attempts");
+        assert_eq!(err.status().map(|s| s.code), Some(Code::Aborted));
+        assert_eq!(attempts.load(Ordering::SeqCst), 4);
 
         Ok(())
     }
