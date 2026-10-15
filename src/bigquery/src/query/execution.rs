@@ -674,9 +674,12 @@ mod tests {
     #[tokio::test]
     async fn test_jobs_query_duplicate_adopts_existing_job() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_query()
-            .return_once(move |_, _| Err(duplicate_job_error("job_123")));
-        mock.expect_get_job().return_once(move |req, _| {
+        mock.expect_query().return_once(move |_, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
+            Err(duplicate_job_error("job_123"))
+        });
+        mock.expect_get_job().return_once(move |req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let job_ref = JobReference::new()
                 .set_project_id(req.project_id)
                 .set_job_id(req.job_id)
@@ -702,6 +705,10 @@ mod tests {
         assert_eq!(job_ref.location.as_deref(), Some("US"));
         assert_eq!(job_ref.job_id, "job_123");
         assert!(!handle.completed, "the adopted job is still running");
+        assert_eq!(
+            handle.options.quota_project().as_deref(),
+            Some("my-project")
+        );
         Ok(())
     }
 
@@ -792,13 +799,15 @@ mod tests {
 
         let mut mock = MockJobService::new();
         let captured = inserted.clone();
-        mock.expect_insert_job().return_once(move |req, _| {
+        mock.expect_insert_job().return_once(move |req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let job_ref = req.job.unwrap().job_reference.unwrap();
             let err = duplicate_job_error(&job_ref.job_id);
             *captured.lock().unwrap() = Some(job_ref);
             Err(err)
         });
-        mock.expect_get_job().return_once(move |req, _| {
+        mock.expect_get_job().return_once(move |req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let job_ref = JobReference::new()
                 .set_project_id(req.project_id)
                 .set_job_id(req.job_id)
@@ -828,6 +837,10 @@ mod tests {
         assert_eq!(job_ref, inserted, "{job_ref:?}");
         assert_eq!(job_ref.location.as_deref(), Some("us-central1"));
         assert!(!handle.completed, "the recovered job is still running");
+        assert_eq!(
+            handle.options.quota_project().as_deref(),
+            Some("my-project")
+        );
         Ok(())
     }
 

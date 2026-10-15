@@ -105,7 +105,9 @@ impl Query {
     /// # }
     /// ```
     pub fn with_project_id<S: Into<String>>(mut self, project_id: S) -> Self {
-        self.project_id = Some(project_id.into());
+        let project_id = project_id.into();
+        self.project_id = Some(project_id.clone());
+        self.options.set_quota_project(project_id);
         self
     }
 
@@ -272,6 +274,7 @@ mod tests {
             JobCreationMode::JobCreationOptional
         );
         assert_eq!(query_builder.project_id, None);
+        assert_eq!(query_builder.options.quota_project(), &None);
         assert_eq!(query_builder.options.user_agent(), &None);
     }
 
@@ -281,6 +284,10 @@ mod tests {
         let query_builder =
             Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         assert_eq!(query_builder.project_id.unwrap(), "my-project");
+        assert_eq!(
+            query_builder.options.quota_project().as_deref(),
+            Some("my-project")
+        );
     }
 
     #[test]
@@ -377,7 +384,8 @@ mod tests {
     #[tokio::test]
     async fn test_run_jobs_insert() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_insert_job().returning(|req, _| {
+        mock.expect_insert_job().returning(|req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let job_ref = req.job.as_ref().unwrap().job_reference.as_ref().unwrap();
             assert!(job_ref.job_id.starts_with(JOB_ID_PREFIX), "{job_ref:?}");
             let job_ref = JobReference::new()
@@ -397,6 +405,7 @@ mod tests {
             .set_allow_large_results(true);
         let query = query_builder.send().await?;
         assert!(query.completed, "{query:?}");
+        assert_eq!(query.options.quota_project().as_deref(), Some("my-project"));
 
         Ok(())
     }
@@ -404,7 +413,8 @@ mod tests {
     #[tokio::test]
     async fn test_run_jobs_query() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_query().returning(move |req, _| {
+        mock.expect_query().returning(move |req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let req_id = &req.query_request.as_ref().unwrap().request_id;
             assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX), "{req_id:?}");
             assert!(req_id.len() <= BIGQUERY_REQ_ID_LIMIT, "{req_id:?}");
@@ -420,6 +430,7 @@ mod tests {
         let query = query_builder.send().await?;
         assert!(!query.completed, "{query:?}");
         assert_eq!(query.metadata.query_id, "some_query_id");
+        assert_eq!(query.options.quota_project().as_deref(), Some("my-project"));
 
         Ok(())
     }
@@ -607,7 +618,8 @@ mod tests {
     #[tokio::test]
     async fn test_until_done_jobs_query() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_query().returning(move |_, _| {
+        mock.expect_query().returning(move |_, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             Ok(Response::from(
                 QueryResponse::new()
                     .set_job_complete(true)
@@ -618,6 +630,10 @@ mod tests {
         let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         let complete = query.until_done().await?;
         assert_eq!(complete.metadata().query_id, "some_query_id");
+        assert_eq!(
+            complete.options.quota_project().as_deref(),
+            Some("my-project")
+        );
 
         Ok(())
     }
