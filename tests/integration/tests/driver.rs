@@ -48,4 +48,12 @@ mod driver {
             .await
             .inspect_err(anydump)
     }
+
+    #[tokio::test]
+    async fn run_http_body_raw_predict() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests::http_body::raw_predict()
+            .await
+            .inspect_err(anydump)
+    }
 }
