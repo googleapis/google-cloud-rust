@@ -318,6 +318,7 @@ impl Builder {
         let quota_project_id = self.quota_project_id.or(authorized_user.quota_project_id);
 
         let token_provider = ExternalAccountAuthorizedUserTokenProvider {
+            client: Client::new(),
             client_id: authorized_user.client_id,
             client_secret: authorized_user.client_secret,
             refresh_token: Mutex::new(authorized_user.refresh_token),
@@ -343,6 +344,7 @@ fn default_token_url(universe_domain: Option<&str>) -> String {
 }
 
 struct ExternalAccountAuthorizedUserTokenProvider {
+    client: Client,
     client_id: String,
     client_secret: String,
     // STS may rotate the refresh token, returning a new one with each access
@@ -374,7 +376,8 @@ impl TokenProvider for ExternalAccountAuthorizedUserTokenProvider {
             ("grant_type", "refresh_token"),
             ("refresh_token", refresh_token.as_str()),
         ];
-        let resp = Client::new()
+        let resp = self
+            .client
             .post(self.token_url.as_str())
             .basic_auth(&self.client_id, Some(&self.client_secret))
             .form(&params)
@@ -558,6 +561,7 @@ mod tests {
     #[test]
     fn debug_token_provider() {
         let provider = ExternalAccountAuthorizedUserTokenProvider {
+            client: Client::new(),
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: Mutex::new("test-refresh-token".to_string()),
@@ -628,6 +632,7 @@ mod tests {
         );
 
         let tp = ExternalAccountAuthorizedUserTokenProvider {
+            client: Client::new(),
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: Mutex::new("test-refresh-token".to_string()),
@@ -686,6 +691,7 @@ mod tests {
         );
 
         let tp = ExternalAccountAuthorizedUserTokenProvider {
+            client: Client::new(),
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: Mutex::new("test-refresh-token".to_string()),
