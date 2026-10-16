@@ -381,6 +381,14 @@ impl FromSql for wkt::Timestamp {
                 timestamp_from_micros(micros)
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let micros = cell.as_timestamp_micros()?;
+                timestamp_from_micros(micros)
+            }
             other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
@@ -406,6 +414,20 @@ impl FromSql for google_cloud_type::model::Date {
                     .set_day(date.day() as i32))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let days = cell.as_date32()?;
+                let date = time::OffsetDateTime::from_unix_timestamp(i64::from(days) * 86_400)
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?
+                    .date();
+                Ok(google_cloud_type::model::Date::new()
+                    .set_year(date.year())
+                    .set_month(i32::from(u8::from(date.month())))
+                    .set_day(i32::from(date.day())))
+            }
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -432,6 +454,29 @@ impl FromSql for google_cloud_type::model::TimeOfDay {
                     .set_nanos(time.nanosecond() as i32))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let micros = cell.as_time64_micros()?;
+                if !(0..86_400_000_000).contains(&micros) {
+                    return Err(ConvertError::Convert(
+                        format!("time64 microseconds out of range: {micros}").into(),
+                    ));
+                }
+                let nanos = (micros % 1_000_000) * 1_000;
+                let total_secs = micros / 1_000_000;
+                let seconds = total_secs % 60;
+                let total_mins = total_secs / 60;
+                let minutes = total_mins % 60;
+                let hours = total_mins / 60;
+                Ok(google_cloud_type::model::TimeOfDay::new()
+                    .set_hours(hours as i32)
+                    .set_minutes(minutes as i32)
+                    .set_seconds(seconds as i32)
+                    .set_nanos(nanos as i32))
+            }
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -458,6 +503,24 @@ impl FromSql for google_cloud_type::model::DateTime {
                     .set_nanos(dt.nanosecond() as i32))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let micros = cell.as_timestamp_micros()?;
+                let odt =
+                    time::OffsetDateTime::from_unix_timestamp_nanos(i128::from(micros) * 1_000)
+                        .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok(google_cloud_type::model::DateTime::new()
+                    .set_year(odt.year())
+                    .set_month(i32::from(u8::from(odt.month())))
+                    .set_day(i32::from(odt.day()))
+                    .set_hours(i32::from(odt.hour()))
+                    .set_minutes(i32::from(odt.minute()))
+                    .set_seconds(i32::from(odt.second()))
+                    .set_nanos(odt.nanosecond() as i32))
+            }
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -471,6 +534,13 @@ impl FromSql for google_cloud_type::model::Decimal {
                 Ok(google_cloud_type::model::Decimal::new().set_value(n.to_string()))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell
+                .as_decimal_str()
+                .map(|s| google_cloud_type::model::Decimal::new().set_value(s)),
             other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
@@ -495,6 +565,21 @@ impl FromSql for rust_decimal::Decimal {
                 }
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                if let Some((val, scale)) = cell.as_decimal128_with_scale()
+                    && let Ok(d) = rust_decimal::Decimal::try_from_i128_with_scale(val, scale)
+                {
+                    return Ok(d.normalize());
+                }
+                cell.as_decimal_str()?
+                    .parse::<rust_decimal::Decimal>()
+                    .map(|d| d.normalize())
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
             other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
@@ -1004,14 +1089,33 @@ mod tests {
     mod arrow_tests {
         use super::*;
         use arrow::array::{
-            ArrayRef, BinaryArray, BooleanArray, Float32Array, Float64Array, Int32Array,
-            Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
+            ArrayRef, BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array,
+            Float32Array, Float64Array, Int32Array, Int64Array, LargeBinaryArray, LargeStringArray,
+            StringArray, Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
+            TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray,
         };
+        use arrow::datatypes::i256;
         use std::sync::Arc;
         use test_case::test_case;
 
         fn arrow_val(arr: ArrayRef, row_idx: usize) -> SqlValue {
             SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, row_idx)))
+        }
+
+        fn decimal128_array(values: Vec<Option<i128>>, precision: u8, scale: i8) -> ArrayRef {
+            Arc::new(
+                Decimal128Array::from(values)
+                    .with_precision_and_scale(precision, scale)
+                    .unwrap(),
+            )
+        }
+
+        fn decimal256_array(values: Vec<Option<i256>>, precision: u8, scale: i8) -> ArrayRef {
+            Arc::new(
+                Decimal256Array::from(values)
+                    .with_precision_and_scale(precision, scale)
+                    .unwrap(),
+            )
         }
 
         #[test_case(Arc::new(BooleanArray::from(vec![true])) => "Boolean" ; "arrow boolean")]
@@ -1101,11 +1205,110 @@ mod tests {
             bytes::Bytes::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }
 
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(Decimal::new().set_value("123.456")) ; "decimal from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3) => Ok(Decimal::new().set_value("-123.456")) ; "decimal negative from Decimal128Array")]
+        #[test_case(decimal256_array(vec![Some(i256::from_i128(789_012))], 20, 3) => Ok(Decimal::new().set_value("789.012")) ; "decimal from Decimal256Array")]
+        #[test_case(decimal128_array(vec![None], 10, 3) => Err(TestConvertError::NotNull) ; "decimal null Decimal128Array")]
+        #[test_case(decimal256_array(vec![None], 20, 3) => Err(TestConvertError::NotNull) ; "decimal null Decimal256Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array")) ; "decimal type mismatch")]
+        fn test_from_sql_arrow_decimal(arr: ArrayRef) -> Result<Decimal, TestConvertError> {
+            Decimal::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3) => Ok(RustDecimal::from_str_exact("-123.456").unwrap()) ; "rust_decimal negative from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(100_000_000_000_000_000_000_000_000_000_i128)], 38, 9) => Ok(RustDecimal::from_str_exact("100000000000000000000").unwrap()) ; "rust_decimal from Decimal128Array with trailing zeros exceeding 96 bits unscaled")]
+        #[test_case(decimal128_array(vec![Some(12)], 10, -2) => Ok(RustDecimal::from(1200)) ; "rust_decimal from Decimal128Array with negative scale")]
+        #[test_case(decimal128_array(vec![Some(i128::MAX)], 38, 9) => Err(TestConvertError::Convert("Invalid decimal: overflow from too many digits".to_string())) ; "rust_decimal overflow from Decimal128Array")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("123456789012345678900000000000000000000000000000").unwrap())], 76, 38) => Ok(RustDecimal::from_str_exact("1234567890.123456789").unwrap()) ; "rust_decimal from Decimal256Array with trailing zeros")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("4200000000000000000000000000000000000000").unwrap())], 76, 38) => Ok(RustDecimal::from(42)) ; "rust_decimal from Decimal256Array integer with trailing zeros")]
+        #[test_case(decimal256_array(vec![Some(i256::from_i128(12))], 20, -2) => Ok(RustDecimal::from(1200)) ; "rust_decimal from Decimal256Array without decimal point")]
+        #[test_case(decimal256_array(vec![Some(i256::MAX)], 76, 38) => Err(TestConvertError::Convert("Invalid decimal: overflow from too many digits".to_string())) ; "rust_decimal overflow from Decimal256Array")]
+        #[test_case(decimal128_array(vec![None], 10, 3) => Err(TestConvertError::NotNull) ; "rust_decimal null Decimal128Array")]
+        #[test_case(decimal256_array(vec![None], 20, 3) => Err(TestConvertError::NotNull) ; "rust_decimal null Decimal256Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array")) ; "rust_decimal type mismatch")]
+        fn test_from_sql_arrow_rust_decimal(
+            arr: ArrayRef,
+        ) -> Result<RustDecimal, TestConvertError> {
+            RustDecimal::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(
+            decimal128_array(vec![Some(42_500_000_000)], 38, 9)
+            => ("42.5".to_string(), 1)
+            ; "Decimal128 fractional trailing zeros normalized"
+        )]
+        #[test_case(
+            decimal128_array(vec![Some(42_000_000_000)], 38, 9)
+            => ("42".to_string(), 0)
+            ; "Decimal128 integer trailing zeros normalized"
+        )]
+        #[test_case(
+            decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38)
+            => ("42.5".to_string(), 1)
+            ; "Decimal256 fractional trailing zeros normalized"
+        )]
+        fn test_from_sql_arrow_rust_decimal_scale(arr: ArrayRef) -> (String, u32) {
+            let d = RustDecimal::from_value(arrow_val(arr, 0)).unwrap();
+            (d.to_string(), d.scale())
+        }
+
         #[test_case(Arc::new(Int64Array::from(vec![Some(42)])) => Ok(Some(42)) ; "option some i64")]
         #[test_case(Arc::new(Int64Array::from(vec![None])) => Ok(None) ; "option null")]
         #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Err(TestConvertError::type_mismatch("Int64Array")) ; "option type mismatch")]
         fn test_from_sql_arrow_option(arr: ArrayRef) -> Result<Option<i64>, TestConvertError> {
             Option::<i64>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok(wkt::Timestamp::new(1_779_982_200, 123_456_000).unwrap()) ; "timestamp microsecond")]
+        #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(1_779_982_200_123)])) => Ok(wkt::Timestamp::new(1_779_982_200, 123_000_000).unwrap()) ; "timestamp millisecond")]
+        #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(1_779_982_200_123_456_789)])) => Ok(wkt::Timestamp::new(1_779_982_200, 123_456_000).unwrap()) ; "timestamp nanosecond")]
+        #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(1_779_982_200)])) => Ok(wkt::Timestamp::new(1_779_982_200, 0).unwrap()) ; "timestamp second")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(-1)])) => Ok(wkt::Timestamp::new(-1, 999_999_000).unwrap()) ; "timestamp pre epoch")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![None])) => Err(TestConvertError::NotNull) ; "timestamp null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("TimestampArray")) ; "timestamp type mismatch")]
+        fn test_from_sql_arrow_timestamp(
+            arr: ArrayRef,
+        ) -> Result<wkt::Timestamp, TestConvertError> {
+            wkt::Timestamp::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Ok(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)) ; "date valid")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(0)])) => Ok(google_cloud_type::model::Date::new().set_year(1970).set_month(1).set_day(1)) ; "date epoch")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(i32::MAX)])) => Err(TestConvertError::Convert("timestamp was not in range".to_string())) ; "date out of range")]
+        #[test_case(Arc::new(Date32Array::from(vec![None])) => Err(TestConvertError::NotNull) ; "date null")]
+        #[test_case(Arc::new(Int32Array::from(vec![20_601])) => Err(TestConvertError::type_mismatch("Date32Array")) ; "date type mismatch")]
+        fn test_from_sql_arrow_date(
+            arr: ArrayRef,
+        ) -> Result<google_cloud_type::model::Date, TestConvertError> {
+            google_cloud_type::model::Date::from_value(arrow_val(arr, 0))
+                .map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])) => Ok(google_cloud_type::model::TimeOfDay::new().set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)) ; "time of day valid")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_123_456)])) => Ok(google_cloud_type::model::TimeOfDay::new().set_hours(15).set_minutes(30).set_seconds(0).set_nanos(123_456_000)) ; "time of day fractional")]
+        #[test_case(Arc::new(Time64NanosecondArray::from(vec![Some(55_800_123_456_789)])) => Ok(google_cloud_type::model::TimeOfDay::new().set_hours(15).set_minutes(30).set_seconds(0).set_nanos(123_456_000)) ; "time of day nanosecond")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(-1)])) => Err(TestConvertError::Convert("time64 microseconds out of range: -1".to_string())) ; "time of day negative")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(86_400_000_000)])) => Err(TestConvertError::Convert("time64 microseconds out of range: 86400000000".to_string())) ; "time of day 24h out of range")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![None])) => Err(TestConvertError::NotNull) ; "time of day null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Time64MicrosecondArray")) ; "time of day type mismatch")]
+        fn test_from_sql_arrow_time_of_day(
+            arr: ArrayRef,
+        ) -> Result<google_cloud_type::model::TimeOfDay, TestConvertError> {
+            google_cloud_type::model::TimeOfDay::from_value(arrow_val(arr, 0))
+                .map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])) => Ok(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(28).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)) ; "datetime without subseconds")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(28).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(123_456_000)) ; "datetime with subseconds")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(i64::MAX)])) => Err(TestConvertError::Convert("timestamp was not in range".to_string())) ; "datetime out of range")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![None])) => Err(TestConvertError::NotNull) ; "datetime null")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("TimestampArray")) ; "datetime type mismatch")]
+        fn test_from_sql_arrow_datetime(
+            arr: ArrayRef,
+        ) -> Result<google_cloud_type::model::DateTime, TestConvertError> {
+            google_cloud_type::model::DateTime::from_value(arrow_val(arr, 0))
+                .map_err(TestConvertError::from)
         }
     }
 }

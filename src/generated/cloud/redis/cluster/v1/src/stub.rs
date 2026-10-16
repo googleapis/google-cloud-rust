@@ -49,6 +49,17 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::CloudRedisCluster::list_acl_policies].
+    fn list_acl_policies(
+        &self,
+        _req: crate::model::ListAclPoliciesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAclPoliciesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::CloudRedisCluster::get_cluster].
     fn get_cluster(
         &self,
@@ -59,10 +70,31 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::CloudRedisCluster::get_acl_policy].
+    fn get_acl_policy(
+        &self,
+        _req: crate::model::GetAclPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AclPolicy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::CloudRedisCluster::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::update_acl_policy].
+    fn update_acl_policy(
+        &self,
+        _req: crate::model::UpdateAclPolicyRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
@@ -81,6 +113,39 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::CloudRedisCluster::delete_acl_policy].
+    fn delete_acl_policy(
+        &self,
+        _req: crate::model::DeleteAclPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::get_acl_policy_revision].
+    fn get_acl_policy_revision(
+        &self,
+        _req: crate::model::GetAclPolicyRevisionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AclPolicyRevision>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::list_acl_policy_revisions].
+    fn list_acl_policy_revisions(
+        &self,
+        _req: crate::model::ListAclPolicyRevisionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::CloudRedisCluster::create_cluster].
     fn create_cluster(
         &self,
@@ -89,6 +154,16 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::create_acl_policy].
+    fn create_acl_policy(
+        &self,
+        _req: crate::model::CreateAclPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AclPolicy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -194,6 +269,93 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
     fn backup_cluster(
         &self,
         _req: crate::model::BackupClusterRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::list_token_auth_users].
+    fn list_token_auth_users(
+        &self,
+        _req: crate::model::ListTokenAuthUsersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListTokenAuthUsersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::get_token_auth_user].
+    fn get_token_auth_user(
+        &self,
+        _req: crate::model::GetTokenAuthUserRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TokenAuthUser>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::list_auth_tokens].
+    fn list_auth_tokens(
+        &self,
+        _req: crate::model::ListAuthTokensRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAuthTokensResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::get_auth_token].
+    fn get_auth_token(
+        &self,
+        _req: crate::model::GetAuthTokenRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AuthToken>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::add_token_auth_user].
+    fn add_token_auth_user(
+        &self,
+        _req: crate::model::AddTokenAuthUserRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::delete_token_auth_user].
+    fn delete_token_auth_user(
+        &self,
+        _req: crate::model::DeleteTokenAuthUserRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::add_auth_token].
+    fn add_auth_token(
+        &self,
+        _req: crate::model::AddAuthTokenRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CloudRedisCluster::delete_auth_token].
+    fn delete_auth_token(
+        &self,
+        _req: crate::model::DeleteAuthTokenRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,

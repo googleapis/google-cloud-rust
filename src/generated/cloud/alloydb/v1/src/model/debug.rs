@@ -437,7 +437,12 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("writable_node", &self.writable_node);
         debug_struct.field("nodes", &self.nodes);
         debug_struct.field("query_insights_config", &self.query_insights_config);
+        debug_struct.field("query_insights_info", &self.query_insights_info);
         debug_struct.field("observability_config", &self.observability_config);
+        debug_struct.field(
+            "observability_instance_info",
+            &self.observability_instance_info,
+        );
         debug_struct.field("read_pool_config", &self.read_pool_config);
         debug_struct.field("ip_address", &self.ip_address);
         debug_struct.field("public_ip_address", &self.public_ip_address);
@@ -501,9 +506,42 @@ impl std::fmt::Debug for super::instance::QueryInsightsInstanceConfig {
     }
 }
 
+impl std::fmt::Debug for super::instance::QueryInsightsInstanceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryInsightsInstanceInfo");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("record_application_tags", &self.record_application_tags);
+        debug_struct.field("record_client_address", &self.record_client_address);
+        debug_struct.field("query_string_length", &self.query_string_length);
+        debug_struct.field("query_plans_per_minute", &self.query_plans_per_minute);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::instance::ObservabilityInstanceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ObservabilityInstanceConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("preserve_comments", &self.preserve_comments);
+        debug_struct.field("track_wait_events", &self.track_wait_events);
+        debug_struct.field("track_wait_event_types", &self.track_wait_event_types);
+        debug_struct.field("max_query_string_length", &self.max_query_string_length);
+        debug_struct.field("record_application_tags", &self.record_application_tags);
+        debug_struct.field("query_plans_per_minute", &self.query_plans_per_minute);
+        debug_struct.field("track_active_queries", &self.track_active_queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::instance::ObservabilityInstanceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObservabilityInstanceInfo");
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("preserve_comments", &self.preserve_comments);
         debug_struct.field("track_wait_events", &self.track_wait_events);

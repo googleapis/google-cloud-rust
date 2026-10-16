@@ -292,6 +292,10 @@ impl std::fmt::Debug for super::BigQueryExport {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("most_recent_editor", &self.most_recent_editor);
         debug_struct.field("principal", &self.principal);
+        debug_struct.field(
+            "deletion_notifications_enabled",
+            &self.deletion_notifications_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1212,6 +1216,10 @@ impl std::fmt::Debug for super::NotificationConfig {
         debug_struct.field("pubsub_topic", &self.pubsub_topic);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field(
+            "deletion_notifications_enabled",
+            &self.deletion_notifications_enabled,
+        );
         debug_struct.field("notify_config", &self.notify_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1236,6 +1244,7 @@ impl std::fmt::Debug for super::NotificationMessage {
         let mut debug_struct = f.debug_struct("NotificationMessage");
         debug_struct.field("notification_config_name", &self.notification_config_name);
         debug_struct.field("resource", &self.resource);
+        debug_struct.field("deleted_finding", &self.deleted_finding);
         debug_struct.field("event", &self.event);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

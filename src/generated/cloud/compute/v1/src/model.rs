@@ -45915,6 +45915,8 @@ pub mod commitment {
         ComputeOptimizedH3,
         #[allow(missing_docs)]
         ComputeOptimizedH4D,
+        /// CUD bucket for COMPUTE_OPTIMIZED_H4D_3TB machines.
+        ComputeOptimizedH4D3Tb,
         #[allow(missing_docs)]
         GeneralPurpose,
         #[allow(missing_docs)]
@@ -46030,6 +46032,9 @@ pub mod commitment {
                 Self::ComputeOptimizedC3D => std::option::Option::Some("COMPUTE_OPTIMIZED_C3D"),
                 Self::ComputeOptimizedH3 => std::option::Option::Some("COMPUTE_OPTIMIZED_H3"),
                 Self::ComputeOptimizedH4D => std::option::Option::Some("COMPUTE_OPTIMIZED_H4D"),
+                Self::ComputeOptimizedH4D3Tb => {
+                    std::option::Option::Some("COMPUTE_OPTIMIZED_H4D_3TB")
+                }
                 Self::GeneralPurpose => std::option::Option::Some("GENERAL_PURPOSE"),
                 Self::GeneralPurposeC4 => std::option::Option::Some("GENERAL_PURPOSE_C4"),
                 Self::GeneralPurposeC4A => std::option::Option::Some("GENERAL_PURPOSE_C4A"),
@@ -46115,6 +46120,7 @@ pub mod commitment {
                 "COMPUTE_OPTIMIZED_C3D" => Self::ComputeOptimizedC3D,
                 "COMPUTE_OPTIMIZED_H3" => Self::ComputeOptimizedH3,
                 "COMPUTE_OPTIMIZED_H4D" => Self::ComputeOptimizedH4D,
+                "COMPUTE_OPTIMIZED_H4D_3TB" => Self::ComputeOptimizedH4D3Tb,
                 "GENERAL_PURPOSE" => Self::GeneralPurpose,
                 "GENERAL_PURPOSE_C4" => Self::GeneralPurposeC4,
                 "GENERAL_PURPOSE_C4A" => Self::GeneralPurposeC4A,
@@ -46185,6 +46191,9 @@ pub mod commitment {
                 Self::ComputeOptimizedC3D => serializer.serialize_str("COMPUTE_OPTIMIZED_C3D"),
                 Self::ComputeOptimizedH3 => serializer.serialize_str("COMPUTE_OPTIMIZED_H3"),
                 Self::ComputeOptimizedH4D => serializer.serialize_str("COMPUTE_OPTIMIZED_H4D"),
+                Self::ComputeOptimizedH4D3Tb => {
+                    serializer.serialize_str("COMPUTE_OPTIMIZED_H4D_3TB")
+                }
                 Self::GeneralPurpose => serializer.serialize_str("GENERAL_PURPOSE"),
                 Self::GeneralPurposeC4 => serializer.serialize_str("GENERAL_PURPOSE_C4"),
                 Self::GeneralPurposeC4A => serializer.serialize_str("GENERAL_PURPOSE_C4A"),
