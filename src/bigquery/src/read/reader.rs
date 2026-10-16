@@ -346,21 +346,13 @@ mod tests {
             .into_reader();
 
         assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 25);
-        if let ReaderState::Reading {
-            offset,
-            ..
-        } = &reader.state
-        {
+        if let ReaderState::Reading { offset, .. } = &reader.state {
             assert_eq!(*offset, 1025);
         } else {
             panic!("expected reader state to be Reading");
         }
         assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 10);
-        if let ReaderState::Reading {
-            offset,
-            ..
-        } = &reader.state
-        {
+        if let ReaderState::Reading { offset, .. } = &reader.state {
             assert_eq!(*offset, 1035);
         } else {
             panic!("expected reader state to be Reading");
