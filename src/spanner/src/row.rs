@@ -509,6 +509,8 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use crate::value::Date;
+    use base64::Engine;
+    use base64::prelude::BASE64_STANDARD;
     use bytes::Bytes;
     use rust_decimal::Decimal;
     use serde_json::{Value as JsonValue, json};
@@ -833,7 +835,7 @@ mod tests {
     #[test]
     fn row_get_enum() {
         let column_names = vec!["col_enum".to_string()];
-        let column_types = vec![types::enum_type("customer.Priority")];
+        let column_types = vec![types::proto_enum("customer.Priority")];
         let values = vec![3_i64.to_value()];
         let row = Row {
             values,
@@ -889,7 +891,7 @@ mod tests {
             values: vec![Value::null()],
             metadata: ResultSetMetadata {
                 column_names: Arc::new(vec!["col_enum".to_string()]),
-                column_types: Arc::new(vec![types::enum_type("customer.Priority")]),
+                column_types: Arc::new(vec![types::proto_enum("customer.Priority")]),
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
@@ -1848,6 +1850,154 @@ mod tests {
         assert!(
             row.is_null("col_int").expect("is_null"),
             "column must be null after take"
+        );
+    }
+
+    #[test]
+    fn proto_and_proto_enum_columns() {
+        let proto_payload = b"test-proto-address";
+        let proto_base64 = BASE64_STANDARD.encode(proto_payload);
+
+        let mut row = Row {
+            values: vec![
+                Value::from(proto_base64.clone()),
+                Value::from("3"),
+                Value::null(),
+                Value::null(),
+                Value::from(vec![Value::from(proto_base64.clone())]),
+                Value::from(vec![Value::from("1"), Value::from("2")]),
+                Value::from(vec![Value::from(proto_base64), Value::null()]),
+                Value::from(vec![Value::from("1"), Value::null()]),
+            ],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![
+                    "address".to_string(),
+                    "status".to_string(),
+                    "null_address".to_string(),
+                    "null_status".to_string(),
+                    "address_list".to_string(),
+                    "status_list".to_string(),
+                    "nullable_address_list".to_string(),
+                    "nullable_status_list".to_string(),
+                ]),
+                column_types: Arc::new(vec![
+                    types::proto("examples.shipping.Address"),
+                    types::proto_enum("examples.shipping.OrderStatus"),
+                    types::proto("examples.shipping.Address"),
+                    types::proto_enum("examples.shipping.OrderStatus"),
+                    types::array(types::proto("examples.shipping.Address")),
+                    types::array(types::proto_enum("examples.shipping.OrderStatus")),
+                    types::array(types::proto("examples.shipping.Address")),
+                    types::array(types::proto_enum("examples.shipping.OrderStatus")),
+                ]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Get single values
+        assert_eq!(
+            row.get::<Vec<u8>>("address").expect("get proto address"),
+            proto_payload,
+            "expected proto payload bytes"
+        );
+        assert_eq!(
+            row.get::<i64>("status").expect("get enum status as i64"),
+            3_i64,
+            "expected enum status 3 as i64"
+        );
+        assert_eq!(
+            row.get::<i32>("status").expect("get enum status as i32"),
+            3_i32,
+            "expected enum status 3 as i32"
+        );
+
+        // Null columns
+        assert!(
+            row.is_null("null_address").expect("is_null null_address"),
+            "expected null_address to be null"
+        );
+        assert_eq!(
+            row.get::<Option<Vec<u8>>>("null_address")
+                .expect("get null_address"),
+            None,
+            "expected None for null proto column"
+        );
+        assert!(
+            row.is_null("null_status").expect("is_null null_status"),
+            "expected null_status to be null"
+        );
+        assert_eq!(
+            row.get::<Option<i64>>("null_status")
+                .expect("get null_status"),
+            None,
+            "expected None for null enum column"
+        );
+
+        // Arrays
+        assert_eq!(
+            row.get::<Vec<Vec<u8>>>("address_list")
+                .expect("get address_list"),
+            vec![proto_payload.to_vec()],
+            "expected array of proto bytes"
+        );
+        assert_eq!(
+            row.get::<Vec<i64>>("status_list").expect("get status_list"),
+            vec![1_i64, 2_i64],
+            "expected array of enum integers"
+        );
+        assert_eq!(
+            row.get::<Vec<Option<Vec<u8>>>>("nullable_address_list")
+                .expect("get nullable_address_list"),
+            vec![Some(proto_payload.to_vec()), None],
+            "expected nullable array of proto bytes"
+        );
+        assert_eq!(
+            row.get::<Vec<Option<i64>>>("nullable_status_list")
+                .expect("get nullable_status_list"),
+            vec![Some(1_i64), None],
+            "expected nullable array of enum integers"
+        );
+
+        // Take single values
+        let taken_address = row.take::<Vec<u8>>("address").expect("take address");
+        assert_eq!(taken_address, proto_payload, "expected taken proto payload");
+        assert!(
+            row.is_null("address").expect("is_null address"),
+            "address column must be null after take"
+        );
+
+        let taken_status = row.take::<i64>("status").expect("take status");
+        assert_eq!(taken_status, 3_i64, "expected taken enum status");
+        assert!(
+            row.is_null("status").expect("is_null status"),
+            "status column must be null after take"
+        );
+
+        // Take array values
+        let taken_address_list = row
+            .take::<Vec<Vec<u8>>>("address_list")
+            .expect("take address_list");
+        assert_eq!(
+            taken_address_list,
+            vec![proto_payload.to_vec()],
+            "expected taken address list"
+        );
+        assert!(
+            row.is_null("address_list").expect("is_null address_list"),
+            "address_list column must be null after take"
+        );
+
+        let taken_status_list = row
+            .take::<Vec<i64>>("status_list")
+            .expect("take status_list");
+        assert_eq!(
+            taken_status_list,
+            vec![1_i64, 2_i64],
+            "expected taken status list"
+        );
+        assert!(
+            row.is_null("status_list").expect("is_null status_list"),
+            "status_list column must be null after take"
         );
     }
 
