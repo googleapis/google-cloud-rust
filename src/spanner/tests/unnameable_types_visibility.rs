@@ -17,6 +17,8 @@
 //! can be named, implemented, or bound from an external-crate perspective.
 
 use google_cloud_spanner::Error;
+use google_cloud_spanner::builder::SpannerBuilder;
+use google_cloud_spanner::client::{ClientBuilder, Factory, Spanner};
 use google_cloud_spanner::error::{ConvertError, RowError, SharedError, TlsError};
 use google_cloud_spanner::model::CommitResponse;
 use google_cloud_spanner::result::{
@@ -292,4 +294,28 @@ fn external_can_extract_errors() {
 
     // Verify TlsError re-export via google_cloud_spanner::error
     let _tls_error: TlsError = TlsError::MissingClientKey;
+}
+
+#[test]
+fn external_can_name_and_debug_format_factory_and_client_builder() {
+    let factory = Factory;
+    let factory_debug = format!("{factory:?}");
+    assert_eq!(
+        factory_debug, "Factory",
+        "Factory Debug format should match 'Factory'"
+    );
+
+    let client_builder: ClientBuilder = Spanner::builder();
+    let client_builder_debug = format!("{client_builder:?}");
+    assert!(
+        client_builder_debug.contains("ClientBuilder"),
+        "ClientBuilder Debug format should contain 'ClientBuilder'"
+    );
+
+    let reexported_builder: SpannerBuilder = Spanner::builder();
+    let reexported_builder_debug = format!("{reexported_builder:?}");
+    assert!(
+        reexported_builder_debug.contains("ClientBuilder"),
+        "SpannerBuilder Debug format should contain 'ClientBuilder'"
+    );
 }
