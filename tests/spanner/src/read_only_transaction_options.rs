@@ -197,38 +197,87 @@ pub async fn read_timestamp_unavailable_before_start(
 pub async fn read_timestamp_available_on_failed_first_query(
     db_client: &DatabaseClient,
 ) -> anyhow::Result<()> {
-    let tx = db_client
+    // 1. With InlineBegin: an initial failed query fails fast.
+    // The read timestamp is NOT populated, and subsequent queries on the transaction fail fast.
+    let inline_tx = db_client
         .read_only_transaction()
         .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
         .build()
         .await?;
 
-    // First query fails because the table does not exist.
-    let result = tx
+    let inline_result = inline_tx
         .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
         .await;
 
-    let first_query_failed = match result {
+    let inline_query_failed = match inline_result {
         Ok(mut rs) => rs.next().await.transpose().is_err(),
         Err(_) => true,
     };
     assert!(
-        first_query_failed,
+        inline_query_failed,
+        "Expected first query to fail due to non-existent table"
+    );
+    assert!(
+        inline_tx.read_timestamp().is_none(),
+        "Expected read_timestamp to be None after failed initial query in InlineBegin transaction"
+    );
+
+    let subsequent_inline_result = match inline_tx
+        .execute_query(Statement::builder("SELECT 2 AS col").build())
+        .await
+    {
+        Ok(mut rs) => match rs.next().await {
+            Some(Err(e)) => Err(e),
+            Some(Ok(_)) => Ok(()),
+            None => Ok(()),
+        },
+        Err(e) => Err(e),
+    };
+    assert!(
+        subsequent_inline_result.is_err(),
+        "Expected subsequent query on failed inline-begin transaction to fail fast"
+    );
+
+    // 2. With ExplicitBegin: the transaction is started at build time with an explicit
+    // BeginTransaction RPC. Even if the first query fails, read_timestamp remains populated
+    // and subsequent valid queries succeed.
+    let explicit_tx = db_client
+        .read_only_transaction()
+        .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+        .build()
+        .await?;
+
+    assert!(
+        explicit_tx.read_timestamp().is_some(),
+        "Expected read_timestamp to be populated at build time for ExplicitBegin transaction"
+    );
+
+    let explicit_result = explicit_tx
+        .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
+        .await;
+    let explicit_query_failed = match explicit_result {
+        Ok(mut rs) => rs.next().await.transpose().is_err(),
+        Err(_) => true,
+    };
+    assert!(
+        explicit_query_failed,
         "Expected first query to fail due to non-existent table"
     );
 
-    // The read timestamp MUST be available immediately after the failed start,
-    // because the client fell back to an explicit BeginTransaction RPC which successfully started the transaction.
     assert!(
-        tx.read_timestamp().is_some(),
-        "Expected read_timestamp to be populated after a failed query start due to explicit begin fallback"
+        explicit_tx.read_timestamp().is_some(),
+        "Expected read_timestamp to remain populated after a failed query on ExplicitBegin transaction"
     );
 
-    // Verify that the transaction can still be used for subsequent valid queries.
-    let mut rs2 = tx
+    // Verify that the explicitly begun transaction can still be used for subsequent valid queries.
+    let mut subsequent_result_set = explicit_tx
         .execute_query(Statement::builder("SELECT 2 AS col").build())
         .await?;
-    let row = rs2.next().await.transpose()?.expect("Expected row");
+    let row = subsequent_result_set
+        .next()
+        .await
+        .transpose()?
+        .expect("Expected row");
     let val: i64 = row.get(0)?;
     assert_eq!(val, 2, "Expected query value to be 2");
 

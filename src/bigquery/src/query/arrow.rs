@@ -13,8 +13,138 @@
 // limitations under the License.
 
 use crate::error::ConvertError;
-use arrow::array::ArrayRef;
+use crate::error::RowError;
+use arrow::array::{ArrayRef, as_primitive_array, as_struct_array};
+use arrow::datatypes::{DataType, IntervalMonthDayNano, IntervalMonthDayNanoType, IntervalUnit};
+use arrow::record_batch::RecordBatch;
 use std::sync::Arc;
+
+/// Incremental Arrow IPC stream decoder that parses an initial `ArrowSchema`
+/// once and decodes incoming `ArrowRecordBatch` frames without re-parsing the
+/// schema on every message.
+#[cfg_attr(not(test), allow(dead_code))]
+#[derive(Debug)]
+pub(crate) struct ArrowStreamDecoder {
+    decoder: arrow::ipc::reader::StreamDecoder,
+}
+
+#[cfg_attr(not(test), allow(dead_code))]
+impl ArrowStreamDecoder {
+    pub(crate) fn new() -> Self {
+        Self {
+            decoder: arrow::ipc::reader::StreamDecoder::new(),
+        }
+    }
+
+    /// Feeds serialized Arrow IPC schema bytes into the underlying decoder.
+    pub(crate) fn set_schema_bytes(&mut self, schema_bytes: bytes::Bytes) -> Result<(), RowError> {
+        let mut buf = arrow::buffer::Buffer::from(schema_bytes);
+        self.decoder.decode(&mut buf).map_err(|e| {
+            RowError::InvalidRowFormat(format!("failed to decode arrow schema: {e}"))
+        })?;
+        Ok(())
+    }
+
+    /// Decodes a single Arrow IPC record batch frame from [`bytes::Bytes`].
+    pub(crate) fn decode_batch(
+        &mut self,
+        batch_bytes: bytes::Bytes,
+    ) -> Result<Option<RecordBatch>, RowError> {
+        let mut buf = arrow::buffer::Buffer::from(batch_bytes);
+        self.decode_buffer(&mut buf)
+    }
+
+    /// Decodes the next Arrow IPC record batch from an advancing [`arrow::buffer::Buffer`].
+    pub(crate) fn decode_buffer(
+        &mut self,
+        buf: &mut arrow::buffer::Buffer,
+    ) -> Result<Option<RecordBatch>, RowError> {
+        self.decoder
+            .decode(buf)
+            .map_err(|e| RowError::InvalidRowFormat(format!("failed to decode arrow batch: {e}")))
+    }
+
+    /// Signals end-of-stream and validates that no partial frame remains in the decoder.
+    pub(crate) fn finish(&mut self) -> Result<(), RowError> {
+        self.decoder
+            .finish()
+            .map_err(|e| RowError::InvalidRowFormat(format!("failed to decode arrow stream: {e}")))
+    }
+}
+
+/// An asynchronous source of decoded Arrow [`RecordBatch`]es.
+#[cfg_attr(not(test), allow(dead_code))]
+pub(crate) trait RecordBatchSource {
+    /// Returns the next non-empty [`RecordBatch`], or `Ok(None)` when the stream is exhausted.
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError>;
+}
+
+/// Reads Arrow [`RecordBatch`]es from in-memory `jobs.query` response buffers.
+#[cfg_attr(not(test), allow(dead_code))]
+#[derive(Debug)]
+pub(crate) struct ArrowResponseReader {
+    decoder: ArrowStreamDecoder,
+    schema_bytes: Option<bytes::Bytes>,
+    batch_buf: arrow::buffer::Buffer,
+}
+
+#[cfg_attr(not(test), allow(dead_code))]
+impl ArrowResponseReader {
+    pub(crate) fn new(
+        serialized_schema: bytes::Bytes,
+        serialized_record_batch: bytes::Bytes,
+    ) -> Self {
+        Self {
+            decoder: ArrowStreamDecoder::new(),
+            schema_bytes: Some(serialized_schema),
+            batch_buf: arrow::buffer::Buffer::from(serialized_record_batch),
+        }
+    }
+}
+
+impl RecordBatchSource for ArrowResponseReader {
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        if let Some(schema_bytes) = self.schema_bytes.take() {
+            self.decoder.set_schema_bytes(schema_bytes)?;
+        }
+        while !self.batch_buf.is_empty() {
+            if let Some(batch) = self.decoder.decode_buffer(&mut self.batch_buf)?
+                && batch.num_rows() > 0
+            {
+                return Ok(Some(batch));
+            }
+        }
+        self.decoder.finish()?;
+        Ok(None)
+    }
+}
+
+/// Unified Arrow [`RecordBatch`] reader over inline query responses or BigQuery Storage Read streams.
+#[cfg_attr(not(test), allow(dead_code))]
+#[derive(Debug)]
+pub(crate) enum ArrowReader {
+    Response(ArrowResponseReader),
+    // TODO(#7038): add a Storage(StorageReader) variant for BigQuery Storage Read API streams
+}
+
+impl RecordBatchSource for ArrowReader {
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        match self {
+            Self::Response(r) => r.next_record_batch().await,
+        }
+    }
+}
+
+#[cfg_attr(not(test), allow(dead_code))]
+impl ArrowReader {
+    /// Returns `true` if a failed read attempt can fall back to REST `jobs.getQueryResults` pagination.
+    pub(crate) fn can_fallback_to_rest(&self) -> bool {
+        match self {
+            Self::Response(_) => false,
+            // TODO(#7038): Storage(r) => !r.is_stream_opened(), so StorageReader can fall back to REST if opening the stream failed
+        }
+    }
+}
 
 /// A reference to a single cell within an Arrow array.
 #[derive(Clone, Debug)]
@@ -191,24 +321,208 @@ impl ArrowCell {
             }),
         }
     }
+
+    /// Returns timestamp value in microseconds since Unix epoch.
+    pub(crate) fn as_timestamp_micros(&self) -> Result<i64, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Microsecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampMicrosecondType,
+                >(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Millisecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampMillisecondType,
+                >(&self.array);
+                arr.value(self.row_idx)
+                    .checked_mul(1_000)
+                    .ok_or_else(|| ConvertError::Convert("timestamp overflow".into()))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Nanosecond, _) => {
+                let arr = arrow::array::as_primitive_array::<
+                    arrow::datatypes::TimestampNanosecondType,
+                >(&self.array);
+                Ok(arr.value(self.row_idx).div_euclid(1_000))
+            }
+            arrow::datatypes::DataType::Timestamp(arrow::datatypes::TimeUnit::Second, _) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::TimestampSecondType>(
+                    &self.array,
+                );
+                arr.value(self.row_idx)
+                    .checked_mul(1_000_000)
+                    .ok_or_else(|| ConvertError::Convert("timestamp overflow".into()))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "TimestampArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns date value in days since Unix epoch.
+    pub(crate) fn as_date32(&self) -> Result<i32, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Date32 => {
+                let arr =
+                    arrow::array::as_primitive_array::<arrow::datatypes::Date32Type>(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Date32Array".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns time value in microseconds since midnight.
+    pub(crate) fn as_time64_micros(&self) -> Result<i64, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Time64(arrow::datatypes::TimeUnit::Microsecond) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Time64MicrosecondType>(
+                    &self.array,
+                );
+                Ok(arr.value(self.row_idx))
+            }
+            arrow::datatypes::DataType::Time64(arrow::datatypes::TimeUnit::Nanosecond) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Time64NanosecondType>(
+                    &self.array,
+                );
+                Ok(arr.value(self.row_idx).div_euclid(1_000))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Time64MicrosecondArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns the cell's value as an `IntervalMonthDayNano`.
+    pub(crate) fn as_interval(&self) -> Result<IntervalMonthDayNano, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            DataType::Interval(IntervalUnit::MonthDayNano) => {
+                let arr = as_primitive_array::<IntervalMonthDayNanoType>(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "IntervalMonthDayNanoArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns the cell's decimal value as a formatted string.
+    pub(crate) fn as_decimal_str(&self) -> Result<String, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Decimal128(_, _) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal128Type>(
+                    &self.array,
+                );
+                Ok(arr.value_as_string(self.row_idx))
+            }
+            arrow::datatypes::DataType::Decimal256(_, _) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal256Type>(
+                    &self.array,
+                );
+                Ok(arr.value_as_string(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "Decimal128Array or Decimal256Array".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns the cell's `Decimal128` value along with its non-negative scale.
+    pub(crate) fn as_decimal128_with_scale(&self) -> Option<(i128, u32)> {
+        if self.is_null() {
+            return None;
+        }
+        match self.array.data_type() {
+            arrow::datatypes::DataType::Decimal128(_, scale) => {
+                let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal128Type>(
+                    &self.array,
+                );
+                let scale = u32::try_from(*scale).ok()?;
+                Some((arr.value(self.row_idx), scale))
+            }
+            _ => None,
+        }
+    }
+
+    /// Extracts a child `ArrowCell` by field name from a `StructArray`.
+    pub(crate) fn struct_field_by_name(&self, name: &str) -> Result<ArrowCell, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            DataType::Struct(_) => {
+                let struct_arr = as_struct_array(&self.array);
+                let col = struct_arr
+                    .column_by_name(name)
+                    .ok_or_else(|| ConvertError::MissingField(name.to_string()))?;
+                Ok(ArrowCell::new(col.clone(), self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "StructArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use arrow::array::{
-        BinaryArray, BooleanArray, Float32Array, Float64Array, Int32Array, Int64Array,
-        LargeBinaryArray, LargeStringArray, StringArray,
+        BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array, Float32Array,
+        Float64Array, Int32Array, Int64Array, IntervalMonthDayNanoArray, IntervalYearMonthArray,
+        LargeBinaryArray, LargeStringArray, StringArray, StructArray, Time64MicrosecondArray,
+        Time64NanosecondArray, TimestampMicrosecondArray, TimestampMillisecondArray,
+        TimestampNanosecondArray, TimestampSecondArray,
     };
-    use arrow::datatypes::DataType;
+    use arrow::buffer::NullBuffer;
+    use arrow::datatypes::{DataType, Field, Fields, Schema as ArrowSchema, i256};
+    use arrow::ipc::writer::StreamWriter;
     use std::sync::Arc;
     use test_case::test_case;
+
+    fn decimal128_array(values: Vec<Option<i128>>, precision: u8, scale: i8) -> ArrayRef {
+        Arc::new(
+            Decimal128Array::from(values)
+                .with_precision_and_scale(precision, scale)
+                .unwrap(),
+        )
+    }
+
+    fn decimal256_array(values: Vec<Option<i256>>, precision: u8, scale: i8) -> ArrayRef {
+        Arc::new(
+            Decimal256Array::from(values)
+                .with_precision_and_scale(precision, scale)
+                .unwrap(),
+        )
+    }
 
     #[derive(Debug, PartialEq)]
     enum TestConvertError {
         NotNull,
         TypeMismatch { expected: String, got: String },
-        Convert(String),
+        Convert,
         MissingField(String),
     }
 
@@ -228,7 +542,7 @@ mod tests {
                 ConvertError::TypeMismatch { expected, got } => {
                     Self::TypeMismatch { expected, got }
                 }
-                ConvertError::Convert(e) => Self::Convert(e.to_string()),
+                ConvertError::Convert(_) => Self::Convert,
                 ConvertError::MissingField(f) => Self::MissingField(f),
             }
         }
@@ -271,7 +585,7 @@ mod tests {
     #[test_case(Arc::new(Int32Array::from(vec![Some(123)])), 0 => Ok(123) ; "i32 from Int32Array")]
     #[test_case(Arc::new(Int32Array::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "i32 null")]
     #[test_case(Arc::new(Int64Array::from(vec![Some(456)])), 0 => Ok(456) ; "i32 from Int64Array")]
-    #[test_case(Arc::new(Int64Array::from(vec![Some(i64::from(i32::MAX) + 1)])), 0 => Err(TestConvertError::Convert("out of range integral type conversion attempted".to_string())) ; "i32 overflow from Int64Array")]
+    #[test_case(Arc::new(Int64Array::from(vec![Some(i64::from(i32::MAX) + 1)])), 0 => Err(TestConvertError::Convert) ; "i32 overflow from Int64Array")]
     #[test_case(Arc::new(BooleanArray::from(vec![true])), 0 => Err(TestConvertError::type_mismatch("Int64Array or Int32Array", "Boolean")) ; "i32 type mismatch")]
     fn as_i32(arr: ArrayRef, row_idx: usize) -> Result<i32, TestConvertError> {
         ArrowCell::new(arr, row_idx)
@@ -318,5 +632,231 @@ mod tests {
             .as_bytes()
             .map(<[u8]>::to_vec)
             .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp microsecond")]
+    #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(1_779_982_200_123)])), 0 => Ok(1_779_982_200_123_000) ; "timestamp millisecond")]
+    #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(1_779_982_200_123_456_789)])), 0 => Ok(1_779_982_200_123_456) ; "timestamp nanosecond")]
+    #[test_case(Arc::new(TimestampNanosecondArray::from(vec![Some(-1_500)])), 0 => Ok(-2) ; "timestamp nanosecond pre epoch floor")]
+    #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(1_779_982_200)])), 0 => Ok(1_779_982_200_000_000) ; "timestamp second")]
+    #[test_case(Arc::new(TimestampMillisecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert) ; "timestamp millisecond overflow")]
+    #[test_case(Arc::new(TimestampSecondArray::from(vec![Some(i64::MAX)])), 0 => Err(TestConvertError::Convert) ; "timestamp second overflow")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "timestamp null")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("TimestampArray", "Int64")) ; "timestamp type mismatch")]
+    fn as_timestamp_micros(arr: ArrayRef, row_idx: usize) -> Result<i64, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_timestamp_micros()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])), 0 => Ok(20_601) ; "date32 valid")]
+    #[test_case(Arc::new(Date32Array::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "date32 null")]
+    #[test_case(Arc::new(Int32Array::from(vec![20_601])), 0 => Err(TestConvertError::type_mismatch("Date32Array", "Int32")) ; "date32 type mismatch")]
+    fn as_date32(arr: ArrayRef, row_idx: usize) -> Result<i32, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_date32()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_123_456)])), 0 => Ok(55_800_123_456) ; "time64 microsecond")]
+    #[test_case(Arc::new(Time64NanosecondArray::from(vec![Some(55_800_123_456_789)])), 0 => Ok(55_800_123_456) ; "time64 nanosecond")]
+    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "time64 null")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Time64MicrosecondArray", "Int64")) ; "time64 type mismatch")]
+    fn as_time64_micros(arr: ArrayRef, row_idx: usize) -> Result<i64, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_time64_micros()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "decimal str from Decimal128Array")]
+    #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Ok("-123.456".to_string()) ; "decimal str negative from Decimal128Array")]
+    #[test_case(decimal128_array(vec![None], 10, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal128Array")]
+    #[test_case(decimal256_array(vec![Some(i256::from_i128(789_012))], 20, 3), 0 => Ok("789.012".to_string()) ; "decimal str from Decimal256Array")]
+    #[test_case(decimal256_array(vec![None], 20, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal256Array")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array", "Int64")) ; "decimal str type mismatch")]
+    fn as_decimal_str(arr: ArrayRef, row_idx: usize) -> Result<String, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_decimal_str()
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Some((123_456, 3)) ; "decimal128 valid")]
+    #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Some((-123_456, 3)) ; "decimal128 negative")]
+    #[test_case(decimal128_array(vec![Some(12)], 10, -2), 0 => None ; "decimal128 negative scale")]
+    #[test_case(decimal128_array(vec![None], 10, 3), 0 => None ; "decimal128 null")]
+    #[test_case(decimal256_array(vec![Some(i256::from_i128(123))], 20, 3), 0 => None ; "decimal128 type mismatch Decimal256Array")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => None ; "decimal128 type mismatch Int64Array")]
+    fn as_decimal128_with_scale(arr: ArrayRef, row_idx: usize) -> Option<(i128, u32)> {
+        ArrowCell::new(arr, row_idx).as_decimal128_with_scale()
+    }
+
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 456))])), 0 => Ok(IntervalMonthDayNano::new(14, 3, 456)) ; "interval valid")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-14, -3, -456))])), 0 => Ok(IntervalMonthDayNano::new(-14, -3, -456)) ; "interval negative")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![None])), 0 => Err(TestConvertError::NotNull) ; "interval null")]
+    #[test_case(Arc::new(IntervalYearMonthArray::from(vec![Some(14)])), 0 => Err(TestConvertError::type_mismatch("IntervalMonthDayNanoArray", "Interval(YearMonth)")) ; "interval wrong unit")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("IntervalMonthDayNanoArray", "Int64")) ; "interval type mismatch")]
+    fn as_interval(
+        arr: ArrayRef,
+        row_idx: usize,
+    ) -> Result<IntervalMonthDayNano, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .as_interval()
+            .map_err(TestConvertError::from)
+    }
+
+    fn sample_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+        let fields = Fields::from(vec![
+            Field::new("start", DataType::Int64, true),
+            Field::new("end", DataType::Int64, true),
+        ]);
+        let start_col: ArrayRef = Arc::new(Int64Array::from(vec![Some(10), None]));
+        let end_col: ArrayRef = Arc::new(Int64Array::from(vec![Some(20), Some(30)]));
+        Arc::new(StructArray::new(fields, vec![start_col, end_col], nulls))
+    }
+
+    #[test_case(sample_struct_array(None), 0, "start" => Ok(Some(10)) ; "struct field start row 0")]
+    #[test_case(sample_struct_array(None), 0, "end" => Ok(Some(20)) ; "struct field end row 0")]
+    #[test_case(sample_struct_array(None), 1, "start" => Ok(None) ; "struct field null child row 1")]
+    #[test_case(sample_struct_array(None), 1, "end" => Ok(Some(30)) ; "struct field end row 1")]
+    #[test_case(sample_struct_array(Some(NullBuffer::from(vec![false, true]))), 0, "start" => Err(TestConvertError::NotNull) ; "struct null row")]
+    #[test_case(sample_struct_array(None), 0, "missing" => Err(TestConvertError::MissingField("missing".to_string())) ; "struct missing field")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0, "start" => Err(TestConvertError::type_mismatch("StructArray", "Int64")) ; "struct type mismatch")]
+    fn struct_field_by_name(
+        arr: ArrayRef,
+        row_idx: usize,
+        name: &str,
+    ) -> Result<Option<i64>, TestConvertError> {
+        let field_cell = ArrowCell::new(arr, row_idx)
+            .struct_field_by_name(name)
+            .map_err(TestConvertError::from)?;
+        if field_cell.is_null() {
+            Ok(None)
+        } else {
+            field_cell
+                .as_i64()
+                .map(Some)
+                .map_err(TestConvertError::from)
+        }
+    }
+
+    fn create_test_arrow_schema() -> Arc<arrow::datatypes::Schema> {
+        Arc::new(ArrowSchema::new(vec![
+            Field::new("col", DataType::Utf8, false),
+            Field::new("num", DataType::Int64, false),
+        ]))
+    }
+
+    fn create_test_arrow_schema_bytes() -> bytes::Bytes {
+        let arrow_schema = create_test_arrow_schema();
+        let mut schema_buf = Vec::new();
+        let _ =
+            StreamWriter::try_new(&mut schema_buf, &arrow_schema).expect("valid test arrow schema");
+        schema_buf.into()
+    }
+
+    #[test]
+    fn arrow_stream_decoder_batches() -> anyhow::Result<()> {
+        let arrow_schema = create_test_arrow_schema();
+        let schema_bytes = create_test_arrow_schema_bytes();
+
+        let batch = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![
+                Arc::new(StringArray::from(vec!["a", "b"])),
+                Arc::new(Int64Array::from(vec![1, 2])),
+            ],
+        )?;
+
+        let mut stream_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut stream_buf, &arrow_schema)?;
+        writer.write(&batch)?;
+        writer.finish()?;
+        let batch_bytes = bytes::Bytes::copy_from_slice(&stream_buf[schema_bytes.len()..]);
+
+        let mut decoder = ArrowStreamDecoder::new();
+        decoder.set_schema_bytes(bytes::Bytes::new())?;
+        decoder.set_schema_bytes(schema_bytes)?;
+
+        let decoded = decoder
+            .decode_batch(batch_bytes)?
+            .expect("should decode batch");
+        assert_eq!(decoded.num_rows(), 2);
+        decoder.finish()?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn arrow_response_reader_multiple_batches() -> anyhow::Result<()> {
+        let arrow_schema = create_test_arrow_schema();
+        let schema_bytes = create_test_arrow_schema_bytes();
+
+        let batch1 = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![
+                Arc::new(StringArray::from(vec!["hello", "world"])),
+                Arc::new(Int64Array::from(vec![42, 100])),
+            ],
+        )?;
+        let empty_batch = RecordBatch::new_empty(arrow_schema.clone());
+        let batch2 = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![
+                Arc::new(StringArray::from(vec!["last"])),
+                Arc::new(Int64Array::from(vec![999])),
+            ],
+        )?;
+
+        let mut stream_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut stream_buf, &arrow_schema)?;
+        writer.write(&batch1)?;
+        writer.write(&empty_batch)?;
+        writer.write(&batch2)?;
+        writer.finish()?;
+        let batch_buf = stream_buf[schema_bytes.len()..].to_vec();
+
+        let mut reader =
+            ArrowReader::Response(ArrowResponseReader::new(schema_bytes, batch_buf.into()));
+        assert!(!reader.can_fallback_to_rest());
+
+        let b1 = reader
+            .next_record_batch()
+            .await?
+            .expect("should return first batch");
+        assert_eq!(b1.num_rows(), 2);
+
+        let b2 = reader
+            .next_record_batch()
+            .await?
+            .expect("should return second non-empty batch");
+        assert_eq!(b2.num_rows(), 1);
+
+        assert!(reader.next_record_batch().await?.is_none());
+        Ok(())
+    }
+
+    #[test_case(
+        bytes::Bytes::from_static(b"invalid arrow schema bytes"),
+        bytes::Bytes::new();
+        "malformed schema"
+    )]
+    #[test_case(
+        create_test_arrow_schema_bytes(),
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00corrupted_batch_header");
+        "malformed record batch"
+    )]
+    #[tokio::test]
+    async fn arrow_response_reader_malformed_ipc(
+        serialized_schema: bytes::Bytes,
+        serialized_record_batch: bytes::Bytes,
+    ) {
+        let mut reader = ArrowReader::Response(ArrowResponseReader::new(
+            serialized_schema,
+            serialized_record_batch,
+        ));
+        let err = reader
+            .next_record_batch()
+            .await
+            .expect_err("should fail on malformed IPC");
+        assert!(matches!(err, RowError::InvalidRowFormat(_)), "{err:?}");
     }
 }

@@ -31,7 +31,7 @@ struct Library {
 
 fn parse_librarian_yaml(path: &Path) -> anyhow::Result<Vec<Library>> {
     let file = File::open(path)?;
-    let config: LibrarianConfig = serde_yaml::from_reader(file)?;
+    let config: LibrarianConfig = serde_saphyr::from_reader(file)?;
     Ok(config.libraries)
 }
 

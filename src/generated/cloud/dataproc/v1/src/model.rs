@@ -3571,6 +3571,69 @@ pub struct ClusterConfig {
     /// Optional. The node group settings.
     pub auxiliary_node_groups: std::vec::Vec<crate::model::AuxiliaryNodeGroup>,
 
+    /// Optional. The High Obtainability (HO) config settings for the cluster's
+    /// master instances.
+    ///
+    /// In High Obtainability (HO) mode, flexible configs are the single source of
+    /// truth for desired cluster configuration across node groups:
+    ///
+    /// * For single-node clusters: `master_flexible_config` must be specified, and
+    ///   no worker configs should be set.
+    /// * For multi-node (standard) clusters: both `master_flexible_config` and
+    ///   [worker_flexible_config][google.cloud.dataproc.v1.ClusterConfig.worker_flexible_config]
+    ///   must be specified. Mixing standard and flexible configs across node
+    ///   groups is not allowed.
+    ///
+    /// Only one of
+    /// [master_config][google.cloud.dataproc.v1.ClusterConfig.master_config] or
+    /// `master_flexible_config` can be set.
+    ///
+    /// [google.cloud.dataproc.v1.ClusterConfig.master_config]: crate::model::ClusterConfig::master_config
+    /// [google.cloud.dataproc.v1.ClusterConfig.worker_flexible_config]: crate::model::ClusterConfig::worker_flexible_config
+    pub master_flexible_config: std::option::Option<crate::model::FlexibleInstanceGroupConfig>,
+
+    /// Optional. The High Obtainability (HO) config settings for the cluster's
+    /// worker instances.
+    ///
+    /// In High Obtainability (HO) mode, flexible configs are the single source of
+    /// truth for desired cluster configuration. `num_instances` represents the
+    /// desired capacity of the worker group and is mutable via cluster updates and
+    /// autoscaling.
+    ///
+    /// Only one of
+    /// [worker_config][google.cloud.dataproc.v1.ClusterConfig.worker_config] or
+    /// `worker_flexible_config` can be set.
+    ///
+    /// In High Obtainability (HO) mode, for multi-node (standard) clusters, both
+    /// [master_flexible_config][google.cloud.dataproc.v1.ClusterConfig.master_flexible_config]
+    /// and `worker_flexible_config` must be specified. Mixing standard and
+    /// flexible configs across node groups is not allowed. Single-node clusters do
+    /// not specify worker configs.
+    ///
+    /// [google.cloud.dataproc.v1.ClusterConfig.master_flexible_config]: crate::model::ClusterConfig::master_flexible_config
+    /// [google.cloud.dataproc.v1.ClusterConfig.worker_config]: crate::model::ClusterConfig::worker_config
+    pub worker_flexible_config: std::option::Option<crate::model::FlexibleInstanceGroupConfig>,
+
+    /// Optional. The High Obtainability (HO) config settings for a cluster's
+    /// secondary worker instances.
+    ///
+    /// In High Obtainability (HO) mode, flexible configs are the single source of
+    /// truth for desired cluster configuration. `num_instances` represents the
+    /// desired capacity of the secondary worker group and is mutable via cluster
+    /// updates and autoscaling.
+    ///
+    /// Only one of
+    /// [secondary_worker_config][google.cloud.dataproc.v1.ClusterConfig.secondary_worker_config]
+    /// or `secondary_worker_flexible_config` can be set.
+    ///
+    /// In High Obtainability (HO) mode, secondary workers are optional. If
+    /// secondary workers are used in an HO cluster, they must be configured using
+    /// `secondary_worker_flexible_config` (not `secondary_worker_config`).
+    ///
+    /// [google.cloud.dataproc.v1.ClusterConfig.secondary_worker_config]: crate::model::ClusterConfig::secondary_worker_config
+    pub secondary_worker_flexible_config:
+        std::option::Option<crate::model::FlexibleInstanceGroupConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4093,6 +4156,108 @@ impl ClusterConfig {
     {
         use std::iter::Iterator;
         self.auxiliary_node_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [master_flexible_config][crate::model::ClusterConfig::master_flexible_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ClusterConfig;
+    /// use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = ClusterConfig::new().set_master_flexible_config(FlexibleInstanceGroupConfig::default()/* use setters */);
+    /// ```
+    pub fn set_master_flexible_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FlexibleInstanceGroupConfig>,
+    {
+        self.master_flexible_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [master_flexible_config][crate::model::ClusterConfig::master_flexible_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ClusterConfig;
+    /// use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = ClusterConfig::new().set_or_clear_master_flexible_config(Some(FlexibleInstanceGroupConfig::default()/* use setters */));
+    /// let x = ClusterConfig::new().set_or_clear_master_flexible_config(None::<FlexibleInstanceGroupConfig>);
+    /// ```
+    pub fn set_or_clear_master_flexible_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FlexibleInstanceGroupConfig>,
+    {
+        self.master_flexible_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [worker_flexible_config][crate::model::ClusterConfig::worker_flexible_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ClusterConfig;
+    /// use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = ClusterConfig::new().set_worker_flexible_config(FlexibleInstanceGroupConfig::default()/* use setters */);
+    /// ```
+    pub fn set_worker_flexible_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FlexibleInstanceGroupConfig>,
+    {
+        self.worker_flexible_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [worker_flexible_config][crate::model::ClusterConfig::worker_flexible_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ClusterConfig;
+    /// use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = ClusterConfig::new().set_or_clear_worker_flexible_config(Some(FlexibleInstanceGroupConfig::default()/* use setters */));
+    /// let x = ClusterConfig::new().set_or_clear_worker_flexible_config(None::<FlexibleInstanceGroupConfig>);
+    /// ```
+    pub fn set_or_clear_worker_flexible_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FlexibleInstanceGroupConfig>,
+    {
+        self.worker_flexible_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [secondary_worker_flexible_config][crate::model::ClusterConfig::secondary_worker_flexible_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ClusterConfig;
+    /// use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = ClusterConfig::new().set_secondary_worker_flexible_config(FlexibleInstanceGroupConfig::default()/* use setters */);
+    /// ```
+    pub fn set_secondary_worker_flexible_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FlexibleInstanceGroupConfig>,
+    {
+        self.secondary_worker_flexible_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [secondary_worker_flexible_config][crate::model::ClusterConfig::secondary_worker_flexible_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ClusterConfig;
+    /// use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = ClusterConfig::new().set_or_clear_secondary_worker_flexible_config(Some(FlexibleInstanceGroupConfig::default()/* use setters */));
+    /// let x = ClusterConfig::new().set_or_clear_secondary_worker_flexible_config(None::<FlexibleInstanceGroupConfig>);
+    /// ```
+    pub fn set_or_clear_secondary_worker_flexible_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::FlexibleInstanceGroupConfig>,
+    {
+        self.secondary_worker_flexible_config = v.map(|x| x.into());
         self
     }
 }
@@ -4975,6 +5140,11 @@ pub struct GceClusterConfig {
     /// * `[zone]`
     pub zone_uri: std::string::String,
 
+    /// Optional. Controls how instances within this Cluster are allowed to exist
+    /// in multiple Zones within the Region. Only one of `zone_uri` or
+    /// `multi_zone_config` must be set.
+    pub multi_zone_config: std::option::Option<crate::model::MultiZoneConfig>,
+
     /// Optional. The Compute Engine network to be used for machine
     /// communications. Cannot be specified with subnetwork_uri. If neither
     /// `network_uri` nor `subnetwork_uri` is specified, the "default" network of
@@ -5097,6 +5267,39 @@ impl GceClusterConfig {
     /// ```
     pub fn set_zone_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [multi_zone_config][crate::model::GceClusterConfig::multi_zone_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::GceClusterConfig;
+    /// use google_cloud_dataproc_v1::model::MultiZoneConfig;
+    /// let x = GceClusterConfig::new().set_multi_zone_config(MultiZoneConfig::default()/* use setters */);
+    /// ```
+    pub fn set_multi_zone_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiZoneConfig>,
+    {
+        self.multi_zone_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [multi_zone_config][crate::model::GceClusterConfig::multi_zone_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::GceClusterConfig;
+    /// use google_cloud_dataproc_v1::model::MultiZoneConfig;
+    /// let x = GceClusterConfig::new().set_or_clear_multi_zone_config(Some(MultiZoneConfig::default()/* use setters */));
+    /// let x = GceClusterConfig::new().set_or_clear_multi_zone_config(None::<MultiZoneConfig>);
+    /// ```
+    pub fn set_or_clear_multi_zone_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiZoneConfig>,
+    {
+        self.multi_zone_config = v.map(|x| x.into());
         self
     }
 
@@ -5559,6 +5762,177 @@ pub mod gce_cluster_config {
                     ".google.cloud.dataproc.v1.GceClusterConfig.PrivateIpv6GoogleAccess",
                 ),
             )
+        }
+    }
+}
+
+/// Configuration for multi-zonal clusters that can create instances across
+/// multiple Zones within the Region.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MultiZoneConfig {
+    /// Optional. The distribution shape of the nodes in the multi-zonal cluster.
+    pub target_shape: crate::model::multi_zone_config::TargetShape,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MultiZoneConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [target_shape][crate::model::MultiZoneConfig::target_shape].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::MultiZoneConfig;
+    /// use google_cloud_dataproc_v1::model::multi_zone_config::TargetShape;
+    /// let x0 = MultiZoneConfig::new().set_target_shape(TargetShape::Any);
+    /// ```
+    pub fn set_target_shape<T: std::convert::Into<crate::model::multi_zone_config::TargetShape>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_shape = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MultiZoneConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataproc.v1.MultiZoneConfig"
+    }
+}
+
+/// Defines additional types related to [MultiZoneConfig].
+pub mod multi_zone_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The distribution shape of the nodes in the multi-zonal cluster.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TargetShape {
+        /// Target shape is unspecified. Setting this will cause error.
+        Unspecified,
+        /// Instances may exist in any Zones within the Region.
+        Any,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TargetShape::value] or
+        /// [TargetShape::name].
+        UnknownValue(target_shape::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod target_shape {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TargetShape {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Any => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TARGET_SHAPE_UNSPECIFIED"),
+                Self::Any => std::option::Option::Some("ANY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TargetShape {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TargetShape {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TargetShape {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Any,
+                _ => Self::UnknownValue(target_shape::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TargetShape {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TARGET_SHAPE_UNSPECIFIED" => Self::Unspecified,
+                "ANY" => Self::Any,
+                _ => Self::UnknownValue(target_shape::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TargetShape {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Any => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TargetShape {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TargetShape>::new(
+                ".google.cloud.dataproc.v1.MultiZoneConfig.TargetShape",
+            ))
         }
     }
 }
@@ -7155,6 +7529,264 @@ pub mod instance_flexibility_policy {
     impl wkt::message::Message for InstanceSelectionResult {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dataproc.v1.InstanceFlexibilityPolicy.InstanceSelectionResult"
+        }
+    }
+}
+
+/// The configuration for High Obtainability (HO) flexible instance groups.
+/// Flexible instance group configs serve as the single source of truth for
+/// desired state.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FlexibleInstanceGroupConfig {
+    /// Optional. The number of VM instances requested.
+    ///
+    /// For master instances, this must be 1. For worker and secondary worker
+    /// instances, this represents the desired capacity of the group and is mutable
+    /// via cluster update operations and autoscaling.
+    pub num_instances: i32,
+
+    /// Optional. The number of vCPUs per instance. Must be a power of 2
+    /// (2, 4, 8, 16, 32). This is a create-time specification and is not currently
+    /// mutable via update masks.
+    pub core_count: i32,
+
+    /// Optional. The boot disk size in GB. This is a create-time specification and
+    /// is not currently mutable via update masks.
+    pub boot_disk_size_gb: i32,
+
+    /// Optional. The hardware class of the instances. This is a create-time
+    /// specification and is not currently mutable via update masks.
+    pub hardware_class: crate::model::flexible_instance_group_config::HardwareClass,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FlexibleInstanceGroupConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [num_instances][crate::model::FlexibleInstanceGroupConfig::num_instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = FlexibleInstanceGroupConfig::new().set_num_instances(42);
+    /// ```
+    pub fn set_num_instances<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.num_instances = v.into();
+        self
+    }
+
+    /// Sets the value of [core_count][crate::model::FlexibleInstanceGroupConfig::core_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = FlexibleInstanceGroupConfig::new().set_core_count(42);
+    /// ```
+    pub fn set_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.core_count = v.into();
+        self
+    }
+
+    /// Sets the value of [boot_disk_size_gb][crate::model::FlexibleInstanceGroupConfig::boot_disk_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// let x = FlexibleInstanceGroupConfig::new().set_boot_disk_size_gb(42);
+    /// ```
+    pub fn set_boot_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.boot_disk_size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [hardware_class][crate::model::FlexibleInstanceGroupConfig::hardware_class].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::FlexibleInstanceGroupConfig;
+    /// use google_cloud_dataproc_v1::model::flexible_instance_group_config::HardwareClass;
+    /// let x0 = FlexibleInstanceGroupConfig::new().set_hardware_class(HardwareClass::Standard);
+    /// let x1 = FlexibleInstanceGroupConfig::new().set_hardware_class(HardwareClass::Performance);
+    /// ```
+    pub fn set_hardware_class<
+        T: std::convert::Into<crate::model::flexible_instance_group_config::HardwareClass>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.hardware_class = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FlexibleInstanceGroupConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataproc.v1.FlexibleInstanceGroupConfig"
+    }
+}
+
+/// Defines additional types related to [FlexibleInstanceGroupConfig].
+pub mod flexible_instance_group_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Controls the hardware class for the flexible instance group.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HardwareClass {
+        /// Unspecified hardware class.
+        Unspecified,
+        /// Standard hardware class.
+        /// Provides a balanced compute configuration with approximately 4GB of
+        /// memory per vCPU and standard disk storage tiers.
+        ///
+        /// Candidate machine types include `n4-standard`, `n4d-standard`,
+        /// `n2-standard`, and `n2d-standard` (Rank 0), and `c4-standard` and
+        /// `c4d-standard` (Rank 1) (for requested core counts 2, 4, 8, 16, 32).
+        ///
+        /// Warning: The specific machine families and types selected for this
+        /// hardware class are subject to change. Users should not take a
+        /// dependency on the underlying machine type selection.
+        Standard,
+        /// Performance hardware class.
+        /// Provides a high-performance configuration with approximately 8GB of
+        /// memory per vCPU (e.g. high-memory machine types) and higher-tier disk
+        /// configurations (e.g. higher IOPS and throughput).
+        ///
+        /// Candidate machine types include `n4-highmem`, `n4d-highmem`,
+        /// `n2-highmem`, and `n2d-highmem` (Rank 0), and `c4-highmem` and
+        /// `c4d-highmem` (Rank 1) (for requested core counts 2, 4, 8, 16, 32).
+        /// `n4`, `n4d`, `c4`, and `c4d` use Hyperdisk Balanced with provisioned
+        /// storage, whereas `n2` and `n2d` use SSD persistent disks.
+        ///
+        /// Warning: The specific machine families and types selected for this
+        /// hardware class are subject to change. Users should not take a
+        /// dependency on the underlying machine type selection.
+        Performance,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HardwareClass::value] or
+        /// [HardwareClass::name].
+        UnknownValue(hardware_class::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod hardware_class {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl HardwareClass {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Standard => std::option::Option::Some(1),
+                Self::Performance => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("HARDWARE_CLASS_UNSPECIFIED"),
+                Self::Standard => std::option::Option::Some("STANDARD"),
+                Self::Performance => std::option::Option::Some("PERFORMANCE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for HardwareClass {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HardwareClass {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HardwareClass {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Standard,
+                2 => Self::Performance,
+                _ => Self::UnknownValue(hardware_class::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HardwareClass {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HARDWARE_CLASS_UNSPECIFIED" => Self::Unspecified,
+                "STANDARD" => Self::Standard,
+                "PERFORMANCE" => Self::Performance,
+                _ => Self::UnknownValue(hardware_class::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HardwareClass {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Standard => serializer.serialize_i32(1),
+                Self::Performance => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HardwareClass {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HardwareClass>::new(
+                ".google.cloud.dataproc.v1.FlexibleInstanceGroupConfig.HardwareClass",
+            ))
         }
     }
 }

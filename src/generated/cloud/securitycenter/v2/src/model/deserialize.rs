@@ -2249,6 +2249,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryExport {
             __update_time,
             __most_recent_editor,
             __principal,
+            __deletion_notifications_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2280,6 +2281,12 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryExport {
                             "mostRecentEditor" => Ok(__FieldTag::__most_recent_editor),
                             "most_recent_editor" => Ok(__FieldTag::__most_recent_editor),
                             "principal" => Ok(__FieldTag::__principal),
+                            "deletionNotificationsEnabled" => {
+                                Ok(__FieldTag::__deletion_notifications_enabled)
+                            }
+                            "deletion_notifications_enabled" => {
+                                Ok(__FieldTag::__deletion_notifications_enabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2381,6 +2388,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryExport {
                             }
                             result.principal = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deletion_notifications_enabled => {
+                            if !fields.insert(__FieldTag::__deletion_notifications_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deletion_notifications_enabled",
+                                ));
+                            }
+                            result.deletion_notifications_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -10151,6 +10168,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NotificationConfig {
             __service_account,
             __streaming_config,
             __update_time,
+            __deletion_notifications_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10181,6 +10199,12 @@ impl<'de> serde::de::Deserialize<'de> for super::NotificationConfig {
                             "streaming_config" => Ok(__FieldTag::__streaming_config),
                             "updateTime" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
+                            "deletionNotificationsEnabled" => {
+                                Ok(__FieldTag::__deletion_notifications_enabled)
+                            }
+                            "deletion_notifications_enabled" => {
+                                Ok(__FieldTag::__deletion_notifications_enabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10276,6 +10300,16 @@ impl<'de> serde::de::Deserialize<'de> for super::NotificationConfig {
                             }
                             result.update_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__deletion_notifications_enabled => {
+                            if !fields.insert(__FieldTag::__deletion_notifications_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deletion_notifications_enabled",
+                                ));
+                            }
+                            result.deletion_notifications_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -10383,6 +10417,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NotificationMessage {
             __notification_config_name,
             __finding,
             __resource,
+            __deleted_finding,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10409,6 +10444,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NotificationMessage {
                             }
                             "finding" => Ok(__FieldTag::__finding),
                             "resource" => Ok(__FieldTag::__resource),
+                            "deletedFinding" => Ok(__FieldTag::__deleted_finding),
+                            "deleted_finding" => Ok(__FieldTag::__deleted_finding),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10473,6 +10510,16 @@ impl<'de> serde::de::Deserialize<'de> for super::NotificationMessage {
                             }
                             result.resource =
                                 map.next_value::<std::option::Option<crate::model::Resource>>()?;
+                        }
+                        __FieldTag::__deleted_finding => {
+                            if !fields.insert(__FieldTag::__deleted_finding) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deleted_finding",
+                                ));
+                            }
+                            result.deleted_finding = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

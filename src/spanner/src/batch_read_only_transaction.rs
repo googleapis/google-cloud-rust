@@ -13,24 +13,21 @@
 // limitations under the License.
 
 use crate::Error;
-use crate::channel_pool::ChannelTarget;
 use crate::database_client::DatabaseClient;
 use crate::model::{ExecuteSqlRequest, PartitionOptions, ReadRequest};
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
-    BeginTransactionOption, MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
-    ReadContextTransactionSelector,
+    AbortedState, BeginTransactionOption, MultiUseReadOnlyTransaction,
+    MultiUseReadOnlyTransactionBuilder, ReadContextTransactionSelector,
 };
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
-use crate::server_streaming::stream::PartialResultSetStream;
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use serde::{Deserialize, Serialize};
-use std::future::Future;
-use std::time::{Duration, Instant};
+use std::time::Duration;
 
 /// A builder for [BatchReadOnlyTransaction].
 ///
@@ -422,29 +419,6 @@ impl Partition {
         }
     }
 
-    async fn execute_partition_stream<F, Fut>(
-        client: &DatabaseClient,
-        method_name: &'static str,
-        rpc_call: F,
-    ) -> crate::Result<(PartialResultSetStream, Instant)>
-    where
-        F: FnOnce() -> Fut,
-        Fut: Future<Output = crate::Result<PartialResultSetStream>>,
-    {
-        let attempt_start_time = Instant::now();
-        match rpc_call().await {
-            Ok(stream) => Ok((stream, attempt_start_time)),
-            Err(e) => {
-                let elapsed = attempt_start_time.elapsed();
-                client
-                    .o11y
-                    .record_attempt(method_name, elapsed, Some(&e), None);
-                client.o11y.record_operation(method_name, elapsed, Some(&e));
-                Err(e)
-            }
-        }
-    }
-
     async fn execute_query(
         client: &DatabaseClient,
         request: &ExecuteSqlRequest,
@@ -455,27 +429,15 @@ impl Partition {
             .clone()
             .ok_or_else(|| Error::deser("missing transaction in partition query request"))?;
 
-        let (stream, attempt_start_time) =
-            Self::execute_partition_stream(client, "ExecuteStreamingSql", || {
-                client
-                    .execute_streaming_sql(request.clone(), gax_options.clone(), ChannelTarget::Any)
-                    .send()
-            })
-            .await?;
-
         ResultSet::create(ResultSetParams {
-            stream,
             transaction_selector: Some(ReadContextTransactionSelector::Fixed(transaction, None)),
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
-            session_name: request.session.clone(),
-            transaction_tag: None,
             operation: StreamOperation::Query(request.clone()),
             gax_options,
             method_name: "ExecuteStreamingSql",
-            attempt_start_time: Some(attempt_start_time),
-            operation_start_time: Some(attempt_start_time),
             affinity: None,
+            aborted_state: AbortedState::new_noop(),
         })
         .await
     }
@@ -490,27 +452,15 @@ impl Partition {
             .clone()
             .ok_or_else(|| Error::deser("missing transaction in partition read request"))?;
 
-        let (stream, attempt_start_time) =
-            Self::execute_partition_stream(client, "StreamingRead", || {
-                client
-                    .streaming_read(request.clone(), gax_options.clone(), ChannelTarget::Any)
-                    .send()
-            })
-            .await?;
-
         ResultSet::create(ResultSetParams {
-            stream,
             transaction_selector: Some(ReadContextTransactionSelector::Fixed(transaction, None)),
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
-            session_name: request.session.clone(),
-            transaction_tag: None,
             operation: StreamOperation::Read(request.clone()),
             gax_options,
             method_name: "StreamingRead",
-            attempt_start_time: Some(attempt_start_time),
-            operation_start_time: Some(attempt_start_time),
             affinity: None,
+            aborted_state: AbortedState::new_noop(),
         })
         .await
     }
@@ -597,10 +547,13 @@ pub(crate) mod tests {
     use crate::model::{ExecuteSqlRequest, ReadRequest as GrpcReadRequest, TransactionSelector};
     use crate::read::ReadRequest as SpannerReadRequest;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
+    use crate::result_set::tests::{adapt, string_val};
     use crate::statement::Statement;
     use crate::transaction::TimestampBound;
-    use gaxi::grpc::tonic::Response;
+    use crate::value::Value;
+    use gaxi::grpc::tonic::{Response, Status};
     use google_cloud_test_macros::tokio_test_no_panics;
+    use mockall::Sequence;
     use prost_types::Timestamp;
     use serde::de::DeserializeOwned;
     use serde_json::Value as JsonValue;
@@ -696,6 +649,52 @@ pub(crate) mod tests {
         let partition = partition.with_attempt_timeout(Duration::from_secs(5));
 
         let _result_set = partition.execute(&db_client).await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn partition_execute_retries_initial_handshake_failure() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::unavailable("transient handshake error")));
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(Response::from(adapt([Ok(setup_select1())]))));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let request = ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
+                ..Default::default()
+            })
+            .set_sql("SELECT 1")
+            .set_partition_token(b"token".to_vec());
+
+        let partition = Partition {
+            version: CURRENT_WIRE_VERSION,
+            inner: PartitionedOperation::Query(request),
+            gax_options: GaxRequestOptions::default(),
+        };
+
+        let mut result_set = partition.execute(&db_client).await?;
+        let row = result_set
+            .next()
+            .await
+            .expect("stream should yield next row")?;
+        assert_eq!(
+            row.raw_values(),
+            [Value(string_val("1"))],
+            "row value should match expected query result"
+        );
 
         Ok(())
     }
