@@ -675,6 +675,12 @@ impl serde::ser::Serialize for super::BigQueryExport {
         if !self.principal.is_empty() {
             state.serialize_entry("principal", &self.principal)?;
         }
+        if !wkt::internal::is_default(&self.deletion_notifications_enabled) {
+            state.serialize_entry(
+                "deletionNotificationsEnabled",
+                &self.deletion_notifications_enabled,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2893,6 +2899,12 @@ impl serde::ser::Serialize for super::NotificationConfig {
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
         }
+        if !wkt::internal::is_default(&self.deletion_notifications_enabled) {
+            state.serialize_entry(
+                "deletionNotificationsEnabled",
+                &self.deletion_notifications_enabled,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2942,6 +2954,9 @@ impl serde::ser::Serialize for super::NotificationMessage {
         }
         if self.resource.is_some() {
             state.serialize_entry("resource", &self.resource)?;
+        }
+        if !wkt::internal::is_default(&self.deleted_finding) {
+            state.serialize_entry("deletedFinding", &self.deleted_finding)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

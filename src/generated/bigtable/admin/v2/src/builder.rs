@@ -4123,9 +4123,9 @@ pub mod bigtable_table_admin {
     /// Common implementation for [crate::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -5739,7 +5739,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CheckConsistency(RequestBuilder<crate::model::CheckConsistencyRequest>);
+    pub struct CheckConsistency(pub(crate) RequestBuilder<crate::model::CheckConsistencyRequest>);
 
     impl CheckConsistency {
         pub(crate) fn new(
