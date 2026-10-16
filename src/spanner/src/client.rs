@@ -83,6 +83,7 @@ pub struct Spanner {
 }
 
 /// A factory for constructing `Spanner` clients.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct Factory;
 
 impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
@@ -1071,6 +1072,8 @@ mod tests {
     fn auto_traits() {
         assert_impl_all!(Spanner: Debug, Clone, Send, Sync);
         assert_not_impl_any!(Spanner: RefUnwindSafe, UnwindSafe);
+        assert_impl_all!(Factory: Debug, Clone, Copy, Default, PartialEq, Eq, Send, Sync);
+        assert_impl_all!(ClientBuilder: Debug, Clone);
     }
 
     #[tokio_test_no_panics]

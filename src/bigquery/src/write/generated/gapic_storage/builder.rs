@@ -51,9 +51,9 @@ pub mod read {
     /// Common implementation for [crate::client::Read] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Read>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Read>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -193,7 +193,7 @@ pub mod read {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReadRows(
-        RequestBuilder<crate::write::generated::gapic_storage::model::ReadRowsRequest>,
+        pub(crate) RequestBuilder<crate::write::generated::gapic_storage::model::ReadRowsRequest>,
     );
 
     impl ReadRows {
