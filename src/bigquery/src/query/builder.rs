@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::error::QueryError;
 use crate::generated::QueryRequest;
 use crate::query::execution::RetryContext;
@@ -60,6 +61,7 @@ pub struct Query {
     pub(crate) request: QueryRequest,
     pub(crate) project_id: Option<String>,
     pub(crate) job_retry_policy: Arc<dyn JobRetryPolicy>,
+    pub(crate) options: RequestOptions,
 }
 
 impl Query {
@@ -73,6 +75,7 @@ impl Query {
                 .set_job_creation_mode(JobCreationMode::JobCreationOptional),
             project_id: None,
             job_retry_policy: default_job_retry_policy(),
+            options: RequestOptions::default(),
         }
     }
 
@@ -102,7 +105,29 @@ impl Query {
     /// # }
     /// ```
     pub fn with_project_id<S: Into<String>>(mut self, project_id: S) -> Self {
-        self.project_id = Some(project_id.into());
+        let project_id = project_id.into();
+        self.project_id = Some(project_id.clone());
+        self.options.set_quota_project(project_id);
+        self
+    }
+
+    /// Sets the User-Agent header to amend the default client header.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let query_handle = client
+    ///     .query("SELECT 1 AS count")
+    ///     .with_user_agent("my-app/1.2.3")
+    ///     .send()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
+        self.options.set_user_agent(user_agent);
         self
     }
 
@@ -249,6 +274,8 @@ mod tests {
             JobCreationMode::JobCreationOptional
         );
         assert_eq!(query_builder.project_id, None);
+        assert_eq!(query_builder.options.quota_project(), &None);
+        assert_eq!(query_builder.options.user_agent(), &None);
     }
 
     #[test]
@@ -257,6 +284,21 @@ mod tests {
         let query_builder =
             Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         assert_eq!(query_builder.project_id.unwrap(), "my-project");
+        assert_eq!(
+            query_builder.options.quota_project().as_deref(),
+            Some("my-project")
+        );
+    }
+
+    #[test]
+    fn test_with_user_agent() {
+        let job_service = create_job_service(MockJobService::new());
+        let query_builder =
+            Query::new(job_service, "SELECT 1".to_string()).with_user_agent("my-app/1.2.3");
+        assert_eq!(
+            query_builder.options.user_agent().as_deref(),
+            Some("my-app/1.2.3")
+        );
     }
 
     #[tokio::test]
@@ -342,7 +384,8 @@ mod tests {
     #[tokio::test]
     async fn test_run_jobs_insert() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_insert_job().returning(|req, _| {
+        mock.expect_insert_job().returning(|req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let job_ref = req.job.as_ref().unwrap().job_reference.as_ref().unwrap();
             assert!(job_ref.job_id.starts_with(JOB_ID_PREFIX), "{job_ref:?}");
             let job_ref = JobReference::new()
@@ -362,6 +405,7 @@ mod tests {
             .set_allow_large_results(true);
         let query = query_builder.send().await?;
         assert!(query.completed, "{query:?}");
+        assert_eq!(query.options.quota_project().as_deref(), Some("my-project"));
 
         Ok(())
     }
@@ -369,7 +413,8 @@ mod tests {
     #[tokio::test]
     async fn test_run_jobs_query() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_query().returning(move |req, _| {
+        mock.expect_query().returning(move |req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let req_id = &req.query_request.as_ref().unwrap().request_id;
             assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX), "{req_id:?}");
             assert!(req_id.len() <= BIGQUERY_REQ_ID_LIMIT, "{req_id:?}");
@@ -385,6 +430,7 @@ mod tests {
         let query = query_builder.send().await?;
         assert!(!query.completed, "{query:?}");
         assert_eq!(query.metadata.query_id, "some_query_id");
+        assert_eq!(query.options.quota_project().as_deref(), Some("my-project"));
 
         Ok(())
     }
@@ -572,7 +618,8 @@ mod tests {
     #[tokio::test]
     async fn test_until_done_jobs_query() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_query().returning(move |_, _| {
+        mock.expect_query().returning(move |_, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             Ok(Response::from(
                 QueryResponse::new()
                     .set_job_complete(true)
@@ -583,6 +630,10 @@ mod tests {
         let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         let complete = query.until_done().await?;
         assert_eq!(complete.metadata().query_id, "some_query_id");
+        assert_eq!(
+            complete.options.quota_project().as_deref(),
+            Some("my-project")
+        );
 
         Ok(())
     }
@@ -601,6 +652,48 @@ mod tests {
             matches!(err, QueryError::DryRun),
             "expected DryRun error, got {err:?}"
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_run_jobs_query_with_user_agent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().returning(move |_, options| {
+            assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+            Ok(Response::from(QueryResponse::new()))
+        });
+        let job_service = create_job_service(mock);
+        let query_builder = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .with_user_agent("my-app/1.2.3");
+        let query = query_builder.send().await?;
+        assert_eq!(query.options.user_agent().as_deref(), Some("my-app/1.2.3"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_run_jobs_insert_with_user_agent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_insert_job().returning(|_, options| {
+            assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+            let job_ref = JobReference::new()
+                .set_job_id("test-job")
+                .set_project_id("my-project");
+            let job = Job::new()
+                .set_job_reference(job_ref)
+                .set_status(JobStatus::new().set_state("DONE"));
+            Ok(Response::from(job))
+        });
+        let job_service = create_job_service(mock);
+
+        let query_builder = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_allow_large_results(true)
+            .with_user_agent("my-app/1.2.3");
+        let query = query_builder.send().await?;
+        assert_eq!(query.options.user_agent().as_deref(), Some("my-app/1.2.3"));
 
         Ok(())
     }
