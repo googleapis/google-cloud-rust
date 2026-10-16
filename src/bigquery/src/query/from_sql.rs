@@ -373,6 +373,15 @@ impl FromSql for wkt::Struct {
                 serde_json::from_str(&s).map_err(|e| ConvertError::Convert(Box::new(e)))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                // TODO(#7032): Support Arrow StructArray once wkt::Value conversion is implemented.
+                let s = cell.as_str()?;
+                serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
             other => Err(ConvertError::type_mismatch("object or string", &other)),
         }
     }
@@ -1104,12 +1113,12 @@ mod tests {
         use arrow::array::{
             ArrayRef, BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array,
             Float32Array, Float64Array, Int32Array, Int64Array, LargeBinaryArray, LargeListArray,
-            LargeStringArray, ListArray, StringArray, Time64MicrosecondArray,
+            LargeStringArray, ListArray, StringArray, StructArray, Time64MicrosecondArray,
             Time64NanosecondArray, TimestampMicrosecondArray, TimestampMillisecondArray,
             TimestampNanosecondArray, TimestampSecondArray,
         };
         use arrow::buffer::{NullBuffer, OffsetBuffer};
-        use arrow::datatypes::{DataType, Field, i256};
+        use arrow::datatypes::{DataType, Field, Fields, i256};
         use std::sync::Arc;
         use test_case::test_case;
 
@@ -1378,6 +1387,104 @@ mod tests {
             ));
 
             Ok(())
+        }
+
+        fn sample_test_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("name", DataType::Utf8, false),
+                Field::new("custom_int", DataType::Int64, false),
+                Field::new("some_bool", DataType::Boolean, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(StringArray::from(vec!["James"])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![272_793])) as ArrayRef,
+                    Arc::new(BooleanArray::from(vec![true])) as ArrayRef,
+                ],
+                nulls,
+            ))
+        }
+
+        fn sample_missing_field_struct_array() -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("name", DataType::Utf8, false),
+                Field::new("some_bool", DataType::Boolean, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(StringArray::from(vec!["James"])) as ArrayRef,
+                    Arc::new(BooleanArray::from(vec![true])) as ArrayRef,
+                ],
+                None,
+            ))
+        }
+
+        fn sample_tuple_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("", DataType::Int64, false),
+                Field::new("", DataType::Int64, true),
+                Field::new("", DataType::Utf8, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(Int64Array::from(vec![Some(100)])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![None])) as ArrayRef,
+                    Arc::new(StringArray::from(vec!["world"])) as ArrayRef,
+                ],
+                nulls,
+            ))
+        }
+
+        fn sample_short_tuple_struct_array() -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("", DataType::Int64, false),
+                Field::new("", DataType::Int64, true),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(Int64Array::from(vec![Some(100)])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![None])) as ArrayRef,
+                ],
+                None,
+            ))
+        }
+
+        #[test_case(sample_test_struct_array(None) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec![r#"{"name": "James", "custom_int": 272793, "some_bool": true}"#])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from StringArray json")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![r#"{"name": "James", "custom_int": 272793, "some_bool": true}"#])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from LargeStringArray json")]
+        #[test_case(sample_missing_field_struct_array() => Err(TestConvertError::MissingField("custom_int".to_string())) ; "struct missing field")]
+        #[test_case(sample_test_struct_array(Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "struct null StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec!["invalid"])) => Err(TestConvertError::Convert) ; "struct invalid json string")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("object or string")) ; "struct type mismatch")]
+        fn test_derive_from_sql_arrow_named_struct(
+            arr: ArrayRef,
+        ) -> Result<TestSqlStruct, TestConvertError> {
+            TestSqlStruct::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_tuple_struct_array(None) => Ok(GenericTupleSql(100, None, "world".to_string())) ; "tuple struct from StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec![r#"[100, null, "world"]"#])) => Ok(GenericTupleSql(100, None, "world".to_string())) ; "tuple struct from StringArray json")]
+        #[test_case(sample_short_tuple_struct_array() => Err(TestConvertError::MissingField("2".to_string())) ; "tuple struct missing field")]
+        #[test_case(sample_tuple_struct_array(Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "tuple struct null StructArray")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("struct, array, or string")) ; "tuple struct type mismatch")]
+        fn test_derive_from_sql_arrow_tuple_struct(
+            arr: ArrayRef,
+        ) -> Result<GenericTupleSql<i64, String>, TestConvertError> {
+            GenericTupleSql::<i64, String>::from_value(arrow_val(arr, 0))
+                .map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(StringArray::from(vec![Some(r#"{"a": 1}"#)])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "wkt struct from StringArray")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![Some(r#"{"a": 1}"#)])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "wkt struct from LargeStringArray")]
+        #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "wkt struct null")]
+        #[test_case(Arc::new(StringArray::from(vec![Some("invalid")])) => Err(TestConvertError::Convert) ; "wkt struct invalid json")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "wkt struct type mismatch")]
+        fn test_from_sql_arrow_wkt_struct(arr: ArrayRef) -> Result<wkt::Struct, TestConvertError> {
+            wkt::Struct::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }
     }
 }

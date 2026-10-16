@@ -163,17 +163,25 @@ mod sealed {
                     google_cloud_unstable_bigquery_storage_read
                 ))]
                 SqlValueInner::Arrow(cell) => {
-                    // TODO(#7032): Support Arrow StructArray and JSON string cells for struct extraction.
-                    let val = cell.list_element_cell(*self)?;
-                    Ok(SqlValue::from_inner(SqlValueInner::Arrow(val)))
+                    match cell.struct_field_cell(self) {
+                        Ok(val) => return Ok(SqlValue::from_inner(SqlValueInner::Arrow(val))),
+                        Err(ConvertError::TypeMismatch { .. }) => {}
+                        Err(e) => return Err(e),
+                    }
+                    match cell.list_element_cell(*self) {
+                        Ok(val) => return Ok(SqlValue::from_inner(SqlValueInner::Arrow(val))),
+                        Err(ConvertError::TypeMismatch { .. }) => {}
+                        Err(e) => return Err(e),
+                    }
+                    if let Ok(s) = cell.as_str() {
+                        value.inner = SqlValueInner::from_wkt(wkt::Value::String(s.to_string()));
+                        return self.take_sql_value(value);
+                    }
+                    Err(ConvertError::TypeMismatch {
+                        expected: "struct, array, or string".to_string(),
+                        got: cell.data_type_str(),
+                    })
                 }
-                #[cfg_attr(
-                    any(
-                        google_cloud_unstable_bigquery_arrow,
-                        google_cloud_unstable_bigquery_storage_read
-                    ),
-                    allow(unreachable_patterns)
-                )]
                 other => Err(ConvertError::type_mismatch(
                     "struct, array, or string",
                     other,
@@ -217,7 +225,25 @@ mod sealed {
                     self.take_sql_value(value)
                 }
                 SqlValueInner::Null => Err(ConvertError::NotNull),
-                // TODO(#7032): Support Arrow StructArray and JSON string cells for struct extraction.
+                #[cfg(any(
+                    google_cloud_unstable_bigquery_arrow,
+                    google_cloud_unstable_bigquery_storage_read
+                ))]
+                SqlValueInner::Arrow(cell) => {
+                    match cell.struct_field_cell(self) {
+                        Ok(val) => return Ok(SqlValue::from_inner(SqlValueInner::Arrow(val))),
+                        Err(ConvertError::TypeMismatch { .. }) => {}
+                        Err(e) => return Err(e),
+                    }
+                    if let Ok(s) = cell.as_str() {
+                        value.inner = SqlValueInner::from_wkt(wkt::Value::String(s.to_string()));
+                        return self.take_sql_value(value);
+                    }
+                    Err(ConvertError::TypeMismatch {
+                        expected: "object or string".to_string(),
+                        got: cell.data_type_str(),
+                    })
+                }
                 other => Err(ConvertError::type_mismatch("object or string", other)),
             }
         }
@@ -1664,16 +1690,110 @@ mod tests {
             Ok(())
         }
 
+        #[test]
+        fn try_new_from_arrow_anonymous_and_named_structs() -> TestResult {
+            use arrow::array::{ArrayRef, BooleanArray, StructArray};
+            use arrow::datatypes::Fields;
+
+            // 1. Anonymous struct: STRUCT(10, 'hello', true)
+            let anon_fields = Fields::from(vec![
+                Field::new("", DataType::Int64, false),
+                Field::new("", DataType::Utf8, false),
+                Field::new("", DataType::Boolean, false),
+            ]);
+            let anon_arr = Arc::new(StructArray::new(
+                anon_fields.clone(),
+                vec![
+                    Arc::new(Int64Array::from(vec![10])) as ArrayRef,
+                    Arc::new(StringArray::from(vec!["hello"])) as ArrayRef,
+                    Arc::new(BooleanArray::from(vec![true])) as ArrayRef,
+                ],
+                None,
+            ));
+
+            // 2. Named pair struct with SQL declaration order: STRUCT(1 AS z, 2 AS a)
+            let pair_fields = Fields::from(vec![
+                Field::new("z", DataType::Int64, false),
+                Field::new("a", DataType::Int64, false),
+            ]);
+            let pair_arr = Arc::new(StructArray::new(
+                pair_fields.clone(),
+                vec![
+                    Arc::new(Int64Array::from(vec![1])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![2])) as ArrayRef,
+                ],
+                None,
+            ));
+
+            // 3. Duplicate field names: STRUCT(100 AS id, 200 AS id)
+            let dup_fields = Fields::from(vec![
+                Field::new("id", DataType::Int64, false),
+                Field::new("id", DataType::Int64, false),
+            ]);
+            let dup_arr = Arc::new(StructArray::new(
+                dup_fields.clone(),
+                vec![
+                    Arc::new(Int64Array::from(vec![100])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![200])) as ArrayRef,
+                ],
+                None,
+            ));
+
+            let arrow_schema = Arc::new(ArrowSchema::new(vec![
+                Field::new("anon", DataType::Struct(anon_fields), false),
+                Field::new("pair", DataType::Struct(pair_fields), false),
+                Field::new("dup", DataType::Struct(dup_fields), false),
+            ]));
+
+            let batch = Arc::new(RecordBatch::try_new(
+                arrow_schema,
+                vec![anon_arr, pair_arr, dup_arr],
+            )?);
+
+            let table_schema = TableSchema::new().set_fields([
+                TableFieldSchema::new().set_name("anon").set_type("RECORD"),
+                TableFieldSchema::new().set_name("pair").set_type("RECORD"),
+                TableFieldSchema::new().set_name("dup").set_type("RECORD"),
+            ]);
+            let schema = Arc::new(Schema::new(table_schema));
+
+            let mut row = Row::try_new_from_arrow(&batch, 0, &schema)?;
+
+            // Anonymous struct extraction
+            let anon: AnonTriple = row.get("anon")?;
+            assert_eq!(anon, AnonTriple(10, "hello".to_string(), true));
+
+            // Named struct extraction by name and by positional order
+            let by_name: NamedZThenA = row.get("pair")?;
+            assert_eq!(by_name, NamedZThenA { z: 1, a: 2 });
+            let by_pos: PositionalPair = row.get("pair")?;
+            assert_eq!(by_pos, PositionalPair(1, 2));
+
+            // Duplicate fields: name gets first, positional gets both
+            let first_id: DupIdNamed = row.get("dup")?;
+            assert_eq!(first_id, DupIdNamed { id: 100 });
+            let both_ids: PositionalPair = row.get("dup")?;
+            assert_eq!(both_ids, PositionalPair(100, 200));
+
+            // Test taking values mutably
+            let anon_taken: AnonTriple = row.take("anon")?;
+            assert_eq!(anon_taken, AnonTriple(10, "hello".to_string(), true));
+
+            Ok(())
+        }
+
         #[derive(FromRow, Debug, PartialEq)]
-        struct ArrowListRow {
+        struct ArrowNestedRow {
             numbers: Vec<i64>,
             strings: Vec<String>,
+            pairs: Vec<PositionalPair>,
         }
 
         #[test]
         fn try_new_from_arrow_list_arrays() -> TestResult {
-            use arrow::array::{ArrayRef, LargeListArray, ListArray};
+            use arrow::array::{ArrayRef, LargeListArray, ListArray, StructArray};
             use arrow::buffer::OffsetBuffer;
+            use arrow::datatypes::Fields;
 
             // List of integers: [[1, 2, 3], [42]]
             let int_values = Arc::new(Int64Array::from(vec![1, 2, 3, 42])) as ArrayRef;
@@ -1695,6 +1815,27 @@ mod tests {
                 None,
             ));
 
+            // List of structs: [[{"z": 1, "a": 2}], [{"z": 10, "a": 20}]]
+            let pair_fields = Fields::from(vec![
+                Field::new("z", DataType::Int64, false),
+                Field::new("a", DataType::Int64, false),
+            ]);
+            let pair_structs = Arc::new(StructArray::new(
+                pair_fields.clone(),
+                vec![
+                    Arc::new(Int64Array::from(vec![1, 10])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![2, 20])) as ArrayRef,
+                ],
+                None,
+            )) as ArrayRef;
+            let struct_offsets = OffsetBuffer::from_lengths(vec![1, 1]);
+            let struct_list = Arc::new(ListArray::new(
+                Arc::new(Field::new("element", DataType::Struct(pair_fields), false)),
+                struct_offsets,
+                pair_structs,
+                None,
+            ));
+
             let arrow_schema = Arc::new(ArrowSchema::new(vec![
                 Field::new(
                     "numbers",
@@ -1706,11 +1847,23 @@ mod tests {
                     DataType::LargeList(Arc::new(Field::new("element", DataType::Utf8, false))),
                     false,
                 ),
+                Field::new(
+                    "pairs",
+                    DataType::List(Arc::new(Field::new(
+                        "element",
+                        DataType::Struct(Fields::from(vec![
+                            Field::new("z", DataType::Int64, false),
+                            Field::new("a", DataType::Int64, false),
+                        ])),
+                        false,
+                    ))),
+                    false,
+                ),
             ]));
 
             let batch = Arc::new(RecordBatch::try_new(
                 arrow_schema,
-                vec![int_list, str_large_list],
+                vec![int_list, str_large_list, struct_list],
             )?);
 
             let table_schema = TableSchema::new().set_fields([
@@ -1721,6 +1874,10 @@ mod tests {
                 TableFieldSchema::new()
                     .set_name("strings")
                     .set_type("STRING")
+                    .set_mode("REPEATED"),
+                TableFieldSchema::new()
+                    .set_name("pairs")
+                    .set_type("RECORD")
                     .set_mode("REPEATED"),
             ]);
             let schema = Arc::new(Schema::new(table_schema));
@@ -1733,12 +1890,19 @@ mod tests {
             let strings0: Vec<String> = row0.get("strings")?;
             assert_eq!(strings0, vec!["a".to_string(), "b".to_string()]);
 
-            let row0_derived = ArrowListRow::try_from(row0)?;
+            let pairs0_named: Vec<NamedZThenA> = row0.get("pairs")?;
+            assert_eq!(pairs0_named, vec![NamedZThenA { z: 1, a: 2 }]);
+
+            let pairs0_pos: Vec<PositionalPair> = row0.get("pairs")?;
+            assert_eq!(pairs0_pos, vec![PositionalPair(1, 2)]);
+
+            let row0_derived = ArrowNestedRow::try_from(row0)?;
             assert_eq!(
                 row0_derived,
-                ArrowListRow {
+                ArrowNestedRow {
                     numbers: vec![1, 2, 3],
                     strings: vec!["a".to_string(), "b".to_string()],
+                    pairs: vec![PositionalPair(1, 2)],
                 }
             );
 
@@ -1750,12 +1914,16 @@ mod tests {
             let strings1: Vec<String> = row1.get("strings")?;
             assert_eq!(strings1, vec!["c".to_string()]);
 
-            let row1_derived = ArrowListRow::try_from(row1)?;
+            let pairs1_pos: Vec<PositionalPair> = row1.get("pairs")?;
+            assert_eq!(pairs1_pos, vec![PositionalPair(10, 20)]);
+
+            let row1_derived = ArrowNestedRow::try_from(row1)?;
             assert_eq!(
                 row1_derived,
-                ArrowListRow {
+                ArrowNestedRow {
                     numbers: vec![42],
                     strings: vec!["c".to_string()],
+                    pairs: vec![PositionalPair(10, 20)],
                 }
             );
 
