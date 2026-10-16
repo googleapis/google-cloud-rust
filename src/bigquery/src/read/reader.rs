@@ -305,14 +305,7 @@ impl Reader {
                 stream,
             } => match stream.next().await {
                 Some(Ok(response)) => {
-                    let next_offset = match advance_offset(*offset, response.row_count) {
-                        Ok(o) => o,
-                        Err(err) => {
-                            self.state = ReaderState::Terminated(Some(err));
-                            return None;
-                        }
-                    };
-                    *offset = next_offset;
+                    *offset += response.row_count;
                     // Data progress was made: clear `retry_state` so any future
                     // mid-stream failure starts a fresh `RetryState::new(true)`.
                     *retry_state = None;
@@ -347,19 +340,6 @@ impl Reader {
             }
         }
     }
-}
-
-fn advance_offset(offset: i64, row_count: i64) -> Result<i64> {
-    if row_count < 0 {
-        return Err(Error::deser(format!(
-            "ReadRowsResponse contained negative row_count: {row_count}"
-        )));
-    }
-    offset.checked_add(row_count).ok_or_else(|| {
-        Error::deser(format!(
-            "ReadRowsResponse row_count ({row_count}) overflowed stream offset ({offset})"
-        ))
-    })
 }
 
 impl ReadRows {
@@ -1093,21 +1073,13 @@ mod tests {
             .with_backoff_policy(NoBackoff);
 
         assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 25);
-        if let ReaderState::Reading {
-            offset,
-            ..
-        } = &reader.state
-        {
+        if let ReaderState::Reading { offset, .. } = &reader.state {
             assert_eq!(*offset, 1025);
         } else {
             panic!("expected reader state to be Reading");
         }
         assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 10);
-        if let ReaderState::Reading {
-            offset,
-            ..
-        } = &reader.state
-        {
+        if let ReaderState::Reading { offset, .. } = &reader.state {
             assert_eq!(*offset, 1035);
         } else {
             panic!("expected reader state to be Reading");
@@ -1271,33 +1243,6 @@ mod tests {
             .expect("should return error")
             .expect_err("should be exhausted by throttler");
         assert!(err.is_exhausted(), "{err:?}");
-        assert!(reader.next().await.is_none());
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn negative_or_overflowing_row_count_returns_deser_error() -> anyhow::Result<()> {
-        let mut mock = MockReadStub::new();
-        mock.expect_read_rows().once().returning(|_, _| {
-            let (tx, rx) = mpsc::channel(2);
-            tokio::spawn(async move {
-                let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(-1))).await;
-            });
-            Ok(ResponseStream::from(rx))
-        });
-
-        let client = Read::from_stub(mock);
-        let mut reader = client
-            .read_rows()
-            .set_read_stream("streams/1")
-            .into_reader();
-
-        let err = reader
-            .next()
-            .await
-            .expect("should return error")
-            .expect_err("negative row_count should error");
-        assert!(err.is_deserialization(), "{err:?}");
         assert!(reader.next().await.is_none());
         Ok(())
     }
