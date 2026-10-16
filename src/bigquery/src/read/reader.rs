@@ -48,9 +48,10 @@ pub struct Reader {
 
 impl Reader {
     pub(crate) fn new(request: ReadRows) -> Self {
+        let offset = request.0.request.offset;
         Self {
             request,
-            state: ReaderState::Connecting { offset: 0 },
+            state: ReaderState::Connecting { offset },
         }
     }
 
@@ -73,7 +74,14 @@ impl Reader {
             }
             ReaderState::Reading { offset, stream } => match stream.next().await {
                 Some(Ok(response)) => {
-                    *offset += response.row_count;
+                    let next_offset = match advance_offset(*offset, response.row_count) {
+                        Ok(o) => o,
+                        Err(err) => {
+                            self.state = ReaderState::Terminated(Some(err));
+                            return None;
+                        }
+                    };
+                    *offset = next_offset;
                     Some(response)
                 }
                 Some(Err(err)) => {
@@ -101,6 +109,19 @@ impl Reader {
             }
         }
     }
+}
+
+fn advance_offset(offset: i64, row_count: i64) -> Result<i64> {
+    if row_count < 0 {
+        return Err(Error::deser(format!(
+            "ReadRowsResponse contained negative row_count: {row_count}"
+        )));
+    }
+    offset.checked_add(row_count).ok_or_else(|| {
+        Error::deser(format!(
+            "ReadRowsResponse row_count ({row_count}) overflowed stream offset ({offset})"
+        ))
+    })
 }
 
 impl ReadRows {
@@ -315,6 +336,82 @@ mod tests {
         let r2 = reader.next().await.transpose()?.expect("row batch 2");
         assert_eq!(r2.row_count, 3);
         assert!(reader.next().await.is_none());
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn with_offset_starts_from_initial_offset() -> anyhow::Result<()> {
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockReadStub::new();
+
+        mock.expect_read_rows()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.offset, 1_000);
+                let (tx, rx) = mpsc::channel(4);
+                tokio::spawn(async move {
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(25))).await;
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(10))).await;
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        let client = Read::from_stub(mock);
+        let mut reader = client
+            .read_rows()
+            .set_read_stream("streams/1")
+            .set_offset(1_000)
+            .into_reader();
+
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 25);
+        if let ReaderState::Reading {
+            offset,
+            ..
+        } = &reader.state
+        {
+            assert_eq!(*offset, 1025);
+        } else {
+            panic!("expected reader state to be Reading");
+        }
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 10);
+        if let ReaderState::Reading {
+            offset,
+            ..
+        } = &reader.state
+        {
+            assert_eq!(*offset, 1035);
+        } else {
+            panic!("expected reader state to be Reading");
+        }
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn negative_or_overflowing_row_count_returns_deser_error() -> anyhow::Result<()> {
+        let mut mock = MockReadStub::new();
+        mock.expect_read_rows().once().returning(|_, _| {
+            let (tx, rx) = mpsc::channel(2);
+            tokio::spawn(async move {
+                let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(-1))).await;
+            });
+            Ok(ResponseStream::from(rx))
+        });
+
+        let client = Read::from_stub(mock);
+        let mut reader = client
+            .read_rows()
+            .set_read_stream("streams/1")
+            .into_reader();
+
+        let err = reader
+            .next()
+            .await
+            .expect("should return error")
+            .expect_err("negative row_count should error");
+        assert!(err.is_deserialization(), "{err:?}");
         assert!(reader.next().await.is_none());
         Ok(())
     }
