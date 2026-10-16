@@ -19,7 +19,7 @@ use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::ReadContextTransactionSelector;
+use crate::read_only_transaction::{AbortedInfo, AbortedState, ReadContextTransactionSelector};
 use crate::request_id_interceptor::update_request_id_attempt;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::retry_delay::extract_retry_delay_from_error;
@@ -91,6 +91,7 @@ pub struct ResultSet {
     operation_recorded: bool,
     affinity: Arc<TransactionAffinity>,
     affinity_configured: bool,
+    aborted_state: AbortedState,
 }
 
 #[derive(Debug, Clone)]
@@ -107,6 +108,7 @@ pub(crate) struct ResultSetParams {
     pub gax_options: GaxRequestOptions,
     pub method_name: &'static str,
     pub affinity: Option<Arc<TransactionAffinity>>,
+    pub aborted_state: AbortedState,
 }
 
 // The maximum number of PartialResultSets to buffer without a resume token.
@@ -121,10 +123,11 @@ impl ResultSet {
     /// Creates a new result set asynchronously, waiting for the first chunk to arrive.
     pub(crate) async fn create(params: ResultSetParams) -> crate::Result<Self> {
         let mut result_set = Self::new(params);
-        if let Err(e) = result_set.init_stream().await {
-            result_set.record_current_attempt(Some(&e));
-            result_set.record_operation_complete(Some(&e));
-            return Err(e);
+        if let Err(error) = result_set.init_stream().await {
+            result_set.record_if_aborted(&error);
+            result_set.record_current_attempt(Some(&error));
+            result_set.record_operation_complete(Some(&error));
+            return Err(error);
         }
         Ok(result_set)
     }
@@ -139,6 +142,7 @@ impl ResultSet {
             gax_options,
             method_name,
             affinity,
+            aborted_state,
         } = params;
 
         let gax_options = Self::apply_defaults(gax_options);
@@ -173,6 +177,7 @@ impl ResultSet {
             operation_recorded: false,
             affinity,
             affinity_configured,
+            aborted_state,
         }
     }
 
@@ -190,6 +195,14 @@ impl ResultSet {
 
     fn default_backoff_policy() -> Arc<dyn BackoffPolicy> {
         Arc::new(ExponentialBackoffBuilder::default().clamp())
+    }
+
+    fn record_if_aborted(&self, error: &crate::Error) {
+        self.aborted_state.record(error, self.client.is_emulator());
+    }
+
+    fn aborted_info(&self) -> Option<&AbortedInfo> {
+        self.aborted_state.aborted_info()
     }
 
     fn record_current_attempt(&mut self, error: Option<&crate::Error>) {
@@ -248,8 +261,9 @@ impl ResultSet {
             match stream_result {
                 Some(Ok(partial_result_set)) => {
                     if let Err(e) = self.handle_partial_result_set(partial_result_set) {
+                        self.record_if_aborted(&e);
                         if let Some(selector) = &self.transaction_selector {
-                            selector.set_failed(&e);
+                            selector.set_failed(&e, self.client.is_emulator());
                         }
                         return Err(e);
                     }
@@ -381,6 +395,10 @@ impl ResultSet {
                 self.record_current_attempt(None);
                 self.record_operation_complete(None);
                 return None;
+            }
+
+            if let Some(info) = self.aborted_info() {
+                return self.record_error_and_return(info.to_error());
             }
 
             let Some(stream) = &mut self.stream else {
@@ -528,6 +546,7 @@ impl ResultSet {
         Ok(())
     }
     async fn handle_stream_error(&mut self, e: crate::Error) -> crate::Result<()> {
+        self.record_if_aborted(&e);
         // Record the failure of the current attempt before checking retries and restarting the stream.
         // `record_current_attempt` ensures that only one attempt metric is recorded per attempt cycle.
         self.record_current_attempt(Some(&e));
@@ -562,6 +581,7 @@ impl ResultSet {
                         match self.restart_stream().await {
                             Ok(()) => return Ok(()),
                             Err(restart_err) => {
+                                self.record_if_aborted(&restart_err);
                                 e = restart_err;
                             }
                         }
@@ -578,7 +598,7 @@ impl ResultSet {
         // yet returned a transaction ID, mark the transaction as failed on the selector
         // and wake any waiting concurrent operations.
         if let Some(selector) = self.transaction_selector.as_ref() {
-            selector.set_failed(&e);
+            selector.set_failed(&e, self.client.is_emulator());
         }
 
         Err(e)
@@ -678,6 +698,9 @@ impl ResultSet {
     }
 
     async fn restart_stream(&mut self) -> crate::Result<()> {
+        if let Some(info) = self.aborted_info() {
+            return Err(info.to_error());
+        }
         // Get the latest transaction selector for this transaction without dropping
         // in-progress starting state or waking parked followers prematurely.
         let transaction_selector = if let Some(s) = &self.transaction_selector {
@@ -866,6 +889,7 @@ impl ResultSet {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::Error;
     use crate::client::Spanner;
     use crate::key::KeySet;
     #[cfg(feature = "builtin-metrics")]
@@ -873,10 +897,11 @@ pub(crate) mod tests {
     use crate::read::ReadRequest;
     use crate::statement::Statement;
     use crate::transaction::BeginTransactionOption;
+    use crate::transaction_retry_policy::is_aborted;
     use gaxi::grpc::tonic::{Code as GrpcCode, MetadataMap, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
-    use google_cloud_gax::error::rpc::Code as GaxCode;
+    use google_cloud_gax::error::rpc::{Code as GaxCode, Status as GaxStatus};
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -2658,6 +2683,7 @@ pub(crate) mod tests {
             gax_options: GaxRequestOptions::default(),
             method_name: "ExecuteStreamingSql",
             affinity: None,
+            aborted_state: AbortedState::new_noop(),
         })
         .await?;
 
@@ -5744,6 +5770,160 @@ pub(crate) mod tests {
         assert!(
             error_message_number.contains("Incompatible types for merging chunked values"),
             "Expected error message to contain 'Incompatible types for merging chunked values', but got: {error_message_number}"
+        );
+
+        Ok(())
+    }
+    #[tokio_test_no_panics]
+    async fn result_set_records_operation_and_attempt_failure_on_error_and_subsequent_poll_does_not_override()
+    -> crate::Result<()> {
+        let mut mock = MockSpanner::new();
+        let rx = adapt(vec![
+            Ok(PartialResultSet {
+                metadata: metadata(1),
+                values: vec![string_val("row1")],
+                resume_token: b"token1".to_vec(),
+                ..Default::default()
+            }),
+            Err(Status::aborted("lock conflict in streaming query")),
+        ]);
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_request| Ok(Response::from(rx)));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+        let mut result_set = transaction.execute_query("SELECT 1").await?;
+
+        // First item is row1
+        let first_row = result_set
+            .next()
+            .await
+            .expect("stream should yield first row")?;
+        assert_eq!(first_row.raw_values()[0].as_str(), Some("row1"));
+        assert!(!result_set.attempt_recorded);
+        assert!(!result_set.operation_recorded);
+
+        // Second item encounters the Aborted stream error
+        let second_result = result_set
+            .next()
+            .await
+            .expect("stream should yield error result");
+        assert!(second_result.is_err(), "expected error result");
+        assert!(
+            result_set.attempt_recorded,
+            "attempt must be recorded after stream error"
+        );
+        assert!(
+            result_set.operation_recorded,
+            "operation must be recorded after stream error"
+        );
+        assert!(result_set.seen_last, "stream must be marked seen_last");
+        assert!(result_set.stream.is_none(), "stream must be fused to None");
+
+        // Third poll on fused stream returns None
+        let third_poll = result_set.next().await;
+        assert!(
+            third_poll.is_none(),
+            "subsequent poll on fused stream must return None"
+        );
+        assert!(
+            result_set.attempt_recorded,
+            "attempt_recorded must remain true and not be reset"
+        );
+        assert!(
+            result_set.operation_recorded,
+            "operation_recorded must remain true and not be reset"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_fails_fast_when_transaction_aborts() -> crate::Result<()> {
+        let mut mock = MockSpanner::new();
+        let rx = adapt(vec![
+            Ok(PartialResultSet {
+                metadata: metadata(1),
+                values: vec![string_val("row1")],
+                resume_token: b"token1".to_vec(),
+                ..Default::default()
+            }),
+            Ok(PartialResultSet {
+                values: vec![string_val("row2")],
+                ..Default::default()
+            }),
+        ]);
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_request| Ok(Response::from(rx)));
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+        let (address, _server) = start("127.0.0.1:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+        let mut result_set = transaction.execute_query("SELECT 1").await?;
+
+        result_set.aborted_state = AbortedState::new();
+
+        let first_row = result_set
+            .next()
+            .await
+            .expect("stream should yield first row")?;
+        assert_eq!(
+            first_row.raw_values()[0].as_str(),
+            Some("row1"),
+            "expected row1"
+        );
+
+        let aborted_error = Error::service(GaxStatus::default().set_code(GaxCode::Aborted));
+        result_set.record_if_aborted(&aborted_error);
+
+        let restart_result = result_set.restart_stream().await;
+        let restart_error = restart_result.expect_err("restart_stream must fail fast when aborted");
+        assert!(
+            is_aborted(&restart_error),
+            "expected Aborted error: {restart_error:?}"
+        );
+
+        let next_result = result_set
+            .next()
+            .await
+            .expect("next must return Some error when aborted");
+        let next_error = next_result.expect_err("next must return error");
+        assert!(
+            is_aborted(&next_error),
+            "expected Aborted error: {next_error:?}"
         );
 
         Ok(())

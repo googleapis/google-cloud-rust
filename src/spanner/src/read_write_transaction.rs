@@ -16,6 +16,7 @@ use crate::Error;
 use crate::RequestOptions;
 use crate::Result;
 use crate::batch::BatchDml;
+use crate::batch_dml::process_response;
 use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
@@ -24,6 +25,7 @@ use crate::model::CommitRequest;
 use crate::model::CommitResponse;
 use crate::model::ExecuteBatchDmlRequest;
 use crate::model::ExecuteBatchDmlResponse;
+use crate::model::MultiplexedSessionPrecommitToken;
 use crate::model::Mutation as ProtoMutation;
 use crate::model::ResultSet as ProtoResultSet;
 use crate::model::RollbackRequest;
@@ -41,14 +43,14 @@ use crate::model::transaction_selector::Selector;
 use crate::mutation::Mutation;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
-    BeginTransactionOption, LazyTransactionStartGuard, ReadContext, ReadContextTransactionSelector,
-    TransactionState, execute_begin_transaction,
+    AbortedInfo, AbortedState, BeginTransactionOption, LazyTransactionStartGuard, ReadContext,
+    ReadContextTransactionSelector, TransactionState, execute_begin_transaction,
 };
 use crate::result_set::ResultSet;
 use crate::retry_policy::SpannerRetryPolicy;
 use crate::statement::Statement;
-use crate::transaction_retry_policy::is_aborted;
 use crate::write_only_transaction::create_commit_request;
+use bytes::Bytes;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
@@ -113,13 +115,9 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    pub(crate) fn set_previous_transaction_id(mut self, id: Option<bytes::Bytes>) -> Self {
-        if let Some(id) = id
-            && let Some(Mode::ReadWrite(rw)) = self.options.mode.take()
-        {
-            self.options = self
-                .options
-                .set_read_write(rw.set_multiplexed_session_previous_transaction_id(id));
+    pub(crate) fn set_previous_transaction_id(mut self, id: Bytes) -> Self {
+        if let Some(Mode::ReadWrite(read_write)) = &mut self.options.mode {
+            read_write.multiplexed_session_previous_transaction_id = id;
         }
         self
     }
@@ -244,6 +242,7 @@ impl ReadWriteTransactionBuilder {
                 transaction_tag: self.transaction_tag,
                 begin_transaction_request_options: None,
                 affinity,
+                aborted_state: AbortedState::new(),
             },
             seqno: Arc::new(AtomicI64::new(1)),
             max_commit_delay: self.max_commit_delay,
@@ -296,6 +295,9 @@ impl CheckServiceError for ExecuteBatchDmlResponse {
 /// request included a BeginTransaction option.
 macro_rules! execute_with_retry {
     ($self:expr, $request:ident, $gax_options:expr, $rpc_method:ident, $extract_id:expr) => {{
+        if let Some(info) = $self.aborted_info() {
+            return Err(info.to_error());
+        }
         let is_starting = matches!(
             $request
                 .transaction
@@ -329,29 +331,41 @@ macro_rules! execute_with_retry {
                     let service_error = response.check_service_error();
                     let transaction_id = $extract_id(&response);
 
+                    if let Some(ref error) = service_error {
+                        $self.context.record_if_aborted(error);
+                    }
+
                     match (transaction_id, service_error) {
-                        (Some(_), Some(err)) if is_aborted(&err) => {
-                            $self.context.transaction_selector.set_failed(&err);
-                        }
                         (Some(id), _) => {
                             $self.context.transaction_selector.update(id, None)?;
                         }
-                        (None, Some(err)) => {
-                            $self.context.transaction_selector.set_failed(&err);
+                        (None, Some(error)) => {
+                            $self
+                                .context
+                                .transaction_selector
+                                .set_failed(&error, $self.context.client.is_emulator());
                         }
                         (None, None) => {
-                            let err = internal_error("Transaction ID was not returned by Spanner");
-                            $self.context.transaction_selector.set_failed(&err);
-                            return Err(err);
+                            let error =
+                                internal_error("Transaction ID was not returned by Spanner");
+                            $self
+                                .context
+                                .transaction_selector
+                                .set_failed(&error, $self.context.client.is_emulator());
+                            return Err(error);
                         }
                     }
                 }
                 response
             }
             Err(error) => {
+                $self.context.record_if_aborted(&error);
                 if is_starting {
                     guard.disarm();
-                    $self.context.transaction_selector.set_failed(&error);
+                    $self
+                        .context
+                        .transaction_selector
+                        .set_failed(&error, $self.context.client.is_emulator());
                 }
                 return Err(error);
             }
@@ -482,14 +496,18 @@ impl ReadWriteTransaction {
 
     /// Executes an update using this transaction.
     pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
+        if let Some(info) = self.aborted_info() {
+            return Err(info.to_error());
+        }
         let statement = statement.into();
         let mut gax_options = statement.gax_options().clone();
         self.amend_gax_options(&mut gax_options);
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
+        let selector = self.context.selector().await?;
         let mut request = statement
             .into_request()
             .set_session(self.context.session_name.clone())
-            .set_transaction(self.context.transaction_selector.selector().await?)
+            .set_transaction(selector)
             .set_seqno(seqno);
         request.request_options = self.context.amend_request_options(request.request_options);
 
@@ -590,6 +608,9 @@ impl ReadWriteTransaction {
         &self,
         batch: T,
     ) -> crate::Result<Vec<i64>> {
+        if let Some(info) = self.aborted_info() {
+            return Err(info.to_error());
+        }
         let mut batch = batch.into();
         self.amend_gax_options(&mut batch.gax_options);
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
@@ -600,9 +621,11 @@ impl ReadWriteTransaction {
             .map(|stmt: crate::statement::Statement| stmt.into_batch_statement())
             .collect();
 
+        let selector = self.context.selector().await?;
+
         let request = ExecuteBatchDmlRequest::default()
             .set_session(self.context.session_name.clone())
-            .set_transaction(self.context.transaction_selector.selector().await?)
+            .set_transaction(selector)
             .set_seqno(seqno)
             .set_statements(statements)
             .set_or_clear_request_options(self.context.amend_request_options(batch.request_options))
@@ -624,7 +647,9 @@ impl ReadWriteTransaction {
             }
         );
 
-        crate::batch_dml::process_response(response)
+        process_response(response).inspect_err(|error| {
+            self.context.record_if_aborted(error);
+        })
     }
 
     pub(crate) async fn begin_explicitly_if_not_started(
@@ -640,6 +665,10 @@ impl ReadWriteTransaction {
 
     pub(crate) fn is_starting(&self) -> bool {
         self.context.transaction_selector.is_starting()
+    }
+
+    pub(crate) fn aborted_info(&self) -> Option<&AbortedInfo> {
+        self.context.aborted_info()
     }
 
     /// Acquires an exclusive mutex lock on the buffered mutations, recovering from lock poisoning via `into_inner()`.
@@ -670,9 +699,9 @@ impl ReadWriteTransaction {
 
     fn build_commit_request(
         &self,
-        transaction_id: bytes::Bytes,
+        transaction_id: Bytes,
         mutations: Vec<ProtoMutation>,
-        precommit_token: Option<crate::model::MultiplexedSessionPrecommitToken>,
+        precommit_token: Option<MultiplexedSessionPrecommitToken>,
     ) -> CommitRequest {
         create_commit_request(
             self.context.session_name.clone(),
@@ -686,7 +715,7 @@ impl ReadWriteTransaction {
     }
 
     /// Commits the transaction.
-    pub(crate) async fn commit(self) -> Result<CommitResponse> {
+    pub(crate) async fn commit(&self) -> Result<CommitResponse> {
         let result = self.commit_internal().await;
         // Release client-side channel pool affinity lease.
         // Location-aware routing affinity is cleared separately in
@@ -698,6 +727,9 @@ impl ReadWriteTransaction {
     }
 
     async fn commit_internal(&self) -> Result<CommitResponse> {
+        if let Some(info) = self.aborted_info() {
+            return Err(info.to_error());
+        }
         self.context.transaction_selector.check_failed()?;
         let mutations = take(&mut *self.lock_mutations());
         let mut id = self.context.transaction_selector.get_id_no_wait()?;
@@ -725,7 +757,8 @@ impl ReadWriteTransaction {
             .context
             .client
             .commit(request, gax_options, self.affinity())
-            .await?;
+            .await
+            .inspect_err(|error| self.context.record_if_aborted(error))?;
 
         let response = if let Some(MultiplexedSessionRetry::PrecommitToken(new_precommit_token)) =
             response.multiplexed_session_retry
@@ -745,7 +778,8 @@ impl ReadWriteTransaction {
             self.context
                 .client
                 .commit(retry_commit_req, gax_options, self.affinity())
-                .await?
+                .await
+                .inspect_err(|error| self.context.record_if_aborted(error))?
         } else {
             response
         };
@@ -754,7 +788,7 @@ impl ReadWriteTransaction {
     }
 
     /// Rolls back the transaction.
-    pub(crate) async fn rollback(self) -> Result<()> {
+    pub(crate) async fn rollback(&self) -> Result<()> {
         let result = self.rollback_internal().await;
         // Release client-side channel pool affinity lease.
         // Location-aware routing affinity is cleared separately in
@@ -889,29 +923,52 @@ mod tests {
     use super::*;
     use crate::client::{Spanner, SpannerBuilderExt};
     use crate::error::BatchUpdateError;
+    use crate::key;
+    use crate::key::KeySet;
+    use crate::read::ReadRequest;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::result_set::tests::{adapt, string_val};
     use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
+    use crate::transaction_retry_policy::is_aborted;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
     use gaxi::grpc::tonic::MetadataMap;
-    use gaxi::grpc::tonic::Response;
+    use gaxi::grpc::tonic::{Code as TonicCode, Response, Status as TonicStatus};
     use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
     use http::{HeaderMap, HeaderValue};
+    use mockall::Sequence;
     use prost_types::Timestamp;
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::rpc::Status as RpcStatus;
     use spanner_grpc_mock::google::spanner::v1;
+    use spanner_grpc_mock::google::spanner::v1::commit_request::Transaction as CommitTransaction;
+    use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
+    use spanner_grpc_mock::google::spanner::v1::struct_type;
+    use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
+    use spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector as ProtoSelector;
+    use spanner_grpc_mock::google::spanner::v1::{
+        CommitResponse, ExecuteBatchDmlResponse as ProtoExecuteBatchDmlResponse, ExecuteSqlRequest,
+        PartialResultSet, ResultSet as ProtoResultSet, ResultSetMetadata, ResultSetStats,
+        StructType, Transaction as ProtoTransaction, TransactionSelector, Type, TypeCode,
+    };
     use std::fmt::Debug;
     use std::net::SocketAddr;
     use std::sync::Mutex;
     use std::sync::atomic::{AtomicU32, Ordering};
     use std::time::Duration as StdDuration;
+    use tokio::sync::mpsc::Receiver;
     use tokio::task::JoinHandle;
+
+    impl ReadWriteTransaction {
+        /// Returns `true` if this transaction encountered an `Aborted` error from Spanner.
+        pub(crate) fn is_aborted(&self) -> bool {
+            self.aborted_info().is_some()
+        }
+    }
 
     #[test]
     fn auto_traits() {
@@ -3331,10 +3388,8 @@ mod tests {
                         "Second statement error must be Aborted"
                     );
                     assert!(
-                        error2
-                            .to_string()
-                            .contains("Aborted due to failed initial statement"),
-                        "Expected synthetic abort error message, got: {error2}"
+                        error2.to_string().contains("test transaction aborted"),
+                        "Expected abort error message from initial statement, got: {error2}"
                     );
 
                     return Err(error2);
@@ -3513,10 +3568,8 @@ mod tests {
                         "Second statement error must be Aborted"
                     );
                     assert!(
-                        error2
-                            .to_string()
-                            .contains("Aborted due to failed initial statement"),
-                        "Expected synthetic abort error message, got: {error2}"
+                        error2.to_string().contains("test transaction aborted"),
+                        "Expected abort error message from initial statement, got: {error2}"
                     );
 
                     return Err(error2);
@@ -6526,7 +6579,7 @@ mod tests {
                 }))
             });
 
-        // Attempt 2: Because the failure was Aborted (FirstStatementAborted), the runner
+        // Attempt 2: Because the failure was Aborted, the runner
         // retains InlineBegin (no explicit BeginTransaction RPC) and succeeds!
         mock.expect_execute_batch_dml()
             .once()
@@ -6616,15 +6669,15 @@ mod tests {
                         "BatchUpdateError must preserve RetryInfo delay"
                     );
                     // Even if the application catches the error and tries another statement,
-                    // FirstStatementAborted must fail fast and preserve RetryInfo!
+                    // the transaction must fail fast and preserve RetryInfo!
                     let follow_up_err = transaction
                         .execute_update("UPDATE Users SET active = false WHERE id = 3")
                         .await
-                        .expect_err("Subsequent statement after FirstStatementAborted must fail");
+                        .expect_err("Subsequent statement after abort must fail fast");
                     assert_eq!(
                         extract_retry_delay_from_error(&follow_up_err),
                         Some(StdDuration::from_nanos(1)),
-                        "Synthetic Aborted from FirstStatementAborted must preserve RetryInfo delay"
+                        "Fast-fail Aborted must preserve RetryInfo delay"
                     );
                     return Err(follow_up_err);
                 }
@@ -7650,6 +7703,1828 @@ mod tests {
             "Expected commit timestamp in CommitResponse"
         );
 
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_is_aborted() -> Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_execute_sql().once().returning(|_| {
+            Err(TonicStatus::new(
+                TonicCode::Aborted,
+                "Transaction was aborted",
+            ))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .build(None)
+            .await?;
+
+        assert!(
+            !transaction.is_aborted(),
+            "transaction should not be aborted initially"
+        );
+
+        let result = transaction
+            .execute_update("UPDATE Users SET active = true")
+            .await;
+        assert!(result.is_err(), "statement execution should fail");
+
+        assert!(
+            transaction.is_aborted(),
+            "transaction should be marked as aborted after receiving Aborted error"
+        );
+        assert!(
+            transaction.aborted_info().is_some(),
+            "aborted_info should be recorded"
+        );
+
+        Ok(())
+    }
+
+    fn create_query_partial_result_set(
+        transaction_id: Option<Vec<u8>>,
+        names: &[&str],
+        is_last: bool,
+    ) -> PartialResultSet {
+        let metadata = Some(ResultSetMetadata {
+            row_type: Some(StructType {
+                fields: vec![struct_type::Field {
+                    name: "Name".to_string(),
+                    r#type: Some(Type {
+                        code: TypeCode::String as i32,
+                        ..Default::default()
+                    }),
+                }],
+            }),
+            transaction: transaction_id.map(|id| ProtoTransaction {
+                id,
+                ..Default::default()
+            }),
+            ..Default::default()
+        });
+        let values = names.iter().map(|name| string_val(name)).collect();
+        PartialResultSet {
+            metadata,
+            values,
+            last: is_last,
+            resume_token: vec![1],
+            ..Default::default()
+        }
+    }
+
+    fn single_row_streaming_response(
+        transaction_id: Option<Vec<u8>>,
+        name: &str,
+    ) -> Response<Receiver<tonic::Result<PartialResultSet>>> {
+        let receiver = adapt([Ok(create_query_partial_result_set(
+            transaction_id,
+            &[name],
+            true,
+        ))]);
+        Response::from(receiver)
+    }
+
+    fn halfway_aborted_streaming_response(
+        transaction_id: Option<Vec<u8>>,
+        name: &str,
+    ) -> Response<Receiver<tonic::Result<PartialResultSet>>> {
+        let receiver = adapt([
+            Ok(create_query_partial_result_set(
+                transaction_id,
+                &[name],
+                false,
+            )),
+            Err(create_aborted_status(StdDuration::from_nanos(1))),
+        ]);
+        Response::from(receiver)
+    }
+
+    fn dml_response(transaction_id: Option<Vec<u8>>) -> Response<ProtoResultSet> {
+        Response::new(ProtoResultSet {
+            metadata: transaction_id.map(|id| ResultSetMetadata {
+                transaction: Some(ProtoTransaction {
+                    id,
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }),
+            stats: Some(ResultSetStats {
+                row_count: Some(RowCount::RowCountExact(1)),
+                ..Default::default()
+            }),
+            ..Default::default()
+        })
+    }
+
+    fn expect_commit(
+        mock: &mut MockSpanner,
+        sequence: &mut Sequence,
+        expected_transaction_id: Vec<u8>,
+    ) {
+        mock.expect_commit()
+            .once()
+            .in_sequence(sequence)
+            .returning(move |request| {
+                let inner = request.into_inner();
+                assert_eq!(
+                    inner.transaction,
+                    Some(CommitTransaction::TransactionId(
+                        expected_transaction_id.clone()
+                    )),
+                    "Commit must use expected transaction ID"
+                );
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 1000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+    }
+
+    fn expect_begin_transaction(
+        mock: &mut MockSpanner,
+        sequence: &mut Sequence,
+        expected_previous_transaction_id: Option<Vec<u8>>,
+        returned_transaction_id: Vec<u8>,
+    ) {
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(sequence)
+            .returning(move |request| {
+                let inner = request.into_inner();
+                let previous_transaction_id = inner
+                    .options
+                    .and_then(|options| options.mode)
+                    .and_then(|mode| match mode {
+                        Mode::ReadWrite(read_write) => {
+                            if read_write
+                                .multiplexed_session_previous_transaction_id
+                                .is_empty()
+                            {
+                                None
+                            } else {
+                                Some(read_write.multiplexed_session_previous_transaction_id)
+                            }
+                        }
+                        _ => None,
+                    });
+                assert_eq!(
+                    previous_transaction_id, expected_previous_transaction_id,
+                    "BeginTransaction previous_transaction_id mismatch"
+                );
+                Ok(Response::new(ProtoTransaction {
+                    id: returned_transaction_id.clone(),
+                    ..Default::default()
+                }))
+            });
+    }
+
+    fn assert_inline_begin_selector(
+        selector: Option<&TransactionSelector>,
+        expected_previous_transaction_id: Option<&[u8]>,
+    ) {
+        let selector = selector.and_then(|transaction| transaction.selector.as_ref());
+        match selector {
+            Some(ProtoSelector::Begin(options)) => match &options.mode {
+                Some(Mode::ReadWrite(read_write)) => {
+                    let actual_previous_id = (!read_write
+                        .multiplexed_session_previous_transaction_id
+                        .is_empty())
+                    .then_some(
+                        read_write
+                            .multiplexed_session_previous_transaction_id
+                            .as_slice(),
+                    );
+                    assert_eq!(
+                        actual_previous_id, expected_previous_transaction_id,
+                        "previous_transaction_id must match expected"
+                    );
+                }
+                _ => panic!("Expected ReadWrite mode in Begin options"),
+            },
+            _ => panic!("Request must use inline begin, got {selector:?}"),
+        }
+    }
+
+    fn assert_inline_begin(
+        request: &ExecuteSqlRequest,
+        expected_previous_transaction_id: Option<&[u8]>,
+    ) {
+        assert_inline_begin_selector(
+            request.transaction.as_ref(),
+            expected_previous_transaction_id,
+        );
+    }
+
+    fn assert_transaction_id(request: &ExecuteSqlRequest, expected_id: &[u8]) {
+        let selector = request
+            .transaction
+            .as_ref()
+            .and_then(|transaction| transaction.selector.as_ref());
+        match selector {
+            Some(ProtoSelector::Id(id)) => {
+                assert_eq!(
+                    id.as_slice(),
+                    expected_id,
+                    "Request must use expected transaction ID"
+                );
+            }
+            _ => panic!("Expected Selector::Id with expected transaction ID, got {selector:?}"),
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_halfway_inline_begin_retries() -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. Attempt 1: First statement (query) uses inline begin.
+        // Delivers first row with transaction ID [42], then stream item returns Aborted status.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_inline_begin(&request.into_inner(), None);
+                Ok(halfway_aborted_streaming_response(Some(vec![42]), "alice"))
+            });
+
+        // 2. Attempt 2: Runner retries with inline begin and previous_transaction_id = [42].
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_inline_begin(&request.into_inner(), Some(&[42]));
+                Ok(single_row_streaming_response(Some(vec![43]), "bob"))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![43]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let current_attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT Name FROM Users WHERE Id = 1")
+                    .await?;
+                let mut names = Vec::new();
+                while let Some(row) = result_set.next().await.transpose()? {
+                    let name: String = row.get("Name")?;
+                    names.push(name);
+                }
+                if current_attempt == 2 {
+                    assert_eq!(names, vec!["bob"], "Attempt 2 should consume 'bob'");
+                }
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_at_start_inline_begin_retries() -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. Attempt 1: First statement (query) uses inline begin and fails immediately at RPC start.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_inline_begin(&request.into_inner(), None);
+                Err(create_aborted_status(StdDuration::from_nanos(1)))
+            });
+
+        // 2. Attempt 2: Because no transaction ID was produced, runner retries with inline begin
+        // and no previous transaction ID.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_inline_begin(&request.into_inner(), None);
+                Ok(single_row_streaming_response(Some(vec![43]), "alice"))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![43]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let _attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT Name FROM Users WHERE Id = 1")
+                    .await?;
+                while let Some(_row) = result_set.next().await.transpose()? {}
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_at_start_in_middle_of_transaction() -> Result<()>
+    {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1:
+        // Statement 1: DML succeeds and inlines begin (transaction ID [10]).
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(dml_response(Some(vec![10]))));
+
+        // Statement 2: Query fails immediately at RPC start with Aborted.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[10]);
+                Err(create_aborted_status(StdDuration::from_nanos(1)))
+            });
+
+        // Attempt 2:
+        // Statement 1: DML retries with inline begin and previous_transaction_id = [10].
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(dml_response(Some(vec![11]))));
+
+        // Statement 2: Query succeeds.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[11]);
+                Ok(single_row_streaming_response(None, "alice"))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![11]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let _attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                let mut result_set = transaction
+                    .execute_query("SELECT Name FROM Users WHERE Id = 1")
+                    .await?;
+                while let Some(_row) = result_set.next().await.transpose()? {}
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_halfway_in_middle_of_transaction() -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1:
+        // Statement 1: DML succeeds and inlines begin (transaction ID [10]).
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(dml_response(Some(vec![10]))));
+
+        // Statement 2: Query starts, yields chunk 1, then chunk 2 aborts.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[10]);
+                Ok(halfway_aborted_streaming_response(None, "alice"))
+            });
+
+        // Attempt 2:
+        // Statement 1 succeeds (ID [11]).
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(dml_response(Some(vec![11]))));
+
+        // Statement 2 succeeds.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[11]);
+                Ok(single_row_streaming_response(None, "alice"))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![11]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let _attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                let mut result_set = transaction
+                    .execute_query("SELECT Name FROM Users WHERE Id = 1")
+                    .await?;
+                while let Some(_row) = result_set.next().await.transpose()? {}
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_at_start_explicit_begin() -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: Explicit BeginTransaction RPC.
+        expect_begin_transaction(&mut mock, &mut sequence, None, vec![20]);
+
+        // Query fails immediately at RPC start with Aborted.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[20]);
+                Err(create_aborted_status(StdDuration::from_nanos(1)))
+            });
+
+        // Attempt 2: Explicit BeginTransaction with previous_transaction_id = [20].
+        expect_begin_transaction(&mut mock, &mut sequence, Some(vec![20]), vec![21]);
+
+        // Query succeeds.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[21]);
+                Ok(single_row_streaming_response(None, "alice"))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![21]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let _attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT Name FROM Users WHERE Id = 1")
+                    .await?;
+                while let Some(_row) = result_set.next().await.transpose()? {}
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_halfway_explicit_begin() -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: Explicit BeginTransaction RPC.
+        expect_begin_transaction(&mut mock, &mut sequence, None, vec![30]);
+
+        // Query yields row 1, then chunk 2 aborts.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[30]);
+                Ok(halfway_aborted_streaming_response(None, "alice"))
+            });
+
+        // Attempt 2: Explicit BeginTransaction with previous_transaction_id = [30].
+        expect_begin_transaction(&mut mock, &mut sequence, Some(vec![30]), vec![31]);
+
+        // Query succeeds.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[31]);
+                Ok(single_row_streaming_response(None, "alice"))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![31]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let _attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT Name FROM Users WHERE Id = 1")
+                    .await?;
+                while let Some(_row) = result_set.next().await.transpose()? {}
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_on_retry_after_initial_statement_failed()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: First statement (query) fails with InvalidArgument (table not found).
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(TonicStatus::new(
+                    TonicCode::InvalidArgument,
+                    "Table not found",
+                ))
+            });
+
+        // Attempt 2: Because initial statement failed, runner switches to explicit begin.
+        expect_begin_transaction(&mut mock, &mut sequence, None, vec![50]);
+
+        // Query on attempt 2 fails with Aborted!
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[50]);
+                Err(create_aborted_status(StdDuration::from_nanos(1)))
+            });
+
+        // Attempt 3: Explicit begin with previous_transaction_id = [50].
+        expect_begin_transaction(&mut mock, &mut sequence, Some(vec![50]), vec![51]);
+
+        // Query succeeds on attempt 3.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                assert_transaction_id(&request.into_inner(), &[51]);
+                Ok(single_row_streaming_response(None, "alice"))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![51]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(4))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let current_attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                let query_result = transaction
+                    .execute_query("SELECT Name FROM Users WHERE Id = 1")
+                    .await;
+                if current_attempt == 1 {
+                    // Application catches the InvalidArgument error and tries an update,
+                    // which fails fast with synthetic Aborted.
+                    assert!(query_result.is_err(), "Attempt 1 query must fail");
+                    let follow_up_result = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                        .await;
+                    let follow_up_error = follow_up_result
+                        .expect_err("Follow-up statement after first statement failure must fail");
+                    return Err(follow_up_error);
+                }
+                let mut result_set = query_result?;
+                while let Some(_row) = result_set.next().await.transpose()? {}
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            3,
+            "Expected 3 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_swallowed_subsequent_statement_fails_fast()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: Query stream yields row 1 with ID [60], then chunk 2 aborts.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(halfway_aborted_streaming_response(Some(vec![60]), "alice")));
+
+        // Attempt 2: Both query and update succeed.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(single_row_streaming_response(Some(vec![61]), "alice")));
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(dml_response(None)));
+
+        expect_commit(&mut mock, &mut sequence, vec![61]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let current_attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                let mut result_set = transaction
+                    .execute_query("SELECT Name FROM Users WHERE Id = 1")
+                    .await?;
+                if current_attempt == 1 {
+                    // Consume first row
+                    let row = result_set.next().await.expect("expected first row")?;
+                    let name: String = row.get("Name")?;
+                    assert_eq!(name, "alice", "expected name to be alice");
+                    // Next row fails with Aborted; closure swallows it!
+                    let stream_error = result_set.next().await.expect("expected stream error item");
+                    let _error = stream_error.expect_err("Expected abort in stream");
+
+                    // Stream must be fused: subsequent poll of next() after abort must return None!
+                    let fused_next = result_set.next().await;
+                    assert!(
+                        fused_next.is_none(),
+                        "ResultSet must return None after stream error, got: {fused_next:?}"
+                    );
+
+                    // Subsequent statement must fail fast with Aborted!
+                    let update_result = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                        .await;
+                    let update_error = update_result.expect_err(
+                        "Subsequent statement after query abort must fail with Aborted",
+                    );
+                    assert!(
+                        is_aborted(&update_error),
+                        "Expected update error to be Aborted, got: {update_error}"
+                    );
+                    return Err(update_error);
+                }
+
+                while let Some(_row) = result_set.next().await.transpose()? {}
+                transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                    .await?;
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_query_aborted_preserves_retry_delay() -> Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql().once().returning(|_| {
+            let receiver = adapt([
+                Ok(create_query_partial_result_set(
+                    Some(vec![70]),
+                    &["alice"],
+                    false,
+                )),
+                Err(create_aborted_status(StdDuration::from_millis(42))),
+            ]);
+            Ok(Response::from(receiver))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        let mut result_set = transaction
+            .execute_query("SELECT Name FROM Users WHERE Id = 1")
+            .await?;
+        let first_row = result_set.next().await.expect("first row must exist")?;
+        let name: String = first_row.get("Name")?;
+        assert_eq!(name, "alice", "expected name to be alice");
+
+        let stream_error_item = result_set.next().await.expect("stream error must exist");
+        let stream_error = stream_error_item.expect_err("stream item should be Err");
+        assert!(is_aborted(&stream_error), "stream error must be Aborted");
+
+        assert!(
+            transaction.is_aborted(),
+            "transaction must be recorded as aborted"
+        );
+        let aborted_info = transaction
+            .aborted_info()
+            .expect("aborted_info must be recorded");
+        assert_eq!(
+            aborted_info.retry_delay,
+            Some(StdDuration::from_millis(42)),
+            "aborted_info must record retry delay of 42ms"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_read_aborted_halfway_retries_and_succeeds() -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: streaming_read starts transaction, yields 1 row, then aborts
+        mock.expect_streaming_read()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let receiver = adapt([
+                    Ok(create_query_partial_result_set(
+                        Some(vec![80]),
+                        &["alice"],
+                        false,
+                    )),
+                    Err(create_aborted_status(StdDuration::from_nanos(1))),
+                ]);
+                Ok(Response::from(receiver))
+            });
+
+        // Attempt 2: streaming_read starts transaction with previous_transaction_id, yields row and completes
+        mock.expect_streaming_read()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                let transaction = request
+                    .transaction
+                    .expect("transaction selector must be present");
+                match transaction.selector {
+                    Some(ProtoSelector::Begin(begin)) => {
+                        let read_write = begin.mode.expect("read-write options must be present");
+                        match read_write {
+                            Mode::ReadWrite(read_write) => {
+                                assert_eq!(
+                                    read_write.multiplexed_session_previous_transaction_id,
+                                    vec![80],
+                                    "retry attempt must send previous_transaction_id"
+                                );
+                            }
+                            _ => panic!("expected ReadWrite mode"),
+                        }
+                    }
+                    _ => panic!("expected Begin selector on attempt 2"),
+                }
+                let receiver = adapt([Ok(create_query_partial_result_set(
+                    Some(vec![81]),
+                    &["alice"],
+                    false,
+                ))]);
+                Ok(Response::from(receiver))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![81]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                attempt_counter_clone.fetch_add(1, Ordering::SeqCst);
+                let read_request = ReadRequest::builder("Users", vec!["Name"])
+                    .with_keys(key!["1"])
+                    .build();
+                let mut result_set = transaction.execute_read(read_request).await?;
+                let mut names = Vec::new();
+                while let Some(row) = result_set.next().await.transpose()? {
+                    let name: String = row.get("Name")?;
+                    names.push(name);
+                }
+                Ok(names)
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert_eq!(
+            transaction_result.result,
+            vec!["alice"],
+            "expected result to match alice"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_execute_batch_update_aborts_records_aborted_state() -> Result<()>
+    {
+        let mut mock = create_session_mock();
+        mock.expect_execute_batch_dml()
+            .once()
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        let batch = BatchDml::builder()
+            .add_statement(
+                Statement::builder("UPDATE Users SET active = true WHERE id = 1").build(),
+            )
+            .build();
+        let result = transaction.execute_batch_update(batch).await;
+        let error = result.expect_err("expected execute_batch_update to fail with Aborted");
+        assert!(is_aborted(&error), "error must be Aborted: {error:?}");
+        assert!(
+            transaction.is_aborted(),
+            "transaction must record abort state on batch update failure"
+        );
+        assert!(
+            transaction.aborted_info().is_some(),
+            "transaction aborted_info must be populated"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_emulator_internal_error_records_aborted_state() -> Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_execute_sql().once().returning(|_| {
+            Err(TonicStatus::new(
+                TonicCode::Internal,
+                "Schema generation error: was not registered with the Action Manager",
+            ))
+        });
+
+        let (mut database_client, _server) = setup_db_client(mock).await;
+        database_client.spanner.is_emulator = true;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        let result = transaction
+            .execute_update("UPDATE Users SET active = true WHERE id = 1")
+            .await;
+        let error = result.expect_err("expected emulator schema generation error");
+        assert_eq!(
+            error.status().map(|status| status.code),
+            Some(Code::Internal),
+            "expected Internal gRPC error code"
+        );
+        assert!(
+            transaction.is_aborted(),
+            "transaction must record emulator internal error as aborted"
+        );
+        assert!(
+            transaction.aborted_info().is_some(),
+            "transaction aborted_info must be populated for emulator error"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutations_only_commit_begin_abort_records_aborted_state()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction()
+            .once()
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        transaction.buffer(vec![Mutation::delete("Users", KeySet::all())])?;
+        let result = transaction.commit().await;
+        let error = result.expect_err("expected commit to fail when begin aborts");
+        assert!(is_aborted(&error), "error must be Aborted: {error:?}");
+        assert!(
+            transaction.is_aborted(),
+            "transaction must record abort state on begin transaction abort"
+        );
+        assert!(
+            transaction.aborted_info().is_some(),
+            "transaction aborted_info must be populated"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_abort_records_aborted_state() -> Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_execute_sql().once().returning(|_| {
+            Ok(Response::new(ProtoResultSet {
+                metadata: Some(ResultSetMetadata {
+                    transaction: Some(ProtoTransaction {
+                        id: vec![77],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                stats: Some(ResultSetStats {
+                    row_count: Some(RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit()
+            .once()
+            .returning(|_| Err(create_aborted_status(StdDuration::from_millis(25))));
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        let _ = transaction
+            .execute_update("UPDATE Users SET active = true WHERE id = 1")
+            .await?;
+
+        let commit_result = transaction.commit().await;
+        let error = commit_result.expect_err("expected commit to fail with Aborted");
+        assert!(is_aborted(&error), "error must be Aborted: {error:?}");
+        assert!(
+            transaction.is_aborted(),
+            "transaction handle must record abort state on commit failure"
+        );
+        let aborted_info = transaction
+            .aborted_info()
+            .expect("transaction aborted_info must be populated");
+        assert_eq!(
+            aborted_info.retry_delay,
+            Some(StdDuration::from_millis(25)),
+            "aborted_info must record retry delay from commit abort"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_fails_fast_when_transaction_is_aborted() -> Result<()> {
+        let mock = create_session_mock();
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        let aborted_error = Error::service(Status::default().set_code(Code::Aborted));
+        transaction.context.record_if_aborted(&aborted_error);
+
+        let update_result = transaction
+            .execute_update("UPDATE Users SET active = true WHERE id = 1")
+            .await;
+        let update_error =
+            update_result.expect_err("execute_update must fail fast when transaction aborted");
+        assert!(
+            is_aborted(&update_error),
+            "execute_update error must be Aborted: {update_error:?}"
+        );
+
+        let query_result = transaction.execute_query("SELECT 1").await;
+        let query_error =
+            query_result.expect_err("execute_query must fail fast when transaction aborted");
+        assert!(
+            is_aborted(&query_error),
+            "execute_query error must be Aborted: {query_error:?}"
+        );
+
+        let read_request = ReadRequest::builder("Users", vec!["id"])
+            .with_keys(KeySet::all())
+            .build();
+        let read_result = transaction.execute_read(read_request).await;
+        let read_error =
+            read_result.expect_err("execute_read must fail fast when transaction aborted");
+        assert!(
+            is_aborted(&read_error),
+            "execute_read error must be Aborted: {read_error:?}"
+        );
+
+        let batch = BatchDml::builder()
+            .add_statement(
+                Statement::builder("UPDATE Users SET active = true WHERE id = 1").build(),
+            )
+            .build();
+        let batch_result = transaction.execute_batch_update(batch).await;
+        let batch_error =
+            batch_result.expect_err("execute_batch_update must fail fast when transaction aborted");
+        assert!(
+            is_aborted(&batch_error),
+            "execute_batch_update error must be Aborted: {batch_error:?}"
+        );
+
+        let commit_result = transaction.commit().await;
+        let commit_error =
+            commit_result.expect_err("commit must fail fast when transaction aborted");
+        assert!(
+            is_aborted(&commit_error),
+            "commit error must be Aborted: {commit_error:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_batch_dml_partial_success_aborted_inline_begin_retries()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. Attempt 1: First statement is Batch DML with inline begin.
+        // Returns 1 successful result set with transaction ID [71], but status is Aborted.
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                let selector = inner
+                    .transaction
+                    .and_then(|transaction| transaction.selector);
+                assert!(
+                    matches!(selector, Some(ProtoSelector::Begin(_))),
+                    "Attempt 1 must use inline Begin"
+                );
+                Ok(Response::new(ProtoExecuteBatchDmlResponse {
+                    result_sets: vec![ProtoResultSet {
+                        metadata: Some(ResultSetMetadata {
+                            transaction: Some(ProtoTransaction {
+                                id: vec![71],
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        stats: Some(ResultSetStats {
+                            row_count: Some(RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    status: Some(RpcStatus {
+                        code: TonicCode::Aborted as i32,
+                        message: "Transaction was aborted".to_string(),
+                        details: vec![],
+                    }),
+                    precommit_token: None,
+                }))
+            });
+
+        // 2. Attempt 2: Runner retries with inline begin and previous_transaction_id = [71].
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_inline_begin_selector(inner.transaction.as_ref(), Some(&[71]));
+                Ok(Response::new(ProtoExecuteBatchDmlResponse {
+                    result_sets: vec![ProtoResultSet {
+                        metadata: Some(ResultSetMetadata {
+                            transaction: Some(ProtoTransaction {
+                                id: vec![72],
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        stats: Some(ResultSetStats {
+                            row_count: Some(RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    status: Some(RpcStatus {
+                        code: TonicCode::Ok as i32,
+                        message: String::new(),
+                        details: vec![],
+                    }),
+                    precommit_token: None,
+                }))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![72]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let current_attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                let batch = BatchDml::builder()
+                    .add_statement(
+                        Statement::builder("UPDATE Users SET active = true WHERE id = 1").build(),
+                    )
+                    .add_statement(
+                        Statement::builder("UPDATE Users SET active = true WHERE id = 2").build(),
+                    )
+                    .build();
+                let counts = transaction.execute_batch_update(batch).await?;
+                if current_attempt == 2 {
+                    assert_eq!(
+                        counts,
+                        vec![1],
+                        "Attempt 2 should succeed with update count 1"
+                    );
+                }
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_inline_begin_aborted_swallowed_commit_fails_fast_with_server_error()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. Attempt 1: First statement is execute_update with inline begin.
+        // It fails with Aborted: "server transaction abort".
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                let selector = inner
+                    .transaction
+                    .and_then(|transaction| transaction.selector);
+                assert!(
+                    matches!(selector, Some(ProtoSelector::Begin(_))),
+                    "Attempt 1 must use inline Begin"
+                );
+                Err(TonicStatus::aborted("server transaction abort"))
+            });
+
+        // Note: Commit RPC is NOT called on Attempt 1 because commit_internal detects the recorded
+        // aborted status and fails fast without issuing a network Commit RPC.
+
+        // 2. Attempt 2: Because Attempt 1 aborted (rather than a non-aborted failure),
+        // runner retries with InlineBegin!
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                let selector = inner
+                    .transaction
+                    .and_then(|transaction| transaction.selector);
+                assert!(
+                    matches!(selector, Some(ProtoSelector::Begin(_))),
+                    "Attempt 2 must retry with inline Begin"
+                );
+                Ok(Response::new(ProtoResultSet {
+                    metadata: Some(ResultSetMetadata {
+                        transaction: Some(ProtoTransaction {
+                            id: vec![88],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![88]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempt_counter = Arc::new(AtomicU32::new(0));
+        let attempt_counter_clone = Arc::clone(&attempt_counter);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let current_attempt = attempt_counter_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                if current_attempt == 1 {
+                    // Execute statement with inline begin, which aborts on the server.
+                    let result = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                        .await;
+                    assert!(result.is_err(), "Expected first attempt statement to fail");
+                    // Application catches the error and swallows it, returning Ok(()).
+                    // This forces commit() to execute on the aborted transaction.
+                    return Ok(());
+                }
+
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                assert_eq!(count, 1, "Attempt 2 should succeed with update count 1");
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempt_counter.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "Expected commit timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_inline_begin_aborted_commit_returns_original_error_message()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_execute_sql()
+            .once()
+            .returning(|_| Err(TonicStatus::aborted("exact original abort reason")));
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        let statement_result = transaction
+            .execute_update("UPDATE Users SET active = true WHERE id = 1")
+            .await;
+        assert!(statement_result.is_err(), "Expected statement to fail");
+
+        let commit_result = transaction.commit().await;
+        let commit_error = commit_result.expect_err("Expected commit to fail fast");
+        assert!(is_aborted(&commit_error), "Error must be Aborted");
+        assert!(
+            commit_error
+                .to_string()
+                .contains("exact original abort reason"),
+            "Commit error must preserve original abort message, got: {commit_error}"
+        );
+        assert!(
+            !commit_error
+                .to_string()
+                .contains("Aborted due to failed initial statement"),
+            "Commit error must not be synthetic generic message, got: {commit_error}"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_concurrent_statements_leader_aborted_preserves_error_details()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+
+        // The leader's inline begin RPC fails with Aborted and a custom message
+        mock.expect_execute_sql().once().returning(|_| {
+            Err(TonicStatus::aborted(
+                "concurrent contention on user key range",
+            ))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        let statement1_future =
+            transaction.execute_update("UPDATE Users SET active = true WHERE id = 1");
+        let statement2_future =
+            transaction.execute_update("UPDATE Users SET active = true WHERE id = 2");
+
+        let (result1, result2) = tokio::join!(statement1_future, statement2_future);
+
+        let error1 = result1.expect_err("statement 1 must fail with abort");
+        let error2 = result2.expect_err("statement 2 must fail with abort");
+
+        assert!(is_aborted(&error1), "statement 1 error must be Aborted");
+        assert!(is_aborted(&error2), "statement 2 error must be Aborted");
+
+        assert!(
+            error1
+                .to_string()
+                .contains("concurrent contention on user key range"),
+            "statement 1 must preserve real server error, got: {error1}"
+        );
+        assert!(
+            error2
+                .to_string()
+                .contains("concurrent contention on user key range"),
+            "statement 2 must preserve real server error, got: {error2}"
+        );
+
+        assert!(
+            !error1
+                .to_string()
+                .contains("Aborted due to failed initial statement"),
+            "statement 1 must not contain synthetic message, got: {error1}"
+        );
+        assert!(
+            !error2
+                .to_string()
+                .contains("Aborted due to failed initial statement"),
+            "statement 2 must not contain synthetic message, got: {error2}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_completed_result_set_returns_none_after_subsequent_abort()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Query completes cleanly with a single row (seen_last == true)
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Ok(single_row_streaming_response(Some(vec![80]), "alice")));
+
+        // Subsequent update fails with Aborted
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(TonicStatus::aborted("lock conflict on user update")));
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        let mut result_set = transaction
+            .execute_query("SELECT Name FROM Users WHERE Id = 1")
+            .await?;
+
+        // Consume the only row
+        let row = result_set
+            .next()
+            .await
+            .expect("stream should yield an item")?;
+        let name: String = row.get("Name")?;
+        assert_eq!(name, "alice", "expected name alice");
+
+        // The update fails with Aborted
+        let update_error = transaction
+            .execute_update("UPDATE Users SET active = true WHERE id = 1")
+            .await
+            .expect_err("update should fail with Aborted");
+        assert!(is_aborted(&update_error), "error should be Aborted");
+
+        // Calling next() on the already-completed result_set must return None, NOT an error!
+        let next_item = result_set.next().await;
+        assert!(
+            next_item.is_none(),
+            "Completed ResultSet must return None even after a subsequent abort in the transaction, got: {next_item:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_concurrent_follower_woken_by_partial_inline_begin_batch_dml_abort_fails_fast()
+    -> Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: Leader runs ExecuteBatchDml with InlineBegin.
+        // Statement 0 succeeds (returning transaction ID [85]), statement 1 aborts.
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_inline_begin_selector(inner.transaction.as_ref(), None);
+                Ok(Response::new(ProtoExecuteBatchDmlResponse {
+                    result_sets: vec![ProtoResultSet {
+                        metadata: Some(ResultSetMetadata {
+                            transaction: Some(ProtoTransaction {
+                                id: vec![85],
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        stats: Some(ResultSetStats {
+                            row_count: Some(RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    status: Some(RpcStatus {
+                        code: TonicCode::Aborted as i32,
+                        message: "concurrent lock abort in batch statement 1".to_string(),
+                        details: vec![],
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Notice: NO execute_sql call on Attempt 1 for the follower, because the follower
+        // must fail fast client-side when woken by the partial batch DML abort!
+
+        // Attempt 2: Both statements succeed. InlineBegin carries previous_transaction_id = [85].
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_inline_begin_selector(inner.transaction.as_ref(), Some(&[85]));
+                Ok(Response::new(ProtoExecuteBatchDmlResponse {
+                    result_sets: vec![
+                        ProtoResultSet {
+                            metadata: Some(ResultSetMetadata {
+                                transaction: Some(ProtoTransaction {
+                                    id: vec![86],
+                                    ..Default::default()
+                                }),
+                                ..Default::default()
+                            }),
+                            stats: Some(ResultSetStats {
+                                row_count: Some(RowCount::RowCountExact(1)),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        },
+                        ProtoResultSet {
+                            stats: Some(ResultSetStats {
+                                row_count: Some(RowCount::RowCountExact(1)),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        },
+                    ],
+                    status: Some(RpcStatus {
+                        code: TonicCode::Ok as i32,
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_eq!(
+                    inner.transaction,
+                    Some(TransactionSelector {
+                        selector: Some(ProtoSelector::Id(vec![86])),
+                    }),
+                    "Attempt 2 follower must use established transaction ID [86]"
+                );
+                Ok(dml_response(None))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![86]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(3))
+            .build();
+
+        let attempts = Arc::new(AtomicU32::new(0));
+        let attempts_clone = Arc::clone(&attempts);
+        let transaction_result = runner
+            .run(async move |transaction| {
+                let current_attempt = attempts_clone.fetch_add(1, Ordering::SeqCst) + 1;
+                let batch = BatchDml::builder()
+                    .add_statement("UPDATE Users SET active = true WHERE id = 1")
+                    .add_statement("UPDATE Users SET active = true WHERE id = 2")
+                    .build();
+
+                if current_attempt == 1 {
+                    let (batch_result, follower_result) = tokio::join!(
+                        transaction.execute_batch_update(batch),
+                        transaction.execute_update("UPDATE Users SET active = false WHERE id = 3"),
+                    );
+                    let batch_error =
+                        batch_result.expect_err("batch update must fail with Aborted");
+                    let follower_error =
+                        follower_result.expect_err("follower update must fail fast with Aborted");
+
+                    assert!(is_aborted(&batch_error), "batch error must be Aborted");
+                    assert!(
+                        is_aborted(&follower_error),
+                        "follower error must be Aborted"
+                    );
+                    return Err(follower_error);
+                }
+
+                let batch_counts = transaction.execute_batch_update(batch).await?;
+                assert_eq!(batch_counts, vec![1, 1], "expected 2 updated rows in batch");
+                let follower_count = transaction
+                    .execute_update("UPDATE Users SET active = false WHERE id = 3")
+                    .await?;
+                assert_eq!(follower_count, 1, "expected 1 updated row in follower");
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(
+            attempts.load(Ordering::SeqCst),
+            2,
+            "runner must have executed 2 attempts"
+        );
+        assert!(
+            transaction_result
+                .commit_response
+                .commit_timestamp
+                .is_some(),
+            "commit must have timestamp"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_inline_begin_first_statement_failed_retains_previous_transaction_id()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Attempt 1:
+        // Statement 1 inline begins transaction [10].
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_inline_begin(&inner, None);
+                Ok(dml_response(Some(vec![10])))
+            });
+
+        // Statement 2 aborts on Spanner.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_transaction_id(&inner, &[10]);
+                Err(TonicStatus::aborted("concurrent lock abort in statement 2"))
+            });
+
+        // Attempt 2:
+        // Statement 1 inline begins with previous_transaction_id = [10], but fails with InvalidArgument (FirstStatementFailed).
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_inline_begin(&inner, Some(&[10]));
+                Err(TonicStatus::invalid_argument("Column does not exist"))
+            });
+
+        // Notice: NO execute_sql on Spanner for Statement 2 on Attempt 2, because Statement 2 fails fast client-side!
+
+        // Attempt 3:
+        // Because Attempt 2 failed with FirstStatementFailed, Attempt 3 forces ExplicitBegin.
+        // Crucial assertion: BeginTransaction MUST retain previous_transaction_id = [10] from Attempt 1!
+        expect_begin_transaction(&mut mock, &mut sequence, Some(vec![10]), vec![12]);
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_transaction_id(&inner, &[12]);
+                Ok(dml_response(None))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let inner = request.into_inner();
+                assert_transaction_id(&inner, &[12]);
+                Ok(dml_response(None))
+            });
+
+        expect_commit(&mut mock, &mut sequence, vec![12]);
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = database_client
+            .read_write_transaction()
+            .with_retry_policy(BasicTransactionRetryPolicy::new().with_max_attempts(4))
+            .build();
+
+        let mut attempts = 0;
+        let transaction_result = runner
+            .run(async |transaction| {
+                attempts += 1;
+                if attempts == 1 {
+                    let first_count = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                        .await?;
+                    assert_eq!(first_count, 1);
+
+                    // Statement 2 aborts on Spanner
+                    let second_error = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                        .await
+                        .expect_err("statement 2 must abort on attempt 1");
+                    return Err(second_error);
+                }
+
+                if attempts == 2 {
+                    // Statement 1 fails with InvalidArgument
+                    let first_result = transaction
+                        .execute_update("UPDATE Users SET non_existing = 1 WHERE id = 1")
+                        .await;
+                    assert!(first_result.is_err(), "first statement must fail");
+
+                    // Statement 2 encounters FirstStatementFailed and returns Aborted
+                    let second_error = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                        .await
+                        .expect_err("second statement must fail fast with synthetic aborted");
+                    return Err(second_error);
+                }
+
+                let first_count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                let second_count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 2")
+                    .await?;
+                Ok(first_count + second_count)
+            })
+            .await?;
+
+        assert_eq!(attempts, 3, "runner must have executed 3 attempts");
+        assert_eq!(transaction_result.result, 2, "update count should be 2");
         Ok(())
     }
 }
