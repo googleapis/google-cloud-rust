@@ -41,6 +41,9 @@ pub use float32::F32;
 mod float64;
 pub use float64::F64;
 
+mod seen_fields;
+pub use seen_fields::SeenFields;
+
 // For skipping serialization of default values of bool/numeric types.
 pub fn is_default<T>(t: &T) -> bool
 where
