@@ -30,6 +30,7 @@ pub mod anonymous;
 pub mod api_key_credentials;
 pub(crate) mod crypto_provider;
 pub mod external_account;
+pub mod external_account_authorized_user;
 pub(crate) mod external_account_sources;
 #[cfg(feature = "gdch")]
 pub mod gdch;
@@ -793,6 +794,13 @@ fn build_credentials(
                     universe_domain.clone(),
                     |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
+                "external_account_authorized_user" => config_builder!(
+                    external_account_authorized_user::Builder::new(json),
+                    quota_project_id,
+                    scopes,
+                    universe_domain.clone(),
+                    |b: external_account_authorized_user::Builder, s: Vec<String>| b.with_scopes(s)
+                ),
                 "gdch_service_account" => Err(BuilderError::not_supported(format!(
                     "{cred_type}, use gdch::Builder directly."
                 ))),
@@ -841,6 +849,9 @@ fn build_signer(
                 }
                 "external_account" => Err(BuilderError::not_supported(
                     "external_account signer is not supported",
+                )),
+                "external_account_authorized_user" => Err(BuilderError::not_supported(
+                    "external_account_authorized_user signer is not supported",
                 )),
                 "gdch_service_account" => Err(BuilderError::not_supported(
                     "gdch_service_account signer is not supported",
@@ -1470,6 +1481,54 @@ pub(crate) mod tests {
 
         let universe_domain = creds.universe_domain().await;
         assert_eq!(universe_domain, Some("my-custom-universe.com".to_string()));
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn create_external_account_authorized_user_credentials() -> TestResult {
+        use httptest::{Expectation, Server, matchers::request, responders::json_encoded};
+
+        let _e1 = ScopedEnv::remove(GOOGLE_CLOUD_QUOTA_PROJECT_VAR);
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(serde_json::json!({
+                    "access_token": "test-access-token",
+                    "token_type": "Bearer",
+                    "expires_in": 3600,
+                })),
+            ),
+        );
+        let contents = serde_json::json!({
+            "type": "external_account_authorized_user",
+            "audience": "//iam.googleapis.com/locations/global/workforcePools/pool/providers/provider",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "token_url": server.url("/token").to_string(),
+            "token_info_url": "https://sts.googleapis.com/v1/introspect",
+        });
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, contents.to_string()).expect("Unable to write to temporary file.");
+        let _e2 = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let creds = Builder::default()
+            .with_quota_project_id("test-quota-project")
+            .build()?;
+        let headers = get_headers_from_cache(creds.headers(Extensions::new()).await?)?;
+        assert_eq!(
+            headers.get(AUTHORIZATION).unwrap(),
+            "Bearer test-access-token"
+        );
+        assert_eq!(
+            headers.get(QUOTA_PROJECT_KEY).unwrap(),
+            "test-quota-project"
+        );
+
+        let err = Builder::default().build_signer().unwrap_err();
+        assert!(err.is_not_supported(), "{err:?}");
+        Ok(())
     }
 
     #[tokio::test]
