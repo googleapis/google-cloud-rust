@@ -155,7 +155,7 @@ impl Reader {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_retry_policy(mut self, v: impl Into<RetryPolicyArg>) -> Self {
         self.retry_policy = v.into().into();
         self
     }
