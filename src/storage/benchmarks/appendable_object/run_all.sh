@@ -15,8 +15,6 @@
 
 set -euo pipefail
 
-export RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi"
-
 # Parse args passed directly to script
 EXTRA_ARGS=( "$@" )
 

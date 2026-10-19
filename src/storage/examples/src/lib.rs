@@ -355,7 +355,6 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     )
     .await?;
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     run_object_appendable_examples(&control, &client, &project_id, buckets).await?;
 
     run_object_retention_examples(&control, &client, &project_id, &service_account, buckets)
@@ -577,7 +576,6 @@ async fn run_object_kms_and_csek_examples(
     Ok(())
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 async fn run_object_appendable_examples(
     control: &StorageControl,
     client: &Storage,

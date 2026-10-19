@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
 /// Represents the parameters of a request to open a new object for exclusive appends.
 ///
 /// Consumers of the `google-cloud-storage` crate rarely have a need to use this type directly, the most common exception is when mocking of the `Storage` client.

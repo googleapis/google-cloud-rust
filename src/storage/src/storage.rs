@@ -13,18 +13,18 @@
 // limitations under the License.
 
 pub(crate) mod bidi;
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 pub(crate) mod bidi_write;
 pub(crate) mod checksum;
 pub(crate) mod client;
 pub(crate) mod common_options;
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 pub(crate) mod open_appendable_object;
 pub(crate) mod open_object;
 pub(crate) mod perform_upload;
 pub(crate) mod post_policy;
 pub(crate) mod read_object;
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 pub(crate) mod reopen_appendable_object;
 pub mod request_options;
 pub(crate) mod signed_url;

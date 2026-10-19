@@ -106,12 +106,12 @@ impl ObjectDescriptorStub for TracingObjectDescriptor<Arc<dyn DynamicObjectDescr
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 use crate::storage::bidi_write::stub::dynamic::AppendableObjectWriter as DynamicAppendableObjectWriterStub;
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 use crate::storage::stub::AppendableObjectWriter as AppendableObjectWriterStub;
 
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 /// Implements the [AppendableObjectWriterStub][DynamicAppendableObjectWriterStub] trait with tracing annotations.
 #[derive(Debug)]
 pub struct TracingAppendableObjectWriter<T> {
@@ -119,7 +119,7 @@ pub struct TracingAppendableObjectWriter<T> {
     parent: tracing::Span,
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 impl<T> TracingAppendableObjectWriter<T> {
     pub(crate) fn new(inner: T) -> Self {
         Self {
@@ -129,7 +129,7 @@ impl<T> TracingAppendableObjectWriter<T> {
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 impl AppendableObjectWriterStub
     for TracingAppendableObjectWriter<Box<dyn DynamicAppendableObjectWriterStub>>
 {
@@ -266,7 +266,7 @@ mod tests {
         let _reader = descriptor.read_range(ReadRange::segment(100, 200)).await;
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     mockall::mock! {
         #[derive(Debug)]
         Writer {}
@@ -280,7 +280,7 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tokio::test]
     async fn appendable_writer_forwards_calls()
     -> std::result::Result<(), Box<dyn std::error::Error>> {

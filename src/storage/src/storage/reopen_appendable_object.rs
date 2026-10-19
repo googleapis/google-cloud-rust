@@ -19,7 +19,7 @@ use crate::request_options::RequestOptions;
 use std::sync::Arc;
 use std::time::Duration;
 
-#[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
 /// A request builder for [Storage::reopen_appendable_object][crate::client::Storage::reopen_appendable_object].
 ///
 /// # Example
@@ -350,7 +350,6 @@ impl<S> ReopenAppendableObject<S> {
 }
 
 #[cfg(test)]
-#[cfg(google_cloud_unstable_storage_bidi)]
 mod tests {
     use super::*;
     use crate::client::Storage;

@@ -36,6 +36,9 @@
 //!   `rustls::crypto::CryptoProvider::install_default()`.
 //! - `unstable-stream`: enable the (unstable) features to convert several types to
 //!   a `future::Stream`.
+//! - `unstable-appendable-object`: enable the (unstable) appendable object upload
+//!   APIs for Rapid Storage buckets. As the name indicates, the API may change in
+//!   minor releases.
 //!
 //! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [gcloud-storage]: https://crates.io/crates/gcloud-storage
@@ -55,8 +58,8 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
-#[cfg(google_cloud_unstable_storage_bidi)]
-#[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+#[cfg(feature = "unstable-appendable-object")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
 pub mod appendable_object_writer;
 pub mod backoff_policy;
 pub mod object_descriptor;
@@ -98,14 +101,14 @@ pub mod builder {
     pub mod storage {
         //! Request builders for [Storage][crate::client::Storage].
         pub use crate::storage::client::ClientBuilder;
-        #[cfg(google_cloud_unstable_storage_bidi)]
-        #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+        #[cfg(feature = "unstable-appendable-object")]
+        #[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
         pub use crate::storage::open_appendable_object::OpenAppendableObject;
         pub use crate::storage::open_object::OpenObject;
         pub use crate::storage::post_policy::{PostPolicyV4Builder, PostPolicyV4Result};
         pub use crate::storage::read_object::ReadObject;
-        #[cfg(google_cloud_unstable_storage_bidi)]
-        #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+        #[cfg(feature = "unstable-appendable-object")]
+        #[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
         pub use crate::storage::reopen_appendable_object::ReopenAppendableObject;
         pub use crate::storage::signed_url::SignedUrlBuilder;
         pub use crate::storage::write_object::WriteObject;

@@ -29,7 +29,7 @@ bytes.workspace             = true
 clap                        = { workspace = true, features = ["derive", "env", "help", "std", "usage"] }
 crc32c.workspace            = true
 google-cloud-auth.workspace = true
-google-cloud-storage        = { workspace = true, features = ["default-rustls-provider", "unstable-stream"] }
+google-cloud-storage        = { workspace = true, features = ["default-rustls-provider", "unstable-appendable-object"] }
 rand.workspace              = true
 tokio                       = { workspace = true, features = ["macros"] }
 tracing-subscriber          = { workspace = true, features = ["env-filter", "fmt", "std"] }
