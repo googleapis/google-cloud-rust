@@ -12,23 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_open_appendable_object_finalize]
+// [START storage_finalize_appendable_object_upload]
+use bytes::Bytes;
 use google_cloud_storage::client::Storage;
 
-pub async fn sample(
-    client: &Storage,
-    bucket: &str,
-    object: &str,
-    generation: i64,
-) -> Result<(), anyhow::Error> {
-    let writer = client
-        .reopen_appendable_object(format!("projects/_/buckets/{bucket}"), object, generation)
+pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), anyhow::Error> {
+    let mut writer = client
+        .open_appendable_object(format!("projects/_/buckets/{bucket}"), object)
         .send()
         .await?;
 
+    writer
+        .append(Bytes::from("some data to finalize\n"))
+        .await?;
+
+    // Finalize the upload. No more data can be written to this object.
     let metadata = writer.finalize().await?;
 
     println!("Finalized appendable object {object} in bucket {bucket}: {metadata:?}");
     Ok(())
 }
-// [END storage_open_appendable_object_finalize]
+// [END storage_finalize_appendable_object_upload]

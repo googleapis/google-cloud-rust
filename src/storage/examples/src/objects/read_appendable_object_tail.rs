@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_open_appendable_object_read_tail]
+// [START storage_read_appendable_object_tail]
 use bytes::Bytes;
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
@@ -20,8 +20,9 @@ use std::time::Duration;
 use tokio::time::sleep;
 
 pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), anyhow::Error> {
+    let bucket_name = format!("projects/_/buckets/{bucket}");
     let mut writer = client
-        .open_appendable_object(format!("projects/_/buckets/{bucket}"), object)
+        .open_appendable_object(&bucket_name, object)
         .send()
         .await?;
 
@@ -29,13 +30,14 @@ pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), 
     for i in 0..2 {
         let content = format!("More data for tail example, iteration {i}\n");
         writer.append(Bytes::from(content)).await?;
+        // After a flush, the data is visible to readers.
         writer.flush().await?;
 
+        // Read everything from the last offset to the current end of the object.
         let (_metadata, mut reader) = client
-            .open_object(format!("projects/_/buckets/{bucket}"), object)
+            .open_object(&bucket_name, object)
             .send_and_read(ReadRange::offset(bytes_read))
             .await?;
-
         while let Some(chunk) = reader.next().await.transpose()? {
             print!("{}", String::from_utf8_lossy(&chunk));
             bytes_read += chunk.len() as u64;
@@ -44,6 +46,8 @@ pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), 
         sleep(Duration::from_secs(1)).await;
     }
 
+    // Close the writer without finalizing the object.
+    writer.close().await?;
     Ok(())
 }
-// [END storage_open_appendable_object_read_tail]
+// [END storage_read_appendable_object_tail]
