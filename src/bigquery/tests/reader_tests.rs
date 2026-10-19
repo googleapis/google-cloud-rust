@@ -16,14 +16,11 @@ use google_cloud_bigquery::client::Read;
 use google_cloud_bigquery::model::{ReadRowsRequest, ReadRowsResponse};
 use google_cloud_bigquery::stub::Read as ReadStub;
 use google_cloud_gax::Result as GaxResult;
-use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions;
-use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::streaming::ResponseStream;
 use mockall::{Sequence, mock};
-use std::time::Duration;
 use tokio::sync::mpsc;
 
 mock! {
@@ -39,16 +36,7 @@ mock! {
     }
 }
 
-#[derive(Debug)]
-struct NoBackoff;
-
-impl BackoffPolicy for NoBackoff {
-    fn on_failure(&self, _state: &RetryState) -> Duration {
-        Duration::ZERO
-    }
-}
-
-#[tokio::test]
+#[tokio::test(start_paused = true)]
 async fn into_reader_reconnects_at_offset() -> anyhow::Result<()> {
     let mut seq = Sequence::new();
     let mut mock = MockTestRead::new();
@@ -96,8 +84,7 @@ async fn into_reader_reconnects_at_offset() -> anyhow::Result<()> {
     let mut rows = client
         .read_rows()
         .set_read_stream("projects/p/locations/us/sessions/s/streams/1")
-        .into_reader()
-        .with_backoff_policy(NoBackoff);
+        .into_reader();
 
     let r1 = rows.next().await.transpose()?.expect("batch 1");
     assert_eq!(r1.row_count, 10);
