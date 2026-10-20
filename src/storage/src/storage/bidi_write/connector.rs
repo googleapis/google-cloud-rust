@@ -521,8 +521,10 @@ mod tests {
 
         let err = start.await.unwrap_err();
         assert!(err.is_connect(), "{err:?}");
-        let source = err.source().unwrap().to_string();
-        assert!(source.contains("127.0.0.1:1"), "{source}");
+        // The connect error must carry the underlying transport error. Do not
+        // assert on its text: the wording (e.g. whether it includes the
+        // address) depends on the `hyper-util` version.
+        assert!(err.source().is_some(), "{err:?}");
 
         Ok(())
     }
