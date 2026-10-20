@@ -378,7 +378,6 @@ impl FromSql for wkt::Struct {
                 google_cloud_unstable_bigquery_storage_read
             ))]
             SqlValueInner::Arrow(cell) => {
-                // TODO(#7032): Support Arrow StructArray once wkt::Value conversion is implemented.
                 let s = cell.as_str()?;
                 serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
             }
