@@ -162,26 +162,24 @@ mod sealed {
                     google_cloud_unstable_bigquery_arrow,
                     google_cloud_unstable_bigquery_storage_read
                 ))]
-                SqlValueInner::Arrow(cell) => {
-                    match cell.struct_field_cell(self) {
-                        Ok(val) => return Ok(SqlValue::from_inner(SqlValueInner::Arrow(val))),
-                        Err(ConvertError::TypeMismatch { .. }) => {}
-                        Err(e) => return Err(e),
+                SqlValueInner::Arrow(cell) => match cell.data_type() {
+                    arrow::datatypes::DataType::Struct(_) => cell
+                        .struct_field_cell(self)
+                        .map(|val| SqlValue::from_inner(SqlValueInner::Arrow(val))),
+                    arrow::datatypes::DataType::List(_)
+                    | arrow::datatypes::DataType::LargeList(_) => cell
+                        .list_element_cell(*self)
+                        .map(|val| SqlValue::from_inner(SqlValueInner::Arrow(val))),
+                    arrow::datatypes::DataType::Utf8 | arrow::datatypes::DataType::LargeUtf8 => {
+                        let s = cell.as_str()?.to_string();
+                        value.inner = SqlValueInner::String(s);
+                        self.take_sql_value(value)
                     }
-                    match cell.list_element_cell(*self) {
-                        Ok(val) => return Ok(SqlValue::from_inner(SqlValueInner::Arrow(val))),
-                        Err(ConvertError::TypeMismatch { .. }) => {}
-                        Err(e) => return Err(e),
-                    }
-                    if let Ok(s) = cell.as_str() {
-                        value.inner = SqlValueInner::String(s.to_string());
-                        return self.take_sql_value(value);
-                    }
-                    Err(ConvertError::TypeMismatch {
+                    _ => Err(ConvertError::TypeMismatch {
                         expected: "struct, array, or string".to_string(),
                         got: cell.data_type_str(),
-                    })
-                }
+                    }),
+                },
                 other => Err(ConvertError::type_mismatch(
                     "struct, array, or string",
                     other,
@@ -229,21 +227,20 @@ mod sealed {
                     google_cloud_unstable_bigquery_arrow,
                     google_cloud_unstable_bigquery_storage_read
                 ))]
-                SqlValueInner::Arrow(cell) => {
-                    match cell.struct_field_cell(self) {
-                        Ok(val) => return Ok(SqlValue::from_inner(SqlValueInner::Arrow(val))),
-                        Err(ConvertError::TypeMismatch { .. }) => {}
-                        Err(e) => return Err(e),
+                SqlValueInner::Arrow(cell) => match cell.data_type() {
+                    arrow::datatypes::DataType::Struct(_) => cell
+                        .struct_field_cell(self)
+                        .map(|val| SqlValue::from_inner(SqlValueInner::Arrow(val))),
+                    arrow::datatypes::DataType::Utf8 | arrow::datatypes::DataType::LargeUtf8 => {
+                        let s = cell.as_str()?.to_string();
+                        value.inner = SqlValueInner::String(s);
+                        self.take_sql_value(value)
                     }
-                    if let Ok(s) = cell.as_str() {
-                        value.inner = SqlValueInner::String(s.to_string());
-                        return self.take_sql_value(value);
-                    }
-                    Err(ConvertError::TypeMismatch {
+                    _ => Err(ConvertError::TypeMismatch {
                         expected: "object or string".to_string(),
                         got: cell.data_type_str(),
-                    })
-                }
+                    }),
+                },
                 other => Err(ConvertError::type_mismatch("object or string", other)),
             }
         }
