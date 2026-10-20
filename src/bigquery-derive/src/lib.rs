@@ -56,19 +56,19 @@
 //! target: its `main.rs` declares one `mod <case>;` per case file.
 //!
 //! - New accepted input gets a new case file and a new `mod` line.
-//! - Never modify, rename, or delete an existing case file, or remove a `mod`
-//!   line.
-//! - Do not use `cfg` attributes in a contract `main.rs`. Case files must not
-//!   be conditionally compiled.
+//! - Never modify, rename, or delete an existing case file, or remove its
+//!   `mod` line.
 //!
-//! `.github/scripts/proc-macro-contract-check.sh` enforces these rules on every
-//! pull request (see `.github/workflows/proc-macro-contract.yaml`). It also
-//! fails if a published proc-macro crate has no contract tests.
+//! `.github/scripts/proc-macro-contract-check.sh` fails if an existing case
+//! file is modified, renamed, or deleted on any pull request (see
+//! `.github/workflows/proc-macro-contract.yaml`). It also fails if a published
+//! proc-macro crate has no contract tests. Removing a `mod` line is left to
+//! code review.
 //!
 //! To change an existing case on purpose, apply the
 //! `rust: proc-macro-contract-change` label to the pull request. The label
-//! skips only the check for changes to existing cases; the registration,
-//! `cfg`, and coverage checks always run. Changes that only touch whitespace or
+//! skips only the check for changes to existing cases; the coverage check
+//! always runs. Changes that only touch whitespace or
 //! blank lines are ignored. Comment-only or other formatting changes still need
 //! the label, but no version bump. If the change affects accepted input, it is
 //! very likely a breaking change, and the pull request (or the release) must

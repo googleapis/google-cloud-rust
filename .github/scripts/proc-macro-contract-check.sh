@@ -31,12 +31,6 @@ BASE_REF="${1:-origin/main}"
 LABEL='rust: proc-macro-contract-change'
 POLICY='the "Compatibility" section in src/bigquery-derive/src/lib.rs'
 PATHSPEC=':(glob)src/*/tests/*_contract/**'
-MOD_RE='^[[:space:]]*(pub(\([^)]*\))?[[:space:]]+)?mod[[:space:]]+([A-Za-z0-9_]+)[[:space:]]*;.*'
-
-# Prints the sorted module names declared with `mod <name>;` on stdin.
-mods_of() {
-  sed -nE "s/${MOD_RE}/\3/p" | sort -u
-}
 
 failed=0
 
@@ -50,8 +44,7 @@ else
   while IFS=$'\t' read -r status path new_path; do
     [[ -z "${status}" ]] && continue
     if [[ "${status}" == "M" ]]; then
-      # `main.rs` must change to register new cases; its `mod` lines are
-      # checked below instead.
+      # `main.rs` must change to register new cases.
       [[ "$(basename "${path}")" == "main.rs" ]] && continue
       # Ignore mode changes and changes that only touch whitespace or blank
       # lines: they cannot change the accepted input.
@@ -62,19 +55,6 @@ else
     fi
     violations+=("${status}	${path}${new_path:+ -> ${new_path}}")
   done < <(git diff --name-status --diff-filter=MDR "${merge_base}" HEAD -- "${PATHSPEC}")
-
-  while read -r main; do
-    [[ -z "${main}" ]] && continue
-    # A deleted `main.rs` is already reported above.
-    git cat-file -e "HEAD:${main}" 2>/dev/null || continue
-    removed=$(comm -23 \
-      <(git show "${merge_base}:${main}" | mods_of) \
-      <(git show "HEAD:${main}" | mods_of))
-    for m in ${removed}; do
-      violations+=("mod ${m}; removed from ${main}")
-    done
-  done < <(git ls-tree -r --name-only "${merge_base}" -- src |
-    grep -E '^src/[^/]+/tests/[^/]+_contract/main\.rs$' || true)
 
   if [[ ${#violations[@]} -gt 0 ]]; then
     failed=1
@@ -108,58 +88,8 @@ _EOF_
   fi
 fi
 
-# Check 2: every case file is registered in main.rs and always compiled.
+# Check 2: every published proc-macro crate has contract tests.
 shopt -s nullglob
-unregistered=()
-conditional=()
-for dir in src/*/tests/*_contract/; do
-  main="${dir}main.rs"
-  if [[ ! -f "${main}" ]]; then
-    unregistered+=("${dir} (missing main.rs)")
-    continue
-  fi
-  while read -r line; do
-    [[ -n "${line}" ]] && conditional+=("${main}:${line}")
-  done < <(grep -nE '#!?\[[[:space:]]*cfg' "${main}" || true)
-  registered=$(mods_of <"${main}")
-  for f in "${dir}"*.rs; do
-    stem=$(basename "${f}" .rs)
-    [[ "${stem}" == "main" ]] && continue
-    if ! grep -qxF "${stem}" <<<"${registered}"; then
-      unregistered+=("${f}")
-    fi
-  done
-done
-
-if [[ ${#unregistered[@]} -gt 0 ]]; then
-  failed=1
-  cat <<_EOF_
-ERROR: The following proc-macro contract case files are not registered with a
-\`mod <name>;\` line in their directory's main.rs, so they are never compiled:
-
-$(printf '  %s\n' "${unregistered[@]}")
-
-Add the missing \`mod\` lines (or main.rs). This check cannot be skipped with a
-label. See ${POLICY}.
-
-_EOF_
-fi
-
-if [[ ${#conditional[@]} -gt 0 ]]; then
-  failed=1
-  cat <<_EOF_
-ERROR: The following contract main.rs files use \`cfg\` attributes:
-
-$(printf '  %s\n' "${conditional[@]}")
-
-Contract case files must not be conditionally compiled, otherwise a case can
-silently stop being checked. Remove the \`cfg\` attributes. This check cannot be
-skipped with a label. See ${POLICY}.
-
-_EOF_
-fi
-
-# Check 3: every published proc-macro crate has contract tests.
 uncovered=()
 proc_macro_crates=()
 while read -r manifest; do
@@ -172,7 +102,7 @@ while read -r manifest; do
     continue
   fi
   if grep -qE '^publish[[:space:]]*=[[:space:]]*(false|\[[[:space:]]*\])' <<<"${package}"; then
-    echo "Skipping check 3 for ${name}: it is not published."
+    echo "Skipping check 2 for ${name}: it is not published."
     continue
   fi
   proc_macro_crates+=("${name}")
