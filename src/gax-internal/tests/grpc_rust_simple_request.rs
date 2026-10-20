@@ -157,6 +157,39 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn custom_binary_header() -> anyhow::Result<()> {
+        // Arrange
+        const CUSTOM_HEADER: &str = "x-custom-bin";
+        // `HeaderMap` holds `-bin` values in base64 wire form.
+        const CUSTOM_VALUE: &str = "dGVzdC1iaW5hcnktZGF0YQ";
+
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut global_headers = http::HeaderMap::new();
+        global_headers.insert(
+            http::header::HeaderName::from_static(CUSTOM_HEADER),
+            http::header::HeaderValue::from_static(CUSTOM_VALUE),
+        );
+
+        let mut config = test_config();
+        config.extensions.insert(global_headers);
+
+        let client = GrpcRustClient::new(config, &endpoint).await?;
+
+        // Act
+        let response = send_request(client, "test message", "").await?;
+
+        // Assert
+        assert_eq!(&response.message, "test message");
+        // Double encoding would produce `ZEdWemRDMWlhVzVoY25rdFpHRjBZUQ`.
+        assert_eq!(
+            response.metadata.get(CUSTOM_HEADER).map(String::as_str),
+            Some(CUSTOM_VALUE)
+        );
+        Ok(())
+    }
+
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
     }
