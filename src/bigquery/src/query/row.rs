@@ -84,6 +84,7 @@ pub(crate) enum RowInner {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
+    #[cfg_attr(not(test), allow(dead_code))]
     Arrow {
         batch: Arc<RecordBatch>,
         row_idx: usize,
@@ -267,6 +268,7 @@ impl Row {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
+    #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) fn try_new_from_arrow(
         batch: &Arc<RecordBatch>,
         row_idx: usize,

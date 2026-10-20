@@ -40,6 +40,7 @@ impl Schema {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
+    #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) fn from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> Self {
         Self::new(table_schema_from_arrow_schema(arrow_schema))
     }
@@ -65,6 +66,7 @@ impl Schema {
     google_cloud_unstable_bigquery_arrow,
     google_cloud_unstable_bigquery_storage_read
 ))]
+#[cfg_attr(not(test), allow(dead_code))]
 fn table_schema_from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> TableSchema {
     let fields: Vec<TableFieldSchema> = arrow_schema
         .fields()
@@ -78,6 +80,7 @@ fn table_schema_from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> Ta
     google_cloud_unstable_bigquery_arrow,
     google_cloud_unstable_bigquery_storage_read
 ))]
+#[cfg_attr(not(test), allow(dead_code))]
 fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSchema {
     use arrow::datatypes::DataType;
 
