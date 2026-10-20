@@ -106,7 +106,7 @@ tokio                       = { workspace = true, features = ["test-util"] }
 pretty_assertions.workspace = true
 # The tests use `unstable-stream` and `unstable-appendable-object`, which are
 # not enabled by default.
-google-cloud-storage    = { path = ".", features = ["unstable-stream", "unstable-appendable-object"] }
+google-cloud-storage    = { path = ".", features = ["unstable-appendable-object", "unstable-stream"] }
 google-cloud-test-utils = { workspace = true }
 storage-grpc-mock       = { path = "grpc-mock" }
 

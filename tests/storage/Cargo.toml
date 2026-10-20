@@ -37,7 +37,7 @@ google-cloud-gax.workspace  = true
 google-cloud-iam-v1         = { workspace = true }
 google-cloud-lro.workspace  = true
 google-cloud-test-utils     = { workspace = true }
-google-cloud-storage        = { workspace = true, features = ["default", "unstable-stream", "unstable-appendable-object"] }
+google-cloud-storage        = { workspace = true, features = ["default", "unstable-appendable-object", "unstable-stream"] }
 google-cloud-wkt.workspace  = true
 http.workspace              = true
 reqwest.workspace           = true
