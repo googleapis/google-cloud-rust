@@ -146,6 +146,44 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
+    async fn test_read_timeout_expires() -> Result<()> {
+        let (endpoint, server) = echo_server::start().await?;
+        let timeout = Duration::from_millis(150);
+        let mut config = test_config();
+        config.read_timeout = Some(timeout);
+        let client = ReqwestClient::new(config, &endpoint).await?;
+
+        let delay = Duration::from_millis(200);
+        let mut interval = tokio::time::interval(Duration::from_millis(10));
+        let builder = client
+            .builder(reqwest::Method::GET, "/echo".into())
+            .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
+        let response = client.execute::<serde_json::Value, serde_json::Value>(
+            builder,
+            Some(json!({})),
+            RequestOptions::default(),
+        );
+
+        let start = tokio::time::Instant::now();
+        tokio::pin!(server);
+        tokio::pin!(response);
+        loop {
+            tokio::select! {
+                _ = &mut server => {  },
+                r = &mut response => {
+                    let err = r.expect_err("expected a read timeout");
+                    assert!(err.is_timeout(), "{err:?}");
+                    break;
+                },
+                _ = interval.tick() => { },
+            }
+        }
+
+        assert_eq!(start.elapsed(), timeout);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
     async fn test_effective_timeout() -> Result<()> {
         let (endpoint, server) = echo_server::start().await?;
         let config = test_config();
