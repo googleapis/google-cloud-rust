@@ -92,7 +92,7 @@ fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
 
     let generics = add_trait_bounds(
         input.generics,
-        syn::parse_quote!(google_cloud_bigquery::query::FromSql),
+        quote!(google_cloud_bigquery::query::FromSql),
     );
     let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
 
@@ -176,7 +176,7 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
 
     let generics = add_trait_bounds(
         input.generics,
-        syn::parse_quote!(google_cloud_bigquery::query::FromSql),
+        quote!(google_cloud_bigquery::query::FromSql),
     );
     let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
 
@@ -251,7 +251,7 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     let message = syn::ext::IdentExt::unraw(&name).to_string();
     let generics = add_trait_bounds(
         input.generics,
-        syn::parse_quote!(google_cloud_bigquery::write::__private::ProtoValue),
+        quote!(google_cloud_bigquery::write::__private::ProtoValue),
     );
     let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
 
@@ -310,10 +310,14 @@ fn reject_bigquery_attrs<'a>(fields: impl IntoIterator<Item = &'a syn::Field>) -
 }
 
 /// Adds `bound` to each generic type parameter.
-fn add_trait_bounds(mut generics: syn::Generics, bound: syn::TypeParamBound) -> syn::Generics {
+///
+/// The bound is a token stream, parsed once for each parameter. Cloning a
+/// `syn::TypeParamBound` needs syn's `clone-impls` feature, which this crate
+/// does not enable.
+fn add_trait_bounds(mut generics: syn::Generics, bound: proc_macro2::TokenStream) -> syn::Generics {
     for param in &mut generics.params {
         if let syn::GenericParam::Type(type_param) = param {
-            type_param.bounds.push(bound.clone());
+            type_param.bounds.push(syn::parse_quote!(#bound));
         }
     }
     generics
