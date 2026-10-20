@@ -174,7 +174,7 @@ mod sealed {
                         Err(e) => return Err(e),
                     }
                     if let Ok(s) = cell.as_str() {
-                        value.inner = SqlValueInner::from_wkt(wkt::Value::String(s.to_string()));
+                        value.inner = SqlValueInner::String(s.to_string());
                         return self.take_sql_value(value);
                     }
                     Err(ConvertError::TypeMismatch {
@@ -236,7 +236,7 @@ mod sealed {
                         Err(e) => return Err(e),
                     }
                     if let Ok(s) = cell.as_str() {
-                        value.inner = SqlValueInner::from_wkt(wkt::Value::String(s.to_string()));
+                        value.inner = SqlValueInner::String(s.to_string());
                         return self.take_sql_value(value);
                     }
                     Err(ConvertError::TypeMismatch {
