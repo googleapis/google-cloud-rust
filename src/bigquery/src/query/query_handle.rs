@@ -1009,7 +1009,7 @@ mod tests {
 
         let mut iter = complete_query.read();
         let row = iter.next().await.expect("should return first row")?;
-        assert_eq!(row.get::<String, _>("name")?, "test_name");
+        assert_eq!(row.get::<String>("name")?, "test_name");
         assert!(iter.next().await.is_none(), "{iter:?}");
 
         Ok(())
