@@ -97,6 +97,7 @@ pub(super) fn to_tonic_map(metadata: &GrpcMetadataMap) -> TonicMetadataMap {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use http::header::{HeaderName, HeaderValue};
     use pretty_assertions::assert_eq;
     use test_case::test_case;
 
@@ -112,13 +113,13 @@ mod tests {
         let mut headers = HeaderMap::new();
 
         headers.insert(
-            http::header::HeaderName::from_static(ASCII_KEY),
-            http::header::HeaderValue::from_static(ASCII_VAL),
+            HeaderName::from_static(ASCII_KEY),
+            HeaderValue::from_static(ASCII_VAL),
         );
         // `HeaderMap` holds `-bin` values in base64 wire form.
         headers.insert(
-            http::header::HeaderName::from_static(BIN_KEY),
-            http::header::HeaderValue::from_static(bin_wire_val),
+            HeaderName::from_static(BIN_KEY),
+            HeaderValue::from_static(bin_wire_val),
         );
 
         // Act
@@ -167,9 +168,8 @@ mod tests {
         // Arrange
         const KEY: &str = "x-invalid-ascii";
         let mut headers = HeaderMap::new();
-        let invalid_val =
-            http::header::HeaderValue::from_bytes(value).expect("valid http header value");
-        headers.insert(http::header::HeaderName::from_static(KEY), invalid_val);
+        let invalid_val = HeaderValue::from_bytes(value).expect("valid http header value");
+        headers.insert(HeaderName::from_static(KEY), invalid_val);
 
         // Act
         let result = from_header_map(headers);
@@ -186,8 +186,8 @@ mod tests {
         const INVALID_VAL: &str = "not base64!";
         let mut headers = HeaderMap::new();
         headers.insert(
-            http::header::HeaderName::from_static(BIN_KEY),
-            http::header::HeaderValue::from_static(INVALID_VAL),
+            HeaderName::from_static(BIN_KEY),
+            HeaderValue::from_static(INVALID_VAL),
         );
 
         // Act
@@ -210,8 +210,8 @@ mod tests {
         let mut headers = HeaderMap::new();
         // Use a value that is valid as both ASCII and base64 so only the key fails.
         headers.insert(
-            http::header::HeaderName::from_static(key),
-            http::header::HeaderValue::from_static("dGVzdA"),
+            HeaderName::from_static(key),
+            HeaderValue::from_static("dGVzdA"),
         );
 
         // Act
@@ -254,12 +254,12 @@ mod tests {
         // Arrange
         let mut headers = HeaderMap::new();
         headers.insert(
-            http::header::HeaderName::from_static("tracestate"),
-            http::header::HeaderValue::from_static(""),
+            HeaderName::from_static("tracestate"),
+            HeaderValue::from_static(""),
         );
         headers.insert(
-            http::header::HeaderName::from_static(ASCII_KEY),
-            http::header::HeaderValue::from_static(ASCII_VAL),
+            HeaderName::from_static(ASCII_KEY),
+            HeaderValue::from_static(ASCII_VAL),
         );
 
         // Act
@@ -281,8 +281,8 @@ mod tests {
         // Arrange
         let mut headers = HeaderMap::new();
         headers.insert(
-            http::header::HeaderName::from_static(BIN_KEY),
-            http::header::HeaderValue::from_static(""),
+            HeaderName::from_static(BIN_KEY),
+            HeaderValue::from_static(""),
         );
 
         // Act
