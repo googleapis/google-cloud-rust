@@ -20,12 +20,25 @@ version           = "0.0.0"
 edition.workspace = true
 license.workspace = true
 
-[dev-dependencies]
+[features]
+# These are normally disabled because they run against production.
+run-integration-tests = []
+# Enable additional logging in the integration tests.
+log-integration-tests = ["google-cloud-test-utils/log-integration-tests"]
+
+[dependencies]
 anyhow.workspace               = true
+futures.workspace              = true
 google-cloud-bigtable-admin-v2 = { workspace = true, features = ["default"] }
 google-cloud-gax.workspace     = true
-mockall.workspace              = true
+google-cloud-lro.workspace     = true
+google-cloud-test-utils        = { workspace = true }
 tokio                          = { workspace = true, features = ["macros", "rt-multi-thread"] }
+tracing.workspace              = true
+wkt.workspace                  = true
+
+[dev-dependencies]
+mockall.workspace = true
 
 [lints]
 workspace = true

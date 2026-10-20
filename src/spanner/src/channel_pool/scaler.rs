@@ -594,6 +594,7 @@ mod tests {
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::model::{CreateSessionRequest, Session};
     use crate::routing::power_of_two_selector::PowerOfTwoSelector;
+    use crate::test::test_client_config;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
@@ -647,7 +648,7 @@ mod tests {
 
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(dynamic_config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
             draining_entries: RwLock::new(vec![Arc::clone(&channel_3)]),
             next_entry_id: AtomicU64::new(4),
@@ -769,7 +770,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(Vec::new()),
             draining_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
@@ -823,7 +824,7 @@ mod tests {
                 max_remove_channels: 2,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -902,7 +903,7 @@ mod tests {
                 max_remove_channels: 2,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -958,7 +959,7 @@ mod tests {
                 max_remove_channels: 1,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1006,7 +1007,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
@@ -1090,7 +1091,7 @@ mod tests {
                 max_remove_channels: 1,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1146,7 +1147,7 @@ mod tests {
                 scale_up_cooldown: Duration::from_secs(10),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1236,7 +1237,7 @@ mod tests {
                 max_remove_channels: 1,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1314,7 +1315,7 @@ mod tests {
                 max_remove_channels: 1,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_heavy),
                 Arc::clone(&channel_rw_attached),
@@ -1399,7 +1400,7 @@ mod tests {
             ..Default::default()
         };
 
-        let pool = ChannelPool::new_dynamic(channels, config, ClientConfig::default());
+        let pool = ChannelPool::new_dynamic(channels, config, test_client_config());
         let weak_inner = Arc::downgrade(&pool.inner);
 
         assert!(
@@ -1432,7 +1433,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
@@ -1591,7 +1592,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
@@ -1679,7 +1680,7 @@ mod tests {
                 max_channels: 3,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1)]),
             draining_entries: RwLock::new(vec![Arc::clone(&channel_2)]),
             next_entry_id: AtomicU64::new(3),
@@ -1764,7 +1765,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1863,7 +1864,7 @@ mod tests {
         active_heavy[2].in_flight_rpcs.store(9, Ordering::Relaxed);
         let heavy_inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(heavy_config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(active_heavy),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(13),
@@ -1897,7 +1898,7 @@ mod tests {
         ];
         let zero_remove_inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(zero_remove_config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(active_zero_remove),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(23),
@@ -1941,7 +1942,7 @@ mod tests {
 
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(channels.clone()),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(7),
@@ -2007,7 +2008,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(Vec::new()),
             draining_entries: RwLock::new(vec![
                 Arc::clone(&channel_in_flight),
@@ -2049,7 +2050,7 @@ mod tests {
         let static_pool = ChannelPool::new_static(
             vec![create_mock_channel()],
             StaticChannelPoolConfig::default(),
-            ClientConfig::default(),
+            test_client_config(),
         );
         let weak_static = Arc::downgrade(&static_pool.inner);
         scale_up_worker_loop(
@@ -2067,7 +2068,7 @@ mod tests {
         // 3. Dynamic pool -> worker loops terminate cleanly when pool/inner is dropped
         let inner_up = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::new(ChannelEntry::new(
                 1,
                 1,
@@ -2104,7 +2105,7 @@ mod tests {
 
         let inner_down = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::new(ChannelEntry::new(
                 1,
                 1,
@@ -2505,7 +2506,7 @@ mod tests {
     async fn scale_up_worker_loop_skips_when_no_prime_session_or_no_scale_needed() {
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::new(ChannelEntry::new(
                 1,
                 1,
@@ -2554,7 +2555,7 @@ mod tests {
                 scale_up_cooldown: Duration::from_secs(10),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -2863,7 +2864,7 @@ mod tests {
                 scale_down_check_interval: Duration::from_secs(180),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -2908,7 +2909,7 @@ mod tests {
                 scale_up_cooldown: Duration::from_millis(50),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel_1, channel_2]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
@@ -3042,7 +3043,7 @@ mod tests {
         let channel = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -3078,7 +3079,7 @@ mod tests {
         let channel = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -3235,7 +3236,7 @@ mod tests {
                 scale_up_cooldown: Duration::from_secs(10),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -3424,7 +3425,7 @@ mod tests {
         let pool = ChannelPool::new_static(
             vec![create_mock_channel()],
             StaticChannelPoolConfig { num_channels: 1 },
-            ClientConfig::default(),
+            test_client_config(),
         );
         let weak_inner = Arc::downgrade(&pool.inner);
         scale_up_worker_loop(weak_inner, receiver).await;
@@ -3436,7 +3437,7 @@ mod tests {
         let pool = ChannelPool::new_static(
             vec![create_mock_channel()],
             StaticChannelPoolConfig { num_channels: 1 },
-            ClientConfig::default(),
+            test_client_config(),
         );
         let weak_inner = Arc::downgrade(&pool.inner);
         scale_down_monitor_loop(weak_inner, receiver, Duration::from_millis(1)).await;
