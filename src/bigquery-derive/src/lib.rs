@@ -17,7 +17,8 @@
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
-use quote::quote;
+use quote::{quote, quote_spanned};
+use syn::spanned::Spanned;
 use syn::{Data, DeriveInput, Fields, parse_macro_input};
 
 /// Derives standard library [TryFrom] for converting a BigQuery `Row` into a struct.
@@ -200,9 +201,6 @@ pub fn derive_to_row(input: TokenStream) -> TokenStream {
     derive_to_row_impl(input).into()
 }
 
-/// Protobuf messages number their fields starting at 1.
-const FIRST_FIELD_NUMBER: u32 = 1;
-
 fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     let name = input.ident;
 
@@ -220,12 +218,12 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         }
     };
 
-    // Number the fields in declaration order. The schema and the encoder use
-    // the same numbers, so they always agree.
-    let mut columns = Vec::new();
+    // Describe and encode the fields in declaration order. The library numbers
+    // the fields in the order of the calls, so the schema and the encoder
+    // always agree.
     let mut descriptors = Vec::new();
     let mut encoders = Vec::new();
-    for (field, number) in fields.iter().zip(FIRST_FIELD_NUMBER..) {
+    for field in &fields {
         let column = match get_field_name(field) {
             Ok(column) => column,
             Err(err) => return err.to_compile_error(),
@@ -235,65 +233,51 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             .as_ref()
             .expect("named field must have identifier");
         let field_type = &field.ty;
-        // Both calls name the trait through the field's type, which keeps the
-        // span of the type in the user's code. If the type does not implement
+        // The calls keep the hygiene of `#[derive(ToRow)]`, but take the
+        // location of the field's type. If the type does not implement
         // `ProtoValue`, the compiler reports the error at the field, instead
         // of at `#[derive(ToRow)]`.
-        descriptors.push(quote! {
-            <#field_type as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor(#column, #number, types)
+        let span = proc_macro2::Span::call_site().located_at(field_type.span());
+        descriptors.push(quote_spanned! {span=>
+            fields.field::<#field_type>(#column);
         });
-        encoders.push(quote! {
-            <#field_type as google_cloud_bigquery::write::__private::ProtoValue>::encode(&self.#field_name, #number, buf)?;
+        encoders.push(quote_spanned! {span=>
+            fields.field(&self.#field_name)?;
         });
-        columns.push(column);
     }
 
-    let message = syn::ext::IdentExt::unraw(&name).to_string();
     let generics = add_trait_bounds(
         input.generics,
-        quote!(google_cloud_bigquery::write::__private::ProtoValue),
+        quote!(google_cloud_bigquery::write::ProtoValue),
     );
     let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
 
-    // The fields are described and encoded once, in `ProtoMessage`. `ToRow`
-    // uses them for rows, and `ProtoValue` for fields that hold this struct.
+    // `ToRow` describes and encodes the fields, for rows. `ProtoValue` and
+    // `ProtoElement` let a field, or the elements of a `Vec<T>` field, hold
+    // this struct.
     quote! {
-        impl #impl_generics google_cloud_bigquery::write::__private::ProtoMessage for #name #ty_generics #where_clause {
-            const NAME: &'static str = #message;
-
-            const COLUMNS: &'static [&'static str] = &[ #( #columns ),* ];
-
-            fn fields(types: &mut google_cloud_bigquery::write::__private::NestedTypes) -> std::vec::Vec<google_cloud_bigquery::write::__private::FieldDescriptorProto> {
-                std::vec![ #( #descriptors ),* ]
+        impl #impl_generics google_cloud_bigquery::write::ToRow for #name #ty_generics #where_clause {
+            fn describe_fields(fields: &mut google_cloud_bigquery::write::StructSchema<'_>) {
+                #( #descriptors )*
             }
 
-            fn encode_fields(&self, buf: &mut std::vec::Vec<u8>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
+            fn encode_fields(&self, fields: &mut google_cloud_bigquery::write::StructEncoder<'_>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
                 #( #encoders )*
                 std::result::Result::Ok(())
             }
         }
 
-        impl #impl_generics google_cloud_bigquery::write::ToRow for #name #ty_generics #where_clause {
-            fn schema() -> google_cloud_bigquery::model::ProtoSchema {
-                google_cloud_bigquery::write::__private::message_schema::<Self>()
+        impl #impl_generics google_cloud_bigquery::write::ProtoValue for #name #ty_generics #where_clause {
+            fn describe(field: google_cloud_bigquery::write::FieldSchema<'_>) {
+                field.message::<Self>();
             }
 
-            fn to_row(&self) -> std::result::Result<google_cloud_bigquery::write::__private::Bytes, google_cloud_bigquery::error::ConvertError> {
-                google_cloud_bigquery::write::__private::encode_row(self)
-            }
-        }
-
-        impl #impl_generics google_cloud_bigquery::write::__private::ProtoValue for #name #ty_generics #where_clause {
-            fn field_descriptor(name: &str, number: u32, types: &mut google_cloud_bigquery::write::__private::NestedTypes) -> google_cloud_bigquery::write::__private::FieldDescriptorProto {
-                google_cloud_bigquery::write::__private::struct_field_descriptor::<Self>(name, number, types)
-            }
-
-            fn encode(&self, number: u32, buf: &mut std::vec::Vec<u8>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
-                google_cloud_bigquery::write::__private::encode_message(self, number, buf)
+            fn encode(&self, field: google_cloud_bigquery::write::FieldEncoder<'_>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
+                field.message(self)
             }
         }
 
-        impl #impl_generics google_cloud_bigquery::write::__private::ProtoElement for #name #ty_generics #where_clause {}
+        impl #impl_generics google_cloud_bigquery::write::ProtoElement for #name #ty_generics #where_clause {}
     }
 }
 
@@ -560,51 +544,35 @@ mod tests {
                 r#type: String,
             }
         };
-        // Fields are numbered in declaration order. Renamed fields use the new
-        // name, and raw identifiers lose their `r#` prefix.
+        // The fields are described and encoded in declaration order. Renamed
+        // fields use the new name, and raw identifiers lose their `r#` prefix.
         let want = quote! {
-            impl google_cloud_bigquery::write::__private::ProtoMessage for Row {
-                const NAME: &'static str = "Row";
-
-                const COLUMNS: &'static [&'static str] = &["name", "family_name", "type"];
-
-                fn fields(types: &mut google_cloud_bigquery::write::__private::NestedTypes) -> std::vec::Vec<google_cloud_bigquery::write::__private::FieldDescriptorProto> {
-                    std::vec![
-                        <String as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor("name", 1u32, types),
-                        <String as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor("family_name", 2u32, types),
-                        <String as google_cloud_bigquery::write::__private::ProtoValue>::field_descriptor("type", 3u32, types)
-                    ]
+            impl google_cloud_bigquery::write::ToRow for Row {
+                fn describe_fields(fields: &mut google_cloud_bigquery::write::StructSchema<'_>) {
+                    fields.field::<String>("name");
+                    fields.field::<String>("family_name");
+                    fields.field::<String>("type");
                 }
 
-                fn encode_fields(&self, buf: &mut std::vec::Vec<u8>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
-                    <String as google_cloud_bigquery::write::__private::ProtoValue>::encode(&self.name, 1u32, buf)?;
-                    <String as google_cloud_bigquery::write::__private::ProtoValue>::encode(&self.surname, 2u32, buf)?;
-                    <String as google_cloud_bigquery::write::__private::ProtoValue>::encode(&self.r#type, 3u32, buf)?;
+                fn encode_fields(&self, fields: &mut google_cloud_bigquery::write::StructEncoder<'_>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
+                    fields.field(&self.name)?;
+                    fields.field(&self.surname)?;
+                    fields.field(&self.r#type)?;
                     std::result::Result::Ok(())
                 }
             }
 
-            impl google_cloud_bigquery::write::ToRow for Row {
-                fn schema() -> google_cloud_bigquery::model::ProtoSchema {
-                    google_cloud_bigquery::write::__private::message_schema::<Self>()
+            impl google_cloud_bigquery::write::ProtoValue for Row {
+                fn describe(field: google_cloud_bigquery::write::FieldSchema<'_>) {
+                    field.message::<Self>();
                 }
 
-                fn to_row(&self) -> std::result::Result<google_cloud_bigquery::write::__private::Bytes, google_cloud_bigquery::error::ConvertError> {
-                    google_cloud_bigquery::write::__private::encode_row(self)
-                }
-            }
-
-            impl google_cloud_bigquery::write::__private::ProtoValue for Row {
-                fn field_descriptor(name: &str, number: u32, types: &mut google_cloud_bigquery::write::__private::NestedTypes) -> google_cloud_bigquery::write::__private::FieldDescriptorProto {
-                    google_cloud_bigquery::write::__private::struct_field_descriptor::<Self>(name, number, types)
-                }
-
-                fn encode(&self, number: u32, buf: &mut std::vec::Vec<u8>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
-                    google_cloud_bigquery::write::__private::encode_message(self, number, buf)
+                fn encode(&self, field: google_cloud_bigquery::write::FieldEncoder<'_>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
+                    field.message(self)
                 }
             }
 
-            impl google_cloud_bigquery::write::__private::ProtoElement for Row {}
+            impl google_cloud_bigquery::write::ProtoElement for Row {}
         };
         assert_eq!(derive_to_row_impl(input).to_string(), want.to_string());
     }
@@ -623,15 +591,14 @@ mod tests {
         Ok(())
     }
 
-    #[test_case("google_cloud_bigquery :: write :: __private :: ProtoMessage"; "message")]
     #[test_case("google_cloud_bigquery :: write :: ToRow"; "row")]
-    #[test_case("google_cloud_bigquery :: write :: __private :: ProtoValue"; "value")]
-    #[test_case("google_cloud_bigquery :: write :: __private :: ProtoElement"; "element")]
+    #[test_case("google_cloud_bigquery :: write :: ProtoValue"; "value")]
+    #[test_case("google_cloud_bigquery :: write :: ProtoElement"; "element")]
     fn test_to_row_generics_expansion(trait_path: &str) -> Result<(), syn::Error> {
         let input: DeriveInput = syn::parse_str("struct Wrapper<T> { val: T }")?;
         let tokens = derive_to_row_impl(input).to_string();
         let want = format!(
-            "impl < T : google_cloud_bigquery :: write :: __private :: ProtoValue > {trait_path} for Wrapper < T >"
+            "impl < T : google_cloud_bigquery :: write :: ProtoValue > {trait_path} for Wrapper < T >"
         );
         assert!(tokens.contains(&want), "unexpected expansion: {tokens}");
         Ok(())
