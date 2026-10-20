@@ -760,6 +760,7 @@ mod tests {
 
         // Assert
         assert!(err.is_transport(), "{err:?}");
+        assert!(format!("{err:?}").contains("ClientTlsConfig"), "{err:?}");
     }
 
     #[tokio::test]
