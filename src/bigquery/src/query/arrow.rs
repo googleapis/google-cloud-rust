@@ -25,11 +25,13 @@ use std::sync::Arc;
 /// Incremental Arrow IPC stream decoder that parses an initial `ArrowSchema`
 /// once and decodes incoming `ArrowRecordBatch` frames without re-parsing the
 /// schema on every message.
+#[cfg_attr(not(test), allow(dead_code))]
 #[derive(Debug)]
 pub(crate) struct ArrowStreamDecoder {
     decoder: arrow::ipc::reader::StreamDecoder,
 }
 
+#[cfg_attr(not(test), allow(dead_code))]
 impl ArrowStreamDecoder {
     pub(crate) fn new() -> Self {
         Self {
@@ -47,7 +49,6 @@ impl ArrowStreamDecoder {
     }
 
     /// Decodes a single Arrow IPC record batch frame from [`bytes::Bytes`].
-    #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) fn decode_batch(
         &mut self,
         batch_bytes: bytes::Bytes,
@@ -75,12 +76,14 @@ impl ArrowStreamDecoder {
 }
 
 /// An asynchronous source of decoded Arrow [`RecordBatch`]es.
+#[cfg_attr(not(test), allow(dead_code))]
 pub(crate) trait RecordBatchSource {
     /// Returns the next non-empty [`RecordBatch`], or `Ok(None)` when the stream is exhausted.
     async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError>;
 }
 
 /// Reads Arrow [`RecordBatch`]es from in-memory `jobs.query` response buffers.
+#[cfg_attr(not(test), allow(dead_code))]
 #[derive(Debug)]
 pub(crate) struct ArrowResponseReader {
     decoder: ArrowStreamDecoder,
@@ -88,6 +91,7 @@ pub(crate) struct ArrowResponseReader {
     batch_buf: arrow::buffer::Buffer,
 }
 
+#[cfg_attr(not(test), allow(dead_code))]
 impl ArrowResponseReader {
     pub(crate) fn new(
         serialized_schema: bytes::Bytes,
@@ -119,6 +123,7 @@ impl RecordBatchSource for ArrowResponseReader {
 }
 
 /// Unified Arrow [`RecordBatch`] reader over inline query responses or BigQuery Storage Read streams.
+#[cfg_attr(not(test), allow(dead_code))]
 #[derive(Debug)]
 pub(crate) enum ArrowReader {
     Response(ArrowResponseReader),
@@ -133,6 +138,7 @@ impl RecordBatchSource for ArrowReader {
     }
 }
 
+#[cfg_attr(not(test), allow(dead_code))]
 impl ArrowReader {
     /// Returns `true` if a failed read attempt can fall back to REST `jobs.getQueryResults` pagination.
     pub(crate) fn can_fallback_to_rest(&self) -> bool {
