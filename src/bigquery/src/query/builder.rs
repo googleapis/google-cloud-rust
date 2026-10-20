@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::RequestOptions;
+use crate::client::Read;
 use crate::error::QueryError;
 use crate::generated::QueryRequest;
 use crate::query::execution::RetryContext;
@@ -58,6 +59,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 #[derive(Clone, Debug)]
 pub struct Query {
     pub(crate) job_service: Arc<JobService>,
+    pub(crate) read_client: Option<Arc<Read>>,
     pub(crate) request: QueryRequest,
     pub(crate) project_id: Option<String>,
     pub(crate) job_retry_policy: Arc<dyn JobRetryPolicy>,
@@ -66,9 +68,14 @@ pub struct Query {
 
 impl Query {
     /// Creates a new `Query` builder for the given SQL query.
-    pub(crate) fn new(job_service: Arc<JobService>, sql: String) -> Self {
+    pub(crate) fn new(
+        job_service: Arc<JobService>,
+        read_client: Option<Arc<Read>>,
+        sql: String,
+    ) -> Self {
         Self {
             job_service,
+            read_client,
             request: QueryRequest::default()
                 .set_query(sql)
                 .set_use_legacy_sql(wkt::BoolValue::from(false))
@@ -243,7 +250,7 @@ mod tests {
     use super::*;
     use crate::client::BigQuery;
     use crate::error::QueryError;
-    use crate::query::tests::{MockJobService, create_job_service};
+    use crate::query::tests::{MockJobService, create_job_service, create_read_client};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
@@ -263,8 +270,9 @@ mod tests {
     fn test_new() {
         let job_service = create_job_service(MockJobService::new());
         let sql = "SELECT 1".to_string();
-        let query_builder = Query::new(job_service, sql.clone());
+        let query_builder = Query::new(job_service, None, sql.clone());
         assert_eq!(query_builder.request.query, sql);
+        assert!(query_builder.read_client.is_none());
         assert_eq!(
             query_builder.request.use_legacy_sql,
             Some(wkt::BoolValue::from(false))
@@ -282,7 +290,7 @@ mod tests {
     fn test_with_project_id() {
         let job_service = create_job_service(MockJobService::new());
         let query_builder =
-            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         assert_eq!(query_builder.project_id.unwrap(), "my-project");
         assert_eq!(
             query_builder.options.quota_project().as_deref(),
@@ -294,7 +302,7 @@ mod tests {
     fn test_with_user_agent() {
         let job_service = create_job_service(MockJobService::new());
         let query_builder =
-            Query::new(job_service, "SELECT 1".to_string()).with_user_agent("my-app/1.2.3");
+            Query::new(job_service, None, "SELECT 1".to_string()).with_user_agent("my-app/1.2.3");
         assert_eq!(
             query_builder.options.user_agent().as_deref(),
             Some("my-app/1.2.3")
@@ -399,12 +407,14 @@ mod tests {
         mock.expect_query().never();
 
         let job_service = create_job_service(mock);
+        let read_client = create_read_client();
 
-        let query_builder = Query::new(job_service, "SELECT 1".to_string())
+        let query_builder = Query::new(job_service, Some(read_client), "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true);
         let query = query_builder.send().await?;
         assert!(query.completed, "{query:?}");
+        assert!(query.read_client.is_some());
         assert_eq!(query.options.quota_project().as_deref(), Some("my-project"));
 
         Ok(())
@@ -425,10 +435,12 @@ mod tests {
         mock.expect_insert_job().never();
 
         let job_service = create_job_service(mock);
-        let query_builder =
-            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let read_client = create_read_client();
+        let query_builder = Query::new(job_service, Some(read_client), "SELECT 1".to_string())
+            .with_project_id("my-project");
         let query = query_builder.send().await?;
         assert!(!query.completed, "{query:?}");
+        assert!(query.read_client.is_some());
         assert_eq!(query.metadata.query_id, "some_query_id");
         assert_eq!(query.options.quota_project().as_deref(), Some("my-project"));
 
@@ -438,7 +450,7 @@ mod tests {
     #[test]
     fn test_force_job_path() {
         let job_service = create_job_service(MockJobService::new());
-        let mut query_builder = Query::new(job_service, "SELECT 1".to_string());
+        let mut query_builder = Query::new(job_service, None, "SELECT 1".to_string());
         assert!(!query_builder.request.force_job_path());
 
         // setting a jobs.insert exclusive field
@@ -507,7 +519,7 @@ mod tests {
 
         let job_service = create_job_service(mock);
         let query_builder =
-            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         let query = query_builder.send().await?;
         assert_eq!(query.metadata.query_id, "q_success");
 
@@ -564,7 +576,7 @@ mod tests {
 
         let job_service = create_job_service(mock);
         let query_builder =
-            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         let query = query_builder.send().await?;
         assert_eq!(query.metadata.query_id, "q_success");
 
@@ -582,7 +594,7 @@ mod tests {
             Ok(Response::from(QueryResponse::new()))
         });
         let job_service = create_job_service(mock);
-        let query_builder = Query::new(job_service, "SELECT 1".to_string())
+        let query_builder = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_page_size(100_u32);
         let query = query_builder.send().await?;
@@ -605,7 +617,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
 
-        let query_builder = Query::new(job_service, "SELECT 1".to_string())
+        let query_builder = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true)
             .set_page_size(50_u32);
@@ -627,9 +639,12 @@ mod tests {
             ))
         });
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let read_client = create_read_client();
+        let query = Query::new(job_service, Some(read_client), "SELECT 1".to_string())
+            .with_project_id("my-project");
         let complete = query.until_done().await?;
         assert_eq!(complete.metadata().query_id, "some_query_id");
+        assert!(complete.read_client.is_some());
         assert_eq!(
             complete.options.quota_project().as_deref(),
             Some("my-project")
@@ -644,7 +659,7 @@ mod tests {
         mock.expect_insert_job().never();
         mock.expect_query().never();
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(true);
         let err = query.until_done().await.unwrap_err();
@@ -664,7 +679,7 @@ mod tests {
             Ok(Response::from(QueryResponse::new()))
         });
         let job_service = create_job_service(mock);
-        let query_builder = Query::new(job_service, "SELECT 1".to_string())
+        let query_builder = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .with_user_agent("my-app/1.2.3");
         let query = query_builder.send().await?;
@@ -688,7 +703,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
 
-        let query_builder = Query::new(job_service, "SELECT 1".to_string())
+        let query_builder = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true)
             .with_user_agent("my-app/1.2.3");

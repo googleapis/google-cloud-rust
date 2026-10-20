@@ -93,8 +93,18 @@ pub(crate) mod tests {
         }
     }
 
+    mockall::mock! {
+        #[derive(Debug)]
+        pub Read {}
+        impl crate::stub::Read for Read {}
+    }
+
     pub(crate) fn create_job_service(mock: MockJobService) -> Arc<JobService> {
         Arc::new(JobService::from_stub::<MockJobService>(Arc::new(mock)))
+    }
+
+    pub(crate) fn create_read_client() -> Arc<crate::client::Read> {
+        Arc::new(crate::client::Read::from_stub(MockRead::new()))
     }
 
     pub(crate) fn create_test_backoff_policy() -> MockBackoffPolicy {
