@@ -166,7 +166,7 @@ impl Reader {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_retry_policy(mut self, v: impl Into<RetryPolicyArg>) -> Self {
         self.retry_policy = v.into().into();
         self
     }
@@ -186,7 +186,7 @@ impl Reader {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_backoff_policy(mut self, v: impl Into<BackoffPolicyArg>) -> Self {
         self.backoff_policy = v.into().into();
         self
     }
@@ -206,7 +206,7 @@ impl Reader {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+    pub fn with_retry_throttler(mut self, v: impl Into<RetryThrottlerArg>) -> Self {
         self.retry_throttler = v.into().into();
         self
     }
