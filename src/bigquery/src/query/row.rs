@@ -336,7 +336,7 @@ impl Row {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
+    pub fn get<T: FromSql>(&self, index: impl ColumnIndex) -> Result<T> {
         let idx = self.resolve_index(&index)?;
         match &self.inner {
             RowInner::Json(values) => {
@@ -395,14 +395,14 @@ impl Row {
     /// println!("Length: {}", text.len());
     ///
     /// // Subsequent reads treat the column as NULL:
-    /// assert_eq!(row.get::<Option<String>, _>("big_text")?, None);
+    /// assert_eq!(row.get::<Option<String>>("big_text")?, None);
     ///
     /// // Attempting to read or take again as a non-nullable type fails:
-    /// assert!(row.take::<String, _>("big_text").is_err());
+    /// assert!(row.take::<String>("big_text").is_err());
     /// # Ok(())
     /// # }
     /// ```
-    pub fn take<T: FromSql, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
+    pub fn take<T: FromSql>(&mut self, index: impl ColumnIndex) -> Result<T> {
         let idx = self.resolve_index(&index)?;
         match &mut self.inner {
             RowInner::Json(values) => {
@@ -605,39 +605,39 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let mut row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(row.get::<String, _>(0)?, "James");
-        assert_eq!(row.get::<String, _>("name")?, "James");
+        assert_eq!(row.get::<String>(0)?, "James");
+        assert_eq!(row.get::<String>("name")?, "James");
 
-        assert_eq!(row.get::<i32, _>(1)?, 272793);
-        assert_eq!(row.get::<i32, _>("some_int")?, 272793);
-        assert_eq!(row.get::<i64, _>(1)?, 272793);
-        assert_eq!(row.get::<i64, _>("some_int")?, 272793);
+        assert_eq!(row.get::<i32>(1)?, 272793);
+        assert_eq!(row.get::<i32>("some_int")?, 272793);
+        assert_eq!(row.get::<i64>(1)?, 272793);
+        assert_eq!(row.get::<i64>("some_int")?, 272793);
 
-        assert!(row.get::<bool, _>(2)?);
-        assert!(row.get::<bool, _>("some_bool")?);
+        assert!(row.get::<bool>(2)?);
+        assert!(row.get::<bool>("some_bool")?);
 
-        assert_eq!(row.get::<Option<i64>, _>(3)?, None);
-        assert_eq!(row.get::<Option<i64>, _>("some_null")?, None);
+        assert_eq!(row.get::<Option<i64>>(3)?, None);
+        assert_eq!(row.get::<Option<i64>>("some_null")?, None);
 
-        assert_eq!(row.get::<f32, _>(4)?, 64.0);
-        assert_eq!(row.get::<f32, _>("some_float")?, 64.0);
-        assert_eq!(row.get::<f64, _>(4)?, 64.0);
-        assert_eq!(row.get::<f64, _>("some_float")?, 64.0);
+        assert_eq!(row.get::<f32>(4)?, 64.0);
+        assert_eq!(row.get::<f32>("some_float")?, 64.0);
+        assert_eq!(row.get::<f64>(4)?, 64.0);
+        assert_eq!(row.get::<f64>("some_float")?, 64.0);
 
-        assert_eq!(row.take::<String, _>(0)?, "James");
-        assert_eq!(row.get::<Option<String>, _>(0)?, None);
+        assert_eq!(row.take::<String>(0)?, "James");
+        assert_eq!(row.get::<Option<String>>(0)?, None);
 
-        assert_eq!(row.take::<i32, _>(1)?, 272793);
-        assert_eq!(row.get::<Option<i32>, _>(1)?, None);
+        assert_eq!(row.take::<i32>(1)?, 272793);
+        assert_eq!(row.get::<Option<i32>>(1)?, None);
 
-        assert!(row.take::<bool, _>(2)?);
-        assert_eq!(row.get::<Option<bool>, _>(2)?, None);
+        assert!(row.take::<bool>(2)?);
+        assert_eq!(row.get::<Option<bool>>(2)?, None);
 
-        assert_eq!(row.take::<Option<i64>, _>(3)?, None);
-        assert_eq!(row.get::<Option<i64>, _>(3)?, None);
+        assert_eq!(row.take::<Option<i64>>(3)?, None);
+        assert_eq!(row.get::<Option<i64>>(3)?, None);
 
-        assert_eq!(row.take::<f32, _>(4)?, 64.0);
-        assert_eq!(row.get::<Option<f32>, _>(4)?, None);
+        assert_eq!(row.take::<f32>(4)?, 64.0);
+        assert_eq!(row.get::<Option<f32>>(4)?, None);
 
         Ok(())
     }
@@ -669,60 +669,54 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let mut row = Row::try_new(raw_row, &schema)?;
 
+        assert_eq!(row.get::<Decimal>(0)?, Decimal::new().set_value("123.456"));
         assert_eq!(
-            row.get::<Decimal, _>(0)?,
-            Decimal::new().set_value("123.456")
-        );
-        assert_eq!(
-            row.get::<Decimal, _>("price")?,
+            row.get::<Decimal>("price")?,
             Decimal::new().set_value("123.456")
         );
 
         assert_eq!(
-            row.get::<Decimal, _>(1)?,
+            row.get::<Decimal>(1)?,
             Decimal::new().set_value("99999999999999999999.123456789")
         );
         assert_eq!(
-            row.get::<Decimal, _>("big_amount")?,
+            row.get::<Decimal>("big_amount")?,
             Decimal::new().set_value("99999999999999999999.123456789")
         );
 
         assert_eq!(
-            row.get::<RustDecimal, _>(0)?,
+            row.get::<RustDecimal>(0)?,
             "123.456".parse().expect("valid decimal")
         );
         assert_eq!(
-            row.get::<RustDecimal, _>("price")?,
+            row.get::<RustDecimal>("price")?,
             "123.456".parse().expect("valid decimal")
         );
 
         assert_eq!(
-            row.get::<RustDecimal, _>(1)?,
+            row.get::<RustDecimal>(1)?,
             "99999999999999999999.123456789"
                 .parse()
                 .expect("valid decimal")
         );
         assert_eq!(
-            row.get::<RustDecimal, _>("big_amount")?,
+            row.get::<RustDecimal>("big_amount")?,
             "99999999999999999999.123456789"
                 .parse()
                 .expect("valid decimal")
         );
 
-        assert!(row.get::<RustDecimal, _>(2).is_err());
-        assert!(row.get::<RustDecimal, _>("overflow_amount").is_err());
+        assert!(row.get::<RustDecimal>(2).is_err());
+        assert!(row.get::<RustDecimal>("overflow_amount").is_err());
+
+        assert_eq!(row.take::<Decimal>(0)?, Decimal::new().set_value("123.456"));
+        assert_eq!(row.get::<Option<Decimal>>(0)?, None);
 
         assert_eq!(
-            row.take::<Decimal, _>(0)?,
-            Decimal::new().set_value("123.456")
-        );
-        assert_eq!(row.get::<Option<Decimal>, _>(0)?, None);
-
-        assert_eq!(
-            row.take::<RustDecimal, _>(1)?,
+            row.take::<RustDecimal>(1)?,
             "99999999999999999999.123456789".parse()?
         );
-        assert_eq!(row.get::<Option<RustDecimal>, _>(1)?, None);
+        assert_eq!(row.get::<Option<RustDecimal>>(1)?, None);
 
         Ok(())
     }
@@ -754,29 +748,29 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let mut row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(row.get::<Vec<u8>, _>(0)?, vec![1, 2, 3, 4]);
-        assert_eq!(row.get::<Vec<u8>, _>("payload_vec")?, vec![1, 2, 3, 4]);
+        assert_eq!(row.get::<Vec<u8>>(0)?, vec![1, 2, 3, 4]);
+        assert_eq!(row.get::<Vec<u8>>("payload_vec")?, vec![1, 2, 3, 4]);
 
         assert_eq!(
-            row.get::<bytes::Bytes, _>(1)?,
+            row.get::<bytes::Bytes>(1)?,
             bytes::Bytes::from_static(b"Hello")
         );
         assert_eq!(
-            row.get::<bytes::Bytes, _>("payload_bytes")?,
+            row.get::<bytes::Bytes>("payload_bytes")?,
             bytes::Bytes::from_static(b"Hello")
         );
 
-        assert_eq!(row.get::<Option<Vec<u8>>, _>(2)?, None);
-        assert_eq!(row.get::<Option<bytes::Bytes>, _>("null_bytes")?, None);
+        assert_eq!(row.get::<Option<Vec<u8>>>(2)?, None);
+        assert_eq!(row.get::<Option<bytes::Bytes>>("null_bytes")?, None);
 
-        assert_eq!(row.take::<Vec<u8>, _>(0)?, vec![1, 2, 3, 4]);
-        assert_eq!(row.get::<Option<Vec<u8>>, _>(0)?, None);
+        assert_eq!(row.take::<Vec<u8>>(0)?, vec![1, 2, 3, 4]);
+        assert_eq!(row.get::<Option<Vec<u8>>>(0)?, None);
 
         assert_eq!(
-            row.take::<bytes::Bytes, _>(1)?,
+            row.take::<bytes::Bytes>(1)?,
             bytes::Bytes::from_static(b"Hello")
         );
-        assert_eq!(row.get::<Option<bytes::Bytes>, _>(1)?, None);
+        assert_eq!(row.get::<Option<bytes::Bytes>>(1)?, None);
 
         Ok(())
     }
@@ -817,11 +811,11 @@ mod tests {
             "name": "Alice",
             "age": 25,
         }))?;
-        assert_eq!(row.get::<Struct, _>(0)?, expected);
-        assert_eq!(row.get::<Struct, _>("user")?, expected);
-        assert_eq!(row.get::<Struct, _>("user".to_string())?, expected);
-        assert_eq!(row.take::<Struct, _>("user")?, expected);
-        assert_eq!(row.get::<Option<Struct>, _>("user")?, None);
+        assert_eq!(row.get::<Struct>(0)?, expected);
+        assert_eq!(row.get::<Struct>("user")?, expected);
+        assert_eq!(row.get::<Struct>("user".to_string())?, expected);
+        assert_eq!(row.take::<Struct>("user")?, expected);
+        assert_eq!(row.get::<Option<Struct>>("user")?, None);
 
         Ok(())
     }
@@ -859,17 +853,17 @@ mod tests {
             "name": "Alice",
             "age": 30,
         }))?;
-        assert_eq!(row.get::<String, _>("json_obj")?, json_str);
-        assert_eq!(row.get::<Struct, _>("json_obj")?, expected_struct);
+        assert_eq!(row.get::<String>("json_obj")?, json_str);
+        assert_eq!(row.get::<Struct>("json_obj")?, expected_struct);
         assert_eq!(
-            row.get::<JsonPayload, _>("json_obj")?,
+            row.get::<JsonPayload>("json_obj")?,
             JsonPayload {
                 name: "Alice".to_string(),
                 age: 30,
             }
         );
-        assert_eq!(row.get::<Option<Struct>, _>("json_null")?, None);
-        assert_eq!(row.get::<Option<JsonPayload>, _>("json_null")?, None);
+        assert_eq!(row.get::<Option<Struct>>("json_null")?, None);
+        assert_eq!(row.get::<Option<JsonPayload>>("json_null")?, None);
 
         Ok(())
     }
@@ -895,10 +889,10 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let mut row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(row.get::<Vec<i64>, _>(0)?, vec![1, 2, 3]);
-        assert_eq!(row.get::<Vec<i64>, _>("numbers")?, vec![1, 2, 3]);
-        assert_eq!(row.take::<Vec<i64>, _>("numbers")?, vec![1, 2, 3]);
-        assert_eq!(row.get::<Option<Vec<i64>>, _>("numbers")?, None);
+        assert_eq!(row.get::<Vec<i64>>(0)?, vec![1, 2, 3]);
+        assert_eq!(row.get::<Vec<i64>>("numbers")?, vec![1, 2, 3]);
+        assert_eq!(row.take::<Vec<i64>>("numbers")?, vec![1, 2, 3]);
+        assert_eq!(row.get::<Option<Vec<i64>>>("numbers")?, None);
 
         Ok(())
     }
@@ -957,10 +951,10 @@ mod tests {
                 "age": 31,
             },
         ]))?;
-        assert_eq!(row.get::<Vec<Struct>, _>(0)?, expected);
-        assert_eq!(row.get::<Vec<Struct>, _>("users")?, expected);
-        assert_eq!(row.take::<Vec<Struct>, _>("users")?, expected);
-        assert_eq!(row.get::<Option<Vec<Struct>>, _>("users")?, None);
+        assert_eq!(row.get::<Vec<Struct>>(0)?, expected);
+        assert_eq!(row.get::<Vec<Struct>>("users")?, expected);
+        assert_eq!(row.take::<Vec<Struct>>("users")?, expected);
+        assert_eq!(row.get::<Option<Vec<Struct>>>("users")?, None);
 
         Ok(())
     }
@@ -1611,15 +1605,15 @@ mod tests {
 
             let mut row0 = Row::try_new_from_arrow(&batch, 0, &schema)?;
             assert_eq!(
-                row0.get::<ArrowString, _>("name")?,
+                row0.get::<ArrowString>("name")?,
                 ArrowString("Alice".to_string())
             );
-            assert_eq!(row0.get::<ArrowI64, _>(1)?, ArrowI64(30));
+            assert_eq!(row0.get::<ArrowI64>(1)?, ArrowI64(30));
             assert_eq!(
-                row0.take::<ArrowString, _>(0)?,
+                row0.take::<ArrowString>(0)?,
                 ArrowString("Alice".to_string())
             );
-            assert_eq!(row0.take::<ArrowI64, _>("age")?, ArrowI64(30));
+            assert_eq!(row0.take::<ArrowI64>("age")?, ArrowI64(30));
 
             let derived = ArrowUserRow::try_from(Row::try_new_from_arrow(&batch, 0, &schema)?)?;
             assert_eq!(
@@ -1632,11 +1626,11 @@ mod tests {
 
             let mut row1 = Row::try_new_from_arrow(&batch, 1, &schema)?;
             assert_eq!(
-                row1.get::<ArrowString, _>("name")?,
+                row1.get::<ArrowString>("name")?,
                 ArrowString("Bob".to_string())
             );
 
-            let err = row1.get::<ArrowI64, _>("age").unwrap_err();
+            let err = row1.get::<ArrowI64>("age").unwrap_err();
             assert!(
                 matches!(
                     &err,
@@ -1649,13 +1643,13 @@ mod tests {
                 "unexpected error: {err:?}"
             );
 
-            let err = row1.take::<ArrowI64, _>("missing").unwrap_err();
+            let err = row1.take::<ArrowI64>("missing").unwrap_err();
             assert!(
                 matches!(&err, RowError::ColumnNotFound(col) if col == "missing"),
                 "unexpected error: {err:?}"
             );
 
-            let err = row1.get::<ArrowI64, _>(99).unwrap_err();
+            let err = row1.get::<ArrowI64>(99).unwrap_err();
             assert!(
                 matches!(&err, RowError::ColumnNotFound(col) if col == "99"),
                 "unexpected error: {err:?}"
