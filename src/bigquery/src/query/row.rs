@@ -100,6 +100,13 @@ mod sealed {
         /// Returns the index of the column in the given row, if it exists.
         fn index(&self, row: &Row) -> Option<usize>;
 
+        /// Returns the index of the field in the given Arrow `StructArray`, if it exists.
+        #[cfg(any(
+            google_cloud_unstable_bigquery_arrow,
+            google_cloud_unstable_bigquery_storage_read
+        ))]
+        fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize>;
+
         /// Takes a value by column index or field name from `SqlValue`.
         fn take_sql_value(
             &self,
@@ -110,6 +117,14 @@ mod sealed {
     impl ColumnIndex for usize {
         fn index(&self, row: &Row) -> Option<usize> {
             row.schema.get_field_by_index(*self).map(|_| *self)
+        }
+
+        #[cfg(any(
+            google_cloud_unstable_bigquery_arrow,
+            google_cloud_unstable_bigquery_storage_read
+        ))]
+        fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+            (*self < struct_arr.num_columns()).then_some(*self)
         }
 
         fn take_sql_value(
@@ -142,6 +157,22 @@ mod sealed {
                     self.take_sql_value(value)
                 }
                 SqlValueInner::Null => Err(ConvertError::NotNull),
+                #[cfg(any(
+                    google_cloud_unstable_bigquery_arrow,
+                    google_cloud_unstable_bigquery_storage_read
+                ))]
+                SqlValueInner::Arrow(cell) => {
+                    // TODO(#7032): Support Arrow StructArray and JSON string cells for struct extraction.
+                    let val = cell.list_element_cell(*self)?;
+                    Ok(SqlValue::from_inner(SqlValueInner::Arrow(val)))
+                }
+                #[cfg_attr(
+                    any(
+                        google_cloud_unstable_bigquery_arrow,
+                        google_cloud_unstable_bigquery_storage_read
+                    ),
+                    allow(unreachable_patterns)
+                )]
                 other => Err(ConvertError::type_mismatch(
                     "struct, array, or string",
                     other,
@@ -153,6 +184,14 @@ mod sealed {
     impl ColumnIndex for &str {
         fn index(&self, row: &Row) -> Option<usize> {
             row.schema.get_field_index_by_name(self)
+        }
+
+        #[cfg(any(
+            google_cloud_unstable_bigquery_arrow,
+            google_cloud_unstable_bigquery_storage_read
+        ))]
+        fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+            struct_arr.fields().iter().position(|f| f.name() == *self)
         }
 
         fn take_sql_value(
@@ -177,6 +216,7 @@ mod sealed {
                     self.take_sql_value(value)
                 }
                 SqlValueInner::Null => Err(ConvertError::NotNull),
+                // TODO(#7032): Support Arrow StructArray and JSON string cells for struct extraction.
                 other => Err(ConvertError::type_mismatch("object or string", other)),
             }
         }
@@ -185,6 +225,14 @@ mod sealed {
     impl ColumnIndex for String {
         fn index(&self, row: &Row) -> Option<usize> {
             <&str as ColumnIndex>::index(&self.as_str(), row)
+        }
+
+        #[cfg(any(
+            google_cloud_unstable_bigquery_arrow,
+            google_cloud_unstable_bigquery_storage_read
+        ))]
+        fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+            self.as_str().arrow_index(struct_arr)
         }
 
         fn take_sql_value(
@@ -1609,6 +1657,104 @@ mod tests {
             assert!(
                 matches!(&err, RowError::ColumnNotFound(col) if col == "99"),
                 "unexpected error: {err:?}"
+            );
+
+            Ok(())
+        }
+
+        #[derive(FromRow, Debug, PartialEq)]
+        struct ArrowListRow {
+            numbers: Vec<i64>,
+            strings: Vec<String>,
+        }
+
+        #[test]
+        fn try_new_from_arrow_list_arrays() -> TestResult {
+            use arrow::array::{ArrayRef, LargeListArray, ListArray};
+            use arrow::buffer::OffsetBuffer;
+
+            // List of integers: [[1, 2, 3], [42]]
+            let int_values = Arc::new(Int64Array::from(vec![1, 2, 3, 42])) as ArrayRef;
+            let int_offsets = OffsetBuffer::from_lengths(vec![3, 1]);
+            let int_list = Arc::new(ListArray::new(
+                Arc::new(Field::new("element", DataType::Int64, false)),
+                int_offsets,
+                int_values,
+                None,
+            ));
+
+            // LargeList of strings: [["a", "b"], ["c"]]
+            let str_values = Arc::new(StringArray::from(vec!["a", "b", "c"])) as ArrayRef;
+            let str_offsets = OffsetBuffer::from_lengths(vec![2, 1]);
+            let str_large_list = Arc::new(LargeListArray::new(
+                Arc::new(Field::new("element", DataType::Utf8, false)),
+                str_offsets,
+                str_values,
+                None,
+            ));
+
+            let arrow_schema = Arc::new(ArrowSchema::new(vec![
+                Field::new(
+                    "numbers",
+                    DataType::List(Arc::new(Field::new("element", DataType::Int64, false))),
+                    false,
+                ),
+                Field::new(
+                    "strings",
+                    DataType::LargeList(Arc::new(Field::new("element", DataType::Utf8, false))),
+                    false,
+                ),
+            ]));
+
+            let batch = Arc::new(RecordBatch::try_new(
+                arrow_schema,
+                vec![int_list, str_large_list],
+            )?);
+
+            let table_schema = TableSchema::new().set_fields([
+                TableFieldSchema::new()
+                    .set_name("numbers")
+                    .set_type("INTEGER")
+                    .set_mode("REPEATED"),
+                TableFieldSchema::new()
+                    .set_name("strings")
+                    .set_type("STRING")
+                    .set_mode("REPEATED"),
+            ]);
+            let schema = Arc::new(Schema::new(table_schema));
+
+            // Row 0
+            let row0 = Row::try_new_from_arrow(&batch, 0, &schema)?;
+            let numbers0: Vec<i64> = row0.get("numbers")?;
+            assert_eq!(numbers0, vec![1, 2, 3]);
+
+            let strings0: Vec<String> = row0.get("strings")?;
+            assert_eq!(strings0, vec!["a".to_string(), "b".to_string()]);
+
+            let row0_derived = ArrowListRow::try_from(row0)?;
+            assert_eq!(
+                row0_derived,
+                ArrowListRow {
+                    numbers: vec![1, 2, 3],
+                    strings: vec!["a".to_string(), "b".to_string()],
+                }
+            );
+
+            // Row 1
+            let row1 = Row::try_new_from_arrow(&batch, 1, &schema)?;
+            let numbers1: Vec<i64> = row1.get("numbers")?;
+            assert_eq!(numbers1, vec![42]);
+
+            let strings1: Vec<String> = row1.get("strings")?;
+            assert_eq!(strings1, vec!["c".to_string()]);
+
+            let row1_derived = ArrowListRow::try_from(row1)?;
+            assert_eq!(
+                row1_derived,
+                ArrowListRow {
+                    numbers: vec![42],
+                    strings: vec!["c".to_string()],
+                }
             );
 
             Ok(())

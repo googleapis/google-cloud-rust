@@ -7252,10 +7252,15 @@ name = "integration-tests-bigtable"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "futures",
  "google-cloud-bigtable-admin-v2",
  "google-cloud-gax",
+ "google-cloud-lro",
+ "google-cloud-test-utils",
+ "google-cloud-wkt",
  "mockall",
  "tokio",
+ "tracing",
 ]
 
 [[package]]

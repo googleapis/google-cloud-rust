@@ -886,7 +886,7 @@ mod tests {
     use crate::client::Channel;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::routing::server_connection::ServerConnection;
-    use gaxi::options::ClientConfig;
+    use crate::test::test_client_config;
     use std::fmt::Debug;
     use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::Barrier;
@@ -1008,7 +1008,7 @@ mod tests {
 
         // Populate ConnectionCache with mock connections
         {
-            let configuration = ClientConfig::default();
+            let configuration = test_client_config();
             let runtime = Builder::new_current_thread()
                 .enable_all()
                 .build()
@@ -1108,7 +1108,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1162,7 +1162,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1401,10 +1401,8 @@ mod tests {
     async fn lifecycle_manager_request_endpoint_recreation_with_client_config_warms_cache() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
         let start = Instant::now();
 
         let mut active = HashSet::new();
@@ -1449,7 +1447,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("cache get failed")
             })
@@ -1500,7 +1498,7 @@ mod tests {
             .expect("runtime build failed");
         runtime.block_on(async {
             cache
-                .get("10.0.0.1:15000", &ClientConfig::default())
+                .get("10.0.0.1:15000", &test_client_config())
                 .await
                 .expect("cache get failed");
         });
@@ -1519,10 +1517,8 @@ mod tests {
     async fn lifecycle_manager_probe_retries_missing_endpoints() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
         let start = Instant::now();
 
         let mut active = HashSet::new();
@@ -1563,7 +1559,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1635,7 +1631,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1719,7 +1715,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1812,11 +1808,11 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 let connection1 = cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection1 create failed");
                 let connection2 = cache
-                    .get("10.0.0.2:15000", &ClientConfig::default())
+                    .get("10.0.0.2:15000", &test_client_config())
                     .await
                     .expect("connection2 create failed");
                 (connection1, connection2)
@@ -1996,7 +1992,7 @@ mod tests {
             .expect("runtime build failed");
         runtime.block_on(async {
             cache
-                .get("10.0.0.1:15000", &ClientConfig::default())
+                .get("10.0.0.1:15000", &test_client_config())
                 .await
                 .expect("connection create failed");
         });
@@ -2018,10 +2014,8 @@ mod tests {
     async fn lifecycle_manager_reconnection_task_cleans_up_if_evicted_during_connect() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let mut active = HashSet::new();
         active.insert("10.0.0.1:15000".to_string());
@@ -2055,10 +2049,8 @@ mod tests {
     async fn lifecycle_manager_reconnection_task_cleans_up_if_manager_dropped_during_connect() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let mut active = HashSet::new();
         active.insert("10.0.0.1:15000".to_string());
@@ -2149,7 +2141,7 @@ mod tests {
         manager.update_active_addresses_at("database-1", active, now);
 
         let connection = cache
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("connection create failed");
         connection.set_transient_failure();
@@ -2185,10 +2177,8 @@ mod tests {
     async fn lifecycle_manager_connection_task_handles_cache_get_error() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let invalid_address = "invalid uri with spaces";
         let mut active = HashSet::new();

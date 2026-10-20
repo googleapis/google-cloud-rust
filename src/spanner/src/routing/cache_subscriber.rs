@@ -512,9 +512,9 @@ mod tests {
     use crate::routing::key_range_cache::{KeyRangeCache, RangeMode};
     use crate::routing::key_recipe_cache::KeyRecipeCache;
     use crate::routing::server_connection::ServerConnection;
+    use crate::test::test_client_config;
     use gaxi::grpc::tonic::Response;
     use gaxi::grpc::tonic::Status;
-    use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::error::rpc::Status as RpcStatus;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -604,7 +604,7 @@ mod tests {
             key_recipe_cache,
             connection_cache,
             endpoint_lifecycle_manager,
-            ClientConfig::default(),
+            test_client_config(),
         ))
     }
 

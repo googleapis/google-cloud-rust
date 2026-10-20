@@ -48,9 +48,10 @@ pub struct Reader {
 
 impl Reader {
     pub(crate) fn new(request: ReadRows) -> Self {
+        let offset = request.0.request.offset;
         Self {
             request,
-            state: ReaderState::Connecting { offset: 0 },
+            state: ReaderState::Connecting { offset },
         }
     }
 
@@ -315,6 +316,47 @@ mod tests {
         let r2 = reader.next().await.transpose()?.expect("row batch 2");
         assert_eq!(r2.row_count, 3);
         assert!(reader.next().await.is_none());
+        assert!(reader.next().await.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn with_offset_starts_from_initial_offset() -> anyhow::Result<()> {
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockReadStub::new();
+
+        mock.expect_read_rows()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.offset, 1_000);
+                let (tx, rx) = mpsc::channel(4);
+                tokio::spawn(async move {
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(25))).await;
+                    let _ = tx.send(Ok(ReadRowsResponse::new().set_row_count(10))).await;
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        let client = Read::from_stub(mock);
+        let mut reader = client
+            .read_rows()
+            .set_read_stream("streams/1")
+            .set_offset(1_000)
+            .into_reader();
+
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 25);
+        if let ReaderState::Reading { offset, .. } = &reader.state {
+            assert_eq!(*offset, 1025);
+        } else {
+            panic!("expected reader state to be Reading");
+        }
+        assert_eq!(reader.next().await.transpose()?.unwrap().row_count, 10);
+        if let ReaderState::Reading { offset, .. } = &reader.state {
+            assert_eq!(*offset, 1035);
+        } else {
+            panic!("expected reader state to be Reading");
+        }
         assert!(reader.next().await.is_none());
         Ok(())
     }

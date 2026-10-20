@@ -356,6 +356,7 @@ pub(crate) mod batch_dml;
 pub(crate) mod batch_read_only_transaction;
 pub(crate) mod batch_write_transaction;
 pub(crate) mod database_client;
+pub(crate) mod from_row;
 pub(crate) mod from_value;
 pub(crate) mod observability;
 pub(crate) mod partitioned_dml_transaction;
@@ -378,6 +379,9 @@ pub(crate) mod transaction_runner;
 pub(crate) mod write_only_transaction;
 
 mod status;
+
+#[cfg(test)]
+mod test;
 
 #[allow(dead_code)]
 #[allow(rustdoc::broken_intra_doc_links)]
