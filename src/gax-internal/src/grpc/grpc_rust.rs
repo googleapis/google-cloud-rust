@@ -316,7 +316,7 @@ impl GrpcRustClient {
         default_endpoint: &str,
         instrumentation: Option<&'static InstrumentationClientInfo>,
     ) -> ClientBuilderResult<Self> {
-        Self::check_unused_config_options(&config);
+        Self::check_unsupported_config(&config)?;
 
         let credentials = grpc_helpers::make_credentials(&config)?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
@@ -356,7 +356,8 @@ impl GrpcRustClient {
         })
     }
 
-    fn check_unused_config_options(config: &ClientConfig) {
+    /// Checks `config` for settings that grpc-rust does not support.
+    fn check_unsupported_config(config: &ClientConfig) -> ClientBuilderResult<()> {
         // These are present in `ClientConfig` but are not supported by
         // grpc-rust.
         debug_assert!(
@@ -367,6 +368,18 @@ impl GrpcRustClient {
             config.grpc_max_header_list_size.is_none(),
             "grpc_max_header_list_size is not supported by grpc-rust"
         );
+        // Ignoring a custom TLS config would silently drop its root
+        // certificates or client identity, so fail fast instead.
+        if config
+            .extensions
+            .get::<tonic::transport::ClientTlsConfig>()
+            .is_some()
+        {
+            return Err(BuilderError::transport(
+                "custom ClientTlsConfig is not supported by the grpc-rust transport",
+            ));
+        }
+        Ok(())
     }
 
     fn record_grpc_request(path: &http::uri::PathAndQuery) {
@@ -729,6 +742,25 @@ mod tests {
         assert_eq!(attributes.url_domain, "example.com");
         assert_eq!(attributes.instrumentation, Some(&TEST_INFO));
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn new_rejects_custom_tonic_tls_config() {
+        // Arrange
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        config
+            .extensions
+            .insert(tonic::transport::ClientTlsConfig::new());
+
+        // Act
+        let err = GrpcRustClient::new(config, "https://example.com")
+            .await
+            .expect_err("a custom ClientTlsConfig should be rejected");
+
+        // Assert
+        assert!(err.is_transport(), "{err:?}");
+        assert!(format!("{err:?}").contains("ClientTlsConfig"), "{err:?}");
     }
 
     #[tokio::test]
