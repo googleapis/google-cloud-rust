@@ -50,7 +50,6 @@ pub(crate) enum SqlValueInner {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
-    #[cfg_attr(not(test), allow(dead_code))]
     Arrow(ArrowCell),
 }
 
@@ -209,16 +208,17 @@ impl FromSql for wkt::Value {
                     DataType::Float64 => {
                         let val = cell.as_f64()?;
                         if let Some(n) = serde_json::Number::from_f64(val) {
-                            return Ok(wkt::Value::Number(n));
-                        }
-                        let s = if val.is_nan() {
-                            "NaN"
-                        } else if val.is_sign_positive() {
-                            "Infinity"
+                            wkt::Value::Number(n)
                         } else {
-                            "-Infinity"
-                        };
-                        wkt::Value::String(s.to_string())
+                            let s = if val.is_nan() {
+                                "NaN"
+                            } else if val.is_sign_positive() {
+                                "Infinity"
+                            } else {
+                                "-Infinity"
+                            };
+                            wkt::Value::String(s.to_string())
+                        }
                     }
                     DataType::Utf8 | DataType::LargeUtf8 => {
                         wkt::Value::String(cell.as_str()?.to_string())
@@ -300,7 +300,7 @@ impl FromSql for wkt::Value {
                                 let val = wkt::Value::from_value(SqlValue::from_inner(
                                     SqlValueInner::Arrow(child),
                                 ))?;
-                                Ok((f.name().clone(), val))
+                                Ok((f.name().to_string(), val))
                             })
                             .collect::<Result<wkt::Struct, ConvertError>>()?;
                         wkt::Value::Object(s)
@@ -1318,6 +1318,7 @@ mod tests {
         #[test_case(decimal256_array(vec![Some(i256::from_i128(123_456))], 20, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal256Array")]
         #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok(wkt::Value::String("1-2 3 04:05:06.000000789".to_string())) ; "value from IntervalMonthDayNanoArray")]
         #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-14, -3, -14_706_000_000_789))])) => Ok(wkt::Value::String("-1-2 -3 -04:05:06.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-2, 0, -789))])) => Ok(wkt::Value::String("-0-2 0 -00:00:00.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative months and nanos")]
         #[test_case(sample_test_struct_array(None) => Ok(wkt::Value::Object(wkt::Struct::from_iter([
             ("name".to_string(), wkt::Value::String("James".to_string())),
             ("custom_int".to_string(), wkt::Value::Number(272_793.into())),
