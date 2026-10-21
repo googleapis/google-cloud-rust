@@ -32,14 +32,14 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-v2/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-v2/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[DatasetService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.DatasetService.html
-[JobService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.JobService.html
-[ModelService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.ModelService.html
-[ProjectService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.ProjectService.html
-[RoutineService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.RoutineService.html
-[RowAccessPolicyService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.RowAccessPolicyService.html
-[TableService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.TableService.html
+[DatasetService]: https://docs.rs/google-cloud-bigquery-v2/1.1.0/google_cloud_bigquery_v2/client/struct.DatasetService.html
+[JobService]: https://docs.rs/google-cloud-bigquery-v2/1.1.0/google_cloud_bigquery_v2/client/struct.JobService.html
+[ModelService]: https://docs.rs/google-cloud-bigquery-v2/1.1.0/google_cloud_bigquery_v2/client/struct.ModelService.html
+[ProjectService]: https://docs.rs/google-cloud-bigquery-v2/1.1.0/google_cloud_bigquery_v2/client/struct.ProjectService.html
+[RoutineService]: https://docs.rs/google-cloud-bigquery-v2/1.1.0/google_cloud_bigquery_v2/client/struct.RoutineService.html
+[RowAccessPolicyService]: https://docs.rs/google-cloud-bigquery-v2/1.1.0/google_cloud_bigquery_v2/client/struct.RowAccessPolicyService.html
+[TableService]: https://docs.rs/google-cloud-bigquery-v2/1.1.0/google_cloud_bigquery_v2/client/struct.TableService.html
