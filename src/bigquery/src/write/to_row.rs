@@ -210,22 +210,15 @@ pub trait ToRow {
         encode_row(self)
     }
 
-    /// Describes the fields of this type, in order.
+    /// Visits the fields of this type, in order.
     ///
-    /// `#[derive(ToRow)]` implements this function, and [`schema`] calls it.
-    /// Applications do not need to call it.
+    /// `#[derive(ToRow)]` implements this function, with one call for each
+    /// field. [`schema`] calls it to describe the fields, and [`to_row`]
+    /// calls it to encode them. Applications do not need to call it.
     ///
     /// [`schema`]: ToRow::schema
-    fn describe_fields(fields: &mut StructSchema<'_>);
-
-    /// Encodes the fields of `self`, in the same order as [`describe_fields`].
-    ///
-    /// `#[derive(ToRow)]` implements this function, and [`to_row`] calls it.
-    /// Applications do not need to call it.
-    ///
-    /// [`describe_fields`]: ToRow::describe_fields
     /// [`to_row`]: ToRow::to_row
-    fn encode_fields(&self, fields: &mut StructEncoder<'_>) -> Result<(), ConvertError>;
+    fn visit_fields(fields: &mut StructFields<'_, Self>) -> Result<(), ConvertError>;
 }
 
 /// A Rust type that can be a field in a row.
@@ -309,110 +302,99 @@ pub trait ProtoElement: ProtoValue {}
 /// The number of the first field in a message. Protobuf numbers fields from 1.
 const FIRST_FIELD_NUMBER: u32 = 1;
 
-/// The fields of a struct, as `#[derive(ToRow)]` describes them.
+/// The fields of a struct, as `#[derive(ToRow)]` visits them.
 ///
-/// [`ToRow::describe_fields`] receives this type. Each call to [`field`]
-/// describes the next field, so the fields are numbered in the order of the
-/// calls.
+/// [`ToRow::visit_fields`] receives this type. Each call to [`field`] visits
+/// the next field: it describes the field for the schema, or encodes it for a
+/// row. So the fields are numbered in the order of the calls, and the schema
+/// and the rows always agree.
 ///
-/// [`field`]: StructSchema::field
+/// [`field`]: StructFields::field
 #[derive(Debug)]
-pub struct StructSchema<'a> {
-    state: SchemaState<'a>,
-}
-
-/// What a [StructSchema] does with each field.
-#[derive(Debug)]
-enum SchemaState<'a> {
-    /// Collects the column names, without describing the fields.
-    Names(&'a mut Vec<&'static str>),
-    /// Describes the fields, and adds the message types they need to `types`.
-    Fields {
-        types: &'a mut NestedTypes,
-        fields: Vec<FieldDescriptorProto>,
-        next: u32,
-    },
-}
-
-impl<'a> StructSchema<'a> {
-    /// Returns a schema that only collects the column names in `names`.
-    fn names(names: &'a mut Vec<&'static str>) -> Self {
-        Self {
-            state: SchemaState::Names(names),
-        }
-    }
-
-    /// Returns a schema that describes the fields, and adds the message types
-    /// they need to `types`.
-    fn fields(types: &'a mut NestedTypes) -> Self {
-        Self {
-            state: SchemaState::Fields {
-                types,
-                fields: Vec::new(),
-                next: FIRST_FIELD_NUMBER,
-            },
-        }
-    }
-
-    /// Describes the next field, with the given column name and type.
-    ///
-    /// `#[derive(ToRow)]` uses this function. Applications do not need to call
-    /// it.
-    pub fn field<T: ProtoValue>(&mut self, name: &'static str) {
-        match &mut self.state {
-            SchemaState::Names(names) => names.push(name),
-            SchemaState::Fields {
-                types,
-                fields,
-                next,
-            } => {
-                fields.push(describe_field::<T>(name, *next, types));
-                *next += 1;
-            }
-        }
-    }
-
-    /// Returns the descriptions of the fields.
-    fn into_fields(self) -> Vec<FieldDescriptorProto> {
-        match self.state {
-            SchemaState::Names(_) => Vec::new(),
-            SchemaState::Fields { fields, .. } => fields,
-        }
-    }
-}
-
-/// The fields of a struct, as `#[derive(ToRow)]` encodes them.
-///
-/// [`ToRow::encode_fields`] receives this type. Each call to [`field`]
-/// encodes the next field, so the calls must be in the same order as the
-/// calls in [`ToRow::describe_fields`].
-///
-/// [`field`]: StructEncoder::field
-#[derive(Debug)]
-pub struct StructEncoder<'a> {
-    /// Receives the encoded fields.
-    buf: &'a mut Vec<u8>,
+pub struct StructFields<'a, R: ?Sized> {
+    mode: FieldsMode<'a, R>,
     /// The number of the next field.
     next: u32,
 }
 
-impl<'a> StructEncoder<'a> {
-    /// Returns an encoder that appends the fields to `buf`.
-    fn new(buf: &'a mut Vec<u8>) -> Self {
+/// What a [StructFields] does with each field.
+#[derive(Debug)]
+enum FieldsMode<'a, R: ?Sized> {
+    /// Collects the column names, without describing the fields.
+    Names(&'a mut Vec<&'static str>),
+    /// Describes the fields, and adds the message types they need to `types`.
+    Describe {
+        types: &'a mut NestedTypes,
+        fields: Vec<FieldDescriptorProto>,
+    },
+    /// Encodes the fields of `row`, and appends them to `buf`.
+    Encode { row: &'a R, buf: &'a mut Vec<u8> },
+}
+
+impl<'a, R: ?Sized> StructFields<'a, R> {
+    /// Returns a visitor that only collects the column names in `names`.
+    fn names(names: &'a mut Vec<&'static str>) -> Self {
+        Self::new(FieldsMode::Names(names))
+    }
+
+    /// Returns a visitor that describes the fields, and adds the message
+    /// types they need to `types`.
+    fn describe(types: &'a mut NestedTypes) -> Self {
+        Self::new(FieldsMode::Describe {
+            types,
+            fields: Vec::new(),
+        })
+    }
+
+    /// Returns a visitor that encodes the fields of `row`, and appends them to
+    /// `buf`.
+    fn encode(row: &'a R, buf: &'a mut Vec<u8>) -> Self {
+        Self::new(FieldsMode::Encode { row, buf })
+    }
+
+    fn new(mode: FieldsMode<'a, R>) -> Self {
         Self {
-            buf,
+            mode,
             next: FIRST_FIELD_NUMBER,
         }
     }
 
-    /// Encodes the next field.
+    /// Visits the next field, with the given column name and type. When
+    /// encoding a row, `get` returns the value of the field.
     ///
     /// `#[derive(ToRow)]` uses this function. Applications do not need to call
     /// it.
-    pub fn field<T: ProtoValue>(&mut self, value: &T) -> Result<(), ConvertError> {
+    pub fn field<T: ProtoValue>(
+        &mut self,
+        name: &'static str,
+        get: impl FnOnce(&R) -> &T,
+    ) -> Result<(), ConvertError> {
         let number = self.next;
         self.next += 1;
-        encode_field(value, number, self.buf)
+        match &mut self.mode {
+            FieldsMode::Names(names) => names.push(name),
+            FieldsMode::Describe { types, fields } => {
+                fields.push(describe_field::<T>(name, number, types));
+            }
+            FieldsMode::Encode { row, buf } => encode_field(get(*row), number, buf)?,
+        }
+        Ok(())
+    }
+
+    /// Returns the value whose fields are being encoded, if any.
+    fn row(&self) -> Option<&'a R> {
+        match self.mode {
+            FieldsMode::Encode { row, .. } => Some(row),
+            FieldsMode::Names(_) | FieldsMode::Describe { .. } => None,
+        }
+    }
+
+    /// Returns the descriptions of the fields.
+    fn into_descriptors(self) -> Vec<FieldDescriptorProto> {
+        match self.mode {
+            FieldsMode::Describe { fields, .. } => fields,
+            FieldsMode::Names(_) | FieldsMode::Encode { .. } => Vec::new(),
+        }
     }
 }
 
@@ -496,19 +478,20 @@ impl FieldEncoder<'_> {
     /// `#[derive(ToRow)]` uses this function. Applications do not need to call
     /// it.
     pub fn message<T: ToRow>(self, value: &T) -> Result<(), ConvertError> {
-        self.nested(|fields| value.encode_fields(fields))
+        self.nested(value, T::visit_fields)
     }
 
-    /// Encodes a message, with the fields that `encode` appends.
-    fn nested(
+    /// Encodes `row` as a message, with the fields that `visit` visits.
+    fn nested<R: ?Sized>(
         self,
-        encode: impl FnOnce(&mut StructEncoder<'_>) -> Result<(), ConvertError>,
+        row: &R,
+        visit: impl FnOnce(&mut StructFields<'_, R>) -> Result<(), ConvertError>,
     ) -> Result<(), ConvertError> {
         // The fields go straight into the buffer, after the tag. An empty
         // message still appends the tag and a zero length, which is not the
         // same as leaving the field out.
         encode_length_delimited(self.number, self.buf, |buf| {
-            encode(&mut StructEncoder::new(buf))
+            visit(&mut StructFields::encode(row, buf))
         })
     }
 }
@@ -1118,29 +1101,23 @@ impl<T: RangeElement> ProtoValue for Range<T> {
         // toward the limit on nested `STRUCT` columns.
         let type_name = field
             .types
-            .add_message(RANGE_MESSAGE.into(), describe_range::<T>);
+            .add_message(RANGE_MESSAGE.into(), visit_range::<T>);
         field.message_type(&type_name);
     }
 
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError> {
-        field.nested(|fields| encode_range(self, fields))
+        field.nested(self, visit_range::<T>)
     }
 }
 
 impl<T: RangeElement> ProtoElement for Range<T> {}
 
-/// Describes the fields of a `RANGE` value.
-fn describe_range<T: RangeElement>(fields: &mut StructSchema<'_>) {
-    fields.field::<Option<T>>(RANGE_START);
-    fields.field::<Option<T>>(RANGE_END);
-}
-
-/// Encodes the fields of a `RANGE` value.
-fn encode_range<T: RangeElement>(
-    range: &Range<T>,
-    fields: &mut StructEncoder<'_>,
+/// Visits the fields of a `RANGE` value.
+fn visit_range<T: RangeElement>(
+    fields: &mut StructFields<'_, Range<T>>,
 ) -> Result<(), ConvertError> {
-    if let (Some(start), Some(end)) = (&range.start, &range.end)
+    if let Some(range) = fields.row()
+        && let (Some(start), Some(end)) = (&range.start, &range.end)
         && start.range_key()? >= end.range_key()?
     {
         return Err(ConvertError::Convert(
@@ -1148,8 +1125,8 @@ fn encode_range<T: RangeElement>(
         ));
     }
     // `None` leaves the field out, which BigQuery reads as unbounded.
-    fields.field(&range.start)?;
-    fields.field(&range.end)
+    fields.field::<Option<T>>(RANGE_START, |range| &range.start)?;
+    fields.field::<Option<T>>(RANGE_END, |range| &range.end)
 }
 
 /// The most levels of nested `STRUCT` columns that BigQuery supports.
@@ -1238,7 +1215,7 @@ impl NestedTypes {
         );
         // The structs inside `T` start a new level.
         let outer = std::mem::take(&mut self.height);
-        let name = self.add_message(message_name::<T>(), T::describe_fields);
+        let name = self.add_message(message_name::<T>(), T::visit_fields);
         let height = self.height + 1;
         self.height = outer.max(height);
         self.depth -= 1;
@@ -1252,22 +1229,20 @@ impl NestedTypes {
         name
     }
 
-    /// Adds a message type with the fields that `describe` describes, and
-    /// returns its name.
+    /// Adds a message type with the fields that `visit` visits, and returns
+    /// its name.
     ///
     /// A type with the same name and the same fields as an earlier type is not
     /// added again, so a struct in many fields is declared once. Different
     /// types with the same name, such as `Address` structs from two modules,
     /// get a suffix.
-    fn add_message(
+    fn add_message<R: ?Sized>(
         &mut self,
         base: Cow<'static, str>,
-        describe: impl FnOnce(&mut StructSchema<'_>),
+        visit: impl FnOnce(&mut StructFields<'_, R>) -> Result<(), ConvertError>,
     ) -> String {
         // The fields come first, because they may add types too.
-        let mut schema = StructSchema::fields(self);
-        describe(&mut schema);
-        let fields = schema.into_fields();
+        let fields = describe_fields(self, visit);
         let existing = self
             .types
             .iter()
@@ -1333,11 +1308,10 @@ fn message_schema<T: ToRow + ?Sized>() -> ProtoSchema {
     // The nested types share a scope with the columns, so they cannot use the
     // column names. Collect the names first.
     let mut columns = Vec::new();
-    T::describe_fields(&mut StructSchema::names(&mut columns));
+    T::visit_fields(&mut StructFields::names(&mut columns))
+        .expect("collecting column names does not fail");
     let mut types = NestedTypes::new(columns);
-    let mut schema = StructSchema::fields(&mut types);
-    T::describe_fields(&mut schema);
-    let fields = schema.into_fields();
+    let fields = describe_fields(&mut types, T::visit_fields);
     let descriptor = DescriptorProto::new()
         .set_name(message_name::<T>())
         .set_field(fields)
@@ -1345,18 +1319,29 @@ fn message_schema<T: ToRow + ?Sized>() -> ProtoSchema {
     ProtoSchema::new().set_proto_descriptor(descriptor)
 }
 
+/// Returns the descriptions of the fields that `visit` visits, and adds the
+/// message types they need to `types`.
+fn describe_fields<R: ?Sized>(
+    types: &mut NestedTypes,
+    visit: impl FnOnce(&mut StructFields<'_, R>) -> Result<(), ConvertError>,
+) -> Vec<FieldDescriptorProto> {
+    let mut fields = StructFields::describe(types);
+    visit(&mut fields).expect("describing fields does not fail");
+    fields.into_descriptors()
+}
+
 /// Encodes `row` as one row, in the protobuf wire format.
 fn encode_row<T: ToRow + ?Sized>(row: &T) -> Result<Bytes, ConvertError> {
     let mut buf = Vec::new();
-    row.encode_fields(&mut StructEncoder::new(&mut buf))?;
+    T::visit_fields(&mut StructFields::encode(row, &mut buf))?;
     Ok(buf.into())
 }
 
 #[cfg(test)]
 mod tests {
     use super::{
-        MAX_DEPTH, NestedTypes, ProtoElement, ProtoValue, StructEncoder, describe_field,
-        encode_field, encode_range, interval_parts, message_name, proto_name, timestamp_micros,
+        MAX_DEPTH, NestedTypes, ProtoElement, ProtoValue, StructFields, describe_field,
+        encode_field, interval_parts, message_name, proto_name, timestamp_micros, visit_range,
     };
     use crate::datatypes::{Interval, Range, RangeElement};
     use crate::error::ConvertError;
@@ -2688,7 +2673,7 @@ mod tests {
     /// Returns the fields of `range`, without a tag or a length.
     fn range_bytes<T: RangeElement>(range: &Range<T>) -> Result<Vec<u8>, ConvertError> {
         let mut buf = Vec::new();
-        encode_range(range, &mut StructEncoder::new(&mut buf))?;
+        visit_range(&mut StructFields::encode(range, &mut buf))?;
         Ok(buf)
     }
 

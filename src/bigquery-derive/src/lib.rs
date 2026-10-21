@@ -222,11 +222,12 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         }
     };
 
-    // Describe and encode the fields in declaration order. The library numbers
-    // the fields in the order of the calls, so the schema and the encoder
-    // always agree.
-    let mut descriptors = Vec::new();
-    let mut encoders = Vec::new();
+    // Visit the fields in declaration order, with one call for each field. The
+    // library numbers the fields in the order of the calls, and the same call
+    // describes a field for the schema and encodes it for a row, so the schema
+    // and the rows always agree. A field type that the library does not
+    // support fails one bound, so it is one compile error.
+    let mut visits = Vec::new();
     let mut columns = HashSet::new();
     for field in &fields {
         let column = match field_column(field)
@@ -240,16 +241,13 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             .as_ref()
             .expect("named field must have identifier");
         let field_type = &field.ty;
-        // The calls keep the hygiene of `#[derive(ToRow)]`, but take the
+        // The call keeps the hygiene of `#[derive(ToRow)]`, but takes the
         // location of the field's type. If the type does not implement
         // `ProtoValue`, the compiler reports the error at the field, instead
         // of at `#[derive(ToRow)]`.
         let span = proc_macro2::Span::call_site().located_at(field_type.span());
-        descriptors.push(quote_spanned! {span=>
-            fields.field::<#field_type>(#column);
-        });
-        encoders.push(quote_spanned! {span=>
-            fields.field(&self.#field_name)?;
+        visits.push(quote_spanned! {span=>
+            fields.field::<#field_type>(#column, |row| &row.#field_name)?;
         });
     }
 
@@ -265,17 +263,12 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         .map(|clause| clause.predicates.iter().collect())
         .unwrap_or_default();
 
-    // `ToRow` describes and encodes the fields, for rows. `ProtoValue` and
-    // `ProtoElement` let a field, or the elements of a `Vec<T>` field, hold
-    // this struct.
+    // `ToRow` visits the fields, for rows. `ProtoValue` and `ProtoElement` let
+    // a field, or the elements of a `Vec<T>` field, hold this struct.
     quote! {
         impl #impl_generics google_cloud_bigquery::write::ToRow for #name #ty_generics #where_clause {
-            fn describe_fields(fields: &mut google_cloud_bigquery::write::StructSchema<'_>) {
-                #( #descriptors )*
-            }
-
-            fn encode_fields(&self, fields: &mut google_cloud_bigquery::write::StructEncoder<'_>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
-                #( #encoders )*
+            fn visit_fields(fields: &mut google_cloud_bigquery::write::StructFields<'_, Self>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
+                #( #visits )*
                 std::result::Result::Ok(())
             }
         }
@@ -705,20 +698,15 @@ mod tests {
                 r#type: String,
             }
         };
-        // The fields are described and encoded in declaration order. Renamed
-        // fields use the new name, and raw identifiers lose their `r#` prefix.
+        // The fields are visited in declaration order, with one call for each
+        // field. Renamed fields use the new name, and raw identifiers lose
+        // their `r#` prefix.
         let want = quote! {
             impl google_cloud_bigquery::write::ToRow for Row {
-                fn describe_fields(fields: &mut google_cloud_bigquery::write::StructSchema<'_>) {
-                    fields.field::<String>("name");
-                    fields.field::<String>("family_name");
-                    fields.field::<String>("type");
-                }
-
-                fn encode_fields(&self, fields: &mut google_cloud_bigquery::write::StructEncoder<'_>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
-                    fields.field(&self.name)?;
-                    fields.field(&self.surname)?;
-                    fields.field(&self.r#type)?;
+                fn visit_fields(fields: &mut google_cloud_bigquery::write::StructFields<'_, Self>) -> std::result::Result<(), google_cloud_bigquery::error::ConvertError> {
+                    fields.field::<String>("name", |row| &row.name)?;
+                    fields.field::<String>("family_name", |row| &row.surname)?;
+                    fields.field::<String>("type", |row| &row.r#type)?;
                     std::result::Result::Ok(())
                 }
             }

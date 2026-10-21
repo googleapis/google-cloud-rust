@@ -20,9 +20,7 @@ pub use default::DefaultWriter;
 pub use pending::PendingWriter;
 
 pub use google_cloud_bigquery_derive::ToRow;
-pub use to_row::{
-    FieldEncoder, FieldSchema, ProtoElement, ProtoValue, StructEncoder, StructSchema, ToRow,
-};
+pub use to_row::{FieldEncoder, FieldSchema, ProtoElement, ProtoValue, StructFields, ToRow};
 
 // The sealed `RangeElement` trait in `datatypes` requires this trait.
 pub(crate) use to_row::RangeBound;
