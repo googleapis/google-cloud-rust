@@ -18,6 +18,7 @@ use crate::observability::Observability;
 use crate::{RequestOptions, Result};
 use std::sync::{Arc, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard, Weak};
 use std::time::Duration;
+use tokio::task::AbortHandle;
 use tokio::time::{Instant, sleep};
 
 /// The interval at which the background task checks if the session needs replacement.
@@ -36,6 +37,8 @@ pub(crate) struct ManagedSessionMaintainer {
     pub(crate) database_role: String,
     pub(crate) options: RequestOptions,
     pub(crate) o11y: Arc<Observability>,
+    /// Abort handle for the background session maintenance loop.
+    pub(crate) maintenance_task: AbortHandle,
 }
 
 #[derive(Debug)]
@@ -88,26 +91,30 @@ impl ManagedSessionMaintainer {
             Self::create_session(&spanner, &database_name, &database_role, &options, &o11y).await?;
         spanner.set_prime_session(session.name.clone());
 
-        let maintainer = Arc::new(ManagedSessionMaintainer {
-            spanner,
-            session: RwLock::new(ManagedSession {
-                session: Arc::new(session),
-                created_at: Instant::now(),
-            }),
-            database_name,
-            database_role,
-            options,
-            o11y,
-        });
+        let maintainer = Arc::new_cyclic(|weak_maintainer| {
+            let weak_maintainer = Weak::clone(weak_maintainer);
+            let maintenance_task = tokio::spawn(async move {
+                Self::maintenance_loop(
+                    weak_maintainer,
+                    SESSION_MAINTENANCE_INTERVAL,
+                    SESSION_MAINTENANCE_AGE,
+                )
+                .await;
+            })
+            .abort_handle();
 
-        let weak_maintainer = Arc::downgrade(&maintainer);
-        tokio::spawn(async move {
-            Self::maintenance_loop(
-                weak_maintainer,
-                SESSION_MAINTENANCE_INTERVAL,
-                SESSION_MAINTENANCE_AGE,
-            )
-            .await;
+            ManagedSessionMaintainer {
+                spanner,
+                session: RwLock::new(ManagedSession {
+                    session: Arc::new(session),
+                    created_at: Instant::now(),
+                }),
+                database_name,
+                database_role,
+                options,
+                o11y,
+                maintenance_task,
+            }
         });
 
         Ok(maintainer)
@@ -193,6 +200,14 @@ impl ManagedSessionMaintainer {
                 e
             );
         }
+    }
+}
+
+impl Drop for ManagedSessionMaintainer {
+    /// Aborts the background maintenance loop when the last reference is dropped,
+    /// preventing the task from lingering in the runtime during long maintenance sleep intervals.
+    fn drop(&mut self) {
+        self.maintenance_task.abort();
     }
 }
 
@@ -740,6 +755,122 @@ mod tests {
             maintainer.session_name(),
             "projects/test-project/instances/test-instance/databases/test-db/sessions/2",
             "Session name must reflect rotated session 2 after maintenance on a poisoned lock"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn maintenance_task_aborted_on_maintainer_drop() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|_| {
+            Ok(Response::new(GrpcSession {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
+                    .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
+            spanner,
+            "projects/test-project/instances/test-instance/databases/test-db".to_string(),
+            "test-role".to_string(),
+            RequestOptions::default(),
+            Arc::new(Observability::disabled()),
+        )
+        .await
+        .expect("Failed to create ManagedSessionMaintainer");
+
+        let abort_handle = maintainer.maintenance_task.clone();
+        assert!(
+            !abort_handle.is_finished(),
+            "Maintenance task must initially be active and running"
+        );
+
+        drop(maintainer);
+
+        tokio::time::timeout(Duration::from_secs(2), async {
+            while !abort_handle.is_finished() {
+                tokio::task::yield_now().await;
+            }
+        })
+        .await
+        .expect("Maintenance task must finish promptly after maintainer is dropped");
+
+        assert!(
+            abort_handle.is_finished(),
+            "Maintenance task must be aborted and marked finished on drop"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn database_client_drop_aborts_maintenance_task_when_last_reference_dropped() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|_| {
+            Ok(Response::new(GrpcSession {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
+                    .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        let database_client_clone = database_client.clone();
+        let abort_handle = database_client.session_maintainer.maintenance_task.clone();
+
+        assert!(
+            !abort_handle.is_finished(),
+            "Maintenance task must initially be active"
+        );
+
+        // Dropping one clone must not abort the maintenance task while another clone exists.
+        drop(database_client);
+        tokio::task::yield_now().await;
+        assert!(
+            !abort_handle.is_finished(),
+            "Maintenance task must remain active while a DatabaseClient clone is still alive"
+        );
+
+        // Dropping the final clone must abort the maintenance task.
+        drop(database_client_clone);
+        tokio::time::timeout(Duration::from_secs(2), async {
+            while !abort_handle.is_finished() {
+                tokio::task::yield_now().await;
+            }
+        })
+        .await
+        .expect(
+            "Maintenance task must finish promptly after all DatabaseClient clones are dropped",
+        );
+
+        assert!(
+            abort_handle.is_finished(),
+            "Maintenance task must be aborted once the last DatabaseClient is dropped"
         );
     }
 }
