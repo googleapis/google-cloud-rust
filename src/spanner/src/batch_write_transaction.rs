@@ -23,7 +23,7 @@ use crate::model::RequestOptions;
 use crate::model::batch_write_request::MutationGroup as ProtoMutationGroup;
 use crate::model::request_options::Priority;
 use crate::mutation::MutationGroup;
-use crate::retry_policy::SpannerRetryPolicy;
+use crate::retry_policy::{SpannerRetryPolicy, StreamIdempotency, backoff_stream_retry};
 use crate::server_streaming::stream::BatchWriteStream;
 use gaxi::prost::FromProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
@@ -34,14 +34,11 @@ use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
-use google_cloud_gax::retry_result::RetryResult;
-use google_cloud_gax::retry_state::RetryState;
 use http::HeaderMap;
 use std::fmt::{Debug, Formatter, Result as FmtResult};
 use std::sync::Arc;
 use std::time::Duration;
 use std::time::Instant;
-use tokio::time::sleep;
 
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
@@ -444,11 +441,11 @@ impl BatchWriteResponseStream {
             self.attempt_recorded = false;
             self.headers.clear();
 
-            let stream_result = self
+            let builder = self
                 .client
-                .batch_write(request, self.gax_options.clone(), None)
-                .send()
-                .await;
+                .batch_write(request, self.gax_options.clone(), None);
+            self.gax_options = builder.options().clone();
+            let stream_result = builder.send().await;
 
             match stream_result {
                 Ok(stream) => {
@@ -547,35 +544,22 @@ impl BatchWriteResponseStream {
 
     /// Checks the retry policy and, if retryable, sleeps for the backoff duration.
     async fn check_and_apply_retry(&mut self, error: Error) -> Result<()> {
-        match self.check_retry(error) {
-            Ok(()) => {
-                self.retry_count += 1;
-                if let Some(policy) = self.gax_options.backoff_policy() {
-                    let state = RetryState::new(true).set_attempt_count(self.retry_count as u32);
-                    let delay = policy.on_failure(&state);
-                    sleep(delay).await;
-                }
-                Ok(())
-            }
+        // Retrying is idempotent because BatchWriteResponseStream removes successfully
+        // committed mutation groups and only resends uncommitted or retryable groups.
+        match backoff_stream_retry(
+            &mut self.gax_options,
+            self.operation_start_time,
+            &mut self.retry_count,
+            StreamIdempotency::Idempotent,
+            error,
+        )
+        .await
+        {
+            Ok(()) => Ok(()),
             Err(terminal_error) => {
                 self.record_operation_complete(Some(&terminal_error));
                 Err(terminal_error)
             }
-        }
-    }
-
-    fn check_retry(&self, error: Error) -> Result<()> {
-        let policy = self
-            .gax_options
-            .retry_policy()
-            .as_ref()
-            .expect("retry_policy is initialized by apply_defaults");
-        let attempt_count = 1 + self.retry_count as u32;
-        let state = RetryState::new(true).set_attempt_count(attempt_count);
-
-        match policy.on_error(&state, error) {
-            RetryResult::Continue(_) => Ok(()),
-            RetryResult::Permanent(err) | RetryResult::Exhausted(err) => Err(err),
         }
     }
 
@@ -654,6 +638,7 @@ mod tests {
     use crate::client::Spanner;
     use crate::mutation::Mutation;
     use crate::result_set::tests::adapt;
+    use crate::test::create_unavailable_status;
     use anyhow::Result;
     use gaxi::grpc::tonic::Response;
     use gaxi::grpc::tonic::Status as TonicStatus;
@@ -665,6 +650,7 @@ mod tests {
     use spanner_grpc_mock::google::rpc::Status as ProtoStatus;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::fmt::Debug;
+    use std::sync::Mutex;
 
     #[test]
     fn traits() {
@@ -1186,6 +1172,257 @@ mod tests {
         let result = stream.next().await;
         assert!(result.is_some(), "must yield error after retries exhausted");
         assert!(result.expect("some").is_err());
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_exhausted_time_limit_initial_rpc() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_batch_write()
+            .once()
+            .returning(|_| Err(TonicStatus::unavailable("Unavailable attempt 1")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![create_test_mutation_group("Users", 1)];
+        let transaction = db_client
+            .batch_write_transaction()
+            .with_retry_policy(SpannerRetryPolicy::new().with_time_limit(Duration::from_nanos(1)))
+            .with_backoff_policy(test_backoff_policy())
+            .build();
+        let mut stream = transaction.execute_streaming(groups).await?;
+
+        let result = stream.next().await;
+        assert!(
+            result.is_some(),
+            "must yield error when time limit is exhausted"
+        );
+        let error = result.expect("some").expect_err("must be error");
+        assert!(
+            error.to_string().contains("Unavailable attempt 1"),
+            "error should contain the transient error message, got: {error}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_exhausted_time_limit_midway_stream() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_batch_write().once().returning(|_| {
+            let response = mock_v1::BatchWriteResponse {
+                indexes: vec![0],
+                status: None,
+                commit_timestamp: None,
+            };
+            let stream = adapt([Ok(response), Err(TonicStatus::unavailable("midway drop"))]);
+            Ok(Response::from(stream))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![
+            create_test_mutation_group("Users", 1),
+            create_test_mutation_group("Users", 2),
+        ];
+        let transaction = db_client
+            .batch_write_transaction()
+            .with_retry_policy(SpannerRetryPolicy::new().with_time_limit(Duration::from_nanos(1)))
+            .with_backoff_policy(test_backoff_policy())
+            .build();
+        let mut stream = transaction.execute_streaming(groups).await?;
+
+        let response = stream.next().await.expect("first response")?;
+        assert_eq!(
+            response.indexes,
+            vec![0],
+            "expected response to acknowledge index 0"
+        );
+
+        let result = stream.next().await;
+        assert!(
+            result.is_some(),
+            "must yield error when time limit is exhausted midway through stream"
+        );
+        let error = result.expect("some").expect_err("must be error");
+        assert!(
+            error.to_string().contains("midway drop"),
+            "error should contain the transient error message, got: {error}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_retry_with_server_retry_info() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        let mut sequence = Sequence::new();
+        mock.expect_batch_write()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(create_unavailable_status(Duration::from_nanos(1))));
+
+        mock.expect_batch_write()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let response = mock_v1::BatchWriteResponse {
+                    indexes: vec![0],
+                    status: None,
+                    commit_timestamp: None,
+                };
+                Ok(Response::from(adapt([Ok(response)])))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![create_test_mutation_group("Users", 1)];
+        let transaction = db_client
+            .batch_write_transaction()
+            .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(3))
+            .build();
+        let mut stream = transaction.execute_streaming(groups).await?;
+
+        let response = stream
+            .next()
+            .await
+            .expect("must yield response after retry")?;
+        assert_eq!(
+            response.indexes,
+            vec![0],
+            "expected response after retry to acknowledge index 0"
+        );
+
+        assert!(
+            stream.next().await.is_none(),
+            "stream must have no further responses"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_retry_increments_request_id_attempt_number() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        let recorded_request_ids = Arc::new(Mutex::new(Vec::new()));
+        let mut sequence = Sequence::new();
+
+        let recorded_clone = Arc::clone(&recorded_request_ids);
+        mock.expect_batch_write()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                let header_value = request
+                    .metadata()
+                    .get("x-goog-spanner-request-id")
+                    .expect("x-goog-spanner-request-id must be present on initial attempt")
+                    .to_str()
+                    .expect("header must be ASCII")
+                    .to_string();
+                recorded_clone
+                    .lock()
+                    .expect("lock acquired")
+                    .push(header_value);
+
+                Err(TonicStatus::unavailable("transient error on attempt 1"))
+            });
+
+        let recorded_clone = Arc::clone(&recorded_request_ids);
+        mock.expect_batch_write()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                let header_value = request
+                    .metadata()
+                    .get("x-goog-spanner-request-id")
+                    .expect("x-goog-spanner-request-id must be present on retried attempt")
+                    .to_str()
+                    .expect("header must be ASCII")
+                    .to_string();
+                recorded_clone
+                    .lock()
+                    .expect("lock acquired")
+                    .push(header_value);
+
+                let response = mock_v1::BatchWriteResponse {
+                    indexes: vec![0],
+                    status: None,
+                    commit_timestamp: None,
+                };
+                Ok(Response::from(adapt([Ok(response)])))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![create_test_mutation_group("Users", 1)];
+        let transaction = db_client
+            .batch_write_transaction()
+            .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(3))
+            .with_backoff_policy(test_backoff_policy())
+            .build();
+        let mut stream = transaction.execute_streaming(groups).await?;
+
+        let response = stream
+            .next()
+            .await
+            .expect("must yield response after retry")?;
+        assert_eq!(
+            response.indexes,
+            vec![0],
+            "expected response after retry to acknowledge index 0"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "stream must have no further responses"
+        );
+
+        let ids = recorded_request_ids.lock().expect("lock acquired");
+        assert_eq!(ids.len(), 2, "must have recorded 2 attempts");
+        assert!(
+            ids[0].ends_with(".1"),
+            "initial attempt must end with .1, got: {}",
+            ids[0]
+        );
+        assert!(
+            ids[1].ends_with(".2"),
+            "retry attempt must end with .2, got: {}",
+            ids[1]
+        );
+        let prefix_0 = ids[0].strip_suffix(".1").expect("stripped .1");
+        let prefix_1 = ids[1].strip_suffix(".2").expect("stripped .2");
+        assert_eq!(
+            prefix_0, prefix_1,
+            "both attempts must share identical request id prefix"
+        );
 
         Ok(())
     }

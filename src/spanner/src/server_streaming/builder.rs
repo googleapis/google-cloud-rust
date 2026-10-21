@@ -82,7 +82,6 @@ impl ExecuteStreamingSql {
     }
 
     /// Returns a reference to the request options.
-    #[allow(dead_code)]
     pub(crate) fn options(&self) -> &RequestOptions {
         &self.options
     }
@@ -224,6 +223,11 @@ impl BatchWrite {
     pub(crate) fn with_options<V: Into<RequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
         self
+    }
+
+    /// Returns a reference to the request options.
+    pub(crate) fn options(&self) -> &RequestOptions {
+        &self.options
     }
 
     /// Start the server streaming request and receive the stream.

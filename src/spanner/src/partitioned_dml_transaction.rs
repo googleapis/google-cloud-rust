@@ -23,8 +23,7 @@ use crate::model::{
     BeginTransactionRequest, ExecuteSqlRequest, TransactionOptions, TransactionSelector,
     transaction_selector,
 };
-use crate::request_id_interceptor::update_request_id_attempt;
-use crate::retry_policy::SpannerRetryPolicy;
+use crate::retry_policy::{SpannerRetryPolicy, StreamIdempotency, backoff_stream_retry};
 use crate::server_streaming::stream::PartialResultSetStream;
 use crate::statement::Statement;
 use crate::transaction_retry_policy::{
@@ -40,7 +39,7 @@ use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
-use std::time::{Duration, Instant};
+use std::time::Instant;
 use tokio::time::sleep;
 
 /// A builder for [PartitionedDmlTransaction].
@@ -328,6 +327,7 @@ struct PartitionedDmlStreamRunner {
     last_resume_token: Bytes,
     total_lower_bound: Option<i64>,
     retry_count: usize,
+    stream_start_time: Instant,
 }
 
 impl PartitionedDmlStreamRunner {
@@ -345,6 +345,7 @@ impl PartitionedDmlStreamRunner {
             last_resume_token: Bytes::new(),
             total_lower_bound: None,
             retry_count: 0,
+            stream_start_time: Instant::now(),
         }
     }
 
@@ -416,39 +417,15 @@ impl PartitionedDmlStreamRunner {
     }
 
     async fn prepare_next_retry(&mut self, error: crate::Error) -> crate::Result<()> {
-        let attempt_count = 1 + self.retry_count as u32;
-        // Resuming with a valid resume token is idempotent; AIP-194 / Spanner retry policies
-        // require idempotency = true to allow retrying transient errors like Unavailable.
-        let state = RetryState::default()
-            .set_idempotent(true)
-            .set_attempt_count(attempt_count);
-        let retry_policy = self
-            .gax_options
-            .retry_policy()
-            .as_ref()
-            .expect("retry policy is initialized by apply_stream_rpc_defaults");
-
-        match retry_policy.on_error(&state, error) {
-            RetryResult::Continue(retryable_error) => {
-                self.retry_count += 1;
-                update_request_id_attempt(&mut self.gax_options, (self.retry_count + 1) as u32);
-                let delay = extract_retry_delay(&retryable_error)
-                    .or_else(|| {
-                        self.gax_options
-                            .backoff_policy()
-                            .as_ref()
-                            .map(|policy| policy.on_failure(&state))
-                    })
-                    .unwrap_or(Duration::ZERO);
-                if !delay.is_zero() {
-                    sleep(delay).await;
-                }
-                Ok(())
-            }
-            RetryResult::Permanent(terminal_error) | RetryResult::Exhausted(terminal_error) => {
-                Err(terminal_error)
-            }
-        }
+        // Resuming a Partitioned DML stream with a resume token is idempotent.
+        backoff_stream_retry(
+            &mut self.gax_options,
+            self.stream_start_time,
+            &mut self.retry_count,
+            StreamIdempotency::Idempotent,
+            error,
+        )
+        .await
     }
 
     async fn reconnect_stream(&self) -> crate::Result<PartialResultSetStream> {
@@ -518,13 +495,15 @@ mod tests {
     use super::*;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::result_set::tests::adapt;
+    use crate::test::create_unavailable_status;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
     use std::sync::Mutex;
-    use std::time::Instant;
+    use std::time::{Duration, Instant};
     use tokio::sync::mpsc;
 
     #[test]
@@ -1970,43 +1949,6 @@ mod tests {
         }
     }
 
-    fn create_unavailable_status(retry_delay: Duration) -> tonic::Status {
-        use crate::retry_delay::{ProtoRetryInfo, RETRY_INFO_TYPE_URL};
-        use prost::Message;
-
-        let retry_info = ProtoRetryInfo {
-            retry_delay: Some(prost_types::Duration {
-                seconds: retry_delay.as_secs() as i64,
-                nanos: retry_delay.subsec_nanos() as i32,
-            }),
-        };
-
-        let mut retry_buffer = vec![];
-        retry_info
-            .encode(&mut retry_buffer)
-            .expect("encoding retry_info should succeed");
-
-        let status = spanner_grpc_mock::google::rpc::Status {
-            code: tonic::Code::Unavailable as i32,
-            message: "test stream unavailable with retry info".to_string(),
-            details: vec![prost_types::Any {
-                type_url: RETRY_INFO_TYPE_URL.to_string(),
-                value: retry_buffer,
-            }],
-        };
-
-        let mut status_buffer = vec![];
-        status
-            .encode(&mut status_buffer)
-            .expect("encoding mock status should succeed");
-
-        tonic::Status::with_details(
-            tonic::Code::Unavailable,
-            "test stream unavailable with retry info",
-            status_buffer.into(),
-        )
-    }
-
     #[tokio_test_no_panics]
     async fn execute_update_permanent_error_after_resume_token_fails_immediately() {
         let mut mock = create_session_mock();
@@ -2201,6 +2143,62 @@ mod tests {
         assert!(
             error.to_string().contains("stream failure 2"),
             "expected final failure error, got: {error}"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_update_stream_time_limit_exhausted() {
+        let mut mock = create_session_mock();
+
+        // Attempt 1: yields token-1, then UNAVAILABLE
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|_request| {
+                let stream = adapt([
+                    Ok(v1::PartialResultSet {
+                        resume_token: b"token-1".to_vec(),
+                        ..Default::default()
+                    }),
+                    Err(tonic::Status::unavailable("stream failure 1")),
+                ]);
+                Ok(tonic::Response::from(stream))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let mut gax_options = GaxRequestOptions::default();
+        gax_options
+            .set_retry_policy(SpannerRetryPolicy::new().with_time_limit(Duration::from_nanos(1)));
+        gax_options.set_backoff_policy(
+            ExponentialBackoffBuilder::new()
+                .with_initial_delay(Duration::from_nanos(1))
+                .clamp(),
+        );
+
+        let execute_request = ExecuteSqlRequest {
+            session: db_client.session_name(),
+            sql: "UPDATE Users SET active = true".to_string(),
+            ..Default::default()
+        };
+
+        let mut runner = PartitionedDmlStreamRunner::new(
+            db_client,
+            execute_request,
+            gax_options,
+            TransactionAffinity::new_read_write(),
+        );
+        // Simulate start time in the past so the time limit is guaranteed to be exhausted immediately
+        runner.stream_start_time = Instant::now() - Duration::from_millis(100);
+
+        let result = runner.run().await;
+
+        assert!(
+            result.is_err(),
+            "stream retry policy must be exhausted after time limit expires"
+        );
+        let error = result.expect_err("result must be error");
+        assert!(
+            error.to_string().contains("stream failure 1"),
+            "expected stream failure 1 error after time limit expires, got: {error}"
         );
     }
 

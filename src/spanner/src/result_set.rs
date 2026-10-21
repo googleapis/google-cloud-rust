@@ -21,10 +21,8 @@ use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{AbortedInfo, AbortedState, ReadContextTransactionSelector};
-use crate::request_id_interceptor::update_request_id_attempt;
 use crate::result_set_metadata::ResultSetMetadata;
-use crate::retry_delay::extract_retry_delay_from_error;
-use crate::retry_policy::SpannerRetryPolicy;
+use crate::retry_policy::{SpannerRetryPolicy, StreamIdempotency, backoff_stream_retry};
 use crate::row::Row;
 use crate::server_streaming::stream::PartialResultSetStream;
 use bytes::Bytes;
@@ -33,8 +31,6 @@ use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
-use google_cloud_gax::retry_result::RetryResult;
-use google_cloud_gax::retry_state::RetryState;
 use http::HeaderMap;
 use prost_types::Value;
 use prost_types::value::Kind;
@@ -43,7 +39,7 @@ use std::mem::take;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 use tokio::runtime::Handle;
-use tokio::time::{sleep, timeout};
+use tokio::time::timeout;
 
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
@@ -607,40 +603,35 @@ impl ResultSet {
         if self.safe_to_retry {
             // Repeatedly attempt to restart the stream as long as the retry policy allows.
             // If `restart_stream()` itself encounters a transient failure, `e` is updated
-            // with the new error and the loop repeats, passing it through `check_retry` and
-            // applying backoff for each subsequent attempt.
+            // with the new error and the loop repeats, passing it through `backoff_stream_retry`
+            // and applying backoff for each subsequent attempt.
             loop {
-                let retry_delay = extract_retry_delay_from_error(&e);
-                match self.check_retry(e) {
+                // Restarting a stream with a valid resume token or before any rows were yielded
+                // is idempotent.
+                match backoff_stream_retry(
+                    &mut self.gax_options,
+                    self.operation_start_time,
+                    &mut self.retry_count,
+                    StreamIdempotency::from(self.safe_to_retry),
+                    e,
+                )
+                .await
+                {
                     Ok(()) => {
-                        self.retry_count += 1;
                         // Clear the buffer and restart the stream using the last
                         // resume_token that we have seen.
                         self.partial_result_sets_buffer.clear();
 
-                        // Apply backoff delay: prefer server-recommended retry delay if present,
-                        // otherwise use configured backoff policy.
-                        let delay = retry_delay.or_else(|| {
-                            self.gax_options.backoff_policy().as_ref().map(|policy| {
-                                let state = RetryState::new(self.safe_to_retry)
-                                    .set_attempt_count(self.retry_count as u32);
-                                policy.on_failure(&state)
-                            })
-                        });
-                        if let Some(delay) = delay {
-                            sleep(delay).await;
-                        }
-
                         match self.restart_stream().await {
                             Ok(()) => return Ok(()),
-                            Err(restart_err) => {
-                                self.record_if_aborted(&restart_err);
-                                e = restart_err;
+                            Err(restart_error) => {
+                                self.record_if_aborted(&restart_error);
+                                e = restart_error;
                             }
                         }
                     }
-                    Err(err) => {
-                        e = err;
+                    Err(terminal_error) => {
+                        e = terminal_error;
                         break;
                     }
                 }
@@ -762,14 +753,6 @@ impl ResultSet {
             None
         };
 
-        // When retrying a streaming SQL/read RPC after a transient failure, we manually increment
-        // the attempt number suffix on the existing `x-goog-spanner-request-id` header in `RequestOptions`.
-        // When `gaxi` invokes `SpannerRequestIdInterceptor` with attempt 1 for the retried stream,
-        // the interceptor takes the maximum (`existing_attempt.max(attempt)`), preserving our bumped attempt number.
-        if self.retry_count > 0 {
-            update_request_id_attempt(&mut self.gax_options, (self.retry_count + 1) as u32);
-        }
-
         self.attempt_start_time = Instant::now();
         self.attempt_recorded = false;
         self.headers.clear();
@@ -820,20 +803,6 @@ impl ResultSet {
         self.headers = stream.headers().clone();
         self.stream = Some(stream);
         Ok(())
-    }
-
-    fn check_retry(&self, e: crate::Error) -> Result<(), crate::Error> {
-        if let Some(policy) = self.gax_options.retry_policy() {
-            // Initial attempt plus number of retries.
-            let attempt_count = 1 + self.retry_count as u32;
-            let state = RetryState::new(self.safe_to_retry).set_attempt_count(attempt_count);
-
-            match policy.on_error(&state, e) {
-                RetryResult::Continue(_) => return Ok(()),
-                RetryResult::Permanent(err) | RetryResult::Exhausted(err) => return Err(err),
-            }
-        }
-        Err(e)
     }
 
     /// Returns a reference to the transaction affinity handle attached to this result set.
@@ -950,8 +919,10 @@ pub(crate) mod tests {
     use crate::read::ReadRequest;
     use crate::row::RowError;
     use crate::statement::Statement;
+    use crate::test::create_unavailable_status;
     use crate::transaction::BeginTransactionOption;
     use crate::transaction_retry_policy::is_aborted;
+    use anyhow::Result;
     use gaxi::grpc::tonic::{Code as GrpcCode, MetadataMap, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
@@ -960,6 +931,7 @@ pub(crate) mod tests {
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
     use http::HeaderValue;
+    use mockall::Sequence;
     #[cfg(feature = "builtin-metrics")]
     use opentelemetry::KeyValue;
     #[cfg(feature = "builtin-metrics")]
@@ -2246,9 +2218,92 @@ pub(crate) mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn test_result_set_restart_send_retry_recovers() -> anyhow::Result<()> {
-        use mockall::Sequence;
+    async fn result_set_retry_exhausted_on_attempt_limit() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = Sequence::new();
 
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::unavailable("handshake transient failure")));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+
+        let statement = Statement::builder("SELECT 1")
+            .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(1))
+            .build();
+        let result: crate::Result<ResultSet> = transaction.execute_query(statement).await;
+
+        assert!(
+            result.is_err(),
+            "execute_query must fail when retry attempt limit of 1 is exhausted"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_retry_exhausted_on_time_limit() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = Sequence::new();
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| Err(Status::unavailable("handshake transient failure")));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+
+        // An expired time limit of 1ns ensures the operation start time is immediately exhausted
+        let statement = Statement::builder("SELECT 1")
+            .with_retry_policy(SpannerRetryPolicy::new().with_time_limit(Duration::from_nanos(1)))
+            .build();
+        let result: crate::Result<ResultSet> = transaction.execute_query(statement).await;
+
+        assert!(
+            result.is_err(),
+            "execute_query must fail when retry time limit is exhausted"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn test_result_set_restart_send_retry_recovers() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut sequence = Sequence::new();
 
@@ -2346,6 +2401,231 @@ pub(crate) mod tests {
         assert!(
             result_set.next().await.is_none(),
             "Expected stream to end successfully"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_restart_permanent_error_fails_immediately() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = Sequence::new();
+
+        // 1. Initial call returns row1, then encounters a transient error
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_request| {
+                let stream = adapt([
+                    Ok(PartialResultSet {
+                        metadata: metadata(2),
+                        values: vec![string_val("row1"), string_val("b")],
+                        resume_token: b"token1".to_vec(),
+                        ..Default::default()
+                    }),
+                    Err(Status::unavailable("connection reset mid-stream")),
+                ]);
+                Ok(Response::from(stream))
+            });
+
+        // 2. Restart attempt fails with permanent error (PermissionDenied)
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_request| Err(Status::permission_denied("table access revoked")));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+
+        let request = ReadRequest::builder("table", vec!["id", "name"])
+            .with_keys(KeySet::all())
+            .build();
+        let mut stream: ResultSet = transaction.execute_read(request).await?;
+
+        let row1 = stream.next().await.expect("row1")?;
+        assert_eq!(
+            row1.raw_values()[0].as_str(),
+            Some("row1"),
+            "first row value should match 'row1'"
+        );
+
+        // Next poll triggers reconnect which fails with PermissionDenied; must fail immediately
+        let result = stream.next().await;
+        assert!(
+            result.is_some(),
+            "must return Some error when restart encounters permanent failure"
+        );
+        let error = result.expect("some").expect_err("must be error");
+        assert!(
+            error.to_string().contains("table access revoked"),
+            "expected 'table access revoked', got: {error}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_midstream_retry_exhausted_on_time_limit() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = Sequence::new();
+
+        // 1. Initial call returns row1, then encounters a transient error
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_request| {
+                let stream = adapt([
+                    Ok(PartialResultSet {
+                        metadata: metadata(2),
+                        values: vec![string_val("row1"), string_val("b")],
+                        resume_token: b"token1".to_vec(),
+                        ..Default::default()
+                    }),
+                    Err(Status::unavailable("connection reset mid-stream")),
+                ]);
+                Ok(Response::from(stream))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+
+        let request = ReadRequest::builder("table", vec!["id", "name"])
+            .with_keys(KeySet::all())
+            .with_retry_policy(SpannerRetryPolicy::new().with_time_limit(Duration::from_nanos(1)))
+            .build();
+        let mut stream: ResultSet = transaction.execute_read(request).await?;
+
+        let row1 = stream.next().await.expect("row1")?;
+        assert_eq!(
+            row1.raw_values()[0].as_str(),
+            Some("row1"),
+            "first row value should match 'row1'"
+        );
+
+        // Next poll triggers reconnect, but time limit is already exhausted
+        let result = stream.next().await;
+        assert!(
+            result.is_some(),
+            "must return Some error when time limit is exhausted during restart"
+        );
+        let error = result.expect("some").expect_err("must be error");
+        assert!(
+            error.to_string().contains("connection reset mid-stream"),
+            "expected 'connection reset mid-stream', got: {error}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_restart_respects_server_retry_info() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = Sequence::new();
+
+        // 1. Initial call returns row1, then encounters a transient error with RetryInfo
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_request| {
+                let stream = adapt([
+                    Ok(PartialResultSet {
+                        metadata: metadata(2),
+                        values: vec![string_val("row1"), string_val("b")],
+                        resume_token: b"token1".to_vec(),
+                        ..Default::default()
+                    }),
+                    Err(create_unavailable_status(Duration::from_nanos(1))),
+                ]);
+                Ok(Response::from(stream))
+            });
+
+        // 2. Restart attempt succeeds and yields row2
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_request| {
+                let stream = adapt([Ok(PartialResultSet {
+                    values: vec![string_val("row2"), string_val("c")],
+                    resume_token: b"token2".to_vec(),
+                    last: true,
+                    ..Default::default()
+                })]);
+                Ok(Response::from(stream))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+
+        let request = ReadRequest::builder("table", vec!["id", "name"])
+            .with_keys(KeySet::all())
+            .build();
+        let mut stream: ResultSet = transaction.execute_read(request).await?;
+
+        let row1 = stream.next().await.expect("row1")?;
+        assert_eq!(
+            row1.raw_values()[0].as_str(),
+            Some("row1"),
+            "first row value should match 'row1'"
+        );
+
+        let row2 = stream.next().await.expect("row2 after restart")?;
+        assert_eq!(
+            row2.raw_values()[0].as_str(),
+            Some("row2"),
+            "second row value should match 'row2'"
+        );
+
+        assert!(
+            stream.next().await.is_none(),
+            "stream must end after all rows yielded"
         );
 
         Ok(())
