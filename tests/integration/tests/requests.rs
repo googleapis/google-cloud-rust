@@ -102,6 +102,51 @@ mod requests {
     }
 
     #[tokio::test(flavor = "multi_thread")]
+    async fn http_body_request_raw_predict() -> anyhow::Result<()> {
+        use google_cloud_api::model::HttpBody;
+
+        let raw_payload = b"raw-predict-payload";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/test-project/locations/us-central1/endpoints/test-endpoint:rawPredict",
+                ),
+                request::headers(contains(("content-type", "application/x-custom-payload"))),
+                request::body(raw_payload.as_slice()),
+            ])
+            .respond_with(
+                status_code(200)
+                    .insert_header("content-type", "application/json")
+                    .body(r#"{"predictions": [1, 2, 3]}"#),
+            ),
+        );
+
+        let endpoint = server.url_str("");
+        let client = PredictionService::builder()
+            .with_endpoint(endpoint.trim_end_matches('/'))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let response = client
+            .raw_predict()
+            .set_endpoint("projects/test-project/locations/us-central1/endpoints/test-endpoint")
+            .set_http_body(
+                HttpBody::new()
+                    .set_content_type("application/x-custom-payload")
+                    .set_data(bytes::Bytes::from_static(raw_payload)),
+            )
+            .send()
+            .await?;
+
+        assert_eq!(response.content_type, "application/json");
+        assert_eq!(response.data.as_ref(), br#"{"predictions": [1, 2, 3]}"#);
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
     async fn http_body_request_receive_trigger_webhook() -> anyhow::Result<()> {
         use google_cloud_api::model::HttpBody;
         use google_cloud_build_v1::client::CloudBuild;

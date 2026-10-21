@@ -6560,7 +6560,6 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -6580,8 +6579,8 @@ impl super::stub::FeedsService for FeedsService {
                 let path_template = "/v1/{parent}:importPushLogs";
 
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_parent,);
-                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("secret", &req.secret)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -6624,7 +6623,7 @@ impl super::stub::FeedsService for FeedsService {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.http_body, &method);
         self.inner.execute(builder, body, options).await
     }
 

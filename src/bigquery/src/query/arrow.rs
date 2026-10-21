@@ -14,7 +14,10 @@
 
 use crate::error::ConvertError;
 use crate::error::RowError;
-use arrow::array::{ArrayRef, as_primitive_array, as_struct_array};
+use crate::query::ColumnIndex;
+use arrow::array::{
+    ArrayRef, as_large_list_array, as_list_array, as_primitive_array, as_struct_array,
+};
 use arrow::datatypes::{DataType, IntervalMonthDayNano, IntervalMonthDayNanoType, IntervalUnit};
 use arrow::record_batch::RecordBatch;
 use std::sync::Arc;
@@ -465,24 +468,57 @@ impl ArrowCell {
         }
     }
 
-    /// Extracts a child `ArrowCell` by field name from a `StructArray`.
-    pub(crate) fn struct_field_by_name(&self, name: &str) -> Result<ArrowCell, ConvertError> {
+    /// Extracts a child `ArrowCell` by column index or field name from a `StructArray`.
+    pub(crate) fn struct_field_cell<I: ColumnIndex>(
+        &self,
+        index: &I,
+    ) -> Result<ArrowCell, ConvertError> {
         if self.is_null() {
             return Err(ConvertError::NotNull);
         }
         match self.array.data_type() {
             DataType::Struct(_) => {
                 let struct_arr = as_struct_array(&self.array);
-                let col = struct_arr
-                    .column_by_name(name)
-                    .ok_or_else(|| ConvertError::MissingField(name.to_string()))?;
-                Ok(ArrowCell::new(col.clone(), self.row_idx))
+                let idx = index
+                    .arrow_index(struct_arr)
+                    .ok_or_else(|| ConvertError::MissingField(format!("{index}")))?;
+                Ok(ArrowCell::new(struct_arr.column(idx).clone(), self.row_idx))
             }
             _ => Err(ConvertError::TypeMismatch {
                 expected: "StructArray".to_string(),
                 got: self.data_type_str(),
             }),
         }
+    }
+
+    /// Returns a reference to the nested array slice for this cell from a `ListArray` or `LargeListArray`.
+    pub(crate) fn list_array_ref(&self) -> Result<ArrayRef, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            DataType::List(_) => {
+                let arr = as_list_array(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            DataType::LargeList(_) => {
+                let arr = as_large_list_array(&self.array);
+                Ok(arr.value(self.row_idx))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "ListArray or LargeListArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Extracts a child `ArrowCell` by element index from a `ListArray` or `LargeListArray`.
+    pub(crate) fn list_element_cell(&self, index: usize) -> Result<ArrowCell, ConvertError> {
+        let value_arr = self.list_array_ref()?;
+        if index >= value_arr.len() {
+            return Err(ConvertError::MissingField(index.to_string()));
+        }
+        Ok(ArrowCell::new(value_arr, index))
     }
 }
 
@@ -492,11 +528,11 @@ mod tests {
     use arrow::array::{
         BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array, Float32Array,
         Float64Array, Int32Array, Int64Array, IntervalMonthDayNanoArray, IntervalYearMonthArray,
-        LargeBinaryArray, LargeStringArray, StringArray, StructArray, Time64MicrosecondArray,
-        Time64NanosecondArray, TimestampMicrosecondArray, TimestampMillisecondArray,
-        TimestampNanosecondArray, TimestampSecondArray,
+        LargeBinaryArray, LargeListArray, LargeStringArray, ListArray, StringArray, StructArray,
+        Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
+        TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray,
     };
-    use arrow::buffer::NullBuffer;
+    use arrow::buffer::{NullBuffer, OffsetBuffer};
     use arrow::datatypes::{DataType, Field, Fields, Schema as ArrowSchema, i256};
     use arrow::ipc::writer::StreamWriter;
     use std::sync::Arc;
@@ -721,22 +757,87 @@ mod tests {
     #[test_case(sample_struct_array(Some(NullBuffer::from(vec![false, true]))), 0, "start" => Err(TestConvertError::NotNull) ; "struct null row")]
     #[test_case(sample_struct_array(None), 0, "missing" => Err(TestConvertError::MissingField("missing".to_string())) ; "struct missing field")]
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0, "start" => Err(TestConvertError::type_mismatch("StructArray", "Int64")) ; "struct type mismatch")]
-    fn struct_field_by_name(
+    fn struct_field_cell_by_name(
         arr: ArrayRef,
         row_idx: usize,
         name: &str,
     ) -> Result<Option<i64>, TestConvertError> {
         let field_cell = ArrowCell::new(arr, row_idx)
-            .struct_field_by_name(name)
+            .struct_field_cell(&name)
             .map_err(TestConvertError::from)?;
         if field_cell.is_null() {
-            Ok(None)
-        } else {
-            field_cell
-                .as_i64()
-                .map(Some)
-                .map_err(TestConvertError::from)
+            return Ok(None);
         }
+        field_cell
+            .as_i64()
+            .map(Some)
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(sample_struct_array(None), 0, 0 => Ok(Some(10)) ; "struct field index 0 row 0")]
+    #[test_case(sample_struct_array(None), 0, 1 => Ok(Some(20)) ; "struct field index 1 row 0")]
+    #[test_case(sample_struct_array(None), 1, 0 => Ok(None) ; "struct field index 0 null child row 1")]
+    #[test_case(sample_struct_array(None), 0, 2 => Err(TestConvertError::MissingField("2".to_string())) ; "struct field index out of bounds")]
+    #[test_case(sample_struct_array(Some(NullBuffer::from(vec![false, true]))), 0, 0 => Err(TestConvertError::NotNull) ; "struct field index null row")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0, 0 => Err(TestConvertError::type_mismatch("StructArray", "Int64")) ; "struct field index type mismatch")]
+    fn struct_field_cell_by_index(
+        arr: ArrayRef,
+        row_idx: usize,
+        col_idx: usize,
+    ) -> Result<Option<i64>, TestConvertError> {
+        let field_cell = ArrowCell::new(arr, row_idx)
+            .struct_field_cell(&col_idx)
+            .map_err(TestConvertError::from)?;
+        if field_cell.is_null() {
+            return Ok(None);
+        }
+        field_cell
+            .as_i64()
+            .map(Some)
+            .map_err(TestConvertError::from)
+    }
+
+    fn sample_list_array(nulls: Option<NullBuffer>) -> ArrayRef {
+        let values: ArrayRef = Arc::new(Int64Array::from(vec![Some(10), None, Some(30)]));
+        let offsets = OffsetBuffer::from_lengths(vec![2, 1]);
+        Arc::new(ListArray::new(
+            Arc::new(Field::new("item", DataType::Int64, true)),
+            offsets,
+            values,
+            nulls,
+        ))
+    }
+
+    fn sample_large_list_array() -> ArrayRef {
+        let values: ArrayRef = Arc::new(Int64Array::from(vec![Some(100), Some(200)]));
+        let offsets = OffsetBuffer::from_lengths(vec![2]);
+        Arc::new(LargeListArray::new(
+            Arc::new(Field::new("item", DataType::Int64, true)),
+            offsets,
+            values,
+            None,
+        ))
+    }
+
+    #[test_case(sample_list_array(None), 0, 0 => Ok(Some(10)) ; "list element 0 row 0")]
+    #[test_case(sample_list_array(None), 0, 1 => Ok(None) ; "list element 1 null child row 0")]
+    #[test_case(sample_list_array(None), 1, 0 => Ok(Some(30)) ; "list element 0 row 1")]
+    #[test_case(sample_large_list_array(), 0, 1 => Ok(Some(200)) ; "large list element 1 row 0")]
+    #[test_case(sample_list_array(None), 0, 2 => Err(TestConvertError::MissingField("2".to_string())) ; "list element out of bounds")]
+    #[test_case(sample_list_array(Some(NullBuffer::from(vec![false, true]))), 0, 0 => Err(TestConvertError::NotNull) ; "list null row")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0, 0 => Err(TestConvertError::type_mismatch("ListArray or LargeListArray", "Int64")) ; "list type mismatch")]
+    fn list_element_cell(
+        arr: ArrayRef,
+        row_idx: usize,
+        elem_idx: usize,
+    ) -> Result<Option<i64>, TestConvertError> {
+        let elem_cell = ArrowCell::new(arr, row_idx)
+            .list_element_cell(elem_idx)
+            .map_err(TestConvertError::from)?;
+        if elem_cell.is_null() {
+            return Ok(None);
+        }
+        elem_cell.as_i64().map(Some).map_err(TestConvertError::from)
     }
 
     fn create_test_arrow_schema() -> Arc<arrow::datatypes::Schema> {
