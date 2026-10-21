@@ -202,17 +202,15 @@ impl RowIterator {
 
                 if let Some(ref mut arrow_reader) = self.arrow_reader {
                     match arrow_reader.next_record_batch().await {
-                        Ok(batch) => {
-                            if self.schema.len() == 0
-                                && let Some(arrow_schema) = arrow_reader.schema()
-                            {
-                                self.schema = Arc::new(Schema::from_arrow_schema(&arrow_schema));
+                        Ok(Some(batch)) => {
+                            if self.schema.len() == 0 {
+                                self.schema = Arc::new(Schema::from_arrow_schema(&batch.schema()));
                             }
-                            if let Some(batch) = batch {
-                                self.current_batch = Some(Arc::new(batch));
-                                self.row_index = 0;
-                                continue;
-                            }
+                            self.current_batch = Some(Arc::new(batch));
+                            self.row_index = 0;
+                            continue;
+                        }
+                        Ok(None) => {
                             self.arrow_reader = None;
                         }
                         Err(_err) if arrow_reader.can_fallback_to_rest() => {
@@ -246,7 +244,12 @@ impl RowIterator {
             return Ok(());
         };
 
-        let (fetched_rows, next_token) = self.fetch_page(token).await?;
+        let (fetched_rows, next_token, schema) = self.fetch_page(token).await?;
+        if self.schema.len() == 0
+            && let Some(schema) = schema
+        {
+            self.schema = Arc::new(Schema::new(schema));
+        }
         if fetched_rows.is_empty() && next_token.as_deref() == Some(token) {
             self.page_token = None;
         } else {
@@ -256,8 +259,15 @@ impl RowIterator {
         Ok(())
     }
 
-    // Fetches the next page of results and the next page token.
-    async fn fetch_page(&self, token: &str) -> Result<(Vec<wkt::Struct>, Option<String>)> {
+    // Fetches the next page of results, the next page token, and the table schema if present.
+    async fn fetch_page(
+        &self,
+        token: &str,
+    ) -> Result<(
+        Vec<wkt::Struct>,
+        Option<String>,
+        Option<google_cloud_bigquery_v2::model::TableSchema>,
+    )> {
         let job_ref = self.job_ref.as_ref().expect(
             "only queries with a job reference should have page tokens and can fetch more pages",
         );
@@ -289,7 +299,7 @@ impl RowIterator {
             Some(res.page_token)
         };
 
-        Ok((res.rows, page_token))
+        Ok((res.rows, page_token, res.schema))
     }
 }
 
@@ -804,6 +814,7 @@ mod tests {
             .returning(|req, _| {
                 assert_eq!(req.page_token, "token_page_1");
                 let res = GetQueryResultsResponse::new()
+                    .set_schema(create_test_schema())
                     .set_rows(vec![create_test_row("from_json_page")])
                     .set_page_token("");
                 Ok(Response::from(res))
@@ -857,14 +868,19 @@ mod tests {
         google_cloud_unstable_bigquery_storage_read
     ))]
     #[test_case::test_case(
-        bytes::Bytes::from_static(b"invalid arrow schema bytes"),
-        bytes::Bytes::new();
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_schema"),
+        bytes::Bytes::from_static(b"batch");
         "malformed schema"
     )]
     #[test_case::test_case(
         create_test_arrow_schema_bytes(),
-        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00corrupted_batch_header");
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_batch");
         "malformed record batch"
+    )]
+    #[test_case::test_case(
+        create_test_arrow_schema_bytes(),
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00truncated");
+        "truncated stream"
     )]
     #[tokio::test]
     async fn test_row_iterator_cached_arrow_malformed_ipc(

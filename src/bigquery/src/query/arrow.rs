@@ -66,25 +66,8 @@ impl ArrowStreamDecoder {
             .map_err(|e| RowError::InvalidRowFormat(format!("failed to decode arrow batch: {e}")))
     }
 
-    /// Returns the decoded Arrow [`Schema`](arrow::datatypes::Schema), if available.
-    pub(crate) fn schema(&self) -> Option<Arc<arrow::datatypes::Schema>> {
-        self.decoder.schema()
-    }
-
     /// Signals end-of-stream and validates that no partial frame remains in the decoder.
     pub(crate) fn finish(&mut self) -> Result<(), RowError> {
-        // `arrow_ipc::reader::StreamDecoder::decode` stops in `DecoderState::Body` after reading
-        // an exact-length `Schema` message without trailing bytes, leaving `schema()` as `None`
-        // until more bytes are fed. When no record batches follow (e.g. a 0-row query), feeding
-        // the 8-byte IPC EOS marker flushes the pending `Schema` body and still lets `finish()`
-        // reject truncated/malformed schema frames.
-        if self.decoder.schema().is_none() {
-            const EOS: [u8; 8] = [0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00];
-            let mut eos = arrow::buffer::Buffer::from_slice_ref(EOS);
-            self.decoder.decode(&mut eos).map_err(|e| {
-                RowError::InvalidRowFormat(format!("failed to decode arrow schema: {e}"))
-            })?;
-        }
         self.decoder
             .finish()
             .map_err(|e| RowError::InvalidRowFormat(format!("failed to decode arrow stream: {e}")))
@@ -116,14 +99,14 @@ impl ArrowResponseReader {
             batch_buf: arrow::buffer::Buffer::from(serialized_record_batch),
         }
     }
-
-    pub(crate) fn schema(&self) -> Option<Arc<arrow::datatypes::Schema>> {
-        self.decoder.schema()
-    }
 }
 
 impl RecordBatchSource for ArrowResponseReader {
     async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        if self.batch_buf.is_empty() {
+            self.decoder.finish()?;
+            return Ok(None);
+        }
         if let Some(schema_bytes) = self.schema_bytes.take() {
             self.decoder.set_schema_bytes(schema_bytes)?;
         }
@@ -155,13 +138,6 @@ impl RecordBatchSource for ArrowReader {
 }
 
 impl ArrowReader {
-    /// Returns the decoded Arrow [`Schema`](arrow::datatypes::Schema), if available.
-    pub(crate) fn schema(&self) -> Option<Arc<arrow::datatypes::Schema>> {
-        match self {
-            Self::Response(r) => r.schema(),
-        }
-    }
-
     /// Returns `true` if a failed read attempt can fall back to REST `jobs.getQueryResults` pagination.
     pub(crate) fn can_fallback_to_rest(&self) -> bool {
         match self {
@@ -959,25 +935,28 @@ mod tests {
 
     #[tokio::test]
     async fn arrow_response_reader_empty_record_batch() -> anyhow::Result<()> {
-        let arrow_schema = create_test_arrow_schema();
         let schema_bytes = create_test_arrow_schema_bytes();
 
         let mut reader =
             ArrowReader::Response(ArrowResponseReader::new(schema_bytes, bytes::Bytes::new()));
         assert!(reader.next_record_batch().await?.is_none());
-        assert_eq!(reader.schema().as_deref(), Some(arrow_schema.as_ref()));
         Ok(())
     }
 
     #[test_case(
-        bytes::Bytes::from_static(b"invalid arrow schema bytes"),
-        bytes::Bytes::new();
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_schema"),
+        bytes::Bytes::from_static(b"batch");
         "malformed schema"
     )]
     #[test_case(
         create_test_arrow_schema_bytes(),
-        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00corrupted_batch_header");
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_batch");
         "malformed record batch"
+    )]
+    #[test_case(
+        create_test_arrow_schema_bytes(),
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00truncated");
+        "truncated stream"
     )]
     #[tokio::test]
     async fn arrow_response_reader_malformed_ipc(

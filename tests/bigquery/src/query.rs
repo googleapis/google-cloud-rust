@@ -27,7 +27,7 @@ pub async fn query_client() -> Result<()> {
 
     let query = bq
         .query("SELECT 1 as one")
-        .with_project_id(project_id)
+        .with_project_id(&project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .send()
         .await?;
@@ -45,6 +45,16 @@ pub async fn query_client() -> Result<()> {
     let row = iter.next().await.expect("should return first row")?;
     assert_eq!(row.get::<i64>("one")?, 1);
     assert!(iter.next().await.is_none(), "{iter:?}");
+
+    let empty_query = bq
+        .query("SELECT x AS one FROM UNNEST([1]) AS x WHERE FALSE")
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .until_done()
+        .await?;
+    assert_eq!(empty_query.metadata().total_rows, Some(0));
+    let mut empty_iter = empty_query.read();
+    assert!(empty_iter.next().await.is_none(), "{empty_iter:?}");
 
     Ok(())
 }
