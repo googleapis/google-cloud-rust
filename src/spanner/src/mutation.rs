@@ -70,8 +70,6 @@ pub(crate) struct Write {
 #[derive(Clone, Debug, PartialEq)]
 pub(crate) struct Delete {
     pub(crate) table: String,
-    // This will be replaced with the KeySet definition from the
-    // spanner-keys branch once it has been merged.
     pub(crate) key_set: KeySet,
 }
 
@@ -134,8 +132,20 @@ impl Mutation {
     /// Returns a mutation that will delete all rows with primary keys covered by `key_set`.
     ///
     /// # Example
-    /// ```text
-    /// // Example omitted temporarily until the new KeySet API is merged
+    /// ```rust
+    /// use google_cloud_spanner::key;
+    /// use google_cloud_spanner::key::{KeyRange, KeySet};
+    /// use google_cloud_spanner::mutation::Mutation;
+    ///
+    /// // Delete specific rows by primary key:
+    /// let mutation = Mutation::delete("Users", KeySet::from(key![1_i64]));
+    ///
+    /// // Delete a range of keys:
+    /// let range = KeyRange::closed_open(key![1_i64], key![100_i64]);
+    /// let delete_range = Mutation::delete("Users", KeySet::from(range));
+    ///
+    /// // Delete all rows in a table:
+    /// let delete_all = Mutation::delete("Users", KeySet::all());
     /// ```
     pub fn delete(table: impl Into<String>, key_set: KeySet) -> Mutation {
         Mutation {
@@ -244,6 +254,20 @@ impl Delete {
 }
 
 /// A builder for constructing `Write` mutations fluently.
+///
+/// Use one of the constructor methods on [`Mutation`] to create a builder:
+/// [`Mutation::new_insert_builder`], [`Mutation::new_update_builder`],
+/// [`Mutation::new_insert_or_update_builder`], or [`Mutation::new_replace_builder`].
+///
+/// # Example
+/// ```rust
+/// use google_cloud_spanner::mutation::Mutation;
+///
+/// let mutation = Mutation::new_insert_builder("Users")
+///     .set("UserId").to(&1)
+///     .set("UserName").to(&"Alice")
+///     .build();
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 pub struct WriteBuilder {
     table: String,
@@ -287,6 +311,15 @@ impl WriteBuilder {
     }
 
     /// Builds and returns the finalized `Mutation`.
+    ///
+    /// # Example
+    /// ```rust
+    /// use google_cloud_spanner::mutation::Mutation;
+    ///
+    /// let mutation = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&1)
+    ///     .build();
+    /// ```
     pub fn build(self) -> Mutation {
         let write = Write {
             table: self.table,
@@ -304,6 +337,19 @@ impl WriteBuilder {
 }
 
 /// A binder that associates a column name with a value within a `WriteBuilder`.
+///
+/// Returned by [`WriteBuilder::set`] to bind a column value before chaining back
+/// to the builder.
+///
+/// # Example
+/// ```rust
+/// use google_cloud_spanner::mutation::Mutation;
+///
+/// let mutation = Mutation::new_insert_builder("Users")
+///     .set("UserId").to(&1)
+///     .set("UserName").to(&"Alice")
+///     .build();
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 pub struct ValueBinder {
     builder: WriteBuilder,
@@ -312,6 +358,16 @@ pub struct ValueBinder {
 
 impl ValueBinder {
     /// Sets the value for the column.
+    ///
+    /// # Example
+    /// ```rust
+    /// use google_cloud_spanner::mutation::Mutation;
+    ///
+    /// let mutation = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&1)
+    ///     .set("UserName").to(&"Alice")
+    ///     .build();
+    /// ```
     pub fn to<T: Into<Value>>(mut self, value: T) -> WriteBuilder {
         self.builder.columns.push(self.column);
         self.builder.values.push(value.into());
@@ -319,7 +375,22 @@ impl ValueBinder {
     }
 }
 
-/// A group of mutations that are applied atomically in a [crate::batch::BatchWriteTransaction].
+/// A group of mutations that are applied atomically in a [`BatchWriteTransaction`](crate::batch::BatchWriteTransaction).
+///
+/// # Example
+/// ```rust
+/// use google_cloud_spanner::mutation::{Mutation, MutationGroup};
+///
+/// let user_mutation = Mutation::new_insert_builder("Users")
+///     .set("UserId").to(&1)
+///     .build();
+/// let profile_mutation = Mutation::new_insert_builder("Profiles")
+///     .set("UserId").to(&1)
+///     .set("Bio").to(&"Hello World")
+///     .build();
+/// let group = MutationGroup::new(vec![user_mutation, profile_mutation]);
+/// assert_eq!(group.mutations().len(), 2, "expected 2 mutations in group");
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct MutationGroup {
@@ -328,11 +399,40 @@ pub struct MutationGroup {
 
 impl MutationGroup {
     /// Creates a new mutation group from a list of mutations.
+    ///
+    /// # Example
+    /// ```rust
+    /// use google_cloud_spanner::mutation::{Mutation, MutationGroup};
+    ///
+    /// let user_mutation = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&1)
+    ///     .build();
+    /// let profile_mutation = Mutation::new_insert_builder("Profiles")
+    ///     .set("UserId").to(&1)
+    ///     .set("Bio").to(&"Hello World")
+    ///     .build();
+    /// let group = MutationGroup::new(vec![user_mutation, profile_mutation]);
+    /// ```
     pub fn new(mutations: Vec<Mutation>) -> Self {
         Self { mutations }
     }
 
     /// Returns a reference to the collection of mutations in this group.
+    ///
+    /// # Example
+    /// ```rust
+    /// use google_cloud_spanner::mutation::{Mutation, MutationGroup};
+    ///
+    /// let user_mutation = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&1)
+    ///     .build();
+    /// let profile_mutation = Mutation::new_insert_builder("Profiles")
+    ///     .set("UserId").to(&1)
+    ///     .set("Bio").to(&"Hello World")
+    ///     .build();
+    /// let group = MutationGroup::new(vec![user_mutation, profile_mutation]);
+    /// assert_eq!(group.mutations().len(), 2, "expected 2 mutations in group");
+    /// ```
     pub fn mutations(&self) -> &[Mutation] {
         &self.mutations
     }
@@ -528,6 +628,56 @@ mod tests {
                 JsonValue::String("-Infinity".to_string()),
             ])),
             "f32_array_col must serialize elements as strings"
+        );
+    }
+
+    #[test]
+    fn mutation_proto_and_proto_enum() {
+        use base64::Engine;
+        use base64::prelude::BASE64_STANDARD;
+
+        let proto_payload = b"customer-proto-address";
+        let proto_base64 = BASE64_STANDARD.encode(proto_payload);
+
+        let mutation = Mutation::new_insert_builder("Orders")
+            .set("address")
+            .to(proto_payload.to_vec())
+            .set("status")
+            .to(3_i64)
+            .set("address_list")
+            .to(vec![proto_payload.to_vec()])
+            .set("status_list")
+            .to(vec![1_i64, 2_i64])
+            .build();
+
+        let proto_mutation = mutation.build_proto();
+        let proto_write = proto_mutation.insert().expect("expected insert write");
+
+        assert_eq!(proto_write.values.len(), 1, "expected 1 row of values");
+        let row = proto_write.values.first().expect("row should exist");
+        assert_eq!(row.len(), 4, "expected 4 columns in mutation row");
+        assert_eq!(
+            row.first(),
+            Some(&JsonValue::String(proto_base64.clone())),
+            "address proto column must serialize as base64 string"
+        );
+        assert_eq!(
+            row.get(1),
+            Some(&JsonValue::String("3".to_string())),
+            "status enum column must serialize as numeric string"
+        );
+        assert_eq!(
+            row.get(2),
+            Some(&JsonValue::Array(vec![JsonValue::String(proto_base64)])),
+            "address_list must serialize as array of base64 strings"
+        );
+        assert_eq!(
+            row.get(3),
+            Some(&JsonValue::Array(vec![
+                JsonValue::String("1".to_string()),
+                JsonValue::String("2".to_string()),
+            ])),
+            "status_list must serialize as array of numeric strings"
         );
     }
 

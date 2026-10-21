@@ -22,15 +22,22 @@
 //! etc.) reachable from external crates that depend on
 //! `google-cloud-spanner`.
 
+use bytes::Bytes;
+use google_cloud_spanner::key;
+use google_cloud_spanner::mutation::Mutation;
 use google_cloud_spanner::statement::Statement;
 use google_cloud_spanner::types;
 use google_cloud_spanner::value::{Date, Timestamp};
 #[cfg(feature = "unstable-time")]
 use time::OffsetDateTime;
+use uuid::Uuid;
 
 #[test]
 fn external_uses_typed_param_constructors() {
-    let statement = Statement::builder("SELECT @ts, @s, @n, @d")
+    let uuid = Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").expect("valid uuid string");
+    let byte_buffer = Bytes::from_static(b"binary payload");
+
+    let statement = Statement::builder("SELECT @ts, @s, @n, @d, @u, @b, @p, @e")
         .add_typed_param("ts", Timestamp::clamp(1_700_000_000, 0), types::timestamp())
         .add_typed_param("s", "hello".to_string(), types::string())
         .add_typed_param("n", 42i64, types::int64())
@@ -39,16 +46,64 @@ fn external_uses_typed_param_constructors() {
             Date::new().set_year(2025).set_month(1).set_day(1),
             types::date(),
         )
+        .add_typed_param("u", uuid, types::uuid())
+        .add_typed_param("b", byte_buffer.clone(), types::bytes())
+        .add_typed_param(
+            "p",
+            vec![1u8, 2, 3],
+            types::proto("examples.shipping.Address"),
+        )
+        .add_typed_param(
+            "e",
+            1i64,
+            types::proto_enum("examples.shipping.OrderStatus"),
+        )
         .build();
 
-    assert!(statement.sql().contains("SELECT @ts, @s, @n, @d"));
+    assert!(
+        statement
+            .sql()
+            .contains("SELECT @ts, @s, @n, @d, @u, @b, @p, @e"),
+        "expected statement SQL to contain all typed parameters"
+    );
+
+    let statement_untyped = Statement::builder("SELECT @u, @b")
+        .add_param("u", uuid)
+        .add_param("b", byte_buffer.clone())
+        .build();
+    assert!(
+        statement_untyped.sql().contains("SELECT @u, @b"),
+        "sql statement must contain all untyped parameters"
+    );
+
+    let primary_key = key![uuid, byte_buffer.clone()];
+    assert_eq!(
+        primary_key,
+        key![uuid, byte_buffer.clone()],
+        "key macro must support uuid and bytes"
+    );
+
+    let mutation = Mutation::new_insert_builder("Users")
+        .set("UserId")
+        .to(uuid)
+        .set("Data")
+        .to(&byte_buffer)
+        .build();
+    assert_eq!(
+        mutation,
+        mutation.clone(),
+        "mutation built with uuid and bytes must equal its clone"
+    );
 
     #[cfg(feature = "unstable-time")]
     {
         let statement = Statement::builder("SELECT @ts")
             .add_typed_param("ts", OffsetDateTime::now_utc(), types::timestamp())
             .build();
-        assert!(statement.sql().contains("SELECT @ts"));
+        assert!(
+            statement.sql().contains("SELECT @ts"),
+            "sql statement must contain unstable timestamp"
+        );
     }
 }
 
@@ -71,5 +126,7 @@ fn external_reaches_all_primitive_constructors() {
     let _ = types::pg_numeric();
     let _ = types::pg_jsonb();
     let _ = types::pg_oid();
+    let _ = types::proto("examples.shipping.Address");
+    let _ = types::proto_enum("examples.shipping.OrderStatus");
     let _ = types::array(types::int64());
 }

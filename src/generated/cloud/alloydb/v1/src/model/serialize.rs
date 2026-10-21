@@ -987,8 +987,17 @@ impl serde::ser::Serialize for super::Instance {
         if self.query_insights_config.is_some() {
             state.serialize_entry("queryInsightsConfig", &self.query_insights_config)?;
         }
+        if self.query_insights_info.is_some() {
+            state.serialize_entry("queryInsightsInfo", &self.query_insights_info)?;
+        }
         if self.observability_config.is_some() {
             state.serialize_entry("observabilityConfig", &self.observability_config)?;
+        }
+        if self.observability_instance_info.is_some() {
+            state.serialize_entry(
+                "observabilityInstanceInfo",
+                &self.observability_instance_info,
+            )?;
         }
         if self.read_pool_config.is_some() {
             state.serialize_entry("readPoolConfig", &self.read_pool_config)?;
@@ -1158,6 +1167,58 @@ impl serde::ser::Serialize for super::instance::QueryInsightsInstanceConfig {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::instance::QueryInsightsInstanceInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !wkt::internal::is_default(&self.record_application_tags) {
+            state.serialize_entry("recordApplicationTags", &self.record_application_tags)?;
+        }
+        if !wkt::internal::is_default(&self.record_client_address) {
+            state.serialize_entry("recordClientAddress", &self.record_client_address)?;
+        }
+        if !wkt::internal::is_default(&self.query_string_length) {
+            struct __With<'a>(&'a u32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("queryStringLength", &__With(&self.query_string_length))?;
+        }
+        if !wkt::internal::is_default(&self.query_plans_per_minute) {
+            struct __With<'a>(&'a u32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("queryPlansPerMinute", &__With(&self.query_plans_per_minute))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::instance::ObservabilityInstanceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1214,6 +1275,70 @@ impl serde::ser::Serialize for super::instance::ObservabilityInstanceConfig {
             state.serialize_entry("queryPlansPerMinute", &__With(&self.query_plans_per_minute))?;
         }
         if self.track_active_queries.is_some() {
+            state.serialize_entry("trackActiveQueries", &self.track_active_queries)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instance::ObservabilityInstanceInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !wkt::internal::is_default(&self.preserve_comments) {
+            state.serialize_entry("preserveComments", &self.preserve_comments)?;
+        }
+        if !wkt::internal::is_default(&self.track_wait_events) {
+            state.serialize_entry("trackWaitEvents", &self.track_wait_events)?;
+        }
+        if !wkt::internal::is_default(&self.track_wait_event_types) {
+            state.serialize_entry("trackWaitEventTypes", &self.track_wait_event_types)?;
+        }
+        if !wkt::internal::is_default(&self.max_query_string_length) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "maxQueryStringLength",
+                &__With(&self.max_query_string_length),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.record_application_tags) {
+            state.serialize_entry("recordApplicationTags", &self.record_application_tags)?;
+        }
+        if !wkt::internal::is_default(&self.query_plans_per_minute) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("queryPlansPerMinute", &__With(&self.query_plans_per_minute))?;
+        }
+        if !wkt::internal::is_default(&self.track_active_queries) {
             state.serialize_entry("trackActiveQueries", &self.track_active_queries)?;
         }
         if !self._unknown_fields.is_empty() {

@@ -344,6 +344,19 @@ impl<T: FromSql> FromSql for Vec<T> {
                 .map(|v| T::from_value(SqlValue::from_inner(v)))
                 .collect(),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let value_arr = cell.list_array_ref()?;
+                (0..value_arr.len())
+                    .map(|i| {
+                        let elem_cell = ArrowCell::new(value_arr.clone(), i);
+                        T::from_value(SqlValue::from_inner(SqlValueInner::Arrow(elem_cell)))
+                    })
+                    .collect()
+            }
             other => Err(ConvertError::type_mismatch("array", &other)),
         }
     }
@@ -360,6 +373,14 @@ impl FromSql for wkt::Struct {
                 serde_json::from_str(&s).map_err(|e| ConvertError::Convert(Box::new(e)))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let s = cell.as_str()?;
+                serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
             other => Err(ConvertError::type_mismatch("object or string", &other)),
         }
     }
@@ -534,6 +555,13 @@ impl FromSql for google_cloud_type::model::Decimal {
                 Ok(google_cloud_type::model::Decimal::new().set_value(n.to_string()))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => cell
+                .as_decimal_str()
+                .map(|s| google_cloud_type::model::Decimal::new().set_value(s)),
             other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
@@ -558,6 +586,21 @@ impl FromSql for rust_decimal::Decimal {
                 }
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                if let Some((val, scale)) = cell.as_decimal128_with_scale()
+                    && let Ok(d) = rust_decimal::Decimal::try_from_i128_with_scale(val, scale)
+                {
+                    return Ok(d.normalize());
+                }
+                cell.as_decimal_str()?
+                    .parse::<rust_decimal::Decimal>()
+                    .map(|d| d.normalize())
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
             other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
@@ -611,7 +654,7 @@ mod tests {
     enum TestConvertError {
         NotNull,
         TypeMismatch(String),
-        Convert(String),
+        Convert,
         MissingField(String),
     }
 
@@ -626,7 +669,7 @@ mod tests {
             match err {
                 ConvertError::NotNull => Self::NotNull,
                 ConvertError::TypeMismatch { expected, .. } => Self::TypeMismatch(expected),
-                ConvertError::Convert(e) => Self::Convert(e.to_string()),
+                ConvertError::Convert(_) => Self::Convert,
                 ConvertError::MissingField(f) => Self::MissingField(f),
             }
         }
@@ -685,7 +728,7 @@ mod tests {
     #[test_case(wkt::Value::String("123".to_string()) => Ok(123) ; "i64 from string")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null i64")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("number or string")) ; "try bool as i64")]
-    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "invalid string as i64")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert) ; "invalid string as i64")]
     fn test_from_sql_i64(value: wkt::Value) -> Result<i64, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -694,7 +737,7 @@ mod tests {
     #[test_case(wkt::Value::String("123.45".to_string()) => Ok(123.45) ; "f64 from string")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null f64")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("number or string")) ; "try bool as f64")]
-    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid float literal".to_string())) ; "invalid string as f64")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert) ; "invalid string as f64")]
     fn test_from_sql_f64(value: wkt::Value) -> Result<f64, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -705,14 +748,14 @@ mod tests {
     #[test_case(wkt::Value::String("false".to_string()) => Ok(false) ; "bool from string false")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null bool")]
     #[test_case(wkt::Value::Number(1.into()) => Err(TestConvertError::type_mismatch("bool or string")) ; "try number as bool")]
-    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("provided string was not `true` or `false`".to_string())) ; "invalid string as bool")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert) ; "invalid string as bool")]
     fn test_from_sql_bool(value: wkt::Value) -> Result<bool, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
 
     #[test_case(wkt::Value::Null => Ok(None) ; "option null")]
     #[test_case(wkt::Value::Number(123.into()) => Ok(Some(123)) ; "option some i64")]
-    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "option error i64")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert) ; "option error i64")]
     fn test_from_sql_option(value: wkt::Value) -> Result<Option<i64>, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -720,7 +763,7 @@ mod tests {
     #[test_case(wkt::Value::Array(vec![wkt::Value::Number(1.into()), wkt::Value::Number(2.into())]) => Ok(vec![1, 2]) ; "vec i64")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null vec i64")]
     #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::type_mismatch("array")) ; "vec type mismatch")]
-    #[test_case(wkt::Value::Array(vec![wkt::Value::String("invalid".to_string())]) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "vec element convert error")]
+    #[test_case(wkt::Value::Array(vec![wkt::Value::String("invalid".to_string())]) => Err(TestConvertError::Convert) ; "vec element convert error")]
     fn test_from_sql_vec(value: wkt::Value) -> Result<Vec<i64>, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -728,7 +771,7 @@ mod tests {
     #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "struct ok")]
     #[test_case(wkt::Value::String(r#"{"a": 1}"#.to_string()) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "struct from json string")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "struct null")]
-    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("expected value at line 1 column 1".to_string())) ; "struct invalid json string")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert) ; "struct invalid json string")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("object or string")) ; "struct type mismatch")]
     fn test_from_sql_struct(value: wkt::Value) -> Result<wkt::Struct, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
@@ -736,8 +779,8 @@ mod tests {
 
     #[test_case(wkt::Value::String("1779982200000000".to_string()) => Ok(wkt::Timestamp::new(1779982200, 0).unwrap()) ; "timestamp micro integer string")]
     #[test_case(wkt::Value::Number(1779982200000000i64.into()) => Ok(wkt::Timestamp::new(1779982200, 0).unwrap()) ; "timestamp micro integer number")]
-    #[test_case(wkt::Value::String("2026-05-28T15:30:00Z".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "timestamp rfc3339 string fails")]
-    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(1779982200.5).unwrap()) => Err(TestConvertError::Convert("timestamp number is not valid i64".to_string())) ; "timestamp f64 number fails")]
+    #[test_case(wkt::Value::String("2026-05-28T15:30:00Z".to_string()) => Err(TestConvertError::Convert) ; "timestamp rfc3339 string fails")]
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(1779982200.5).unwrap()) => Err(TestConvertError::Convert) ; "timestamp f64 number fails")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "timestamp null")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("string or number")) ; "timestamp type mismatch")]
     fn test_from_sql_timestamp(value: wkt::Value) -> Result<wkt::Timestamp, TestConvertError> {
@@ -745,10 +788,10 @@ mod tests {
     }
 
     #[test_case(wkt::Value::String("2026-05-28".to_string()) => Ok(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)) ; "date valid")]
-    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "date null")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null date")]
     #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::type_mismatch("string")) ; "date type mismatch")]
-    #[test_case(wkt::Value::String("invalid-date".to_string()) => Err(TestConvertError::Convert("the 'year' component could not be parsed".to_string())) ; "date invalid format")]
-    #[test_case(wkt::Value::String("2026-abc-28".to_string()) => Err(TestConvertError::Convert("the 'month' component could not be parsed".to_string())) ; "date invalid digits")]
+    #[test_case(wkt::Value::String("invalid-date".to_string()) => Err(TestConvertError::Convert) ; "date invalid format")]
+    #[test_case(wkt::Value::String("2026-abc-28".to_string()) => Err(TestConvertError::Convert) ; "date invalid digits")]
     fn test_from_sql_date(
         value: wkt::Value,
     ) -> Result<google_cloud_type::model::Date, TestConvertError> {
@@ -777,10 +820,10 @@ mod tests {
 
     #[test_case(wkt::Value::Number(123.into()) => Ok(123) ; "i32 from number")]
     #[test_case(wkt::Value::String("123".to_string()) => Ok(123) ; "i32 from string")]
-    #[test_case(wkt::Value::Number(3_000_000_000i64.into()) => Err(TestConvertError::Convert("number is not a valid i32".to_string())) ; "i32 overflow from number")]
+    #[test_case(wkt::Value::Number(3_000_000_000i64.into()) => Err(TestConvertError::Convert) ; "i32 overflow from number")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null i32")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("number or string")) ; "try bool as i32")]
-    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "invalid string as i32")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert) ; "invalid string as i32")]
     fn test_from_sql_i32(value: wkt::Value) -> Result<i32, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -789,7 +832,7 @@ mod tests {
     #[test_case(wkt::Value::String("123.45".to_string()) => Ok(123.45) ; "f32 from string")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null f32")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("number or string")) ; "try bool as f32")]
-    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid float literal".to_string())) ; "invalid string as f32")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert) ; "invalid string as f32")]
     fn test_from_sql_f32(value: wkt::Value) -> Result<f32, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -806,7 +849,7 @@ mod tests {
     #[test_case(wkt::Value::Number((-123i64).into()) => Ok(RustDecimal::from(-123i64)) ; "rust_decimal from i64 number")]
     #[test_case(wkt::Value::Number(u64::MAX.into()) => Ok(RustDecimal::from(u64::MAX)) ; "rust_decimal from u64 number")]
     #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from f64 number")]
-    #[test_case(wkt::Value::String("99999999999999999999999999999999.123".to_string()) => Err(TestConvertError::Convert("Invalid decimal: overflow from too many digits".to_string())) ; "rust_decimal overflow")]
+    #[test_case(wkt::Value::String("99999999999999999999999999999999.123".to_string()) => Err(TestConvertError::Convert) ; "rust_decimal overflow")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null rust_decimal")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("string or number")) ; "try bool as rust_decimal")]
     fn test_from_sql_rust_decimal(value: wkt::Value) -> Result<RustDecimal, TestConvertError> {
@@ -853,7 +896,7 @@ mod tests {
     #[test_case(wkt::Value::String(r#"{"name": "James", "custom_int": 272793, "some_bool": true}"#.to_string()) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272793, some_bool: true }) ; "json string success")]
     #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("name".to_string(), wkt::Value::String("James".to_string())), ("some_bool".to_string(), wkt::Value::Bool(true))])) => Err(TestConvertError::MissingField("custom_int".to_string())) ; "missing field")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null error")]
-    #[test_case(wkt::Value::String("invalid".to_string()) => Err(TestConvertError::Convert("expected value at line 1 column 1".to_string())) ; "invalid json string")]
+    #[test_case(wkt::Value::String("invalid".to_string()) => Err(TestConvertError::Convert) ; "invalid json string")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("object or string")) ; "type mismatch")]
     fn test_derive_from_sql(value: wkt::Value) -> Result<TestSqlStruct, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
@@ -1067,16 +1110,59 @@ mod tests {
     mod arrow_tests {
         use super::*;
         use arrow::array::{
-            ArrayRef, BinaryArray, BooleanArray, Date32Array, Float32Array, Float64Array,
-            Int32Array, Int64Array, LargeBinaryArray, LargeStringArray, StringArray,
-            Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
-            TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray,
+            ArrayRef, BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array,
+            Float32Array, Float64Array, Int32Array, Int64Array, LargeBinaryArray, LargeListArray,
+            LargeStringArray, ListArray, StringArray, StructArray, Time64MicrosecondArray,
+            Time64NanosecondArray, TimestampMicrosecondArray, TimestampMillisecondArray,
+            TimestampNanosecondArray, TimestampSecondArray,
         };
+        use arrow::buffer::{NullBuffer, OffsetBuffer};
+        use arrow::datatypes::{DataType, Field, Fields, i256};
         use std::sync::Arc;
         use test_case::test_case;
 
         fn arrow_val(arr: ArrayRef, row_idx: usize) -> SqlValue {
             SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, row_idx)))
+        }
+
+        fn sample_list_i64(values: Vec<Option<i64>>, nulls: Option<NullBuffer>) -> ArrayRef {
+            let len = values.len();
+            let val_arr: ArrayRef = Arc::new(Int64Array::from(values));
+            let offsets = OffsetBuffer::from_lengths(vec![len]);
+            Arc::new(ListArray::new(
+                Arc::new(Field::new("item", DataType::Int64, true)),
+                offsets,
+                val_arr,
+                nulls,
+            ))
+        }
+
+        fn sample_large_list_i64(values: Vec<Option<i64>>) -> ArrayRef {
+            let len = values.len();
+            let val_arr: ArrayRef = Arc::new(Int64Array::from(values));
+            let offsets = OffsetBuffer::from_lengths(vec![len]);
+            Arc::new(LargeListArray::new(
+                Arc::new(Field::new("item", DataType::Int64, true)),
+                offsets,
+                val_arr,
+                None,
+            ))
+        }
+
+        fn decimal128_array(values: Vec<Option<i128>>, precision: u8, scale: i8) -> ArrayRef {
+            Arc::new(
+                Decimal128Array::from(values)
+                    .with_precision_and_scale(precision, scale)
+                    .unwrap(),
+            )
+        }
+
+        fn decimal256_array(values: Vec<Option<i256>>, precision: u8, scale: i8) -> ArrayRef {
+            Arc::new(
+                Decimal256Array::from(values)
+                    .with_precision_and_scale(precision, scale)
+                    .unwrap(),
+            )
         }
 
         #[test_case(Arc::new(BooleanArray::from(vec![true])) => "Boolean" ; "arrow boolean")]
@@ -1113,7 +1199,7 @@ mod tests {
 
         #[test_case(Arc::new(Int32Array::from(vec![Some(123)])) => Ok(123) ; "i32 from Int32Array")]
         #[test_case(Arc::new(Int64Array::from(vec![Some(456)])) => Ok(456) ; "i32 from Int64Array")]
-        #[test_case(Arc::new(Int64Array::from(vec![Some(i64::from(i32::MAX) + 1)])) => Err(TestConvertError::Convert("out of range integral type conversion attempted".to_string())) ; "i32 overflow from Int64Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![Some(i64::from(i32::MAX) + 1)])) => Err(TestConvertError::Convert) ; "i32 overflow from Int64Array")]
         #[test_case(Arc::new(Int32Array::from(vec![None])) => Err(TestConvertError::NotNull) ; "i32 null")]
         #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("Int64Array or Int32Array")) ; "i32 type mismatch")]
         fn test_from_sql_arrow_i32(arr: ArrayRef) -> Result<i32, TestConvertError> {
@@ -1166,6 +1252,54 @@ mod tests {
             bytes::Bytes::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }
 
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(Decimal::new().set_value("123.456")) ; "decimal from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3) => Ok(Decimal::new().set_value("-123.456")) ; "decimal negative from Decimal128Array")]
+        #[test_case(decimal256_array(vec![Some(i256::from_i128(789_012))], 20, 3) => Ok(Decimal::new().set_value("789.012")) ; "decimal from Decimal256Array")]
+        #[test_case(decimal128_array(vec![None], 10, 3) => Err(TestConvertError::NotNull) ; "decimal null Decimal128Array")]
+        #[test_case(decimal256_array(vec![None], 20, 3) => Err(TestConvertError::NotNull) ; "decimal null Decimal256Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array")) ; "decimal type mismatch")]
+        fn test_from_sql_arrow_decimal(arr: ArrayRef) -> Result<Decimal, TestConvertError> {
+            Decimal::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3) => Ok(RustDecimal::from_str_exact("-123.456").unwrap()) ; "rust_decimal negative from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(100_000_000_000_000_000_000_000_000_000_i128)], 38, 9) => Ok(RustDecimal::from_str_exact("100000000000000000000").unwrap()) ; "rust_decimal from Decimal128Array with trailing zeros exceeding 96 bits unscaled")]
+        #[test_case(decimal128_array(vec![Some(12)], 10, -2) => Ok(RustDecimal::from(1200)) ; "rust_decimal from Decimal128Array with negative scale")]
+        #[test_case(decimal128_array(vec![Some(i128::MAX)], 38, 9) => Err(TestConvertError::Convert) ; "rust_decimal overflow from Decimal128Array")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("123456789012345678900000000000000000000000000000").unwrap())], 76, 38) => Ok(RustDecimal::from_str_exact("1234567890.123456789").unwrap()) ; "rust_decimal from Decimal256Array with trailing zeros")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("4200000000000000000000000000000000000000").unwrap())], 76, 38) => Ok(RustDecimal::from(42)) ; "rust_decimal from Decimal256Array integer with trailing zeros")]
+        #[test_case(decimal256_array(vec![Some(i256::from_i128(12))], 20, -2) => Ok(RustDecimal::from(1200)) ; "rust_decimal from Decimal256Array without decimal point")]
+        #[test_case(decimal256_array(vec![Some(i256::MAX)], 76, 38) => Err(TestConvertError::Convert) ; "rust_decimal overflow from Decimal256Array")]
+        #[test_case(decimal128_array(vec![None], 10, 3) => Err(TestConvertError::NotNull) ; "rust_decimal null Decimal128Array")]
+        #[test_case(decimal256_array(vec![None], 20, 3) => Err(TestConvertError::NotNull) ; "rust_decimal null Decimal256Array")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array")) ; "rust_decimal type mismatch")]
+        fn test_from_sql_arrow_rust_decimal(
+            arr: ArrayRef,
+        ) -> Result<RustDecimal, TestConvertError> {
+            RustDecimal::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(
+            decimal128_array(vec![Some(42_500_000_000)], 38, 9)
+            => ("42.5".to_string(), 1)
+            ; "Decimal128 fractional trailing zeros normalized"
+        )]
+        #[test_case(
+            decimal128_array(vec![Some(42_000_000_000)], 38, 9)
+            => ("42".to_string(), 0)
+            ; "Decimal128 integer trailing zeros normalized"
+        )]
+        #[test_case(
+            decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38)
+            => ("42.5".to_string(), 1)
+            ; "Decimal256 fractional trailing zeros normalized"
+        )]
+        fn test_from_sql_arrow_rust_decimal_scale(arr: ArrayRef) -> (String, u32) {
+            let d = RustDecimal::from_value(arrow_val(arr, 0)).unwrap();
+            (d.to_string(), d.scale())
+        }
+
         #[test_case(Arc::new(Int64Array::from(vec![Some(42)])) => Ok(Some(42)) ; "option some i64")]
         #[test_case(Arc::new(Int64Array::from(vec![None])) => Ok(None) ; "option null")]
         #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Err(TestConvertError::type_mismatch("Int64Array")) ; "option type mismatch")]
@@ -1188,7 +1322,7 @@ mod tests {
 
         #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Ok(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)) ; "date valid")]
         #[test_case(Arc::new(Date32Array::from(vec![Some(0)])) => Ok(google_cloud_type::model::Date::new().set_year(1970).set_month(1).set_day(1)) ; "date epoch")]
-        #[test_case(Arc::new(Date32Array::from(vec![Some(i32::MAX)])) => Err(TestConvertError::Convert("timestamp was not in range".to_string())) ; "date out of range")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(i32::MAX)])) => Err(TestConvertError::Convert) ; "date out of range")]
         #[test_case(Arc::new(Date32Array::from(vec![None])) => Err(TestConvertError::NotNull) ; "date null")]
         #[test_case(Arc::new(Int32Array::from(vec![20_601])) => Err(TestConvertError::type_mismatch("Date32Array")) ; "date type mismatch")]
         fn test_from_sql_arrow_date(
@@ -1201,8 +1335,8 @@ mod tests {
         #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])) => Ok(google_cloud_type::model::TimeOfDay::new().set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)) ; "time of day valid")]
         #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_123_456)])) => Ok(google_cloud_type::model::TimeOfDay::new().set_hours(15).set_minutes(30).set_seconds(0).set_nanos(123_456_000)) ; "time of day fractional")]
         #[test_case(Arc::new(Time64NanosecondArray::from(vec![Some(55_800_123_456_789)])) => Ok(google_cloud_type::model::TimeOfDay::new().set_hours(15).set_minutes(30).set_seconds(0).set_nanos(123_456_000)) ; "time of day nanosecond")]
-        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(-1)])) => Err(TestConvertError::Convert("time64 microseconds out of range: -1".to_string())) ; "time of day negative")]
-        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(86_400_000_000)])) => Err(TestConvertError::Convert("time64 microseconds out of range: 86400000000".to_string())) ; "time of day 24h out of range")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(-1)])) => Err(TestConvertError::Convert) ; "time of day negative")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(86_400_000_000)])) => Err(TestConvertError::Convert) ; "time of day 24h out of range")]
         #[test_case(Arc::new(Time64MicrosecondArray::from(vec![None])) => Err(TestConvertError::NotNull) ; "time of day null")]
         #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("Time64MicrosecondArray")) ; "time of day type mismatch")]
         fn test_from_sql_arrow_time_of_day(
@@ -1214,7 +1348,7 @@ mod tests {
 
         #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])) => Ok(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(28).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)) ; "datetime without subseconds")]
         #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(28).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(123_456_000)) ; "datetime with subseconds")]
-        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(i64::MAX)])) => Err(TestConvertError::Convert("timestamp was not in range".to_string())) ; "datetime out of range")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(i64::MAX)])) => Err(TestConvertError::Convert) ; "datetime out of range")]
         #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![None])) => Err(TestConvertError::NotNull) ; "datetime null")]
         #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("TimestampArray")) ; "datetime type mismatch")]
         fn test_from_sql_arrow_datetime(
@@ -1222,6 +1356,134 @@ mod tests {
         ) -> Result<google_cloud_type::model::DateTime, TestConvertError> {
             google_cloud_type::model::DateTime::from_value(arrow_val(arr, 0))
                 .map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_list_i64(vec![Some(10), Some(20), Some(30)], None) => Ok(vec![10, 20, 30]) ; "vec from ListArray")]
+        #[test_case(sample_large_list_i64(vec![Some(40), Some(50)]) => Ok(vec![40, 50]) ; "vec from LargeListArray")]
+        #[test_case(sample_list_i64(vec![], None) => Ok(vec![]) ; "vec empty ListArray")]
+        #[test_case(sample_list_i64(vec![Some(10)], Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "vec null ListArray")]
+        #[test_case(sample_list_i64(vec![Some(10), None], None) => Err(TestConvertError::NotNull) ; "vec null element in non-optional Vec")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("ListArray or LargeListArray")) ; "vec type mismatch")]
+        fn test_from_sql_arrow_vec_i64(arr: ArrayRef) -> Result<Vec<i64>, TestConvertError> {
+            Vec::<i64>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_list_i64(vec![Some(10), None, Some(30)], None) => Ok(vec![Some(10), None, Some(30)]) ; "vec option i64 with null element")]
+        fn test_from_sql_arrow_vec_option_i64(
+            arr: ArrayRef,
+        ) -> Result<Vec<Option<i64>>, TestConvertError> {
+            Vec::<Option<i64>>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test]
+        fn test_sql_value_take_arrow_list_by_index() -> anyhow::Result<()> {
+            let mut list_val = arrow_val(sample_list_i64(vec![Some(10), Some(20)], None), 0);
+            assert_eq!(list_val.take::<i64, _>(0)?, 10);
+            assert_eq!(list_val.take::<i64, _>(1)?, 20);
+            assert!(matches!(
+                list_val.take::<i64, _>(2),
+                Err(ConvertError::MissingField(ref f)) if f == "2"
+            ));
+
+            Ok(())
+        }
+
+        fn sample_test_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("name", DataType::Utf8, false),
+                Field::new("custom_int", DataType::Int64, false),
+                Field::new("some_bool", DataType::Boolean, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(StringArray::from(vec!["James"])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![272_793])) as ArrayRef,
+                    Arc::new(BooleanArray::from(vec![true])) as ArrayRef,
+                ],
+                nulls,
+            ))
+        }
+
+        fn sample_missing_field_struct_array() -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("name", DataType::Utf8, false),
+                Field::new("some_bool", DataType::Boolean, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(StringArray::from(vec!["James"])) as ArrayRef,
+                    Arc::new(BooleanArray::from(vec![true])) as ArrayRef,
+                ],
+                None,
+            ))
+        }
+
+        fn sample_tuple_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("", DataType::Int64, false),
+                Field::new("", DataType::Int64, true),
+                Field::new("", DataType::Utf8, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(Int64Array::from(vec![Some(100)])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![None])) as ArrayRef,
+                    Arc::new(StringArray::from(vec!["world"])) as ArrayRef,
+                ],
+                nulls,
+            ))
+        }
+
+        fn sample_short_tuple_struct_array() -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("", DataType::Int64, false),
+                Field::new("", DataType::Int64, true),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(Int64Array::from(vec![Some(100)])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![None])) as ArrayRef,
+                ],
+                None,
+            ))
+        }
+
+        #[test_case(sample_test_struct_array(None) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec![r#"{"name": "James", "custom_int": 272793, "some_bool": true}"#])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from StringArray json")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![r#"{"name": "James", "custom_int": 272793, "some_bool": true}"#])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from LargeStringArray json")]
+        #[test_case(sample_missing_field_struct_array() => Err(TestConvertError::MissingField("custom_int".to_string())) ; "struct missing field")]
+        #[test_case(sample_test_struct_array(Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "struct null StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec!["invalid"])) => Err(TestConvertError::Convert) ; "struct invalid json string")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("object or string")) ; "struct type mismatch")]
+        fn test_derive_from_sql_arrow_named_struct(
+            arr: ArrayRef,
+        ) -> Result<TestSqlStruct, TestConvertError> {
+            TestSqlStruct::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_tuple_struct_array(None) => Ok(GenericTupleSql(100, None, "world".to_string())) ; "tuple struct from StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec![r#"[100, null, "world"]"#])) => Ok(GenericTupleSql(100, None, "world".to_string())) ; "tuple struct from StringArray json")]
+        #[test_case(sample_short_tuple_struct_array() => Err(TestConvertError::MissingField("2".to_string())) ; "tuple struct missing field")]
+        #[test_case(sample_tuple_struct_array(Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "tuple struct null StructArray")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("struct, array, or string")) ; "tuple struct type mismatch")]
+        fn test_derive_from_sql_arrow_tuple_struct(
+            arr: ArrayRef,
+        ) -> Result<GenericTupleSql<i64, String>, TestConvertError> {
+            GenericTupleSql::<i64, String>::from_value(arrow_val(arr, 0))
+                .map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(StringArray::from(vec![Some(r#"{"a": 1}"#)])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "wkt struct from StringArray")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![Some(r#"{"a": 1}"#)])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "wkt struct from LargeStringArray")]
+        #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "wkt struct null")]
+        #[test_case(Arc::new(StringArray::from(vec![Some("invalid")])) => Err(TestConvertError::Convert) ; "wkt struct invalid json")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "wkt struct type mismatch")]
+        fn test_from_sql_arrow_wkt_struct(arr: ArrayRef) -> Result<wkt::Struct, TestConvertError> {
+            wkt::Struct::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }
     }
 }

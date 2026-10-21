@@ -43,7 +43,7 @@
 //! # use google_cloud_bigquery::model::ArrowSchema;
 //! # async fn sample(client: Write, table: &str, schema: ArrowSchema) -> anyhow::Result<()> {
 //! let w = client
-//!     .create_stream::<PendingStream, _>(table)
+//!     .create_stream::<PendingStream>(table)
 //!     .build_arrow(schema)
 //!     .await?;
 //! # Ok(())

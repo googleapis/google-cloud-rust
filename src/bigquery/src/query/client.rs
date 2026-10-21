@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::builder::bigquery::Query;
 use crate::client::Read;
 use crate::error::QueryError;
@@ -271,6 +272,7 @@ impl BigQuery {
             check_job_status(job)?,
             None,
             None,
+            RequestOptions::default(),
         ))
     }
 }
@@ -363,6 +365,26 @@ mod tests {
             .await?;
         let query_builder = client.query("SELECT 1");
         assert_eq!(query_builder.project_id.as_deref(), Some("test-proj"));
+        assert_eq!(
+            query_builder.options.quota_project().as_deref(),
+            Some("test-proj")
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_query_overrides_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_project_id("test-proj")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let query_builder = client.query("SELECT 1").with_project_id("override-proj");
+        assert_eq!(query_builder.project_id.as_deref(), Some("override-proj"));
+        assert_eq!(
+            query_builder.options.quota_project().as_deref(),
+            Some("override-proj")
+        );
         Ok(())
     }
 
@@ -374,6 +396,7 @@ mod tests {
             .await?;
         let query_builder = client.query("SELECT 1");
         assert!(query_builder.project_id.is_none());
+        assert!(query_builder.options.quota_project().is_none());
         Ok(())
     }
 

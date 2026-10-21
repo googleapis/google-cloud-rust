@@ -31,7 +31,21 @@ use google_cloud_gax::retry_state::RetryState;
 ///
 /// This policy must be decorated to limit the duration of the retry loop or
 /// the number of attempts.
-#[allow(dead_code)]
+///
+/// # Example
+/// ```
+/// # use google_cloud_bigquery::client::Read;
+/// # use google_cloud_bigquery::read::retry_policy::RetryableErrors;
+/// # use google_cloud_gax::retry_policy::RetryPolicyExt;
+/// # async fn sample(client: Read) -> anyhow::Result<()> {
+/// let mut reader = client
+///     .read_rows()
+///     .set_read_stream("projects/my-project/locations/us/sessions/s1/streams/st1")
+///     .into_reader()
+///     .with_retry_policy(RetryableErrors.with_attempt_limit(5));
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone, Debug, Default)]
 pub struct RetryableErrors;
 

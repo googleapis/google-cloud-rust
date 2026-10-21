@@ -899,6 +899,18 @@ impl serde::ser::Serialize for super::ClusterConfig {
         if !self.auxiliary_node_groups.is_empty() {
             state.serialize_entry("auxiliaryNodeGroups", &self.auxiliary_node_groups)?;
         }
+        if self.master_flexible_config.is_some() {
+            state.serialize_entry("masterFlexibleConfig", &self.master_flexible_config)?;
+        }
+        if self.worker_flexible_config.is_some() {
+            state.serialize_entry("workerFlexibleConfig", &self.worker_flexible_config)?;
+        }
+        if self.secondary_worker_flexible_config.is_some() {
+            state.serialize_entry(
+                "secondaryWorkerFlexibleConfig",
+                &self.secondary_worker_flexible_config,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1049,6 +1061,9 @@ impl serde::ser::Serialize for super::GceClusterConfig {
         if !self.zone_uri.is_empty() {
             state.serialize_entry("zoneUri", &self.zone_uri)?;
         }
+        if self.multi_zone_config.is_some() {
+            state.serialize_entry("multiZoneConfig", &self.multi_zone_config)?;
+        }
         if !self.network_uri.is_empty() {
             state.serialize_entry("networkUri", &self.network_uri)?;
         }
@@ -1090,6 +1105,28 @@ impl serde::ser::Serialize for super::GceClusterConfig {
         }
         if !self.resource_manager_tags.is_empty() {
             state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MultiZoneConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.target_shape) {
+            state.serialize_entry("targetShape", &self.target_shape)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1505,6 +1542,64 @@ impl serde::ser::Serialize for super::instance_flexibility_policy::InstanceSelec
                 }
             }
             state.serialize_entry("vmCount", &__With(&self.vm_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FlexibleInstanceGroupConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.num_instances) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("numInstances", &__With(&self.num_instances))?;
+        }
+        if !wkt::internal::is_default(&self.core_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("coreCount", &__With(&self.core_count))?;
+        }
+        if !wkt::internal::is_default(&self.boot_disk_size_gb) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("bootDiskSizeGb", &__With(&self.boot_disk_size_gb))?;
+        }
+        if !wkt::internal::is_default(&self.hardware_class) {
+            state.serialize_entry("hardwareClass", &self.hardware_class)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

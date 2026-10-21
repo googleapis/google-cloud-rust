@@ -42,6 +42,7 @@ use crate::statement::Statement;
 use anyhow::{Error, Result};
 use gaxi::grpc::tonic::{Response, Status};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::retry_policy::NeverRetry;
 use google_cloud_test_macros::tokio_test_no_panics;
 use mockall::Sequence;
 use prost_types::Timestamp;
@@ -52,7 +53,7 @@ use std::sync::Mutex;
 use std::time::Duration;
 use tokio::sync::mpsc;
 use tokio::task::JoinHandle;
-use tokio::time::{Instant, sleep};
+use tokio::time::{Instant, sleep, timeout};
 
 async fn setup_client_with_static_pool(
     mock: MockSpanner,
@@ -313,7 +314,11 @@ async fn streaming_query_initial_error_releases_in_flight_and_applies_penalty() 
     let query_result = database_client
         .single_use()
         .build()
-        .execute_query(Statement::builder("SELECT 1").build())
+        .execute_query(
+            Statement::builder("SELECT 1")
+                .with_retry_policy(NeverRetry)
+                .build(),
+        )
         .await;
 
     assert!(
@@ -1137,17 +1142,36 @@ async fn read_write_transaction_rollback_releases_rw_guard() -> Result<()> {
 async fn read_write_transaction_drop_releases_rw_guard() -> Result<()> {
     let mut mock = create_session_mock();
 
-    mock.expect_execute_streaming_sql().once().returning(|_| {
-        let mut partial_result_set = setup_select1();
-        let metadata = partial_result_set
-            .metadata
-            .as_mut()
-            .expect("metadata present");
-        metadata.transaction = Some(mock_v1::Transaction {
-            id: vec![99],
-            ..Default::default()
+    let captured_addresses = Arc::new(Mutex::new(Vec::new()));
+    let addresses_clone = Arc::clone(&captured_addresses);
+    mock.expect_execute_streaming_sql()
+        .once()
+        .returning(move |request| {
+            addresses_clone
+                .lock()
+                .expect("lock")
+                .push(request.remote_addr().expect("remote_addr"));
+            let mut partial_result_set = setup_select1();
+            let metadata = partial_result_set
+                .metadata
+                .as_mut()
+                .expect("metadata present");
+            metadata.transaction = Some(mock_v1::Transaction {
+                id: vec![99],
+                ..Default::default()
+            });
+            Ok(Response::from(adapt([Ok(partial_result_set)])))
         });
-        Ok(Response::from(adapt([Ok(partial_result_set)])))
+
+    let addresses_clone = Arc::clone(&captured_addresses);
+    let (rollback_done_sender, mut rollback_done_receiver) = mpsc::channel(1);
+    mock.expect_rollback().once().returning(move |request| {
+        addresses_clone
+            .lock()
+            .expect("lock")
+            .push(request.remote_addr().expect("remote_addr"));
+        let _ = rollback_done_sender.try_send(());
+        Ok(Response::new(()))
     });
 
     let (database_client, spanner, _server) = setup_client_with_static_pool(mock, 4).await;
@@ -1176,6 +1200,18 @@ async fn read_write_transaction_drop_releases_rw_guard() -> Result<()> {
         total_active_rw(&spanner),
         0,
         "Dropping active transaction and its result sets must decrement active RW guard immediately"
+    );
+
+    timeout(Duration::from_secs(2), rollback_done_receiver.recv())
+        .await
+        .expect("background rollback must complete within timeout")
+        .expect("rollback receiver must receive notification");
+
+    let addresses = captured_addresses.lock().expect("lock").clone();
+    assert_eq!(addresses.len(), 2, "Query and background rollback executed");
+    assert_eq!(
+        addresses[0], addresses[1],
+        "Background rollback on drop must route to the identical pinned channel"
     );
 
     wait_for_in_flight(&spanner, 0, Duration::from_millis(200)).await;
@@ -1592,7 +1628,11 @@ async fn p2c_avoids_channel_with_error_penalty() -> Result<()> {
         database_client
             .single_use()
             .build()
-            .execute_query(Statement::builder("SELECT 1").build())
+            .execute_query(
+                Statement::builder("SELECT 1")
+                    .with_retry_policy(NeverRetry)
+                    .build(),
+            )
             .await
             .is_err(),
         "Expected query to fail to apply penalty"

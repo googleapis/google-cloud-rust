@@ -1652,9 +1652,9 @@ mod tests {
     use crate::routing::key_extractor::extract_proto_read_request_routing_key;
     use crate::routing::key_range_cache::RangeMode;
     use crate::statement::Statement;
+    use crate::test::test_client_config;
     use bytes::Bytes;
     use gaxi::grpc::tonic::{MetadataMap, Response};
-    use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_macros::tokio_test_no_panics;
     use mockall::Sequence;
@@ -2660,7 +2660,7 @@ mod tests {
         let router = db_client.location_router().expect("router present");
         let _ = router
             .connection_cache()
-            .get(node_address, &ClientConfig::default())
+            .get(node_address, &test_client_config())
             .await
             .expect("should initialize connection");
 
@@ -2940,7 +2940,7 @@ mod tests {
         let router = db_client.location_router().expect("router present");
         let _ = router
             .connection_cache()
-            .get(node_address, &ClientConfig::default())
+            .get(node_address, &test_client_config())
             .await
             .expect("should initialize connection");
 
@@ -3060,7 +3060,7 @@ mod tests {
         let router = db_client.location_router().expect("router present");
         let _ = router
             .connection_cache()
-            .get(node_address, &ClientConfig::default())
+            .get(node_address, &test_client_config())
             .await
             .expect("should initialize connection");
 
@@ -3138,7 +3138,7 @@ mod tests {
         let router = database_client.location_router().expect("router present");
         let _ = router
             .connection_cache()
-            .get(node_address, &ClientConfig::default())
+            .get(node_address, &test_client_config())
             .await
             .expect("should initialize connection");
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Error;
+use crate::{Error, Result};
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
@@ -21,7 +21,7 @@ use google_cloud_gax::retry_state::RetryState;
 use std::fmt::Debug;
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::time::Instant;
+use tokio::time::{Instant, sleep};
 
 /// Defines a policy for retrying a transaction when it is aborted by Spanner.
 ///
@@ -160,15 +160,18 @@ where
         attempts += 1;
         match f().await {
             Ok(v) => return Ok(v),
-            Err(e) => {
+            Err(error) => {
                 backoff_if_aborted(
-                    e,
-                    attempts,
-                    start_time.elapsed(),
-                    policy,
-                    &backoff,
-                    is_emulator,
-                    /* deadline = */ None,
+                    error,
+                    AbortBackoffParams {
+                        retry_delay: None,
+                        attempts,
+                        elapsed: start_time.elapsed(),
+                        policy,
+                        backoff: &backoff,
+                        is_emulator,
+                        deadline: None,
+                    },
                 )
                 .await?;
             }
@@ -176,8 +179,10 @@ where
     }
 }
 
-pub(crate) fn is_aborted(err: &crate::Error) -> bool {
-    err.status().is_some_and(|s| s.code == Code::Aborted)
+pub(crate) fn is_aborted(error: &Error) -> bool {
+    error
+        .status()
+        .is_some_and(|status| status.code == Code::Aborted)
 }
 
 pub(crate) use crate::retry_delay::extract_retry_delay_from_error as extract_retry_delay;
@@ -191,61 +196,64 @@ pub(crate) fn default_retry_backoff() -> ExponentialBackoff {
         .expect("default retry backoff parameters are valid")
 }
 
-pub(crate) fn is_internal_emulator_error(err: &crate::Error) -> bool {
-    if let Some(status) = err.status() {
+pub(crate) fn is_internal_emulator_error(error: &Error) -> bool {
+    error.status().is_some_and(|status| {
         status.code == Code::Internal
             && status.message.contains("Schema generation")
             && status
                 .message
                 .contains("was not registered with the Action Manager")
-    } else {
-        false
-    }
+    })
+}
+
+/// Returns true if the error represents an Aborted status or a known emulator internal error.
+pub(crate) fn is_aborted_or_emulator_error(error: &Error, is_emulator: bool) -> bool {
+    is_aborted(error) || (is_emulator && is_internal_emulator_error(error))
+}
+
+/// Parameters for aborted transaction retry backoff.
+pub(crate) struct AbortBackoffParams<'a> {
+    pub(crate) retry_delay: Option<Duration>,
+    pub(crate) attempts: u32,
+    pub(crate) elapsed: Duration,
+    pub(crate) policy: &'a dyn TransactionRetryPolicy,
+    pub(crate) backoff: &'a ExponentialBackoff,
+    pub(crate) is_emulator: bool,
+    pub(crate) deadline: Option<Instant>,
 }
 
 /// Evaluates the error against the retry policy and delays execution if a retry is warranted.
 /// Returns Ok(()) after sleeping if a retry should occur, otherwise returns Err with the original error.
-pub(crate) async fn backoff_if_aborted(
-    err: crate::Error,
-    attempts: u32,
-    elapsed: Duration,
-    policy: &dyn TransactionRetryPolicy,
-    backoff: &ExponentialBackoff,
-    is_emulator: bool,
-    deadline: Option<Instant>,
-) -> crate::Result<()> {
-    let should_retry = if is_aborted(&err) {
-        true
-    } else if is_emulator {
-        is_internal_emulator_error(&err)
-    } else {
-        false
-    };
-
-    if !should_retry {
-        return Err(err);
+pub(crate) async fn backoff_if_aborted(error: Error, params: AbortBackoffParams<'_>) -> Result<()> {
+    if !is_aborted_or_emulator_error(&error, params.is_emulator) {
+        return Err(error);
     }
 
-    let e = match policy.on_abort(err, attempts, elapsed) {
+    let aborted_error = match params
+        .policy
+        .on_abort(error, params.attempts, params.elapsed)
+    {
         RetryResult::Continue(err) => err,
         RetryResult::Exhausted(err) | RetryResult::Permanent(err) => return Err(err),
     };
 
-    if deadline.is_some_and(|deadline| Instant::now() >= deadline) {
-        return Err(e);
-    }
+    let sleep_duration = params
+        .retry_delay
+        .or_else(|| extract_retry_delay(&aborted_error))
+        .unwrap_or_else(|| {
+            params
+                .backoff
+                .on_failure(&RetryState::new(true).set_attempt_count(params.attempts))
+        });
 
-    let sleep_duration = extract_retry_delay(&e)
-        .unwrap_or_else(|| backoff.on_failure(&RetryState::new(true).set_attempt_count(attempts)));
-
-    if let Some(deadline) = deadline {
-        let remaining = deadline.saturating_duration_since(Instant::now());
-        if remaining < sleep_duration {
-            return Err(e);
+    if let Some(deadline) = params.deadline {
+        let now = Instant::now();
+        if now >= deadline || deadline.saturating_duration_since(now) < sleep_duration {
+            return Err(aborted_error);
         }
     }
 
-    tokio::time::sleep(sleep_duration).await;
+    sleep(sleep_duration).await;
     Ok(())
 }
 
@@ -659,12 +667,15 @@ pub(crate) mod tests {
         let start = Instant::now();
         let result = backoff_if_aborted(
             error,
-            1,
-            Duration::from_millis(10),
-            &policy,
-            &backoff,
-            /* is_emulator = */ false,
-            Some(deadline),
+            AbortBackoffParams {
+                retry_delay: None,
+                attempts: 1,
+                elapsed: Duration::from_millis(10),
+                policy: &policy,
+                backoff: &backoff,
+                is_emulator: false,
+                deadline: Some(deadline),
+            },
         )
         .await;
 
@@ -690,12 +701,15 @@ pub(crate) mod tests {
         let start = Instant::now();
         let result = backoff_if_aborted(
             error,
-            1,
-            Duration::from_millis(10),
-            &policy,
-            &backoff,
-            /* is_emulator = */ false,
-            Some(deadline),
+            AbortBackoffParams {
+                retry_delay: None,
+                attempts: 1,
+                elapsed: Duration::from_millis(10),
+                policy: &policy,
+                backoff: &backoff,
+                is_emulator: false,
+                deadline: Some(deadline),
+            },
         )
         .await;
 
@@ -721,12 +735,15 @@ pub(crate) mod tests {
         let start = Instant::now();
         let result = backoff_if_aborted(
             error,
-            1,
-            Duration::from_millis(10),
-            &policy,
-            &backoff,
-            /* is_emulator = */ false,
-            Some(deadline),
+            AbortBackoffParams {
+                retry_delay: None,
+                attempts: 1,
+                elapsed: Duration::from_millis(10),
+                policy: &policy,
+                backoff: &backoff,
+                is_emulator: false,
+                deadline: Some(deadline),
+            },
         )
         .await;
 
@@ -739,6 +756,88 @@ pub(crate) mod tests {
             elapsed,
             Duration::from_millis(100),
             "expected sleep duration to match retry delay"
+        );
+    }
+
+    #[test]
+    fn is_aborted_or_emulator_error_truth_table() {
+        let aborted_status = Status::default().set_code(Code::Aborted);
+        let aborted_error = Error::service(aborted_status);
+        assert!(
+            is_aborted_or_emulator_error(&aborted_error, false),
+            "Aborted must match when is_emulator is false"
+        );
+        assert!(
+            is_aborted_or_emulator_error(&aborted_error, true),
+            "Aborted must match when is_emulator is true"
+        );
+
+        let emulator_schema_status = Status::default()
+            .set_code(Code::Internal)
+            .set_message("Schema generation error: was not registered with the Action Manager");
+        let emulator_schema_error = Error::service(emulator_schema_status);
+        assert!(
+            is_aborted_or_emulator_error(&emulator_schema_error, true),
+            "Internal emulator schema error must match when is_emulator is true"
+        );
+        assert!(
+            !is_aborted_or_emulator_error(&emulator_schema_error, false),
+            "Internal emulator schema error must NOT match when is_emulator is false"
+        );
+
+        let other_internal_status = Status::default()
+            .set_code(Code::Internal)
+            .set_message("Other unexpected internal failure");
+        let other_internal_error = Error::service(other_internal_status);
+        assert!(
+            !is_aborted_or_emulator_error(&other_internal_error, true),
+            "Generic Internal error must NOT match even on emulator"
+        );
+        assert!(
+            !is_aborted_or_emulator_error(&other_internal_error, false),
+            "Generic Internal error must NOT match on production"
+        );
+
+        let unavailable_status = Status::default().set_code(Code::Unavailable);
+        let unavailable_error = Error::service(unavailable_status);
+        assert!(
+            !is_aborted_or_emulator_error(&unavailable_error, true),
+            "Unavailable error must NOT match as aborted"
+        );
+        assert!(
+            !is_aborted_or_emulator_error(&unavailable_error, false),
+            "Unavailable error must NOT match as aborted"
+        );
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn backoff_if_aborted_prefers_params_retry_delay() {
+        let policy = BasicTransactionRetryPolicy::default();
+        let backoff = default_retry_backoff();
+        // Error contains 50ms retry delay, but params specifies 250ms override.
+        let error = create_aborted_error(Some(Duration::from_millis(50)));
+
+        let start = Instant::now();
+        let result = backoff_if_aborted(
+            error,
+            AbortBackoffParams {
+                retry_delay: Some(Duration::from_millis(250)),
+                attempts: 1,
+                elapsed: Duration::from_millis(10),
+                policy: &policy,
+                backoff: &backoff,
+                is_emulator: false,
+                deadline: None,
+            },
+        )
+        .await;
+
+        result.expect("backoff_if_aborted should succeed");
+        let elapsed = start.elapsed();
+        assert_eq!(
+            elapsed,
+            Duration::from_millis(250),
+            "expected sleep duration to match params retry_delay override"
         );
     }
 }

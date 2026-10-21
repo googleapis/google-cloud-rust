@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-spanner"
-version     = "0.34.7-preview"
+version     = "0.34.8-preview"
 description = "Google Cloud Client Libraries for Rust - Spanner"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -70,7 +70,7 @@ builtin-metrics = [
 
 # Internal feature enabling the metric collection machinery (SpannerMetrics, attempt interceptor).
 # Used internally by `builtin-metrics` and `unstable-metrics`.
-_internal-metrics = ["dep:opentelemetry", "dep:uuid"]
+_internal-metrics = ["dep:opentelemetry"]
 
 [dependencies]
 async-trait.workspace                  = true
@@ -97,6 +97,7 @@ time                                   = { workspace = true, features = ["format
 tokio                                  = { workspace = true, features = ["time"] }
 tracing.workspace                      = true
 url.workspace                          = true
+uuid.workspace                         = true
 wkt.workspace                          = true
 
 # Optional dependencies for built-in metrics
@@ -104,7 +105,6 @@ google-cloud-api           = { workspace = true, optional = true }
 google-cloud-monitoring-v3 = { workspace = true, optional = true }
 opentelemetry              = { workspace = true, optional = true, features = ["metrics"] }
 opentelemetry_sdk          = { workspace = true, optional = true, features = ["metrics", "rt-tokio"] }
-uuid                       = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace                   = true

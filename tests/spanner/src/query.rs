@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{
-    get_database_id, get_emulator_host, get_real_spanner_config, update_database_ddl,
-};
+use crate::client::{get_database_id, get_emulator_host, get_real_spanner_config};
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
-use google_cloud_spanner::Decimal;
 use google_cloud_spanner::client::{DatabaseClient, Spanner};
 use google_cloud_spanner::key;
 use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
@@ -29,9 +26,10 @@ use google_cloud_spanner::statement::Statement;
 use google_cloud_spanner::transaction::BeginTransactionOption;
 use google_cloud_spanner::types;
 use google_cloud_spanner::value::{Kind, TypeCode};
+use google_cloud_spanner::{Decimal, Error};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::sync::Arc;
-use tokio::sync::Notify;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use tonic::transport::{Channel, ClientTlsConfig};
 use tracing::info;
 
@@ -320,7 +318,7 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
     // The error can be returned both directly from execute_query(...)
     // (this happens on the Emulator) or when the first row is read
     // (this happens on the real Spanner).
-    let rs_result: Result<(), google_cloud_spanner::Error> = match tx
+    let rs_result: Result<(), Error> = match tx
         .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
         .await
     {
@@ -337,18 +335,37 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
         "Expected an error from an invalid query"
     );
 
-    // The read timestamp should now be available because the transaction
-    // fell back to an explicit BeginTransaction.
-    assert!(tx.read_timestamp().is_some());
+    // Read timestamp must remain None because the transaction failed to start
+    // and does NOT fall back to an explicit BeginTransaction RPC.
+    assert!(
+        tx.read_timestamp().is_none(),
+        "Read timestamp must remain None on failed inline-begin transaction"
+    );
 
-    // It should be possible to use the transaction.
-    let mut rs2 = tx
+    // Subsequent query on the failed transaction must fail fast without issuing network calls.
+    let subsequent_result: Result<(), Error> = match tx
         .execute_query(Statement::builder("SELECT 2 AS col_int").build())
-        .await?;
+        .await
+    {
+        Ok(mut rs) => match rs.next().await {
+            Some(Err(e)) => Err(e),
+            Some(Ok(_)) => Ok(()),
+            None => Ok(()),
+        },
+        Err(e) => Err(e),
+    };
 
-    let row2 = rs2.next().await.transpose()?.expect("should yield a row");
-    let val2 = row2.raw_values()[0].as_str();
-    assert_eq!(val2, Some("2"));
+    assert!(
+        subsequent_result.is_err(),
+        "Expected subsequent query on failed read-only transaction to fail fast"
+    );
+    let second_error = subsequent_result
+        .expect_err("second query failed")
+        .to_string();
+    assert!(
+        second_error.contains("Transaction cannot be used: initial statement failed with:"),
+        "Expected descriptive error message on subsequent query, got: {second_error}"
+    );
 
     Ok(())
 }
@@ -516,24 +533,16 @@ fn verify_row_2(row: &Row) {
     );
 }
 
-// This test verifies that the client correctly falls back to `BeginTransaction` when the
-// first statement in a transaction fails. It also shows that the statement is retried and
-// could (theoretically) succeed during this retry. It achieves this by doing the following:
+// This test verifies that the client does NOT fall back to `BeginTransaction` when the
+// first statement in a read-only transaction fails.
+// It achieves this by doing the following:
 // 1. It uses a proxy that allows it to intercept the RPCs that are being sent to Spanner.
 // 2. It creates a read-only transaction that uses inline-begin-transaction.
 // 3. It executes a query that tries to read from a table that does not exist.
-// 4. As the first statement in the transaction fails, the client falls back to using
-//    an explicit BeginTransaction RPC.
-// 5. The proxy blocks this BeginTransaction RPC, and in the meantime the test creates
-//    the missing table.
-// 6. The proxy unblocks the BeginTransaction RPC.
-// 7. The statement is retried and succeeds. The test never sees the error.
-//
-// This test might seem like an extreme corner case for a read-only transaction like this.
-// However, for read/write transactions, similar types of failures are more likely to occur,
-// for example if a transaction tries to insert a row that violates the primary key. Another
-// transaction could delete the row in the time between the first attempt failed, and the
-// BeginTransaction RPC has been executed.
+// 4. As the first statement in the transaction fails, the client fails fast immediately.
+// 5. The proxy verifies that `BeginTransaction` was NEVER dispatched.
+// 6. The transaction does not have a read timestamp.
+// 7. Subsequent queries on the transaction fail fast immediately.
 pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Result<()> {
     let destination_endpoint = match get_emulator_host() {
         Some(host) => format!("http://{}", host),
@@ -545,8 +554,8 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         None => ("test-project".to_string(), "test-instance".to_string()),
     };
 
-    let latch = Arc::new(Notify::new());
-    let begin_transaction_entered_latch = Arc::new(Notify::new());
+    let begin_transaction_count = Arc::new(AtomicUsize::new(0));
+    let begin_count_clone = Arc::clone(&begin_transaction_count);
 
     // Create a raw gRPC client that connects to the Spanner Emulator or real Spanner.
     // This will be used by the proxy server to forward requests.
@@ -557,19 +566,13 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         endpoint
     };
     let endpoint = endpoint.connect().await?;
-    let latch_clone = Arc::clone(&latch);
-    let begin_entered_clone = Arc::clone(&begin_transaction_entered_latch);
 
-    // Define an interceptor that intercepts `BeginTransaction` requests,
-    // notifies the test that the request has been received, and blocks
-    // until the test allows it to proceed. All other requests are passed through.
+    // Define an interceptor that checks for `BeginTransaction` requests.
     let interceptor = move |req: http::Request<tonic::body::Body>| {
-        let l = latch_clone.clone();
-        let be = begin_entered_clone.clone();
+        let count = begin_count_clone.clone();
         Box::pin(async move {
             if req.uri().path() == "/google.spanner.v1.Spanner/BeginTransaction" {
-                be.notify_one();
-                l.notified().await;
+                count.fetch_add(1, Ordering::SeqCst);
             }
             InterceptionResult::Continue(req)
         }) as BoxFuture<'static, InterceptionResult>
@@ -609,45 +612,46 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         .await?;
 
     let table_name = LowercaseAlphanumeric.random_string(10);
-    let table_name = format!("LateLoadedTable_{}", table_name);
+    let table_name = format!("NonExistentTable_{}", table_name);
 
-    // Create a task that tries to query the table before it exists.
-    // This will initially fail, and the client will fall back to using
-    // an explicit BeginTransaction RPC. The table will then be created
-    // BEFORE the BeginTransaction RPC is executed, which will cause the
-    // query to succeed when it is retried using the transaction ID that
-    // was returned by BeginTransaction. This task will never see the
-    // initial error, and instead it will seem like the query simply
-    // succeeded.
-    let query_task = tokio::spawn({
-        let table_name = table_name.clone();
-        async move {
-            let stmt = Statement::builder(format!("SELECT * FROM {}", table_name)).build();
-            let mut rs = tx.execute_query(stmt).await?;
-            let _ = rs.next().await;
-            Ok::<_, anyhow::Error>(tx)
-        }
-    });
+    let stmt = Statement::builder(format!("SELECT * FROM {}", table_name)).build();
+    let result = tx.execute_query(stmt).await;
+    let first_query_failed = match result {
+        Ok(mut rs) => rs.next().await.transpose().is_err(),
+        Err(_) => true,
+    };
+    assert!(
+        first_query_failed,
+        "Expected initial query on non-existent table to fail"
+    );
 
-    // Wait until the query task above has been executed and has triggered an
-    // explicit BeginTransaction RPC. The BeginTransaction RPC is blocked until
-    // `latch` is notified.
-    begin_transaction_entered_latch.notified().await;
-
-    // Create the table on the emulator while the BeginTransaction RPC is blocked.
-    let statement = format!("CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)", table_name);
-    update_database_ddl(statement).await?;
-
-    // Unblock the BeginTransaction RPC.
-    latch.notify_one();
-
-    // Wait for the query task to complete. It should succeed and never see
-    // the initial error.
-    let tx = query_task.await??;
+    // Verify that BeginTransaction was NEVER called as a fallback.
+    assert_eq!(
+        begin_transaction_count.load(Ordering::SeqCst),
+        0,
+        "BeginTransaction must never be called as a fallback for read-only transactions"
+    );
 
     assert!(
-        tx.read_timestamp().is_some(),
-        "The transaction should have a read timestamp"
+        tx.read_timestamp().is_none(),
+        "The transaction should NOT have a read timestamp after failed start"
+    );
+
+    // Subsequent query on the failed transaction must fail fast without network calls.
+    let second_result = match tx
+        .execute_query(Statement::builder("SELECT 1").build())
+        .await
+    {
+        Ok(mut rs) => match rs.next().await {
+            Some(Err(e)) => Err(e),
+            Some(Ok(_)) => Ok(()),
+            None => Ok(()),
+        },
+        Err(e) => Err(e),
+    };
+    assert!(
+        second_result.is_err(),
+        "Expected subsequent query on failed read-only transaction to fail fast"
     );
 
     Ok(())
