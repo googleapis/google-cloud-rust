@@ -14,8 +14,8 @@
 
 use super::wire_format::{
     bool_field, bytes_field, double_field, encode_bool, encode_bytes, encode_double, encode_float,
-    encode_int64, encode_string, float_field, int64_field, message_field, repeated_field,
-    string_field,
+    encode_int64, encode_length_delimited, encode_string, float_field, int64_field, message_field,
+    repeated_field, string_field,
 };
 use crate::datatypes::{Interval, Range, RangeElement};
 use crate::error::ConvertError;
@@ -24,6 +24,7 @@ use bytes::Bytes;
 use std::any::TypeId;
 use std::borrow::Cow;
 use std::collections::HashMap;
+use std::io::Write;
 use wkt::{DescriptorProto, FieldDescriptorProto};
 
 /// A trait for converting Rust types into rows for the [Proto] data format.
@@ -485,13 +486,12 @@ impl FieldEncoder<'_> {
         self,
         encode: impl FnOnce(&mut StructEncoder<'_>) -> Result<(), ConvertError>,
     ) -> Result<(), ConvertError> {
-        // The length of the message comes before its fields, so encode the
-        // fields on their own first. An empty message still appends the tag
-        // and a zero length, which is not the same as leaving the field out.
-        let mut message = Vec::new();
-        encode(&mut StructEncoder::new(&mut message))?;
-        encode_bytes(self.number, &message, self.buf);
-        Ok(())
+        // The fields go straight into the buffer, after the tag. An empty
+        // message still appends the tag and a zero length, which is not the
+        // same as leaving the field out.
+        encode_length_delimited(self.number, self.buf, |buf| {
+            encode(&mut StructEncoder::new(buf))
+        })
     }
 }
 
@@ -519,6 +519,21 @@ fn encode_field<T: ProtoValue>(
     buf: &mut Vec<u8>,
 ) -> Result<(), ConvertError> {
     value.encode(FieldEncoder { number, buf })
+}
+
+/// Appends a `string` field, with the text that `write` appends to the buffer.
+///
+/// Writing the text in place saves building a [String] first. If `write`
+/// fails, this appends nothing.
+fn encode_text<T, E>(
+    field: FieldEncoder<'_>,
+    write: impl FnOnce(&mut Vec<u8>) -> Result<T, E>,
+) -> Result<(), ConvertError>
+where
+    E: Into<Box<dyn std::error::Error + Send + Sync>>,
+{
+    encode_length_delimited(field.number, field.buf, |buf| write(buf).map(|_| ()))
+        .map_err(|e| ConvertError::Convert(e.into()))
 }
 
 impl ProtoValue for String {
@@ -669,13 +684,15 @@ impl ProtoValue for google_cloud_type::model::DateTime {
     }
 
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError> {
-        encode_string(field.number, &datetime_string(self)?, field.buf);
-        Ok(())
+        let value = civil_datetime(self)?;
+        encode_text(field, |buf| value.format_into(buf, DATETIME_FORMAT))
     }
 }
 
-/// Returns the string for a BigQuery `DATETIME` value.
-fn datetime_string(value: &google_cloud_type::model::DateTime) -> Result<String, ConvertError> {
+/// Returns the date and time for a BigQuery `DATETIME` value.
+fn civil_datetime(
+    value: &google_cloud_type::model::DateTime,
+) -> Result<time::PrimitiveDateTime, ConvertError> {
     if value.time_offset.is_some() {
         return Err(ConvertError::Convert(
             "a `DATETIME` has no time zone or UTC offset, use a `Timestamp` instead".into(),
@@ -683,9 +700,7 @@ fn datetime_string(value: &google_cloud_type::model::DateTime) -> Result<String,
     }
     let date = civil_date(value.year, value.month, value.day)?;
     let time = civil_time(value.hours, value.minutes, value.seconds, value.nanos)?;
-    time::PrimitiveDateTime::new(date, time)
-        .format(DATETIME_FORMAT)
-        .map_err(|e| ConvertError::Convert(Box::new(e)))
+    Ok(time::PrimitiveDateTime::new(date, time))
 }
 
 impl ProtoValue for google_cloud_type::model::TimeOfDay {
@@ -695,11 +710,8 @@ impl ProtoValue for google_cloud_type::model::TimeOfDay {
     }
 
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError> {
-        let value = civil_time(self.hours, self.minutes, self.seconds, self.nanos)?
-            .format(TIME_FORMAT)
-            .map_err(|e| ConvertError::Convert(Box::new(e)))?;
-        encode_string(field.number, &value, field.buf);
-        Ok(())
+        let value = civil_time(self.hours, self.minutes, self.seconds, self.nanos)?;
+        encode_text(field, |buf| value.format_into(buf, TIME_FORMAT))
     }
 }
 
@@ -712,14 +724,12 @@ const MIN_YEAR: i32 = 1;
 /// The latest year in a BigQuery `DATE` or `DATETIME`.
 const MAX_YEAR: i32 = 9999;
 
-/// Formats a `DATETIME` value. BigQuery keeps microseconds, so this drops the
-/// last three digits of the nanoseconds.
+/// Formats a `DATETIME` value, with six digits for the microseconds.
 const DATETIME_FORMAT: &[time::format_description::FormatItem<'static>] = time::macros::format_description!(
     "[year]-[month]-[day] [hour]:[minute]:[second].[subsecond digits:6]"
 );
 
-/// Formats a `TIME` value. BigQuery keeps microseconds, so this drops the last
-/// three digits of the nanoseconds.
+/// Formats a `TIME` value, with six digits for the microseconds.
 const TIME_FORMAT: &[time::format_description::FormatItem<'static>] =
     time::macros::format_description!("[hour]:[minute]:[second].[subsecond digits:6]");
 
@@ -746,7 +756,8 @@ fn civil_date(year: i32, month: i32, day: i32) -> Result<time::Date, ConvertErro
 /// Returns the time of day for a BigQuery `TIME` or `DATETIME` value.
 ///
 /// A [TimeOfDay](google_cloud_type::model::TimeOfDay) may allow `24:00:00`,
-/// or leap seconds. BigQuery times do not.
+/// or leap seconds. BigQuery times do not. BigQuery keeps microseconds, so
+/// this drops the last three digits of the nanoseconds.
 fn civil_time(
     hours: i32,
     minutes: i32,
@@ -761,7 +772,8 @@ fn civil_time(
     let minute = u8::try_from(minutes).map_err(|_| invalid())?;
     let second = u8::try_from(seconds).map_err(|_| invalid())?;
     let nanosecond = u32::try_from(nanos).map_err(|_| invalid())?;
-    time::Time::from_hms_nano(hour, minute, second, nanosecond).map_err(|_| invalid())
+    let microsecond = nanosecond / NANOS_PER_MICRO.unsigned_abs();
+    time::Time::from_hms_micro(hour, minute, second, microsecond).map_err(|_| invalid())
 }
 
 impl ProtoValue for Interval {
@@ -772,8 +784,8 @@ impl ProtoValue for Interval {
     }
 
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError> {
-        encode_string(field.number, &interval_string(self)?, field.buf);
-        Ok(())
+        let parts = interval_parts(self)?;
+        encode_text(field, |buf| write!(buf, "{parts}"))
     }
 }
 
@@ -800,14 +812,51 @@ const MAX_INTERVAL_DAYS: i128 = 3_660_000;
 /// hours.
 const MAX_INTERVAL_NANOS: i128 = 87_840_000 * NANOS_PER_HOUR;
 
-/// Returns the string for a BigQuery `INTERVAL` value, such as
-/// "1-2 3 4:5:6.789000".
+/// The three parts of a BigQuery `INTERVAL` value, each with its own sign.
+///
+/// The [Display](std::fmt::Display) implementation writes the string that
+/// BigQuery receives, such as "1-2 3 4:5:6.789000".
+#[derive(Debug)]
+struct IntervalParts {
+    /// The years and months, in months.
+    months: i128,
+    /// The days.
+    days: i128,
+    /// The hours, minutes, and seconds, in nanoseconds. The value is whole
+    /// microseconds.
+    time: i128,
+}
+
+impl std::fmt::Display for IntervalParts {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        // The format is `[sign]Y-M [sign]D [sign]H:M:S[.F]`.
+        let Self { months, days, time } = *self;
+        let sign = |part: i128| if part < 0 { "-" } else { "" };
+        write!(
+            f,
+            "{}{}-{} {days} {}{}:{}:{}",
+            sign(months),
+            (months / MONTHS_PER_YEAR).abs(),
+            (months % MONTHS_PER_YEAR).abs(),
+            sign(time),
+            (time / NANOS_PER_HOUR).abs(),
+            (time % NANOS_PER_HOUR / NANOS_PER_MINUTE).abs(),
+            (time % NANOS_PER_MINUTE / NANOS_PER_SECOND).abs(),
+        )?;
+        match (time % NANOS_PER_SECOND / i128::from(NANOS_PER_MICRO)).abs() {
+            0 => Ok(()),
+            micros => write!(f, ".{micros:06}"),
+        }
+    }
+}
+
+/// Returns the parts of a BigQuery `INTERVAL` value.
 ///
 /// BigQuery keeps three parts, each with its own sign: the months, the days,
 /// and the time. Like BigQuery, this combines the fields in each part, so
 /// `months: 14` is `1-2`, and `minutes: 90` is `1:30:0`. Hours never become
 /// days, and days never become months.
-fn interval_string(value: &Interval) -> Result<String, ConvertError> {
+fn interval_parts(value: &Interval) -> Result<IntervalParts, ConvertError> {
     // An `i128` holds these sums, and their absolute values, without
     // overflowing.
     let months = i128::from(value.years) * MONTHS_PER_YEAR + i128::from(value.months);
@@ -820,23 +869,7 @@ fn interval_string(value: &Interval) -> Result<String, ConvertError> {
     // Integer division rounds toward zero, for positive and negative values.
     let nanos_per_micro = i128::from(NANOS_PER_MICRO);
     let time = nanos / nanos_per_micro * nanos_per_micro;
-
-    // The format is `[sign]Y-M [sign]D [sign]H:M:S[.F]`.
-    let sign = |part: i128| if part < 0 { "-" } else { "" };
-    let fraction = match (time % NANOS_PER_SECOND / nanos_per_micro).abs() {
-        0 => String::new(),
-        micros => format!(".{micros:06}"),
-    };
-    let interval = format!(
-        "{}{}-{} {days} {}{}:{}:{}{fraction}",
-        sign(months),
-        (months / MONTHS_PER_YEAR).abs(),
-        (months % MONTHS_PER_YEAR).abs(),
-        sign(time),
-        (time / NANOS_PER_HOUR).abs(),
-        (time % NANOS_PER_HOUR / NANOS_PER_MINUTE).abs(),
-        (time % NANOS_PER_MINUTE / NANOS_PER_SECOND).abs(),
-    );
+    let parts = IntervalParts { months, days, time };
     // BigQuery SQL cannot represent longer intervals, even if the Write API
     // accepts them.
     if months.abs() > MAX_INTERVAL_MONTHS
@@ -844,10 +877,10 @@ fn interval_string(value: &Interval) -> Result<String, ConvertError> {
         || time.abs() > MAX_INTERVAL_NANOS
     {
         return Err(ConvertError::Convert(
-            format!("{interval} is outside the range of a BigQuery `INTERVAL`").into(),
+            format!("{parts} is outside the range of a BigQuery `INTERVAL`").into(),
         ));
     }
-    Ok(interval)
+    Ok(parts)
 }
 
 impl ProtoValue for rust_decimal::Decimal {
@@ -858,8 +891,7 @@ impl ProtoValue for rust_decimal::Decimal {
     }
 
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError> {
-        encode_string(field.number, &self.to_string(), field.buf);
-        Ok(())
+        encode_text(field, |buf| write!(buf, "{self}"))
     }
 }
 
@@ -883,8 +915,7 @@ impl ProtoValue for wkt::Value {
     }
 
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError> {
-        encode_string(field.number, &self.to_string(), field.buf);
-        Ok(())
+        encode_text(field, |buf| serde_json::to_writer(buf, self))
     }
 }
 
@@ -895,9 +926,7 @@ impl ProtoValue for wkt::Struct {
     }
 
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError> {
-        let value = serde_json::to_string(self).map_err(|e| ConvertError::Convert(Box::new(e)))?;
-        encode_string(field.number, &value, field.buf);
-        Ok(())
+        encode_text(field, |buf| serde_json::to_writer(buf, self))
     }
 }
 
@@ -1000,12 +1029,11 @@ impl RangeBound for google_cloud_type::model::Date {
 }
 
 impl RangeBound for google_cloud_type::model::DateTime {
-    // The strings have the same length, with the largest units first, so they
-    // sort in the same order as the values.
-    type Key = String;
+    // The values keep microseconds, like the strings that BigQuery receives.
+    type Key = time::PrimitiveDateTime;
 
-    fn range_key(&self) -> Result<String, ConvertError> {
-        datetime_string(self)
+    fn range_key(&self) -> Result<time::PrimitiveDateTime, ConvertError> {
+        civil_datetime(self)
     }
 }
 
@@ -1255,7 +1283,7 @@ fn encode_row<T: ToRow + ?Sized>(row: &T) -> Result<Bytes, ConvertError> {
 mod tests {
     use super::{
         MAX_DEPTH, NestedTypes, ProtoElement, ProtoValue, StructEncoder, describe_field,
-        encode_field, encode_range, interval_string, message_name, proto_name, timestamp_micros,
+        encode_field, encode_range, interval_parts, message_name, proto_name, timestamp_micros,
     };
     use crate::datatypes::{Interval, Range, RangeElement};
     use crate::error::ConvertError;
@@ -1948,7 +1976,7 @@ mod tests {
         "longest"
     )]
     fn intervals_round_trip(value: Interval) -> anyhow::Result<()> {
-        let sent = interval_string(&value)?;
+        let sent = interval_parts(&value)?.to_string();
         let got = Interval::from_value(SqlValue::new(wkt::Value::String(sent)))?;
         assert_eq!(got, value);
         Ok(())
@@ -1992,6 +2020,29 @@ mod tests {
         assert_eq!(sent_json(&object)?, value);
         // A JSON `null` is a value, not a SQL `NULL`.
         assert_eq!(sent_json(&wkt::Value::Null)?, wkt::Value::Null);
+        Ok(())
+    }
+
+    /// The longest field value whose length takes one byte, as a varint.
+    const MAX_ONE_BYTE_LEN: usize = 127;
+
+    /// Returns enough copies of `text` to be longer than [MAX_ONE_BYTE_LEN]
+    /// bytes.
+    fn longer_than_one_byte_len(text: &str) -> String {
+        text.repeat(MAX_ONE_BYTE_LEN / text.len() + 1)
+    }
+
+    #[test]
+    fn long_json_values_are_strings() -> anyhow::Result<()> {
+        // The JSON is longer than 127 bytes, so its length takes two bytes,
+        // and the encoder moves the text over to make room.
+        let value = serde_json::json!({ NAME_COLUMN: longer_than_one_byte_len(NAME) });
+        let want = ProstJson {
+            json: value.to_string(),
+        };
+        assert_eq!(field_bytes(&value)?, want.encode_to_vec());
+        let object = value.as_object().cloned().expect("value is an object");
+        assert_eq!(field_bytes(&object)?, want.encode_to_vec());
         Ok(())
     }
 
@@ -2164,6 +2215,41 @@ mod tests {
             previous: vec![prost_nyc, ProstAddress::default()],
         };
         assert_eq!(customer.to_row()?, want.encode_to_vec());
+        Ok(())
+    }
+
+    /// What `prost` generates for `message Nest { optional Customer inner = 1; }`.
+    #[derive(Clone, PartialEq, Message)]
+    struct ProstNest {
+        #[prost(message, optional, tag = "1")]
+        inner: Option<ProstCustomer>,
+    }
+
+    #[test]
+    fn long_nested_structs_match_prost() -> anyhow::Result<()> {
+        // Each message is longer than 127 bytes, so its length takes two
+        // bytes, and the encoder moves the fields over to make room. The
+        // `Address` messages move inside a `Customer` message that moves too.
+        let city = longer_than_one_byte_len(CITY);
+        let address = || Address {
+            city: Some(city.clone()),
+        };
+        let row = Nest {
+            inner: Customer {
+                name: NAME.to_string(),
+                address: Some(address()),
+                previous: vec![address(), address()],
+            },
+        };
+        let prost_address = ProstAddress { city: Some(city) };
+        let want = ProstNest {
+            inner: Some(ProstCustomer {
+                name: NAME.to_string(),
+                address: Some(prost_address.clone()),
+                previous: vec![prost_address.clone(), prost_address],
+            }),
+        };
+        assert_eq!(row.to_row()?, want.encode_to_vec());
         Ok(())
     }
 

@@ -48,15 +48,30 @@ const VARINT_PAYLOAD_MASK: u64 = 0x7F;
 /// Marks every varint byte except the last one.
 const VARINT_CONTINUATION: u8 = 0x80;
 
-/// Appends `value` as a [varint]: 7 bits per byte, least significant first.
+/// The most bytes that a varint takes: 64 bits, at 7 bits per byte.
+const MAX_VARINT_LEN: usize = 10;
+
+/// Returns `value` as a [varint]: 7 bits per byte, least significant first.
+/// The varint takes the first bytes of the array, as many as the returned
+/// length.
 ///
 /// [varint]: https://protobuf.dev/programming-guides/encoding/#varints
-fn encode_varint(mut value: u64, buf: &mut Vec<u8>) {
+fn varint(mut value: u64) -> ([u8; MAX_VARINT_LEN], usize) {
+    let mut bytes = [0; MAX_VARINT_LEN];
+    let mut len = 0;
     while value > VARINT_PAYLOAD_MASK {
-        buf.push(((value & VARINT_PAYLOAD_MASK) as u8) | VARINT_CONTINUATION);
+        bytes[len] = ((value & VARINT_PAYLOAD_MASK) as u8) | VARINT_CONTINUATION;
         value >>= VARINT_PAYLOAD_BITS;
+        len += 1;
     }
-    buf.push(value as u8);
+    bytes[len] = value as u8;
+    (bytes, len + 1)
+}
+
+/// Appends `value` as a varint.
+fn encode_varint(value: u64, buf: &mut Vec<u8>) {
+    let (bytes, len) = varint(value);
+    buf.extend_from_slice(&bytes[..len]);
 }
 
 /// Appends a tag, which packs the field number and the wire type in a varint.
@@ -76,6 +91,35 @@ pub(super) fn encode_bytes(field_number: u32, value: &[u8], buf: &mut Vec<u8>) {
 /// On the wire, a `string` is a `bytes` value that holds UTF-8.
 pub(super) fn encode_string(field_number: u32, value: &str, buf: &mut Vec<u8>) {
     encode_bytes(field_number, value.as_bytes(), buf);
+}
+
+/// Appends a length-delimited field, such as a message or a string: the tag,
+/// the length, and the bytes that `write` appends to the buffer.
+///
+/// The length comes before the bytes, but it is not known until they are
+/// written. So this reserves one byte for it, which holds lengths up to 127,
+/// and moves longer values over to make room. Writing in place saves copying
+/// the value from a temporary buffer.
+///
+/// If `write` fails, `buf` is left as it was.
+pub(super) fn encode_length_delimited<E>(
+    field_number: u32,
+    buf: &mut Vec<u8>,
+    write: impl FnOnce(&mut Vec<u8>) -> Result<(), E>,
+) -> Result<(), E> {
+    let original = buf.len();
+    encode_tag(field_number, LENGTH_DELIMITED, buf);
+    let start = buf.len();
+    buf.push(0);
+    if let Err(e) = write(buf) {
+        buf.truncate(original);
+        return Err(e);
+    }
+    let (length, width) = varint((buf.len() - start - 1) as u64);
+    // Replace the reserved byte with the length. When the length takes one
+    // byte, this moves nothing.
+    buf.splice(start..=start, length[..width].iter().copied());
+    Ok(())
 }
 
 /// Appends an `int64` field: the tag, and the value as a varint.
@@ -231,6 +275,41 @@ mod tests {
         assert_eq!(got[..3], [0x0A, 0xAC, 0x02]);
         let want = ProstRow { name }.encode_to_vec();
         assert_eq!(got, want);
+    }
+
+    // The lengths where the length's varint grows to 2, 3, and 4 bytes, and
+    // the lengths just below them.
+    #[test_case(0; "empty")]
+    #[test_case(127; "one byte length")]
+    #[test_case(128; "two byte length")]
+    #[test_case(16_383; "longest two byte length")]
+    #[test_case(16_384; "three byte length")]
+    #[test_case(2_097_151; "longest three byte length")]
+    #[test_case(2_097_152; "four byte length")]
+    fn length_delimited_matches_bytes(len: usize) {
+        let value = (0..len).map(|i| i as u8).collect::<Vec<_>>();
+        let mut want = vec![0xFF];
+        encode_bytes(NAME_FIELD, &value, &mut want);
+        // The value is written after the length, then moved if the length
+        // takes more than one byte. Bytes before the field must not move.
+        let mut got = vec![0xFF];
+        encode_length_delimited(NAME_FIELD, &mut got, |buf| {
+            buf.extend_from_slice(&value);
+            Ok::<_, ()>(())
+        })
+        .expect("writing to a vector cannot fail");
+        assert_eq!(got, want);
+    }
+
+    #[test]
+    fn length_delimited_errors_leave_the_buffer() {
+        let mut buf = vec![0xFF];
+        let got = encode_length_delimited(NAME_FIELD, &mut buf, |buf| {
+            buf.extend_from_slice(NAME.as_bytes());
+            Err("cannot write")
+        });
+        assert_eq!(got, Err("cannot write"));
+        assert_eq!(buf, [0xFF]);
     }
 
     #[test]
