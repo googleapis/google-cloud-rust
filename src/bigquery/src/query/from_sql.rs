@@ -207,9 +207,18 @@ impl FromSql for wkt::Value {
                     DataType::Boolean => wkt::Value::Bool(cell.as_bool()?),
                     DataType::Int64 => wkt::Value::Number(serde_json::Number::from(cell.as_i64()?)),
                     DataType::Float64 => {
-                        let n = serde_json::Number::from_f64(cell.as_f64()?)
-                            .ok_or_else(|| ConvertError::Convert("invalid f64 value".into()))?;
-                        wkt::Value::Number(n)
+                        let val = cell.as_f64()?;
+                        if let Some(n) = serde_json::Number::from_f64(val) {
+                            return Ok(wkt::Value::Number(n));
+                        }
+                        let s = if val.is_nan() {
+                            "NaN"
+                        } else if val.is_sign_positive() {
+                            "Infinity"
+                        } else {
+                            "-Infinity"
+                        };
+                        wkt::Value::String(s.to_string())
                     }
                     DataType::Utf8 | DataType::LargeUtf8 => {
                         wkt::Value::String(cell.as_str()?.to_string())
@@ -255,15 +264,31 @@ impl FromSql for wkt::Value {
                         let interval = crate::datatypes::Interval::from_value(
                             SqlValue::from_inner(SqlValueInner::Arrow(cell)),
                         )?;
+                        let ym_sign = if interval.years < 0 || interval.months < 0 {
+                            "-"
+                        } else {
+                            ""
+                        };
+                        let time_sign = if interval.hours < 0
+                            || interval.minutes < 0
+                            || interval.seconds < 0
+                            || interval.nanos < 0
+                        {
+                            "-"
+                        } else {
+                            ""
+                        };
                         wkt::Value::String(format!(
-                            "{}-{} {} {:02}:{:02}:{:02}.{:09}",
-                            interval.years,
-                            interval.months,
+                            "{}{}-{} {} {}{:02}:{:02}:{:02}.{:09}",
+                            ym_sign,
+                            interval.years.abs(),
+                            interval.months.abs(),
                             interval.days,
-                            interval.hours,
-                            interval.minutes,
-                            interval.seconds,
-                            interval.nanos
+                            time_sign,
+                            interval.hours.abs(),
+                            interval.minutes.abs(),
+                            interval.seconds.abs(),
+                            interval.nanos.abs()
                         ))
                     }
                     DataType::Struct(fields) => {
@@ -1277,7 +1302,9 @@ mod tests {
         #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Ok(wkt::Value::Bool(true)) ; "value from BooleanArray")]
         #[test_case(Arc::new(Int64Array::from(vec![Some(42)])) => Ok(wkt::Value::Number(42.into())) ; "value from Int64Array")]
         #[test_case(Arc::new(Float64Array::from(vec![Some(3.25)])) => Ok(wkt::Value::Number(serde_json::Number::from_f64(3.25).unwrap())) ; "value from Float64Array")]
-        #[test_case(Arc::new(Float64Array::from(vec![Some(f64::NAN)])) => Err(TestConvertError::Convert) ; "value from Float64Array NaN")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(f64::NAN)])) => Ok(wkt::Value::String("NaN".to_string())) ; "value from Float64Array NaN")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(f64::INFINITY)])) => Ok(wkt::Value::String("Infinity".to_string())) ; "value from Float64Array Infinity")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(f64::NEG_INFINITY)])) => Ok(wkt::Value::String("-Infinity".to_string())) ; "value from Float64Array negative Infinity")]
         #[test_case(Arc::new(StringArray::from(vec![Some("hello")])) => Ok(wkt::Value::String("hello".to_string())) ; "value from StringArray")]
         #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])) => Ok(wkt::Value::String("world".to_string())) ; "value from LargeStringArray")]
         #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])) => Ok(wkt::Value::String("AQID".to_string())) ; "value from BinaryArray")]
@@ -1290,6 +1317,7 @@ mod tests {
         #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal128Array")]
         #[test_case(decimal256_array(vec![Some(i256::from_i128(123_456))], 20, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal256Array")]
         #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok(wkt::Value::String("1-2 3 04:05:06.000000789".to_string())) ; "value from IntervalMonthDayNanoArray")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-14, -3, -14_706_000_000_789))])) => Ok(wkt::Value::String("-1-2 -3 -04:05:06.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative")]
         #[test_case(sample_test_struct_array(None) => Ok(wkt::Value::Object(wkt::Struct::from_iter([
             ("name".to_string(), wkt::Value::String("James".to_string())),
             ("custom_int".to_string(), wkt::Value::Number(272_793.into())),
