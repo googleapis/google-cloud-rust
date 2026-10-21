@@ -3849,8 +3849,7 @@ mod tests {
     impl FromValue for TestAddress {
         fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
             let bytes = Vec::<u8>::from_value(value, spanner_type)?;
-            Self::decode(bytes.as_slice())
-                .map_err(|error| ConvertError::message(format!("failed to decode proto: {error}")))
+            Self::decode(bytes.as_slice()).map_err(ConvertError::custom)
         }
     }
 
@@ -3865,9 +3864,8 @@ mod tests {
 
     impl FromValue for TestOrderStatus {
         fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
-            let raw_value = i64::from_value(value, spanner_type)?;
-            Self::try_from(raw_value as i32)
-                .map_err(|error| ConvertError::message(format!("invalid enum variant: {error}")))
+            let raw_value = i32::from_value(value, spanner_type)?;
+            Self::try_from(raw_value).map_err(ConvertError::custom)
         }
     }
 
@@ -4028,6 +4026,15 @@ mod tests {
             ),
             "expected KindMismatch error"
         );
+
+        // Error: invalid proto decode for custom FromValue struct
+        let malformed_proto_value = Value::from(BASE64_STANDARD.encode([0xFF, 0xFF, 0xFF]));
+        let decode_error = TestAddress::from_value(&malformed_proto_value, &proto_type)
+            .expect_err("malformed proto bytes must return Convert error for TestAddress");
+        assert!(
+            matches!(decode_error, ConvertError::Convert(_)),
+            "expected Convert error for malformed proto bytes"
+        );
     }
 
     #[test]
@@ -4165,6 +4172,15 @@ mod tests {
                 }
             ),
             "expected KindMismatch error"
+        );
+
+        // Error: invalid enum variant integer
+        let invalid_variant_value = Value::from("99");
+        let invalid_variant_error = TestOrderStatus::from_value(&invalid_variant_value, &enum_type)
+            .expect_err("unknown enum integer must return Convert error for TestOrderStatus");
+        assert!(
+            matches!(invalid_variant_error, ConvertError::Convert(_)),
+            "expected Convert error for invalid enum variant"
         );
     }
 
