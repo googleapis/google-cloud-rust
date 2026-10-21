@@ -74,10 +74,10 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// - A `GEOGRAPHY` value is a `String` in the WKT or GeoJSON format, such as
 ///   `POINT(1 2)`.
 /// - `Value::Null` writes the JSON value `null`, not a SQL `NULL`.
-/// - BigQuery arrays cannot contain `NULL` values or other arrays, so the
-///   elements of a `Vec<T>` cannot be `Option` or `Vec` values, except for
-///   `Vec<u8>`, which is a `BYTES` value. Arrays cannot be `NULL` either:
-///   `None` in an `Option<Vec<T>>` writes an empty array.
+/// - BigQuery arrays cannot be `NULL`, and cannot contain `NULL` values or
+///   other arrays. So an `Option<T>` or a `Vec<T>` cannot hold an `Option`,
+///   or a `Vec` other than `Vec<u8>`, which is a `BYTES` value. An empty
+///   `Vec<T>` writes an empty array.
 /// - A [`Range<T>`](crate::datatypes::Range) without a `start` or an `end` is
 ///   unbounded on that side. When it has both, the start must be before the
 ///   end, after rounding down any nanoseconds. [to_row](ToRow::to_row) returns
@@ -245,21 +245,23 @@ pub trait ProtoValue {
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError>;
 }
 
-/// A Rust type that can be an element of a `Vec<T>` field.
+/// A Rust type that can be inside an `Option<T>` or a `Vec<T>` field.
 ///
-/// BigQuery arrays cannot contain `NULL` values or other arrays, so `Option<T>`
-/// and `Vec<T>` do not implement this trait. `Vec<u8>` does, because it is a
-/// `BYTES` value, not an array. Structs with `#[derive(ToRow)]` implement it
-/// too.
+/// BigQuery arrays cannot be `NULL`, and cannot contain `NULL` values or other
+/// arrays. And an `Option<Option<T>>` would write `Some(None)` and `None` the
+/// same way, as `NULL`. So `Option<T>` and `Vec<T>` do not implement this
+/// trait. `Vec<u8>` does, because it is a `BYTES` value, not an array. Structs
+/// with `#[derive(ToRow)]` implement it too.
 ///
-/// In a generic struct, use this trait as the bound for the elements of a
-/// `Vec<T>` field:
+/// In a generic struct, use this trait as the bound for the type inside an
+/// `Option<T>` or a `Vec<T>` field:
 ///
 /// ```
 /// use google_cloud_bigquery::write::{ProtoElement, ToRow};
 ///
 /// #[derive(ToRow)]
 /// struct Batch<T: ProtoElement> {
+///     first: Option<T>,
 ///     items: Vec<T>,
 /// }
 ///
@@ -269,10 +271,11 @@ pub trait ProtoValue {
 ///
 /// Like [ProtoValue], this trait is not intended for manual implementation.
 #[diagnostic::on_unimplemented(
-    message = "`{Self}` is not a supported array element type for `#[derive(ToRow)]`",
-    label = "unsupported array element type",
-    note = "BigQuery arrays cannot contain `NULL` values or other arrays",
-    note = "structs must have `#[derive(ToRow)]` to be array elements",
+    message = "`{Self}` is not a supported type inside `Option<T>` or `Vec<T>` for `#[derive(ToRow)]`",
+    label = "unsupported type inside `Option<T>` or `Vec<T>`",
+    note = "`Option<T>` and `Vec<T>` cannot hold an `Option<T>`, or a `Vec<T>` other than `Vec<u8>`",
+    note = "BigQuery arrays cannot be `NULL`, and cannot contain `NULL` values or other arrays",
+    note = "structs must have `#[derive(ToRow)]` to be inside `Option<T>` or `Vec<T>`",
     note = "see the `ToRow` documentation for the supported types"
 )]
 pub trait ProtoElement: ProtoValue {}
@@ -891,7 +894,9 @@ impl ProtoValue for wkt::Struct {
     }
 }
 
-impl<T: ProtoValue> ProtoValue for Option<T> {
+// The value cannot be another `Option`, which would write `Some(None)` and
+// `None` the same way, or a `Vec<T>`, because arrays cannot be `NULL`.
+impl<T: ProtoElement> ProtoValue for Option<T> {
     fn describe(field: FieldSchema<'_>) {
         // All fields are optional in the schema, so `NULL` needs no changes.
         T::describe(field);
@@ -906,8 +911,9 @@ impl<T: ProtoValue> ProtoValue for Option<T> {
     }
 }
 
-// Any of the types above can be an array element, except `Option<T>`. There
-// is no implementation for `u8`, so `Vec<u8>` is always a `BYTES` value.
+// Any of the types above can be inside an `Option<T>` or a `Vec<T>`, except
+// `Option<T>`. There is no implementation for `u8`, so `Vec<u8>` is always a
+// `BYTES` value.
 impl ProtoElement for String {}
 impl ProtoElement for i64 {}
 impl ProtoElement for i32 {}
@@ -1525,8 +1531,7 @@ mod tests {
         // `Vec<u8>` is a `BYTES` value, not an array.
         assert_eq!(field_label::<Vec<u8>>(), Label::Optional);
         assert_eq!(field_label::<Vec<Vec<u8>>>(), Label::Repeated);
-        // Arrays cannot be `NULL`, so `None` writes an empty array.
-        assert_eq!(field_label::<Option<Vec<i64>>>(), Label::Repeated);
+        assert_eq!(field_label::<Option<Vec<u8>>>(), Label::Optional);
         assert_eq!(field_label::<Option<Address>>(), Label::Optional);
         assert_eq!(field_label::<Vec<Address>>(), Label::Repeated);
         assert_eq!(field_label::<Vec<Range<Date>>>(), Label::Repeated);

@@ -728,7 +728,6 @@ struct Nullable {
     timestamp: Option<wkt::Timestamp>,
     numeric: Option<RustDecimal>,
     json: Option<wkt::Struct>,
-    tags: Option<Vec<String>>,
 }
 
 /// Writes `Some` and `None` values.
@@ -747,7 +746,6 @@ pub async fn nulls(fixture: &Fixture) -> Result<()> {
                 column("timestamp", TIMESTAMP),
                 column("numeric", NUMERIC),
                 column("json", JSON),
-                repeated(column("tags", STRING)),
             ],
         )
         .await?;
@@ -763,7 +761,6 @@ pub async fn nulls(fixture: &Fixture) -> Result<()> {
         timestamp: Some(wkt::Timestamp::new(MAY_16_2025_SECONDS, 0)?),
         numeric: Some("1.5".parse()?),
         json: Some(object(json!({"a": 1}))?),
-        tags: Some(vec!["x".to_string(), "y".to_string()]),
     };
     let missing = Nullable {
         id: 2,
@@ -774,11 +771,6 @@ pub async fn nulls(fixture: &Fixture) -> Result<()> {
         .await?;
 
     let got: Vec<Nullable> = fixture.read(NULLS_TABLE).await?;
-    // Arrays cannot be `NULL`, so `None` writes an empty array.
-    let missing = Nullable {
-        tags: Some(Vec::new()),
-        ..missing
-    };
     assert_eq!(got, [present, missing]);
     Ok(())
 }
