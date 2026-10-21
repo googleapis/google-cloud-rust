@@ -202,19 +202,16 @@ impl RowIterator {
 
                 if let Some(ref mut arrow_reader) = self.arrow_reader {
                     match arrow_reader.next_record_batch().await {
-                        Ok(Some(batch)) => {
-                            if self.schema.len() == 0 {
-                                self.schema = Arc::new(Schema::from_arrow_schema(&batch.schema()));
-                            }
-                            self.current_batch = Some(Arc::new(batch));
-                            self.row_index = 0;
-                            continue;
-                        }
-                        Ok(None) => {
+                        Ok(batch) => {
                             if self.schema.len() == 0
                                 && let Some(arrow_schema) = arrow_reader.schema()
                             {
                                 self.schema = Arc::new(Schema::from_arrow_schema(&arrow_schema));
+                            }
+                            if let Some(batch) = batch {
+                                self.current_batch = Some(Arc::new(batch));
+                                self.row_index = 0;
+                                continue;
                             }
                             self.arrow_reader = None;
                         }

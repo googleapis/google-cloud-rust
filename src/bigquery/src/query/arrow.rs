@@ -73,6 +73,11 @@ impl ArrowStreamDecoder {
 
     /// Signals end-of-stream and validates that no partial frame remains in the decoder.
     pub(crate) fn finish(&mut self) -> Result<(), RowError> {
+        // `arrow_ipc::reader::StreamDecoder::decode` stops in `DecoderState::Body` after reading
+        // an exact-length `Schema` message without trailing bytes, leaving `schema()` as `None`
+        // until more bytes are fed. When no record batches follow (e.g. a 0-row query), feeding
+        // the 8-byte IPC EOS marker flushes the pending `Schema` body and still lets `finish()`
+        // reject truncated/malformed schema frames.
         if self.decoder.schema().is_none() {
             const EOS: [u8; 8] = [0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00];
             let mut eos = arrow::buffer::Buffer::from_slice_ref(EOS);
