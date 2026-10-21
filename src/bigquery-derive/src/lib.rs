@@ -18,6 +18,7 @@ extern crate proc_macro;
 
 use proc_macro::TokenStream;
 use quote::{quote, quote_spanned};
+use std::collections::HashSet;
 use syn::spanned::Spanned;
 use syn::{Data, DeriveInput, Fields, parse_macro_input};
 
@@ -226,9 +227,12 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     // always agree.
     let mut descriptors = Vec::new();
     let mut encoders = Vec::new();
+    let mut columns = HashSet::new();
     for field in &fields {
-        let column = match field_column(field) {
-            Ok(column) => column,
+        let column = match field_column(field)
+            .and_then(|column| check_to_row_column(column, &mut columns))
+        {
+            Ok(column) => column.name,
             Err(err) => return err.to_compile_error(),
         };
         let field_name = field
@@ -344,13 +348,20 @@ fn get_field_name(field: &syn::Field) -> syn::Result<String> {
     .to_string())
 }
 
-/// Returns the column name for a named field, for `ToRow`: the `rename` in
-/// its `#[bigquery(...)]` attributes, or else the field's name without any
-/// `r#` prefix.
+/// The column for a named field.
+struct Column {
+    /// The column name: the `rename` in the field's `#[bigquery(...)]`
+    /// attributes, or else the field's name without any `r#` prefix.
+    name: String,
+    /// Where the name comes from: the `rename` value, or the field's name.
+    span: proc_macro2::Span,
+}
+
+/// Returns the column for a named field, for `ToRow`.
 ///
 /// Every `#[bigquery(...)]` attribute on the field is checked. An attribute
 /// with no arguments, an unknown argument, or a second `rename` is an error.
-fn field_column(field: &syn::Field) -> syn::Result<String> {
+fn field_column(field: &syn::Field) -> syn::Result<Column> {
     let mut rename: Option<syn::LitStr> = None;
     for attr in field.attrs.iter().filter(|a| a.path().is_ident("bigquery")) {
         let mut empty = true;
@@ -374,13 +385,53 @@ fn field_column(field: &syn::Field) -> syn::Result<String> {
         }
     }
     if let Some(value) = rename {
-        return Ok(value.value());
+        return Ok(Column {
+            name: value.value(),
+            span: value.span(),
+        });
     }
     let ident = field
         .ident
         .as_ref()
         .expect("named field must have identifier");
-    Ok(syn::ext::IdentExt::unraw(ident).to_string())
+    Ok(Column {
+        name: syn::ext::IdentExt::unraw(ident).to_string(),
+        span: ident.span(),
+    })
+}
+
+/// Checks a column name for `ToRow`, and that no earlier field writes to the
+/// same column. `columns` holds the earlier columns, in lowercase.
+///
+/// The column name is also the name of a protobuf field, so it must start
+/// with an ASCII letter or `_`, and contain only ASCII letters, digits, and
+/// `_`. BigQuery column names are case-insensitive, so `a` and `A` are the
+/// same column.
+fn check_to_row_column(column: Column, columns: &mut HashSet<String>) -> syn::Result<Column> {
+    let mut chars = column.name.chars();
+    let valid = chars
+        .next()
+        .is_some_and(|c| c.is_ascii_alphabetic() || c == '_')
+        && chars.all(|c| c.is_ascii_alphanumeric() || c == '_');
+    if !valid {
+        return Err(syn::Error::new(
+            column.span,
+            format!(
+                "`{}` is not a supported column name for ToRow: column names must start with an ASCII letter or `_`, and contain only ASCII letters, digits, and `_`",
+                column.name
+            ),
+        ));
+    }
+    if !columns.insert(column.name.to_ascii_lowercase()) {
+        return Err(syn::Error::new(
+            column.span,
+            format!(
+                "duplicate column name `{}`: another field writes to it, and BigQuery column names are case-insensitive",
+                column.name
+            ),
+        ));
+    }
+    Ok(column)
 }
 
 /// Returns an error for a `#[bigquery(...)]` attribute on the struct itself,
@@ -497,7 +548,8 @@ mod tests {
             }
         });
 
-        assert_eq!(field_column(&field).ok().as_deref(), Some("custom_col"));
+        let column = field_column(&field).ok().map(|column| column.name);
+        assert_eq!(column.as_deref(), Some("custom_col"));
     }
 
     #[test_case("struct Empty {}"; "empty named struct")]
@@ -728,6 +780,45 @@ mod tests {
             "impl < T : google_cloud_bigquery :: write :: ProtoValue > {trait_path} for Wrapper < T > {where_clause}"
         );
         assert!(tokens.contains(&want), "unexpected expansion: {tokens}");
+        Ok(())
+    }
+
+    #[test_case(r#"struct Row { #[bigquery(rename = "my-col")] field: i64 }"#, "`my-col`"; "dash")]
+    #[test_case(r#"struct Row { #[bigquery(rename = "my col")] field: i64 }"#, "`my col`"; "space")]
+    #[test_case(r#"struct Row { #[bigquery(rename = "0col")] field: i64 }"#, "`0col`"; "leading digit")]
+    #[test_case(r#"struct Row { #[bigquery(rename = "")] field: i64 }"#, "``"; "empty")]
+    #[test_case("struct Row { café: i64 }", "`café`"; "non-ascii field name")]
+    fn test_to_row_rejects_column_names(def: &str, name: &str) -> Result<(), syn::Error> {
+        let tokens = derive_to_row_impl(syn::parse_str(def)?).to_string();
+        let want = format!("{name} is not a supported column name for ToRow");
+        assert!(
+            tokens.contains(&want),
+            "unexpected expansion for {def}: {tokens}"
+        );
+        // The read side has no such limit.
+        let tokens = derive_from_row_impl(syn::parse_str(def)?).to_string();
+        assert!(!tokens.contains("compile_error"), "{tokens}");
+        Ok(())
+    }
+
+    #[test_case(r#"struct Row { a: i64, #[bigquery(rename = "a")] b: i64 }"#, "`a`"; "same name")]
+    #[test_case(r#"struct Row { name: i64, #[bigquery(rename = "NAME")] other: i64 }"#, "`NAME`"; "different case")]
+    fn test_to_row_rejects_duplicate_columns(def: &str, name: &str) -> Result<(), syn::Error> {
+        let tokens = derive_to_row_impl(syn::parse_str(def)?).to_string();
+        let want = format!("duplicate column name {name}");
+        assert!(
+            tokens.contains(&want),
+            "unexpected expansion for {def}: {tokens}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_to_row_accepts_column_names() -> Result<(), syn::Error> {
+        let def =
+            r#"struct Row { _private: i64, r#type: i64, #[bigquery(rename = "Col_2")] col: i64 }"#;
+        let tokens = derive_to_row_impl(syn::parse_str(def)?).to_string();
+        assert!(!tokens.contains("compile_error"), "{tokens}");
         Ok(())
     }
 }

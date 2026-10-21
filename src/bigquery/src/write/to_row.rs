@@ -22,6 +22,7 @@ use crate::error::ConvertError;
 use crate::model::ProtoSchema;
 use bytes::Bytes;
 use std::any::TypeId;
+use std::borrow::Cow;
 use std::collections::HashMap;
 use wkt::{DescriptorProto, FieldDescriptorProto};
 
@@ -34,6 +35,12 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// Use [`#[derive(ToRow)]`](derive@crate::write::ToRow) to implement this
 /// trait. Each field is written to the column with the same name. Use
 /// `#[bigquery(rename = "column_name")]` when the names differ.
+///
+/// Column names must start with an ASCII letter or `_`, and contain only
+/// ASCII letters, digits, and `_`, because they are also the names of
+/// protobuf fields. Two fields cannot write to the same column, and BigQuery
+/// column names are case-insensitive, so `a` and `A` are the same column.
+/// Both are compile errors.
 ///
 /// # Supported types
 ///
@@ -1008,7 +1015,9 @@ impl<T: RangeElement> ProtoValue for Range<T> {
     fn describe(field: FieldSchema<'_>) {
         // A `RANGE` column is not a `STRUCT` column, so it does not count
         // toward the limit on nested `STRUCT` columns.
-        let type_name = field.types.add_message(RANGE_MESSAGE, describe_range::<T>);
+        let type_name = field
+            .types
+            .add_message(RANGE_MESSAGE.into(), describe_range::<T>);
         field.message_type(&type_name);
     }
 
@@ -1062,7 +1071,7 @@ const FIRST_SUFFIX: usize = 2;
 struct NestedTypes {
     /// The name before any suffix, and the descriptor, of each type. In the
     /// order they were added.
-    types: Vec<(&'static str, DescriptorProto)>,
+    types: Vec<(Cow<'static, str>, DescriptorProto)>,
     /// The names of the fields in the message for the row. The nested types
     /// share a scope with these fields, so they cannot use these names.
     reserved: Vec<&'static str>,
@@ -1151,7 +1160,7 @@ impl NestedTypes {
     /// get a suffix.
     fn add_message(
         &mut self,
-        base: &'static str,
+        base: Cow<'static, str>,
         describe: impl FnOnce(&mut StructSchema<'_>),
     ) -> String {
         // The fields come first, because they may add types too.
@@ -1165,7 +1174,7 @@ impl NestedTypes {
         if let Some((_, descriptor)) = existing {
             return descriptor.name.clone();
         }
-        let name = self.unused_name(base);
+        let name = self.unused_name(&base);
         let descriptor = DescriptorProto::new().set_name(&name).set_field(fields);
         self.types.push((base, descriptor));
         name
@@ -1197,10 +1206,25 @@ impl NestedTypes {
 /// BigQuery ignores the names of message types, so the name only needs to be
 /// readable: the name of the Rust type, without its path or its generic
 /// arguments. Different types with the same name get suffixes later.
-fn message_name<T: ?Sized>() -> &'static str {
+fn message_name<T: ?Sized>() -> Cow<'static, str> {
     let name = std::any::type_name::<T>();
     let name = name.find('<').map_or(name, |generics| &name[..generics]);
-    name.rsplit("::").next().unwrap_or(name)
+    proto_name(name.rsplit("::").next().unwrap_or(name))
+}
+
+/// Returns `name` as a protobuf name, which can only have ASCII letters,
+/// digits, and `_`. Other characters, such as `é`, become `_`.
+///
+/// `name` is the name of a Rust type, which cannot start with a digit.
+fn proto_name(name: &str) -> Cow<'_, str> {
+    let valid = |c: char| c.is_ascii_alphanumeric() || c == '_';
+    if name.chars().all(valid) {
+        return Cow::Borrowed(name);
+    }
+    name.chars()
+        .map(|c| if valid(c) { c } else { '_' })
+        .collect::<String>()
+        .into()
 }
 
 /// Returns the schema for rows of type `T`.
@@ -1231,7 +1255,7 @@ fn encode_row<T: ToRow + ?Sized>(row: &T) -> Result<Bytes, ConvertError> {
 mod tests {
     use super::{
         MAX_DEPTH, NestedTypes, ProtoElement, ProtoValue, StructEncoder, describe_field,
-        encode_field, encode_range, interval_string, message_name, timestamp_micros,
+        encode_field, encode_range, interval_string, message_name, proto_name, timestamp_micros,
     };
     use crate::datatypes::{Interval, Range, RangeElement};
     use crate::error::ConvertError;
@@ -2660,5 +2684,12 @@ mod tests {
         assert_eq!(message_name::<Address>(), ADDRESS);
         // The generic arguments have paths too, so they go first.
         assert_eq!(message_name::<Wrapper<Range<Date>>>(), WRAPPER);
+    }
+
+    #[test_case("Address", "Address"; "ascii")]
+    #[test_case("Größe", "Gr__e"; "non-ascii letters")]
+    #[test_case("r#match", "r_match"; "raw identifier")]
+    fn message_names_are_proto_names(name: &str, want: &str) {
+        assert_eq!(proto_name(name), want);
     }
 }
