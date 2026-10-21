@@ -708,16 +708,16 @@ mod tests {
         let mut iter = q.read();
 
         let row1 = iter.next().await.expect("row 1")?;
-        assert_eq!(row1.get::<String, _>("col")?, "hello");
-        assert_eq!(row1.get::<i64, _>("num")?, 42);
+        assert_eq!(row1.get::<String>("col")?, "hello");
+        assert_eq!(row1.get::<i64>("num")?, 42);
 
         let row2 = iter.next().await.expect("row 2")?;
-        assert_eq!(row2.get::<String, _>("col")?, "world");
-        assert_eq!(row2.get::<i64, _>("num")?, 100);
+        assert_eq!(row2.get::<String>("col")?, "world");
+        assert_eq!(row2.get::<i64>("num")?, 100);
 
         let row3 = iter.next().await.expect("row 3")?;
-        assert_eq!(row3.get::<String, _>("col")?, "last");
-        assert_eq!(row3.get::<i64, _>("num")?, 999);
+        assert_eq!(row3.get::<String>("col")?, "last");
+        assert_eq!(row3.get::<i64>("num")?, 999);
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
@@ -779,10 +779,10 @@ mod tests {
         let mut iter = q.read();
 
         let row1 = iter.next().await.expect("row 1")?;
-        assert_eq!(row1.get::<String, _>("col")?, "from_arrow_batch");
+        assert_eq!(row1.get::<String>("col")?, "from_arrow_batch");
 
         let row2 = iter.next().await.expect("row 2")?;
-        assert_eq!(row2.get::<String, _>("col")?, "from_json_page");
+        assert_eq!(row2.get::<String>("col")?, "from_json_page");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
