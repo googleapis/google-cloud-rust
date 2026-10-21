@@ -197,11 +197,102 @@ impl FromSql for wkt::Value {
                 google_cloud_unstable_bigquery_arrow,
                 google_cloud_unstable_bigquery_storage_read
             ))]
-            SqlValueInner::Arrow(_) => {
-                // TODO(#7032): Implement wkt::Value conversion for Arrow cells.
-                return Err(ConvertError::Convert(
-                    "Arrow to wkt::Value conversion is not yet implemented".into(),
-                ));
+            SqlValueInner::Arrow(cell) => {
+                if cell.is_null() {
+                    return Ok(wkt::Value::Null);
+                }
+                use arrow::datatypes::DataType;
+                match cell.data_type() {
+                    DataType::Null => wkt::Value::Null,
+                    DataType::Boolean => wkt::Value::Bool(cell.as_bool()?),
+                    DataType::Int64 => wkt::Value::Number(serde_json::Number::from(cell.as_i64()?)),
+                    DataType::Float64 => {
+                        let n = serde_json::Number::from_f64(cell.as_f64()?)
+                            .ok_or_else(|| ConvertError::Convert("invalid f64 value".into()))?;
+                        wkt::Value::Number(n)
+                    }
+                    DataType::Utf8 | DataType::LargeUtf8 => {
+                        wkt::Value::String(cell.as_str()?.to_string())
+                    }
+                    DataType::Binary | DataType::LargeBinary => {
+                        wkt::Value::String(BASE64_STANDARD.encode(cell.as_bytes()?))
+                    }
+                    DataType::Date32 => {
+                        let d = google_cloud_type::model::Date::from_value(SqlValue::from_inner(
+                            SqlValueInner::Arrow(cell),
+                        ))?;
+                        wkt::Value::String(format!("{:04}-{:02}-{:02}", d.year, d.month, d.day))
+                    }
+                    DataType::Time64(
+                        arrow::datatypes::TimeUnit::Microsecond
+                        | arrow::datatypes::TimeUnit::Nanosecond,
+                    ) => {
+                        let t = google_cloud_type::model::TimeOfDay::from_value(
+                            SqlValue::from_inner(SqlValueInner::Arrow(cell)),
+                        )?;
+                        if t.nanos == 0 {
+                            wkt::Value::String(format!(
+                                "{:02}:{:02}:{:02}",
+                                t.hours, t.minutes, t.seconds
+                            ))
+                        } else {
+                            let subsec_micros = t.nanos / 1_000;
+                            wkt::Value::String(format!(
+                                "{:02}:{:02}:{:02}.{subsec_micros:06}",
+                                t.hours, t.minutes, t.seconds
+                            ))
+                        }
+                    }
+                    DataType::Timestamp(_, _) => {
+                        let micros = cell.as_timestamp_micros()?;
+                        wkt::Value::String(micros.to_string())
+                    }
+                    DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => {
+                        let s = cell.as_decimal_str()?;
+                        wkt::Value::String(s)
+                    }
+                    DataType::Interval(arrow::datatypes::IntervalUnit::MonthDayNano) => {
+                        let interval = crate::datatypes::Interval::from_value(
+                            SqlValue::from_inner(SqlValueInner::Arrow(cell)),
+                        )?;
+                        wkt::Value::String(format!(
+                            "{}-{} {} {:02}:{:02}:{:02}.{:09}",
+                            interval.years,
+                            interval.months,
+                            interval.days,
+                            interval.hours,
+                            interval.minutes,
+                            interval.seconds,
+                            interval.nanos
+                        ))
+                    }
+                    DataType::Struct(fields) => {
+                        let s = fields
+                            .iter()
+                            .enumerate()
+                            .map(|(idx, f)| {
+                                let child = cell.struct_field_cell(&idx)?;
+                                let val = wkt::Value::from_value(SqlValue::from_inner(
+                                    SqlValueInner::Arrow(child),
+                                ))?;
+                                Ok((f.name().clone(), val))
+                            })
+                            .collect::<Result<wkt::Struct, ConvertError>>()?;
+                        wkt::Value::Object(s)
+                    }
+                    DataType::List(_) | DataType::LargeList(_) => {
+                        let v = Vec::<wkt::Value>::from_value(SqlValue::from_inner(
+                            SqlValueInner::Arrow(cell),
+                        ))?;
+                        wkt::Value::Array(v)
+                    }
+                    _ => {
+                        return Err(ConvertError::type_mismatch(
+                            "supported arrow value",
+                            &SqlValueInner::Arrow(cell),
+                        ));
+                    }
+                }
             }
         })
     }
@@ -1111,13 +1202,14 @@ mod tests {
         use super::*;
         use arrow::array::{
             ArrayRef, BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array,
-            Float32Array, Float64Array, Int32Array, Int64Array, LargeBinaryArray, LargeListArray,
-            LargeStringArray, ListArray, StringArray, StructArray, Time64MicrosecondArray,
-            Time64NanosecondArray, TimestampMicrosecondArray, TimestampMillisecondArray,
-            TimestampNanosecondArray, TimestampSecondArray,
+            Float32Array, Float64Array, Int32Array, Int64Array, IntervalMonthDayNanoArray,
+            IntervalYearMonthArray, LargeBinaryArray, LargeListArray, LargeStringArray, ListArray,
+            NullArray, StringArray, StructArray, Time64MicrosecondArray, Time64NanosecondArray,
+            TimestampMicrosecondArray, TimestampMillisecondArray, TimestampNanosecondArray,
+            TimestampSecondArray,
         };
         use arrow::buffer::{NullBuffer, OffsetBuffer};
-        use arrow::datatypes::{DataType, Field, Fields, i256};
+        use arrow::datatypes::{DataType, Field, Fields, IntervalMonthDayNano, i256};
         use std::sync::Arc;
         use test_case::test_case;
 
@@ -1180,13 +1272,35 @@ mod tests {
             val.type_name()
         }
 
-        // TODO(#7032): Remove this test once wkt::Value conversion for Arrow cells is implemented.
-        #[test]
-        fn test_from_sql_value_arrow_not_implemented() {
-            let arr: ArrayRef = Arc::new(Int64Array::from(vec![42]));
-            let err = wkt::Value::from_value(arrow_val(arr, 0)).unwrap_err();
-            assert!(matches!(err, ConvertError::Convert(_)));
-            assert!(err.to_string().contains("not yet implemented"), "{err}");
+        #[test_case(Arc::new(NullArray::new(1)) => Ok(wkt::Value::Null) ; "value from NullArray")]
+        #[test_case(Arc::new(Int64Array::from(vec![None])) => Ok(wkt::Value::Null) ; "value from null cell")]
+        #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Ok(wkt::Value::Bool(true)) ; "value from BooleanArray")]
+        #[test_case(Arc::new(Int64Array::from(vec![Some(42)])) => Ok(wkt::Value::Number(42.into())) ; "value from Int64Array")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(3.25)])) => Ok(wkt::Value::Number(serde_json::Number::from_f64(3.25).unwrap())) ; "value from Float64Array")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(f64::NAN)])) => Err(TestConvertError::Convert) ; "value from Float64Array NaN")]
+        #[test_case(Arc::new(StringArray::from(vec![Some("hello")])) => Ok(wkt::Value::String("hello".to_string())) ; "value from StringArray")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])) => Ok(wkt::Value::String("world".to_string())) ; "value from LargeStringArray")]
+        #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])) => Ok(wkt::Value::String("AQID".to_string())) ; "value from BinaryArray")]
+        #[test_case(Arc::new(LargeBinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])) => Ok(wkt::Value::String("AQID".to_string())) ; "value from LargeBinaryArray")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Ok(wkt::Value::String("2026-05-28".to_string())) ; "value from Date32Array")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])) => Ok(wkt::Value::String("15:30:00".to_string())) ; "value from Time64MicrosecondArray zero nanos")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_123_456)])) => Ok(wkt::Value::String("15:30:00.123456".to_string())) ; "value from Time64MicrosecondArray fractional")]
+        #[test_case(Arc::new(Time64NanosecondArray::from(vec![Some(55_800_123_456_789)])) => Ok(wkt::Value::String("15:30:00.123456".to_string())) ; "value from Time64NanosecondArray")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok(wkt::Value::String("1779982200123456".to_string())) ; "value from TimestampMicrosecondArray")]
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal128Array")]
+        #[test_case(decimal256_array(vec![Some(i256::from_i128(123_456))], 20, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal256Array")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok(wkt::Value::String("1-2 3 04:05:06.000000789".to_string())) ; "value from IntervalMonthDayNanoArray")]
+        #[test_case(sample_test_struct_array(None) => Ok(wkt::Value::Object(wkt::Struct::from_iter([
+            ("name".to_string(), wkt::Value::String("James".to_string())),
+            ("custom_int".to_string(), wkt::Value::Number(272_793.into())),
+            ("some_bool".to_string(), wkt::Value::Bool(true)),
+        ]))) ; "value from StructArray")]
+        #[test_case(sample_list_i64(vec![Some(10), Some(20)], None) => Ok(wkt::Value::Array(vec![wkt::Value::Number(10.into()), wkt::Value::Number(20.into())])) ; "value from ListArray")]
+        #[test_case(sample_large_list_i64(vec![Some(30), None]) => Ok(wkt::Value::Array(vec![wkt::Value::Number(30.into()), wkt::Value::Null])) ; "value from LargeListArray")]
+        #[test_case(Arc::new(Int32Array::from(vec![Some(1)])) => Err(TestConvertError::type_mismatch("supported arrow value")) ; "value from unsupported Int32Array")]
+        #[test_case(Arc::new(IntervalYearMonthArray::from(vec![Some(12)])) => Err(TestConvertError::type_mismatch("supported arrow value")) ; "value from unsupported IntervalYearMonthArray")]
+        fn test_from_sql_arrow_value(arr: ArrayRef) -> Result<wkt::Value, TestConvertError> {
+            wkt::Value::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }
 
         #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Ok(true) ; "bool true")]
