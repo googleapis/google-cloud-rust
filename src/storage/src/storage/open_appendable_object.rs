@@ -558,7 +558,10 @@ impl<S> OpenAppendableObject<S> {
     /// ```
     ///
     /// [storage class]: https://cloud.google.com/storage/docs/storage-classes
-    pub fn set_storage_class(mut self, v: impl Into<String>) -> Self {
+    pub fn set_storage_class<V>(mut self, v: V) -> Self
+    where
+        V: Into<String>,
+    {
         self.mut_resource().storage_class = v.into();
         self
     }
