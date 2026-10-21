@@ -37,7 +37,7 @@ fn external_uses_typed_param_constructors() {
     let uuid = Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").expect("valid uuid string");
     let byte_buffer = Bytes::from_static(b"binary payload");
 
-    let statement = Statement::builder("SELECT @ts, @s, @n, @d, @u, @b")
+    let statement = Statement::builder("SELECT @ts, @s, @n, @d, @u, @b, @p, @e")
         .add_typed_param("ts", Timestamp::clamp(1_700_000_000, 0), types::timestamp())
         .add_typed_param("s", "hello".to_string(), types::string())
         .add_typed_param("n", 42i64, types::int64())
@@ -48,11 +48,23 @@ fn external_uses_typed_param_constructors() {
         )
         .add_typed_param("u", uuid, types::uuid())
         .add_typed_param("b", byte_buffer.clone(), types::bytes())
+        .add_typed_param(
+            "p",
+            vec![1u8, 2, 3],
+            types::proto("examples.shipping.Address"),
+        )
+        .add_typed_param(
+            "e",
+            1i64,
+            types::proto_enum("examples.shipping.OrderStatus"),
+        )
         .build();
 
     assert!(
-        statement.sql().contains("SELECT @ts, @s, @n, @d, @u, @b"),
-        "sql statement must contain all typed parameters"
+        statement
+            .sql()
+            .contains("SELECT @ts, @s, @n, @d, @u, @b, @p, @e"),
+        "expected statement SQL to contain all typed parameters"
     );
 
     let statement_untyped = Statement::builder("SELECT @u, @b")
@@ -114,5 +126,7 @@ fn external_reaches_all_primitive_constructors() {
     let _ = types::pg_numeric();
     let _ = types::pg_jsonb();
     let _ = types::pg_oid();
+    let _ = types::proto("examples.shipping.Address");
+    let _ = types::proto_enum("examples.shipping.OrderStatus");
     let _ = types::array(types::int64());
 }
