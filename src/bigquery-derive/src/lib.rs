@@ -202,6 +202,9 @@ pub fn derive_to_row(input: TokenStream) -> TokenStream {
 }
 
 fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
+    if let Err(err) = reject_struct_bigquery_attrs(&input.attrs) {
+        return err.to_compile_error();
+    }
     let name = input.ident;
 
     let fields = match input.data {
@@ -224,7 +227,7 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     let mut descriptors = Vec::new();
     let mut encoders = Vec::new();
     for field in &fields {
-        let column = match get_field_name(field) {
+        let column = match field_column(field) {
             Ok(column) => column,
             Err(err) => return err.to_compile_error(),
         };
@@ -341,6 +344,57 @@ fn get_field_name(field: &syn::Field) -> syn::Result<String> {
     .to_string())
 }
 
+/// Returns the column name for a named field, for `ToRow`: the `rename` in
+/// its `#[bigquery(...)]` attributes, or else the field's name without any
+/// `r#` prefix.
+///
+/// Every `#[bigquery(...)]` attribute on the field is checked. An attribute
+/// with no arguments, an unknown argument, or a second `rename` is an error.
+fn field_column(field: &syn::Field) -> syn::Result<String> {
+    let mut rename: Option<syn::LitStr> = None;
+    for attr in field.attrs.iter().filter(|a| a.path().is_ident("bigquery")) {
+        let mut empty = true;
+        attr.parse_nested_meta(|meta| {
+            empty = false;
+            if !meta.path.is_ident("rename") {
+                return Err(meta.error("unsupported bigquery attribute"));
+            }
+            let value: syn::LitStr = meta.value()?.parse()?;
+            if rename.is_some() {
+                return Err(meta.error("duplicate bigquery attribute `rename`"));
+            }
+            rename = Some(value);
+            Ok(())
+        })?;
+        if empty {
+            return Err(syn::Error::new_spanned(
+                attr,
+                "empty bigquery attribute, expected `rename = \"...\"`",
+            ));
+        }
+    }
+    if let Some(value) = rename {
+        return Ok(value.value());
+    }
+    let ident = field
+        .ident
+        .as_ref()
+        .expect("named field must have identifier");
+    Ok(syn::ext::IdentExt::unraw(ident).to_string())
+}
+
+/// Returns an error for a `#[bigquery(...)]` attribute on the struct itself,
+/// which only fields support.
+fn reject_struct_bigquery_attrs(attrs: &[syn::Attribute]) -> syn::Result<()> {
+    match attrs.iter().find(|a| a.path().is_ident("bigquery")) {
+        Some(attr) => Err(syn::Error::new_spanned(
+            attr,
+            "bigquery attributes are only supported on fields",
+        )),
+        None => Ok(()),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -395,6 +449,55 @@ mod tests {
         });
 
         assert!(get_field_name(&field).is_err());
+    }
+
+    #[test_case(
+        r#"struct Row { #[bigquery(rename = "a")] #[bigquery(rename = "b")] field: i64 }"#,
+        "duplicate bigquery attribute `rename`";
+        "rename in two attributes"
+    )]
+    #[test_case(
+        r#"struct Row { #[bigquery(rename = "a", rename = "b")] field: i64 }"#,
+        "duplicate bigquery attribute `rename`";
+        "rename twice in one attribute"
+    )]
+    #[test_case(
+        r#"struct Row { #[bigquery(rename = "a")] #[bigquery(renam = "b")] field: i64 }"#,
+        "unsupported bigquery attribute";
+        "invalid attribute after a valid one"
+    )]
+    #[test_case(
+        "struct Row { #[bigquery()] field: i64 }",
+        "empty bigquery attribute";
+        "empty attribute"
+    )]
+    #[test_case(
+        r#"#[bigquery(rename_all = "camelCase")] struct Row { field: i64 }"#,
+        "bigquery attributes are only supported on fields";
+        "struct attribute"
+    )]
+    #[test_case(
+        r#"#[bigquery(rename = "custom")] struct Row(i64);"#,
+        "bigquery attributes are only supported on fields";
+        "tuple struct attribute"
+    )]
+    fn test_invalid_bigquery_attributes(def: &str, want: &str) -> Result<(), syn::Error> {
+        let to_row = derive_to_row_impl(syn::parse_str(def)?).to_string();
+        assert!(to_row.contains(want), "ToRow for {def}: {to_row}");
+        Ok(())
+    }
+
+    #[test]
+    fn test_rename_in_a_later_attribute() {
+        let field = extract_first_field(parse_quote! {
+            struct MyRow {
+                #[doc = "Other attributes come first."]
+                #[bigquery(rename = "custom_col")]
+                field: i64,
+            }
+        });
+
+        assert_eq!(field_column(&field).ok().as_deref(), Some("custom_col"));
     }
 
     #[test_case("struct Empty {}"; "empty named struct")]
