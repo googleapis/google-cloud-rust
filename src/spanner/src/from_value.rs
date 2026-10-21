@@ -3836,6 +3836,334 @@ mod tests {
         );
     }
 
+    #[test]
+    fn from_value_string_from_numeric() -> Result<(), ConvertError> {
+        let max_spanner_numeric = "99999999999999999999999999999.999999999";
+        let min_spanner_numeric = "-99999999999999999999999999999.999999999";
+        let pg_extreme_numeric =
+            "12345678901234567890123456789012345678901234567890.1234567890123456789";
+        let pg_negative_extreme_numeric =
+            "-12345678901234567890123456789012345678901234567890.1234567890123456789";
+
+        let test_cases = [
+            (types::numeric(), "123.456", "standard GoogleSQL NUMERIC"),
+            (types::numeric(), "-123.456", "negative GoogleSQL NUMERIC"),
+            (
+                types::numeric(),
+                max_spanner_numeric,
+                "38-digit max GoogleSQL NUMERIC exceeding 96-bit Decimal mantissa",
+            ),
+            (
+                types::numeric(),
+                min_spanner_numeric,
+                "38-digit negative max GoogleSQL NUMERIC",
+            ),
+            (
+                types::numeric(),
+                "100000000000000000000000000000",
+                "30-digit integer NUMERIC exceeding Decimal limit",
+            ),
+            (types::numeric(), "0", "zero NUMERIC"),
+            (types::numeric(), "0.000000000", "zero NUMERIC with scale"),
+            (types::numeric(), "-0", "negative zero NUMERIC"),
+            (types::numeric(), "1.5e3", "scientific notation NUMERIC"),
+            (
+                types::numeric(),
+                "-1.5e-3",
+                "negative scientific notation NUMERIC",
+            ),
+            (
+                types::pg_numeric(),
+                "NaN",
+                "PostgreSQL dialect PG_NUMERIC NaN",
+            ),
+            (
+                types::pg_numeric(),
+                pg_extreme_numeric,
+                "extreme arbitrary precision PG_NUMERIC",
+            ),
+            (
+                types::pg_numeric(),
+                pg_negative_extreme_numeric,
+                "negative extreme arbitrary precision PG_NUMERIC",
+            ),
+            (types::pg_numeric(), "42.5", "standard PostgreSQL numeric"),
+            (types::pg_numeric(), "-42.5", "negative PostgreSQL numeric"),
+            (
+                types::pg_numeric(),
+                ".123",
+                "PostgreSQL numeric without leading zero",
+            ),
+            (
+                types::pg_numeric(),
+                "42.",
+                "PostgreSQL numeric with trailing decimal",
+            ),
+            (
+                types::pg_numeric(),
+                "+123.456",
+                "PostgreSQL numeric with explicit positive sign",
+            ),
+            (
+                types::pg_numeric(),
+                "1.5E-3",
+                "PostgreSQL numeric scientific notation with capital E",
+            ),
+            (
+                types::pg_numeric(),
+                "0.00000000000000000000000000000000000000000000000001",
+                "extreme scale PG_NUMERIC",
+            ),
+        ];
+
+        for (column_type, text_content, description) in test_cases {
+            // Borrowed conversion: from_value (using borrowed string slice directly)
+            let value = text_content.to_value();
+            let parsed_string = String::from_value(&value, &column_type)?;
+            assert_eq!(
+                parsed_string, text_content,
+                "mismatch in borrowed String::from_value for {description}"
+            );
+
+            // Owned zero-copy conversion: from_owned_value
+            let owned_value = text_content.to_string().to_value();
+            let owned_parsed_string = String::from_owned_value(owned_value, &column_type)?;
+            assert_eq!(
+                owned_parsed_string, text_content,
+                "mismatch in owned String::from_owned_value for {description}"
+            );
+
+            // Option<String> conversion
+            let optional_parsed_string = Option::<String>::from_value(&value, &column_type)?;
+            assert_eq!(
+                optional_parsed_string,
+                Some(text_content.to_string()),
+                "mismatch in Option::<String>::from_value for {description}"
+            );
+        }
+
+        // Null Option<String> handling across NUMERIC and PG_NUMERIC
+        let null_cases = [
+            (types::numeric(), "null NUMERIC"),
+            (types::pg_numeric(), "null PG_NUMERIC"),
+        ];
+
+        for (column_type, description) in null_cases {
+            let null_value = Value::default();
+            let null_result = Option::<String>::from_value(&null_value, &column_type)?;
+            assert_eq!(
+                null_result, None,
+                "expected None for Option::<String> on {description}"
+            );
+
+            let not_null_error = String::from_value(&null_value, &column_type)
+                .expect_err("non-optional String must reject null value");
+            assert!(
+                matches!(not_null_error, ConvertError::NotNull),
+                "expected ConvertError::NotNull for {description}"
+            );
+        }
+
+        // Decimal conversion behavior on PG_NUMERIC
+        let valid_pg_decimal = "42.5".to_value();
+        let decimal = Decimal::from_value(&valid_pg_decimal, &types::pg_numeric())
+            .expect("standard PG_NUMERIC must convert to Decimal");
+        assert_eq!(
+            decimal,
+            Decimal::from_str_exact("42.5").expect("valid decimal"),
+            "expected parsed Decimal from PG_NUMERIC"
+        );
+
+        let nan_pg = "NaN".to_value();
+        let nan_error = Decimal::from_value(&nan_pg, &types::pg_numeric())
+            .expect_err("Decimal must reject NaN PG_NUMERIC");
+        assert!(
+            matches!(nan_error, ConvertError::Convert(_)),
+            "expected ConvertError::Convert for NaN PG_NUMERIC"
+        );
+
+        let extreme_pg = pg_extreme_numeric.to_value();
+        let extreme_error = Decimal::from_value(&extreme_pg, &types::pg_numeric())
+            .expect_err("Decimal must reject extreme PG_NUMERIC exceeding 96 bits");
+        assert!(
+            matches!(extreme_error, ConvertError::Convert(_)),
+            "expected ConvertError::Convert for extreme PG_NUMERIC"
+        );
+
+        // GoogleSQL ARRAY<NUMERIC> into Vec<String>
+        let numeric_array_type = types::array(types::numeric());
+        let numeric_list = vec!["123.456", max_spanner_numeric].to_value();
+        let parsed_numeric_vec = Vec::<String>::from_value(&numeric_list, &numeric_array_type)?;
+        assert_eq!(
+            parsed_numeric_vec,
+            vec!["123.456".to_string(), max_spanner_numeric.to_string()],
+            "mismatch in decoded ARRAY<NUMERIC>"
+        );
+
+        // PostgreSQL ARRAY<PG_NUMERIC> into Vec<Option<String>>
+        let pg_numeric_array_type = types::array(types::pg_numeric());
+        let pg_numeric_list = vec![
+            Some("NaN".to_string()),
+            None,
+            Some(pg_extreme_numeric.to_string()),
+        ]
+        .to_value();
+
+        let parsed_pg_numeric_vec =
+            Vec::<Option<String>>::from_value(&pg_numeric_list, &pg_numeric_array_type)?;
+        assert_eq!(
+            parsed_pg_numeric_vec,
+            vec![
+                Some("NaN".to_string()),
+                None,
+                Some(pg_extreme_numeric.to_string()),
+            ],
+            "mismatch in decoded ARRAY<PG_NUMERIC>"
+        );
+
+        // Non-optional Vec<String> rejects null elements in numeric arrays
+        let null_element_error =
+            Vec::<String>::from_value(&pg_numeric_list, &pg_numeric_array_type)
+                .expect_err("Vec::<String> must reject array containing null element");
+        assert!(
+            matches!(null_element_error, ConvertError::NotNull),
+            "expected ConvertError::NotNull for null array element"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn from_value_string_from_interval() -> Result<(), ConvertError> {
+        let test_cases = [
+            ("P1Y2M3D", "standard INTERVAL duration"),
+            (
+                "P1Y2M10DT2H30M15.5S",
+                "detailed date-time INTERVAL duration",
+            ),
+            ("P0Y0M0DT0H0M0S", "full zero INTERVAL"),
+            (
+                "P-1Y2M-3DT-4H5M6.78912345S",
+                "mixed sign INTERVAL components",
+            ),
+            ("P-1Y-2M-3DT-12H-12M-6S", "all negative INTERVAL components"),
+            ("-P1Y2M3D", "negative prefixed ISO duration"),
+            ("PT12H30M15S", "time-only INTERVAL"),
+            ("PT0.000000001S", "subsecond nanosecond precision INTERVAL"),
+            (
+                "P1Y2M3DT12H12M6.789000123S",
+                "full 9-digit fractional second INTERVAL",
+            ),
+            ("P2W", "weeks only INTERVAL"),
+        ];
+
+        let interval_type = types::interval();
+
+        for (text_content, description) in test_cases {
+            // Borrowed conversion: from_value (using borrowed string slice directly)
+            let value = text_content.to_value();
+            let parsed_string = String::from_value(&value, &interval_type)?;
+            assert_eq!(
+                parsed_string, text_content,
+                "mismatch in borrowed String::from_value for {description}"
+            );
+
+            // Owned zero-copy conversion: from_owned_value
+            let owned_value = text_content.to_string().to_value();
+            let owned_parsed_string = String::from_owned_value(owned_value, &interval_type)?;
+            assert_eq!(
+                owned_parsed_string, text_content,
+                "mismatch in owned String::from_owned_value for {description}"
+            );
+
+            // Option<String> conversion
+            let optional_parsed_string = Option::<String>::from_value(&value, &interval_type)?;
+            assert_eq!(
+                optional_parsed_string,
+                Some(text_content.to_string()),
+                "mismatch in Option::<String>::from_value for {description}"
+            );
+        }
+
+        // Null Option<String> handling for INTERVAL
+        let null_value = Value::default();
+        let null_result = Option::<String>::from_value(&null_value, &interval_type)?;
+        assert_eq!(
+            null_result, None,
+            "expected None for Option::<String> on null INTERVAL"
+        );
+
+        let not_null_error = String::from_value(&null_value, &interval_type)
+            .expect_err("non-optional String must reject null value");
+        assert!(
+            matches!(not_null_error, ConvertError::NotNull),
+            "expected ConvertError::NotNull for null INTERVAL"
+        );
+
+        // Non-string types reject INTERVAL columns with TypeMismatch
+        let interval_value = "P1Y2M3D".to_value();
+        let int64_error =
+            i64::from_value(&interval_value, &interval_type).expect_err("i64 must reject INTERVAL");
+        assert_eq!(
+            int64_error.to_string(),
+            "type mismatch, expected Int64, got Interval",
+            "expected TypeMismatch for i64 on INTERVAL"
+        );
+
+        let decimal_error = Decimal::from_value(&interval_value, &interval_type)
+            .expect_err("Decimal must reject INTERVAL");
+        assert_eq!(
+            decimal_error.to_string(),
+            "type mismatch, expected Numeric, got Interval",
+            "expected TypeMismatch for Decimal on INTERVAL"
+        );
+
+        let float64_error =
+            f64::from_value(&interval_value, &interval_type).expect_err("f64 must reject INTERVAL");
+        assert_eq!(
+            float64_error.to_string(),
+            "type mismatch, expected Float64, got Interval",
+            "expected TypeMismatch for f64 on INTERVAL"
+        );
+
+        let bool_error = bool::from_value(&interval_value, &interval_type)
+            .expect_err("bool must reject INTERVAL");
+        assert_eq!(
+            bool_error.to_string(),
+            "type mismatch, expected Bool, got Interval",
+            "expected TypeMismatch for bool on INTERVAL"
+        );
+
+        // ARRAY<INTERVAL> into Vec<String>
+        let interval_array_type = types::array(types::interval());
+        let interval_list = vec!["P1Y2M3D", "P2Y"].to_value();
+        let parsed_interval_vec = Vec::<String>::from_value(&interval_list, &interval_array_type)?;
+        assert_eq!(
+            parsed_interval_vec,
+            vec!["P1Y2M3D".to_string(), "P2Y".to_string()],
+            "mismatch in decoded ARRAY<INTERVAL>"
+        );
+
+        // ARRAY<INTERVAL> into Vec<Option<String>> with nulls
+        let interval_nullable_list = vec![Some("P1Y2M3D"), None, Some("PT5M")].to_value();
+        let parsed_nullable_vec =
+            Vec::<Option<String>>::from_value(&interval_nullable_list, &interval_array_type)?;
+        assert_eq!(
+            parsed_nullable_vec,
+            vec![Some("P1Y2M3D".to_string()), None, Some("PT5M".to_string())],
+            "mismatch in decoded nullable ARRAY<INTERVAL>"
+        );
+
+        // Vec<String> rejects null elements in ARRAY<INTERVAL>
+        let null_element_error =
+            Vec::<String>::from_value(&interval_nullable_list, &interval_array_type)
+                .expect_err("Vec::<String> must reject ARRAY<INTERVAL> with null element");
+        assert!(
+            matches!(null_element_error, ConvertError::NotNull),
+            "expected ConvertError::NotNull for null INTERVAL array element"
+        );
+        Ok(())
+    }
+
     use prost::{Enumeration, Message};
 
     #[derive(Clone, PartialEq, Message)]

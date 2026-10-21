@@ -2195,4 +2195,204 @@ mod tests {
 
         let (_age,): (i64,) = row.into_record();
     }
+
+    #[test]
+    fn row_get_string_from_numeric() -> Result<()> {
+        let max_spanner_numeric = "99999999999999999999999999999.999999999";
+        let pg_extreme_numeric = "12345678901234567890123456789012345678901234567890.123456789";
+
+        let column_names = vec![
+            "col_numeric".to_string(),
+            "col_pg_numeric_nan".to_string(),
+            "col_pg_numeric_extreme".to_string(),
+            "col_null_numeric".to_string(),
+        ];
+        let column_types = vec![
+            types::numeric(),
+            types::pg_numeric(),
+            types::pg_numeric(),
+            types::numeric(),
+        ];
+        let values = vec![
+            max_spanner_numeric.to_value(),
+            "NaN".to_value(),
+            pg_extreme_numeric.to_value(),
+            Value::default(),
+        ];
+
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Borrowed get by name and index
+        assert_eq!(
+            row.get::<String>("col_numeric")?,
+            max_spanner_numeric,
+            "expected 38-digit NUMERIC string by name"
+        );
+        assert_eq!(
+            row.get::<String>(0)?,
+            max_spanner_numeric,
+            "expected 38-digit NUMERIC string by index"
+        );
+
+        assert_eq!(
+            row.get::<String>("col_pg_numeric_nan")?,
+            "NaN",
+            "expected PG_NUMERIC NaN by name"
+        );
+        assert_eq!(
+            row.get::<String>(1)?,
+            "NaN",
+            "expected PG_NUMERIC NaN by index"
+        );
+
+        assert_eq!(
+            row.get::<String>("col_pg_numeric_extreme")?,
+            pg_extreme_numeric,
+            "expected extreme PG_NUMERIC by name"
+        );
+        assert_eq!(
+            row.get::<String>(2)?,
+            pg_extreme_numeric,
+            "expected extreme PG_NUMERIC by index"
+        );
+
+        assert_eq!(
+            row.get::<Option<String>>("col_null_numeric")?,
+            None,
+            "expected None for null numeric column by name"
+        );
+        assert_eq!(
+            row.get::<Option<String>>(3)?,
+            None,
+            "expected None for null numeric column by index"
+        );
+
+        // Non-optional get rejects null column
+        let null_error = row
+            .get::<String>("col_null_numeric")
+            .expect_err("non-optional get must fail on null column");
+        let row_error = RowError::extract(&null_error).expect("should extract RowError");
+        assert!(
+            matches!(
+                row_error,
+                RowError::TypeConversion {
+                    column: _,
+                    type_code: _,
+                    source,
+                } if matches!(source, ConvertError::NotNull)
+            ),
+            "expected RowError::TypeConversion wrapping ConvertError::NotNull, got {row_error:?}"
+        );
+
+        // Verify is_null is false before take
+        assert!(
+            !row.is_null("col_pg_numeric_nan")?,
+            "column must not be null before take"
+        );
+        assert!(
+            !row.is_null(1)?,
+            "column must not be null before take by index"
+        );
+
+        // Owned take by name and index
+        let taken_nan = row.take::<String>("col_pg_numeric_nan")?;
+        assert_eq!(taken_nan, "NaN", "expected taken NaN string");
+        assert!(
+            row.is_null("col_pg_numeric_nan")?,
+            "column must be null after take"
+        );
+        assert_eq!(
+            row.get::<Option<String>>("col_pg_numeric_nan")?,
+            None,
+            "column must be None after take"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn row_get_string_from_interval() -> Result<()> {
+        let column_names = vec!["col_interval".to_string(), "col_null_interval".to_string()];
+        let column_types = vec![types::interval(), types::interval()];
+        let values = vec!["P1Y2M3D".to_value(), Value::default()];
+
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Borrowed get by name and index
+        assert_eq!(
+            row.get::<String>("col_interval")?,
+            "P1Y2M3D",
+            "expected INTERVAL string by name"
+        );
+        assert_eq!(
+            row.get::<String>(0)?,
+            "P1Y2M3D",
+            "expected INTERVAL string by index"
+        );
+
+        assert_eq!(
+            row.get::<Option<String>>("col_null_interval")?,
+            None,
+            "expected None for null interval column by name"
+        );
+        assert_eq!(
+            row.get::<Option<String>>(1)?,
+            None,
+            "expected None for null interval column by index"
+        );
+
+        // Non-optional get rejects null interval column
+        let null_error = row
+            .get::<String>("col_null_interval")
+            .expect_err("non-optional get must fail on null interval column");
+        let row_error = RowError::extract(&null_error).expect("should extract RowError");
+        assert!(
+            matches!(
+                row_error,
+                RowError::TypeConversion {
+                    column: _,
+                    type_code: _,
+                    source,
+                } if matches!(source, ConvertError::NotNull)
+            ),
+            "expected RowError::TypeConversion wrapping ConvertError::NotNull, got {row_error:?}"
+        );
+
+        // Verify is_null is false before take
+        assert!(
+            !row.is_null("col_interval")?,
+            "column must not be null before take"
+        );
+        assert!(
+            !row.is_null(0)?,
+            "column must not be null before take by index"
+        );
+
+        // Owned take by name and index
+        let taken_interval = row.take::<String>("col_interval")?;
+        assert_eq!(taken_interval, "P1Y2M3D", "expected taken INTERVAL string");
+        assert!(
+            row.is_null("col_interval")?,
+            "column must be null after take"
+        );
+        assert_eq!(
+            row.get::<Option<String>>("col_interval")?,
+            None,
+            "column must be None after take"
+        );
+        Ok(())
+    }
 }
