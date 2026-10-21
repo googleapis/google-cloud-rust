@@ -694,6 +694,7 @@ mod tests {
         let job_service = create_job_service(MockJobService::new());
         let q = CompleteQuery {
             job_service,
+            read_client: None,
             job_ref: None,
             cached_data: CachedData::Arrow {
                 serialized_schema: schema_buf.into(),
@@ -765,6 +766,7 @@ mod tests {
         let job_service = create_job_service(mock);
         let q = CompleteQuery {
             job_service,
+            read_client: None,
             job_ref: Some(create_test_job_ref()),
             cached_data: CachedData::Arrow {
                 serialized_schema: schema_buf.into(),
@@ -829,6 +831,7 @@ mod tests {
         let job_service = create_job_service(MockJobService::new());
         let q = CompleteQuery {
             job_service,
+            read_client: None,
             job_ref: None,
             cached_data: CachedData::Arrow {
                 serialized_schema,
