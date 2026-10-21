@@ -79,6 +79,9 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 ///   parts can be at most 10,000 years, 3,660,000 days, and 87,840,000
 ///   hours, positive or negative. [to_row](ToRow::to_row) returns an error
 ///   for longer intervals.
+/// - A [`google_cloud_type::model::Decimal`] must hold a decimal number, such
+///   as `-1.5` or `2.5E+8`. An empty string writes `0`, as the type
+///   documents. [to_row](ToRow::to_row) returns an error for other strings.
 /// - A `GEOGRAPHY` value is a `String` in the WKT or GeoJSON format, such as
 ///   `POINT(1 2)`.
 /// - `Value::Null` writes the JSON value `null`, not a SQL `NULL`.
@@ -902,10 +905,65 @@ impl ProtoValue for google_cloud_type::model::Decimal {
     }
 
     fn encode(&self, field: FieldEncoder<'_>) -> Result<(), ConvertError> {
-        // BigQuery parses the value, like any other `NUMERIC` string.
-        encode_string(field.number, &self.value, field.buf);
+        encode_string(field.number, decimal_string(&self.value)?, field.buf);
         Ok(())
     }
+}
+
+/// What a [Decimal](google_cloud_type::model::Decimal) with an empty string
+/// writes. The empty string means 0, but BigQuery does not accept it.
+const EMPTY_DECIMAL: &str = "0";
+
+/// Returns the string for a BigQuery `NUMERIC` or `BIGNUMERIC` value, from the
+/// string in a [Decimal](google_cloud_type::model::Decimal).
+///
+/// BigQuery checks the range and the precision of the value. This checks the
+/// format, so invalid strings fail here, like other invalid values.
+fn decimal_string(value: &str) -> Result<&str, ConvertError> {
+    if value.is_empty() {
+        return Ok(EMPTY_DECIMAL);
+    }
+    if !is_decimal(value) {
+        return Err(ConvertError::Convert(
+            format!("{value:?} is not a valid decimal number").into(),
+        ));
+    }
+    Ok(value)
+}
+
+/// Returns true if `value` matches the grammar in the
+/// [Decimal](google_cloud_type::model::Decimal) documentation, other than the
+/// empty string:
+///
+/// ```text
+/// [Sign] Significand [Exponent]
+/// Significand = Digits ['.'] [Digits] | [Digits] '.' Digits
+/// Exponent = ('e' | 'E') [Sign] Digits
+/// ```
+///
+/// `Sign` is `+` or `-`, and `Digits` is one or more ASCII digits.
+fn is_decimal(value: &str) -> bool {
+    /// Removes a leading `+` or `-`.
+    fn unsigned(s: &str) -> &str {
+        s.strip_prefix(['+', '-']).unwrap_or(s)
+    }
+    /// Returns true if `s` is one or more ASCII digits.
+    fn digits(s: &str) -> bool {
+        !s.is_empty() && s.bytes().all(|b| b.is_ascii_digit())
+    }
+    let value = unsigned(value);
+    let (significand, exponent) = match value.split_once(['e', 'E']) {
+        Some((significand, exponent)) => (significand, Some(exponent)),
+        None => (value, None),
+    };
+    // The significand needs a digit, before or after the decimal point.
+    let significand_ok = match significand.split_once('.') {
+        None => digits(significand),
+        Some(("", fraction)) => digits(fraction),
+        Some((integer, "")) => digits(integer),
+        Some((integer, fraction)) => digits(integer) && digits(fraction),
+    };
+    significand_ok && exponent.is_none_or(|exponent| digits(unsigned(exponent)))
 }
 
 impl ProtoValue for wkt::Value {
@@ -1993,6 +2051,48 @@ mod tests {
         let value = google_cloud_type::model::Decimal::new().set_value(DECIMAL);
         assert_eq!(field_bytes(&value)?, want);
         Ok(())
+    }
+
+    #[test_case("0"; "zero")]
+    #[test_case("-1.5"; "negative")]
+    #[test_case("+2.5E-3"; "signs and an exponent")]
+    #[test_case(".5"; "no integer digits")]
+    #[test_case("5."; "no fraction digits")]
+    #[test_case("1e10"; "lowercase exponent")]
+    fn valid_decimals_are_sent_as_is(value: &str) -> anyhow::Result<()> {
+        let decimal = google_cloud_type::model::Decimal::new().set_value(value);
+        assert_eq!(field_bytes(&decimal)?, field_bytes(&value.to_string())?);
+        Ok(())
+    }
+
+    #[test]
+    fn empty_decimal_is_zero() -> anyhow::Result<()> {
+        // The empty string means 0, but BigQuery does not accept it.
+        let decimal = google_cloud_type::model::Decimal::new();
+        let zero = rust_decimal::Decimal::ZERO;
+        assert_eq!(field_bytes(&decimal)?, field_bytes(&zero)?);
+        Ok(())
+    }
+
+    #[test_case("abc"; "letters")]
+    #[test_case("1.2.3"; "two decimal points")]
+    #[test_case("."; "only a decimal point")]
+    #[test_case("-"; "only a sign")]
+    #[test_case("--1"; "two signs")]
+    #[test_case("e5"; "no significand")]
+    #[test_case("1e"; "no exponent digits")]
+    #[test_case("1e+"; "only an exponent sign")]
+    #[test_case(" 1"; "whitespace")]
+    #[test_case("1,000"; "thousands separator")]
+    #[test_case("NaN"; "not a number")]
+    #[test_case("١"; "non-ascii digit")]
+    fn invalid_decimals_are_errors(value: &str) {
+        let decimal = google_cloud_type::model::Decimal::new().set_value(value);
+        let err = field_bytes(&decimal).expect_err("the value is not a decimal number");
+        assert_eq!(
+            err.to_string(),
+            format!("cannot convert value: {value:?} is not a valid decimal number")
+        );
     }
 
     /// What `prost` generates for `message Json { string json = 1; }`.
