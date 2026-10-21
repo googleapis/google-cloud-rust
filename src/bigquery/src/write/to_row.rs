@@ -21,6 +21,8 @@ use crate::datatypes::{Interval, Range, RangeElement};
 use crate::error::ConvertError;
 use crate::model::ProtoSchema;
 use bytes::Bytes;
+use std::any::TypeId;
+use std::collections::HashMap;
 use wkt::{DescriptorProto, FieldDescriptorProto};
 
 /// A trait for converting Rust types into rows for the [Proto] data format.
@@ -406,11 +408,14 @@ impl FieldSchema<'_> {
     /// `#[derive(ToRow)]` uses this function. Applications do not need to call
     /// it.
     ///
+    /// `T` must be `'static`, because the schema describes each nested struct
+    /// type once, and tells them apart by their [TypeId].
+    ///
     /// # Panics
     ///
     /// If `T` is nested more than 14 levels deep, which includes any struct
     /// that contains itself.
-    pub fn message<T: ToRow>(self) {
+    pub fn message<T: ToRow + 'static>(self) {
         let type_name = self.types.add_struct::<T>();
         self.message_type(&type_name);
     }
@@ -1055,36 +1060,79 @@ struct NestedTypes {
     /// The names of the fields in the message for the row. The nested types
     /// share a scope with these fields, so they cannot use these names.
     reserved: Vec<&'static str>,
+    /// The structs described so far. A struct that many fields hold, at any
+    /// level, is described once.
+    structs: HashMap<TypeId, StructType>,
     /// How many levels of nested structs are being described.
     depth: usize,
+    /// The largest height of the structs described so far, at the current
+    /// level.
+    height: usize,
+}
+
+/// A nested struct that a schema has described.
+#[derive(Debug)]
+struct StructType {
+    /// The name of its message type.
+    name: String,
+    /// How many levels of structs it has, counting itself. A struct with no
+    /// struct fields has a height of 1.
+    height: usize,
 }
 
 impl NestedTypes {
     /// Returns an empty set of types, for a row with the given column names.
     fn new(columns: Vec<&'static str>) -> Self {
         Self {
-            types: Vec::new(),
             reserved: columns,
-            depth: 0,
+            ..Self::default()
         }
     }
 
     /// Adds the message type for the nested struct `T`, and returns its name.
     ///
+    /// A struct that was described before is not described again. Without
+    /// that, a struct reached through many paths, such as `T` in a struct
+    /// with four fields of type `T`, would be described once for each path,
+    /// which grows exponentially with the depth.
+    ///
     /// # Panics
     ///
     /// If `T` is nested more than [MAX_DEPTH] levels deep, which includes any
     /// struct that contains itself.
-    fn add_struct<T: ToRow + ?Sized>(&mut self) -> String {
-        self.depth += 1;
+    fn add_struct<T: ToRow + ?Sized + 'static>(&mut self) -> String {
+        let depth = self.depth + 1;
+        // A struct at `depth` with a height of `height` reaches the level
+        // `depth + height - 1`.
+        if let Some(described) = self.structs.get(&TypeId::of::<T>())
+            && depth + described.height - 1 <= MAX_DEPTH
+        {
+            self.height = self.height.max(described.height);
+            return described.name.clone();
+        }
+        // A struct described before also gets here when it is nested too
+        // deep at this level. Describing it again panics at the struct that
+        // is too deep, with the same message as any other struct.
+        self.depth = depth;
         assert!(
             self.depth <= MAX_DEPTH,
             "`{}` is nested more than {MAX_DEPTH} levels deep, or contains itself. \
              BigQuery supports at most {MAX_DEPTH} levels of nested `STRUCT` columns.",
             std::any::type_name::<T>()
         );
+        // The structs inside `T` start a new level.
+        let outer = std::mem::take(&mut self.height);
         let name = self.add_message(message_name::<T>(), T::describe_fields);
+        let height = self.height + 1;
+        self.height = outer.max(height);
         self.depth -= 1;
+        self.structs.insert(
+            TypeId::of::<T>(),
+            StructType {
+                name: name.clone(),
+                height,
+            },
+        );
         name
     }
 
@@ -2288,9 +2336,12 @@ mod tests {
     /// A field of this type nests 3 levels of `STRUCT` columns.
     type Nest3<T> = Nest<Nest<Nest<T>>>;
 
+    /// A field of this type nests 13 levels of `STRUCT` columns.
+    type Nest13 = Nest<Nest3<Nest3<Nest3<Nest3<i64>>>>>;
+
     /// A field of this type nests 14 levels of `STRUCT` columns, the most that
     /// BigQuery supports.
-    type Nest14 = Nest<Nest<Nest3<Nest3<Nest3<Nest3<i64>>>>>>;
+    type Nest14 = Nest<Nest13>;
 
     #[test]
     fn fourteen_levels_are_supported() {
@@ -2306,6 +2357,48 @@ mod tests {
     #[should_panic(expected = "is nested more than 14 levels deep")]
     fn fifteen_levels_panic() {
         let _ = Nest::<Nest<Nest14>>::schema();
+    }
+
+    /// A struct with four fields of the same type. Nesting it gives each type
+    /// four times as many paths as the type above it.
+    #[derive(ToRow)]
+    struct Fan<T> {
+        a: T,
+        b: T,
+        c: T,
+        d: T,
+    }
+
+    /// A field of this type nests 3 levels of `Fan` structs.
+    type Fan3<T> = Fan<Fan<Fan<T>>>;
+
+    /// A field of this type nests 14 levels of `Fan` structs.
+    type Fan14 = Fan<Fan<Fan3<Fan3<Fan3<Fan3<i64>>>>>>;
+
+    #[test]
+    fn each_nested_type_is_described_once() {
+        // In this row, the innermost struct is reached through 4^14 paths.
+        // Describing each path on its own would take about 358 million steps.
+        let descriptor = Fan::<Fan14>::schema()
+            .proto_descriptor
+            .expect("has a descriptor");
+        assert_eq!(descriptor.nested_type.len(), MAX_DEPTH);
+    }
+
+    /// A row that holds `Nest13` at level 1, and then at level 3, where its
+    /// innermost struct is at level 15.
+    #[derive(ToRow)]
+    struct Deeper {
+        shallow: Nest13,
+        deep: Nest<Nest<Nest13>>,
+    }
+
+    #[test]
+    #[should_panic(expected = "is nested more than 14 levels deep")]
+    fn described_types_count_toward_the_depth() {
+        // `Nest13` is described for `shallow`. Reusing it for `deep` must still
+        // check the depth of the structs inside it.
+        let _ = Deeper::schema();
     }
 
     /// A struct that contains itself. BigQuery schemas cannot do that.
