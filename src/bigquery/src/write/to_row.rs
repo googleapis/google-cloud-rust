@@ -34,7 +34,8 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// buffers. Types that implement this trait provide both.
 ///
 /// Use [`#[derive(ToRow)]`](derive@crate::write::ToRow) to implement this
-/// trait. Each field is written to the column with the same name. Use
+/// trait. Each field is written to the column with the same name, without
+/// any `r#` prefix, so `r#type` writes to the column `type`. Use
 /// `#[bigquery(rename = "column_name")]` when the names differ.
 ///
 /// Column names must start with an ASCII letter or `_`, and contain only
@@ -52,14 +53,14 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// | `f32`, `f64` | `FLOAT64` |
 /// | [`rust_decimal::Decimal`], [`google_cloud_type::model::Decimal`] | `NUMERIC`, `BIGNUMERIC` |
 /// | `String` | `STRING`, `GEOGRAPHY` |
-/// | `Vec<u8>`, [`Bytes`](bytes::Bytes) | `BYTES` |
+/// | `Vec<u8>`, [`Bytes`] | `BYTES` |
 /// | [`Date`](google_cloud_type::model::Date) | `DATE` |
 /// | [`DateTime`](google_cloud_type::model::DateTime) | `DATETIME` |
 /// | [`TimeOfDay`](google_cloud_type::model::TimeOfDay) | `TIME` |
 /// | [`Timestamp`](wkt::Timestamp) | `TIMESTAMP` |
-/// | [`Interval`](crate::datatypes::Interval) | `INTERVAL` |
+/// | [`Interval`] | `INTERVAL` |
 /// | [`Value`](wkt::Value), [`Struct`](wkt::Struct) | `JSON` |
-/// | [`Range<T>`](crate::datatypes::Range) | `RANGE<T>` |
+/// | [`Range<T>`] | `RANGE<T>` |
 /// | A struct with `#[derive(ToRow)]` | `STRUCT` |
 /// | `Option<T>` | The type for `T`. `None` writes `NULL`. |
 /// | `Vec<T>` | An `ARRAY` of the type for `T`. |
@@ -67,21 +68,25 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// Some types have limits:
 ///
 /// - BigQuery keeps microseconds, so any nanoseconds are rounded down, or
-///   toward zero in an [`Interval`](crate::datatypes::Interval).
+///   toward zero in an [`Interval`].
 /// - Dates must have a year, a month, and a day, between the years 1 and
-///   9999. [to_row](ToRow::to_row) returns an error for other dates, and for
-///   times such as `24:00:00` or leap seconds.
+///   9999. [`to_row`](ToRow::to_row) returns an error for other dates, and
+///   for times such as `24:00:00` or leap seconds.
 /// - A [`DateTime`](google_cloud_type::model::DateTime) with a time zone or a
 ///   UTC offset is an error. Use a [`Timestamp`](wkt::Timestamp) instead.
 /// - BigQuery keeps an `INTERVAL` as three parts: months, days, and time. It
-///   combines the fields of an [`Interval`](crate::datatypes::Interval) in
-///   each part, so `minutes: 90` reads back as `hours: 1, minutes: 30`. The
-///   parts can be at most 10,000 years, 3,660,000 days, and 87,840,000
-///   hours, positive or negative. [to_row](ToRow::to_row) returns an error
-///   for longer intervals.
+///   combines the fields of an [`Interval`] in each part, so `minutes: 90`
+///   reads back as `hours: 1, minutes: 30`. The parts can be at most 10,000
+///   years, 3,660,000 days, and 87,840,000 hours, positive or negative.
+///   [`to_row`](ToRow::to_row) returns an error for longer intervals.
+/// - A `NUMERIC` value has up to 38 digits, 9 of them after the decimal
+///   point. A `BIGNUMERIC` value has up to 76 digits, 38 of them after the
+///   decimal point. A [`rust_decimal::Decimal`] holds about 28 digits, so use
+///   a [`google_cloud_type::model::Decimal`] for longer values. BigQuery
+///   rejects values that do not fit the column.
 /// - A [`google_cloud_type::model::Decimal`] must hold a decimal number, such
 ///   as `-1.5` or `2.5E+8`. An empty string writes `0`, as the type
-///   documents. [to_row](ToRow::to_row) returns an error for other strings.
+///   documents. [`to_row`](ToRow::to_row) returns an error for other strings.
 /// - A `GEOGRAPHY` value is a `String` in the WKT or GeoJSON format, such as
 ///   `POINT(1 2)`.
 /// - `Value::Null` writes the JSON value `null`, not a SQL `NULL`.
@@ -89,10 +94,10 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 ///   other arrays. So an `Option<T>` or a `Vec<T>` cannot hold an `Option`,
 ///   or a `Vec` other than `Vec<u8>`, which is a `BYTES` value. An empty
 ///   `Vec<T>` writes an empty array.
-/// - A [`Range<T>`](crate::datatypes::Range) without a `start` or an `end` is
-///   unbounded on that side. When it has both, the start must be before the
-///   end, after rounding down any nanoseconds. [to_row](ToRow::to_row) returns
-///   an error for other ranges, which BigQuery SQL cannot create either.
+/// - A [`Range<T>`] without a `start` or an `end` is unbounded on that side.
+///   When it has both, the start must be before the end, after rounding down
+///   any nanoseconds. [`to_row`](ToRow::to_row) returns an error for other
+///   ranges, which BigQuery SQL cannot create either.
 /// - Structs can be nested at most 14 levels deep. BigQuery limits the depth
 ///   of a schema to 15, and the innermost field counts too. Structs cannot
 ///   contain themselves, not even in a `Vec<T>`.
@@ -177,7 +182,7 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 pub trait ToRow {
     /// Returns the schema for rows of this type.
     ///
-    /// Use it to create a writer with [build_proto].
+    /// Use it to create a writer with [`build_proto`].
     ///
     /// # Panics
     ///
@@ -185,31 +190,41 @@ pub trait ToRow {
     /// itself. Both depend only on the types, not on any values, so any test
     /// that calls this function finds them.
     ///
-    /// [build_proto]: crate::builder::write::WriterBuilder::build_proto
+    /// [`build_proto`]: crate::builder::write::WriterBuilder::build_proto
     fn schema() -> ProtoSchema {
         message_schema::<Self>()
     }
 
     /// Encodes `self` as one row, in the protobuf wire format.
+    ///
+    /// Add the rows to a request with [`set_serialized_rows`].
+    ///
+    /// # Errors
+    ///
+    /// If a value is one that BigQuery cannot store, such as a date without a
+    /// year, or a range that does not start before it ends. The limits for
+    /// each type are in the [ToRow] documentation.
+    ///
+    /// [`set_serialized_rows`]: crate::model::ProtoRows::set_serialized_rows
     fn to_row(&self) -> Result<Bytes, ConvertError> {
         encode_row(self)
     }
 
     /// Describes the fields of this type, in order.
     ///
-    /// `#[derive(ToRow)]` implements this function, and [schema] calls it.
+    /// `#[derive(ToRow)]` implements this function, and [`schema`] calls it.
     /// Applications do not need to call it.
     ///
-    /// [schema]: ToRow::schema
+    /// [`schema`]: ToRow::schema
     fn describe_fields(fields: &mut StructSchema<'_>);
 
-    /// Encodes the fields of `self`, in the same order as [describe_fields].
+    /// Encodes the fields of `self`, in the same order as [`describe_fields`].
     ///
-    /// `#[derive(ToRow)]` implements this function, and [to_row] calls it.
+    /// `#[derive(ToRow)]` implements this function, and [`to_row`] calls it.
     /// Applications do not need to call it.
     ///
-    /// [describe_fields]: ToRow::describe_fields
-    /// [to_row]: ToRow::to_row
+    /// [`describe_fields`]: ToRow::describe_fields
+    /// [`to_row`]: ToRow::to_row
     fn encode_fields(&self, fields: &mut StructEncoder<'_>) -> Result<(), ConvertError>;
 }
 
@@ -296,11 +311,11 @@ const FIRST_FIELD_NUMBER: u32 = 1;
 
 /// The fields of a struct, as `#[derive(ToRow)]` describes them.
 ///
-/// [ToRow::describe_fields] receives this type. Each call to [field]
+/// [`ToRow::describe_fields`] receives this type. Each call to [`field`]
 /// describes the next field, so the fields are numbered in the order of the
 /// calls.
 ///
-/// [field]: StructSchema::field
+/// [`field`]: StructSchema::field
 #[derive(Debug)]
 pub struct StructSchema<'a> {
     state: SchemaState<'a>,
@@ -368,11 +383,11 @@ impl<'a> StructSchema<'a> {
 
 /// The fields of a struct, as `#[derive(ToRow)]` encodes them.
 ///
-/// [ToRow::encode_fields] receives this type. Each call to [field] encodes
-/// the next field, so the calls must be in the same order as the calls in
-/// [ToRow::describe_fields].
+/// [`ToRow::encode_fields`] receives this type. Each call to [`field`]
+/// encodes the next field, so the calls must be in the same order as the
+/// calls in [`ToRow::describe_fields`].
 ///
-/// [field]: StructEncoder::field
+/// [`field`]: StructEncoder::field
 #[derive(Debug)]
 pub struct StructEncoder<'a> {
     /// Receives the encoded fields.
@@ -401,7 +416,7 @@ impl<'a> StructEncoder<'a> {
     }
 }
 
-/// One field, as [ProtoValue::describe] describes it.
+/// One field, as [`ProtoValue::describe`] describes it.
 #[derive(Debug)]
 pub struct FieldSchema<'a> {
     /// The column name.
@@ -466,7 +481,7 @@ impl FieldSchema<'_> {
     }
 }
 
-/// One field, as [ProtoValue::encode] encodes it.
+/// One field, as [`ProtoValue::encode`] encodes it.
 #[derive(Debug)]
 pub struct FieldEncoder<'a> {
     /// The field number.
@@ -698,7 +713,7 @@ fn civil_datetime(
 ) -> Result<time::PrimitiveDateTime, ConvertError> {
     if value.time_offset.is_some() {
         return Err(ConvertError::Convert(
-            "a `DATETIME` has no time zone or UTC offset, use a `Timestamp` instead".into(),
+            "a `DATETIME` has no time zone or UTC offset; use a `Timestamp` instead".into(),
         ));
     }
     let date = civil_date(value.year, value.month, value.day)?;
@@ -1053,13 +1068,13 @@ const RANGE_END: &str = "end";
 /// A type for the bounds of a [Range].
 ///
 /// BigQuery SQL cannot create a range unless its start is before its end, so
-/// [ToRow::to_row] returns an error for other ranges. It compares the values
+/// [`ToRow::to_row`] returns an error for other ranges. It compares the values
 /// that BigQuery receives, which keep microseconds, not nanoseconds.
 ///
 /// [RangeElement] requires this trait, so code that is generic over the element
 /// type, such as a struct with `#[derive(ToRow)]`, can write ranges.
 ///
-/// This is an implementation detail of [ToRow], it is not part of the public
+/// This is an implementation detail of [ToRow]. It is not part of the public
 /// API.
 pub trait RangeBound {
     /// The value that BigQuery receives for a bound. The values sort in the

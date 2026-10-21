@@ -115,7 +115,9 @@ pub enum ConvertError {
     #[error("missing field: {0}")]
     MissingField(String),
 
-    /// An error occurred during custom conversion (e.g. parsing date/time strings).
+    /// A value could not be converted, such as a date/time string that does not
+    /// parse when reading rows, or a date that BigQuery cannot store when
+    /// writing them.
     #[error("cannot convert value: {0}")]
     Convert(
         #[from]

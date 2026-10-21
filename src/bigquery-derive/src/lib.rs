@@ -193,9 +193,9 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
 
 /// Derives `ToRow` for writing a struct as rows with the BigQuery `Write` client.
 ///
-/// Each field is written to the column with the same name (or via `#[bigquery(rename = "new_name")]`).
-/// Only structs with named fields are supported. A struct with `#[derive(ToRow)]` can also be a
-/// field in another one, for a `STRUCT` column.
+/// Each field is written to the column with the same name, without any `r#` prefix (or via
+/// `#[bigquery(rename = "new_name")]`). Only non-empty structs with named fields are supported. A
+/// struct with `#[derive(ToRow)]` can also be a field in another one, for a `STRUCT` column.
 #[proc_macro_derive(ToRow, attributes(bigquery))]
 pub fn derive_to_row(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
