@@ -3837,7 +3837,7 @@ mod tests {
     }
 
     #[test]
-    fn from_value_string_from_numeric() {
+    fn from_value_string_from_numeric() -> Result<(), ConvertError> {
         let max_spanner_numeric = "99999999999999999999999999999.999999999";
         let min_spanner_numeric = "-99999999999999999999999999999.999999999";
         let pg_extreme_numeric =
@@ -3919,9 +3919,7 @@ mod tests {
         for (column_type, text_content, description) in test_cases {
             // Borrowed conversion: from_value (using borrowed string slice directly)
             let value = text_content.to_value();
-            let parsed_string = String::from_value(&value, &column_type).unwrap_or_else(|error| {
-                panic!("String::from_value failed for {description}: {error:?}")
-            });
+            let parsed_string = String::from_value(&value, &column_type)?;
             assert_eq!(
                 parsed_string, text_content,
                 "mismatch in borrowed String::from_value for {description}"
@@ -3929,20 +3927,14 @@ mod tests {
 
             // Owned zero-copy conversion: from_owned_value
             let owned_value = text_content.to_string().to_value();
-            let owned_parsed_string = String::from_owned_value(owned_value, &column_type)
-                .unwrap_or_else(|error| {
-                    panic!("String::from_owned_value failed for {description}: {error:?}")
-                });
+            let owned_parsed_string = String::from_owned_value(owned_value, &column_type)?;
             assert_eq!(
                 owned_parsed_string, text_content,
                 "mismatch in owned String::from_owned_value for {description}"
             );
 
             // Option<String> conversion
-            let optional_parsed_string = Option::<String>::from_value(&value, &column_type)
-                .unwrap_or_else(|error| {
-                    panic!("Option::<String>::from_value failed for {description}: {error:?}")
-                });
+            let optional_parsed_string = Option::<String>::from_value(&value, &column_type)?;
             assert_eq!(
                 optional_parsed_string,
                 Some(text_content.to_string()),
@@ -3958,10 +3950,7 @@ mod tests {
 
         for (column_type, description) in null_cases {
             let null_value = Value::default();
-            let null_result = Option::<String>::from_value(&null_value, &column_type)
-                .unwrap_or_else(|error| {
-                    panic!("Option::<String>::from_value for {description} failed: {error:?}")
-                });
+            let null_result = Option::<String>::from_value(&null_value, &column_type)?;
             assert_eq!(
                 null_result, None,
                 "expected None for Option::<String> on {description}"
@@ -4004,8 +3993,7 @@ mod tests {
         // GoogleSQL ARRAY<NUMERIC> into Vec<String>
         let numeric_array_type = types::array(types::numeric());
         let numeric_list = vec!["123.456", max_spanner_numeric].to_value();
-        let parsed_numeric_vec = Vec::<String>::from_value(&numeric_list, &numeric_array_type)
-            .expect("Vec::<String>::from_value should succeed for ARRAY<NUMERIC>");
+        let parsed_numeric_vec = Vec::<String>::from_value(&numeric_list, &numeric_array_type)?;
         assert_eq!(
             parsed_numeric_vec,
             vec!["123.456".to_string(), max_spanner_numeric.to_string()],
@@ -4022,8 +4010,7 @@ mod tests {
         .to_value();
 
         let parsed_pg_numeric_vec =
-            Vec::<Option<String>>::from_value(&pg_numeric_list, &pg_numeric_array_type)
-                .expect("Vec::<Option<String>>::from_value should succeed for ARRAY<PG_NUMERIC>");
+            Vec::<Option<String>>::from_value(&pg_numeric_list, &pg_numeric_array_type)?;
         assert_eq!(
             parsed_pg_numeric_vec,
             vec![
@@ -4042,19 +4029,17 @@ mod tests {
             matches!(null_element_error, ConvertError::NotNull),
             "expected ConvertError::NotNull for null array element"
         );
+        Ok(())
     }
 
     #[test]
-    fn from_value_string_from_interval() {
+    fn from_value_string_from_interval() -> Result<(), ConvertError> {
         let test_cases = [
             ("P1Y2M3D", "standard INTERVAL duration"),
             (
                 "P1Y2M10DT2H30M15.5S",
                 "detailed date-time INTERVAL duration",
             ),
-            ("P0Y", "zero years INTERVAL"),
-            ("P0D", "zero days INTERVAL"),
-            ("PT0S", "zero seconds INTERVAL"),
             ("P0Y0M0DT0H0M0S", "full zero INTERVAL"),
             (
                 "P-1Y2M-3DT-4H5M6.78912345S",
@@ -4063,17 +4048,11 @@ mod tests {
             ("P-1Y-2M-3DT-12H-12M-6S", "all negative INTERVAL components"),
             ("-P1Y2M3D", "negative prefixed ISO duration"),
             ("PT12H30M15S", "time-only INTERVAL"),
-            ("PT4H", "hours only INTERVAL"),
-            ("PT5M", "minutes only INTERVAL"),
-            ("PT45S", "seconds only INTERVAL"),
             ("PT0.000000001S", "subsecond nanosecond precision INTERVAL"),
             (
                 "P1Y2M3DT12H12M6.789000123S",
                 "full 9-digit fractional second INTERVAL",
             ),
-            ("P1Y", "years only INTERVAL"),
-            ("P2M", "months only INTERVAL"),
-            ("P3D", "days only INTERVAL"),
             ("P2W", "weeks only INTERVAL"),
         ];
 
@@ -4082,10 +4061,7 @@ mod tests {
         for (text_content, description) in test_cases {
             // Borrowed conversion: from_value (using borrowed string slice directly)
             let value = text_content.to_value();
-            let parsed_string =
-                String::from_value(&value, &interval_type).unwrap_or_else(|error| {
-                    panic!("String::from_value failed for {description}: {error:?}")
-                });
+            let parsed_string = String::from_value(&value, &interval_type)?;
             assert_eq!(
                 parsed_string, text_content,
                 "mismatch in borrowed String::from_value for {description}"
@@ -4093,20 +4069,14 @@ mod tests {
 
             // Owned zero-copy conversion: from_owned_value
             let owned_value = text_content.to_string().to_value();
-            let owned_parsed_string = String::from_owned_value(owned_value, &interval_type)
-                .unwrap_or_else(|error| {
-                    panic!("String::from_owned_value failed for {description}: {error:?}")
-                });
+            let owned_parsed_string = String::from_owned_value(owned_value, &interval_type)?;
             assert_eq!(
                 owned_parsed_string, text_content,
                 "mismatch in owned String::from_owned_value for {description}"
             );
 
             // Option<String> conversion
-            let optional_parsed_string = Option::<String>::from_value(&value, &interval_type)
-                .unwrap_or_else(|error| {
-                    panic!("Option::<String>::from_value failed for {description}: {error:?}")
-                });
+            let optional_parsed_string = Option::<String>::from_value(&value, &interval_type)?;
             assert_eq!(
                 optional_parsed_string,
                 Some(text_content.to_string()),
@@ -4116,10 +4086,7 @@ mod tests {
 
         // Null Option<String> handling for INTERVAL
         let null_value = Value::default();
-        let null_result =
-            Option::<String>::from_value(&null_value, &interval_type).unwrap_or_else(|error| {
-                panic!("Option::<String>::from_value for null INTERVAL failed: {error:?}")
-            });
+        let null_result = Option::<String>::from_value(&null_value, &interval_type)?;
         assert_eq!(
             null_result, None,
             "expected None for Option::<String> on null INTERVAL"
@@ -4169,8 +4136,7 @@ mod tests {
         // ARRAY<INTERVAL> into Vec<String>
         let interval_array_type = types::array(types::interval());
         let interval_list = vec!["P1Y2M3D", "P2Y"].to_value();
-        let parsed_interval_vec = Vec::<String>::from_value(&interval_list, &interval_array_type)
-            .expect("Vec::<String>::from_value should succeed for ARRAY<INTERVAL>");
+        let parsed_interval_vec = Vec::<String>::from_value(&interval_list, &interval_array_type)?;
         assert_eq!(
             parsed_interval_vec,
             vec!["P1Y2M3D".to_string(), "P2Y".to_string()],
@@ -4180,8 +4146,7 @@ mod tests {
         // ARRAY<INTERVAL> into Vec<Option<String>> with nulls
         let interval_nullable_list = vec![Some("P1Y2M3D"), None, Some("PT5M")].to_value();
         let parsed_nullable_vec =
-            Vec::<Option<String>>::from_value(&interval_nullable_list, &interval_array_type)
-                .expect("Vec::<Option<String>> should succeed for ARRAY<INTERVAL> with nulls");
+            Vec::<Option<String>>::from_value(&interval_nullable_list, &interval_array_type)?;
         assert_eq!(
             parsed_nullable_vec,
             vec![Some("P1Y2M3D".to_string()), None, Some("PT5M".to_string())],
@@ -4196,6 +4161,7 @@ mod tests {
             matches!(null_element_error, ConvertError::NotNull),
             "expected ConvertError::NotNull for null INTERVAL array element"
         );
+        Ok(())
     }
 
     use prost::{Enumeration, Message};

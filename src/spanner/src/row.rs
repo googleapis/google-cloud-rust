@@ -2197,7 +2197,7 @@ mod tests {
     }
 
     #[test]
-    fn row_get_string_from_numeric() {
+    fn row_get_string_from_numeric() -> Result<()> {
         let max_spanner_numeric = "99999999999999999999999999999.999999999";
         let pg_extreme_numeric = "12345678901234567890123456789012345678901234567890.123456789";
 
@@ -2231,52 +2231,45 @@ mod tests {
 
         // Borrowed get by name and index
         assert_eq!(
-            row.get::<String>("col_numeric")
-                .expect("get 38-digit NUMERIC string by name"),
+            row.get::<String>("col_numeric")?,
             max_spanner_numeric,
             "expected 38-digit NUMERIC string by name"
         );
         assert_eq!(
-            row.get::<String>(0)
-                .expect("get 38-digit NUMERIC string by index"),
+            row.get::<String>(0)?,
             max_spanner_numeric,
             "expected 38-digit NUMERIC string by index"
         );
 
         assert_eq!(
-            row.get::<String>("col_pg_numeric_nan")
-                .expect("get PG_NUMERIC NaN by name"),
+            row.get::<String>("col_pg_numeric_nan")?,
             "NaN",
             "expected PG_NUMERIC NaN by name"
         );
         assert_eq!(
-            row.get::<String>(1).expect("get PG_NUMERIC NaN by index"),
+            row.get::<String>(1)?,
             "NaN",
             "expected PG_NUMERIC NaN by index"
         );
 
         assert_eq!(
-            row.get::<String>("col_pg_numeric_extreme")
-                .expect("get extreme PG_NUMERIC by name"),
+            row.get::<String>("col_pg_numeric_extreme")?,
             pg_extreme_numeric,
             "expected extreme PG_NUMERIC by name"
         );
         assert_eq!(
-            row.get::<String>(2)
-                .expect("get extreme PG_NUMERIC by index"),
+            row.get::<String>(2)?,
             pg_extreme_numeric,
             "expected extreme PG_NUMERIC by index"
         );
 
         assert_eq!(
-            row.get::<Option<String>>("col_null_numeric")
-                .expect("get optional null numeric column by name"),
+            row.get::<Option<String>>("col_null_numeric")?,
             None,
             "expected None for null numeric column by name"
         );
         assert_eq!(
-            row.get::<Option<String>>(3)
-                .expect("get optional null numeric column by index"),
+            row.get::<Option<String>>(3)?,
             None,
             "expected None for null numeric column by index"
         );
@@ -2300,34 +2293,31 @@ mod tests {
 
         // Verify is_null is false before take
         assert!(
-            !row.is_null("col_pg_numeric_nan")
-                .expect("is_null before take by name"),
+            !row.is_null("col_pg_numeric_nan")?,
             "column must not be null before take"
         );
         assert!(
-            !row.is_null(1).expect("is_null before take by index"),
+            !row.is_null(1)?,
             "column must not be null before take by index"
         );
 
         // Owned take by name and index
-        let taken_nan = row
-            .take::<String>("col_pg_numeric_nan")
-            .expect("take PG_NUMERIC NaN column");
+        let taken_nan = row.take::<String>("col_pg_numeric_nan")?;
         assert_eq!(taken_nan, "NaN", "expected taken NaN string");
         assert!(
-            row.is_null("col_pg_numeric_nan").expect("is_null check"),
+            row.is_null("col_pg_numeric_nan")?,
             "column must be null after take"
         );
         assert_eq!(
-            row.get::<Option<String>>("col_pg_numeric_nan")
-                .expect("get optional string after take"),
+            row.get::<Option<String>>("col_pg_numeric_nan")?,
             None,
             "column must be None after take"
         );
+        Ok(())
     }
 
     #[test]
-    fn row_get_string_from_interval() {
+    fn row_get_string_from_interval() -> Result<()> {
         let column_names = vec!["col_interval".to_string(), "col_null_interval".to_string()];
         let column_types = vec![types::interval(), types::interval()];
         let values = vec!["P1Y2M3D".to_value(), Value::default()];
@@ -2343,26 +2333,23 @@ mod tests {
 
         // Borrowed get by name and index
         assert_eq!(
-            row.get::<String>("col_interval")
-                .expect("get INTERVAL string by name"),
+            row.get::<String>("col_interval")?,
             "P1Y2M3D",
             "expected INTERVAL string by name"
         );
         assert_eq!(
-            row.get::<String>(0).expect("get INTERVAL string by index"),
+            row.get::<String>(0)?,
             "P1Y2M3D",
             "expected INTERVAL string by index"
         );
 
         assert_eq!(
-            row.get::<Option<String>>("col_null_interval")
-                .expect("get optional null interval column by name"),
+            row.get::<Option<String>>("col_null_interval")?,
             None,
             "expected None for null interval column by name"
         );
         assert_eq!(
-            row.get::<Option<String>>(1)
-                .expect("get optional null interval column by index"),
+            row.get::<Option<String>>(1)?,
             None,
             "expected None for null interval column by index"
         );
@@ -2386,29 +2373,26 @@ mod tests {
 
         // Verify is_null is false before take
         assert!(
-            !row.is_null("col_interval")
-                .expect("is_null before take by name"),
+            !row.is_null("col_interval")?,
             "column must not be null before take"
         );
         assert!(
-            !row.is_null(0).expect("is_null before take by index"),
+            !row.is_null(0)?,
             "column must not be null before take by index"
         );
 
         // Owned take by name and index
-        let taken_interval = row
-            .take::<String>("col_interval")
-            .expect("take INTERVAL column");
+        let taken_interval = row.take::<String>("col_interval")?;
         assert_eq!(taken_interval, "P1Y2M3D", "expected taken INTERVAL string");
         assert!(
-            row.is_null("col_interval").expect("is_null check"),
+            row.is_null("col_interval")?,
             "column must be null after take"
         );
         assert_eq!(
-            row.get::<Option<String>>("col_interval")
-                .expect("get optional string after take"),
+            row.get::<Option<String>>("col_interval")?,
             None,
             "column must be None after take"
         );
+        Ok(())
     }
 }
