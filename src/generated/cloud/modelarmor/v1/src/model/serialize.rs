@@ -18,6 +18,31 @@
 use super::*;
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::FilterVersionSelector {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.version() {
+            state.serialize_entry("version", value)?;
+        }
+        if let Some(value) = self.alias() {
+            state.serialize_entry("alias", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::Template {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -124,8 +149,14 @@ impl serde::ser::Serialize for super::template::TemplateMetadata {
         if self.multi_language_detection.is_some() {
             state.serialize_entry("multiLanguageDetection", &self.multi_language_detection)?;
         }
+        if self.filter_version_selector.is_some() {
+            state.serialize_entry("filterVersionSelector", &self.filter_version_selector)?;
+        }
         if !self.modalities.is_empty() {
             state.serialize_entry("modalities", &self.modalities)?;
+        }
+        if self.data_residency_compliant.is_some() {
+            state.serialize_entry("dataResidencyCompliant", &self.data_residency_compliant)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -198,6 +229,12 @@ impl serde::ser::Serialize for super::FloorSetting {
         if self.floor_setting_metadata.is_some() {
             state.serialize_entry("floorSettingMetadata", &self.floor_setting_metadata)?;
         }
+        if self.google_mcp_server_floor_setting.is_some() {
+            state.serialize_entry(
+                "googleMcpServerFloorSetting",
+                &self.google_mcp_server_floor_setting,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -246,6 +283,34 @@ impl serde::ser::Serialize
                 "enableMultiLanguageDetection",
                 &self.enable_multi_language_detection,
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::McpServerFloorSetting {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.inspect_only() {
+            state.serialize_entry("inspectOnly", value)?;
+        }
+        if let Some(value) = self.inspect_and_block() {
+            state.serialize_entry("inspectAndBlock", value)?;
+        }
+        if !wkt::internal::is_default(&self.enable_cloud_logging) {
+            state.serialize_entry("enableCloudLogging", &self.enable_cloud_logging)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -827,6 +892,40 @@ impl serde::ser::Serialize for super::SanitizeModelResponseResponse {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::FilterVersionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.filter_version.is_empty() {
+            state.serialize_entry("filterVersion", &self.filter_version)?;
+        }
+        if self.filter_version_alias.is_some() {
+            state.serialize_entry("filterVersionAlias", &self.filter_version_alias)?;
+        }
+        if self.release_date.is_some() {
+            state.serialize_entry("releaseDate", &self.release_date)?;
+        }
+        if self.projected_deprecation_date.is_some() {
+            state.serialize_entry("projectedDeprecationDate", &self.projected_deprecation_date)?;
+        }
+        if !self.message_items.is_empty() {
+            state.serialize_entry("messageItems", &self.message_items)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::SanitizationResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -890,6 +989,9 @@ impl serde::ser::Serialize for super::sanitization_result::SanitizationMetadata 
         }
         if self.stream_chunk_processed.is_some() {
             state.serialize_entry("streamChunkProcessed", &self.stream_chunk_processed)?;
+        }
+        if self.filter_version_config.is_some() {
+            state.serialize_entry("filterVersionConfig", &self.filter_version_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1138,6 +1240,9 @@ impl serde::ser::Serialize for super::ByteDataItem {
                 }
             }
             state.serialize_entry("byteData", &__With(&self.byte_data))?;
+        }
+        if !self.file_label.is_empty() {
+            state.serialize_entry("fileLabel", &self.file_label)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

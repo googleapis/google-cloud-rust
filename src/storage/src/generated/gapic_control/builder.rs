@@ -436,8 +436,9 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFoldersResponse> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .list_folders(self.0.request, self.0.options)
+                .list_folders(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
@@ -451,6 +452,8 @@ pub mod storage_control {
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
+                let initial = builder.0.request.page_token == token;
+                builder.0.request = Self::auto_populate(builder.0.request, !initial);
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
@@ -466,6 +469,16 @@ pub mod storage_control {
         > {
             use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
+        }
+
+        fn auto_populate(
+            mut req: crate::model::ListFoldersRequest,
+            force: bool,
+        ) -> crate::model::ListFoldersRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::ListFoldersRequest::parent].
@@ -1509,10 +1522,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ManagedFolder> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .update_managed_folder(self.0.request, self.0.options)
+                .update_managed_folder(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::UpdateManagedFolderRequest,
+            force: bool,
+        ) -> crate::model::UpdateManagedFolderRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [managed_folder][crate::model::UpdateManagedFolderRequest::managed_folder].
@@ -2449,8 +2473,9 @@ pub mod storage_control {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_rapid_cache][crate::client::StorageControl::create_rapid_cache].
         pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .create_rapid_cache(self.0.request, self.0.options)
+                .create_rapid_cache(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
@@ -2505,6 +2530,16 @@ pub mod storage_control {
                 )
             }
             .with_options(poller_options)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::CreateRapidCacheRequest,
+            force: bool,
+        ) -> crate::model::CreateRapidCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::CreateRapidCacheRequest::parent].
@@ -2600,8 +2635,9 @@ pub mod storage_control {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_rapid_cache][crate::client::StorageControl::update_rapid_cache].
         pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .update_rapid_cache(self.0.request, self.0.options)
+                .update_rapid_cache(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
@@ -2656,6 +2692,16 @@ pub mod storage_control {
                 )
             }
             .with_options(poller_options)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::UpdateRapidCacheRequest,
+            force: bool,
+        ) -> crate::model::UpdateRapidCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [rapid_cache][crate::model::UpdateRapidCacheRequest::rapid_cache].
@@ -2765,8 +2811,9 @@ pub mod storage_control {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [disable_rapid_cache][crate::client::StorageControl::disable_rapid_cache].
         pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .disable_rapid_cache(self.0.request, self.0.options)
+                .disable_rapid_cache(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
@@ -2821,6 +2868,16 @@ pub mod storage_control {
                 )
             }
             .with_options(poller_options)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::DisableRapidCacheRequest,
+            force: bool,
+        ) -> crate::model::DisableRapidCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::DisableRapidCacheRequest::name].
@@ -2885,10 +2942,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RapidCache> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .get_rapid_cache(self.0.request, self.0.options)
+                .get_rapid_cache(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::GetRapidCacheRequest,
+            force: bool,
+        ) -> crate::model::GetRapidCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::GetRapidCacheRequest::name].
@@ -2957,8 +3025,9 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRapidCachesResponse> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .list_rapid_caches(self.0.request, self.0.options)
+                .list_rapid_caches(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
@@ -2974,6 +3043,8 @@ pub mod storage_control {
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
+                let initial = builder.0.request.page_token == token;
+                builder.0.request = Self::auto_populate(builder.0.request, !initial);
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
@@ -2989,6 +3060,16 @@ pub mod storage_control {
         > {
             use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
+        }
+
+        fn auto_populate(
+            mut req: crate::model::ListRapidCachesRequest,
+            force: bool,
+        ) -> crate::model::ListRapidCachesRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::ListRapidCachesRequest::parent].
@@ -3137,10 +3218,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .update_project_intelligence_config(self.0.request, self.0.options)
+                .update_project_intelligence_config(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::UpdateProjectIntelligenceConfigRequest,
+            force: bool,
+        ) -> crate::model::UpdateProjectIntelligenceConfigRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
@@ -3313,10 +3405,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .update_folder_intelligence_config(self.0.request, self.0.options)
+                .update_folder_intelligence_config(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::UpdateFolderIntelligenceConfigRequest,
+            force: bool,
+        ) -> crate::model::UpdateFolderIntelligenceConfigRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
@@ -3489,10 +3592,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .update_organization_intelligence_config(self.0.request, self.0.options)
+                .update_organization_intelligence_config(req, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
+            force: bool,
+        ) -> crate::model::UpdateOrganizationIntelligenceConfigRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].

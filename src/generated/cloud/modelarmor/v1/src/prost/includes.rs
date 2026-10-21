@@ -7,4 +7,7 @@ pub mod google {
             }
         }
     }
+    pub mod r#type {
+        include!("google.r#type.rs");
+    }
 }

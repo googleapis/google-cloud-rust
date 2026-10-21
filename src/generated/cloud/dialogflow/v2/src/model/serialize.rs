@@ -1037,6 +1037,12 @@ impl serde::ser::Serialize for super::InputAudioConfig {
         if self.use_gemini_asr.is_some() {
             state.serialize_entry("useGeminiAsr", &self.use_gemini_asr)?;
         }
+        if self.disable_interim_input_transcripts.is_some() {
+            state.serialize_entry(
+                "disableInterimInputTranscripts",
+                &self.disable_interim_input_transcripts,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1303,6 +1309,12 @@ impl serde::ser::Serialize for super::SpeechToTextConfig {
         if !wkt::internal::is_default(&self.use_gemini_asr) {
             state.serialize_entry("useGeminiAsr", &self.use_gemini_asr)?;
         }
+        if self.disable_interim_input_transcripts.is_some() {
+            state.serialize_entry(
+                "disableInterimInputTranscripts",
+                &self.disable_interim_input_transcripts,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1328,9 +1340,6 @@ impl serde::ser::Serialize for super::speech_to_text_config::GeminiAsrConfig {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.model_id.is_empty() {
-            state.serialize_entry("modelId", &self.model_id)?;
-        }
         if !wkt::internal::is_default(&self.silence_duration_ms) {
             struct __With<'a>(&'a i32);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -11275,6 +11284,9 @@ impl serde::ser::Serialize for super::Message {
         if !self.content.is_empty() {
             state.serialize_entry("content", &self.content)?;
         }
+        if !self.response_messages.is_empty() {
+            state.serialize_entry("responseMessages", &self.response_messages)?;
+        }
         if !self.language_code.is_empty() {
             state.serialize_entry("languageCode", &self.language_code)?;
         }
@@ -12265,6 +12277,30 @@ impl serde::ser::Serialize for super::AutomatedAgentReply {
         if self.detect_intent_response.is_some() {
             state.serialize_entry("detectIntentResponse", &self.detect_intent_response)?;
         }
+        if !self.response_messages.is_empty() {
+            state.serialize_entry("responseMessages", &self.response_messages)?;
+        }
+        if !self.intent.is_empty() {
+            state.serialize_entry("intent", &self.intent)?;
+        }
+        if !self.event.is_empty() {
+            state.serialize_entry("event", &self.event)?;
+        }
+        if !wkt::internal::is_default(&self.match_confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("matchConfidence", &__With(&self.match_confidence))?;
+        }
+        if self.parameters.is_some() {
+            state.serialize_entry("parameters", &self.parameters)?;
+        }
         if !wkt::internal::is_default(&self.automated_agent_reply_type) {
             state.serialize_entry("automatedAgentReplyType", &self.automated_agent_reply_type)?;
         }
@@ -12273,6 +12309,21 @@ impl serde::ser::Serialize for super::AutomatedAgentReply {
         }
         if !self.cx_current_page.is_empty() {
             state.serialize_entry("cxCurrentPage", &self.cx_current_page)?;
+        }
+        if !self.call_companion_auth_code.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "callCompanionAuthCode",
+                &__With(&self.call_companion_auth_code),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -12637,6 +12688,200 @@ impl serde::ser::Serialize for super::AssistQueryParameters {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.documents_metadata_filters.is_empty() {
             state.serialize_entry("documentsMetadataFilters", &self.documents_metadata_filters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResponseMessage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.text() {
+            state.serialize_entry("text", value)?;
+        }
+        if let Some(value) = self.payload() {
+            state.serialize_entry("payload", value)?;
+        }
+        if let Some(value) = self.live_agent_handoff() {
+            state.serialize_entry("liveAgentHandoff", value)?;
+        }
+        if let Some(value) = self.end_interaction() {
+            state.serialize_entry("endInteraction", value)?;
+        }
+        if let Some(value) = self.mixed_audio() {
+            state.serialize_entry("mixedAudio", value)?;
+        }
+        if let Some(value) = self.telephony_transfer_call() {
+            state.serialize_entry("telephonyTransferCall", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::response_message::Text {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.text.is_empty() {
+            state.serialize_entry("text", &self.text)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::response_message::LiveAgentHandoff {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.metadata.is_some() {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::response_message::EndInteraction {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::response_message::MixedAudio {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.segments.is_empty() {
+            state.serialize_entry("segments", &self.segments)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::response_message::mixed_audio::Segment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.audio() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("audio", &__With(value))?;
+        }
+        if let Some(value) = self.uri() {
+            state.serialize_entry("uri", value)?;
+        }
+        if !wkt::internal::is_default(&self.allow_playback_interruption) {
+            state.serialize_entry(
+                "allowPlaybackInterruption",
+                &self.allow_playback_interruption,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::response_message::TelephonyTransferCall {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.phone_number() {
+            state.serialize_entry("phoneNumber", value)?;
+        }
+        if let Some(value) = self.sip_uri() {
+            state.serialize_entry("sipUri", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -13644,6 +13889,12 @@ impl serde::ser::Serialize
         if self.use_gemini_asr.is_some() {
             state.serialize_entry("useGeminiAsr", &self.use_gemini_asr)?;
         }
+        if self.disable_interim_input_transcripts.is_some() {
+            state.serialize_entry(
+                "disableInterimInputTranscripts",
+                &self.disable_interim_input_transcripts,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -14442,6 +14693,9 @@ impl serde::ser::Serialize for super::SentimentAnalysisResult {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.query_text_sentiment.is_some() {
             state.serialize_entry("queryTextSentiment", &self.query_text_sentiment)?;
+        }
+        if self.status.is_some() {
+            state.serialize_entry("status", &self.status)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
