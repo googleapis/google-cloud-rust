@@ -30,7 +30,7 @@ use std::time::Duration;
 ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
 ///     .send()
 ///     .await?;
-/// writer.append(bytes::Bytes::from("hello")).await?;
+/// writer.append("hello").await?;
 /// writer.finalize().await?;
 /// # Ok(()) }
 /// ```
@@ -55,7 +55,7 @@ where
     ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
     ///     .send()
     ///     .await?;
-    /// writer.append(bytes::Bytes::from("world")).await?;
+    /// writer.append("world").await?;
     /// writer.finalize().await?;
     /// # Ok(()) }
     /// ```
