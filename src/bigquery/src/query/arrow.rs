@@ -66,8 +66,20 @@ impl ArrowStreamDecoder {
             .map_err(|e| RowError::InvalidRowFormat(format!("failed to decode arrow batch: {e}")))
     }
 
+    /// Returns the decoded Arrow [`Schema`](arrow::datatypes::Schema), if available.
+    pub(crate) fn schema(&self) -> Option<Arc<arrow::datatypes::Schema>> {
+        self.decoder.schema()
+    }
+
     /// Signals end-of-stream and validates that no partial frame remains in the decoder.
     pub(crate) fn finish(&mut self) -> Result<(), RowError> {
+        if self.decoder.schema().is_none() {
+            const EOS: [u8; 8] = [0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00];
+            let mut eos = arrow::buffer::Buffer::from_slice_ref(EOS);
+            self.decoder.decode(&mut eos).map_err(|e| {
+                RowError::InvalidRowFormat(format!("failed to decode arrow schema: {e}"))
+            })?;
+        }
         self.decoder
             .finish()
             .map_err(|e| RowError::InvalidRowFormat(format!("failed to decode arrow stream: {e}")))
@@ -98,6 +110,10 @@ impl ArrowResponseReader {
             schema_bytes: Some(serialized_schema),
             batch_buf: arrow::buffer::Buffer::from(serialized_record_batch),
         }
+    }
+
+    pub(crate) fn schema(&self) -> Option<Arc<arrow::datatypes::Schema>> {
+        self.decoder.schema()
     }
 }
 
@@ -134,6 +150,13 @@ impl RecordBatchSource for ArrowReader {
 }
 
 impl ArrowReader {
+    /// Returns the decoded Arrow [`Schema`](arrow::datatypes::Schema), if available.
+    pub(crate) fn schema(&self) -> Option<Arc<arrow::datatypes::Schema>> {
+        match self {
+            Self::Response(r) => r.schema(),
+        }
+    }
+
     /// Returns `true` if a failed read attempt can fall back to REST `jobs.getQueryResults` pagination.
     pub(crate) fn can_fallback_to_rest(&self) -> bool {
         match self {
@@ -926,6 +949,18 @@ mod tests {
         assert_eq!(b2.num_rows(), 1);
 
         assert!(reader.next_record_batch().await?.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn arrow_response_reader_empty_record_batch() -> anyhow::Result<()> {
+        let arrow_schema = create_test_arrow_schema();
+        let schema_bytes = create_test_arrow_schema_bytes();
+
+        let mut reader =
+            ArrowReader::Response(ArrowResponseReader::new(schema_bytes, bytes::Bytes::new()));
+        assert!(reader.next_record_batch().await?.is_none());
+        assert_eq!(reader.schema().as_deref(), Some(arrow_schema.as_ref()));
         Ok(())
     }
 

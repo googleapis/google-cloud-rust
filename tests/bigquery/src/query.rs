@@ -535,6 +535,7 @@ struct UserProfile {
     birth_date: google_cloud_type::model::Date,
 }
 
+#[cfg(not(google_cloud_unstable_bigquery_arrow))]
 #[derive(FromSql, Debug, PartialEq)]
 struct AnonTriple(i64, String, bool);
 
@@ -547,6 +548,7 @@ struct NamedZThenA {
 #[derive(FromSql, Debug, PartialEq)]
 struct PositionalPair(i64, i64);
 
+#[cfg(not(google_cloud_unstable_bigquery_arrow))]
 #[derive(FromSql, Debug, PartialEq)]
 struct DupIdNamed {
     id: i64,
@@ -558,8 +560,10 @@ struct RowData {
     numbers: Vec<i64>,
     users: Vec<UserRecord>,
     profile: UserProfile,
+    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     anon: AnonTriple,
     pair: NamedZThenA,
+    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     dup: DupIdNamed,
 }
 
@@ -570,6 +574,8 @@ pub async fn query_client_nested_types() -> Result<()> {
         .await?;
 
     println!("STARTING NESTED TYPES INTEGRATION TEST");
+
+    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     let sql = "SELECT \
                  STRUCT('Alice' AS name, 25 AS age) AS user, \
                  ARRAY[1, 2, 3] AS numbers, \
@@ -578,6 +584,14 @@ pub async fn query_client_nested_types() -> Result<()> {
                  STRUCT(10, 'hello', true) AS anon, \
                  STRUCT(1 AS z, 2 AS a) AS pair, \
                  STRUCT(100 AS id, 200 AS id) AS dup";
+
+    #[cfg(google_cloud_unstable_bigquery_arrow)]
+    let sql = "SELECT \
+                 STRUCT('Alice' AS name, 25 AS age) AS user, \
+                 ARRAY[1, 2, 3] AS numbers, \
+                 ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
+                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
+                 STRUCT(1 AS z, 2 AS a) AS pair";
 
     let query = bq
         .query(sql)
@@ -595,8 +609,11 @@ pub async fn query_client_nested_types() -> Result<()> {
     assert_eq!(pair_by_pos, PositionalPair(1, 2));
 
     // Verify positional extraction on `dup` accesses both duplicate `id` fields (100, 200)
-    let dup_by_pos: PositionalPair = row.get("dup")?;
-    assert_eq!(dup_by_pos, PositionalPair(100, 200));
+    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
+    {
+        let dup_by_pos: PositionalPair = row.get("dup")?;
+        assert_eq!(dup_by_pos, PositionalPair(100, 200));
+    }
 
     // Deserialize the entire row as user defined struct
     let data: RowData = row.try_into()?;
@@ -627,12 +644,14 @@ pub async fn query_client_nested_types() -> Result<()> {
     assert_eq!(data.profile.birth_date.day, 28);
 
     // verify anonymous struct preserves all unnamed fields
+    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     assert_eq!(data.anon, AnonTriple(10, "hello".to_string(), true));
 
     // verify named extraction on `pair`
     assert_eq!(data.pair, NamedZThenA { z: 1, a: 2 });
 
     // verify named extraction on `dup` returns the first `id` field
+    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     assert_eq!(data.dup, DupIdNamed { id: 100 });
 
     Ok(())

@@ -211,6 +211,11 @@ impl RowIterator {
                             continue;
                         }
                         Ok(None) => {
+                            if self.schema.len() == 0
+                                && let Some(arrow_schema) = arrow_reader.schema()
+                            {
+                                self.schema = Arc::new(Schema::from_arrow_schema(&arrow_schema));
+                            }
                             self.arrow_reader = None;
                         }
                         Err(_err) if arrow_reader.can_fallback_to_rest() => {
@@ -694,6 +699,7 @@ mod tests {
         let job_service = create_job_service(MockJobService::new());
         let q = CompleteQuery {
             job_service,
+            read_client: None,
             job_ref: None,
             cached_data: CachedData::Arrow {
                 serialized_schema: schema_buf.into(),
@@ -765,6 +771,7 @@ mod tests {
         let job_service = create_job_service(mock);
         let q = CompleteQuery {
             job_service,
+            read_client: None,
             job_ref: Some(create_test_job_ref()),
             cached_data: CachedData::Arrow {
                 serialized_schema: schema_buf.into(),
@@ -783,6 +790,47 @@ mod tests {
 
         let row2 = iter.next().await.expect("row 2")?;
         assert_eq!(row2.get::<String>("col")?, "from_json_page");
+
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[tokio::test]
+    async fn test_row_iterator_cached_arrow_empty_batch_then_json_pagination() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "token_page_1");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("from_json_page")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let q = CompleteQuery {
+            job_service,
+            read_client: None,
+            job_ref: Some(create_test_job_ref()),
+            cached_data: CachedData::Arrow {
+                serialized_schema: create_test_arrow_schema_bytes(),
+                serialized_record_batch: bytes::Bytes::new(),
+            },
+            page_token: Some("token_page_1".to_string()),
+            metadata: Default::default(),
+            page_size: None,
+            options: Default::default(),
+        };
+
+        let mut iter = q.read();
+
+        let row = iter.next().await.expect("row 1")?;
+        assert_eq!(row.get::<String>("col")?, "from_json_page");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
@@ -829,6 +877,7 @@ mod tests {
         let job_service = create_job_service(MockJobService::new());
         let q = CompleteQuery {
             job_service,
+            read_client: None,
             job_ref: None,
             cached_data: CachedData::Arrow {
                 serialized_schema,
