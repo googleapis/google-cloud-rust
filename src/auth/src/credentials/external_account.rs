@@ -399,34 +399,22 @@ impl ExternalAccountConfig {
         retry_builder: RetryTokenProviderBuilder,
     ) -> ExternalAccountCredentials<TokenCache> {
         let config = self.clone();
-        match self.credential_source {
-            CredentialSource::Url(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-            CredentialSource::Executable(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-            CredentialSource::Programmatic(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-            CredentialSource::File(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-            CredentialSource::Aws(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-        }
+        let source: Box<dyn dynamic::SubjectTokenProvider> = match self.credential_source {
+            CredentialSource::Url(source) => Box::new(source),
+            CredentialSource::Executable(source) => Box::new(source),
+            CredentialSource::Programmatic(source) => Box::new(source),
+            CredentialSource::File(source) => Box::new(source),
+            CredentialSource::Aws(source) => Box::new(source),
+        };
+        Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
     }
 
-    fn make_credentials_from_source<T>(
-        subject_token_provider: T,
+    fn make_credentials_from_source(
+        subject_token_provider: Box<dyn dynamic::SubjectTokenProvider>,
         config: ExternalAccountConfig,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> ExternalAccountCredentials<TokenCache>
-    where
-        T: dynamic::SubjectTokenProvider + 'static,
-    {
+    ) -> ExternalAccountCredentials<TokenCache> {
         let universe_domain = config.universe_domain.clone();
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider,
@@ -443,19 +431,13 @@ impl ExternalAccountConfig {
 }
 
 #[derive(Debug)]
-struct ExternalAccountTokenProvider<T>
-where
-    T: dynamic::SubjectTokenProvider,
-{
-    subject_token_provider: T,
+struct ExternalAccountTokenProvider {
+    subject_token_provider: Box<dyn dynamic::SubjectTokenProvider>,
     config: ExternalAccountConfig,
 }
 
 #[async_trait::async_trait]
-impl<T> TokenProvider for ExternalAccountTokenProvider<T>
-where
-    T: dynamic::SubjectTokenProvider,
-{
+impl TokenProvider for ExternalAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
         let subject_token = self.subject_token_provider.subject_token().await?;
 
