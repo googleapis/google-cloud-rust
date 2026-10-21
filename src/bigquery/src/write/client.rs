@@ -115,9 +115,9 @@ impl Write {
     ///
     /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
     /// [Selecting a type]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#selecting_a_type
-    pub fn create_stream<S: ApplicationCreatedStream, T: Into<String>>(
+    pub fn create_stream<S: ApplicationCreatedStream>(
         &self,
-        table: T,
+        table: impl Into<String>,
     ) -> WriterBuilder<S> {
         WriterBuilder::new_create(self.inner.clone(), self.retry_options.clone(), table.into())
     }
@@ -154,9 +154,9 @@ impl Write {
     /// ```
     ///
     /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
-    pub fn attach_to_stream<S: ApplicationCreatedStream, T: Into<String>>(
+    pub fn attach_to_stream<S: ApplicationCreatedStream>(
         &self,
-        write_stream: T,
+        write_stream: impl Into<String>,
     ) -> WriterBuilder<S> {
         WriterBuilder::new_attach(
             self.inner.clone(),

@@ -14,6 +14,7 @@
 
 //! Public types for Spanner execution results.
 
+pub use crate::from_row::FromRow;
 pub use crate::result_set::ResultSet;
 pub use crate::result_set_metadata::ResultSetMetadata;
 pub use crate::row::{ColumnIndex, Row, RowError};

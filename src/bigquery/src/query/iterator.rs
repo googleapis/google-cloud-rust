@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::error::RowError;
 use crate::query::query_handle::CachedData;
 use crate::query::{CompleteQuery, Row, Schema};
@@ -56,6 +57,7 @@ pub struct RowIterator {
     page_token: Option<String>,
     rows: VecDeque<wkt::Struct>,
     page_size: Option<u32>,
+    options: RequestOptions,
 }
 
 impl RowIterator {
@@ -76,6 +78,7 @@ impl RowIterator {
             page_token: q.page_token,
             rows,
             page_size: q.page_size,
+            options: q.options,
         }
     }
 
@@ -172,6 +175,7 @@ impl RowIterator {
         let res = self
             .job_service
             .get_query_results()
+            .with_options(self.options.clone())
             .with_request(req)
             .send()
             .await?;
@@ -258,10 +262,10 @@ mod tests {
         let mut iter = q.read();
 
         let row1 = iter.next().await.expect("should have row 1")?;
-        assert_eq!(row1.get::<String, _>("col")?, "first");
+        assert_eq!(row1.get::<String>("col")?, "first");
 
         let row2 = iter.next().await.expect("should have row 2")?;
-        assert_eq!(row2.get::<String, _>("col")?, "second");
+        assert_eq!(row2.get::<String>("col")?, "second");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
@@ -325,16 +329,16 @@ mod tests {
         let mut iter = q.read();
 
         let row1 = iter.next().await.expect("should have row 1")?;
-        assert_eq!(row1.get::<String, _>("col")?, "cached_row");
+        assert_eq!(row1.get::<String>("col")?, "cached_row");
 
         let row2 = iter.next().await.expect("should have row 2")?;
-        assert_eq!(row2.get::<String, _>("col")?, "page_1_row_1");
+        assert_eq!(row2.get::<String>("col")?, "page_1_row_1");
 
         let row3 = iter.next().await.expect("should have row 3")?;
-        assert_eq!(row3.get::<String, _>("col")?, "page_1_row_2");
+        assert_eq!(row3.get::<String>("col")?, "page_1_row_2");
 
         let row4 = iter.next().await.expect("should have row 4")?;
-        assert_eq!(row4.get::<String, _>("col")?, "page_2_row_1");
+        assert_eq!(row4.get::<String>("col")?, "page_2_row_1");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
@@ -371,7 +375,7 @@ mod tests {
         let mut iter = q.read().set_page_size(50);
 
         let row = iter.next().await.expect("should have row")?;
-        assert_eq!(row.get::<String, _>("col")?, "page_row");
+        assert_eq!(row.get::<String>("col")?, "page_row");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
@@ -399,7 +403,7 @@ mod tests {
         let mut iter = q.read();
 
         let row = iter.next().await.expect("should have row")?;
-        assert_eq!(row.get::<String, _>("col")?, "page_row");
+        assert_eq!(row.get::<String>("col")?, "page_row");
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }
@@ -483,7 +487,63 @@ mod tests {
         let mut iter = q.read();
 
         let row = iter.next().await.expect("should have row")?;
-        assert_eq!(row.get::<String, _>("col")?, "page2_row");
+        assert_eq!(row.get::<String>("col")?, "page2_row");
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_row_iterator_inherits_user_agent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|_, options| {
+                assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("page_row")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let res = QueryResponse::new()
+            .set_schema(create_test_schema())
+            .set_job_reference(create_test_job_ref())
+            .set_page_token("token_1");
+        let mut q = CompleteQuery::from_query_response(job_service, res, None);
+        q.options.set_user_agent("my-app/1.2.3");
+        let mut iter = q.read();
+
+        let row = iter.next().await.expect("should have row")?;
+        assert_eq!(row.get::<String>("col")?, "page_row");
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_row_iterator_inherits_quota_project() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|_, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("test_project"));
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("page_row")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let res = QueryResponse::new()
+            .set_schema(create_test_schema())
+            .set_job_reference(create_test_job_ref())
+            .set_page_token("token_1");
+        let mut q = CompleteQuery::from_query_response(job_service, res, None);
+        q.options.set_quota_project("test_project");
+        let mut iter = q.read();
+
+        let row = iter.next().await.expect("should have row")?;
+        assert_eq!(row.get::<String>("col")?, "page_row");
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }

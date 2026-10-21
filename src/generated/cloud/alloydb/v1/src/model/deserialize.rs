@@ -3474,7 +3474,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
             __writable_node,
             __nodes,
             __query_insights_config,
+            __query_insights_info,
             __observability_config,
+            __observability_instance_info,
             __read_pool_config,
             __ip_address,
             __public_ip_address,
@@ -3535,8 +3537,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             "nodes" => Ok(__FieldTag::__nodes),
                             "queryInsightsConfig" => Ok(__FieldTag::__query_insights_config),
                             "query_insights_config" => Ok(__FieldTag::__query_insights_config),
+                            "queryInsightsInfo" => Ok(__FieldTag::__query_insights_info),
+                            "query_insights_info" => Ok(__FieldTag::__query_insights_info),
                             "observabilityConfig" => Ok(__FieldTag::__observability_config),
                             "observability_config" => Ok(__FieldTag::__observability_config),
+                            "observabilityInstanceInfo" => {
+                                Ok(__FieldTag::__observability_instance_info)
+                            }
+                            "observability_instance_info" => {
+                                Ok(__FieldTag::__observability_instance_info)
+                            }
                             "readPoolConfig" => Ok(__FieldTag::__read_pool_config),
                             "read_pool_config" => Ok(__FieldTag::__read_pool_config),
                             "ipAddress" => Ok(__FieldTag::__ip_address),
@@ -3755,6 +3765,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                 crate::model::instance::QueryInsightsInstanceConfig,
                             >>()?;
                         }
+                        __FieldTag::__query_insights_info => {
+                            if !fields.insert(__FieldTag::__query_insights_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_insights_info",
+                                ));
+                            }
+                            result.query_insights_info = map.next_value::<std::option::Option<
+                                crate::model::instance::QueryInsightsInstanceInfo,
+                            >>()?;
+                        }
                         __FieldTag::__observability_config => {
                             if !fields.insert(__FieldTag::__observability_config) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -3764,6 +3784,17 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             result.observability_config = map.next_value::<std::option::Option<
                                 crate::model::instance::ObservabilityInstanceConfig,
                             >>()?;
+                        }
+                        __FieldTag::__observability_instance_info => {
+                            if !fields.insert(__FieldTag::__observability_instance_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for observability_instance_info",
+                                ));
+                            }
+                            result.observability_instance_info = map
+                                .next_value::<std::option::Option<
+                                    crate::model::instance::ObservabilityInstanceInfo,
+                                >>()?;
                         }
                         __FieldTag::__read_pool_config => {
                             if !fields.insert(__FieldTag::__read_pool_config) {
@@ -4267,6 +4298,158 @@ impl<'de> serde::de::Deserialize<'de> for super::instance::QueryInsightsInstance
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::instance::QueryInsightsInstanceInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __enabled,
+            __record_application_tags,
+            __record_client_address,
+            __query_string_length,
+            __query_plans_per_minute,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for QueryInsightsInstanceInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            "recordApplicationTags" => Ok(__FieldTag::__record_application_tags),
+                            "record_application_tags" => Ok(__FieldTag::__record_application_tags),
+                            "recordClientAddress" => Ok(__FieldTag::__record_client_address),
+                            "record_client_address" => Ok(__FieldTag::__record_client_address),
+                            "queryStringLength" => Ok(__FieldTag::__query_string_length),
+                            "query_string_length" => Ok(__FieldTag::__query_string_length),
+                            "queryPlansPerMinute" => Ok(__FieldTag::__query_plans_per_minute),
+                            "query_plans_per_minute" => Ok(__FieldTag::__query_plans_per_minute),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::instance::QueryInsightsInstanceInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct QueryInsightsInstanceInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__record_application_tags => {
+                            if !fields.insert(__FieldTag::__record_application_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for record_application_tags",
+                                ));
+                            }
+                            result.record_application_tags = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__record_client_address => {
+                            if !fields.insert(__FieldTag::__record_client_address) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for record_client_address",
+                                ));
+                            }
+                            result.record_client_address = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__query_string_length => {
+                            if !fields.insert(__FieldTag::__query_string_length) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_string_length",
+                                ));
+                            }
+                            struct __With(std::option::Option<u32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::U32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.query_string_length =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__query_plans_per_minute => {
+                            if !fields.insert(__FieldTag::__query_plans_per_minute) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_plans_per_minute",
+                                ));
+                            }
+                            struct __With(std::option::Option<u32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::U32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.query_plans_per_minute =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::instance::ObservabilityInstanceConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -4434,6 +4617,197 @@ impl<'de> serde::de::Deserialize<'de> for super::instance::ObservabilityInstance
                             }
                             result.track_active_queries =
                                 map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::instance::ObservabilityInstanceInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __enabled,
+            __preserve_comments,
+            __track_wait_events,
+            __track_wait_event_types,
+            __max_query_string_length,
+            __record_application_tags,
+            __query_plans_per_minute,
+            __track_active_queries,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObservabilityInstanceInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            "preserveComments" => Ok(__FieldTag::__preserve_comments),
+                            "preserve_comments" => Ok(__FieldTag::__preserve_comments),
+                            "trackWaitEvents" => Ok(__FieldTag::__track_wait_events),
+                            "track_wait_events" => Ok(__FieldTag::__track_wait_events),
+                            "trackWaitEventTypes" => Ok(__FieldTag::__track_wait_event_types),
+                            "track_wait_event_types" => Ok(__FieldTag::__track_wait_event_types),
+                            "maxQueryStringLength" => Ok(__FieldTag::__max_query_string_length),
+                            "max_query_string_length" => Ok(__FieldTag::__max_query_string_length),
+                            "recordApplicationTags" => Ok(__FieldTag::__record_application_tags),
+                            "record_application_tags" => Ok(__FieldTag::__record_application_tags),
+                            "queryPlansPerMinute" => Ok(__FieldTag::__query_plans_per_minute),
+                            "query_plans_per_minute" => Ok(__FieldTag::__query_plans_per_minute),
+                            "trackActiveQueries" => Ok(__FieldTag::__track_active_queries),
+                            "track_active_queries" => Ok(__FieldTag::__track_active_queries),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::instance::ObservabilityInstanceInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObservabilityInstanceInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__preserve_comments => {
+                            if !fields.insert(__FieldTag::__preserve_comments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for preserve_comments",
+                                ));
+                            }
+                            result.preserve_comments = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__track_wait_events => {
+                            if !fields.insert(__FieldTag::__track_wait_events) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for track_wait_events",
+                                ));
+                            }
+                            result.track_wait_events = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__track_wait_event_types => {
+                            if !fields.insert(__FieldTag::__track_wait_event_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for track_wait_event_types",
+                                ));
+                            }
+                            result.track_wait_event_types = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__max_query_string_length => {
+                            if !fields.insert(__FieldTag::__max_query_string_length) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_query_string_length",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_query_string_length =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__record_application_tags => {
+                            if !fields.insert(__FieldTag::__record_application_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for record_application_tags",
+                                ));
+                            }
+                            result.record_application_tags = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__query_plans_per_minute => {
+                            if !fields.insert(__FieldTag::__query_plans_per_minute) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_plans_per_minute",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.query_plans_per_minute =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__track_active_queries => {
+                            if !fields.insert(__FieldTag::__track_active_queries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for track_active_queries",
+                                ));
+                            }
+                            result.track_active_queries = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

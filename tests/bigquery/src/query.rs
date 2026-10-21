@@ -43,7 +43,7 @@ pub async fn query_client() -> Result<()> {
 
     let mut iter = complete_query.read();
     let row = iter.next().await.expect("should return first row")?;
-    assert_eq!(row.get::<i64, _>("one")?, 1);
+    assert_eq!(row.get::<i64>("one")?, 1);
     assert!(iter.next().await.is_none(), "{iter:?}");
 
     Ok(())
@@ -162,61 +162,58 @@ pub async fn query_client_datatypes() -> Result<()> {
         ]),
     };
 
-    assert_eq!(row.get::<String, _>("name")?, expected.name);
-    assert_eq!(row.get::<i64, _>("age")?, expected.age);
-    assert_eq!(row.get::<f64, _>("height")?, expected.height);
-    assert_eq!(row.get::<bool, _>("active")?, expected.active);
-    assert_eq!(row.get::<Vec<i64>, _>("numbers")?, expected.numbers);
+    assert_eq!(row.get::<String>("name")?, expected.name);
+    assert_eq!(row.get::<i64>("age")?, expected.age);
+    assert_eq!(row.get::<f64>("height")?, expected.height);
+    assert_eq!(row.get::<bool>("active")?, expected.active);
+    assert_eq!(row.get::<Vec<i64>>("numbers")?, expected.numbers);
     assert_eq!(
-        row.get::<wkt::Timestamp, _>("created_at")?,
+        row.get::<wkt::Timestamp>("created_at")?,
         expected.created_at
     );
     assert_eq!(
-        row.get::<google_cloud_type::model::Date, _>("birth_date")?,
+        row.get::<google_cloud_type::model::Date>("birth_date")?,
         expected.birth_date
     );
     assert_eq!(
-        row.get::<google_cloud_type::model::TimeOfDay, _>("daily_alarm")?,
+        row.get::<google_cloud_type::model::TimeOfDay>("daily_alarm")?,
         expected.daily_alarm
     );
     assert_eq!(
-        row.get::<google_cloud_type::model::DateTime, _>("event_time")?,
+        row.get::<google_cloud_type::model::DateTime>("event_time")?,
         expected.event_time
     );
     assert_eq!(
-        row.get::<Range<google_cloud_type::model::Date>, _>("date_range")?,
+        row.get::<Range<google_cloud_type::model::Date>>("date_range")?,
         expected.date_range
     );
     assert_eq!(
-        row.get::<Range<wkt::Timestamp>, _>("timestamp_range")?,
+        row.get::<Range<wkt::Timestamp>>("timestamp_range")?,
         expected.timestamp_range
     );
     assert_eq!(
-        row.get::<Option<String>, _>("nullable_name")?,
+        row.get::<Option<String>>("nullable_name")?,
         expected.nullable_name
     );
     assert_eq!(
-        row.get::<Option<i64>, _>("nullable_age")?,
+        row.get::<Option<i64>>("nullable_age")?,
         expected.nullable_age
     );
-    assert_eq!(row.get::<Vec<u8>, _>("raw_bytes")?, expected.raw_bytes);
+    assert_eq!(row.get::<Vec<u8>>("raw_bytes")?, expected.raw_bytes);
     assert_eq!(
-        row.get::<bytes::Bytes, _>("payload_bytes")?,
+        row.get::<bytes::Bytes>("payload_bytes")?,
         expected.payload_bytes
     );
     assert_eq!(
-        row.get::<Option<Vec<u8>>, _>("nullable_bytes")?,
+        row.get::<Option<Vec<u8>>>("nullable_bytes")?,
         expected.nullable_bytes
     );
+    assert_eq!(row.get::<Interval>("interval_val")?, expected.interval_val);
     assert_eq!(
-        row.get::<Interval, _>("interval_val")?,
-        expected.interval_val
-    );
-    assert_eq!(
-        row.get::<String, _>("json_val")?,
+        row.get::<String>("json_val")?,
         r#"{"level":5,"role":"admin"}"#
     );
-    assert_eq!(row.get::<wkt::Struct, _>("json_val")?, expected.json_val);
+    assert_eq!(row.get::<wkt::Struct>("json_val")?, expected.json_val);
 
     #[derive(google_cloud_bigquery::query::FromSql, Debug, PartialEq)]
     struct JsonRole {
@@ -224,7 +221,7 @@ pub async fn query_client_datatypes() -> Result<()> {
         level: i64,
     }
     assert_eq!(
-        row.get::<JsonRole, _>("json_val")?,
+        row.get::<JsonRole>("json_val")?,
         JsonRole {
             role: "admin".to_string(),
             level: 5,
@@ -263,11 +260,11 @@ pub async fn query_client_numeric_limits() -> Result<()> {
 
     // Verify google_cloud_type::model::Decimal preserves values for NUMERIC (38 digits) and BIGNUMERIC (76 digits).
     assert_eq!(
-        row.get::<Decimal, _>("max_numeric")?,
+        row.get::<Decimal>("max_numeric")?,
         Decimal::new().set_value("99999999999999999999999999999.999999999")
     );
     assert_eq!(
-        row.get::<Decimal, _>("max_bignumeric")?,
+        row.get::<Decimal>("max_bignumeric")?,
         Decimal::new().set_value(
             "99999999999999999999999999999999999999.99999999999999999999999999999999999999"
         )
@@ -276,15 +273,15 @@ pub async fn query_client_numeric_limits() -> Result<()> {
     // Verify rust_decimal handles numbers within its 96-bit bounds (around 28 digits)
     // and errors on out-of-range values.
     assert_eq!(
-        row.get::<RustDecimal, _>("standard_numeric")?,
+        row.get::<RustDecimal>("standard_numeric")?,
         "123.123456789".parse().expect("valid decimal")
     );
     assert_eq!(
-        row.get::<RustDecimal, _>("standard_bignumeric")?,
+        row.get::<RustDecimal>("standard_bignumeric")?,
         "1234567890.1234567890".parse().expect("valid decimal")
     );
-    assert!(row.get::<RustDecimal, _>("max_numeric").is_err());
-    assert!(row.get::<RustDecimal, _>("max_bignumeric").is_err());
+    assert!(row.get::<RustDecimal>("max_numeric").is_err());
+    assert!(row.get::<RustDecimal>("max_bignumeric").is_err());
 
     assert!(iter.next().await.is_none());
 
@@ -355,7 +352,7 @@ pub async fn query_client_job() -> Result<()> {
     // read the results
     let mut iter = query.read();
     let row = iter.next().await.expect("should return first row")?;
-    assert_eq!(row.get::<i64, _>("two")?, 2);
+    assert_eq!(row.get::<i64>("two")?, 2);
     assert!(iter.next().await.is_none(), "{iter:?}");
 
     // attach_job to a successful job
@@ -365,7 +362,7 @@ pub async fn query_client_job() -> Result<()> {
         .next()
         .await
         .expect("should return first row")?;
-    assert_eq!(attached_row.get::<i64, _>("two")?, 2);
+    assert_eq!(attached_row.get::<i64>("two")?, 2);
 
     // attach_job to a failed job should return QueryError::JobFailed immediately
     let failed_query = bq
@@ -519,7 +516,7 @@ pub async fn query_client_metadata() -> Result<()> {
     // Verify row reading
     let mut rows = complete.read();
     let row = rows.next().await.expect("row must exist")?;
-    assert_eq!(row.get::<i64, _>("one")?, 1);
+    assert_eq!(row.get::<i64>("one")?, 1);
     assert!(rows.next().await.is_none());
 
     Ok(())

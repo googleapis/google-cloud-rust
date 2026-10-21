@@ -369,6 +369,12 @@ impl std::fmt::Debug for super::ClusterConfig {
         debug_struct.field("metastore_config", &self.metastore_config);
         debug_struct.field("dataproc_metric_config", &self.dataproc_metric_config);
         debug_struct.field("auxiliary_node_groups", &self.auxiliary_node_groups);
+        debug_struct.field("master_flexible_config", &self.master_flexible_config);
+        debug_struct.field("worker_flexible_config", &self.worker_flexible_config);
+        debug_struct.field(
+            "secondary_worker_flexible_config",
+            &self.secondary_worker_flexible_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -443,6 +449,7 @@ impl std::fmt::Debug for super::GceClusterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GceClusterConfig");
         debug_struct.field("zone_uri", &self.zone_uri);
+        debug_struct.field("multi_zone_config", &self.multi_zone_config);
         debug_struct.field("network_uri", &self.network_uri);
         debug_struct.field("subnetwork_uri", &self.subnetwork_uri);
         debug_struct.field("internal_ip_only", &self.internal_ip_only);
@@ -462,6 +469,17 @@ impl std::fmt::Debug for super::GceClusterConfig {
             &self.confidential_instance_config,
         );
         debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MultiZoneConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultiZoneConfig");
+        debug_struct.field("target_shape", &self.target_shape);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -637,6 +655,20 @@ impl std::fmt::Debug for super::instance_flexibility_policy::InstanceSelectionRe
         let mut debug_struct = f.debug_struct("InstanceSelectionResult");
         debug_struct.field("machine_type", &self.machine_type);
         debug_struct.field("vm_count", &self.vm_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FlexibleInstanceGroupConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FlexibleInstanceGroupConfig");
+        debug_struct.field("num_instances", &self.num_instances);
+        debug_struct.field("core_count", &self.core_count);
+        debug_struct.field("boot_disk_size_gb", &self.boot_disk_size_gb);
+        debug_struct.field("hardware_class", &self.hardware_class);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

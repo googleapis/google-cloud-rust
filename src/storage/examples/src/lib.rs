@@ -616,40 +616,32 @@ async fn run_object_appendable_examples(
     )
     .await?;
 
-    tracing::info!("running open_appendable_object_write example");
-    objects::open_appendable_object_write::sample(client, &rapid_bucket_id, "appendable-write")
-        .await?;
+    tracing::info!("running create_and_write_appendable_object example");
+    objects::create_and_write_appendable_object::sample(
+        client,
+        &rapid_bucket_id,
+        "appendable-create-and-write",
+    )
+    .await?;
 
-    tracing::info!("running open_appendable_object_pause_resume example");
-    objects::open_appendable_object_pause_resume::sample(
+    tracing::info!("running pause_and_resume_appendable_upload example");
+    objects::pause_and_resume_appendable_upload::sample(
         client,
         &rapid_bucket_id,
         "appendable-pause-resume",
     )
     .await?;
 
-    let mut writer = client
-        .open_appendable_object(
-            format!("projects/_/buckets/{rapid_bucket_id}"),
-            "appendable-finalize",
-        )
-        .send()
-        .await?;
-    writer.append(bytes::Bytes::from("hello ")).await?;
-    let generation = writer.generation();
-    writer.close().await?;
-
-    tracing::info!("running open_appendable_object_finalize example");
-    objects::open_appendable_object_finalize::sample(
+    tracing::info!("running finalize_appendable_object_upload example");
+    objects::finalize_appendable_object_upload::sample(
         client,
         &rapid_bucket_id,
         "appendable-finalize",
-        generation,
     )
     .await?;
 
-    tracing::info!("running open_appendable_object_read_tail example");
-    objects::open_appendable_object_read_tail::sample(client, &rapid_bucket_id, "appendable-write")
+    tracing::info!("running read_appendable_object_tail example");
+    objects::read_appendable_object_tail::sample(client, &rapid_bucket_id, "appendable-read-tail")
         .await?;
 
     Ok(())
