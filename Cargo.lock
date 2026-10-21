@@ -2405,7 +2405,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery"
-version = "0.18.1"
+version = "0.19.0"
 dependencies = [
  "anyhow",
  "arc-swap",
