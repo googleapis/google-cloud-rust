@@ -27,9 +27,9 @@ use std::collections::HashMap;
 use std::io::Write;
 use wkt::{DescriptorProto, FieldDescriptorProto};
 
-/// A trait for converting Rust types into rows for the [Proto] data format.
+/// A trait for converting Rust types into rows for the [`Proto`] data format.
 ///
-/// A writer that uses the [Proto] data format needs two things: a schema,
+/// A writer that uses the [`Proto`] data format needs two things: a schema,
 /// which describes the rows, and the rows themselves, encoded as protocol
 /// buffers. Types that implement this trait provide both.
 ///
@@ -42,7 +42,7 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// ASCII letters, digits, and `_`, because they are also the names of
 /// protobuf fields. Two fields cannot write to the same column, and BigQuery
 /// column names are case-insensitive, so `a` and `A` are the same column.
-/// Both are compile errors.
+/// Breaking either rule is a compile error.
 ///
 /// # Supported types
 ///
@@ -79,11 +79,12 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 ///   reads back as `hours: 1, minutes: 30`. The parts can be at most 10,000
 ///   years, 3,660,000 days, and 87,840,000 hours, positive or negative.
 ///   [`to_row`](ToRow::to_row) returns an error for longer intervals.
-/// - A `NUMERIC` value has up to 38 digits, 9 of them after the decimal
-///   point. A `BIGNUMERIC` value has up to 76 digits, 38 of them after the
-///   decimal point. A [`rust_decimal::Decimal`] holds about 28 digits, so use
-///   a [`google_cloud_type::model::Decimal`] for longer values. BigQuery
-///   rejects values that do not fit the column.
+/// - A `NUMERIC` value has up to 29 digits before the decimal point, and 9
+///   after it. A `BIGNUMERIC` value has up to 38 digits before the decimal
+///   point, plus part of a 39th, and 38 after it. BigQuery rejects values
+///   that do not fit the column, including values with too many digits after
+///   the decimal point. A [`rust_decimal::Decimal`] holds about 28 digits in
+///   all, so use a [`google_cloud_type::model::Decimal`] for longer values.
 /// - A [`google_cloud_type::model::Decimal`] must hold a decimal number, such
 ///   as `-1.5` or `2.5E+8`. An empty string writes `0`, as the type
 ///   documents. [`to_row`](ToRow::to_row) returns an error for other strings.
@@ -91,16 +92,18 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 ///   `POINT(1 2)`.
 /// - `Value::Null` writes the JSON value `null`, not a SQL `NULL`.
 /// - BigQuery arrays cannot be `NULL`, and cannot contain `NULL` values or
-///   other arrays. So an `Option<T>` or a `Vec<T>` cannot hold an `Option`,
-///   or a `Vec` other than `Vec<u8>`, which is a `BYTES` value. An empty
-///   `Vec<T>` writes an empty array.
+///   other arrays. And an `Option<Option<T>>` would write `Some(None)` and
+///   `None` the same way, as `NULL`. So an `Option<T>` or a `Vec<T>` cannot
+///   hold an `Option`, or a `Vec` other than `Vec<u8>`, which is a `BYTES`
+///   value. An empty `Vec<T>` writes an empty array.
 /// - A [`Range<T>`] without a `start` or an `end` is unbounded on that side.
 ///   When it has both, the start must be before the end, after rounding down
 ///   any nanoseconds. [`to_row`](ToRow::to_row) returns an error for other
 ///   ranges, which BigQuery SQL cannot create either.
 /// - Structs can be nested at most 14 levels deep. BigQuery limits the depth
 ///   of a schema to 15, and the innermost field counts too. Structs cannot
-///   contain themselves, not even in a `Vec<T>`.
+///   contain themselves, directly or through other structs, not even in a
+///   `Vec<T>`.
 ///
 /// # Example
 ///
@@ -178,7 +181,7 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 /// # }
 /// ```
 ///
-/// [Proto]: crate::write::format::Proto
+/// [`Proto`]: crate::write::format::Proto
 pub trait ToRow {
     /// Returns the schema for rows of this type.
     ///
@@ -203,7 +206,7 @@ pub trait ToRow {
     ///
     /// If a value is one that BigQuery cannot store, such as a date without a
     /// year, or a range that does not start before it ends. The limits for
-    /// each type are in the [ToRow] documentation.
+    /// each type are in the [`ToRow`] documentation.
     ///
     /// [`set_serialized_rows`]: crate::model::ProtoRows::set_serialized_rows
     fn to_row(&self) -> Result<Bytes, ConvertError> {
@@ -216,6 +219,12 @@ pub trait ToRow {
     /// field. [`schema`] calls it to describe the fields, and [`to_row`]
     /// calls it to encode them. Applications do not need to call it.
     ///
+    /// Prefer `#[derive(ToRow)]`, which also checks the column names at
+    /// compile time. A hand-written implementation must make the same calls
+    /// to [`StructFields::field`] every time, one for each field, and return
+    /// only the errors from those calls. Otherwise [`schema`] panics, or the
+    /// rows do not match the schema.
+    ///
     /// [`schema`]: ToRow::schema
     /// [`to_row`]: ToRow::to_row
     fn visit_fields(fields: &mut StructFields<'_, Self>) -> Result<(), ConvertError>;
@@ -224,7 +233,7 @@ pub trait ToRow {
 /// A Rust type that can be a field in a row.
 ///
 /// `#[derive(ToRow)]` uses this trait to describe and encode each field of a
-/// struct. The library implements it for the types in the [ToRow]
+/// struct. The library implements it for the types in the [`ToRow`]
 /// documentation, and `#[derive(ToRow)]` implements it for each struct, so a
 /// struct can be a field in another one.
 ///
@@ -288,13 +297,14 @@ pub trait ProtoValue {
 /// assert!(schema.proto_descriptor.is_some());
 /// ```
 ///
-/// Like [ProtoValue], this trait is not intended for manual implementation.
+/// Like [`ProtoValue`], this trait is not intended for manual implementation.
 #[diagnostic::on_unimplemented(
     message = "`{Self}` is not a supported type inside `Option<T>` or `Vec<T>` for `#[derive(ToRow)]`",
     label = "unsupported type inside `Option<T>` or `Vec<T>`",
     note = "`Option<T>` and `Vec<T>` cannot hold an `Option<T>`, or a `Vec<T>` other than `Vec<u8>`",
     note = "BigQuery arrays cannot be `NULL`, and cannot contain `NULL` values or other arrays",
     note = "structs must have `#[derive(ToRow)]` to be inside `Option<T>` or `Vec<T>`",
+    note = "for a type parameter `T`, add the bound `T: ProtoElement`",
     note = "see the `ToRow` documentation for the supported types"
 )]
 pub trait ProtoElement: ProtoValue {}
@@ -317,7 +327,7 @@ pub struct StructFields<'a, R: ?Sized> {
     next: u32,
 }
 
-/// What a [StructFields] does with each field.
+/// What a [`StructFields`] does with each field.
 #[derive(Debug)]
 enum FieldsMode<'a, R: ?Sized> {
     /// Collects the column names, without describing the fields.
@@ -420,7 +430,7 @@ impl FieldSchema<'_> {
     /// it.
     ///
     /// `T` must be `'static`, because the schema describes each nested struct
-    /// type once, and tells them apart by their [TypeId].
+    /// type once, and tells them apart by their [`TypeId`].
     ///
     /// # Panics
     ///
@@ -1050,17 +1060,17 @@ const RANGE_START: &str = "start";
 /// The name of the field for the end of a `RANGE` value.
 const RANGE_END: &str = "end";
 
-/// A type for the bounds of a [Range].
+/// A type for the bounds of a [`Range`].
 ///
 /// BigQuery SQL cannot create a range unless its start is before its end, so
 /// [`ToRow::to_row`] returns an error for other ranges. It compares the values
 /// that BigQuery receives, which keep microseconds, not nanoseconds.
 ///
-/// [RangeElement] requires this trait, so code that is generic over the element
-/// type, such as a struct with `#[derive(ToRow)]`, can write ranges.
+/// [`RangeElement`] requires this trait, so code that is generic over the
+/// element type, such as a struct with `#[derive(ToRow)]`, can write ranges.
 ///
-/// This is an implementation detail of [ToRow]. It is not part of the public
-/// API.
+/// This is an implementation detail of [`ToRow`]. It is not part of the
+/// public API.
 pub trait RangeBound {
     /// The value that BigQuery receives for a bound. The values sort in the
     /// same order as the bounds.

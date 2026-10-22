@@ -297,14 +297,24 @@ impl<S: Stream> WriterBuilder<S> {
     /// - [`CommittedStream`][crate::write::stream_type::CommittedStream] -> [`CommittedWriter<Proto>`][crate::write::CommittedWriter]
     /// - [`BufferedStream`][crate::write::stream_type::BufferedStream] -> [`BufferedWriter<Proto>`][crate::write::BufferedWriter]
     ///
+    /// Use [`ToRow::schema`][crate::write::ToRow::schema] for the schema of a
+    /// struct with `#[derive(ToRow)]`, and [`ToRow::to_row`][crate::write::ToRow::to_row]
+    /// for its rows.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery::client::Write;
-    /// # use google_cloud_bigquery::model::ProtoSchema;
+    /// use google_cloud_bigquery::write::ToRow;
+    ///
+    /// #[derive(ToRow)]
+    /// struct Row {
+    ///     name: String,
+    /// }
+    ///
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
     ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
-    ///     .build_proto(ProtoSchema::new())
+    ///     .build_proto(Row::schema())
     ///     .await?;
     /// # Ok(())
     /// # }
