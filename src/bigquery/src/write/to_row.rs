@@ -1277,22 +1277,63 @@ impl NestedTypes {
     }
 }
 
+/// The name of a message type when the name of its Rust type is empty.
+///
+/// [`std::any::type_name`] does not promise a format, so this keeps the schema
+/// valid even if a name has no last segment.
+const FALLBACK_MESSAGE_NAME: &str = "Message";
+
 /// Returns the name of the message type for `T`, such as `Address`.
 ///
 /// BigQuery ignores the names of message types, so the name only needs to be
-/// readable: the name of the Rust type, without its path or its generic
+/// readable: the last segment of the Rust type's path, without its generic
 /// arguments. Different types with the same name get suffixes later.
 fn message_name<T: ?Sized>() -> Cow<'static, str> {
-    let name = std::any::type_name::<T>();
-    let name = name.find('<').map_or(name, |generics| &name[..generics]);
-    proto_name(name.rsplit("::").next().unwrap_or(name))
+    proto_name(last_segment(std::any::type_name::<T>()))
+}
+
+/// Returns the last segment of a type's path, without its generic arguments.
+///
+/// Generic arguments and impl blocks can come before the last segment, as in
+/// `<i32 as my_app::MakeRow>::make::Row` or `my_app::Maker<_>::make::Row`, so
+/// only a `::` outside of `<...>` separates two segments.
+fn last_segment(path: &str) -> &str {
+    let mut depth = 0_usize;
+    let mut start = 0;
+    let mut end = None;
+    let mut prev = None;
+    let mut chars = path.char_indices().peekable();
+    while let Some((i, c)) = chars.next() {
+        match c {
+            '<' => {
+                if depth == 0 && end.is_none() {
+                    end = Some(i);
+                }
+                depth += 1;
+            }
+            // The `>` in `->`, as in `fn() -> i64`, closes nothing.
+            '>' if prev != Some('-') => depth = depth.saturating_sub(1),
+            ':' if depth == 0 && chars.peek().is_some_and(|&(_, next)| next == ':') => {
+                chars.next();
+                start = i + 2;
+                end = None;
+            }
+            _ => {}
+        }
+        prev = Some(c);
+    }
+    &path[start..end.unwrap_or(path.len())]
 }
 
 /// Returns `name` as a protobuf name, which can only have ASCII letters,
-/// digits, and `_`. Other characters, such as `é`, become `_`.
+/// digits, and `_`. Other characters, such as `é`, become `_`, and an empty
+/// name becomes [`FALLBACK_MESSAGE_NAME`].
 ///
 /// `name` is the name of a Rust type, which cannot start with a digit.
 fn proto_name(name: &str) -> Cow<'_, str> {
+    if name.is_empty() {
+        return Cow::Borrowed(FALLBACK_MESSAGE_NAME);
+    }
     let valid = |c: char| c.is_ascii_alphanumeric() || c == '_';
     if name.chars().all(valid) {
         return Cow::Borrowed(name);
@@ -1340,8 +1381,9 @@ fn encode_row<T: ToRow + ?Sized>(row: &T) -> Result<Bytes, ConvertError> {
 #[cfg(test)]
 mod tests {
     use super::{
-        MAX_DEPTH, NestedTypes, ProtoElement, ProtoValue, StructFields, describe_field,
-        encode_field, interval_parts, message_name, proto_name, timestamp_micros, visit_range,
+        FALLBACK_MESSAGE_NAME, MAX_DEPTH, NestedTypes, ProtoElement, ProtoValue, StructFields,
+        describe_field, encode_field, interval_parts, last_segment, message_name, proto_name,
+        timestamp_micros, visit_range,
     };
     use crate::datatypes::{Interval, Range, RangeElement};
     use crate::error::ConvertError;
@@ -2868,13 +2910,49 @@ mod tests {
     #[test]
     fn message_names_drop_paths_and_generics() {
         assert_eq!(message_name::<Address>(), ADDRESS);
-        // The generic arguments have paths too, so they go first.
+        // The generic arguments have paths too, which do not count.
         assert_eq!(message_name::<Wrapper<Range<Date>>>(), WRAPPER);
+    }
+
+    #[test_case("Row", "Row"; "no path")]
+    #[test_case("my_app::Row", "Row"; "path")]
+    #[test_case("my_app::Row<my_app::Inner<i64>>", "Row"; "generic arguments")]
+    #[test_case("my_app::Row<fn() -> i64>", "Row"; "function type argument")]
+    #[test_case("<i32 as my_app::MakeRow>::make::Row", "Row"; "trait impl")]
+    #[test_case("my_app::Maker<_>::make::Row", "Row"; "generic impl")]
+    #[test_case("my_app::main::{{closure}}::Row", "Row"; "closure")]
+    fn last_segments(path: &str, want: &str) {
+        assert_eq!(last_segment(path), want);
+    }
+
+    /// Returns the schema of a struct that is declared in a trait impl.
+    trait LocalSchema {
+        fn local_schema() -> crate::model::ProtoSchema;
+    }
+
+    impl LocalSchema for i32 {
+        fn local_schema() -> crate::model::ProtoSchema {
+            #[derive(ToRow)]
+            struct Local {
+                value: i64,
+            }
+            Local::schema()
+        }
+    }
+
+    #[test]
+    fn message_names_in_impl_blocks() {
+        // The type name of `Local` starts with `<i32 as ...::LocalSchema>`.
+        let descriptor = <i32 as LocalSchema>::local_schema()
+            .proto_descriptor
+            .expect("has a descriptor");
+        assert_eq!(descriptor.name, "Local");
     }
 
     #[test_case("Address", "Address"; "ascii")]
     #[test_case("Größe", "Gr__e"; "non-ascii letters")]
     #[test_case("r#match", "r_match"; "raw identifier")]
+    #[test_case("", FALLBACK_MESSAGE_NAME; "empty")]
     fn message_names_are_proto_names(name: &str, want: &str) {
         assert_eq!(proto_name(name), want);
     }
