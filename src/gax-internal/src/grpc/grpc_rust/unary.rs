@@ -108,12 +108,14 @@ where
                 message = Some(slot.take()?);
             }
             ResponseStreamItem::Trailers(trailers) => {
-                // The trailer metadata will be merged with the header metadata.
+                // Trailer metadata replaces header values for repeated keys.
                 let trailer_metadata = to_tonic_map(trailers.metadata());
                 // If the server returned an error status in trailers, return that error.
                 if let Some(status) = trailers_to_tonic_status(trailers, seen_headers) {
                     return Err(status);
                 }
+                // This is purely defensive: `RecvStreamValidator` should already reject OK
+                // trailers without a message.
                 let Some(msg) = message else {
                     return Err(tonic::Status::internal(
                         "grpc-rust unary call finished without response message",
@@ -130,6 +132,8 @@ where
                 ));
             }
             ResponseStreamItem::StreamClosed => {
+                // This is purely defensive: `RecvStreamValidator` should already reject streams
+                // ending without trailers.
                 return Err(tonic::Status::internal(
                     "grpc-rust unary response stream closed without trailers",
                 ));
@@ -138,7 +142,6 @@ where
     }
 }
 
-// TODO(#5991): More unit tests including those covering failure cases to be added in upcoming PRs.
 #[cfg(test)]
 mod tests {
     use super::super::testing::*;
@@ -148,6 +151,7 @@ mod tests {
     use grpc::metadata::MetadataValue;
     use grpc::{StatusCodeError, StatusError};
     use pretty_assertions::assert_eq;
+    use test_case::test_case;
 
     const METHOD_NAME: &str = "/test.Service/Method";
     const RESPONSE_HEADER_KEY: &str = "x-test-header";
@@ -237,14 +241,9 @@ mod tests {
         );
 
         // Act
-        let status = invoke_unary::<_, TestMessage, _>(
-            &invoker,
-            RequestHeaders::new().with_method_name(METHOD_NAME),
-            TestMessage::new("test"),
-            CallOptions::default(),
-        )
-        .await
-        .expect_err("unary invocation should fail");
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should fail");
 
         // Assert
         assert_eq!(status.code(), tonic::Code::Unauthenticated);
@@ -263,14 +262,9 @@ mod tests {
         );
 
         // Act
-        let status = invoke_unary::<_, TestMessage, _>(
-            &invoker,
-            RequestHeaders::new().with_method_name(METHOD_NAME),
-            TestMessage::new("test"),
-            CallOptions::default(),
-        )
-        .await
-        .expect_err("unary invocation should fail when response message is missing");
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should fail when response message is missing");
 
         // Assert
         assert_eq!(status.code(), tonic::Code::Internal);
@@ -298,14 +292,9 @@ mod tests {
         );
 
         // Act
-        let status = invoke_unary::<_, TestMessage, _>(
-            &invoker,
-            RequestHeaders::new().with_method_name(METHOD_NAME),
-            TestMessage::new("test"),
-            CallOptions::default(),
-        )
-        .await
-        .expect_err("unary invocation should fail on send error");
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should fail on send error");
 
         // Assert
         assert_eq!(status.code(), tonic::Code::PermissionDenied);
@@ -337,14 +326,9 @@ mod tests {
         );
 
         // Act
-        let status = invoke_unary::<_, TestMessage, _>(
-            &invoker,
-            RequestHeaders::new().with_method_name(METHOD_NAME),
-            TestMessage::new("test"),
-            CallOptions::default(),
-        )
-        .await
-        .expect_err("unary invocation should fail on connect failure");
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should fail on connect failure");
 
         // Assert
         let gax_err = to_gax_error(status);
@@ -372,5 +356,199 @@ mod tests {
                 .and_then(|value| value.to_str().ok()),
             Some(TEST_VALUE)
         );
+    }
+
+    #[tokio::test]
+    async fn test_unary_unavailable_after_headers_is_not_connect_error() {
+        // Arrange
+        let invoker = MockInvoker::new(
+            MockSendStream::default(),
+            MockRecvStream::with_headers_and_trailers(
+                ResponseHeaders::new(test_connection_info()),
+                Trailers::new(Err(StatusError::new(
+                    StatusCodeError::Unavailable,
+                    "server became unavailable",
+                ))),
+            ),
+        );
+
+        // Act
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should fail");
+
+        // Assert
+        assert_eq!(status.code(), tonic::Code::Unavailable);
+        let gax_err = to_gax_error(status);
+        assert!(!gax_err.is_connect(), "{gax_err:?}");
+    }
+
+    #[test_case(MockRecvStream::new([]); "stream closed")]
+    #[test_case(MockRecvStream::with_immediate_trailers(Trailers::new(Ok(()))); "ok trailers")]
+    #[test_case(
+        MockRecvStream::with_headers_and_trailers(
+            ResponseHeaders::new(test_connection_info()),
+            Trailers::new(Ok(())),
+        );
+        "headers and ok trailers"
+    )]
+    #[tokio::test]
+    async fn test_unary_send_error_without_error_trailers(recv_stream: MockRecvStream) {
+        // Arrange
+        let invoker = MockInvoker::new(FailingSendStream, recv_stream);
+
+        // Act
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should fail on send error");
+
+        // Assert
+        assert_eq!(status.code(), tonic::Code::Internal);
+        assert!(
+            status.message().contains("without server error trailers"),
+            "{status:?}"
+        );
+    }
+
+    #[tokio::test]
+    async fn test_unary_send_error_connect_failure() {
+        // Arrange
+        let invoker = MockInvoker::new(
+            FailingSendStream,
+            MockRecvStream::with_immediate_trailers(Trailers::new(Err(StatusError::new(
+                StatusCodeError::Unavailable,
+                "transport connect failed",
+            )))),
+        );
+
+        // Act
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should fail on send error");
+
+        // Assert
+        let gax_err = to_gax_error(status);
+        assert!(gax_err.is_connect(), "{gax_err:?}");
+    }
+
+    #[tokio::test]
+    async fn test_unary_send_error_after_headers_is_not_connect_error() {
+        // Arrange
+        const ERROR_MESSAGE: &str = "server became unavailable";
+        let invoker = MockInvoker::new(
+            FailingSendStream,
+            MockRecvStream::new([
+                MockRecvAction::Headers(ResponseHeaders::new(test_connection_info())),
+                MockRecvAction::Message(TestMessage::new("ignored")),
+                MockRecvAction::Trailers(Trailers::new(Err(StatusError::new(
+                    StatusCodeError::Unavailable,
+                    ERROR_MESSAGE,
+                )))),
+            ]),
+        );
+
+        // Act
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should fail on send error");
+
+        // Assert
+        assert_eq!(status.code(), tonic::Code::Unavailable);
+        assert_eq!(status.message(), ERROR_MESSAGE);
+        let gax_err = to_gax_error(status);
+        assert!(!gax_err.is_connect(), "{gax_err:?}");
+    }
+
+    #[tokio::test]
+    async fn test_unary_multiple_messages_returns_internal() {
+        // Arrange
+        let invoker = MockInvoker::new(
+            MockSendStream::default(),
+            MockRecvStream::new([
+                MockRecvAction::Headers(ResponseHeaders::new(test_connection_info())),
+                MockRecvAction::Message(TestMessage::new("first")),
+                MockRecvAction::Message(TestMessage::new("second")),
+                MockRecvAction::Trailers(Trailers::new(Ok(()))),
+            ]),
+        );
+
+        // Act
+        let status = invoke_test_call(&invoker)
+            .await
+            .expect_err("unary invocation should reject multiple messages");
+
+        // Assert
+        assert_eq!(status.code(), tonic::Code::Internal);
+        assert!(status.message().contains("multiple messages"), "{status:?}");
+    }
+
+    #[tokio::test]
+    async fn test_unary_trailer_metadata_overrides_headers() -> anyhow::Result<()> {
+        // Arrange
+        const SHARED_KEY: &str = "x-shared";
+        let mut headers = ResponseHeaders::new(test_connection_info());
+        let header_metadata = headers.metadata_mut();
+        header_metadata.append(SHARED_KEY, MetadataValue::from_static("from-headers"));
+        header_metadata.append(
+            RESPONSE_HEADER_KEY,
+            MetadataValue::from_static(RESPONSE_HEADER_VALUE),
+        );
+        let mut trailers = Trailers::new(Ok(()));
+        let trailer_metadata = trailers.metadata_mut();
+        trailer_metadata.append(SHARED_KEY, MetadataValue::from_static("from-trailers"));
+        trailer_metadata.append(
+            RESPONSE_TRAILER_KEY,
+            MetadataValue::from_static(RESPONSE_TRAILER_VALUE),
+        );
+        let invoker = MockInvoker::new(
+            MockSendStream::default(),
+            MockRecvStream::new([
+                MockRecvAction::Headers(headers),
+                MockRecvAction::Message(TestMessage::new("response-value")),
+                MockRecvAction::Trailers(trailers),
+            ]),
+        );
+
+        // Act
+        let response = invoke_test_call(&invoker).await?;
+
+        // Assert
+        let metadata = response.metadata();
+        let shared = metadata
+            .get_all(SHARED_KEY)
+            .iter()
+            .map(|value| value.to_str())
+            .collect::<Result<Vec<_>, _>>()?;
+        assert_eq!(shared, ["from-trailers"]);
+        assert_eq!(
+            metadata
+                .get(RESPONSE_HEADER_KEY)
+                .and_then(|value| value.to_str().ok()),
+            Some(RESPONSE_HEADER_VALUE)
+        );
+        assert_eq!(
+            metadata
+                .get(RESPONSE_TRAILER_KEY)
+                .and_then(|value| value.to_str().ok()),
+            Some(RESPONSE_TRAILER_VALUE)
+        );
+        Ok(())
+    }
+
+    /// Invokes a unary call to [`METHOD_NAME`] with a test request.
+    async fn invoke_test_call<S, R>(
+        invoker: &MockInvoker<S, R>,
+    ) -> tonic::Result<tonic::Response<TestMessage>>
+    where
+        S: SendStream + Send + 'static,
+        R: RecvStream + Send + 'static,
+    {
+        invoke_unary(
+            invoker,
+            RequestHeaders::new().with_method_name(METHOD_NAME),
+            TestMessage::new("test"),
+            CallOptions::default(),
+        )
+        .await
     }
 }
