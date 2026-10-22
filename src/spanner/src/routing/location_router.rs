@@ -1024,7 +1024,7 @@ mod tests {
     use crate::model::tablet::Role;
     use crate::model::{CacheUpdate, Group, Range, Tablet};
     use crate::routing::server_connection::ServerConnection;
-    use gaxi::options::ClientConfig;
+    use crate::test::test_client_config;
     use std::collections::HashSet;
     use std::time::{Duration, Instant};
 
@@ -1084,7 +1084,7 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get(address, &ClientConfig::default())
+            .get(address, &test_client_config())
             .await
             .expect("should initialize connection");
     }
@@ -1540,7 +1540,7 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("should initialize connection");
 
@@ -2034,7 +2034,7 @@ mod tests {
         router.key_range_cache().add_ranges(&update);
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("should initialize connection");
 
@@ -2103,12 +2103,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize fast connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize slow connection");
 
@@ -2165,12 +2165,12 @@ mod tests {
 
         let connection_busy = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize busy connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize idle connection");
 
@@ -2231,12 +2231,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize connection 1");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize connection 2");
 
@@ -2303,17 +2303,17 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("init leader");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("init fast follower");
         let _ = router
             .connection_cache()
-            .get("10.0.0.3:15000", &ClientConfig::default())
+            .get("10.0.0.3:15000", &test_client_config())
             .await
             .expect("init slow follower");
 
@@ -2386,7 +2386,7 @@ mod tests {
         // Only pre-warm tablet 10.0.0.1; tablet 10.0.0.2 is NOT in connection_cache
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("init connected node");
 
@@ -2469,7 +2469,7 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("init connection");
 
@@ -2548,7 +2548,7 @@ mod tests {
 
             let _ = router
                 .connection_cache()
-                .get(&address, &ClientConfig::default())
+                .get(&address, &test_client_config())
                 .await
                 .expect("initialize candidate connection");
         }
@@ -2604,7 +2604,7 @@ mod tests {
 
             let _ = router
                 .connection_cache()
-                .get(&address, &ClientConfig::default())
+                .get(&address, &test_client_config())
                 .await
                 .expect("initialize candidate connection");
         }
@@ -2669,12 +2669,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize central connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize east connection");
 
@@ -2747,12 +2747,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize central connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize east connection");
 
@@ -2831,17 +2831,17 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize europe-west1 connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize europe-west4 connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.3:15000", &ClientConfig::default())
+            .get("10.0.0.3:15000", &test_client_config())
             .await
             .expect("initialize us-central1 connection");
 
@@ -2919,12 +2919,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize leader connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize follower connection");
 
@@ -2997,12 +2997,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize leader connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize follower connection");
 
@@ -3078,12 +3078,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize remote leader connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize local follower connection");
 
@@ -3152,7 +3152,7 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize central connection");
 
@@ -3224,12 +3224,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize europe-west1 connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize europe-west4 connection");
 
@@ -3327,7 +3327,7 @@ mod tests {
         // Only pre-warm tablet 801
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize warmed connection");
 
@@ -3402,12 +3402,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize remote leader connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize local follower connection");
 
@@ -3499,17 +3499,17 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize east healthy connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize east cooling connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.3:15000", &ClientConfig::default())
+            .get("10.0.0.3:15000", &test_client_config())
             .await
             .expect("initialize europe cooling connection");
 
@@ -3602,12 +3602,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize farther connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize closer connection");
 
@@ -3730,12 +3730,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize closer connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize farther connection");
 
@@ -3806,12 +3806,12 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize leader connection");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("initialize follower connection");
 
@@ -3880,7 +3880,7 @@ mod tests {
 
         let _ = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("initialize local connection");
 
@@ -4137,7 +4137,7 @@ mod tests {
         // Pre-warm ONLY the follower connection; leader remains unwarmed
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("init follower");
 
@@ -4187,12 +4187,12 @@ mod tests {
 
         let leader_connection = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("init leader");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("init follower");
 
@@ -4257,12 +4257,12 @@ mod tests {
 
         let leader_connection = router
             .connection_cache()
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("init leader");
         let _ = router
             .connection_cache()
-            .get("10.0.0.2:15000", &ClientConfig::default())
+            .get("10.0.0.2:15000", &test_client_config())
             .await
             .expect("init follower");
 

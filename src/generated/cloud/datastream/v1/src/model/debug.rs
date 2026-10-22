@@ -271,6 +271,7 @@ impl std::fmt::Debug for super::StartBackfillJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartBackfillJobRequest");
         debug_struct.field("object", &self.object);
+        debug_struct.field("event_filter", &self.event_filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -577,6 +578,7 @@ impl std::fmt::Debug for super::SqlServerProfile {
         debug_struct.field("username", &self.username);
         debug_struct.field("password", &self.password);
         debug_struct.field("database", &self.database);
+        debug_struct.field("ssl_config", &self.ssl_config);
         debug_struct.field(
             "secret_manager_stored_password",
             &self.secret_manager_stored_password,
@@ -649,6 +651,7 @@ impl std::fmt::Debug for super::MongodbProfile {
             &self.secret_manager_stored_password,
         );
         debug_struct.field("ssl_config", &self.ssl_config);
+        debug_struct.field("additional_options", &self.additional_options);
         debug_struct.field("mongodb_connection_format", &self.mongodb_connection_format);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -662,6 +665,107 @@ impl std::fmt::Debug for super::HostAddress {
         let mut debug_struct = f.debug_struct("HostAddress");
         debug_struct.field("hostname", &self.hostname);
         debug_struct.field("port", &self.port);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SpannerProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpannerProfile");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("host", &self.host);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::OauthClientCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OauthClientCredentials");
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("client_secret", &self.client_secret);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::OauthRefreshTokenCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OauthRefreshTokenCredentials");
+        debug_struct.field("oauth_client_credentials", &self.oauth_client_credentials);
+        debug_struct.field("refresh_token", &self.refresh_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UserPasswordCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserPasswordCredentials");
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SalesforceMarketingCloudProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SalesforceMarketingCloudProfile");
+        debug_struct.field("subdomain", &self.subdomain);
+        debug_struct.field("oauth_client_credentials", &self.oauth_client_credentials);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataverseProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataverseProfile");
+        debug_struct.field("tenant_id", &self.tenant_id);
+        debug_struct.field("environment_url", &self.environment_url);
+        debug_struct.field("oauth_client_credentials", &self.oauth_client_credentials);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ServiceNowProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceNowProfile");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("credentials", &self.credentials);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkdayProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkdayProfile");
+        debug_struct.field("host", &self.host);
+        debug_struct.field("tenant", &self.tenant);
+        debug_struct.field(
+            "oauth_refresh_token_credentials",
+            &self.oauth_refresh_token_credentials,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -808,6 +912,17 @@ impl std::fmt::Debug for super::Route {
     }
 }
 
+impl std::fmt::Debug for super::Secret {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Secret");
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::MongodbSslConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MongodbSslConfig");
@@ -852,6 +967,52 @@ impl std::fmt::Debug for super::OracleSslConfig {
         debug_struct.field(
             "server_certificate_distinguished_name",
             &self.server_certificate_distinguished_name,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SqlServerSslConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlServerSslConfig");
+        debug_struct.field("encryption_setting", &self.encryption_setting);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::sql_server_ssl_config::EncryptionNotEnforced {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionNotEnforced");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::sql_server_ssl_config::BasicEncryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BasicEncryption");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::sql_server_ssl_config::EncryptionAndServerValidation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionAndServerValidation");
+        debug_struct.field("ca_certificate", &self.ca_certificate);
+        debug_struct.field(
+            "server_certificate_hostname",
+            &self.server_certificate_hostname,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1213,6 +1374,25 @@ impl std::fmt::Debug for super::SqlServerTransactionLogs {
 impl std::fmt::Debug for super::SqlServerChangeTables {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SqlServerChangeTables");
+        debug_struct.field("ddl_config", &self.ddl_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::sql_server_change_tables::SqlServerDdlConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlServerDdlConfig");
+        debug_struct.field(
+            "auto_create_new_capture_instance_on_ddl",
+            &self.auto_create_new_capture_instance_on_ddl,
+        );
+        debug_struct.field(
+            "auto_delete_old_capture_instance",
+            &self.auto_delete_old_capture_instance,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1370,6 +1550,7 @@ impl std::fmt::Debug for super::MongodbSourceConfig {
             "max_concurrent_backfill_tasks",
             &self.max_concurrent_backfill_tasks,
         );
+        debug_struct.field("json_mode", &self.json_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1423,6 +1604,171 @@ impl std::fmt::Debug for super::MongodbField {
     }
 }
 
+impl std::fmt::Debug for super::SpannerSourceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpannerSourceConfig");
+        debug_struct.field("change_stream_name", &self.change_stream_name);
+        debug_struct.field("spanner_rpc_priority", &self.spanner_rpc_priority);
+        debug_struct.field("fgac_role", &self.fgac_role);
+        debug_struct.field("max_concurrent_cdc_tasks", &self.max_concurrent_cdc_tasks);
+        debug_struct.field(
+            "max_concurrent_backfill_tasks",
+            &self.max_concurrent_backfill_tasks,
+        );
+        debug_struct.field("include_objects", &self.include_objects);
+        debug_struct.field("exclude_objects", &self.exclude_objects);
+        debug_struct.field(
+            "backfill_data_boost_enabled",
+            &self.backfill_data_boost_enabled,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SpannerDatabase {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpannerDatabase");
+        debug_struct.field("schemas", &self.schemas);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SpannerSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpannerSchema");
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("tables", &self.tables);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SpannerTable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpannerTable");
+        debug_struct.field("table", &self.table);
+        debug_struct.field("columns", &self.columns);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SpannerColumn {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpannerColumn");
+        debug_struct.field("column", &self.column);
+        debug_struct.field("data_type", &self.data_type);
+        debug_struct.field("is_primary_key", &self.is_primary_key);
+        debug_struct.field("ordinal_position", &self.ordinal_position);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataverseSourceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataverseSourceConfig");
+        debug_struct.field("include_objects", &self.include_objects);
+        debug_struct.field("exclude_objects", &self.exclude_objects);
+        debug_struct.field("polling_interval", &self.polling_interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SalesforceMarketingCloudSourceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SalesforceMarketingCloudSourceConfig");
+        debug_struct.field("include_objects", &self.include_objects);
+        debug_struct.field("exclude_objects", &self.exclude_objects);
+        debug_struct.field("polling_interval", &self.polling_interval);
+        debug_struct.field(
+            "full_refresh_polling_interval",
+            &self.full_refresh_polling_interval,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ServiceNowSourceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceNowSourceConfig");
+        debug_struct.field("include_objects", &self.include_objects);
+        debug_struct.field("exclude_objects", &self.exclude_objects);
+        debug_struct.field("polling_interval", &self.polling_interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkdaySourceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkdaySourceConfig");
+        debug_struct.field("include_objects", &self.include_objects);
+        debug_struct.field("exclude_objects", &self.exclude_objects);
+        debug_struct.field("polling_interval", &self.polling_interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SourceCatalog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceCatalog");
+        debug_struct.field("objects", &self.objects);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SourceObject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceObject");
+        debug_struct.field("object_name", &self.object_name);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SourceProperty {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceProperty");
+        debug_struct.field("property_name", &self.property_name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("primary_key", &self.primary_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SourceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceConfig");
@@ -1450,6 +1796,72 @@ impl std::fmt::Debug for super::JsonFileFormat {
         let mut debug_struct = f.debug_struct("JsonFileFormat");
         debug_struct.field("schema_file_format", &self.schema_file_format);
         debug_struct.field("compression", &self.compression);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BigQueryClustering {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryClustering");
+        debug_struct.field("columns", &self.columns);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IngestionTimePartition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IngestionTimePartition");
+        debug_struct.field(
+            "partitioning_time_granularity",
+            &self.partitioning_time_granularity,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TimeUnitPartition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeUnitPartition");
+        debug_struct.field("column", &self.column);
+        debug_struct.field(
+            "partitioning_time_granularity",
+            &self.partitioning_time_granularity,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IntegerRangePartition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IntegerRangePartition");
+        debug_struct.field("column", &self.column);
+        debug_struct.field("start", &self.start);
+        debug_struct.field("end", &self.end);
+        debug_struct.field("interval", &self.interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BigQueryPartitioning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryPartitioning");
+        debug_struct.field("require_partition_filter", &self.require_partition_filter);
+        debug_struct.field("partitioning", &self.partitioning);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1592,6 +2004,7 @@ impl std::fmt::Debug for super::Stream {
         debug_struct.field("last_recovery_time", &self.last_recovery_time);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("rule_sets", &self.rule_sets);
         debug_struct.field("backfill_strategy", &self.backfill_strategy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1621,6 +2034,40 @@ impl std::fmt::Debug for super::stream::BackfillNoneStrategy {
     }
 }
 
+impl std::fmt::Debug for super::stream::RuleSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuleSet");
+        debug_struct.field("customization_rules", &self.customization_rules);
+        debug_struct.field("object_filter", &self.object_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::stream::rule_set::ObjectFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectFilter");
+        debug_struct.field("filter_type", &self.filter_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::stream::rule_set::CustomizationRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomizationRule");
+        debug_struct.field("rule", &self.rule);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::StreamObject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamObject");
@@ -1631,6 +2078,7 @@ impl std::fmt::Debug for super::StreamObject {
         debug_struct.field("errors", &self.errors);
         debug_struct.field("backfill_job", &self.backfill_job);
         debug_struct.field("source_object", &self.source_object);
+        debug_struct.field("customization_rules", &self.customization_rules);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1720,6 +2168,18 @@ impl std::fmt::Debug for super::source_object_identifier::MongodbObjectIdentifie
     }
 }
 
+impl std::fmt::Debug for super::source_object_identifier::SpannerObjectIdentifier {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpannerObjectIdentifier");
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("table", &self.table);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::BackfillJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackfillJob");
@@ -1728,6 +2188,18 @@ impl std::fmt::Debug for super::BackfillJob {
         debug_struct.field("last_start_time", &self.last_start_time);
         debug_struct.field("last_end_time", &self.last_end_time);
         debug_struct.field("errors", &self.errors);
+        debug_struct.field("event_filter", &self.event_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EventFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventFilter");
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1869,6 +2341,28 @@ impl std::fmt::Debug for super::MysqlGtidPosition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MysqlGtidPosition");
         debug_struct.field("gtid_set", &self.gtid_set);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MongodbChangeStreamPosition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MongodbChangeStreamPosition");
+        debug_struct.field("start_time", &self.start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SpannerChangeStreamPosition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpannerChangeStreamPosition");
+        debug_struct.field("start_time", &self.start_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

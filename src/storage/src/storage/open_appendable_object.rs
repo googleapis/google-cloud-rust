@@ -33,7 +33,7 @@ use std::time::Duration;
 ///     let mut writer = builder
 ///         .send()
 ///         .await?;
-///     writer.append(bytes::Bytes::from("hello")).await?;
+///     writer.append("hello").await?;
 ///     writer.finalize().await?;
 ///     Ok(())
 /// }
@@ -59,7 +59,7 @@ where
     ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
     ///     .await?;
-    /// writer.append(bytes::Bytes::from("world")).await?;
+    /// writer.append("world").await?;
     /// writer.finalize().await?;
     /// # Ok(()) }
     /// ```
@@ -78,7 +78,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut writer = client
     ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .send_and_append(bytes::Bytes::from("hello world"))
+    ///     .send_and_append("hello world")
     ///     .await?;
     /// writer.finalize().await?;
     /// # Ok(()) }

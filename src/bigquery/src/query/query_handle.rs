@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
+use crate::client::Read;
 use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
 use crate::query::execution::RetryContext;
@@ -56,11 +58,13 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct Query {
     pub(crate) job_service: Arc<JobService>,
+    pub(crate) read_client: Option<Arc<Read>>,
     pub(crate) completed: bool,
     pub(crate) metadata: QueryMetadata,
     pub(crate) cached_data: Option<CachedData>,
     pub(crate) page_size: Option<u32>,
     pub(crate) retry_context: Option<RetryContext>,
+    pub(crate) options: RequestOptions,
 }
 
 #[derive(Clone, Debug)]
@@ -79,6 +83,8 @@ impl Query {
         initial_job: Job,
         retry_context: Option<&RetryContext>,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
+        options: RequestOptions,
     ) -> Self {
         let completed = initial_job
             .status
@@ -87,11 +93,13 @@ impl Query {
             .unwrap_or(false);
         Self {
             job_service,
+            read_client,
             completed,
             cached_data: None,
             metadata: build_query_metadata_from_job(initial_job),
             retry_context: retry_context.filter(|_| !completed).cloned(),
             page_size,
+            options,
         }
     }
 
@@ -100,6 +108,8 @@ impl Query {
         mut query_response: QueryResponse,
         retry_context: Option<&RetryContext>,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
+        options: RequestOptions,
     ) -> Self {
         let completed = query_response.job_complete.unwrap_or(false);
         let cached_data = if let (
@@ -120,11 +130,13 @@ impl Query {
         let metadata = QueryMetadata::from(query_response);
         Self {
             job_service,
+            read_client,
             completed,
             cached_data,
             metadata,
             retry_context: retry_context.filter(|_| !completed).cloned(),
             page_size,
+            options,
         }
     }
 
@@ -179,7 +191,11 @@ impl Query {
     /// # }
     /// ```
     pub fn get_job(&self) -> Option<GetJob> {
-        build_get_job(&self.job_service, self.metadata.job_reference.as_ref()?)
+        build_get_job(
+            &self.job_service,
+            self.metadata.job_reference.as_ref()?,
+            &self.options,
+        )
     }
 
     pub(crate) fn is_dry_run(&self) -> bool {
@@ -225,11 +241,13 @@ impl Query {
         loop {
             let Query {
                 job_service,
+                read_client,
                 completed,
                 metadata,
                 cached_data,
                 page_size,
                 retry_context,
+                options,
             } = self;
 
             if completed && let Some(cached_data) = cached_data {
@@ -238,6 +256,8 @@ impl Query {
                     metadata,
                     cached_data,
                     page_size,
+                    read_client,
+                    options,
                 ));
             }
 
@@ -253,7 +273,7 @@ impl Query {
                     .expect("valid backoff configuration"),
             );
 
-            match poll_query_results(&job_service, &job_ref, backoff_policy).await {
+            match poll_query_results(&job_service, &job_ref, backoff_policy, &options).await {
                 Ok(res) => {
                     return Ok(CompleteQuery::from_get_query_results_response(
                         job_service,
@@ -261,6 +281,8 @@ impl Query {
                         res,
                         metadata,
                         page_size,
+                        read_client,
+                        options,
                     ));
                 }
                 Err(err) => {
@@ -306,11 +328,14 @@ impl Query {
 #[derive(Clone, Debug)]
 pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
+    #[cfg_attr(not(test), allow(dead_code))]
+    pub(crate) read_client: Option<Arc<Read>>,
     pub(crate) job_ref: Option<JobReference>,
     pub(crate) cached_data: CachedData,
     pub(crate) page_token: Option<String>,
     pub(crate) metadata: CompleteQueryMetadata,
     pub(crate) page_size: Option<u32>,
+    pub(crate) options: RequestOptions,
 }
 
 impl CompleteQuery {
@@ -320,6 +345,8 @@ impl CompleteQuery {
         mut res: GetQueryResultsResponse,
         initial_metadata: QueryMetadata,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
+        options: RequestOptions,
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
         let cached_data = CachedData::Rows(cached_rows);
@@ -331,6 +358,8 @@ impl CompleteQuery {
             metadata,
             cached_data,
             page_size,
+            read_client,
+            options,
         )
     }
 
@@ -339,10 +368,20 @@ impl CompleteQuery {
         metadata: QueryMetadata,
         cached_data: CachedData,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
+        options: RequestOptions,
     ) -> Self {
         let job_ref = metadata.job_reference.clone();
         let metadata = CompleteQueryMetadata::from(metadata);
-        Self::from_complete_metadata(job_service, job_ref, metadata, cached_data, page_size)
+        Self::from_complete_metadata(
+            job_service,
+            job_ref,
+            metadata,
+            cached_data,
+            page_size,
+            read_client,
+            options,
+        )
     }
 
     pub(crate) fn from_complete_metadata(
@@ -351,6 +390,8 @@ impl CompleteQuery {
         metadata: CompleteQueryMetadata,
         cached_data: CachedData,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
+        options: RequestOptions,
     ) -> Self {
         let page_token = if metadata.page_token.is_empty() {
             None
@@ -359,11 +400,13 @@ impl CompleteQuery {
         };
         Self {
             job_service,
+            read_client,
             job_ref,
             cached_data,
             page_token,
             metadata,
             page_size,
+            options,
         }
     }
 
@@ -454,20 +497,25 @@ impl CompleteQuery {
     /// # }
     /// ```
     pub fn get_job(&self) -> Option<GetJob> {
-        build_get_job(&self.job_service, self.job_ref.as_ref()?)
+        build_get_job(&self.job_service, self.job_ref.as_ref()?, &self.options)
     }
 }
 
 /// Builds a `jobs.get` request from a job reference, or `None` if the
 /// reference cannot identify a job. Dry-run queries return a job reference
 /// without a job ID.
-pub(crate) fn build_get_job(job_service: &JobService, job_ref: &JobReference) -> Option<GetJob> {
+pub(crate) fn build_get_job(
+    job_service: &JobService,
+    job_ref: &JobReference,
+    options: &RequestOptions,
+) -> Option<GetJob> {
     if job_ref.job_id.is_empty() {
         return None;
     }
 
     let req = job_service
         .get_job()
+        .with_options(options.clone())
         .set_job_id(job_ref.job_id.clone())
         .set_project_id(job_ref.project_id.clone());
 
@@ -485,6 +533,7 @@ pub(crate) async fn poll_query_results(
     job_service: &JobService,
     job_ref: &JobReference,
     backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    options: &RequestOptions,
 ) -> Result<GetQueryResultsResponse> {
     let mut state = PollingState::default();
 
@@ -499,6 +548,7 @@ pub(crate) async fn poll_query_results(
 
         let res = job_service
             .get_query_results()
+            .with_options(options.clone())
             .with_request(req)
             .send()
             .await?;
@@ -636,7 +686,9 @@ mod tests {
     use super::*;
     use crate::query::builder::{QUERY_REQUEST_ID_PREFIX, Query as QueryBuilder};
     use crate::query::retry_policy::RetryableJobErrors;
-    use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
+    use crate::query::tests::{
+        MockJobService, create_job_service, create_read_client, create_test_backoff_policy,
+    };
     use google_cloud_bigquery_v2::model::{
         ArrowRecordBatch, ArrowSchema, ErrorProto, GetQueryResultsResponse, Job, JobConfiguration,
         JobReference, QueryResponse, TableFieldSchema, TableSchema,
@@ -656,13 +708,21 @@ mod tests {
         ) -> Self {
             let cached_data = CachedData::Rows(VecDeque::from(std::mem::take(&mut query_res.rows)));
             let metadata = QueryMetadata::from(query_res);
-            Self::from_query_metadata(job_service, metadata, cached_data, page_size)
+            Self::from_query_metadata(
+                job_service,
+                metadata,
+                cached_data,
+                page_size,
+                None,
+                RequestOptions::default(),
+            )
         }
     }
 
     #[tokio::test]
     async fn test_query_until_done_already_completed() -> TestResult {
         let job_service = create_job_service(MockJobService::new());
+        let read_client = create_read_client();
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("some_job_id");
@@ -674,9 +734,17 @@ mod tests {
             .set_rows([wkt::Struct::new()])
             .set_cache_hit(true);
 
-        let query = Query::from_query_response(job_service, query_res, None, None);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            None,
+            None,
+            Some(read_client),
+            RequestOptions::default(),
+        );
 
         let completed = query.until_done().await?;
+        assert!(completed.read_client.is_some());
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
         assert_eq!(completed.page_token, Some("some_page_token".to_string()));
         match &completed.cached_data {
@@ -710,7 +778,14 @@ mod tests {
             )
             .set_cache_hit(true);
 
-        let query = Query::from_query_response(job_service, query_res, None, None);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
 
         let completed = query.until_done().await?;
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
@@ -739,7 +814,14 @@ mod tests {
             .set_job_reference(job_ref.clone())
             .set_schema(TableSchema::new());
 
-        let query = Query::from_query_response(job_service, query_res, None, Some(42));
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            None,
+            Some(42),
+            None,
+            RequestOptions::default(),
+        );
 
         let completed = query.until_done().await?;
         assert_eq!(completed.page_size, Some(42));
@@ -767,6 +849,7 @@ mod tests {
             })
             .times(1);
         let job_service = create_job_service(mock);
+        let read_client = create_read_client();
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("some_job_id")
@@ -775,9 +858,17 @@ mod tests {
             .set_job_complete(false)
             .set_job_reference(job_ref);
 
-        let query = Query::from_query_response(job_service, query_res, None, None);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            None,
+            None,
+            Some(read_client),
+            RequestOptions::default(),
+        );
 
         let completed = query.until_done().await?;
+        assert!(completed.read_client.is_some());
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
         assert_eq!(completed.page_token, Some("some_page_token".to_string()));
         match &completed.cached_data {
@@ -827,7 +918,13 @@ mod tests {
             .set_project_id("some_project")
             .set_job_id("some_job_id");
 
-        let res = poll_query_results(&job_service, &job_ref, Arc::new(backoff_policy)).await?;
+        let res = poll_query_results(
+            &job_service,
+            &job_ref,
+            Arc::new(backoff_policy),
+            &RequestOptions::default(),
+        )
+        .await?;
 
         assert!(res.job_complete.unwrap(), "{res:?}");
 
@@ -855,7 +952,14 @@ mod tests {
             .set_job_complete(false)
             .set_job_reference(job_ref);
 
-        let query = Query::from_query_response(job_service, query_res, None, None);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
 
         let err = query.until_done().await.unwrap_err();
         let errors = match err {
@@ -892,7 +996,14 @@ mod tests {
             .set_job_complete(false)
             .set_job_reference(job_ref);
 
-        let query = Query::from_query_response(job_service, query_res, None, None);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
 
         let err = query.until_done().await.unwrap_err();
         let source = match err {
@@ -928,7 +1039,7 @@ mod tests {
 
         let mut iter = complete_query.read();
         let row = iter.next().await.expect("should return first row")?;
-        assert_eq!(row.get::<String, _>("name")?, "test_name");
+        assert_eq!(row.get::<String>("name")?, "test_name");
         assert!(iter.next().await.is_none(), "{iter:?}");
 
         Ok(())
@@ -942,7 +1053,8 @@ mod tests {
         mock.expect_get_query_results()
             .in_sequence(&mut seq)
             .times(1)
-            .returning(|req, _| {
+            .returning(|req, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("some_project"));
                 assert_eq!(req.job_id, "initial_job_id");
                 let err_proto = ErrorProto::new()
                     .set_reason("backendError")
@@ -954,7 +1066,8 @@ mod tests {
         mock.expect_query()
             .in_sequence(&mut seq)
             .times(1)
-            .returning(|req, _| {
+            .returning(|req, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("some_project"));
                 let req_id = &req.query_request.as_ref().unwrap().request_id;
                 assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX));
                 assert!(uuid::Uuid::parse_str(&req_id[QUERY_REQUEST_ID_PREFIX.len()..]).is_ok());
@@ -972,7 +1085,8 @@ mod tests {
         mock.expect_get_query_results()
             .in_sequence(&mut seq)
             .times(1)
-            .returning(|req, _| {
+            .returning(|req, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("some_project"));
                 assert_eq!(req.job_id, "reissued_job_id");
                 let res = GetQueryResultsResponse::new()
                     .set_job_complete(true)
@@ -981,6 +1095,7 @@ mod tests {
             });
 
         let job_service = create_job_service(mock);
+        let read_client = create_read_client();
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("initial_job_id");
@@ -988,17 +1103,34 @@ mod tests {
             .set_job_complete(false)
             .set_job_reference(job_ref);
 
-        let query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
-            .with_project_id("some_project");
+        let query_builder = QueryBuilder::new(
+            job_service.clone(),
+            Some(read_client.clone()),
+            "SELECT 1".to_string(),
+        )
+        .with_project_id("some_project");
+        let options = query_builder.options.clone();
         let mut retry_context = RetryContext::new(query_builder);
         retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(job_service, query_res, Some(&retry_context), None);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            Some(&retry_context),
+            None,
+            Some(read_client),
+            options,
+        );
 
         let completed = query.until_done().await?;
+        assert!(completed.read_client.is_some());
         assert_eq!(
             completed.job_ref.as_ref().unwrap().job_id,
             "reissued_job_id"
+        );
+        assert_eq!(
+            completed.options.quota_project().as_deref(),
+            Some("some_project")
         );
         Ok(())
     }
@@ -1062,14 +1194,22 @@ mod tests {
             .set_job_complete(false)
             .set_job_reference(job_ref)
             .set_schema(TableSchema::new());
-        let mut query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
-            .with_project_id("some_project");
+        let mut query_builder =
+            QueryBuilder::new(job_service.clone(), None, "SELECT 1".to_string())
+                .with_project_id("some_project");
         query_builder.job_retry_policy =
             Arc::new(RetryableJobErrors::default().with_attempt_limit(2));
         let mut retry_context = RetryContext::new(query_builder);
         retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(job_service, query_res, Some(&retry_context), None);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            Some(&retry_context),
+            None,
+            None,
+            RequestOptions::default(),
+        );
 
         let err = query.until_done().await.unwrap_err();
         let errors = match err {
@@ -1104,7 +1244,14 @@ mod tests {
             .set_schema(TableSchema::new())
             .set_job_reference(job_ref);
 
-        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None, None);
+        let query = Query::from_query_response(
+            job_service.clone(),
+            query_res.clone(),
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
         let job = query.get_job().unwrap().send().await?;
         assert_eq!(job.user_email, "test@example.com");
 
@@ -1125,7 +1272,14 @@ mod tests {
             .set_schema(TableSchema::new())
             .set_job_reference(job_ref);
 
-        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None, None);
+        let query = Query::from_query_response(
+            job_service.clone(),
+            query_res.clone(),
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
         assert!(query.get_job().is_none(), "{query:?}");
 
         let complete_query = CompleteQuery::from_query_response(job_service, query_res, None);
@@ -1152,7 +1306,14 @@ mod tests {
             .set_schema(TableSchema::new())
             .set_job_reference(job_ref);
 
-        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None, None);
+        let query = Query::from_query_response(
+            job_service.clone(),
+            query_res.clone(),
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
         let req = query.get_job().unwrap();
         let err = req.send().await.unwrap_err();
         assert_eq!(err.status().unwrap().code, Code::NotFound);
@@ -1174,7 +1335,14 @@ mod tests {
             .set_job_reference(job_ref)
             .set_configuration(JobConfiguration::new().set_dry_run(true));
 
-        let query = Query::from_job(job_service, job, None, None);
+        let query = Query::from_job(
+            job_service,
+            job,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
         let err = query.until_done().await.unwrap_err();
         assert!(
             matches!(err, QueryError::DryRun),
@@ -1213,7 +1381,14 @@ mod tests {
             .set_job_reference(job_ref);
 
         let start = tokio::time::Instant::now();
-        let query = Query::from_query_response(job_service, query_res, None, None);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
         let _completed = query.until_done().await?;
         let elapsed = start.elapsed();
 
@@ -1308,6 +1483,7 @@ mod tests {
             .times(1);
 
         let job_service = create_job_service(mock);
+        let read_client = create_read_client();
         let job =
             Job::new()
                 .set_id("rust-sdk-testing:US.job_123")
@@ -1344,8 +1520,16 @@ mod tests {
                         ),
                 );
 
-        let query = Query::from_job(job_service, job, None, None);
+        let query = Query::from_job(
+            job_service,
+            job,
+            None,
+            None,
+            Some(read_client),
+            RequestOptions::default(),
+        );
         let complete = query.until_done().await?;
+        assert!(complete.read_client.is_some());
         let meta = complete.metadata();
 
         assert_eq!(meta.creation_time, Some(1790020718574));
@@ -1355,6 +1539,136 @@ mod tests {
         assert_eq!(meta.location, "US");
         assert_eq!(meta.cache_hit, Some(true));
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_until_done_polls_with_user_agent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .returning(|req, options| {
+                assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+                let res = GetQueryResultsResponse::new()
+                    .set_job_complete(true)
+                    .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                    .set_schema(TableSchema::new());
+                Ok(Response::from(res))
+            })
+            .times(1);
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref);
+
+        let mut options = RequestOptions::default();
+        options.set_user_agent("my-app/1.2.3");
+        let query = Query::from_query_response(job_service, query_res, None, None, None, options);
+
+        let completed = query.until_done().await?;
+        assert_eq!(
+            completed.options.user_agent().as_deref(),
+            Some("my-app/1.2.3")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_get_job_with_user_agent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().times(2).returning(|req, options| {
+            assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+            let res = Job::new()
+                .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                .set_user_email("test@example.com");
+            Ok(Response::from(res))
+        });
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(true)
+            .set_schema(TableSchema::new())
+            .set_job_reference(job_ref);
+
+        let mut options = RequestOptions::default();
+        options.set_user_agent("my-app/1.2.3");
+        let query = Query::from_query_response(job_service, query_res, None, None, None, options);
+        let job = query.get_job().unwrap().send().await?;
+        assert_eq!(job.user_email, "test@example.com");
+
+        let complete_query = query.until_done().await?;
+        let job = complete_query.get_job().unwrap().send().await?;
+        assert_eq!(job.user_email, "test@example.com");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_until_done_polls_with_quota_project() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .returning(|req, options| {
+                assert_eq!(options.quota_project().as_deref(), Some("some_project"));
+                let res = GetQueryResultsResponse::new()
+                    .set_job_complete(true)
+                    .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                    .set_schema(TableSchema::new());
+                Ok(Response::from(res))
+            })
+            .times(1);
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref);
+
+        let mut options = RequestOptions::default();
+        options.set_quota_project("some_project");
+        let query = Query::from_query_response(job_service, query_res, None, None, None, options);
+
+        let completed = query.until_done().await?;
+        assert_eq!(
+            completed.options.quota_project().as_deref(),
+            Some("some_project")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_get_job_with_quota_project() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().times(2).returning(|req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("some_project"));
+            let res = Job::new()
+                .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                .set_user_email("test@example.com");
+            Ok(Response::from(res))
+        });
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(true)
+            .set_schema(TableSchema::new())
+            .set_job_reference(job_ref);
+
+        let mut options = RequestOptions::default();
+        options.set_quota_project("some_project");
+        let query = Query::from_query_response(job_service, query_res, None, None, None, options);
+        let job = query.get_job().unwrap().send().await?;
+        assert_eq!(job.user_email, "test@example.com");
+
+        let complete_query = query.until_done().await?;
+        let job = complete_query.get_job().unwrap().send().await?;
+        assert_eq!(job.user_email, "test@example.com");
         Ok(())
     }
 }

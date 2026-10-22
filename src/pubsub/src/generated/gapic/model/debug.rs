@@ -563,6 +563,40 @@ impl std::fmt::Debug for super::BigtableConfig {
         debug_struct.field("service_account_email", &self.service_account_email);
         debug_struct.field("write_metadata", &self.write_metadata);
         debug_struct.field("state", &self.state);
+        debug_struct.field("message_mapping", &self.message_mapping);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::bigtable_config::ColumnFamilyMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnFamilyMapping");
+        debug_struct.field("key_definition", &self.key_definition);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::bigtable_config::column_family_mapping::RowKeySchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RowKeySchema");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::bigtable_config::column_family_mapping::DelimitedKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DelimitedKey");
+        debug_struct.field("key_fields", &self.key_fields);
+        debug_struct.field("delimiter", &self.delimiter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

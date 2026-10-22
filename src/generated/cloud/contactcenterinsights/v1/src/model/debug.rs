@@ -1923,8 +1923,19 @@ impl std::fmt::Debug for super::conversation::quality_metadata::AgentInfo {
         debug_struct.field("agent_id", &self.agent_id);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("team", &self.team);
+        debug_struct.field("teams", &self.teams);
         debug_struct.field("disposition_code", &self.disposition_code);
         debug_struct.field("agent_type", &self.agent_type);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("deployment_id", &self.deployment_id);
+        debug_struct.field("deployment_display_name", &self.deployment_display_name);
+        debug_struct.field("version_id", &self.version_id);
+        debug_struct.field("version_display_name", &self.version_display_name);
+        debug_struct.field(
+            "entry_subagent_display_name",
+            &self.entry_subagent_display_name,
+        );
+        debug_struct.field("entry_subagent_id", &self.entry_subagent_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

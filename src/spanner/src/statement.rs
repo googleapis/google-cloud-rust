@@ -975,4 +975,156 @@ mod tests {
 
         Ok(())
     }
+
+    #[test]
+    fn typed_proto_and_proto_enum_params() -> anyhow::Result<()> {
+        let address_payload = b"test-shipping-address";
+        let statement = Statement::builder(
+            "SELECT * FROM Orders WHERE Address = @addr AND Status = @status AND History = @history AND NullAddress = @null_address AND NullStatus = @null_status",
+        )
+        .add_typed_param(
+            "addr",
+            address_payload.to_vec(),
+            types::proto("examples.shipping.Address"),
+        )
+        .add_typed_param(
+            "status",
+            2_i64,
+            types::proto_enum("examples.shipping.OrderStatus"),
+        )
+        .add_typed_param(
+            "history",
+            vec![address_payload.to_vec()],
+            types::array(types::proto("examples.shipping.Address")),
+        )
+        .add_typed_param(
+            "status_history",
+            vec![1_i64, 2_i64],
+            types::array(types::proto_enum("examples.shipping.OrderStatus")),
+        )
+        .add_typed_param(
+            "null_address",
+            Option::<Vec<u8>>::None,
+            types::proto("examples.shipping.Address"),
+        )
+        .add_typed_param(
+            "null_status",
+            Option::<i64>::None,
+            types::proto_enum("examples.shipping.OrderStatus"),
+        )
+        .build();
+
+        let request = statement.into_request();
+        let param_types = request.param_types;
+        let params = request.params.expect("request params must be present");
+
+        assert_eq!(
+            params.get("null_address"),
+            Some(&JsonValue::Null),
+            "expected null JSON value for null_address parameter"
+        );
+        assert_eq!(
+            params.get("null_status"),
+            Some(&JsonValue::Null),
+            "expected null JSON value for null_status parameter"
+        );
+
+        let addr_type = param_types
+            .get("addr")
+            .expect("param_types must contain addr");
+        assert_eq!(
+            addr_type.code,
+            TypeCode::Proto,
+            "expected TypeCode::Proto for addr param"
+        );
+        assert_eq!(
+            addr_type.proto_type_fqn, "examples.shipping.Address",
+            "expected proto_type_fqn on addr param"
+        );
+
+        let status_type = param_types
+            .get("status")
+            .expect("param_types must contain status");
+        assert_eq!(
+            status_type.code,
+            TypeCode::Enum,
+            "expected TypeCode::Enum for status param"
+        );
+        assert_eq!(
+            status_type.proto_type_fqn, "examples.shipping.OrderStatus",
+            "expected proto_type_fqn on status param"
+        );
+
+        let null_addr_type = param_types
+            .get("null_address")
+            .expect("param_types must contain null_address");
+        assert_eq!(
+            null_addr_type.code,
+            TypeCode::Proto,
+            "expected TypeCode::Proto for null_address param"
+        );
+        assert_eq!(
+            null_addr_type.proto_type_fqn, "examples.shipping.Address",
+            "expected proto_type_fqn on null_address param"
+        );
+
+        let null_status_type = param_types
+            .get("null_status")
+            .expect("param_types must contain null_status");
+        assert_eq!(
+            null_status_type.code,
+            TypeCode::Enum,
+            "expected TypeCode::Enum for null_status param"
+        );
+        assert_eq!(
+            null_status_type.proto_type_fqn, "examples.shipping.OrderStatus",
+            "expected proto_type_fqn on null_status param"
+        );
+
+        let history_type = param_types
+            .get("history")
+            .expect("param_types must contain history");
+        assert_eq!(
+            history_type.code,
+            TypeCode::Array,
+            "expected TypeCode::Array for history param"
+        );
+        let element_type = history_type
+            .array_element_type
+            .as_ref()
+            .expect("array param must have element type");
+        assert_eq!(
+            element_type.code,
+            TypeCode::Proto,
+            "expected element TypeCode::Proto for history param"
+        );
+        assert_eq!(
+            element_type.proto_type_fqn, "examples.shipping.Address",
+            "expected element proto_type_fqn on history param"
+        );
+
+        let status_history_type = param_types
+            .get("status_history")
+            .expect("param_types must contain status_history");
+        assert_eq!(
+            status_history_type.code,
+            TypeCode::Array,
+            "expected TypeCode::Array for status_history param"
+        );
+        let status_element_type = status_history_type
+            .array_element_type
+            .as_ref()
+            .expect("array param must have element type");
+        assert_eq!(
+            status_element_type.code,
+            TypeCode::Enum,
+            "expected element TypeCode::Enum for status_history param"
+        );
+        assert_eq!(
+            status_element_type.proto_type_fqn, "examples.shipping.OrderStatus",
+            "expected element proto_type_fqn on status_history param"
+        );
+
+        Ok(())
+    }
 }

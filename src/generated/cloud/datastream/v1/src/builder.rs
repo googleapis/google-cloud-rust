@@ -962,6 +962,36 @@ pub mod datastream {
             self.0.request = self.0.request.set_mongodb_cluster(v);
             self
         }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+        /// to hold a `SpannerDatabase`.
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
+        pub fn set_spanner_database<
+            T: std::convert::Into<std::boxed::Box<crate::model::SpannerDatabase>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_spanner_database(v);
+            self
+        }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+        /// to hold a `SourceCatalog`.
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
+        pub fn set_source_catalog<
+            T: std::convert::Into<std::boxed::Box<crate::model::SourceCatalog>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_source_catalog(v);
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2056,6 +2086,24 @@ pub mod datastream {
         /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
+            self
+        }
+
+        /// Sets the value of [event_filter][crate::model::StartBackfillJobRequest::event_filter].
+        pub fn set_event_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EventFilter>,
+        {
+            self.0.request.event_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [event_filter][crate::model::StartBackfillJobRequest::event_filter].
+        pub fn set_or_clear_event_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EventFilter>,
+        {
+            self.0.request.event_filter = v.map(|x| x.into());
             self
         }
     }

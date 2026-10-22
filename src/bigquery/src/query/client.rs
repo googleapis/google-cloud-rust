@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::builder::bigquery::Query;
 use crate::client::Read;
 use crate::error::QueryError;
@@ -66,7 +67,6 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct BigQuery {
     job_service: Arc<JobService>,
-    // TODO(#7037): Thread read_client through Query and CompleteQuery.
     read_client: Option<Arc<Read>>,
     project_id: Option<String>,
 }
@@ -200,7 +200,11 @@ impl BigQuery {
     /// # }
     /// ```
     pub fn query<S: Into<String>>(&self, sql: S) -> Query {
-        let builder = Query::new(self.job_service.clone(), sql.into());
+        let builder = Query::new(
+            self.job_service.clone(),
+            self.read_client.clone(),
+            sql.into(),
+        );
         self.project_id
             .as_deref()
             .into_iter()
@@ -271,6 +275,8 @@ impl BigQuery {
             check_job_status(job)?,
             None,
             None,
+            self.read_client.clone(),
+            RequestOptions::default(),
         ))
     }
 }
@@ -279,7 +285,7 @@ impl BigQuery {
 mod tests {
     use super::BigQuery;
     use crate::error::QueryError;
-    use crate::query::tests::{MockJobService, create_job_service};
+    use crate::query::tests::{MockJobService, create_job_service, create_read_client};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_bigquery_v2::client::JobService;
     use google_cloud_bigquery_v2::model::{
@@ -363,6 +369,26 @@ mod tests {
             .await?;
         let query_builder = client.query("SELECT 1");
         assert_eq!(query_builder.project_id.as_deref(), Some("test-proj"));
+        assert_eq!(
+            query_builder.options.quota_project().as_deref(),
+            Some("test-proj")
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_query_overrides_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_project_id("test-proj")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let query_builder = client.query("SELECT 1").with_project_id("override-proj");
+        assert_eq!(query_builder.project_id.as_deref(), Some("override-proj"));
+        assert_eq!(
+            query_builder.options.quota_project().as_deref(),
+            Some("override-proj")
+        );
         Ok(())
     }
 
@@ -374,6 +400,18 @@ mod tests {
             .await?;
         let query_builder = client.query("SELECT 1");
         assert!(query_builder.project_id.is_none());
+        assert!(query_builder.options.quota_project().is_none());
+        assert!(query_builder.read_client.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_query_forwards_read_client() -> anyhow::Result<()> {
+        let mut client =
+            BigQuery::from_job_service(create_job_service(MockJobService::new()), None);
+        client.read_client = Some(create_read_client());
+        let query_builder = client.query("SELECT 1");
+        assert!(query_builder.read_client.is_some());
         Ok(())
     }
 
@@ -395,11 +433,13 @@ mod tests {
                 );
             Ok(Response::from(job))
         });
-        let client = BigQuery::from_job_service(create_job_service(mock), None);
+        let mut client = BigQuery::from_job_service(create_job_service(mock), None);
+        client.read_client = Some(create_read_client());
         let job_ref = JobReference::new()
             .set_project_id("test-proj")
             .set_job_id("job_123");
         let query = client.attach_job(job_ref).await?;
+        assert!(query.read_client.is_some());
         let job_ref = query
             .metadata()
             .job_reference
