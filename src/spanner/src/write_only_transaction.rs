@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::channel_pool::TransactionAffinity;
-use crate::client::{DatabaseClient, amend_request_options_for_lar};
+use crate::client::DatabaseClient;
 use crate::model::commit_response::MultiplexedSessionRetry;
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
@@ -407,8 +407,8 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let begin_gax_options = self.begin_gax_options();
-        let commit_gax_options = self.commit_gax_options();
+        let begin_gax_options = self.begin_gax_options.clone();
+        let commit_gax_options = self.commit_gax_options.clone();
         let req_options = RequestOptions::default()
             .set_transaction_tag(self.transaction_tag.unwrap_or_default())
             .set_priority(self.commit_priority.clone());
@@ -551,7 +551,7 @@ impl WriteOnlyTransaction {
     where
         I: IntoIterator<Item = Mutation>,
     {
-        let commit_gax_options = self.commit_gax_options();
+        let commit_gax_options = self.commit_gax_options.clone();
         let single_use = TransactionOptions::new()
             .set_read_write(Box::new(ReadWrite::new()))
             .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams);
@@ -577,20 +577,6 @@ impl WriteOnlyTransaction {
         };
 
         retry_aborted(&*self.retry_policy, action, is_emulator).await
-    }
-
-    fn begin_gax_options(&self) -> GaxRequestOptions {
-        amend_request_options_for_lar(
-            self.client.leader_aware_routing_enabled,
-            self.begin_gax_options.clone(),
-        )
-    }
-
-    fn commit_gax_options(&self) -> GaxRequestOptions {
-        amend_request_options_for_lar(
-            self.client.leader_aware_routing_enabled,
-            self.commit_gax_options.clone(),
-        )
     }
 }
 

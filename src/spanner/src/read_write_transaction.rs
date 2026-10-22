@@ -18,7 +18,7 @@ use crate::Result;
 use crate::batch::BatchDml;
 use crate::batch_dml::process_response;
 use crate::channel_pool::{ChannelTarget, TransactionAffinity};
-use crate::client::amend_request_options_for_lar;
+use crate::client::RouteToLeader;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::model::CommitRequest;
@@ -54,6 +54,7 @@ use bytes::Bytes;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
@@ -212,11 +213,7 @@ impl ReadWriteTransactionBuilder {
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
                 let mut options = self.begin_gax_options.clone().unwrap_or_default();
-                amend_gax_options(
-                    self.client.leader_aware_routing_enabled,
-                    deadline,
-                    &mut options,
-                );
+                amend_gax_options(deadline, &mut options);
 
                 self.begin(
                     self.session_name.clone(),
@@ -500,7 +497,7 @@ impl Drop for ReadWriteTransactionDropGuard {
         let session_name = take(&mut self.session_name);
         let affinity = self.affinity.take();
         let mut gax_options = self.rollback_gax_options.take().unwrap_or_default();
-        amend_gax_options_for_rollback(client.leader_aware_routing_enabled, &mut gax_options);
+        amend_gax_options_for_rollback(&mut gax_options);
 
         let cleanup_guard = AffinityCleanupGuard {
             client: client.clone(),
@@ -926,10 +923,7 @@ impl ReadWriteTransaction {
             .rollback_gax_options
             .clone()
             .unwrap_or_default();
-        amend_gax_options_for_rollback(
-            self.context.client.leader_aware_routing_enabled,
-            &mut gax_options,
-        );
+        amend_gax_options_for_rollback(&mut gax_options);
 
         self.context
             .client
@@ -940,11 +934,7 @@ impl ReadWriteTransaction {
     }
 
     fn amend_gax_options(&self, options: &mut GaxRequestOptions) {
-        amend_gax_options(
-            self.context.client.leader_aware_routing_enabled,
-            self.deadline,
-            options,
-        );
+        amend_gax_options(self.deadline, options);
     }
 
     /// Returns a reference to the transaction channel affinity handle, if set.
@@ -956,27 +946,16 @@ impl ReadWriteTransaction {
 
 pub(crate) const DEFAULT_ROLLBACK_TIMEOUT: Duration = Duration::from_secs(30);
 
-pub(crate) fn amend_gax_options_for_rollback(
-    leader_aware_routing_enabled: bool,
-    options: &mut GaxRequestOptions,
-) {
+pub(crate) fn amend_gax_options_for_rollback(options: &mut GaxRequestOptions) {
     if options.idempotent().is_none() {
         options.set_idempotency(true);
     }
     let timeout = (*options.attempt_timeout()).unwrap_or(DEFAULT_ROLLBACK_TIMEOUT);
     let rollback_deadline = Instant::now() + DEFAULT_ROLLBACK_TIMEOUT.max(timeout);
-    amend_gax_options(
-        leader_aware_routing_enabled,
-        Some(rollback_deadline),
-        options,
-    );
+    amend_gax_options(Some(rollback_deadline), options);
 }
 
-pub(crate) fn amend_gax_options(
-    leader_aware_routing_enabled: bool,
-    deadline: Option<Instant>,
-    options: &mut GaxRequestOptions,
-) {
+pub(crate) fn amend_gax_options(deadline: Option<Instant>, options: &mut GaxRequestOptions) {
     if let Some(deadline) = deadline {
         let remaining = deadline.saturating_duration_since(Instant::now());
         let attempt_timeout = match options.attempt_timeout() {
@@ -995,7 +974,7 @@ pub(crate) fn amend_gax_options(
         };
         options.set_retry_policy(bounded_policy);
     }
-    *options = amend_request_options_for_lar(leader_aware_routing_enabled, take(options));
+    *options = take(options).insert_extension(RouteToLeader);
 }
 
 /// A retry policy that wraps another policy and bounds the total execution time
@@ -1051,7 +1030,6 @@ mod tests {
     use gaxi::grpc::tonic;
     use gaxi::grpc::tonic::MetadataMap;
     use gaxi::grpc::tonic::{Code as TonicCode, Response, Status as TonicStatus};
-    use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
@@ -4398,36 +4376,24 @@ mod tests {
 
     #[test]
     fn test_amend_gax_options() {
-        // Case 1: No Deadline, LAR disabled
+        // Case 1: No Deadline
         let mut options = RequestOptions::default();
         options.set_attempt_timeout(StdDuration::from_secs(4));
-        amend_gax_options(false, None, &mut options);
+        amend_gax_options(None, &mut options);
         assert_eq!(*options.attempt_timeout(), Some(StdDuration::from_secs(4)));
         assert!(options.retry_policy().is_none());
-
-        // Case 2: No Deadline, LAR enabled
-        let mut options = RequestOptions::default();
-        amend_gax_options(true, None, &mut options);
-        // Verify LAR extension is added
-        let headers = options
-            .get_extension::<HeaderMap>()
-            .expect("HeaderMap extension missing");
         assert_eq!(
-            headers
-                .get("x-goog-spanner-route-to-leader")
-                .unwrap()
-                .to_str()
-                .unwrap(),
-            "true"
+            options.get_extension::<RouteToLeader>(),
+            Some(&RouteToLeader)
         );
 
-        // Case 3: Deadline present, no custom timeout.
+        // Case 2: Deadline present, no custom timeout.
         // Since Instant::now() is called inside amend_gax_options slightly after the test's
         // Instant::now() call, the remaining time will be slightly less than 5 seconds.
         // Therefore, we assert that it falls within a very close range.
         let mut options = RequestOptions::default();
         let deadline = Instant::now() + StdDuration::from_secs(5);
-        amend_gax_options(false, Some(deadline), &mut options);
+        amend_gax_options(Some(deadline), &mut options);
         let timeout = options.attempt_timeout().expect("attempt timeout missing");
         assert!(
             timeout >= StdDuration::from_millis(4500) && timeout <= StdDuration::from_millis(5500)
@@ -4443,7 +4409,7 @@ mod tests {
         let mut options = RequestOptions::default();
         options.set_attempt_timeout(StdDuration::from_secs(2));
         let deadline = Instant::now() + StdDuration::from_secs(10);
-        amend_gax_options(false, Some(deadline), &mut options);
+        amend_gax_options(Some(deadline), &mut options);
         assert_eq!(*options.attempt_timeout(), Some(StdDuration::from_secs(2)));
 
         // Case 5: Deadline present, custom timeout longer than deadline.
@@ -4452,7 +4418,7 @@ mod tests {
         let mut options = RequestOptions::default();
         options.set_attempt_timeout(StdDuration::from_secs(10));
         let deadline = Instant::now() + StdDuration::from_secs(2);
-        amend_gax_options(false, Some(deadline), &mut options);
+        amend_gax_options(Some(deadline), &mut options);
         let timeout = options.attempt_timeout().expect("attempt timeout missing");
         assert!(
             timeout >= StdDuration::from_millis(1500) && timeout <= StdDuration::from_millis(2500)
@@ -4542,7 +4508,7 @@ mod tests {
     fn amend_gax_options_for_rollback_defaults_and_custom() {
         // Case 1: Default timeout and retry policy
         let mut options = RequestOptions::default();
-        amend_gax_options_for_rollback(false, &mut options);
+        amend_gax_options_for_rollback(&mut options);
         let timeout = options.attempt_timeout().expect("attempt timeout missing");
         assert!(
             timeout >= StdDuration::from_millis(28000)
@@ -4564,7 +4530,7 @@ mod tests {
         let mut options = RequestOptions::default();
         let custom_timeout = StdDuration::from_secs(2);
         options.set_attempt_timeout(custom_timeout);
-        amend_gax_options_for_rollback(false, &mut options);
+        amend_gax_options_for_rollback(&mut options);
         let timeout = options.attempt_timeout().expect("attempt timeout missing");
         assert!(
             timeout >= StdDuration::from_millis(1800) && timeout <= StdDuration::from_millis(2200),
@@ -4572,25 +4538,18 @@ mod tests {
             timeout
         );
 
-        // Case 3: Leader-aware routing enabled
+        // Case 3: Route-to-leader extension added
         let mut options = RequestOptions::default();
-        amend_gax_options_for_rollback(true, &mut options);
-        let headers = options
-            .get_extension::<HeaderMap>()
-            .expect("HeaderMap extension missing");
+        amend_gax_options_for_rollback(&mut options);
         assert_eq!(
-            headers
-                .get("x-goog-spanner-route-to-leader")
-                .expect("route to leader header")
-                .to_str()
-                .expect("valid str"),
-            "true"
+            options.get_extension::<RouteToLeader>(),
+            Some(&RouteToLeader)
         );
 
         // Case 4: Explicit non-idempotent configuration preserved
         let mut options = RequestOptions::default();
         options.set_idempotency(false);
-        amend_gax_options_for_rollback(false, &mut options);
+        amend_gax_options_for_rollback(&mut options);
         assert_eq!(
             options.idempotent(),
             Some(false),
