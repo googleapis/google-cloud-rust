@@ -108,7 +108,7 @@ where
                 message = Some(slot.take()?);
             }
             ResponseStreamItem::Trailers(trailers) => {
-                // The trailer metadata will be merged with the header metadata.
+                // Trailer metadata replaces header values for repeated keys.
                 let trailer_metadata = to_tonic_map(trailers.metadata());
                 // If the server returned an error status in trailers, return that error.
                 if let Some(status) = trailers_to_tonic_status(trailers, seen_headers) {
