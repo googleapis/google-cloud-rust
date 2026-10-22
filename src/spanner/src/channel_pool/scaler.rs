@@ -118,6 +118,10 @@ pub(crate) async fn scale_up_worker_loop(
             let prime_session_name = match maybe_prime_session {
                 Some(session) => session,
                 None => {
+                    // No session registered yet to execute physical channel warming queries.
+                    // Reset scale_up_requested so it does not block scale-down while waiting,
+                    // and throttle to prevent busy-wakeup storms if unprimed requests arrive.
+                    inner.scale_up_requested.store(false, Ordering::Release);
                     drop(inner);
                     tokio::select! {
                         _ = sleep(Duration::from_millis(100)) => continue,
@@ -3441,5 +3445,136 @@ mod tests {
         );
         let weak_inner = Arc::downgrade(&pool.inner);
         scale_down_monitor_loop(weak_inner, receiver, Duration::from_millis(1)).await;
+    }
+
+    #[tokio::test]
+    async fn scale_up_worker_loop_resets_scale_up_requested_when_no_prime_session() {
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![Arc::new(ChannelEntry::new(
+                1,
+                1,
+                create_mock_channel(),
+            ))]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(2),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(0),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let weak_dynamic = Arc::downgrade(&inner);
+        let receiver = inner.shutdown_sender.subscribe();
+        let worker_handle = tokio::spawn(async move {
+            scale_up_worker_loop(weak_dynamic, receiver).await;
+        });
+
+        // Simulate a channel picker requesting scale-up and notifying the worker while unprimed.
+        inner.scale_up_requested.store(true, Ordering::Release);
+        inner.scale_up_notify.notify_one();
+
+        // Worker should run, observe that prime_session is None, reset scale_up_requested to false,
+        // and loop back to awaiting the next notification.
+        for _ in 0..100 {
+            if !inner.scale_up_requested.load(Ordering::Acquire) {
+                break;
+            }
+            yield_now().await;
+        }
+
+        assert!(
+            !inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be reset to false when scale-up is triggered without a prime session"
+        );
+
+        drop(inner);
+        let worker_result = worker_handle.await;
+        assert!(
+            worker_result.is_ok(),
+            "scale_up_worker_loop must terminate cleanly on pool drop"
+        );
+    }
+
+    #[tokio::test]
+    async fn scale_down_not_blocked_after_scale_up_triggered_without_prime_session() {
+        let channel_first = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_second = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        let channel_third = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+
+        let dynamic_config = DynamicChannelPoolConfig {
+            min_channels: 2,
+            max_channels: 4,
+            consecutive_low_load_checks: 1,
+            max_remove_channels: 1,
+            ..Default::default()
+        };
+
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(dynamic_config.clone()),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![
+                Arc::clone(&channel_first),
+                Arc::clone(&channel_second),
+                Arc::clone(&channel_third),
+            ]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(4),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(0),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let weak_dynamic = Arc::downgrade(&inner);
+        let receiver = inner.shutdown_sender.subscribe();
+        let worker_handle = tokio::spawn(async move {
+            scale_up_worker_loop(weak_dynamic, receiver).await;
+        });
+
+        // Channel picker requests scale-up before any prime session is registered.
+        inner.scale_up_requested.store(true, Ordering::Release);
+        inner.scale_up_notify.notify_one();
+
+        // Wait for worker to clear scale_up_requested.
+        for _ in 0..100 {
+            if !inner.scale_up_requested.load(Ordering::Acquire) {
+                break;
+            }
+            yield_now().await;
+        }
+
+        assert!(
+            !inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be reset to false after unprimed scale-up trigger"
+        );
+
+        // Scale-down evaluation should now succeed without being aborted by scale_up_requested.
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+
+        assert_eq!(
+            inner.read_active_entries().len(),
+            2,
+            "One underutilized channel should be moved out of active entries"
+        );
+        assert_eq!(
+            inner.read_draining_entries().len(),
+            1,
+            "Draining entries should contain exactly one channel"
+        );
+
+        drop(inner);
+        let worker_result = worker_handle.await;
+        assert!(
+            worker_result.is_ok(),
+            "scale_up_worker_loop must terminate cleanly on pool drop"
+        );
     }
 }

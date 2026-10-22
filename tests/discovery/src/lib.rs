@@ -296,6 +296,10 @@ pub async fn images() -> Result<()> {
         .set_description("A test Image created by the Rust client library.")
         .set_family("cos-stable")
         .set_labels([("integration-test", "true")])
+        // Explicitly set a valid storage location (`"us"`) so GCE does not try
+        // to infer a multi-region from source images replicated in regions like
+        // `africa-south1` (which fails with `Invalid value for storage location: AFRICA`).
+        .set_storage_locations(["us"])
         .set_source_image(format!("projects/cos-cloud/global/images/{found}"));
     let operation = client
         .insert()

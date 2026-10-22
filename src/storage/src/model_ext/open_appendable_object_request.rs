@@ -20,6 +20,12 @@
 #[non_exhaustive]
 pub struct OpenAppendableObjectRequest {
     /// The object attributes and pre-conditions for the open operation.
+    ///
+    /// When constructed via
+    /// [OpenAppendableObject][crate::builder::storage::OpenAppendableObject],
+    /// `spec.appendable` is set to `Some(true)` and `spec.resource` is
+    /// populated with the target `bucket` and object `name` alongside any
+    /// object attributes configured on the builder.
     pub spec: crate::model::WriteObjectSpec,
     /// Additional request parameters.
     pub params: Option<crate::model::CommonObjectRequestParams>,
