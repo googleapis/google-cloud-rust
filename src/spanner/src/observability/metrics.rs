@@ -208,8 +208,20 @@ pub(crate) fn generate_client_uid() -> String {
 /// Generates a 6-character zero-padded lowercase hexadecimal hash for the `client_hash`
 /// resource label using the 10 most significant bits of an FNV-1a 64-bit hash of `client_uid`.
 ///
-/// The 10-bit prefix (values in range `[000000, 0003ff]`) intentionally groups client processes
-/// into buckets to keep Cloud Monitoring monitored resource target cardinality within quota limits.
+/// # Cardinality & Collision Invariant (DO NOT MODIFY)
+///
+/// - **Cardinality Bounding**: The 10-bit prefix (values in range `[000000, 0003ff]`, 1,024 buckets)
+///   is intentionally specified to keep the cardinality of `spanner_instance_client` monitored resource
+///   targets within Google Cloud Monitoring quota limits.
+/// - **Zero Risk of `DuplicateTimeSeries` Collisions**: `client_hash` is exclusively a label on the
+///   `spanner_instance_client` monitored resource, **not** on the metric. Every exported metric data point
+///   includes the full, globally unique `client_uid` (UUIDv4) in its metric labels. In Cloud Monitoring,
+///   a time series is uniquely identified by `(metric.type, metric.labels, resource.type, resource.labels)`.
+///   Therefore, multiple client instances mapping to the same 10-bit `client_hash` bucket still produce
+///   completely distinct time series and will never cause `DuplicateTimeSeries` write errors.
+/// - **Do NOT widen this hash space**: Increasing the bit prefix length (e.g. to 24 bits) would cause
+///   resource target cardinality explosion in Cloud Monitoring and break parity with the Cloud Spanner
+///   built-in metrics specification.
 #[cfg(feature = "builtin-metrics")]
 pub(crate) fn generate_client_hash(client_uid: &str) -> String {
     if client_uid.is_empty() {
@@ -431,6 +443,23 @@ impl Observability {
         (enable_cloud_monitoring, enable_builtin_to_custom)
     }
 
+    /// Initializes Google Cloud Monitoring export for Spanner built-in metrics.
+    ///
+    /// # Lifecycle & Threading Invariant
+    ///
+    /// Each database client initializes its own [`Observability`] instance with a dedicated
+    /// [`PeriodicReader`] and [`MetricService`] client. This design is intentional:
+    /// - **Metric Label Correctness**: Metric points are tagged with the client's specific `database`
+    ///   attribute, and the monitored resource is bound to the target `project_id` and `instance_id`.
+    ///   Sharing an [`Observability`] instance across databases would corrupt the `database` metric label.
+    /// - **Deterministic Resource Cleanup**: When a database client is dropped and its
+    ///   [`Arc<Observability>`] reference count reaches zero, its [`Drop`] implementation automatically
+    ///   shuts down the [`SdkMeterProvider`], cleanly terminating the background [`PeriodicReader`] OS
+    ///   thread and closing gRPC connections. Caching instances across clients would keep threads
+    ///   alive indefinitely, leading to resource leaks.
+    /// - **Multi-Threaded Reuse**: Applications should create a single `DatabaseClient` per database
+    ///   and clone it across tasks; cloning is cheap and shares the underlying [`Arc<Observability>`]
+    ///   without spawning additional threads or gRPC connections.
     #[cfg(feature = "builtin-metrics")]
     async fn init_cloud_monitoring(
         config: &ClientConfig,
