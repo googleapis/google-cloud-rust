@@ -322,9 +322,27 @@ impl ArrowCell {
                     )))
                 }
             }
-            DataType::Timestamp(_, _) => {
-                let micros = self.as_timestamp_micros()?;
-                Ok(Cow::Owned(micros.to_string()))
+            DataType::Timestamp(_, tz) => {
+                if tz.is_none() {
+                    let dt = google_cloud_type::model::DateTime::from_value(SqlValue::from_inner(
+                        SqlValueInner::Arrow(self.clone()),
+                    ))?;
+                    if dt.nanos == 0 {
+                        Ok(Cow::Owned(format!(
+                            "{:04}-{:02}-{:02}T{:02}:{:02}:{:02}",
+                            dt.year, dt.month, dt.day, dt.hours, dt.minutes, dt.seconds
+                        )))
+                    } else {
+                        let subsec_micros = dt.nanos / 1_000;
+                        Ok(Cow::Owned(format!(
+                            "{:04}-{:02}-{:02}T{:02}:{:02}:{:02}.{subsec_micros:06}",
+                            dt.year, dt.month, dt.day, dt.hours, dt.minutes, dt.seconds
+                        )))
+                    }
+                } else {
+                    let micros = self.as_timestamp_micros()?;
+                    Ok(Cow::Owned(micros.to_string()))
+                }
             }
             DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => {
                 self.as_decimal_str().map(Cow::Owned)
@@ -717,7 +735,9 @@ mod tests {
     #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])), 0 => Ok("AQID".to_string()) ; "str from BinaryArray")]
     #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])), 0 => Ok("2026-05-28".to_string()) ; "str from Date32Array")]
     #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])), 0 => Ok("15:30:00".to_string()) ; "str from Time64MicrosecondArray")]
-    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok("1779982200123456".to_string()) ; "str from TimestampMicrosecondArray")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)]).with_timezone("UTC")), 0 => Ok("1779982200123456".to_string()) ; "str from TimestampMicrosecondArray with tz")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])), 0 => Ok("2026-05-28T15:30:00".to_string()) ; "str from TimestampMicrosecondArray without tz zero nanos")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok("2026-05-28T15:30:00.123456".to_string()) ; "str from TimestampMicrosecondArray without tz fractional")]
     #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "str from Decimal128Array")]
     #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])), 0 => Ok("1-2 3 04:05:06.000000789".to_string()) ; "str from IntervalMonthDayNanoArray")]
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray", "Int64")) ; "str type mismatch")]
