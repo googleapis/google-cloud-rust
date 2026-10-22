@@ -335,6 +335,13 @@ mod tests {
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(0..10))
                 .returning(move |_| ());
+            // The acks were never extended, so they go out with a modack.
+            mock.lock()
+                .await
+                .expect_extend()
+                .times(1)
+                .withf(|v| sorted(v) == test_ids(0..10))
+                .returning(|v| v);
             tokio::time::advance(FLUSH_START).await;
 
             // Yield the current task, so tokio can execute the flush().
@@ -379,6 +386,12 @@ mod tests {
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(20..25))
                 .returning(move |_| ());
+            mock.lock()
+                .await
+                .expect_extend()
+                .times(1)
+                .withf(|v| sorted(v) == test_ids(20..25))
+                .returning(|v| v);
             mock.lock()
                 .await
                 .expect_nack()
@@ -565,6 +578,12 @@ mod tests {
             .times(1)
             .withf(|v| sorted(v) == test_ids(10..30))
             .returning(|_| ());
+        mock.lock()
+            .await
+            .expect_extend()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..10))
+            .returning(|v| v);
 
         let (_confirmed_tx, confirmed_rx) = unbounded_channel();
         let (_eo_extend_tx, eo_extend_rx) = unbounded_channel();
@@ -606,6 +625,12 @@ mod tests {
             .times(1)
             .withf(|v| sorted(v) == test_ids(0..20))
             .returning(|_| ());
+        mock.lock()
+            .await
+            .expect_extend()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..20))
+            .returning(|v| v);
 
         let (_confirmed_tx, confirmed_rx) = unbounded_channel();
         let (_eo_extend_tx, eo_extend_rx) = unbounded_channel();
@@ -739,6 +764,12 @@ mod tests {
                     .times(1)
                     .withf(|v| *v == vec![test_id(1)])
                     .returning(|_| ());
+                mock.lock()
+                    .await
+                    .expect_extend()
+                    .times(1)
+                    .withf(|v| *v == vec![test_id(1)])
+                    .returning(|v| v);
                 tokio::time::advance(Duration::from_millis(100)).await;
 
                 // Yield the current task, so tokio can execute the flush().

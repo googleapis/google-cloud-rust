@@ -14,7 +14,9 @@
 
 use super::exactly_once_retry::exactly_once_retry_loop;
 use super::handler::AckResult;
-use super::retry_policy::{StreamRetryPolicy, eo_ack_options, eo_modack_options, rpc_options};
+use super::retry_policy::{
+    StreamRetryPolicy, eo_ack_options, eo_modack_options, rpc_options, settle_options,
+};
 use super::stub::Stub;
 use crate::RequestOptions;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
@@ -60,6 +62,7 @@ where
     inner: Arc<T>,
     confirmed_tx: UnboundedSender<ConfirmedAcks>,
     options: RequestOptions,
+    settle_options: RequestOptions,
     eo_ack_options: RequestOptions,
     eo_modack_options: RequestOptions,
     subscription: String,
@@ -77,6 +80,7 @@ where
             inner: self.inner.clone(),
             confirmed_tx: self.confirmed_tx.clone(),
             options: self.options.clone(),
+            settle_options: self.settle_options.clone(),
             eo_ack_options: self.eo_ack_options.clone(),
             eo_modack_options: self.eo_modack_options.clone(),
             subscription: self.subscription.clone(),
@@ -127,6 +131,7 @@ where
             inner,
             confirmed_tx,
             options: rpc_options(grpc_subchannel_count),
+            settle_options: settle_options(),
             eo_ack_options: eo_ack_options(),
             eo_modack_options: eo_modack_options(Duration::from_secs(ack_deadline_seconds as u64)),
             subscription,
@@ -143,21 +148,42 @@ where
     T: Stub + 'static,
 {
     async fn ack(&self, ack_ids: Vec<String>) {
+        let count = ack_ids.len();
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids);
-        let _ = self.inner.acknowledge(req, self.options.clone()).await;
+        if let Err(error) = self
+            .inner
+            .acknowledge(req, self.settle_options.clone())
+            .await
+        {
+            tracing::warn!(
+                subscription = %self.subscription,
+                count,
+                %error,
+                "acknowledge failed; the messages will be redelivered"
+            );
+        }
     }
 
     async fn nack(&self, ack_ids: Vec<String>) {
+        let count = ack_ids.len();
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(0);
-        let _ = self
+        if let Err(error) = self
             .inner
-            .modify_ack_deadline(req, self.options.clone())
-            .await;
+            .modify_ack_deadline(req, self.settle_options.clone())
+            .await
+        {
+            tracing::warn!(
+                subscription = %self.subscription,
+                count,
+                %error,
+                "nack failed; the messages will be redelivered when their deadline expires"
+            );
+        }
     }
 
     async fn extend(&self, ack_ids: Vec<String>) -> Vec<String> {
@@ -278,7 +304,7 @@ fn retry_throttler(options: &RequestOptions) -> SharedRetryThrottler {
 #[cfg(test)]
 pub(super) mod tests {
     use super::super::lease_state::tests::{sorted, test_ids};
-    use super::super::retry_policy::tests::verify_policies;
+    use super::super::retry_policy::tests::{verify_policies, verify_settle_policies};
     use super::super::stub::tests::MockStub;
     use super::*;
     use crate::{Error, Response};
@@ -383,7 +409,7 @@ pub(super) mod tests {
                 "projects/my-project/subscriptions/my-subscription"
             );
             assert_eq!(r.ack_ids, test_ids(0..10));
-            verify_policies(o, 16);
+            verify_settle_policies(o);
             Ok(Response::from(()))
         });
 
@@ -412,7 +438,7 @@ pub(super) mod tests {
                     "projects/my-project/subscriptions/my-subscription"
                 );
                 assert_eq!(r.ack_ids, test_ids(0..10));
-                verify_policies(o, 16);
+                verify_settle_policies(o);
                 Ok(Response::from(()))
             });
 
