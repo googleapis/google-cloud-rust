@@ -15,11 +15,16 @@
 use crate::error::ConvertError;
 use crate::error::RowError;
 use crate::query::ColumnIndex;
+use crate::query::from_sql::SqlValueInner;
+use crate::query::{FromSql, SqlValue};
 use arrow::array::{
     ArrayRef, as_large_list_array, as_list_array, as_primitive_array, as_struct_array,
 };
 use arrow::datatypes::{DataType, IntervalMonthDayNano, IntervalMonthDayNanoType, IntervalUnit};
 use arrow::record_batch::RecordBatch;
+use base64::Engine;
+use base64::prelude::BASE64_STANDARD;
+use std::borrow::Cow;
 use std::sync::Arc;
 
 /// Incremental Arrow IPC stream decoder that parses an initial `ArrowSchema`
@@ -129,16 +134,6 @@ impl RecordBatchSource for ArrowReader {
     async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
         match self {
             Self::Response(r) => r.next_record_batch().await,
-        }
-    }
-}
-
-impl ArrowReader {
-    /// Returns `true` if a failed read attempt can fall back to REST `jobs.getQueryResults` pagination.
-    pub(crate) fn can_fallback_to_rest(&self) -> bool {
-        match self {
-            Self::Response(_) => false,
-            // TODO(#7038): Storage(r) => !r.is_stream_opened(), so StorageReader can fall back to REST if opening the stream failed
         }
     }
 }
@@ -277,19 +272,93 @@ impl ArrowCell {
         }
     }
 
-    /// Returns the cell's value as a string slice (`&str`).
-    pub(crate) fn as_str(&self) -> Result<&str, ConvertError> {
+    /// Returns the cell's value as a string (`Cow<'_, str>`).
+    ///
+    /// Borrows directly from `Utf8` and `LargeUtf8` arrays, and formats other
+    /// SQL types that BigQuery's JSON wire format represents as strings
+    /// (`BYTES`, `DATE`, `TIME`, `TIMESTAMP`, `DATETIME`, `NUMERIC`,
+    /// `BIGNUMERIC`, and `INTERVAL`).
+    pub(crate) fn as_str(&self) -> Result<Cow<'_, str>, ConvertError> {
         if self.is_null() {
             return Err(ConvertError::NotNull);
         }
         match self.array.data_type() {
-            arrow::datatypes::DataType::Utf8 => {
+            DataType::Utf8 => {
                 let arr = arrow::array::as_string_array(&self.array);
-                Ok(arr.value(self.row_idx))
+                Ok(Cow::Borrowed(arr.value(self.row_idx)))
             }
-            arrow::datatypes::DataType::LargeUtf8 => {
+            DataType::LargeUtf8 => {
                 let arr = arrow::array::as_largestring_array(&self.array);
-                Ok(arr.value(self.row_idx))
+                Ok(Cow::Borrowed(arr.value(self.row_idx)))
+            }
+            DataType::Binary | DataType::LargeBinary => {
+                Ok(Cow::Owned(BASE64_STANDARD.encode(self.as_bytes()?)))
+            }
+            DataType::Date32 => {
+                let d = google_cloud_type::model::Date::from_value(SqlValue::from_inner(
+                    SqlValueInner::Arrow(self.clone()),
+                ))?;
+                Ok(Cow::Owned(format!(
+                    "{:04}-{:02}-{:02}",
+                    d.year, d.month, d.day
+                )))
+            }
+            DataType::Time64(
+                arrow::datatypes::TimeUnit::Microsecond | arrow::datatypes::TimeUnit::Nanosecond,
+            ) => {
+                let t = google_cloud_type::model::TimeOfDay::from_value(SqlValue::from_inner(
+                    SqlValueInner::Arrow(self.clone()),
+                ))?;
+                if t.nanos == 0 {
+                    Ok(Cow::Owned(format!(
+                        "{:02}:{:02}:{:02}",
+                        t.hours, t.minutes, t.seconds
+                    )))
+                } else {
+                    let subsec_micros = t.nanos / 1_000;
+                    Ok(Cow::Owned(format!(
+                        "{:02}:{:02}:{:02}.{subsec_micros:06}",
+                        t.hours, t.minutes, t.seconds
+                    )))
+                }
+            }
+            DataType::Timestamp(_, _) => {
+                let micros = self.as_timestamp_micros()?;
+                Ok(Cow::Owned(micros.to_string()))
+            }
+            DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => {
+                self.as_decimal_str().map(Cow::Owned)
+            }
+            DataType::Interval(IntervalUnit::MonthDayNano) => {
+                let interval = crate::datatypes::Interval::from_value(SqlValue::from_inner(
+                    SqlValueInner::Arrow(self.clone()),
+                ))?;
+                let ym_sign = if interval.years < 0 || interval.months < 0 {
+                    "-"
+                } else {
+                    ""
+                };
+                let time_sign = if interval.hours < 0
+                    || interval.minutes < 0
+                    || interval.seconds < 0
+                    || interval.nanos < 0
+                {
+                    "-"
+                } else {
+                    ""
+                };
+                Ok(Cow::Owned(format!(
+                    "{}{}-{} {} {}{:02}:{:02}:{:02}.{:09}",
+                    ym_sign,
+                    interval.years.abs(),
+                    interval.months.abs(),
+                    interval.days,
+                    time_sign,
+                    interval.hours.abs(),
+                    interval.minutes.abs(),
+                    interval.seconds.abs(),
+                    interval.nanos.abs()
+                )))
             }
             _ => Err(ConvertError::TypeMismatch {
                 expected: "StringArray or LargeStringArray".to_string(),
@@ -645,11 +714,17 @@ mod tests {
     #[test_case(Arc::new(StringArray::from(vec![Some("hello")])), 0 => Ok("hello".to_string()) ; "str from StringArray")]
     #[test_case(Arc::new(StringArray::from(vec![None::<&str>])), 0 => Err(TestConvertError::NotNull) ; "str null")]
     #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])), 0 => Ok("world".to_string()) ; "str from LargeStringArray")]
+    #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])), 0 => Ok("AQID".to_string()) ; "str from BinaryArray")]
+    #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])), 0 => Ok("2026-05-28".to_string()) ; "str from Date32Array")]
+    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])), 0 => Ok("15:30:00".to_string()) ; "str from Time64MicrosecondArray")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok("1779982200123456".to_string()) ; "str from TimestampMicrosecondArray")]
+    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "str from Decimal128Array")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])), 0 => Ok("1-2 3 04:05:06.000000789".to_string()) ; "str from IntervalMonthDayNanoArray")]
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray", "Int64")) ; "str type mismatch")]
     fn as_str(arr: ArrayRef, row_idx: usize) -> Result<String, TestConvertError> {
         ArrowCell::new(arr, row_idx)
             .as_str()
-            .map(str::to_owned)
+            .map(std::borrow::Cow::into_owned)
             .map_err(TestConvertError::from)
     }
 
@@ -911,7 +986,6 @@ mod tests {
 
         let mut reader =
             ArrowReader::Response(ArrowResponseReader::new(schema_bytes, batch_buf.into()));
-        assert!(!reader.can_fallback_to_rest());
 
         let b1 = reader
             .next_record_batch()
