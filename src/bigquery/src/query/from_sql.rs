@@ -220,76 +220,20 @@ impl FromSql for wkt::Value {
                             wkt::Value::String(s.to_string())
                         }
                     }
-                    DataType::Utf8 | DataType::LargeUtf8 => {
-                        wkt::Value::String(cell.as_str()?.to_string())
-                    }
-                    DataType::Binary | DataType::LargeBinary => {
-                        wkt::Value::String(BASE64_STANDARD.encode(cell.as_bytes()?))
-                    }
-                    DataType::Date32 => {
-                        let d = google_cloud_type::model::Date::from_value(SqlValue::from_inner(
-                            SqlValueInner::Arrow(cell),
-                        ))?;
-                        wkt::Value::String(format!("{:04}-{:02}-{:02}", d.year, d.month, d.day))
-                    }
-                    DataType::Time64(
+                    DataType::Utf8
+                    | DataType::LargeUtf8
+                    | DataType::Binary
+                    | DataType::LargeBinary
+                    | DataType::Date32
+                    | DataType::Time64(
                         arrow::datatypes::TimeUnit::Microsecond
                         | arrow::datatypes::TimeUnit::Nanosecond,
-                    ) => {
-                        let t = google_cloud_type::model::TimeOfDay::from_value(
-                            SqlValue::from_inner(SqlValueInner::Arrow(cell)),
-                        )?;
-                        if t.nanos == 0 {
-                            wkt::Value::String(format!(
-                                "{:02}:{:02}:{:02}",
-                                t.hours, t.minutes, t.seconds
-                            ))
-                        } else {
-                            let subsec_micros = t.nanos / 1_000;
-                            wkt::Value::String(format!(
-                                "{:02}:{:02}:{:02}.{subsec_micros:06}",
-                                t.hours, t.minutes, t.seconds
-                            ))
-                        }
-                    }
-                    DataType::Timestamp(_, _) => {
-                        let micros = cell.as_timestamp_micros()?;
-                        wkt::Value::String(micros.to_string())
-                    }
-                    DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => {
-                        let s = cell.as_decimal_str()?;
-                        wkt::Value::String(s)
-                    }
-                    DataType::Interval(arrow::datatypes::IntervalUnit::MonthDayNano) => {
-                        let interval = crate::datatypes::Interval::from_value(
-                            SqlValue::from_inner(SqlValueInner::Arrow(cell)),
-                        )?;
-                        let ym_sign = if interval.years < 0 || interval.months < 0 {
-                            "-"
-                        } else {
-                            ""
-                        };
-                        let time_sign = if interval.hours < 0
-                            || interval.minutes < 0
-                            || interval.seconds < 0
-                            || interval.nanos < 0
-                        {
-                            "-"
-                        } else {
-                            ""
-                        };
-                        wkt::Value::String(format!(
-                            "{}{}-{} {} {}{:02}:{:02}:{:02}.{:09}",
-                            ym_sign,
-                            interval.years.abs(),
-                            interval.months.abs(),
-                            interval.days,
-                            time_sign,
-                            interval.hours.abs(),
-                            interval.minutes.abs(),
-                            interval.seconds.abs(),
-                            interval.nanos.abs()
-                        ))
+                    )
+                    | DataType::Timestamp(_, _)
+                    | DataType::Decimal128(_, _)
+                    | DataType::Decimal256(_, _)
+                    | DataType::Interval(arrow::datatypes::IntervalUnit::MonthDayNano) => {
+                        wkt::Value::String(cell.as_str()?.into_owned())
                     }
                     DataType::Struct(fields) => {
                         let s = fields
@@ -332,7 +276,7 @@ impl FromSql for String {
                 google_cloud_unstable_bigquery_arrow,
                 google_cloud_unstable_bigquery_storage_read
             ))]
-            SqlValueInner::Arrow(cell) => cell.as_str().map(str::to_owned),
+            SqlValueInner::Arrow(cell) => cell.as_str().map(std::borrow::Cow::into_owned),
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -495,7 +439,7 @@ impl FromSql for wkt::Struct {
             ))]
             SqlValueInner::Arrow(cell) => {
                 let s = cell.as_str()?;
-                serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
+                serde_json::from_str(&s).map_err(|e| ConvertError::Convert(Box::new(e)))
             }
             other => Err(ConvertError::type_mismatch("object or string", &other)),
         }
@@ -1373,6 +1317,12 @@ mod tests {
 
         #[test_case(Arc::new(StringArray::from(vec![Some("hello")])) => Ok("hello".to_string()) ; "string from StringArray")]
         #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])) => Ok("world".to_string()) ; "string from LargeStringArray")]
+        #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])) => Ok("AQID".to_string()) ; "string from BinaryArray")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Ok("2026-05-28".to_string()) ; "string from Date32Array")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])) => Ok("15:30:00".to_string()) ; "string from Time64MicrosecondArray")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok("1779982200123456".to_string()) ; "string from TimestampMicrosecondArray")]
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok("123.456".to_string()) ; "string from Decimal128Array")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok("1-2 3 04:05:06.000000789".to_string()) ; "string from IntervalMonthDayNanoArray")]
         #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "string null")]
         #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "string type mismatch")]
         fn test_from_sql_arrow_string(arr: ArrayRef) -> Result<String, TestConvertError> {
