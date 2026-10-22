@@ -256,12 +256,6 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         quote!(google_cloud_bigquery::write::ProtoValue),
     );
     let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
-    // The library describes each nested struct type once, and tells them apart
-    // by their `TypeId`, so a struct must be `'static` to be a field. Rows need
-    // no such bound.
-    let predicates: Vec<_> = where_clause
-        .map(|clause| clause.predicates.iter().collect())
-        .unwrap_or_default();
 
     // `ToRow` visits the fields, for rows. `ProtoValue` and `ProtoElement` let
     // a field, or the elements of a `Vec<T>` field, hold this struct.
@@ -273,7 +267,7 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             }
         }
 
-        impl #impl_generics google_cloud_bigquery::write::ProtoValue for #name #ty_generics where #( #predicates, )* Self: 'static {
+        impl #impl_generics google_cloud_bigquery::write::ProtoValue for #name #ty_generics #where_clause {
             fn describe(field: google_cloud_bigquery::write::FieldSchema<'_>) {
                 field.message::<Self>();
             }
@@ -283,7 +277,7 @@ fn derive_to_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             }
         }
 
-        impl #impl_generics google_cloud_bigquery::write::ProtoElement for #name #ty_generics where #( #predicates, )* Self: 'static {}
+        impl #impl_generics google_cloud_bigquery::write::ProtoElement for #name #ty_generics #where_clause {}
     }
 }
 
@@ -711,7 +705,7 @@ mod tests {
                 }
             }
 
-            impl google_cloud_bigquery::write::ProtoValue for Row where Self: 'static {
+            impl google_cloud_bigquery::write::ProtoValue for Row {
                 fn describe(field: google_cloud_bigquery::write::FieldSchema<'_>) {
                     field.message::<Self>();
                 }
@@ -721,7 +715,7 @@ mod tests {
                 }
             }
 
-            impl google_cloud_bigquery::write::ProtoElement for Row where Self: 'static {}
+            impl google_cloud_bigquery::write::ProtoElement for Row {}
         };
         assert_eq!(derive_to_row_impl(input).to_string(), want.to_string());
     }
@@ -753,19 +747,15 @@ mod tests {
         Ok(())
     }
 
-    #[test_case("google_cloud_bigquery :: write :: ToRow", "where T : Clone {"; "row")]
-    #[test_case("google_cloud_bigquery :: write :: ProtoValue", "where T : Clone , Self : 'static {"; "value")]
-    #[test_case("google_cloud_bigquery :: write :: ProtoElement", "where T : Clone , Self : 'static {"; "element")]
-    fn test_to_row_where_clause_expansion(
-        trait_path: &str,
-        where_clause: &str,
-    ) -> Result<(), syn::Error> {
+    #[test_case("google_cloud_bigquery :: write :: ToRow"; "row")]
+    #[test_case("google_cloud_bigquery :: write :: ProtoValue"; "value")]
+    #[test_case("google_cloud_bigquery :: write :: ProtoElement"; "element")]
+    fn test_to_row_where_clause_expansion(trait_path: &str) -> Result<(), syn::Error> {
         let input: DeriveInput = syn::parse_str("struct Wrapper<T> where T: Clone { val: T }")?;
         let tokens = derive_to_row_impl(input).to_string();
-        // Each impl keeps the struct's own `where` clause. Only the impls for
-        // fields add `Self: 'static`.
+        // Each impl keeps the struct's own `where` clause, and adds nothing.
         let want = format!(
-            "impl < T : google_cloud_bigquery :: write :: ProtoValue > {trait_path} for Wrapper < T > {where_clause}"
+            "impl < T : google_cloud_bigquery :: write :: ProtoValue > {trait_path} for Wrapper < T > where T : Clone {{"
         );
         assert!(tokens.contains(&want), "unexpected expansion: {tokens}");
         Ok(())

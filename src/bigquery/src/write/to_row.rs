@@ -429,14 +429,11 @@ impl FieldSchema<'_> {
     /// `#[derive(ToRow)]` uses this function. Applications do not need to call
     /// it.
     ///
-    /// `T` must be `'static`, because the schema describes each nested struct
-    /// type once, and tells them apart by their [`TypeId`].
-    ///
     /// # Panics
     ///
     /// If `T` is nested more than 14 levels deep, which includes any struct
     /// that contains itself.
-    pub fn message<T: ToRow + 'static>(self) {
+    pub fn message<T: ToRow>(self) {
         let type_name = self.types.add_struct::<T>();
         self.message_type(&type_name);
     }
@@ -1167,6 +1164,11 @@ struct NestedTypes {
     reserved: Vec<&'static str>,
     /// The structs described so far. A struct that many fields hold, at any
     /// level, is described once.
+    ///
+    /// The keys come from [`typeid::of`], which works for any type, unlike
+    /// [`TypeId::of`], which needs `'static` types. So a generic struct can
+    /// hold another one, as in `Outer<T> { inner: Inner<T> }`, without a
+    /// `T: 'static` bound.
     structs: HashMap<TypeId, StructType>,
     /// How many levels of nested structs are being described.
     depth: usize,
@@ -1205,11 +1207,12 @@ impl NestedTypes {
     ///
     /// If `T` is nested more than [MAX_DEPTH] levels deep, which includes any
     /// struct that contains itself.
-    fn add_struct<T: ToRow + ?Sized + 'static>(&mut self) -> String {
+    fn add_struct<T: ToRow + ?Sized>(&mut self) -> String {
+        let id = typeid::of::<T>();
         let depth = self.depth + 1;
         // A struct at `depth` with a height of `height` reaches the level
         // `depth + height - 1`.
-        if let Some(described) = self.structs.get(&TypeId::of::<T>())
+        if let Some(described) = self.structs.get(&id)
             && depth + described.height - 1 <= MAX_DEPTH
         {
             self.height = self.height.max(described.height);
@@ -1232,7 +1235,7 @@ impl NestedTypes {
         self.height = outer.max(height);
         self.depth -= 1;
         self.structs.insert(
-            TypeId::of::<T>(),
+            id,
             StructType {
                 name: name.clone(),
                 height,
@@ -2922,6 +2925,45 @@ mod tests {
             0x08, 0x00, // tag (field 1, varint), 0
         ];
         assert_eq!(batch.to_row()?, want.as_slice());
+        Ok(())
+    }
+
+    /// A generic struct, for fields of another generic struct.
+    #[derive(ToRow)]
+    struct GenericInner<T> {
+        value: T,
+    }
+
+    /// A generic struct that holds another generic struct.
+    #[derive(ToRow)]
+    struct GenericOuter<T> {
+        inner: GenericInner<T>,
+        items: Vec<GenericInner<T>>,
+    }
+
+    /// Encodes a `GenericOuter` in code that is generic over the field type.
+    /// It needs no bound besides `T: ProtoValue`, not even `T: 'static`.
+    fn generic_outer_row<T: ProtoValue>(row: &GenericOuter<T>) -> Result<Bytes, ConvertError> {
+        row.to_row()
+    }
+
+    #[test]
+    fn generic_structs_nest() -> anyhow::Result<()> {
+        let descriptor = GenericOuter::<i64>::schema()
+            .proto_descriptor
+            .expect("has a descriptor");
+        assert_eq!(nested_names(&descriptor), ["GenericInner"]);
+        let row = GenericOuter {
+            inner: GenericInner { value: COUNT },
+            items: vec![GenericInner { value: 0 }],
+        };
+        let want = [
+            0x0A, 0x02, // inner: tag (field 1, length-delimited), length 2
+            0x08, 0x2A, // value: tag (field 1, varint), 42
+            0x12, 0x02, // items: tag (field 2, length-delimited), length 2
+            0x08, 0x00, // value: tag (field 1, varint), 0
+        ];
+        assert_eq!(generic_outer_row(&row)?, want.as_slice());
         Ok(())
     }
 
