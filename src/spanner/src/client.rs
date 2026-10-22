@@ -40,9 +40,7 @@ use google_cloud_auth::credentials::anonymous;
 use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
 use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::client_builder::internal::new_builder;
-use google_cloud_gax::options::{
-    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
-};
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
 use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
 use http::{
@@ -607,20 +605,22 @@ fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestO
     options
 }
 
-static ROUTE_TO_LEADER_HEADER: HeaderName =
-    HeaderName::from_static("x-goog-spanner-route-to-leader");
-static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
+/// An internal request option extension specifying that the request should route to the leader region.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) struct RouteToLeader;
 
-pub(crate) fn amend_request_options_for_lar(
-    leader_aware_routing_enabled: bool,
-    mut options: GaxRequestOptions,
-) -> GaxRequestOptions {
-    if leader_aware_routing_enabled {
-        options.get_extension_or_default_mut::<HeaderMap>().insert(
-            ROUTE_TO_LEADER_HEADER.clone(),
-            ROUTE_TO_LEADER_VALUE.clone(),
-        );
-    }
+pub(crate) static ROUTE_TO_LEADER_HEADER: HeaderName =
+    HeaderName::from_static("x-goog-spanner-route-to-leader");
+pub(crate) static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
+
+/// Attaches the `x-goog-spanner-route-to-leader: true` header to `options`.
+pub(crate) fn attach_route_to_leader_header(
+    mut options: crate::RequestOptions,
+) -> crate::RequestOptions {
+    options.get_extension_or_default_mut::<HeaderMap>().insert(
+        ROUTE_TO_LEADER_HEADER.clone(),
+        ROUTE_TO_LEADER_VALUE.clone(),
+    );
     options
 }
 
@@ -2449,31 +2449,6 @@ mod tests {
             second_headers.get(&REQUEST_ID_HEADER),
             Some(&first_val),
             "Second call must preserve original Request ID"
-        );
-    }
-
-    #[test]
-    fn amend_request_options_for_lar_idempotent_no_duplicate_headers() {
-        let options = crate::RequestOptions::default();
-        let options = super::amend_request_options_for_lar(true, options);
-        let options = super::amend_request_options_for_lar(true, options);
-
-        let headers = options
-            .get_extension::<HeaderMap>()
-            .expect("HeaderMap should be present");
-
-        assert_eq!(
-            headers
-                .get_all(&super::ROUTE_TO_LEADER_HEADER)
-                .iter()
-                .count(),
-            1,
-            "LAR header should only be present once even after multiple amend calls"
-        );
-        assert_eq!(
-            headers.get(&super::ROUTE_TO_LEADER_HEADER),
-            Some(&super::ROUTE_TO_LEADER_VALUE),
-            "LAR header should match ROUTE_TO_LEADER_VALUE"
         );
     }
 
