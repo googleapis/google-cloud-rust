@@ -137,16 +137,6 @@ impl RecordBatchSource for ArrowReader {
     }
 }
 
-impl ArrowReader {
-    /// Returns `true` if a failed read attempt can fall back to REST `jobs.getQueryResults` pagination.
-    pub(crate) fn can_fallback_to_rest(&self) -> bool {
-        match self {
-            Self::Response(_) => false,
-            // TODO(#7038): Storage(r) => !r.is_stream_opened(), so StorageReader can fall back to REST if opening the stream failed
-        }
-    }
-}
-
 /// A reference to a single cell within an Arrow array.
 #[derive(Clone, Debug)]
 pub(crate) struct ArrowCell {
@@ -915,7 +905,6 @@ mod tests {
 
         let mut reader =
             ArrowReader::Response(ArrowResponseReader::new(schema_bytes, batch_buf.into()));
-        assert!(!reader.can_fallback_to_rest());
 
         let b1 = reader
             .next_record_batch()

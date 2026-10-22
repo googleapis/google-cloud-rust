@@ -87,31 +87,41 @@ pub struct RowIterator {
 
 impl RowIterator {
     pub(crate) fn new(q: CompleteQuery) -> Self {
-        // DDL/DML or Arrow queries may have no TableSchema in metadata initially.
-        let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
         #[cfg(any(
             google_cloud_unstable_bigquery_arrow,
             google_cloud_unstable_bigquery_storage_read
         ))]
-        let (rows, arrow_reader) = match q.cached_data {
-            CachedData::Rows(rows) => (rows, None),
+        let (rows, schema, arrow_reader) = match q.cached_data {
+            CachedData::Rows(rows) => {
+                // DDL/DML queries may have no TableSchema in metadata.
+                let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
+                (rows, schema, None)
+            }
             CachedData::Arrow {
                 serialized_record_batch,
                 serialized_schema,
-            } => (
-                VecDeque::new(),
-                Some(ArrowReader::Response(ArrowResponseReader::new(
-                    serialized_schema,
-                    serialized_record_batch,
-                ))),
-            ),
+            } => {
+                let schema =
+                    Arc::new(Schema::from_arrow_schema(&serialized_schema).unwrap_or_default());
+                (
+                    VecDeque::new(),
+                    schema,
+                    Some(ArrowReader::Response(ArrowResponseReader::new(
+                        serialized_schema,
+                        serialized_record_batch,
+                    ))),
+                )
+            }
         };
         #[cfg(not(any(
             google_cloud_unstable_bigquery_arrow,
             google_cloud_unstable_bigquery_storage_read
         )))]
-        let rows = match q.cached_data {
-            CachedData::Rows(rows) => rows,
+        let (rows, schema) = match q.cached_data {
+            CachedData::Rows(rows) => {
+                let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
+                (rows, schema)
+            }
             // TODO(#7035): remove once google_cloud_unstable_bigquery_arrow is stabilized
             CachedData::Arrow { .. } => {
                 unimplemented!("Arrow IPC decoding is not yet implemented (#7035)")
@@ -203,18 +213,11 @@ impl RowIterator {
                 if let Some(ref mut arrow_reader) = self.arrow_reader {
                     match arrow_reader.next_record_batch().await {
                         Ok(Some(batch)) => {
-                            if self.schema.len() == 0 {
-                                self.schema = Arc::new(Schema::from_arrow_schema(&batch.schema()));
-                            }
                             self.current_batch = Some(Arc::new(batch));
                             self.row_index = 0;
                             continue;
                         }
                         Ok(None) => {
-                            self.arrow_reader = None;
-                        }
-                        Err(_err) if arrow_reader.can_fallback_to_rest() => {
-                            // Fall back to JSON pagination if read stream opening failed
                             self.arrow_reader = None;
                         }
                         Err(err) => {
@@ -244,12 +247,7 @@ impl RowIterator {
             return Ok(());
         };
 
-        let (fetched_rows, next_token, schema) = self.fetch_page(token).await?;
-        if self.schema.len() == 0
-            && let Some(schema) = schema
-        {
-            self.schema = Arc::new(Schema::new(schema));
-        }
+        let (fetched_rows, next_token) = self.fetch_page(token).await?;
         if fetched_rows.is_empty() && next_token.as_deref() == Some(token) {
             self.page_token = None;
         } else {
@@ -259,15 +257,8 @@ impl RowIterator {
         Ok(())
     }
 
-    // Fetches the next page of results, the next page token, and the table schema if present.
-    async fn fetch_page(
-        &self,
-        token: &str,
-    ) -> Result<(
-        Vec<wkt::Struct>,
-        Option<String>,
-        Option<google_cloud_bigquery_v2::model::TableSchema>,
-    )> {
+    // Fetches the next page of results and the next page token.
+    async fn fetch_page(&self, token: &str) -> Result<(Vec<wkt::Struct>, Option<String>)> {
         let job_ref = self.job_ref.as_ref().expect(
             "only queries with a job reference should have page tokens and can fetch more pages",
         );
@@ -299,7 +290,7 @@ impl RowIterator {
             Some(res.page_token)
         };
 
-        Ok((res.rows, page_token, res.schema))
+        Ok((res.rows, page_token))
     }
 }
 
@@ -814,7 +805,6 @@ mod tests {
             .returning(|req, _| {
                 assert_eq!(req.page_token, "token_page_1");
                 let res = GetQueryResultsResponse::new()
-                    .set_schema(create_test_schema())
                     .set_rows(vec![create_test_row("from_json_page")])
                     .set_page_token("");
                 Ok(Response::from(res))
