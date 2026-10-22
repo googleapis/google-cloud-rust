@@ -510,7 +510,9 @@ fn describe_field<T: ProtoValue>(
         types,
         slot: &mut slot,
     });
-    slot.expect("`ProtoValue::describe` describes the field")
+    slot.expect(
+        "`ProtoValue::describe` must describe its field, for example with `FieldSchema::message`",
+    )
 }
 
 /// Appends `value` to `buf`, as the field with the given number.
@@ -1344,13 +1346,19 @@ fn proto_name(name: &str) -> Cow<'_, str> {
         .into()
 }
 
+/// The panic message when [`ToRow::visit_fields`] fails while describing a
+/// schema.
+///
+/// [`StructFields::field`] only fails while encoding a row, so this can only
+/// happen in a hand-written implementation.
+const VISIT_FIELDS_FAILED: &str = "`ToRow::visit_fields` must only return the errors from `StructFields::field`, which never fails while describing a schema";
+
 /// Returns the schema for rows of type `T`.
 fn message_schema<T: ToRow + ?Sized>() -> ProtoSchema {
     // The nested types share a scope with the columns, so they cannot use the
     // column names. Collect the names first.
     let mut columns = Vec::new();
-    T::visit_fields(&mut StructFields::names(&mut columns))
-        .expect("collecting column names does not fail");
+    T::visit_fields(&mut StructFields::names(&mut columns)).expect(VISIT_FIELDS_FAILED);
     let mut types = NestedTypes::new(columns);
     let fields = describe_fields(&mut types, T::visit_fields);
     let descriptor = DescriptorProto::new()
@@ -1367,7 +1375,7 @@ fn describe_fields<R: ?Sized>(
     visit: impl FnOnce(&mut StructFields<'_, R>) -> Result<(), ConvertError>,
 ) -> Vec<FieldDescriptorProto> {
     let mut fields = StructFields::describe(types);
-    visit(&mut fields).expect("describing fields does not fail");
+    visit(&mut fields).expect(VISIT_FIELDS_FAILED);
     fields.into_descriptors()
 }
 
@@ -1381,9 +1389,9 @@ fn encode_row<T: ToRow + ?Sized>(row: &T) -> Result<Bytes, ConvertError> {
 #[cfg(test)]
 mod tests {
     use super::{
-        FALLBACK_MESSAGE_NAME, MAX_DEPTH, NestedTypes, ProtoElement, ProtoValue, StructFields,
-        describe_field, encode_field, interval_parts, last_segment, message_name, proto_name,
-        timestamp_micros, visit_range,
+        FALLBACK_MESSAGE_NAME, FieldEncoder, FieldSchema, MAX_DEPTH, NestedTypes, ProtoElement,
+        ProtoValue, StructFields, describe_field, encode_field, interval_parts, last_segment,
+        message_name, proto_name, timestamp_micros, visit_range,
     };
     use crate::datatypes::{Interval, Range, RangeElement};
     use crate::error::ConvertError;
@@ -2955,5 +2963,39 @@ mod tests {
     #[test_case("", FALLBACK_MESSAGE_NAME; "empty")]
     fn message_names_are_proto_names(name: &str, want: &str) {
         assert_eq!(proto_name(name), want);
+    }
+
+    /// A hand-written `ToRow` that fails while its fields are described.
+    struct FailingRow;
+
+    impl ToRow for FailingRow {
+        fn visit_fields(_: &mut StructFields<'_, Self>) -> Result<(), ConvertError> {
+            Err(ConvertError::Convert(
+                "not from `StructFields::field`".into(),
+            ))
+        }
+    }
+
+    #[test]
+    #[should_panic(expected = "must only return the errors from `StructFields::field`")]
+    fn failing_visit_fields_panics() {
+        let _ = FailingRow::schema();
+    }
+
+    /// A hand-written `ProtoValue` that does not describe its field.
+    struct Undescribed;
+
+    impl ProtoValue for Undescribed {
+        fn describe(_: FieldSchema<'_>) {}
+
+        fn encode(&self, _: FieldEncoder<'_>) -> Result<(), ConvertError> {
+            Ok(())
+        }
+    }
+
+    #[test]
+    #[should_panic(expected = "must describe its field")]
+    fn undescribed_fields_panic() {
+        let _ = describe_field::<Undescribed>(NAME_COLUMN, NAME_FIELD, &mut NestedTypes::default());
     }
 }

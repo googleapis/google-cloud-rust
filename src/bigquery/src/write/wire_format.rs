@@ -76,7 +76,9 @@ fn encode_varint(value: u64, buf: &mut Vec<u8>) {
 
 /// Appends a tag, which packs the field number and the wire type in a varint.
 fn encode_tag(field_number: u32, wire_type: u32, buf: &mut Vec<u8>) {
-    encode_varint(u64::from((field_number << WIRE_TYPE_BITS) | wire_type), buf);
+    // Widen first, so the shift cannot drop the top bits of a large number.
+    let tag = (u64::from(field_number) << WIRE_TYPE_BITS) | u64::from(wire_type);
+    encode_varint(tag, buf);
 }
 
 /// Appends a `bytes` field: the tag, the length, and the bytes.
@@ -98,7 +100,8 @@ pub(super) fn encode_string(field_number: u32, value: &str, buf: &mut Vec<u8>) {
 ///
 /// The length comes before the bytes, but it is not known until they are
 /// written. So this reserves one byte for it, which holds lengths up to 127,
-/// and moves longer values over to make room. Writing in place saves copying
+/// and moves longer values over to make room. A long value inside several
+/// nested messages moves once for each of them. Writing in place saves copying
 /// the value from a temporary buffer.
 ///
 /// If `write` fails, `buf` is left as it was.
@@ -116,9 +119,13 @@ pub(super) fn encode_length_delimited<E>(
         return Err(e);
     }
     let (length, width) = varint((buf.len() - start - 1) as u64);
-    // Replace the reserved byte with the length. When the length takes one
-    // byte, this moves nothing.
-    buf.splice(start..=start, length[..width].iter().copied());
+    if width == 1 {
+        // The length fits in the reserved byte, so nothing moves.
+        buf[start] = length[0];
+    } else {
+        // Replace the reserved byte with the length, and move the value over.
+        buf.splice(start..=start, length[..width].iter().copied());
+    }
     Ok(())
 }
 
@@ -199,11 +206,18 @@ pub(super) fn repeated_field(field: FieldDescriptorProto) -> FieldDescriptorProt
     field.set_label(Label::Repeated)
 }
 
+/// The largest field number that protobuf allows, 2^29 - 1.
+const MAX_FIELD_NUMBER: i32 = (1 << 29) - 1;
+
 /// Describes an optional field with the given type.
 fn optional_field(name: &str, field_number: u32, field_type: Type) -> FieldDescriptorProto {
+    let number = i32::try_from(field_number)
+        .ok()
+        .filter(|number| *number <= MAX_FIELD_NUMBER)
+        .expect("field numbers are at most 2^29 - 1");
     FieldDescriptorProto::new()
         .set_name(name)
-        .set_number(i32::try_from(field_number).expect("field numbers are at most 2^29 - 1"))
+        .set_number(number)
         // The default label and type are not valid values, always set them.
         .set_label(Label::Optional)
         .set_type(field_type)
@@ -343,6 +357,26 @@ mod tests {
         assert!(field_descriptor_proto::Label::try_from(0).is_err());
         assert!(field_descriptor_proto::Type::try_from(0).is_err());
         Ok(())
+    }
+
+    #[test]
+    fn largest_field_number_is_described() {
+        let field = string_field(NAME_COLUMN, MAX_FIELD_NUMBER.unsigned_abs());
+        assert_eq!(field.number, MAX_FIELD_NUMBER);
+    }
+
+    #[test]
+    #[should_panic(expected = "field numbers are at most 2^29 - 1")]
+    fn larger_field_numbers_panic() {
+        let _ = string_field(NAME_COLUMN, MAX_FIELD_NUMBER.unsigned_abs() + 1);
+    }
+
+    #[test]
+    fn largest_tag_by_hand() {
+        let mut buf = Vec::new();
+        encode_tag(MAX_FIELD_NUMBER.unsigned_abs(), LENGTH_DELIMITED, &mut buf);
+        // (2^29 - 1) << 3 | 2 is 0xFFFF_FFFA, which takes 5 varint bytes.
+        assert_eq!(buf, [0xFA, 0xFF, 0xFF, 0xFF, 0x0F]);
     }
 
     /// The field number of the `count` column, the second in our row.
