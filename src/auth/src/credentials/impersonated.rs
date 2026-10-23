@@ -2203,9 +2203,9 @@ mod tests {
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("POST", "/source_token"),
-                request::body(json_decoded(
-                    |body: &serde_json::Value| body["scopes"].is_null()
-                ))
+                request::body(json_decoded(|body: &serde_json::Value| {
+                    body.get("scope").is_none() && body.get("scopes").is_none()
+                }))
             ])
             .respond_with(json_encoded(json!({
                 "access_token": "source-token",
