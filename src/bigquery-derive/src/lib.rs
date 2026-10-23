@@ -13,6 +13,66 @@
 // limitations under the License.
 
 //! Derive macros for the Google Cloud BigQuery client.
+//!
+//! # Compatibility
+//!
+//! `cargo-semver-checks` cannot verify this crate, and it does not see these
+//! macros through the re-exports in `google-cloud-bigquery` either. Any change
+//! that does one of the following is a **breaking change**, even if all tests
+//! pass:
+//!
+//! - renames or removes a derive, the `#[bigquery(...)]` helper attribute, or
+//!   any option it accepts (e.g. `rename`),
+//! - rejects input that used to compile,
+//! - changes the behavior of the generated code (e.g. which column a field
+//!   reads).
+//!
+//! Such changes require a breaking version bump (major, or minor for `0.x`)
+//! of this crate **and** of `google-cloud-bigquery`, which re-exports these
+//! derives and depends on this crate. Update the workspace dependency versions
+//! in the root `Cargo.toml` accordingly. Librarian defaults to non-breaking
+//! version bumps, so make these bumps by hand.
+//!
+//! The generated code may only reference `google_cloud_bigquery` items that
+//! exist in every version of `google-cloud-bigquery` compatible with this
+//! crate. When `google-cloud-bigquery` takes a breaking version bump, also take
+//! a breaking version bump of this crate.
+//!
+//! ## Contract tests
+//!
+//! The contract tests pin the input these macros **accept**. They are
+//! compile-only: each case file is one supported input shape, and the test
+//! target fails to build if a case stops compiling. They do not check the
+//! behavior of the generated code. Behavior changes are still breaking, but
+//! the unit tests in `src/bigquery/src/query/` (`row.rs`, `from_sql.rs`) cover
+//! them. Code review owns everything the tests do not catch.
+//!
+//! Every published proc-macro crate in this repository has a contract test
+//! directory under any crate's tests directory (`src/*/tests/`). The directory
+//! name is the package name without the `google-cloud-` prefix, with `-`
+//! replaced by `_`, plus `_contract`. For example,
+//! `google-cloud-bigquery-derive` uses
+//! `src/bigquery/tests/bigquery_derive_contract/`. The directory is one test
+//! target: its `main.rs` declares one `mod <case>;` per case file.
+//!
+//! - New accepted input gets a new case file and a new `mod` line.
+//! - Never modify, rename, or delete an existing case file, or remove its
+//!   `mod` line.
+//!
+//! `.github/scripts/proc-macro-contract-check.sh` fails if an existing case
+//! file is modified, renamed, or deleted on any pull request (see
+//! `.github/workflows/proc-macro-contract.yaml`). It also fails if a published
+//! proc-macro crate has no contract tests. Removing a `mod` line is left to
+//! code review.
+//!
+//! To change an existing case on purpose, apply the
+//! `rust: proc-macro-contract-change` label to the pull request. The label
+//! skips only the check for changes to existing cases; the coverage check
+//! always runs. Changes that only touch whitespace or
+//! blank lines are ignored. Comment-only or other formatting changes still need
+//! the label, but no version bump. If the change affects accepted input, it is
+//! very likely a breaking change, and the pull request (or the release) must
+//! take the breaking version bumps of both crates described above.
 
 extern crate proc_macro;
 

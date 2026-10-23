@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::RequestOptions;
+use crate::client::Read;
 use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
 use crate::query::execution::RetryContext;
@@ -57,6 +58,7 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct Query {
     pub(crate) job_service: Arc<JobService>,
+    pub(crate) read_client: Option<Arc<Read>>,
     pub(crate) completed: bool,
     pub(crate) metadata: QueryMetadata,
     pub(crate) cached_data: Option<CachedData>,
@@ -81,6 +83,7 @@ impl Query {
         initial_job: Job,
         retry_context: Option<&RetryContext>,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
         options: RequestOptions,
     ) -> Self {
         let completed = initial_job
@@ -90,6 +93,7 @@ impl Query {
             .unwrap_or(false);
         Self {
             job_service,
+            read_client,
             completed,
             cached_data: None,
             metadata: build_query_metadata_from_job(initial_job),
@@ -104,6 +108,7 @@ impl Query {
         mut query_response: QueryResponse,
         retry_context: Option<&RetryContext>,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
         options: RequestOptions,
     ) -> Self {
         let completed = query_response.job_complete.unwrap_or(false);
@@ -125,6 +130,7 @@ impl Query {
         let metadata = QueryMetadata::from(query_response);
         Self {
             job_service,
+            read_client,
             completed,
             cached_data,
             metadata,
@@ -235,6 +241,7 @@ impl Query {
         loop {
             let Query {
                 job_service,
+                read_client,
                 completed,
                 metadata,
                 cached_data,
@@ -249,6 +256,7 @@ impl Query {
                     metadata,
                     cached_data,
                     page_size,
+                    read_client,
                     options,
                 ));
             }
@@ -273,6 +281,7 @@ impl Query {
                         res,
                         metadata,
                         page_size,
+                        read_client,
                         options,
                     ));
                 }
@@ -319,6 +328,8 @@ impl Query {
 #[derive(Clone, Debug)]
 pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
+    #[cfg_attr(not(test), allow(dead_code))]
+    pub(crate) read_client: Option<Arc<Read>>,
     pub(crate) job_ref: Option<JobReference>,
     pub(crate) cached_data: CachedData,
     pub(crate) page_token: Option<String>,
@@ -334,6 +345,7 @@ impl CompleteQuery {
         mut res: GetQueryResultsResponse,
         initial_metadata: QueryMetadata,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
         options: RequestOptions,
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
@@ -346,6 +358,7 @@ impl CompleteQuery {
             metadata,
             cached_data,
             page_size,
+            read_client,
             options,
         )
     }
@@ -355,6 +368,7 @@ impl CompleteQuery {
         metadata: QueryMetadata,
         cached_data: CachedData,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
         options: RequestOptions,
     ) -> Self {
         let job_ref = metadata.job_reference.clone();
@@ -365,6 +379,7 @@ impl CompleteQuery {
             metadata,
             cached_data,
             page_size,
+            read_client,
             options,
         )
     }
@@ -375,6 +390,7 @@ impl CompleteQuery {
         metadata: CompleteQueryMetadata,
         cached_data: CachedData,
         page_size: Option<u32>,
+        read_client: Option<Arc<Read>>,
         options: RequestOptions,
     ) -> Self {
         let page_token = if metadata.page_token.is_empty() {
@@ -384,6 +400,7 @@ impl CompleteQuery {
         };
         Self {
             job_service,
+            read_client,
             job_ref,
             cached_data,
             page_token,
@@ -669,7 +686,9 @@ mod tests {
     use super::*;
     use crate::query::builder::{QUERY_REQUEST_ID_PREFIX, Query as QueryBuilder};
     use crate::query::retry_policy::RetryableJobErrors;
-    use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
+    use crate::query::tests::{
+        MockJobService, create_job_service, create_read_client, create_test_backoff_policy,
+    };
     use google_cloud_bigquery_v2::model::{
         ArrowRecordBatch, ArrowSchema, ErrorProto, GetQueryResultsResponse, Job, JobConfiguration,
         JobReference, QueryResponse, TableFieldSchema, TableSchema,
@@ -694,6 +713,7 @@ mod tests {
                 metadata,
                 cached_data,
                 page_size,
+                None,
                 RequestOptions::default(),
             )
         }
@@ -702,6 +722,7 @@ mod tests {
     #[tokio::test]
     async fn test_query_until_done_already_completed() -> TestResult {
         let job_service = create_job_service(MockJobService::new());
+        let read_client = create_read_client();
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("some_job_id");
@@ -718,10 +739,12 @@ mod tests {
             query_res,
             None,
             None,
+            Some(read_client),
             RequestOptions::default(),
         );
 
         let completed = query.until_done().await?;
+        assert!(completed.read_client.is_some());
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
         assert_eq!(completed.page_token, Some("some_page_token".to_string()));
         match &completed.cached_data {
@@ -760,6 +783,7 @@ mod tests {
             query_res,
             None,
             None,
+            None,
             RequestOptions::default(),
         );
 
@@ -795,6 +819,7 @@ mod tests {
             query_res,
             None,
             Some(42),
+            None,
             RequestOptions::default(),
         );
 
@@ -824,6 +849,7 @@ mod tests {
             })
             .times(1);
         let job_service = create_job_service(mock);
+        let read_client = create_read_client();
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("some_job_id")
@@ -837,10 +863,12 @@ mod tests {
             query_res,
             None,
             None,
+            Some(read_client),
             RequestOptions::default(),
         );
 
         let completed = query.until_done().await?;
+        assert!(completed.read_client.is_some());
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
         assert_eq!(completed.page_token, Some("some_page_token".to_string()));
         match &completed.cached_data {
@@ -929,6 +957,7 @@ mod tests {
             query_res,
             None,
             None,
+            None,
             RequestOptions::default(),
         );
 
@@ -972,6 +1001,7 @@ mod tests {
             query_res,
             None,
             None,
+            None,
             RequestOptions::default(),
         );
 
@@ -1009,7 +1039,7 @@ mod tests {
 
         let mut iter = complete_query.read();
         let row = iter.next().await.expect("should return first row")?;
-        assert_eq!(row.get::<String, _>("name")?, "test_name");
+        assert_eq!(row.get::<String>("name")?, "test_name");
         assert!(iter.next().await.is_none(), "{iter:?}");
 
         Ok(())
@@ -1065,6 +1095,7 @@ mod tests {
             });
 
         let job_service = create_job_service(mock);
+        let read_client = create_read_client();
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("initial_job_id");
@@ -1072,16 +1103,27 @@ mod tests {
             .set_job_complete(false)
             .set_job_reference(job_ref);
 
-        let query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
-            .with_project_id("some_project");
+        let query_builder = QueryBuilder::new(
+            job_service.clone(),
+            Some(read_client.clone()),
+            "SELECT 1".to_string(),
+        )
+        .with_project_id("some_project");
         let options = query_builder.options.clone();
         let mut retry_context = RetryContext::new(query_builder);
         retry_context.state.attempt_count = 1;
 
-        let query =
-            Query::from_query_response(job_service, query_res, Some(&retry_context), None, options);
+        let query = Query::from_query_response(
+            job_service,
+            query_res,
+            Some(&retry_context),
+            None,
+            Some(read_client),
+            options,
+        );
 
         let completed = query.until_done().await?;
+        assert!(completed.read_client.is_some());
         assert_eq!(
             completed.job_ref.as_ref().unwrap().job_id,
             "reissued_job_id"
@@ -1152,8 +1194,9 @@ mod tests {
             .set_job_complete(false)
             .set_job_reference(job_ref)
             .set_schema(TableSchema::new());
-        let mut query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
-            .with_project_id("some_project");
+        let mut query_builder =
+            QueryBuilder::new(job_service.clone(), None, "SELECT 1".to_string())
+                .with_project_id("some_project");
         query_builder.job_retry_policy =
             Arc::new(RetryableJobErrors::default().with_attempt_limit(2));
         let mut retry_context = RetryContext::new(query_builder);
@@ -1163,6 +1206,7 @@ mod tests {
             job_service,
             query_res,
             Some(&retry_context),
+            None,
             None,
             RequestOptions::default(),
         );
@@ -1205,6 +1249,7 @@ mod tests {
             query_res.clone(),
             None,
             None,
+            None,
             RequestOptions::default(),
         );
         let job = query.get_job().unwrap().send().await?;
@@ -1230,6 +1275,7 @@ mod tests {
         let query = Query::from_query_response(
             job_service.clone(),
             query_res.clone(),
+            None,
             None,
             None,
             RequestOptions::default(),
@@ -1265,6 +1311,7 @@ mod tests {
             query_res.clone(),
             None,
             None,
+            None,
             RequestOptions::default(),
         );
         let req = query.get_job().unwrap();
@@ -1288,7 +1335,14 @@ mod tests {
             .set_job_reference(job_ref)
             .set_configuration(JobConfiguration::new().set_dry_run(true));
 
-        let query = Query::from_job(job_service, job, None, None, RequestOptions::default());
+        let query = Query::from_job(
+            job_service,
+            job,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
         let err = query.until_done().await.unwrap_err();
         assert!(
             matches!(err, QueryError::DryRun),
@@ -1330,6 +1384,7 @@ mod tests {
         let query = Query::from_query_response(
             job_service,
             query_res,
+            None,
             None,
             None,
             RequestOptions::default(),
@@ -1428,6 +1483,7 @@ mod tests {
             .times(1);
 
         let job_service = create_job_service(mock);
+        let read_client = create_read_client();
         let job =
             Job::new()
                 .set_id("rust-sdk-testing:US.job_123")
@@ -1464,8 +1520,16 @@ mod tests {
                         ),
                 );
 
-        let query = Query::from_job(job_service, job, None, None, RequestOptions::default());
+        let query = Query::from_job(
+            job_service,
+            job,
+            None,
+            None,
+            Some(read_client),
+            RequestOptions::default(),
+        );
         let complete = query.until_done().await?;
+        assert!(complete.read_client.is_some());
         let meta = complete.metadata();
 
         assert_eq!(meta.creation_time, Some(1790020718574));
@@ -1501,7 +1565,7 @@ mod tests {
 
         let mut options = RequestOptions::default();
         options.set_user_agent("my-app/1.2.3");
-        let query = Query::from_query_response(job_service, query_res, None, None, options);
+        let query = Query::from_query_response(job_service, query_res, None, None, None, options);
 
         let completed = query.until_done().await?;
         assert_eq!(
@@ -1533,7 +1597,7 @@ mod tests {
 
         let mut options = RequestOptions::default();
         options.set_user_agent("my-app/1.2.3");
-        let query = Query::from_query_response(job_service, query_res, None, None, options);
+        let query = Query::from_query_response(job_service, query_res, None, None, None, options);
         let job = query.get_job().unwrap().send().await?;
         assert_eq!(job.user_email, "test@example.com");
 
@@ -1566,7 +1630,7 @@ mod tests {
 
         let mut options = RequestOptions::default();
         options.set_quota_project("some_project");
-        let query = Query::from_query_response(job_service, query_res, None, None, options);
+        let query = Query::from_query_response(job_service, query_res, None, None, None, options);
 
         let completed = query.until_done().await?;
         assert_eq!(
@@ -1598,7 +1662,7 @@ mod tests {
 
         let mut options = RequestOptions::default();
         options.set_quota_project("some_project");
-        let query = Query::from_query_response(job_service, query_res, None, None, options);
+        let query = Query::from_query_response(job_service, query_res, None, None, None, options);
         let job = query.get_job().unwrap().send().await?;
         assert_eq!(job.user_email, "test@example.com");
 

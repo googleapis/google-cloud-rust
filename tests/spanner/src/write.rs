@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::proto::{Genre, SingerInfo};
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use google_cloud_spanner::Decimal;
@@ -20,7 +21,9 @@ use google_cloud_spanner::key::KeySet;
 use google_cloud_spanner::mutation::Mutation;
 use google_cloud_spanner::read::ReadRequest;
 use google_cloud_spanner::statement::Statement;
+use google_cloud_spanner::types;
 use google_cloud_spanner::value::{Kind, Value};
+use prost::Message;
 use std::str::FromStr;
 
 fn string_val(s: &str) -> Value {
@@ -567,6 +570,29 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
     let val_array_json = vec![Some(val_json.clone()), None];
     let val_array_uuid = vec![Some(val_uuid.clone()), None];
 
+    // Proto and Proto Enum values
+    let singer_1 = SingerInfo {
+        singer_id: 101,
+        nationality: "Norwegian".to_string(),
+    };
+    let val_proto = singer_1.encode_to_vec();
+    let val_proto_enum = Genre::Rock as i32 as i64;
+
+    let singer_2 = SingerInfo {
+        singer_id: 102,
+        nationality: "Swedish".to_string(),
+    };
+    let val_array_proto = vec![
+        Some(val_proto.clone()),
+        None,
+        Some(singer_2.encode_to_vec()),
+    ];
+    let val_array_proto_enum = vec![
+        Some(Genre::Pop as i32 as i64),
+        None,
+        Some(Genre::Jazz as i32 as i64),
+    ];
+
     // 1. Write Row 1 (Full Values & Nullable Array Elements)
     let mutation1 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
@@ -615,6 +641,14 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         .to(&val_array_json)
         .set("ColArrayUuid")
         .to(&val_array_uuid)
+        .set("ColProto")
+        .to(&val_proto)
+        .set("ColProtoEnum")
+        .to(val_proto_enum)
+        .set("ColArrayProto")
+        .to(&val_array_proto)
+        .set("ColArrayProtoEnum")
+        .to(&val_array_proto_enum)
         .build();
 
     // 2. Write Row 2 (Strictly NULL Values E2E)
@@ -666,6 +700,14 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         .to::<Option<Vec<Option<String>>>>(None)
         .set("ColArrayUuid")
         .to::<Option<Vec<Option<String>>>>(None)
+        .set("ColProto")
+        .to::<Option<Vec<u8>>>(None)
+        .set("ColProtoEnum")
+        .to::<Option<i64>>(None)
+        .set("ColArrayProto")
+        .to::<Option<Vec<Option<Vec<u8>>>>>(None)
+        .set("ColArrayProtoEnum")
+        .to::<Option<Vec<Option<i64>>>>(None)
         .build();
 
     let id_untyped_null = format!("all-types-untyped-null-{}", run_id);
@@ -678,6 +720,10 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         .to(None::<()>)
         .set("ColFloat32")
         .to(None::<Value>)
+        .set("ColProto")
+        .to(Value::null())
+        .set("ColProtoEnum")
+        .to(Value::null())
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
@@ -714,6 +760,10 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
                     "ColArrayTimestamp",
                     "ColArrayJson",
                     "ColArrayUuid",
+                    "ColProto",
+                    "ColProtoEnum",
+                    "ColArrayProto",
+                    "ColArrayProtoEnum",
                 ],
             )
             .with_keys(
@@ -863,6 +913,66 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         "ColArrayUuid mismatch"
     );
 
+    let read_proto = row.get::<Vec<u8>>("ColProto")?;
+    let decoded_singer =
+        SingerInfo::decode(read_proto.as_slice()).expect("valid decoded SingerInfo");
+    assert_eq!(decoded_singer, singer_1, "ColProto mismatch");
+
+    let read_enum = row.get::<i64>("ColProtoEnum")?;
+    assert_eq!(read_enum, val_proto_enum, "ColProtoEnum mismatch");
+    assert_eq!(
+        Genre::try_from(read_enum as i32).expect("valid Genre enum"),
+        Genre::Rock
+    );
+
+    let read_array_proto = row.get::<Vec<Option<Vec<u8>>>>("ColArrayProto")?;
+    assert_eq!(read_array_proto.len(), 3, "ColArrayProto len mismatch");
+    assert_eq!(
+        SingerInfo::decode(
+            read_array_proto[0]
+                .as_ref()
+                .expect("element 0 must exist")
+                .as_slice()
+        )
+        .expect("valid decoded SingerInfo 1"),
+        singer_1
+    );
+    assert!(
+        read_array_proto[1].is_none(),
+        "expected element 1 of ColArrayProto to be None"
+    );
+    assert_eq!(
+        SingerInfo::decode(
+            read_array_proto[2]
+                .as_ref()
+                .expect("element 2 must exist")
+                .as_slice()
+        )
+        .expect("valid decoded SingerInfo 2"),
+        singer_2
+    );
+
+    let read_array_proto_enum = row.get::<Vec<Option<i64>>>("ColArrayProtoEnum")?;
+    assert_eq!(
+        read_array_proto_enum.len(),
+        3,
+        "ColArrayProtoEnum len mismatch"
+    );
+    assert_eq!(
+        read_array_proto_enum[0],
+        Some(Genre::Pop as i32 as i64),
+        "expected element 0 of ColArrayProtoEnum to be Pop"
+    );
+    assert_eq!(
+        read_array_proto_enum[1], None,
+        "expected element 1 of ColArrayProtoEnum to be None"
+    );
+    assert_eq!(
+        read_array_proto_enum[2],
+        Some(Genre::Jazz as i32 as i64),
+        "expected element 2 of ColArrayProtoEnum to be Jazz"
+    );
+
     // 4. Read back Row 2 (NULL values) and assert E2E
     let read_tx_null = db_client.single_use().build();
     let mut result_set_null = read_tx_null
@@ -892,6 +1002,10 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
                     "ColArrayTimestamp",
                     "ColArrayJson",
                     "ColArrayUuid",
+                    "ColProto",
+                    "ColProtoEnum",
+                    "ColArrayProto",
+                    "ColArrayProtoEnum",
                 ],
             )
             .with_keys(
@@ -1020,6 +1134,26 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
             .is_none(),
         "Expected ColArrayUuid to be NULL"
     );
+    assert!(
+        row_null.get::<Option<Vec<u8>>>("ColProto")?.is_none(),
+        "Expected ColProto to be NULL"
+    );
+    assert!(
+        row_null.get::<Option<i64>>("ColProtoEnum")?.is_none(),
+        "Expected ColProtoEnum to be NULL"
+    );
+    assert!(
+        row_null
+            .get::<Option<Vec<Option<Vec<u8>>>>>("ColArrayProto")?
+            .is_none(),
+        "Expected ColArrayProto to be NULL"
+    );
+    assert!(
+        row_null
+            .get::<Option<Vec<Option<i64>>>>("ColArrayProtoEnum")?
+            .is_none(),
+        "Expected ColArrayProtoEnum to be NULL"
+    );
 
     Ok(())
 }
@@ -1060,6 +1194,21 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
     let val_array_timestamp = vec![val_timestamp];
     let val_array_json = vec![val_json.clone()];
     let val_array_uuid = vec![val_uuid.clone()];
+
+    // Proto and Proto Enum parameter values
+    let singer = SingerInfo {
+        singer_id: 201,
+        nationality: "Icelandic".to_string(),
+    };
+    let val_proto = singer.encode_to_vec();
+    let val_proto_enum = Genre::Jazz as i32 as i64;
+
+    let singer_elem = SingerInfo {
+        singer_id: 202,
+        nationality: "Finnish".to_string(),
+    };
+    let val_array_proto = vec![singer_elem.encode_to_vec()];
+    let val_array_proto_enum = vec![Genre::Pop as i32 as i64];
 
     // Write the row
     let mutation = Mutation::new_insert_or_update_builder("AllTypes")
@@ -1109,6 +1258,14 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         .to(&val_array_json)
         .set("ColArrayUuid")
         .to(&val_array_uuid)
+        .set("ColProto")
+        .to(&val_proto)
+        .set("ColProtoEnum")
+        .to(val_proto_enum)
+        .set("ColArrayProto")
+        .to(&val_array_proto)
+        .set("ColArrayProtoEnum")
+        .to(&val_array_proto_enum)
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
@@ -1127,11 +1284,16 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         CAST(@array_date AS ARRAY<DATE>), \
         CAST(@array_timestamp AS ARRAY<TIMESTAMP>), \
         CAST(@array_json AS ARRAY<JSON>), \
-        CAST(@array_uuid AS ARRAY<UUID>) \
+        CAST(@array_uuid AS ARRAY<UUID>), \
+        @proto, \
+        @proto_enum, \
+        @array_proto, \
+        @array_proto_enum \
         FROM AllTypes WHERE \
         Id = @id AND ColBool = @bool AND ColInt64 = @int64 AND ColFloat32 = @float32 AND \
         ColFloat64 = @float64 AND ColNumeric = @numeric AND ColString = @string AND \
-        ColBytes = @bytes AND ColDate = @date AND ColTimestamp = @timestamp AND ColUuid = @uuid",
+        ColBytes = @bytes AND ColDate = @date AND ColTimestamp = @timestamp AND ColUuid = @uuid AND \
+        ColProto.singer_id = 201 AND ColProtoEnum = @proto_enum",
     )
     .add_param("id", &id)
     .add_param("bool", val_bool)
@@ -1155,6 +1317,18 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
     .add_param("array_timestamp", &val_array_timestamp)
     .add_param("array_json", &val_array_json)
     .add_param("array_uuid", &val_array_uuid)
+    .add_typed_param("proto", val_proto.clone(), types::proto("test.SingerInfo"))
+    .add_typed_param("proto_enum", val_proto_enum, types::proto_enum("test.Genre"))
+    .add_typed_param(
+        "array_proto",
+        val_array_proto.clone(),
+        types::array(types::proto("test.SingerInfo")),
+    )
+    .add_typed_param(
+        "array_proto_enum",
+        val_array_proto_enum.clone(),
+        types::array(types::proto_enum("test.Genre")),
+    )
     .build();
 
     let mut result_set = read_tx.execute_query(stmt).await?;
@@ -1228,6 +1402,32 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         row.get::<Vec<String>>(11)?,
         val_array_uuid,
         "array_uuid mismatch"
+    );
+
+    let read_proto: Vec<u8> = row.get(12)?;
+    let decoded_singer =
+        SingerInfo::decode(read_proto.as_slice()).expect("valid decoded SingerInfo param");
+    assert_eq!(decoded_singer, singer, "proto parameter mismatch");
+
+    let read_enum: i64 = row.get(13)?;
+    assert_eq!(read_enum, val_proto_enum, "proto_enum parameter mismatch");
+    assert_eq!(
+        Genre::try_from(read_enum as i32).expect("valid Genre enum"),
+        Genre::Jazz
+    );
+
+    let read_array_proto: Vec<Vec<u8>> = row.get(14)?;
+    assert_eq!(read_array_proto.len(), 1, "array_proto len mismatch");
+    assert_eq!(
+        SingerInfo::decode(read_array_proto[0].as_slice()).expect("valid decoded array proto"),
+        singer_elem,
+        "array_proto element mismatch"
+    );
+
+    let read_array_proto_enum: Vec<i64> = row.get(15)?;
+    assert_eq!(
+        read_array_proto_enum, val_array_proto_enum,
+        "array_proto_enum mismatch"
     );
 
     Ok(())

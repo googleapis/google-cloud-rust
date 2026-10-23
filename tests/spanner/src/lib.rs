@@ -20,6 +20,7 @@ pub mod directed_read;
 pub mod dml_returning;
 pub mod partitioned_dml;
 pub mod pg_dialect;
+pub mod proto;
 pub mod query;
 pub mod read;
 pub mod read_only_transaction_concurrent_queries;

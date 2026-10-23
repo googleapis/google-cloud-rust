@@ -14,8 +14,18 @@
 
 use crate::RequestOptions;
 use crate::error::RowError;
+#[cfg(any(
+    google_cloud_unstable_bigquery_arrow,
+    google_cloud_unstable_bigquery_storage_read
+))]
+use crate::query::arrow::{ArrowReader, ArrowResponseReader, RecordBatchSource};
 use crate::query::query_handle::CachedData;
 use crate::query::{CompleteQuery, Row, Schema};
+#[cfg(any(
+    google_cloud_unstable_bigquery_arrow,
+    google_cloud_unstable_bigquery_storage_read
+))]
+use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{GetQueryResultsRequest, JobReference};
 use std::collections::VecDeque;
@@ -55,18 +65,54 @@ pub struct RowIterator {
     job_ref: Option<JobReference>,
     schema: Arc<Schema>,
     page_token: Option<String>,
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    current_batch: Option<Arc<RecordBatch>>,
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    row_index: usize,
     rows: VecDeque<wkt::Struct>,
     page_size: Option<u32>,
     options: RequestOptions,
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    arrow_reader: Option<ArrowReader>,
 }
 
 impl RowIterator {
     pub(crate) fn new(q: CompleteQuery) -> Self {
-        // DDL/DML queries have no schema.
+        // DDL/DML or Arrow queries may have no TableSchema in metadata initially.
         let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
+        #[cfg(any(
+            google_cloud_unstable_bigquery_arrow,
+            google_cloud_unstable_bigquery_storage_read
+        ))]
+        let (rows, arrow_reader) = match q.cached_data {
+            CachedData::Rows(rows) => (rows, None),
+            CachedData::Arrow {
+                serialized_record_batch,
+                serialized_schema,
+            } => (
+                VecDeque::new(),
+                Some(ArrowReader::Response(ArrowResponseReader::new(
+                    serialized_schema,
+                    serialized_record_batch,
+                ))),
+            ),
+        };
+        #[cfg(not(any(
+            google_cloud_unstable_bigquery_arrow,
+            google_cloud_unstable_bigquery_storage_read
+        )))]
         let rows = match q.cached_data {
             CachedData::Rows(rows) => rows,
-            // TODO(#7035): decode cached Arrow IPC streams into RecordBatches
+            // TODO(#7035): remove once google_cloud_unstable_bigquery_arrow is stabilized
             CachedData::Arrow { .. } => {
                 unimplemented!("Arrow IPC decoding is not yet implemented (#7035)")
             }
@@ -76,9 +122,24 @@ impl RowIterator {
             job_ref: q.job_ref,
             schema,
             page_token: q.page_token,
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            current_batch: None,
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            row_index: 0,
             rows,
             page_size: q.page_size,
             options: q.options,
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            arrow_reader,
         }
     }
 
@@ -124,6 +185,42 @@ impl RowIterator {
     /// ```
     pub async fn next(&mut self) -> Option<Result<Row>> {
         loop {
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            {
+                if let Some(batch) = &self.current_batch {
+                    if self.row_index < batch.num_rows() {
+                        let idx = self.row_index;
+                        self.row_index += 1;
+                        return Some(Row::try_new_from_arrow(batch, idx, &self.schema));
+                    }
+                    self.current_batch = None;
+                    self.row_index = 0;
+                }
+
+                if let Some(ref mut arrow_reader) = self.arrow_reader {
+                    match arrow_reader.next_record_batch().await {
+                        Ok(Some(batch)) => {
+                            if self.schema.len() == 0 {
+                                self.schema = Arc::new(Schema::from_arrow_schema(&batch.schema()));
+                            }
+                            self.current_batch = Some(Arc::new(batch));
+                            self.row_index = 0;
+                            continue;
+                        }
+                        Ok(None) => {
+                            self.arrow_reader = None;
+                        }
+                        Err(err) => {
+                            self.arrow_reader = None;
+                            return Some(Err(err));
+                        }
+                    }
+                }
+            }
+
             if let Some(raw_row) = self.rows.pop_front() {
                 return Some(Row::try_new(raw_row, &self.schema));
             }
@@ -262,10 +359,10 @@ mod tests {
         let mut iter = q.read();
 
         let row1 = iter.next().await.expect("should have row 1")?;
-        assert_eq!(row1.get::<String, _>("col")?, "first");
+        assert_eq!(row1.get::<String>("col")?, "first");
 
         let row2 = iter.next().await.expect("should have row 2")?;
-        assert_eq!(row2.get::<String, _>("col")?, "second");
+        assert_eq!(row2.get::<String>("col")?, "second");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
@@ -329,16 +426,16 @@ mod tests {
         let mut iter = q.read();
 
         let row1 = iter.next().await.expect("should have row 1")?;
-        assert_eq!(row1.get::<String, _>("col")?, "cached_row");
+        assert_eq!(row1.get::<String>("col")?, "cached_row");
 
         let row2 = iter.next().await.expect("should have row 2")?;
-        assert_eq!(row2.get::<String, _>("col")?, "page_1_row_1");
+        assert_eq!(row2.get::<String>("col")?, "page_1_row_1");
 
         let row3 = iter.next().await.expect("should have row 3")?;
-        assert_eq!(row3.get::<String, _>("col")?, "page_1_row_2");
+        assert_eq!(row3.get::<String>("col")?, "page_1_row_2");
 
         let row4 = iter.next().await.expect("should have row 4")?;
-        assert_eq!(row4.get::<String, _>("col")?, "page_2_row_1");
+        assert_eq!(row4.get::<String>("col")?, "page_2_row_1");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
@@ -375,7 +472,7 @@ mod tests {
         let mut iter = q.read().set_page_size(50);
 
         let row = iter.next().await.expect("should have row")?;
-        assert_eq!(row.get::<String, _>("col")?, "page_row");
+        assert_eq!(row.get::<String>("col")?, "page_row");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
@@ -403,7 +500,7 @@ mod tests {
         let mut iter = q.read();
 
         let row = iter.next().await.expect("should have row")?;
-        assert_eq!(row.get::<String, _>("col")?, "page_row");
+        assert_eq!(row.get::<String>("col")?, "page_row");
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }
@@ -487,7 +584,7 @@ mod tests {
         let mut iter = q.read();
 
         let row = iter.next().await.expect("should have row")?;
-        assert_eq!(row.get::<String, _>("col")?, "page2_row");
+        assert_eq!(row.get::<String>("col")?, "page2_row");
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }
@@ -515,7 +612,7 @@ mod tests {
         let mut iter = q.read();
 
         let row = iter.next().await.expect("should have row")?;
-        assert_eq!(row.get::<String, _>("col")?, "page_row");
+        assert_eq!(row.get::<String>("col")?, "page_row");
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }
@@ -543,7 +640,208 @@ mod tests {
         let mut iter = q.read();
 
         let row = iter.next().await.expect("should have row")?;
-        assert_eq!(row.get::<String, _>("col")?, "page_row");
+        assert_eq!(row.get::<String>("col")?, "page_row");
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[tokio::test]
+    async fn test_row_iterator_cached_arrow_multiple_batches() -> TestResult {
+        use arrow::array::{Int64Array, StringArray};
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchema};
+        use arrow::ipc::writer::StreamWriter;
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![
+            Field::new("col", DataType::Utf8, false),
+            Field::new("num", DataType::Int64, false),
+        ]));
+
+        let mut schema_buf = Vec::new();
+        let _ = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
+
+        let batch1 = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![
+                Arc::new(StringArray::from(vec!["hello", "world"])),
+                Arc::new(Int64Array::from(vec![42, 100])),
+            ],
+        )?;
+        let empty_batch = RecordBatch::new_empty(arrow_schema.clone());
+        let batch2 = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![
+                Arc::new(StringArray::from(vec!["last"])),
+                Arc::new(Int64Array::from(vec![999])),
+            ],
+        )?;
+
+        let mut stream_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut stream_buf, &arrow_schema)?;
+        writer.write(&batch1)?;
+        writer.write(&empty_batch)?;
+        writer.write(&batch2)?;
+        writer.finish()?;
+        let batch_buf = stream_buf[schema_buf.len()..].to_vec();
+
+        let job_service = create_job_service(MockJobService::new());
+        let q = CompleteQuery {
+            job_service,
+            read_client: None,
+            job_ref: None,
+            cached_data: CachedData::Arrow {
+                serialized_schema: schema_buf.into(),
+                serialized_record_batch: batch_buf.into(),
+            },
+            page_token: None,
+            metadata: Default::default(),
+            page_size: None,
+            options: Default::default(),
+        };
+
+        let mut iter = q.read();
+
+        let row1 = iter.next().await.expect("row 1")?;
+        assert_eq!(row1.get::<String>("col")?, "hello");
+        assert_eq!(row1.get::<i64>("num")?, 42);
+
+        let row2 = iter.next().await.expect("row 2")?;
+        assert_eq!(row2.get::<String>("col")?, "world");
+        assert_eq!(row2.get::<i64>("num")?, 100);
+
+        let row3 = iter.next().await.expect("row 3")?;
+        assert_eq!(row3.get::<String>("col")?, "last");
+        assert_eq!(row3.get::<i64>("num")?, 999);
+
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[tokio::test]
+    async fn test_row_iterator_cached_arrow_then_fetch_page() -> TestResult {
+        use arrow::array::StringArray;
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchema};
+        use arrow::ipc::writer::StreamWriter;
+
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "token_page_1");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("from_json_page")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![Field::new(
+            "col",
+            DataType::Utf8,
+            false,
+        )]));
+        let mut schema_buf = Vec::new();
+        let _ = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
+
+        let batch = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![Arc::new(StringArray::from(vec!["from_arrow_batch"]))],
+        )?;
+        let mut stream_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut stream_buf, &arrow_schema)?;
+        writer.write(&batch)?;
+        writer.finish()?;
+        let batch_buf = stream_buf[schema_buf.len()..].to_vec();
+
+        let job_service = create_job_service(mock);
+        let q = CompleteQuery {
+            job_service,
+            read_client: None,
+            job_ref: Some(create_test_job_ref()),
+            cached_data: CachedData::Arrow {
+                serialized_schema: schema_buf.into(),
+                serialized_record_batch: batch_buf.into(),
+            },
+            page_token: Some("token_page_1".to_string()),
+            metadata: Default::default(),
+            page_size: None,
+            options: Default::default(),
+        };
+
+        let mut iter = q.read();
+
+        let row1 = iter.next().await.expect("row 1")?;
+        assert_eq!(row1.get::<String>("col")?, "from_arrow_batch");
+
+        let row2 = iter.next().await.expect("row 2")?;
+        assert_eq!(row2.get::<String>("col")?, "from_json_page");
+
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    fn create_test_arrow_schema_bytes() -> bytes::Bytes {
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchema};
+        use arrow::ipc::writer::StreamWriter;
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![Field::new(
+            "col",
+            DataType::Utf8,
+            false,
+        )]));
+        let mut schema_buf = Vec::new();
+        let _ =
+            StreamWriter::try_new(&mut schema_buf, &arrow_schema).expect("valid test arrow schema");
+        schema_buf.into()
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    #[test_case::test_case(
+        bytes::Bytes::from_static(b"invalid arrow schema bytes"),
+        bytes::Bytes::new();
+        "malformed schema"
+    )]
+    #[test_case::test_case(
+        create_test_arrow_schema_bytes(),
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00corrupted_batch_header");
+        "malformed record batch"
+    )]
+    #[tokio::test]
+    async fn test_row_iterator_cached_arrow_malformed_ipc(
+        serialized_schema: bytes::Bytes,
+        serialized_record_batch: bytes::Bytes,
+    ) -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        let q = CompleteQuery {
+            job_service,
+            read_client: None,
+            job_ref: None,
+            cached_data: CachedData::Arrow {
+                serialized_schema,
+                serialized_record_batch,
+            },
+            page_token: None,
+            metadata: Default::default(),
+            page_size: None,
+            options: Default::default(),
+        };
+
+        let mut iter = q.read();
+        let err = iter.next().await.expect("should return error").unwrap_err();
+        assert!(matches!(err, RowError::InvalidRowFormat(_)), "{err:?}");
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }

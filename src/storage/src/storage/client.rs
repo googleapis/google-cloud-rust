@@ -289,15 +289,14 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # use bytes::Bytes;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut writer = client
     ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
     ///     .await?;
     ///
-    /// writer.append(Bytes::from_static(b"hello ")).await?;
-    /// writer.append(Bytes::from_static(b"world")).await?;
+    /// writer.append("hello ").await?;
+    /// writer.append("world").await?;
     /// writer.flush().await?;
     ///
     /// let object = writer.finalize().await?;
@@ -324,14 +323,13 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # use bytes::Bytes;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut writer = client
     ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 12345)
     ///     .send()
     ///     .await?;
     ///
-    /// writer.append(Bytes::from_static(b"more bytes")).await?;
+    /// writer.append("more bytes").await?;
     /// writer.flush().await?;
     /// # Ok(()) }
     /// ```

@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-bigquery"
-version     = "0.18.0"
+version     = "0.19.0"
 description = "Google Cloud Client Libraries for Rust - BigQuery"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -25,6 +25,10 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+# NOTE: when google-cloud-bigquery takes a breaking version bump, also take a
+# breaking version bump of google-cloud-bigquery-derive (below), and vice versa
+# when the derives change the input they accept. See the "Compatibility"
+# section in src/bigquery-derive/src/lib.rs.
 [dependencies]
 arc-swap.workspace           = true
 async-trait.workspace        = true

@@ -12,12 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use base64::Engine;
+use base64::prelude::BASE64_STANDARD;
 use gaxi::grpc::tonic::Response;
 use google_cloud_auth::credentials::anonymous::Builder as AnonymousCredentialsBuilder;
 use google_cloud_spanner::Decimal;
 use google_cloud_spanner::client::Spanner;
 use google_cloud_spanner::statement::Statement;
+use google_cloud_spanner::types;
 use google_cloud_test_macros::tokio_test_no_panics;
+use prost::{Enumeration, Message};
 use prost_types::value::Kind;
 use prost_types::{ListValue, Value as ProstValue};
 use spanner_grpc_mock::MockSpanner;
@@ -442,6 +446,291 @@ async fn execute_query_with_non_finite_float_params() -> anyhow::Result<()> {
         f32_array_val[2],
         f32::NEG_INFINITY,
         "expected -Infinity for f32_array[2]"
+    );
+
+    assert!(
+        result_set.next().await.is_none(),
+        "result set should yield exactly one row"
+    );
+
+    Ok(())
+}
+
+#[derive(Clone, PartialEq, Message)]
+struct CustomerAddress {
+    #[prost(string, tag = "1")]
+    street: String,
+    #[prost(string, tag = "2")]
+    city: String,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Enumeration)]
+#[repr(i32)]
+enum OrderStatus {
+    Unspecified = 0,
+    Pending = 1,
+    Shipped = 2,
+    Delivered = 3,
+}
+
+#[tokio_test_no_panics]
+async fn execute_query_with_proto_and_proto_enum() -> anyhow::Result<()> {
+    let mut mock = MockSpanner::new();
+    mock.expect_create_session().once().returning(|_| {
+        Ok(Response::new(Session {
+            name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+            ..Default::default()
+        }))
+    });
+
+    let sample_address = CustomerAddress {
+        street: "1600 Amphitheatre Pkwy".to_string(),
+        city: "Mountain View".to_string(),
+    };
+    let proto_payload = sample_address.encode_to_vec();
+    let proto_base64 = BASE64_STANDARD.encode(&proto_payload);
+
+    let expected_proto_fqn = "examples.shipping.Address";
+    let expected_enum_fqn = "examples.shipping.OrderStatus";
+
+    mock.expect_execute_streaming_sql()
+        .once()
+        .returning(move |request| {
+            let request = request.into_inner();
+            let param_types = request.param_types;
+
+            // Verify typed parameters received by the mock server
+            let proto_param_type = param_types
+                .get("addr")
+                .expect("request must contain addr param type");
+            assert_eq!(
+                proto_param_type.code,
+                TypeCode::Proto as i32,
+                "expected Proto type code for addr param"
+            );
+            assert_eq!(
+                proto_param_type.proto_type_fqn, expected_proto_fqn,
+                "expected proto_type_fqn for addr param"
+            );
+
+            let enum_param_type = param_types
+                .get("status")
+                .expect("request must contain status param type");
+            assert_eq!(
+                enum_param_type.code,
+                TypeCode::Enum as i32,
+                "expected Enum type code for status param"
+            );
+            assert_eq!(
+                enum_param_type.proto_type_fqn, expected_enum_fqn,
+                "expected proto_type_fqn for status param"
+            );
+
+            let result_set = PartialResultSet {
+                metadata: Some(ResultSetMetadata {
+                    row_type: Some(StructType {
+                        fields: vec![
+                            Field {
+                                name: "Address".to_string(),
+                                r#type: Some(Type {
+                                    code: TypeCode::Proto as i32,
+                                    array_element_type: None,
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: expected_proto_fqn.to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "Status".to_string(),
+                                r#type: Some(Type {
+                                    code: TypeCode::Enum as i32,
+                                    array_element_type: None,
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: expected_enum_fqn.to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "NullAddress".to_string(),
+                                r#type: Some(Type {
+                                    code: TypeCode::Proto as i32,
+                                    array_element_type: None,
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: expected_proto_fqn.to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "NullStatus".to_string(),
+                                r#type: Some(Type {
+                                    code: TypeCode::Enum as i32,
+                                    array_element_type: None,
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: expected_enum_fqn.to_string(),
+                                }),
+                            },
+                            Field {
+                                name: "AddressList".to_string(),
+                                r#type: Some(Type {
+                                    code: TypeCode::Array as i32,
+                                    array_element_type: Some(Box::new(Type {
+                                        code: TypeCode::Proto as i32,
+                                        array_element_type: None,
+                                        struct_type: None,
+                                        type_annotation: 0,
+                                        proto_type_fqn: expected_proto_fqn.to_string(),
+                                    })),
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: String::new(),
+                                }),
+                            },
+                            Field {
+                                name: "StatusList".to_string(),
+                                r#type: Some(Type {
+                                    code: TypeCode::Array as i32,
+                                    array_element_type: Some(Box::new(Type {
+                                        code: TypeCode::Enum as i32,
+                                        array_element_type: None,
+                                        struct_type: None,
+                                        type_annotation: 0,
+                                        proto_type_fqn: expected_enum_fqn.to_string(),
+                                    })),
+                                    struct_type: None,
+                                    type_annotation: 0,
+                                    proto_type_fqn: String::new(),
+                                }),
+                            },
+                        ],
+                    }),
+                    transaction: None,
+                    undeclared_parameters: None,
+                }),
+                values: vec![
+                    ProstValue {
+                        kind: Some(Kind::StringValue(proto_base64.clone())),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::StringValue("2".to_string())),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::NullValue(0)),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::NullValue(0)),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::ListValue(ListValue {
+                            values: vec![ProstValue {
+                                kind: Some(Kind::StringValue(proto_base64.clone())),
+                            }],
+                        })),
+                    },
+                    ProstValue {
+                        kind: Some(Kind::ListValue(ListValue {
+                            values: vec![ProstValue {
+                                kind: Some(Kind::StringValue("1".to_string())),
+                            }],
+                        })),
+                    },
+                ],
+                chunked_value: false,
+                resume_token: vec![],
+                stats: None,
+                precommit_token: None,
+                cache_update: None,
+                last: true,
+            };
+
+            let (sender, receiver) = channel(1);
+            sender
+                .try_send(Ok(result_set))
+                .expect("channel send must succeed");
+            Ok(Response::from(receiver))
+        });
+
+    let (address, _server) = start("0.0.0.0:0", mock)
+        .await
+        .expect("Failed to start mock server");
+
+    let spanner = Spanner::builder()
+        .with_endpoint(address)
+        .with_credentials(AnonymousCredentialsBuilder::new().build())
+        .build()
+        .await
+        .expect("Failed to build client");
+
+    let database_client = spanner
+        .database_client("projects/p/instances/i/databases/d")
+        .build()
+        .await
+        .expect("Failed to create DatabaseClient");
+
+    let transaction = database_client.single_use().build();
+    let statement = Statement::builder(
+        "SELECT Address, Status, NullAddress, NullStatus, AddressList, StatusList FROM Orders WHERE Address = @addr AND Status = @status",
+    )
+    .add_typed_param(
+        "addr",
+        sample_address.encode_to_vec(),
+        types::proto("examples.shipping.Address"),
+    )
+    .add_typed_param(
+        "status",
+        OrderStatus::Shipped as i32 as i64,
+        types::proto_enum("examples.shipping.OrderStatus"),
+    )
+    .build();
+
+    let mut result_set = transaction.execute_query(statement).await?;
+    let row = result_set
+        .next()
+        .await
+        .expect("stream must yield first item")
+        .expect("row must be valid");
+
+    let address_bytes: Vec<u8> = row.get("Address")?;
+    let address = CustomerAddress::decode(address_bytes.as_slice())
+        .expect("decode CustomerAddress from row bytes");
+    assert_eq!(address, sample_address, "expected address proto message");
+
+    let status_raw: i64 = row.get("Status")?;
+    let status =
+        OrderStatus::try_from(status_raw as i32).expect("convert status i64 to OrderStatus enum");
+    assert_eq!(status, OrderStatus::Shipped, "expected status enum Shipped");
+
+    let null_address: Option<Vec<u8>> = row.get("NullAddress")?;
+    assert_eq!(null_address, None, "expected None for NullAddress");
+
+    let null_status: Option<i64> = row.get("NullStatus")?;
+    assert_eq!(null_status, None, "expected None for NullStatus");
+
+    let address_list_bytes: Vec<Vec<u8>> = row.get("AddressList")?;
+    let address_list: Vec<CustomerAddress> = address_list_bytes
+        .iter()
+        .map(|bytes| {
+            CustomerAddress::decode(bytes.as_slice())
+                .expect("decode CustomerAddress from list element")
+        })
+        .collect();
+    assert_eq!(
+        address_list,
+        vec![sample_address.clone()],
+        "expected address list items"
+    );
+
+    let status_list_raw: Vec<i64> = row.get("StatusList")?;
+    let status_list: Vec<OrderStatus> = status_list_raw
+        .iter()
+        .map(|&val| {
+            OrderStatus::try_from(val as i32).expect("convert status_list i64 to OrderStatus enum")
+        })
+        .collect();
+    assert_eq!(
+        status_list,
+        vec![OrderStatus::Pending],
+        "expected status list items"
     );
 
     assert!(

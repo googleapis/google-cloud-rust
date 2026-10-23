@@ -137,7 +137,6 @@ wrappers = [
   "grpc-server",
   "opentelemetry-proto",
   "pubsub-grpc-mock",
-  "pubsub-hedging",
   "spanner-grpc-mock",
   "storage-grpc-mock",
 ]
