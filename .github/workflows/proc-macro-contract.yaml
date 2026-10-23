@@ -1,0 +1,46 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Checks the proc-macro contract tests (`src/*/tests/*_contract/`). See the
+# "Compatibility" section in `src/bigquery-derive/src/lib.rs` for the policy
+# and the 'rust: proc-macro-contract-change' label.
+name: Proc-macro Contract Tests
+on:
+  pull_request:
+    branches: [main, grpc_rust, 'release-*']
+    # Include label changes so toggling the label re-runs the check.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    if: github.repository == 'googleapis/google-cloud-rust'
+    runs-on: ubuntu-24.04
+    steps:
+      # Depth 2 and `HEAD^1` rely on the default pull_request checkout of the
+      # merge commit. Do not set `ref:` to the pull request head SHA.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+          # HEAD is the pull request merge commit; HEAD^1 is the base branch
+          # tip. Depth 2 fetches both.
+          fetch-depth: 2
+      - name: Check proc-macro contract tests
+        env:
+          ALLOW_CONTRACT_CHANGE: "${{ contains(github.event.pull_request.labels.*.name, 'rust: proc-macro-contract-change') }}"
+        run: .github/scripts/proc-macro-contract-check.sh HEAD^1
