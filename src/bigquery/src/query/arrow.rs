@@ -368,8 +368,18 @@ impl ArrowCell {
                 } else {
                     ""
                 };
+                let abs_nanos = interval.nanos.abs();
+                let frac = if abs_nanos == 0 {
+                    String::new()
+                } else if abs_nanos % 1_000_000 == 0 {
+                    format!(".{:03}", abs_nanos / 1_000_000)
+                } else if abs_nanos % 1_000 == 0 {
+                    format!(".{:06}", abs_nanos / 1_000)
+                } else {
+                    format!(".{abs_nanos:09}")
+                };
                 Ok(format!(
-                    "{}{}-{} {} {}{:02}:{:02}:{:02}.{:09}",
+                    "{}{}-{} {} {}{}:{}:{}{}",
                     ym_sign,
                     interval.years.abs(),
                     interval.months.abs(),
@@ -378,7 +388,7 @@ impl ArrowCell {
                     interval.hours.abs(),
                     interval.minutes.abs(),
                     interval.seconds.abs(),
-                    interval.nanos.abs()
+                    frac
                 ))
             }
             _ => Err(ConvertError::TypeMismatch {
@@ -515,24 +525,31 @@ impl ArrowCell {
         if self.is_null() {
             return Err(ConvertError::NotNull);
         }
-        match self.array.data_type() {
+        let mut s = match self.array.data_type() {
             arrow::datatypes::DataType::Decimal128(_, _) => {
                 let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal128Type>(
                     &self.array,
                 );
-                Ok(arr.value_as_string(self.row_idx))
+                arr.value_as_string(self.row_idx)
             }
             arrow::datatypes::DataType::Decimal256(_, _) => {
                 let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal256Type>(
                     &self.array,
                 );
-                Ok(arr.value_as_string(self.row_idx))
+                arr.value_as_string(self.row_idx)
             }
-            _ => Err(ConvertError::TypeMismatch {
-                expected: "Decimal128Array or Decimal256Array".to_string(),
-                got: self.data_type_str(),
-            }),
+            _ => {
+                return Err(ConvertError::TypeMismatch {
+                    expected: "Decimal128Array or Decimal256Array".to_string(),
+                    got: self.data_type_str(),
+                });
+            }
+        };
+        if s.contains('.') {
+            let trimmed_len = s.trim_end_matches('0').trim_end_matches('.').len();
+            s.truncate(trimmed_len);
         }
+        Ok(s)
     }
 
     /// Returns the cell's `Decimal128` value along with its non-negative scale.
@@ -753,7 +770,13 @@ mod tests {
     #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])), 0 => Ok("2026-05-28T15:30:00".to_string()) ; "sql str from TimestampMicrosecondArray without tz zero nanos")]
     #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok("2026-05-28T15:30:00.123456".to_string()) ; "sql str from TimestampMicrosecondArray without tz fractional")]
     #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "sql str from Decimal128Array")]
-    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])), 0 => Ok("1-2 3 04:05:06.000000789".to_string()) ; "sql str from IntervalMonthDayNanoArray")]
+    #[test_case(decimal128_array(vec![Some(42_500_000_000)], 38, 9), 0 => Ok("42.5".to_string()) ; "sql str from Decimal128Array trailing fractional zeros")]
+    #[test_case(decimal128_array(vec![Some(42_000_000_000)], 38, 9), 0 => Ok("42".to_string()) ; "sql str from Decimal128Array whole integer")]
+    #[test_case(decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38), 0 => Ok("42.5".to_string()) ; "sql str from Decimal256Array scale 38")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 1, 9_045_000_000_000))])), 0 => Ok("0-0 1 2:30:45".to_string()) ; "sql str from IntervalMonthDayNanoArray zero nanos")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_789_000_000))])), 0 => Ok("1-2 3 4:5:6.789".to_string()) ; "sql str from IntervalMonthDayNanoArray millis")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 0, 123_456_000))])), 0 => Ok("0-0 0 0:0:0.123456".to_string()) ; "sql str from IntervalMonthDayNanoArray micros")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])), 0 => Ok("1-2 3 4:5:6.000000789".to_string()) ; "sql str from IntervalMonthDayNanoArray nanos")]
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray", "Int64")) ; "sql str type mismatch")]
     fn to_sql_string(arr: ArrayRef, row_idx: usize) -> Result<String, TestConvertError> {
         ArrowCell::new(arr, row_idx)
@@ -808,8 +831,11 @@ mod tests {
 
     #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "decimal str from Decimal128Array")]
     #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Ok("-123.456".to_string()) ; "decimal str negative from Decimal128Array")]
+    #[test_case(decimal128_array(vec![Some(42_500_000_000)], 38, 9), 0 => Ok("42.5".to_string()) ; "decimal str from Decimal128Array trailing fractional zeros")]
+    #[test_case(decimal128_array(vec![Some(42_000_000_000)], 38, 9), 0 => Ok("42".to_string()) ; "decimal str from Decimal128Array whole integer")]
     #[test_case(decimal128_array(vec![None], 10, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal128Array")]
     #[test_case(decimal256_array(vec![Some(i256::from_i128(789_012))], 20, 3), 0 => Ok("789.012".to_string()) ; "decimal str from Decimal256Array")]
+    #[test_case(decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38), 0 => Ok("42.5".to_string()) ; "decimal str from Decimal256Array scale 38")]
     #[test_case(decimal256_array(vec![None], 20, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal256Array")]
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array", "Int64")) ; "decimal str type mismatch")]
     fn as_decimal_str(arr: ArrayRef, row_idx: usize) -> Result<String, TestConvertError> {
