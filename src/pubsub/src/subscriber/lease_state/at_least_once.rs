@@ -25,6 +25,8 @@ pub struct Leases {
     under_lease: HashMap<String, AtLeastOnceInfo>,
     /// Ack IDs we need to acknowledge.
     to_ack: Vec<String>,
+    /// The ones among `to_ack` that no lease extension reached.
+    unextended: Vec<String>,
     /// Ack IDs we need to nack.
     to_nack: Vec<String>,
 }
@@ -37,10 +39,26 @@ impl Leases {
 
     /// Process an ack from the application
     pub fn ack(&mut self, ack_id: String) {
-        self.under_lease.remove(&ack_id);
+        if self
+            .under_lease
+            .remove(&ack_id)
+            .is_some_and(|info| info.last_extension.is_none())
+        {
+            self.unextended.push(ack_id.clone());
+        }
         // Unconditionally add the ack ID to the next ack batch. It doesn't hurt
         // to optimistically add it, even if its lease has expired.
         self.to_ack.push(ack_id);
+    }
+
+    /// Drain the acked IDs that no lease extension reached, in batches to modack.
+    ///
+    /// The service redelivers a message whose ack is lost once the deadline of
+    /// its last modack passes, but can hold one never modacked for many
+    /// minutes. Sending the modack with the ack, rather than on receipt, keeps
+    /// it from racing a nack.
+    pub fn drain_unextended(&mut self) -> Vec<Vec<String>> {
+        super::batch(std::mem::take(&mut self.unextended))
     }
 
     /// Process a nack from the application
@@ -284,6 +302,12 @@ mod tests {
             leases
         );
 
+        // None of the acked leases was extended, so each ack goes out with a modack.
+        let unextended = Batches::flatten(leases.drain_unextended());
+        assert_eq!(unextended.counts, vec![10]);
+        assert_eq!(sorted(&unextended.ack_ids), test_ids(0..10));
+        assert!(leases.drain_unextended().is_empty());
+
         let (to_ack, to_nack) = leases.drain();
         assert_eq!(to_ack, test_ids(0..10));
         assert_eq!(to_nack, test_ids(10..20));
@@ -324,6 +348,14 @@ mod tests {
         // Should not have side effects.
         assert_eq!(leases.last_extension(&test_id(1)), Some(later));
         assert_eq!(leases.last_extension(&test_id(2)), Some(later));
+
+        // Only an ack whose lease no extension reached needs a modack: 1 was
+        // extended, and 5 is not under lease.
+        leases.add(test_id(4), AtLeastOnceInfo::new());
+        leases.ack(test_id(1));
+        leases.ack(test_id(4));
+        leases.ack(test_id(5));
+        assert_eq!(leases.drain_unextended(), vec![vec![test_id(4)]]);
     }
 
     #[test]
@@ -512,6 +544,18 @@ mod tests {
         }
 
         // Make sure all ack IDs are included.
+        assert_eq!(got, want);
+
+        for i in 0..NUM_BATCHES * MAX_IDS_PER_RPC {
+            leases.ack(test_id(i));
+        }
+        let unextended = leases.drain_unextended();
+        assert_eq!(unextended.len(), NUM_BATCHES as usize);
+        let mut got = HashSet::new();
+        for batch in unextended {
+            assert_eq!(batch.len(), MAX_IDS_PER_RPC as usize);
+            got.extend(batch);
+        }
         assert_eq!(got, want);
         Ok(())
     }
