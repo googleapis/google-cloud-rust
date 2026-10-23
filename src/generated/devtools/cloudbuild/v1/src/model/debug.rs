@@ -781,6 +781,7 @@ impl std::fmt::Debug for super::BuildTrigger {
         debug_struct.field("included_files", &self.included_files);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("source_to_build", &self.source_to_build);
+        debug_struct.field("approval_config", &self.approval_config);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("repository_event_config", &self.repository_event_config);
         debug_struct.field("build_template", &self.build_template);

@@ -4396,6 +4396,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-location",
+ "google-cloud-type",
  "google-cloud-wkt",
  "http",
  "prost",

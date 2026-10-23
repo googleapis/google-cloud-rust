@@ -8125,6 +8125,10 @@ pub struct BuildTrigger {
     /// triggers.
     pub source_to_build: std::option::Option<crate::model::GitRepoSource>,
 
+    /// Configuration for manual approval to start a build invocation of this
+    /// BuildTrigger.
+    pub approval_config: std::option::Option<crate::model::ApprovalConfig>,
+
     /// The service account used for all user-controlled operations including
     /// UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
     /// If no service account is set and the legacy Cloud Build service account
@@ -8491,6 +8495,39 @@ impl BuildTrigger {
         T: std::convert::Into<crate::model::GitRepoSource>,
     {
         self.source_to_build = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [approval_config][crate::model::BuildTrigger::approval_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_build_v1::model::BuildTrigger;
+    /// use google_cloud_build_v1::model::ApprovalConfig;
+    /// let x = BuildTrigger::new().set_approval_config(ApprovalConfig::default()/* use setters */);
+    /// ```
+    pub fn set_approval_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ApprovalConfig>,
+    {
+        self.approval_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [approval_config][crate::model::BuildTrigger::approval_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_build_v1::model::BuildTrigger;
+    /// use google_cloud_build_v1::model::ApprovalConfig;
+    /// let x = BuildTrigger::new().set_or_clear_approval_config(Some(ApprovalConfig::default()/* use setters */));
+    /// let x = BuildTrigger::new().set_or_clear_approval_config(None::<ApprovalConfig>);
+    /// ```
+    pub fn set_or_clear_approval_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ApprovalConfig>,
+    {
+        self.approval_config = v.map(|x| x.into());
         self
     }
 
