@@ -381,7 +381,7 @@ pub(crate) mod write_only_transaction;
 mod status;
 
 #[cfg(test)]
-mod test;
+pub(crate) mod test;
 
 #[allow(dead_code)]
 #[allow(rustdoc::broken_intra_doc_links)]
