@@ -59,8 +59,9 @@
 //! [Security Token Service]: https://cloud.google.com/iam/docs/reference/sts/rest
 //! [Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-identity-federation
 
+use crate::access_boundary::{CredentialsWithAccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
-use crate::constants::{DEFAULT_UNIVERSE_DOMAIN, STS_OAUTH_TOKEN_URL};
+use crate::constants::STS_OAUTH_TOKEN_URL;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
@@ -75,7 +76,7 @@ use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use serde_json::Value;
-use std::sync::{Arc, Mutex};
+use std::sync::Mutex;
 use tokio::time::{Duration, Instant};
 
 /// A builder for constructing `external_account_authorized_user` [Credentials].
@@ -94,6 +95,7 @@ pub struct Builder {
     token_url: Option<String>,
     universe_domain: Option<String>,
     retry_builder: RetryTokenProviderBuilder,
+    iam_endpoint_override: Option<String>,
 }
 
 impl Builder {
@@ -108,13 +110,14 @@ impl Builder {
             token_url: None,
             universe_domain: None,
             retry_builder: RetryTokenProviderBuilder::default(),
+            iam_endpoint_override: None,
         }
     }
 
     /// Sets the URL of the STS endpoint used to refresh access tokens.
     ///
     /// Any value provided here overrides a `token_url` value from the input JSON.
-    /// Defaults to `https://sts.{universe_domain}/v1/oauthtoken` if not
+    /// Defaults to `https://sts.googleapis.com/v1/oauthtoken` if not
     /// specified here or in the JSON.
     ///
     /// # Example
@@ -153,7 +156,7 @@ impl Builder {
     /// Sets the universe domain for these credentials.
     ///
     /// Any value set here overrides a `universe_domain` value from the
-    /// input JSON. The universe domain determines the default token URL.
+    /// input JSON.
     ///
     /// # Example
     /// ```
@@ -258,6 +261,12 @@ impl Builder {
         self
     }
 
+    #[cfg(all(test, google_cloud_unstable_trust_boundaries))]
+    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+        self.iam_endpoint_override = iam_endpoint_override;
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -266,9 +275,7 @@ impl Builder {
     /// cannot be deserialized into the expected format. This typically happens
     /// if the JSON value is malformed or missing required fields.
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(Credentials {
-            inner: Arc::new(self.build_credentials()?),
-        })
+        Ok(self.build_credentials()?.into())
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -298,14 +305,14 @@ impl Builder {
     /// cannot be deserialized into the expected format. This typically happens
     /// if the JSON value is malformed or missing required fields.
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(self.build_credentials()?),
-        })
+        Ok(self.build_credentials()?.into())
     }
 
     fn build_credentials(
         self,
-    ) -> BuildResult<ExternalAccountAuthorizedUserCredentials<TokenCache>> {
+    ) -> BuildResult<
+        CredentialsWithAccessBoundary<ExternalAccountAuthorizedUserCredentials<TokenCache>>,
+    > {
         let authorized_user =
             serde_json::from_value::<ExternalAccountAuthorizedUser>(self.authorized_user)
                 .map_err(BuilderError::parsing)?;
@@ -314,8 +321,12 @@ impl Builder {
         let token_url = self
             .token_url
             .or(authorized_user.token_url)
-            .unwrap_or_else(|| default_token_url(universe_domain.as_deref()));
+            .unwrap_or_else(|| STS_OAUTH_TOKEN_URL.to_string());
         let quota_project_id = self.quota_project_id.or(authorized_user.quota_project_id);
+
+        let access_boundary_url = authorized_user.audience.as_deref().and_then(|audience| {
+            external_account_lookup_url(audience, self.iam_endpoint_override.as_deref())
+        });
 
         let token_provider = ExternalAccountAuthorizedUserTokenProvider {
             client: Client::new(),
@@ -326,20 +337,16 @@ impl Builder {
         };
         let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
 
-        Ok(ExternalAccountAuthorizedUserCredentials {
+        let creds = ExternalAccountAuthorizedUserCredentials {
             token_provider,
             quota_project_id,
             universe_domain,
-        })
-    }
-}
+        };
 
-fn default_token_url(universe_domain: Option<&str>) -> String {
-    match universe_domain {
-        Some(ud) if ud != DEFAULT_UNIVERSE_DOMAIN => {
-            STS_OAUTH_TOKEN_URL.replace(DEFAULT_UNIVERSE_DOMAIN, ud)
-        }
-        _ => STS_OAUTH_TOKEN_URL.to_string(),
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
+            access_boundary_url,
+        ))
     }
 }
 
@@ -403,10 +410,8 @@ impl TokenProvider for ExternalAccountAuthorizedUserTokenProvider {
 
         Ok(Token {
             token: response.access_token,
-            token_type: response.token_type.unwrap_or_else(|| "Bearer".to_string()),
-            expires_at: response
-                .expires_in
-                .map(|d| Instant::now() + Duration::from_secs(d)),
+            token_type: response.token_type,
+            expires_at: Some(Instant::now() + Duration::from_secs(response.expires_in)),
             metadata: None,
         })
     }
@@ -455,10 +460,11 @@ where
 
 /// The `external_account_authorized_user` file format.
 ///
-/// The file also contains `audience`, `token_info_url` and `revoke_url`.
-/// These are not needed to refresh access tokens and are ignored.
+/// The file may also contain `token_info_url` and `revoke_url`, which are
+/// not needed to refresh access tokens and are ignored.
 #[derive(Debug, PartialEq, serde::Deserialize)]
 struct ExternalAccountAuthorizedUser {
+    audience: Option<String>,
     client_id: String,
     client_secret: String,
     refresh_token: String,
@@ -470,10 +476,8 @@ struct ExternalAccountAuthorizedUser {
 #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 struct RefreshResponse {
     access_token: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    token_type: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    expires_in: Option<u64>,
+    token_type: String,
+    expires_in: u64,
     #[serde(skip_serializing_if = "Option::is_none")]
     refresh_token: Option<String>,
 }
@@ -484,7 +488,7 @@ mod tests {
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         get_headers_from_cache, get_mock_auth_retry_policy, get_mock_backoff_policy,
-        get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
+        get_mock_retry_throttler, get_token_from_headers,
     };
     use base64::Engine;
     use http::header::AUTHORIZATION;
@@ -515,8 +519,8 @@ mod tests {
     fn response(refresh_token: Option<&str>) -> RefreshResponse {
         RefreshResponse {
             access_token: "test-access-token".to_string(),
-            token_type: Some("Bearer".to_string()),
-            expires_in: Some(3600),
+            token_type: "Bearer".to_string(),
+            expires_in: 3600,
             refresh_token: refresh_token.map(str::to_string),
         }
     }
@@ -536,6 +540,7 @@ mod tests {
             "universe_domain": "test-universe",
         });
         let expected = ExternalAccountAuthorizedUser {
+            audience: Some("test-audience".to_string()),
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
@@ -572,19 +577,6 @@ mod tests {
         assert!(!fmt.contains("test-client-secret"), "{fmt}");
         assert!(!fmt.contains("test-refresh-token"), "{fmt}");
         assert!(fmt.contains(STS_OAUTH_TOKEN_URL), "{fmt}");
-    }
-
-    #[test]
-    fn default_token_url_by_universe() {
-        assert_eq!(default_token_url(None), STS_OAUTH_TOKEN_URL);
-        assert_eq!(
-            default_token_url(Some(DEFAULT_UNIVERSE_DOMAIN)),
-            STS_OAUTH_TOKEN_URL
-        );
-        assert_eq!(
-            default_token_url(Some("my-universe.com")),
-            "https://sts.my-universe.com/v1/oauthtoken"
-        );
     }
 
     #[tokio::test]
@@ -647,20 +639,26 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn token_provider_defaults_token_type() -> TestResult {
+    async fn token_provider_missing_response_fields_fails() -> TestResult {
         let server = Server::run();
         server.expect(
-            Expectation::matching(request::path("/token")).respond_with(json_encoded(
-                serde_json::json!({"access_token": "test-access-token"}),
-            )),
+            Expectation::matching(request::path("/token")).respond_with(cycle![
+                json_encoded(serde_json::json!({
+                    "access_token": "test-access-token",
+                    "expires_in": 3600,
+                })),
+                json_encoded(serde_json::json!({
+                    "access_token": "test-access-token",
+                    "token_type": "Bearer",
+                })),
+            ]),
         );
 
         let creds = Builder::new(authorized_user_json(server.url("/token").to_string())).build()?;
-        let headers = creds.headers(Extensions::new()).await?;
-        assert_eq!(
-            get_token_type_from_headers(headers).as_deref(),
-            Some("Bearer")
-        );
+        for _ in 0..2 {
+            let err = creds.headers(Extensions::new()).await.unwrap_err();
+            assert!(!err.is_transient(), "{err:?}");
+        }
         Ok(())
     }
 
@@ -804,6 +802,44 @@ mod tests {
         let creds = Builder::new(authorized_user_json(server.url("/token").to_string())).build()?;
         let err = creds.headers(Extensions::new()).await.unwrap_err();
         assert!(!err.is_transient(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
+    async fn e2e_access_boundary() -> TestResult {
+        use crate::credentials::tests::get_access_boundary_from_headers;
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .respond_with(json_encoded(response(None))),
+        );
+        server.expect(
+            Expectation::matching(request::method_path(
+                "GET",
+                "/v1/locations/global/workforcePools/pool/allowedLocations",
+            ))
+            .respond_with(json_encoded(serde_json::json!({
+                "locations": ["us-central1"],
+                "encodedLocations": "0x1234"
+            }))),
+        );
+
+        let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+
+        let creds = Builder::new(authorized_user_json(server.url("/token").to_string()))
+            .maybe_iam_endpoint_override(Some(iam_endpoint))
+            .build_credentials()?;
+
+        creds.wait_for_boundary().await;
+
+        let headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers.clone());
+        let access_boundary = get_access_boundary_from_headers(headers);
+
+        assert_eq!(token.as_deref(), Some("test-access-token"));
+        assert_eq!(access_boundary.as_deref(), Some("0x1234"));
         Ok(())
     }
 }
