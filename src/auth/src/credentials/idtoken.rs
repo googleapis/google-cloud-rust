@@ -404,6 +404,13 @@ pub(crate) mod tests {
     }
 
     pub(crate) fn generate_test_id_token_es256(audience: &str) -> String {
+        generate_test_id_token_es256_with_claims(audience, HashMap::new())
+    }
+
+    pub(crate) fn generate_test_id_token_es256_with_claims(
+        audience: &str,
+        claims_to_add: HashMap<&str, Value>,
+    ) -> String {
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
         let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
         let header = JwsHeader {
@@ -416,6 +423,10 @@ pub(crate) mod tests {
         claims.insert("iss", "accounts.google.com".into());
         claims.insert("exp", then.as_secs().into());
         claims.insert("iat", now.as_secs().into());
+
+        for (k, v) in claims_to_add {
+            claims.insert(k, v);
+        }
 
         let private_key = crate::credentials::tests::ES256_PRIVATE_KEY.clone();
         let key = SigningKey::from(private_key);
