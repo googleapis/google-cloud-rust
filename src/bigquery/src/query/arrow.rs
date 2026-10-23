@@ -24,7 +24,6 @@ use arrow::datatypes::{DataType, IntervalMonthDayNano, IntervalMonthDayNanoType,
 use arrow::record_batch::RecordBatch;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
-use std::borrow::Cow;
 use std::sync::Arc;
 
 /// Incremental Arrow IPC stream decoder that parses an initial `ArrowSchema`
@@ -276,36 +275,45 @@ impl ArrowCell {
         }
     }
 
-    /// Returns the cell's value as a string (`Cow<'_, str>`).
-    ///
-    /// Borrows directly from `Utf8` and `LargeUtf8` arrays, and formats other
-    /// SQL types that BigQuery's JSON wire format represents as strings
-    /// (`BYTES`, `DATE`, `TIME`, `TIMESTAMP`, `DATETIME`, `NUMERIC`,
-    /// `BIGNUMERIC`, and `INTERVAL`).
-    pub(crate) fn as_str(&self) -> Result<Cow<'_, str>, ConvertError> {
+    /// Returns the cell's value as a string slice (`&str`).
+    pub(crate) fn as_str(&self) -> Result<&str, ConvertError> {
         if self.is_null() {
             return Err(ConvertError::NotNull);
         }
         match self.array.data_type() {
-            DataType::Utf8 => {
+            arrow::datatypes::DataType::Utf8 => {
                 let arr = arrow::array::as_string_array(&self.array);
-                Ok(Cow::Borrowed(arr.value(self.row_idx)))
+                Ok(arr.value(self.row_idx))
             }
-            DataType::LargeUtf8 => {
+            arrow::datatypes::DataType::LargeUtf8 => {
                 let arr = arrow::array::as_largestring_array(&self.array);
-                Ok(Cow::Borrowed(arr.value(self.row_idx)))
+                Ok(arr.value(self.row_idx))
             }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "StringArray or LargeStringArray".to_string(),
+                got: self.data_type_str(),
+            }),
+        }
+    }
+
+    /// Returns the cell's value as an owned `String`, formatting SQL types that
+    /// BigQuery's JSON wire format represents as strings (`STRING`, `BYTES`,
+    /// `DATE`, `TIME`, `TIMESTAMP`, `DATETIME`, `NUMERIC`, `BIGNUMERIC`, and
+    /// `INTERVAL`).
+    pub(crate) fn to_sql_string(&self) -> Result<String, ConvertError> {
+        if self.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        match self.array.data_type() {
+            DataType::Utf8 | DataType::LargeUtf8 => self.as_str().map(str::to_owned),
             DataType::Binary | DataType::LargeBinary => {
-                Ok(Cow::Owned(BASE64_STANDARD.encode(self.as_bytes()?)))
+                Ok(BASE64_STANDARD.encode(self.as_bytes()?))
             }
             DataType::Date32 => {
                 let d = google_cloud_type::model::Date::from_value(SqlValue::from_inner(
                     SqlValueInner::Arrow(self.clone()),
                 ))?;
-                Ok(Cow::Owned(format!(
-                    "{:04}-{:02}-{:02}",
-                    d.year, d.month, d.day
-                )))
+                Ok(format!("{:04}-{:02}-{:02}", d.year, d.month, d.day))
             }
             DataType::Time64(
                 arrow::datatypes::TimeUnit::Microsecond | arrow::datatypes::TimeUnit::Nanosecond,
@@ -314,25 +322,38 @@ impl ArrowCell {
                     SqlValueInner::Arrow(self.clone()),
                 ))?;
                 if t.nanos == 0 {
-                    Ok(Cow::Owned(format!(
-                        "{:02}:{:02}:{:02}",
-                        t.hours, t.minutes, t.seconds
-                    )))
+                    Ok(format!("{:02}:{:02}:{:02}", t.hours, t.minutes, t.seconds))
                 } else {
                     let subsec_micros = t.nanos / 1_000;
-                    Ok(Cow::Owned(format!(
+                    Ok(format!(
                         "{:02}:{:02}:{:02}.{subsec_micros:06}",
                         t.hours, t.minutes, t.seconds
-                    )))
+                    ))
                 }
             }
-            DataType::Timestamp(_, _) => {
-                let micros = self.as_timestamp_micros()?;
-                Ok(Cow::Owned(micros.to_string()))
+            DataType::Timestamp(_, tz) => {
+                if tz.is_none() {
+                    let dt = google_cloud_type::model::DateTime::from_value(SqlValue::from_inner(
+                        SqlValueInner::Arrow(self.clone()),
+                    ))?;
+                    if dt.nanos == 0 {
+                        Ok(format!(
+                            "{:04}-{:02}-{:02}T{:02}:{:02}:{:02}",
+                            dt.year, dt.month, dt.day, dt.hours, dt.minutes, dt.seconds
+                        ))
+                    } else {
+                        let subsec_micros = dt.nanos / 1_000;
+                        Ok(format!(
+                            "{:04}-{:02}-{:02}T{:02}:{:02}:{:02}.{subsec_micros:06}",
+                            dt.year, dt.month, dt.day, dt.hours, dt.minutes, dt.seconds
+                        ))
+                    }
+                } else {
+                    let micros = self.as_timestamp_micros()?;
+                    Ok(micros.to_string())
+                }
             }
-            DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => {
-                self.as_decimal_str().map(Cow::Owned)
-            }
+            DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => self.as_decimal_str(),
             DataType::Interval(IntervalUnit::MonthDayNano) => {
                 let interval = crate::datatypes::Interval::from_value(SqlValue::from_inner(
                     SqlValueInner::Arrow(self.clone()),
@@ -351,8 +372,18 @@ impl ArrowCell {
                 } else {
                     ""
                 };
-                Ok(Cow::Owned(format!(
-                    "{}{}-{} {} {}{:02}:{:02}:{:02}.{:09}",
+                let abs_nanos = interval.nanos.abs();
+                let frac = if abs_nanos == 0 {
+                    String::new()
+                } else if abs_nanos % 1_000_000 == 0 {
+                    format!(".{:03}", abs_nanos / 1_000_000)
+                } else if abs_nanos % 1_000 == 0 {
+                    format!(".{:06}", abs_nanos / 1_000)
+                } else {
+                    format!(".{abs_nanos:09}")
+                };
+                Ok(format!(
+                    "{}{}-{} {} {}{}:{}:{}{}",
                     ym_sign,
                     interval.years.abs(),
                     interval.months.abs(),
@@ -361,8 +392,8 @@ impl ArrowCell {
                     interval.hours.abs(),
                     interval.minutes.abs(),
                     interval.seconds.abs(),
-                    interval.nanos.abs()
-                )))
+                    frac
+                ))
             }
             _ => Err(ConvertError::TypeMismatch {
                 expected: "StringArray or LargeStringArray".to_string(),
@@ -498,24 +529,31 @@ impl ArrowCell {
         if self.is_null() {
             return Err(ConvertError::NotNull);
         }
-        match self.array.data_type() {
+        let mut s = match self.array.data_type() {
             arrow::datatypes::DataType::Decimal128(_, _) => {
                 let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal128Type>(
                     &self.array,
                 );
-                Ok(arr.value_as_string(self.row_idx))
+                arr.value_as_string(self.row_idx)
             }
             arrow::datatypes::DataType::Decimal256(_, _) => {
                 let arr = arrow::array::as_primitive_array::<arrow::datatypes::Decimal256Type>(
                     &self.array,
                 );
-                Ok(arr.value_as_string(self.row_idx))
+                arr.value_as_string(self.row_idx)
             }
-            _ => Err(ConvertError::TypeMismatch {
-                expected: "Decimal128Array or Decimal256Array".to_string(),
-                got: self.data_type_str(),
-            }),
+            _ => {
+                return Err(ConvertError::TypeMismatch {
+                    expected: "Decimal128Array or Decimal256Array".to_string(),
+                    got: self.data_type_str(),
+                });
+            }
+        };
+        if s.contains('.') {
+            let trimmed_len = s.trim_end_matches('0').trim_end_matches('.').len();
+            s.truncate(trimmed_len);
         }
+        Ok(s)
     }
 
     /// Returns the cell's `Decimal128` value along with its non-negative scale.
@@ -718,17 +756,35 @@ mod tests {
     #[test_case(Arc::new(StringArray::from(vec![Some("hello")])), 0 => Ok("hello".to_string()) ; "str from StringArray")]
     #[test_case(Arc::new(StringArray::from(vec![None::<&str>])), 0 => Err(TestConvertError::NotNull) ; "str null")]
     #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])), 0 => Ok("world".to_string()) ; "str from LargeStringArray")]
-    #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])), 0 => Ok("AQID".to_string()) ; "str from BinaryArray")]
-    #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])), 0 => Ok("2026-05-28".to_string()) ; "str from Date32Array")]
-    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])), 0 => Ok("15:30:00".to_string()) ; "str from Time64MicrosecondArray")]
-    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok("1779982200123456".to_string()) ; "str from TimestampMicrosecondArray")]
-    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "str from Decimal128Array")]
-    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])), 0 => Ok("1-2 3 04:05:06.000000789".to_string()) ; "str from IntervalMonthDayNanoArray")]
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray", "Int64")) ; "str type mismatch")]
     fn as_str(arr: ArrayRef, row_idx: usize) -> Result<String, TestConvertError> {
         ArrowCell::new(arr, row_idx)
             .as_str()
-            .map(std::borrow::Cow::into_owned)
+            .map(str::to_owned)
+            .map_err(TestConvertError::from)
+    }
+
+    #[test_case(Arc::new(StringArray::from(vec![Some("hello")])), 0 => Ok("hello".to_string()) ; "sql str from StringArray")]
+    #[test_case(Arc::new(StringArray::from(vec![None::<&str>])), 0 => Err(TestConvertError::NotNull) ; "sql str null")]
+    #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])), 0 => Ok("world".to_string()) ; "sql str from LargeStringArray")]
+    #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])), 0 => Ok("AQID".to_string()) ; "sql str from BinaryArray")]
+    #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])), 0 => Ok("2026-05-28".to_string()) ; "sql str from Date32Array")]
+    #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])), 0 => Ok("15:30:00".to_string()) ; "sql str from Time64MicrosecondArray")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)]).with_timezone("UTC")), 0 => Ok("1779982200123456".to_string()) ; "sql str from TimestampMicrosecondArray with tz")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])), 0 => Ok("2026-05-28T15:30:00".to_string()) ; "sql str from TimestampMicrosecondArray without tz zero nanos")]
+    #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])), 0 => Ok("2026-05-28T15:30:00.123456".to_string()) ; "sql str from TimestampMicrosecondArray without tz fractional")]
+    #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "sql str from Decimal128Array")]
+    #[test_case(decimal128_array(vec![Some(42_500_000_000)], 38, 9), 0 => Ok("42.5".to_string()) ; "sql str from Decimal128Array trailing fractional zeros")]
+    #[test_case(decimal128_array(vec![Some(42_000_000_000)], 38, 9), 0 => Ok("42".to_string()) ; "sql str from Decimal128Array whole integer")]
+    #[test_case(decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38), 0 => Ok("42.5".to_string()) ; "sql str from Decimal256Array scale 38")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 1, 9_045_000_000_000))])), 0 => Ok("0-0 1 2:30:45".to_string()) ; "sql str from IntervalMonthDayNanoArray zero nanos")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_789_000_000))])), 0 => Ok("1-2 3 4:5:6.789".to_string()) ; "sql str from IntervalMonthDayNanoArray millis")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 0, 123_456_000))])), 0 => Ok("0-0 0 0:0:0.123456".to_string()) ; "sql str from IntervalMonthDayNanoArray micros")]
+    #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])), 0 => Ok("1-2 3 4:5:6.000000789".to_string()) ; "sql str from IntervalMonthDayNanoArray nanos")]
+    #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray", "Int64")) ; "sql str type mismatch")]
+    fn to_sql_string(arr: ArrayRef, row_idx: usize) -> Result<String, TestConvertError> {
+        ArrowCell::new(arr, row_idx)
+            .to_sql_string()
             .map_err(TestConvertError::from)
     }
 
@@ -779,8 +835,11 @@ mod tests {
 
     #[test_case(decimal128_array(vec![Some(123_456)], 10, 3), 0 => Ok("123.456".to_string()) ; "decimal str from Decimal128Array")]
     #[test_case(decimal128_array(vec![Some(-123_456)], 10, 3), 0 => Ok("-123.456".to_string()) ; "decimal str negative from Decimal128Array")]
+    #[test_case(decimal128_array(vec![Some(42_500_000_000)], 38, 9), 0 => Ok("42.5".to_string()) ; "decimal str from Decimal128Array trailing fractional zeros")]
+    #[test_case(decimal128_array(vec![Some(42_000_000_000)], 38, 9), 0 => Ok("42".to_string()) ; "decimal str from Decimal128Array whole integer")]
     #[test_case(decimal128_array(vec![None], 10, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal128Array")]
     #[test_case(decimal256_array(vec![Some(i256::from_i128(789_012))], 20, 3), 0 => Ok("789.012".to_string()) ; "decimal str from Decimal256Array")]
+    #[test_case(decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38), 0 => Ok("42.5".to_string()) ; "decimal str from Decimal256Array scale 38")]
     #[test_case(decimal256_array(vec![None], 20, 3), 0 => Err(TestConvertError::NotNull) ; "decimal str null Decimal256Array")]
     #[test_case(Arc::new(Int64Array::from(vec![1])), 0 => Err(TestConvertError::type_mismatch("Decimal128Array or Decimal256Array", "Int64")) ; "decimal str type mismatch")]
     fn as_decimal_str(arr: ArrayRef, row_idx: usize) -> Result<String, TestConvertError> {
