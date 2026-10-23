@@ -20,9 +20,9 @@ impl gaxi::prost::ToProto<FieldSchema> for crate::model::FieldSchema {
     type Output = FieldSchema;
     fn to_proto(self) -> std::result::Result<FieldSchema, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            r#type: self.r#type.to_proto()?,
-            comment: self.comment.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            r#type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.r#type)?,
+            comment: gaxi::prost::ToProto::<std::string::String>::to_proto(self.comment)?,
         })
     }
 }
@@ -40,8 +40,8 @@ impl gaxi::prost::ToProto<storage_descriptor::Order> for crate::model::storage_d
     type Output = storage_descriptor::Order;
     fn to_proto(self) -> std::result::Result<storage_descriptor::Order, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            col: self.col.to_proto()?,
-            order: self.order.to_proto()?,
+            col: gaxi::prost::ToProto::<std::string::String>::to_proto(self.col)?,
+            order: gaxi::prost::ToProto::<i32>::to_proto(self.order)?,
         })
     }
 }
@@ -71,7 +71,7 @@ impl gaxi::prost::ToProto<storage_descriptor::skewed_info::SkewedColumnValue>
             values: self
                 .values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -111,9 +111,9 @@ impl gaxi::prost::ToProto<storage_descriptor::skewed_info::SkewedKeyValuesLocati
             values: self
                 .values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            location: self.location.to_proto()?,
+            location: gaxi::prost::ToProto::<std::string::String>::to_proto(self.location)?,
         })
     }
 }
@@ -147,23 +147,33 @@ impl gaxi::prost::ToProto<storage_descriptor::SkewedInfo>
     fn to_proto(
         self,
     ) -> std::result::Result<storage_descriptor::SkewedInfo, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            skewed_col_names: self
-                .skewed_col_names
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            skewed_col_values: self
-                .skewed_col_values
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            skewed_key_values_locations: self
-                .skewed_key_values_locations
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-        })
+        Ok(
+            Self::Output {
+                skewed_col_names: self
+                    .skewed_col_names
+                    .into_iter()
+                    .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                skewed_col_values:
+                    self.skewed_col_values
+                        .into_iter()
+                        .map(
+                            gaxi::prost::ToProto::<
+                                storage_descriptor::skewed_info::SkewedColumnValue,
+                            >::to_proto,
+                        )
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                skewed_key_values_locations: self
+                    .skewed_key_values_locations
+                    .into_iter()
+                    .map(
+                        gaxi::prost::ToProto::<
+                            storage_descriptor::skewed_info::SkewedKeyValuesLocation,
+                        >::to_proto,
+                    )
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            },
+        )
     }
 }
 
@@ -203,31 +213,53 @@ impl gaxi::prost::ToProto<StorageDescriptor> for crate::model::StorageDescriptor
             columns: self
                 .columns
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<FieldSchema>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            location_uri: self.location_uri.to_proto()?,
-            input_format: self.input_format.to_proto()?,
-            output_format: self.output_format.to_proto()?,
-            compressed: self.compressed.map(|v| v.to_proto()).transpose()?,
-            num_buckets: self.num_buckets.map(|v| v.to_proto()).transpose()?,
-            serde_info: self.serde_info.map(|v| v.to_proto()).transpose()?,
+            location_uri: gaxi::prost::ToProto::<std::string::String>::to_proto(self.location_uri)?,
+            input_format: gaxi::prost::ToProto::<std::string::String>::to_proto(self.input_format)?,
+            output_format: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.output_format,
+            )?,
+            compressed: self
+                .compressed
+                .map(gaxi::prost::ToProto::<bool>::to_proto)
+                .transpose()?,
+            num_buckets: self
+                .num_buckets
+                .map(gaxi::prost::ToProto::<i32>::to_proto)
+                .transpose()?,
+            serde_info: self
+                .serde_info
+                .map(gaxi::prost::ToProto::<SerdeInfo>::to_proto)
+                .transpose()?,
             bucket_cols: self
                 .bucket_cols
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             sort_cols: self
                 .sort_cols
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<storage_descriptor::Order>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             parameters: self
                 .parameters
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            skewed_info: self.skewed_info.map(|v| v.to_proto()).transpose()?,
-            stored_as_sub_dirs: self.stored_as_sub_dirs.map(|v| v.to_proto()).transpose()?,
+            skewed_info: self
+                .skewed_info
+                .map(gaxi::prost::ToProto::<storage_descriptor::SkewedInfo>::to_proto)
+                .transpose()?,
+            stored_as_sub_dirs: self
+                .stored_as_sub_dirs
+                .map(gaxi::prost::ToProto::<bool>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -286,17 +318,28 @@ impl gaxi::prost::ToProto<SerdeInfo> for crate::model::SerdeInfo {
     type Output = SerdeInfo;
     fn to_proto(self) -> std::result::Result<SerdeInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            serialization_lib: self.serialization_lib.to_proto()?,
-            description: self.description.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            serialization_lib: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.serialization_lib,
+            )?,
+            description: gaxi::prost::ToProto::<std::string::String>::to_proto(self.description)?,
             parameters: self
                 .parameters
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            serializer_class: self.serializer_class.to_proto()?,
-            deserializer_class: self.deserializer_class.to_proto()?,
-            serde_type: self.serde_type.to_proto()?,
+            serializer_class: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.serializer_class,
+            )?,
+            deserializer_class: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.deserializer_class,
+            )?,
+            serde_type: gaxi::prost::ToProto::<serde_info::SerdeType>::to_proto(self.serde_type)?,
         })
     }
 }
@@ -326,19 +369,30 @@ impl gaxi::prost::ToProto<Partition> for crate::model::Partition {
             values: self
                 .values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            storage_descriptor: self.storage_descriptor.map(|v| v.to_proto()).transpose()?,
+            create_time: self
+                .create_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            storage_descriptor: self
+                .storage_descriptor
+                .map(gaxi::prost::ToProto::<StorageDescriptor>::to_proto)
+                .transpose()?,
             parameters: self
                 .parameters
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             fields: self
                 .fields
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<FieldSchema>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -374,8 +428,8 @@ impl gaxi::prost::ToProto<ListPartitionsRequest> for crate::model::ListPartition
     type Output = ListPartitionsRequest;
     fn to_proto(self) -> std::result::Result<ListPartitionsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            filter: self.filter.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            filter: gaxi::prost::ToProto::<std::string::String>::to_proto(self.filter)?,
         })
     }
 }
@@ -397,7 +451,7 @@ impl gaxi::prost::ToProto<ListPartitionsResponse> for crate::model::ListPartitio
             partitions: self
                 .partitions
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Partition>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }

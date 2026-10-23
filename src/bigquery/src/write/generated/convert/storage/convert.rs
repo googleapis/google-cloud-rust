@@ -32,7 +32,7 @@ impl gaxi::prost::ToProto<ArrowSchema> for crate::write::generated::gapic_storag
     type Output = ArrowSchema;
     fn to_proto(self) -> std::result::Result<ArrowSchema, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            serialized_schema: self.serialized_schema.to_proto()?,
+            serialized_schema: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.serialized_schema)?,
         })
     }
 }
@@ -50,8 +50,8 @@ impl gaxi::prost::ToProto<ArrowRecordBatch> for crate::write::generated::gapic_s
     type Output = ArrowRecordBatch;
     fn to_proto(self) -> std::result::Result<ArrowRecordBatch, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            serialized_record_batch: self.serialized_record_batch.to_proto()?,
-            row_count: self.row_count.to_proto()?,
+            serialized_record_batch: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.serialized_record_batch)?,
+            row_count: gaxi::prost::ToProto::<i64>::to_proto(self.row_count)?,
         })
     }
 }
@@ -84,8 +84,8 @@ impl gaxi::prost::ToProto<ArrowSerializationOptions> for crate::write::generated
     type Output = ArrowSerializationOptions;
     fn to_proto(self) -> std::result::Result<ArrowSerializationOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            buffer_compression: self.buffer_compression.to_proto()?,
-            picos_timestamp_precision: self.picos_timestamp_precision.to_proto()?,
+            buffer_compression: gaxi::prost::ToProto::<arrow_serialization_options::CompressionCodec>::to_proto(self.buffer_compression)?,
+            picos_timestamp_precision: gaxi::prost::ToProto::<arrow_serialization_options::PicosTimestampPrecision>::to_proto(self.picos_timestamp_precision)?,
         })
     }
 }
@@ -104,7 +104,7 @@ impl gaxi::prost::ToProto<AvroSchema> for crate::write::generated::gapic_storage
     type Output = AvroSchema;
     fn to_proto(self) -> std::result::Result<AvroSchema, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            schema: self.schema.to_proto()?,
+            schema: gaxi::prost::ToProto::<std::string::String>::to_proto(self.schema)?,
         })
     }
 }
@@ -122,8 +122,8 @@ impl gaxi::prost::ToProto<AvroRows> for crate::write::generated::gapic_storage::
     type Output = AvroRows;
     fn to_proto(self) -> std::result::Result<AvroRows, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            serialized_binary_rows: self.serialized_binary_rows.to_proto()?,
-            row_count: self.row_count.to_proto()?,
+            serialized_binary_rows: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.serialized_binary_rows)?,
+            row_count: gaxi::prost::ToProto::<i64>::to_proto(self.row_count)?,
         })
     }
 }
@@ -149,8 +149,8 @@ impl gaxi::prost::ToProto<AvroSerializationOptions> for crate::write::generated:
     type Output = AvroSerializationOptions;
     fn to_proto(self) -> std::result::Result<AvroSerializationOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            enable_display_name_attribute: self.enable_display_name_attribute.to_proto()?,
-            picos_timestamp_precision: self.picos_timestamp_precision.to_proto()?,
+            enable_display_name_attribute: gaxi::prost::ToProto::<bool>::to_proto(self.enable_display_name_attribute)?,
+            picos_timestamp_precision: gaxi::prost::ToProto::<avro_serialization_options::PicosTimestampPrecision>::to_proto(self.picos_timestamp_precision)?,
         })
     }
 }
@@ -169,7 +169,7 @@ impl gaxi::prost::ToProto<ProtoSchema> for crate::write::generated::gapic_storag
     type Output = ProtoSchema;
     fn to_proto(self) -> std::result::Result<ProtoSchema, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            proto_descriptor: self.proto_descriptor.map(|v| v.to_proto()).transpose()?,
+            proto_descriptor: self.proto_descriptor.map(gaxi::prost::ToProto::<prost_types::DescriptorProto>::to_proto).transpose()?,
         })
     }
 }
@@ -189,7 +189,7 @@ impl gaxi::prost::ToProto<ProtoRows> for crate::write::generated::gapic_storage:
         Ok(Self::Output {
             serialized_rows: self.serialized_rows
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<::bytes::Bytes>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -209,10 +209,10 @@ impl gaxi::prost::ToProto<CreateReadSessionRequest> for crate::write::generated:
     type Output = CreateReadSessionRequest;
     fn to_proto(self) -> std::result::Result<CreateReadSessionRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            read_session: self.read_session.map(|v| v.to_proto()).transpose()?,
-            max_stream_count: self.max_stream_count.to_proto()?,
-            preferred_min_stream_count: self.preferred_min_stream_count.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            read_session: self.read_session.map(gaxi::prost::ToProto::<ReadSession>::to_proto).transpose()?,
+            max_stream_count: gaxi::prost::ToProto::<i32>::to_proto(self.max_stream_count)?,
+            preferred_min_stream_count: gaxi::prost::ToProto::<i32>::to_proto(self.preferred_min_stream_count)?,
         })
     }
 }
@@ -233,7 +233,7 @@ impl gaxi::prost::ToProto<read_rows_request::OutputFormatSerializationOptions> f
     type Output = read_rows_request::OutputFormatSerializationOptions;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ArrowSerializationOptions(v) => Ok(Self::Output::ArrowSerializationOptions((*v).to_proto()?)),
+            Self::ArrowSerializationOptions(v) => Ok(Self::Output::ArrowSerializationOptions(gaxi::prost::ToProto::<ArrowSerializationOptions>::to_proto(*v)?)),
         }
     }
 }
@@ -251,9 +251,9 @@ impl gaxi::prost::ToProto<ReadRowsRequest> for crate::write::generated::gapic_st
     type Output = ReadRowsRequest;
     fn to_proto(self) -> std::result::Result<ReadRowsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            read_stream: self.read_stream.to_proto()?,
-            offset: self.offset.to_proto()?,
-            output_format_serialization_options: self.output_format_serialization_options.map(|v| v.to_proto()).transpose()?,
+            read_stream: gaxi::prost::ToProto::<std::string::String>::to_proto(self.read_stream)?,
+            offset: gaxi::prost::ToProto::<i64>::to_proto(self.offset)?,
+            output_format_serialization_options: self.output_format_serialization_options.map(gaxi::prost::ToProto::<read_rows_request::OutputFormatSerializationOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -273,7 +273,7 @@ impl gaxi::prost::ToProto<ThrottleState> for crate::write::generated::gapic_stor
     type Output = ThrottleState;
     fn to_proto(self) -> std::result::Result<ThrottleState, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            throttle_percent: self.throttle_percent.to_proto()?,
+            throttle_percent: gaxi::prost::ToProto::<i32>::to_proto(self.throttle_percent)?,
         })
     }
 }
@@ -291,8 +291,8 @@ impl gaxi::prost::ToProto<stream_stats::Progress> for crate::write::generated::g
     type Output = stream_stats::Progress;
     fn to_proto(self) -> std::result::Result<stream_stats::Progress, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            at_response_start: self.at_response_start.to_proto()?,
-            at_response_end: self.at_response_end.to_proto()?,
+            at_response_start: gaxi::prost::ToProto::<f64>::to_proto(self.at_response_start)?,
+            at_response_end: gaxi::prost::ToProto::<f64>::to_proto(self.at_response_end)?,
         })
     }
 }
@@ -311,7 +311,7 @@ impl gaxi::prost::ToProto<StreamStats> for crate::write::generated::gapic_storag
     type Output = StreamStats;
     fn to_proto(self) -> std::result::Result<StreamStats, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            progress: self.progress.map(|v| v.to_proto()).transpose()?,
+            progress: self.progress.map(gaxi::prost::ToProto::<stream_stats::Progress>::to_proto).transpose()?,
         })
     }
 }
@@ -329,8 +329,8 @@ impl gaxi::prost::ToProto<read_rows_response::Rows> for crate::write::generated:
     type Output = read_rows_response::Rows;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::AvroRows(v) => Ok(Self::Output::AvroRows((*v).to_proto()?)),
-            Self::ArrowRecordBatch(v) => Ok(Self::Output::ArrowRecordBatch((*v).to_proto()?)),
+            Self::AvroRows(v) => Ok(Self::Output::AvroRows(gaxi::prost::ToProto::<AvroRows>::to_proto(*v)?)),
+            Self::ArrowRecordBatch(v) => Ok(Self::Output::ArrowRecordBatch(gaxi::prost::ToProto::<ArrowRecordBatch>::to_proto(*v)?)),
         }
     }
 }
@@ -349,8 +349,8 @@ impl gaxi::prost::ToProto<read_rows_response::Schema> for crate::write::generate
     type Output = read_rows_response::Schema;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::AvroSchema(v) => Ok(Self::Output::AvroSchema((*v).to_proto()?)),
-            Self::ArrowSchema(v) => Ok(Self::Output::ArrowSchema((*v).to_proto()?)),
+            Self::AvroSchema(v) => Ok(Self::Output::AvroSchema(gaxi::prost::ToProto::<AvroSchema>::to_proto(*v)?)),
+            Self::ArrowSchema(v) => Ok(Self::Output::ArrowSchema(gaxi::prost::ToProto::<ArrowSchema>::to_proto(*v)?)),
         }
     }
 }
@@ -369,13 +369,13 @@ impl gaxi::prost::ToProto<ReadRowsResponse> for crate::write::generated::gapic_s
     type Output = ReadRowsResponse;
     fn to_proto(self) -> std::result::Result<ReadRowsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            row_count: self.row_count.to_proto()?,
-            stats: self.stats.map(|v| v.to_proto()).transpose()?,
-            throttle_state: self.throttle_state.map(|v| v.to_proto()).transpose()?,
-            uncompressed_byte_size: self.uncompressed_byte_size.map(|v| v.to_proto()).transpose()?,
-            total_estimated_row_count: self.total_estimated_row_count.map(|v| v.to_proto()).transpose()?,
-            rows: self.rows.map(|v| v.to_proto()).transpose()?,
-            schema: self.schema.map(|v| v.to_proto()).transpose()?,
+            row_count: gaxi::prost::ToProto::<i64>::to_proto(self.row_count)?,
+            stats: self.stats.map(gaxi::prost::ToProto::<StreamStats>::to_proto).transpose()?,
+            throttle_state: self.throttle_state.map(gaxi::prost::ToProto::<ThrottleState>::to_proto).transpose()?,
+            uncompressed_byte_size: self.uncompressed_byte_size.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            total_estimated_row_count: self.total_estimated_row_count.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            rows: self.rows.map(gaxi::prost::ToProto::<read_rows_response::Rows>::to_proto).transpose()?,
+            schema: self.schema.map(gaxi::prost::ToProto::<read_rows_response::Schema>::to_proto).transpose()?,
         })
     }
 }
@@ -399,8 +399,8 @@ impl gaxi::prost::ToProto<SplitReadStreamRequest> for crate::write::generated::g
     type Output = SplitReadStreamRequest;
     fn to_proto(self) -> std::result::Result<SplitReadStreamRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            fraction: self.fraction.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            fraction: gaxi::prost::ToProto::<f64>::to_proto(self.fraction)?,
         })
     }
 }
@@ -419,8 +419,8 @@ impl gaxi::prost::ToProto<SplitReadStreamResponse> for crate::write::generated::
     type Output = SplitReadStreamResponse;
     fn to_proto(self) -> std::result::Result<SplitReadStreamResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            primary_stream: self.primary_stream.map(|v| v.to_proto()).transpose()?,
-            remainder_stream: self.remainder_stream.map(|v| v.to_proto()).transpose()?,
+            primary_stream: self.primary_stream.map(gaxi::prost::ToProto::<ReadStream>::to_proto).transpose()?,
+            remainder_stream: self.remainder_stream.map(gaxi::prost::ToProto::<ReadStream>::to_proto).transpose()?,
         })
     }
 }
@@ -439,8 +439,8 @@ impl gaxi::prost::ToProto<CreateWriteStreamRequest> for crate::write::generated:
     type Output = CreateWriteStreamRequest;
     fn to_proto(self) -> std::result::Result<CreateWriteStreamRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            write_stream: self.write_stream.map(|v| v.to_proto()).transpose()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            write_stream: self.write_stream.map(gaxi::prost::ToProto::<WriteStream>::to_proto).transpose()?,
         })
     }
 }
@@ -459,8 +459,8 @@ impl gaxi::prost::ToProto<append_rows_request::ArrowData> for crate::write::gene
     type Output = append_rows_request::ArrowData;
     fn to_proto(self) -> std::result::Result<append_rows_request::ArrowData, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            writer_schema: self.writer_schema.map(|v| v.to_proto()).transpose()?,
-            rows: self.rows.map(|v| v.to_proto()).transpose()?,
+            writer_schema: self.writer_schema.map(gaxi::prost::ToProto::<ArrowSchema>::to_proto).transpose()?,
+            rows: self.rows.map(gaxi::prost::ToProto::<ArrowRecordBatch>::to_proto).transpose()?,
         })
     }
 }
@@ -479,8 +479,8 @@ impl gaxi::prost::ToProto<append_rows_request::ProtoData> for crate::write::gene
     type Output = append_rows_request::ProtoData;
     fn to_proto(self) -> std::result::Result<append_rows_request::ProtoData, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            writer_schema: self.writer_schema.map(|v| v.to_proto()).transpose()?,
-            rows: self.rows.map(|v| v.to_proto()).transpose()?,
+            writer_schema: self.writer_schema.map(gaxi::prost::ToProto::<ProtoSchema>::to_proto).transpose()?,
+            rows: self.rows.map(gaxi::prost::ToProto::<ProtoRows>::to_proto).transpose()?,
         })
     }
 }
@@ -506,8 +506,8 @@ impl gaxi::prost::ToProto<append_rows_request::Rows> for crate::write::generated
     type Output = append_rows_request::Rows;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ProtoRows(v) => Ok(Self::Output::ProtoRows((*v).to_proto()?)),
-            Self::ArrowRows(v) => Ok(Self::Output::ArrowRows((*v).to_proto()?)),
+            Self::ProtoRows(v) => Ok(Self::Output::ProtoRows(gaxi::prost::ToProto::<append_rows_request::ProtoData>::to_proto(*v)?)),
+            Self::ArrowRows(v) => Ok(Self::Output::ArrowRows(gaxi::prost::ToProto::<append_rows_request::ArrowData>::to_proto(*v)?)),
         }
     }
 }
@@ -526,17 +526,17 @@ impl gaxi::prost::ToProto<AppendRowsRequest> for crate::write::generated::gapic_
     type Output = AppendRowsRequest;
     fn to_proto(self) -> std::result::Result<AppendRowsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            write_stream: self.write_stream.to_proto()?,
-            offset: self.offset.map(|v| v.to_proto()).transpose()?,
-            trace_id: self.trace_id.to_proto()?,
+            write_stream: gaxi::prost::ToProto::<std::string::String>::to_proto(self.write_stream)?,
+            offset: self.offset.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            trace_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.trace_id)?,
             missing_value_interpretations: self.missing_value_interpretations
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<append_rows_request::MissingValueInterpretation>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            default_missing_value_interpretation: self.default_missing_value_interpretation.to_proto()?,
-            client_stats: self.client_stats.map(|v| v.to_proto()).transpose()?,
-            rows: self.rows.map(|v| v.to_proto()).transpose()?,
+            default_missing_value_interpretation: gaxi::prost::ToProto::<append_rows_request::MissingValueInterpretation>::to_proto(self.default_missing_value_interpretation)?,
+            client_stats: self.client_stats.map(gaxi::prost::ToProto::<ClientStats>::to_proto).transpose()?,
+            rows: self.rows.map(gaxi::prost::ToProto::<append_rows_request::Rows>::to_proto).transpose()?,
         })
     }
 }
@@ -563,7 +563,7 @@ impl gaxi::prost::ToProto<append_rows_response::AppendResult> for crate::write::
     type Output = append_rows_response::AppendResult;
     fn to_proto(self) -> std::result::Result<append_rows_response::AppendResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            offset: self.offset.map(|v| v.to_proto()).transpose()?,
+            offset: self.offset.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
         })
     }
 }
@@ -581,8 +581,8 @@ impl gaxi::prost::ToProto<append_rows_response::Response> for crate::write::gene
     type Output = append_rows_response::Response;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::AppendResult(v) => Ok(Self::Output::AppendResult((*v).to_proto()?)),
-            Self::Error(v) => Ok(Self::Output::Error((*v).to_proto()?)),
+            Self::AppendResult(v) => Ok(Self::Output::AppendResult(gaxi::prost::ToProto::<append_rows_response::AppendResult>::to_proto(*v)?)),
+            Self::Error(v) => Ok(Self::Output::Error(gaxi::prost::ToProto::<crate::google::rpc::Status>::to_proto(*v)?)),
         }
     }
 }
@@ -601,13 +601,13 @@ impl gaxi::prost::ToProto<AppendRowsResponse> for crate::write::generated::gapic
     type Output = AppendRowsResponse;
     fn to_proto(self) -> std::result::Result<AppendRowsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            updated_schema: self.updated_schema.map(|v| v.to_proto()).transpose()?,
+            updated_schema: self.updated_schema.map(gaxi::prost::ToProto::<TableSchema>::to_proto).transpose()?,
             row_errors: self.row_errors
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<RowError>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            write_stream: self.write_stream.to_proto()?,
-            response: self.response.map(|v| v.to_proto()).transpose()?,
+            write_stream: gaxi::prost::ToProto::<std::string::String>::to_proto(self.write_stream)?,
+            response: self.response.map(gaxi::prost::ToProto::<append_rows_response::Response>::to_proto).transpose()?,
         })
     }
 }
@@ -629,8 +629,8 @@ impl gaxi::prost::ToProto<GetWriteStreamRequest> for crate::write::generated::ga
     type Output = GetWriteStreamRequest;
     fn to_proto(self) -> std::result::Result<GetWriteStreamRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            view: self.view.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            view: gaxi::prost::ToProto::<WriteStreamView>::to_proto(self.view)?,
         })
     }
 }
@@ -649,10 +649,10 @@ impl gaxi::prost::ToProto<BatchCommitWriteStreamsRequest> for crate::write::gene
     type Output = BatchCommitWriteStreamsRequest;
     fn to_proto(self) -> std::result::Result<BatchCommitWriteStreamsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
             write_streams: self.write_streams
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -673,10 +673,10 @@ impl gaxi::prost::ToProto<BatchCommitWriteStreamsResponse> for crate::write::gen
     type Output = BatchCommitWriteStreamsResponse;
     fn to_proto(self) -> std::result::Result<BatchCommitWriteStreamsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            commit_time: self.commit_time.map(|v| v.to_proto()).transpose()?,
+            commit_time: self.commit_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
             stream_errors: self.stream_errors
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<StorageError>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -697,7 +697,7 @@ impl gaxi::prost::ToProto<FinalizeWriteStreamRequest> for crate::write::generate
     type Output = FinalizeWriteStreamRequest;
     fn to_proto(self) -> std::result::Result<FinalizeWriteStreamRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -715,7 +715,7 @@ impl gaxi::prost::ToProto<FinalizeWriteStreamResponse> for crate::write::generat
     type Output = FinalizeWriteStreamResponse;
     fn to_proto(self) -> std::result::Result<FinalizeWriteStreamResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            row_count: self.row_count.to_proto()?,
+            row_count: gaxi::prost::ToProto::<i64>::to_proto(self.row_count)?,
         })
     }
 }
@@ -733,8 +733,8 @@ impl gaxi::prost::ToProto<FlushRowsRequest> for crate::write::generated::gapic_s
     type Output = FlushRowsRequest;
     fn to_proto(self) -> std::result::Result<FlushRowsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            write_stream: self.write_stream.to_proto()?,
-            offset: self.offset.map(|v| v.to_proto()).transpose()?,
+            write_stream: gaxi::prost::ToProto::<std::string::String>::to_proto(self.write_stream)?,
+            offset: self.offset.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
         })
     }
 }
@@ -753,7 +753,7 @@ impl gaxi::prost::ToProto<FlushRowsResponse> for crate::write::generated::gapic_
     type Output = FlushRowsResponse;
     fn to_proto(self) -> std::result::Result<FlushRowsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            offset: self.offset.to_proto()?,
+            offset: gaxi::prost::ToProto::<i64>::to_proto(self.offset)?,
         })
     }
 }
@@ -778,9 +778,9 @@ impl gaxi::prost::ToProto<StorageError> for crate::write::generated::gapic_stora
     type Output = StorageError;
     fn to_proto(self) -> std::result::Result<StorageError, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            code: self.code.to_proto()?,
-            entity: self.entity.to_proto()?,
-            error_message: self.error_message.to_proto()?,
+            code: gaxi::prost::ToProto::<storage_error::StorageErrorCode>::to_proto(self.code)?,
+            entity: gaxi::prost::ToProto::<std::string::String>::to_proto(self.entity)?,
+            error_message: gaxi::prost::ToProto::<std::string::String>::to_proto(self.error_message)?,
         })
     }
 }
@@ -807,9 +807,9 @@ impl gaxi::prost::ToProto<RowError> for crate::write::generated::gapic_storage::
     type Output = RowError;
     fn to_proto(self) -> std::result::Result<RowError, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            index: self.index.to_proto()?,
-            code: self.code.to_proto()?,
-            message: self.message.to_proto()?,
+            index: gaxi::prost::ToProto::<i64>::to_proto(self.index)?,
+            code: gaxi::prost::ToProto::<row_error::RowErrorCode>::to_proto(self.code)?,
+            message: gaxi::prost::ToProto::<std::string::String>::to_proto(self.message)?,
         })
     }
 }
@@ -829,8 +829,8 @@ impl gaxi::prost::ToProto<client_stats::RequestStats> for crate::write::generate
     type Output = client_stats::RequestStats;
     fn to_proto(self) -> std::result::Result<client_stats::RequestStats, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            send_time_millis: self.send_time_millis.map(|v| v.to_proto()).transpose()?,
-            queued_requests_count: self.queued_requests_count.map(|v| v.to_proto()).transpose()?,
+            send_time_millis: self.send_time_millis.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            queued_requests_count: self.queued_requests_count.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
         })
     }
 }
@@ -849,14 +849,14 @@ impl gaxi::prost::ToProto<client_stats::WindowStats> for crate::write::generated
     type Output = client_stats::WindowStats;
     fn to_proto(self) -> std::result::Result<client_stats::WindowStats, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            max_response_latency_millis: self.max_response_latency_millis.map(|v| v.to_proto()).transpose()?,
-            avg_response_latency_millis: self.avg_response_latency_millis.map(|v| v.to_proto()).transpose()?,
-            longest_wait_no_response_millis: self.longest_wait_no_response_millis.map(|v| v.to_proto()).transpose()?,
-            requests_sent_count: self.requests_sent_count.map(|v| v.to_proto()).transpose()?,
-            responses_received_count: self.responses_received_count.map(|v| v.to_proto()).transpose()?,
-            bytes_sent_count: self.bytes_sent_count.map(|v| v.to_proto()).transpose()?,
-            window_start_time_epoch_millis: self.window_start_time_epoch_millis.map(|v| v.to_proto()).transpose()?,
-            window_millis: self.window_millis.map(|v| v.to_proto()).transpose()?,
+            max_response_latency_millis: self.max_response_latency_millis.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            avg_response_latency_millis: self.avg_response_latency_millis.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            longest_wait_no_response_millis: self.longest_wait_no_response_millis.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            requests_sent_count: self.requests_sent_count.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            responses_received_count: self.responses_received_count.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            bytes_sent_count: self.bytes_sent_count.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            window_start_time_epoch_millis: self.window_start_time_epoch_millis.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            window_millis: self.window_millis.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
         })
     }
 }
@@ -881,8 +881,8 @@ impl gaxi::prost::ToProto<ClientStats> for crate::write::generated::gapic_storag
     type Output = ClientStats;
     fn to_proto(self) -> std::result::Result<ClientStats, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            request_stats: self.request_stats.map(|v| v.to_proto()).transpose()?,
-            window_stats: self.window_stats.map(|v| v.to_proto()).transpose()?,
+            request_stats: self.request_stats.map(gaxi::prost::ToProto::<client_stats::RequestStats>::to_proto).transpose()?,
+            window_stats: self.window_stats.map(gaxi::prost::ToProto::<client_stats::WindowStats>::to_proto).transpose()?,
         })
     }
 }
@@ -901,7 +901,7 @@ impl gaxi::prost::ToProto<read_session::TableModifiers> for crate::write::genera
     type Output = read_session::TableModifiers;
     fn to_proto(self) -> std::result::Result<read_session::TableModifiers, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            snapshot_time: self.snapshot_time.map(|v| v.to_proto()).transpose()?,
+            snapshot_time: self.snapshot_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -926,8 +926,8 @@ impl gaxi::prost::ToProto<read_session::table_read_options::OutputFormatSerializ
     type Output = read_session::table_read_options::OutputFormatSerializationOptions;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ArrowSerializationOptions(v) => Ok(Self::Output::ArrowSerializationOptions((*v).to_proto()?)),
-            Self::AvroSerializationOptions(v) => Ok(Self::Output::AvroSerializationOptions((*v).to_proto()?)),
+            Self::ArrowSerializationOptions(v) => Ok(Self::Output::ArrowSerializationOptions(gaxi::prost::ToProto::<ArrowSerializationOptions>::to_proto(*v)?)),
+            Self::AvroSerializationOptions(v) => Ok(Self::Output::AvroSerializationOptions(gaxi::prost::ToProto::<AvroSerializationOptions>::to_proto(*v)?)),
         }
     }
 }
@@ -948,12 +948,12 @@ impl gaxi::prost::ToProto<read_session::TableReadOptions> for crate::write::gene
         Ok(Self::Output {
             selected_fields: self.selected_fields
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            row_restriction: self.row_restriction.to_proto()?,
-            sample_percentage: self.sample_percentage.map(|v| v.to_proto()).transpose()?,
-            response_compression_codec: self.response_compression_codec.map(|v| v.to_proto()).transpose()?,
-            output_format_serialization_options: self.output_format_serialization_options.map(|v| v.to_proto()).transpose()?,
+            row_restriction: gaxi::prost::ToProto::<std::string::String>::to_proto(self.row_restriction)?,
+            sample_percentage: self.sample_percentage.map(gaxi::prost::ToProto::<f64>::to_proto).transpose()?,
+            response_compression_codec: self.response_compression_codec.map(gaxi::prost::ToProto::<read_session::table_read_options::ResponseCompressionCodec>::to_proto).transpose()?,
+            output_format_serialization_options: self.output_format_serialization_options.map(gaxi::prost::ToProto::<read_session::table_read_options::OutputFormatSerializationOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -976,8 +976,8 @@ impl gaxi::prost::ToProto<read_session::Schema> for crate::write::generated::gap
     type Output = read_session::Schema;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::AvroSchema(v) => Ok(Self::Output::AvroSchema((*v).to_proto()?)),
-            Self::ArrowSchema(v) => Ok(Self::Output::ArrowSchema((*v).to_proto()?)),
+            Self::AvroSchema(v) => Ok(Self::Output::AvroSchema(gaxi::prost::ToProto::<AvroSchema>::to_proto(*v)?)),
+            Self::ArrowSchema(v) => Ok(Self::Output::ArrowSchema(gaxi::prost::ToProto::<ArrowSchema>::to_proto(*v)?)),
         }
     }
 }
@@ -996,21 +996,21 @@ impl gaxi::prost::ToProto<ReadSession> for crate::write::generated::gapic_storag
     type Output = ReadSession;
     fn to_proto(self) -> std::result::Result<ReadSession, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            expire_time: self.expire_time.map(|v| v.to_proto()).transpose()?,
-            data_format: self.data_format.to_proto()?,
-            table: self.table.to_proto()?,
-            table_modifiers: self.table_modifiers.map(|v| v.to_proto()).transpose()?,
-            read_options: self.read_options.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            expire_time: self.expire_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            data_format: gaxi::prost::ToProto::<DataFormat>::to_proto(self.data_format)?,
+            table: gaxi::prost::ToProto::<std::string::String>::to_proto(self.table)?,
+            table_modifiers: self.table_modifiers.map(gaxi::prost::ToProto::<read_session::TableModifiers>::to_proto).transpose()?,
+            read_options: self.read_options.map(gaxi::prost::ToProto::<read_session::TableReadOptions>::to_proto).transpose()?,
             streams: self.streams
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<ReadStream>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            estimated_total_bytes_scanned: self.estimated_total_bytes_scanned.to_proto()?,
-            estimated_total_physical_file_size: self.estimated_total_physical_file_size.to_proto()?,
-            estimated_row_count: self.estimated_row_count.to_proto()?,
-            trace_id: self.trace_id.to_proto()?,
-            schema: self.schema.map(|v| v.to_proto()).transpose()?,
+            estimated_total_bytes_scanned: gaxi::prost::ToProto::<i64>::to_proto(self.estimated_total_bytes_scanned)?,
+            estimated_total_physical_file_size: gaxi::prost::ToProto::<i64>::to_proto(self.estimated_total_physical_file_size)?,
+            estimated_row_count: gaxi::prost::ToProto::<i64>::to_proto(self.estimated_row_count)?,
+            trace_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.trace_id)?,
+            schema: self.schema.map(gaxi::prost::ToProto::<read_session::Schema>::to_proto).transpose()?,
         })
     }
 }
@@ -1040,7 +1040,7 @@ impl gaxi::prost::ToProto<ReadStream> for crate::write::generated::gapic_storage
     type Output = ReadStream;
     fn to_proto(self) -> std::result::Result<ReadStream, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -1072,13 +1072,13 @@ impl gaxi::prost::ToProto<WriteStream> for crate::write::generated::gapic_storag
     type Output = WriteStream;
     fn to_proto(self) -> std::result::Result<WriteStream, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            r#type: self.r#type.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            commit_time: self.commit_time.map(|v| v.to_proto()).transpose()?,
-            table_schema: self.table_schema.map(|v| v.to_proto()).transpose()?,
-            write_mode: self.write_mode.to_proto()?,
-            location: self.location.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            r#type: gaxi::prost::ToProto::<write_stream::Type>::to_proto(self.r#type)?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            commit_time: self.commit_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            table_schema: self.table_schema.map(gaxi::prost::ToProto::<TableSchema>::to_proto).transpose()?,
+            write_mode: gaxi::prost::ToProto::<write_stream::WriteMode>::to_proto(self.write_mode)?,
+            location: gaxi::prost::ToProto::<std::string::String>::to_proto(self.location)?,
         })
     }
 }
@@ -1104,7 +1104,7 @@ impl gaxi::prost::ToProto<TableSchema> for crate::write::generated::gapic_storag
         Ok(Self::Output {
             fields: self.fields
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<TableFieldSchema>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1124,7 +1124,7 @@ impl gaxi::prost::ToProto<table_field_schema::FieldElementType> for crate::write
     type Output = table_field_schema::FieldElementType;
     fn to_proto(self) -> std::result::Result<table_field_schema::FieldElementType, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            r#type: self.r#type.to_proto()?,
+            r#type: gaxi::prost::ToProto::<table_field_schema::Type>::to_proto(self.r#type)?,
         })
     }
 }
@@ -1156,20 +1156,20 @@ impl gaxi::prost::ToProto<TableFieldSchema> for crate::write::generated::gapic_s
     type Output = TableFieldSchema;
     fn to_proto(self) -> std::result::Result<TableFieldSchema, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            r#type: self.r#type.to_proto()?,
-            mode: self.mode.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            r#type: gaxi::prost::ToProto::<table_field_schema::Type>::to_proto(self.r#type)?,
+            mode: gaxi::prost::ToProto::<table_field_schema::Mode>::to_proto(self.mode)?,
             fields: self.fields
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<TableFieldSchema>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            description: self.description.to_proto()?,
-            max_length: self.max_length.to_proto()?,
-            precision: self.precision.to_proto()?,
-            scale: self.scale.to_proto()?,
-            default_value_expression: self.default_value_expression.to_proto()?,
-            timestamp_precision: self.timestamp_precision.map(|v| v.to_proto()).transpose()?,
-            range_element_type: self.range_element_type.map(|v| v.to_proto()).transpose()?,
+            description: gaxi::prost::ToProto::<std::string::String>::to_proto(self.description)?,
+            max_length: gaxi::prost::ToProto::<i64>::to_proto(self.max_length)?,
+            precision: gaxi::prost::ToProto::<i64>::to_proto(self.precision)?,
+            scale: gaxi::prost::ToProto::<i64>::to_proto(self.scale)?,
+            default_value_expression: gaxi::prost::ToProto::<std::string::String>::to_proto(self.default_value_expression)?,
+            timestamp_precision: self.timestamp_precision.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            range_element_type: self.range_element_type.map(gaxi::prost::ToProto::<table_field_schema::FieldElementType>::to_proto).transpose()?,
         })
     }
 }

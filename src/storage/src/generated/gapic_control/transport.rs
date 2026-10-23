@@ -140,7 +140,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::CreateFolderRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -235,7 +236,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DeleteFolderRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -330,7 +332,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetFolderRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -414,7 +417,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListFoldersRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -509,7 +513,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::RenameFolderRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -604,7 +609,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DeleteFolderRecursiveRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -699,7 +704,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetStorageLayoutRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -772,7 +780,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::CreateManagedFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -856,7 +864,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DeleteManagedFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -940,7 +948,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetManagedFolderRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1013,7 +1024,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListManagedFoldersRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1103,7 +1114,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateManagedFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1176,7 +1187,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::CreateAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1266,7 +1277,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1350,7 +1361,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DisableAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1434,7 +1445,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::PauseAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1518,7 +1529,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ResumeAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1602,7 +1613,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetAnywhereCacheRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1675,7 +1689,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListAnywhereCachesRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1748,7 +1762,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::CreateRapidCacheRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1838,7 +1855,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateRapidCacheRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1922,7 +1942,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DisableRapidCacheRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2006,7 +2029,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetRapidCacheRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2079,7 +2103,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListRapidCachesRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2140,7 +2167,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetProjectIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2205,7 +2232,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<
+                    crate::google::storage::control::v2::UpdateProjectIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2266,7 +2296,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetFolderIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2331,7 +2361,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateFolderIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2392,7 +2422,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<
+                    crate::google::storage::control::v2::GetOrganizationIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2457,7 +2490,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateOrganizationIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2559,7 +2592,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::iam::v1::GetIamPolicyRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2661,7 +2695,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::iam::v1::SetIamPolicyRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2797,7 +2832,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::iam::v1::TestIamPermissionsRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2861,7 +2897,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetIntelligenceFindingRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2922,15 +2958,13 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListIntelligenceFindingsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<TR, crate::model::ListIntelligenceFindingsResponse>,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListIntelligenceFindingsResponse>)
     }
 
     async fn summarize_intelligence_findings(
@@ -2985,18 +3019,13 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::SummarizeIntelligenceFindingsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::model::SummarizeIntelligenceFindingsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::SummarizeIntelligenceFindingsResponse>)
     }
 
     async fn get_intelligence_finding_revision(
@@ -3051,7 +3080,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetIntelligenceFindingRevisionRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3112,7 +3141,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<
+                    crate::google::storage::control::v2::ListIntelligenceFindingRevisionsRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3212,7 +3244,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ViewObjectFullContextRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3270,7 +3302,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::longrunning::GetOperationRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3306,78 +3339,78 @@ pub(crate) fn lro_any_to_prost(
         "" => Ok(prost_types::Any::default()),
         "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
             .to_msg::<crate::model::RenameFolderMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::RenameFolderMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.Folder" => value
             .to_msg::<crate::model::Folder>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::Folder>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata" => value
             .to_msg::<crate::model::DeleteFolderRecursiveMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::DeleteFolderRecursiveMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.protobuf.Empty" => value
             .to_msg::<wkt::Empty>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::protobuf::Empty>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
             .to_msg::<crate::model::CreateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::CreateAnywhereCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
             .to_msg::<crate::model::AnywhereCache>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::AnywhereCache>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
             .to_msg::<crate::model::UpdateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::UpdateAnywhereCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata" => value
             .to_msg::<crate::model::CreateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::CreateRapidCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.RapidCache" => value
             .to_msg::<crate::model::RapidCache>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::RapidCache>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata" => value
             .to_msg::<crate::model::UpdateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::UpdateRapidCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.DisableRapidCacheMetadata" => value
             .to_msg::<crate::model::DisableRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::DisableRapidCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),

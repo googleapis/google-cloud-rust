@@ -18,9 +18,9 @@ impl gaxi::prost::ToProto<Date> for google_cloud_type::model::Date {
     type Output = Date;
     fn to_proto(self) -> std::result::Result<Date, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            year: self.year.to_proto()?,
-            month: self.month.to_proto()?,
-            day: self.day.to_proto()?,
+            year: gaxi::prost::ToProto::<i32>::to_proto(self.year)?,
+            month: gaxi::prost::ToProto::<i32>::to_proto(self.month)?,
+            day: gaxi::prost::ToProto::<i32>::to_proto(self.day)?,
         })
     }
 }
@@ -40,10 +40,10 @@ impl gaxi::prost::ToProto<Expr> for google_cloud_type::model::Expr {
     type Output = Expr;
     fn to_proto(self) -> std::result::Result<Expr, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            expression: self.expression.to_proto()?,
-            title: self.title.to_proto()?,
-            description: self.description.to_proto()?,
-            location: self.location.to_proto()?,
+            expression: gaxi::prost::ToProto::<std::string::String>::to_proto(self.expression)?,
+            title: gaxi::prost::ToProto::<std::string::String>::to_proto(self.title)?,
+            description: gaxi::prost::ToProto::<std::string::String>::to_proto(self.description)?,
+            location: gaxi::prost::ToProto::<std::string::String>::to_proto(self.location)?,
         })
     }
 }
@@ -64,8 +64,8 @@ impl gaxi::prost::ToProto<Interval> for google_cloud_type::model::Interval {
     type Output = Interval;
     fn to_proto(self) -> std::result::Result<Interval, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start_time: self.start_time.map(|v| v.to_proto()).transpose()?,
-            end_time: self.end_time.map(|v| v.to_proto()).transpose()?,
+            start_time: self.start_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            end_time: self.end_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }

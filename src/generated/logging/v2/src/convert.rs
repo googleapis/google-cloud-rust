@@ -35,8 +35,12 @@ impl gaxi::prost::ToProto<log_entry::Payload> for crate::model::log_entry::Paylo
             Self::ProtoPayload(_) => {
                 Ok(Self::Output::ProtoPayload(std::default::Default::default()))
             }
-            Self::TextPayload(v) => Ok(Self::Output::TextPayload(v.to_proto()?)),
-            Self::JsonPayload(v) => Ok(Self::Output::JsonPayload((*v).to_proto()?)),
+            Self::TextPayload(v) => Ok(Self::Output::TextPayload(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::JsonPayload(v) => Ok(Self::Output::JsonPayload(gaxi::prost::ToProto::<
+                prost_types::Struct,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -58,25 +62,25 @@ impl gaxi::prost::ToProto<LogEntry> for crate::model::LogEntry {
     type Output = LogEntry;
     fn to_proto(self) -> std::result::Result<LogEntry, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            log_name: self.log_name.to_proto()?,
-            resource: self.resource.map(|v| v.to_proto()).transpose()?,
-            timestamp: self.timestamp.map(|v| v.to_proto()).transpose()?,
-            receive_timestamp: self.receive_timestamp.map(|v| v.to_proto()).transpose()?,
-            severity: self.severity.to_proto()?,
-            insert_id: self.insert_id.to_proto()?,
-            http_request: self.http_request.map(|v| v.to_proto()).transpose()?,
-            labels: self
-                .labels
+            log_name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.log_name)?,
+            resource: self.resource.map(gaxi::prost::ToProto::<super::prost::google::api::MonitoredResource>::to_proto).transpose()?,
+            timestamp: self.timestamp.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            receive_timestamp: self.receive_timestamp.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            severity: gaxi::prost::ToProto::<super::prost::google::logging::r#type::LogSeverity>::to_proto(self.severity)?,
+            insert_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.insert_id)?,
+            http_request: self.http_request.map(gaxi::prost::ToProto::<super::prost::google::logging::r#type::HttpRequest>::to_proto).transpose()?,
+            labels: self.labels
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
-                .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            operation: self.operation.map(|v| v.to_proto()).transpose()?,
-            trace: self.trace.to_proto()?,
-            span_id: self.span_id.to_proto()?,
-            trace_sampled: self.trace_sampled.to_proto()?,
-            source_location: self.source_location.map(|v| v.to_proto()).transpose()?,
-            split: self.split.map(|v| v.to_proto()).transpose()?,
-            payload: self.payload.map(|v| v.to_proto()).transpose()?,
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<std::string::String>::to_proto(v))
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            operation: self.operation.map(gaxi::prost::ToProto::<LogEntryOperation>::to_proto).transpose()?,
+            trace: gaxi::prost::ToProto::<std::string::String>::to_proto(self.trace)?,
+            span_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.span_id)?,
+            trace_sampled: gaxi::prost::ToProto::<bool>::to_proto(self.trace_sampled)?,
+            source_location: self.source_location.map(gaxi::prost::ToProto::<LogEntrySourceLocation>::to_proto).transpose()?,
+            split: self.split.map(gaxi::prost::ToProto::<LogSplit>::to_proto).transpose()?,
+            payload: self.payload.map(gaxi::prost::ToProto::<log_entry::Payload>::to_proto).transpose()?,
             ..Self::Output::default()
         })
     }
@@ -112,10 +116,10 @@ impl gaxi::prost::ToProto<LogEntryOperation> for crate::model::LogEntryOperation
     type Output = LogEntryOperation;
     fn to_proto(self) -> std::result::Result<LogEntryOperation, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            id: self.id.to_proto()?,
-            producer: self.producer.to_proto()?,
-            first: self.first.to_proto()?,
-            last: self.last.to_proto()?,
+            id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.id)?,
+            producer: gaxi::prost::ToProto::<std::string::String>::to_proto(self.producer)?,
+            first: gaxi::prost::ToProto::<bool>::to_proto(self.first)?,
+            last: gaxi::prost::ToProto::<bool>::to_proto(self.last)?,
         })
     }
 }
@@ -136,9 +140,9 @@ impl gaxi::prost::ToProto<LogEntrySourceLocation> for crate::model::LogEntrySour
     type Output = LogEntrySourceLocation;
     fn to_proto(self) -> std::result::Result<LogEntrySourceLocation, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            file: self.file.to_proto()?,
-            line: self.line.to_proto()?,
-            function: self.function.to_proto()?,
+            file: gaxi::prost::ToProto::<std::string::String>::to_proto(self.file)?,
+            line: gaxi::prost::ToProto::<i64>::to_proto(self.line)?,
+            function: gaxi::prost::ToProto::<std::string::String>::to_proto(self.function)?,
         })
     }
 }
@@ -158,9 +162,9 @@ impl gaxi::prost::ToProto<LogSplit> for crate::model::LogSplit {
     type Output = LogSplit;
     fn to_proto(self) -> std::result::Result<LogSplit, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            uid: self.uid.to_proto()?,
-            index: self.index.to_proto()?,
-            total_splits: self.total_splits.to_proto()?,
+            uid: gaxi::prost::ToProto::<std::string::String>::to_proto(self.uid)?,
+            index: gaxi::prost::ToProto::<i32>::to_proto(self.index)?,
+            total_splits: gaxi::prost::ToProto::<i32>::to_proto(self.total_splits)?,
         })
     }
 }
@@ -181,10 +185,13 @@ impl gaxi::prost::ToProto<TailLogEntriesRequest> for crate::model::TailLogEntrie
             resource_names: self
                 .resource_names
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            filter: self.filter.to_proto()?,
-            buffer_window: self.buffer_window.map(|v| v.to_proto()).transpose()?,
+            filter: gaxi::prost::ToProto::<std::string::String>::to_proto(self.filter)?,
+            buffer_window: self
+                .buffer_window
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -226,8 +233,8 @@ impl gaxi::prost::ToProto<tail_log_entries_response::SuppressionInfo>
     ) -> std::result::Result<tail_log_entries_response::SuppressionInfo, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            reason: self.reason.to_proto()?,
-            suppressed_count: self.suppressed_count.to_proto()?,
+            reason: gaxi::prost::ToProto::<tail_log_entries_response::suppression_info::Reason>::to_proto(self.reason)?,
+            suppressed_count: gaxi::prost::ToProto::<i32>::to_proto(self.suppressed_count)?,
         })
     }
 }
@@ -256,12 +263,12 @@ impl gaxi::prost::ToProto<TailLogEntriesResponse> for crate::model::TailLogEntri
             entries: self
                 .entries
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<LogEntry>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             suppression_info: self
                 .suppression_info
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<tail_log_entries_response::SuppressionInfo>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -296,11 +303,16 @@ impl gaxi::prost::ToProto<super::prost::google::api::MonitoredResource>
     ) -> std::result::Result<super::prost::google::api::MonitoredResource, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            r#type: self.r#type.to_proto()?,
+            r#type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.r#type)?,
             labels: self
                 .labels
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
@@ -335,23 +347,28 @@ impl gaxi::prost::ToProto<super::prost::google::logging::r#type::HttpRequest>
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            request_method: self.request_method.to_proto()?,
-            request_url: self.request_url.to_proto()?,
-            request_size: self.request_size.to_proto()?,
-            status: self.status.to_proto()?,
-            response_size: self.response_size.to_proto()?,
-            user_agent: self.user_agent.to_proto()?,
-            remote_ip: self.remote_ip.to_proto()?,
-            server_ip: self.server_ip.to_proto()?,
-            referer: self.referer.to_proto()?,
-            latency: self.latency.map(|v| v.to_proto()).transpose()?,
-            cache_lookup: self.cache_lookup.to_proto()?,
-            cache_hit: self.cache_hit.to_proto()?,
-            cache_validated_with_origin_server: self
-                .cache_validated_with_origin_server
-                .to_proto()?,
-            cache_fill_bytes: self.cache_fill_bytes.to_proto()?,
-            protocol: self.protocol.to_proto()?,
+            request_method: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.request_method,
+            )?,
+            request_url: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_url)?,
+            request_size: gaxi::prost::ToProto::<i64>::to_proto(self.request_size)?,
+            status: gaxi::prost::ToProto::<i32>::to_proto(self.status)?,
+            response_size: gaxi::prost::ToProto::<i64>::to_proto(self.response_size)?,
+            user_agent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.user_agent)?,
+            remote_ip: gaxi::prost::ToProto::<std::string::String>::to_proto(self.remote_ip)?,
+            server_ip: gaxi::prost::ToProto::<std::string::String>::to_proto(self.server_ip)?,
+            referer: gaxi::prost::ToProto::<std::string::String>::to_proto(self.referer)?,
+            latency: self
+                .latency
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
+            cache_lookup: gaxi::prost::ToProto::<bool>::to_proto(self.cache_lookup)?,
+            cache_hit: gaxi::prost::ToProto::<bool>::to_proto(self.cache_hit)?,
+            cache_validated_with_origin_server: gaxi::prost::ToProto::<bool>::to_proto(
+                self.cache_validated_with_origin_server,
+            )?,
+            cache_fill_bytes: gaxi::prost::ToProto::<i64>::to_proto(self.cache_fill_bytes)?,
+            protocol: gaxi::prost::ToProto::<std::string::String>::to_proto(self.protocol)?,
         })
     }
 }

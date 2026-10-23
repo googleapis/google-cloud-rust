@@ -20,9 +20,9 @@ impl gaxi::prost::ToProto<descriptor_proto::ExtensionRange> for wkt::descriptor_
     type Output = descriptor_proto::ExtensionRange;
     fn to_proto(self) -> std::result::Result<descriptor_proto::ExtensionRange, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start: Some(self.start.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            end: Some(self.end.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            options: self.options.map(|v| v.to_proto()).transpose()?,
+            start: Some(gaxi::prost::ToProto::<i32>::to_proto(self.start)?).filter(|v| !wkt::internal::is_default(v)),
+            end: Some(gaxi::prost::ToProto::<i32>::to_proto(self.end)?).filter(|v| !wkt::internal::is_default(v)),
+            options: self.options.map(gaxi::prost::ToProto::<ExtensionRangeOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -42,8 +42,8 @@ impl gaxi::prost::ToProto<descriptor_proto::ReservedRange> for wkt::descriptor_p
     type Output = descriptor_proto::ReservedRange;
     fn to_proto(self) -> std::result::Result<descriptor_proto::ReservedRange, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start: Some(self.start.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            end: Some(self.end.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
+            start: Some(gaxi::prost::ToProto::<i32>::to_proto(self.start)?).filter(|v| !wkt::internal::is_default(v)),
+            end: Some(gaxi::prost::ToProto::<i32>::to_proto(self.end)?).filter(|v| !wkt::internal::is_default(v)),
         })
     }
 }
@@ -62,35 +62,35 @@ impl gaxi::prost::ToProto<DescriptorProto> for wkt::DescriptorProto {
     type Output = DescriptorProto;
     fn to_proto(self) -> std::result::Result<DescriptorProto, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: Some(self.name.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
+            name: Some(gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?).filter(|v| !wkt::internal::is_default(v)),
             field: self.field
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<FieldDescriptorProto>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             extension: self.extension
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<FieldDescriptorProto>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             nested_type: self.nested_type
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<DescriptorProto>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             enum_type: self.enum_type
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<EnumDescriptorProto>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             extension_range: self.extension_range
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<descriptor_proto::ExtensionRange>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            options: self.options.map(|v| v.to_proto()).transpose()?,
+            options: self.options.map(gaxi::prost::ToProto::<MessageOptions>::to_proto).transpose()?,
             reserved_range: self.reserved_range
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<descriptor_proto::ReservedRange>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             reserved_name: self.reserved_name
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ..Self::Output::default()
         })
@@ -156,15 +156,15 @@ impl gaxi::prost::ToProto<FieldDescriptorProto> for wkt::FieldDescriptorProto {
     type Output = FieldDescriptorProto;
     fn to_proto(self) -> std::result::Result<FieldDescriptorProto, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: Some(self.name.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            number: Some(self.number.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            label: Some(self.label.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            r#type: Some(self.r#type.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            type_name: Some(self.type_name.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            extendee: Some(self.extendee.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            default_value: Some(self.default_value.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            json_name: Some(self.json_name.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            options: self.options.map(|v| v.to_proto()).transpose()?,
+            name: Some(gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?).filter(|v| !wkt::internal::is_default(v)),
+            number: Some(gaxi::prost::ToProto::<i32>::to_proto(self.number)?).filter(|v| !wkt::internal::is_default(v)),
+            label: Some(gaxi::prost::ToProto::<field_descriptor_proto::Label>::to_proto(self.label)?).filter(|v| !wkt::internal::is_default(v)),
+            r#type: Some(gaxi::prost::ToProto::<field_descriptor_proto::Type>::to_proto(self.r#type)?).filter(|v| !wkt::internal::is_default(v)),
+            type_name: Some(gaxi::prost::ToProto::<std::string::String>::to_proto(self.type_name)?).filter(|v| !wkt::internal::is_default(v)),
+            extendee: Some(gaxi::prost::ToProto::<std::string::String>::to_proto(self.extendee)?).filter(|v| !wkt::internal::is_default(v)),
+            default_value: Some(gaxi::prost::ToProto::<std::string::String>::to_proto(self.default_value)?).filter(|v| !wkt::internal::is_default(v)),
+            json_name: Some(gaxi::prost::ToProto::<std::string::String>::to_proto(self.json_name)?).filter(|v| !wkt::internal::is_default(v)),
+            options: self.options.map(gaxi::prost::ToProto::<FieldOptions>::to_proto).transpose()?,
             ..Self::Output::default()
         })
     }
@@ -191,8 +191,8 @@ impl gaxi::prost::ToProto<enum_descriptor_proto::EnumReservedRange> for wkt::enu
     type Output = enum_descriptor_proto::EnumReservedRange;
     fn to_proto(self) -> std::result::Result<enum_descriptor_proto::EnumReservedRange, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start: Some(self.start.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            end: Some(self.end.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
+            start: Some(gaxi::prost::ToProto::<i32>::to_proto(self.start)?).filter(|v| !wkt::internal::is_default(v)),
+            end: Some(gaxi::prost::ToProto::<i32>::to_proto(self.end)?).filter(|v| !wkt::internal::is_default(v)),
         })
     }
 }
@@ -211,19 +211,19 @@ impl gaxi::prost::ToProto<EnumDescriptorProto> for wkt::EnumDescriptorProto {
     type Output = EnumDescriptorProto;
     fn to_proto(self) -> std::result::Result<EnumDescriptorProto, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: Some(self.name.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
+            name: Some(gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?).filter(|v| !wkt::internal::is_default(v)),
             value: self.value
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<EnumValueDescriptorProto>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            options: self.options.map(|v| v.to_proto()).transpose()?,
+            options: self.options.map(gaxi::prost::ToProto::<EnumOptions>::to_proto).transpose()?,
             reserved_range: self.reserved_range
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<enum_descriptor_proto::EnumReservedRange>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             reserved_name: self.reserved_name
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -249,9 +249,9 @@ impl gaxi::prost::ToProto<EnumValueDescriptorProto> for wkt::EnumValueDescriptor
     type Output = EnumValueDescriptorProto;
     fn to_proto(self) -> std::result::Result<EnumValueDescriptorProto, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: Some(self.name.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            number: Some(self.number.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            options: self.options.map(|v| v.to_proto()).transpose()?,
+            name: Some(gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?).filter(|v| !wkt::internal::is_default(v)),
+            number: Some(gaxi::prost::ToProto::<i32>::to_proto(self.number)?).filter(|v| !wkt::internal::is_default(v)),
+            options: self.options.map(gaxi::prost::ToProto::<EnumValueOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -271,10 +271,10 @@ impl gaxi::prost::ToProto<MessageOptions> for wkt::MessageOptions {
     type Output = MessageOptions;
     fn to_proto(self) -> std::result::Result<MessageOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            message_set_wire_format: Some(self.message_set_wire_format.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            no_standard_descriptor_accessor: Some(self.no_standard_descriptor_accessor.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            deprecated: Some(self.deprecated.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            map_entry: Some(self.map_entry.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
+            message_set_wire_format: Some(gaxi::prost::ToProto::<bool>::to_proto(self.message_set_wire_format)?).filter(|v| !wkt::internal::is_default(v)),
+            no_standard_descriptor_accessor: Some(gaxi::prost::ToProto::<bool>::to_proto(self.no_standard_descriptor_accessor)?).filter(|v| !wkt::internal::is_default(v)),
+            deprecated: Some(gaxi::prost::ToProto::<bool>::to_proto(self.deprecated)?).filter(|v| !wkt::internal::is_default(v)),
+            map_entry: Some(gaxi::prost::ToProto::<bool>::to_proto(self.map_entry)?).filter(|v| !wkt::internal::is_default(v)),
             ..Self::Output::default()
         })
     }
@@ -310,12 +310,12 @@ impl gaxi::prost::ToProto<FieldOptions> for wkt::FieldOptions {
     type Output = FieldOptions;
     fn to_proto(self) -> std::result::Result<FieldOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            ctype: Some(self.ctype.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            packed: Some(self.packed.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            jstype: Some(self.jstype.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            lazy: Some(self.lazy.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            deprecated: Some(self.deprecated.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            weak: Some(self.weak.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
+            ctype: Some(gaxi::prost::ToProto::<field_options::CType>::to_proto(self.ctype)?).filter(|v| !wkt::internal::is_default(v)),
+            packed: Some(gaxi::prost::ToProto::<bool>::to_proto(self.packed)?).filter(|v| !wkt::internal::is_default(v)),
+            jstype: Some(gaxi::prost::ToProto::<field_options::JsType>::to_proto(self.jstype)?).filter(|v| !wkt::internal::is_default(v)),
+            lazy: Some(gaxi::prost::ToProto::<bool>::to_proto(self.lazy)?).filter(|v| !wkt::internal::is_default(v)),
+            deprecated: Some(gaxi::prost::ToProto::<bool>::to_proto(self.deprecated)?).filter(|v| !wkt::internal::is_default(v)),
+            weak: Some(gaxi::prost::ToProto::<bool>::to_proto(self.weak)?).filter(|v| !wkt::internal::is_default(v)),
             ..Self::Output::default()
         })
     }
@@ -339,8 +339,8 @@ impl gaxi::prost::ToProto<EnumOptions> for wkt::EnumOptions {
     type Output = EnumOptions;
     fn to_proto(self) -> std::result::Result<EnumOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            allow_alias: Some(self.allow_alias.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
-            deprecated: Some(self.deprecated.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
+            allow_alias: Some(gaxi::prost::ToProto::<bool>::to_proto(self.allow_alias)?).filter(|v| !wkt::internal::is_default(v)),
+            deprecated: Some(gaxi::prost::ToProto::<bool>::to_proto(self.deprecated)?).filter(|v| !wkt::internal::is_default(v)),
             ..Self::Output::default()
         })
     }
@@ -360,7 +360,7 @@ impl gaxi::prost::ToProto<EnumValueOptions> for wkt::EnumValueOptions {
     type Output = EnumValueOptions;
     fn to_proto(self) -> std::result::Result<EnumValueOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            deprecated: Some(self.deprecated.to_proto()?).filter(|v| !wkt::internal::is_default(v)),
+            deprecated: Some(gaxi::prost::ToProto::<bool>::to_proto(self.deprecated)?).filter(|v| !wkt::internal::is_default(v)),
             ..Self::Output::default()
         })
     }

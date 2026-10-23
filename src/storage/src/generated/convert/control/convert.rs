@@ -39,7 +39,7 @@ impl gaxi::prost::ToProto<PendingRenameInfo> for crate::generated::gapic_control
     type Output = PendingRenameInfo;
     fn to_proto(self) -> std::result::Result<PendingRenameInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            operation: self.operation.to_proto()?,
+            operation: gaxi::prost::ToProto::<std::string::String>::to_proto(self.operation)?,
         })
     }
 }
@@ -57,11 +57,11 @@ impl gaxi::prost::ToProto<Folder> for crate::generated::gapic_control::model::Fo
     type Output = Folder;
     fn to_proto(self) -> std::result::Result<Folder, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            metageneration: self.metageneration.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            pending_rename_info: self.pending_rename_info.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            metageneration: gaxi::prost::ToProto::<i64>::to_proto(self.metageneration)?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            pending_rename_info: self.pending_rename_info.map(gaxi::prost::ToProto::<PendingRenameInfo>::to_proto).transpose()?,
         })
     }
 }
@@ -83,10 +83,10 @@ impl gaxi::prost::ToProto<GetFolderRequest> for crate::generated::gapic_control:
     type Output = GetFolderRequest;
     fn to_proto(self) -> std::result::Result<GetFolderRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
-            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            if_metageneration_match: self.if_metageneration_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -107,11 +107,11 @@ impl gaxi::prost::ToProto<CreateFolderRequest> for crate::generated::gapic_contr
     type Output = CreateFolderRequest;
     fn to_proto(self) -> std::result::Result<CreateFolderRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            folder: self.folder.map(|v| v.to_proto()).transpose()?,
-            folder_id: self.folder_id.to_proto()?,
-            recursive: self.recursive.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            folder: self.folder.map(gaxi::prost::ToProto::<Folder>::to_proto).transpose()?,
+            folder_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.folder_id)?,
+            recursive: gaxi::prost::ToProto::<bool>::to_proto(self.recursive)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -133,10 +133,10 @@ impl gaxi::prost::ToProto<DeleteFolderRequest> for crate::generated::gapic_contr
     type Output = DeleteFolderRequest;
     fn to_proto(self) -> std::result::Result<DeleteFolderRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
-            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            if_metageneration_match: self.if_metageneration_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -157,14 +157,14 @@ impl gaxi::prost::ToProto<ListFoldersRequest> for crate::generated::gapic_contro
     type Output = ListFoldersRequest;
     fn to_proto(self) -> std::result::Result<ListFoldersRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            prefix: self.prefix.to_proto()?,
-            delimiter: self.delimiter.to_proto()?,
-            lexicographic_start: self.lexicographic_start.to_proto()?,
-            lexicographic_end: self.lexicographic_end.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            prefix: gaxi::prost::ToProto::<std::string::String>::to_proto(self.prefix)?,
+            delimiter: gaxi::prost::ToProto::<std::string::String>::to_proto(self.delimiter)?,
+            lexicographic_start: gaxi::prost::ToProto::<std::string::String>::to_proto(self.lexicographic_start)?,
+            lexicographic_end: gaxi::prost::ToProto::<std::string::String>::to_proto(self.lexicographic_end)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -191,9 +191,9 @@ impl gaxi::prost::ToProto<ListFoldersResponse> for crate::generated::gapic_contr
         Ok(Self::Output {
             folders: self.folders
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Folder>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -213,11 +213,11 @@ impl gaxi::prost::ToProto<RenameFolderRequest> for crate::generated::gapic_contr
     type Output = RenameFolderRequest;
     fn to_proto(self) -> std::result::Result<RenameFolderRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            destination_folder_id: self.destination_folder_id.to_proto()?,
-            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
-            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            destination_folder_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.destination_folder_id)?,
+            if_metageneration_match: self.if_metageneration_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -239,10 +239,10 @@ impl gaxi::prost::ToProto<DeleteFolderRecursiveRequest> for crate::generated::ga
     type Output = DeleteFolderRecursiveRequest;
     fn to_proto(self) -> std::result::Result<DeleteFolderRecursiveRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
-            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            if_metageneration_match: self.if_metageneration_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -263,12 +263,12 @@ impl gaxi::prost::ToProto<CommonLongRunningOperationMetadata> for crate::generat
     type Output = CommonLongRunningOperationMetadata;
     fn to_proto(self) -> std::result::Result<CommonLongRunningOperationMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            end_time: self.end_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            r#type: self.r#type.to_proto()?,
-            requested_cancellation: self.requested_cancellation.to_proto()?,
-            progress_percent: self.progress_percent.to_proto()?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            end_time: self.end_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            r#type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.r#type)?,
+            requested_cancellation: gaxi::prost::ToProto::<bool>::to_proto(self.requested_cancellation)?,
+            progress_percent: gaxi::prost::ToProto::<i32>::to_proto(self.progress_percent)?,
         })
     }
 }
@@ -291,9 +291,9 @@ impl gaxi::prost::ToProto<RenameFolderMetadata> for crate::generated::gapic_cont
     type Output = RenameFolderMetadata;
     fn to_proto(self) -> std::result::Result<RenameFolderMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
-            source_folder_id: self.source_folder_id.to_proto()?,
-            destination_folder_id: self.destination_folder_id.to_proto()?,
+            common_metadata: self.common_metadata.map(gaxi::prost::ToProto::<CommonLongRunningOperationMetadata>::to_proto).transpose()?,
+            source_folder_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.source_folder_id)?,
+            destination_folder_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.destination_folder_id)?,
         })
     }
 }
@@ -313,8 +313,8 @@ impl gaxi::prost::ToProto<DeleteFolderRecursiveMetadata> for crate::generated::g
     type Output = DeleteFolderRecursiveMetadata;
     fn to_proto(self) -> std::result::Result<DeleteFolderRecursiveMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
-            folder_id: self.folder_id.to_proto()?,
+            common_metadata: self.common_metadata.map(gaxi::prost::ToProto::<CommonLongRunningOperationMetadata>::to_proto).transpose()?,
+            folder_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.folder_id)?,
         })
     }
 }
@@ -335,7 +335,7 @@ impl gaxi::prost::ToProto<storage_layout::CustomPlacementConfig> for crate::gene
         Ok(Self::Output {
             data_locations: self.data_locations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -355,7 +355,7 @@ impl gaxi::prost::ToProto<storage_layout::HierarchicalNamespace> for crate::gene
     type Output = storage_layout::HierarchicalNamespace;
     fn to_proto(self) -> std::result::Result<storage_layout::HierarchicalNamespace, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            enabled: self.enabled.to_proto()?,
+            enabled: gaxi::prost::ToProto::<bool>::to_proto(self.enabled)?,
         })
     }
 }
@@ -373,7 +373,7 @@ impl gaxi::prost::ToProto<storage_layout::RapidCacheInfo> for crate::generated::
     type Output = storage_layout::RapidCacheInfo;
     fn to_proto(self) -> std::result::Result<storage_layout::RapidCacheInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            cache_type: self.cache_type.to_proto()?,
+            cache_type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.cache_type)?,
         })
     }
 }
@@ -391,12 +391,12 @@ impl gaxi::prost::ToProto<StorageLayout> for crate::generated::gapic_control::mo
     type Output = StorageLayout;
     fn to_proto(self) -> std::result::Result<StorageLayout, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            location: self.location.to_proto()?,
-            location_type: self.location_type.to_proto()?,
-            custom_placement_config: self.custom_placement_config.map(|v| v.to_proto()).transpose()?,
-            hierarchical_namespace: self.hierarchical_namespace.map(|v| v.to_proto()).transpose()?,
-            rapid_cache_info: self.rapid_cache_info.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            location: gaxi::prost::ToProto::<std::string::String>::to_proto(self.location)?,
+            location_type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.location_type)?,
+            custom_placement_config: self.custom_placement_config.map(gaxi::prost::ToProto::<storage_layout::CustomPlacementConfig>::to_proto).transpose()?,
+            hierarchical_namespace: self.hierarchical_namespace.map(gaxi::prost::ToProto::<storage_layout::HierarchicalNamespace>::to_proto).transpose()?,
+            rapid_cache_info: self.rapid_cache_info.map(gaxi::prost::ToProto::<storage_layout::RapidCacheInfo>::to_proto).transpose()?,
         })
     }
 }
@@ -419,9 +419,9 @@ impl gaxi::prost::ToProto<GetStorageLayoutRequest> for crate::generated::gapic_c
     type Output = GetStorageLayoutRequest;
     fn to_proto(self) -> std::result::Result<GetStorageLayoutRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            prefix: self.prefix.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            prefix: gaxi::prost::ToProto::<std::string::String>::to_proto(self.prefix)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -448,8 +448,8 @@ impl gaxi::prost::ToProto<managed_folder::rapid_cache_config::RapidCachePolicy> 
     type Output = managed_folder::rapid_cache_config::RapidCachePolicy;
     fn to_proto(self) -> std::result::Result<managed_folder::rapid_cache_config::RapidCachePolicy, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            rapid_cache_id: self.rapid_cache_id.to_proto()?,
-            ingest_on_write: self.ingest_on_write.to_proto()?,
+            rapid_cache_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.rapid_cache_id)?,
+            ingest_on_write: gaxi::prost::ToProto::<managed_folder::rapid_cache_config::rapid_cache_policy::IngestOnWrite>::to_proto(self.ingest_on_write)?,
         })
     }
 }
@@ -471,7 +471,7 @@ impl gaxi::prost::ToProto<managed_folder::RapidCacheConfig> for crate::generated
             policies: self.policies
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<managed_folder::rapid_cache_config::RapidCachePolicy>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
@@ -493,11 +493,11 @@ impl gaxi::prost::ToProto<ManagedFolder> for crate::generated::gapic_control::mo
     type Output = ManagedFolder;
     fn to_proto(self) -> std::result::Result<ManagedFolder, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            metageneration: self.metageneration.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            rapid_cache_config: self.rapid_cache_config.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            metageneration: gaxi::prost::ToProto::<i64>::to_proto(self.metageneration)?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            rapid_cache_config: self.rapid_cache_config.map(gaxi::prost::ToProto::<managed_folder::RapidCacheConfig>::to_proto).transpose()?,
         })
     }
 }
@@ -519,10 +519,10 @@ impl gaxi::prost::ToProto<GetManagedFolderRequest> for crate::generated::gapic_c
     type Output = GetManagedFolderRequest;
     fn to_proto(self) -> std::result::Result<GetManagedFolderRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
-            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            if_metageneration_match: self.if_metageneration_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -543,10 +543,10 @@ impl gaxi::prost::ToProto<CreateManagedFolderRequest> for crate::generated::gapi
     type Output = CreateManagedFolderRequest;
     fn to_proto(self) -> std::result::Result<CreateManagedFolderRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            managed_folder: self.managed_folder.map(|v| v.to_proto()).transpose()?,
-            managed_folder_id: self.managed_folder_id.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            managed_folder: self.managed_folder.map(gaxi::prost::ToProto::<ManagedFolder>::to_proto).transpose()?,
+            managed_folder_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.managed_folder_id)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -567,11 +567,11 @@ impl gaxi::prost::ToProto<DeleteManagedFolderRequest> for crate::generated::gapi
     type Output = DeleteManagedFolderRequest;
     fn to_proto(self) -> std::result::Result<DeleteManagedFolderRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
-            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
-            allow_non_empty: self.allow_non_empty.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            if_metageneration_match: self.if_metageneration_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            allow_non_empty: gaxi::prost::ToProto::<bool>::to_proto(self.allow_non_empty)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -593,11 +593,11 @@ impl gaxi::prost::ToProto<ListManagedFoldersRequest> for crate::generated::gapic
     type Output = ListManagedFoldersRequest;
     fn to_proto(self) -> std::result::Result<ListManagedFoldersRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            prefix: self.prefix.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            prefix: gaxi::prost::ToProto::<std::string::String>::to_proto(self.prefix)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -621,9 +621,9 @@ impl gaxi::prost::ToProto<ListManagedFoldersResponse> for crate::generated::gapi
         Ok(Self::Output {
             managed_folders: self.managed_folders
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<ManagedFolder>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -643,11 +643,11 @@ impl gaxi::prost::ToProto<UpdateManagedFolderRequest> for crate::generated::gapi
     type Output = UpdateManagedFolderRequest;
     fn to_proto(self) -> std::result::Result<UpdateManagedFolderRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            managed_folder: self.managed_folder.map(|v| v.to_proto()).transpose()?,
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
-            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
-            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            managed_folder: self.managed_folder.map(gaxi::prost::ToProto::<ManagedFolder>::to_proto).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<prost_types::FieldMask>::to_proto).transpose()?,
+            if_metageneration_match: self.if_metageneration_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -669,12 +669,12 @@ impl gaxi::prost::ToProto<CreateAnywhereCacheMetadata> for crate::generated::gap
     type Output = CreateAnywhereCacheMetadata;
     fn to_proto(self) -> std::result::Result<CreateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
-            anywhere_cache_id: self.anywhere_cache_id.map(|v| v.to_proto()).transpose()?,
-            zone: self.zone.map(|v| v.to_proto()).transpose()?,
-            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
-            admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
-            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
+            common_metadata: self.common_metadata.map(gaxi::prost::ToProto::<CommonLongRunningOperationMetadata>::to_proto).transpose()?,
+            anywhere_cache_id: self.anywhere_cache_id.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            zone: self.zone.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            ttl: self.ttl.map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto).transpose()?,
+            admission_policy: self.admission_policy.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            ingest_on_write: self.ingest_on_write.map(gaxi::prost::ToProto::<bool>::to_proto).transpose()?,
         })
     }
 }
@@ -697,13 +697,13 @@ impl gaxi::prost::ToProto<CreateRapidCacheMetadata> for crate::generated::gapic_
     type Output = CreateRapidCacheMetadata;
     fn to_proto(self) -> std::result::Result<CreateRapidCacheMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
-            rapid_cache_id: self.rapid_cache_id.map(|v| v.to_proto()).transpose()?,
-            zone: self.zone.map(|v| v.to_proto()).transpose()?,
-            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
-            admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
-            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
-            cache_type: self.cache_type.map(|v| v.to_proto()).transpose()?,
+            common_metadata: self.common_metadata.map(gaxi::prost::ToProto::<CommonLongRunningOperationMetadata>::to_proto).transpose()?,
+            rapid_cache_id: self.rapid_cache_id.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            zone: self.zone.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            ttl: self.ttl.map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto).transpose()?,
+            admission_policy: self.admission_policy.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            ingest_on_write: self.ingest_on_write.map(gaxi::prost::ToProto::<bool>::to_proto).transpose()?,
+            cache_type: self.cache_type.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
         })
     }
 }
@@ -727,12 +727,12 @@ impl gaxi::prost::ToProto<UpdateAnywhereCacheMetadata> for crate::generated::gap
     type Output = UpdateAnywhereCacheMetadata;
     fn to_proto(self) -> std::result::Result<UpdateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
-            anywhere_cache_id: self.anywhere_cache_id.map(|v| v.to_proto()).transpose()?,
-            zone: self.zone.map(|v| v.to_proto()).transpose()?,
-            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
-            admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
-            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
+            common_metadata: self.common_metadata.map(gaxi::prost::ToProto::<CommonLongRunningOperationMetadata>::to_proto).transpose()?,
+            anywhere_cache_id: self.anywhere_cache_id.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            zone: self.zone.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            ttl: self.ttl.map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto).transpose()?,
+            admission_policy: self.admission_policy.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            ingest_on_write: self.ingest_on_write.map(gaxi::prost::ToProto::<bool>::to_proto).transpose()?,
         })
     }
 }
@@ -755,13 +755,13 @@ impl gaxi::prost::ToProto<UpdateRapidCacheMetadata> for crate::generated::gapic_
     type Output = UpdateRapidCacheMetadata;
     fn to_proto(self) -> std::result::Result<UpdateRapidCacheMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
-            rapid_cache_id: self.rapid_cache_id.map(|v| v.to_proto()).transpose()?,
-            zone: self.zone.map(|v| v.to_proto()).transpose()?,
-            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
-            admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
-            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
-            cache_type: self.cache_type.map(|v| v.to_proto()).transpose()?,
+            common_metadata: self.common_metadata.map(gaxi::prost::ToProto::<CommonLongRunningOperationMetadata>::to_proto).transpose()?,
+            rapid_cache_id: self.rapid_cache_id.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            zone: self.zone.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            ttl: self.ttl.map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto).transpose()?,
+            admission_policy: self.admission_policy.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            ingest_on_write: self.ingest_on_write.map(gaxi::prost::ToProto::<bool>::to_proto).transpose()?,
+            cache_type: self.cache_type.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
         })
     }
 }
@@ -785,10 +785,10 @@ impl gaxi::prost::ToProto<DisableRapidCacheMetadata> for crate::generated::gapic
     type Output = DisableRapidCacheMetadata;
     fn to_proto(self) -> std::result::Result<DisableRapidCacheMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
-            rapid_cache_id: self.rapid_cache_id.map(|v| v.to_proto()).transpose()?,
-            zone: self.zone.map(|v| v.to_proto()).transpose()?,
-            cache_type: self.cache_type.map(|v| v.to_proto()).transpose()?,
+            common_metadata: self.common_metadata.map(gaxi::prost::ToProto::<CommonLongRunningOperationMetadata>::to_proto).transpose()?,
+            rapid_cache_id: self.rapid_cache_id.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            zone: self.zone.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
+            cache_type: self.cache_type.map(gaxi::prost::ToProto::<std::string::String>::to_proto).transpose()?,
         })
     }
 }
@@ -809,15 +809,15 @@ impl gaxi::prost::ToProto<AnywhereCache> for crate::generated::gapic_control::mo
     type Output = AnywhereCache;
     fn to_proto(self) -> std::result::Result<AnywhereCache, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            zone: self.zone.to_proto()?,
-            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
-            admission_policy: self.admission_policy.to_proto()?,
-            state: self.state.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            pending_update: self.pending_update.to_proto()?,
-            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            zone: gaxi::prost::ToProto::<std::string::String>::to_proto(self.zone)?,
+            ttl: self.ttl.map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto).transpose()?,
+            admission_policy: gaxi::prost::ToProto::<std::string::String>::to_proto(self.admission_policy)?,
+            state: gaxi::prost::ToProto::<std::string::String>::to_proto(self.state)?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            pending_update: gaxi::prost::ToProto::<bool>::to_proto(self.pending_update)?,
+            ingest_on_write: self.ingest_on_write.map(gaxi::prost::ToProto::<bool>::to_proto).transpose()?,
         })
     }
 }
@@ -843,9 +843,9 @@ impl gaxi::prost::ToProto<CreateAnywhereCacheRequest> for crate::generated::gapi
     type Output = CreateAnywhereCacheRequest;
     fn to_proto(self) -> std::result::Result<CreateAnywhereCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            anywhere_cache: self.anywhere_cache.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            anywhere_cache: self.anywhere_cache.map(gaxi::prost::ToProto::<AnywhereCache>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -865,9 +865,9 @@ impl gaxi::prost::ToProto<UpdateAnywhereCacheRequest> for crate::generated::gapi
     type Output = UpdateAnywhereCacheRequest;
     fn to_proto(self) -> std::result::Result<UpdateAnywhereCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            anywhere_cache: self.anywhere_cache.map(|v| v.to_proto()).transpose()?,
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            anywhere_cache: self.anywhere_cache.map(gaxi::prost::ToProto::<AnywhereCache>::to_proto).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<prost_types::FieldMask>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -887,8 +887,8 @@ impl gaxi::prost::ToProto<DisableAnywhereCacheRequest> for crate::generated::gap
     type Output = DisableAnywhereCacheRequest;
     fn to_proto(self) -> std::result::Result<DisableAnywhereCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -907,8 +907,8 @@ impl gaxi::prost::ToProto<PauseAnywhereCacheRequest> for crate::generated::gapic
     type Output = PauseAnywhereCacheRequest;
     fn to_proto(self) -> std::result::Result<PauseAnywhereCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -927,8 +927,8 @@ impl gaxi::prost::ToProto<ResumeAnywhereCacheRequest> for crate::generated::gapi
     type Output = ResumeAnywhereCacheRequest;
     fn to_proto(self) -> std::result::Result<ResumeAnywhereCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -947,8 +947,8 @@ impl gaxi::prost::ToProto<GetAnywhereCacheRequest> for crate::generated::gapic_c
     type Output = GetAnywhereCacheRequest;
     fn to_proto(self) -> std::result::Result<GetAnywhereCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -967,10 +967,10 @@ impl gaxi::prost::ToProto<ListAnywhereCachesRequest> for crate::generated::gapic
     type Output = ListAnywhereCachesRequest;
     fn to_proto(self) -> std::result::Result<ListAnywhereCachesRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -993,9 +993,9 @@ impl gaxi::prost::ToProto<ListAnywhereCachesResponse> for crate::generated::gapi
         Ok(Self::Output {
             anywhere_caches: self.anywhere_caches
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<AnywhereCache>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -1015,15 +1015,15 @@ impl gaxi::prost::ToProto<RapidCache> for crate::generated::gapic_control::model
     type Output = RapidCache;
     fn to_proto(self) -> std::result::Result<RapidCache, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            zone: self.zone.to_proto()?,
-            cache_type: self.cache_type.to_proto()?,
-            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
-            admission_policy: self.admission_policy.to_proto()?,
-            state: self.state.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            pending_update: self.pending_update.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            zone: gaxi::prost::ToProto::<std::string::String>::to_proto(self.zone)?,
+            cache_type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.cache_type)?,
+            ttl: self.ttl.map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto).transpose()?,
+            admission_policy: gaxi::prost::ToProto::<std::string::String>::to_proto(self.admission_policy)?,
+            state: gaxi::prost::ToProto::<std::string::String>::to_proto(self.state)?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            pending_update: gaxi::prost::ToProto::<bool>::to_proto(self.pending_update)?,
         })
     }
 }
@@ -1049,9 +1049,9 @@ impl gaxi::prost::ToProto<CreateRapidCacheRequest> for crate::generated::gapic_c
     type Output = CreateRapidCacheRequest;
     fn to_proto(self) -> std::result::Result<CreateRapidCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            rapid_cache: self.rapid_cache.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            rapid_cache: self.rapid_cache.map(gaxi::prost::ToProto::<RapidCache>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -1071,9 +1071,9 @@ impl gaxi::prost::ToProto<UpdateRapidCacheRequest> for crate::generated::gapic_c
     type Output = UpdateRapidCacheRequest;
     fn to_proto(self) -> std::result::Result<UpdateRapidCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            rapid_cache: self.rapid_cache.map(|v| v.to_proto()).transpose()?,
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            rapid_cache: self.rapid_cache.map(gaxi::prost::ToProto::<RapidCache>::to_proto).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<prost_types::FieldMask>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -1093,8 +1093,8 @@ impl gaxi::prost::ToProto<DisableRapidCacheRequest> for crate::generated::gapic_
     type Output = DisableRapidCacheRequest;
     fn to_proto(self) -> std::result::Result<DisableRapidCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -1113,8 +1113,8 @@ impl gaxi::prost::ToProto<GetRapidCacheRequest> for crate::generated::gapic_cont
     type Output = GetRapidCacheRequest;
     fn to_proto(self) -> std::result::Result<GetRapidCacheRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -1133,10 +1133,10 @@ impl gaxi::prost::ToProto<ListRapidCachesRequest> for crate::generated::gapic_co
     type Output = ListRapidCachesRequest;
     fn to_proto(self) -> std::result::Result<ListRapidCachesRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            request_id: self.request_id.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -1159,9 +1159,9 @@ impl gaxi::prost::ToProto<ListRapidCachesResponse> for crate::generated::gapic_c
         Ok(Self::Output {
             rapid_caches: self.rapid_caches
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<RapidCache>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -1183,7 +1183,7 @@ impl gaxi::prost::ToProto<intelligence_config::filter::CloudStorageLocations> fo
         Ok(Self::Output {
             locations: self.locations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1205,7 +1205,7 @@ impl gaxi::prost::ToProto<intelligence_config::filter::CloudStorageBuckets> for 
         Ok(Self::Output {
             bucket_id_regexes: self.bucket_id_regexes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1225,8 +1225,8 @@ impl gaxi::prost::ToProto<intelligence_config::filter::CloudStorageLocationsOneO
     type Output = intelligence_config::filter::CloudStorageLocationsOneOf;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::IncludedCloudStorageLocations(v) => Ok(Self::Output::IncludedCloudStorageLocations((*v).to_proto()?)),
-            Self::ExcludedCloudStorageLocations(v) => Ok(Self::Output::ExcludedCloudStorageLocations((*v).to_proto()?)),
+            Self::IncludedCloudStorageLocations(v) => Ok(Self::Output::IncludedCloudStorageLocations(gaxi::prost::ToProto::<intelligence_config::filter::CloudStorageLocations>::to_proto(*v)?)),
+            Self::ExcludedCloudStorageLocations(v) => Ok(Self::Output::ExcludedCloudStorageLocations(gaxi::prost::ToProto::<intelligence_config::filter::CloudStorageLocations>::to_proto(*v)?)),
         }
     }
 }
@@ -1245,8 +1245,8 @@ impl gaxi::prost::ToProto<intelligence_config::filter::CloudStorageBucketsOneOf>
     type Output = intelligence_config::filter::CloudStorageBucketsOneOf;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::IncludedCloudStorageBuckets(v) => Ok(Self::Output::IncludedCloudStorageBuckets((*v).to_proto()?)),
-            Self::ExcludedCloudStorageBuckets(v) => Ok(Self::Output::ExcludedCloudStorageBuckets((*v).to_proto()?)),
+            Self::IncludedCloudStorageBuckets(v) => Ok(Self::Output::IncludedCloudStorageBuckets(gaxi::prost::ToProto::<intelligence_config::filter::CloudStorageBuckets>::to_proto(*v)?)),
+            Self::ExcludedCloudStorageBuckets(v) => Ok(Self::Output::ExcludedCloudStorageBuckets(gaxi::prost::ToProto::<intelligence_config::filter::CloudStorageBuckets>::to_proto(*v)?)),
         }
     }
 }
@@ -1265,8 +1265,8 @@ impl gaxi::prost::ToProto<intelligence_config::Filter> for crate::generated::gap
     type Output = intelligence_config::Filter;
     fn to_proto(self) -> std::result::Result<intelligence_config::Filter, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            cloud_storage_locations: self.cloud_storage_locations.map(|v| v.to_proto()).transpose()?,
-            cloud_storage_buckets: self.cloud_storage_buckets.map(|v| v.to_proto()).transpose()?,
+            cloud_storage_locations: self.cloud_storage_locations.map(gaxi::prost::ToProto::<intelligence_config::filter::CloudStorageLocationsOneOf>::to_proto).transpose()?,
+            cloud_storage_buckets: self.cloud_storage_buckets.map(gaxi::prost::ToProto::<intelligence_config::filter::CloudStorageBucketsOneOf>::to_proto).transpose()?,
         })
     }
 }
@@ -1292,8 +1292,8 @@ impl gaxi::prost::ToProto<intelligence_config::EffectiveIntelligenceConfig> for 
     type Output = intelligence_config::EffectiveIntelligenceConfig;
     fn to_proto(self) -> std::result::Result<intelligence_config::EffectiveIntelligenceConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            effective_edition: self.effective_edition.to_proto()?,
-            intelligence_config: self.intelligence_config.to_proto()?,
+            effective_edition: gaxi::prost::ToProto::<intelligence_config::effective_intelligence_config::EffectiveEdition>::to_proto(self.effective_edition)?,
+            intelligence_config: gaxi::prost::ToProto::<std::string::String>::to_proto(self.intelligence_config)?,
         })
     }
 }
@@ -1312,7 +1312,7 @@ impl gaxi::prost::ToProto<intelligence_config::TrialConfig> for crate::generated
     type Output = intelligence_config::TrialConfig;
     fn to_proto(self) -> std::result::Result<intelligence_config::TrialConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            expire_time: self.expire_time.map(|v| v.to_proto()).transpose()?,
+            expire_time: self.expire_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -1337,12 +1337,12 @@ impl gaxi::prost::ToProto<IntelligenceConfig> for crate::generated::gapic_contro
     type Output = IntelligenceConfig;
     fn to_proto(self) -> std::result::Result<IntelligenceConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            edition_config: self.edition_config.to_proto()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            filter: self.filter.map(|v| v.to_proto()).transpose()?,
-            effective_intelligence_config: self.effective_intelligence_config.map(|v| v.to_proto()).transpose()?,
-            trial_config: self.trial_config.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            edition_config: gaxi::prost::ToProto::<intelligence_config::EditionConfig>::to_proto(self.edition_config)?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            filter: self.filter.map(gaxi::prost::ToProto::<intelligence_config::Filter>::to_proto).transpose()?,
+            effective_intelligence_config: self.effective_intelligence_config.map(gaxi::prost::ToProto::<intelligence_config::EffectiveIntelligenceConfig>::to_proto).transpose()?,
+            trial_config: self.trial_config.map(gaxi::prost::ToProto::<intelligence_config::TrialConfig>::to_proto).transpose()?,
         })
     }
 }
@@ -1365,9 +1365,9 @@ impl gaxi::prost::ToProto<UpdateOrganizationIntelligenceConfigRequest> for crate
     type Output = UpdateOrganizationIntelligenceConfigRequest;
     fn to_proto(self) -> std::result::Result<UpdateOrganizationIntelligenceConfigRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            intelligence_config: self.intelligence_config.map(|v| v.to_proto()).transpose()?,
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            intelligence_config: self.intelligence_config.map(gaxi::prost::ToProto::<IntelligenceConfig>::to_proto).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<prost_types::FieldMask>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -1387,9 +1387,9 @@ impl gaxi::prost::ToProto<UpdateFolderIntelligenceConfigRequest> for crate::gene
     type Output = UpdateFolderIntelligenceConfigRequest;
     fn to_proto(self) -> std::result::Result<UpdateFolderIntelligenceConfigRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            intelligence_config: self.intelligence_config.map(|v| v.to_proto()).transpose()?,
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            intelligence_config: self.intelligence_config.map(gaxi::prost::ToProto::<IntelligenceConfig>::to_proto).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<prost_types::FieldMask>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -1409,9 +1409,9 @@ impl gaxi::prost::ToProto<UpdateProjectIntelligenceConfigRequest> for crate::gen
     type Output = UpdateProjectIntelligenceConfigRequest;
     fn to_proto(self) -> std::result::Result<UpdateProjectIntelligenceConfigRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            intelligence_config: self.intelligence_config.map(|v| v.to_proto()).transpose()?,
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
-            request_id: self.request_id.to_proto()?,
+            intelligence_config: self.intelligence_config.map(gaxi::prost::ToProto::<IntelligenceConfig>::to_proto).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<prost_types::FieldMask>::to_proto).transpose()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
         })
     }
 }
@@ -1431,7 +1431,7 @@ impl gaxi::prost::ToProto<GetOrganizationIntelligenceConfigRequest> for crate::g
     type Output = GetOrganizationIntelligenceConfigRequest;
     fn to_proto(self) -> std::result::Result<GetOrganizationIntelligenceConfigRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -1449,7 +1449,7 @@ impl gaxi::prost::ToProto<GetFolderIntelligenceConfigRequest> for crate::generat
     type Output = GetFolderIntelligenceConfigRequest;
     fn to_proto(self) -> std::result::Result<GetFolderIntelligenceConfigRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -1467,7 +1467,7 @@ impl gaxi::prost::ToProto<GetProjectIntelligenceConfigRequest> for crate::genera
     type Output = GetProjectIntelligenceConfigRequest;
     fn to_proto(self) -> std::result::Result<GetProjectIntelligenceConfigRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -1485,9 +1485,9 @@ impl gaxi::prost::ToProto<intelligence_finding::coldline_and_archival_storage_op
     type Output = intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution;
     fn to_proto(self) -> std::result::Result<intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            prefix: self.prefix.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
-            total_operations_count: self.total_operations_count.to_proto()?,
+            prefix: gaxi::prost::ToProto::<std::string::String>::to_proto(self.prefix)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
+            total_operations_count: gaxi::prost::ToProto::<i64>::to_proto(self.total_operations_count)?,
         })
     }
 }
@@ -1509,7 +1509,7 @@ impl gaxi::prost::ToProto<intelligence_finding::coldline_and_archival_storage_op
         Ok(Self::Output {
             top_prefixes: self.top_prefixes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::contribution::PrefixContribution>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1529,8 +1529,8 @@ impl gaxi::prost::ToProto<intelligence_finding::coldline_and_archival_storage_op
     type Output = intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Contribution(v) => Ok(Self::Output::Contribution((*v).to_proto()?)),
-            Self::Error(v) => Ok(Self::Output::Error((*v).to_proto()?)),
+            Self::Contribution(v) => Ok(Self::Output::Contribution(gaxi::prost::ToProto::<intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Contribution>::to_proto(*v)?)),
+            Self::Error(v) => Ok(Self::Output::Error(gaxi::prost::ToProto::<crate::google::rpc::Status>::to_proto(*v)?)),
         }
     }
 }
@@ -1549,10 +1549,10 @@ impl gaxi::prost::ToProto<intelligence_finding::coldline_and_archival_storage_op
     type Output = intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution;
     fn to_proto(self) -> std::result::Result<intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            bucket: self.bucket.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
-            total_operations_count: self.total_operations_count.to_proto()?,
-            details: self.details.map(|v| v.to_proto()).transpose()?,
+            bucket: gaxi::prost::ToProto::<std::string::String>::to_proto(self.bucket)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
+            total_operations_count: gaxi::prost::ToProto::<i64>::to_proto(self.total_operations_count)?,
+            details: self.details.map(gaxi::prost::ToProto::<intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details>::to_proto).transpose()?,
         })
     }
 }
@@ -1573,11 +1573,11 @@ impl gaxi::prost::ToProto<intelligence_finding::ColdlineAndArchivalStorageOperat
     type Output = intelligence_finding::ColdlineAndArchivalStorageOperationsSpike;
     fn to_proto(self) -> std::result::Result<intelligence_finding::ColdlineAndArchivalStorageOperationsSpike, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            percentage_increase: self.percentage_increase.to_proto()?,
-            total_operations_count: self.total_operations_count.to_proto()?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
+            total_operations_count: gaxi::prost::ToProto::<i64>::to_proto(self.total_operations_count)?,
             top_buckets: self.top_buckets
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<intelligence_finding::coldline_and_archival_storage_operations_spike::BucketContribution>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1599,9 +1599,9 @@ impl gaxi::prost::ToProto<intelligence_finding::cross_region_egress_spike::bucke
     type Output = intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution;
     fn to_proto(self) -> std::result::Result<intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            prefix: self.prefix.to_proto()?,
-            total_egress_bytes: self.total_egress_bytes.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
+            prefix: gaxi::prost::ToProto::<std::string::String>::to_proto(self.prefix)?,
+            total_egress_bytes: gaxi::prost::ToProto::<i64>::to_proto(self.total_egress_bytes)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
         })
     }
 }
@@ -1623,7 +1623,7 @@ impl gaxi::prost::ToProto<intelligence_finding::cross_region_egress_spike::bucke
         Ok(Self::Output {
             top_prefixes: self.top_prefixes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<intelligence_finding::cross_region_egress_spike::bucket_contribution::contribution::PrefixContribution>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1643,8 +1643,8 @@ impl gaxi::prost::ToProto<intelligence_finding::cross_region_egress_spike::bucke
     type Output = intelligence_finding::cross_region_egress_spike::bucket_contribution::Details;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Contribution(v) => Ok(Self::Output::Contribution((*v).to_proto()?)),
-            Self::Error(v) => Ok(Self::Output::Error((*v).to_proto()?)),
+            Self::Contribution(v) => Ok(Self::Output::Contribution(gaxi::prost::ToProto::<intelligence_finding::cross_region_egress_spike::bucket_contribution::Contribution>::to_proto(*v)?)),
+            Self::Error(v) => Ok(Self::Output::Error(gaxi::prost::ToProto::<crate::google::rpc::Status>::to_proto(*v)?)),
         }
     }
 }
@@ -1663,10 +1663,10 @@ impl gaxi::prost::ToProto<intelligence_finding::cross_region_egress_spike::Bucke
     type Output = intelligence_finding::cross_region_egress_spike::BucketContribution;
     fn to_proto(self) -> std::result::Result<intelligence_finding::cross_region_egress_spike::BucketContribution, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            bucket: self.bucket.to_proto()?,
-            total_egress_bytes: self.total_egress_bytes.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
-            details: self.details.map(|v| v.to_proto()).transpose()?,
+            bucket: gaxi::prost::ToProto::<std::string::String>::to_proto(self.bucket)?,
+            total_egress_bytes: gaxi::prost::ToProto::<i64>::to_proto(self.total_egress_bytes)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
+            details: self.details.map(gaxi::prost::ToProto::<intelligence_finding::cross_region_egress_spike::bucket_contribution::Details>::to_proto).transpose()?,
         })
     }
 }
@@ -1687,11 +1687,11 @@ impl gaxi::prost::ToProto<intelligence_finding::CrossRegionEgressSpike> for crat
     type Output = intelligence_finding::CrossRegionEgressSpike;
     fn to_proto(self) -> std::result::Result<intelligence_finding::CrossRegionEgressSpike, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            total_egress_bytes: self.total_egress_bytes.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
+            total_egress_bytes: gaxi::prost::ToProto::<i64>::to_proto(self.total_egress_bytes)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
             top_buckets: self.top_buckets
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<intelligence_finding::cross_region_egress_spike::BucketContribution>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1713,9 +1713,9 @@ impl gaxi::prost::ToProto<intelligence_finding::throttled_request_spike::bucket_
     type Output = intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution;
     fn to_proto(self) -> std::result::Result<intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            prefix: self.prefix.to_proto()?,
-            throttled_requests: self.throttled_requests.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
+            prefix: gaxi::prost::ToProto::<std::string::String>::to_proto(self.prefix)?,
+            throttled_requests: gaxi::prost::ToProto::<i64>::to_proto(self.throttled_requests)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
         })
     }
 }
@@ -1737,7 +1737,7 @@ impl gaxi::prost::ToProto<intelligence_finding::throttled_request_spike::bucket_
         Ok(Self::Output {
             top_prefixes: self.top_prefixes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<intelligence_finding::throttled_request_spike::bucket_contribution::contribution::PrefixContribution>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1757,8 +1757,8 @@ impl gaxi::prost::ToProto<intelligence_finding::throttled_request_spike::bucket_
     type Output = intelligence_finding::throttled_request_spike::bucket_contribution::Details;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Contribution(v) => Ok(Self::Output::Contribution((*v).to_proto()?)),
-            Self::Error(v) => Ok(Self::Output::Error((*v).to_proto()?)),
+            Self::Contribution(v) => Ok(Self::Output::Contribution(gaxi::prost::ToProto::<intelligence_finding::throttled_request_spike::bucket_contribution::Contribution>::to_proto(*v)?)),
+            Self::Error(v) => Ok(Self::Output::Error(gaxi::prost::ToProto::<crate::google::rpc::Status>::to_proto(*v)?)),
         }
     }
 }
@@ -1777,10 +1777,10 @@ impl gaxi::prost::ToProto<intelligence_finding::throttled_request_spike::BucketC
     type Output = intelligence_finding::throttled_request_spike::BucketContribution;
     fn to_proto(self) -> std::result::Result<intelligence_finding::throttled_request_spike::BucketContribution, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            bucket: self.bucket.to_proto()?,
-            throttled_requests: self.throttled_requests.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
-            details: self.details.map(|v| v.to_proto()).transpose()?,
+            bucket: gaxi::prost::ToProto::<std::string::String>::to_proto(self.bucket)?,
+            throttled_requests: gaxi::prost::ToProto::<i64>::to_proto(self.throttled_requests)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
+            details: self.details.map(gaxi::prost::ToProto::<intelligence_finding::throttled_request_spike::bucket_contribution::Details>::to_proto).transpose()?,
         })
     }
 }
@@ -1801,11 +1801,11 @@ impl gaxi::prost::ToProto<intelligence_finding::ThrottledRequestSpike> for crate
     type Output = intelligence_finding::ThrottledRequestSpike;
     fn to_proto(self) -> std::result::Result<intelligence_finding::ThrottledRequestSpike, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            throttled_requests: self.throttled_requests.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
+            throttled_requests: gaxi::prost::ToProto::<i64>::to_proto(self.throttled_requests)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
             top_buckets: self.top_buckets
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<intelligence_finding::throttled_request_spike::BucketContribution>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1827,7 +1827,7 @@ impl gaxi::prost::ToProto<intelligence_finding::storage_growth_above_trend::buck
     type Output = intelligence_finding::storage_growth_above_trend::bucket_contribution::Details;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Error(v) => Ok(Self::Output::Error((*v).to_proto()?)),
+            Self::Error(v) => Ok(Self::Output::Error(gaxi::prost::ToProto::<crate::google::rpc::Status>::to_proto(*v)?)),
         }
     }
 }
@@ -1845,10 +1845,10 @@ impl gaxi::prost::ToProto<intelligence_finding::storage_growth_above_trend::Buck
     type Output = intelligence_finding::storage_growth_above_trend::BucketContribution;
     fn to_proto(self) -> std::result::Result<intelligence_finding::storage_growth_above_trend::BucketContribution, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            bucket: self.bucket.to_proto()?,
-            total_storage_growth_bytes: self.total_storage_growth_bytes.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
-            details: self.details.map(|v| v.to_proto()).transpose()?,
+            bucket: gaxi::prost::ToProto::<std::string::String>::to_proto(self.bucket)?,
+            total_storage_growth_bytes: gaxi::prost::ToProto::<i64>::to_proto(self.total_storage_growth_bytes)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
+            details: self.details.map(gaxi::prost::ToProto::<intelligence_finding::storage_growth_above_trend::bucket_contribution::Details>::to_proto).transpose()?,
         })
     }
 }
@@ -1869,11 +1869,11 @@ impl gaxi::prost::ToProto<intelligence_finding::StorageGrowthAboveTrend> for cra
     type Output = intelligence_finding::StorageGrowthAboveTrend;
     fn to_proto(self) -> std::result::Result<intelligence_finding::StorageGrowthAboveTrend, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            total_storage_growth_bytes: self.total_storage_growth_bytes.to_proto()?,
-            percentage_increase: self.percentage_increase.to_proto()?,
+            total_storage_growth_bytes: gaxi::prost::ToProto::<i64>::to_proto(self.total_storage_growth_bytes)?,
+            percentage_increase: gaxi::prost::ToProto::<f64>::to_proto(self.percentage_increase)?,
             top_buckets: self.top_buckets
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<intelligence_finding::storage_growth_above_trend::BucketContribution>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1895,10 +1895,10 @@ impl gaxi::prost::ToProto<intelligence_finding::IntelligenceFindingDetails> for 
     type Output = intelligence_finding::IntelligenceFindingDetails;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ColdlineAndArchivalStorageOperationsSpike(v) => Ok(Self::Output::ColdlineAndArchivalStorageOperationsSpike((*v).to_proto()?)),
-            Self::ThrottledRequestsSpike(v) => Ok(Self::Output::ThrottledRequestsSpike((*v).to_proto()?)),
-            Self::CrossRegionEgressSpike(v) => Ok(Self::Output::CrossRegionEgressSpike((*v).to_proto()?)),
-            Self::StorageGrowthAboveTrend(v) => Ok(Self::Output::StorageGrowthAboveTrend((*v).to_proto()?)),
+            Self::ColdlineAndArchivalStorageOperationsSpike(v) => Ok(Self::Output::ColdlineAndArchivalStorageOperationsSpike(gaxi::prost::ToProto::<intelligence_finding::ColdlineAndArchivalStorageOperationsSpike>::to_proto(*v)?)),
+            Self::ThrottledRequestsSpike(v) => Ok(Self::Output::ThrottledRequestsSpike(gaxi::prost::ToProto::<intelligence_finding::ThrottledRequestSpike>::to_proto(*v)?)),
+            Self::CrossRegionEgressSpike(v) => Ok(Self::Output::CrossRegionEgressSpike(gaxi::prost::ToProto::<intelligence_finding::CrossRegionEgressSpike>::to_proto(*v)?)),
+            Self::StorageGrowthAboveTrend(v) => Ok(Self::Output::StorageGrowthAboveTrend(gaxi::prost::ToProto::<intelligence_finding::StorageGrowthAboveTrend>::to_proto(*v)?)),
         }
     }
 }
@@ -1919,20 +1919,20 @@ impl gaxi::prost::ToProto<IntelligenceFinding> for crate::generated::gapic_contr
     type Output = IntelligenceFinding;
     fn to_proto(self) -> std::result::Result<IntelligenceFinding, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            description: self.description.to_proto()?,
-            r#type: self.r#type.to_proto()?,
-            category: self.category.to_proto()?,
-            severity: self.severity.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            target_resource: self.target_resource.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            description: gaxi::prost::ToProto::<std::string::String>::to_proto(self.description)?,
+            r#type: gaxi::prost::ToProto::<FindingType>::to_proto(self.r#type)?,
+            category: gaxi::prost::ToProto::<FindingCategory>::to_proto(self.category)?,
+            severity: gaxi::prost::ToProto::<FindingSeverity>::to_proto(self.severity)?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            target_resource: gaxi::prost::ToProto::<std::string::String>::to_proto(self.target_resource)?,
             associated_resources: self.associated_resources
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            observation_period: self.observation_period.map(|v| v.to_proto()).transpose()?,
-            intelligence_finding_details: self.intelligence_finding_details.map(|v| v.to_proto()).transpose()?,
+            observation_period: self.observation_period.map(gaxi::prost::ToProto::<crate::google::r#type::Interval>::to_proto).transpose()?,
+            intelligence_finding_details: self.intelligence_finding_details.map(gaxi::prost::ToProto::<intelligence_finding::IntelligenceFindingDetails>::to_proto).transpose()?,
         })
     }
 }
@@ -1961,9 +1961,9 @@ impl gaxi::prost::ToProto<IntelligenceFindingRevision> for crate::generated::gap
     type Output = IntelligenceFindingRevision;
     fn to_proto(self) -> std::result::Result<IntelligenceFindingRevision, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            snapshot: self.snapshot.map(|v| v.to_proto()).transpose()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            snapshot: self.snapshot.map(gaxi::prost::ToProto::<IntelligenceFinding>::to_proto).transpose()?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -1983,7 +1983,7 @@ impl gaxi::prost::ToProto<GetIntelligenceFindingRequest> for crate::generated::g
     type Output = GetIntelligenceFindingRequest;
     fn to_proto(self) -> std::result::Result<GetIntelligenceFindingRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -2001,10 +2001,10 @@ impl gaxi::prost::ToProto<ListIntelligenceFindingsRequest> for crate::generated:
     type Output = ListIntelligenceFindingsRequest;
     fn to_proto(self) -> std::result::Result<ListIntelligenceFindingsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            filter: self.filter.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            filter: gaxi::prost::ToProto::<std::string::String>::to_proto(self.filter)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
         })
     }
 }
@@ -2027,9 +2027,9 @@ impl gaxi::prost::ToProto<ListIntelligenceFindingsResponse> for crate::generated
         Ok(Self::Output {
             intelligence_findings: self.intelligence_findings
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<IntelligenceFinding>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -2056,11 +2056,11 @@ impl gaxi::prost::ToProto<SummarizeIntelligenceFindingsRequest> for crate::gener
     type Output = SummarizeIntelligenceFindingsRequest;
     fn to_proto(self) -> std::result::Result<SummarizeIntelligenceFindingsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            resource_scope: self.resource_scope.to_proto()?,
-            filter: self.filter.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            resource_scope: gaxi::prost::ToProto::<summarize_intelligence_findings_request::ResourceScope>::to_proto(self.resource_scope)?,
+            filter: gaxi::prost::ToProto::<std::string::String>::to_proto(self.filter)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
         })
     }
 }
@@ -2084,9 +2084,9 @@ impl gaxi::prost::ToProto<SummarizeIntelligenceFindingsResponse> for crate::gene
         Ok(Self::Output {
             finding_summaries: self.finding_summaries
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<FindingSummary>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -2106,7 +2106,7 @@ impl gaxi::prost::ToProto<GetIntelligenceFindingRevisionRequest> for crate::gene
     type Output = GetIntelligenceFindingRevisionRequest;
     fn to_proto(self) -> std::result::Result<GetIntelligenceFindingRevisionRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -2124,9 +2124,9 @@ impl gaxi::prost::ToProto<ListIntelligenceFindingRevisionsRequest> for crate::ge
     type Output = ListIntelligenceFindingRevisionsRequest;
     fn to_proto(self) -> std::result::Result<ListIntelligenceFindingRevisionsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
         })
     }
 }
@@ -2148,9 +2148,9 @@ impl gaxi::prost::ToProto<ListIntelligenceFindingRevisionsResponse> for crate::g
         Ok(Self::Output {
             intelligence_finding_revisions: self.intelligence_finding_revisions
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<IntelligenceFindingRevision>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -2177,8 +2177,8 @@ impl gaxi::prost::ToProto<finding_summary::summary_details::Magnitude> for crate
     type Output = finding_summary::summary_details::Magnitude;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Count(v) => Ok(Self::Output::Count(v.to_proto()?)),
-            Self::Percentage(v) => Ok(Self::Output::Percentage(v.to_proto()?)),
+            Self::Count(v) => Ok(Self::Output::Count(gaxi::prost::ToProto::<i64>::to_proto(v)?)),
+            Self::Percentage(v) => Ok(Self::Output::Percentage(gaxi::prost::ToProto::<f32>::to_proto(v)?)),
         }
     }
 }
@@ -2197,9 +2197,9 @@ impl gaxi::prost::ToProto<finding_summary::SummaryDetails> for crate::generated:
     type Output = finding_summary::SummaryDetails;
     fn to_proto(self) -> std::result::Result<finding_summary::SummaryDetails, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            resource_type: self.resource_type.to_proto()?,
-            description: self.description.to_proto()?,
-            magnitude: self.magnitude.map(|v| v.to_proto()).transpose()?,
+            resource_type: gaxi::prost::ToProto::<finding_summary::summary_details::ResourceType>::to_proto(self.resource_type)?,
+            description: gaxi::prost::ToProto::<std::string::String>::to_proto(self.description)?,
+            magnitude: self.magnitude.map(gaxi::prost::ToProto::<finding_summary::summary_details::Magnitude>::to_proto).transpose()?,
         })
     }
 }
@@ -2219,15 +2219,15 @@ impl gaxi::prost::ToProto<FindingSummary> for crate::generated::gapic_control::m
     type Output = FindingSummary;
     fn to_proto(self) -> std::result::Result<FindingSummary, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            r#type: self.r#type.to_proto()?,
-            category: self.category.to_proto()?,
-            target_resource: self.target_resource.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            severity: self.severity.to_proto()?,
+            r#type: gaxi::prost::ToProto::<FindingType>::to_proto(self.r#type)?,
+            category: gaxi::prost::ToProto::<FindingCategory>::to_proto(self.category)?,
+            target_resource: gaxi::prost::ToProto::<std::string::String>::to_proto(self.target_resource)?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            severity: gaxi::prost::ToProto::<FindingSeverity>::to_proto(self.severity)?,
             summary_details: self.summary_details
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<finding_summary::SummaryDetails>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -2260,11 +2260,11 @@ impl gaxi::prost::ToProto<ObjectFullContext> for crate::generated::gapic_control
     type Output = ObjectFullContext;
     fn to_proto(self) -> std::result::Result<ObjectFullContext, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            r#type: self.r#type.to_proto()?,
-            key: self.key.to_proto()?,
-            value: self.value.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+            r#type: gaxi::prost::ToProto::<object_full_context::Type>::to_proto(self.r#type)?,
+            key: gaxi::prost::ToProto::<std::string::String>::to_proto(self.key)?,
+            value: gaxi::prost::ToProto::<std::string::String>::to_proto(self.value)?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
             ..Self::Output::default()
         })
     }
@@ -2287,9 +2287,9 @@ impl gaxi::prost::ToProto<ViewObjectFullContextRequest> for crate::generated::ga
     type Output = ViewObjectFullContextRequest;
     fn to_proto(self) -> std::result::Result<ViewObjectFullContextRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            generation: self.generation.to_proto()?,
-            context_key: self.context_key.to_proto()?,
-            name: self.name.to_proto()?,
+            generation: gaxi::prost::ToProto::<i64>::to_proto(self.generation)?,
+            context_key: gaxi::prost::ToProto::<std::string::String>::to_proto(self.context_key)?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }

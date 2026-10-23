@@ -84,12 +84,18 @@ impl gaxi::prost::ToProto<EgressRequest> for crate::model::EgressRequest {
     type Output = EgressRequest;
     fn to_proto(self) -> std::result::Result<EgressRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            id: self.id.to_proto()?,
-            payload: self.payload.map(|v| v.to_proto()).transpose()?,
-            endpoint: self.endpoint.to_proto()?,
-            project: self.project.to_proto()?,
-            trace_id: self.trace_id.to_proto()?,
-            timeout: self.timeout.map(|v| v.to_proto()).transpose()?,
+            id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.id)?,
+            payload: self
+                .payload
+                .map(gaxi::prost::ToProto::<Payload>::to_proto)
+                .transpose()?,
+            endpoint: gaxi::prost::ToProto::<TetherEndpoint>::to_proto(self.endpoint)?,
+            project: gaxi::prost::ToProto::<std::string::String>::to_proto(self.project)?,
+            trace_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.trace_id)?,
+            timeout: self
+                .timeout
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -110,9 +116,15 @@ impl gaxi::prost::ToProto<payload::Kind> for crate::model::payload::Kind {
     type Output = payload::Kind;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::HttpRequest(v) => Ok(Self::Output::HttpRequest((*v).to_proto()?)),
-            Self::StreamInfo(v) => Ok(Self::Output::StreamInfo((*v).to_proto()?)),
-            Self::Action(v) => Ok(Self::Output::Action(v.to_proto()?)),
+            Self::HttpRequest(v) => Ok(Self::Output::HttpRequest(gaxi::prost::ToProto::<
+                HttpRequest,
+            >::to_proto(*v)?)),
+            Self::StreamInfo(v) => Ok(Self::Output::StreamInfo(
+                gaxi::prost::ToProto::<StreamInfo>::to_proto(*v)?,
+            )),
+            Self::Action(v) => Ok(Self::Output::Action(
+                gaxi::prost::ToProto::<Action>::to_proto(v)?,
+            )),
         }
     }
 }
@@ -132,7 +144,10 @@ impl gaxi::prost::ToProto<Payload> for crate::model::Payload {
     type Output = Payload;
     fn to_proto(self) -> std::result::Result<Payload, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            kind: self.kind.map(|v| v.to_proto()).transpose()?,
+            kind: self
+                .kind
+                .map(gaxi::prost::ToProto::<payload::Kind>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -147,7 +162,7 @@ impl gaxi::prost::ToProto<StreamInfo> for crate::model::StreamInfo {
     type Output = StreamInfo;
     fn to_proto(self) -> std::result::Result<StreamInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            id: self.id.to_proto()?,
+            id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.id)?,
         })
     }
 }
@@ -162,13 +177,19 @@ impl gaxi::prost::ToProto<EgressResponse> for crate::model::EgressResponse {
     type Output = EgressResponse;
     fn to_proto(self) -> std::result::Result<EgressResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            id: self.id.to_proto()?,
-            http_response: self.http_response.map(|v| v.to_proto()).transpose()?,
-            status: self.status.map(|v| v.to_proto()).transpose()?,
-            project: self.project.to_proto()?,
-            trace_id: self.trace_id.to_proto()?,
-            endpoint: self.endpoint.to_proto()?,
-            name: self.name.to_proto()?,
+            id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.id)?,
+            http_response: self
+                .http_response
+                .map(gaxi::prost::ToProto::<HttpResponse>::to_proto)
+                .transpose()?,
+            status: self
+                .status
+                .map(gaxi::prost::ToProto::<super::prost::google::rpc::Status>::to_proto)
+                .transpose()?,
+            project: gaxi::prost::ToProto::<std::string::String>::to_proto(self.project)?,
+            trace_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.trace_id)?,
+            endpoint: gaxi::prost::ToProto::<TetherEndpoint>::to_proto(self.endpoint)?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -190,15 +211,18 @@ impl gaxi::prost::ToProto<HttpRequest> for crate::model::HttpRequest {
     type Output = HttpRequest;
     fn to_proto(self) -> std::result::Result<HttpRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            id: self.id.to_proto()?,
-            method: self.method.to_proto()?,
-            url: self.url.map(|v| v.to_proto()).transpose()?,
+            id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.id)?,
+            method: gaxi::prost::ToProto::<std::string::String>::to_proto(self.method)?,
+            url: self
+                .url
+                .map(gaxi::prost::ToProto::<Url>::to_proto)
+                .transpose()?,
             headers: self
                 .headers
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Header>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            body: self.body.to_proto()?,
+            body: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.body)?,
         })
     }
 }
@@ -223,9 +247,9 @@ impl gaxi::prost::ToProto<Url> for crate::model::Url {
     type Output = Url;
     fn to_proto(self) -> std::result::Result<Url, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            scheme: self.scheme.to_proto()?,
-            host: self.host.to_proto()?,
-            path: self.path.to_proto()?,
+            scheme: gaxi::prost::ToProto::<Scheme>::to_proto(self.scheme)?,
+            host: gaxi::prost::ToProto::<std::string::String>::to_proto(self.host)?,
+            path: gaxi::prost::ToProto::<std::string::String>::to_proto(self.path)?,
         })
     }
 }
@@ -243,11 +267,11 @@ impl gaxi::prost::ToProto<Header> for crate::model::Header {
     type Output = Header;
     fn to_proto(self) -> std::result::Result<Header, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            key: self.key.to_proto()?,
+            key: gaxi::prost::ToProto::<std::string::String>::to_proto(self.key)?,
             values: self
                 .values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -268,16 +292,16 @@ impl gaxi::prost::ToProto<HttpResponse> for crate::model::HttpResponse {
     type Output = HttpResponse;
     fn to_proto(self) -> std::result::Result<HttpResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            id: self.id.to_proto()?,
-            status: self.status.to_proto()?,
-            status_code: self.status_code.to_proto()?,
-            body: self.body.to_proto()?,
+            id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.id)?,
+            status: gaxi::prost::ToProto::<std::string::String>::to_proto(self.status)?,
+            status_code: gaxi::prost::ToProto::<i32>::to_proto(self.status_code)?,
+            body: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.body)?,
             headers: self
                 .headers
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Header>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            content_length: self.content_length.to_proto()?,
+            content_length: gaxi::prost::ToProto::<i64>::to_proto(self.content_length)?,
         })
     }
 }

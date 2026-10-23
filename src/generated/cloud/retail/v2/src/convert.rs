@@ -30,8 +30,12 @@ impl gaxi::prost::ToProto<interval::Min> for crate::model::interval::Min {
     type Output = interval::Min;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Minimum(v) => Ok(Self::Output::Minimum(v.to_proto()?)),
-            Self::ExclusiveMinimum(v) => Ok(Self::Output::ExclusiveMinimum(v.to_proto()?)),
+            Self::Minimum(v) => Ok(Self::Output::Minimum(
+                gaxi::prost::ToProto::<f64>::to_proto(v)?,
+            )),
+            Self::ExclusiveMinimum(v) => Ok(Self::Output::ExclusiveMinimum(
+                gaxi::prost::ToProto::<f64>::to_proto(v)?,
+            )),
         }
     }
 }
@@ -50,8 +54,12 @@ impl gaxi::prost::ToProto<interval::Max> for crate::model::interval::Max {
     type Output = interval::Max;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Maximum(v) => Ok(Self::Output::Maximum(v.to_proto()?)),
-            Self::ExclusiveMaximum(v) => Ok(Self::Output::ExclusiveMaximum(v.to_proto()?)),
+            Self::Maximum(v) => Ok(Self::Output::Maximum(
+                gaxi::prost::ToProto::<f64>::to_proto(v)?,
+            )),
+            Self::ExclusiveMaximum(v) => Ok(Self::Output::ExclusiveMaximum(
+                gaxi::prost::ToProto::<f64>::to_proto(v)?,
+            )),
         }
     }
 }
@@ -70,8 +78,14 @@ impl gaxi::prost::ToProto<Interval> for crate::model::Interval {
     type Output = Interval;
     fn to_proto(self) -> std::result::Result<Interval, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            min: self.min.map(|v| v.to_proto()).transpose()?,
-            max: self.max.map(|v| v.to_proto()).transpose()?,
+            min: self
+                .min
+                .map(gaxi::prost::ToProto::<interval::Min>::to_proto)
+                .transpose()?,
+            max: self
+                .max
+                .map(gaxi::prost::ToProto::<interval::Max>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -88,10 +102,10 @@ impl gaxi::prost::ToProto<UserInfo> for crate::model::UserInfo {
     type Output = UserInfo;
     fn to_proto(self) -> std::result::Result<UserInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            user_id: self.user_id.to_proto()?,
-            ip_address: self.ip_address.to_proto()?,
-            user_agent: self.user_agent.to_proto()?,
-            direct_user_request: self.direct_user_request.to_proto()?,
+            user_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.user_id)?,
+            ip_address: gaxi::prost::ToProto::<std::string::String>::to_proto(self.ip_address)?,
+            user_agent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.user_agent)?,
+            direct_user_request: gaxi::prost::ToProto::<bool>::to_proto(self.direct_user_request)?,
         })
     }
 }
@@ -113,7 +127,7 @@ impl gaxi::prost::ToProto<StringList> for crate::model::StringList {
             values: self
                 .values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -139,10 +153,15 @@ impl gaxi::prost::ToProto<conversational_search_request::SearchParams>
     ) -> std::result::Result<conversational_search_request::SearchParams, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            filter: self.filter.to_proto()?,
-            canonical_filter: self.canonical_filter.to_proto()?,
-            sort_by: self.sort_by.to_proto()?,
-            boost_spec: self.boost_spec.map(|v| v.to_proto()).transpose()?,
+            filter: gaxi::prost::ToProto::<std::string::String>::to_proto(self.filter)?,
+            canonical_filter: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.canonical_filter,
+            )?,
+            sort_by: gaxi::prost::ToProto::<std::string::String>::to_proto(self.sort_by)?,
+            boost_spec: self
+                .boost_spec
+                .map(gaxi::prost::ToProto::<search_request::BoostSpec>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -179,7 +198,7 @@ impl gaxi::prost::ToProto<conversational_search_request::user_answer::SelectedAn
         Ok(Self::Output {
             product_attribute_value: self
                 .product_attribute_value
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<ProductAttributeValue>::to_proto)
                 .transpose()?,
         })
     }
@@ -210,8 +229,14 @@ impl gaxi::prost::ToProto<conversational_search_request::user_answer::Type>
     type Output = conversational_search_request::user_answer::Type;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::TextAnswer(v) => Ok(Self::Output::TextAnswer(v.to_proto()?)),
-            Self::SelectedAnswer(v) => Ok(Self::Output::SelectedAnswer((*v).to_proto()?)),
+            Self::TextAnswer(v) => Ok(Self::Output::TextAnswer(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::SelectedAnswer(v) => Ok(Self::Output::SelectedAnswer(gaxi::prost::ToProto::<
+                conversational_search_request::user_answer::SelectedAnswer,
+            >::to_proto(
+                *v
+            )?)),
         }
     }
 }
@@ -242,7 +267,7 @@ impl gaxi::prost::ToProto<conversational_search_request::UserAnswer>
     ) -> std::result::Result<conversational_search_request::UserAnswer, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            r#type: self.r#type.map(|v| v.to_proto()).transpose()?,
+            r#type: self.r#type.map(gaxi::prost::ToProto::<conversational_search_request::user_answer::Type>::to_proto).transpose()?,
         })
     }
 }
@@ -286,9 +311,18 @@ impl gaxi::prost::ToProto<conversational_search_request::ConversationalFiltering
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            enable_conversational_filtering: self.enable_conversational_filtering.to_proto()?,
-            user_answer: self.user_answer.map(|v| v.to_proto()).transpose()?,
-            conversational_filtering_mode: self.conversational_filtering_mode.to_proto()?,
+            enable_conversational_filtering: gaxi::prost::ToProto::<bool>::to_proto(
+                self.enable_conversational_filtering,
+            )?,
+            user_answer: self
+                .user_answer
+                .map(gaxi::prost::ToProto::<conversational_search_request::UserAnswer>::to_proto)
+                .transpose()?,
+            conversational_filtering_mode: gaxi::prost::ToProto::<
+                conversational_search_request::conversational_filtering_spec::Mode,
+            >::to_proto(
+                self.conversational_filtering_mode
+            )?,
         })
     }
 }
@@ -320,31 +354,48 @@ impl gaxi::prost::ToProto<ConversationalSearchRequest>
         self,
     ) -> std::result::Result<ConversationalSearchRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            placement: self.placement.to_proto()?,
-            branch: self.branch.to_proto()?,
-            query: self.query.to_proto()?,
+            placement: gaxi::prost::ToProto::<std::string::String>::to_proto(self.placement)?,
+            branch: gaxi::prost::ToProto::<std::string::String>::to_proto(self.branch)?,
+            query: gaxi::prost::ToProto::<std::string::String>::to_proto(self.query)?,
             page_categories: self
                 .page_categories
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            conversation_id: self.conversation_id.to_proto()?,
-            search_params: self.search_params.map(|v| v.to_proto()).transpose()?,
-            visitor_id: self.visitor_id.to_proto()?,
-            user_info: self.user_info.map(|v| v.to_proto()).transpose()?,
+            conversation_id: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.conversation_id,
+            )?,
+            search_params: self
+                .search_params
+                .map(gaxi::prost::ToProto::<conversational_search_request::SearchParams>::to_proto)
+                .transpose()?,
+            visitor_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.visitor_id)?,
+            user_info: self
+                .user_info
+                .map(gaxi::prost::ToProto::<UserInfo>::to_proto)
+                .transpose()?,
             conversational_filtering_spec: self
                 .conversational_filtering_spec
-                .map(|v| v.to_proto())
+                .map(
+                    gaxi::prost::ToProto::<
+                        conversational_search_request::ConversationalFilteringSpec,
+                    >::to_proto,
+                )
                 .transpose()?,
             user_labels: self
                 .user_labels
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             safety_settings: self
                 .safety_settings
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<SafetySetting>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -404,7 +455,7 @@ impl gaxi::prost::ToProto<conversational_search_response::followup_question::Sug
         Ok(Self::Output {
             product_attribute_value: self
                 .product_attribute_value
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<ProductAttributeValue>::to_proto)
                 .transpose()?,
         })
     }
@@ -441,11 +492,17 @@ impl gaxi::prost::ToProto<conversational_search_response::FollowupQuestion>
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            followup_question: self.followup_question.to_proto()?,
+            followup_question: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.followup_question,
+            )?,
             suggested_answers: self
                 .suggested_answers
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(
+                    gaxi::prost::ToProto::<
+                        conversational_search_response::followup_question::SuggestedAnswer,
+                    >::to_proto,
+                )
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -482,7 +539,7 @@ impl gaxi::prost::ToProto<conversational_search_response::RefinedSearch>
     ) -> std::result::Result<conversational_search_response::RefinedSearch, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            query: self.query.to_proto()?,
+            query: gaxi::prost::ToProto::<std::string::String>::to_proto(self.query)?,
         })
     }
 }
@@ -507,7 +564,7 @@ impl gaxi::prost::ToProto<conversational_search_response::conversational_filteri
     type Output = conversational_search_response::conversational_filtering_result::AdditionalFilter;
     fn to_proto(self) -> std::result::Result<conversational_search_response::conversational_filtering_result::AdditionalFilter, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            product_attribute_value: self.product_attribute_value.map(|v| v.to_proto()).transpose()?,
+            product_attribute_value: self.product_attribute_value.map(gaxi::prost::ToProto::<ProductAttributeValue>::to_proto).transpose()?,
         })
     }
 }
@@ -532,8 +589,8 @@ impl gaxi::prost::ToProto<conversational_search_response::ConversationalFilterin
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            followup_question: self.followup_question.map(|v| v.to_proto()).transpose()?,
-            additional_filter: self.additional_filter.map(|v| v.to_proto()).transpose()?,
+            followup_question: self.followup_question.map(gaxi::prost::ToProto::<conversational_search_response::FollowupQuestion>::to_proto).transpose()?,
+            additional_filter: self.additional_filter.map(gaxi::prost::ToProto::<conversational_search_response::conversational_filtering_result::AdditionalFilter>::to_proto).transpose()?,
         })
     }
 }
@@ -581,24 +638,19 @@ impl gaxi::prost::ToProto<ConversationalSearchResponse>
         self,
     ) -> std::result::Result<ConversationalSearchResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            user_query_types: self
-                .user_query_types
+            user_query_types: self.user_query_types
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            conversational_text_response: self.conversational_text_response.to_proto()?,
-            followup_question: self.followup_question.map(|v| v.to_proto()).transpose()?,
-            conversation_id: self.conversation_id.to_proto()?,
-            refined_search: self
-                .refined_search
+            conversational_text_response: gaxi::prost::ToProto::<std::string::String>::to_proto(self.conversational_text_response)?,
+            followup_question: self.followup_question.map(gaxi::prost::ToProto::<conversational_search_response::FollowupQuestion>::to_proto).transpose()?,
+            conversation_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.conversation_id)?,
+            refined_search: self.refined_search
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<conversational_search_response::RefinedSearch>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            conversational_filtering_result: self
-                .conversational_filtering_result
-                .map(|v| v.to_proto())
-                .transpose()?,
-            state: self.state.to_proto()?,
+            conversational_filtering_result: self.conversational_filtering_result.map(gaxi::prost::ToProto::<conversational_search_response::ConversationalFilteringResult>::to_proto).transpose()?,
+            state: gaxi::prost::ToProto::<conversational_search_response::State>::to_proto(self.state)?,
         })
     }
 }
@@ -663,9 +715,11 @@ impl gaxi::prost::ToProto<SafetySetting> for crate::model::SafetySetting {
     type Output = SafetySetting;
     fn to_proto(self) -> std::result::Result<SafetySetting, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            category: self.category.to_proto()?,
-            threshold: self.threshold.to_proto()?,
-            method: self.method.to_proto()?,
+            category: gaxi::prost::ToProto::<HarmCategory>::to_proto(self.category)?,
+            threshold: gaxi::prost::ToProto::<safety_setting::HarmBlockThreshold>::to_proto(
+                self.threshold,
+            )?,
+            method: gaxi::prost::ToProto::<safety_setting::HarmBlockMethod>::to_proto(self.method)?,
         })
     }
 }
@@ -683,8 +737,8 @@ impl gaxi::prost::ToProto<ProductAttributeValue> for crate::model::ProductAttrib
     type Output = ProductAttributeValue;
     fn to_proto(self) -> std::result::Result<ProductAttributeValue, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            value: self.value.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            value: gaxi::prost::ToProto::<std::string::String>::to_proto(self.value)?,
         })
     }
 }
@@ -703,8 +757,11 @@ impl gaxi::prost::ToProto<ProductAttributeInterval> for crate::model::ProductAtt
     type Output = ProductAttributeInterval;
     fn to_proto(self) -> std::result::Result<ProductAttributeInterval, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            interval: self.interval.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            interval: self
+                .interval
+                .map(gaxi::prost::ToProto::<Interval>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -725,11 +782,15 @@ impl gaxi::prost::ToProto<tile::ProductAttribute> for crate::model::tile::Produc
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::ProductAttributeValue(v) => {
-                Ok(Self::Output::ProductAttributeValue((*v).to_proto()?))
+                Ok(Self::Output::ProductAttributeValue(gaxi::prost::ToProto::<
+                    ProductAttributeValue,
+                >::to_proto(
+                    *v
+                )?))
             }
-            Self::ProductAttributeInterval(v) => {
-                Ok(Self::Output::ProductAttributeInterval((*v).to_proto()?))
-            }
+            Self::ProductAttributeInterval(v) => Ok(Self::Output::ProductAttributeInterval(
+                gaxi::prost::ToProto::<ProductAttributeInterval>::to_proto(*v)?,
+            )),
         }
     }
 }
@@ -754,8 +815,13 @@ impl gaxi::prost::ToProto<Tile> for crate::model::Tile {
     type Output = Tile;
     fn to_proto(self) -> std::result::Result<Tile, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            representative_product_id: self.representative_product_id.to_proto()?,
-            product_attribute: self.product_attribute.map(|v| v.to_proto()).transpose()?,
+            representative_product_id: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.representative_product_id,
+            )?,
+            product_attribute: self
+                .product_attribute
+                .map(gaxi::prost::ToProto::<tile::ProductAttribute>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -776,31 +842,31 @@ impl gaxi::prost::ToProto<search_request::facet_spec::FacetKey>
         self,
     ) -> std::result::Result<search_request::facet_spec::FacetKey, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            key: self.key.to_proto()?,
+            key: gaxi::prost::ToProto::<std::string::String>::to_proto(self.key)?,
             intervals: self
                 .intervals
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Interval>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             restricted_values: self
                 .restricted_values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             prefixes: self
                 .prefixes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             contains: self
                 .contains
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            case_insensitive: self.case_insensitive.to_proto()?,
-            order_by: self.order_by.to_proto()?,
-            query: self.query.to_proto()?,
-            return_min_max: self.return_min_max.to_proto()?,
+            case_insensitive: gaxi::prost::ToProto::<bool>::to_proto(self.case_insensitive)?,
+            order_by: gaxi::prost::ToProto::<std::string::String>::to_proto(self.order_by)?,
+            query: gaxi::prost::ToProto::<std::string::String>::to_proto(self.query)?,
+            return_min_max: gaxi::prost::ToProto::<bool>::to_proto(self.return_min_max)?,
         })
     }
 }
@@ -851,14 +917,19 @@ impl gaxi::prost::ToProto<search_request::FacetSpec> for crate::model::search_re
     type Output = search_request::FacetSpec;
     fn to_proto(self) -> std::result::Result<search_request::FacetSpec, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            facet_key: self.facet_key.map(|v| v.to_proto()).transpose()?,
-            limit: self.limit.to_proto()?,
+            facet_key: self
+                .facet_key
+                .map(gaxi::prost::ToProto::<search_request::facet_spec::FacetKey>::to_proto)
+                .transpose()?,
+            limit: gaxi::prost::ToProto::<i32>::to_proto(self.limit)?,
             excluded_filter_keys: self
                 .excluded_filter_keys
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            enable_dynamic_position: self.enable_dynamic_position.to_proto()?,
+            enable_dynamic_position: gaxi::prost::ToProto::<bool>::to_proto(
+                self.enable_dynamic_position,
+            )?,
         })
     }
 }
@@ -901,7 +972,9 @@ impl gaxi::prost::ToProto<search_request::DynamicFacetSpec>
         self,
     ) -> std::result::Result<search_request::DynamicFacetSpec, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            mode: self.mode.to_proto()?,
+            mode: gaxi::prost::ToProto::<search_request::dynamic_facet_spec::Mode>::to_proto(
+                self.mode,
+            )?,
         })
     }
 }
@@ -930,8 +1003,8 @@ impl gaxi::prost::ToProto<search_request::boost_spec::ConditionBoostSpec>
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            condition: self.condition.to_proto()?,
-            boost: self.boost.to_proto()?,
+            condition: gaxi::prost::ToProto::<std::string::String>::to_proto(self.condition)?,
+            boost: gaxi::prost::ToProto::<f32>::to_proto(self.boost)?,
         })
     }
 }
@@ -957,15 +1030,11 @@ impl gaxi::prost::ToProto<search_request::BoostSpec> for crate::model::search_re
     type Output = search_request::BoostSpec;
     fn to_proto(self) -> std::result::Result<search_request::BoostSpec, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            condition_boost_specs: self
-                .condition_boost_specs
+            condition_boost_specs: self.condition_boost_specs
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<search_request::boost_spec::ConditionBoostSpec>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            skip_boost_spec_validation: self
-                .skip_boost_spec_validation
-                .map(|v| v.to_proto())
-                .transpose()?,
+            skip_boost_spec_validation: self.skip_boost_spec_validation.map(gaxi::prost::ToProto::<bool>::to_proto).transpose()?,
         })
     }
 }
@@ -1010,8 +1079,13 @@ impl gaxi::prost::ToProto<search_request::QueryExpansionSpec>
         self,
     ) -> std::result::Result<search_request::QueryExpansionSpec, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            condition: self.condition.to_proto()?,
-            pin_unexpanded_results: self.pin_unexpanded_results.to_proto()?,
+            condition:
+                gaxi::prost::ToProto::<search_request::query_expansion_spec::Condition>::to_proto(
+                    self.condition,
+                )?,
+            pin_unexpanded_results: gaxi::prost::ToProto::<bool>::to_proto(
+                self.pin_unexpanded_results,
+            )?,
         })
     }
 }
@@ -1051,7 +1125,9 @@ impl gaxi::prost::ToProto<search_request::PersonalizationSpec>
         self,
     ) -> std::result::Result<search_request::PersonalizationSpec, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            mode: self.mode.to_proto()?,
+            mode: gaxi::prost::ToProto::<search_request::personalization_spec::Mode>::to_proto(
+                self.mode,
+            )?,
         })
     }
 }
@@ -1089,7 +1165,9 @@ impl gaxi::prost::ToProto<search_request::SpellCorrectionSpec>
         self,
     ) -> std::result::Result<search_request::SpellCorrectionSpec, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            mode: self.mode.to_proto()?,
+            mode: gaxi::prost::ToProto::<search_request::spell_correction_spec::Mode>::to_proto(
+                self.mode,
+            )?,
         })
     }
 }
@@ -1121,11 +1199,11 @@ impl gaxi::prost::ToProto<search_request::conversational_search_spec::user_answe
             product_attribute_values: self
                 .product_attribute_values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<ProductAttributeValue>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             product_attribute_value: self
                 .product_attribute_value
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<ProductAttributeValue>::to_proto)
                 .transpose()?,
         })
     }
@@ -1157,8 +1235,14 @@ impl gaxi::prost::ToProto<search_request::conversational_search_spec::user_answe
     type Output = search_request::conversational_search_spec::user_answer::Type;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::TextAnswer(v) => Ok(Self::Output::TextAnswer(v.to_proto()?)),
-            Self::SelectedAnswer(v) => Ok(Self::Output::SelectedAnswer((*v).to_proto()?)),
+            Self::TextAnswer(v) => Ok(Self::Output::TextAnswer(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::SelectedAnswer(v) => Ok(Self::Output::SelectedAnswer(gaxi::prost::ToProto::<
+                search_request::conversational_search_spec::user_answer::SelectedAnswer,
+            >::to_proto(
+                *v
+            )?)),
         }
     }
 }
@@ -1193,7 +1277,14 @@ impl gaxi::prost::ToProto<search_request::conversational_search_spec::UserAnswer
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            r#type: self.r#type.map(|v| v.to_proto()).transpose()?,
+            r#type: self
+                .r#type
+                .map(
+                    gaxi::prost::ToProto::<
+                        search_request::conversational_search_spec::user_answer::Type,
+                    >::to_proto,
+                )
+                .transpose()?,
         })
     }
 }
@@ -1223,9 +1314,20 @@ impl gaxi::prost::ToProto<search_request::ConversationalSearchSpec>
     ) -> std::result::Result<search_request::ConversationalSearchSpec, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            followup_conversation_requested: self.followup_conversation_requested.to_proto()?,
-            conversation_id: self.conversation_id.to_proto()?,
-            user_answer: self.user_answer.map(|v| v.to_proto()).transpose()?,
+            followup_conversation_requested: gaxi::prost::ToProto::<bool>::to_proto(
+                self.followup_conversation_requested,
+            )?,
+            conversation_id: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.conversation_id,
+            )?,
+            user_answer:
+                self.user_answer
+                    .map(
+                        gaxi::prost::ToProto::<
+                            search_request::conversational_search_spec::UserAnswer,
+                        >::to_proto,
+                    )
+                    .transpose()?,
         })
     }
 }
@@ -1256,11 +1358,13 @@ impl gaxi::prost::ToProto<search_request::TileNavigationSpec>
         self,
     ) -> std::result::Result<search_request::TileNavigationSpec, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            tile_navigation_requested: self.tile_navigation_requested.to_proto()?,
+            tile_navigation_requested: gaxi::prost::ToProto::<bool>::to_proto(
+                self.tile_navigation_requested,
+            )?,
             applied_tiles: self
                 .applied_tiles
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Tile>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1300,68 +1404,93 @@ impl gaxi::prost::ToProto<SearchRequest> for crate::model::SearchRequest {
     type Output = SearchRequest;
     fn to_proto(self) -> std::result::Result<SearchRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            placement: self.placement.to_proto()?,
-            branch: self.branch.to_proto()?,
-            query: self.query.to_proto()?,
-            visitor_id: self.visitor_id.to_proto()?,
-            user_info: self.user_info.map(|v| v.to_proto()).transpose()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            offset: self.offset.to_proto()?,
-            filter: self.filter.to_proto()?,
-            canonical_filter: self.canonical_filter.to_proto()?,
-            order_by: self.order_by.to_proto()?,
+            placement: gaxi::prost::ToProto::<std::string::String>::to_proto(self.placement)?,
+            branch: gaxi::prost::ToProto::<std::string::String>::to_proto(self.branch)?,
+            query: gaxi::prost::ToProto::<std::string::String>::to_proto(self.query)?,
+            visitor_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.visitor_id)?,
+            user_info: self
+                .user_info
+                .map(gaxi::prost::ToProto::<UserInfo>::to_proto)
+                .transpose()?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            offset: gaxi::prost::ToProto::<i32>::to_proto(self.offset)?,
+            filter: gaxi::prost::ToProto::<std::string::String>::to_proto(self.filter)?,
+            canonical_filter: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.canonical_filter,
+            )?,
+            order_by: gaxi::prost::ToProto::<std::string::String>::to_proto(self.order_by)?,
             facet_specs: self
                 .facet_specs
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<search_request::FacetSpec>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            dynamic_facet_spec: self.dynamic_facet_spec.map(|v| v.to_proto()).transpose()?,
-            boost_spec: self.boost_spec.map(|v| v.to_proto()).transpose()?,
+            dynamic_facet_spec: self
+                .dynamic_facet_spec
+                .map(gaxi::prost::ToProto::<search_request::DynamicFacetSpec>::to_proto)
+                .transpose()?,
+            boost_spec: self
+                .boost_spec
+                .map(gaxi::prost::ToProto::<search_request::BoostSpec>::to_proto)
+                .transpose()?,
             query_expansion_spec: self
                 .query_expansion_spec
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<search_request::QueryExpansionSpec>::to_proto)
                 .transpose()?,
             variant_rollup_keys: self
                 .variant_rollup_keys
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             page_categories: self
                 .page_categories
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            search_mode: self.search_mode.to_proto()?,
+            search_mode: gaxi::prost::ToProto::<search_request::SearchMode>::to_proto(
+                self.search_mode,
+            )?,
             personalization_spec: self
                 .personalization_spec
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<search_request::PersonalizationSpec>::to_proto)
                 .transpose()?,
             labels: self
                 .labels
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             spell_correction_spec: self
                 .spell_correction_spec
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<search_request::SpellCorrectionSpec>::to_proto)
                 .transpose()?,
-            entity: self.entity.to_proto()?,
+            entity: gaxi::prost::ToProto::<std::string::String>::to_proto(self.entity)?,
             conversational_search_spec: self
                 .conversational_search_spec
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<search_request::ConversationalSearchSpec>::to_proto)
                 .transpose()?,
             tile_navigation_spec: self
                 .tile_navigation_spec
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<search_request::TileNavigationSpec>::to_proto)
                 .transpose()?,
-            language_code: self.language_code.to_proto()?,
-            region_code: self.region_code.to_proto()?,
-            place_id: self.place_id.to_proto()?,
+            language_code: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.language_code,
+            )?,
+            region_code: gaxi::prost::ToProto::<std::string::String>::to_proto(self.region_code)?,
+            place_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.place_id)?,
             user_attributes: self
                 .user_attributes
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<StringList>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }

@@ -44,8 +44,13 @@ impl gaxi::prost::ToProto<advanced_voice_options::SafetySetting>
         self,
     ) -> std::result::Result<advanced_voice_options::SafetySetting, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            category: self.category.to_proto()?,
-            threshold: self.threshold.to_proto()?,
+            category: gaxi::prost::ToProto::<advanced_voice_options::HarmCategory>::to_proto(
+                self.category,
+            )?,
+            threshold:
+                gaxi::prost::ToProto::<advanced_voice_options::HarmBlockThreshold>::to_proto(
+                    self.threshold,
+                )?,
         })
     }
 }
@@ -77,7 +82,7 @@ impl gaxi::prost::ToProto<advanced_voice_options::SafetySettings>
             settings: self
                 .settings
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<advanced_voice_options::SafetySetting>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -133,11 +138,19 @@ impl gaxi::prost::ToProto<AdvancedVoiceOptions> for crate::model::AdvancedVoiceO
         Ok(Self::Output {
             low_latency_journey_synthesis: self
                 .low_latency_journey_synthesis
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<bool>::to_proto)
                 .transpose()?,
-            relax_safety_filters: self.relax_safety_filters.to_proto()?,
-            safety_settings: self.safety_settings.map(|v| v.to_proto()).transpose()?,
-            enable_textnorm: self.enable_textnorm.map(|v| v.to_proto()).transpose()?,
+            relax_safety_filters: gaxi::prost::ToProto::<bool>::to_proto(
+                self.relax_safety_filters,
+            )?,
+            safety_settings: self
+                .safety_settings
+                .map(gaxi::prost::ToProto::<advanced_voice_options::SafetySettings>::to_proto)
+                .transpose()?,
+            enable_textnorm: self
+                .enable_textnorm
+                .map(gaxi::prost::ToProto::<bool>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -174,9 +187,20 @@ impl gaxi::prost::ToProto<CustomPronunciationParams> for crate::model::CustomPro
     type Output = CustomPronunciationParams;
     fn to_proto(self) -> std::result::Result<CustomPronunciationParams, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            phrase: self.phrase.map(|v| v.to_proto()).transpose()?,
-            phonetic_encoding: self.phonetic_encoding.map(|v| v.to_proto()).transpose()?,
-            pronunciation: self.pronunciation.map(|v| v.to_proto()).transpose()?,
+            phrase: self
+                .phrase
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
+                .transpose()?,
+            phonetic_encoding: self
+                .phonetic_encoding
+                .map(
+                    gaxi::prost::ToProto::<custom_pronunciation_params::PhoneticEncoding>::to_proto,
+                )
+                .transpose()?,
+            pronunciation: self
+                .pronunciation
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -200,7 +224,7 @@ impl gaxi::prost::ToProto<CustomPronunciations> for crate::model::CustomPronunci
             pronunciations: self
                 .pronunciations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<CustomPronunciationParams>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -227,8 +251,8 @@ impl gaxi::prost::ToProto<multi_speaker_markup::Turn> for crate::model::multi_sp
         self,
     ) -> std::result::Result<multi_speaker_markup::Turn, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            speaker: self.speaker.to_proto()?,
-            text: self.text.to_proto()?,
+            speaker: gaxi::prost::ToProto::<std::string::String>::to_proto(self.speaker)?,
+            text: gaxi::prost::ToProto::<std::string::String>::to_proto(self.text)?,
         })
     }
 }
@@ -253,7 +277,7 @@ impl gaxi::prost::ToProto<MultiSpeakerMarkup> for crate::model::MultiSpeakerMark
             turns: self
                 .turns
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<multi_speaker_markup::Turn>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -276,8 +300,10 @@ impl gaxi::prost::ToProto<MultispeakerPrebuiltVoice> for crate::model::Multispea
     type Output = MultispeakerPrebuiltVoice;
     fn to_proto(self) -> std::result::Result<MultispeakerPrebuiltVoice, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            speaker_alias: self.speaker_alias.to_proto()?,
-            speaker_id: self.speaker_id.to_proto()?,
+            speaker_alias: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.speaker_alias,
+            )?,
+            speaker_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.speaker_id)?,
         })
     }
 }
@@ -300,7 +326,7 @@ impl gaxi::prost::ToProto<MultiSpeakerVoiceConfig> for crate::model::MultiSpeake
             speaker_voice_configs: self
                 .speaker_voice_configs
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<MultispeakerPrebuiltVoice>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -325,15 +351,23 @@ impl gaxi::prost::ToProto<VoiceSelectionParams> for crate::model::VoiceSelection
     type Output = VoiceSelectionParams;
     fn to_proto(self) -> std::result::Result<VoiceSelectionParams, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            language_code: self.language_code.to_proto()?,
-            name: self.name.to_proto()?,
-            ssml_gender: self.ssml_gender.to_proto()?,
-            custom_voice: self.custom_voice.map(|v| v.to_proto()).transpose()?,
-            voice_clone: self.voice_clone.map(|v| v.to_proto()).transpose()?,
-            model_name: self.model_name.to_proto()?,
+            language_code: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.language_code,
+            )?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            ssml_gender: gaxi::prost::ToProto::<SsmlVoiceGender>::to_proto(self.ssml_gender)?,
+            custom_voice: self
+                .custom_voice
+                .map(gaxi::prost::ToProto::<CustomVoiceParams>::to_proto)
+                .transpose()?,
+            voice_clone: self
+                .voice_clone
+                .map(gaxi::prost::ToProto::<VoiceCloneParams>::to_proto)
+                .transpose()?,
+            model_name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.model_name)?,
             multi_speaker_voice_config: self
                 .multi_speaker_voice_config
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<MultiSpeakerVoiceConfig>::to_proto)
                 .transpose()?,
         })
     }
@@ -374,8 +408,10 @@ impl gaxi::prost::ToProto<CustomVoiceParams> for crate::model::CustomVoiceParams
     type Output = CustomVoiceParams;
     fn to_proto(self) -> std::result::Result<CustomVoiceParams, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            model: self.model.to_proto()?,
-            reported_usage: self.reported_usage.to_proto()?,
+            model: gaxi::prost::ToProto::<std::string::String>::to_proto(self.model)?,
+            reported_usage: gaxi::prost::ToProto::<custom_voice_params::ReportedUsage>::to_proto(
+                self.reported_usage,
+            )?,
         })
     }
 }
@@ -394,7 +430,9 @@ impl gaxi::prost::ToProto<VoiceCloneParams> for crate::model::VoiceCloneParams {
     type Output = VoiceCloneParams;
     fn to_proto(self) -> std::result::Result<VoiceCloneParams, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            voice_cloning_key: self.voice_cloning_key.to_proto()?,
+            voice_cloning_key: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.voice_cloning_key,
+            )?,
         })
     }
 }
@@ -409,9 +447,9 @@ impl gaxi::prost::ToProto<StreamingAudioConfig> for crate::model::StreamingAudio
     type Output = StreamingAudioConfig;
     fn to_proto(self) -> std::result::Result<StreamingAudioConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            audio_encoding: self.audio_encoding.to_proto()?,
-            sample_rate_hertz: self.sample_rate_hertz.to_proto()?,
-            speaking_rate: self.speaking_rate.to_proto()?,
+            audio_encoding: gaxi::prost::ToProto::<AudioEncoding>::to_proto(self.audio_encoding)?,
+            sample_rate_hertz: gaxi::prost::ToProto::<i32>::to_proto(self.sample_rate_hertz)?,
+            speaking_rate: gaxi::prost::ToProto::<f64>::to_proto(self.speaking_rate)?,
         })
     }
 }
@@ -431,18 +469,21 @@ impl gaxi::prost::ToProto<StreamingSynthesizeConfig> for crate::model::Streaming
     type Output = StreamingSynthesizeConfig;
     fn to_proto(self) -> std::result::Result<StreamingSynthesizeConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            voice: self.voice.map(|v| v.to_proto()).transpose()?,
+            voice: self
+                .voice
+                .map(gaxi::prost::ToProto::<VoiceSelectionParams>::to_proto)
+                .transpose()?,
             streaming_audio_config: self
                 .streaming_audio_config
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<StreamingAudioConfig>::to_proto)
                 .transpose()?,
             custom_pronunciations: self
                 .custom_pronunciations
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<CustomPronunciations>::to_proto)
                 .transpose()?,
             advanced_voice_options: self
                 .advanced_voice_options
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<AdvancedVoiceOptions>::to_proto)
                 .transpose()?,
         })
     }
@@ -473,9 +514,19 @@ impl gaxi::prost::ToProto<streaming_synthesis_input::InputSource>
     type Output = streaming_synthesis_input::InputSource;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Text(v) => Ok(Self::Output::Text(v.to_proto()?)),
-            Self::Markup(v) => Ok(Self::Output::Markup(v.to_proto()?)),
-            Self::MultiSpeakerMarkup(v) => Ok(Self::Output::MultiSpeakerMarkup((*v).to_proto()?)),
+            Self::Text(v) => Ok(Self::Output::Text(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::Markup(v) => Ok(Self::Output::Markup(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::MultiSpeakerMarkup(v) => {
+                Ok(Self::Output::MultiSpeakerMarkup(gaxi::prost::ToProto::<
+                    MultiSpeakerMarkup,
+                >::to_proto(
+                    *v
+                )?))
+            }
         }
     }
 }
@@ -504,8 +555,14 @@ impl gaxi::prost::ToProto<StreamingSynthesisInput> for crate::model::StreamingSy
     type Output = StreamingSynthesisInput;
     fn to_proto(self) -> std::result::Result<StreamingSynthesisInput, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            prompt: self.prompt.map(|v| v.to_proto()).transpose()?,
-            input_source: self.input_source.map(|v| v.to_proto()).transpose()?,
+            prompt: self
+                .prompt
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
+                .transpose()?,
+            input_source: self
+                .input_source
+                .map(gaxi::prost::ToProto::<streaming_synthesis_input::InputSource>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -526,8 +583,14 @@ impl gaxi::prost::ToProto<streaming_synthesize_request::StreamingRequest>
     type Output = streaming_synthesize_request::StreamingRequest;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::StreamingConfig(v) => Ok(Self::Output::StreamingConfig((*v).to_proto()?)),
-            Self::Input(v) => Ok(Self::Output::Input((*v).to_proto()?)),
+            Self::StreamingConfig(v) => Ok(Self::Output::StreamingConfig(gaxi::prost::ToProto::<
+                StreamingSynthesizeConfig,
+            >::to_proto(
+                *v
+            )?)),
+            Self::Input(v) => Ok(Self::Output::Input(gaxi::prost::ToProto::<
+                StreamingSynthesisInput,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -555,7 +618,7 @@ impl gaxi::prost::ToProto<StreamingSynthesizeRequest> for crate::model::Streamin
         self,
     ) -> std::result::Result<StreamingSynthesizeRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            streaming_request: self.streaming_request.map(|v| v.to_proto()).transpose()?,
+            streaming_request: self.streaming_request.map(gaxi::prost::ToProto::<streaming_synthesize_request::StreamingRequest>::to_proto).transpose()?,
         })
     }
 }
@@ -580,7 +643,7 @@ impl gaxi::prost::ToProto<StreamingSynthesizeResponse>
         self,
     ) -> std::result::Result<StreamingSynthesizeResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            audio_content: self.audio_content.to_proto()?,
+            audio_content: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.audio_content)?,
         })
     }
 }

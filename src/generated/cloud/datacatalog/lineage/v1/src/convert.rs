@@ -30,14 +30,22 @@ impl gaxi::prost::ToProto<Process> for crate::model::Process {
     type Output = Process;
     fn to_proto(self) -> std::result::Result<Process, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            display_name: self.display_name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            display_name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.display_name)?,
             attributes: self
                 .attributes
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<prost_types::Value>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            origin: self.origin.map(|v| v.to_proto()).transpose()?,
+            origin: self
+                .origin
+                .map(gaxi::prost::ToProto::<Origin>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -61,11 +69,13 @@ impl gaxi::prost::ToProto<EntityReference> for crate::model::EntityReference {
     type Output = EntityReference;
     fn to_proto(self) -> std::result::Result<EntityReference, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            fully_qualified_name: self.fully_qualified_name.to_proto()?,
+            fully_qualified_name: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.fully_qualified_name,
+            )?,
             field: self
                 .field
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -91,7 +101,7 @@ impl gaxi::prost::ToProto<MultipleEntityReference> for crate::model::MultipleEnt
             entities: self
                 .entities
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<EntityReference>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -124,8 +134,8 @@ impl gaxi::prost::ToProto<Origin> for crate::model::Origin {
     type Output = Origin;
     fn to_proto(self) -> std::result::Result<Origin, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            source_type: self.source_type.to_proto()?,
-            name: self.name.to_proto()?,
+            source_type: gaxi::prost::ToProto::<origin::SourceType>::to_proto(self.source_type)?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -146,7 +156,10 @@ impl gaxi::prost::ToProto<lineage_link::LineageProcess>
         self,
     ) -> std::result::Result<lineage_link::LineageProcess, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            process: self.process.map(|v| v.to_proto()).transpose()?,
+            process: self
+                .process
+                .map(gaxi::prost::ToProto::<Process>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -171,7 +184,9 @@ impl gaxi::prost::ToProto<lineage_link::DependencyInfo>
         self,
     ) -> std::result::Result<lineage_link::DependencyInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            dependency_type: self.dependency_type.to_proto()?,
+            dependency_type: gaxi::prost::ToProto::<DependencyType>::to_proto(
+                self.dependency_type,
+            )?,
         })
     }
 }
@@ -192,20 +207,26 @@ impl gaxi::prost::ToProto<LineageLink> for crate::model::LineageLink {
     type Output = LineageLink;
     fn to_proto(self) -> std::result::Result<LineageLink, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            source: self.source.map(|v| v.to_proto()).transpose()?,
-            target: self.target.map(|v| v.to_proto()).transpose()?,
+            source: self
+                .source
+                .map(gaxi::prost::ToProto::<EntityReference>::to_proto)
+                .transpose()?,
+            target: self
+                .target
+                .map(gaxi::prost::ToProto::<EntityReference>::to_proto)
+                .transpose()?,
             processes: self
                 .processes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<lineage_link::LineageProcess>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             dependency_info: self
                 .dependency_info
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<lineage_link::DependencyInfo>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            depth: self.depth.to_proto()?,
-            location: self.location.to_proto()?,
+            depth: gaxi::prost::ToProto::<i32>::to_proto(self.depth)?,
+            location: gaxi::prost::ToProto::<std::string::String>::to_proto(self.location)?,
         })
     }
 }
@@ -246,10 +267,16 @@ impl gaxi::prost::ToProto<search_lineage_streaming_request::SearchFilters>
             dependency_types: self
                 .dependency_types
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<DependencyType>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            entity_set: self.entity_set.to_proto()?,
-            time_range: self.time_range.map(|v| v.to_proto()).transpose()?,
+            entity_set:
+                gaxi::prost::ToProto::<search_lineage_streaming_request::EntitySet>::to_proto(
+                    self.entity_set,
+                )?,
+            time_range: self
+                .time_range
+                .map(gaxi::prost::ToProto::<super::prost::google::r#type::Interval>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -287,9 +314,9 @@ impl gaxi::prost::ToProto<search_lineage_streaming_request::SearchLimits>
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            max_depth: self.max_depth.to_proto()?,
-            max_results: self.max_results.to_proto()?,
-            max_process_per_link: self.max_process_per_link.to_proto()?,
+            max_depth: gaxi::prost::ToProto::<i32>::to_proto(self.max_depth)?,
+            max_results: gaxi::prost::ToProto::<i32>::to_proto(self.max_results)?,
+            max_process_per_link: gaxi::prost::ToProto::<i32>::to_proto(self.max_process_per_link)?,
         })
     }
 }
@@ -318,7 +345,9 @@ impl gaxi::prost::ToProto<search_lineage_streaming_request::root_criteria::Crite
     type Output = search_lineage_streaming_request::root_criteria::Criteria;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Entities(v) => Ok(Self::Output::Entities((*v).to_proto()?)),
+            Self::Entities(v) => Ok(Self::Output::Entities(gaxi::prost::ToProto::<
+                MultipleEntityReference,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -350,7 +379,14 @@ impl gaxi::prost::ToProto<search_lineage_streaming_request::RootCriteria>
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            criteria: self.criteria.map(|v| v.to_proto()).transpose()?,
+            criteria:
+                self.criteria
+                    .map(
+                        gaxi::prost::ToProto::<
+                            search_lineage_streaming_request::root_criteria::Criteria,
+                        >::to_proto,
+                    )
+                    .transpose()?,
         })
     }
 }
@@ -403,16 +439,15 @@ impl gaxi::prost::ToProto<SearchLineageStreamingRequest>
         self,
     ) -> std::result::Result<SearchLineageStreamingRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            locations: self
-                .locations
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            locations: self.locations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            root_criteria: self.root_criteria.map(|v| v.to_proto()).transpose()?,
-            direction: self.direction.to_proto()?,
-            filters: self.filters.map(|v| v.to_proto()).transpose()?,
-            limits: self.limits.map(|v| v.to_proto()).transpose()?,
+            root_criteria: self.root_criteria.map(gaxi::prost::ToProto::<search_lineage_streaming_request::RootCriteria>::to_proto).transpose()?,
+            direction: gaxi::prost::ToProto::<search_lineage_streaming_request::SearchDirection>::to_proto(self.direction)?,
+            filters: self.filters.map(gaxi::prost::ToProto::<search_lineage_streaming_request::SearchFilters>::to_proto).transpose()?,
+            limits: self.limits.map(gaxi::prost::ToProto::<search_lineage_streaming_request::SearchLimits>::to_proto).transpose()?,
         })
     }
 }
@@ -450,12 +485,12 @@ impl gaxi::prost::ToProto<SearchLineageStreamingResponse>
             links: self
                 .links
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<LineageLink>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             unreachable: self
                 .unreachable
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -493,8 +528,14 @@ impl gaxi::prost::ToProto<super::prost::google::r#type::Interval>
     ) -> std::result::Result<super::prost::google::r#type::Interval, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            start_time: self.start_time.map(|v| v.to_proto()).transpose()?,
-            end_time: self.end_time.map(|v| v.to_proto()).transpose()?,
+            start_time: self
+                .start_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            end_time: self
+                .end_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
         })
     }
 }

@@ -18,15 +18,15 @@ impl gaxi::prost::ToProto<PubsubMessage> for crate::generated::gapic_dataplane::
     type Output = PubsubMessage;
     fn to_proto(self) -> std::result::Result<PubsubMessage, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            data: self.data.to_proto()?,
+            data: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.data)?,
             attributes: self.attributes
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<std::string::String>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            message_id: self.message_id.to_proto()?,
-            publish_time: self.publish_time.map(|v| v.to_proto()).transpose()?,
-            ordering_key: self.ordering_key.to_proto()?,
+            message_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.message_id)?,
+            publish_time: self.publish_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            ordering_key: gaxi::prost::ToProto::<std::string::String>::to_proto(self.ordering_key)?,
         })
     }
 }
@@ -51,10 +51,10 @@ impl gaxi::prost::ToProto<PublishRequest> for crate::generated::gapic_dataplane:
     type Output = PublishRequest;
     fn to_proto(self) -> std::result::Result<PublishRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            topic: self.topic.to_proto()?,
+            topic: gaxi::prost::ToProto::<std::string::String>::to_proto(self.topic)?,
             messages: self.messages
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<PubsubMessage>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -77,7 +77,7 @@ impl gaxi::prost::ToProto<PublishResponse> for crate::generated::gapic_dataplane
         Ok(Self::Output {
             message_ids: self.message_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -97,9 +97,9 @@ impl gaxi::prost::ToProto<ReceivedMessage> for crate::generated::gapic_dataplane
     type Output = ReceivedMessage;
     fn to_proto(self) -> std::result::Result<ReceivedMessage, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            ack_id: self.ack_id.to_proto()?,
-            message: self.message.map(|v| v.to_proto()).transpose()?,
-            delivery_attempt: self.delivery_attempt.to_proto()?,
+            ack_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.ack_id)?,
+            message: self.message.map(gaxi::prost::ToProto::<PubsubMessage>::to_proto).transpose()?,
+            delivery_attempt: gaxi::prost::ToProto::<i32>::to_proto(self.delivery_attempt)?,
         })
     }
 }
@@ -119,12 +119,12 @@ impl gaxi::prost::ToProto<ModifyAckDeadlineRequest> for crate::generated::gapic_
     type Output = ModifyAckDeadlineRequest;
     fn to_proto(self) -> std::result::Result<ModifyAckDeadlineRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            subscription: self.subscription.to_proto()?,
+            subscription: gaxi::prost::ToProto::<std::string::String>::to_proto(self.subscription)?,
             ack_ids: self.ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ack_deadline_seconds: self.ack_deadline_seconds.to_proto()?,
+            ack_deadline_seconds: gaxi::prost::ToProto::<i32>::to_proto(self.ack_deadline_seconds)?,
         })
     }
 }
@@ -145,10 +145,10 @@ impl gaxi::prost::ToProto<AcknowledgeRequest> for crate::generated::gapic_datapl
     type Output = AcknowledgeRequest;
     fn to_proto(self) -> std::result::Result<AcknowledgeRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            subscription: self.subscription.to_proto()?,
+            subscription: gaxi::prost::ToProto::<std::string::String>::to_proto(self.subscription)?,
             ack_ids: self.ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -169,24 +169,24 @@ impl gaxi::prost::ToProto<StreamingPullRequest> for crate::generated::gapic_data
     type Output = StreamingPullRequest;
     fn to_proto(self) -> std::result::Result<StreamingPullRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            subscription: self.subscription.to_proto()?,
+            subscription: gaxi::prost::ToProto::<std::string::String>::to_proto(self.subscription)?,
             ack_ids: self.ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             modify_deadline_seconds: self.modify_deadline_seconds
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<i32>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             modify_deadline_ack_ids: self.modify_deadline_ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            stream_ack_deadline_seconds: self.stream_ack_deadline_seconds.to_proto()?,
-            client_id: self.client_id.to_proto()?,
-            max_outstanding_messages: self.max_outstanding_messages.to_proto()?,
-            max_outstanding_bytes: self.max_outstanding_bytes.to_proto()?,
-            protocol_version: self.protocol_version.to_proto()?,
+            stream_ack_deadline_seconds: gaxi::prost::ToProto::<i32>::to_proto(self.stream_ack_deadline_seconds)?,
+            client_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.client_id)?,
+            max_outstanding_messages: gaxi::prost::ToProto::<i64>::to_proto(self.max_outstanding_messages)?,
+            max_outstanding_bytes: gaxi::prost::ToProto::<i64>::to_proto(self.max_outstanding_bytes)?,
+            protocol_version: gaxi::prost::ToProto::<i64>::to_proto(self.protocol_version)?,
         })
     }
 }
@@ -217,19 +217,19 @@ impl gaxi::prost::ToProto<streaming_pull_response::AcknowledgeConfirmation> for 
         Ok(Self::Output {
             ack_ids: self.ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             invalid_ack_ids: self.invalid_ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             unordered_ack_ids: self.unordered_ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             temporary_failed_ack_ids: self.temporary_failed_ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -257,15 +257,15 @@ impl gaxi::prost::ToProto<streaming_pull_response::ModifyAckDeadlineConfirmation
         Ok(Self::Output {
             ack_ids: self.ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             invalid_ack_ids: self.invalid_ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             temporary_failed_ack_ids: self.temporary_failed_ack_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -289,8 +289,8 @@ impl gaxi::prost::ToProto<streaming_pull_response::SubscriptionProperties> for c
     type Output = streaming_pull_response::SubscriptionProperties;
     fn to_proto(self) -> std::result::Result<streaming_pull_response::SubscriptionProperties, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            exactly_once_delivery_enabled: self.exactly_once_delivery_enabled.to_proto()?,
-            message_ordering_enabled: self.message_ordering_enabled.to_proto()?,
+            exactly_once_delivery_enabled: gaxi::prost::ToProto::<bool>::to_proto(self.exactly_once_delivery_enabled)?,
+            message_ordering_enabled: gaxi::prost::ToProto::<bool>::to_proto(self.message_ordering_enabled)?,
         })
     }
 }
@@ -311,11 +311,11 @@ impl gaxi::prost::ToProto<StreamingPullResponse> for crate::generated::gapic_dat
         Ok(Self::Output {
             received_messages: self.received_messages
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<ReceivedMessage>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            acknowledge_confirmation: self.acknowledge_confirmation.map(|v| v.to_proto()).transpose()?,
-            modify_ack_deadline_confirmation: self.modify_ack_deadline_confirmation.map(|v| v.to_proto()).transpose()?,
-            subscription_properties: self.subscription_properties.map(|v| v.to_proto()).transpose()?,
+            acknowledge_confirmation: self.acknowledge_confirmation.map(gaxi::prost::ToProto::<streaming_pull_response::AcknowledgeConfirmation>::to_proto).transpose()?,
+            modify_ack_deadline_confirmation: self.modify_ack_deadline_confirmation.map(gaxi::prost::ToProto::<streaming_pull_response::ModifyAckDeadlineConfirmation>::to_proto).transpose()?,
+            subscription_properties: self.subscription_properties.map(gaxi::prost::ToProto::<streaming_pull_response::SubscriptionProperties>::to_proto).transpose()?,
         })
     }
 }

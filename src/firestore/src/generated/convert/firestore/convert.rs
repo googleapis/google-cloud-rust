@@ -21,7 +21,7 @@ impl gaxi::prost::ToProto<AggregationResult> for crate::generated::gapic::model:
             aggregate_fields: self.aggregate_fields
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<Value>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
@@ -43,8 +43,8 @@ impl gaxi::prost::ToProto<BitSequence> for crate::generated::gapic::model::BitSe
     type Output = BitSequence;
     fn to_proto(self) -> std::result::Result<BitSequence, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            bitmap: self.bitmap.to_proto()?,
-            padding: self.padding.to_proto()?,
+            bitmap: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.bitmap)?,
+            padding: gaxi::prost::ToProto::<i32>::to_proto(self.padding)?,
         })
     }
 }
@@ -63,8 +63,8 @@ impl gaxi::prost::ToProto<BloomFilter> for crate::generated::gapic::model::Bloom
     type Output = BloomFilter;
     fn to_proto(self) -> std::result::Result<BloomFilter, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            bits: self.bits.map(|v| v.to_proto()).transpose()?,
-            hash_count: self.hash_count.to_proto()?,
+            bits: self.bits.map(gaxi::prost::ToProto::<BitSequence>::to_proto).transpose()?,
+            hash_count: gaxi::prost::ToProto::<i32>::to_proto(self.hash_count)?,
         })
     }
 }
@@ -85,7 +85,7 @@ impl gaxi::prost::ToProto<DocumentMask> for crate::generated::gapic::model::Docu
         Ok(Self::Output {
             field_paths: self.field_paths
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -105,8 +105,8 @@ impl gaxi::prost::ToProto<precondition::ConditionType> for crate::generated::gap
     type Output = precondition::ConditionType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Exists(v) => Ok(Self::Output::Exists(v.to_proto()?)),
-            Self::UpdateTime(v) => Ok(Self::Output::UpdateTime((*v).to_proto()?)),
+            Self::Exists(v) => Ok(Self::Output::Exists(gaxi::prost::ToProto::<bool>::to_proto(v)?)),
+            Self::UpdateTime(v) => Ok(Self::Output::UpdateTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -125,7 +125,7 @@ impl gaxi::prost::ToProto<Precondition> for crate::generated::gapic::model::Prec
     type Output = Precondition;
     fn to_proto(self) -> std::result::Result<Precondition, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            condition_type: self.condition_type.map(|v| v.to_proto()).transpose()?,
+            condition_type: self.condition_type.map(gaxi::prost::ToProto::<precondition::ConditionType>::to_proto).transpose()?,
         })
     }
 }
@@ -143,8 +143,8 @@ impl gaxi::prost::ToProto<transaction_options::ReadWrite> for crate::generated::
     type Output = transaction_options::ReadWrite;
     fn to_proto(self) -> std::result::Result<transaction_options::ReadWrite, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            retry_transaction: self.retry_transaction.to_proto()?,
-            concurrency_mode: self.concurrency_mode.to_proto()?,
+            retry_transaction: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.retry_transaction)?,
+            concurrency_mode: gaxi::prost::ToProto::<transaction_options::ConcurrencyMode>::to_proto(self.concurrency_mode)?,
         })
     }
 }
@@ -163,7 +163,7 @@ impl gaxi::prost::ToProto<transaction_options::read_only::ConsistencySelector> f
     type Output = transaction_options::read_only::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -181,7 +181,7 @@ impl gaxi::prost::ToProto<transaction_options::ReadOnly> for crate::generated::g
     type Output = transaction_options::ReadOnly;
     fn to_proto(self) -> std::result::Result<transaction_options::ReadOnly, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
+            consistency_selector: self.consistency_selector.map(gaxi::prost::ToProto::<transaction_options::read_only::ConsistencySelector>::to_proto).transpose()?,
         })
     }
 }
@@ -206,8 +206,8 @@ impl gaxi::prost::ToProto<transaction_options::Mode> for crate::generated::gapic
     type Output = transaction_options::Mode;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ReadOnly(v) => Ok(Self::Output::ReadOnly((*v).to_proto()?)),
-            Self::ReadWrite(v) => Ok(Self::Output::ReadWrite((*v).to_proto()?)),
+            Self::ReadOnly(v) => Ok(Self::Output::ReadOnly(gaxi::prost::ToProto::<transaction_options::ReadOnly>::to_proto(*v)?)),
+            Self::ReadWrite(v) => Ok(Self::Output::ReadWrite(gaxi::prost::ToProto::<transaction_options::ReadWrite>::to_proto(*v)?)),
         }
     }
 }
@@ -226,7 +226,7 @@ impl gaxi::prost::ToProto<TransactionOptions> for crate::generated::gapic::model
     type Output = TransactionOptions;
     fn to_proto(self) -> std::result::Result<TransactionOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            mode: self.mode.map(|v| v.to_proto()).transpose()?,
+            mode: self.mode.map(gaxi::prost::ToProto::<transaction_options::Mode>::to_proto).transpose()?,
         })
     }
 }
@@ -246,7 +246,7 @@ impl gaxi::prost::ToProto<RequestOptions> for crate::generated::gapic::model::Re
         Ok(Self::Output {
             request_tags: self.request_tags
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -266,14 +266,14 @@ impl gaxi::prost::ToProto<Document> for crate::generated::gapic::model::Document
     type Output = Document;
     fn to_proto(self) -> std::result::Result<Document, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
             fields: self.fields
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<Value>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+            create_time: self.create_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -297,21 +297,21 @@ impl gaxi::prost::ToProto<value::ValueType> for crate::generated::gapic::model::
     type Output = value::ValueType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::NullValue(v) => Ok(Self::Output::NullValue(v.to_proto()?)),
-            Self::BooleanValue(v) => Ok(Self::Output::BooleanValue(v.to_proto()?)),
-            Self::IntegerValue(v) => Ok(Self::Output::IntegerValue(v.to_proto()?)),
-            Self::DoubleValue(v) => Ok(Self::Output::DoubleValue(v.to_proto()?)),
-            Self::TimestampValue(v) => Ok(Self::Output::TimestampValue((*v).to_proto()?)),
-            Self::StringValue(v) => Ok(Self::Output::StringValue(v.to_proto()?)),
-            Self::BytesValue(v) => Ok(Self::Output::BytesValue(v.to_proto()?)),
-            Self::ReferenceValue(v) => Ok(Self::Output::ReferenceValue(v.to_proto()?)),
-            Self::GeoPointValue(v) => Ok(Self::Output::GeoPointValue((*v).to_proto()?)),
-            Self::ArrayValue(v) => Ok(Self::Output::ArrayValue((*v).to_proto()?)),
-            Self::MapValue(v) => Ok(Self::Output::MapValue((*v).to_proto()?)),
-            Self::FieldReferenceValue(v) => Ok(Self::Output::FieldReferenceValue(v.to_proto()?)),
-            Self::VariableReferenceValue(v) => Ok(Self::Output::VariableReferenceValue(v.to_proto()?)),
-            Self::FunctionValue(v) => Ok(Self::Output::FunctionValue((*v).to_proto()?)),
-            Self::PipelineValue(v) => Ok(Self::Output::PipelineValue((*v).to_proto()?)),
+            Self::NullValue(v) => Ok(Self::Output::NullValue(gaxi::prost::ToProto::<prost_types::NullValue>::to_proto(v)?)),
+            Self::BooleanValue(v) => Ok(Self::Output::BooleanValue(gaxi::prost::ToProto::<bool>::to_proto(v)?)),
+            Self::IntegerValue(v) => Ok(Self::Output::IntegerValue(gaxi::prost::ToProto::<i64>::to_proto(v)?)),
+            Self::DoubleValue(v) => Ok(Self::Output::DoubleValue(gaxi::prost::ToProto::<f64>::to_proto(v)?)),
+            Self::TimestampValue(v) => Ok(Self::Output::TimestampValue(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
+            Self::StringValue(v) => Ok(Self::Output::StringValue(gaxi::prost::ToProto::<std::string::String>::to_proto(v)?)),
+            Self::BytesValue(v) => Ok(Self::Output::BytesValue(gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?)),
+            Self::ReferenceValue(v) => Ok(Self::Output::ReferenceValue(gaxi::prost::ToProto::<std::string::String>::to_proto(v)?)),
+            Self::GeoPointValue(v) => Ok(Self::Output::GeoPointValue(gaxi::prost::ToProto::<crate::google::r#type::LatLng>::to_proto(*v)?)),
+            Self::ArrayValue(v) => Ok(Self::Output::ArrayValue(gaxi::prost::ToProto::<ArrayValue>::to_proto(*v)?)),
+            Self::MapValue(v) => Ok(Self::Output::MapValue(gaxi::prost::ToProto::<MapValue>::to_proto(*v)?)),
+            Self::FieldReferenceValue(v) => Ok(Self::Output::FieldReferenceValue(gaxi::prost::ToProto::<std::string::String>::to_proto(v)?)),
+            Self::VariableReferenceValue(v) => Ok(Self::Output::VariableReferenceValue(gaxi::prost::ToProto::<std::string::String>::to_proto(v)?)),
+            Self::FunctionValue(v) => Ok(Self::Output::FunctionValue(gaxi::prost::ToProto::<Function>::to_proto(*v)?)),
+            Self::PipelineValue(v) => Ok(Self::Output::PipelineValue(gaxi::prost::ToProto::<Pipeline>::to_proto(*v)?)),
         }
     }
 }
@@ -343,7 +343,7 @@ impl gaxi::prost::ToProto<Value> for crate::generated::gapic::model::Value {
     type Output = Value;
     fn to_proto(self) -> std::result::Result<Value, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            value_type: self.value_type.map(|v| v.to_proto()).transpose()?,
+            value_type: self.value_type.map(gaxi::prost::ToProto::<value::ValueType>::to_proto).transpose()?,
         })
     }
 }
@@ -363,7 +363,7 @@ impl gaxi::prost::ToProto<ArrayValue> for crate::generated::gapic::model::ArrayV
         Ok(Self::Output {
             values: self.values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Value>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -386,7 +386,7 @@ impl gaxi::prost::ToProto<MapValue> for crate::generated::gapic::model::MapValue
             fields: self.fields
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<Value>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
@@ -408,15 +408,15 @@ impl gaxi::prost::ToProto<Function> for crate::generated::gapic::model::Function
     type Output = Function;
     fn to_proto(self) -> std::result::Result<Function, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
             args: self.args
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Value>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             options: self.options
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<Value>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
@@ -441,15 +441,15 @@ impl gaxi::prost::ToProto<pipeline::Stage> for crate::generated::gapic::model::p
     type Output = pipeline::Stage;
     fn to_proto(self) -> std::result::Result<pipeline::Stage, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
             args: self.args
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Value>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             options: self.options
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<Value>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
@@ -476,7 +476,7 @@ impl gaxi::prost::ToProto<Pipeline> for crate::generated::gapic::model::Pipeline
         Ok(Self::Output {
             stages: self.stages
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<pipeline::Stage>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -496,8 +496,8 @@ impl gaxi::prost::ToProto<get_document_request::ConsistencySelector> for crate::
     type Output = get_document_request::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::Transaction(v) => Ok(Self::Output::Transaction(gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -516,10 +516,10 @@ impl gaxi::prost::ToProto<GetDocumentRequest> for crate::generated::gapic::model
     type Output = GetDocumentRequest;
     fn to_proto(self) -> std::result::Result<GetDocumentRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            mask: self.mask.map(|v| v.to_proto()).transpose()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            mask: self.mask.map(gaxi::prost::ToProto::<DocumentMask>::to_proto).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
+            consistency_selector: self.consistency_selector.map(gaxi::prost::ToProto::<get_document_request::ConsistencySelector>::to_proto).transpose()?,
         })
     }
 }
@@ -540,8 +540,8 @@ impl gaxi::prost::ToProto<list_documents_request::ConsistencySelector> for crate
     type Output = list_documents_request::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::Transaction(v) => Ok(Self::Output::Transaction(gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -560,15 +560,15 @@ impl gaxi::prost::ToProto<ListDocumentsRequest> for crate::generated::gapic::mod
     type Output = ListDocumentsRequest;
     fn to_proto(self) -> std::result::Result<ListDocumentsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            collection_id: self.collection_id.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            order_by: self.order_by.to_proto()?,
-            mask: self.mask.map(|v| v.to_proto()).transpose()?,
-            show_missing: self.show_missing.to_proto()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            collection_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.collection_id)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            order_by: gaxi::prost::ToProto::<std::string::String>::to_proto(self.order_by)?,
+            mask: self.mask.map(gaxi::prost::ToProto::<DocumentMask>::to_proto).transpose()?,
+            show_missing: gaxi::prost::ToProto::<bool>::to_proto(self.show_missing)?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
+            consistency_selector: self.consistency_selector.map(gaxi::prost::ToProto::<list_documents_request::ConsistencySelector>::to_proto).transpose()?,
         })
     }
 }
@@ -596,9 +596,9 @@ impl gaxi::prost::ToProto<ListDocumentsResponse> for crate::generated::gapic::mo
         Ok(Self::Output {
             documents: self.documents
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Document>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -618,12 +618,12 @@ impl gaxi::prost::ToProto<CreateDocumentRequest> for crate::generated::gapic::mo
     type Output = CreateDocumentRequest;
     fn to_proto(self) -> std::result::Result<CreateDocumentRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            collection_id: self.collection_id.to_proto()?,
-            document_id: self.document_id.to_proto()?,
-            document: self.document.map(|v| v.to_proto()).transpose()?,
-            mask: self.mask.map(|v| v.to_proto()).transpose()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            collection_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.collection_id)?,
+            document_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.document_id)?,
+            document: self.document.map(gaxi::prost::ToProto::<Document>::to_proto).transpose()?,
+            mask: self.mask.map(gaxi::prost::ToProto::<DocumentMask>::to_proto).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -646,11 +646,11 @@ impl gaxi::prost::ToProto<UpdateDocumentRequest> for crate::generated::gapic::mo
     type Output = UpdateDocumentRequest;
     fn to_proto(self) -> std::result::Result<UpdateDocumentRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            document: self.document.map(|v| v.to_proto()).transpose()?,
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
-            mask: self.mask.map(|v| v.to_proto()).transpose()?,
-            current_document: self.current_document.map(|v| v.to_proto()).transpose()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            document: self.document.map(gaxi::prost::ToProto::<Document>::to_proto).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<DocumentMask>::to_proto).transpose()?,
+            mask: self.mask.map(gaxi::prost::ToProto::<DocumentMask>::to_proto).transpose()?,
+            current_document: self.current_document.map(gaxi::prost::ToProto::<Precondition>::to_proto).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -672,9 +672,9 @@ impl gaxi::prost::ToProto<DeleteDocumentRequest> for crate::generated::gapic::mo
     type Output = DeleteDocumentRequest;
     fn to_proto(self) -> std::result::Result<DeleteDocumentRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            current_document: self.current_document.map(|v| v.to_proto()).transpose()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            current_document: self.current_document.map(gaxi::prost::ToProto::<Precondition>::to_proto).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -694,9 +694,9 @@ impl gaxi::prost::ToProto<batch_get_documents_request::ConsistencySelector> for 
     type Output = batch_get_documents_request::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
-            Self::NewTransaction(v) => Ok(Self::Output::NewTransaction((*v).to_proto()?)),
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::Transaction(v) => Ok(Self::Output::Transaction(gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?)),
+            Self::NewTransaction(v) => Ok(Self::Output::NewTransaction(gaxi::prost::ToProto::<TransactionOptions>::to_proto(*v)?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -716,14 +716,14 @@ impl gaxi::prost::ToProto<BatchGetDocumentsRequest> for crate::generated::gapic:
     type Output = BatchGetDocumentsRequest;
     fn to_proto(self) -> std::result::Result<BatchGetDocumentsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            database: self.database.to_proto()?,
+            database: gaxi::prost::ToProto::<std::string::String>::to_proto(self.database)?,
             documents: self.documents
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            mask: self.mask.map(|v| v.to_proto()).transpose()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
+            mask: self.mask.map(gaxi::prost::ToProto::<DocumentMask>::to_proto).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
+            consistency_selector: self.consistency_selector.map(gaxi::prost::ToProto::<batch_get_documents_request::ConsistencySelector>::to_proto).transpose()?,
         })
     }
 }
@@ -746,8 +746,8 @@ impl gaxi::prost::ToProto<batch_get_documents_response::Result> for crate::gener
     type Output = batch_get_documents_response::Result;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Found(v) => Ok(Self::Output::Found((*v).to_proto()?)),
-            Self::Missing(v) => Ok(Self::Output::Missing(v.to_proto()?)),
+            Self::Found(v) => Ok(Self::Output::Found(gaxi::prost::ToProto::<Document>::to_proto(*v)?)),
+            Self::Missing(v) => Ok(Self::Output::Missing(gaxi::prost::ToProto::<std::string::String>::to_proto(v)?)),
         }
     }
 }
@@ -766,9 +766,9 @@ impl gaxi::prost::ToProto<BatchGetDocumentsResponse> for crate::generated::gapic
     type Output = BatchGetDocumentsResponse;
     fn to_proto(self) -> std::result::Result<BatchGetDocumentsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            transaction: self.transaction.to_proto()?,
-            read_time: self.read_time.map(|v| v.to_proto()).transpose()?,
-            result: self.result.map(|v| v.to_proto()).transpose()?,
+            transaction: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.transaction)?,
+            read_time: self.read_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            result: self.result.map(gaxi::prost::ToProto::<batch_get_documents_response::Result>::to_proto).transpose()?,
         })
     }
 }
@@ -788,9 +788,9 @@ impl gaxi::prost::ToProto<BeginTransactionRequest> for crate::generated::gapic::
     type Output = BeginTransactionRequest;
     fn to_proto(self) -> std::result::Result<BeginTransactionRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            database: self.database.to_proto()?,
-            options: self.options.map(|v| v.to_proto()).transpose()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            database: gaxi::prost::ToProto::<std::string::String>::to_proto(self.database)?,
+            options: self.options.map(gaxi::prost::ToProto::<TransactionOptions>::to_proto).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -810,7 +810,7 @@ impl gaxi::prost::ToProto<BeginTransactionResponse> for crate::generated::gapic:
     type Output = BeginTransactionResponse;
     fn to_proto(self) -> std::result::Result<BeginTransactionResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            transaction: self.transaction.to_proto()?,
+            transaction: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.transaction)?,
         })
     }
 }
@@ -828,13 +828,13 @@ impl gaxi::prost::ToProto<CommitRequest> for crate::generated::gapic::model::Com
     type Output = CommitRequest;
     fn to_proto(self) -> std::result::Result<CommitRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            database: self.database.to_proto()?,
+            database: gaxi::prost::ToProto::<std::string::String>::to_proto(self.database)?,
             writes: self.writes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Write>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            transaction: self.transaction.to_proto()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            transaction: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.transaction)?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -858,9 +858,9 @@ impl gaxi::prost::ToProto<CommitResponse> for crate::generated::gapic::model::Co
         Ok(Self::Output {
             write_results: self.write_results
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<WriteResult>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            commit_time: self.commit_time.map(|v| v.to_proto()).transpose()?,
+            commit_time: self.commit_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -880,9 +880,9 @@ impl gaxi::prost::ToProto<RollbackRequest> for crate::generated::gapic::model::R
     type Output = RollbackRequest;
     fn to_proto(self) -> std::result::Result<RollbackRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            database: self.database.to_proto()?,
-            transaction: self.transaction.to_proto()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            database: gaxi::prost::ToProto::<std::string::String>::to_proto(self.database)?,
+            transaction: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.transaction)?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -902,7 +902,7 @@ impl gaxi::prost::ToProto<run_query_request::QueryType> for crate::generated::ga
     type Output = run_query_request::QueryType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery((*v).to_proto()?)),
+            Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery(gaxi::prost::ToProto::<StructuredQuery>::to_proto(*v)?)),
         }
     }
 }
@@ -920,9 +920,9 @@ impl gaxi::prost::ToProto<run_query_request::ConsistencySelector> for crate::gen
     type Output = run_query_request::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
-            Self::NewTransaction(v) => Ok(Self::Output::NewTransaction((*v).to_proto()?)),
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::Transaction(v) => Ok(Self::Output::Transaction(gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?)),
+            Self::NewTransaction(v) => Ok(Self::Output::NewTransaction(gaxi::prost::ToProto::<TransactionOptions>::to_proto(*v)?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -942,11 +942,11 @@ impl gaxi::prost::ToProto<RunQueryRequest> for crate::generated::gapic::model::R
     type Output = RunQueryRequest;
     fn to_proto(self) -> std::result::Result<RunQueryRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            explain_options: self.explain_options.map(|v| v.to_proto()).transpose()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
-            query_type: self.query_type.map(|v| v.to_proto()).transpose()?,
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            explain_options: self.explain_options.map(gaxi::prost::ToProto::<ExplainOptions>::to_proto).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
+            query_type: self.query_type.map(gaxi::prost::ToProto::<run_query_request::QueryType>::to_proto).transpose()?,
+            consistency_selector: self.consistency_selector.map(gaxi::prost::ToProto::<run_query_request::ConsistencySelector>::to_proto).transpose()?,
         })
     }
 }
@@ -968,7 +968,7 @@ impl gaxi::prost::ToProto<run_query_response::ContinuationSelector> for crate::g
     type Output = run_query_response::ContinuationSelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Done(v) => Ok(Self::Output::Done(v.to_proto()?)),
+            Self::Done(v) => Ok(Self::Output::Done(gaxi::prost::ToProto::<bool>::to_proto(v)?)),
         }
     }
 }
@@ -986,12 +986,12 @@ impl gaxi::prost::ToProto<RunQueryResponse> for crate::generated::gapic::model::
     type Output = RunQueryResponse;
     fn to_proto(self) -> std::result::Result<RunQueryResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            transaction: self.transaction.to_proto()?,
-            document: self.document.map(|v| v.to_proto()).transpose()?,
-            read_time: self.read_time.map(|v| v.to_proto()).transpose()?,
-            skipped_results: self.skipped_results.to_proto()?,
-            explain_metrics: self.explain_metrics.map(|v| v.to_proto()).transpose()?,
-            continuation_selector: self.continuation_selector.map(|v| v.to_proto()).transpose()?,
+            transaction: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.transaction)?,
+            document: self.document.map(gaxi::prost::ToProto::<Document>::to_proto).transpose()?,
+            read_time: self.read_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            skipped_results: gaxi::prost::ToProto::<i32>::to_proto(self.skipped_results)?,
+            explain_metrics: self.explain_metrics.map(gaxi::prost::ToProto::<ExplainMetrics>::to_proto).transpose()?,
+            continuation_selector: self.continuation_selector.map(gaxi::prost::ToProto::<run_query_response::ContinuationSelector>::to_proto).transpose()?,
         })
     }
 }
@@ -1014,7 +1014,7 @@ impl gaxi::prost::ToProto<run_aggregation_query_request::QueryType> for crate::g
     type Output = run_aggregation_query_request::QueryType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::StructuredAggregationQuery(v) => Ok(Self::Output::StructuredAggregationQuery((*v).to_proto()?)),
+            Self::StructuredAggregationQuery(v) => Ok(Self::Output::StructuredAggregationQuery(gaxi::prost::ToProto::<StructuredAggregationQuery>::to_proto(*v)?)),
         }
     }
 }
@@ -1032,9 +1032,9 @@ impl gaxi::prost::ToProto<run_aggregation_query_request::ConsistencySelector> fo
     type Output = run_aggregation_query_request::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
-            Self::NewTransaction(v) => Ok(Self::Output::NewTransaction((*v).to_proto()?)),
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::Transaction(v) => Ok(Self::Output::Transaction(gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?)),
+            Self::NewTransaction(v) => Ok(Self::Output::NewTransaction(gaxi::prost::ToProto::<TransactionOptions>::to_proto(*v)?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -1054,11 +1054,11 @@ impl gaxi::prost::ToProto<RunAggregationQueryRequest> for crate::generated::gapi
     type Output = RunAggregationQueryRequest;
     fn to_proto(self) -> std::result::Result<RunAggregationQueryRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            explain_options: self.explain_options.map(|v| v.to_proto()).transpose()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
-            query_type: self.query_type.map(|v| v.to_proto()).transpose()?,
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            explain_options: self.explain_options.map(gaxi::prost::ToProto::<ExplainOptions>::to_proto).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
+            query_type: self.query_type.map(gaxi::prost::ToProto::<run_aggregation_query_request::QueryType>::to_proto).transpose()?,
+            consistency_selector: self.consistency_selector.map(gaxi::prost::ToProto::<run_aggregation_query_request::ConsistencySelector>::to_proto).transpose()?,
         })
     }
 }
@@ -1080,10 +1080,10 @@ impl gaxi::prost::ToProto<RunAggregationQueryResponse> for crate::generated::gap
     type Output = RunAggregationQueryResponse;
     fn to_proto(self) -> std::result::Result<RunAggregationQueryResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            result: self.result.map(|v| v.to_proto()).transpose()?,
-            transaction: self.transaction.to_proto()?,
-            read_time: self.read_time.map(|v| v.to_proto()).transpose()?,
-            explain_metrics: self.explain_metrics.map(|v| v.to_proto()).transpose()?,
+            result: self.result.map(gaxi::prost::ToProto::<AggregationResult>::to_proto).transpose()?,
+            transaction: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.transaction)?,
+            read_time: self.read_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
+            explain_metrics: self.explain_metrics.map(gaxi::prost::ToProto::<ExplainMetrics>::to_proto).transpose()?,
         })
     }
 }
@@ -1104,7 +1104,7 @@ impl gaxi::prost::ToProto<partition_query_request::QueryType> for crate::generat
     type Output = partition_query_request::QueryType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery((*v).to_proto()?)),
+            Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery(gaxi::prost::ToProto::<StructuredQuery>::to_proto(*v)?)),
         }
     }
 }
@@ -1122,7 +1122,7 @@ impl gaxi::prost::ToProto<partition_query_request::ConsistencySelector> for crat
     type Output = partition_query_request::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -1140,13 +1140,13 @@ impl gaxi::prost::ToProto<PartitionQueryRequest> for crate::generated::gapic::mo
     type Output = PartitionQueryRequest;
     fn to_proto(self) -> std::result::Result<PartitionQueryRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            partition_count: self.partition_count.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
-            query_type: self.query_type.map(|v| v.to_proto()).transpose()?,
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            partition_count: gaxi::prost::ToProto::<i64>::to_proto(self.partition_count)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
+            query_type: self.query_type.map(gaxi::prost::ToProto::<partition_query_request::QueryType>::to_proto).transpose()?,
+            consistency_selector: self.consistency_selector.map(gaxi::prost::ToProto::<partition_query_request::ConsistencySelector>::to_proto).transpose()?,
         })
     }
 }
@@ -1172,9 +1172,9 @@ impl gaxi::prost::ToProto<PartitionQueryResponse> for crate::generated::gapic::m
         Ok(Self::Output {
             partitions: self.partitions
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Cursor>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -1194,19 +1194,19 @@ impl gaxi::prost::ToProto<WriteRequest> for crate::generated::gapic::model::Writ
     type Output = WriteRequest;
     fn to_proto(self) -> std::result::Result<WriteRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            database: self.database.to_proto()?,
-            stream_id: self.stream_id.to_proto()?,
+            database: gaxi::prost::ToProto::<std::string::String>::to_proto(self.database)?,
+            stream_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.stream_id)?,
             writes: self.writes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Write>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            stream_token: self.stream_token.to_proto()?,
+            stream_token: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.stream_token)?,
             labels: self.labels
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<std::string::String>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -1233,13 +1233,13 @@ impl gaxi::prost::ToProto<WriteResponse> for crate::generated::gapic::model::Wri
     type Output = WriteResponse;
     fn to_proto(self) -> std::result::Result<WriteResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            stream_id: self.stream_id.to_proto()?,
-            stream_token: self.stream_token.to_proto()?,
+            stream_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.stream_id)?,
+            stream_token: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.stream_token)?,
             write_results: self.write_results
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<WriteResult>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            commit_time: self.commit_time.map(|v| v.to_proto()).transpose()?,
+            commit_time: self.commit_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -1261,8 +1261,8 @@ impl gaxi::prost::ToProto<listen_request::TargetChange> for crate::generated::ga
     type Output = listen_request::TargetChange;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::AddTarget(v) => Ok(Self::Output::AddTarget((*v).to_proto()?)),
-            Self::RemoveTarget(v) => Ok(Self::Output::RemoveTarget(v.to_proto()?)),
+            Self::AddTarget(v) => Ok(Self::Output::AddTarget(gaxi::prost::ToProto::<Target>::to_proto(*v)?)),
+            Self::RemoveTarget(v) => Ok(Self::Output::RemoveTarget(gaxi::prost::ToProto::<i32>::to_proto(v)?)),
         }
     }
 }
@@ -1281,14 +1281,14 @@ impl gaxi::prost::ToProto<ListenRequest> for crate::generated::gapic::model::Lis
     type Output = ListenRequest;
     fn to_proto(self) -> std::result::Result<ListenRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            database: self.database.to_proto()?,
+            database: gaxi::prost::ToProto::<std::string::String>::to_proto(self.database)?,
             labels: self.labels
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<std::string::String>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
-            target_change: self.target_change.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
+            target_change: self.target_change.map(gaxi::prost::ToProto::<listen_request::TargetChange>::to_proto).transpose()?,
         })
     }
 }
@@ -1312,11 +1312,11 @@ impl gaxi::prost::ToProto<listen_response::ResponseType> for crate::generated::g
     type Output = listen_response::ResponseType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::TargetChange(v) => Ok(Self::Output::TargetChange((*v).to_proto()?)),
-            Self::DocumentChange(v) => Ok(Self::Output::DocumentChange((*v).to_proto()?)),
-            Self::DocumentDelete(v) => Ok(Self::Output::DocumentDelete((*v).to_proto()?)),
-            Self::DocumentRemove(v) => Ok(Self::Output::DocumentRemove((*v).to_proto()?)),
-            Self::Filter(v) => Ok(Self::Output::Filter((*v).to_proto()?)),
+            Self::TargetChange(v) => Ok(Self::Output::TargetChange(gaxi::prost::ToProto::<TargetChange>::to_proto(*v)?)),
+            Self::DocumentChange(v) => Ok(Self::Output::DocumentChange(gaxi::prost::ToProto::<DocumentChange>::to_proto(*v)?)),
+            Self::DocumentDelete(v) => Ok(Self::Output::DocumentDelete(gaxi::prost::ToProto::<DocumentDelete>::to_proto(*v)?)),
+            Self::DocumentRemove(v) => Ok(Self::Output::DocumentRemove(gaxi::prost::ToProto::<DocumentRemove>::to_proto(*v)?)),
+            Self::Filter(v) => Ok(Self::Output::Filter(gaxi::prost::ToProto::<ExistenceFilter>::to_proto(*v)?)),
         }
     }
 }
@@ -1338,7 +1338,7 @@ impl gaxi::prost::ToProto<ListenResponse> for crate::generated::gapic::model::Li
     type Output = ListenResponse;
     fn to_proto(self) -> std::result::Result<ListenResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            response_type: self.response_type.map(|v| v.to_proto()).transpose()?,
+            response_type: self.response_type.map(gaxi::prost::ToProto::<listen_response::ResponseType>::to_proto).transpose()?,
         })
     }
 }
@@ -1358,7 +1358,7 @@ impl gaxi::prost::ToProto<target::DocumentsTarget> for crate::generated::gapic::
         Ok(Self::Output {
             documents: self.documents
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1378,7 +1378,7 @@ impl gaxi::prost::ToProto<target::query_target::QueryType> for crate::generated:
     type Output = target::query_target::QueryType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery((*v).to_proto()?)),
+            Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery(gaxi::prost::ToProto::<StructuredQuery>::to_proto(*v)?)),
         }
     }
 }
@@ -1396,8 +1396,8 @@ impl gaxi::prost::ToProto<target::QueryTarget> for crate::generated::gapic::mode
     type Output = target::QueryTarget;
     fn to_proto(self) -> std::result::Result<target::QueryTarget, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            query_type: self.query_type.map(|v| v.to_proto()).transpose()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            query_type: self.query_type.map(gaxi::prost::ToProto::<target::query_target::QueryType>::to_proto).transpose()?,
         })
     }
 }
@@ -1416,8 +1416,8 @@ impl gaxi::prost::ToProto<target::TargetType> for crate::generated::gapic::model
     type Output = target::TargetType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Query(v) => Ok(Self::Output::Query((*v).to_proto()?)),
-            Self::Documents(v) => Ok(Self::Output::Documents((*v).to_proto()?)),
+            Self::Query(v) => Ok(Self::Output::Query(gaxi::prost::ToProto::<target::QueryTarget>::to_proto(*v)?)),
+            Self::Documents(v) => Ok(Self::Output::Documents(gaxi::prost::ToProto::<target::DocumentsTarget>::to_proto(*v)?)),
         }
     }
 }
@@ -1436,8 +1436,8 @@ impl gaxi::prost::ToProto<target::ResumeType> for crate::generated::gapic::model
     type Output = target::ResumeType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ResumeToken(v) => Ok(Self::Output::ResumeToken(v.to_proto()?)),
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::ResumeToken(v) => Ok(Self::Output::ResumeToken(gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -1456,11 +1456,11 @@ impl gaxi::prost::ToProto<Target> for crate::generated::gapic::model::Target {
     type Output = Target;
     fn to_proto(self) -> std::result::Result<Target, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            target_id: self.target_id.to_proto()?,
-            once: self.once.to_proto()?,
-            expected_count: self.expected_count.map(|v| v.to_proto()).transpose()?,
-            target_type: self.target_type.map(|v| v.to_proto()).transpose()?,
-            resume_type: self.resume_type.map(|v| v.to_proto()).transpose()?,
+            target_id: gaxi::prost::ToProto::<i32>::to_proto(self.target_id)?,
+            once: gaxi::prost::ToProto::<bool>::to_proto(self.once)?,
+            expected_count: self.expected_count.map(gaxi::prost::ToProto::<i32>::to_proto).transpose()?,
+            target_type: self.target_type.map(gaxi::prost::ToProto::<target::TargetType>::to_proto).transpose()?,
+            resume_type: self.resume_type.map(gaxi::prost::ToProto::<target::ResumeType>::to_proto).transpose()?,
         })
     }
 }
@@ -1489,14 +1489,14 @@ impl gaxi::prost::ToProto<TargetChange> for crate::generated::gapic::model::Targ
     type Output = TargetChange;
     fn to_proto(self) -> std::result::Result<TargetChange, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            target_change_type: self.target_change_type.to_proto()?,
+            target_change_type: gaxi::prost::ToProto::<target_change::TargetChangeType>::to_proto(self.target_change_type)?,
             target_ids: self.target_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<i32>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            cause: self.cause.map(|v| v.to_proto()).transpose()?,
-            resume_token: self.resume_token.to_proto()?,
-            read_time: self.read_time.map(|v| v.to_proto()).transpose()?,
+            cause: self.cause.map(gaxi::prost::ToProto::<crate::google::rpc::Status>::to_proto).transpose()?,
+            resume_token: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.resume_token)?,
+            read_time: self.read_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -1519,7 +1519,7 @@ impl gaxi::prost::ToProto<list_collection_ids_request::ConsistencySelector> for 
     type Output = list_collection_ids_request::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
+            Self::ReadTime(v) => Ok(Self::Output::ReadTime(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(*v)?)),
         }
     }
 }
@@ -1537,11 +1537,11 @@ impl gaxi::prost::ToProto<ListCollectionIdsRequest> for crate::generated::gapic:
     type Output = ListCollectionIdsRequest;
     fn to_proto(self) -> std::result::Result<ListCollectionIdsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
+            consistency_selector: self.consistency_selector.map(gaxi::prost::ToProto::<list_collection_ids_request::ConsistencySelector>::to_proto).transpose()?,
         })
     }
 }
@@ -1565,9 +1565,9 @@ impl gaxi::prost::ToProto<ListCollectionIdsResponse> for crate::generated::gapic
         Ok(Self::Output {
             collection_ids: self.collection_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
         })
     }
 }
@@ -1587,17 +1587,17 @@ impl gaxi::prost::ToProto<BatchWriteRequest> for crate::generated::gapic::model:
     type Output = BatchWriteRequest;
     fn to_proto(self) -> std::result::Result<BatchWriteRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            database: self.database.to_proto()?,
+            database: gaxi::prost::ToProto::<std::string::String>::to_proto(self.database)?,
             writes: self.writes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Write>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             labels: self.labels
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<std::string::String>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(gaxi::prost::ToProto::<RequestOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -1624,11 +1624,11 @@ impl gaxi::prost::ToProto<BatchWriteResponse> for crate::generated::gapic::model
         Ok(Self::Output {
             write_results: self.write_results
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<WriteResult>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             status: self.status
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<crate::google::rpc::Status>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1650,11 +1650,11 @@ impl gaxi::prost::ToProto<StructuredPipeline> for crate::generated::gapic::model
     type Output = StructuredPipeline;
     fn to_proto(self) -> std::result::Result<StructuredPipeline, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            pipeline: self.pipeline.map(|v| v.to_proto()).transpose()?,
+            pipeline: self.pipeline.map(gaxi::prost::ToProto::<Pipeline>::to_proto).transpose()?,
             options: self.options
                 .into_iter()
                 .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                    gaxi::prost::pair_transpose(gaxi::prost::ToProto::<std::string::String>::to_proto(k), gaxi::prost::ToProto::<Value>::to_proto(v))
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
@@ -1677,8 +1677,8 @@ impl gaxi::prost::ToProto<structured_query::CollectionSelector> for crate::gener
     type Output = structured_query::CollectionSelector;
     fn to_proto(self) -> std::result::Result<structured_query::CollectionSelector, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            collection_id: self.collection_id.to_proto()?,
-            all_descendants: self.all_descendants.to_proto()?,
+            collection_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.collection_id)?,
+            all_descendants: gaxi::prost::ToProto::<bool>::to_proto(self.all_descendants)?,
         })
     }
 }
@@ -1697,9 +1697,9 @@ impl gaxi::prost::ToProto<structured_query::filter::FilterType> for crate::gener
     type Output = structured_query::filter::FilterType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::CompositeFilter(v) => Ok(Self::Output::CompositeFilter((*v).to_proto()?)),
-            Self::FieldFilter(v) => Ok(Self::Output::FieldFilter((*v).to_proto()?)),
-            Self::UnaryFilter(v) => Ok(Self::Output::UnaryFilter((*v).to_proto()?)),
+            Self::CompositeFilter(v) => Ok(Self::Output::CompositeFilter(gaxi::prost::ToProto::<structured_query::CompositeFilter>::to_proto(*v)?)),
+            Self::FieldFilter(v) => Ok(Self::Output::FieldFilter(gaxi::prost::ToProto::<structured_query::FieldFilter>::to_proto(*v)?)),
+            Self::UnaryFilter(v) => Ok(Self::Output::UnaryFilter(gaxi::prost::ToProto::<structured_query::UnaryFilter>::to_proto(*v)?)),
         }
     }
 }
@@ -1719,7 +1719,7 @@ impl gaxi::prost::ToProto<structured_query::Filter> for crate::generated::gapic:
     type Output = structured_query::Filter;
     fn to_proto(self) -> std::result::Result<structured_query::Filter, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            filter_type: self.filter_type.map(|v| v.to_proto()).transpose()?,
+            filter_type: self.filter_type.map(gaxi::prost::ToProto::<structured_query::filter::FilterType>::to_proto).transpose()?,
         })
     }
 }
@@ -1744,10 +1744,10 @@ impl gaxi::prost::ToProto<structured_query::CompositeFilter> for crate::generate
     type Output = structured_query::CompositeFilter;
     fn to_proto(self) -> std::result::Result<structured_query::CompositeFilter, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            op: self.op.to_proto()?,
+            op: gaxi::prost::ToProto::<structured_query::composite_filter::Operator>::to_proto(self.op)?,
             filters: self.filters
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<structured_query::Filter>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1775,9 +1775,9 @@ impl gaxi::prost::ToProto<structured_query::FieldFilter> for crate::generated::g
     type Output = structured_query::FieldFilter;
     fn to_proto(self) -> std::result::Result<structured_query::FieldFilter, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            field: self.field.map(|v| v.to_proto()).transpose()?,
-            op: self.op.to_proto()?,
-            value: self.value.map(|v| v.to_proto()).transpose()?,
+            field: self.field.map(gaxi::prost::ToProto::<structured_query::FieldReference>::to_proto).transpose()?,
+            op: gaxi::prost::ToProto::<structured_query::field_filter::Operator>::to_proto(self.op)?,
+            value: self.value.map(gaxi::prost::ToProto::<Value>::to_proto).transpose()?,
         })
     }
 }
@@ -1804,7 +1804,7 @@ impl gaxi::prost::ToProto<structured_query::unary_filter::OperandType> for crate
     type Output = structured_query::unary_filter::OperandType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Field(v) => Ok(Self::Output::Field((*v).to_proto()?)),
+            Self::Field(v) => Ok(Self::Output::Field(gaxi::prost::ToProto::<structured_query::FieldReference>::to_proto(*v)?)),
         }
     }
 }
@@ -1822,8 +1822,8 @@ impl gaxi::prost::ToProto<structured_query::UnaryFilter> for crate::generated::g
     type Output = structured_query::UnaryFilter;
     fn to_proto(self) -> std::result::Result<structured_query::UnaryFilter, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            op: self.op.to_proto()?,
-            operand_type: self.operand_type.map(|v| v.to_proto()).transpose()?,
+            op: gaxi::prost::ToProto::<structured_query::unary_filter::Operator>::to_proto(self.op)?,
+            operand_type: self.operand_type.map(gaxi::prost::ToProto::<structured_query::unary_filter::OperandType>::to_proto).transpose()?,
         })
     }
 }
@@ -1842,8 +1842,8 @@ impl gaxi::prost::ToProto<structured_query::Order> for crate::generated::gapic::
     type Output = structured_query::Order;
     fn to_proto(self) -> std::result::Result<structured_query::Order, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            field: self.field.map(|v| v.to_proto()).transpose()?,
-            direction: self.direction.to_proto()?,
+            field: self.field.map(gaxi::prost::ToProto::<structured_query::FieldReference>::to_proto).transpose()?,
+            direction: gaxi::prost::ToProto::<structured_query::Direction>::to_proto(self.direction)?,
         })
     }
 }
@@ -1862,7 +1862,7 @@ impl gaxi::prost::ToProto<structured_query::FieldReference> for crate::generated
     type Output = structured_query::FieldReference;
     fn to_proto(self) -> std::result::Result<structured_query::FieldReference, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            field_path: self.field_path.to_proto()?,
+            field_path: gaxi::prost::ToProto::<std::string::String>::to_proto(self.field_path)?,
         })
     }
 }
@@ -1882,7 +1882,7 @@ impl gaxi::prost::ToProto<structured_query::Projection> for crate::generated::ga
         Ok(Self::Output {
             fields: self.fields
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<structured_query::FieldReference>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1909,12 +1909,12 @@ impl gaxi::prost::ToProto<structured_query::FindNearest> for crate::generated::g
     type Output = structured_query::FindNearest;
     fn to_proto(self) -> std::result::Result<structured_query::FindNearest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            vector_field: self.vector_field.map(|v| v.to_proto()).transpose()?,
-            query_vector: self.query_vector.map(|v| v.to_proto()).transpose()?,
-            distance_measure: self.distance_measure.to_proto()?,
-            limit: self.limit.map(|v| v.to_proto()).transpose()?,
-            distance_result_field: self.distance_result_field.to_proto()?,
-            distance_threshold: self.distance_threshold.map(|v| v.to_proto()).transpose()?,
+            vector_field: self.vector_field.map(gaxi::prost::ToProto::<structured_query::FieldReference>::to_proto).transpose()?,
+            query_vector: self.query_vector.map(gaxi::prost::ToProto::<Value>::to_proto).transpose()?,
+            distance_measure: gaxi::prost::ToProto::<structured_query::find_nearest::DistanceMeasure>::to_proto(self.distance_measure)?,
+            limit: self.limit.map(gaxi::prost::ToProto::<i32>::to_proto).transpose()?,
+            distance_result_field: gaxi::prost::ToProto::<std::string::String>::to_proto(self.distance_result_field)?,
+            distance_threshold: self.distance_threshold.map(gaxi::prost::ToProto::<f64>::to_proto).transpose()?,
         })
     }
 }
@@ -1944,21 +1944,21 @@ impl gaxi::prost::ToProto<StructuredQuery> for crate::generated::gapic::model::S
     type Output = StructuredQuery;
     fn to_proto(self) -> std::result::Result<StructuredQuery, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            select: self.select.map(|v| v.to_proto()).transpose()?,
+            select: self.select.map(gaxi::prost::ToProto::<structured_query::Projection>::to_proto).transpose()?,
             from: self.from
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<structured_query::CollectionSelector>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            r#where: self.r#where.map(|v| v.to_proto()).transpose()?,
+            r#where: self.r#where.map(gaxi::prost::ToProto::<structured_query::Filter>::to_proto).transpose()?,
             order_by: self.order_by
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<structured_query::Order>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            start_at: self.start_at.map(|v| v.to_proto()).transpose()?,
-            end_at: self.end_at.map(|v| v.to_proto()).transpose()?,
-            offset: self.offset.to_proto()?,
-            limit: self.limit.map(|v| v.to_proto()).transpose()?,
-            find_nearest: self.find_nearest.map(|v| v.to_proto()).transpose()?,
+            start_at: self.start_at.map(gaxi::prost::ToProto::<Cursor>::to_proto).transpose()?,
+            end_at: self.end_at.map(gaxi::prost::ToProto::<Cursor>::to_proto).transpose()?,
+            offset: gaxi::prost::ToProto::<i32>::to_proto(self.offset)?,
+            limit: self.limit.map(gaxi::prost::ToProto::<i32>::to_proto).transpose()?,
+            find_nearest: self.find_nearest.map(gaxi::prost::ToProto::<structured_query::FindNearest>::to_proto).transpose()?,
         })
     }
 }
@@ -1986,7 +1986,7 @@ impl gaxi::prost::ToProto<structured_aggregation_query::aggregation::Count> for 
     type Output = structured_aggregation_query::aggregation::Count;
     fn to_proto(self) -> std::result::Result<structured_aggregation_query::aggregation::Count, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            up_to: self.up_to.map(|v| v.to_proto()).transpose()?,
+            up_to: self.up_to.map(gaxi::prost::ToProto::<i64>::to_proto).transpose()?,
         })
     }
 }
@@ -2004,7 +2004,7 @@ impl gaxi::prost::ToProto<structured_aggregation_query::aggregation::Sum> for cr
     type Output = structured_aggregation_query::aggregation::Sum;
     fn to_proto(self) -> std::result::Result<structured_aggregation_query::aggregation::Sum, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            field: self.field.map(|v| v.to_proto()).transpose()?,
+            field: self.field.map(gaxi::prost::ToProto::<structured_query::FieldReference>::to_proto).transpose()?,
         })
     }
 }
@@ -2022,7 +2022,7 @@ impl gaxi::prost::ToProto<structured_aggregation_query::aggregation::Avg> for cr
     type Output = structured_aggregation_query::aggregation::Avg;
     fn to_proto(self) -> std::result::Result<structured_aggregation_query::aggregation::Avg, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            field: self.field.map(|v| v.to_proto()).transpose()?,
+            field: self.field.map(gaxi::prost::ToProto::<structured_query::FieldReference>::to_proto).transpose()?,
         })
     }
 }
@@ -2040,9 +2040,9 @@ impl gaxi::prost::ToProto<structured_aggregation_query::aggregation::Operator> f
     type Output = structured_aggregation_query::aggregation::Operator;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Count(v) => Ok(Self::Output::Count((*v).to_proto()?)),
-            Self::Sum(v) => Ok(Self::Output::Sum((*v).to_proto()?)),
-            Self::Avg(v) => Ok(Self::Output::Avg((*v).to_proto()?)),
+            Self::Count(v) => Ok(Self::Output::Count(gaxi::prost::ToProto::<structured_aggregation_query::aggregation::Count>::to_proto(*v)?)),
+            Self::Sum(v) => Ok(Self::Output::Sum(gaxi::prost::ToProto::<structured_aggregation_query::aggregation::Sum>::to_proto(*v)?)),
+            Self::Avg(v) => Ok(Self::Output::Avg(gaxi::prost::ToProto::<structured_aggregation_query::aggregation::Avg>::to_proto(*v)?)),
         }
     }
 }
@@ -2062,8 +2062,8 @@ impl gaxi::prost::ToProto<structured_aggregation_query::Aggregation> for crate::
     type Output = structured_aggregation_query::Aggregation;
     fn to_proto(self) -> std::result::Result<structured_aggregation_query::Aggregation, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            alias: self.alias.to_proto()?,
-            operator: self.operator.map(|v| v.to_proto()).transpose()?,
+            alias: gaxi::prost::ToProto::<std::string::String>::to_proto(self.alias)?,
+            operator: self.operator.map(gaxi::prost::ToProto::<structured_aggregation_query::aggregation::Operator>::to_proto).transpose()?,
         })
     }
 }
@@ -2082,7 +2082,7 @@ impl gaxi::prost::ToProto<structured_aggregation_query::QueryType> for crate::ge
     type Output = structured_aggregation_query::QueryType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery((*v).to_proto()?)),
+            Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery(gaxi::prost::ToProto::<StructuredQuery>::to_proto(*v)?)),
         }
     }
 }
@@ -2102,9 +2102,9 @@ impl gaxi::prost::ToProto<StructuredAggregationQuery> for crate::generated::gapi
         Ok(Self::Output {
             aggregations: self.aggregations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<structured_aggregation_query::Aggregation>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            query_type: self.query_type.map(|v| v.to_proto()).transpose()?,
+            query_type: self.query_type.map(gaxi::prost::ToProto::<structured_aggregation_query::QueryType>::to_proto).transpose()?,
         })
     }
 }
@@ -2126,9 +2126,9 @@ impl gaxi::prost::ToProto<Cursor> for crate::generated::gapic::model::Cursor {
         Ok(Self::Output {
             values: self.values
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Value>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            before: self.before.to_proto()?,
+            before: gaxi::prost::ToProto::<bool>::to_proto(self.before)?,
         })
     }
 }
@@ -2148,7 +2148,7 @@ impl gaxi::prost::ToProto<ExplainOptions> for crate::generated::gapic::model::Ex
     type Output = ExplainOptions;
     fn to_proto(self) -> std::result::Result<ExplainOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            analyze: self.analyze.to_proto()?,
+            analyze: gaxi::prost::ToProto::<bool>::to_proto(self.analyze)?,
         })
     }
 }
@@ -2166,8 +2166,8 @@ impl gaxi::prost::ToProto<ExplainMetrics> for crate::generated::gapic::model::Ex
     type Output = ExplainMetrics;
     fn to_proto(self) -> std::result::Result<ExplainMetrics, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            plan_summary: self.plan_summary.map(|v| v.to_proto()).transpose()?,
-            execution_stats: self.execution_stats.map(|v| v.to_proto()).transpose()?,
+            plan_summary: self.plan_summary.map(gaxi::prost::ToProto::<PlanSummary>::to_proto).transpose()?,
+            execution_stats: self.execution_stats.map(gaxi::prost::ToProto::<ExecutionStats>::to_proto).transpose()?,
         })
     }
 }
@@ -2188,7 +2188,7 @@ impl gaxi::prost::ToProto<PlanSummary> for crate::generated::gapic::model::PlanS
         Ok(Self::Output {
             indexes_used: self.indexes_used
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<prost_types::Struct>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -2208,10 +2208,10 @@ impl gaxi::prost::ToProto<ExecutionStats> for crate::generated::gapic::model::Ex
     type Output = ExecutionStats;
     fn to_proto(self) -> std::result::Result<ExecutionStats, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            results_returned: self.results_returned.to_proto()?,
-            execution_duration: self.execution_duration.map(|v| v.to_proto()).transpose()?,
-            read_operations: self.read_operations.to_proto()?,
-            debug_stats: self.debug_stats.map(|v| v.to_proto()).transpose()?,
+            results_returned: gaxi::prost::ToProto::<i64>::to_proto(self.results_returned)?,
+            execution_duration: self.execution_duration.map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto).transpose()?,
+            read_operations: gaxi::prost::ToProto::<i64>::to_proto(self.read_operations)?,
+            debug_stats: self.debug_stats.map(gaxi::prost::ToProto::<prost_types::Struct>::to_proto).transpose()?,
         })
     }
 }
@@ -2232,9 +2232,9 @@ impl gaxi::prost::ToProto<write::Operation> for crate::generated::gapic::model::
     type Output = write::Operation;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Update(v) => Ok(Self::Output::Update((*v).to_proto()?)),
-            Self::Delete(v) => Ok(Self::Output::Delete(v.to_proto()?)),
-            Self::Transform(v) => Ok(Self::Output::Transform((*v).to_proto()?)),
+            Self::Update(v) => Ok(Self::Output::Update(gaxi::prost::ToProto::<Document>::to_proto(*v)?)),
+            Self::Delete(v) => Ok(Self::Output::Delete(gaxi::prost::ToProto::<std::string::String>::to_proto(v)?)),
+            Self::Transform(v) => Ok(Self::Output::Transform(gaxi::prost::ToProto::<DocumentTransform>::to_proto(*v)?)),
         }
     }
 }
@@ -2254,13 +2254,13 @@ impl gaxi::prost::ToProto<Write> for crate::generated::gapic::model::Write {
     type Output = Write;
     fn to_proto(self) -> std::result::Result<Write, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<DocumentMask>::to_proto).transpose()?,
             update_transforms: self.update_transforms
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<document_transform::FieldTransform>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            current_document: self.current_document.map(|v| v.to_proto()).transpose()?,
-            operation: self.operation.map(|v| v.to_proto()).transpose()?,
+            current_document: self.current_document.map(gaxi::prost::ToProto::<Precondition>::to_proto).transpose()?,
+            operation: self.operation.map(gaxi::prost::ToProto::<write::Operation>::to_proto).transpose()?,
         })
     }
 }
@@ -2289,12 +2289,12 @@ impl gaxi::prost::ToProto<document_transform::field_transform::TransformType> fo
     type Output = document_transform::field_transform::TransformType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::SetToServerValue(v) => Ok(Self::Output::SetToServerValue(v.to_proto()?)),
-            Self::Increment(v) => Ok(Self::Output::Increment((*v).to_proto()?)),
-            Self::Maximum(v) => Ok(Self::Output::Maximum((*v).to_proto()?)),
-            Self::Minimum(v) => Ok(Self::Output::Minimum((*v).to_proto()?)),
-            Self::AppendMissingElements(v) => Ok(Self::Output::AppendMissingElements((*v).to_proto()?)),
-            Self::RemoveAllFromArray(v) => Ok(Self::Output::RemoveAllFromArray((*v).to_proto()?)),
+            Self::SetToServerValue(v) => Ok(Self::Output::SetToServerValue(gaxi::prost::ToProto::<document_transform::field_transform::ServerValue>::to_proto(v)?)),
+            Self::Increment(v) => Ok(Self::Output::Increment(gaxi::prost::ToProto::<Value>::to_proto(*v)?)),
+            Self::Maximum(v) => Ok(Self::Output::Maximum(gaxi::prost::ToProto::<Value>::to_proto(*v)?)),
+            Self::Minimum(v) => Ok(Self::Output::Minimum(gaxi::prost::ToProto::<Value>::to_proto(*v)?)),
+            Self::AppendMissingElements(v) => Ok(Self::Output::AppendMissingElements(gaxi::prost::ToProto::<ArrayValue>::to_proto(*v)?)),
+            Self::RemoveAllFromArray(v) => Ok(Self::Output::RemoveAllFromArray(gaxi::prost::ToProto::<ArrayValue>::to_proto(*v)?)),
         }
     }
 }
@@ -2317,8 +2317,8 @@ impl gaxi::prost::ToProto<document_transform::FieldTransform> for crate::generat
     type Output = document_transform::FieldTransform;
     fn to_proto(self) -> std::result::Result<document_transform::FieldTransform, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            field_path: self.field_path.to_proto()?,
-            transform_type: self.transform_type.map(|v| v.to_proto()).transpose()?,
+            field_path: gaxi::prost::ToProto::<std::string::String>::to_proto(self.field_path)?,
+            transform_type: self.transform_type.map(gaxi::prost::ToProto::<document_transform::field_transform::TransformType>::to_proto).transpose()?,
         })
     }
 }
@@ -2337,10 +2337,10 @@ impl gaxi::prost::ToProto<DocumentTransform> for crate::generated::gapic::model:
     type Output = DocumentTransform;
     fn to_proto(self) -> std::result::Result<DocumentTransform, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            document: self.document.to_proto()?,
+            document: gaxi::prost::ToProto::<std::string::String>::to_proto(self.document)?,
             field_transforms: self.field_transforms
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<document_transform::FieldTransform>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -2361,10 +2361,10 @@ impl gaxi::prost::ToProto<WriteResult> for crate::generated::gapic::model::Write
     type Output = WriteResult;
     fn to_proto(self) -> std::result::Result<WriteResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+            update_time: self.update_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
             transform_results: self.transform_results
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Value>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -2385,14 +2385,14 @@ impl gaxi::prost::ToProto<DocumentChange> for crate::generated::gapic::model::Do
     type Output = DocumentChange;
     fn to_proto(self) -> std::result::Result<DocumentChange, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            document: self.document.map(|v| v.to_proto()).transpose()?,
+            document: self.document.map(gaxi::prost::ToProto::<Document>::to_proto).transpose()?,
             target_ids: self.target_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<i32>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             removed_target_ids: self.removed_target_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<i32>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -2415,12 +2415,12 @@ impl gaxi::prost::ToProto<DocumentDelete> for crate::generated::gapic::model::Do
     type Output = DocumentDelete;
     fn to_proto(self) -> std::result::Result<DocumentDelete, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            document: self.document.to_proto()?,
+            document: gaxi::prost::ToProto::<std::string::String>::to_proto(self.document)?,
             removed_target_ids: self.removed_target_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<i32>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            read_time: self.read_time.map(|v| v.to_proto()).transpose()?,
+            read_time: self.read_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -2441,12 +2441,12 @@ impl gaxi::prost::ToProto<DocumentRemove> for crate::generated::gapic::model::Do
     type Output = DocumentRemove;
     fn to_proto(self) -> std::result::Result<DocumentRemove, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            document: self.document.to_proto()?,
+            document: gaxi::prost::ToProto::<std::string::String>::to_proto(self.document)?,
             removed_target_ids: self.removed_target_ids
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<i32>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            read_time: self.read_time.map(|v| v.to_proto()).transpose()?,
+            read_time: self.read_time.map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto).transpose()?,
         })
     }
 }
@@ -2467,9 +2467,9 @@ impl gaxi::prost::ToProto<ExistenceFilter> for crate::generated::gapic::model::E
     type Output = ExistenceFilter;
     fn to_proto(self) -> std::result::Result<ExistenceFilter, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            target_id: self.target_id.to_proto()?,
-            count: self.count.to_proto()?,
-            unchanged_names: self.unchanged_names.map(|v| v.to_proto()).transpose()?,
+            target_id: gaxi::prost::ToProto::<i32>::to_proto(self.target_id)?,
+            count: gaxi::prost::ToProto::<i32>::to_proto(self.count)?,
+            unchanged_names: self.unchanged_names.map(gaxi::prost::ToProto::<BloomFilter>::to_proto).transpose()?,
         })
     }
 }

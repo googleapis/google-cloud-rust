@@ -18,7 +18,7 @@ impl gaxi::prost::ToProto<GetOperationRequest> for google_cloud_longrunning::mod
     type Output = GetOperationRequest;
     fn to_proto(self) -> std::result::Result<GetOperationRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -36,11 +36,11 @@ impl gaxi::prost::ToProto<ListOperationsRequest> for google_cloud_longrunning::m
     type Output = ListOperationsRequest;
     fn to_proto(self) -> std::result::Result<ListOperationsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            filter: self.filter.to_proto()?,
-            page_size: self.page_size.to_proto()?,
-            page_token: self.page_token.to_proto()?,
-            return_partial_success: self.return_partial_success.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            filter: gaxi::prost::ToProto::<std::string::String>::to_proto(self.filter)?,
+            page_size: gaxi::prost::ToProto::<i32>::to_proto(self.page_size)?,
+            page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.page_token)?,
+            return_partial_success: gaxi::prost::ToProto::<bool>::to_proto(self.return_partial_success)?,
         })
     }
 }
@@ -64,12 +64,12 @@ impl gaxi::prost::ToProto<ListOperationsResponse> for google_cloud_longrunning::
         Ok(Self::Output {
             operations: self.operations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Operation>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            next_page_token: self.next_page_token.to_proto()?,
+            next_page_token: gaxi::prost::ToProto::<std::string::String>::to_proto(self.next_page_token)?,
             unreachable: self.unreachable
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -92,7 +92,7 @@ impl gaxi::prost::ToProto<CancelOperationRequest> for google_cloud_longrunning::
     type Output = CancelOperationRequest;
     fn to_proto(self) -> std::result::Result<CancelOperationRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -110,7 +110,7 @@ impl gaxi::prost::ToProto<DeleteOperationRequest> for google_cloud_longrunning::
     type Output = DeleteOperationRequest;
     fn to_proto(self) -> std::result::Result<DeleteOperationRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
         })
     }
 }
@@ -128,8 +128,8 @@ impl gaxi::prost::ToProto<WaitOperationRequest> for google_cloud_longrunning::mo
     type Output = WaitOperationRequest;
     fn to_proto(self) -> std::result::Result<WaitOperationRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            timeout: self.timeout.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            timeout: self.timeout.map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto).transpose()?,
         })
     }
 }
@@ -148,8 +148,8 @@ impl gaxi::prost::ToProto<OperationInfo> for google_cloud_longrunning::model::Op
     type Output = OperationInfo;
     fn to_proto(self) -> std::result::Result<OperationInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            response_type: self.response_type.to_proto()?,
-            metadata_type: self.metadata_type.to_proto()?,
+            response_type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.response_type)?,
+            metadata_type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.metadata_type)?,
         })
     }
 }

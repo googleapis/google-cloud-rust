@@ -64,8 +64,12 @@ impl gaxi::prost::ToProto<echo_request::Response> for crate::model::echo_request
     type Output = echo_request::Response;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Content(v) => Ok(Self::Output::Content(v.to_proto()?)),
-            Self::Error(v) => Ok(Self::Output::Error((*v).to_proto()?)),
+            Self::Content(v) => Ok(Self::Output::Content(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::Error(v) => Ok(Self::Output::Error(gaxi::prost::ToProto::<
+                super::prost::google::rpc::Status,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -86,12 +90,18 @@ impl gaxi::prost::ToProto<EchoRequest> for crate::model::EchoRequest {
     type Output = EchoRequest;
     fn to_proto(self) -> std::result::Result<EchoRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            severity: self.severity.to_proto()?,
-            header: self.header.to_proto()?,
-            other_header: self.other_header.to_proto()?,
-            request_id: self.request_id.to_proto()?,
-            other_request_id: self.other_request_id.map(|v| v.to_proto()).transpose()?,
-            response: self.response.map(|v| v.to_proto()).transpose()?,
+            severity: gaxi::prost::ToProto::<Severity>::to_proto(self.severity)?,
+            header: gaxi::prost::ToProto::<std::string::String>::to_proto(self.header)?,
+            other_header: gaxi::prost::ToProto::<std::string::String>::to_proto(self.other_header)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
+            other_request_id: self
+                .other_request_id
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
+                .transpose()?,
+            response: self
+                .response
+                .map(gaxi::prost::ToProto::<echo_request::Response>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -112,10 +122,12 @@ impl gaxi::prost::ToProto<EchoResponse> for crate::model::EchoResponse {
     type Output = EchoResponse;
     fn to_proto(self) -> std::result::Result<EchoResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            content: self.content.to_proto()?,
-            severity: self.severity.to_proto()?,
-            request_id: self.request_id.to_proto()?,
-            other_request_id: self.other_request_id.to_proto()?,
+            content: gaxi::prost::ToProto::<std::string::String>::to_proto(self.content)?,
+            severity: gaxi::prost::ToProto::<Severity>::to_proto(self.severity)?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
+            other_request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.other_request_id,
+            )?,
         })
     }
 }
@@ -134,9 +146,15 @@ impl gaxi::prost::ToProto<ExpandRequest> for crate::model::ExpandRequest {
     type Output = ExpandRequest;
     fn to_proto(self) -> std::result::Result<ExpandRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            content: self.content.to_proto()?,
-            error: self.error.map(|v| v.to_proto()).transpose()?,
-            stream_wait_time: self.stream_wait_time.map(|v| v.to_proto()).transpose()?,
+            content: gaxi::prost::ToProto::<std::string::String>::to_proto(self.content)?,
+            error: self
+                .error
+                .map(gaxi::prost::ToProto::<super::prost::google::rpc::Status>::to_proto)
+                .transpose()?,
+            stream_wait_time: self
+                .stream_wait_time
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -154,8 +172,12 @@ impl gaxi::prost::ToProto<blurb::Content> for crate::model::blurb::Content {
     type Output = blurb::Content;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Text(v) => Ok(Self::Output::Text(v.to_proto()?)),
-            Self::Image(v) => Ok(Self::Output::Image(v.to_proto()?)),
+            Self::Text(v) => Ok(Self::Output::Text(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::Image(v) => Ok(Self::Output::Image(
+                gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?,
+            )),
         }
     }
 }
@@ -174,8 +196,12 @@ impl gaxi::prost::ToProto<blurb::LegacyId> for crate::model::blurb::LegacyId {
     type Output = blurb::LegacyId;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::LegacyRoomId(v) => Ok(Self::Output::LegacyRoomId(v.to_proto()?)),
-            Self::LegacyUserId(v) => Ok(Self::Output::LegacyUserId(v.to_proto()?)),
+            Self::LegacyRoomId(v) => Ok(Self::Output::LegacyRoomId(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::LegacyUserId(v) => Ok(Self::Output::LegacyUserId(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
         }
     }
 }
@@ -194,12 +220,24 @@ impl gaxi::prost::ToProto<Blurb> for crate::model::Blurb {
     type Output = Blurb;
     fn to_proto(self) -> std::result::Result<Blurb, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            user: self.user.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            content: self.content.map(|v| v.to_proto()).transpose()?,
-            legacy_id: self.legacy_id.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            user: gaxi::prost::ToProto::<std::string::String>::to_proto(self.user)?,
+            create_time: self
+                .create_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            update_time: self
+                .update_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            content: self
+                .content
+                .map(gaxi::prost::ToProto::<blurb::Content>::to_proto)
+                .transpose()?,
+            legacy_id: self
+                .legacy_id
+                .map(gaxi::prost::ToProto::<blurb::LegacyId>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -220,8 +258,11 @@ impl gaxi::prost::ToProto<StreamBlurbsRequest> for crate::model::StreamBlurbsReq
     type Output = StreamBlurbsRequest;
     fn to_proto(self) -> std::result::Result<StreamBlurbsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            expire_time: self.expire_time.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            expire_time: self
+                .expire_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -252,8 +293,11 @@ impl gaxi::prost::ToProto<StreamBlurbsResponse> for crate::model::StreamBlurbsRe
     type Output = StreamBlurbsResponse;
     fn to_proto(self) -> std::result::Result<StreamBlurbsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            blurb: self.blurb.map(|v| v.to_proto()).transpose()?,
-            action: self.action.to_proto()?,
+            blurb: self
+                .blurb
+                .map(gaxi::prost::ToProto::<Blurb>::to_proto)
+                .transpose()?,
+            action: gaxi::prost::ToProto::<stream_blurbs_response::Action>::to_proto(self.action)?,
         })
     }
 }
@@ -276,7 +320,7 @@ impl gaxi::prost::ToProto<connect_request::ConnectConfig>
         self,
     ) -> std::result::Result<connect_request::ConnectConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            parent: self.parent.to_proto()?,
+            parent: gaxi::prost::ToProto::<std::string::String>::to_proto(self.parent)?,
         })
     }
 }
@@ -296,8 +340,12 @@ impl gaxi::prost::ToProto<connect_request::Request> for crate::model::connect_re
     type Output = connect_request::Request;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Config(v) => Ok(Self::Output::Config((*v).to_proto()?)),
-            Self::Blurb(v) => Ok(Self::Output::Blurb((*v).to_proto()?)),
+            Self::Config(v) => Ok(Self::Output::Config(gaxi::prost::ToProto::<
+                connect_request::ConnectConfig,
+            >::to_proto(*v)?)),
+            Self::Blurb(v) => Ok(Self::Output::Blurb(
+                gaxi::prost::ToProto::<Blurb>::to_proto(*v)?,
+            )),
         }
     }
 }
@@ -319,7 +367,10 @@ impl gaxi::prost::ToProto<ConnectRequest> for crate::model::ConnectRequest {
     type Output = ConnectRequest;
     fn to_proto(self) -> std::result::Result<ConnectRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            request: self.request.map(|v| v.to_proto()).transpose()?,
+            request: self
+                .request
+                .map(gaxi::prost::ToProto::<connect_request::Request>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -339,8 +390,8 @@ impl gaxi::prost::ToProto<AttemptStreamingSequenceRequest>
         self,
     ) -> std::result::Result<AttemptStreamingSequenceRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            last_fail_index: self.last_fail_index.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            last_fail_index: gaxi::prost::ToProto::<i32>::to_proto(self.last_fail_index)?,
         })
     }
 }
@@ -366,7 +417,7 @@ impl gaxi::prost::ToProto<AttemptStreamingSequenceResponse>
         self,
     ) -> std::result::Result<AttemptStreamingSequenceResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            content: self.content.to_proto()?,
+            content: gaxi::prost::ToProto::<std::string::String>::to_proto(self.content)?,
         })
     }
 }

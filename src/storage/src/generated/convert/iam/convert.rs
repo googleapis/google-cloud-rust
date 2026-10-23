@@ -18,9 +18,9 @@ impl gaxi::prost::ToProto<SetIamPolicyRequest> for google_cloud_iam_v1::model::S
     type Output = SetIamPolicyRequest;
     fn to_proto(self) -> std::result::Result<SetIamPolicyRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            resource: self.resource.to_proto()?,
-            policy: self.policy.map(|v| v.to_proto()).transpose()?,
-            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
+            resource: gaxi::prost::ToProto::<std::string::String>::to_proto(self.resource)?,
+            policy: self.policy.map(gaxi::prost::ToProto::<Policy>::to_proto).transpose()?,
+            update_mask: self.update_mask.map(gaxi::prost::ToProto::<prost_types::FieldMask>::to_proto).transpose()?,
         })
     }
 }
@@ -40,8 +40,8 @@ impl gaxi::prost::ToProto<GetIamPolicyRequest> for google_cloud_iam_v1::model::G
     type Output = GetIamPolicyRequest;
     fn to_proto(self) -> std::result::Result<GetIamPolicyRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            resource: self.resource.to_proto()?,
-            options: self.options.map(|v| v.to_proto()).transpose()?,
+            resource: gaxi::prost::ToProto::<std::string::String>::to_proto(self.resource)?,
+            options: self.options.map(gaxi::prost::ToProto::<GetPolicyOptions>::to_proto).transpose()?,
         })
     }
 }
@@ -60,10 +60,10 @@ impl gaxi::prost::ToProto<TestIamPermissionsRequest> for google_cloud_iam_v1::mo
     type Output = TestIamPermissionsRequest;
     fn to_proto(self) -> std::result::Result<TestIamPermissionsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            resource: self.resource.to_proto()?,
+            resource: gaxi::prost::ToProto::<std::string::String>::to_proto(self.resource)?,
             permissions: self.permissions
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -86,7 +86,7 @@ impl gaxi::prost::ToProto<TestIamPermissionsResponse> for google_cloud_iam_v1::m
         Ok(Self::Output {
             permissions: self.permissions
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -106,7 +106,7 @@ impl gaxi::prost::ToProto<GetPolicyOptions> for google_cloud_iam_v1::model::GetP
     type Output = GetPolicyOptions;
     fn to_proto(self) -> std::result::Result<GetPolicyOptions, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            requested_policy_version: self.requested_policy_version.to_proto()?,
+            requested_policy_version: gaxi::prost::ToProto::<i32>::to_proto(self.requested_policy_version)?,
         })
     }
 }
@@ -124,16 +124,16 @@ impl gaxi::prost::ToProto<Policy> for google_cloud_iam_v1::model::Policy {
     type Output = Policy;
     fn to_proto(self) -> std::result::Result<Policy, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            version: self.version.to_proto()?,
+            version: gaxi::prost::ToProto::<i32>::to_proto(self.version)?,
             bindings: self.bindings
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<Binding>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             audit_configs: self.audit_configs
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<AuditConfig>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            etag: self.etag.to_proto()?,
+            etag: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.etag)?,
         })
     }
 }
@@ -156,12 +156,12 @@ impl gaxi::prost::ToProto<Binding> for google_cloud_iam_v1::model::Binding {
     type Output = Binding;
     fn to_proto(self) -> std::result::Result<Binding, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            role: self.role.to_proto()?,
+            role: gaxi::prost::ToProto::<std::string::String>::to_proto(self.role)?,
             members: self.members
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            condition: self.condition.map(|v| v.to_proto()).transpose()?,
+            condition: self.condition.map(gaxi::prost::ToProto::<crate::google::r#type::Expr>::to_proto).transpose()?,
         })
     }
 }
@@ -182,10 +182,10 @@ impl gaxi::prost::ToProto<AuditConfig> for google_cloud_iam_v1::model::AuditConf
     type Output = AuditConfig;
     fn to_proto(self) -> std::result::Result<AuditConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            service: self.service.to_proto()?,
+            service: gaxi::prost::ToProto::<std::string::String>::to_proto(self.service)?,
             audit_log_configs: self.audit_log_configs
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<AuditLogConfig>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -213,10 +213,10 @@ impl gaxi::prost::ToProto<AuditLogConfig> for google_cloud_iam_v1::model::AuditL
     type Output = AuditLogConfig;
     fn to_proto(self) -> std::result::Result<AuditLogConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            log_type: self.log_type.to_proto()?,
+            log_type: gaxi::prost::ToProto::<audit_log_config::LogType>::to_proto(self.log_type)?,
             exempted_members: self.exempted_members
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -239,11 +239,11 @@ impl gaxi::prost::ToProto<PolicyDelta> for google_cloud_iam_v1::model::PolicyDel
         Ok(Self::Output {
             binding_deltas: self.binding_deltas
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<BindingDelta>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             audit_config_deltas: self.audit_config_deltas
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<AuditConfigDelta>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -272,10 +272,10 @@ impl gaxi::prost::ToProto<BindingDelta> for google_cloud_iam_v1::model::BindingD
     type Output = BindingDelta;
     fn to_proto(self) -> std::result::Result<BindingDelta, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            action: self.action.to_proto()?,
-            role: self.role.to_proto()?,
-            member: self.member.to_proto()?,
-            condition: self.condition.map(|v| v.to_proto()).transpose()?,
+            action: gaxi::prost::ToProto::<binding_delta::Action>::to_proto(self.action)?,
+            role: gaxi::prost::ToProto::<std::string::String>::to_proto(self.role)?,
+            member: gaxi::prost::ToProto::<std::string::String>::to_proto(self.member)?,
+            condition: self.condition.map(gaxi::prost::ToProto::<crate::google::r#type::Expr>::to_proto).transpose()?,
         })
     }
 }
@@ -303,10 +303,10 @@ impl gaxi::prost::ToProto<AuditConfigDelta> for google_cloud_iam_v1::model::Audi
     type Output = AuditConfigDelta;
     fn to_proto(self) -> std::result::Result<AuditConfigDelta, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            action: self.action.to_proto()?,
-            service: self.service.to_proto()?,
-            exempted_member: self.exempted_member.to_proto()?,
-            log_type: self.log_type.to_proto()?,
+            action: gaxi::prost::ToProto::<audit_config_delta::Action>::to_proto(self.action)?,
+            service: gaxi::prost::ToProto::<std::string::String>::to_proto(self.service)?,
+            exempted_member: gaxi::prost::ToProto::<std::string::String>::to_proto(self.exempted_member)?,
+            log_type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.log_type)?,
         })
     }
 }
