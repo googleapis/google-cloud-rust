@@ -213,10 +213,6 @@ impl RowIterator {
                         Ok(None) => {
                             self.arrow_reader = None;
                         }
-                        Err(_err) if arrow_reader.can_fallback_to_rest() => {
-                            // Fall back to JSON pagination if read stream opening failed
-                            self.arrow_reader = None;
-                        }
                         Err(err) => {
                             self.arrow_reader = None;
                             return Some(Err(err));
