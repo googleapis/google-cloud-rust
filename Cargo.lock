@@ -2449,6 +2449,7 @@ dependencies = [
  "tokio",
  "tokio-stream",
  "tracing",
+ "typeid",
  "uuid",
 ]
 
@@ -2542,7 +2543,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-derive"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -7256,6 +7257,7 @@ dependencies = [
  "google-cloud-wkt",
  "rand 0.10.3",
  "rust_decimal",
+ "serde_json",
  "tokio",
 ]
 
@@ -10308,6 +10310,12 @@ name = "try-lock"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
+
+[[package]]
+name = "typeid"
+version = "1.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc7d623258602320d5c55d1bc22793b57daff0ec7efc270ea7d55ce1d5f5471c"
 
 [[package]]
 name = "typenum"

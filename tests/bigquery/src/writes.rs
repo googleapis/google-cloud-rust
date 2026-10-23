@@ -13,6 +13,7 @@
 // limitations under the License.
 
 mod arrow;
+mod proto;
 
 use anyhow::Result;
 use bigquery_samples::{
@@ -67,6 +68,36 @@ pub async fn run_writes() -> Result<()> {
         create_table(&table_service, &project_id, &dataset_id, "multi2", schema).await?;
         arrow::multiplex(&client, &project_id, &dataset_id, "multi").await?;
 
+        Ok(())
+    }
+    .await;
+
+    let _ = delete_dataset(&dataset_service, &project_id, &dataset_id).await;
+    result
+}
+
+pub async fn run_proto_writes() -> Result<()> {
+    let project_id = project_id()?;
+    let dataset_service = DatasetService::builder().with_tracing().build().await?;
+    cleanup_stale_datasets(&dataset_service, &project_id).await?;
+
+    let dataset_id = random_dataset_id();
+    let _ = create_dataset(&dataset_service, &project_id, &dataset_id).await?;
+
+    let result = async {
+        let fixture = proto::Fixture::new(&project_id, &dataset_id).await?;
+        proto::basic(&fixture).await?;
+        proto::datatypes(&fixture).await?;
+        proto::scalars(&fixture).await?;
+        proto::json(&fixture).await?;
+        proto::intervals(&fixture).await?;
+        proto::geography(&fixture).await?;
+        proto::nulls(&fixture).await?;
+        proto::arrays(&fixture).await?;
+        proto::nested(&fixture).await?;
+        proto::ranges(&fixture).await?;
+        proto::repeated_ranges(&fixture).await?;
+        proto::depth(&fixture).await?;
         Ok(())
     }
     .await;

@@ -53,6 +53,7 @@ time                         = { workspace = true, features = ["formatting", "ma
 tokio                        = { workspace = true, features = ["time"] }
 tokio-stream.workspace       = true
 tracing.workspace            = true
+typeid.workspace             = true
 rust_decimal.workspace       = true
 uuid.workspace               = true
 

@@ -19,6 +19,12 @@ pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
 
+pub use google_cloud_bigquery_derive::ToRow;
+pub use to_row::{FieldEncoder, FieldSchema, ProtoElement, ProtoValue, StructFields, ToRow};
+
+// The sealed `RangeElement` trait in `datatypes` requires this trait.
+pub(crate) use to_row::RangeBound;
+
 /// Defines the data formats accepted by a writer.
 pub mod format;
 
@@ -47,8 +53,10 @@ mod pool;
 mod proto_schema;
 mod runner;
 mod stream;
+mod to_row;
 mod transport;
 mod validate;
+mod wire_format;
 
 // TODO(#4832) - remove handwritten code.
 mod status;
