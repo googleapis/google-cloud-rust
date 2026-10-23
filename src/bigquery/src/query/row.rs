@@ -170,7 +170,7 @@ mod sealed {
                         .list_element_cell(*self)
                         .map(|val| SqlValue::from_inner(SqlValueInner::Arrow(val))),
                     arrow::datatypes::DataType::Utf8 | arrow::datatypes::DataType::LargeUtf8 => {
-                        let s = cell.as_str()?.into_owned();
+                        let s = cell.as_str()?.to_string();
                         value.inner = SqlValueInner::String(s);
                         self.take_sql_value(value)
                     }
@@ -231,7 +231,7 @@ mod sealed {
                         .struct_field_cell(self)
                         .map(|val| SqlValue::from_inner(SqlValueInner::Arrow(val))),
                     arrow::datatypes::DataType::Utf8 | arrow::datatypes::DataType::LargeUtf8 => {
-                        let s = cell.as_str()?.into_owned();
+                        let s = cell.as_str()?.to_string();
                         value.inner = SqlValueInner::String(s);
                         self.take_sql_value(value)
                     }
@@ -1568,7 +1568,7 @@ mod tests {
         impl FromSql for ArrowString {
             fn from_value(value: SqlValue) -> std::result::Result<Self, ConvertError> {
                 match value.inner {
-                    SqlValueInner::Arrow(cell) => cell.as_str().map(|s| Self(s.into_owned())),
+                    SqlValueInner::Arrow(cell) => cell.as_str().map(|s| Self(s.to_owned())),
                     other => Err(ConvertError::type_mismatch("StringArray", &other)),
                 }
             }

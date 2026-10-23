@@ -233,7 +233,7 @@ impl FromSql for wkt::Value {
                     | DataType::Decimal128(_, _)
                     | DataType::Decimal256(_, _)
                     | DataType::Interval(arrow::datatypes::IntervalUnit::MonthDayNano) => {
-                        wkt::Value::String(cell.as_str()?.into_owned())
+                        wkt::Value::String(cell.to_sql_string()?)
                     }
                     DataType::Struct(fields) => {
                         let s = fields
@@ -276,7 +276,7 @@ impl FromSql for String {
                 google_cloud_unstable_bigquery_arrow,
                 google_cloud_unstable_bigquery_storage_read
             ))]
-            SqlValueInner::Arrow(cell) => cell.as_str().map(std::borrow::Cow::into_owned),
+            SqlValueInner::Arrow(cell) => cell.to_sql_string(),
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -439,7 +439,7 @@ impl FromSql for wkt::Struct {
             ))]
             SqlValueInner::Arrow(cell) => {
                 let s = cell.as_str()?;
-                serde_json::from_str(&s).map_err(|e| ConvertError::Convert(Box::new(e)))
+                serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
             }
             other => Err(ConvertError::type_mismatch("object or string", &other)),
         }
@@ -1579,6 +1579,7 @@ mod tests {
         #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "wkt struct null")]
         #[test_case(Arc::new(StringArray::from(vec![Some("invalid")])) => Err(TestConvertError::Convert) ; "wkt struct invalid json")]
         #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "wkt struct type mismatch")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "wkt struct date32 type mismatch")]
         fn test_from_sql_arrow_wkt_struct(arr: ArrayRef) -> Result<wkt::Struct, TestConvertError> {
             wkt::Struct::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }
