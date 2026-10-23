@@ -44,8 +44,9 @@
 //! compile-only: each case file is one supported input shape, and the test
 //! target fails to build if a case stops compiling. They do not check the
 //! behavior of the generated code. Behavior changes are still breaking, but
-//! the unit tests in `src/bigquery/src/query/` (`row.rs`, `from_sql.rs`) cover
-//! them. Code review owns everything the tests do not catch.
+//! the unit tests in `src/bigquery/src/query/` (`row.rs`, `from_sql.rs`), and
+//! `src/bigquery/src/write/to_row.rs` for `ToRow`, cover them. Code review owns
+//! everything the tests do not catch.
 //!
 //! Every published proc-macro crate in this repository has a contract test
 //! directory under any crate's tests directory (`src/*/tests/`). The directory

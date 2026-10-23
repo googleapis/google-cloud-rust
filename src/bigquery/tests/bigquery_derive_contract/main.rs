@@ -32,10 +32,22 @@ mod multiple_rename_and_plain_fields;
 mod raw_identifier_fields;
 mod shadowed_field_names;
 mod shadowed_prelude_names;
+mod to_row_attributes_and_visibility;
+mod to_row_fully_qualified_derive_path;
+mod to_row_generic;
+mod to_row_named_struct;
+mod to_row_nested_struct;
+mod to_row_option_and_vec_fields;
+mod to_row_range_fields;
+mod to_row_raw_identifier_fields;
+mod to_row_rename;
+mod to_row_shadowed_names;
+mod to_row_with_read_derives;
 mod visibility_and_attribute_placement;
 
 use google_cloud_bigquery::error::RowError;
 use google_cloud_bigquery::query::{FromSql, Row};
+use google_cloud_bigquery::write::{ProtoElement, ToRow};
 
 /// Asserts at compile time that `T` implements `TryFrom<Row>` with
 /// `Error = RowError`.
@@ -43,3 +55,11 @@ fn assert_from_row<T: TryFrom<Row, Error = RowError>>() {}
 
 /// Asserts at compile time that `T` implements `FromSql`.
 fn assert_from_sql<T: FromSql>() {}
+
+/// Asserts at compile time that `T` implements `ToRow`.
+fn assert_to_row<T: ToRow>() {}
+
+/// Asserts at compile time that `T` implements `ProtoElement`, so it can be a
+/// field, or inside an `Option<T>` or a `Vec<T>` field, of another `ToRow`
+/// struct.
+fn assert_proto_element<T: ProtoElement>() {}
