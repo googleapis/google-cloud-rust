@@ -62,8 +62,8 @@ cargo build --package google-cloud-storage
 # Run tests for this crate
 cargo test --package google-cloud-storage
 
-# Run tests with the unstable-stream feature enabled
-cargo test --package google-cloud-storage --features unstable-stream
+# Run tests with the unstable features enabled
+cargo test --package google-cloud-storage --features unstable-stream,unstable-appendable-object
 ```
 
 **Running Scenarios (Stress Tests):** The stress testing utility is built as a

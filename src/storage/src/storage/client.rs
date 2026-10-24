@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use super::request_options::RequestOptions;
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 use crate::builder::storage::OpenAppendableObject;
 use crate::builder::storage::ReadObject;
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 use crate::builder::storage::ReopenAppendableObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
@@ -280,8 +280,8 @@ where
         OpenObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    #[cfg(feature = "unstable-appendable-object")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
     /// Opens a new appendable object for exclusive appends.
     ///
     /// This method allows you to incrementally append data to a single object.
@@ -316,8 +316,8 @@ where
         OpenAppendableObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    #[cfg(feature = "unstable-appendable-object")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
     /// Reopens an existing appendable object for exclusive appends.
     ///
     /// # Example

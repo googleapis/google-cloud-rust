@@ -23,7 +23,7 @@ use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
 use crate::storage::streaming_source::{Seek, StreamingSource};
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 use crate::{
     appendable_object_writer::AppendableObjectWriter,
     model_ext::{OpenAppendableObjectRequest, ReopenAppendableObjectRequest},
@@ -271,7 +271,7 @@ impl Storage {
         Ok((descriptor, readers))
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     async fn open_appendable_object_plain(
         &self,
         request: OpenAppendableObjectRequest,
@@ -282,7 +282,7 @@ impl Storage {
         Ok(AppendableObjectWriter::new(transport))
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tracing::instrument(name = "open_appendable_object", level = tracing::Level::DEBUG, ret, err(Debug))]
     async fn open_appendable_object_tracing(
         &self,
@@ -320,7 +320,7 @@ impl Storage {
         ))
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     async fn reopen_appendable_object_plain(
         &self,
         request: ReopenAppendableObjectRequest,
@@ -331,7 +331,7 @@ impl Storage {
         Ok(AppendableObjectWriter::new(transport))
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tracing::instrument(name = "reopen_appendable_object", level = tracing::Level::DEBUG, ret, err(Debug))]
     async fn reopen_appendable_object_tracing(
         &self,
@@ -361,7 +361,7 @@ impl Storage {
         ))
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     async fn open_appendable_object_and_append_plain(
         &self,
         request: OpenAppendableObjectRequest,
@@ -374,7 +374,7 @@ impl Storage {
         Ok(AppendableObjectWriter::new(transport))
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tracing::instrument(name = "open_appendable_object", level = tracing::Level::DEBUG, ret, err(Debug), skip(chunk))]
     async fn open_appendable_object_and_append_tracing(
         &self,
@@ -477,7 +477,7 @@ impl super::stub::Storage for Storage {
         self.open_object_plain(request, options).await
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     async fn open_appendable_object(
         &self,
         request: OpenAppendableObjectRequest,
@@ -489,7 +489,7 @@ impl super::stub::Storage for Storage {
         self.open_appendable_object_plain(request, options).await
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     async fn open_appendable_object_and_append(
         &self,
         request: OpenAppendableObjectRequest,
@@ -505,7 +505,7 @@ impl super::stub::Storage for Storage {
             .await
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     async fn reopen_appendable_object(
         &self,
         request: ReopenAppendableObjectRequest,
@@ -850,7 +850,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tokio::test]
     async fn open_appendable_object_not_found() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status as TonicStatus;
@@ -887,7 +887,7 @@ mod tests {
 
     /// Models a complete lifecycle ending in close: `open` -> `append` -> `flush` -> `close`.
     #[ignore = "TODO(#6324) - disabled because it was flaky"]
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tokio::test]
     async fn open_appendable_object_success() -> anyhow::Result<()> {
         use bytes::Bytes;
@@ -969,7 +969,7 @@ mod tests {
 
     /// Models a complete lifecycle ending in finalize: `open` -> `append` -> `flush` -> `finalize`.
     #[ignore = "TODO(#6324) - disabled because it was flaky"]
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tokio::test]
     async fn open_appendable_object_finalize_success() -> anyhow::Result<()> {
         use bytes::Bytes;
@@ -1060,7 +1060,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tokio::test]
     async fn open_appendable_object_and_append_bucket_not_found() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status as TonicStatus;
@@ -1102,7 +1102,7 @@ mod tests {
 
     /// Models an opening stream with initial payload: `send_and_append` -> `finalize`.
     #[ignore = "TODO(#6324) - disabled because it was flaky"]
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tokio::test]
     async fn open_appendable_object_and_append_success() -> anyhow::Result<()> {
         use bytes::Bytes;
@@ -1188,7 +1188,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tokio::test]
     async fn reopen_appendable_object_not_found() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status as TonicStatus;
@@ -1225,7 +1225,7 @@ mod tests {
 
     /// Models a complete lifecycle: `reopen` -> `append` -> `flush` -> `finalize`.
     #[ignore = "TODO(#6324) - disabled because it was flaky"]
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     #[tokio::test]
     async fn reopen_appendable_object_success() -> anyhow::Result<()> {
         use bytes::Bytes;

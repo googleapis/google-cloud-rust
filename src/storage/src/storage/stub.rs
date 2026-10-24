@@ -23,7 +23,7 @@ use crate::{
     model_ext::{OpenObjectRequest, ReadRange},
     object_descriptor::ObjectDescriptor as Descriptor,
 };
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 use bytes::Bytes;
 use gaxi::unimplemented::UNIMPLEMENTED;
 
@@ -84,7 +84,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         unimplemented_stub::<(Descriptor, Vec<ReadObjectResponse>)>()
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     /// Implements [crate::client::Storage::open_appendable_object].
     fn open_appendable_object(
         &self,
@@ -96,7 +96,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         unimplemented_stub::<crate::appendable_object_writer::AppendableObjectWriter>()
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     /// Implements [crate::client::Storage::open_appendable_object]. Also sends an
     /// initial chunk of data with the opening request.
     fn open_appendable_object_and_append(
@@ -110,7 +110,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         unimplemented_stub::<crate::appendable_object_writer::AppendableObjectWriter>()
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg(feature = "unstable-appendable-object")]
     /// Implements [crate::client::Storage::reopen_appendable_object].
     fn reopen_appendable_object(
         &self,
@@ -146,8 +146,8 @@ pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
 /// `AppendableObjectWriter`. In other use-cases, application developers
 /// should use `AppendableObjectWriter` directly, and need not be concerned
 /// with this trait or its implementations.
-#[cfg(google_cloud_unstable_storage_bidi)]
-#[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+#[cfg(feature = "unstable-appendable-object")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
 pub trait AppendableObjectWriter: std::fmt::Debug + Send + Sync {
     /// The implementation for [AppendableObjectWriter::append][crate::appendable_object_writer::AppendableObjectWriter::append].
     fn append(

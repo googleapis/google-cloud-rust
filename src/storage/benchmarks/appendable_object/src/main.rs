@@ -14,7 +14,9 @@
 
 //! Appendable object benchmark binary.
 
-#[cfg(google_cloud_unstable_storage_bidi)]
+// TODO(#5716): This `mod app` wrapper only existed to gate the whole binary on
+// the old `--cfg` flag. Now that the dependency enables the
+// `unstable-appendable-object` feature, flatten the modules to the top level.
 #[path = "."]
 mod app {
     mod args;
@@ -108,13 +110,7 @@ mod app {
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     app::run().await
-}
-
-#[cfg(not(google_cloud_unstable_storage_bidi))]
-fn main() {
-    println!("This benchmark requires the 'google_cloud_unstable_storage_bidi' cfg flag.");
 }

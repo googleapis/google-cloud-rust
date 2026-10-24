@@ -22,16 +22,16 @@ use sha2::{Digest, Sha256};
 mod open_object_request;
 pub use open_object_request::OpenObjectRequest;
 
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 mod open_appendable_object_request;
-#[cfg(google_cloud_unstable_storage_bidi)]
-#[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+#[cfg(feature = "unstable-appendable-object")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
 pub use open_appendable_object_request::OpenAppendableObjectRequest;
 
-#[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg(feature = "unstable-appendable-object")]
 mod reopen_appendable_object_request;
-#[cfg(google_cloud_unstable_storage_bidi)]
-#[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+#[cfg(feature = "unstable-appendable-object")]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-appendable-object")))]
 pub use reopen_appendable_object_request::ReopenAppendableObjectRequest;
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].

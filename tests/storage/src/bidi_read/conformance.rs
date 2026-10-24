@@ -69,7 +69,6 @@ pub async fn run() -> anyhow::Result<()> {
     )
     .await?;
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     with_bucket(
         &clients,
         BucketType::ZonalRapid,
@@ -80,11 +79,6 @@ pub async fn run() -> anyhow::Result<()> {
         },
     )
     .await?;
-
-    #[cfg(not(google_cloud_unstable_storage_bidi))]
-    println!(
-        "\nSkipping Zonal Rapid conformance tests: `google_cloud_unstable_storage_bidi` cfg is not enabled"
-    );
 
     with_bucket(
         &clients,
@@ -149,10 +143,7 @@ impl Clients {
 
 #[derive(Clone, Copy, Debug)]
 enum BucketType {
-    RegionalStandard {
-        hns: bool,
-    },
-    #[cfg_attr(not(google_cloud_unstable_storage_bidi), allow(dead_code))]
+    RegionalStandard { hns: bool },
     ZonalRapid,
     RegionalRapid,
 }
@@ -352,25 +343,18 @@ async fn upload_and_open(
 }
 
 async fn write_appendable_object(
-    #[allow(unused_variables)] client: &Storage,
-    #[allow(unused_variables)] bucket_name: &str,
-    #[allow(unused_variables)] object_name: &str,
-    #[allow(unused_variables)] payload: Bytes,
+    client: &Storage,
+    bucket_name: &str,
+    object_name: &str,
+    payload: Bytes,
 ) -> anyhow::Result<()> {
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    {
-        let mut writer = client
-            .open_appendable_object(bucket_name, object_name)
-            .send()
-            .await?;
-        writer.append(payload).await?;
-        writer.finalize().await?;
-        Ok(())
-    }
-    #[cfg(not(google_cloud_unstable_storage_bidi))]
-    {
-        anyhow::bail!("appendable uploads require `--cfg google_cloud_unstable_storage_bidi`")
-    }
+    let mut writer = client
+        .open_appendable_object(bucket_name, object_name)
+        .send()
+        .await?;
+    writer.append(payload).await?;
+    writer.finalize().await?;
+    Ok(())
 }
 
 async fn test_multiple_ranged_read(

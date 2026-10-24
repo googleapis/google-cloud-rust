@@ -71,8 +71,7 @@ You can also run a specific benchmark configuration directly via `cargo`:
 
 ```bash
 # Example: --chunk-size 262144 represents a 256 KiB chunk (256 * 1024 bytes)
-RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi" \
-  cargo run --release -p storage-benchmark-appendable-object -- \
+cargo run --release -p storage-benchmark-appendable-object -- \
   --chunk-size 262144 \
   --output-dir=/path/to/results
 ```

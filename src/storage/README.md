@@ -28,6 +28,9 @@ should not introduce breaking changes to the client libraries.
   `rustls::crypto::CryptoProvider::install_default()`.
 - `unstable-stream`: enable the (unstable) features to convert several types to
   a `future::Stream`.
+- `unstable-appendable-object`: enable the (unstable) appendable object upload
+  APIs for Rapid Storage buckets. As the name indicates, the API may change in
+  minor releases.
 
 ## More Information
 

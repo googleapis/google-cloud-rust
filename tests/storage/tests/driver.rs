@@ -150,7 +150,6 @@ mod storage {
         }
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     mod bidi_write {
         use super::*;
 

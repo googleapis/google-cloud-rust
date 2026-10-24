@@ -77,6 +77,12 @@ gaxi = { workspace = true, features = [
 [features]
 default         = ["default-rustls-provider"]
 unstable-stream = []
+# Enables the (unstable) appendable object upload APIs for Rapid Storage
+# buckets: `Storage::open_appendable_object()`,
+# `Storage::reopen_appendable_object()` and `AppendableObjectWriter`. As the
+# name indicates, this feature is unstable: the API may change in minor
+# releases. The feature will become a no-op once the API is stable.
+unstable-appendable-object = []
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
 # TLS and authentication. Applications with specific requirements for
 # cryptography (such as exclusively using the [ring] crate) should disable this
@@ -98,8 +104,9 @@ test-case.workspace         = true
 tempfile.workspace          = true
 tokio                       = { workspace = true, features = ["test-util"] }
 pretty_assertions.workspace = true
-# The tests use `unstable-stream`, which is not enabled by default.
-google-cloud-storage    = { path = ".", features = ["unstable-stream"] }
+# The tests use `unstable-stream` and `unstable-appendable-object`, which are
+# not enabled by default.
+google-cloud-storage    = { path = ".", features = ["unstable-appendable-object", "unstable-stream"] }
 google-cloud-test-utils = { workspace = true }
 storage-grpc-mock       = { path = "grpc-mock" }
 

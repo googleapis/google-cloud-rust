@@ -61,6 +61,7 @@ echo "==== google-cloud-storage ===="
 for sub in test doc; do
   cargo "${sub}" --profile=ci --package google-cloud-storage --no-default-features
   cargo "${sub}" --profile=ci --package google-cloud-storage --no-default-features --features unstable-stream
+  cargo "${sub}" --profile=ci --package google-cloud-storage --no-default-features --features unstable-appendable-object
   cargo "${sub}" --profile=ci --package google-cloud-storage --all-features
 done
 cargo clippy --no-deps --package google-cloud-storage --all-targets -- --deny warnings
