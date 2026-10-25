@@ -644,8 +644,6 @@ mod tests {
                 .expect("sending on channel always succeeds");
             Ok(TonicResponse::from(()))
         });
-        mock.expect_modify_ack_deadline()
-            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
@@ -678,48 +676,6 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn modack_with_unextended_ack() -> anyhow::Result<()> {
-        let (response_tx, response_rx) = channel(10);
-        let (modack_tx, mut modack_rx) = unbounded_channel();
-
-        let mut mock = MockSubscriber::new();
-        mock.expect_streaming_pull()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
-        mock.expect_modify_ack_deadline().returning(move |r| {
-            modack_tx
-                .send(r.into_inner())
-                .expect("sending on channel always succeeds");
-            Ok(TonicResponse::from(()))
-        });
-        mock.expect_acknowledge()
-            .returning(|_| Ok(TonicResponse::from(())));
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let client = test_client(endpoint).await?;
-        let mut stream = client
-            .subscribe("projects/p/subscriptions/s")
-            .set_max_lease_extension(Duration::from_secs(20))
-            .build();
-
-        response_tx.send(Ok(test_response(1..4))).await?;
-        for i in 1..4 {
-            let Some((_, h)) = stream.next().await.transpose()? else {
-                anyhow::bail!("expected message {i}/3")
-            };
-            h.ack();
-        }
-
-        // Acked before their first lease extension, so the acks carry a modack.
-        let modack = modack_rx.recv().await.expect("a modack with the acks");
-        assert_eq!(modack.ack_deadline_seconds, 20);
-        assert_eq!(sorted(modack.ack_ids), test_ids(1..4));
-
-        drop(response_tx);
-        stream.shutdown_token().shutdown().await;
-
-        Ok(())
-    }
-
-    #[tokio_test_no_panics(start_paused = true)]
     async fn ack_retries_unavailable() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -728,8 +684,6 @@ mod tests {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
-        mock.expect_modify_ack_deadline()
-            .returning(|_| Ok(TonicResponse::from(())));
         mock.expect_acknowledge()
             .times(1)
             .in_sequence(&mut seq)
@@ -963,11 +917,6 @@ mod tests {
         assert_eq!(nack_req.ack_deadline_seconds, 0);
         assert_eq!(sorted(nack_req.ack_ids), test_ids(20..30));
         assert!(nack_rx.is_empty(), "{nack_rx:?}");
-
-        // The acks were never extended, so they went out with a modack.
-        let modack_req = extend_rx.try_recv()?;
-        assert_eq!(modack_req.ack_deadline_seconds, 10);
-        assert_eq!(sorted(modack_req.ack_ids), test_ids(0..10));
 
         // Verify at least one lease extension attempt was made.
         let extend_req = extend_rx.try_recv()?;
@@ -1407,8 +1356,6 @@ mod tests {
                 .expect("sending on channel always succeeds");
             Ok(TonicResponse::from(()))
         });
-        mock.expect_modify_ack_deadline()
-            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
@@ -1481,8 +1428,6 @@ mod tests {
                 .expect("sending on channel always succeeds");
             Ok(TonicResponse::from(()))
         });
-        mock.expect_modify_ack_deadline()
-            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
@@ -1573,8 +1518,6 @@ mod tests {
             Ok(TonicResponse::from(()))
         });
 
-        mock.expect_modify_ack_deadline()
-            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
 
@@ -1789,7 +1732,6 @@ mod tests {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (nack_tx, mut nack_rx) = unbounded_channel();
-        let (modack_tx, mut modack_rx) = unbounded_channel();
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
@@ -1802,18 +1744,8 @@ mod tests {
         });
         mock.expect_modify_ack_deadline()
             .times(1)
-            .withf(|r| r.get_ref().ack_deadline_seconds == 0)
             .returning(move |r| {
                 nack_tx
-                    .send(r.into_inner())
-                    .expect("sending on channel always succeeds");
-                Ok(TonicResponse::from(()))
-            });
-        mock.expect_modify_ack_deadline()
-            .times(1)
-            .withf(|r| r.get_ref().ack_deadline_seconds != 0)
-            .returning(move |r| {
-                modack_tx
                     .send(r.into_inner())
                     .expect("sending on channel always succeeds");
                 Ok(TonicResponse::from(()))
@@ -1854,10 +1786,6 @@ mod tests {
         assert_eq!(nack_req.ack_deadline_seconds, 0);
         assert_eq!(sorted(nack_req.ack_ids), test_ids(6..10));
 
-        // The acks were never extended, so they went out with a modack.
-        let modack_req = modack_rx.try_recv()?;
-        assert_eq!(sorted(modack_req.ack_ids), test_ids(1..6));
-
         Ok(())
     }
 
@@ -1868,7 +1796,6 @@ mod tests {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (nack_tx, mut nack_rx) = unbounded_channel();
-        let (modack_tx, mut modack_rx) = unbounded_channel();
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
@@ -1881,18 +1808,8 @@ mod tests {
         });
         mock.expect_modify_ack_deadline()
             .times(1)
-            .withf(|r| r.get_ref().ack_deadline_seconds == 0)
             .returning(move |r| {
                 nack_tx
-                    .send(r.into_inner())
-                    .expect("sending on channel always succeeds");
-                Ok(TonicResponse::from(()))
-            });
-        mock.expect_modify_ack_deadline()
-            .times(1)
-            .withf(|r| r.get_ref().ack_deadline_seconds != 0)
-            .returning(move |r| {
-                modack_tx
                     .send(r.into_inner())
                     .expect("sending on channel always succeeds");
                 Ok(TonicResponse::from(()))
@@ -1926,10 +1843,6 @@ mod tests {
         assert_eq!(nack_req.ack_deadline_seconds, 0);
         assert_eq!(sorted(nack_req.ack_ids), test_ids(6..10));
 
-        // The acks were never extended, so they went out with a modack.
-        let modack_req = modack_rx.try_recv()?;
-        assert_eq!(sorted(modack_req.ack_ids), test_ids(1..6));
-
         Ok(())
     }
 
@@ -1951,8 +1864,6 @@ mod tests {
                 .expect("sending on channel always succeeds");
             Ok(TonicResponse::from(()))
         });
-        mock.expect_modify_ack_deadline()
-            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client
@@ -1992,7 +1903,6 @@ mod tests {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (nack_tx, mut nack_rx) = unbounded_channel();
-        let (modack_tx, mut modack_rx) = unbounded_channel();
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
@@ -2005,18 +1915,8 @@ mod tests {
         });
         mock.expect_modify_ack_deadline()
             .times(1)
-            .withf(|r| r.get_ref().ack_deadline_seconds == 0)
             .returning(move |r| {
                 nack_tx
-                    .send(r.into_inner())
-                    .expect("sending on channel always succeeds");
-                Ok(TonicResponse::from(()))
-            });
-        mock.expect_modify_ack_deadline()
-            .times(1)
-            .withf(|r| r.get_ref().ack_deadline_seconds != 0)
-            .returning(move |r| {
-                modack_tx
                     .send(r.into_inner())
                     .expect("sending on channel always succeeds");
                 Ok(TonicResponse::from(()))
@@ -2048,10 +1948,6 @@ mod tests {
         assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(nack_req.ack_deadline_seconds, 0);
         assert_eq!(sorted(nack_req.ack_ids), test_ids(6..10));
-
-        // The acks were never extended, so they went out with a modack.
-        let modack_req = modack_rx.try_recv()?;
-        assert_eq!(sorted(modack_req.ack_ids), test_ids(1..6));
 
         Ok(())
     }

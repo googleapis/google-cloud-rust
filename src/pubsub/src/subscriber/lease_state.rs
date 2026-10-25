@@ -286,7 +286,6 @@ where
 
     /// Flush pending acks/nacks
     pub(super) fn flush(&mut self) {
-        self.modack_unextended();
         let (to_ack, to_nack) = self.leases.drain();
         if !to_ack.is_empty() {
             let leaser = self.leaser.clone();
@@ -309,14 +308,6 @@ where
             let leaser = self.leaser.clone();
             self.pending_acks_nacks
                 .spawn(async move { leaser.confirmed_nack(to_nack).await });
-        }
-    }
-
-    fn modack_unextended(&mut self) {
-        for ack_ids in self.leases.drain_unextended() {
-            let leaser = self.leaser.clone();
-            self.pending_acks_nacks
-                .spawn(async move { leaser.extend(ack_ids).await });
         }
     }
 
@@ -344,8 +335,7 @@ where
     /// Shutdown the leaser
     ///
     /// This flushes all pending acks and nacks all other messages.
-    pub(super) async fn shutdown(mut self) {
-        self.modack_unextended();
+    pub(super) async fn shutdown(self) {
         // Note that if `WaitForProcessing` was selected by the application,
         // there are no messages under lease. They have all been processed.
         let (to_ack, to_nack) = self.leases.evict_and_drain();
@@ -735,11 +725,6 @@ pub(super) mod tests {
             .times(1)
             .withf(|v| sorted(v) == test_ids(100..110))
             .returning(|_| ());
-        // The modack that goes out with acks no lease extension reached.
-        mock.expect_extend()
-            .times(1)
-            .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(|ack_ids| ack_ids);
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         for i in 0..100 {
             state.add(test_id(i), at_least_once_info());
@@ -822,10 +807,6 @@ pub(super) mod tests {
             .times(1)
             .withf(|v| *v == vec![test_id(2)])
             .returning(|_| ());
-        mock.expect_extend()
-            .times(1)
-            .withf(|v| *v == vec![test_id(1)])
-            .returning(|ack_ids| ack_ids);
 
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
 
@@ -1030,11 +1011,6 @@ pub(super) mod tests {
             .times(1)
             .withf(|v| sorted(v) == test_ids(30..60))
             .returning(|_| ());
-        // Acks shutdown sends without a flush still carry their modack.
-        mock.expect_extend()
-            .times(1)
-            .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(|ack_ids| ack_ids);
 
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         for i in 0..30 {
@@ -1110,10 +1086,6 @@ pub(super) mod tests {
             .times(1)
             .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
             .returning(|_| ());
-        mock.expect_extend()
-            .times(1)
-            .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
-            .returning(|ack_ids| ack_ids);
         let options = LeaseOptions {
             flush_start: FLUSH_START,
             flush_period: Duration::from_secs(100),

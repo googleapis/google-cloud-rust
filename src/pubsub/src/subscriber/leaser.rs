@@ -148,42 +148,24 @@ where
     T: Stub + 'static,
 {
     async fn ack(&self, ack_ids: Vec<String>) {
-        let count = ack_ids.len();
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids);
-        if let Err(error) = self
+        let _ = self
             .inner
             .acknowledge(req, self.settle_options.clone())
-            .await
-        {
-            tracing::warn!(
-                subscription = %self.subscription,
-                count,
-                %error,
-                "acknowledge failed; the messages will be redelivered"
-            );
-        }
+            .await;
     }
 
     async fn nack(&self, ack_ids: Vec<String>) {
-        let count = ack_ids.len();
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(0);
-        if let Err(error) = self
+        let _ = self
             .inner
             .modify_ack_deadline(req, self.settle_options.clone())
-            .await
-        {
-            tracing::warn!(
-                subscription = %self.subscription,
-                count,
-                %error,
-                "nack failed; the messages will be redelivered when their deadline expires"
-            );
-        }
+            .await;
     }
 
     async fn extend(&self, ack_ids: Vec<String>) -> Vec<String> {
