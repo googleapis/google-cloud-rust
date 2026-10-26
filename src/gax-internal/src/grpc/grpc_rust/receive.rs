@@ -20,6 +20,7 @@ use super::metadata::to_tonic_map;
 use crate::grpc::from_status::ConnectError;
 use bytes::Buf;
 use grpc::StatusCodeError;
+use grpc::client::stream_util::RecvStreamValidator;
 use grpc::client::{RecvStream, ResponseStreamItem, Trailers};
 use grpc::core::RecvMessage;
 use prost::Message;
@@ -155,12 +156,15 @@ impl Drop for ReceiveTask {
 
 /// Drives the response pump loop
 async fn receive_responses<Response, R>(
-    mut recv: R,
+    recv: R,
     tx: tokio::sync::mpsc::Sender<tonic::Result<Option<RecvItem<Response>>>>,
 ) where
     Response: Message + Default + Send + 'static,
     R: RecvStream + 'static,
 {
+    // RecvStreamValidator turns gRPC protocol violations (like repeated headers or messages before
+    // headers) into terminal `Internal` error trailers.
+    let mut recv = RecvStreamValidator::new(recv, /* unary= */ false);
     // A container into which incoming message payloads are decoded.
     let mut slot = GrpcRustRecv::<Response>::default();
     let mut seen_headers = false;
@@ -187,6 +191,8 @@ async fn receive_responses<Response, R>(
                 trailers_to_tonic_status(trailers, seen_headers).map_or(Ok(None), Err),
                 true,
             ),
+            // Defensive and also needed by the compiler. gRPC protocol violations should already
+            // be turned into error trailers by `RecvStreamValidator`.
             ResponseStreamItem::StreamClosed => (
                 Err(tonic::Status::internal(
                     "grpc-rust response stream closed without trailers",
@@ -239,9 +245,8 @@ pub(super) fn trailers_to_tonic_status(
 }
 
 /// Maps a `grpc-rust` [`StatusCodeError`] to the corresponding [`tonic::Code`].
-// TODO(#5991): Consider skipping conversion to `tonic::Code` by mapping
-// directly to `google_cloud_gax` error types
-// (https://github.com/googleapis/google-cloud-rust/pull/6082#discussion_r3603786027).
+// TODO(#5991): Once grpc-rust enforces `CallOptions` deadlines, map
+// client-side `DeadlineExceeded` errors to `Error::timeout`.
 fn grpc_rust_error_to_tonic_code(code: StatusCodeError) -> tonic::Code {
     match code {
         StatusCodeError::Cancelled => tonic::Code::Cancelled,
