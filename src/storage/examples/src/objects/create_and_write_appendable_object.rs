@@ -13,6 +13,8 @@
 // limitations under the License.
 
 // [START storage_create_and_write_appendable_object]
+// The appendable upload API is unstable. Build with
+// `RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi"` to enable it.
 use bytes::Bytes;
 use google_cloud_storage::client::Storage;
 
