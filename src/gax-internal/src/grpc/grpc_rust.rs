@@ -200,6 +200,7 @@ impl GrpcRustClient {
         }
 
         let pending = async move {
+            // NOTE(#5991): This is needed because currently grpc-rust ignores the `CallOptions` deadline.
             if let Some(timeout) = timeout {
                 match tokio::time::timeout(
                     timeout,
