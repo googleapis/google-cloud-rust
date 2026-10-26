@@ -155,6 +155,12 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn update_certificate_issuance_config(
+        &self,
+        req: crate::model::UpdateCertificateIssuanceConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_certificate_issuance_config(
         &self,
         req: crate::model::DeleteCertificateIssuanceConfigRequest,
@@ -451,6 +457,15 @@ impl<T: super::CertificateManager> CertificateManager for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_certificate_issuance_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_certificate_issuance_config(
+        &self,
+        req: crate::model::UpdateCertificateIssuanceConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_certificate_issuance_config(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
