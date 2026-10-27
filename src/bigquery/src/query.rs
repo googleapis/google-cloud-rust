@@ -28,6 +28,8 @@ mod query_handle;
 pub mod retry_policy;
 mod row;
 mod schema;
+#[cfg(google_cloud_unstable_bigquery_storage_read)]
+pub(crate) mod storage_reader;
 
 pub use iterator::RowIterator;
 pub use query_handle::{CompleteQuery, Query};
@@ -96,7 +98,18 @@ pub(crate) mod tests {
     mockall::mock! {
         #[derive(Debug)]
         pub Read {}
-        impl crate::stub::Read for Read {}
+        impl crate::stub::Read for Read {
+            async fn create_read_session(
+                &self,
+                req: crate::write::generated::gapic_storage::model::CreateReadSessionRequest,
+                options: crate::RequestOptions,
+            ) -> crate::Result<crate::Response<crate::write::generated::gapic_storage::model::ReadSession>>;
+            async fn read_rows(
+                &self,
+                req: crate::write::generated::gapic_storage::model::ReadRowsRequest,
+                options: crate::RequestOptions,
+            ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::write::generated::gapic_storage::model::ReadRowsResponse>>;
+        }
     }
 
     pub(crate) fn create_job_service(mock: MockJobService) -> Arc<JobService> {
