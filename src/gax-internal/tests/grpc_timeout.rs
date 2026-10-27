@@ -23,7 +23,9 @@ mod tests {
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
     use google_cloud_gax_internal::grpc;
-    use grpc_server::{builder, google, start_echo_server};
+    use grpc_server::transport::{EchoTransport, transport_builder};
+    use grpc_server::{both_transports, google, start_echo_server};
+    use pretty_assertions::assert_eq;
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
 
@@ -34,7 +36,7 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn test_no_timeout() -> anyhow::Result<()> {
         let (endpoint, server) = start_echo_server().await?;
-        let client = test_client(endpoint).await?;
+        let client = test_client::<grpc::Client>(endpoint).await?;
 
         let delay = Duration::from_millis(200);
         let mut interval = tokio::time::interval(Duration::from_millis(10));
@@ -61,7 +63,7 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn test_timeout_does_not_expire() -> anyhow::Result<()> {
         let (endpoint, server) = start_echo_server().await?;
-        let client = test_client(endpoint).await?;
+        let client = test_client::<grpc::Client>(endpoint).await?;
 
         let delay = Duration::from_millis(200);
         let timeout = Duration::from_millis(2000);
@@ -90,7 +92,7 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn test_timeout_expires() -> anyhow::Result<()> {
         let (endpoint, server) = start_echo_server().await?;
-        let client = test_client(endpoint).await?;
+        let client = test_client::<grpc::Client>(endpoint).await?;
         let mut server = connect_client(client.clone(), server).await?;
 
         let delay = Duration::from_millis(200);
@@ -128,7 +130,7 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn test_effective_timeout() -> anyhow::Result<()> {
         let (endpoint, server) = start_echo_server().await?;
-        let client = test_client(endpoint).await?;
+        let client = test_client::<grpc::Client>(endpoint).await?;
         let mut server = connect_client(client.clone(), server).await?;
 
         // The first attempt should timeout, because of the attempt timeout of
@@ -197,8 +199,82 @@ mod tests {
         Ok(())
     }
 
-    async fn test_client(endpoint: String) -> ClientBuilderResult<grpc::Client> {
-        builder(endpoint)
+    // The `start_paused` tests above check exact timings, on Tonic only. The
+    // tests below use the real clock and run on both transports.
+    both_transports!(no_timeout);
+    async fn no_timeout<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = test_client::<C>(endpoint).await?;
+        let delay = Duration::from_millis(50);
+        let request_options = RequestOptions::default();
+
+        // Act
+        let response = send_request(client, request_options, "great success!", Some(delay)).await?;
+
+        // Assert
+        assert_eq!(response.message, "great success!");
+        Ok(())
+    }
+
+    both_transports!(timeout_does_not_expire);
+    async fn timeout_does_not_expire<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = test_client::<C>(endpoint).await?;
+        let delay = Duration::from_millis(50);
+        let mut request_options = RequestOptions::default();
+        request_options.set_attempt_timeout(Duration::from_millis(2000));
+
+        // Act
+        let response = send_request(client, request_options, "great success!", Some(delay)).await?;
+
+        // Assert
+        assert_eq!(response.message, "great success!");
+        Ok(())
+    }
+
+    both_transports!(timeout_expires);
+    async fn timeout_expires<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = test_client::<C>(endpoint).await?;
+        let delay = Duration::from_millis(500);
+        let mut request_options = RequestOptions::default();
+        request_options.set_attempt_timeout(Duration::from_millis(50));
+
+        // Act
+        let response = send_request(client, request_options, "should timeout", Some(delay)).await;
+
+        // Assert
+        let err = response.expect_err("should timeout");
+        assert!(err.is_timeout(), "{err:?}");
+        Ok(())
+    }
+
+    both_transports!(client_config_timeout);
+    async fn client_config_timeout<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
+            .with_attempt_timeout(Duration::from_millis(50))
+            .build()
+            .await?;
+        let delay = Duration::from_millis(500);
+        let request_options = RequestOptions::default();
+
+        // Act
+        let response = send_request(client, request_options, "should timeout", Some(delay)).await;
+
+        // Assert
+        let err = response.expect_err("should timeout");
+        assert!(err.is_timeout(), "{err:?}");
+        Ok(())
+    }
+
+    async fn test_client<C: EchoTransport>(endpoint: String) -> ClientBuilderResult<C> {
+        transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await
@@ -235,36 +311,21 @@ mod tests {
         ));
     }
 
-    async fn send_request(
-        client: grpc::Client,
+    async fn send_request<C: EchoTransport>(
+        client: C,
         request_options: RequestOptions,
         msg: &str,
         delay: Option<Duration>,
     ) -> Result<google::test::v1::EchoResponse> {
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
         let request = {
-            let delay_ms = delay.map(|d| u64::try_from(d.as_millis()).unwrap());
+            let delay_ms = delay.map(|d| u64::try_from(d.as_millis()).expect("delay fits in u64"));
             google::test::v1::EchoRequest {
                 message: msg.into(),
                 delay_ms,
             }
         };
         client
-            .execute(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                request,
-                request_options,
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
+            .echo(request, request_options, "name=test-only")
             .await
             .map(tonic::Response::into_inner)
     }
