@@ -590,8 +590,9 @@ pub async fn query_client_nested_types(format: QueryResultsFormat) -> Result<()>
 
     let is_arrow = format == QueryResultsFormat::Arrow;
 
-    // In Arrow format, BigQuery backend (HelixTranscoder) rejects anonymous struct fields
-    // and duplicate struct field names with INVALID_ARGUMENT (b/571038474).
+    // TODO(#7034): Anonymous struct fields and duplicate struct field names are
+    // skipped for Arrow format due to a service-side limitation. Remove this
+    // branch once the fix is deployed to production.
     let sql = if is_arrow {
         "SELECT \
              STRUCT('Alice' AS name, 25 AS age) AS user, \
@@ -695,33 +696,6 @@ pub async fn query_client_collation(format: QueryResultsFormat) -> Result<()> {
     let row = rows.next().await.expect("row must exist")?;
     let s: String = row.get("s")?;
     assert_eq!(s, "hello");
-
-    Ok(())
-}
-
-pub async fn query_client_arrow_opt_in() -> Result<()> {
-    use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
-
-    let project_id = project_id()?;
-    let bq = google_cloud_bigquery::client::BigQuery::builder()
-        .build()
-        .await?;
-
-    let sql = "SELECT 42 AS num, 'world' AS msg";
-    let query = bq
-        .query(sql)
-        .with_project_id(project_id)
-        .set_query_results_format(QueryResultsFormat::Arrow)
-        .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .until_done()
-        .await?;
-
-    let mut rows = query.read();
-    let row = rows.next().await.expect("row must exist")?;
-    let num: i64 = row.get("num")?;
-    let msg: String = row.get("msg")?;
-    assert_eq!(num, 42);
-    assert_eq!(msg, "world");
 
     Ok(())
 }

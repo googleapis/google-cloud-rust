@@ -23,9 +23,9 @@ pub use job::{
     job_service, job_service_poller, job_service_poller_error, job_service_poller_heavy,
 };
 pub use query::{
-    QUERY_FORMATS, QueryResultsFormat, query_client, query_client_arrow_opt_in,
-    query_client_collation, query_client_datatypes, query_client_job, query_client_metadata,
-    query_client_multi_page, query_client_nested_types, query_client_numeric_limits,
+    QUERY_FORMATS, QueryResultsFormat, query_client, query_client_collation,
+    query_client_datatypes, query_client_job, query_client_metadata, query_client_multi_page,
+    query_client_nested_types, query_client_numeric_limits,
 };
 pub use reads::read_rows;
 pub use reads::run_reads;
