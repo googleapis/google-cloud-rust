@@ -408,8 +408,7 @@ impl Client {
         ProstReq: prost::Message + Clone + 'static,
         ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
     {
-        let req = request
-            .to_proto()
+        let req = crate::prost::ToProto::<ProstReq>::to_proto(request)
             .map_err(google_cloud_gax::error::Error::ser)?;
 
         let result = self

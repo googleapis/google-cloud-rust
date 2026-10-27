@@ -68,10 +68,7 @@ impl super::stub::Read for Read {
         req: crate::write::generated::gapic_storage::model::CreateReadSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::ReadSession>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -117,7 +114,10 @@ impl super::stub::Read for Read {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::cloud::bigquery::storage::v1::CreateReadSessionRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -183,10 +183,7 @@ impl super::stub::Read for Read {
     ) -> Result<
         crate::Response<crate::write::generated::gapic_storage::model::SplitReadStreamResponse>,
     > {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -228,7 +225,10 @@ impl super::stub::Read for Read {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::cloud::bigquery::storage::v1::SplitReadStreamRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -279,10 +279,7 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         req: crate::write::generated::gapic_storage::model::CreateWriteStreamRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -324,7 +321,10 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -383,10 +383,7 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         req: crate::write::generated::gapic_storage::model::GetWriteStreamRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -428,7 +425,10 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::cloud::bigquery::storage::v1::GetWriteStreamRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -449,10 +449,7 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
     ) -> Result<
         crate::Response<crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse>,
     > {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -496,7 +493,10 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -519,10 +519,7 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse,
         >,
     > {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -566,7 +563,10 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -586,10 +586,7 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::FlushRowsResponse>>
     {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -631,17 +628,12 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::cloud::bigquery::storage::v1::FlushRowsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::FlushRowsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::FlushRowsResponse>)
     }
 }

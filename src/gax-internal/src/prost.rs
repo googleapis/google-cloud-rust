@@ -153,7 +153,12 @@ impl ToProto<prost_types::Struct> for wkt::Struct {
         Ok(prost_types::Struct {
             fields: self
                 .into_iter()
-                .map(|(k, v)| pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    pair_transpose(
+                        ToProto::<String>::to_proto(k),
+                        ToProto::<prost_types::Value>::to_proto(v),
+                    )
+                })
                 .collect::<Result<BTreeMap<_, _>>>()?,
         })
     }
@@ -190,8 +195,12 @@ impl ToProto<prost_types::Value> for wkt::Value {
             serde_json::Value::Number(v) => Kind::NumberValue(v.as_f64().unwrap_or_default()),
             serde_json::Value::String(v) => Kind::StringValue(v),
             serde_json::Value::Bool(v) => Kind::BoolValue(v),
-            serde_json::Value::Array(v) => Kind::ListValue(v.to_proto()?),
-            serde_json::Value::Object(v) => Kind::StructValue(v.to_proto()?),
+            serde_json::Value::Array(v) => {
+                Kind::ListValue(ToProto::<prost_types::ListValue>::to_proto(v)?)
+            }
+            serde_json::Value::Object(v) => {
+                Kind::StructValue(ToProto::<prost_types::Struct>::to_proto(v)?)
+            }
         };
         Ok(prost_types::Value { kind: Some(kind) })
     }
@@ -212,7 +221,7 @@ impl ToProto<prost_types::ListValue> for wkt::ListValue {
         Ok(prost_types::ListValue {
             values: self
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| ToProto::<prost_types::Value>::to_proto(v))
                 .collect::<Result<Vec<_>>>()?,
         })
     }
@@ -316,7 +325,7 @@ impl ToProto<prost_types::DescriptorProto> for wkt::DescriptorProto {
             nested_type: self
                 .nested_type
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| ToProto::<prost_types::DescriptorProto>::to_proto(v))
                 .collect::<Result<Vec<_>>>()?,
             enum_type: self
                 .enum_type

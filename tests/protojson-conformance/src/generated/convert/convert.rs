@@ -17,14 +17,20 @@
 impl gaxi::prost::ToProto<WireFormat> for crate::generated::gapic::model::WireFormat {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::WireFormat"))
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::generated::gapic::model::WireFormat",
+            ))
     }
 }
 
 impl gaxi::prost::ToProto<TestCategory> for crate::generated::gapic::model::TestCategory {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::TestCategory"))
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::generated::gapic::model::TestCategory",
+            ))
     }
 }
 
@@ -32,21 +38,24 @@ impl gaxi::prost::ToProto<TestStatus> for crate::generated::gapic::model::TestSt
     type Output = TestStatus;
     fn to_proto(self) -> std::result::Result<TestStatus, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            failure_message: self.failure_message.to_proto()?,
-            matched_name: self.matched_name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            failure_message: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.failure_message,
+            )?,
+            matched_name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.matched_name)?,
         })
     }
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic::model::TestStatus> for TestStatus {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::TestStatus, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::TestStatus::new()
-                .set_name(self.name)
-                .set_failure_message(self.failure_message)
-                .set_matched_name(self.matched_name)
-        )
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::generated::gapic::model::TestStatus, gaxi::prost::ConvertError>
+    {
+        Ok(crate::generated::gapic::model::TestStatus::new()
+            .set_name(self.name)
+            .set_failure_message(self.failure_message)
+            .set_matched_name(self.matched_name))
     }
 }
 
@@ -54,38 +63,62 @@ impl gaxi::prost::ToProto<FailureSet> for crate::generated::gapic::model::Failur
     type Output = FailureSet;
     fn to_proto(self) -> std::result::Result<FailureSet, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            test: self.test
+            test: self
+                .test
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<TestStatus>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic::model::FailureSet> for FailureSet {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::FailureSet, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::FailureSet::new()
-                .set_test(self.test.into_iter().map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-        )
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::generated::gapic::model::FailureSet, gaxi::prost::ConvertError>
+    {
+        Ok(crate::generated::gapic::model::FailureSet::new().set_test(
+            self.test
+                .into_iter()
+                .map(|v| v.cnv())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        ))
     }
 }
 
-impl gaxi::prost::ToProto<conformance_request::Payload> for crate::generated::gapic::model::conformance_request::Payload {
+impl gaxi::prost::ToProto<conformance_request::Payload>
+    for crate::generated::gapic::model::conformance_request::Payload
+{
     type Output = conformance_request::Payload;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ProtobufPayload(v) => Ok(Self::Output::ProtobufPayload(v.to_proto()?)),
-            Self::JsonPayload(v) => Ok(Self::Output::JsonPayload(v.to_proto()?)),
-            Self::JspbPayload(v) => Ok(Self::Output::JspbPayload(v.to_proto()?)),
-            Self::TextPayload(v) => Ok(Self::Output::TextPayload(v.to_proto()?)),
+            Self::ProtobufPayload(v) => Ok(Self::Output::ProtobufPayload(gaxi::prost::ToProto::<
+                ::bytes::Bytes,
+            >::to_proto(
+                v
+            )?)),
+            Self::JsonPayload(v) => Ok(Self::Output::JsonPayload(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::JspbPayload(v) => Ok(Self::Output::JspbPayload(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::TextPayload(v) => Ok(Self::Output::TextPayload(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
         }
     }
 }
 
-impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_request::Payload> for conformance_request::Payload {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::conformance_request::Payload, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_request::Payload>
+    for conformance_request::Payload
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::generated::gapic::model::conformance_request::Payload,
+        gaxi::prost::ConvertError,
+    > {
         use crate::generated::gapic::model::conformance_request::Payload as T;
         match self {
             Self::ProtobufPayload(v) => Ok(T::ProtobufPayload(v.cnv()?)),
@@ -96,53 +129,101 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_request:
     }
 }
 
-impl gaxi::prost::ToProto<ConformanceRequest> for crate::generated::gapic::model::ConformanceRequest {
+impl gaxi::prost::ToProto<ConformanceRequest>
+    for crate::generated::gapic::model::ConformanceRequest
+{
     type Output = ConformanceRequest;
     fn to_proto(self) -> std::result::Result<ConformanceRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            requested_output_format: self.requested_output_format.to_proto()?,
-            message_type: self.message_type.to_proto()?,
-            test_category: self.test_category.to_proto()?,
-            jspb_encoding_options: self.jspb_encoding_options.map(|v| v.to_proto()).transpose()?,
-            print_unknown_fields: self.print_unknown_fields.to_proto()?,
-            payload: self.payload.map(|v| v.to_proto()).transpose()?,
+            requested_output_format: gaxi::prost::ToProto::<WireFormat>::to_proto(
+                self.requested_output_format,
+            )?,
+            message_type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.message_type)?,
+            test_category: gaxi::prost::ToProto::<TestCategory>::to_proto(self.test_category)?,
+            jspb_encoding_options: self
+                .jspb_encoding_options
+                .map(|v| gaxi::prost::ToProto::<JspbEncodingConfig>::to_proto(v))
+                .transpose()?,
+            print_unknown_fields: gaxi::prost::ToProto::<bool>::to_proto(
+                self.print_unknown_fields,
+            )?,
+            payload: self
+                .payload
+                .map(|v| gaxi::prost::ToProto::<conformance_request::Payload>::to_proto(v))
+                .transpose()?,
         })
     }
 }
 
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ConformanceRequest> for ConformanceRequest {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ConformanceRequest, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ConformanceRequest::new()
-                .set_requested_output_format(self.requested_output_format)
-                .set_message_type(self.message_type)
-                .set_test_category(self.test_category)
-                .set_or_clear_jspb_encoding_options(self.jspb_encoding_options.map(|v| v.cnv()).transpose()?)
-                .set_print_unknown_fields(self.print_unknown_fields)
-                .set_payload(self.payload.map(|v| v.cnv()).transpose()?)
-        )
+impl gaxi::prost::FromProto<crate::generated::gapic::model::ConformanceRequest>
+    for ConformanceRequest
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::generated::gapic::model::ConformanceRequest,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::generated::gapic::model::ConformanceRequest::new()
+            .set_requested_output_format(self.requested_output_format)
+            .set_message_type(self.message_type)
+            .set_test_category(self.test_category)
+            .set_or_clear_jspb_encoding_options(
+                self.jspb_encoding_options.map(|v| v.cnv()).transpose()?,
+            )
+            .set_print_unknown_fields(self.print_unknown_fields)
+            .set_payload(self.payload.map(|v| v.cnv()).transpose()?))
     }
 }
 
-impl gaxi::prost::ToProto<conformance_response::Result> for crate::generated::gapic::model::conformance_response::Result {
+impl gaxi::prost::ToProto<conformance_response::Result>
+    for crate::generated::gapic::model::conformance_response::Result
+{
     type Output = conformance_response::Result;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::ParseError(v) => Ok(Self::Output::ParseError(v.to_proto()?)),
-            Self::SerializeError(v) => Ok(Self::Output::SerializeError(v.to_proto()?)),
-            Self::TimeoutError(v) => Ok(Self::Output::TimeoutError(v.to_proto()?)),
-            Self::RuntimeError(v) => Ok(Self::Output::RuntimeError(v.to_proto()?)),
-            Self::ProtobufPayload(v) => Ok(Self::Output::ProtobufPayload(v.to_proto()?)),
-            Self::JsonPayload(v) => Ok(Self::Output::JsonPayload(v.to_proto()?)),
-            Self::Skipped(v) => Ok(Self::Output::Skipped(v.to_proto()?)),
-            Self::JspbPayload(v) => Ok(Self::Output::JspbPayload(v.to_proto()?)),
-            Self::TextPayload(v) => Ok(Self::Output::TextPayload(v.to_proto()?)),
+            Self::ParseError(v) => Ok(Self::Output::ParseError(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::SerializeError(v) => Ok(Self::Output::SerializeError(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::TimeoutError(v) => Ok(Self::Output::TimeoutError(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::RuntimeError(v) => Ok(Self::Output::RuntimeError(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::ProtobufPayload(v) => Ok(Self::Output::ProtobufPayload(gaxi::prost::ToProto::<
+                ::bytes::Bytes,
+            >::to_proto(
+                v
+            )?)),
+            Self::JsonPayload(v) => Ok(Self::Output::JsonPayload(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::Skipped(v) => Ok(Self::Output::Skipped(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::JspbPayload(v) => Ok(Self::Output::JspbPayload(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::TextPayload(v) => Ok(Self::Output::TextPayload(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
         }
     }
 }
 
-impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_response::Result> for conformance_response::Result {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::conformance_response::Result, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_response::Result>
+    for conformance_response::Result
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::generated::gapic::model::conformance_response::Result,
+        gaxi::prost::ConvertError,
+    > {
         use crate::generated::gapic::model::conformance_response::Result as T;
         match self {
             Self::ParseError(v) => Ok(T::ParseError(v.cnv()?)),
@@ -158,38 +239,57 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_response
     }
 }
 
-impl gaxi::prost::ToProto<ConformanceResponse> for crate::generated::gapic::model::ConformanceResponse {
+impl gaxi::prost::ToProto<ConformanceResponse>
+    for crate::generated::gapic::model::ConformanceResponse
+{
     type Output = ConformanceResponse;
     fn to_proto(self) -> std::result::Result<ConformanceResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            result: self.result.map(|v| v.to_proto()).transpose()?,
+            result: self
+                .result
+                .map(|v| gaxi::prost::ToProto::<conformance_response::Result>::to_proto(v))
+                .transpose()?,
         })
     }
 }
 
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ConformanceResponse> for ConformanceResponse {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ConformanceResponse, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ConformanceResponse::new()
-                .set_result(self.result.map(|v| v.cnv()).transpose()?)
-        )
+impl gaxi::prost::FromProto<crate::generated::gapic::model::ConformanceResponse>
+    for ConformanceResponse
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::generated::gapic::model::ConformanceResponse,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::generated::gapic::model::ConformanceResponse::new()
+            .set_result(self.result.map(|v| v.cnv()).transpose()?))
     }
 }
 
-impl gaxi::prost::ToProto<JspbEncodingConfig> for crate::generated::gapic::model::JspbEncodingConfig {
+impl gaxi::prost::ToProto<JspbEncodingConfig>
+    for crate::generated::gapic::model::JspbEncodingConfig
+{
     type Output = JspbEncodingConfig;
     fn to_proto(self) -> std::result::Result<JspbEncodingConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            use_jspb_array_any_format: self.use_jspb_array_any_format.to_proto()?,
+            use_jspb_array_any_format: gaxi::prost::ToProto::<bool>::to_proto(
+                self.use_jspb_array_any_format,
+            )?,
         })
     }
 }
 
-impl gaxi::prost::FromProto<crate::generated::gapic::model::JspbEncodingConfig> for JspbEncodingConfig {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::JspbEncodingConfig, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::JspbEncodingConfig::new()
-                .set_use_jspb_array_any_format(self.use_jspb_array_any_format)
-        )
+impl gaxi::prost::FromProto<crate::generated::gapic::model::JspbEncodingConfig>
+    for JspbEncodingConfig
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::generated::gapic::model::JspbEncodingConfig,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::generated::gapic::model::JspbEncodingConfig::new()
+            .set_use_jspb_array_any_format(self.use_jspb_array_any_format))
     }
 }
