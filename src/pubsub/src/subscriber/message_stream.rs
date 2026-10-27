@@ -20,14 +20,12 @@ use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
 use super::shutdown_token::ShutdownToken;
 use super::stream::Stream;
-use super::stub::TonicStreaming as _;
 use super::transport::Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::model::Message;
 use crate::{Error, Result};
 use futures::FutureExt;
 use futures::future::{BoxFuture, Shared};
-use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
@@ -328,11 +326,7 @@ impl MessageStreamImpl {
             StreamState::Closed => return None,
             StreamState::Active(s) => s,
         };
-        stream
-            .next_message()
-            .await
-            .map_err(to_gax_error)
-            .transpose()
+        stream.next_message().await.transpose()
     }
 
     /// Populate the message pool by reading from the stream.
@@ -461,7 +455,7 @@ impl HandlerInfo {
 mod tests {
     use super::super::ShutdownBehavior;
     use super::super::client::Subscriber;
-    use super::super::keepalive::KEEPALIVE_PERIOD;
+    use super::super::keepalive::{KEEPALIVE_PERIOD, PONG_TIMEOUT};
     use super::super::lease_state::tests::{test_id, test_ids};
     use super::super::stream::{INITIAL_DELAY, MAXIMUM_DELAY};
     use super::*;
@@ -1185,6 +1179,184 @@ mod tests {
         // keepalive task was still running.
         tokio::time::advance(4 * KEEPALIVE_PERIOD).await;
         assert!(recover_writes_rx.is_empty(), "{recover_writes_rx:?}");
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn keepalive_timeout_reconnects_stream() -> anyhow::Result<()> {
+        let start_time = Instant::now();
+        // Keep `response_tx_1` alive so Stream 1 hangs silently instead of
+        // closing with EOF.
+        let (response_tx_1, response_rx_1) = channel(10);
+        let (response_tx_2, response_rx_2) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Ok(TonicResponse::from(response_rx_1)));
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Ok(TonicResponse::from(response_rx_2)));
+        mock.expect_acknowledge().times(1..).returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        response_tx_1.send(Ok(test_response(0..10))).await?;
+        response_tx_2.send(Ok(test_response(10..20))).await?;
+        drop(response_tx_2);
+
+        for i in 0..10 {
+            let (m, h) = stream
+                .next()
+                .await
+                .unwrap_or_else(|| panic!("expected message {}/20", i + 1))?;
+            assert_eq!(m.data, test_data(i));
+            h.ack();
+        }
+        assert_eq!(start_time.elapsed(), Duration::ZERO);
+
+        // Stream 1 is now silent. The next call to `stream.next().await` should
+        // time out at KEEPALIVE_PERIOD + PONG_TIMEOUT (45s), reconnect to
+        // Stream 2, and yield messages 10..20.
+        for i in 10..20 {
+            let (m, h) = stream
+                .next()
+                .await
+                .unwrap_or_else(|| panic!("expected message {}/20", i + 1))?;
+            assert_eq!(m.data, test_data(i));
+            h.ack();
+        }
+        assert_eq!(start_time.elapsed(), KEEPALIVE_PERIOD + PONG_TIMEOUT);
+
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        stream.shutdown_token().shutdown().await;
+
+        let mut got = Vec::new();
+        while let Ok(ack_req) = ack_rx.try_recv() {
+            assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+            got.extend(ack_req.ack_ids);
+        }
+        assert_eq!(sorted(got), test_ids(0..20));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn keepalive_heartbeats_keep_idle_stream_alive() -> anyhow::Result<()> {
+        let start_time = Instant::now();
+        let (response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        let response_tx_clone = response_tx.clone();
+        mock.expect_streaming_pull()
+            .times(1)
+            .return_once(move |request| {
+                tokio::spawn(async move {
+                    let mut request_rx = request.into_inner();
+                    // Read the initial request.
+                    let _ = request_rx.recv().await;
+                    // Reply to the next 3 keepalive pings with an empty heartbeat response.
+                    for _ in 0..3 {
+                        if let Some(Ok(req)) = request_rx.recv().await {
+                            assert_eq!(req, v1::StreamingPullRequest::default());
+                            let _ = response_tx_clone
+                                .send(Ok(v1::StreamingPullResponse::default()))
+                                .await;
+                        }
+                    }
+                    // After 3 keepalive cycles (90s), send a batch of messages and close.
+                    let _ = response_tx_clone.send(Ok(test_response(0..5))).await;
+                });
+                Ok(TonicResponse::from(response_rx))
+            });
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
+        drop(response_tx);
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        for i in 0..5 {
+            let (m, _h) = stream
+                .next()
+                .await
+                .unwrap_or_else(|| panic!("expected message {}/5", i + 1))?;
+            assert_eq!(m.data, test_data(i));
+        }
+        assert_eq!(start_time.elapsed(), KEEPALIVE_PERIOD * 3);
+
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn keepalive_no_false_timeout_while_draining_pool() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        let response_tx_clone = response_tx.clone();
+        mock.expect_streaming_pull()
+            .times(1)
+            .return_once(move |request| {
+                tokio::spawn(async move {
+                    let mut request_rx = request.into_inner();
+                    let _ = request_rx.recv().await;
+                    // When the first keepalive ping arrives at 30s, reply with a pong.
+                    if let Some(Ok(req)) = request_rx.recv().await {
+                        assert_eq!(req, v1::StreamingPullRequest::default());
+                        let _ = response_tx_clone
+                            .send(Ok(v1::StreamingPullResponse::default()))
+                            .await;
+                        let _ = response_tx_clone.send(Ok(test_response(5..10))).await;
+                    }
+                });
+                Ok(TonicResponse::from(response_rx))
+            });
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        // Send an initial batch of 5 messages.
+        response_tx.send(Ok(test_response(0..5))).await?;
+        drop(response_tx);
+
+        // Read the first message, leaving messages 1..5 in `self.pool`.
+        let (m, _h) = stream.next().await.expect("expected message 0")?;
+        assert_eq!(m.data, test_data(0));
+
+        // Simulate the application taking 50s (> 45s) before draining the rest
+        // of `self.pool` and reading the next batch from the stream.
+        tokio::time::sleep(KEEPALIVE_PERIOD + PONG_TIMEOUT + Duration::from_secs(5)).await;
+
+        for i in 1..10 {
+            let (m, _h) = stream
+                .next()
+                .await
+                .unwrap_or_else(|| panic!("expected message {i}/10"))?;
+            assert_eq!(m.data, test_data(i));
+        }
+
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
 
         Ok(())
     }
