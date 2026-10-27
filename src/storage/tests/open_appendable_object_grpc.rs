@@ -23,8 +23,8 @@ use google_cloud_storage::client::Storage;
 use prost::Message as _;
 use std::collections::HashMap;
 use std::error::Error as _;
+use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
-use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use storage_grpc_mock::google::rpc::Status as RpcStatus;
 use storage_grpc_mock::google::storage::v2::{
@@ -128,7 +128,6 @@ fn resource_response(
     finalized: bool,
     crc32c: Option<u32>,
 ) -> BidiWriteObjectResponse {
-    let checksums = object_checksums(crc32c);
     BidiWriteObjectResponse {
         write_status: Some(WriteStatus::Resource(ProtoObject {
             bucket: BUCKET_NAME.to_string(),
@@ -136,13 +135,13 @@ fn resource_response(
             generation: OBJECT_GENERATION,
             size,
             finalize_time: finalized.then(prost_types::Timestamp::default),
-            checksums: checksums.clone(),
+            checksums: object_checksums(crc32c),
             ..ProtoObject::default()
         })),
         write_handle: Some(BidiWriteHandle {
             handle: handle.to_vec(),
         }),
-        persisted_data_checksums: checksums,
+        persisted_data_checksums: object_checksums(crc32c),
     }
 }
 
@@ -293,17 +292,8 @@ mod conformance {
         // =========================================================================
         // Arrange: Mock Server Logic
         // =========================================================================
-        // Tracks how many times each segment / message is received by the mock server.
-        let counts: Arc<Mutex<HashMap<&'static str, usize>>> = Arc::new(Mutex::new(HashMap::new()));
-        let counts_clone = counts.clone();
-
-        let record = |counts: &Arc<Mutex<HashMap<&'static str, usize>>>, key: &'static str| {
-            *counts
-                .lock()
-                .expect("mutex poisoned")
-                .entry(key)
-                .or_insert(0) += 1;
-        };
+        // Tracks each segment / message received by the mock server without locks.
+        let (events_tx, mut events_rx) = tokio::sync::mpsc::unbounded_channel::<&'static str>();
 
         let mut mock = MockStorage::new();
         let mut seq = mockall::Sequence::new();
@@ -317,7 +307,7 @@ mod conformance {
             .once()
             .in_sequence(&mut seq)
             .return_once({
-                let counts = counts_clone.clone();
+                let events_tx = events_tx.clone();
                 move |request| {
                     let (_, _, mut requests) = request.into_parts();
                     let (tx, rx) = tokio::sync::mpsc::channel(4);
@@ -330,7 +320,7 @@ mod conformance {
                             Some(FirstMessage::WriteObjectSpec(_))
                         ));
                         assert_eq!(open_req.data, checksummed_data(b"ABC"));
-                        record(&counts, "open_abc");
+                        events_tx.send("open_abc").expect("record open_abc");
                         tx.send(Ok(resource_response(3, b"handle-1", false, None)))
                             .await
                             .expect("send open_abc response");
@@ -339,7 +329,7 @@ mod conformance {
                         let def_append = recv_request(&mut requests).await;
                         assert_eq!(def_append.write_offset, 3);
                         assert_eq!(def_append.data, checksummed_data(b"DEF"));
-                        record(&counts, "def");
+                        events_tx.send("def").expect("record def");
                         let def_flush = recv_request(&mut requests).await;
                         assert!(def_flush.flush && def_flush.state_lookup);
                         assert_eq!(def_flush.write_offset, 6);
@@ -351,7 +341,7 @@ mod conformance {
                         let ghi_append = recv_request(&mut requests).await;
                         assert_eq!(ghi_append.write_offset, 6);
                         assert_eq!(ghi_append.data, checksummed_data(b"GHI"));
-                        record(&counts, "ghi");
+                        events_tx.send("ghi").expect("record ghi");
                         let ghi_flush = recv_request(&mut requests).await;
                         assert!(ghi_flush.flush && ghi_flush.state_lookup);
                         assert_eq!(ghi_flush.write_offset, 9);
@@ -373,76 +363,72 @@ mod conformance {
         mock.expect_bidi_write_object()
             .once()
             .in_sequence(&mut seq)
-            .return_once({
-                let counts = counts_clone.clone();
-                move |request| {
-                    let (_, _, mut requests) = request.into_parts();
-                    let (tx, rx) = tokio::sync::mpsc::channel(4);
+            .return_once(move |request| {
+                let (_, _, mut requests) = request.into_parts();
+                let (tx, rx) = tokio::sync::mpsc::channel(4);
 
-                    tokio::spawn(async move {
-                        // 1. Reconnect handshake with state_lookup: true
-                        let reconnect_req = recv_request(&mut requests).await;
-                        let Some(FirstMessage::AppendObjectSpec(spec)) =
+                tokio::spawn(async move {
+                    // 1. Reconnect handshake with state_lookup: true
+                    let reconnect_req = recv_request(&mut requests).await;
+                    let Some(FirstMessage::AppendObjectSpec(spec)) = reconnect_req.first_message
+                    else {
+                        panic!(
+                            "expected AppendObjectSpec, got: {:?}",
                             reconnect_req.first_message
-                        else {
-                            panic!(
-                                "expected AppendObjectSpec, got: {:?}",
-                                reconnect_req.first_message
-                            );
-                        };
-                        assert_eq!(spec.bucket, BUCKET_NAME);
-                        assert_eq!(spec.object, OBJECT_NAME);
-                        assert_eq!(spec.generation, OBJECT_GENERATION);
-                        assert_eq!(
-                            spec.write_handle.as_ref().map(|h| h.handle.as_slice()),
-                            Some(b"handle-1".as_slice())
                         );
-                        assert!(reconnect_req.state_lookup);
-                        record(&counts, "reconnect");
-                        tx.send(Ok(persisted_size_response(6, b"handle-1", None)))
-                            .await
-                            .expect("send reconnect handshake response");
-
-                        // 2. Client replays only "GHI" at offset 6 and re-sends pending flush at offset 9
-                        let ghi_replay = recv_request(&mut requests).await;
-                        assert_eq!(ghi_replay.write_offset, 6);
-                        assert_eq!(ghi_replay.data, checksummed_data(b"GHI"));
-                        record(&counts, "ghi");
-                        let ghi_flush_replay = recv_request(&mut requests).await;
-                        assert!(ghi_flush_replay.flush && ghi_flush_replay.state_lookup);
-                        assert_eq!(ghi_flush_replay.write_offset, 9);
-                        tx.send(Ok(persisted_size_response(9, b"handle-1", None)))
-                            .await
-                            .expect("send ghi replay flush response");
-
-                        // 3. Client appends "J" at offset 9 and finalizes at offset 10
-                        let j_append = recv_request(&mut requests).await;
-                        assert_eq!(j_append.write_offset, 9);
-                        assert_eq!(j_append.data, checksummed_data(b"J"));
-                        record(&counts, "j");
-
-                        let finalize_req = recv_request(&mut requests).await;
-                        assert!(finalize_req.finish_write && finalize_req.flush);
-                        assert_eq!(finalize_req.write_offset, 10);
-                        let expected_full_crc = crc32c::crc32c(b"ABCDEFGHIJ");
-                        assert_eq!(
-                            finalize_req.object_checksums.and_then(|c| c.crc32c),
-                            Some(expected_full_crc)
-                        );
-                        record(&counts, "finalize");
-
-                        tx.send(Ok(resource_response(
-                            10,
-                            b"handle-1",
-                            true,
-                            Some(expected_full_crc),
-                        )))
+                    };
+                    assert_eq!(spec.bucket, BUCKET_NAME);
+                    assert_eq!(spec.object, OBJECT_NAME);
+                    assert_eq!(spec.generation, OBJECT_GENERATION);
+                    assert_eq!(
+                        spec.write_handle.as_ref().map(|h| h.handle.as_slice()),
+                        Some(b"handle-1".as_slice())
+                    );
+                    assert!(reconnect_req.state_lookup);
+                    events_tx.send("reconnect").expect("record reconnect");
+                    tx.send(Ok(persisted_size_response(6, b"handle-1", None)))
                         .await
-                        .expect("send finalize response");
-                    });
+                        .expect("send reconnect handshake response");
 
-                    Ok(TonicResponse::from(rx))
-                }
+                    // 2. Client replays only "GHI" at offset 6 and re-sends pending flush at offset 9
+                    let ghi_replay = recv_request(&mut requests).await;
+                    assert_eq!(ghi_replay.write_offset, 6);
+                    assert_eq!(ghi_replay.data, checksummed_data(b"GHI"));
+                    events_tx.send("ghi").expect("record ghi replay");
+                    let ghi_flush_replay = recv_request(&mut requests).await;
+                    assert!(ghi_flush_replay.flush && ghi_flush_replay.state_lookup);
+                    assert_eq!(ghi_flush_replay.write_offset, 9);
+                    tx.send(Ok(persisted_size_response(9, b"handle-1", None)))
+                        .await
+                        .expect("send ghi replay flush response");
+
+                    // 3. Client appends "J" at offset 9 and finalizes at offset 10
+                    let j_append = recv_request(&mut requests).await;
+                    assert_eq!(j_append.write_offset, 9);
+                    assert_eq!(j_append.data, checksummed_data(b"J"));
+                    events_tx.send("j").expect("record j");
+
+                    let finalize_req = recv_request(&mut requests).await;
+                    assert!(finalize_req.finish_write && finalize_req.flush);
+                    assert_eq!(finalize_req.write_offset, 10);
+                    let expected_full_crc = crc32c::crc32c(b"ABCDEFGHIJ");
+                    assert_eq!(
+                        finalize_req.object_checksums.and_then(|c| c.crc32c),
+                        Some(expected_full_crc)
+                    );
+                    events_tx.send("finalize").expect("record finalize");
+
+                    tx.send(Ok(resource_response(
+                        10,
+                        b"handle-1",
+                        true,
+                        Some(expected_full_crc),
+                    )))
+                    .await
+                    .expect("send finalize response");
+                });
+
+                Ok(TonicResponse::from(rx))
             });
 
         let (client, _server) = start_test_server(mock).await?;
@@ -484,6 +470,10 @@ mod conformance {
         // - "ghi" was seen TWICE (1st time before crash + 2nd time replayed on Stream 2)
         // - "reconnect" handshake probe was seen ONCE
         // - "j" and "finalize" were seen ONCE
+        let mut observed_counts = HashMap::new();
+        while let Ok(event) = events_rx.try_recv() {
+            *observed_counts.entry(event).or_insert(0) += 1;
+        }
         let expected_counts = HashMap::from([
             ("open_abc", 1),
             ("def", 1),
@@ -492,7 +482,7 @@ mod conformance {
             ("j", 1),
             ("finalize", 1),
         ]);
-        assert_eq!(*counts.lock().expect("mutex poisoned"), expected_counts);
+        assert_eq!(observed_counts, expected_counts);
 
         Ok(())
     }
@@ -636,7 +626,7 @@ mod conformance {
         // - Client opens object with "ABC" (ACK 3).
         // - Client appends "DEF" and calls flush().
         // - Server fails with Unavailable before acknowledging "DEF".
-        //   -> Starts the client's retry budget timer (400ms time limit) at T = 0ms.
+        //   -> Starts the client's retry budget timer (200ms time limit) at T = 0ms.
         mock.expect_bidi_write_object()
             .once()
             .in_sequence(&mut seq)
@@ -672,7 +662,7 @@ mod conformance {
         // Stream 2:
         // - Client reconnects; handshake reports persisted_size = 3 (no progress yet; retry timer running).
         // - Client replays "DEF" + flush.
-        // - Server pauses for 600ms (exceeding the 400ms retry budget!).
+        // - Server pauses for 300ms (exceeding the 200ms retry budget!).
         // - Server then sends ACK for "DEF" (persisted_size = 6).
         //   -> Crucial test point: Advancing persisted_size RESETS the client's retry timer!
         // - Server immediately fails with Unavailable when receiving "GHI".
@@ -700,11 +690,11 @@ mod conformance {
                     let def_flush = recv_request(&mut requests).await;
                     assert_eq!(def_flush.write_offset, 6);
 
-                    // Pause for 600ms (1.5x the 400ms retry time limit) before acknowledging "DEF"
-                    tokio::time::sleep(Duration::from_millis(600)).await;
+                    // Pause for 300ms (1.5x the 200ms retry time limit) before acknowledging "DEF"
+                    tokio::time::sleep(Duration::from_millis(300)).await;
                     tx.send(Ok(persisted_size_response(6, b"handle-pause", None)))
                         .await
-                        .expect("acknowledge DEF after 600ms pause");
+                        .expect("acknowledge DEF after 300ms pause");
 
                     // Receive "GHI" + flush, then fail with Unavailable
                     let ghi_append = recv_request(&mut requests).await;
@@ -712,7 +702,7 @@ mod conformance {
                     assert_eq!(ghi_append.data, checksummed_data(b"GHI"));
                     let ghi_flush = recv_request(&mut requests).await;
                     assert_eq!(ghi_flush.write_offset, 9);
-                    tx.send(Err(TonicStatus::unavailable("error after 600ms pause")))
+                    tx.send(Err(TonicStatus::unavailable("error after 300ms pause")))
                         .await
                         .expect("send unavailable after pause");
                 });
@@ -721,7 +711,7 @@ mod conformance {
             });
 
         // Stream 3:
-        // - Reconnect succeeds because the 6-byte ACK in Stream 2 reset the retry timer, giving a fresh 400ms!
+        // - Reconnect succeeds because the 6-byte ACK in Stream 2 reset the retry timer, giving a fresh 200ms!
         // - Client replays "GHI" (ACK 9).
         // - Client appends "J" and finalizes (ACK 10).
         mock.expect_bidi_write_object()
@@ -782,10 +772,10 @@ mod conformance {
             .with_maximum_delay(Duration::from_millis(20))
             .build()?;
 
-        // Configure strict 400ms retry budget
+        // Configure strict 200ms retry budget
         let mut writer = client
             .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
-            .with_retry_policy(AlwaysRetry.with_time_limit(Duration::from_millis(400)))
+            .with_retry_policy(AlwaysRetry.with_time_limit(Duration::from_millis(200)))
             .with_backoff_policy(backoff)
             .send_and_append("ABC")
             .await?;
