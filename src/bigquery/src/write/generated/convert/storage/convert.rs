@@ -165,6 +165,24 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::AvroS
     }
 }
 
+impl gaxi::prost::ToProto<ProtoSchema> for crate::write::generated::gapic_storage::model::ProtoSchema {
+    type Output = ProtoSchema;
+    fn to_proto(self) -> std::result::Result<ProtoSchema, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            proto_descriptor: self.proto_descriptor.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::ProtoSchema> for ProtoSchema {
+    fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::ProtoSchema, gaxi::prost::ConvertError> {
+        Ok(
+            crate::write::generated::gapic_storage::model::ProtoSchema::new()
+                .set_or_clear_proto_descriptor(self.proto_descriptor.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<ProtoRows> for crate::write::generated::gapic_storage::model::ProtoRows {
     type Output = ProtoRows;
     fn to_proto(self) -> std::result::Result<ProtoRows, gaxi::prost::ConvertError> {
