@@ -530,6 +530,19 @@ async fn run_object_management_examples(
     objects::list_object_contexts::sample(control, id).await?;
     tracing::info!("running get_object_contexts example");
     objects::get_object_contexts::sample(control, id).await?;
+    tracing::info!("running delete_object_contexts example");
+    objects::delete_object_contexts::sample(control, id).await?;
+    let object = control
+        .get_object()
+        .set_bucket(format!("projects/_/buckets/{id}"))
+        .set_object("object-with-contexts")
+        .send()
+        .await?;
+    assert!(
+        object.contexts.as_ref().is_none_or(|c| c.custom.is_empty()),
+        "expected no custom contexts after delete_object_contexts, got {:?}",
+        object.contexts
+    );
 
     Ok(())
 }

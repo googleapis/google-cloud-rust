@@ -22,6 +22,7 @@ pub mod copy_file_archived_generation;
 pub mod create_and_write_appendable_object;
 pub mod delete_file;
 pub mod delete_file_archived_generation;
+pub mod delete_object_contexts;
 pub mod download_byte_range;
 pub mod download_encrypted_file;
 pub mod download_file;
