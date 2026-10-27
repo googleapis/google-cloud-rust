@@ -36,11 +36,12 @@ pub use gaxi::grpc::GrpcRustClient;
 ///
 /// Every transport implements this trait the same way, so a generic test
 /// sends the same requests through each of them.
-pub trait EchoTransport: Clone + Send + Sync + Sized + 'static {
-    /// Creates a client that sends requests to `endpoint`.
+pub trait EchoTransport: Clone + Send + Sync + 'static {
+    /// Creates a client that sends requests to `default_endpoint`, unless
+    /// `config.endpoint` overrides it.
     fn connect(
         config: ClientConfig,
-        endpoint: &str,
+        default_endpoint: &str,
     ) -> impl Future<Output = ClientBuilderResult<Self>> + Send;
 
     /// Calls `google.test.v1.EchoService/Echo`.
@@ -57,8 +58,11 @@ pub trait EchoTransport: Clone + Send + Sync + Sized + 'static {
 macro_rules! impl_echo_transport {
     ($client:ty) => {
         impl EchoTransport for $client {
-            async fn connect(config: ClientConfig, endpoint: &str) -> ClientBuilderResult<Self> {
-                Self::new(config, endpoint).await
+            async fn connect(
+                config: ClientConfig,
+                default_endpoint: &str,
+            ) -> ClientBuilderResult<Self> {
+                Self::new(config, default_endpoint).await
             }
 
             async fn echo(
@@ -68,10 +72,7 @@ macro_rules! impl_echo_transport {
                 request_params: &str,
             ) -> google_cloud_gax::Result<tonic::Response<EchoResponse>> {
                 let mut extensions = tonic::Extensions::new();
-                extensions.insert(tonic::GrpcMethod::new(
-                    "google.test.v1.EchoServices",
-                    "Echo",
-                ));
+                extensions.insert(tonic::GrpcMethod::new("google.test.v1.EchoService", "Echo"));
                 self.execute(
                     extensions,
                     http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
@@ -92,7 +93,7 @@ impl_echo_transport!(GrpcRustClient);
 
 /// A [`ClientFactory`] for `C` clients, see [`transport_builder`].
 pub struct TransportFactory<C> {
-    endpoint: String,
+    default_endpoint: String,
     client: PhantomData<fn() -> C>,
 }
 
@@ -100,17 +101,17 @@ impl<C: EchoTransport> ClientFactory for TransportFactory<C> {
     type Client = C;
     type Credentials = Credentials;
     async fn build(self, config: ClientConfig) -> ClientBuilderResult<C> {
-        C::connect(config, &self.endpoint).await
+        C::connect(config, &self.default_endpoint).await
     }
 }
 
 /// Returns a [`ClientBuilder`] for `C` clients that send requests to
-/// `endpoint`.
+/// `default_endpoint`, unless [`ClientBuilder::with_endpoint`] overrides it.
 pub fn transport_builder<C: EchoTransport>(
-    endpoint: impl Into<String>,
+    default_endpoint: impl Into<String>,
 ) -> ClientBuilder<TransportFactory<C>, Credentials> {
     new_builder(TransportFactory {
-        endpoint: endpoint.into(),
+        default_endpoint: default_endpoint.into(),
         client: PhantomData,
     })
 }
@@ -118,15 +119,22 @@ pub fn transport_builder<C: EchoTransport>(
 /// Defines `mod $name` with a `tonic` test and, when built with
 /// `--cfg google_cloud_unstable_grpc_rust`, a `grpc_rust` test.
 ///
+/// ```
+/// use grpc_server::both_transports;
+/// use grpc_server::transport::EchoTransport;
+///
+/// both_transports!(echo_works);
+/// async fn echo_works<C: EchoTransport>() -> anyhow::Result<()> {
+///     // Build a `C` client with `transport_builder` and send requests.
+///     Ok(())
+/// }
+/// # fn main() {}
+/// ```
+///
 /// Both tests get the attributes passed to the macro (`#[tokio::test]` if
 /// there are none), and call the generic
 /// `async fn $name<C: EchoTransport>() -> anyhow::Result<()>` defined next
 /// to the macro call.
-///
-/// ```ignore
-/// both_transports!(echo_works);
-/// async fn echo_works<C: EchoTransport>() -> anyhow::Result<()> { ... }
-/// ```
 #[macro_export]
 macro_rules! both_transports {
     ($name:ident) => {
