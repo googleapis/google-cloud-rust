@@ -36,33 +36,45 @@ mod bigquery {
     #[tokio::test]
     async fn run_query_client() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::query_client()
-            .await
-            .inspect_err(anydump)
+        for format in integration_tests_bigquery::QUERY_FORMATS {
+            integration_tests_bigquery::query_client(format)
+                .await
+                .inspect_err(anydump)?;
+        }
+        Ok(())
     }
 
     #[tokio::test]
     async fn run_query_client_datatypes() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::query_client_datatypes()
-            .await
-            .inspect_err(anydump)
+        for format in integration_tests_bigquery::QUERY_FORMATS {
+            integration_tests_bigquery::query_client_datatypes(format)
+                .await
+                .inspect_err(anydump)?;
+        }
+        Ok(())
     }
 
     #[tokio::test]
     async fn run_query_client_numeric_limits() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::query_client_numeric_limits()
-            .await
-            .inspect_err(anydump)
+        for format in integration_tests_bigquery::QUERY_FORMATS {
+            integration_tests_bigquery::query_client_numeric_limits(format)
+                .await
+                .inspect_err(anydump)?;
+        }
+        Ok(())
     }
 
     #[tokio::test]
     async fn run_query_client_multi_page() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::query_client_multi_page()
-            .await
-            .inspect_err(anydump)
+        for format in integration_tests_bigquery::QUERY_FORMATS {
+            integration_tests_bigquery::query_client_multi_page(format)
+                .await
+                .inspect_err(anydump)?;
+        }
+        Ok(())
     }
 
     #[tokio::test]
@@ -76,17 +88,23 @@ mod bigquery {
     #[tokio::test]
     async fn run_query_client_nested_types() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::query_client_nested_types()
-            .await
-            .inspect_err(anydump)
+        for format in integration_tests_bigquery::QUERY_FORMATS {
+            integration_tests_bigquery::query_client_nested_types(format)
+                .await
+                .inspect_err(anydump)?;
+        }
+        Ok(())
     }
 
     #[tokio::test]
     async fn run_query_client_collation() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::query_client_collation()
-            .await
-            .inspect_err(anydump)
+        for format in integration_tests_bigquery::QUERY_FORMATS {
+            integration_tests_bigquery::query_client_collation(format)
+                .await
+                .inspect_err(anydump)?;
+        }
+        Ok(())
     }
 
     #[tokio::test]

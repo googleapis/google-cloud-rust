@@ -17,17 +17,22 @@ use anyhow::Result;
 use google_cloud_bigquery::client::BigQuery;
 use google_cloud_bigquery::datatypes::{Interval, Range};
 use google_cloud_bigquery::query::{FromRow, FromSql};
+pub use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
 use google_cloud_test_utils::runtime_config::project_id;
 use google_cloud_type::model::Decimal;
 use rust_decimal::Decimal as RustDecimal;
 
-pub async fn query_client() -> Result<()> {
+pub const QUERY_FORMATS: [QueryResultsFormat; 2] =
+    [QueryResultsFormat::Unspecified, QueryResultsFormat::Arrow];
+
+pub async fn query_client(format: QueryResultsFormat) -> Result<()> {
     let project_id = project_id()?;
     let bq = BigQuery::builder().build().await?;
 
     let query = bq
         .query("SELECT 1 as one")
         .with_project_id(&project_id)
+        .set_query_results_format(format.clone())
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .send()
         .await?;
@@ -49,6 +54,7 @@ pub async fn query_client() -> Result<()> {
     let empty_query = bq
         .query("SELECT x AS one FROM UNNEST([1]) AS x WHERE FALSE")
         .with_project_id(project_id)
+        .set_query_results_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
@@ -81,7 +87,7 @@ struct UserData {
     json_val: wkt::Struct,
 }
 
-pub async fn query_client_datatypes() -> Result<()> {
+pub async fn query_client_datatypes(format: QueryResultsFormat) -> Result<()> {
     let project_id = project_id()?;
     let bq = BigQuery::builder().build().await?;
 
@@ -108,6 +114,7 @@ pub async fn query_client_datatypes() -> Result<()> {
                  JSON '{"role": "admin", "level": 5}' AS json_val"#,
         )
         .with_project_id(project_id)
+        .set_query_results_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
@@ -246,7 +253,7 @@ pub async fn query_client_datatypes() -> Result<()> {
     Ok(())
 }
 
-pub async fn query_client_numeric_limits() -> Result<()> {
+pub async fn query_client_numeric_limits(format: QueryResultsFormat) -> Result<()> {
     let project_id = project_id()?;
     let bq = BigQuery::builder().build().await?;
 
@@ -259,6 +266,7 @@ pub async fn query_client_numeric_limits() -> Result<()> {
                  CAST('1234567890.1234567890' AS BIGNUMERIC) AS standard_bignumeric",
         )
         .with_project_id(project_id)
+        .set_query_results_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
@@ -298,13 +306,14 @@ pub async fn query_client_numeric_limits() -> Result<()> {
     Ok(())
 }
 
-pub async fn query_client_multi_page() -> Result<()> {
+pub async fn query_client_multi_page(format: QueryResultsFormat) -> Result<()> {
     let project_id = project_id()?;
     let bq = BigQuery::builder().build().await?;
 
     let query = bq
         .query("SELECT * FROM UNNEST(GENERATE_ARRAY(1, 10000)) AS val")
         .set_page_size(1000_u32)
+        .set_query_results_format(format)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
@@ -568,31 +577,43 @@ struct RowData {
     numbers: Vec<i64>,
     users: Vec<UserRecord>,
     profile: UserProfile,
-    anon: AnonTriple,
     pair: NamedZThenA,
-    dup: DupIdNamed,
 }
 
-pub async fn query_client_nested_types() -> Result<()> {
+pub async fn query_client_nested_types(format: QueryResultsFormat) -> Result<()> {
     let project_id = project_id()?;
     let bq = google_cloud_bigquery::client::BigQuery::builder()
         .build()
         .await?;
 
-    println!("STARTING NESTED TYPES INTEGRATION TEST");
+    println!("STARTING NESTED TYPES INTEGRATION TEST ({format:?})");
 
-    let sql = "SELECT \
-                 STRUCT('Alice' AS name, 25 AS age) AS user, \
-                 ARRAY[1, 2, 3] AS numbers, \
-                 ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
-                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
-                 STRUCT(10, 'hello', true) AS anon, \
-                 STRUCT(1 AS z, 2 AS a) AS pair, \
-                 STRUCT(100 AS id, 200 AS id) AS dup";
+    let is_arrow = format == QueryResultsFormat::Arrow;
+
+    // In Arrow format, BigQuery backend (HelixTranscoder) rejects anonymous struct fields
+    // and duplicate struct field names with INVALID_ARGUMENT (b/571038474).
+    let sql = if is_arrow {
+        "SELECT \
+             STRUCT('Alice' AS name, 25 AS age) AS user, \
+             ARRAY[1, 2, 3] AS numbers, \
+             ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
+             STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
+             STRUCT(1 AS z, 2 AS a) AS pair"
+    } else {
+        "SELECT \
+             STRUCT('Alice' AS name, 25 AS age) AS user, \
+             ARRAY[1, 2, 3] AS numbers, \
+             ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
+             STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
+             STRUCT(10, 'hello', true) AS anon, \
+             STRUCT(1 AS z, 2 AS a) AS pair, \
+             STRUCT(100 AS id, 200 AS id) AS dup"
+    };
 
     let query = bq
         .query(sql)
         .with_project_id(project_id)
+        .set_query_results_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
@@ -605,11 +626,21 @@ pub async fn query_client_nested_types() -> Result<()> {
     let pair_by_pos: PositionalPair = row.get("pair")?;
     assert_eq!(pair_by_pos, PositionalPair(1, 2));
 
-    // Verify positional extraction on `dup` accesses both duplicate `id` fields (100, 200)
-    let dup_by_pos: PositionalPair = row.get("dup")?;
-    assert_eq!(dup_by_pos, PositionalPair(100, 200));
+    if !is_arrow {
+        // Verify positional extraction on `dup` accesses both duplicate `id` fields (100, 200)
+        let dup_by_pos: PositionalPair = row.get("dup")?;
+        assert_eq!(dup_by_pos, PositionalPair(100, 200));
 
-    // Deserialize the entire row as user defined struct
+        // verify anonymous struct preserves all unnamed fields
+        let anon: AnonTriple = row.get("anon")?;
+        assert_eq!(anon, AnonTriple(10, "hello".to_string(), true));
+
+        // verify named extraction on `dup` returns the first `id` field
+        let dup: DupIdNamed = row.get("dup")?;
+        assert_eq!(dup, DupIdNamed { id: 100 });
+    }
+
+    // Deserialize the common nested fields as user defined struct
     let data: RowData = row.try_into()?;
 
     // verify nested struct
@@ -637,19 +668,15 @@ pub async fn query_client_nested_types() -> Result<()> {
     assert_eq!(data.profile.birth_date.month, 5);
     assert_eq!(data.profile.birth_date.day, 28);
 
-    // verify anonymous struct preserves all unnamed fields
-    assert_eq!(data.anon, AnonTriple(10, "hello".to_string(), true));
-
     // verify named extraction on `pair`
     assert_eq!(data.pair, NamedZThenA { z: 1, a: 2 });
 
-    // verify named extraction on `dup` returns the first `id` field
-    assert_eq!(data.dup, DupIdNamed { id: 100 });
+    assert!(rows.next().await.is_none());
 
     Ok(())
 }
 
-pub async fn query_client_collation() -> Result<()> {
+pub async fn query_client_collation(format: QueryResultsFormat) -> Result<()> {
     let project_id = project_id()?;
     let bq = google_cloud_bigquery::client::BigQuery::builder()
         .build()
@@ -659,6 +686,7 @@ pub async fn query_client_collation() -> Result<()> {
     let query = bq
         .query(sql)
         .with_project_id(project_id)
+        .set_query_results_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
