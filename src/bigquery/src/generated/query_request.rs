@@ -160,6 +160,20 @@ pub struct QueryRequest {
     /// Query parameters for GoogleSQL queries.
     pub query_parameters: std::vec::Vec<google_cloud_bigquery_v2::model::QueryParameter>,
 
+    /// Optional. The query results format.
+    /// If the value is anything other than `STRUCT_ENCODING` or unspecified:
+    ///
+    /// * The schema of the results will be provided in
+    ///   `QueryResponse.results_schema` field.
+    /// * The results of the first page will be provided in
+    ///   `QueryResponse.results` field.
+    /// * The `QueryResponse.rows` will not be populated.
+    /// * The `QueryResponse.schema` for `QueryResponse.rows` will also not be
+    ///   populated since it is the schema of the `QueryResponse.rows`.
+    ///
+    /// This feature is not yet available.
+    pub query_results_format: google_cloud_bigquery_v2::model::query_request::QueryResultsFormat,
+
     /// Range partitioning specification for the destination table.
     /// Only one of timePartitioning and rangePartitioning should be specified.
     pub range_partitioning: std::option::Option<google_cloud_bigquery_v2::model::RangePartitioning>,
@@ -241,6 +255,14 @@ pub struct QueryRequest {
     /// BigQuery is able to complete the job successfully. Creation, truncation and
     /// append actions occur as one atomic update upon job completion.
     pub write_disposition: std::string::String,
+
+    /// Results serialization options for `query_results_format` other than
+    /// `STRUCT_ENCODING`.
+    ///
+    /// This feature is not yet available.
+    pub results_format_serialization_options: std::option::Option<
+        google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions,
+    >,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -549,6 +571,17 @@ impl QueryRequest {
         self
     }
 
+    /// Sets the value of [query_results_format][crate::model_ext::QueryRequest::query_results_format].
+    pub fn set_query_results_format<
+        T: std::convert::Into<google_cloud_bigquery_v2::model::query_request::QueryResultsFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_results_format = v.into();
+        self
+    }
+
     /// Sets the value of [range_partitioning][crate::model_ext::QueryRequest::range_partitioning].
     pub fn set_range_partitioning<T>(mut self, v: T) -> Self
     where
@@ -705,6 +738,52 @@ impl QueryRequest {
         self.write_disposition = v.into();
         self
     }
+
+    /// Sets the value of [results_format_serialization_options][crate::model_ext::QueryRequest::results_format_serialization_options].
+    ///
+    /// Note that all the setters affecting `results_format_serialization_options` are mutually
+    /// exclusive.
+    pub fn set_results_format_serialization_options<T: std::convert::Into<std::option::Option<google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions>>>(mut self, v: T) -> Self
+{
+        self.results_format_serialization_options = v.into();
+        self
+    }
+
+    /// The value of [results_format_serialization_options][crate::model_ext::QueryRequest::results_format_serialization_options]
+    /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn arrow_serialization_options(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<google_cloud_bigquery_v2::model::ArrowSerializationOptions>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.results_format_serialization_options.as_ref().and_then(|v| match v {
+            google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [results_format_serialization_options][crate::model_ext::QueryRequest::results_format_serialization_options]
+    /// to hold a `ArrowSerializationOptions`.
+    ///
+    /// Note that all the setters affecting `results_format_serialization_options` are
+    /// mutually exclusive.
+    pub fn set_arrow_serialization_options<
+        T: std::convert::Into<
+                std::boxed::Box<google_cloud_bigquery_v2::model::ArrowSerializationOptions>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.results_format_serialization_options = std::option::Option::Some(
+            google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
+                v.into()
+            )
+        );
+        self
+    }
 }
 
 mod debug {
@@ -740,6 +819,7 @@ mod debug {
             debug_struct.field("priority", &self.priority);
             debug_struct.field("query", &self.query);
             debug_struct.field("query_parameters", &self.query_parameters);
+            debug_struct.field("query_results_format", &self.query_results_format);
             debug_struct.field("range_partitioning", &self.range_partitioning);
             debug_struct.field("reservation", &self.reservation);
             debug_struct.field("schema_update_options", &self.schema_update_options);
@@ -753,6 +833,10 @@ mod debug {
                 &self.user_defined_function_resources,
             );
             debug_struct.field("write_disposition", &self.write_disposition);
+            debug_struct.field(
+                "results_format_serialization_options",
+                &self.results_format_serialization_options,
+            );
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -793,13 +877,15 @@ impl std::convert::From<QueryRequest> for google_cloud_bigquery_v2::model::Query
         out.job_timeout_ms = req.job_timeout_ms;
         out.labels = req.labels;
         out.location = req.location;
-        out.max_results = req.page_size;
         out.max_slots = req.max_slots;
         out.maximum_bytes_billed = req.maximum_bytes_billed;
+        out.max_results = req.page_size;
         out.parameter_mode = req.parameter_mode;
         out.query = req.query;
         out.query_parameters = req.query_parameters;
+        out.query_results_format = req.query_results_format;
         out.reservation = req.reservation;
+        out.results_format_serialization_options = req.results_format_serialization_options;
         out.timeout_ms = req.timeout_ms;
         out.use_legacy_sql = req.use_legacy_sql;
         out.use_query_cache = req.use_query_cache;
