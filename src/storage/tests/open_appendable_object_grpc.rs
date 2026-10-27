@@ -44,6 +44,7 @@ const OBJECT_GENERATION: i64 = 123456;
 const ERR_STREAM_CLOSED_PREMATURELY: &str = "gRPC stream closed before the request was received";
 const ERR_RECV_ERROR: &str = "error while reading the request";
 
+/// Creates a `Storage` client configured with anonymous credentials for a mock endpoint.
 async fn make_client(endpoint: impl Into<String>) -> anyhow::Result<Storage> {
     let client = Storage::builder()
         .with_credentials(Anonymous::new().build())
@@ -53,6 +54,7 @@ async fn make_client(endpoint: impl Into<String>) -> anyhow::Result<Storage> {
     Ok(client)
 }
 
+/// Starts an in-process mock storage gRPC server and returns an initialized client and server guard.
 async fn start_test_server(
     mock: MockStorage,
 ) -> anyhow::Result<(Storage, tokio::task::JoinHandle<()>)> {
@@ -61,6 +63,7 @@ async fn start_test_server(
     Ok((client, server))
 }
 
+/// Receives the next request message from the client's streaming channel.
 async fn recv_request(
     requests: &mut tokio::sync::mpsc::Receiver<TonicResult<BidiWriteObjectRequest>>,
 ) -> BidiWriteObjectRequest {
@@ -83,6 +86,23 @@ fn extract_status_code(err: &google_cloud_storage::Error) -> Option<Code> {
         .map(|s| s.code)
 }
 
+/// Constructs an expected `Data::ChecksummedData` payload with its computed CRC32C checksum.
+fn checksummed_data(payload: &[u8]) -> Option<Data> {
+    Some(Data::ChecksummedData(ChecksummedData {
+        content: payload.to_vec(),
+        crc32c: Some(crc32c::crc32c(payload)),
+    }))
+}
+
+/// Constructs an `ObjectChecksums` proto from an optional CRC32C value.
+fn object_checksums(crc32c: Option<u32>) -> Option<ObjectChecksums> {
+    crc32c.map(|crc| ObjectChecksums {
+        crc32c: Some(crc),
+        ..ObjectChecksums::default()
+    })
+}
+
+/// Constructs a tonic `Status` representing a GCS `BidiWriteObjectRedirectedError`.
 fn redirect_status(routing_token: &str, handle: &[u8], generation: i64) -> TonicStatus {
     let redirect = BidiWriteObjectRedirectedError {
         routing_token: Some(routing_token.to_string()),
@@ -101,12 +121,14 @@ fn redirect_status(routing_token: &str, handle: &[u8], generation: i64) -> Tonic
     TonicStatus::with_details(gaxi::grpc::tonic::Code::Aborted, "redirect", details)
 }
 
+/// Constructs a `BidiWriteObjectResponse` carrying a `WriteStatus::Resource`.
 fn resource_response(
     size: i64,
     handle: &[u8],
     finalized: bool,
     crc32c: Option<u32>,
 ) -> BidiWriteObjectResponse {
+    let checksums = object_checksums(crc32c);
     BidiWriteObjectResponse {
         write_status: Some(WriteStatus::Resource(ProtoObject {
             bucket: BUCKET_NAME.to_string(),
@@ -114,22 +136,17 @@ fn resource_response(
             generation: OBJECT_GENERATION,
             size,
             finalize_time: finalized.then(prost_types::Timestamp::default),
-            checksums: crc32c.map(|crc| ObjectChecksums {
-                crc32c: Some(crc),
-                md5_hash: Vec::new(),
-            }),
+            checksums: checksums.clone(),
             ..ProtoObject::default()
         })),
         write_handle: Some(BidiWriteHandle {
             handle: handle.to_vec(),
         }),
-        persisted_data_checksums: crc32c.map(|crc| ObjectChecksums {
-            crc32c: Some(crc),
-            md5_hash: Vec::new(),
-        }),
+        persisted_data_checksums: checksums,
     }
 }
 
+/// Constructs a `BidiWriteObjectResponse` carrying a `WriteStatus::PersistedSize`.
 fn persisted_size_response(
     size: i64,
     handle: &[u8],
@@ -140,10 +157,7 @@ fn persisted_size_response(
         write_handle: Some(BidiWriteHandle {
             handle: handle.to_vec(),
         }),
-        persisted_data_checksums: crc32c.map(|crc| ObjectChecksums {
-            crc32c: Some(crc),
-            md5_hash: Vec::new(),
-        }),
+        persisted_data_checksums: object_checksums(crc32c),
     }
 }
 
@@ -176,11 +190,7 @@ mod conformance {
                     // Acknowledge opening data ("ABC", 3 bytes), then return Redirect #1
                     // when the client attempts to flush "DEF".
                     Some(FirstMessage::WriteObjectSpec(_)) => {
-                        let data = match first.data {
-                            Some(Data::ChecksummedData(cd)) => cd.content,
-                            other => panic!("expected ChecksummedData, got: {other:?}"),
-                        };
-                        assert_eq!(data, b"ABC");
+                        assert_eq!(first.data, checksummed_data(b"ABC"));
                         tx.send(Ok(resource_response(3, b"handle-initial", false, None)))
                             .await
                             .expect("failed to send initial open response");
@@ -188,6 +198,7 @@ mod conformance {
                         // Receive "DEF" append and flush request
                         let append_def = recv_request(&mut requests).await;
                         assert_eq!(append_def.write_offset, 3);
+                        assert_eq!(append_def.data, checksummed_data(b"DEF"));
                         let flush_def = recv_request(&mut requests).await;
                         assert!(flush_def.flush);
                         assert_eq!(flush_def.write_offset, 6);
@@ -318,13 +329,7 @@ mod conformance {
                             open_req.first_message,
                             Some(FirstMessage::WriteObjectSpec(_))
                         ));
-                        assert_eq!(
-                            open_req.data,
-                            Some(Data::ChecksummedData(ChecksummedData {
-                                content: b"ABC".to_vec(),
-                                crc32c: Some(crc32c::crc32c(b"ABC")),
-                            }))
-                        );
+                        assert_eq!(open_req.data, checksummed_data(b"ABC"));
                         record(&counts, "open_abc");
                         tx.send(Ok(resource_response(3, b"handle-1", false, None)))
                             .await
@@ -333,13 +338,7 @@ mod conformance {
                         // 2. Append "DEF" + Flush at offset 6
                         let def_append = recv_request(&mut requests).await;
                         assert_eq!(def_append.write_offset, 3);
-                        assert_eq!(
-                            def_append.data,
-                            Some(Data::ChecksummedData(ChecksummedData {
-                                content: b"DEF".to_vec(),
-                                crc32c: Some(crc32c::crc32c(b"DEF")),
-                            }))
-                        );
+                        assert_eq!(def_append.data, checksummed_data(b"DEF"));
                         record(&counts, "def");
                         let def_flush = recv_request(&mut requests).await;
                         assert!(def_flush.flush && def_flush.state_lookup);
@@ -351,13 +350,7 @@ mod conformance {
                         // 3. Append "GHI" + Flush at offset 9 -> server fails with transient error before ACK
                         let ghi_append = recv_request(&mut requests).await;
                         assert_eq!(ghi_append.write_offset, 6);
-                        assert_eq!(
-                            ghi_append.data,
-                            Some(Data::ChecksummedData(ChecksummedData {
-                                content: b"GHI".to_vec(),
-                                crc32c: Some(crc32c::crc32c(b"GHI")),
-                            }))
-                        );
+                        assert_eq!(ghi_append.data, checksummed_data(b"GHI"));
                         record(&counts, "ghi");
                         let ghi_flush = recv_request(&mut requests).await;
                         assert!(ghi_flush.flush && ghi_flush.state_lookup);
@@ -389,18 +382,21 @@ mod conformance {
                     tokio::spawn(async move {
                         // 1. Reconnect handshake with state_lookup: true
                         let reconnect_req = recv_request(&mut requests).await;
-                        match reconnect_req.first_message {
-                            Some(FirstMessage::AppendObjectSpec(spec)) => {
-                                assert_eq!(spec.bucket, BUCKET_NAME);
-                                assert_eq!(spec.object, OBJECT_NAME);
-                                assert_eq!(spec.generation, OBJECT_GENERATION);
-                                assert_eq!(
-                                    spec.write_handle.as_ref().map(|h| h.handle.as_slice()),
-                                    Some(b"handle-1".as_slice())
-                                );
-                            }
-                            other => panic!("expected AppendObjectSpec, got: {other:?}"),
-                        }
+                        let Some(FirstMessage::AppendObjectSpec(spec)) =
+                            reconnect_req.first_message
+                        else {
+                            panic!(
+                                "expected AppendObjectSpec, got: {:?}",
+                                reconnect_req.first_message
+                            );
+                        };
+                        assert_eq!(spec.bucket, BUCKET_NAME);
+                        assert_eq!(spec.object, OBJECT_NAME);
+                        assert_eq!(spec.generation, OBJECT_GENERATION);
+                        assert_eq!(
+                            spec.write_handle.as_ref().map(|h| h.handle.as_slice()),
+                            Some(b"handle-1".as_slice())
+                        );
                         assert!(reconnect_req.state_lookup);
                         record(&counts, "reconnect");
                         tx.send(Ok(persisted_size_response(6, b"handle-1", None)))
@@ -410,13 +406,7 @@ mod conformance {
                         // 2. Client replays only "GHI" at offset 6 and re-sends pending flush at offset 9
                         let ghi_replay = recv_request(&mut requests).await;
                         assert_eq!(ghi_replay.write_offset, 6);
-                        assert_eq!(
-                            ghi_replay.data,
-                            Some(Data::ChecksummedData(ChecksummedData {
-                                content: b"GHI".to_vec(),
-                                crc32c: Some(crc32c::crc32c(b"GHI")),
-                            }))
-                        );
+                        assert_eq!(ghi_replay.data, checksummed_data(b"GHI"));
                         record(&counts, "ghi");
                         let ghi_flush_replay = recv_request(&mut requests).await;
                         assert!(ghi_flush_replay.flush && ghi_flush_replay.state_lookup);
@@ -428,13 +418,7 @@ mod conformance {
                         // 3. Client appends "J" at offset 9 and finalizes at offset 10
                         let j_append = recv_request(&mut requests).await;
                         assert_eq!(j_append.write_offset, 9);
-                        assert_eq!(
-                            j_append.data,
-                            Some(Data::ChecksummedData(ChecksummedData {
-                                content: b"J".to_vec(),
-                                crc32c: Some(crc32c::crc32c(b"J")),
-                            }))
-                        );
+                        assert_eq!(j_append.data, checksummed_data(b"J"));
                         record(&counts, "j");
 
                         let finalize_req = recv_request(&mut requests).await;
@@ -543,9 +527,8 @@ mod conformance {
                     open_req.first_message,
                     Some(FirstMessage::WriteObjectSpec(_))
                 ));
-                let first_cd = match open_req.data {
-                    Some(Data::ChecksummedData(cd)) => cd,
-                    other => panic!("expected ChecksummedData, got: {other:?}"),
+                let Some(Data::ChecksummedData(first_cd)) = open_req.data else {
+                    panic!("expected ChecksummedData, got: {:?}", open_req.data);
                 };
                 observed_chunks.push((open_req.write_offset, first_cd.content, first_cd.crc32c));
                 tx.send(Ok(resource_response(5, b"handle-crc", false, None)))
@@ -555,9 +538,8 @@ mod conformance {
                 // 2. Chunks 2, 3, 4, 5: Each appended and flushed (bytes 5..10, 10..15, 15..20, 20..25)
                 for expected_end in [10_i64, 15, 20, 25] {
                     let append_req = recv_request(&mut requests).await;
-                    let cd = match append_req.data {
-                        Some(Data::ChecksummedData(cd)) => cd,
-                        other => panic!("expected ChecksummedData, got: {other:?}"),
+                    let Some(Data::ChecksummedData(cd)) = append_req.data else {
+                        panic!("expected ChecksummedData, got: {:?}", append_req.data);
                     };
                     observed_chunks.push((append_req.write_offset, cd.content, cd.crc32c));
 
@@ -602,7 +584,7 @@ mod conformance {
 
         // 2. Append and flush remaining 4 chunks (bytes 5..10, 10..15, 15..20, 20..25)
         for chunk in PAYLOAD[5..].chunks(5) {
-            writer.append(chunk.to_vec()).await?;
+            writer.append(chunk).await?;
             writer.flush().await?;
         }
 
@@ -668,13 +650,17 @@ mod conformance {
                         open_req.first_message,
                         Some(FirstMessage::WriteObjectSpec(_))
                     ));
+                    assert_eq!(open_req.data, checksummed_data(b"ABC"));
                     tx.send(Ok(resource_response(3, b"handle-pause", false, None)))
                         .await
                         .expect("send open response");
 
                     // Receive "DEF" append + flush, fail before acknowledging
-                    let _def_append = recv_request(&mut requests).await;
-                    let _def_flush = recv_request(&mut requests).await;
+                    let def_append = recv_request(&mut requests).await;
+                    assert_eq!(def_append.write_offset, 3);
+                    assert_eq!(def_append.data, checksummed_data(b"DEF"));
+                    let def_flush = recv_request(&mut requests).await;
+                    assert_eq!(def_flush.write_offset, 6);
                     tx.send(Err(TonicStatus::unavailable("initial transient error")))
                         .await
                         .expect("send initial unavailable");
@@ -708,7 +694,9 @@ mod conformance {
                         .expect("send reconnect handshake");
 
                     // Receive replayed "DEF" + flush
-                    let _def_replay = recv_request(&mut requests).await;
+                    let def_replay = recv_request(&mut requests).await;
+                    assert_eq!(def_replay.write_offset, 3);
+                    assert_eq!(def_replay.data, checksummed_data(b"DEF"));
                     let def_flush = recv_request(&mut requests).await;
                     assert_eq!(def_flush.write_offset, 6);
 
@@ -719,8 +707,11 @@ mod conformance {
                         .expect("acknowledge DEF after 600ms pause");
 
                     // Receive "GHI" + flush, then fail with Unavailable
-                    let _ghi_append = recv_request(&mut requests).await;
-                    let _ghi_flush = recv_request(&mut requests).await;
+                    let ghi_append = recv_request(&mut requests).await;
+                    assert_eq!(ghi_append.write_offset, 6);
+                    assert_eq!(ghi_append.data, checksummed_data(b"GHI"));
+                    let ghi_flush = recv_request(&mut requests).await;
+                    assert_eq!(ghi_flush.write_offset, 9);
                     tx.send(Err(TonicStatus::unavailable("error after 600ms pause")))
                         .await
                         .expect("send unavailable after pause");
@@ -753,6 +744,7 @@ mod conformance {
                     // Receive replayed "GHI" + flush
                     let ghi_replay = recv_request(&mut requests).await;
                     assert_eq!(ghi_replay.write_offset, 6);
+                    assert_eq!(ghi_replay.data, checksummed_data(b"GHI"));
                     let ghi_flush = recv_request(&mut requests).await;
                     assert_eq!(ghi_flush.write_offset, 9);
                     tx.send(Ok(persisted_size_response(9, b"handle-pause", None)))
@@ -762,6 +754,7 @@ mod conformance {
                     // Receive "J" + finalize
                     let j_append = recv_request(&mut requests).await;
                     assert_eq!(j_append.write_offset, 9);
+                    assert_eq!(j_append.data, checksummed_data(b"J"));
                     let finalize_req = recv_request(&mut requests).await;
                     assert!(finalize_req.finish_write);
                     assert_eq!(finalize_req.write_offset, 10);
