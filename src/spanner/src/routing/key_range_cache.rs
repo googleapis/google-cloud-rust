@@ -89,6 +89,15 @@ impl CachedGroup {
         }
     }
 
+    /// Returns `true` if `proto` carries a newer generation or modified group state at the same generation.
+    fn should_update_from(&self, proto: &Group) -> bool {
+        proto.generation > self.generation
+            || (proto.generation == self.generation
+                && (Self::parse_leader_index(proto.leader_index, proto.tablets.len())
+                    != self.leader_index
+                    || proto.tablets != self.tablets))
+    }
+
     /// Parses the raw protobuf leader index, returning `None` if negative or out of bounds.
     fn parse_leader_index(leader_index: i32, tablets_count: usize) -> Option<usize> {
         if leader_index < 0 {
@@ -212,11 +221,39 @@ impl CachedRange {
 }
 
 #[derive(Default)]
+struct GroupEntry {
+    group: Option<Arc<CachedGroup>>,
+    references: usize,
+}
+
+#[derive(Default)]
 struct CacheState {
     /// Maps `start_key` (start of range, inclusive) to the cached split range.
     ranges: BTreeMap<Bytes, Arc<CachedRange>>,
-    /// Maps `group_uid` to the cached replica group.
-    groups: HashMap<u64, Arc<CachedGroup>>,
+    /// Maps `group_uid` to the reference-counted cached replica group.
+    groups: HashMap<u64, GroupEntry>,
+}
+
+impl CacheState {
+    fn increment_group_references(&mut self, group_uid: u64) {
+        self.groups.entry(group_uid).or_default().references += 1;
+    }
+
+    fn decrement_group_references(&mut self, group_uid: u64) -> bool {
+        self.groups.get_mut(&group_uid).is_some_and(|group_entry| {
+            group_entry.references = group_entry.references.saturating_sub(1);
+            group_entry.references == 0
+        })
+    }
+
+    fn remove_if_unreferenced(&mut self, group_uid: u64) -> bool {
+        if let Entry::Occupied(entry) = self.groups.entry(group_uid)
+            && entry.get().references == 0
+        {
+            return entry.remove().group.is_some();
+        }
+        false
+    }
 }
 
 /// Thread-safe in-memory key range cache mapping split boundaries to replica groups.
@@ -291,7 +328,7 @@ impl KeyRangeCache {
     /// Returns the current logical access time counter value and increments it.
     ///
     /// Note: `fetch_add` returns the previous value, so adding `1` yields the new value
-    /// after the increment (matching Java's `AtomicLong.incrementAndGet()`).
+    /// after the increment.
     pub(crate) fn access_time_now(&self) -> u64 {
         self.access_counter.fetch_add(1, Ordering::Relaxed) + 1
     }
@@ -307,15 +344,19 @@ impl KeyRangeCache {
 
     /// Returns the cached group for the given group UID, if present.
     pub(crate) fn get_group(&self, group_uid: u64) -> Option<Arc<CachedGroup>> {
-        self.read_state().groups.get(&group_uid).map(Arc::clone)
+        self.read_state()
+            .groups
+            .get(&group_uid)
+            .and_then(|entry| entry.group.as_ref())
+            .map(Arc::clone)
     }
 
-    /// Returns the set of all active tablet server addresses currently tracked across all groups.
+    /// Returns the set of all active tablet server addresses currently tracked across referenced groups.
     pub(crate) fn active_addresses(&self) -> HashSet<String> {
-        let state = self.read_state();
-        state
+        self.read_state()
             .groups
             .values()
+            .filter_map(|entry| entry.group.as_ref())
             .flat_map(|group| &group.tablets)
             .map(|tablet| &tablet.server_address)
             .filter(|address| !address.is_empty())
@@ -324,30 +365,48 @@ impl KeyRangeCache {
     }
 
     /// Applies updates from a Spanner `CacheUpdate` message.
-    pub(crate) fn add_ranges(&self, cache_update: &CacheUpdate) {
+    ///
+    /// Returns `true` if any active [`CachedGroup`] was added, updated, or removed as a result
+    /// of this update, indicating that the set of active tablet addresses may have changed.
+    pub(crate) fn add_ranges(&self, cache_update: &CacheUpdate) -> bool {
         if cache_update.group.is_empty() && cache_update.range.is_empty() {
-            return;
+            return false;
         }
         let mut state = self.write_state();
+        let mut groups_changed = false;
 
-        for group_in in &cache_update.group {
-            match state.groups.entry(group_in.group_uid) {
-                Entry::Occupied(mut entry) if group_in.generation >= entry.get().generation => {
-                    entry.insert(Arc::new(CachedGroup::from_proto(group_in.clone())));
-                }
-                Entry::Vacant(entry) => {
-                    entry.insert(Arc::new(CachedGroup::from_proto(group_in.clone())));
-                }
-                _ => {}
+        let mut maybe_unreferenced = Vec::new();
+        for range_in in &cache_update.range {
+            self.replace_range_if_newer_locked(&mut state, range_in, &mut maybe_unreferenced);
+        }
+        for group_uid in maybe_unreferenced {
+            if state.remove_if_unreferenced(group_uid) {
+                groups_changed = true;
             }
         }
 
-        for range_in in &cache_update.range {
-            self.replace_range_if_newer_locked(&mut state, range_in);
+        for group_in in &cache_update.group {
+            if let Some(group_entry) = state.groups.get_mut(&group_in.group_uid) {
+                let should_update = group_entry
+                    .group
+                    .as_ref()
+                    .is_none_or(|existing| existing.should_update_from(group_in));
+                if should_update {
+                    group_entry.group = Some(Arc::new(CachedGroup::from_proto(group_in.clone())));
+                    groups_changed = true;
+                }
+            }
         }
+
+        groups_changed
     }
 
-    fn replace_range_if_newer_locked(&self, state: &mut CacheState, range_in: &Range) {
+    fn replace_range_if_newer_locked(
+        &self,
+        state: &mut CacheState,
+        range_in: &Range,
+        maybe_unreferenced: &mut Vec<u64>,
+    ) {
         // Ignore inverted or empty key ranges from malformed or corrupted server updates
         // to prevent BTreeMap::range panics and RwLock poisoning.
         if !range_in.limit_key.is_empty()
@@ -412,6 +471,7 @@ impl KeyRangeCache {
                 range_in.generation.clone(),
                 self.access_time_now(),
             ));
+            state.increment_group_references(range_in.group_uid);
             state.ranges.insert(start_key, new_range);
             return;
         }
@@ -444,6 +504,7 @@ impl KeyRangeCache {
                 first.generation.clone(),
                 first.last_access.load(Ordering::Relaxed),
             ));
+            state.increment_group_references(first.group_uid);
             state.ranges.insert(start_key, head);
         }
 
@@ -460,6 +521,7 @@ impl KeyRangeCache {
                 last.generation.clone(),
                 last.last_access.load(Ordering::Relaxed),
             ));
+            state.increment_group_references(last.group_uid);
             state.ranges.insert(start_key, tail);
         }
 
@@ -472,7 +534,14 @@ impl KeyRangeCache {
             range_in.generation.clone(),
             self.access_time_now(),
         ));
+        state.increment_group_references(range_in.group_uid);
         state.ranges.insert(start_key, new_range);
+
+        for existing in &overlapping {
+            if state.decrement_group_references(existing.group_uid) {
+                maybe_unreferenced.push(existing.group_uid);
+            }
+        }
     }
 
     /// Finds a cached range covering the specified key or range.
@@ -2220,6 +2289,10 @@ mod tests {
 
         let update = CacheUpdate::new()
             .set_database_id(1u64)
+            .set_range(vec![
+                make_range("a", "m", 100, "1"),
+                make_range("m", "z", 200, "1"),
+            ])
             .set_group(vec![group1, group2]);
         cache.add_ranges(&update);
 
@@ -2399,6 +2472,472 @@ mod tests {
         assert!(
             cache.is_empty(),
             "clear must succeed and empty cache after lock poisoning"
+        );
+    }
+
+    fn make_group_with_server(
+        group_uid: u64,
+        generation: &'static str,
+        server_address: &str,
+    ) -> Group {
+        Group {
+            group_uid,
+            generation: Bytes::from_static(generation.as_bytes()),
+            tablets: vec![Tablet {
+                tablet_uid: 1,
+                server_address: server_address.to_string(),
+                location: "us-central1".to_string(),
+                role: Role::ReadWrite,
+                incarnation: Bytes::from_static(b"1"),
+                distance: 0,
+                skip: false,
+                _unknown_fields: Default::default(),
+            }],
+            leader_index: 0,
+            _unknown_fields: Default::default(),
+        }
+    }
+
+    #[test]
+    fn active_addresses_excludes_unreferenced_groups_when_ranges_exist() {
+        let cache = KeyRangeCache::new();
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![
+                make_group_with_server(100, "1", "server-100:8001"),
+                make_group_with_server(200, "1", "server-200:8001"),
+            ],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        assert!(
+            cache.get_group(100).is_some(),
+            "referenced group 100 must be retained"
+        );
+        assert!(
+            cache.get_group(200).is_none(),
+            "unreferenced group 200 must be removed when references drop to zero"
+        );
+
+        let active_addresses = cache.active_addresses();
+        assert_eq!(
+            active_addresses.len(),
+            1,
+            "must contain only the server address for the active referenced group"
+        );
+        assert!(
+            active_addresses.contains("server-100:8001"),
+            "must contain server-100:8001"
+        );
+        assert!(
+            !active_addresses.contains("server-200:8001"),
+            "must exclude unreferenced server-200:8001"
+        );
+    }
+
+    #[test]
+    fn active_addresses_excludes_obsolete_groups_when_range_is_replaced() {
+        let cache = KeyRangeCache::new();
+
+        let initial_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&initial_update);
+
+        let initial_addresses = cache.active_addresses();
+        assert_eq!(
+            initial_addresses.len(),
+            1,
+            "initial cache must contain 1 active address"
+        );
+        assert!(
+            initial_addresses.contains("server-100:8001"),
+            "initial cache must contain server-100:8001"
+        );
+
+        let replacement_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 200, "2")],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&replacement_update);
+
+        assert!(
+            cache.get_group(100).is_none(),
+            "obsolete group 100 must be removed from cache when its range is replaced"
+        );
+        assert!(
+            cache.get_group(200).is_some(),
+            "newly referenced group 200 must be retained in cache"
+        );
+
+        let updated_addresses = cache.active_addresses();
+        assert_eq!(
+            updated_addresses.len(),
+            1,
+            "updated cache must contain only the newly active address"
+        );
+        assert!(
+            updated_addresses.contains("server-200:8001"),
+            "must contain newly referenced server-200:8001"
+        );
+        assert!(
+            !updated_addresses.contains("server-100:8001"),
+            "must exclude obsolete unreferenced server-100:8001"
+        );
+    }
+
+    #[test]
+    fn group_reference_counting_across_range_splits_and_replacements() {
+        let cache = KeyRangeCache::new();
+
+        // Step 1: Range [a, z) references group 100 (refs = 1).
+        let update1 = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update1);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must be present initially"
+        );
+
+        // Step 2: Subrange [g, m) with group 200 splits [a, z) into head [a, g) and tail [m, z).
+        // Group 100 is now referenced by 2 ranges (head and tail), and group 200 by 1 range.
+        let update2 = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("g", "m", 200, "2")],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update2);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must remain referenced by head and tail splits"
+        );
+        assert!(
+            cache.get_group(200).is_some(),
+            "group 200 must be referenced by middle split"
+        );
+
+        // Step 3: Replace head [a, g) with group 300. Group 100 still has 1 reference (tail [m, z)).
+        let update3 = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "g", 300, "3")],
+            group: vec![make_group_with_server(300, "3", "server-300:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update3);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must remain in cache while tail split still references it"
+        );
+
+        // Step 4: Replace tail [m, z) with group 300. Group 100 now has 0 references and is removed.
+        let update4 = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("m", "z", 300, "3")],
+            group: vec![make_group_with_server(300, "3", "server-300:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update4);
+        assert!(
+            cache.get_group(100).is_none(),
+            "group 100 must be removed once both head and tail splits are replaced"
+        );
+        assert_eq!(
+            cache.active_addresses(),
+            HashSet::from(["server-200:8001".to_string(), "server-300:8001".to_string(),]),
+            "active addresses must contain only groups 200 and 300"
+        );
+    }
+
+    #[test]
+    fn active_addresses_deduplicates_addresses_across_multiple_ranges() {
+        let cache = KeyRangeCache::new();
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![
+                make_range("a", "m", 100, "1"),
+                make_range("m", "z", 100, "1"),
+            ],
+            group: vec![make_group_with_server(100, "1", "server-shared:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        let active_addresses = cache.active_addresses();
+        assert_eq!(
+            active_addresses.len(),
+            1,
+            "must deduplicate server address shared across multiple ranges"
+        );
+        assert!(
+            active_addresses.contains("server-shared:8001"),
+            "must contain server-shared:8001"
+        );
+    }
+
+    #[test]
+    fn multi_range_update_preserves_existing_group_reassigned_without_group_payload() {
+        let cache = KeyRangeCache::new();
+
+        // Step 1: Range [a, m) references group 100.
+        let initial_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "m", 100, "1")],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&initial_update);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must be cached initially"
+        );
+
+        // Step 2: Single CacheUpdate replaces [a, m) with group 200 and assigns [m, z) to group 100,
+        // without repeating group 100 in `cache_update.group`.
+        let reassignment_update = CacheUpdate {
+            database_id: 1,
+            range: vec![
+                make_range("a", "m", 200, "2"),
+                make_range("m", "z", 100, "2"),
+            ],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&reassignment_update);
+
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must remain cached when reassigned to another range in the same update"
+        );
+        assert!(
+            cache.get_group(200).is_some(),
+            "group 200 must be cached for the first range"
+        );
+        assert_eq!(
+            cache.active_addresses(),
+            HashSet::from(["server-100:8001".to_string(), "server-200:8001".to_string()]),
+            "active addresses must include both group 100 and group 200"
+        );
+    }
+
+    #[test]
+    fn range_without_group_is_populated_by_subsequent_group_only_update() {
+        let cache = KeyRangeCache::new();
+
+        // Step 1: Range [a, z) arrives referencing group 100 without group 100's definition.
+        let range_only_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&range_only_update);
+
+        assert!(
+            cache
+                .find_range(b"b", b"", RangeMode::CoveringSplit)
+                .is_some(),
+            "range [a, z) must be present in the cache"
+        );
+        assert!(
+            cache.get_group(100).is_none(),
+            "group 100 has no CachedGroup payload yet"
+        );
+        assert!(
+            cache.active_addresses().is_empty(),
+            "active addresses must be empty before group payload arrives"
+        );
+
+        // Step 2: Subsequent group-only update supplies group 100's definition.
+        let group_only_update = CacheUpdate {
+            database_id: 1,
+            range: vec![],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&group_only_update);
+
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must be populated once its group definition arrives"
+        );
+        assert_eq!(
+            cache.active_addresses(),
+            HashSet::from(["server-100:8001".to_string()]),
+            "active addresses must now contain server-100:8001"
+        );
+    }
+
+    #[test]
+    fn stale_range_update_preserves_existing_group_and_ignores_stale_range_group() {
+        let cache = KeyRangeCache::new();
+
+        let newer_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "2")],
+            group: vec![make_group_with_server(100, "2", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&newer_update);
+
+        // Stale range update (generation "1" < "2") referencing group 200 must be rejected.
+        let stale_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 200, "1")],
+            group: vec![make_group_with_server(200, "1", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&stale_update);
+
+        assert!(
+            cache.get_group(100).is_some(),
+            "existing group 100 must remain referenced"
+        );
+        assert!(
+            cache.get_group(200).is_none(),
+            "group 200 from rejected stale range must not be cached"
+        );
+        assert_eq!(
+            cache.active_addresses(),
+            HashSet::from(["server-100:8001".to_string()]),
+            "active addresses must only contain server-100:8001"
+        );
+    }
+
+    #[test]
+    fn multi_range_update_repeated_zero_transitions_and_groups_changed_return_value() {
+        let cache = KeyRangeCache::new();
+
+        // Step 1: Initial range [a, m) with group 100 returns true (group 100 populated).
+        let initial_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "m", 100, "1")],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            cache.add_ranges(&initial_update),
+            "adding a new populated group must return true"
+        );
+
+        // Step 2: Adding a range [m, z) referencing already-cached group 100 without group payload
+        // does not change active groups and must return false.
+        let split_same_group_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("m", "z", 100, "1")],
+            group: vec![],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            !cache.add_ranges(&split_same_group_update),
+            "adding a range for an already-cached group must return false"
+        );
+
+        // Step 3: Within a single CacheUpdate:
+        // - range 1 replaces [a, m) with group 200 (group 100 refs: 2 -> 1)
+        // - range 2 replaces [m, z) with group 200 (group 100 refs: 1 -> 0, pushed to maybe_unreferenced)
+        // - range 3 replaces [m, z) back to group 100 (group 100 refs: 0 -> 1)
+        // - range 4 replaces [m, z) again with group 200 (group 100 refs: 1 -> 0, pushed a second time)
+        // This exercises both Occupied and Vacant branches in remove_if_unreferenced for group 100.
+        let multi_transition_update = CacheUpdate {
+            database_id: 1,
+            range: vec![
+                make_range("a", "m", 200, "2"),
+                make_range("m", "z", 200, "2"),
+                make_range("m", "z", 100, "3"),
+                make_range("m", "z", 200, "4"),
+            ],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            cache.add_ranges(&multi_transition_update),
+            "evicting group 100 and populating group 200 must return true"
+        );
+        assert!(
+            cache.get_group(100).is_none(),
+            "group 100 must be removed after its final reference count reaches zero"
+        );
+        assert!(
+            cache.get_group(200).is_some(),
+            "group 200 must be present in cache"
+        );
+
+        // Step 4: Re-sending an identical Group at the same generation is a no-op and must return false.
+        let duplicate_group_update = CacheUpdate {
+            database_id: 1,
+            range: vec![],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            !cache.add_ranges(&duplicate_group_update),
+            "re-sending an identical group at the same generation must return false"
+        );
+
+        // Step 5: Adding a range [a, m) for group 300 without a Group payload creates a GroupEntry
+        // with group: None and returns false. Replacing [a, m) back to already-cached group 200
+        // evicts the unpopulated GroupEntry for group 300 (entry.remove().group.is_some() == false)
+        // and must also return false.
+        let unpopulated_group_range_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "m", 300, "3")],
+            group: vec![],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            !cache.add_ranges(&unpopulated_group_range_update),
+            "adding a range without a Group payload must return false"
+        );
+        assert!(
+            cache.read_state().groups.contains_key(&300),
+            "group 300 entry with group: None must be tracked while referenced"
+        );
+
+        let evict_unpopulated_group_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "m", 200, "4")],
+            group: vec![],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            !cache.add_ranges(&evict_unpopulated_group_update),
+            "evicting an unpopulated group entry in favor of an already-cached group must return false"
+        );
+        assert!(
+            !cache.read_state().groups.contains_key(&300),
+            "unpopulated group 300 entry must be removed once unreferenced"
         );
     }
 }
