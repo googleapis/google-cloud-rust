@@ -87,18 +87,27 @@ impl crate::query::arrow::RecordBatchSource for StorageReader {
                     Some(Ok(response)) => {
                         if let Some(ReadRowsResponseSchema::ArrowSchema(arrow_schema)) =
                             response.schema
+                            && let Err(err) = self
+                                .decoder
+                                .set_schema_bytes(arrow_schema.serialized_schema)
                         {
-                            self.decoder
-                                .set_schema_bytes(arrow_schema.serialized_schema)?;
+                            self.state = ReaderState::Completed;
+                            return Err(err);
                         }
 
-                        if let Some(Rows::ArrowRecordBatch(batch)) = response.rows
-                            && let Some(record_batch) = self
-                                .decoder
-                                .decode_batch(batch.serialized_record_batch)?
-                                .filter(|record_batch| record_batch.num_rows() > 0)
-                        {
-                            return Ok(Some(record_batch));
+                        if let Some(Rows::ArrowRecordBatch(batch)) = response.rows {
+                            match self.decoder.decode_batch(batch.serialized_record_batch) {
+                                Ok(Some(record_batch)) => {
+                                    if record_batch.num_rows() > 0 {
+                                        return Ok(Some(record_batch));
+                                    }
+                                }
+                                Ok(None) => {}
+                                Err(err) => {
+                                    self.state = ReaderState::Completed;
+                                    return Err(err);
+                                }
+                            }
                         }
                     }
                     None => {
@@ -252,6 +261,76 @@ mod tests {
             .set_job_id("j1");
 
         let mut reader = StorageReader::new(read_client, job_ref);
+        assert!(reader.next_record_batch().await?.is_none());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_storage_reader_handles_decoding_error_and_transitions_to_completed() -> TestResult
+    {
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Ok(ReadRowsResponse::default().set_schema(
+            ReadRowsResponseSchema::ArrowSchema(Box::new(
+                ArrowSchema::default().set_serialized_schema(bytes::Bytes::from_static(
+                    b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_schema",
+                )),
+            )),
+        )))
+        .await?;
+        drop(tx);
+
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(1)
+            .return_once(move |_, _| Ok(ResponseStream::from(rx)));
+
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+        let job_ref = JobReference::default()
+            .set_project_id("p1")
+            .set_job_id("j1");
+
+        let mut reader = StorageReader::new(read_client, job_ref);
+        let err = reader.next_record_batch().await.unwrap_err();
+        assert!(matches!(err, RowError::InvalidRowFormat(_)), "{err:?}");
+
+        // After decoding error, reader must be Completed and return None
+        assert!(reader.next_record_batch().await?.is_none());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_storage_reader_handles_batch_decoding_error_and_transitions_to_completed()
+    -> TestResult {
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Ok(ReadRowsResponse::default().set_rows(
+            Rows::ArrowRecordBatch(Box::new(
+                ArrowRecordBatch::default().set_serialized_record_batch(bytes::Bytes::from_static(
+                    b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_batch",
+                )),
+            )),
+        )))
+        .await?;
+        drop(tx);
+
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(1)
+            .return_once(move |_, _| Ok(ResponseStream::from(rx)));
+
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+        let job_ref = JobReference::default()
+            .set_project_id("p1")
+            .set_job_id("j1");
+
+        let mut reader = StorageReader::new(read_client, job_ref);
+        let err = reader.next_record_batch().await.unwrap_err();
+        assert!(matches!(err, RowError::InvalidRowFormat(_)), "{err:?}");
+
+        // After decoding error, reader must be Completed and return None
         assert!(reader.next_record_batch().await?.is_none());
 
         Ok(())
