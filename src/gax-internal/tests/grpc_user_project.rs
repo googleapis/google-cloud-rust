@@ -20,25 +20,33 @@ mod tests {
     use google_cloud_auth::credentials::{CacheableResource, Credentials, EntityTag};
     use google_cloud_gax::Result;
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax_internal::grpc;
-    use grpc_server::{builder, google, start_echo_server};
+    use grpc_server::transport::{EchoTransport, transport_builder};
+    use grpc_server::{both_transports, google, start_echo_server};
     use http::{HeaderMap, HeaderValue};
+    use pretty_assertions::assert_eq;
 
     const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
     const CRED_QUOTA_PROJECT: &str = "cred_quota_project";
     const USER_QUOTA_PROJECT: &str = "project_lazy_dog";
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn user_project_emits_header() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        user_project_emits_header
+    );
+    async fn user_project_emits_header<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(mock_credentials())
             .build()
             .await?;
-
         let mut options = RequestOptions::default();
         options.set_quota_project(USER_QUOTA_PROJECT);
+
+        // Act
         let response = send_request(client, options).await?;
+
+        // Assert
         assert_eq!(
             response
                 .metadata
@@ -49,15 +57,22 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn no_user_project_no_header() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        no_user_project_no_header
+    );
+    async fn no_user_project_no_header<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(mock_credentials())
             .build()
             .await?;
 
+        // Act
         let response = send_request(client, RequestOptions::default()).await?;
+
+        // Assert
         assert!(
             !response.metadata.contains_key(X_GOOG_USER_PROJECT),
             "{:?}",
@@ -66,8 +81,13 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn user_project_strips_credential_quota_project() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        user_project_strips_credential_quota_project
+    );
+    async fn user_project_strips_credential_quota_project<C: EchoTransport>() -> anyhow::Result<()>
+    {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
 
         let mut mock = MockCredentials::new();
@@ -88,15 +108,18 @@ mod tests {
         });
         mock.expect_universe_domain().returning(|| None);
 
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 
         let mut options = RequestOptions::default();
         options.set_quota_project(USER_QUOTA_PROJECT);
+
+        // Act
         let response = send_request(client, options).await?;
 
+        // Assert
         assert_eq!(
             response
                 .metadata
@@ -112,31 +135,16 @@ mod tests {
         Ok(())
     }
 
-    async fn send_request(
-        client: grpc::Client,
+    async fn send_request<C: EchoTransport>(
+        client: C,
         options: RequestOptions,
     ) -> Result<google::test::v1::EchoResponse> {
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
         let request = google::test::v1::EchoRequest {
             message: "message".into(),
             ..google::test::v1::EchoRequest::default()
         };
         client
-            .execute(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                request,
-                options,
-                "test-only-api-client/1.0",
-                "",
-            )
+            .echo(request, options, "")
             .await
             .map(tonic::Response::into_inner)
     }
