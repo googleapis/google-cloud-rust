@@ -364,6 +364,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_certificate_issuance_config(
+        &self,
+        req: crate::model::UpdateCertificateIssuanceConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CertificateManager::update_certificate_issuance_config",
+            self.inner.update_certificate_issuance_config(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_certificate_issuance_config(
         &self,
         req: crate::model::DeleteCertificateIssuanceConfigRequest,

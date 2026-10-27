@@ -458,6 +458,10 @@ impl std::fmt::Debug for super::InputAudioConfig {
         );
         debug_struct.field("gemini_asr_config", &self.gemini_asr_config);
         debug_struct.field("use_gemini_asr", &self.use_gemini_asr);
+        debug_struct.field(
+            "disable_interim_input_transcripts",
+            &self.disable_interim_input_transcripts,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -575,6 +579,10 @@ impl std::fmt::Debug for super::SpeechToTextConfig {
         );
         debug_struct.field("gemini_asr_config", &self.gemini_asr_config);
         debug_struct.field("use_gemini_asr", &self.use_gemini_asr);
+        debug_struct.field(
+            "disable_interim_input_transcripts",
+            &self.disable_interim_input_transcripts,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -591,7 +599,6 @@ impl std::fmt::Debug for super::SpeechToTextConfig {
 impl std::fmt::Debug for super::speech_to_text_config::GeminiAsrConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GeminiAsrConfig");
-        debug_struct.field("model_id", &self.model_id);
         debug_struct.field("silence_duration_ms", &self.silence_duration_ms);
         debug_struct.field("prefix_padding_ms", &self.prefix_padding_ms);
         debug_struct.field(
@@ -5411,6 +5418,7 @@ impl std::fmt::Debug for super::Message {
         let mut debug_struct = f.debug_struct("Message");
         debug_struct.field("name", &self.name);
         debug_struct.field("content", &self.content);
+        debug_struct.field("response_messages", &self.response_messages);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("participant", &self.participant);
         debug_struct.field("participant_role", &self.participant_role);
@@ -5835,12 +5843,18 @@ impl std::fmt::Debug for super::AutomatedAgentReply {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutomatedAgentReply");
         debug_struct.field("detect_intent_response", &self.detect_intent_response);
+        debug_struct.field("response_messages", &self.response_messages);
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field("event", &self.event);
+        debug_struct.field("match_confidence", &self.match_confidence);
+        debug_struct.field("parameters", &self.parameters);
         debug_struct.field(
             "automated_agent_reply_type",
             &self.automated_agent_reply_type,
         );
         debug_struct.field("allow_cancellation", &self.allow_cancellation);
         debug_struct.field("cx_current_page", &self.cx_current_page);
+        debug_struct.field("call_companion_auth_code", &self.call_companion_auth_code);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5997,6 +6011,93 @@ impl std::fmt::Debug for super::AssistQueryParameters {
             "documents_metadata_filters",
             &self.documents_metadata_filters,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl std::fmt::Debug for super::ResponseMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResponseMessage");
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl std::fmt::Debug for super::response_message::Text {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Text");
+        debug_struct.field("text", &self.text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl std::fmt::Debug for super::response_message::LiveAgentHandoff {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LiveAgentHandoff");
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl std::fmt::Debug for super::response_message::EndInteraction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndInteraction");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl std::fmt::Debug for super::response_message::MixedAudio {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MixedAudio");
+        debug_struct.field("segments", &self.segments);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl std::fmt::Debug for super::response_message::mixed_audio::Segment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Segment");
+        debug_struct.field(
+            "allow_playback_interruption",
+            &self.allow_playback_interruption,
+        );
+        debug_struct.field("content", &self.content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl std::fmt::Debug for super::response_message::TelephonyTransferCall {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TelephonyTransferCall");
+        debug_struct.field("endpoint", &self.endpoint);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6453,6 +6554,10 @@ impl std::fmt::Debug for super::bidi_streaming_analyze_content_request::config::
         );
         debug_struct.field("gemini_asr_config", &self.gemini_asr_config);
         debug_struct.field("use_gemini_asr", &self.use_gemini_asr);
+        debug_struct.field(
+            "disable_interim_input_transcripts",
+            &self.disable_interim_input_transcripts,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6788,6 +6893,7 @@ impl std::fmt::Debug for super::SentimentAnalysisResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SentimentAnalysisResult");
         debug_struct.field("query_text_sentiment", &self.query_text_sentiment);
+        debug_struct.field("status", &self.status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
