@@ -59,7 +59,7 @@ jobs:
   # Ensure that the library version and the librarian.yaml version align.
   check-versions:
     if: github.repository == 'googleapis/google-cloud-rust'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         rust-version: ['rust:current']
@@ -77,7 +77,7 @@ jobs:
   # Can be disabled if it returns a false positive.
   semver-checks:
     if: github.repository == 'googleapis/google-cloud-rust'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         rust-version: ['rust:current']
@@ -151,7 +151,7 @@ jobs:
 
   guide:
     if: github.repository == 'googleapis/google-cloud-rust'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         rust-version: ['rust:current']
@@ -186,7 +186,7 @@ jobs:
 
   deploy:
     if: github.repository == 'googleapis/google-cloud-rust' && github.event_name == 'release'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       # to deploy to Pages
       pages: write

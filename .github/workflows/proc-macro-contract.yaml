@@ -30,7 +30,7 @@ concurrency:
 jobs:
   check:
     if: github.repository == 'googleapis/google-cloud-rust'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       # Depth 2 and `HEAD^1` rely on the default pull_request checkout of the
       # merge commit. Do not set `ref:` to the pull request head SHA.
