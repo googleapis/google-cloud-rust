@@ -545,7 +545,6 @@ struct UserProfile {
     birth_date: google_cloud_type::model::Date,
 }
 
-#[cfg(not(google_cloud_unstable_bigquery_arrow))]
 #[derive(FromSql, Debug, PartialEq)]
 struct AnonTriple(i64, String, bool);
 
@@ -558,7 +557,6 @@ struct NamedZThenA {
 #[derive(FromSql, Debug, PartialEq)]
 struct PositionalPair(i64, i64);
 
-#[cfg(not(google_cloud_unstable_bigquery_arrow))]
 #[derive(FromSql, Debug, PartialEq)]
 struct DupIdNamed {
     id: i64,
@@ -570,10 +568,8 @@ struct RowData {
     numbers: Vec<i64>,
     users: Vec<UserRecord>,
     profile: UserProfile,
-    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     anon: AnonTriple,
     pair: NamedZThenA,
-    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     dup: DupIdNamed,
 }
 
@@ -585,7 +581,6 @@ pub async fn query_client_nested_types() -> Result<()> {
 
     println!("STARTING NESTED TYPES INTEGRATION TEST");
 
-    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     let sql = "SELECT \
                  STRUCT('Alice' AS name, 25 AS age) AS user, \
                  ARRAY[1, 2, 3] AS numbers, \
@@ -594,14 +589,6 @@ pub async fn query_client_nested_types() -> Result<()> {
                  STRUCT(10, 'hello', true) AS anon, \
                  STRUCT(1 AS z, 2 AS a) AS pair, \
                  STRUCT(100 AS id, 200 AS id) AS dup";
-
-    #[cfg(google_cloud_unstable_bigquery_arrow)]
-    let sql = "SELECT \
-                 STRUCT('Alice' AS name, 25 AS age) AS user, \
-                 ARRAY[1, 2, 3] AS numbers, \
-                 ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
-                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
-                 STRUCT(1 AS z, 2 AS a) AS pair";
 
     let query = bq
         .query(sql)
@@ -619,11 +606,8 @@ pub async fn query_client_nested_types() -> Result<()> {
     assert_eq!(pair_by_pos, PositionalPair(1, 2));
 
     // Verify positional extraction on `dup` accesses both duplicate `id` fields (100, 200)
-    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
-    {
-        let dup_by_pos: PositionalPair = row.get("dup")?;
-        assert_eq!(dup_by_pos, PositionalPair(100, 200));
-    }
+    let dup_by_pos: PositionalPair = row.get("dup")?;
+    assert_eq!(dup_by_pos, PositionalPair(100, 200));
 
     // Deserialize the entire row as user defined struct
     let data: RowData = row.try_into()?;
@@ -654,15 +638,62 @@ pub async fn query_client_nested_types() -> Result<()> {
     assert_eq!(data.profile.birth_date.day, 28);
 
     // verify anonymous struct preserves all unnamed fields
-    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     assert_eq!(data.anon, AnonTriple(10, "hello".to_string(), true));
 
     // verify named extraction on `pair`
     assert_eq!(data.pair, NamedZThenA { z: 1, a: 2 });
 
     // verify named extraction on `dup` returns the first `id` field
-    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
     assert_eq!(data.dup, DupIdNamed { id: 100 });
+
+    Ok(())
+}
+
+pub async fn query_client_collation() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = google_cloud_bigquery::client::BigQuery::builder()
+        .build()
+        .await?;
+
+    let sql = "SELECT COLLATE('hello', 'und:ci') AS s";
+    let query = bq
+        .query(sql)
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .until_done()
+        .await?;
+
+    let mut rows = query.read();
+    let row = rows.next().await.expect("row must exist")?;
+    let s: String = row.get("s")?;
+    assert_eq!(s, "hello");
+
+    Ok(())
+}
+
+pub async fn query_client_arrow_opt_in() -> Result<()> {
+    use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
+
+    let project_id = project_id()?;
+    let bq = google_cloud_bigquery::client::BigQuery::builder()
+        .build()
+        .await?;
+
+    let sql = "SELECT 42 AS num, 'world' AS msg";
+    let query = bq
+        .query(sql)
+        .with_project_id(project_id)
+        .set_query_results_format(QueryResultsFormat::Arrow)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .until_done()
+        .await?;
+
+    let mut rows = query.read();
+    let row = rows.next().await.expect("row must exist")?;
+    let num: i64 = row.get("num")?;
+    let msg: String = row.get("msg")?;
+    assert_eq!(num, 42);
+    assert_eq!(msg, "world");
 
     Ok(())
 }

@@ -238,26 +238,38 @@ impl RetryContext {
         let options = &self.template.options;
 
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
-        let query_request: QueryRequest = self.template.request.clone().into();
-        let query_request = query_request
+        let mut query_request: QueryRequest = self.template.request.clone().into();
+        query_request = query_request
             .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true))
             .set_request_id(query_request_id);
         #[cfg(google_cloud_unstable_bigquery_arrow)]
-        let query_request = {
+        {
             use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
             use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
             use google_cloud_bigquery_v2::model::query_request::{
                 QueryResultsFormat, ResultsFormatSerializationOptions,
             };
-            query_request
-                .set_query_results_format(QueryResultsFormat::Arrow)
-                .set_results_format_serialization_options(
+
+            // If Arrow options were configured but format wasn't explicitly set, default format to Arrow.
+            if query_request.results_format_serialization_options.is_some()
+                && query_request.query_results_format == QueryResultsFormat::default()
+            {
+                query_request = query_request.set_query_results_format(QueryResultsFormat::Arrow);
+            }
+
+            // If query results format was set to Arrow but no serialization options were configured,
+            // provide a good default (Zstd compression).
+            if query_request.query_results_format == QueryResultsFormat::Arrow
+                && query_request.results_format_serialization_options.is_none()
+            {
+                query_request = query_request.set_results_format_serialization_options(
                     ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
                         ArrowSerializationOptions::new()
                             .set_buffer_compression(CompressionCodec::Zstd),
                     )),
-                )
-        };
+                );
+            }
+        }
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
             .set_query_request(query_request);
