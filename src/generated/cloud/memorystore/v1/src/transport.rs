@@ -46,6 +46,76 @@ impl Memorystore {
 }
 
 impl super::stub::Memorystore for Memorystore {
+    async fn list_acl_policies(
+        &self,
+        req: crate::model::ListAclPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAclPoliciesResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/aclPolicies", var_parent,);
+                let path_template = "/v1/{parent}/aclPolicies";
+
+                let resource_name = format!("//memorystore.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.memorystore.v1.Memorystore/ListAclPolicies")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -102,6 +172,78 @@ impl super::stub::Memorystore for Memorystore {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.memorystore.v1.Memorystore/ListInstances")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_acl_policy(
+        &self,
+        req: crate::model::GetAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/aclPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//memorystore.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/aclPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/aclPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.memorystore.v1.Memorystore/GetAclPolicy")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -190,6 +332,76 @@ impl super::stub::Memorystore for Memorystore {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn create_acl_policy(
+        &self,
+        req: crate::model::CreateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/aclPolicies", var_parent,);
+                let path_template = "/v1/{parent}/aclPolicies";
+
+                let resource_name = format!("//memorystore.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("aclPolicyId", &req.acl_policy_id)]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.memorystore.v1.Memorystore/CreateAclPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.acl_policy, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
@@ -257,6 +469,95 @@ impl super::stub::Memorystore for Memorystore {
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.instance, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_acl_policy(
+        &self,
+        req: crate::model::UpdateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_acl_policy_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.acl_policy.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/aclPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_acl_policy_name,);
+                let path_template = "/v1/{acl_policy.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.acl_policy.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/aclPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "acl_policy.name",
+                        "projects/*/locations/*/aclPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.memorystore.v1.Memorystore/UpdateAclPolicy")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.acl_policy, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -346,6 +647,232 @@ impl super::stub::Memorystore for Memorystore {
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.instance, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_acl_policy(
+        &self,
+        req: crate::model::DeleteAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/aclPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//memorystore.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/aclPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/aclPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.memorystore.v1.Memorystore/DeleteAclPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_acl_policy_revision(
+        &self,
+        req: crate::model::GetAclPolicyRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicyRevision>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/aclPolicies/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/revisions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//memorystore.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/aclPolicies/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/revisions/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/aclPolicies/*/revisions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.memorystore.v1.Memorystore/GetAclPolicyRevision")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_acl_policy_revisions(
+        &self,
+        req: crate::model::ListAclPolicyRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/aclPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/revisions", var_parent,);
+                let path_template = "/v1/{parent}/revisions";
+
+                let resource_name = format!("//memorystore.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/aclPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*/aclPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.memorystore.v1.Memorystore/ListAclPolicyRevisions",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
 

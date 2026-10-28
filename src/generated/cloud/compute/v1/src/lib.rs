@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Compute Engine API
 //!
-//! This client library was generated from the "20261007" revision of the API.
+//! This client library was generated from the "20261016" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
