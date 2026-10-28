@@ -38,6 +38,7 @@ pub async fn customer_supplied_encryption(client: &Storage, bucket_name: &str) -
     let key = vec![b'a'; 32];
     let insert = client
         .write_object(bucket_name, "csek/quick.text", CONTENTS)
+        .set_if_generation_match(0)
         .set_key(KeyAes256::new(&key)?)
         .send_unbuffered()
         .await?;
@@ -75,6 +76,7 @@ pub async fn large_file(client: &Storage, bucket_name: &str) -> Result<()> {
             "large_file/quick.text",
             bytes::Bytes::from_owner(contents.clone()),
         )
+        .set_if_generation_match(0)
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -221,6 +223,7 @@ async fn read_gzip(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
             "address.txt.gz",
             bytes::Bytes::from_owner(compressed.clone()),
         )
+        .set_if_generation_match(0)
         .set_content_encoding("gzip")
         .set_content_type("text/plain")
         .send_unbuffered()
