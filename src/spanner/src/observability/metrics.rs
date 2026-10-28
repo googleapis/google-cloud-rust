@@ -31,7 +31,7 @@ use std::time::Duration;
 #[cfg(feature = "_internal-metrics")]
 pub(crate) const INSTRUMENTATION_SCOPE: &str = "cloud.google.com/rust";
 
-#[cfg(feature = "_internal-metrics")]
+#[cfg(all(feature = "_internal-metrics", any(test, feature = "builtin-metrics")))]
 pub(crate) const NATIVE_METRICS_PREFIX: &str = "spanner.googleapis.com/internal/client/";
 
 #[cfg(feature = "_internal-metrics")]
@@ -1700,7 +1700,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn observability_init_disabled_env() {
-        let _env = scoped_env::ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
+        let _env = ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
         let o11y = Observability::init(
             &ClientConfig::default(),
             InstanceType::Cloud,
@@ -1909,7 +1909,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn observability_init_disabled_env_does_not_disable_custom_provider() {
-        let _env = scoped_env::ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
+        let _env = ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone()).build();
         let sdk_provider = SdkMeterProvider::builder().with_reader(reader).build();
