@@ -20,15 +20,18 @@ use crate::value::Value;
 /// ```
 /// use google_cloud_spanner::key;
 ///
-/// let key = key![1_i64, "Alice"];
+/// let id = 1_i64;
+/// let name = "Alice";
+/// let key = key![&id, name];
 /// ```
 ///
 /// Keys are constructed by appending values in the correct column order.
+/// Both owned values and borrowed references are supported.
 #[macro_export]
 macro_rules! key {
-    ($($val:expr),* $(,)?) => {
+    ($($value:expr),* $(,)?) => {
         $crate::key::Key::new(vec![
-            $($crate::value::ToValue::to_value(&$val)),*
+            $($crate::value::Value::from($value)),*
         ])
     };
 }
@@ -305,7 +308,14 @@ impl From<KeyRange> for KeySet {
 mod tests {
     use super::*;
     use crate::to_value::ToValue;
+    use google_cloud_type::model::Date;
+    use rust_decimal::Decimal;
     use serde_json::Value as JsonValue;
+    use static_assertions::assert_impl_all;
+    use std::fmt::Debug;
+    use std::str::FromStr;
+    use uuid::Uuid;
+    use wkt::Timestamp;
 
     #[test]
     fn key_non_finite_floats() {
@@ -353,17 +363,274 @@ mod tests {
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(Endpoint: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(Key: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(KeyRange: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(KeySet: Send, Sync, Clone, std::fmt::Debug);
-        static_assertions::assert_impl_all!(KeySetBuilder: Send, Sync, Clone, std::fmt::Debug);
+        assert_impl_all!(Endpoint: Send, Sync, Clone, Debug);
+        assert_impl_all!(Key: Send, Sync, Clone, Debug);
+        assert_impl_all!(KeyRange: Send, Sync, Clone, Debug);
+        assert_impl_all!(KeySet: Send, Sync, Clone, Debug);
+        assert_impl_all!(KeySetBuilder: Send, Sync, Clone, Debug);
     }
 
     #[test]
     fn key_builder() {
         let key = key![1_i64, "test"];
         assert_eq!(key.values.len(), 2);
+    }
+
+    #[test]
+    fn key_builder_with_references() {
+        let integer_value = 1_i64;
+        let string_value = "test".to_string();
+        let str_value = "hello";
+        let bytes_value = [1_u8, 2, 3];
+        let mut mutable_integer = 42_i64;
+        let mutable_reference = &mut mutable_integer;
+        let optional_none: Option<i64> = None;
+        let optional_some: Option<i64> = Some(100);
+
+        let key = key![
+            &integer_value,
+            &string_value,
+            &str_value,
+            &bytes_value,
+            mutable_reference,
+            &&integer_value,
+            &optional_none,
+            &optional_some,
+        ];
+        assert_eq!(
+            key.values.len(),
+            8,
+            "key values length must match number of passed references"
+        );
+        assert_eq!(
+            key.values[0],
+            Value::from(1_i64),
+            "integer reference must encode correctly"
+        );
+        assert_eq!(
+            key.values[1],
+            Value::from("test"),
+            "string reference must encode correctly"
+        );
+        assert_eq!(
+            key.values[2],
+            Value::from("hello"),
+            "str reference must encode correctly"
+        );
+        assert_eq!(
+            key.values[3],
+            Value::from(&bytes_value[..]),
+            "fixed-size byte array reference must encode correctly"
+        );
+        assert_eq!(
+            key.values[4],
+            Value::from(42_i64),
+            "mutable integer reference must encode correctly"
+        );
+        assert_eq!(
+            key.values[5],
+            Value::from(1_i64),
+            "double integer reference must encode correctly"
+        );
+        assert_eq!(
+            key.values[6],
+            Value::null(),
+            "optional none reference must encode as null"
+        );
+        assert_eq!(
+            key.values[7],
+            Value::from(100_i64),
+            "optional some reference must encode correctly"
+        );
+
+        let empty_key = key![];
+        assert_eq!(
+            empty_key.values.len(),
+            0,
+            "empty key macro must produce empty key"
+        );
+
+        let trailing_comma_key = key![&integer_value,];
+        assert_eq!(
+            trailing_comma_key.values.len(),
+            1,
+            "trailing comma key must produce key with one element"
+        );
+    }
+
+    #[test]
+    fn key_builder_mixed_owned_and_borrowed() {
+        let integer_reference = 10_i64;
+        let string_reference = "ref_str".to_string();
+
+        let key = key![
+            1_i64,
+            &integer_reference,
+            "owned_str",
+            &string_reference,
+            [1_u8, 2, 3],
+        ];
+        assert_eq!(
+            key.values.len(),
+            5,
+            "mixed key values length must match number of elements"
+        );
+        assert_eq!(
+            key.values[0],
+            Value::from(1_i64),
+            "owned integer must encode correctly"
+        );
+        assert_eq!(
+            key.values[1],
+            Value::from(10_i64),
+            "borrowed integer must encode correctly"
+        );
+        assert_eq!(
+            key.values[2],
+            Value::from("owned_str"),
+            "string slice must encode correctly"
+        );
+        assert_eq!(
+            key.values[3],
+            Value::from("ref_str"),
+            "borrowed string must encode correctly"
+        );
+        assert_eq!(
+            key.values[4],
+            Value::from(&[1_u8, 2, 3][..]),
+            "owned byte array must encode correctly"
+        );
+    }
+
+    #[test]
+    fn key_builder_with_spanner_domain_types() {
+        let decimal_value = Decimal::from_str("123.45").expect("valid decimal");
+        let timestamp_value = Timestamp::clamp(1_000_000, 0);
+        let date_value = Date::new().set_year(2024).set_month(1).set_day(15);
+        let uuid_value =
+            Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").expect("valid uuid");
+
+        let key = key![&decimal_value, &timestamp_value, &date_value, &uuid_value,];
+        assert_eq!(
+            key.values.len(),
+            4,
+            "key values length must match domain types count"
+        );
+        assert_eq!(
+            key.values[0],
+            Value::from(decimal_value),
+            "borrowed decimal must encode correctly"
+        );
+        assert_eq!(
+            key.values[1],
+            Value::from(timestamp_value),
+            "borrowed timestamp must encode correctly"
+        );
+        assert_eq!(
+            key.values[2],
+            Value::from(date_value),
+            "borrowed date must encode correctly"
+        );
+        assert_eq!(
+            key.values[3],
+            Value::from(uuid_value),
+            "borrowed uuid must encode correctly"
+        );
+    }
+
+    #[test]
+    fn key_builder_edge_cases() {
+        let existing_value = Value::from("existing");
+        let empty_byte_slice: &[u8] = &[];
+        let unit_value = ();
+
+        let key = key![
+            b"singer_123",
+            b"",
+            existing_value.clone(),
+            &existing_value,
+            Option::<&str>::None,
+            Some("alice"),
+            unit_value,
+            &unit_value,
+            f64::NAN,
+            &f64::INFINITY,
+            &f64::NEG_INFINITY,
+            f32::NAN,
+            "",
+            empty_byte_slice,
+        ];
+        assert_eq!(
+            key.values.len(),
+            14,
+            "key values length must match number of edge case expressions"
+        );
+        assert_eq!(
+            key.values[0],
+            Value::from(&b"singer_123"[..]),
+            "byte string literal must encode correctly"
+        );
+        assert_eq!(
+            key.values[1],
+            Value::from(&[][..]),
+            "empty byte string literal must encode as empty bytes"
+        );
+        assert_eq!(
+            key.values[2],
+            Value::from("existing"),
+            "owned Value must pass through correctly"
+        );
+        assert_eq!(
+            key.values[3],
+            Value::from("existing"),
+            "borrowed &Value must encode correctly"
+        );
+        assert_eq!(
+            key.values[4],
+            Value::null(),
+            "Option::<&str>::None must encode as null"
+        );
+        assert_eq!(
+            key.values[5],
+            Value::from("alice"),
+            "Option::<&str>::Some must encode correctly"
+        );
+        assert_eq!(key.values[6], Value::null(), "unit () must encode as null");
+        assert_eq!(
+            key.values[7],
+            Value::null(),
+            "borrowed &() must encode as null"
+        );
+        assert_eq!(
+            key.values[8],
+            f64::NAN.to_value(),
+            "f64::NAN must encode correctly in key!"
+        );
+        assert_eq!(
+            key.values[9],
+            f64::INFINITY.to_value(),
+            "&f64::INFINITY must encode correctly in key!"
+        );
+        assert_eq!(
+            key.values[10],
+            f64::NEG_INFINITY.to_value(),
+            "&f64::NEG_INFINITY must encode correctly in key!"
+        );
+        assert_eq!(
+            key.values[11],
+            f32::NAN.to_value(),
+            "f32::NAN must encode correctly in key!"
+        );
+        assert_eq!(
+            key.values[12],
+            Value::from(""),
+            "empty string must encode correctly"
+        );
+        assert_eq!(
+            key.values[13],
+            Value::from(&[][..]),
+            "empty byte slice must encode as empty bytes"
+        );
     }
 
     #[test]
