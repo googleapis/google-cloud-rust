@@ -150,6 +150,9 @@ impl serde::ser::Serialize for super::InstanceConfig {
         if !wkt::internal::is_default(&self.free_instance_availability) {
             state.serialize_entry("freeInstanceAvailability", &self.free_instance_availability)?;
         }
+        if !self.allowed_processing_units.is_empty() {
+            state.serialize_entry("allowedProcessingUnits", &self.allowed_processing_units)?;
+        }
         if !wkt::internal::is_default(&self.quorum_type) {
             state.serialize_entry("quorumType", &self.quorum_type)?;
         }
@@ -166,6 +169,64 @@ impl serde::ser::Serialize for super::InstanceConfig {
             state.serialize_entry(
                 "storageLimitPerProcessingUnit",
                 &__With(&self.storage_limit_per_processing_unit),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instance_config::AllowedProcessingUnits {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.min_processing_units) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("minProcessingUnits", &__With(&self.min_processing_units))?;
+        }
+        if !wkt::internal::is_default(&self.max_processing_units) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxProcessingUnits", &__With(&self.max_processing_units))?;
+        }
+        if !wkt::internal::is_default(&self.processing_unit_increment) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "processingUnitIncrement",
+                &__With(&self.processing_unit_increment),
             )?;
         }
         if !self._unknown_fields.is_empty() {

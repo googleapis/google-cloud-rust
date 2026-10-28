@@ -46,6 +46,7 @@ bytes.workspace                 = true
 gaxi                            = { workspace = true, features = ["_internal-grpc-client", "_internal-http-client"] }
 google-cloud-gax.workspace      = true
 google-cloud-location.workspace = true
+google-cloud-type.workspace     = true
 http.workspace                  = true
 prost-types.workspace           = true
 prost.workspace                 = true

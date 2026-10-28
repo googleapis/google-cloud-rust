@@ -1858,6 +1858,9 @@ impl serde::ser::Serialize for super::BuildTrigger {
         if self.source_to_build.is_some() {
             state.serialize_entry("sourceToBuild", &self.source_to_build)?;
         }
+        if self.approval_config.is_some() {
+            state.serialize_entry("approvalConfig", &self.approval_config)?;
+        }
         if !self.service_account.is_empty() {
             state.serialize_entry("serviceAccount", &self.service_account)?;
         }

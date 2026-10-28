@@ -78,6 +78,21 @@ impl std::fmt::Debug for super::CreateCertificateIssuanceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for super::UpdateCertificateIssuanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCertificateIssuanceConfigRequest");
+        debug_struct.field(
+            "certificate_issuance_config",
+            &self.certificate_issuance_config,
+        );
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::DeleteCertificateIssuanceConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteCertificateIssuanceConfigRequest");
@@ -107,6 +122,7 @@ impl std::fmt::Debug for super::CertificateIssuanceConfig {
             &self.rotation_window_percentage,
         );
         debug_struct.field("key_algorithm", &self.key_algorithm);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -465,6 +481,8 @@ impl std::fmt::Debug for super::Certificate {
         debug_struct.field("pem_certificate", &self.pem_certificate);
         debug_struct.field("expire_time", &self.expire_time);
         debug_struct.field("scope", &self.scope);
+        debug_struct.field("used_by", &self.used_by);
+        debug_struct.field("tags", &self.tags);
         debug_struct.field("r#type", &self.r#type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -523,6 +541,77 @@ impl std::fmt::Debug for super::certificate::managed_certificate::AuthorizationA
         debug_struct.field("state", &self.state);
         debug_struct.field("failure_reason", &self.failure_reason);
         debug_struct.field("details", &self.details);
+        debug_struct.field("attempt_time", &self.attempt_time);
+        debug_struct.field("troubleshooting", &self.troubleshooting);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::certificate::managed_certificate::authorization_attempt_info::Troubleshooting
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Troubleshooting");
+        debug_struct.field("issues", &self.issues);
+        debug_struct.field("cname", &self.cname);
+        debug_struct.field("ips", &self.ips);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cname");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("expected_data", &self.expected_data);
+        debug_struct.field("resolved_data", &self.resolved_data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IPs");
+        debug_struct.field("serving", &self.serving);
+        debug_struct.field("serving_on_alt_ports", &self.serving_on_alt_ports);
+        debug_struct.field("resolved", &self.resolved);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::certificate::ManagedIdentityCertificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedIdentityCertificate");
+        debug_struct.field("identity", &self.identity);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("provisioning_issue", &self.provisioning_issue);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::certificate::UsedBy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UsedBy");
+        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -539,6 +628,7 @@ impl std::fmt::Debug for super::CertificateMap {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("gclb_targets", &self.gclb_targets);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -599,6 +689,7 @@ impl std::fmt::Debug for super::DnsAuthorization {
         debug_struct.field("domain", &self.domain);
         debug_struct.field("dns_resource_record", &self.dns_resource_record);
         debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -704,7 +795,10 @@ impl std::fmt::Debug for super::TrustConfig {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("description", &self.description);
         debug_struct.field("etag", &self.etag);
+        debug_struct.field("spiffe_trust_stores", &self.spiffe_trust_stores);
         debug_struct.field("trust_stores", &self.trust_stores);
+        debug_struct.field("allowlisted_certificates", &self.allowlisted_certificates);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -739,6 +833,17 @@ impl std::fmt::Debug for super::trust_config::TrustStore {
         let mut debug_struct = f.debug_struct("TrustStore");
         debug_struct.field("trust_anchors", &self.trust_anchors);
         debug_struct.field("intermediate_cas", &self.intermediate_cas);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::trust_config::AllowlistedCertificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllowlistedCertificate");
+        debug_struct.field("pem_certificate", &self.pem_certificate);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

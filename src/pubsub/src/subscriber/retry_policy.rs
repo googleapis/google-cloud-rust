@@ -104,6 +104,39 @@ pub(super) fn rpc_options(grpc_subchannel_count: usize) -> RequestOptions {
     o
 }
 
+/// Retries transport errors and `UNAVAILABLE`, the retryable codes of the
+/// Pub/Sub service config for `Acknowledge` and `ModifyAckDeadline`.
+#[derive(Debug)]
+struct SettleRetryPolicy;
+
+impl RetryPolicy for SettleRetryPolicy {
+    fn on_error(&self, _state: &RetryState, error: Error) -> RetryResult {
+        if error.is_transport() || error.status().is_some_and(|s| s.code == Code::Unavailable) {
+            RetryResult::Continue(error)
+        } else {
+            RetryResult::Permanent(error)
+        }
+    }
+}
+
+/// The policies for at-least-once acks and nacks.
+///
+/// Nothing settles a message whose ack or nack is lost until its deadline
+/// expires, so these are retried with the service config's backoff and time
+/// limit rather than only on transport errors, as lease extensions are.
+pub(super) fn settle_options() -> RequestOptions {
+    let mut o = RequestOptions::default();
+    o.set_retry_policy(SettleRetryPolicy.with_time_limit(Duration::from_secs(60)));
+    o.set_backoff_policy(
+        ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_millis(100))
+            .with_maximum_delay(Duration::from_secs(60))
+            .with_scaling(1.3)
+            .clamp(),
+    );
+    o
+}
+
 fn exactly_once_options(time_limit: Duration) -> RequestOptions {
     let mut o = RequestOptions::default();
     o.set_retry_policy(OnlyTransportErrors.with_time_limit(time_limit));
@@ -343,6 +376,68 @@ pub(super) mod tests {
             backoff.on_failure(&state),
             Duration::ZERO,
             "the backoff should always be 0"
+        );
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn settle_options() {
+        verify_settle_policies(super::settle_options());
+    }
+
+    #[track_caller]
+    pub(in super::super) fn verify_settle_policies(o: RequestOptions) {
+        let retry = o.retry_policy().clone().unwrap();
+        let backoff = o.backoff_policy().clone().unwrap();
+
+        let mut state = RetryState::default();
+        state.attempt_count = 1;
+        assert!(
+            matches!(
+                retry.on_error(&state, transport_err()),
+                RetryResult::Continue(_)
+            ),
+            "transport errors should be retried"
+        );
+        assert!(
+            matches!(
+                retry.on_error(&state, non_transport_err()),
+                RetryResult::Continue(_)
+            ),
+            "UNAVAILABLE should be retried"
+        );
+        for code in [
+            Code::InvalidArgument,
+            Code::NotFound,
+            Code::PermissionDenied,
+            Code::FailedPrecondition,
+            Code::Internal,
+        ] {
+            let err = Error::service(Status::default().set_code(code).set_message("fail"));
+            assert!(
+                matches!(retry.on_error(&state, err), RetryResult::Permanent(_)),
+                "{code:?} should not be retried"
+            );
+        }
+
+        let state = RetryState::default().set_start(tokio::time::Instant::now());
+        let r = retry.remaining_time(&state).unwrap();
+        assert!(
+            r <= Duration::from_secs(60) && r > Duration::from_secs(59),
+            "Expected a time limit of 60s, got {r:?}"
+        );
+
+        let mut state = RetryState::default();
+        state.attempt_count = 1;
+        let b = backoff.on_failure(&state);
+        assert!(
+            b <= Duration::from_millis(100),
+            "Expected backoff <= 100ms on attempt 1, got {b:?}"
+        );
+        state.attempt_count = 100;
+        let b = backoff.on_failure(&state);
+        assert!(
+            b <= Duration::from_secs(60),
+            "Expected backoff <= 60s on attempt 100, got {b:?}"
         );
     }
 

@@ -6922,7 +6922,7 @@ pub struct OutboundEndpoint {
     /// Optional. User provided description.
     pub description: std::option::Option<std::string::String>,
 
-    /// Required. Immutable. User provided IP address to use for outbound DNS forwarding. This address must be a free address on the subnetwork.
+    /// Optional. Immutable. User provided IP address to use for outbound DNS forwarding. This address must be a free address on the subnetwork. If omitted, a free IP address from the subnetwork is automatically allocated.
     pub endpoint_ip: std::option::Option<std::string::String>,
 
     /// Optional. Labels as key value pairs
