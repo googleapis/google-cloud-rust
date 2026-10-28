@@ -153,12 +153,7 @@ impl ToProto<prost_types::Struct> for wkt::Struct {
         Ok(prost_types::Struct {
             fields: self
                 .into_iter()
-                .map(|(k, v)| {
-                    pair_transpose(
-                        ToProto::<String>::to_proto(k),
-                        ToProto::<prost_types::Value>::to_proto(v),
-                    )
-                })
+                .map(|(k, v)| pair_transpose(Ok(k), ToProto::<prost_types::Value>::to_proto(v)))
                 .collect::<Result<BTreeMap<_, _>>>()?,
         })
     }
