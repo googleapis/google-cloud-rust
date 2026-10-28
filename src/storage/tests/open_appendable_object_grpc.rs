@@ -284,9 +284,10 @@ mod conformance {
         Ok(())
     }
 
-    /// Verifies replay buffer recovery: after a mid-stream transient failure during flush,
-    /// the client queries the server's persisted offset, skips already-persisted segments,
-    /// and replays only unpersisted data.
+    /// Verifies replay buffer recovery: when a stream fails after the server persisted
+    /// part of the unacknowledged data, the client learns the persisted offset from the
+    /// reconnect handshake, drops the already-persisted bytes from its replay buffer,
+    /// and replays only the unpersisted remainder.
     #[tokio::test]
     async fn flush_multiple_segments_fails_halfway() -> anyhow::Result<()> {
         // =========================================================================
@@ -300,9 +301,10 @@ mod conformance {
 
         // Stream 1:
         // - Acknowledges "ABC" (bytes 0..3) with persisted_size = 3.
-        // - Acknowledges "DEF" (bytes 3..6) with persisted_size = 6.
-        // - When receiving "GHI" (bytes 6..9) and its flush request, terminates with a
-        //   transient Unavailable error BEFORE sending an ACK, so "GHI" is not saved.
+        // - Receives "DEF" + "GHI" (bytes 3..9) and the flush request at offset 9.
+        //   The client coalesces both appends into a single "DEFGHI" chunk.
+        // - Terminates with a transient Unavailable error WITHOUT acknowledging any of it,
+        //   so the client still holds "DEFGHI" in its replay buffer.
         mock.expect_bidi_write_object()
             .once()
             .in_sequence(&mut seq)
@@ -325,28 +327,17 @@ mod conformance {
                             .await
                             .expect("send open_abc response");
 
-                        // 2. Append "DEF" + Flush at offset 6
-                        let def_append = recv_request(&mut requests).await;
-                        assert_eq!(def_append.write_offset, 3);
-                        assert_eq!(def_append.data, checksummed_data(b"DEF"));
-                        events_tx.send("def").expect("record def");
-                        let def_flush = recv_request(&mut requests).await;
-                        assert!(def_flush.flush && def_flush.state_lookup);
-                        assert_eq!(def_flush.write_offset, 6);
-                        tx.send(Ok(persisted_size_response(6, b"handle-1", None)))
-                            .await
-                            .expect("send def flush response");
+                        // 2. Append "DEFGHI" at offset 3 + Flush at offset 9
+                        let defghi_append = recv_request(&mut requests).await;
+                        assert_eq!(defghi_append.write_offset, 3);
+                        assert_eq!(defghi_append.data, checksummed_data(b"DEFGHI"));
+                        events_tx.send("defghi").expect("record defghi");
+                        let defghi_flush = recv_request(&mut requests).await;
+                        assert!(defghi_flush.flush && defghi_flush.state_lookup);
+                        assert_eq!(defghi_flush.write_offset, 9);
 
-                        // 3. Append "GHI" + Flush at offset 9 -> server fails with transient error before ACK
-                        let ghi_append = recv_request(&mut requests).await;
-                        assert_eq!(ghi_append.write_offset, 6);
-                        assert_eq!(ghi_append.data, checksummed_data(b"GHI"));
-                        events_tx.send("ghi").expect("record ghi");
-                        let ghi_flush = recv_request(&mut requests).await;
-                        assert!(ghi_flush.flush && ghi_flush.state_lookup);
-                        assert_eq!(ghi_flush.write_offset, 9);
-
-                        tx.send(Err(TonicStatus::unavailable("Backend error on GHI")))
+                        // 3. Fail before acknowledging anything beyond "ABC"
+                        tx.send(Err(TonicStatus::unavailable("Backend error on DEFGHI")))
                             .await
                             .expect("send transient error");
                     });
@@ -357,8 +348,9 @@ mod conformance {
 
         // Stream 2:
         // - Reconnect handshake with state_lookup: true answers persisted_size = 6
-        //   (confirming "ABC" and "DEF" are safe, while "GHI" was lost).
-        // - Client replays ONLY unpersisted "GHI" at offset 6 and re-sends flush at offset 9 (ACK 9).
+        //   (the server had persisted "DEF" before the failure, but "GHI" was lost).
+        // - Client trims "DEF" from the buffered "DEFGHI" chunk, replays ONLY "GHI" at
+        //   offset 6 (with a recomputed CRC32C), and re-sends the flush at offset 9 (ACK 9).
         // - Client then appends "J" at offset 9 and finalizes at offset 10 (ACK 10, finalized Resource).
         mock.expect_bidi_write_object()
             .once()
@@ -390,7 +382,8 @@ mod conformance {
                         .await
                         .expect("send reconnect handshake response");
 
-                    // 2. Client replays only "GHI" at offset 6 and re-sends pending flush at offset 9
+                    // 2. Client trims the persisted "DEF" prefix, replays only "GHI" at offset 6
+                    //    (CRC32C recomputed for "GHI" alone), and re-sends the pending flush at offset 9
                     let ghi_replay = recv_request(&mut requests).await;
                     assert_eq!(ghi_replay.write_offset, 6);
                     assert_eq!(ghi_replay.data, checksummed_data(b"GHI"));
@@ -443,19 +436,16 @@ mod conformance {
             .await?;
         assert_eq!(writer.persisted_size(), 3);
 
-        // 2. Append "DEF" (bytes 3..6) and flush -> persisted = 6
+        // 2. Append "DEF" (bytes 3..6) and "GHI" (bytes 6..9), then flush -> encounters a
+        // transient stream failure before any ACK, reconnects on Stream 2, learns that
+        // bytes 0..6 are persisted, skips "DEF", replays only "GHI", and completes the
+        // flush -> persisted = 9
         writer.append("DEF").await?;
-        let persisted = writer.flush().await?;
-        assert_eq!(persisted, 6);
-
-        // 3. Append "GHI" (bytes 6..9) and flush -> encounters transient stream failure,
-        // reconnects on Stream 2, inspects replay buffer, skips "ABC" and "DEF",
-        // replays only unpersisted "GHI", and completes flush -> persisted = 9
         writer.append("GHI").await?;
         let persisted = writer.flush().await?;
         assert_eq!(persisted, 9);
 
-        // 4. Append "J" (bytes 9..10) and finalize
+        // 3. Append "J" (bytes 9..10) and finalize
         writer.append("J").await?;
         let object = writer.finalize().await?;
 
@@ -466,8 +456,8 @@ mod conformance {
         assert_eq!(object.size, 10);
 
         // 2. Verify request counts per segment:
-        // - "open_abc" and "def" were seen exactly ONCE (never replayed after reconnect)
-        // - "ghi" was seen TWICE (1st time before crash + 2nd time replayed on Stream 2)
+        // - "open_abc" and "defghi" were seen exactly ONCE (never replayed in full)
+        // - "ghi" was seen ONCE (only the unpersisted remainder replayed on Stream 2)
         // - "reconnect" handshake probe was seen ONCE
         // - "j" and "finalize" were seen ONCE
         let mut observed_counts = HashMap::new();
@@ -476,8 +466,8 @@ mod conformance {
         }
         let expected_counts = HashMap::from([
             ("open_abc", 1),
-            ("def", 1),
-            ("ghi", 2),
+            ("defghi", 1),
+            ("ghi", 1),
             ("reconnect", 1),
             ("j", 1),
             ("finalize", 1),
