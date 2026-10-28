@@ -45,10 +45,18 @@ const ERR_STREAM_CLOSED_PREMATURELY: &str = "gRPC stream closed before the reque
 const ERR_RECV_ERROR: &str = "error while reading the request";
 
 /// Creates a `Storage` client configured with anonymous credentials for a mock endpoint.
+///
+/// The client uses a millisecond-level backoff policy so that retries and reconnects
+/// against the mock server don't add seconds of real sleep to each test.
 async fn make_client(endpoint: impl Into<String>) -> anyhow::Result<Storage> {
+    let backoff = ExponentialBackoffBuilder::new()
+        .with_initial_delay(Duration::from_millis(1))
+        .with_maximum_delay(Duration::from_millis(10))
+        .build()?;
     let client = Storage::builder()
         .with_credentials(Anonymous::new().build())
         .with_endpoint(endpoint)
+        .with_backoff_policy(backoff)
         .build()
         .await?;
     Ok(client)
