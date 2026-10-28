@@ -15,14 +15,13 @@
 use crate::channel_pool::TransactionAffinity;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
+use crate::from_row::FromRow;
 use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::{
-    ExplicitBeginParams, ReadContextTransactionSelector, merge_request_options,
-};
-use crate::request_id_interceptor::{REQUEST_ID_HEADER, update_request_id_attempt};
+use crate::read_only_transaction::{AbortedInfo, AbortedState, ReadContextTransactionSelector};
+use crate::request_id_interceptor::update_request_id_attempt;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::retry_delay::extract_retry_delay_from_error;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -33,7 +32,6 @@ use gaxi::prost::FromProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
@@ -78,8 +76,6 @@ pub struct ResultSet {
 
     // Fields for retries and buffering of a stream of PartialResultSets.
     client: DatabaseClient,
-    session_name: String,
-    transaction_tag: Option<String>,
     operation: StreamOperation,
     last_resume_token: Bytes,
     partial_result_sets_buffer: VecDeque<PartialResultSet>,
@@ -96,7 +92,7 @@ pub struct ResultSet {
     operation_recorded: bool,
     affinity: Arc<TransactionAffinity>,
     affinity_configured: bool,
-    begin_transaction_request_options: Option<GaxRequestOptions>,
+    aborted_state: AbortedState,
 }
 
 #[derive(Debug, Clone)]
@@ -109,13 +105,11 @@ pub(crate) struct ResultSetParams {
     pub transaction_selector: Option<ReadContextTransactionSelector>,
     pub precommit_token_tracker: PrecommitTokenTracker,
     pub client: DatabaseClient,
-    pub session_name: String,
-    pub transaction_tag: Option<String>,
     pub operation: StreamOperation,
     pub gax_options: GaxRequestOptions,
     pub method_name: &'static str,
     pub affinity: Option<Arc<TransactionAffinity>>,
-    pub begin_transaction_request_options: Option<GaxRequestOptions>,
+    pub aborted_state: AbortedState,
 }
 
 // The maximum number of PartialResultSets to buffer without a resume token.
@@ -130,10 +124,11 @@ impl ResultSet {
     /// Creates a new result set asynchronously, waiting for the first chunk to arrive.
     pub(crate) async fn create(params: ResultSetParams) -> crate::Result<Self> {
         let mut result_set = Self::new(params);
-        if let Err(e) = result_set.init_stream().await {
-            result_set.record_current_attempt(Some(&e));
-            result_set.record_operation_complete(Some(&e));
-            return Err(e);
+        if let Err(error) = result_set.init_stream().await {
+            result_set.record_if_aborted(&error);
+            result_set.record_current_attempt(Some(&error));
+            result_set.record_operation_complete(Some(&error));
+            return Err(error);
         }
         Ok(result_set)
     }
@@ -144,13 +139,11 @@ impl ResultSet {
             transaction_selector,
             precommit_token_tracker,
             client,
-            session_name,
-            transaction_tag,
             operation,
             gax_options,
             method_name,
             affinity,
-            begin_transaction_request_options,
+            aborted_state,
         } = params;
 
         let gax_options = Self::apply_defaults(gax_options);
@@ -168,8 +161,6 @@ impl ResultSet {
             stats: None,
             precommit_token_tracker,
             client,
-            session_name,
-            transaction_tag,
             operation,
             last_resume_token: Bytes::new(),
             partial_result_sets_buffer: VecDeque::new(),
@@ -187,7 +178,7 @@ impl ResultSet {
             operation_recorded: false,
             affinity,
             affinity_configured,
-            begin_transaction_request_options,
+            aborted_state,
         }
     }
 
@@ -205,6 +196,14 @@ impl ResultSet {
 
     fn default_backoff_policy() -> Arc<dyn BackoffPolicy> {
         Arc::new(ExponentialBackoffBuilder::default().clamp())
+    }
+
+    fn record_if_aborted(&self, error: &crate::Error) {
+        self.aborted_state.record(error, self.client.is_emulator());
+    }
+
+    fn aborted_info(&self) -> Option<&AbortedInfo> {
+        self.aborted_state.aborted_info()
     }
 
     fn record_current_attempt(&mut self, error: Option<&crate::Error>) {
@@ -263,8 +262,9 @@ impl ResultSet {
             match stream_result {
                 Some(Ok(partial_result_set)) => {
                     if let Err(e) = self.handle_partial_result_set(partial_result_set) {
+                        self.record_if_aborted(&e);
                         if let Some(selector) = &self.transaction_selector {
-                            selector.set_failed(&e);
+                            selector.set_failed(&e, self.client.is_emulator());
                         }
                         return Err(e);
                     }
@@ -398,6 +398,10 @@ impl ResultSet {
                 return None;
             }
 
+            if let Some(info) = self.aborted_info() {
+                return self.record_error_and_return(info.to_error());
+            }
+
             let Some(stream) = &mut self.stream else {
                 return None;
             };
@@ -414,6 +418,30 @@ impl ResultSet {
                 return self.record_error_and_return(error);
             }
         }
+    }
+
+    /// Fetches the next row from the result set and converts it into type `T`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # async fn fetch_next(mut result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
+    /// if let Some(record) = result_set.next_as::<(String, i64)>().await.transpose()? {
+    ///     println!("Name: {}, Age: {}", record.0, record.1);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Single-column scalar queries (such as `SELECT COUNT(*) FROM Users`) can be
+    /// retrieved using a 1-tuple `(T,)`, for example `next_as::<(i64,)>()`.
+    ///
+    /// Returns `None` when all rows have been retrieved, or `Some(Err(..))` if fetching
+    /// the row or converting it into `T` fails.
+    pub async fn next_as<T: FromRow>(&mut self) -> Option<crate::Result<T>> {
+        let row = self.next().await?;
+        Some(row.and_then(T::from_row))
     }
 
     /// Converts the [`ResultSet`] into a [`Stream`].
@@ -439,6 +467,34 @@ impl ResultSet {
         use futures::stream::unfold;
         Box::pin(unfold(self, |mut result_set| async move {
             result_set.next().await.map(|row| (row, result_set))
+        }))
+    }
+
+    /// Converts the [`ResultSet`] into a [`Stream`] of typed records.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_spanner::result::ResultSet;
+    /// # use futures::TryStreamExt;
+    /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
+    /// let records: Vec<(String, i64)> = result_set
+    ///     .into_stream_as()
+    ///     .try_collect()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This consumes the [`ResultSet`] and returns a stream of records converted via [`FromRow`].
+    #[cfg(feature = "unstable-stream")]
+    pub fn into_stream_as<T: FromRow>(self) -> impl Stream<Item = crate::Result<T>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(self, |mut result_set| async move {
+            result_set
+                .next_as()
+                .await
+                .map(|record| (record, result_set))
         }))
     }
 }
@@ -543,6 +599,7 @@ impl ResultSet {
         Ok(())
     }
     async fn handle_stream_error(&mut self, e: crate::Error) -> crate::Result<()> {
+        self.record_if_aborted(&e);
         // Record the failure of the current attempt before checking retries and restarting the stream.
         // `record_current_attempt` ensures that only one attempt metric is recorded per attempt cycle.
         self.record_current_attempt(Some(&e));
@@ -577,6 +634,7 @@ impl ResultSet {
                         match self.restart_stream().await {
                             Ok(()) => return Ok(()),
                             Err(restart_err) => {
+                                self.record_if_aborted(&restart_err);
                                 e = restart_err;
                             }
                         }
@@ -589,51 +647,14 @@ impl ResultSet {
             }
         }
 
-        // Check if this stream included an inlined BeginTransaction option
-        // and has not yet returned a transaction ID. If so, we explicitly
-        // begin the transaction and restart the stream.
-        let Some(selector) = self.transaction_selector.as_ref() else {
-            return Err(e);
-        };
-
-        // TODO(#7173): Do not fall back to explicit BeginTransaction if transient error retries
-        // have already been exhausted. Fallback should only occur for non-retryable statement errors.
-        if selector.handle_stream_initialization_error(&e) {
-            return Err(e);
+        // If this stream included an inlined BeginTransaction option and has not
+        // yet returned a transaction ID, mark the transaction as failed on the selector
+        // and wake any waiting concurrent operations.
+        if let Some(selector) = self.transaction_selector.as_ref() {
+            selector.set_failed(&e, self.client.is_emulator());
         }
 
-        let begin_options = self.merge_begin_fallback_options();
-
-        selector
-            .begin_explicitly(ExplicitBeginParams {
-                client: self.client.clone(),
-                session_name: self.session_name.clone(),
-                transaction_tag: self.transaction_tag.clone(),
-                request_options: begin_options,
-                is_stream_fallback: true,
-                precommit_token_tracker: self.precommit_token_tracker.clone(),
-                mutation_key: None,
-                affinity: Some(Arc::clone(&self.affinity)),
-            })
-            .await?;
-
-        self.partial_result_sets_buffer.clear();
-        self.restart_stream().await?;
-        Ok(())
-    }
-
-    /// Merges the streaming query's request options with the transaction's begin options
-    /// for a fallback `BeginTransaction` RPC, stripping any existing request ID header
-    /// so that `BeginTransaction` generates its own unique request ID.
-    fn merge_begin_fallback_options(&self) -> GaxRequestOptions {
-        let mut options = merge_request_options(
-            self.gax_options.clone(),
-            self.begin_transaction_request_options.as_ref(),
-        );
-        if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
-            headers.remove(&REQUEST_ID_HEADER);
-        }
-        options
+        Err(e)
     }
 
     fn handle_stream_end(&mut self) -> crate::Result<()> {
@@ -730,6 +751,9 @@ impl ResultSet {
     }
 
     async fn restart_stream(&mut self) -> crate::Result<()> {
+        if let Some(info) = self.aborted_info() {
+            return Err(info.to_error());
+        }
         // Get the latest transaction selector for this transaction without dropping
         // in-progress starting state or waking parked followers prematurely.
         let transaction_selector = if let Some(s) = &self.transaction_selector {
@@ -918,21 +942,24 @@ impl ResultSet {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::Error;
     use crate::client::Spanner;
     use crate::key::KeySet;
     #[cfg(feature = "builtin-metrics")]
     use crate::observability::metrics::{Observability, SpannerMetrics};
     use crate::read::ReadRequest;
+    use crate::row::RowError;
     use crate::statement::Statement;
     use crate::transaction::BeginTransactionOption;
+    use crate::transaction_retry_policy::is_aborted;
     use gaxi::grpc::tonic::{Code as GrpcCode, MetadataMap, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
-    use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::retry_policy::{Aip194Strict, NeverRetry, RetryPolicyExt};
+    use google_cloud_gax::error::rpc::{Code as GaxCode, Status as GaxStatus};
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
-    use http::{HeaderName, HeaderValue};
+    use http::HeaderValue;
     #[cfg(feature = "builtin-metrics")]
     use opentelemetry::KeyValue;
     #[cfg(feature = "builtin-metrics")]
@@ -983,6 +1010,27 @@ pub(crate) mod tests {
             fields.push(Field {
                 name: format!("col{}", i),
                 r#type: None,
+            });
+        }
+        Some(ResultSetMetadata {
+            row_type: Some(StructType { fields }),
+            transaction: None,
+            undeclared_parameters: None,
+        })
+    }
+
+    fn string_metadata(columns: usize) -> Option<ResultSetMetadata> {
+        let mut fields = Vec::with_capacity(columns);
+        for index in 0..columns {
+            fields.push(Field {
+                name: format!("col{index}"),
+                r#type: Some(spanner_v1::Type {
+                    code: spanner_v1::TypeCode::String as i32,
+                    array_element_type: None,
+                    struct_type: None,
+                    type_annotation: 0,
+                    proto_type_fqn: String::new(),
+                }),
             });
         }
         Some(ResultSetMetadata {
@@ -1045,6 +1093,114 @@ pub(crate) mod tests {
     #[test]
     fn auto_traits() {
         static_assertions::assert_impl_all!(ResultSet: Debug, Send, Sync);
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_next_as() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: string_metadata(2),
+                values: vec![string_val("alice"), string_val("30")],
+                last: false,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("bob"), string_val("25")],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let first = result_set
+            .next_as::<(String, String)>()
+            .await
+            .expect("first record must be present")?;
+        assert_eq!(
+            first,
+            ("alice".to_string(), "30".to_string()),
+            "first record must match expected tuple"
+        );
+
+        let second = result_set
+            .next_as::<(String, String)>()
+            .await
+            .expect("second record must be present")?;
+        assert_eq!(
+            second,
+            ("bob".to_string(), "25".to_string()),
+            "second record must match expected tuple"
+        );
+
+        let done = result_set.next_as::<(String, String)>().await;
+        assert!(
+            done.is_none(),
+            "next_as must return None after all rows are consumed"
+        );
+
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio_test_no_panics]
+    async fn result_set_into_stream_as() -> anyhow::Result<()> {
+        use futures::TryStreamExt;
+
+        let result_set = run_mock_query(vec![
+            PartialResultSet {
+                metadata: string_metadata(2),
+                values: vec![string_val("alice"), string_val("30")],
+                last: false,
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("bob"), string_val("25")],
+                last: true,
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let records: Vec<(String, String)> = result_set.into_stream_as().try_collect().await?;
+        assert_eq!(
+            records,
+            vec![
+                ("alice".to_string(), "30".to_string()),
+                ("bob".to_string(), "25".to_string()),
+            ],
+            "into_stream_as must collect all records into vector"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_next_as_conversion_error() -> anyhow::Result<()> {
+        let mut result_set = run_mock_query(vec![PartialResultSet {
+            metadata: string_metadata(2),
+            values: vec![string_val("not-an-int"), string_val("alice")],
+            last: true,
+            ..Default::default()
+        }])
+        .await;
+
+        let result = result_set.next_as::<(i64, String)>().await;
+        assert!(
+            result.is_some(),
+            "next_as must return Some when a row is received"
+        );
+        let error = result
+            .expect("must be Some")
+            .expect_err("next_as must return Err when row deserialization fails");
+        let row_error = RowError::extract(&error).expect("error chain must contain a RowError");
+        match row_error {
+            RowError::TypeConversion { column, .. } => {
+                assert_eq!(column, "col0", "expected conversion error on column 'col0'");
+            }
+            other => panic!("expected RowError::TypeConversion, got: {other:?}"),
+        }
+
+        Ok(())
     }
 
     #[tokio_test_no_panics]
@@ -2006,7 +2162,7 @@ pub(crate) mod tests {
             .returning(|_request| {
                 let mut status = Status::unavailable("connection reset");
                 let mut headers = std::mem::take(status.metadata_mut()).into_headers();
-                headers.insert("content-type", http::HeaderValue::from_static("text/html"));
+                headers.insert("content-type", HeaderValue::from_static("text/html"));
                 *status.metadata_mut() = MetadataMap::from_headers(headers);
                 let stream = adapt([
                     Ok(PartialResultSet {
@@ -2706,13 +2862,11 @@ pub(crate) mod tests {
             transaction_selector: None,
             precommit_token_tracker: tracker.clone(),
             client: db_client,
-            session_name: "session".to_string(),
-            transaction_tag: None,
             operation: StreamOperation::Query(req),
             gax_options: GaxRequestOptions::default(),
             method_name: "ExecuteStreamingSql",
             affinity: None,
-            begin_transaction_request_options: None,
+            aborted_state: AbortedState::new_noop(),
         })
         .await?;
 
@@ -3157,7 +3311,7 @@ pub(crate) mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn result_set_inline_begin_stream_error_fallback() -> anyhow::Result<()> {
+    async fn result_set_inline_begin_stream_error_fails_fast() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -3171,42 +3325,8 @@ pub(crate) mod tests {
                 Ok(Response::from(stream))
             });
 
-        // 2. The explicit BeginTransaction fallback gets triggered.
-        mock.expect_begin_transaction()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_| {
-                Ok(Response::new(spanner_v1::Transaction {
-                    id: vec![7, 8, 9],
-                    read_timestamp: Some(prost_types::Timestamp {
-                        seconds: 123456789,
-                        nanos: 0,
-                    }),
-                    ..Default::default()
-                }))
-            });
-
-        // 3. The ResultSet gracefully restarts the stream using the transaction ID returned by BeginTransaction.
-        mock.expect_execute_streaming_sql()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|req| {
-                let req = req.into_inner();
-                // Ensure the explicitly yielded ID is routed into the new stream transaction selector
-                match req.transaction.unwrap().selector.unwrap() {
-                    spanner_v1::transaction_selector::Selector::Id(id) => {
-                        assert_eq!(id, vec![7, 8, 9]);
-                    }
-                    _ => panic!("Expected Selector::Id"),
-                }
-
-                let stream = adapt([Ok(PartialResultSet {
-                    metadata: metadata(1),
-                    values: vec![string_val("1")],
-                    ..Default::default()
-                })]);
-                Ok(Response::from(stream))
-            });
+        // 2. BeginTransaction must NEVER be called as a fallback.
+        mock.expect_begin_transaction().never();
 
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(Session {
@@ -3226,20 +3346,41 @@ pub(crate) mod tests {
 
         let db_client = client.database_client("db").build().await?;
 
-        let tx = db_client
+        let transaction = db_client
             .read_only_transaction()
             .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
-        let mut rs = tx.execute_query("SELECT 1").await?;
+        let result = transaction.execute_query("SELECT 1").await;
+        assert!(
+            result.is_err(),
+            "Expected execute_query to fail fast on invalid query"
+        );
+        let error = result.expect_err("first query failed");
+        assert!(
+            error.to_string().contains("Invalid query"),
+            "Expected original error message to propagate: {error}"
+        );
 
-        let row1 = rs.next().await.ok_or_else(|| {
-            anyhow::anyhow!("Expected row returned successfully despite stream breaking")
-        })??;
+        // Subsequent query on the failed transaction must also fail fast without any network calls.
+        let second_result = transaction.execute_query("SELECT 1").await;
+        assert!(
+            second_result.is_err(),
+            "Expected subsequent query on failed transaction to also fail fast"
+        );
+        let second_error = second_result.expect_err("second query failed");
+        let status = second_error
+            .status()
+            .expect("Service status error must be preserved on subsequent query failure");
         assert_eq!(
-            row1.raw_values()[0].0,
-            string_val("1"),
-            "Verify the returned stream successfully resumed with the correct payload"
+            status.code,
+            GaxCode::InvalidArgument,
+            "Status code must match original failure"
+        );
+        assert_eq!(
+            status.message,
+            "Transaction cannot be used: initial statement failed with: Invalid query",
+            "Subsequent query error message must explicitly explain transaction cannot be used"
         );
 
         Ok(())
@@ -5816,81 +5957,156 @@ pub(crate) mod tests {
 
         Ok(())
     }
+    #[tokio_test_no_panics]
+    async fn result_set_records_operation_and_attempt_failure_on_error_and_subsequent_poll_does_not_override()
+    -> crate::Result<()> {
+        let mut mock = MockSpanner::new();
+        let rx = adapt(vec![
+            Ok(PartialResultSet {
+                metadata: metadata(1),
+                values: vec![string_val("row1")],
+                resume_token: b"token1".to_vec(),
+                ..Default::default()
+            }),
+            Err(Status::aborted("lock conflict in streaming query")),
+        ]);
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_request| Ok(Response::from(rx)));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+        let mut result_set = transaction.execute_query("SELECT 1").await?;
+
+        // First item is row1
+        let first_row = result_set
+            .next()
+            .await
+            .expect("stream should yield first row")?;
+        assert_eq!(first_row.raw_values()[0].as_str(), Some("row1"));
+        assert!(!result_set.attempt_recorded);
+        assert!(!result_set.operation_recorded);
+
+        // Second item encounters the Aborted stream error
+        let second_result = result_set
+            .next()
+            .await
+            .expect("stream should yield error result");
+        assert!(second_result.is_err(), "expected error result");
+        assert!(
+            result_set.attempt_recorded,
+            "attempt must be recorded after stream error"
+        );
+        assert!(
+            result_set.operation_recorded,
+            "operation must be recorded after stream error"
+        );
+        assert!(result_set.seen_last, "stream must be marked seen_last");
+        assert!(result_set.stream.is_none(), "stream must be fused to None");
+
+        // Third poll on fused stream returns None
+        let third_poll = result_set.next().await;
+        assert!(
+            third_poll.is_none(),
+            "subsequent poll on fused stream must return None"
+        );
+        assert!(
+            result_set.attempt_recorded,
+            "attempt_recorded must remain true and not be reset"
+        );
+        assert!(
+            result_set.operation_recorded,
+            "operation_recorded must remain true and not be reset"
+        );
+
+        Ok(())
+    }
 
     #[tokio_test_no_panics]
-    async fn merge_begin_fallback_options() -> anyhow::Result<()> {
-        let mut result_set = run_mock_query(vec![PartialResultSet {
-            metadata: metadata(1),
-            values: vec![string_val("a")],
-            last: true,
-            ..Default::default()
-        }])
-        .await;
+    async fn result_set_fails_fast_when_transaction_aborts() -> crate::Result<()> {
+        let mut mock = MockSpanner::new();
+        let rx = adapt(vec![
+            Ok(PartialResultSet {
+                metadata: metadata(1),
+                values: vec![string_val("row1")],
+                resume_token: b"token1".to_vec(),
+                ..Default::default()
+            }),
+            Ok(PartialResultSet {
+                values: vec![string_val("row2")],
+                ..Default::default()
+            }),
+        ]);
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_request| Ok(Response::from(rx)));
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+        let (address, _server) = start("127.0.0.1:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+        let mut result_set = transaction.execute_query("SELECT 1").await?;
 
-        // Case 1: Request ID header in gax_options is stripped
-        let mut destination_headers = HeaderMap::new();
-        destination_headers.insert(
-            REQUEST_ID_HEADER.clone(),
-            HeaderValue::from_static("12345.1"),
-        );
-        destination_headers.insert(
-            HeaderName::from_static("x-goog-spanner-route-to-leader"),
-            HeaderValue::from_static("true"),
-        );
-        result_set.gax_options = RequestOptions::default().insert_extension(destination_headers);
-        result_set.begin_transaction_request_options = None;
+        result_set.aborted_state = AbortedState::new();
 
-        let merged = result_set.merge_begin_fallback_options();
-        let merged_headers = merged
-            .get_extension::<HeaderMap>()
-            .expect("merged HeaderMap should be present");
-        assert!(
-            merged_headers.get(&REQUEST_ID_HEADER).is_none(),
-            "REQUEST_ID_HEADER should be stripped from fallback options"
-        );
+        let first_row = result_set
+            .next()
+            .await
+            .expect("stream should yield first row")?;
         assert_eq!(
-            merged_headers
-                .get("x-goog-spanner-route-to-leader")
-                .expect("route to leader header should be preserved")
-                .to_str()
-                .expect("valid ascii"),
-            "true"
+            first_row.raw_values()[0].as_str(),
+            Some("row1"),
+            "expected row1"
         );
 
-        // Case 2: Request ID header in begin_transaction_request_options is also stripped
-        let mut source = RequestOptions::default();
-        source.set_retry_policy(NeverRetry);
-        let mut source_headers = HeaderMap::new();
-        source_headers.insert(
-            REQUEST_ID_HEADER.clone(),
-            HeaderValue::from_static("99999.1"),
-        );
-        source_headers.insert(
-            HeaderName::from_static("x-custom-header"),
-            HeaderValue::from_static("custom-value"),
-        );
-        source = source.insert_extension(source_headers);
-        result_set.begin_transaction_request_options = Some(source);
+        let aborted_error = Error::service(GaxStatus::default().set_code(GaxCode::Aborted));
+        result_set.record_if_aborted(&aborted_error);
 
-        let merged = result_set.merge_begin_fallback_options();
+        let restart_result = result_set.restart_stream().await;
+        let restart_error = restart_result.expect_err("restart_stream must fail fast when aborted");
         assert!(
-            merged.retry_policy().is_some(),
-            "retry policy should be inherited from begin_transaction_request_options"
+            is_aborted(&restart_error),
+            "expected Aborted error: {restart_error:?}"
         );
-        let merged_headers = merged
-            .get_extension::<HeaderMap>()
-            .expect("merged HeaderMap should be present");
+
+        let next_result = result_set
+            .next()
+            .await
+            .expect("next must return Some error when aborted");
+        let next_error = next_result.expect_err("next must return error");
         assert!(
-            merged_headers.get(&REQUEST_ID_HEADER).is_none(),
-            "REQUEST_ID_HEADER from source should be stripped from fallback options"
-        );
-        assert_eq!(
-            merged_headers
-                .get("x-custom-header")
-                .expect("custom header should be preserved")
-                .to_str()
-                .expect("valid ascii"),
-            "custom-value"
+            is_aborted(&next_error),
+            "expected Aborted error: {next_error:?}"
         );
 
         Ok(())

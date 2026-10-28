@@ -118,6 +118,10 @@ pub(crate) async fn scale_up_worker_loop(
             let prime_session_name = match maybe_prime_session {
                 Some(session) => session,
                 None => {
+                    // No session registered yet to execute physical channel warming queries.
+                    // Reset scale_up_requested so it does not block scale-down while waiting,
+                    // and throttle to prevent busy-wakeup storms if unprimed requests arrive.
+                    inner.scale_up_requested.store(false, Ordering::Release);
                     drop(inner);
                     tokio::select! {
                         _ = sleep(Duration::from_millis(100)) => continue,
@@ -594,6 +598,7 @@ mod tests {
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::model::{CreateSessionRequest, Session};
     use crate::routing::power_of_two_selector::PowerOfTwoSelector;
+    use crate::test::test_client_config;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
@@ -647,7 +652,7 @@ mod tests {
 
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(dynamic_config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
             draining_entries: RwLock::new(vec![Arc::clone(&channel_3)]),
             next_entry_id: AtomicU64::new(4),
@@ -769,7 +774,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(Vec::new()),
             draining_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
@@ -823,7 +828,7 @@ mod tests {
                 max_remove_channels: 2,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -902,7 +907,7 @@ mod tests {
                 max_remove_channels: 2,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -958,7 +963,7 @@ mod tests {
                 max_remove_channels: 1,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1006,7 +1011,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
@@ -1090,7 +1095,7 @@ mod tests {
                 max_remove_channels: 1,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1146,7 +1151,7 @@ mod tests {
                 scale_up_cooldown: Duration::from_secs(10),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1236,7 +1241,7 @@ mod tests {
                 max_remove_channels: 1,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1314,7 +1319,7 @@ mod tests {
                 max_remove_channels: 1,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_heavy),
                 Arc::clone(&channel_rw_attached),
@@ -1399,7 +1404,7 @@ mod tests {
             ..Default::default()
         };
 
-        let pool = ChannelPool::new_dynamic(channels, config, ClientConfig::default());
+        let pool = ChannelPool::new_dynamic(channels, config, test_client_config());
         let weak_inner = Arc::downgrade(&pool.inner);
 
         assert!(
@@ -1432,7 +1437,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
@@ -1591,7 +1596,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
@@ -1679,7 +1684,7 @@ mod tests {
                 max_channels: 3,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&channel_1)]),
             draining_entries: RwLock::new(vec![Arc::clone(&channel_2)]),
             next_entry_id: AtomicU64::new(3),
@@ -1764,7 +1769,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -1863,7 +1868,7 @@ mod tests {
         active_heavy[2].in_flight_rpcs.store(9, Ordering::Relaxed);
         let heavy_inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(heavy_config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(active_heavy),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(13),
@@ -1897,7 +1902,7 @@ mod tests {
         ];
         let zero_remove_inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(zero_remove_config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(active_zero_remove),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(23),
@@ -1941,7 +1946,7 @@ mod tests {
 
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(config.clone()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(channels.clone()),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(7),
@@ -2007,7 +2012,7 @@ mod tests {
 
         let inner = ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(Vec::new()),
             draining_entries: RwLock::new(vec![
                 Arc::clone(&channel_in_flight),
@@ -2049,7 +2054,7 @@ mod tests {
         let static_pool = ChannelPool::new_static(
             vec![create_mock_channel()],
             StaticChannelPoolConfig::default(),
-            ClientConfig::default(),
+            test_client_config(),
         );
         let weak_static = Arc::downgrade(&static_pool.inner);
         scale_up_worker_loop(
@@ -2067,7 +2072,7 @@ mod tests {
         // 3. Dynamic pool -> worker loops terminate cleanly when pool/inner is dropped
         let inner_up = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::new(ChannelEntry::new(
                 1,
                 1,
@@ -2104,7 +2109,7 @@ mod tests {
 
         let inner_down = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::new(ChannelEntry::new(
                 1,
                 1,
@@ -2505,7 +2510,7 @@ mod tests {
     async fn scale_up_worker_loop_skips_when_no_prime_session_or_no_scale_needed() {
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::new(ChannelEntry::new(
                 1,
                 1,
@@ -2554,7 +2559,7 @@ mod tests {
                 scale_up_cooldown: Duration::from_secs(10),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -2863,7 +2868,7 @@ mod tests {
                 scale_down_check_interval: Duration::from_secs(180),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -2908,7 +2913,7 @@ mod tests {
                 scale_up_cooldown: Duration::from_millis(50),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel_1, channel_2]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
@@ -3042,7 +3047,7 @@ mod tests {
         let channel = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -3078,7 +3083,7 @@ mod tests {
         let channel = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![channel]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -3235,7 +3240,7 @@ mod tests {
                 scale_up_cooldown: Duration::from_secs(10),
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![
                 Arc::clone(&channel_1),
                 Arc::clone(&channel_2),
@@ -3424,7 +3429,7 @@ mod tests {
         let pool = ChannelPool::new_static(
             vec![create_mock_channel()],
             StaticChannelPoolConfig { num_channels: 1 },
-            ClientConfig::default(),
+            test_client_config(),
         );
         let weak_inner = Arc::downgrade(&pool.inner);
         scale_up_worker_loop(weak_inner, receiver).await;
@@ -3436,9 +3441,140 @@ mod tests {
         let pool = ChannelPool::new_static(
             vec![create_mock_channel()],
             StaticChannelPoolConfig { num_channels: 1 },
-            ClientConfig::default(),
+            test_client_config(),
         );
         let weak_inner = Arc::downgrade(&pool.inner);
         scale_down_monitor_loop(weak_inner, receiver, Duration::from_millis(1)).await;
+    }
+
+    #[tokio::test]
+    async fn scale_up_worker_loop_resets_scale_up_requested_when_no_prime_session() {
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![Arc::new(ChannelEntry::new(
+                1,
+                1,
+                create_mock_channel(),
+            ))]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(2),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(0),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let weak_dynamic = Arc::downgrade(&inner);
+        let receiver = inner.shutdown_sender.subscribe();
+        let worker_handle = tokio::spawn(async move {
+            scale_up_worker_loop(weak_dynamic, receiver).await;
+        });
+
+        // Simulate a channel picker requesting scale-up and notifying the worker while unprimed.
+        inner.scale_up_requested.store(true, Ordering::Release);
+        inner.scale_up_notify.notify_one();
+
+        // Worker should run, observe that prime_session is None, reset scale_up_requested to false,
+        // and loop back to awaiting the next notification.
+        for _ in 0..100 {
+            if !inner.scale_up_requested.load(Ordering::Acquire) {
+                break;
+            }
+            yield_now().await;
+        }
+
+        assert!(
+            !inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be reset to false when scale-up is triggered without a prime session"
+        );
+
+        drop(inner);
+        let worker_result = worker_handle.await;
+        assert!(
+            worker_result.is_ok(),
+            "scale_up_worker_loop must terminate cleanly on pool drop"
+        );
+    }
+
+    #[tokio::test]
+    async fn scale_down_not_blocked_after_scale_up_triggered_without_prime_session() {
+        let channel_first = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_second = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        let channel_third = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+
+        let dynamic_config = DynamicChannelPoolConfig {
+            min_channels: 2,
+            max_channels: 4,
+            consecutive_low_load_checks: 1,
+            max_remove_channels: 1,
+            ..Default::default()
+        };
+
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(dynamic_config.clone()),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![
+                Arc::clone(&channel_first),
+                Arc::clone(&channel_second),
+                Arc::clone(&channel_third),
+            ]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(4),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(0),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let weak_dynamic = Arc::downgrade(&inner);
+        let receiver = inner.shutdown_sender.subscribe();
+        let worker_handle = tokio::spawn(async move {
+            scale_up_worker_loop(weak_dynamic, receiver).await;
+        });
+
+        // Channel picker requests scale-up before any prime session is registered.
+        inner.scale_up_requested.store(true, Ordering::Release);
+        inner.scale_up_notify.notify_one();
+
+        // Wait for worker to clear scale_up_requested.
+        for _ in 0..100 {
+            if !inner.scale_up_requested.load(Ordering::Acquire) {
+                break;
+            }
+            yield_now().await;
+        }
+
+        assert!(
+            !inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be reset to false after unprimed scale-up trigger"
+        );
+
+        // Scale-down evaluation should now succeed without being aborted by scale_up_requested.
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+
+        assert_eq!(
+            inner.read_active_entries().len(),
+            2,
+            "One underutilized channel should be moved out of active entries"
+        );
+        assert_eq!(
+            inner.read_draining_entries().len(),
+            1,
+            "Draining entries should contain exactly one channel"
+        );
+
+        drop(inner);
+        let worker_result = worker_handle.await;
+        assert!(
+            worker_result.is_ok(),
+            "scale_up_worker_loop must terminate cleanly on pool drop"
+        );
     }
 }

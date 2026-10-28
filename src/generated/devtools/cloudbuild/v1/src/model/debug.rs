@@ -781,6 +781,7 @@ impl std::fmt::Debug for super::BuildTrigger {
         debug_struct.field("included_files", &self.included_files);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("source_to_build", &self.source_to_build);
+        debug_struct.field("approval_config", &self.approval_config);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("repository_event_config", &self.repository_event_config);
         debug_struct.field("build_template", &self.build_template);
@@ -970,6 +971,8 @@ impl std::fmt::Debug for super::BuildOptions {
             &self.default_logs_bucket_behavior,
         );
         debug_struct.field("enable_structured_logging", &self.enable_structured_logging);
+        debug_struct.field("worker_release", &self.worker_release);
+        debug_struct.field("resolved_worker_release", &self.resolved_worker_release);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -981,6 +984,8 @@ impl std::fmt::Debug for super::build_options::PoolOption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PoolOption");
         debug_struct.field("name", &self.name);
+        debug_struct.field("worker_release", &self.worker_release);
+        debug_struct.field("resolved_worker_release", &self.resolved_worker_release);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1094,6 +1099,7 @@ impl std::fmt::Debug for super::private_pool_v_1_config::WorkerConfig {
             "enable_nested_virtualization",
             &self.enable_nested_virtualization,
         );
+        debug_struct.field("worker_release", &self.worker_release);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

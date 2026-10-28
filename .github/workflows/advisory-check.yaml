@@ -25,14 +25,14 @@ permissions:
 jobs:
   advisory-check:
     if: github.repository == 'googleapis/google-cloud-rust'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
         with:
           persist-credentials: false
 
       - name: Install Rust
-        uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # ratchet:dtolnay/rust-toolchain@master
+        uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # ratchet:dtolnay/rust-toolchain@master
         with:
           toolchain: stable
 
@@ -45,7 +45,7 @@ jobs:
           set -e
           # Fetching crates is flaky, retry the downloads.
           .gcb/scripts/cargo-fetch.sh
-          cargo deny check advisories
+          cargo deny check advisories --hide-inclusion-graph
 
       - name: Create Issue on Failure
         if: failure()
@@ -54,11 +54,9 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           ISSUE_TITLE="google-cloud-rust: New RUSTSEC advisory detected"
-          BODY="A new advisory was detected during the scheduled check. Please review and update the dependencies or ignore the advisory in \`deny.toml\`.
-
-          Run \`cargo deny check advisories\` locally to see the details.
-
-          cc @googleapis/cloud-sdk-rust-team"
+          # Summarize the failing advisories and how to fix them.
+          .gcb/scripts/advisories.sh report --disable-fetch > issue-body.md
+          cat issue-body.md >> "$GITHUB_STEP_SUMMARY"
 
           # Check for an existing open issue with the same title.
           EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "$ISSUE_TITLE in:title" --state open --json number --jq '.[0].number')
@@ -67,5 +65,5 @@ jobs:
             echo "Found existing open issue #$EXISTING_ISSUE. Skipping to avoid noise."
           else
             echo "Creating new issue."
-            gh issue create --title "$ISSUE_TITLE" --body "$BODY" --label ":rotating_light: critical" -R $GH_REPO
+            gh issue create --title "$ISSUE_TITLE" --body-file issue-body.md --label ":rotating_light: critical" -R $GH_REPO
           fi

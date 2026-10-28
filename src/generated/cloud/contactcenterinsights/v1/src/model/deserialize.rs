@@ -15489,8 +15489,16 @@ impl<'de> serde::de::Deserialize<'de> for super::conversation::quality_metadata:
             __agent_id,
             __display_name,
             __team,
+            __teams,
             __disposition_code,
             __agent_type,
+            __location,
+            __deployment_id,
+            __deployment_display_name,
+            __version_id,
+            __version_display_name,
+            __entry_subagent_display_name,
+            __entry_subagent_id,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -15516,10 +15524,28 @@ impl<'de> serde::de::Deserialize<'de> for super::conversation::quality_metadata:
                             "displayName" => Ok(__FieldTag::__display_name),
                             "display_name" => Ok(__FieldTag::__display_name),
                             "team" => Ok(__FieldTag::__team),
+                            "teams" => Ok(__FieldTag::__teams),
                             "dispositionCode" => Ok(__FieldTag::__disposition_code),
                             "disposition_code" => Ok(__FieldTag::__disposition_code),
                             "agentType" => Ok(__FieldTag::__agent_type),
                             "agent_type" => Ok(__FieldTag::__agent_type),
+                            "location" => Ok(__FieldTag::__location),
+                            "deploymentId" => Ok(__FieldTag::__deployment_id),
+                            "deployment_id" => Ok(__FieldTag::__deployment_id),
+                            "deploymentDisplayName" => Ok(__FieldTag::__deployment_display_name),
+                            "deployment_display_name" => Ok(__FieldTag::__deployment_display_name),
+                            "versionId" => Ok(__FieldTag::__version_id),
+                            "version_id" => Ok(__FieldTag::__version_id),
+                            "versionDisplayName" => Ok(__FieldTag::__version_display_name),
+                            "version_display_name" => Ok(__FieldTag::__version_display_name),
+                            "entrySubagentDisplayName" => {
+                                Ok(__FieldTag::__entry_subagent_display_name)
+                            }
+                            "entry_subagent_display_name" => {
+                                Ok(__FieldTag::__entry_subagent_display_name)
+                            }
+                            "entrySubagentId" => Ok(__FieldTag::__entry_subagent_id),
+                            "entry_subagent_id" => Ok(__FieldTag::__entry_subagent_id),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15575,6 +15601,14 @@ impl<'de> serde::de::Deserialize<'de> for super::conversation::quality_metadata:
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__teams => {
+                            if !fields.insert(__FieldTag::__teams) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for teams",
+                                ));
+                            }
+                            result.teams = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__disposition_code => {
                             if !fields.insert(__FieldTag::__disposition_code) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -15595,6 +15629,76 @@ impl<'de> serde::de::Deserialize<'de> for super::conversation::quality_metadata:
                                 map.next_value::<std::option::Option<
                                     crate::model::conversation_participant::Role,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_id => {
+                            if !fields.insert(__FieldTag::__deployment_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_id",
+                                ));
+                            }
+                            result.deployment_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_display_name => {
+                            if !fields.insert(__FieldTag::__deployment_display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_display_name",
+                                ));
+                            }
+                            result.deployment_display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__version_id => {
+                            if !fields.insert(__FieldTag::__version_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version_id",
+                                ));
+                            }
+                            result.version_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__version_display_name => {
+                            if !fields.insert(__FieldTag::__version_display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version_display_name",
+                                ));
+                            }
+                            result.version_display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entry_subagent_display_name => {
+                            if !fields.insert(__FieldTag::__entry_subagent_display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entry_subagent_display_name",
+                                ));
+                            }
+                            result.entry_subagent_display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entry_subagent_id => {
+                            if !fields.insert(__FieldTag::__entry_subagent_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entry_subagent_id",
+                                ));
+                            }
+                            result.entry_subagent_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_open_appendable_object_pause_resume]
+// [START storage_pause_and_resume_appendable_upload]
+// The appendable upload API is unstable. Build with
+// `RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi"` to enable it.
 use bytes::Bytes;
 use google_cloud_storage::client::Storage;
 
@@ -24,8 +26,11 @@ pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), 
 
     writer.append(Bytes::from("Part 1")).await?;
     let generation = writer.generation();
+    // Close the writer. Remaining data is flushed. The object is not finalized, so another writer
+    // can append to it later.
     writer.close().await?;
 
+    // Resume the upload by reopening the object at the same generation.
     let mut resumed_writer = client
         .reopen_appendable_object(format!("projects/_/buckets/{bucket}"), object, generation)
         .send()
@@ -37,4 +42,4 @@ pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), 
     println!("Appended data across multiple sessions to {object} in bucket {bucket}: {metadata:?}");
     Ok(())
 }
-// [END storage_open_appendable_object_pause_resume]
+// [END storage_pause_and_resume_appendable_upload]

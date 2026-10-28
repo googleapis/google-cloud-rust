@@ -18,6 +18,7 @@ use std::mem::replace;
 
 use crate::Error;
 use crate::Result;
+use crate::from_row::FromRow;
 use crate::from_value::ConvertError;
 use crate::from_value::FromValue;
 use crate::result_set_metadata::ResultSetMetadata;
@@ -393,6 +394,75 @@ impl Row {
         self.values
     }
 
+    /// Converts this row into a typed record implementing [`FromRow`].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = database_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 'user-1', 42").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let (id, age): (String, i64) = row?.try_into_record()?;
+    ///     println!("User: {id}, age: {age}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This is equivalent to calling `T::from_row(self)`.
+    ///
+    /// # Errors
+    ///
+    /// Returns an [`Error`] if:
+    /// * A required column name or positional index is missing from the row.
+    /// * A column value cannot be converted into the target field type.
+    /// * A column is `NULL` but the target field is not an [`Option`].
+    pub fn try_into_record<T: FromRow>(self) -> Result<T> {
+        T::from_row(self)
+    }
+
+    /// Converts this row into a typed record implementing [`FromRow`], panicking on error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = database_client.single_use().build();
+    /// let mut result_set = transaction
+    ///     .execute_query(Statement::builder("SELECT 'user-1', 42").build())
+    ///     .await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let (id, age): (String, i64) = row?.into_record();
+    ///     println!("User: {id}, age: {age}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This is a convenience wrapper around [`try_into_record`](Row::try_into_record).
+    ///
+    /// # Panics
+    ///
+    /// Panics if:
+    /// * A required column name or positional index is missing from the row.
+    /// * A column value cannot be converted into the target field type.
+    /// * A column is `NULL` but the target field is not an [`Option`].
+    pub fn into_record<T: FromRow>(self) -> T {
+        match self.try_into_record() {
+            Ok(record) => record,
+            Err(error) => panic!("failed to convert row into record: {error}"),
+        }
+    }
+
     fn get_value(&self, index: impl ColumnIndex) -> Result<(usize, &Value)> {
         let column_index = self.validate_column_index(&index)?;
         let value = &self.values[column_index];
@@ -439,10 +509,14 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use crate::value::Date;
+    use base64::Engine;
+    use base64::prelude::BASE64_STANDARD;
+    use bytes::Bytes;
     use rust_decimal::Decimal;
     use serde_json::{Value as JsonValue, json};
     use std::collections::BTreeMap;
     use std::sync::Arc;
+    use uuid::Uuid;
     use wkt::Timestamp;
 
     fn empty_row() -> Row {
@@ -553,6 +627,11 @@ mod tests {
             "expected bytes at index 4"
         );
         assert_eq!(
+            row.get::<Bytes>(4).expect("Bytes at 4"),
+            Bytes::from_static(&[1, 2, 3]),
+            "expected Bytes at index 4"
+        );
+        assert_eq!(
             row.get::<Decimal>(5).expect("decimal at 5"),
             decimal,
             "expected numeric at index 5"
@@ -598,6 +677,11 @@ mod tests {
             "expected uuid at index 10"
         );
         assert_eq!(
+            row.get::<Uuid>(10).expect("Uuid at 10"),
+            Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").expect("valid uuid"),
+            "expected Uuid at index 10"
+        );
+        assert_eq!(
             row.get::<String>(11).expect("interval at 11"),
             "P1Y2M3D",
             "expected interval at index 11"
@@ -627,6 +711,12 @@ mod tests {
             row.get::<Vec<u8>>("col_bytes").expect("col_bytes by name"),
             vec![1_u8, 2, 3],
             "expected col_bytes by name"
+        );
+        assert_eq!(
+            row.get::<Bytes>("col_bytes")
+                .expect("col_bytes by name as Bytes"),
+            Bytes::from_static(&[1, 2, 3]),
+            "expected col_bytes by name as Bytes"
         );
         assert_eq!(
             row.get::<Decimal>("col_numeric")
@@ -677,6 +767,12 @@ mod tests {
             row.get::<String>("col_uuid").expect("col_uuid by name"),
             "123e4567-e89b-12d3-a456-426614174000",
             "expected col_uuid by name"
+        );
+        assert_eq!(
+            row.get::<Uuid>("col_uuid")
+                .expect("col_uuid by name as Uuid"),
+            Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").expect("valid uuid"),
+            "expected col_uuid by name as Uuid"
         );
         assert_eq!(
             row.get::<String>("col_interval")
@@ -739,7 +835,7 @@ mod tests {
     #[test]
     fn row_get_enum() {
         let column_names = vec!["col_enum".to_string()];
-        let column_types = vec![types::enum_type("customer.Priority")];
+        let column_types = vec![types::proto_enum("customer.Priority")];
         let values = vec![3_i64.to_value()];
         let row = Row {
             values,
@@ -795,7 +891,7 @@ mod tests {
             values: vec![Value::null()],
             metadata: ResultSetMetadata {
                 column_names: Arc::new(vec!["col_enum".to_string()]),
-                column_types: Arc::new(vec![types::enum_type("customer.Priority")]),
+                column_types: Arc::new(vec![types::proto_enum("customer.Priority")]),
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
@@ -1758,6 +1854,228 @@ mod tests {
     }
 
     #[test]
+    fn proto_and_proto_enum_columns() {
+        let proto_payload = b"test-proto-address";
+        let proto_base64 = BASE64_STANDARD.encode(proto_payload);
+
+        let mut row = Row {
+            values: vec![
+                Value::from(proto_base64.clone()),
+                Value::from("3"),
+                Value::null(),
+                Value::null(),
+                Value::from(vec![Value::from(proto_base64.clone())]),
+                Value::from(vec![Value::from("1"), Value::from("2")]),
+                Value::from(vec![Value::from(proto_base64), Value::null()]),
+                Value::from(vec![Value::from("1"), Value::null()]),
+            ],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![
+                    "address".to_string(),
+                    "status".to_string(),
+                    "null_address".to_string(),
+                    "null_status".to_string(),
+                    "address_list".to_string(),
+                    "status_list".to_string(),
+                    "nullable_address_list".to_string(),
+                    "nullable_status_list".to_string(),
+                ]),
+                column_types: Arc::new(vec![
+                    types::proto("examples.shipping.Address"),
+                    types::proto_enum("examples.shipping.OrderStatus"),
+                    types::proto("examples.shipping.Address"),
+                    types::proto_enum("examples.shipping.OrderStatus"),
+                    types::array(types::proto("examples.shipping.Address")),
+                    types::array(types::proto_enum("examples.shipping.OrderStatus")),
+                    types::array(types::proto("examples.shipping.Address")),
+                    types::array(types::proto_enum("examples.shipping.OrderStatus")),
+                ]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Get single values
+        assert_eq!(
+            row.get::<Vec<u8>>("address").expect("get proto address"),
+            proto_payload,
+            "expected proto payload bytes"
+        );
+        assert_eq!(
+            row.get::<i64>("status").expect("get enum status as i64"),
+            3_i64,
+            "expected enum status 3 as i64"
+        );
+        assert_eq!(
+            row.get::<i32>("status").expect("get enum status as i32"),
+            3_i32,
+            "expected enum status 3 as i32"
+        );
+
+        // Null columns
+        assert!(
+            row.is_null("null_address").expect("is_null null_address"),
+            "expected null_address to be null"
+        );
+        assert_eq!(
+            row.get::<Option<Vec<u8>>>("null_address")
+                .expect("get null_address"),
+            None,
+            "expected None for null proto column"
+        );
+        assert!(
+            row.is_null("null_status").expect("is_null null_status"),
+            "expected null_status to be null"
+        );
+        assert_eq!(
+            row.get::<Option<i64>>("null_status")
+                .expect("get null_status"),
+            None,
+            "expected None for null enum column"
+        );
+
+        // Arrays
+        assert_eq!(
+            row.get::<Vec<Vec<u8>>>("address_list")
+                .expect("get address_list"),
+            vec![proto_payload.to_vec()],
+            "expected array of proto bytes"
+        );
+        assert_eq!(
+            row.get::<Vec<i64>>("status_list").expect("get status_list"),
+            vec![1_i64, 2_i64],
+            "expected array of enum integers"
+        );
+        assert_eq!(
+            row.get::<Vec<Option<Vec<u8>>>>("nullable_address_list")
+                .expect("get nullable_address_list"),
+            vec![Some(proto_payload.to_vec()), None],
+            "expected nullable array of proto bytes"
+        );
+        assert_eq!(
+            row.get::<Vec<Option<i64>>>("nullable_status_list")
+                .expect("get nullable_status_list"),
+            vec![Some(1_i64), None],
+            "expected nullable array of enum integers"
+        );
+
+        // Take single values
+        let taken_address = row.take::<Vec<u8>>("address").expect("take address");
+        assert_eq!(taken_address, proto_payload, "expected taken proto payload");
+        assert!(
+            row.is_null("address").expect("is_null address"),
+            "address column must be null after take"
+        );
+
+        let taken_status = row.take::<i64>("status").expect("take status");
+        assert_eq!(taken_status, 3_i64, "expected taken enum status");
+        assert!(
+            row.is_null("status").expect("is_null status"),
+            "status column must be null after take"
+        );
+
+        // Take array values
+        let taken_address_list = row
+            .take::<Vec<Vec<u8>>>("address_list")
+            .expect("take address_list");
+        assert_eq!(
+            taken_address_list,
+            vec![proto_payload.to_vec()],
+            "expected taken address list"
+        );
+        assert!(
+            row.is_null("address_list").expect("is_null address_list"),
+            "address_list column must be null after take"
+        );
+
+        let taken_status_list = row
+            .take::<Vec<i64>>("status_list")
+            .expect("take status_list");
+        assert_eq!(
+            taken_status_list,
+            vec![1_i64, 2_i64],
+            "expected taken status list"
+        );
+        assert!(
+            row.is_null("status_list").expect("is_null status_list"),
+            "status_list column must be null after take"
+        );
+    }
+
+    #[test]
+    fn row_get_and_take_bytes_and_uuid() {
+        let raw_bytes = b"sample binary payload";
+        let uuid_string = "123e4567-e89b-12d3-a456-426614174000";
+        let expected_uuid = Uuid::parse_str(uuid_string).expect("valid uuid string");
+
+        let mut row = Row {
+            values: vec![
+                Bytes::from_static(raw_bytes).to_value(),
+                expected_uuid.to_value(),
+                Value::null(),
+                Value::null(),
+            ],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![
+                    "col_bytes".to_string(),
+                    "col_uuid".to_string(),
+                    "col_null_bytes".to_string(),
+                    "col_null_uuid".to_string(),
+                ]),
+                column_types: Arc::new(vec![
+                    types::bytes(),
+                    types::uuid(),
+                    types::bytes(),
+                    types::uuid(),
+                ]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // row.get
+        let bytes_value: Bytes = row.get("col_bytes").expect("get col_bytes as Bytes");
+        assert_eq!(
+            bytes_value,
+            Bytes::from_static(raw_bytes),
+            "expected matching Bytes value"
+        );
+
+        let uuid_value: Uuid = row.get("col_uuid").expect("get col_uuid as Uuid");
+        assert_eq!(uuid_value, expected_uuid, "expected matching Uuid value");
+
+        let optional_bytes: Option<Bytes> = row
+            .get("col_null_bytes")
+            .expect("get col_null_bytes as Option<Bytes>");
+        assert_eq!(optional_bytes, None, "expected None for null Bytes column");
+
+        let optional_uuid: Option<Uuid> = row
+            .get("col_null_uuid")
+            .expect("get col_null_uuid as Option<Uuid>");
+        assert_eq!(optional_uuid, None, "expected None for null Uuid column");
+
+        // row.take
+        let taken_bytes: Bytes = row.take("col_bytes").expect("take col_bytes as Bytes");
+        assert_eq!(
+            taken_bytes,
+            Bytes::from_static(raw_bytes),
+            "expected matching taken Bytes value"
+        );
+        assert!(
+            row.is_null("col_bytes").expect("is_null"),
+            "column col_bytes must be null after take"
+        );
+
+        let taken_uuid: Uuid = row.take("col_uuid").expect("take col_uuid as Uuid");
+        assert_eq!(
+            taken_uuid, expected_uuid,
+            "expected matching taken Uuid value"
+        );
+        assert!(
+            row.is_null("col_uuid").expect("is_null"),
+            "column col_uuid must be null after take"
+        );
+    }
+
+    #[test]
     fn row_get_decimal_scientific_notation() {
         let column_names = vec!["col_numeric_sci".to_string()];
         let column_types = vec![types::numeric()];
@@ -1805,5 +2123,276 @@ mod tests {
             None,
             "column must be None after take"
         );
+    }
+
+    #[test]
+    fn row_try_into_record() -> Result<()> {
+        let row = Row {
+            values: vec!["alice".to_string().to_value(), 42_i64.to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["name".to_string(), "age".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::int64()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let (name, age): (String, i64) = row.try_into_record()?;
+        assert_eq!(name, "alice", "expected matching name from try_into_record");
+        assert_eq!(age, 42, "expected matching age from try_into_record");
+        Ok(())
+    }
+
+    #[test]
+    fn row_into_record() {
+        let row = Row {
+            values: vec!["bob".to_string().to_value(), 30_i64.to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["name".to_string(), "age".to_string()]),
+                column_types: Arc::new(vec![types::string(), types::int64()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let (name, age): (String, i64) = row.into_record();
+        assert_eq!(name, "bob", "expected matching name from into_record");
+        assert_eq!(age, 30, "expected matching age from into_record");
+    }
+
+    #[test]
+    fn row_try_into_record_error() {
+        let row = Row {
+            values: vec!["not-a-number".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["age".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let error = row
+            .try_into_record::<(i64,)>()
+            .expect_err("try_into_record must fail when type conversion fails");
+        let row_error = RowError::extract(&error).expect("error chain must contain a RowError");
+        match row_error {
+            RowError::TypeConversion { column, .. } => {
+                assert_eq!(column, "age", "expected conversion error on column 'age'");
+            }
+            other => panic!("expected RowError::TypeConversion, got: {other:?}"),
+        }
+    }
+
+    #[test]
+    #[should_panic(expected = "failed to convert row into record")]
+    fn row_into_record_panics() {
+        let row = Row {
+            values: vec!["not-a-number".to_string().to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["age".to_string()]),
+                column_types: Arc::new(vec![types::string()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let (_age,): (i64,) = row.into_record();
+    }
+
+    #[test]
+    fn row_get_string_from_numeric() -> Result<()> {
+        let max_spanner_numeric = "99999999999999999999999999999.999999999";
+        let pg_extreme_numeric = "12345678901234567890123456789012345678901234567890.123456789";
+
+        let column_names = vec![
+            "col_numeric".to_string(),
+            "col_pg_numeric_nan".to_string(),
+            "col_pg_numeric_extreme".to_string(),
+            "col_null_numeric".to_string(),
+        ];
+        let column_types = vec![
+            types::numeric(),
+            types::pg_numeric(),
+            types::pg_numeric(),
+            types::numeric(),
+        ];
+        let values = vec![
+            max_spanner_numeric.to_value(),
+            "NaN".to_value(),
+            pg_extreme_numeric.to_value(),
+            Value::default(),
+        ];
+
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Borrowed get by name and index
+        assert_eq!(
+            row.get::<String>("col_numeric")?,
+            max_spanner_numeric,
+            "expected 38-digit NUMERIC string by name"
+        );
+        assert_eq!(
+            row.get::<String>(0)?,
+            max_spanner_numeric,
+            "expected 38-digit NUMERIC string by index"
+        );
+
+        assert_eq!(
+            row.get::<String>("col_pg_numeric_nan")?,
+            "NaN",
+            "expected PG_NUMERIC NaN by name"
+        );
+        assert_eq!(
+            row.get::<String>(1)?,
+            "NaN",
+            "expected PG_NUMERIC NaN by index"
+        );
+
+        assert_eq!(
+            row.get::<String>("col_pg_numeric_extreme")?,
+            pg_extreme_numeric,
+            "expected extreme PG_NUMERIC by name"
+        );
+        assert_eq!(
+            row.get::<String>(2)?,
+            pg_extreme_numeric,
+            "expected extreme PG_NUMERIC by index"
+        );
+
+        assert_eq!(
+            row.get::<Option<String>>("col_null_numeric")?,
+            None,
+            "expected None for null numeric column by name"
+        );
+        assert_eq!(
+            row.get::<Option<String>>(3)?,
+            None,
+            "expected None for null numeric column by index"
+        );
+
+        // Non-optional get rejects null column
+        let null_error = row
+            .get::<String>("col_null_numeric")
+            .expect_err("non-optional get must fail on null column");
+        let row_error = RowError::extract(&null_error).expect("should extract RowError");
+        assert!(
+            matches!(
+                row_error,
+                RowError::TypeConversion {
+                    column: _,
+                    type_code: _,
+                    source,
+                } if matches!(source, ConvertError::NotNull)
+            ),
+            "expected RowError::TypeConversion wrapping ConvertError::NotNull, got {row_error:?}"
+        );
+
+        // Verify is_null is false before take
+        assert!(
+            !row.is_null("col_pg_numeric_nan")?,
+            "column must not be null before take"
+        );
+        assert!(
+            !row.is_null(1)?,
+            "column must not be null before take by index"
+        );
+
+        // Owned take by name and index
+        let taken_nan = row.take::<String>("col_pg_numeric_nan")?;
+        assert_eq!(taken_nan, "NaN", "expected taken NaN string");
+        assert!(
+            row.is_null("col_pg_numeric_nan")?,
+            "column must be null after take"
+        );
+        assert_eq!(
+            row.get::<Option<String>>("col_pg_numeric_nan")?,
+            None,
+            "column must be None after take"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn row_get_string_from_interval() -> Result<()> {
+        let column_names = vec!["col_interval".to_string(), "col_null_interval".to_string()];
+        let column_types = vec![types::interval(), types::interval()];
+        let values = vec!["P1Y2M3D".to_value(), Value::default()];
+
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Borrowed get by name and index
+        assert_eq!(
+            row.get::<String>("col_interval")?,
+            "P1Y2M3D",
+            "expected INTERVAL string by name"
+        );
+        assert_eq!(
+            row.get::<String>(0)?,
+            "P1Y2M3D",
+            "expected INTERVAL string by index"
+        );
+
+        assert_eq!(
+            row.get::<Option<String>>("col_null_interval")?,
+            None,
+            "expected None for null interval column by name"
+        );
+        assert_eq!(
+            row.get::<Option<String>>(1)?,
+            None,
+            "expected None for null interval column by index"
+        );
+
+        // Non-optional get rejects null interval column
+        let null_error = row
+            .get::<String>("col_null_interval")
+            .expect_err("non-optional get must fail on null interval column");
+        let row_error = RowError::extract(&null_error).expect("should extract RowError");
+        assert!(
+            matches!(
+                row_error,
+                RowError::TypeConversion {
+                    column: _,
+                    type_code: _,
+                    source,
+                } if matches!(source, ConvertError::NotNull)
+            ),
+            "expected RowError::TypeConversion wrapping ConvertError::NotNull, got {row_error:?}"
+        );
+
+        // Verify is_null is false before take
+        assert!(
+            !row.is_null("col_interval")?,
+            "column must not be null before take"
+        );
+        assert!(
+            !row.is_null(0)?,
+            "column must not be null before take by index"
+        );
+
+        // Owned take by name and index
+        let taken_interval = row.take::<String>("col_interval")?;
+        assert_eq!(taken_interval, "P1Y2M3D", "expected taken INTERVAL string");
+        assert!(
+            row.is_null("col_interval")?,
+            "column must be null after take"
+        );
+        assert_eq!(
+            row.get::<Option<String>>("col_interval")?,
+            None,
+            "column must be None after take"
+        );
+        Ok(())
     }
 }

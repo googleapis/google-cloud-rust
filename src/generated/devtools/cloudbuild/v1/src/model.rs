@@ -8125,6 +8125,10 @@ pub struct BuildTrigger {
     /// triggers.
     pub source_to_build: std::option::Option<crate::model::GitRepoSource>,
 
+    /// Configuration for manual approval to start a build invocation of this
+    /// BuildTrigger.
+    pub approval_config: std::option::Option<crate::model::ApprovalConfig>,
+
     /// The service account used for all user-controlled operations including
     /// UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
     /// If no service account is set and the legacy Cloud Build service account
@@ -8491,6 +8495,39 @@ impl BuildTrigger {
         T: std::convert::Into<crate::model::GitRepoSource>,
     {
         self.source_to_build = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [approval_config][crate::model::BuildTrigger::approval_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_build_v1::model::BuildTrigger;
+    /// use google_cloud_build_v1::model::ApprovalConfig;
+    /// let x = BuildTrigger::new().set_approval_config(ApprovalConfig::default()/* use setters */);
+    /// ```
+    pub fn set_approval_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ApprovalConfig>,
+    {
+        self.approval_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [approval_config][crate::model::BuildTrigger::approval_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_build_v1::model::BuildTrigger;
+    /// use google_cloud_build_v1::model::ApprovalConfig;
+    /// let x = BuildTrigger::new().set_or_clear_approval_config(Some(ApprovalConfig::default()/* use setters */));
+    /// let x = BuildTrigger::new().set_or_clear_approval_config(None::<ApprovalConfig>);
+    /// ```
+    pub fn set_or_clear_approval_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ApprovalConfig>,
+    {
+        self.approval_config = v.map(|x| x.into());
         self
     }
 
@@ -10769,6 +10806,13 @@ pub struct BuildOptions {
     /// If true, JSON-formatted logs are parsed as structured logs.
     pub enable_structured_logging: bool,
 
+    /// Optional. Option to specify which release or release channel
+    /// (rapid|regular|stable) to use to run this build.
+    pub worker_release: std::string::String,
+
+    /// Output only. Worker release resolved from the release channel.
+    pub resolved_worker_release: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11059,6 +11103,33 @@ impl BuildOptions {
         self.enable_structured_logging = v.into();
         self
     }
+
+    /// Sets the value of [worker_release][crate::model::BuildOptions::worker_release].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_build_v1::model::BuildOptions;
+    /// let x = BuildOptions::new().set_worker_release("example");
+    /// ```
+    pub fn set_worker_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.worker_release = v.into();
+        self
+    }
+
+    /// Sets the value of [resolved_worker_release][crate::model::BuildOptions::resolved_worker_release].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_build_v1::model::BuildOptions;
+    /// let x = BuildOptions::new().set_resolved_worker_release("example");
+    /// ```
+    pub fn set_resolved_worker_release<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resolved_worker_release = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for BuildOptions {
@@ -11087,6 +11158,16 @@ pub mod build_options {
         /// Format projects/{project}/locations/{location}/workerPools/{workerPoolId}
         pub name: std::string::String,
 
+        /// Output only. OUTPUT_ONLY. The release or release channel used to run the
+        /// Build. This is set to the same value as
+        /// `PrivatePoolV1Config.WorkerConfig.worker_release` for the UI to easily
+        /// access.
+        pub worker_release: std::string::String,
+
+        /// Output only. OUTPUT_ONLY. Worker release resolved from the release
+        /// channel.
+        pub resolved_worker_release: std::string::String,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -11108,6 +11189,36 @@ pub mod build_options {
         /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [worker_release][crate::model::build_options::PoolOption::worker_release].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_build_v1::model::build_options::PoolOption;
+        /// let x = PoolOption::new().set_worker_release("example");
+        /// ```
+        pub fn set_worker_release<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.worker_release = v.into();
+            self
+        }
+
+        /// Sets the value of [resolved_worker_release][crate::model::build_options::PoolOption::resolved_worker_release].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_build_v1::model::build_options::PoolOption;
+        /// let x = PoolOption::new().set_resolved_worker_release("example");
+        /// ```
+        pub fn set_resolved_worker_release<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.resolved_worker_release = v.into();
             self
         }
     }
@@ -13066,6 +13177,10 @@ pub mod private_pool_v_1_config {
         /// machine type. By default, nested virtualization is disabled.
         pub enable_nested_virtualization: std::option::Option<bool>,
 
+        /// Optional. Option to specify which release or release channel
+        /// (rapid|regular|stable) to use to run this build.
+        pub worker_release: std::string::String,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -13133,6 +13248,21 @@ pub mod private_pool_v_1_config {
             T: std::convert::Into<bool>,
         {
             self.enable_nested_virtualization = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [worker_release][crate::model::private_pool_v_1_config::WorkerConfig::worker_release].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_build_v1::model::private_pool_v_1_config::WorkerConfig;
+        /// let x = WorkerConfig::new().set_worker_release("example");
+        /// ```
+        pub fn set_worker_release<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.worker_release = v.into();
             self
         }
     }

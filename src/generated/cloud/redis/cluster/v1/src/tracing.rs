@@ -56,6 +56,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_acl_policies(
+        &self,
+        req: crate::model::ListAclPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAclPoliciesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::list_acl_policies",
+            self.inner.list_acl_policies(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
@@ -66,6 +80,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::CloudRedisCluster::get_cluster",
             self.inner.get_cluster(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_acl_policy(
+        &self,
+        req: crate::model::GetAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::get_acl_policy",
+            self.inner.get_acl_policy(req, options));
         pending.await
     }
 
@@ -84,6 +112,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_acl_policy(
+        &self,
+        req: crate::model::UpdateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::update_acl_policy",
+            self.inner.update_acl_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
@@ -98,6 +140,48 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_acl_policy(
+        &self,
+        req: crate::model::DeleteAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::delete_acl_policy",
+            self.inner.delete_acl_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_acl_policy_revision(
+        &self,
+        req: crate::model::GetAclPolicyRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicyRevision>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::get_acl_policy_revision",
+            self.inner.get_acl_policy_revision(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_acl_policy_revisions(
+        &self,
+        req: crate::model::ListAclPolicyRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::list_acl_policy_revisions",
+            self.inner.list_acl_policy_revisions(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
@@ -108,6 +192,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::CloudRedisCluster::create_cluster",
             self.inner.create_cluster(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_acl_policy(
+        &self,
+        req: crate::model::CreateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::create_acl_policy",
+            self.inner.create_acl_policy(req, options));
         pending.await
     }
 
@@ -248,6 +346,118 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::CloudRedisCluster::backup_cluster",
             self.inner.backup_cluster(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_token_auth_users(
+        &self,
+        req: crate::model::ListTokenAuthUsersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTokenAuthUsersResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::list_token_auth_users",
+            self.inner.list_token_auth_users(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_token_auth_user(
+        &self,
+        req: crate::model::GetTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TokenAuthUser>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::get_token_auth_user",
+            self.inner.get_token_auth_user(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_auth_tokens(
+        &self,
+        req: crate::model::ListAuthTokensRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAuthTokensResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::list_auth_tokens",
+            self.inner.list_auth_tokens(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_auth_token(
+        &self,
+        req: crate::model::GetAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AuthToken>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::get_auth_token",
+            self.inner.get_auth_token(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn add_token_auth_user(
+        &self,
+        req: crate::model::AddTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::add_token_auth_user",
+            self.inner.add_token_auth_user(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_token_auth_user(
+        &self,
+        req: crate::model::DeleteTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::delete_token_auth_user",
+            self.inner.delete_token_auth_user(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn add_auth_token(
+        &self,
+        req: crate::model::AddAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::add_auth_token",
+            self.inner.add_auth_token(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_auth_token(
+        &self,
+        req: crate::model::DeleteAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudRedisCluster::delete_auth_token",
+            self.inner.delete_auth_token(req, options));
         pending.await
     }
 

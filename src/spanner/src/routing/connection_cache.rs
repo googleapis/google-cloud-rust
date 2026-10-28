@@ -381,6 +381,7 @@ impl ConnectionCache {
 mod tests {
     use super::*;
     use crate::omni::InstanceType;
+    use crate::test::test_client_config;
     use http::HeaderMap;
     use http::header::{AUTHORIZATION, HeaderValue};
     use std::fmt::Debug;
@@ -451,7 +452,7 @@ mod tests {
         );
 
         // Verify that get() recovers seamlessly on poisoned lock for both default and cached endpoints.
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let default_retrieved = cache
             .get("spanner.googleapis.com:443", &client_config)
             .await
@@ -689,7 +690,7 @@ mod tests {
     async fn connection_cache_get_cached() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
-        let config = ClientConfig::default();
+        let config = test_client_config();
 
         let connection = cache
             .get("spanner.googleapis.com:443", &config)
@@ -711,7 +712,7 @@ mod tests {
     async fn connection_cache_concurrent_get_stampede_prevention() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let config = ClientConfig::default();
+        let config = test_client_config();
 
         let mut handles = Vec::new();
         for _ in 0..10 {
@@ -998,7 +999,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_standard_tls() {
-        let config = ClientConfig::default();
+        let config = test_client_config();
         let default_address = "omni.spanner.internal:8443";
         let routed_address = "10.0.0.1:8443";
 
@@ -1022,7 +1023,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_omni_mtls() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         let omni_tls = TlsConfig::new()
             .with_root_certificate_pem(b"test ca pem")
             .with_client_certificate_pem(b"test client cert", b"test client key");
@@ -1084,7 +1085,7 @@ mod tests {
             create_default_test_connection("https://omni.spanner.internal:8443");
         let cache = ConnectionCache::new(default_connection);
 
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         let omni_tls = TlsConfig::new()
             .with_root_certificate_pem(SAMPLE_CA_PEM)
             .with_client_certificate_pem(SAMPLE_CERT_PEM, SAMPLE_KEY_PEM);
@@ -1114,7 +1115,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_omni_mtls_client_identity_without_ca() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         let omni_tls =
             TlsConfig::new().with_client_certificate_pem(b"test client cert", b"test client key");
         config.extensions.insert(omni_tls);
@@ -1142,7 +1143,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_omni_tls_existing_domain_override() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         let omni_tls = TlsConfig::new()
             .with_root_certificate_pem(b"test ca pem")
             .with_domain_name_override("custom.spanner.domain");
@@ -1171,7 +1172,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_existing_client_tls_config() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config
             .extensions
             .insert(ClientTlsConfig::new().with_enabled_roots());
@@ -1199,7 +1200,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_plaintext_strips_parent_tls() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         let omni_tls = TlsConfig::new().with_root_certificate_pem(b"test ca pem");
         config.extensions.insert(omni_tls);
         config
@@ -1236,7 +1237,7 @@ mod tests {
         #[derive(Debug, PartialEq, Eq)]
         struct CustomExtension(u64);
 
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config.extensions.insert(InstanceType::Omni);
         config.extensions.insert(CustomExtension(42));
         let mut headers = HeaderMap::new();
@@ -1289,7 +1290,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_schemeless_localhost_plaintext() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config.endpoint = Some("localhost:9010".to_string());
 
         let default_address = "localhost:9010";
@@ -1315,7 +1316,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_schemeless_ipv6_loopback_plaintext() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config.endpoint = Some("[::1]:9010".to_string());
 
         let default_address = "[::1]:9010";
@@ -1341,7 +1342,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_localhost_with_tls_not_plaintext() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config.endpoint = Some("localhost:9010".to_string());
         config
             .extensions
@@ -1370,7 +1371,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_tls_preserved_when_default_host_unextractable() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config
             .extensions
             .insert(TlsConfig::new().with_root_certificate_pem(b"test ca pem"));
@@ -1401,7 +1402,7 @@ mod tests {
         let default_connection =
             create_default_test_connection("https://omni.spanner.internal:8443/");
         let cache = ConnectionCache::new(default_connection.clone());
-        let config = ClientConfig::default();
+        let config = test_client_config();
 
         let connection = cache
             .get("omni.spanner.internal:8443", &config)
@@ -1528,7 +1529,7 @@ mod tests {
     async fn connection_cache_get_tablet_prevents_duplicate_connections() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
-        let config = ClientConfig::default();
+        let config = test_client_config();
 
         let connection1 = cache
             .get("10.0.0.1:15000", &config)
@@ -1560,7 +1561,7 @@ mod tests {
     async fn connection_cache_get_tablet_different_scheme_creates_separate_connections() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
-        let config = ClientConfig::default();
+        let config = test_client_config();
 
         let tls_connection = cache
             .get("https://10.0.0.1:15000", &config)
@@ -1611,7 +1612,7 @@ mod tests {
     async fn connection_cache_get_channel_create_error_propagates_and_retries() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
-        let config = ClientConfig::default();
+        let config = test_client_config();
 
         // An invalid address with illegal characters causes Channel::create to fail.
         let invalid_address = "invalid host:not a port";
@@ -1645,7 +1646,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_remote_http_default_propagates_plaintext() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config.endpoint = Some("http://remote.spanner.internal:8080".to_string());
 
         let default_address = "http://remote.spanner.internal:8080";
@@ -1671,7 +1672,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_localhost_uppercase_schemeless_plaintext() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config.endpoint = Some("LOCALHOST:9010".to_string());
 
         let default_address = "LOCALHOST:9010";
@@ -1782,7 +1783,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_ip_default_host_does_not_override_domain() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         let omni_tls = TlsConfig::new().with_root_certificate_pem(b"test ca pem");
         config.extensions.insert(omni_tls);
 
@@ -1807,7 +1808,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_localhost_with_client_tls_config_not_plaintext() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config.endpoint = Some("localhost:9010".to_string());
         config
             .extensions
@@ -1836,7 +1837,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_explicit_https_routed_address() {
-        let mut config = ClientConfig::default();
+        let mut config = test_client_config();
         config.endpoint = Some("http://localhost:9010".to_string());
 
         let default_address = "http://localhost:9010";
@@ -1854,7 +1855,7 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_fallback_when_default_host_unextractable_without_tls() {
-        let config = ClientConfig::default();
+        let config = test_client_config();
         let default_address = "";
         let routed_address = "10.0.0.1:8443";
 

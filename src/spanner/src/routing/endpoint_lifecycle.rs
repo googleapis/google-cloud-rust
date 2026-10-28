@@ -598,16 +598,24 @@ impl EndpointLifecycleManager {
 
 impl Drop for EndpointLifecycleManager {
     fn drop(&mut self) {
-        let mut state = self.write_state();
-        for address in state.endpoints.keys() {
+        let addresses = {
+            let mut state = self.write_state();
+            let addresses: Vec<String> = state
+                .endpoints
+                .drain()
+                .map(|(address, _)| address)
+                .collect();
+            if let Some(handle) = state.maintenance_task.take() {
+                handle.abort();
+            }
+            state.transient_failure_evicted.clear();
+            state.active_addresses_per_source.clear();
+            self.transient_failure_count.store(0, Ordering::Release);
+            addresses
+        };
+
+        for address in &addresses {
             self.evict_connection(address, EvictionReason::Shutdown);
-        }
-        state.endpoints.clear();
-        state.transient_failure_evicted.clear();
-        state.active_addresses_per_source.clear();
-        self.transient_failure_count.store(0, Ordering::Release);
-        if let Some(handle) = state.maintenance_task.take() {
-            handle.abort();
         }
     }
 }
@@ -863,14 +871,22 @@ impl EndpointLifecycleManager {
 
     /// Clears all tracked endpoint states and failure markers.
     pub(crate) fn clear(&self) {
-        let mut state = self.write_state();
-        for address in state.endpoints.keys() {
+        let addresses = {
+            let mut state = self.write_state();
+            let addresses: Vec<String> = state
+                .endpoints
+                .drain()
+                .map(|(address, _)| address)
+                .collect();
+            state.transient_failure_evicted.clear();
+            state.active_addresses_per_source.clear();
+            self.transient_failure_count.store(0, Ordering::Release);
+            addresses
+        };
+
+        for address in &addresses {
             self.evict_connection(address, EvictionReason::Shutdown);
         }
-        state.endpoints.clear();
-        state.transient_failure_evicted.clear();
-        state.active_addresses_per_source.clear();
-        self.transient_failure_count.store(0, Ordering::Release);
     }
 
     /// Returns whether the specified endpoint address is currently tracked in the lifecycle manager.
@@ -886,7 +902,7 @@ mod tests {
     use crate::client::Channel;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::routing::server_connection::ServerConnection;
-    use gaxi::options::ClientConfig;
+    use crate::test::test_client_config;
     use std::fmt::Debug;
     use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::Barrier;
@@ -1008,7 +1024,7 @@ mod tests {
 
         // Populate ConnectionCache with mock connections
         {
-            let configuration = ClientConfig::default();
+            let configuration = test_client_config();
             let runtime = Builder::new_current_thread()
                 .enable_all()
                 .build()
@@ -1108,7 +1124,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1162,7 +1178,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1401,10 +1417,8 @@ mod tests {
     async fn lifecycle_manager_request_endpoint_recreation_with_client_config_warms_cache() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
         let start = Instant::now();
 
         let mut active = HashSet::new();
@@ -1449,7 +1463,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("cache get failed")
             })
@@ -1500,7 +1514,7 @@ mod tests {
             .expect("runtime build failed");
         runtime.block_on(async {
             cache
-                .get("10.0.0.1:15000", &ClientConfig::default())
+                .get("10.0.0.1:15000", &test_client_config())
                 .await
                 .expect("cache get failed");
         });
@@ -1519,10 +1533,8 @@ mod tests {
     async fn lifecycle_manager_probe_retries_missing_endpoints() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
         let start = Instant::now();
 
         let mut active = HashSet::new();
@@ -1563,7 +1575,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1635,7 +1647,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1719,7 +1731,7 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection create failed")
             })
@@ -1812,11 +1824,11 @@ mod tests {
                 .expect("runtime build failed");
             runtime.block_on(async {
                 let connection1 = cache
-                    .get("10.0.0.1:15000", &ClientConfig::default())
+                    .get("10.0.0.1:15000", &test_client_config())
                     .await
                     .expect("connection1 create failed");
                 let connection2 = cache
-                    .get("10.0.0.2:15000", &ClientConfig::default())
+                    .get("10.0.0.2:15000", &test_client_config())
                     .await
                     .expect("connection2 create failed");
                 (connection1, connection2)
@@ -1848,15 +1860,74 @@ mod tests {
 
     #[test]
     fn lifecycle_manager_clear() {
-        let (manager, _cache) = make_test_manager();
+        let (manager, cache) = make_test_manager();
         let mut addresses = HashSet::new();
         addresses.insert("10.0.0.1:15000".to_string());
+        addresses.insert("10.0.0.2:15000".to_string());
         manager.update_active_addresses("database-1", addresses);
-        assert_eq!(manager.len(), 1, "manager should contain 1 endpoint");
+        assert_eq!(manager.len(), 2, "manager should contain 2 endpoints");
+
+        {
+            let mut state = manager.write_state();
+            state
+                .transient_failure_evicted
+                .insert("10.0.0.3:15000".to_string());
+            manager.transient_failure_count.store(1, Ordering::Release);
+        }
+
+        let runtime = Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("runtime build failed");
+        runtime.block_on(async {
+            cache
+                .get("10.0.0.1:15000", &test_client_config())
+                .await
+                .expect("connection 1 create failed");
+            cache
+                .get("10.0.0.2:15000", &test_client_config())
+                .await
+                .expect("connection 2 create failed");
+        });
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_some(),
+            "connection 1 must be in cache before clear"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_some(),
+            "connection 2 must be in cache before clear"
+        );
 
         manager.clear();
         assert_eq!(manager.len(), 0, "manager len should be 0 after clear");
         assert!(manager.is_empty(), "manager should be empty after clear");
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_none(),
+            "connection 1 must be evicted from cache on clear"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_none(),
+            "connection 2 must be evicted from cache on clear"
+        );
+
+        let state = manager.read_state();
+        assert!(
+            state.endpoints.is_empty(),
+            "endpoints must be empty after clear"
+        );
+        assert!(
+            state.transient_failure_evicted.is_empty(),
+            "transient_failure_evicted must be empty after clear"
+        );
+        assert!(
+            state.active_addresses_per_source.is_empty(),
+            "active_addresses_per_source must be empty after clear"
+        );
+        assert_eq!(
+            manager.transient_failure_count.load(Ordering::Acquire),
+            0,
+            "transient_failure_count must be 0 after clear"
+        );
     }
 
     #[test]
@@ -1984,11 +2055,22 @@ mod tests {
     #[test]
     fn lifecycle_manager_drop_evicts_connections_from_cache() {
         let (manager, cache) = make_test_manager();
+        let state_handle = Arc::clone(&manager.state);
+        let failure_count_handle = Arc::clone(&manager.transient_failure_count);
         let now = Instant::now();
 
         let mut active = HashSet::new();
         active.insert("10.0.0.1:15000".to_string());
+        active.insert("10.0.0.2:15000".to_string());
         manager.update_active_addresses_at("database-1", active, now);
+
+        {
+            let mut state = manager.write_state();
+            state
+                .transient_failure_evicted
+                .insert("10.0.0.3:15000".to_string());
+            manager.transient_failure_count.store(1, Ordering::Release);
+        }
 
         let runtime = Builder::new_current_thread()
             .enable_all()
@@ -1996,21 +2078,56 @@ mod tests {
             .expect("runtime build failed");
         runtime.block_on(async {
             cache
-                .get("10.0.0.1:15000", &ClientConfig::default())
+                .get("10.0.0.1:15000", &test_client_config())
                 .await
-                .expect("connection create failed");
+                .expect("connection 1 create failed");
+            cache
+                .get("10.0.0.2:15000", &test_client_config())
+                .await
+                .expect("connection 2 create failed");
         });
 
         assert!(
             cache.get_if_present("10.0.0.1:15000").is_some(),
-            "connection must be in cache before drop"
+            "connection 1 must be in cache before drop"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_some(),
+            "connection 2 must be in cache before drop"
         );
 
         drop(manager);
 
         assert!(
             cache.get_if_present("10.0.0.1:15000").is_none(),
-            "connection must be evicted from cache on manager drop"
+            "connection 1 must be evicted from cache on manager drop"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_none(),
+            "connection 2 must be evicted from cache on manager drop"
+        );
+
+        let state = state_handle.read().expect("state lock read should succeed");
+        assert!(
+            state.endpoints.is_empty(),
+            "endpoints must be empty after drop"
+        );
+        assert!(
+            state.transient_failure_evicted.is_empty(),
+            "transient_failure_evicted must be empty after drop"
+        );
+        assert!(
+            state.active_addresses_per_source.is_empty(),
+            "active_addresses_per_source must be empty after drop"
+        );
+        assert!(
+            state.maintenance_task.is_none(),
+            "maintenance_task must be None after drop"
+        );
+        assert_eq!(
+            failure_count_handle.load(Ordering::Acquire),
+            0,
+            "transient_failure_count must be 0 after drop"
         );
     }
 
@@ -2018,10 +2135,8 @@ mod tests {
     async fn lifecycle_manager_reconnection_task_cleans_up_if_evicted_during_connect() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let mut active = HashSet::new();
         active.insert("10.0.0.1:15000".to_string());
@@ -2055,10 +2170,8 @@ mod tests {
     async fn lifecycle_manager_reconnection_task_cleans_up_if_manager_dropped_during_connect() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let mut active = HashSet::new();
         active.insert("10.0.0.1:15000".to_string());
@@ -2149,7 +2262,7 @@ mod tests {
         manager.update_active_addresses_at("database-1", active, now);
 
         let connection = cache
-            .get("10.0.0.1:15000", &ClientConfig::default())
+            .get("10.0.0.1:15000", &test_client_config())
             .await
             .expect("connection create failed");
         connection.set_transient_failure();
@@ -2185,10 +2298,8 @@ mod tests {
     async fn lifecycle_manager_connection_task_handles_cache_get_error() {
         let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
-        let manager = EndpointLifecycleManager::with_client_config(
-            Arc::clone(&cache),
-            ClientConfig::default(),
-        );
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
 
         let invalid_address = "invalid uri with spaces";
         let mut active = HashSet::new();

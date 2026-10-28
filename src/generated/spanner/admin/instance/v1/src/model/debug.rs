@@ -72,11 +72,25 @@ impl std::fmt::Debug for super::InstanceConfig {
             "free_instance_availability",
             &self.free_instance_availability,
         );
+        debug_struct.field("allowed_processing_units", &self.allowed_processing_units);
         debug_struct.field("quorum_type", &self.quorum_type);
         debug_struct.field(
             "storage_limit_per_processing_unit",
             &self.storage_limit_per_processing_unit,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::instance_config::AllowedProcessingUnits {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllowedProcessingUnits");
+        debug_struct.field("min_processing_units", &self.min_processing_units);
+        debug_struct.field("max_processing_units", &self.max_processing_units);
+        debug_struct.field("processing_unit_increment", &self.processing_unit_increment);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

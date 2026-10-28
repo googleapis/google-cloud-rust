@@ -12,23 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_open_appendable_object_finalize]
-use google_cloud_storage::client::Storage;
+//! Contract: `#[derive(FromRow)]` accepts `Option<T>`, `Vec<T>` and
+//! `Option<Vec<T>>` fields for any `T: FromSql`, in named and tuple structs.
 
-pub async fn sample(
-    client: &Storage,
-    bucket: &str,
-    object: &str,
-    generation: i64,
-) -> Result<(), anyhow::Error> {
-    let writer = client
-        .reopen_appendable_object(format!("projects/_/buckets/{bucket}"), object, generation)
-        .send()
-        .await?;
+use google_cloud_bigquery::query::FromRow;
 
-    let metadata = writer.finalize().await?;
-
-    println!("Finalized appendable object {object} in bucket {bucket}: {metadata:?}");
-    Ok(())
+#[derive(FromRow)]
+#[allow(dead_code)]
+struct Nullable {
+    maybe: Option<i64>,
+    tags: Vec<String>,
+    maybe_list: Option<Vec<bool>>,
 }
-// [END storage_open_appendable_object_finalize]
+
+#[derive(FromRow)]
+#[allow(dead_code)]
+struct NullableTuple(Option<String>, Vec<f64>);
+
+#[test]
+fn contract() {
+    super::assert_from_row::<Nullable>();
+    super::assert_from_row::<NullableTuple>();
+}

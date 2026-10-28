@@ -18,6 +18,7 @@ use crate::value::SPANNER_TIMESTAMP_FORMAT;
 pub use crate::value::Value;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use bytes::Bytes;
 use google_cloud_type::model::Date;
 use prost_types::Value as ProtoValue;
 use prost_types::value::Kind as ProtoKind;
@@ -27,6 +28,7 @@ use std::time::SystemTime;
 use time::Date as TimeDate;
 use time::OffsetDateTime;
 use time::UtcOffset;
+use uuid::Uuid;
 use wkt::Timestamp;
 
 /// Converts Rust types to Spanner [Value].
@@ -104,12 +106,6 @@ impl ToValue for str {
         Value(ProtoValue {
             kind: Some(prost_types::value::Kind::StringValue(self.to_string())),
         })
-    }
-}
-
-impl ToValue for &str {
-    fn to_value(&self) -> Value {
-        <str as ToValue>::to_value(*self)
     }
 }
 
@@ -389,9 +385,53 @@ impl ToValue for [u8] {
     }
 }
 
-impl ToValue for &[u8] {
+/// Encodes a fixed-size byte array as a Spanner [`Value`].
+///
+/// Encodes the binary payload as a base64 string matching Spanner's `BYTES` wire format.
+impl<const N: usize> ToValue for [u8; N] {
     fn to_value(&self) -> Value {
-        <[u8] as ToValue>::to_value(*self)
+        self.as_slice().to_value()
+    }
+}
+
+/// Converts a fixed-size byte array into a Spanner [`Value`].
+impl<const N: usize> From<[u8; N]> for Value {
+    fn from(bytes_array: [u8; N]) -> Self {
+        bytes_array.as_slice().to_value()
+    }
+}
+
+/// Encodes a [`Bytes`] buffer as a Spanner [`Value`].
+///
+/// Encodes the binary payload as a base64 string matching Spanner's `BYTES` wire format.
+impl ToValue for Bytes {
+    fn to_value(&self) -> Value {
+        (**self).to_value()
+    }
+}
+
+/// Converts a [`Bytes`] buffer into a Spanner [`Value`].
+impl From<Bytes> for Value {
+    fn from(byte_buffer: Bytes) -> Self {
+        byte_buffer.to_value()
+    }
+}
+
+/// Encodes a [`Uuid`] as a Spanner [`Value`].
+///
+/// Formats the UUID as a lowercase hyphenated string matching Spanner's `UUID` wire format.
+impl ToValue for Uuid {
+    fn to_value(&self) -> Value {
+        Value(ProtoValue {
+            kind: Some(ProtoKind::StringValue(self.to_string())),
+        })
+    }
+}
+
+/// Converts a [`Uuid`] into a Spanner [`Value`].
+impl From<Uuid> for Value {
+    fn from(uuid: Uuid) -> Self {
+        uuid.to_value()
     }
 }
 
@@ -423,11 +463,33 @@ impl<T: Into<Value>> From<Vec<T>> for Value {
     }
 }
 
-/// Converts a reference to any [ToValue] type into a [Value] by calling
-/// [ToValue::to_value], which copies the referenced data.
+/// Encodes a shared reference to a [`ToValue`] type as a Spanner [`Value`].
+impl<T: ToValue + ?Sized> ToValue for &T {
+    fn to_value(&self) -> Value {
+        T::to_value(*self)
+    }
+}
+
+/// Encodes a mutable reference to a [`ToValue`] type as a Spanner [`Value`].
+impl<T: ToValue + ?Sized> ToValue for &mut T {
+    fn to_value(&self) -> Value {
+        T::to_value(*self)
+    }
+}
+
+/// Converts a reference to any [`ToValue`] type into a [`Value`] by calling
+/// [`ToValue::to_value`], which copies the referenced data.
 impl<T: ToValue + ?Sized> From<&T> for Value {
-    fn from(t: &T) -> Self {
-        t.to_value()
+    fn from(reference: &T) -> Self {
+        reference.to_value()
+    }
+}
+
+/// Converts a mutable reference to any [`ToValue`] type into a [`Value`] by calling
+/// [`ToValue::to_value`], which copies the referenced data.
+impl<T: ToValue + ?Sized> From<&mut T> for Value {
+    fn from(reference: &mut T) -> Self {
+        reference.to_value()
     }
 }
 
@@ -435,6 +497,7 @@ impl<T: ToValue + ?Sized> From<&T> for Value {
 mod tests {
     use super::*;
     use crate::value::Kind;
+    use static_assertions::assert_impl_all;
     use std::str::FromStr;
     use std::time::Duration;
     #[cfg(feature = "unstable-time")]
@@ -578,6 +641,151 @@ mod tests {
     }
 
     #[test]
+    fn to_value_reference_types() {
+        let integer_value: i64 = 42;
+        let integer_reference: &i64 = &integer_value;
+        let integer_double_reference: &&i64 = &integer_reference;
+        assert_eq!(
+            integer_reference.to_value(),
+            Value::from(42_i64),
+            "single reference to integer must encode correctly"
+        );
+        assert_eq!(
+            integer_double_reference.to_value(),
+            Value::from(42_i64),
+            "double reference to integer must encode correctly"
+        );
+
+        let mut mutable_integer: i64 = 99;
+        let mutable_reference: &mut i64 = &mut mutable_integer;
+        assert_eq!(
+            mutable_reference.to_value(),
+            Value::from(99_i64),
+            "mutable reference to integer must encode correctly"
+        );
+
+        let string_value: String = "test".to_string();
+        let string_reference: &String = &string_value;
+        let string_double_reference: &&String = &string_reference;
+        assert_eq!(
+            string_reference.to_value(),
+            Value::from("test"),
+            "single reference to string must encode correctly"
+        );
+        assert_eq!(
+            string_double_reference.to_value(),
+            Value::from("test"),
+            "double reference to string must encode correctly"
+        );
+
+        let str_slice: &str = "slice";
+        let str_reference: &&str = &str_slice;
+        assert_eq!(
+            str_slice.to_value(),
+            Value::from("slice"),
+            "str slice must encode correctly"
+        );
+        assert_eq!(
+            str_reference.to_value(),
+            Value::from("slice"),
+            "reference to str slice must encode correctly"
+        );
+
+        let mut mutable_string: String = "mutable".to_string();
+        let mutable_str: &mut str = mutable_string.as_mut_str();
+        assert_eq!(
+            mutable_str.to_value(),
+            Value::from("mutable"),
+            "mutable str slice must encode correctly"
+        );
+
+        let mut mutable_byte_array = [1_u8, 2, 3];
+        let mutable_byte_slice: &mut [u8] = &mut mutable_byte_array;
+        assert_eq!(
+            mutable_byte_slice.to_value(),
+            Value::from(&[1_u8, 2, 3][..]),
+            "mutable byte slice must encode correctly"
+        );
+
+        let fixed_bytes_array = [10_u8, 20, 30];
+        assert_eq!(
+            fixed_bytes_array.to_value(),
+            Value::from(&[10_u8, 20, 30][..]),
+            "owned fixed-size byte array must encode correctly"
+        );
+        assert_impl_all!(&i64: ToValue);
+        assert_impl_all!(&&i64: ToValue);
+        assert_impl_all!(&mut i64: ToValue);
+        assert_impl_all!(&bool: ToValue);
+        assert_impl_all!(&f64: ToValue);
+        assert_impl_all!(&str: ToValue);
+        assert_impl_all!(&mut str: ToValue);
+        assert_impl_all!(&[u8]: ToValue);
+        assert_impl_all!(&mut [u8]: ToValue);
+        assert_impl_all!([u8; 3]: ToValue);
+        assert_impl_all!(&[u8; 3]: ToValue);
+        assert_impl_all!(&mut [u8; 3]: ToValue);
+        assert_impl_all!(&String: ToValue);
+        assert_impl_all!(&Decimal: ToValue);
+        assert_impl_all!(&Timestamp: ToValue);
+        assert_impl_all!(&Date: ToValue);
+        assert_impl_all!(&Uuid: ToValue);
+        assert_impl_all!(&Option<i64>: ToValue);
+        assert_impl_all!(Option<&str>: ToValue);
+
+        let from_array_value: Value = fixed_bytes_array.into();
+        assert_eq!(
+            from_array_value,
+            Value::from(&[10_u8, 20, 30][..]),
+            "From<[u8; N]> for Value must encode correctly"
+        );
+
+        let from_array_ref_value = Value::from(&fixed_bytes_array);
+        assert_eq!(
+            from_array_ref_value,
+            Value::from(&[10_u8, 20, 30][..]),
+            "From<&[u8; N]> for Value must encode correctly"
+        );
+
+        let mut mutable_bytes_array = [10_u8, 20, 30];
+        let from_mut_array_value = Value::from(&mut mutable_bytes_array);
+        assert_eq!(
+            from_mut_array_value,
+            Value::from(&[10_u8, 20, 30][..]),
+            "From<&mut [u8; N]> for Value must encode correctly"
+        );
+
+        let empty_bytes_array: [u8; 0] = [];
+        assert_eq!(
+            empty_bytes_array.to_value(),
+            Value::from(&[][..]),
+            "empty fixed-size byte array must encode as empty bytes"
+        );
+
+        let mut mutable_for_from = 55_i64;
+        let from_mut_value = Value::from(&mut mutable_for_from);
+        assert_eq!(
+            from_mut_value,
+            Value::from(55_i64),
+            "From<&mut T> for Value via Value::from must encode correctly"
+        );
+
+        let optional_str_none: Option<&str> = None;
+        assert_eq!(
+            optional_str_none.to_value(),
+            Value::null(),
+            "Option<&str>::None must encode as null"
+        );
+
+        let optional_str_some: Option<&str> = Some("hello");
+        assert_eq!(
+            optional_str_some.to_value(),
+            Value::from("hello"),
+            "Option<&str>::Some must encode correctly"
+        );
+    }
+
+    #[test]
     fn to_value_int() {
         let value = 42i64.to_value();
         assert_eq!(value.kind(), Kind::String);
@@ -630,8 +838,51 @@ mod tests {
 
         let slice: &[u8] = &[1, 2, 3];
         let value = bind_param(slice);
-        assert_eq!(value.kind(), Kind::String);
-        assert_eq!(value.as_str(), Some("AQID"));
+        assert_eq!(value.kind(), Kind::String, "slice must serialize to string");
+        assert_eq!(value.as_str(), Some("AQID"), "expected base64 encoding");
+    }
+
+    #[test]
+    fn to_value_bytes_crate() {
+        let byte_buffer = Bytes::from_static(b"hello world");
+        let value = byte_buffer.to_value();
+        assert_eq!(value.kind(), Kind::String, "bytes must serialize to string");
+        assert_eq!(
+            value.as_str(),
+            Some("aGVsbG8gd29ybGQ="),
+            "expected base64 representation"
+        );
+
+        let into_value: Value = byte_buffer.clone().into();
+        assert_eq!(into_value, value, "Into<Value> must match to_value");
+
+        let reference_value: Value = (&byte_buffer).into();
+        assert_eq!(
+            reference_value, value,
+            "&Bytes Into<Value> must match to_value"
+        );
+    }
+
+    #[test]
+    fn to_value_uuid() {
+        let uuid_string = "123e4567-e89b-12d3-a456-426614174000";
+        let uuid = Uuid::parse_str(uuid_string).expect("valid uuid string");
+        let value = uuid.to_value();
+        assert_eq!(value.kind(), Kind::String, "uuid must serialize to string");
+        assert_eq!(
+            value.as_str(),
+            Some(uuid_string),
+            "expected uuid string representation"
+        );
+
+        let into_value: Value = uuid.into();
+        assert_eq!(into_value, value, "Into<Value> must match to_value");
+
+        let reference_value: Value = (&uuid).into();
+        assert_eq!(
+            reference_value, value,
+            "&Uuid Into<Value> must match to_value"
+        );
     }
 
     #[test]

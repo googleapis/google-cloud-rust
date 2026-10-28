@@ -175,6 +175,37 @@ impl CloudRedisCluster {
         super::builder::cloud_redis_cluster::ListClusters::new(self.inner.clone())
     }
 
+    /// Lists all ACL policies owned by a project in either the specified
+    /// location (region) or all locations.
+    ///
+    /// The location should have the following format:
+    ///
+    /// * `projects/{project_id}/locations/{location_id}`
+    ///
+    /// If `location_id` is specified as `-` (wildcard), then all regions
+    /// available to the project are queried, and the results are aggregated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_acl_policies()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_acl_policies(&self) -> super::builder::cloud_redis_cluster::ListAclPolicies {
+        super::builder::cloud_redis_cluster::ListAclPolicies::new(self.inner.clone())
+    }
+
     /// Gets the details of a specific Redis cluster.
     ///
     /// # Example
@@ -193,6 +224,26 @@ impl CloudRedisCluster {
     /// ```
     pub fn get_cluster(&self) -> super::builder::cloud_redis_cluster::GetCluster {
         super::builder::cloud_redis_cluster::GetCluster::new(self.inner.clone())
+    }
+
+    /// Gets the details of a specific Redis Cluster ACL policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, acl_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_acl_policy()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_acl_policy(&self) -> super::builder::cloud_redis_cluster::GetAclPolicy {
+        super::builder::cloud_redis_cluster::GetAclPolicy::new(self.inner.clone())
     }
 
     /// Updates the metadata and configuration of a specific Redis cluster.
@@ -236,6 +287,52 @@ impl CloudRedisCluster {
         super::builder::cloud_redis_cluster::UpdateCluster::new(self.inner.clone())
     }
 
+    /// Updates the ACL policy.
+    ///
+    /// The operation applies the updated ACL policy to all of the linked clusters.
+    /// If Memorystore can apply the policy to all clusters, then the operation
+    /// returns a SUCCESS status. If Memorystore can't apply the policy to all
+    /// clusters, then to ensure eventual consistency, Memorystore uses
+    /// reconciliation to apply the policy to the failed clusters.
+    ///
+    /// Completed longrunning.Operation will contain the new ACL policy object in
+    /// the response field.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, acl_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_acl_policy()
+    ///         .set_acl_policy(
+    ///             AclPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_acl_policy(&self) -> super::builder::cloud_redis_cluster::UpdateAclPolicy {
+        super::builder::cloud_redis_cluster::UpdateAclPolicy::new(self.inner.clone())
+    }
+
     /// Deletes a specific Redis cluster. Cluster stops serving and data is
     /// deleted.
     ///
@@ -265,6 +362,85 @@ impl CloudRedisCluster {
     /// ```
     pub fn delete_cluster(&self) -> super::builder::cloud_redis_cluster::DeleteCluster {
         super::builder::cloud_redis_cluster::DeleteCluster::new(self.inner.clone())
+    }
+
+    /// Deletes a specific ACL policy. This action will delete the ACL policy and
+    /// all the rules associated with it. An ACL policy cannot be deleted if it is
+    /// attached to a cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, acl_policy_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_acl_policy()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_acl_policy(&self) -> super::builder::cloud_redis_cluster::DeleteAclPolicy {
+        super::builder::cloud_redis_cluster::DeleteAclPolicy::new(self.inner.clone())
+    }
+
+    /// Gets details of a specific ACL policy revision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, acl_policy_id: &str, revision_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_acl_policy_revision()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_acl_policy_revision(
+        &self,
+    ) -> super::builder::cloud_redis_cluster::GetAclPolicyRevision {
+        super::builder::cloud_redis_cluster::GetAclPolicyRevision::new(self.inner.clone())
+    }
+
+    /// Lists all ACL policy revisions in a given ACL policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, acl_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_acl_policy_revisions()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_acl_policy_revisions(
+        &self,
+    ) -> super::builder::cloud_redis_cluster::ListAclPolicyRevisions {
+        super::builder::cloud_redis_cluster::ListAclPolicyRevisions::new(self.inner.clone())
     }
 
     /// Creates a Redis cluster based on the specified properties.
@@ -308,6 +484,32 @@ impl CloudRedisCluster {
     /// ```
     pub fn create_cluster(&self) -> super::builder::cloud_redis_cluster::CreateCluster {
         super::builder::cloud_redis_cluster::CreateCluster::new(self.inner.clone())
+    }
+
+    /// Creates an ACL policy.
+    /// The creation is executed synchronously and the policy is available for use
+    /// immediately after the RPC returns.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_redis_cluster_v1::model::AclPolicy;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_acl_policy()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_acl_policy(
+    ///             AclPolicy::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_acl_policy(&self) -> super::builder::cloud_redis_cluster::CreateAclPolicy {
+        super::builder::cloud_redis_cluster::CreateAclPolicy::new(self.inner.clone())
     }
 
     /// Gets the details of certificate authority information for Redis cluster.
@@ -585,6 +787,216 @@ impl CloudRedisCluster {
     /// ```
     pub fn backup_cluster(&self) -> super::builder::cloud_redis_cluster::BackupCluster {
         super::builder::cloud_redis_cluster::BackupCluster::new(self.inner.clone())
+    }
+
+    /// Lists all the token auth users for a token based auth enabled cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, cluster_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_token_auth_users()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_token_auth_users(&self) -> super::builder::cloud_redis_cluster::ListTokenAuthUsers {
+        super::builder::cloud_redis_cluster::ListTokenAuthUsers::new(self.inner.clone())
+    }
+
+    /// Gets a specific token auth user for a basic auth enabled cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, cluster_id: &str, token_auth_user_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_token_auth_user()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_token_auth_user(&self) -> super::builder::cloud_redis_cluster::GetTokenAuthUser {
+        super::builder::cloud_redis_cluster::GetTokenAuthUser::new(self.inner.clone())
+    }
+
+    /// Lists all the auth tokens for a specific token auth user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, cluster_id: &str, token_auth_user_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_auth_tokens()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_auth_tokens(&self) -> super::builder::cloud_redis_cluster::ListAuthTokens {
+        super::builder::cloud_redis_cluster::ListAuthTokens::new(self.inner.clone())
+    }
+
+    /// Gets a specific auth token for a specific token auth user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, cluster_id: &str, token_auth_user_id: &str, auth_token_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_auth_token()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_auth_token(&self) -> super::builder::cloud_redis_cluster::GetAuthToken {
+        super::builder::cloud_redis_cluster::GetAuthToken::new(self.inner.clone())
+    }
+
+    /// Adds a token auth user for a token based auth enabled cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster
+    /// ) -> Result<()> {
+    ///     let response = client.add_token_auth_user()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn add_token_auth_user(&self) -> super::builder::cloud_redis_cluster::AddTokenAuthUser {
+        super::builder::cloud_redis_cluster::AddTokenAuthUser::new(self.inner.clone())
+    }
+
+    /// Deletes a token auth user for a token based auth enabled cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, cluster_id: &str, token_auth_user_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_token_auth_user()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_token_auth_user(
+        &self,
+    ) -> super::builder::cloud_redis_cluster::DeleteTokenAuthUser {
+        super::builder::cloud_redis_cluster::DeleteTokenAuthUser::new(self.inner.clone())
+    }
+
+    /// Adds a auth token for a user of a token based auth enabled cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster
+    /// ) -> Result<()> {
+    ///     let response = client.add_auth_token()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn add_auth_token(&self) -> super::builder::cloud_redis_cluster::AddAuthToken {
+        super::builder::cloud_redis_cluster::AddAuthToken::new(self.inner.clone())
+    }
+
+    /// Removes a auth token for a user of a token based auth enabled instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, project_id: &str, location_id: &str, cluster_id: &str, token_auth_user_id: &str, auth_token_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_auth_token()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_auth_token(&self) -> super::builder::cloud_redis_cluster::DeleteAuthToken {
+        super::builder::cloud_redis_cluster::DeleteAuthToken::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.

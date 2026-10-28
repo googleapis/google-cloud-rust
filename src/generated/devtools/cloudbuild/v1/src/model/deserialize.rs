@@ -6625,6 +6625,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildTrigger {
             __included_files,
             __filter,
             __source_to_build,
+            __approval_config,
             __service_account,
             __repository_event_config,
             Unknown(std::string::String),
@@ -6676,6 +6677,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildTrigger {
                             "filter" => Ok(__FieldTag::__filter),
                             "sourceToBuild" => Ok(__FieldTag::__source_to_build),
                             "source_to_build" => Ok(__FieldTag::__source_to_build),
+                            "approvalConfig" => Ok(__FieldTag::__approval_config),
+                            "approval_config" => Ok(__FieldTag::__approval_config),
                             "serviceAccount" => Ok(__FieldTag::__service_account),
                             "service_account" => Ok(__FieldTag::__service_account),
                             "repositoryEventConfig" => Ok(__FieldTag::__repository_event_config),
@@ -6934,6 +6937,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildTrigger {
                             }
                             result.source_to_build = map
                                 .next_value::<std::option::Option<crate::model::GitRepoSource>>()?;
+                        }
+                        __FieldTag::__approval_config => {
+                            if !fields.insert(__FieldTag::__approval_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for approval_config",
+                                ));
+                            }
+                            result.approval_config = map
+                                .next_value::<std::option::Option<crate::model::ApprovalConfig>>(
+                                )?;
                         }
                         __FieldTag::__service_account => {
                             if !fields.insert(__FieldTag::__service_account) {
@@ -8394,6 +8407,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildOptions {
             __volumes,
             __default_logs_bucket_behavior,
             __enable_structured_logging,
+            __worker_release,
+            __resolved_worker_release,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8450,6 +8465,10 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildOptions {
                             "enable_structured_logging" => {
                                 Ok(__FieldTag::__enable_structured_logging)
                             }
+                            "workerRelease" => Ok(__FieldTag::__worker_release),
+                            "worker_release" => Ok(__FieldTag::__worker_release),
+                            "resolvedWorkerRelease" => Ok(__FieldTag::__resolved_worker_release),
+                            "resolved_worker_release" => Ok(__FieldTag::__resolved_worker_release),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8639,6 +8658,26 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildOptions {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__worker_release => {
+                            if !fields.insert(__FieldTag::__worker_release) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for worker_release",
+                                ));
+                            }
+                            result.worker_release = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resolved_worker_release => {
+                            if !fields.insert(__FieldTag::__resolved_worker_release) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resolved_worker_release",
+                                ));
+                            }
+                            result.resolved_worker_release = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -8663,6 +8702,8 @@ impl<'de> serde::de::Deserialize<'de> for super::build_options::PoolOption {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __name,
+            __worker_release,
+            __resolved_worker_release,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8684,6 +8725,10 @@ impl<'de> serde::de::Deserialize<'de> for super::build_options::PoolOption {
                         use std::string::ToString;
                         match value {
                             "name" => Ok(__FieldTag::__name),
+                            "workerRelease" => Ok(__FieldTag::__worker_release),
+                            "worker_release" => Ok(__FieldTag::__worker_release),
+                            "resolvedWorkerRelease" => Ok(__FieldTag::__resolved_worker_release),
+                            "resolved_worker_release" => Ok(__FieldTag::__resolved_worker_release),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8716,6 +8761,26 @@ impl<'de> serde::de::Deserialize<'de> for super::build_options::PoolOption {
                                 ));
                             }
                             result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__worker_release => {
+                            if !fields.insert(__FieldTag::__worker_release) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for worker_release",
+                                ));
+                            }
+                            result.worker_release = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resolved_worker_release => {
+                            if !fields.insert(__FieldTag::__resolved_worker_release) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resolved_worker_release",
+                                ));
+                            }
+                            result.resolved_worker_release = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -9570,6 +9635,7 @@ impl<'de> serde::de::Deserialize<'de> for super::private_pool_v_1_config::Worker
             __machine_type,
             __disk_size_gb,
             __enable_nested_virtualization,
+            __worker_release,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9600,6 +9666,8 @@ impl<'de> serde::de::Deserialize<'de> for super::private_pool_v_1_config::Worker
                             "enable_nested_virtualization" => {
                                 Ok(__FieldTag::__enable_nested_virtualization)
                             }
+                            "workerRelease" => Ok(__FieldTag::__worker_release),
+                            "worker_release" => Ok(__FieldTag::__worker_release),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9662,6 +9730,16 @@ impl<'de> serde::de::Deserialize<'de> for super::private_pool_v_1_config::Worker
                             }
                             result.enable_nested_virtualization =
                                 map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__worker_release => {
+                            if !fields.insert(__FieldTag::__worker_release) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for worker_release",
+                                ));
+                            }
+                            result.worker_release = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

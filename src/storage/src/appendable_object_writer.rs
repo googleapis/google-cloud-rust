@@ -22,12 +22,11 @@ use bytes::Bytes;
 /// # Example
 /// ```
 /// # use google_cloud_storage::appendable_object_writer::AppendableObjectWriter;
-/// use bytes::Bytes;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let mut writer = open();
 ///
 /// // Append 2000 bytes.
-/// writer.append(Bytes::from(vec![0u8; 2000])).await?;
+/// writer.append(vec![0u8; 2000]).await?;
 /// writer.finalize().await?;
 ///
 /// fn open() -> AppendableObjectWriter {
@@ -55,11 +54,10 @@ impl AppendableObjectWriter {
     /// # Example
     /// ```
     /// # use google_cloud_storage::appendable_object_writer::AppendableObjectWriter;
-    /// use bytes::Bytes;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let mut writer = open();
-    /// writer.append(Bytes::from("hello ")).await?;
-    /// writer.append(Bytes::from("world")).await?;
+    /// writer.append("hello ").await?;
+    /// writer.append("world").await?;
     ///
     /// fn open() -> AppendableObjectWriter {
     /// # panic!()
@@ -67,8 +65,8 @@ impl AppendableObjectWriter {
     /// }
     /// # Ok(()) }
     /// ```
-    pub async fn append(&mut self, chunk: Bytes) -> crate::Result<()> {
-        self.inner.append(chunk).await
+    pub async fn append(&mut self, chunk: impl Into<Bytes>) -> crate::Result<()> {
+        self.inner.append(chunk.into()).await
     }
 
     /// Flushes the stream and blocks until the server confirms the bytes are persisted.
@@ -77,10 +75,9 @@ impl AppendableObjectWriter {
     /// # Example
     /// ```
     /// # use google_cloud_storage::appendable_object_writer::AppendableObjectWriter;
-    /// use bytes::Bytes;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let mut writer = open();
-    /// writer.append(Bytes::from("hello")).await?;
+    /// writer.append("hello").await?;
     /// let persisted_size = writer.flush().await?;
     /// println!("persisted {} bytes", persisted_size);
     ///
@@ -101,10 +98,9 @@ impl AppendableObjectWriter {
     /// # Example
     /// ```
     /// # use google_cloud_storage::appendable_object_writer::AppendableObjectWriter;
-    /// use bytes::Bytes;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let mut writer = open();
-    /// writer.append(Bytes::from("hello")).await?;
+    /// writer.append("hello").await?;
     /// let object = writer.finalize().await?;
     /// println!("final object size is {} bytes", object.size);
     ///
@@ -214,7 +210,7 @@ mod tests {
         mock.expect_persisted_size().returning(|| 123);
 
         let mut writer = AppendableObjectWriter::new(mock);
-        writer.append(Bytes::from("test")).await?;
+        writer.append("test").await?;
         assert_eq!(writer.flush().await?, 123);
         assert_eq!(writer.generation(), 1);
         assert_eq!(writer.persisted_size(), 123);

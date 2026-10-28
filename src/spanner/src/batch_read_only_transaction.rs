@@ -18,8 +18,8 @@ use crate::model::{ExecuteSqlRequest, PartitionOptions, ReadRequest};
 use crate::precommit::PrecommitTokenTracker;
 use crate::read::ReadRequest as SpannerReadRequest;
 use crate::read_only_transaction::{
-    BeginTransactionOption, MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
-    ReadContextTransactionSelector,
+    AbortedState, BeginTransactionOption, MultiUseReadOnlyTransaction,
+    MultiUseReadOnlyTransactionBuilder, ReadContextTransactionSelector,
 };
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
@@ -482,13 +482,11 @@ impl Partition {
             transaction_selector: Some(ReadContextTransactionSelector::Fixed(transaction, None)),
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
-            session_name: request.session.clone(),
-            transaction_tag: None,
             operation: StreamOperation::Query(request.clone()),
             gax_options,
             method_name: "ExecuteStreamingSql",
             affinity: None,
-            begin_transaction_request_options: None,
+            aborted_state: AbortedState::new_noop(),
         })
         .await
     }
@@ -507,13 +505,11 @@ impl Partition {
             transaction_selector: Some(ReadContextTransactionSelector::Fixed(transaction, None)),
             precommit_token_tracker: PrecommitTokenTracker::new_noop(),
             client: client.clone(),
-            session_name: request.session.clone(),
-            transaction_tag: None,
             operation: StreamOperation::Read(request.clone()),
             gax_options,
             method_name: "StreamingRead",
             affinity: None,
-            begin_transaction_request_options: None,
+            aborted_state: AbortedState::new_noop(),
         })
         .await
     }

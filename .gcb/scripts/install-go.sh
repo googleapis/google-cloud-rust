@@ -14,7 +14,7 @@
 # limitations under the License.
 
 echo "==== Install go compiler ===="
-curl -fsSL --retry 5 --retry-delay 15 https://go.dev/dl/go1.26.7.linux-amd64.tar.gz -o /tmp/go.tar.gz
-sha256sum -c <(echo ffb5f8de10c62550dfddab66b36b57030721e0a44a3218e9e1181d7b59f121ca /tmp/go.tar.gz)
+curl -fsSL --retry 5 --retry-delay 15 https://go.dev/dl/go1.27.3.linux-amd64.tar.gz -o /tmp/go.tar.gz
+sha256sum -c <(echo 65efbc80fdc1fa2cd2631cad5b481777a68e8725f34e89f50fc6ac714e379b40 /tmp/go.tar.gz)
 rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go.tar.gz
 export PATH=/usr/local/go/bin:${PATH}

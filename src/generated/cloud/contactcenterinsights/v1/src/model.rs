@@ -14359,8 +14359,13 @@ pub mod conversation {
             /// The agent's name.
             pub display_name: std::string::String,
 
-            /// A user-specified string representing the agent's team.
+            /// A user-specified string representing the agent's team. Deprecated in
+            /// favor of the `teams` field.
+            #[deprecated]
             pub team: std::string::String,
+
+            /// User-specified strings representing the agent's teams.
+            pub teams: std::vec::Vec<std::string::String>,
 
             /// A user-provided string indicating the outcome of the agent's segment of
             /// the call.
@@ -14368,6 +14373,28 @@ pub mod conversation {
 
             /// The agent type, e.g. HUMAN_AGENT.
             pub agent_type: crate::model::conversation_participant::Role,
+
+            /// The agent's location.
+            pub location: std::string::String,
+
+            /// The agent's deployment ID. Only applicable to automated agents.
+            pub deployment_id: std::string::String,
+
+            /// The agent's deployment display name. Only applicable to automated
+            /// agents.
+            pub deployment_display_name: std::string::String,
+
+            /// The agent's version ID. Only applicable to automated agents.
+            pub version_id: std::string::String,
+
+            /// The agent's version display name. Only applicable to automated agents.
+            pub version_display_name: std::string::String,
+
+            /// The entry subagent's display name.
+            pub entry_subagent_display_name: std::string::String,
+
+            /// The entry subagent's ID.
+            pub entry_subagent_id: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -14415,8 +14442,26 @@ pub mod conversation {
             /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
             /// let x = AgentInfo::new().set_team("example");
             /// ```
+            #[deprecated]
             pub fn set_team<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.team = v.into();
+                self
+            }
+
+            /// Sets the value of [teams][crate::model::conversation::quality_metadata::AgentInfo::teams].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_teams(["a", "b", "c"]);
+            /// ```
+            pub fn set_teams<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.teams = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -14452,6 +14497,111 @@ pub mod conversation {
                 v: T,
             ) -> Self {
                 self.agent_type = v.into();
+                self
+            }
+
+            /// Sets the value of [location][crate::model::conversation::quality_metadata::AgentInfo::location].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_location("example");
+            /// ```
+            pub fn set_location<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.location = v.into();
+                self
+            }
+
+            /// Sets the value of [deployment_id][crate::model::conversation::quality_metadata::AgentInfo::deployment_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_deployment_id("example");
+            /// ```
+            pub fn set_deployment_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.deployment_id = v.into();
+                self
+            }
+
+            /// Sets the value of [deployment_display_name][crate::model::conversation::quality_metadata::AgentInfo::deployment_display_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_deployment_display_name("example");
+            /// ```
+            pub fn set_deployment_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.deployment_display_name = v.into();
+                self
+            }
+
+            /// Sets the value of [version_id][crate::model::conversation::quality_metadata::AgentInfo::version_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_version_id("example");
+            /// ```
+            pub fn set_version_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.version_id = v.into();
+                self
+            }
+
+            /// Sets the value of [version_display_name][crate::model::conversation::quality_metadata::AgentInfo::version_display_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_version_display_name("example");
+            /// ```
+            pub fn set_version_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.version_display_name = v.into();
+                self
+            }
+
+            /// Sets the value of [entry_subagent_display_name][crate::model::conversation::quality_metadata::AgentInfo::entry_subagent_display_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_entry_subagent_display_name("example");
+            /// ```
+            pub fn set_entry_subagent_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.entry_subagent_display_name = v.into();
+                self
+            }
+
+            /// Sets the value of [entry_subagent_id][crate::model::conversation::quality_metadata::AgentInfo::entry_subagent_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_entry_subagent_id("example");
+            /// ```
+            pub fn set_entry_subagent_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.entry_subagent_id = v.into();
                 self
             }
         }

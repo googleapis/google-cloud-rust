@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_open_appendable_object_write]
+// [START storage_create_and_write_appendable_object]
+// The appendable upload API is unstable. Build with
+// `RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi"` to enable it.
 use bytes::Bytes;
 use google_cloud_storage::client::Storage;
 
@@ -22,11 +24,18 @@ pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), 
         .send()
         .await?;
 
-    writer.append(Bytes::from("Hello ")).await?;
-    writer.append(Bytes::from("World!")).await?;
-    let metadata = writer.finalize().await?;
+    writer.append(Bytes::from("Some data\n")).await?;
 
-    println!("Appended data to {object} in bucket {bucket}: {metadata:?}");
+    // Flush the buffered data to the service. After a flush, the data is visible to readers.
+    let persisted_size = writer.flush().await?;
+    println!("Flush completed. Persisted size is now {persisted_size}");
+
+    // The writer is still open. We can write more data.
+    writer.append(Bytes::from("Some more data\n")).await?;
+
+    // Close the writer without finalizing the object.
+    let persisted_size = writer.close().await?;
+    println!("Created appendable object {object} in bucket {bucket} with {persisted_size} bytes");
     Ok(())
 }
-// [END storage_open_appendable_object_write]
+// [END storage_create_and_write_appendable_object]

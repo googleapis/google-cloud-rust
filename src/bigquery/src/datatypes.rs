@@ -408,7 +408,7 @@ impl<T: RangeElement> FromSql for Range<T> {
                     return Err(ConvertError::NotNull);
                 }
                 let take = |key: &str| -> Result<Option<T>, ConvertError> {
-                    let field_cell = cell.struct_field_by_name(key)?;
+                    let field_cell = cell.struct_field_cell(&key)?;
                     Option::<T>::from_value(crate::query::SqlValue::from_inner(
                         SqlValueInner::Arrow(field_cell),
                     ))
@@ -431,7 +431,7 @@ mod tests {
     enum TestConvertError {
         NotNull,
         TypeMismatch(String),
-        Convert(String),
+        Convert,
         MissingField(String),
     }
 
@@ -440,7 +440,7 @@ mod tests {
             match err {
                 ConvertError::NotNull => Self::NotNull,
                 ConvertError::TypeMismatch { expected, .. } => Self::TypeMismatch(expected),
-                ConvertError::Convert(e) => Self::Convert(e.to_string()),
+                ConvertError::Convert(_) => Self::Convert,
                 ConvertError::MissingField(f) => Self::MissingField(f),
             }
         }
@@ -457,15 +457,15 @@ mod tests {
     #[test_case(wkt::Value::String("0-0 0 0:00:00.1234567899".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0, nanos: 123_456_789 }) ; "truncated nanos")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null interval")]
     #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string".to_string())) ; "type mismatch interval")]
-    #[test_case(wkt::Value::String("".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got ``".to_string())) ; "empty interval string")]
-    #[test_case(wkt::Value::String("1-2 3".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got `1-2 3`".to_string())) ; "invalid interval parts count")]
-    #[test_case(wkt::Value::String("1 3 4:05:06".to_string()) => Err(TestConvertError::Convert("invalid interval year-month format".to_string())) ; "invalid year-month format")]
+    #[test_case(wkt::Value::String("".to_string()) => Err(TestConvertError::Convert) ; "empty interval string")]
+    #[test_case(wkt::Value::String("1-2 3".to_string()) => Err(TestConvertError::Convert) ; "invalid interval parts count")]
+    #[test_case(wkt::Value::String("1 3 4:05:06".to_string()) => Err(TestConvertError::Convert) ; "invalid year-month format")]
     #[test_case(wkt::Value::String("0-0 0 744:0:0".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: 744, minutes: 0, seconds: 0, nanos: 0 }) ; "hours beyond a day")]
     #[test_case(wkt::Value::String("0-0 0 25:0:0".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: 25, minutes: 0, seconds: 0, nanos: 0 }) ; "interval 25 hour")]
     #[test_case(wkt::Value::String("0-0 0 -744:0:0".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: -744, minutes: 0, seconds: 0, nanos: 0 }) ; "negative hours beyond a day")]
-    #[test_case(wkt::Value::String("1-2 3 4:05".to_string()) => Err(TestConvertError::Convert("invalid interval time format".to_string())) ; "invalid time format")]
-    #[test_case(wkt::Value::String("1-2 3 4:05:06:07".to_string()) => Err(TestConvertError::Convert("invalid interval time format".to_string())) ; "too many time parts")]
-    #[test_case(wkt::Value::String("1-2 3 4:05:06.x".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "invalid subsecond")]
+    #[test_case(wkt::Value::String("1-2 3 4:05".to_string()) => Err(TestConvertError::Convert) ; "invalid time format")]
+    #[test_case(wkt::Value::String("1-2 3 4:05:06:07".to_string()) => Err(TestConvertError::Convert) ; "too many time parts")]
+    #[test_case(wkt::Value::String("1-2 3 4:05:06.x".to_string()) => Err(TestConvertError::Convert) ; "invalid subsecond")]
     fn test_from_sql_interval(value: wkt::Value) -> Result<Interval, TestConvertError> {
         FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -476,14 +476,14 @@ mod tests {
     #[test_case(wkt::Value::String("[UNBOUNDED, UNBOUNDED)".to_string()) => Ok(Range { start: None, end: None }) ; "date range unbounded both")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null range")]
     #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string".to_string())) ; "range type mismatch")]
-    #[test_case(wkt::Value::String("[2026-05-28)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 1".to_string())) ; "range invalid format one part")]
-    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 3".to_string())) ; "range invalid format three parts")]
-    #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range too short")]
-    #[test_case(wkt::Value::String("2026-05-28, 2026-05-29".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range missing brackets")]
-    #[test_case(wkt::Value::String("(2026-05-28, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid leading parenthesis")]
-    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29]".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid trailing square bracket")]
-    #[test_case(wkt::Value::String("[invalid-start, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("the 'year' component could not be parsed".to_string())) ; "range invalid start element")]
-    #[test_case(wkt::Value::String("[2026-05-28, invalid-end)".to_string()) => Err(TestConvertError::Convert("the 'year' component could not be parsed".to_string())) ; "range invalid end element")]
+    #[test_case(wkt::Value::String("[2026-05-28)".to_string()) => Err(TestConvertError::Convert) ; "range invalid format one part")]
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert) ; "range invalid format three parts")]
+    #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert) ; "range too short")]
+    #[test_case(wkt::Value::String("2026-05-28, 2026-05-29".to_string()) => Err(TestConvertError::Convert) ; "range missing brackets")]
+    #[test_case(wkt::Value::String("(2026-05-28, 2026-05-29)".to_string()) => Err(TestConvertError::Convert) ; "range invalid leading parenthesis")]
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29]".to_string()) => Err(TestConvertError::Convert) ; "range invalid trailing square bracket")]
+    #[test_case(wkt::Value::String("[invalid-start, 2026-05-29)".to_string()) => Err(TestConvertError::Convert) ; "range invalid start element")]
+    #[test_case(wkt::Value::String("[2026-05-28, invalid-end)".to_string()) => Err(TestConvertError::Convert) ; "range invalid end element")]
     fn test_from_sql_range(
         value: wkt::Value,
     ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {

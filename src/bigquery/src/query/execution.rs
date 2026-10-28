@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::error::QueryError;
 use crate::query::builder::{
     QUERY_REQUEST_ID_PREFIX, Query, generate_job_reference, generate_prefixed_id,
@@ -32,13 +33,19 @@ use std::time::Duration;
 pub(crate) struct PostQueryExecutor {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) request: PostQueryRequest,
+    pub(crate) options: RequestOptions,
 }
 
 impl PostQueryExecutor {
-    pub(crate) fn new(job_service: Arc<JobService>, request: PostQueryRequest) -> Self {
+    pub(crate) fn new(
+        job_service: Arc<JobService>,
+        request: PostQueryRequest,
+        options: RequestOptions,
+    ) -> Self {
         Self {
             job_service,
             request,
+            options,
         }
     }
 
@@ -46,6 +53,7 @@ impl PostQueryExecutor {
         let res = self
             .job_service
             .query()
+            .with_options(self.options)
             // requests to jobs.query are idempotent because every request
             // carries a generated request_id.
             .with_idempotency(true)
@@ -64,13 +72,19 @@ impl PostQueryExecutor {
 pub(crate) struct InsertJobExecutor {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) request: InsertJobRequest,
+    pub(crate) options: RequestOptions,
 }
 
 impl InsertJobExecutor {
-    pub(crate) fn new(job_service: Arc<JobService>, request: InsertJobRequest) -> Self {
+    pub(crate) fn new(
+        job_service: Arc<JobService>,
+        request: InsertJobRequest,
+        options: RequestOptions,
+    ) -> Self {
         Self {
             job_service,
             request,
+            options,
         }
     }
 
@@ -89,6 +103,7 @@ impl InsertJobExecutor {
         let res = self
             .job_service
             .insert_job()
+            .with_options(self.options)
             .with_request(self.request)
             // jobs.insert is idempotent because every request
             // carries a generated job_id.
@@ -164,6 +179,7 @@ impl RetryContext {
     async fn execute_jobs_insert(&self, project_id: &str) -> Result<QueryHandle> {
         let job_service = self.template.job_service.clone();
         let page_size = self.template.request.page_size;
+        let options = &self.template.options;
 
         let job_config: JobConfiguration = self.template.request.clone().into();
         let job_ref = generate_job_reference(project_id, &self.template.request.location);
@@ -175,13 +191,17 @@ impl RetryContext {
             .set_project_id(project_id);
 
         // Box heavy RPC call future to avoid large stack frames.
-        let job = match Box::pin(InsertJobExecutor::new(job_service.clone(), req).execute()).await {
+        let job = match Box::pin(
+            InsertJobExecutor::new(job_service.clone(), req, options.clone()).execute(),
+        )
+        .await
+        {
             Ok(job) => job,
             Err(err) if is_duplicate_job_error(&err) => {
                 // A fresh job ID is generated per attempt, so a duplicate means
                 // an earlier attempt of this request reached the service. Adopt
                 // the job it created rather than fail a running, billing query.
-                let existing_job = match build_get_job(&job_service, &job_ref) {
+                let existing_job = match build_get_job(&job_service, &job_ref, options) {
                     Some(get) => {
                         // The original error names the running job, and unlike a
                         // `jobs.get` failure it never makes the job retry loop
@@ -206,6 +226,8 @@ impl RetryContext {
             job,
             Some(self),
             page_size,
+            self.template.read_client.clone(),
+            options.clone(),
         ))
     }
 
@@ -213,18 +235,39 @@ impl RetryContext {
     async fn execute_jobs_query(&self, project_id: &str) -> Result<QueryHandle> {
         let job_service = self.template.job_service.clone();
         let page_size = self.template.request.page_size;
+        let options = &self.template.options;
 
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         let query_request: QueryRequest = self.template.request.clone().into();
         let query_request = query_request
             .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true))
             .set_request_id(query_request_id);
+        #[cfg(google_cloud_unstable_bigquery_arrow)]
+        let query_request = {
+            use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+            use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+            use google_cloud_bigquery_v2::model::query_request::{
+                QueryResultsFormat, ResultsFormatSerializationOptions,
+            };
+            query_request
+                .set_query_results_format(QueryResultsFormat::Arrow)
+                .set_results_format_serialization_options(
+                    ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                        ArrowSerializationOptions::new()
+                            .set_buffer_compression(CompressionCodec::Zstd),
+                    )),
+                )
+        };
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
             .set_query_request(query_request);
 
         // Box heavy RPC call future to avoid large stack frames.
-        let res = match Box::pin(PostQueryExecutor::new(job_service.clone(), req).execute()).await {
+        let res = match Box::pin(
+            PostQueryExecutor::new(job_service.clone(), req, options.clone()).execute(),
+        )
+        .await
+        {
             Ok(res) => res,
             Err(err) if is_duplicate_job_error(&err) => {
                 // The request ID only dedups in-flight queries, so a resend
@@ -232,7 +275,7 @@ impl RetryContext {
                 // attempt created. That job ran and was billed, so we try to
                 // attach to it.
                 let get = parse_duplicate_job_reference(&err)
-                    .and_then(|job_ref| build_get_job(&job_service, &job_ref));
+                    .and_then(|job_ref| build_get_job(&job_service, &job_ref, options));
                 let existing_job = match get {
                     Some(get) => {
                         // The original error names the running job, and unlike a
@@ -253,6 +296,8 @@ impl RetryContext {
                     check_job_status(existing_job)?,
                     Some(self),
                     page_size,
+                    self.template.read_client.clone(),
+                    options.clone(),
                 ));
             }
             Err(err) => return Err(err),
@@ -263,6 +308,8 @@ impl RetryContext {
             res,
             Some(self),
             page_size,
+            self.template.read_client.clone(),
+            options.clone(),
         ))
     }
 }
@@ -339,7 +386,8 @@ fn parse_job_name(name: &str) -> Option<JobReference> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::query::tests::{MockJobService, create_job_service};
+    use crate::query::tests::{MockJobService, create_job_service, create_read_client};
+    use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
     use google_cloud_bigquery_v2::model::{
         ErrorProto, Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus,
         QueryResponse,
@@ -385,9 +433,17 @@ mod tests {
         let job_service = create_job_service(mock);
 
         let request = PostQueryRequest::new();
-        let executor = PostQueryExecutor::new(job_service.clone(), request);
+        let executor =
+            PostQueryExecutor::new(job_service.clone(), request, RequestOptions::default());
         let res = executor.execute().await?;
-        let query = QueryHandle::from_query_response(job_service, res, None, None);
+        let query = QueryHandle::from_query_response(
+            job_service,
+            res,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
 
         assert!(query.completed, "{query:?}");
         let job_ref = query
@@ -414,7 +470,7 @@ mod tests {
         let job_service = create_job_service(mock);
 
         let request = PostQueryRequest::new();
-        let executor = PostQueryExecutor::new(job_service, request);
+        let executor = PostQueryExecutor::new(job_service, request, RequestOptions::default());
         let err = executor.execute().await.unwrap_err();
 
         let errors = match err {
@@ -440,7 +496,7 @@ mod tests {
         let job_service = create_job_service(mock);
 
         let request = PostQueryRequest::new();
-        let executor = PostQueryExecutor::new(job_service, request);
+        let executor = PostQueryExecutor::new(job_service, request, RequestOptions::default());
         let err = executor.execute().await.unwrap_err();
 
         let source = match err {
@@ -457,7 +513,7 @@ mod tests {
         let mock = MockJobService::new();
         let job_service = create_job_service(mock);
         let req = InsertJobRequest::new(); // no job config at all
-        let executor = InsertJobExecutor::new(job_service, req);
+        let executor = InsertJobExecutor::new(job_service, req, RequestOptions::default());
         let res = executor.execute().await;
         assert!(matches!(res, Err(QueryError::UnsupportedJobType)));
         Ok(())
@@ -477,7 +533,7 @@ mod tests {
         let job_config = JobConfiguration::new().set_query(JobConfigurationQuery::new());
         let job = Job::new().set_configuration(job_config);
         let req = InsertJobRequest::new().set_job(job);
-        let executor = InsertJobExecutor::new(job_service, req);
+        let executor = InsertJobExecutor::new(job_service, req, RequestOptions::default());
         let res = executor.execute().await;
         assert!(matches!(res, Err(QueryError::Rpc { .. })));
         Ok(())
@@ -501,7 +557,7 @@ mod tests {
         let job_config = JobConfiguration::new().set_query(JobConfigurationQuery::new());
         let job = Job::new().set_configuration(job_config);
         let req = InsertJobRequest::new().set_job(job);
-        let executor = InsertJobExecutor::new(job_service, req);
+        let executor = InsertJobExecutor::new(job_service, req, RequestOptions::default());
         let err = executor.execute().await.unwrap_err();
 
         let errors = match err {
@@ -540,9 +596,16 @@ mod tests {
         let job_config = JobConfiguration::new().set_query(JobConfigurationQuery::new());
         let job = Job::new().set_configuration(job_config);
         let req = InsertJobRequest::new().set_job(job);
-        let executor = InsertJobExecutor::new(job_service.clone(), req);
+        let executor = InsertJobExecutor::new(job_service.clone(), req, RequestOptions::default());
         let job = executor.execute().await?;
-        let query = QueryHandle::from_job(job_service, job, None, None);
+        let query = QueryHandle::from_job(
+            job_service,
+            job,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
 
         assert_eq!(query.completed, completed);
         assert_eq!(query.metadata.job_reference, Some(job_ref));
@@ -561,7 +624,7 @@ mod tests {
         mock.expect_query().never();
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(true);
 
@@ -579,6 +642,30 @@ mod tests {
         mock.expect_query().returning(|req, _| {
             let query_req = req.query_request.as_ref().unwrap();
             assert!(!query_req.dry_run);
+            #[cfg(google_cloud_unstable_bigquery_arrow)]
+            {
+                use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+                use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+                use google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions;
+                assert_eq!(query_req.query_results_format, QueryResultsFormat::Arrow);
+                assert_eq!(
+                    query_req.results_format_serialization_options,
+                    Some(
+                        ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                            ArrowSerializationOptions::new()
+                                .set_buffer_compression(CompressionCodec::Zstd)
+                        ))
+                    )
+                );
+            }
+            #[cfg(not(google_cloud_unstable_bigquery_arrow))]
+            {
+                assert_eq!(
+                    query_req.query_results_format,
+                    QueryResultsFormat::default()
+                );
+                assert_eq!(query_req.results_format_serialization_options, None);
+            }
             let res =
                 QueryResponse::new().set_job_reference(JobReference::new().set_job_id("query-job"));
             Ok(Response::from(res))
@@ -586,7 +673,7 @@ mod tests {
         mock.expect_insert_job().never();
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(false);
 
@@ -620,14 +707,14 @@ mod tests {
 
         let job_service = create_job_service(mock);
 
-        let query = Query::new(job_service.clone(), "SELECT 1".to_string())
+        let query = Query::new(job_service.clone(), None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(false);
         let handle = RetryContext::new(query).execute_once("my-project").await?;
         assert!(handle.completed);
         assert!(handle.retry_context.is_none());
 
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(true);
         let handle = RetryContext::new(query).execute_once("my-project").await?;
@@ -639,9 +726,12 @@ mod tests {
     #[tokio::test]
     async fn test_jobs_query_duplicate_adopts_existing_job() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_query()
-            .return_once(move |_, _| Err(duplicate_job_error("job_123")));
-        mock.expect_get_job().return_once(move |req, _| {
+        mock.expect_query().return_once(move |_, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
+            Err(duplicate_job_error("job_123"))
+        });
+        mock.expect_get_job().return_once(move |req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let job_ref = JobReference::new()
                 .set_project_id(req.project_id)
                 .set_job_id(req.job_id)
@@ -654,7 +744,9 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let read_client = create_read_client();
+        let query = Query::new(job_service, Some(read_client), "SELECT 1".to_string())
+            .with_project_id("my-project");
 
         let retry_ctx = RetryContext::new(query);
         assert!(!retry_ctx.force_job_path(), "must use the jobs.query path");
@@ -667,6 +759,11 @@ mod tests {
         assert_eq!(job_ref.location.as_deref(), Some("US"));
         assert_eq!(job_ref.job_id, "job_123");
         assert!(!handle.completed, "the adopted job is still running");
+        assert!(handle.read_client.is_some());
+        assert_eq!(
+            handle.options.quota_project().as_deref(),
+            Some("my-project")
+        );
         Ok(())
     }
 
@@ -683,7 +780,8 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let query =
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
 
         let err = RetryContext::new(query)
             .execute_once("my-project")
@@ -757,13 +855,15 @@ mod tests {
 
         let mut mock = MockJobService::new();
         let captured = inserted.clone();
-        mock.expect_insert_job().return_once(move |req, _| {
+        mock.expect_insert_job().return_once(move |req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let job_ref = req.job.unwrap().job_reference.unwrap();
             let err = duplicate_job_error(&job_ref.job_id);
             *captured.lock().unwrap() = Some(job_ref);
             Err(err)
         });
-        mock.expect_get_job().return_once(move |req, _| {
+        mock.expect_get_job().return_once(move |req, options| {
+            assert_eq!(options.quota_project().as_deref(), Some("my-project"));
             let job_ref = JobReference::new()
                 .set_project_id(req.project_id)
                 .set_job_id(req.job_id)
@@ -776,7 +876,8 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let read_client = create_read_client();
+        let query = Query::new(job_service, Some(read_client), "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_location("us-central1")
             .set_priority("BATCH");
@@ -793,6 +894,11 @@ mod tests {
         assert_eq!(job_ref, inserted, "{job_ref:?}");
         assert_eq!(job_ref.location.as_deref(), Some("us-central1"));
         assert!(!handle.completed, "the recovered job is still running");
+        assert!(handle.read_client.is_some());
+        assert_eq!(
+            handle.options.quota_project().as_deref(),
+            Some("my-project")
+        );
         Ok(())
     }
 
@@ -811,7 +917,7 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_priority("BATCH");
 
@@ -848,7 +954,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
 
-        let query = Query::new(job_service.clone(), "SELECT 1".to_string())
+        let query = Query::new(job_service.clone(), None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(false);
         RetryContext::new(query)
@@ -856,7 +962,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(true);
         RetryContext::new(query)
@@ -878,7 +984,8 @@ mod tests {
             ))
         });
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let query =
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         let retry_ctx = RetryContext::new(query);
         let err = retry_ctx.execute().await.unwrap_err();
         match err {
@@ -926,7 +1033,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
         let mut query =
-            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         query.job_retry_policy = Arc::new(RecordingPolicy {
             counts: attempt_counts_clone,
         });
@@ -950,10 +1057,75 @@ mod tests {
             .times(1)
             .returning(|_, _| Ok(Response::from(QueryResponse::new().set_query_id("q1"))));
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let query =
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         let retry_ctx = RetryContext::new(query);
         let handle = retry_ctx.execute().await?;
         assert_eq!(handle.retry_context.unwrap().state.attempt_count, 1);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_jobs_query_duplicate_adopts_existing_job_with_user_agent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().return_once(move |_, options| {
+            assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+            assert_eq!(options.idempotent(), Some(true));
+            Err(duplicate_job_error("job_123"))
+        });
+        mock.expect_get_job().return_once(move |req, options| {
+            assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+            let job_ref = JobReference::new()
+                .set_project_id(req.project_id)
+                .set_job_id(req.job_id)
+                .set_location(req.location);
+            let job = Job::new()
+                .set_configuration(JobConfiguration::new().set_query(JobConfigurationQuery::new()))
+                .set_job_reference(job_ref)
+                .set_status(JobStatus::new().set_state("RUNNING"));
+            Ok(Response::from(job))
+        });
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .with_user_agent("my-app/1.2.3");
+
+        let handle = RetryContext::new(query).execute_once("my-project").await?;
+        assert_eq!(handle.options.user_agent().as_deref(), Some("my-app/1.2.3"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_jobs_insert_duplicate_adopts_existing_job_with_user_agent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_insert_job().return_once(move |req, options| {
+            assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+            assert_eq!(options.idempotent(), Some(true));
+            let job_ref = req.job.unwrap().job_reference.unwrap();
+            Err(duplicate_job_error(&job_ref.job_id))
+        });
+        mock.expect_get_job().return_once(move |req, options| {
+            assert_eq!(options.user_agent().as_deref(), Some("my-app/1.2.3"));
+            let job_ref = JobReference::new()
+                .set_project_id(req.project_id)
+                .set_job_id(req.job_id)
+                .set_location(req.location);
+            let job = Job::new()
+                .set_configuration(JobConfiguration::new().set_query(JobConfigurationQuery::new()))
+                .set_job_reference(job_ref)
+                .set_status(JobStatus::new().set_state("RUNNING"));
+            Ok(Response::from(job))
+        });
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_priority("BATCH")
+            .with_user_agent("my-app/1.2.3");
+
+        let handle = RetryContext::new(query).execute_once("my-project").await?;
+        assert_eq!(handle.options.user_agent().as_deref(), Some("my-app/1.2.3"));
         Ok(())
     }
 }
