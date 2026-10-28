@@ -18,7 +18,7 @@ use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult, Status
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt as _};
+use google_cloud_gax::retry_policy::{AlwaysRetry, NeverRetry, RetryPolicyExt as _};
 use google_cloud_storage::client::Storage;
 use prost::Message as _;
 use std::collections::HashMap;
@@ -103,13 +103,16 @@ fn object_checksums(crc32c: Option<u32>) -> Option<ObjectChecksums> {
 }
 
 /// Constructs a tonic `Status` representing a GCS `BidiWriteObjectRedirectedError`.
-fn redirect_status(routing_token: &str, handle: &[u8], generation: i64) -> TonicStatus {
+///
+/// Per the API contract, `generation` is set if and only if `write_handle` is set, so
+/// a redirect without a handle also omits the generation.
+fn redirect_status(routing_token: &str, write_handle: Option<&[u8]>) -> TonicStatus {
     let redirect = BidiWriteObjectRedirectedError {
         routing_token: Some(routing_token.to_string()),
-        write_handle: Some(BidiWriteHandle {
+        write_handle: write_handle.map(|handle| BidiWriteHandle {
             handle: handle.to_vec(),
         }),
-        generation: Some(generation),
+        generation: write_handle.map(|_| OBJECT_GENERATION),
     };
     let redirect = prost_types::Any::from_msg(&redirect).expect("serialize any");
     let status = RpcStatus {
@@ -165,16 +168,28 @@ mod conformance {
     use pretty_assertions::assert_eq;
 
     /// Verifies that the client enforces the 3-redirect limit (4 attempts total)
-    /// and propagates the routing token in both `AppendObjectSpec` and the
-    /// `x-goog-request-params` header before finally failing with `Aborted`.
+    /// and, on each reconnect, propagates the routing token (in both `AppendObjectSpec`
+    /// and the `x-goog-request-params` header) and the latest write handle before
+    /// finally failing with `Aborted`.
     #[tokio::test]
     async fn handle_redirect_error_max_attempts() -> anyhow::Result<()> {
+        // Only redirect #2 carries a new write handle (and, per the API contract, the
+        // generation). Redirects #1, #3, and #4 omit both, so the client must keep
+        // the most recent handle it has.
+        const INITIAL_HANDLE: &[u8] = b"handle-initial";
+        const REDIRECT_HANDLE: &[u8] = b"handle-redirect-2";
+        const HANDLE_REDIRECT_NUMBER: usize = 2;
+
         // =========================================================================
         // Arrange: Mock Server Logic
         // =========================================================================
         // Tracks how many times the server returns a BidiWriteObjectRedirectedError.
         let redirect_counter = Arc::new(AtomicUsize::new(0));
         let redirect_counter_clone = redirect_counter.clone();
+
+        // Returns the write handle (if any) carried by redirect number `n`.
+        let handle_for_redirect =
+            |n: usize| (n == HANDLE_REDIRECT_NUMBER).then_some(REDIRECT_HANDLE);
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_write_object().returning(move |request| {
@@ -186,11 +201,12 @@ mod conformance {
                 let first = recv_request(&mut requests).await;
                 match first.first_message {
                     // 1. Initial Stream (WriteObjectSpec):
-                    // Acknowledge opening data ("ABC", 3 bytes), then return Redirect #1
-                    // when the client attempts to flush "DEF".
+                    // Acknowledge opening data ("ABC", 3 bytes) with INITIAL_HANDLE, then
+                    // return Redirect #1 (no write handle) when the client attempts to
+                    // flush "DEF".
                     Some(FirstMessage::WriteObjectSpec(_)) => {
                         assert_eq!(first.data, checksummed_data(b"ABC"));
-                        tx.send(Ok(resource_response(3, b"handle-initial", false, None)))
+                        tx.send(Ok(resource_response(3, INITIAL_HANDLE, false, None)))
                             .await
                             .expect("failed to send initial open response");
 
@@ -202,24 +218,21 @@ mod conformance {
                         assert!(flush_def.flush);
                         assert_eq!(flush_def.write_offset, 6);
 
-                        // Trigger Redirect #1 (routingToken1)
+                        // Trigger Redirect #1 (routingToken1, no write handle)
                         let count = redirect_counter.fetch_add(1, Ordering::SeqCst) + 1;
                         let token = format!("routingToken{count}");
                         let _ = tx
-                            .send(Err(redirect_status(
-                                &token,
-                                b"handle-initial",
-                                OBJECT_GENERATION,
-                            )))
+                            .send(Err(redirect_status(&token, handle_for_redirect(count))))
                             .await;
                     }
                     // 2. Reconnect Streams (AppendObjectSpec):
-                    // Client reconnects specifying the latest routing_token. The mock server
-                    // verifies token propagation and returns subsequent redirect errors
-                    // (Redirect #2, #3, #4).
+                    // Client reconnects with the latest routing token and write handle.
+                    // The mock server verifies both and returns subsequent redirect
+                    // errors (Redirect #2, #3, #4).
                     Some(FirstMessage::AppendObjectSpec(spec)) => {
                         let count = redirect_counter.fetch_add(1, Ordering::SeqCst) + 1;
-                        let prev_token = format!("routingToken{}", count - 1);
+                        let prev = count - 1;
+                        let prev_token = format!("routingToken{prev}");
 
                         // Verify client propagated the previous redirect token in the spec and header
                         assert_eq!(spec.routing_token.as_deref(), Some(prev_token.as_str()));
@@ -234,13 +247,29 @@ mod conformance {
                         );
                         assert!(first.state_lookup);
 
+                        // Verify client sent the latest write handle:
+                        // - Before Redirect #2: the handle from the open response.
+                        // - After Redirect #2: the handle from Redirect #2, kept even
+                        //   though Redirect #3 omits a handle.
+                        let expected_handle = if prev < HANDLE_REDIRECT_NUMBER {
+                            INITIAL_HANDLE
+                        } else {
+                            REDIRECT_HANDLE
+                        };
+                        assert_eq!(
+                            spec.write_handle.as_ref().map(|h| h.handle.as_slice()),
+                            Some(expected_handle),
+                            "reconnect after redirect #{prev}"
+                        );
+                        // The generation stays constant across all redirects.
+                        assert_eq!(spec.generation, OBJECT_GENERATION);
+
                         // Return the next redirect error
                         let next_token = format!("routingToken{count}");
                         let _ = tx
                             .send(Err(redirect_status(
                                 &next_token,
-                                b"handle-initial",
-                                OBJECT_GENERATION,
+                                handle_for_redirect(count),
                             )))
                             .await;
                     }
@@ -256,9 +285,14 @@ mod conformance {
         // =========================================================================
         // Act: Client Actions
         // =========================================================================
-        // 1. Open appendable object and append initial "ABC" segment
+        // 1. Open appendable object and append initial "ABC" segment.
+        //    `NeverRetry` disables retries for ordinary errors while redirects are still
+        //    followed (up to the redirect limit). If a mock-server assertion panics, the
+        //    stream closes with a non-redirect error and the flush fails immediately,
+        //    instead of being retried until the default retry budget runs out.
         let mut writer = client
             .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
+            .with_retry_policy(NeverRetry)
             .send_and_append("ABC")
             .await?;
         assert_eq!(writer.persisted_size(), 3);
