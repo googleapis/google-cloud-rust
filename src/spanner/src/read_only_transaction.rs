@@ -21,6 +21,7 @@ use crate::model::{
     BeginTransactionRequest, Mutation, Transaction, TransactionOptions, TransactionSelector,
 };
 use crate::precommit::PrecommitTokenTracker;
+use crate::read::ReadRequest;
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::retry_delay::extract_retry_delay_from_error;
 use crate::statement::Statement;
@@ -172,10 +173,7 @@ impl SingleUseReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_query<T: Into<Statement>>(
-        &self,
-        statement: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_query(&self, statement: impl Into<Statement>) -> Result<ResultSet> {
         self.context.execute_query(statement, None).await
     }
 
@@ -210,10 +208,7 @@ impl SingleUseReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
-        &self,
-        read: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_read(&self, read: impl Into<ReadRequest>) -> Result<ResultSet> {
         self.context.execute_read(read).await
     }
 }
@@ -575,10 +570,7 @@ impl MultiUseReadOnlyTransaction {
     /// mark it as permanently failed. All subsequent statements on this transaction will also fail. To allow a
     /// read-only transaction to continue executing subsequent statements after an initial statement failure,
     /// configure `BeginTransactionOption::ExplicitBegin` when building the transaction.
-    pub async fn execute_query<T: Into<Statement>>(
-        &self,
-        statement: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_query(&self, statement: impl Into<Statement>) -> Result<ResultSet> {
         self.context.execute_query(statement, None).await
     }
 
@@ -620,10 +612,7 @@ impl MultiUseReadOnlyTransaction {
     /// mark it as permanently failed. All subsequent statements on this transaction will also fail. To allow a
     /// read-only transaction to continue executing subsequent statements after an initial statement failure,
     /// configure `BeginTransactionOption::ExplicitBegin` when building the transaction.
-    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
-        &self,
-        read: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_read(&self, read: impl Into<ReadRequest>) -> Result<ResultSet> {
         self.context.execute_read(read).await
     }
 
@@ -1405,9 +1394,9 @@ macro_rules! execute_stream_with_retry {
 }
 
 impl ReadContext {
-    pub(crate) async fn execute_query<T: Into<Statement>>(
+    pub(crate) async fn execute_query(
         &self,
-        statement: T,
+        statement: impl Into<Statement>,
         seqno: Option<i64>,
     ) -> Result<ResultSet> {
         if let Some(info) = self.aborted_info() {
@@ -1432,10 +1421,7 @@ impl ReadContext {
         )
     }
 
-    pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
-        &self,
-        read: T,
-    ) -> Result<ResultSet> {
+    pub(crate) async fn execute_read(&self, read: impl Into<ReadRequest>) -> Result<ResultSet> {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
