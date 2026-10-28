@@ -102,6 +102,39 @@ fn checksummed_data(payload: &[u8]) -> Option<Data> {
     }))
 }
 
+/// Asserts that `req` is a data-only append of `payload` at `offset`.
+fn expect_append(req: &BidiWriteObjectRequest, offset: i64, payload: &[u8]) {
+    assert_eq!(req.write_offset, offset, "append write_offset: {req:?}");
+    assert_eq!(req.data, checksummed_data(payload), "append data: {req:?}");
+    assert!(
+        !req.flush && !req.finish_write,
+        "append must not flush or finalize: {req:?}"
+    );
+}
+
+/// Asserts that `req` is a flush with `state_lookup` at `offset`, carrying no data.
+fn expect_flush(req: &BidiWriteObjectRequest, offset: i64) {
+    assert!(
+        req.flush && req.state_lookup,
+        "expected flush with state_lookup: {req:?}"
+    );
+    assert_eq!(req.write_offset, offset, "flush write_offset: {req:?}");
+    assert!(
+        req.data.is_none() && !req.finish_write,
+        "flush must carry no data and must not finalize: {req:?}"
+    );
+}
+
+/// Asserts that `req` is a finalize (`finish_write` + `flush`) at `offset`, carrying no data.
+fn expect_finalize(req: &BidiWriteObjectRequest, offset: i64) {
+    assert!(
+        req.finish_write && req.flush,
+        "expected finish_write with flush: {req:?}"
+    );
+    assert_eq!(req.write_offset, offset, "finalize write_offset: {req:?}");
+    assert!(req.data.is_none(), "finalize must carry no data: {req:?}");
+}
+
 /// Constructs an `ObjectChecksums` proto from an optional CRC32C value.
 fn object_checksums(crc32c: Option<u32>) -> Option<ObjectChecksums> {
     crc32c.map(|crc| ObjectChecksums {
@@ -219,12 +252,8 @@ mod conformance {
                             .expect("failed to send initial open response");
 
                         // Receive "DEF" append and flush request
-                        let append_def = recv_request(&mut requests).await;
-                        assert_eq!(append_def.write_offset, 3);
-                        assert_eq!(append_def.data, checksummed_data(b"DEF"));
-                        let flush_def = recv_request(&mut requests).await;
-                        assert!(flush_def.flush);
-                        assert_eq!(flush_def.write_offset, 6);
+                        expect_append(&recv_request(&mut requests).await, 3, b"DEF");
+                        expect_flush(&recv_request(&mut requests).await, 6);
 
                         // Trigger Redirect #1 (routingToken1, no write handle)
                         let count = redirect_counter.fetch_add(1, Ordering::SeqCst) + 1;
@@ -370,13 +399,9 @@ mod conformance {
                             .expect("send open_abc response");
 
                         // 2. Append "DEFGHI" at offset 3 + Flush at offset 9
-                        let defghi_append = recv_request(&mut requests).await;
-                        assert_eq!(defghi_append.write_offset, 3);
-                        assert_eq!(defghi_append.data, checksummed_data(b"DEFGHI"));
+                        expect_append(&recv_request(&mut requests).await, 3, b"DEFGHI");
                         events_tx.send("defghi").expect("record defghi");
-                        let defghi_flush = recv_request(&mut requests).await;
-                        assert!(defghi_flush.flush && defghi_flush.state_lookup);
-                        assert_eq!(defghi_flush.write_offset, 9);
+                        expect_flush(&recv_request(&mut requests).await, 9);
 
                         // 3. Fail before acknowledging anything beyond "ABC"
                         tx.send(Err(TonicStatus::unavailable("Backend error on DEFGHI")))
@@ -426,26 +451,19 @@ mod conformance {
 
                     // 2. Client trims the persisted "DEF" prefix, replays only "GHI" at offset 6
                     //    (CRC32C recomputed for "GHI" alone), and re-sends the pending flush at offset 9
-                    let ghi_replay = recv_request(&mut requests).await;
-                    assert_eq!(ghi_replay.write_offset, 6);
-                    assert_eq!(ghi_replay.data, checksummed_data(b"GHI"));
+                    expect_append(&recv_request(&mut requests).await, 6, b"GHI");
                     events_tx.send("ghi").expect("record ghi replay");
-                    let ghi_flush_replay = recv_request(&mut requests).await;
-                    assert!(ghi_flush_replay.flush && ghi_flush_replay.state_lookup);
-                    assert_eq!(ghi_flush_replay.write_offset, 9);
+                    expect_flush(&recv_request(&mut requests).await, 9);
                     tx.send(Ok(persisted_size_response(9, b"handle-1", None)))
                         .await
                         .expect("send ghi replay flush response");
 
                     // 3. Client appends "J" at offset 9 and finalizes at offset 10
-                    let j_append = recv_request(&mut requests).await;
-                    assert_eq!(j_append.write_offset, 9);
-                    assert_eq!(j_append.data, checksummed_data(b"J"));
+                    expect_append(&recv_request(&mut requests).await, 9, b"J");
                     events_tx.send("j").expect("record j");
 
                     let finalize_req = recv_request(&mut requests).await;
-                    assert!(finalize_req.finish_write && finalize_req.flush);
-                    assert_eq!(finalize_req.write_offset, 10);
+                    expect_finalize(&finalize_req, 10);
                     let expected_full_crc = crc32c::crc32c(b"ABCDEFGHIJ");
                     assert_eq!(
                         finalize_req.object_checksums.and_then(|c| c.crc32c),
@@ -565,9 +583,7 @@ mod conformance {
                     };
                     observed_chunks.push((append_req.write_offset, cd.content, cd.crc32c));
 
-                    let flush_req = recv_request(&mut requests).await;
-                    assert!(flush_req.flush && flush_req.state_lookup);
-                    assert_eq!(flush_req.write_offset, expected_end);
+                    expect_flush(&recv_request(&mut requests).await, expected_end);
                     tx.send(Ok(persisted_size_response(
                         expected_end,
                         b"handle-crc",
@@ -579,8 +595,7 @@ mod conformance {
 
                 // 3. Finalization: Receive finish_write: true at offset 25 with cumulative ObjectChecksums
                 let finalize_req = recv_request(&mut requests).await;
-                assert!(finalize_req.finish_write && finalize_req.flush);
-                assert_eq!(finalize_req.write_offset, 25);
+                expect_finalize(&finalize_req, 25);
                 let final_crc = finalize_req.object_checksums.and_then(|c| c.crc32c);
                 let _ = observed_tx.send(observed_chunks);
                 let _ = final_crc_tx.send(final_crc);
@@ -678,11 +693,8 @@ mod conformance {
                         .expect("send open response");
 
                     // Receive "DEF" append + flush, fail before acknowledging
-                    let def_append = recv_request(&mut requests).await;
-                    assert_eq!(def_append.write_offset, 3);
-                    assert_eq!(def_append.data, checksummed_data(b"DEF"));
-                    let def_flush = recv_request(&mut requests).await;
-                    assert_eq!(def_flush.write_offset, 6);
+                    expect_append(&recv_request(&mut requests).await, 3, b"DEF");
+                    expect_flush(&recv_request(&mut requests).await, 6);
                     tx.send(Err(TonicStatus::unavailable("initial transient error")))
                         .await
                         .expect("send initial unavailable");
@@ -716,11 +728,8 @@ mod conformance {
                         .expect("send reconnect handshake");
 
                     // Receive replayed "DEF" + flush
-                    let def_replay = recv_request(&mut requests).await;
-                    assert_eq!(def_replay.write_offset, 3);
-                    assert_eq!(def_replay.data, checksummed_data(b"DEF"));
-                    let def_flush = recv_request(&mut requests).await;
-                    assert_eq!(def_flush.write_offset, 6);
+                    expect_append(&recv_request(&mut requests).await, 3, b"DEF");
+                    expect_flush(&recv_request(&mut requests).await, 6);
 
                     // Pause for 300ms (1.5x the 200ms retry time limit) before acknowledging "DEF"
                     tokio::time::sleep(Duration::from_millis(300)).await;
@@ -729,11 +738,8 @@ mod conformance {
                         .expect("acknowledge DEF after 300ms pause");
 
                     // Receive "GHI" + flush, then fail with Unavailable
-                    let ghi_append = recv_request(&mut requests).await;
-                    assert_eq!(ghi_append.write_offset, 6);
-                    assert_eq!(ghi_append.data, checksummed_data(b"GHI"));
-                    let ghi_flush = recv_request(&mut requests).await;
-                    assert_eq!(ghi_flush.write_offset, 9);
+                    expect_append(&recv_request(&mut requests).await, 6, b"GHI");
+                    expect_flush(&recv_request(&mut requests).await, 9);
                     tx.send(Err(TonicStatus::unavailable("error after 300ms pause")))
                         .await
                         .expect("send unavailable after pause");
@@ -764,22 +770,15 @@ mod conformance {
                         .expect("send second reconnect handshake");
 
                     // Receive replayed "GHI" + flush
-                    let ghi_replay = recv_request(&mut requests).await;
-                    assert_eq!(ghi_replay.write_offset, 6);
-                    assert_eq!(ghi_replay.data, checksummed_data(b"GHI"));
-                    let ghi_flush = recv_request(&mut requests).await;
-                    assert_eq!(ghi_flush.write_offset, 9);
+                    expect_append(&recv_request(&mut requests).await, 6, b"GHI");
+                    expect_flush(&recv_request(&mut requests).await, 9);
                     tx.send(Ok(persisted_size_response(9, b"handle-pause", None)))
                         .await
                         .expect("acknowledge GHI");
 
                     // Receive "J" + finalize
-                    let j_append = recv_request(&mut requests).await;
-                    assert_eq!(j_append.write_offset, 9);
-                    assert_eq!(j_append.data, checksummed_data(b"J"));
-                    let finalize_req = recv_request(&mut requests).await;
-                    assert!(finalize_req.finish_write);
-                    assert_eq!(finalize_req.write_offset, 10);
+                    expect_append(&recv_request(&mut requests).await, 9, b"J");
+                    expect_finalize(&recv_request(&mut requests).await, 10);
 
                     tx.send(Ok(resource_response(
                         10,
