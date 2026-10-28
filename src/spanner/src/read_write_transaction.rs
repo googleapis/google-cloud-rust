@@ -31,7 +31,6 @@ use crate::model::ResultSet as ProtoResultSet;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
-use crate::model::commit_response::MultiplexedSessionRetry;
 use crate::model::execute_batch_dml_request::Statement as ExecuteBatchDmlStatement;
 use crate::model::request_options::Priority;
 use crate::model::result_set_stats::RowCount;
@@ -41,7 +40,9 @@ use crate::model::transaction_options::ReadWrite;
 use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::model::transaction_selector::Selector;
 use crate::mutation::Mutation;
-use crate::precommit::PrecommitTokenTracker;
+use crate::precommit::{
+    PrecommitTokenTracker, commit_with_precommit_retry, create_retry_commit_request,
+};
 use crate::read_only_transaction::{
     AbortedInfo, AbortedState, BeginTransactionOption, CommitAction, LazyTransactionStartGuard,
     ReadContext, ReadContextTransactionSelector, TransactionState, execute_begin_transaction,
@@ -800,6 +801,21 @@ impl ReadWriteTransaction {
         )
     }
 
+    fn build_retry_commit_request(
+        &self,
+        transaction_id: Bytes,
+        precommit_token: Option<MultiplexedSessionPrecommitToken>,
+    ) -> CommitRequest {
+        create_retry_commit_request(
+            self.context.session_name.clone(),
+            transaction_id,
+            precommit_token,
+            self.commit_request_options(),
+            self.max_commit_delay,
+            self.return_commit_stats,
+        )
+    }
+
     /// Disarms the automatic rollback-on-drop guard.
     pub(crate) fn disarm_rollback(&self) {
         self.drop_guard.disarm();
@@ -849,38 +865,16 @@ impl ReadWriteTransaction {
         // Once commit is dispatched, the transaction must not be rolled back.
         self.disarm_rollback();
 
-        let response = self
-            .context
-            .client
-            .commit(request, gax_options, self.affinity())
-            .await
-            .inspect_err(|error| self.context.record_if_aborted(error))?;
-
-        let response = if let Some(MultiplexedSessionRetry::PrecommitToken(new_precommit_token)) =
-            response.multiplexed_session_retry
-        {
-            self.context
-                .precommit_token_tracker
-                .update(Some(*new_precommit_token));
-            let retry_commit_req = self.build_commit_request(
-                transaction_id,
-                Vec::new(), // mutations are never re-sent in retry requests
-                self.context.precommit_token_tracker.get(),
-            );
-
-            let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
-            self.amend_gax_options(&mut gax_options);
-
-            self.context
-                .client
-                .commit(retry_commit_req, gax_options, self.affinity())
-                .await
-                .inspect_err(|error| self.context.record_if_aborted(error))?
-        } else {
-            response
-        };
-
-        Ok(response)
+        commit_with_precommit_retry(
+            &self.context.client,
+            request,
+            gax_options,
+            self.affinity(),
+            &self.context.precommit_token_tracker,
+            |error| self.context.record_if_aborted(error),
+            |token| self.build_retry_commit_request(transaction_id, token),
+        )
+        .await
     }
 
     /// Rolls back the transaction.
@@ -2343,18 +2337,24 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn read_write_transaction_commit_retry_exactly_once_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry_exactly_once(BeginTransactionOption::ExplicitBegin)
-            .await
+    async fn read_write_transaction_commit_retry_fails_on_subsequent_precommit_token_explicit()
+    -> anyhow::Result<()> {
+        run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
+            BeginTransactionOption::ExplicitBegin,
+        )
+        .await
     }
 
     #[tokio_test_no_panics]
-    async fn read_write_transaction_commit_retry_exactly_once_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry_exactly_once(BeginTransactionOption::InlineBegin)
-            .await
+    async fn read_write_transaction_commit_retry_fails_on_subsequent_precommit_token_inline()
+    -> anyhow::Result<()> {
+        run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
+            BeginTransactionOption::InlineBegin,
+        )
+        .await
     }
 
-    async fn run_read_write_transaction_commit_retry_exactly_once(
+    async fn run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
         begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
@@ -2425,14 +2425,15 @@ mod tests {
             });
 
         // Retry commit returns another retry token (seq 3).
-        // The library should not retry multiple times.
+        // The library should not retry multiple times, and must fail fast on subsequent precommit token.
         mock.expect_commit()
             .once()
             .in_sequence(&mut seq)
-            .returning(|req| {
-                let req = req.into_inner();
+            .returning(|request| {
+                let request = request.into_inner();
                 assert_eq!(
-                    req.precommit_token
+                    request
+                        .precommit_token
                         .as_ref()
                         .expect("Missing precommit token in retry req")
                         .seq_num,
@@ -2440,10 +2441,7 @@ mod tests {
                 );
 
                 Ok(tonic::Response::new(v1::CommitResponse {
-                    commit_timestamp: Some(prost_types::Timestamp {
-                        seconds: 9999,
-                        nanos: 0,
-                    }),
+                    commit_timestamp: None,
                     multiplexed_session_retry: Some(
                         v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
                             v1::MultiplexedSessionPrecommitToken {
@@ -2467,13 +2465,14 @@ mod tests {
                 .await?;
         }
 
-        let ts = tx.commit().await.expect("Failed to commit transaction");
-        assert_eq!(
-            ts.commit_timestamp
-                .as_ref()
-                .expect("timestamp should be present")
-                .seconds(),
-            9999
+        let error = tx.commit().await.expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("received an unexpected subsequent precommit token"),
+            "Error message must indicate unexpected subsequent precommit token: {error}"
         );
         Ok(())
     }
