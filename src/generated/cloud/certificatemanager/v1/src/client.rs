@@ -851,6 +851,47 @@ impl CertificateManager {
         )
     }
 
+    /// Updates a CertificateIssuanceConfig.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_issuance_config_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_certificate_issuance_config()
+    ///         .set_certificate_issuance_config(
+    ///             CertificateIssuanceConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateIssuanceConfigs/{certificate_issuance_config_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_certificate_issuance_config(
+        &self,
+    ) -> super::builder::certificate_manager::UpdateCertificateIssuanceConfig {
+        super::builder::certificate_manager::UpdateCertificateIssuanceConfig::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Deletes a single CertificateIssuanceConfig.
     ///
     /// # Long running operations
@@ -1031,6 +1072,23 @@ impl CertificateManager {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

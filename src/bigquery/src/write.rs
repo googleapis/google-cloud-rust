@@ -50,7 +50,6 @@ mod entry;
 mod optimizer;
 mod pending;
 mod pool;
-mod proto_schema;
 mod runner;
 mod stream;
 mod to_row;

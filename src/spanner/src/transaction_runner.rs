@@ -11208,6 +11208,258 @@ mod tests {
         );
         Ok(())
     }
+
+    #[tokio_test_no_panics]
+    async fn commit_retry_fails_on_subsequent_precommit_token() -> Result<(), crate::Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Initial statement with InlineBegin
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_inline_begin_selector(request.transaction.as_ref(), None);
+                Ok(Response::new(ProtoResultSet {
+                    metadata: Some(ResultSetMetadata {
+                        transaction: Some(ProtoTransaction {
+                            id: vec![10, 10],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    precommit_token: Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Commit 1: returns precommit token 2
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    })
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![2],
+                            seq_num: 2,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        // Commit 2: retry with precommit token 2, unexpectedly returns another precommit token 3
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                assert!(
+                    request.mutations.is_empty(),
+                    "retry commit must have empty mutations"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![2],
+                        seq_num: 2,
+                    })
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![3],
+                            seq_num: 3,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let result = runner
+            .run(async |transaction| {
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(count)
+            })
+            .await;
+
+        let error = result.expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("received an unexpected subsequent precommit token"),
+            "Error message must indicate unexpected subsequent precommit token: {error}"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn commit_retry_fails_on_subsequent_precommit_token_explicit() -> Result<(), crate::Error>
+    {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. BeginTransaction RPC returns precommit token 1
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.session,
+                    "projects/p/instances/i/databases/d/sessions/123"
+                );
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![10, 10],
+                    precommit_token: Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 2. ExecuteUpdate RPC
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(TransactionSelector {
+                        selector: Some(ProtoSelector::Id(vec![10, 10])),
+                    })
+                );
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Commit 1: returns precommit token 2
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    })
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![2],
+                            seq_num: 2,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        // 4. Commit 2: retry with precommit token 2, unexpectedly returns another precommit token 3
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                assert!(
+                    request.mutations.is_empty(),
+                    "retry commit must have empty mutations"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![2],
+                        seq_num: 2,
+                    })
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![3],
+                            seq_num: 3,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build();
+
+        let result = runner
+            .run(async |transaction| {
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(count)
+            })
+            .await;
+
+        let error = result.expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("received an unexpected subsequent precommit token"),
+            "Error message must indicate unexpected subsequent precommit token: {error}"
+        );
+        Ok(())
+    }
+
     #[tokio_test_no_panics]
     async fn transaction_runner_cancelled_mid_execution_rolls_back_active_transaction()
     -> crate::Result<()> {

@@ -511,6 +511,20 @@ pub struct InstanceConfig {
     /// in this instance configuration.
     pub free_instance_availability: crate::model::instance_config::FreeInstanceAvailability,
 
+    /// Output only. Defines the ranges of allowed processing units supported by
+    /// this instance configuration. If multiple ranges are specified, an instance
+    /// using this configuration may use a valid increment in any of the given
+    /// ranges. For example, an allowed_processing_units specification of
+    /// `[{min_processing_units:100, max_processing_units:900,
+    /// processing_unit_increment:100}, {min_processing_units:1000,
+    /// processing_unit_increment:1000}]` specifies that the instance configuration
+    /// supports instances with quantities of processing units in multiples of 100
+    /// processing units (100, 200, 300 and so on) up to and including 900
+    /// processing units and quantities that are at least 1000 processing units and
+    /// multiples of 1000 processing units (1000, 2000, 3000 and so on).
+    pub allowed_processing_units:
+        std::vec::Vec<crate::model::instance_config::AllowedProcessingUnits>,
+
     /// Output only. The `QuorumType` of the instance configuration.
     pub quorum_type: crate::model::instance_config::QuorumType,
 
@@ -726,6 +740,28 @@ impl InstanceConfig {
         self
     }
 
+    /// Sets the value of [allowed_processing_units][crate::model::InstanceConfig::allowed_processing_units].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance_config::AllowedProcessingUnits;
+    /// let x = InstanceConfig::new()
+    ///     .set_allowed_processing_units([
+    ///         AllowedProcessingUnits::default()/* use setters */,
+    ///         AllowedProcessingUnits::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_allowed_processing_units<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::instance_config::AllowedProcessingUnits>,
+    {
+        use std::iter::Iterator;
+        self.allowed_processing_units = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [quorum_type][crate::model::InstanceConfig::quorum_type].
     ///
     /// # Example
@@ -770,6 +806,74 @@ impl wkt::message::Message for InstanceConfig {
 pub mod instance_config {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Defines a range of processing units supported by an instance configuration.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AllowedProcessingUnits {
+        /// The minimum value of processing units applicable to this interval,
+        /// inclusive.
+        pub min_processing_units: i32,
+
+        /// The maximum value of processing units applicable to this interval,
+        /// inclusive. If unset, there is no predefined limit to the supported
+        /// number of processing units, although project quota limits still apply.
+        pub max_processing_units: i32,
+
+        /// Allowed increments of processing units between “min” and “max”.
+        pub processing_unit_increment: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AllowedProcessingUnits {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [min_processing_units][crate::model::instance_config::AllowedProcessingUnits::min_processing_units].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::instance_config::AllowedProcessingUnits;
+        /// let x = AllowedProcessingUnits::new().set_min_processing_units(42);
+        /// ```
+        pub fn set_min_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.min_processing_units = v.into();
+            self
+        }
+
+        /// Sets the value of [max_processing_units][crate::model::instance_config::AllowedProcessingUnits::max_processing_units].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::instance_config::AllowedProcessingUnits;
+        /// let x = AllowedProcessingUnits::new().set_max_processing_units(42);
+        /// ```
+        pub fn set_max_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_processing_units = v.into();
+            self
+        }
+
+        /// Sets the value of [processing_unit_increment][crate::model::instance_config::AllowedProcessingUnits::processing_unit_increment].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::instance_config::AllowedProcessingUnits;
+        /// let x = AllowedProcessingUnits::new().set_processing_unit_increment(42);
+        /// ```
+        pub fn set_processing_unit_increment<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.processing_unit_increment = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AllowedProcessingUnits {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.admin.instance.v1.InstanceConfig.AllowedProcessingUnits"
+        }
+    }
 
     /// The type of this configuration.
     ///

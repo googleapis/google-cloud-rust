@@ -45,21 +45,21 @@ pub struct ListCertificateIssuanceConfigsRequest {
     /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
-    /// Maximum number of certificate configs to return per call.
+    /// Optional. Maximum number of certificate configs to return per call.
     pub page_size: i32,
 
-    /// The value returned by the last `ListCertificateIssuanceConfigsResponse`.
-    /// Indicates that this is a continuation of a prior
-    /// `ListCertificateIssuanceConfigs` call, and that the system should return
-    /// the next page of data.
+    /// Optional. The value returned by the last
+    /// `ListCertificateIssuanceConfigsResponse`. Indicates that this is a
+    /// continuation of a prior `ListCertificateIssuanceConfigs` call, and that the
+    /// system should return the next page of data.
     pub page_token: std::string::String,
 
-    /// Filter expression to restrict the Certificates Configs returned.
+    /// Optional. Filter expression to restrict the Certificates Configs returned.
     pub filter: std::string::String,
 
-    /// A list of Certificate Config field names used to specify the order of the
-    /// returned results. The default sorting order is ascending. To specify
-    /// descending order for a field, add a suffix `" desc"`.
+    /// Optional. A list of Certificate Config field names used to specify the
+    /// order of the returned results. The default sorting order is ascending. To
+    /// specify descending order for a field, add a suffix `" desc"`.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -365,6 +365,100 @@ impl wkt::message::Message for CreateCertificateIssuanceConfigRequest {
     }
 }
 
+/// Request for the `UpdateCertificateIssuanceConfig` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateCertificateIssuanceConfigRequest {
+    /// Required. A definition of the certificate issuance config to update.
+    pub certificate_issuance_config: std::option::Option<crate::model::CertificateIssuanceConfig>,
+
+    /// Required. The update mask applies to the resource. For the `FieldMask`
+    /// definition, see
+    /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCertificateIssuanceConfigRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [certificate_issuance_config][crate::model::UpdateCertificateIssuanceConfigRequest::certificate_issuance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateIssuanceConfigRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = UpdateCertificateIssuanceConfigRequest::new().set_certificate_issuance_config(CertificateIssuanceConfig::default()/* use setters */);
+    /// ```
+    pub fn set_certificate_issuance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+    {
+        self.certificate_issuance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate_issuance_config][crate::model::UpdateCertificateIssuanceConfigRequest::certificate_issuance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateIssuanceConfigRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = UpdateCertificateIssuanceConfigRequest::new().set_or_clear_certificate_issuance_config(Some(CertificateIssuanceConfig::default()/* use setters */));
+    /// let x = UpdateCertificateIssuanceConfigRequest::new().set_or_clear_certificate_issuance_config(None::<CertificateIssuanceConfig>);
+    /// ```
+    pub fn set_or_clear_certificate_issuance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+    {
+        self.certificate_issuance_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateCertificateIssuanceConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateIssuanceConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateIssuanceConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateIssuanceConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateIssuanceConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateIssuanceConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCertificateIssuanceConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCertificateIssuanceConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.certificatemanager.v1.UpdateCertificateIssuanceConfigRequest"
+    }
+}
+
 /// Request for the `DeleteCertificateIssuanceConfig` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -408,7 +502,7 @@ impl wkt::message::Message for DeleteCertificateIssuanceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateIssuanceConfig {
-    /// A user-defined name of the certificate issuance config.
+    /// Identifier. A user-defined name of the certificate issuance config.
     /// CertificateIssuanceConfig names must be unique globally and match pattern
     /// `projects/*/locations/*/certificateIssuanceConfigs/*`.
     pub name: std::string::String,
@@ -419,10 +513,11 @@ pub struct CertificateIssuanceConfig {
     /// Output only. The last update timestamp of a CertificateIssuanceConfig.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Set of labels associated with a CertificateIssuanceConfig.
+    /// Optional. Set of labels associated with a CertificateIssuanceConfig.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// One or more paragraphs of text description of a CertificateIssuanceConfig.
+    /// Optional. One or more paragraphs of text description of a
+    /// CertificateIssuanceConfig.
     pub description: std::string::String,
 
     /// Required. The CA that issues the workload certificate. It includes the CA
@@ -440,6 +535,12 @@ pub struct CertificateIssuanceConfig {
 
     /// Required. The key algorithm to use when generating the private key.
     pub key_algorithm: crate::model::certificate_issuance_config::KeyAlgorithm,
+
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -664,6 +765,27 @@ impl CertificateIssuanceConfig {
         self.key_algorithm = v.into();
         self
     }
+
+    /// Sets the value of [tags][crate::model::CertificateIssuanceConfig::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = CertificateIssuanceConfig::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for CertificateIssuanceConfig {
@@ -682,7 +804,7 @@ pub mod certificate_issuance_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateAuthorityConfig {
-        #[allow(missing_docs)]
+        /// The kind of CA config.
         pub kind: std::option::Option<
             crate::model::certificate_issuance_config::certificate_authority_config::Kind,
         >,
@@ -796,7 +918,7 @@ pub mod certificate_issuance_config {
             }
         }
 
-        #[allow(missing_docs)]
+        /// The kind of CA config.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -946,20 +1068,20 @@ pub struct ListCertificatesRequest {
     /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
-    /// Maximum number of certificates to return per call.
+    /// Optional. Maximum number of certificates to return per call.
     pub page_size: i32,
 
-    /// The value returned by the last `ListCertificatesResponse`. Indicates that
-    /// this is a continuation of a prior `ListCertificates` call, and that the
-    /// system should return the next page of data.
+    /// Optional. The value returned by the last `ListCertificatesResponse`.
+    /// Indicates that this is a continuation of a prior `ListCertificates` call,
+    /// and that the system should return the next page of data.
     pub page_token: std::string::String,
 
-    /// Filter expression to restrict the Certificates returned.
+    /// Optional. Filter expression to restrict the Certificates returned.
     pub filter: std::string::String,
 
-    /// A list of Certificate field names used to specify the order of the returned
-    /// results. The default sorting order is ascending. To specify descending
-    /// order for a field, add a suffix `" desc"`.
+    /// Optional. A list of Certificate field names used to specify the order of
+    /// the returned results. The default sorting order is ascending. To specify
+    /// descending order for a field, add a suffix `" desc"`.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1401,19 +1523,19 @@ pub struct ListCertificateMapsRequest {
     /// be listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
-    /// Maximum number of certificate maps to return per call.
+    /// Optional. Maximum number of certificate maps to return per call.
     pub page_size: i32,
 
-    /// The value returned by the last `ListCertificateMapsResponse`. Indicates
-    /// that this is a continuation of a prior `ListCertificateMaps` call, and that
-    /// the system should return the next page of data.
+    /// Optional. The value returned by the last `ListCertificateMapsResponse`.
+    /// Indicates that this is a continuation of a prior `ListCertificateMaps`
+    /// call, and that the system should return the next page of data.
     pub page_token: std::string::String,
 
-    /// Filter expression to restrict the Certificates Maps returned.
+    /// Optional. Filter expression to restrict the Certificates Maps returned.
     pub filter: std::string::String,
 
-    /// A list of Certificate Map field names used to specify the order of the
-    /// returned results. The default sorting order is ascending. To specify
+    /// Optional. A list of Certificate Map field names used to specify the order
+    /// of the returned results. The default sorting order is ascending. To specify
     /// descending order for a field, add a suffix `" desc"`.
     pub order_by: std::string::String,
 
@@ -1860,22 +1982,23 @@ pub struct ListCertificateMapEntriesRequest {
     /// `projects/*/locations/*/certificateMaps/*`.
     pub parent: std::string::String,
 
-    /// Maximum number of certificate map entries to return. The service may return
-    /// fewer than this value.
-    /// If unspecified, at most 50 certificate map entries will be returned.
-    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    /// Optional. Maximum number of certificate map entries to return. The service
+    /// may return fewer than this value. If unspecified, at most 50 certificate
+    /// map entries will be returned. The maximum value is 1000; values above 1000
+    /// will be coerced to 1000.
     pub page_size: i32,
 
-    /// The value returned by the last `ListCertificateMapEntriesResponse`.
-    /// Indicates that this is a continuation of a prior
-    /// `ListCertificateMapEntries` call, and that the system should return the
-    /// next page of data.
+    /// Optional. The value returned by the last
+    /// `ListCertificateMapEntriesResponse`. Indicates that this is a continuation
+    /// of a prior `ListCertificateMapEntries` call, and that the system should
+    /// return the next page of data.
     pub page_token: std::string::String,
 
-    /// Filter expression to restrict the returned Certificate Map Entries.
+    /// Optional. Filter expression to restrict the returned Certificate Map
+    /// Entries.
     pub filter: std::string::String,
 
-    /// A list of Certificate Map Entry field names used to specify
+    /// Optional. A list of Certificate Map Entry field names used to specify
     /// the order of the returned results. The default sorting order is ascending.
     /// To specify descending order for a field, add a suffix `" desc"`.
     pub order_by: std::string::String,
@@ -2330,19 +2453,19 @@ pub struct ListDnsAuthorizationsRequest {
     /// be listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
-    /// Maximum number of dns authorizations to return per call.
+    /// Optional. Maximum number of dns authorizations to return per call.
     pub page_size: i32,
 
-    /// The value returned by the last `ListDnsAuthorizationsResponse`. Indicates
-    /// that this is a continuation of a prior `ListDnsAuthorizations` call, and
-    /// that the system should return the next page of data.
+    /// Optional. The value returned by the last `ListDnsAuthorizationsResponse`.
+    /// Indicates that this is a continuation of a prior `ListDnsAuthorizations`
+    /// call, and that the system should return the next page of data.
     pub page_token: std::string::String,
 
-    /// Filter expression to restrict the Dns Authorizations returned.
+    /// Optional. Filter expression to restrict the Dns Authorizations returned.
     pub filter: std::string::String,
 
-    /// A list of Dns Authorization field names used to specify the order of the
-    /// returned results. The default sorting order is ascending. To specify
+    /// Optional. A list of Dns Authorization field names used to specify the order
+    /// of the returned results. The default sorting order is ascending. To specify
     /// descending order for a field, add a suffix `" desc"`.
     pub order_by: std::string::String,
 
@@ -2801,9 +2924,13 @@ pub struct OperationMetadata {
 
     /// Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of `1`,
+    /// corresponding to `Code.CANCELLED`.
+    ///
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.
@@ -2955,11 +3082,12 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Certificate {
-    /// A user-defined name of the certificate. Certificate names must be unique
-    /// globally and match pattern `projects/*/locations/*/certificates/*`.
+    /// Identifier. A user-defined name of the certificate. Certificate names must
+    /// be unique globally and match pattern
+    /// `projects/*/locations/*/certificates/*`.
     pub name: std::string::String,
 
-    /// One or more paragraphs of text description of a certificate.
+    /// Optional. One or more paragraphs of text description of a certificate.
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of a Certificate.
@@ -2968,7 +3096,7 @@ pub struct Certificate {
     /// Output only. The last update timestamp of a Certificate.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Set of labels associated with a Certificate.
+    /// Optional. Set of labels associated with a Certificate.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The list of Subject Alternative Names of dnsName type defined
@@ -2983,10 +3111,19 @@ pub struct Certificate {
     /// Output only. The expiry timestamp of a Certificate.
     pub expire_time: std::option::Option<wkt::Timestamp>,
 
-    /// Immutable. The scope of the certificate.
+    /// Optional. Immutable. The scope of the certificate.
     pub scope: crate::model::certificate::Scope,
 
-    #[allow(missing_docs)]
+    /// Output only. The list of resources that use this Certificate.
+    pub used_by: std::vec::Vec<crate::model::certificate::UsedBy>,
+
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Type of the certificate. Required.
     pub r#type: std::option::Option<crate::model::certificate::Type>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3182,12 +3319,56 @@ impl Certificate {
     /// use google_cloud_certificatemanager_v1::model::certificate::Scope;
     /// let x0 = Certificate::new().set_scope(Scope::EdgeCache);
     /// let x1 = Certificate::new().set_scope(Scope::AllRegions);
+    /// let x2 = Certificate::new().set_scope(Scope::ClientAuth);
     /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::certificate::Scope>>(
         mut self,
         v: T,
     ) -> Self {
         self.scope = v.into();
+        self
+    }
+
+    /// Sets the value of [used_by][crate::model::Certificate::used_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use google_cloud_certificatemanager_v1::model::certificate::UsedBy;
+    /// let x = Certificate::new()
+    ///     .set_used_by([
+    ///         UsedBy::default()/* use setters */,
+    ///         UsedBy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_used_by<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::certificate::UsedBy>,
+    {
+        use std::iter::Iterator;
+        self.used_by = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Certificate::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = Certificate::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -3238,6 +3419,7 @@ impl Certificate {
     /// let x = Certificate::new().set_self_managed(SelfManagedCertificate::default()/* use setters */);
     /// assert!(x.self_managed().is_some());
     /// assert!(x.managed().is_none());
+    /// assert!(x.managed_identity().is_none());
     /// ```
     pub fn set_self_managed<
         T: std::convert::Into<std::boxed::Box<crate::model::certificate::SelfManagedCertificate>>,
@@ -3276,6 +3458,7 @@ impl Certificate {
     /// let x = Certificate::new().set_managed(ManagedCertificate::default()/* use setters */);
     /// assert!(x.managed().is_some());
     /// assert!(x.self_managed().is_none());
+    /// assert!(x.managed_identity().is_none());
     /// ```
     pub fn set_managed<
         T: std::convert::Into<std::boxed::Box<crate::model::certificate::ManagedCertificate>>,
@@ -3284,6 +3467,46 @@ impl Certificate {
         v: T,
     ) -> Self {
         self.r#type = std::option::Option::Some(crate::model::certificate::Type::Managed(v.into()));
+        self
+    }
+
+    /// The value of [r#type][crate::model::Certificate::r#type]
+    /// if it holds a `ManagedIdentity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn managed_identity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::certificate::ManagedIdentityCertificate>>
+    {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::certificate::Type::ManagedIdentity(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::Certificate::r#type]
+    /// to hold a `ManagedIdentity`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use google_cloud_certificatemanager_v1::model::certificate::ManagedIdentityCertificate;
+    /// let x = Certificate::new().set_managed_identity(ManagedIdentityCertificate::default()/* use setters */);
+    /// assert!(x.managed_identity().is_some());
+    /// assert!(x.self_managed().is_none());
+    /// assert!(x.managed().is_none());
+    /// ```
+    pub fn set_managed_identity<
+        T: std::convert::Into<std::boxed::Box<crate::model::certificate::ManagedIdentityCertificate>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::certificate::Type::ManagedIdentity(v.into()));
         self
     }
 }
@@ -3305,11 +3528,12 @@ pub mod certificate {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SelfManagedCertificate {
-        /// Input only. The PEM-encoded certificate chain.
+        /// Optional. Input only. The PEM-encoded certificate chain.
         /// Leaf certificate comes first, followed by intermediate ones if any.
         pub pem_certificate: std::string::String,
 
-        /// Input only. The PEM-encoded private key of the leaf certificate.
+        /// Optional. Input only. The PEM-encoded private key of the leaf
+        /// certificate.
         pub pem_private_key: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3364,16 +3588,16 @@ pub mod certificate {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ManagedCertificate {
-        /// Immutable. The domains for which a managed SSL certificate will be
-        /// generated. Wildcard domains are only supported with DNS challenge
+        /// Optional. Immutable. The domains for which a managed SSL certificate will
+        /// be generated. Wildcard domains are only supported with DNS challenge
         /// resolution.
         pub domains: std::vec::Vec<std::string::String>,
 
-        /// Immutable. Authorizations that will be used for performing domain
-        /// authorization.
+        /// Optional. Immutable. Authorizations that will be used for performing
+        /// domain authorization.
         pub dns_authorizations: std::vec::Vec<std::string::String>,
 
-        /// Immutable. The resource name for a
+        /// Optional. Immutable. The resource name for a
         /// [CertificateIssuanceConfig][google.cloud.certificatemanager.v1.CertificateIssuanceConfig]
         /// used to configure private PKI certificates in the format
         /// `projects/*/locations/*/certificateIssuanceConfigs/*`.
@@ -3764,7 +3988,7 @@ pub mod certificate {
         #[non_exhaustive]
         pub struct AuthorizationAttemptInfo {
 
-            /// Domain name of the authorization attempt.
+            /// Output only. Domain name of the authorization attempt.
             pub domain: std::string::String,
 
             /// Output only. State of the domain for managed certificate issuance.
@@ -3778,6 +4002,13 @@ pub mod certificate {
             /// Provided to help address the configuration issues. Not guaranteed to be
             /// stable. For programmatic access use FailureReason enum.
             pub details: std::string::String,
+
+            /// Output only. The timestamp, when the authorization attempt was made.
+            pub attempt_time: std::option::Option<wkt::Timestamp>,
+
+            /// Output only. Troubleshooting information for the authorization attempt.
+            /// This field is only populated if the authorization attempt failed.
+            pub troubleshooting: std::option::Option<crate::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -3841,6 +4072,70 @@ pub mod certificate {
                 self.details = v.into();
                 self
             }
+
+            /// Sets the value of [attempt_time][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::attempt_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+            /// use wkt::Timestamp;
+            /// let x = AuthorizationAttemptInfo::new().set_attempt_time(Timestamp::default()/* use setters */);
+            /// ```
+            pub fn set_attempt_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.attempt_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [attempt_time][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::attempt_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+            /// use wkt::Timestamp;
+            /// let x = AuthorizationAttemptInfo::new().set_or_clear_attempt_time(Some(Timestamp::default()/* use setters */));
+            /// let x = AuthorizationAttemptInfo::new().set_or_clear_attempt_time(None::<Timestamp>);
+            /// ```
+            pub fn set_or_clear_attempt_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.attempt_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [troubleshooting][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::troubleshooting].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+            /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting;
+            /// let x = AuthorizationAttemptInfo::new().set_troubleshooting(Troubleshooting::default()/* use setters */);
+            /// ```
+            pub fn set_troubleshooting<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting>
+{
+                self.troubleshooting = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [troubleshooting][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::troubleshooting].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+            /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting;
+            /// let x = AuthorizationAttemptInfo::new().set_or_clear_troubleshooting(Some(Troubleshooting::default()/* use setters */));
+            /// let x = AuthorizationAttemptInfo::new().set_or_clear_troubleshooting(None::<Troubleshooting>);
+            /// ```
+            pub fn set_or_clear_troubleshooting<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting>
+{
+                self.troubleshooting = v.map(|x| x.into());
+                self
+            }
         }
 
         impl wkt::message::Message for AuthorizationAttemptInfo {
@@ -3853,6 +4148,460 @@ pub mod certificate {
         pub mod authorization_attempt_info {
             #[allow(unused_imports)]
             use super::*;
+
+            /// Troubleshooting information for the authorization attempt.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct Troubleshooting {
+
+                /// Output only. The list of issues discovered during the authorization
+                /// attempt.
+                pub issues: std::vec::Vec<crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Issue>,
+
+                /// Output only. CNAME troubleshooting information.
+                pub cname: std::option::Option<crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname>,
+
+                /// Output only. IPs troubleshooting information.
+                pub ips: std::option::Option<crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl Troubleshooting {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [issues][crate::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting::issues].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting;
+                /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Issue;
+                /// let x = Troubleshooting::new().set_issues([
+                ///     Issue::CnameMismatch,
+                ///     Issue::ResolvedToNotServing,
+                ///     Issue::ResolvedToServingOnAltPorts,
+                /// ]);
+                /// ```
+                pub fn set_issues<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Issue>
+{
+                    use std::iter::Iterator;
+                    self.issues = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [cname][crate::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting::cname].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting;
+                /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname;
+                /// let x = Troubleshooting::new().set_cname(Cname::default()/* use setters */);
+                /// ```
+                pub fn set_cname<T>(mut self, v: T) -> Self
+                where T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname>
+{
+                    self.cname = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [cname][crate::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting::cname].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting;
+                /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname;
+                /// let x = Troubleshooting::new().set_or_clear_cname(Some(Cname::default()/* use setters */));
+                /// let x = Troubleshooting::new().set_or_clear_cname(None::<Cname>);
+                /// ```
+                pub fn set_or_clear_cname<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname>
+{
+                    self.cname = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [ips][crate::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting::ips].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting;
+                /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs;
+                /// let x = Troubleshooting::new().set_ips(IPs::default()/* use setters */);
+                /// ```
+                pub fn set_ips<T>(mut self, v: T) -> Self
+                where T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs>
+{
+                    self.ips = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [ips][crate::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting::ips].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::Troubleshooting;
+                /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs;
+                /// let x = Troubleshooting::new().set_or_clear_ips(Some(IPs::default()/* use setters */));
+                /// let x = Troubleshooting::new().set_or_clear_ips(None::<IPs>);
+                /// ```
+                pub fn set_or_clear_ips<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs>
+{
+                    self.ips = v.map(|x| x.into());
+                    self
+                }
+            }
+
+            impl wkt::message::Message for Troubleshooting {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.AuthorizationAttemptInfo.Troubleshooting"
+                }
+            }
+
+            /// Defines additional types related to [Troubleshooting].
+            pub mod troubleshooting {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// CNAME troubleshooting information.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct Cname {
+                    /// Output only. The name of the CNAME record for the domain, equals to
+                    /// `dns_resource_record.name` in the corresponding `DnsAuthorization`.
+                    pub name: std::string::String,
+
+                    /// Output only. The expected value of the CNAME record for the domain,
+                    /// equals to `dns_resource_record.data` in the corresponding
+                    /// `DnsAuthorization`.
+                    pub expected_data: std::string::String,
+
+                    /// Output only. The resolved CNAME chain.
+                    /// Empty list if the CNAME record for `CNAME.name` is not found.
+                    /// Otherwise the first item is the value of the CNAME record for
+                    /// `CNAME.name`.
+                    /// If the CNAME chain is longer, the second item is the value of the
+                    /// CNAME record for the first item, and so on.
+                    pub resolved_data: std::vec::Vec<std::string::String>,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl Cname {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [name][crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname::name].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname;
+                    /// let x = Cname::new().set_name("example");
+                    /// ```
+                    pub fn set_name<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.name = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [expected_data][crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname::expected_data].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname;
+                    /// let x = Cname::new().set_expected_data("example");
+                    /// ```
+                    pub fn set_expected_data<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.expected_data = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [resolved_data][crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname::resolved_data].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::Cname;
+                    /// let x = Cname::new().set_resolved_data(["a", "b", "c"]);
+                    /// ```
+                    pub fn set_resolved_data<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<std::string::String>,
+                    {
+                        use std::iter::Iterator;
+                        self.resolved_data = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for Cname {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.AuthorizationAttemptInfo.Troubleshooting.CNAME"
+                    }
+                }
+
+                /// IPs troubleshooting information.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct IPs {
+                    /// Output only. The list of IP addresses, where the certificate is
+                    /// attached and port 443 is open.
+                    pub serving: std::vec::Vec<std::string::String>,
+
+                    /// Output only. The list of IP addresses, where the certificate is
+                    /// attached, but port 443 is not open.
+                    pub serving_on_alt_ports: std::vec::Vec<std::string::String>,
+
+                    /// Output only. The list of IP addresses resolved from the domain's
+                    /// A/AAAA records. Can contain both ipv4 and ipv6 addresses.
+                    pub resolved: std::vec::Vec<std::string::String>,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl IPs {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [serving][crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs::serving].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs;
+                    /// let x = IPs::new().set_serving(["a", "b", "c"]);
+                    /// ```
+                    pub fn set_serving<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<std::string::String>,
+                    {
+                        use std::iter::Iterator;
+                        self.serving = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+
+                    /// Sets the value of [serving_on_alt_ports][crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs::serving_on_alt_ports].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs;
+                    /// let x = IPs::new().set_serving_on_alt_ports(["a", "b", "c"]);
+                    /// ```
+                    pub fn set_serving_on_alt_ports<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<std::string::String>,
+                    {
+                        use std::iter::Iterator;
+                        self.serving_on_alt_ports = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+
+                    /// Sets the value of [resolved][crate::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs::resolved].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::troubleshooting::IPs;
+                    /// let x = IPs::new().set_resolved(["a", "b", "c"]);
+                    /// ```
+                    pub fn set_resolved<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<std::string::String>,
+                    {
+                        use std::iter::Iterator;
+                        self.resolved = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for IPs {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.AuthorizationAttemptInfo.Troubleshooting.IPs"
+                    }
+                }
+
+                /// The issue discovered during the authorization attempt.
+                ///
+                /// # Working with unknown values
+                ///
+                /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                /// additional enum variants at any time. Adding new variants is not considered
+                /// a breaking change. Applications should write their code in anticipation of:
+                ///
+                /// - New values appearing in future releases of the client library, **and**
+                /// - New values received dynamically, without application changes.
+                ///
+                /// Please consult the [Working with enums] section in the user guide for some
+                /// guidelines.
+                ///
+                /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum Issue {
+                    /// Issue is unspecified.
+                    Unspecified,
+                    /// The resolved CNAME value doesn't match the expected CNAME.
+                    CnameMismatch,
+                    /// Domain has A/AAAA records that point to IPs, where the certificate
+                    /// is not attached.
+                    ResolvedToNotServing,
+                    /// Domain has A/AAAA records that point to IPs, where the certificate
+                    /// is attached, but port 443 is not open.
+                    ResolvedToServingOnAltPorts,
+                    /// Domain doesn't have any A/AAAA records.
+                    NoResolvedIps,
+                    /// Certificate is not configured to be served from any IPs (e.g.
+                    /// Certificate is not attached to any load balancer).
+                    CertificateNotAttached,
+                    /// If set, the enum was initialized with an unknown value.
+                    ///
+                    /// Applications can examine the value using [Issue::value] or
+                    /// [Issue::name].
+                    UnknownValue(issue::UnknownValue),
+                }
+
+                #[doc(hidden)]
+                pub mod issue {
+                    #[allow(unused_imports)]
+                    use super::*;
+                    #[derive(Clone, Debug, PartialEq)]
+                    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+                }
+
+                impl Issue {
+                    /// Gets the enum value.
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the string representation of enums.
+                    pub fn value(&self) -> std::option::Option<i32> {
+                        match self {
+                            Self::Unspecified => std::option::Option::Some(0),
+                            Self::CnameMismatch => std::option::Option::Some(1),
+                            Self::ResolvedToNotServing => std::option::Option::Some(2),
+                            Self::ResolvedToServingOnAltPorts => std::option::Option::Some(3),
+                            Self::NoResolvedIps => std::option::Option::Some(4),
+                            Self::CertificateNotAttached => std::option::Option::Some(5),
+                            Self::UnknownValue(u) => u.0.value(),
+                        }
+                    }
+
+                    /// Gets the enum value as a string.
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the integer representation of enums.
+                    pub fn name(&self) -> std::option::Option<&str> {
+                        match self {
+                            Self::Unspecified => std::option::Option::Some("ISSUE_UNSPECIFIED"),
+                            Self::CnameMismatch => std::option::Option::Some("CNAME_MISMATCH"),
+                            Self::ResolvedToNotServing => {
+                                std::option::Option::Some("RESOLVED_TO_NOT_SERVING")
+                            }
+                            Self::ResolvedToServingOnAltPorts => {
+                                std::option::Option::Some("RESOLVED_TO_SERVING_ON_ALT_PORTS")
+                            }
+                            Self::NoResolvedIps => std::option::Option::Some("NO_RESOLVED_IPS"),
+                            Self::CertificateNotAttached => {
+                                std::option::Option::Some("CERTIFICATE_NOT_ATTACHED")
+                            }
+                            Self::UnknownValue(u) => u.0.name(),
+                        }
+                    }
+                }
+
+                impl std::default::Default for Issue {
+                    fn default() -> Self {
+                        use std::convert::From;
+                        Self::from(0)
+                    }
+                }
+
+                impl std::fmt::Display for Issue {
+                    fn fmt(
+                        &self,
+                        f: &mut std::fmt::Formatter<'_>,
+                    ) -> std::result::Result<(), std::fmt::Error> {
+                        wkt::internal::display_enum(f, self.name(), self.value())
+                    }
+                }
+
+                impl std::convert::From<i32> for Issue {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => Self::Unspecified,
+                            1 => Self::CnameMismatch,
+                            2 => Self::ResolvedToNotServing,
+                            3 => Self::ResolvedToServingOnAltPorts,
+                            4 => Self::NoResolvedIps,
+                            5 => Self::CertificateNotAttached,
+                            _ => Self::UnknownValue(issue::UnknownValue(
+                                wkt::internal::UnknownEnumValue::Integer(value),
+                            )),
+                        }
+                    }
+                }
+
+                impl std::convert::From<&str> for Issue {
+                    fn from(value: &str) -> Self {
+                        use std::string::ToString;
+                        match value {
+                            "ISSUE_UNSPECIFIED" => Self::Unspecified,
+                            "CNAME_MISMATCH" => Self::CnameMismatch,
+                            "RESOLVED_TO_NOT_SERVING" => Self::ResolvedToNotServing,
+                            "RESOLVED_TO_SERVING_ON_ALT_PORTS" => Self::ResolvedToServingOnAltPorts,
+                            "NO_RESOLVED_IPS" => Self::NoResolvedIps,
+                            "CERTIFICATE_NOT_ATTACHED" => Self::CertificateNotAttached,
+                            _ => Self::UnknownValue(issue::UnknownValue(
+                                wkt::internal::UnknownEnumValue::String(value.to_string()),
+                            )),
+                        }
+                    }
+                }
+
+                impl serde::ser::Serialize for Issue {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::Serializer,
+                    {
+                        match self {
+                            Self::Unspecified => serializer.serialize_i32(0),
+                            Self::CnameMismatch => serializer.serialize_i32(1),
+                            Self::ResolvedToNotServing => serializer.serialize_i32(2),
+                            Self::ResolvedToServingOnAltPorts => serializer.serialize_i32(3),
+                            Self::NoResolvedIps => serializer.serialize_i32(4),
+                            Self::CertificateNotAttached => serializer.serialize_i32(5),
+                            Self::UnknownValue(u) => u.0.serialize(serializer),
+                        }
+                    }
+                }
+
+                impl<'de> serde::de::Deserialize<'de> for Issue {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Issue>::new(
+                            ".google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.AuthorizationAttemptInfo.Troubleshooting.Issue"))
+                    }
+                }
+            }
 
             /// State of the domain for managed certificate issuance.
             ///
@@ -4294,6 +5043,148 @@ pub mod certificate {
         }
     }
 
+    /// Configuration and state of a Managed Identity Certificate.
+    /// Certificate Manager provisions and renews Managed Identity Certificates
+    /// automatically, for as long as it's authorized to do so.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ManagedIdentityCertificate {
+        /// Required. Immutable. SPIFFE ID of the Managed Identity used for this
+        /// certificate.
+        pub identity: std::string::String,
+
+        /// Output only. State of the managed certificate resource.
+        pub state: crate::model::certificate::managed_certificate::State,
+
+        /// Output only. Information about issues with provisioning a managed
+        /// certificate.
+        pub provisioning_issue:
+            std::option::Option<crate::model::certificate::managed_certificate::ProvisioningIssue>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ManagedIdentityCertificate {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [identity][crate::model::certificate::ManagedIdentityCertificate::identity].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedIdentityCertificate;
+        /// let x = ManagedIdentityCertificate::new().set_identity("example");
+        /// ```
+        pub fn set_identity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.identity = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::certificate::ManagedIdentityCertificate::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedIdentityCertificate;
+        /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::State;
+        /// let x0 = ManagedIdentityCertificate::new().set_state(State::Provisioning);
+        /// let x1 = ManagedIdentityCertificate::new().set_state(State::Failed);
+        /// let x2 = ManagedIdentityCertificate::new().set_state(State::Active);
+        /// ```
+        pub fn set_state<
+            T: std::convert::Into<crate::model::certificate::managed_certificate::State>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [provisioning_issue][crate::model::certificate::ManagedIdentityCertificate::provisioning_issue].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedIdentityCertificate;
+        /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::ProvisioningIssue;
+        /// let x = ManagedIdentityCertificate::new().set_provisioning_issue(ProvisioningIssue::default()/* use setters */);
+        /// ```
+        pub fn set_provisioning_issue<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::certificate::managed_certificate::ProvisioningIssue,
+                >,
+        {
+            self.provisioning_issue = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provisioning_issue][crate::model::certificate::ManagedIdentityCertificate::provisioning_issue].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedIdentityCertificate;
+        /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::ProvisioningIssue;
+        /// let x = ManagedIdentityCertificate::new().set_or_clear_provisioning_issue(Some(ProvisioningIssue::default()/* use setters */));
+        /// let x = ManagedIdentityCertificate::new().set_or_clear_provisioning_issue(None::<ProvisioningIssue>);
+        /// ```
+        pub fn set_or_clear_provisioning_issue<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::certificate::managed_certificate::ProvisioningIssue,
+                >,
+        {
+            self.provisioning_issue = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for ManagedIdentityCertificate {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.certificatemanager.v1.Certificate.ManagedIdentityCertificate"
+        }
+    }
+
+    /// Defines a resource that uses the certificate.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UsedBy {
+        /// Output only. Full name of the resource
+        /// <https://google.aip.dev/122#full-resource-names>, e.g.
+        /// `//certificatemanager.googleapis.com/projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`
+        /// or
+        /// `//compute.googleapis.com/projects/*/locations/*/targetHttpsProxies/*`.
+        pub name: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UsedBy {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::certificate::UsedBy::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_certificatemanager_v1::model::certificate::UsedBy;
+        /// let x = UsedBy::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for UsedBy {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.certificatemanager.v1.Certificate.UsedBy"
+        }
+    }
+
     /// Certificate scope.
     ///
     /// # Working with unknown values
@@ -4312,16 +5203,22 @@ pub mod certificate {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Scope {
-        /// Certificates with default scope are served from core Google data centers.
-        /// If unsure, choose this option.
+        /// Use the DEFAULT scope if you plan to use the certificate with global
+        /// external Application Load Balancer, global external proxy Network
+        /// Load Balancer, or any of the regional Google Cloud services.
         Default,
-        /// Certificates with scope EDGE_CACHE are special-purposed certificates,
-        /// served from Edge Points of Presence.
+        /// Use the EDGE_CACHE scope if you plan to use the certificate with Media
+        /// CDN.
+        /// The certificates are served from Edge Points of Presence.
         /// See <https://cloud.google.com/vpc/docs/edge-locations>.
         EdgeCache,
-        /// Certificates with ALL_REGIONS scope are served from all Google Cloud
+        /// Use the ALL_REGIONS scope if you plan to use the certificate with
+        /// cross-region internal Application Load Balancer.
+        /// The certificates are served from all Google Cloud
         /// regions. See <https://cloud.google.com/compute/docs/regions-zones>.
         AllRegions,
+        /// Associated with certificates used as client certificates in Backend mTLS.
+        ClientAuth,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Scope::value] or
@@ -4347,6 +5244,7 @@ pub mod certificate {
                 Self::Default => std::option::Option::Some(0),
                 Self::EdgeCache => std::option::Option::Some(1),
                 Self::AllRegions => std::option::Option::Some(2),
+                Self::ClientAuth => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4360,6 +5258,7 @@ pub mod certificate {
                 Self::Default => std::option::Option::Some("DEFAULT"),
                 Self::EdgeCache => std::option::Option::Some("EDGE_CACHE"),
                 Self::AllRegions => std::option::Option::Some("ALL_REGIONS"),
+                Self::ClientAuth => std::option::Option::Some("CLIENT_AUTH"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4384,6 +5283,7 @@ pub mod certificate {
                 0 => Self::Default,
                 1 => Self::EdgeCache,
                 2 => Self::AllRegions,
+                3 => Self::ClientAuth,
                 _ => Self::UnknownValue(scope::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -4398,6 +5298,7 @@ pub mod certificate {
                 "DEFAULT" => Self::Default,
                 "EDGE_CACHE" => Self::EdgeCache,
                 "ALL_REGIONS" => Self::AllRegions,
+                "CLIENT_AUTH" => Self::ClientAuth,
                 _ => Self::UnknownValue(scope::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -4414,6 +5315,7 @@ pub mod certificate {
                 Self::Default => serializer.serialize_i32(0),
                 Self::EdgeCache => serializer.serialize_i32(1),
                 Self::AllRegions => serializer.serialize_i32(2),
+                Self::ClientAuth => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4430,7 +5332,7 @@ pub mod certificate {
         }
     }
 
-    #[allow(missing_docs)]
+    /// Type of the certificate. Required.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -4438,6 +5340,9 @@ pub mod certificate {
         SelfManaged(std::boxed::Box<crate::model::certificate::SelfManagedCertificate>),
         /// If set, contains configuration and state of a managed certificate.
         Managed(std::boxed::Box<crate::model::certificate::ManagedCertificate>),
+        /// If set, contains configuration and state of a managed identity
+        /// certificate.
+        ManagedIdentity(std::boxed::Box<crate::model::certificate::ManagedIdentityCertificate>),
     }
 }
 
@@ -4445,12 +5350,12 @@ pub mod certificate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateMap {
-    /// A user-defined name of the Certificate Map. Certificate Map names must be
-    /// unique globally and match pattern
+    /// Identifier. A user-defined name of the Certificate Map. Certificate Map
+    /// names must be unique globally and match pattern
     /// `projects/*/locations/*/certificateMaps/*`.
     pub name: std::string::String,
 
-    /// One or more paragraphs of text description of a certificate map.
+    /// Optional. One or more paragraphs of text description of a certificate map.
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of a Certificate Map.
@@ -4459,13 +5364,19 @@ pub struct CertificateMap {
     /// Output only. The update timestamp of a Certificate Map.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Set of labels associated with a Certificate Map.
+    /// Optional. Set of labels associated with a Certificate Map.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. A list of GCLB targets that use this Certificate Map.
     /// A Target Proxy is only present on this list if it's attached to a
     /// Forwarding Rule.
     pub gclb_targets: std::vec::Vec<crate::model::certificate_map::GclbTarget>,
+
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4609,6 +5520,27 @@ impl CertificateMap {
     {
         use std::iter::Iterator;
         self.gclb_targets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::CertificateMap::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = CertificateMap::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4852,12 +5784,13 @@ pub mod certificate_map {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateMapEntry {
-    /// A user-defined name of the Certificate Map Entry. Certificate Map Entry
-    /// names must be unique globally and match pattern
+    /// Identifier. A user-defined name of the Certificate Map Entry. Certificate
+    /// Map Entry names must be unique globally and match pattern
     /// `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
     pub name: std::string::String,
 
-    /// One or more paragraphs of text description of a certificate map entry.
+    /// Optional. One or more paragraphs of text description of a certificate map
+    /// entry.
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of a Certificate Map Entry.
@@ -4866,18 +5799,18 @@ pub struct CertificateMapEntry {
     /// Output only. The update timestamp of a Certificate Map Entry.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Set of labels associated with a Certificate Map Entry.
+    /// Optional. Set of labels associated with a Certificate Map Entry.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// A set of Certificates defines for the given `hostname`. There can be
-    /// defined up to four certificates in each Certificate Map Entry. Each
+    /// Optional. A set of Certificates defines for the given `hostname`. There can
+    /// be defined up to four certificates in each Certificate Map Entry. Each
     /// certificate must match pattern `projects/*/locations/*/certificates/*`.
     pub certificates: std::vec::Vec<std::string::String>,
 
     /// Output only. A serving state of this Certificate Map Entry.
     pub state: crate::model::ServingState,
 
-    #[allow(missing_docs)]
+    /// The matcher for this certificate map entry. Required.
     pub r#match: std::option::Option<crate::model::certificate_map_entry::Match>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5261,7 +6194,7 @@ pub mod certificate_map_entry {
         }
     }
 
-    #[allow(missing_docs)]
+    /// The matcher for this certificate map entry. Required.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Match {
@@ -5279,8 +6212,8 @@ pub mod certificate_map_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsAuthorization {
-    /// A user-defined name of the dns authorization. DnsAuthorization names must
-    /// be unique globally and match pattern
+    /// Identifier. A user-defined name of the dns authorization. DnsAuthorization
+    /// names must be unique globally and match pattern
     /// `projects/*/locations/*/dnsAuthorizations/*`.
     pub name: std::string::String,
 
@@ -5290,10 +6223,10 @@ pub struct DnsAuthorization {
     /// Output only. The last update timestamp of a DnsAuthorization.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Set of labels associated with a DnsAuthorization.
+    /// Optional. Set of labels associated with a DnsAuthorization.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// One or more paragraphs of text description of a DnsAuthorization.
+    /// Optional. One or more paragraphs of text description of a DnsAuthorization.
     pub description: std::string::String,
 
     /// Required. Immutable. A domain that is being authorized. A DnsAuthorization
@@ -5307,11 +6240,18 @@ pub struct DnsAuthorization {
     pub dns_resource_record:
         std::option::Option<crate::model::dns_authorization::DnsResourceRecord>,
 
-    /// Immutable. Type of DnsAuthorization. If unset during resource creation the
-    /// following default will be used:
+    /// Optional. Immutable. Type of DnsAuthorization. If unset during resource
+    /// creation the following default will be used:
     ///
-    /// - in location global: FIXED_RECORD.
+    /// - in location `global`: FIXED_RECORD,
+    /// - in other locations: PER_PROJECT_RECORD.
     pub r#type: crate::model::dns_authorization::Type,
+
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5495,6 +6435,27 @@ impl DnsAuthorization {
         v: T,
     ) -> Self {
         self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::DnsAuthorization::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = DnsAuthorization::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5722,19 +6683,19 @@ pub struct ListTrustConfigsRequest {
     /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
-    /// Maximum number of TrustConfigs to return per call.
+    /// Optional. Maximum number of TrustConfigs to return per call.
     pub page_size: i32,
 
-    /// The value returned by the last `ListTrustConfigsResponse`. Indicates
-    /// that this is a continuation of a prior `ListTrustConfigs` call, and that
-    /// the system should return the next page of data.
+    /// Optional. The value returned by the last `ListTrustConfigsResponse`.
+    /// Indicates that this is a continuation of a prior `ListTrustConfigs` call,
+    /// and that the system should return the next page of data.
     pub page_token: std::string::String,
 
-    /// Filter expression to restrict the TrustConfigs returned.
+    /// Optional. Filter expression to restrict the TrustConfigs returned.
     pub filter: std::string::String,
 
-    /// A list of TrustConfig field names used to specify the order of the
-    /// returned results. The default sorting order is ascending. To specify
+    /// Optional. A list of TrustConfig field names used to specify the order of
+    /// the returned results. The default sorting order is ascending. To specify
     /// descending order for a field, add a suffix `" desc"`.
     pub order_by: std::string::String,
 
@@ -6139,7 +7100,7 @@ pub struct DeleteTrustConfigRequest {
     /// `projects/*/locations/*/trustConfigs/*`.
     pub name: std::string::String,
 
-    /// The current etag of the TrustConfig.
+    /// Optional. The current etag of the TrustConfig.
     /// If an etag is provided and does not match the current etag of the resource,
     /// deletion will be blocked and an ABORTED error will be returned.
     pub etag: std::string::String,
@@ -6191,8 +7152,8 @@ impl wkt::message::Message for DeleteTrustConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrustConfig {
-    /// A user-defined name of the trust config. TrustConfig names must be
-    /// unique globally and match pattern
+    /// Identifier. A user-defined name of the trust config. TrustConfig names must
+    /// be unique globally and match pattern
     /// `projects/*/locations/*/trustConfigs/*`.
     pub name: std::string::String,
 
@@ -6202,10 +7163,10 @@ pub struct TrustConfig {
     /// Output only. The last update timestamp of a TrustConfig.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Set of labels associated with a TrustConfig.
+    /// Optional. Set of labels associated with a TrustConfig.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// One or more paragraphs of text description of a TrustConfig.
+    /// Optional. One or more paragraphs of text description of a TrustConfig.
     pub description: std::string::String,
 
     /// This checksum is computed by the server based on the value of other
@@ -6213,13 +7174,30 @@ pub struct TrustConfig {
     /// client has an up-to-date value before proceeding.
     pub etag: std::string::String,
 
-    /// Set of trust stores to perform validation against.
+    /// Optional. Defines a mapping from a trust domain to a TrustStore. This is
+    /// used for SPIFFE certificate validation.
+    pub spiffe_trust_stores:
+        std::collections::HashMap<std::string::String, crate::model::trust_config::TrustStore>,
+
+    /// Optional. Set of trust stores to perform validation against.
     ///
     /// This field is supported when TrustConfig is configured with Load Balancers,
     /// currently not supported for SPIFFE certificate validation.
     ///
     /// Only one TrustStore specified is currently allowed.
     pub trust_stores: std::vec::Vec<crate::model::trust_config::TrustStore>,
+
+    /// Optional. A certificate matching an allowlisted certificate is always
+    /// considered valid as long as the certificate is parseable, proof of private
+    /// key possession is established, and constraints on the certificate's SAN
+    /// field are met.
+    pub allowlisted_certificates: std::vec::Vec<crate::model::trust_config::AllowlistedCertificate>,
+
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6356,6 +7334,28 @@ impl TrustConfig {
         self
     }
 
+    /// Sets the value of [spiffe_trust_stores][crate::model::TrustConfig::spiffe_trust_stores].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use google_cloud_certificatemanager_v1::model::trust_config::TrustStore;
+    /// let x = TrustConfig::new().set_spiffe_trust_stores([
+    ///     ("key0", TrustStore::default()/* use setters */),
+    ///     ("key1", TrustStore::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_spiffe_trust_stores<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::trust_config::TrustStore>,
+    {
+        use std::iter::Iterator;
+        self.spiffe_trust_stores = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [trust_stores][crate::model::TrustConfig::trust_stores].
     ///
     /// # Example
@@ -6377,6 +7377,49 @@ impl TrustConfig {
         self.trust_stores = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [allowlisted_certificates][crate::model::TrustConfig::allowlisted_certificates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use google_cloud_certificatemanager_v1::model::trust_config::AllowlistedCertificate;
+    /// let x = TrustConfig::new()
+    ///     .set_allowlisted_certificates([
+    ///         AllowlistedCertificate::default()/* use setters */,
+    ///         AllowlistedCertificate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_allowlisted_certificates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::trust_config::AllowlistedCertificate>,
+    {
+        use std::iter::Iterator;
+        self.allowlisted_certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::TrustConfig::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = TrustConfig::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for TrustConfig {
@@ -6394,7 +7437,7 @@ pub mod trust_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrustAnchor {
-        #[allow(missing_docs)]
+        /// Kind of the trust anchor. Required.
         pub kind: std::option::Option<crate::model::trust_config::trust_anchor::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6474,7 +7517,7 @@ pub mod trust_config {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
+        /// Kind of the trust anchor. Required.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -6489,7 +7532,7 @@ pub mod trust_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IntermediateCA {
-        #[allow(missing_docs)]
+        /// Kind of the intermediate CA. Required.
         pub kind: std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6571,7 +7614,7 @@ pub mod trust_config {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
+        /// Kind of the intermediate CA. Required.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -6587,11 +7630,11 @@ pub mod trust_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrustStore {
-        /// List of Trust Anchors to be used while performing validation
+        /// Optional. List of Trust Anchors to be used while performing validation
         /// against a given TrustStore.
         pub trust_anchors: std::vec::Vec<crate::model::trust_config::TrustAnchor>,
 
-        /// Set of intermediate CA certificates used for the path building
+        /// Optional. Set of intermediate CA certificates used for the path building
         /// phase of chain validation.
         ///
         /// The field is currently not supported if TrustConfig is used for the
@@ -6655,6 +7698,45 @@ pub mod trust_config {
     impl wkt::message::Message for TrustStore {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.certificatemanager.v1.TrustConfig.TrustStore"
+        }
+    }
+
+    /// Defines an allowlisted certificate.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AllowlistedCertificate {
+        /// Required. PEM certificate that is allowlisted. The certificate can be up
+        /// to 5k bytes, and must be a parseable X.509 certificate.
+        pub pem_certificate: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AllowlistedCertificate {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [pem_certificate][crate::model::trust_config::AllowlistedCertificate::pem_certificate].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_certificatemanager_v1::model::trust_config::AllowlistedCertificate;
+        /// let x = AllowlistedCertificate::new().set_pem_certificate("example");
+        /// ```
+        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.pem_certificate = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AllowlistedCertificate {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.certificatemanager.v1.TrustConfig.AllowlistedCertificate"
         }
     }
 }

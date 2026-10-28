@@ -81,6 +81,31 @@ impl ::prost::Name for SanitizeModelResponseResponse {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FilterVersionConfig {
+    #[prost(string, tag = "1")]
+    pub filter_version: ::prost::alloc::string::String,
+    #[prost(enumeration = "FilterVersionAlias", optional, tag = "2")]
+    pub filter_version_alias: ::core::option::Option<i32>,
+    #[prost(message, optional, tag = "3")]
+    pub release_date: ::core::option::Option<super::super::super::r#type::Date>,
+    #[prost(message, optional, tag = "4")]
+    pub projected_deprecation_date: ::core::option::Option<
+        super::super::super::r#type::Date,
+    >,
+    #[prost(message, repeated, tag = "5")]
+    pub message_items: ::prost::alloc::vec::Vec<MessageItem>,
+}
+impl ::prost::Name for FilterVersionConfig {
+    const NAME: &'static str = "FilterVersionConfig";
+    const PACKAGE: &'static str = "google.cloud.modelarmor.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.modelarmor.v1.FilterVersionConfig".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.modelarmor.v1.FilterVersionConfig".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SanitizationResult {
     #[prost(enumeration = "FilterMatchState", tag = "1")]
     pub filter_match_state: i32,
@@ -98,7 +123,7 @@ pub struct SanitizationResult {
 }
 /// Nested message and enum types in `SanitizationResult`.
 pub mod sanitization_result {
-    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SanitizationMetadata {
         #[prost(int64, tag = "1")]
         pub error_code: i64,
@@ -108,6 +133,8 @@ pub mod sanitization_result {
         pub ignore_partial_invocation_failures: bool,
         #[prost(message, optional, tag = "4")]
         pub stream_chunk_processed: ::core::option::Option<super::DataItem>,
+        #[prost(message, optional, tag = "6")]
+        pub filter_version_config: ::core::option::Option<super::FilterVersionConfig>,
     }
     impl ::prost::Name for SanitizationMetadata {
         const NAME: &'static str = "SanitizationMetadata";
@@ -312,6 +339,8 @@ pub struct ByteDataItem {
     pub byte_data_type: i32,
     #[prost(bytes = "bytes", tag = "2")]
     pub byte_data: ::prost::bytes::Bytes,
+    #[prost(string, tag = "3")]
+    pub file_label: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `ByteDataItem`.
 pub mod byte_data_item {
@@ -1067,6 +1096,41 @@ impl StreamingMode {
             "STREAMING_MODE_UNSPECIFIED" => Some(Self::Unspecified),
             "STREAMING_MODE_BUFFERED" => Some(Self::Buffered),
             "STREAMING_MODE_REALTIME" => Some(Self::Realtime),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FilterVersionAlias {
+    Unspecified = 0,
+    Stable = 1,
+    Latest = 2,
+    Legacy = 3,
+    Retired = 4,
+}
+impl FilterVersionAlias {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::Unspecified => "FILTER_VERSION_ALIAS_UNSPECIFIED",
+            Self::Stable => "FILTER_VERSION_ALIAS_STABLE",
+            Self::Latest => "FILTER_VERSION_ALIAS_LATEST",
+            Self::Legacy => "FILTER_VERSION_ALIAS_LEGACY",
+            Self::Retired => "FILTER_VERSION_ALIAS_RETIRED",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FILTER_VERSION_ALIAS_UNSPECIFIED" => Some(Self::Unspecified),
+            "FILTER_VERSION_ALIAS_STABLE" => Some(Self::Stable),
+            "FILTER_VERSION_ALIAS_LATEST" => Some(Self::Latest),
+            "FILTER_VERSION_ALIAS_LEGACY" => Some(Self::Legacy),
+            "FILTER_VERSION_ALIAS_RETIRED" => Some(Self::Retired),
             _ => None,
         }
     }

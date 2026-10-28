@@ -51,7 +51,9 @@ impl super::sealed::DataFormat for Proto {
 mod tests {
     use super::super::sealed::DataFormat;
     use super::*;
+    use crate::google::cloud::bigquery::storage::v1;
     use crate::write::test::*;
+    use gaxi::prost::{FromProto, ToProto};
 
     #[test]
     fn format_name() {
@@ -80,6 +82,34 @@ mod tests {
         assert_eq!(s.proto_descriptor.as_ref().unwrap().name, "TestMessage");
         let r = data.rows.as_ref().expect("rows should be set");
         assert_eq!(r.serialized_rows, vec![bytes::Bytes::from("2")]);
+    }
+
+    #[test]
+    fn schema_conversion() -> anyhow::Result<()> {
+        let input = proto_schema();
+
+        let proto: v1::ProtoSchema = input.clone().to_proto()?;
+        let descriptor = proto
+            .proto_descriptor
+            .as_ref()
+            .expect("descriptor should be set");
+        assert_eq!(descriptor.name.as_deref(), Some("TestMessage"));
+
+        let back: ProtoSchema = proto.cnv()?;
+        assert_eq!(back, input);
+        Ok(())
+    }
+
+    #[test]
+    fn schema_conversion_without_descriptor() -> anyhow::Result<()> {
+        let input = ProtoSchema::new();
+
+        let proto: v1::ProtoSchema = input.clone().to_proto()?;
+        assert!(proto.proto_descriptor.is_none(), "{proto:?}");
+
+        let back: ProtoSchema = proto.cnv()?;
+        assert_eq!(back, input);
+        Ok(())
     }
 
     fn rows(id: i64) -> ProtoRows {

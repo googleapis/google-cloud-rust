@@ -2858,6 +2858,169 @@ pub mod certificate_manager {
         }
     }
 
+    /// The request builder for [CertificateManager::update_certificate_issuance_config][crate::client::CertificateManager::update_certificate_issuance_config] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateCertificateIssuanceConfig;
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateIssuanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateCertificateIssuanceConfig(
+        RequestBuilder<crate::model::UpdateCertificateIssuanceConfigRequest>,
+    );
+
+    impl UpdateCertificateIssuanceConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateCertificateIssuanceConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_certificate_issuance_config][crate::client::CertificateManager::update_certificate_issuance_config].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_certificate_issuance_config(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_certificate_issuance_config`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::CertificateIssuanceConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::CertificateIssuanceConfig,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_certificatemanager_v1::client::CertificateManager::update_certificate_issuance_config::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [certificate_issuance_config][crate::model::UpdateCertificateIssuanceConfigRequest::certificate_issuance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_certificate_issuance_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        {
+            self.0.request.certificate_issuance_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_issuance_config][crate::model::UpdateCertificateIssuanceConfigRequest::certificate_issuance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_issuance_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        {
+            self.0.request.certificate_issuance_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateCertificateIssuanceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateIssuanceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateCertificateIssuanceConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [CertificateManager::delete_certificate_issuance_config][crate::client::CertificateManager::delete_certificate_issuance_config] calls.
     ///
     /// # Example
