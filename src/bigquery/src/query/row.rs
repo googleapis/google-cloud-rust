@@ -84,7 +84,6 @@ pub(crate) enum RowInner {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
-    #[cfg_attr(not(test), allow(dead_code))]
     Arrow {
         batch: Arc<RecordBatch>,
         row_idx: usize,
@@ -291,7 +290,6 @@ impl Row {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
-    #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) fn try_new_from_arrow(
         batch: &Arc<RecordBatch>,
         row_idx: usize,
@@ -1594,7 +1592,9 @@ mod tests {
                     Arc::new(Int64Array::from(vec![Some(30), None])),
                 ],
             )?);
-            let schema = Arc::new(Schema::from_arrow_schema(&arrow_schema));
+            let mut schema_bytes = Vec::new();
+            let _ = arrow::ipc::writer::StreamWriter::try_new(&mut schema_bytes, &arrow_schema)?;
+            let schema = Arc::new(Schema::from_arrow_schema(&schema_bytes)?);
             Ok((batch, schema))
         }
 

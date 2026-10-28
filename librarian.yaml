@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.49.0
+version: v0.50.0
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: dcc05a76793e7d7345c7e4822235ae47790163df
-    sha256: 6fc32a8c08276a286369ddad44c05ed089ea2e5e28f5232c176138d813a9f03b
+    commit: b147ddc71bba82f2b697aa295b46af81ebe9261d
+    sha256: a53714974808ed42d631c5cbd74c39ea17d938b29030deae888226a6404bd39b
   googleapis:
-    commit: b6efa15f5537f053786e5d8875d75bc3a6246455
-    sha256: d432e85ea4bb83e7b0ed83415d24fae57a52e7c51afc7a96c6147a27da85eb02
+    commit: 14a161a98ef045be80c12ab69d924504a756f109
+    sha256: ce3cee2da77fbdff0e269bc520dc61e8b32efcdec7628b39b9e474a02bc951f6
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -504,15 +504,13 @@ libraries:
     version: 2.4.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
-    version: 0.18.1
+    version: 0.19.0
     copyright_year: "2026"
     output: src/bigquery
     rust:
       modules:
         - module_path: crate::write::generated::gapic_storage::model
           output: src/bigquery/src/write/generated/convert/storage
-          skipped_ids:
-            - .google.cloud.bigquery.storage.v1.ProtoSchema
           api_path: google/cloud/bigquery/storage/v1
           template: convert-prost
         - extend_grpc_transport: true

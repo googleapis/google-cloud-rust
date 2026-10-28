@@ -62,7 +62,7 @@ pub async fn customer_supplied_encryption(client: &Storage, bucket_name: &str) -
 
 pub async fn large_file(client: &Storage, bucket_name: &str) -> Result<()> {
     // Create a large enough file that will require multiple chunks to download.
-    const BLOCK_SIZE: usize = 500;
+    const BLOCK_SIZE: usize = 64 * 1024;
     let mut contents = Vec::new();
     for i in 0..16 {
         contents.extend_from_slice(&[i as u8; BLOCK_SIZE]);
@@ -90,7 +90,11 @@ pub async fn large_file(client: &Storage, bucket_name: &str) -> Result<()> {
         count += 1;
     }
     assert_eq!(got, contents);
-    assert!(count > 1, "{count:?}");
+    assert!(
+        count > 1,
+        "expected multiple chunks for {}B object, got {count}",
+        contents.len()
+    );
     tracing::info!("success with large contents");
 
     // Use futures::StreamExt for the download.
@@ -108,10 +112,14 @@ pub async fn large_file(client: &Storage, bucket_name: &str) -> Result<()> {
     let mut iteration = 0;
     while let Some((i, chunk)) = stream.next().await {
         got.extend_from_slice(&chunk?);
-        iteration = i;
+        iteration = i + 1;
     }
     assert_eq!(got, contents);
-    assert!(iteration > 1, "{iteration:?}");
+    assert!(
+        iteration > 1,
+        "expected multiple chunks for {}B object via into_stream(), got {iteration}",
+        contents.len()
+    );
     tracing::info!("success with into_stream() large contents");
 
     Ok(())

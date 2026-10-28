@@ -20,6 +20,7 @@ use crate::channel_pool::{
     StaticChannelPoolConfig,
 };
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
+use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CommitRequest, CommitResponse,
     CreateSessionRequest, ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest,
@@ -738,12 +739,14 @@ impl Spanner {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    /// client's behavior. Server-streaming RPCs (such as streaming queries, reads,
+    /// and batch writes) are dispatched to the corresponding streaming methods
+    /// on the provided stub.
+    pub fn from_stub<T>(stub: impl Into<Arc<T>>) -> Self
     where
-        T: crate::generated::gapic_dataplane::stub::Spanner + 'static,
+        T: SpannerStub + 'static,
     {
-        // This method is primarily for testing and doesn't fully initialize grpc_client.
+        // This method is primarily for testing and uses stub-based dispatch for RPCs.
         // For production use, prefer `Spanner::builder().build()`.
         let channel = Channel {
             inner: GapicSpanner::from_stub(stub),
@@ -903,38 +906,30 @@ impl Spanner {
 
     /// Executes an SQL statement, returning a stream of results.
     ///
-    /// This is a custom streaming implementation over the underlying Spanner gRPC
-    /// transport, since streaming responses are not yet auto-generated here.
+    /// This is a custom streaming implementation over the underlying Spanner transport
+    /// or stub client, since streaming responses are not yet auto-generated here.
     pub(crate) fn execute_streaming_sql(
         &self,
         request: ExecuteSqlRequest,
         options: RequestOptions,
         channel: &Channel,
     ) -> builder::ExecuteStreamingSql {
-        let grpc = channel
-            .grpc_client
-            .as_ref()
-            .expect("Streaming RPCs are not supported when using a stub client");
-        builder::ExecuteStreamingSql::new(grpc.clone())
+        builder::ExecuteStreamingSql::new(channel)
             .with_request(request)
             .with_options(self.attach_request_id(options, channel.channel_id))
     }
 
     /// Reads rows from the database, returning a stream of results.
     ///
-    /// This is a custom streaming implementation over the underlying Spanner gRPC
-    /// transport, since streaming responses are not yet auto-generated here.
+    /// This is a custom streaming implementation over the underlying Spanner transport
+    /// or stub client, since streaming responses are not yet auto-generated here.
     pub(crate) fn streaming_read(
         &self,
         request: ReadRequest,
         options: RequestOptions,
         channel: &Channel,
     ) -> builder::StreamingRead {
-        let grpc = channel
-            .grpc_client
-            .as_ref()
-            .expect("Streaming RPCs are not supported when using a stub client");
-        builder::StreamingRead::new(grpc.clone())
+        builder::StreamingRead::new(channel)
             .with_request(request)
             .with_options(self.attach_request_id(options, channel.channel_id))
     }
@@ -945,11 +940,7 @@ impl Spanner {
         options: RequestOptions,
         channel: &Channel,
     ) -> builder::BatchWrite {
-        let grpc = channel
-            .grpc_client
-            .as_ref()
-            .expect("Streaming RPCs are not supported when using a stub client");
-        builder::BatchWrite::new(grpc.clone())
+        builder::BatchWrite::new(channel)
             .with_request(request)
             .with_options(self.attach_request_id(options, channel.channel_id))
     }
@@ -960,11 +951,7 @@ impl Spanner {
         options: RequestOptions,
         channel: &Channel,
     ) -> builder::FetchCacheUpdate {
-        let grpc = channel
-            .grpc_client
-            .as_ref()
-            .expect("Streaming RPCs are not supported when using a stub client");
-        builder::FetchCacheUpdate::new(grpc.clone())
+        builder::FetchCacheUpdate::new(channel)
             .with_request(request)
             .with_options(self.attach_request_id(options, channel.channel_id))
     }
@@ -2999,6 +2986,171 @@ mod tests {
                 panic!("Expected static pool config from stub");
             }
         }
+    }
+
+    #[tokio_test_no_panics]
+    async fn from_stub_supports_streaming_rpcs() -> anyhow::Result<()> {
+        use crate::key::KeySet;
+        use crate::model::BatchWriteRequest;
+        use crate::model::BatchWriteResponse;
+        use crate::model::CacheUpdate;
+        use crate::model::CreateSessionRequest;
+        use crate::model::ExecuteSqlRequest;
+        use crate::model::FetchCacheUpdateRequest;
+        use crate::model::PartialResultSet;
+        use crate::model::ReadRequest as ModelReadRequest;
+        use crate::model::ResultSetMetadata;
+        use crate::model::Session as ModelSession;
+        use crate::model::StructType;
+        use crate::model::Type;
+        use crate::model::TypeCode;
+        use crate::model::struct_type::Field;
+        use crate::mutation::Mutation;
+        use crate::mutation::MutationGroup;
+        use crate::read::ReadRequest as ClientReadRequest;
+        use crate::statement::Statement;
+        use crate::stub::Spanner as SpannerStub;
+        use google_cloud_gax::response::Response as GaxResponse;
+        use google_cloud_gax::streaming::ResponseStream;
+        use std::future::{Future, ready};
+        use tokio::sync::mpsc::channel;
+        use wkt::Value;
+
+        #[derive(Debug, Default)]
+        struct MockFullStreamingStub;
+
+        impl SpannerStub for MockFullStreamingStub {
+            fn create_session(
+                &self,
+                request: CreateSessionRequest,
+                _options: RequestOptions,
+            ) -> impl Future<Output = Result<GaxResponse<ModelSession>>> + Send {
+                let session = ModelSession::default()
+                    .set_name(format!("{}/sessions/test-session-1", request.database));
+                ready(Ok(GaxResponse::from(session)))
+            }
+
+            fn fetch_cache_update(
+                &self,
+                _request: FetchCacheUpdateRequest,
+                _options: RequestOptions,
+            ) -> impl Future<Output = Result<ResponseStream<CacheUpdate>>> + Send {
+                let (sender, receiver) = channel(1);
+                let _ = sender.try_send(Ok(CacheUpdate::default()));
+                ready(Ok(receiver.into()))
+            }
+
+            fn execute_streaming_sql(
+                &self,
+                _request: ExecuteSqlRequest,
+                _options: RequestOptions,
+            ) -> impl Future<Output = Result<ResponseStream<PartialResultSet>>> + Send {
+                let (sender, receiver) = channel(2);
+                let partial_result_set = PartialResultSet::default()
+                    .set_metadata(ResultSetMetadata::default().set_row_type(
+                        StructType::default().set_fields(vec![
+                            Field::default()
+                                .set_name("col")
+                                .set_type(Type::default().set_code(TypeCode::Int64)),
+                        ]),
+                    ))
+                    .set_values(vec![Value::from("42")]);
+                let _ = sender.try_send(Ok(partial_result_set));
+                ready(Ok(receiver.into()))
+            }
+
+            fn streaming_read(
+                &self,
+                _request: ModelReadRequest,
+                _options: RequestOptions,
+            ) -> impl Future<Output = Result<ResponseStream<PartialResultSet>>> + Send {
+                let (sender, receiver) = channel(2);
+                let partial_result_set = PartialResultSet::default()
+                    .set_metadata(ResultSetMetadata::default().set_row_type(
+                        StructType::default().set_fields(vec![
+                            Field::default()
+                                .set_name("col")
+                                .set_type(Type::default().set_code(TypeCode::String)),
+                        ]),
+                    ))
+                    .set_values(vec![Value::from("hello")]);
+                let _ = sender.try_send(Ok(partial_result_set));
+                ready(Ok(receiver.into()))
+            }
+
+            fn batch_write(
+                &self,
+                _request: BatchWriteRequest,
+                _options: RequestOptions,
+            ) -> impl Future<Output = Result<ResponseStream<BatchWriteResponse>>> + Send
+            {
+                let (sender, receiver) = channel(2);
+                let response = BatchWriteResponse::default().set_indexes(vec![0]);
+                let _ = sender.try_send(Ok(response));
+                ready(Ok(receiver.into()))
+            }
+        }
+
+        let client = Spanner::from_stub(MockFullStreamingStub);
+        let database_client = client
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+
+        // 1. Query execution via single_use()
+        let single_use_transaction = database_client.single_use().build();
+        let mut result_set = single_use_transaction
+            .execute_query(Statement::builder("SELECT 42 AS col").build())
+            .await?;
+        let row = result_set.next().await;
+        assert!(row.is_some(), "expected at least one row from query");
+        let row = row.expect("row present")?;
+        let col_value: i64 = row.get("col")?;
+        assert_eq!(col_value, 42, "expected col value 42");
+
+        // 2. Streaming read via single_use()
+        let single_use_read_transaction = database_client.single_use().build();
+        let read_request = ClientReadRequest::builder("Table", vec!["col"])
+            .with_keys(KeySet::all())
+            .build();
+        let mut read_set = single_use_read_transaction
+            .execute_read(read_request)
+            .await?;
+        let read_row = read_set.next().await;
+        assert!(read_row.is_some(), "expected at least one row from read");
+        let read_row = read_row.expect("read row present")?;
+        let read_value: String = read_row.get("col")?;
+        assert_eq!(read_value, "hello", "expected col value hello");
+
+        // 3. Batch write transaction
+        let batch_transaction = database_client.batch_write_transaction().build();
+        let mutation = Mutation::new_insert_builder("Table")
+            .set("col")
+            .to("v")
+            .build();
+        let mut batch_stream = batch_transaction
+            .execute_streaming(vec![MutationGroup::new(vec![mutation])])
+            .await?;
+        let batch_response = batch_stream.next().await;
+        assert!(batch_response.is_some(), "expected batch response");
+        let _response = batch_response.expect("batch response present")?;
+
+        // 4. Fetch cache update via stub client
+        let channel_lease = client.pick_channel_for_target(&ChannelTarget::Any);
+        let mut cache_update_stream = client
+            .fetch_cache_update(
+                FetchCacheUpdateRequest::default()
+                    .set_database("projects/p/instances/i/databases/d"),
+                RequestOptions::default(),
+                channel_lease.channel(),
+            )
+            .send()
+            .await?;
+        let cache_update = cache_update_stream.next_message().await;
+        assert!(cache_update.is_some(), "expected cache update response");
+        let _cache_update = cache_update.expect("cache update present")?;
+
+        Ok(())
     }
 
     #[tokio_test_no_panics]

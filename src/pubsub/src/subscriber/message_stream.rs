@@ -675,6 +675,49 @@ mod tests {
         Ok(())
     }
 
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn ack_retries_unavailable() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Err(TonicStatus::unavailable("try again")));
+        mock.expect_acknowledge()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |r| {
+                ack_tx
+                    .send(r.into_inner())
+                    .expect("sending on channel always succeeds");
+                Ok(TonicResponse::from(()))
+            });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        response_tx.send(Ok(test_response(1..4))).await?;
+        for i in 1..4 {
+            let Some((_, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/3")
+            };
+            h.ack();
+        }
+
+        let ack_req = ack_rx.recv().await.expect("the refused ack is sent again");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(1..4));
+
+        drop(response_tx);
+        stream.shutdown_token().shutdown().await;
+
+        Ok(())
+    }
+
     #[test_case(0, None, false; "at_least_once_zero_maps_to_none")]
     #[test_case(5, Some(5), false; "at_least_once_positive_maps_to_some")]
     #[test_case(-1, None, false; "at_least_once_negative_maps_to_none")]

@@ -1212,6 +1212,8 @@ pub struct InputAudioConfig {
     >,
     #[prost(bool, optional, tag = "31")]
     pub use_gemini_asr: ::core::option::Option<bool>,
+    #[prost(bool, optional, tag = "32")]
+    pub disable_interim_input_transcripts: ::core::option::Option<bool>,
 }
 impl ::prost::Name for InputAudioConfig {
     const NAME: &'static str = "InputAudioConfig";
@@ -1384,13 +1386,13 @@ pub struct SpeechToTextConfig {
     >,
     #[prost(bool, tag = "16")]
     pub use_gemini_asr: bool,
+    #[prost(bool, optional, tag = "17")]
+    pub disable_interim_input_transcripts: ::core::option::Option<bool>,
 }
 /// Nested message and enum types in `SpeechToTextConfig`.
 pub mod speech_to_text_config {
-    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct GeminiAsrConfig {
-        #[prost(string, tag = "1")]
-        pub model_id: ::prost::alloc::string::String,
         #[prost(int32, tag = "2")]
         pub silence_duration_ms: i32,
         #[prost(int32, tag = "3")]
@@ -3768,10 +3770,12 @@ impl ::prost::Name for SentimentAnalysisRequestConfig {
             .into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SentimentAnalysisResult {
     #[prost(message, optional, tag = "1")]
     pub query_text_sentiment: ::core::option::Option<Sentiment>,
+    #[prost(message, optional, tag = "3")]
+    pub status: ::core::option::Option<super::super::super::rpc::Status>,
 }
 impl ::prost::Name for SentimentAnalysisResult {
     const NAME: &'static str = "SentimentAnalysisResult";
@@ -3927,6 +3931,8 @@ pub struct Message {
     pub name: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub content: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag = "11")]
+    pub response_messages: ::prost::alloc::vec::Vec<ResponseMessage>,
     #[prost(string, tag = "3")]
     pub language_code: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
@@ -4336,12 +4342,24 @@ impl ::prost::Name for OutputAudio {
 pub struct AutomatedAgentReply {
     #[prost(message, optional, tag = "1")]
     pub detect_intent_response: ::core::option::Option<DetectIntentResponse>,
+    #[prost(message, repeated, tag = "3")]
+    pub response_messages: ::prost::alloc::vec::Vec<ResponseMessage>,
+    #[prost(string, tag = "4")]
+    pub intent: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub event: ::prost::alloc::string::String,
+    #[prost(float, tag = "9")]
+    pub match_confidence: f32,
+    #[prost(message, optional, tag = "10")]
+    pub parameters: ::core::option::Option<::prost_types::Struct>,
     #[prost(enumeration = "automated_agent_reply::AutomatedAgentReplyType", tag = "7")]
     pub automated_agent_reply_type: i32,
     #[prost(bool, tag = "8")]
     pub allow_cancellation: bool,
     #[prost(string, tag = "11")]
     pub cx_current_page: ::prost::alloc::string::String,
+    #[prost(bytes = "bytes", tag = "12")]
+    pub call_companion_auth_code: ::prost::bytes::Bytes,
 }
 /// Nested message and enum types in `AutomatedAgentReply`.
 pub mod automated_agent_reply {
@@ -4645,6 +4663,156 @@ impl ::prost::Name for AssistQueryParameters {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.cloud.dialogflow.v2.AssistQueryParameters".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResponseMessage {
+    #[prost(oneof = "response_message::Message", tags = "1, 2, 3, 4, 5, 6")]
+    pub message: ::core::option::Option<response_message::Message>,
+}
+/// Nested message and enum types in `ResponseMessage`.
+pub mod response_message {
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct Text {
+        #[prost(string, repeated, tag = "1")]
+        pub text: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    }
+    impl ::prost::Name for Text {
+        const NAME: &'static str = "Text";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.ResponseMessage.Text".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.Text".into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct LiveAgentHandoff {
+        #[prost(message, optional, tag = "1")]
+        pub metadata: ::core::option::Option<::prost_types::Struct>,
+    }
+    impl ::prost::Name for LiveAgentHandoff {
+        const NAME: &'static str = "LiveAgentHandoff";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.ResponseMessage.LiveAgentHandoff".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.LiveAgentHandoff"
+                .into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct EndInteraction {}
+    impl ::prost::Name for EndInteraction {
+        const NAME: &'static str = "EndInteraction";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.ResponseMessage.EndInteraction".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.EndInteraction"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct MixedAudio {
+        #[prost(message, repeated, tag = "1")]
+        pub segments: ::prost::alloc::vec::Vec<mixed_audio::Segment>,
+    }
+    /// Nested message and enum types in `MixedAudio`.
+    pub mod mixed_audio {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct Segment {
+            #[prost(bool, tag = "3")]
+            pub allow_playback_interruption: bool,
+            #[prost(oneof = "segment::Content", tags = "1, 2")]
+            pub content: ::core::option::Option<segment::Content>,
+        }
+        /// Nested message and enum types in `Segment`.
+        pub mod segment {
+            #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+            pub enum Content {
+                #[prost(bytes, tag = "1")]
+                Audio(::prost::bytes::Bytes),
+                #[prost(string, tag = "2")]
+                Uri(::prost::alloc::string::String),
+            }
+        }
+        impl ::prost::Name for Segment {
+            const NAME: &'static str = "Segment";
+            const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.dialogflow.v2.ResponseMessage.MixedAudio.Segment".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.MixedAudio.Segment"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for MixedAudio {
+        const NAME: &'static str = "MixedAudio";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.ResponseMessage.MixedAudio".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.MixedAudio"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct TelephonyTransferCall {
+        #[prost(oneof = "telephony_transfer_call::Endpoint", tags = "1, 2")]
+        pub endpoint: ::core::option::Option<telephony_transfer_call::Endpoint>,
+    }
+    /// Nested message and enum types in `TelephonyTransferCall`.
+    pub mod telephony_transfer_call {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+        pub enum Endpoint {
+            #[prost(string, tag = "1")]
+            PhoneNumber(::prost::alloc::string::String),
+            #[prost(string, tag = "2")]
+            SipUri(::prost::alloc::string::String),
+        }
+    }
+    impl ::prost::Name for TelephonyTransferCall {
+        const NAME: &'static str = "TelephonyTransferCall";
+        const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.dialogflow.v2.ResponseMessage.TelephonyTransferCall".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.TelephonyTransferCall"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Message {
+        #[prost(message, tag = "1")]
+        Text(Text),
+        #[prost(message, tag = "2")]
+        Payload(::prost_types::Struct),
+        #[prost(message, tag = "3")]
+        LiveAgentHandoff(LiveAgentHandoff),
+        #[prost(message, tag = "4")]
+        EndInteraction(EndInteraction),
+        #[prost(message, tag = "5")]
+        MixedAudio(MixedAudio),
+        #[prost(message, tag = "6")]
+        TelephonyTransferCall(TelephonyTransferCall),
+    }
+}
+impl ::prost::Name for ResponseMessage {
+    const NAME: &'static str = "ResponseMessage";
+    const PACKAGE: &'static str = "google.cloud.dialogflow.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.dialogflow.v2.ResponseMessage".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage".into()
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -5406,7 +5574,7 @@ pub mod bidi_streaming_analyze_content_request {
     }
     /// Nested message and enum types in `Config`.
     pub mod config {
-        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
         pub struct VoiceSessionConfig {
             #[prost(enumeration = "super::super::AudioEncoding", tag = "1")]
             pub input_audio_encoding: i32,
@@ -5426,6 +5594,8 @@ pub mod bidi_streaming_analyze_content_request {
             >,
             #[prost(bool, optional, tag = "25")]
             pub use_gemini_asr: ::core::option::Option<bool>,
+            #[prost(bool, optional, tag = "26")]
+            pub disable_interim_input_transcripts: ::core::option::Option<bool>,
         }
         impl ::prost::Name for VoiceSessionConfig {
             const NAME: &'static str = "VoiceSessionConfig";
@@ -5439,7 +5609,7 @@ pub mod bidi_streaming_analyze_content_request {
                     .into()
             }
         }
-        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+        #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
         pub enum Config {
             #[prost(message, tag = "2")]
             VoiceSessionConfig(VoiceSessionConfig),

@@ -326,6 +326,16 @@ impl ChannelPool {
     }
 
     /// Sets the multiplexed session name used for scale-up channel priming and signals the worker.
+    ///
+    /// Channel priming executes a lightweight query (`SELECT 1`) on newly dialed gRPC channels
+    /// to establish the underlying physical TCP connection and complete TLS negotiation before
+    /// publishing the channel to the active pool.
+    ///
+    /// Once a physical transport channel is primed, it can service requests for any database on
+    /// Spanner. Multiplexed sessions maintain a 28-day lifetime on Spanner and remain valid on
+    /// the server even if a specific client handle is dropped. Updating this field whenever a
+    /// session is created or rotated ensures the channel pool always warms newly established
+    /// channels with the freshest active session token known to the client.
     pub(crate) fn set_prime_session(&self, session_name: String) {
         {
             let mut prime = self.inner.write_prime_session();
@@ -379,6 +389,13 @@ pub(crate) struct ChannelPoolInner {
     pub(crate) shutdown_sender: WatchSender<()>,
     pub(crate) last_scale_up_time: Mutex<Option<Instant>>,
     pub(crate) consecutive_low_load_checks: AtomicUsize,
+    /// Multiplexed session resource name used to prime newly dialed gRPC channels.
+    ///
+    /// Priming executes a `SELECT 1` query to establish physical transport connections before
+    /// channels are published to the active pool. Once warmed, physical transport connections
+    /// serve any database using the same authentication. Multiplexed sessions have a 28-day
+    /// server-side lifetime; storing the most recently created or rotated session ensures newly
+    /// scaled channels are primed using the freshest active session token.
     pub(crate) prime_session: RwLock<Option<String>>,
     pub(crate) selector: PowerOfTwoSelector,
 }

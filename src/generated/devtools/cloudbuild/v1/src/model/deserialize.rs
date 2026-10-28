@@ -6625,6 +6625,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildTrigger {
             __included_files,
             __filter,
             __source_to_build,
+            __approval_config,
             __service_account,
             __repository_event_config,
             Unknown(std::string::String),
@@ -6676,6 +6677,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildTrigger {
                             "filter" => Ok(__FieldTag::__filter),
                             "sourceToBuild" => Ok(__FieldTag::__source_to_build),
                             "source_to_build" => Ok(__FieldTag::__source_to_build),
+                            "approvalConfig" => Ok(__FieldTag::__approval_config),
+                            "approval_config" => Ok(__FieldTag::__approval_config),
                             "serviceAccount" => Ok(__FieldTag::__service_account),
                             "service_account" => Ok(__FieldTag::__service_account),
                             "repositoryEventConfig" => Ok(__FieldTag::__repository_event_config),
@@ -6934,6 +6937,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildTrigger {
                             }
                             result.source_to_build = map
                                 .next_value::<std::option::Option<crate::model::GitRepoSource>>()?;
+                        }
+                        __FieldTag::__approval_config => {
+                            if !fields.insert(__FieldTag::__approval_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for approval_config",
+                                ));
+                            }
+                            result.approval_config = map
+                                .next_value::<std::option::Option<crate::model::ApprovalConfig>>(
+                                )?;
                         }
                         __FieldTag::__service_account => {
                             if !fields.insert(__FieldTag::__service_account) {

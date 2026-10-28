@@ -171,17 +171,10 @@ impl Timestamp {
     /// * `seconds` - the seconds on the timestamp.
     /// * `nanos` - the nanoseconds added to the seconds.
     pub fn clamp(seconds: i64, nanos: i32) -> Self {
-        let (seconds, nanos) = match nanos.cmp(&0_i32) {
-            std::cmp::Ordering::Equal => (seconds, nanos),
-            std::cmp::Ordering::Greater => (
-                seconds.saturating_add((nanos / Self::NS) as i64),
-                nanos % Self::NS,
-            ),
-            std::cmp::Ordering::Less => (
-                seconds.saturating_sub(1 - (nanos / Self::NS) as i64),
-                Self::NS + nanos % Self::NS,
-            ),
-        };
+        // `div_euclid` rounds toward negative infinity, so the remainder from
+        // `rem_euclid` is always in `[0, NS)`, even for negative `nanos`.
+        let seconds = seconds.saturating_add(i64::from(nanos.div_euclid(Self::NS)));
+        let nanos = nanos.rem_euclid(Self::NS);
         if seconds < Self::MIN_SECONDS {
             return Self {
                 seconds: Self::MIN_SECONDS,
@@ -572,12 +565,19 @@ mod tests {
     #[test_case(0, 2_100_000_123, 2, 100_000_123; "nanos overflow x2")]
     #[test_case(0, -1_400_000_000, -2, 600_000_000; "nanos underflow")]
     #[test_case(0, -2_100_000_000, -3, 900_000_000; "nanos underflow x2")]
+    #[test_case(0, -1, -1, 999_999_999; "nanos underflow by one")]
+    #[test_case(0, -1_000_000_000, -1, 0; "nanos underflow exact")]
+    #[test_case(0, -2_000_000_000, -2, 0; "nanos underflow exact x2")]
+    #[test_case(0, i32::MIN, -3, 852_516_352; "nanos min")]
+    #[test_case(0, i32::MAX, 2, 147_483_647; "nanos max")]
     #[test_case(self::get_max_seconds() + 1, 0, get_max_seconds(), 0; "seconds over range")]
     #[test_case(self::get_min_seconds() - 1, 0, get_min_seconds(), 0; "seconds below range")]
     #[test_case(self::get_max_seconds() - 1, 2_000_000_001, get_max_seconds(), 0; "nanos overflow range"
 	)]
     #[test_case(self::get_min_seconds() + 1, -1_500_000_000, get_min_seconds(), 0; "nanos underflow range"
 	)]
+    #[test_case(self::get_max_seconds() + 1, -1_000_000_000, get_max_seconds(), 0; "nanos underflow exact to max")]
+    #[test_case(self::get_max_seconds() + 2, -1_000_000_000, get_max_seconds(), 0; "nanos underflow exact range")]
     fn clamp(seconds: i64, nanos: i32, want_seconds: i64, want_nanos: i32) {
         let got = Timestamp::clamp(seconds, nanos);
         let want = Timestamp {
