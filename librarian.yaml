@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.50.0
+version: v0.50.1-0.20261029102508-c9629b60a8ee
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -959,8 +959,64 @@ libraries:
     version: 0.7.21
     copyright_year: "2025"
     output: src/gax-internal
+    roots:
+      - googleapis
+      - protobuf-src
     rust:
       modules:
+        - include_list:
+            - descriptor.proto
+          module_path: wkt
+          output: src/gax-internal/src/generated/convert/protobuf
+          skipped_ids:
+            - .google.protobuf.Edition
+            - .google.protobuf.FileDescriptorSet
+            - .google.protobuf.FileDescriptorProto
+            - .google.protobuf.OneofDescriptorProto
+            - .google.protobuf.ServiceDescriptorProto
+            - .google.protobuf.MethodDescriptorProto
+            - .google.protobuf.FileOptions
+            - .google.protobuf.OneofOptions
+            - .google.protobuf.ServiceOptions
+            - .google.protobuf.MethodOptions
+            - .google.protobuf.FeatureSet
+            - .google.protobuf.FeatureSetDefaults
+            - .google.protobuf.SourceCodeInfo
+            - .google.protobuf.GeneratedCodeInfo
+            - .google.protobuf.ExtensionRangeOptions.Declaration
+            - .google.protobuf.ExtensionRangeOptions.VerificationState
+            - .google.protobuf.FieldOptions.EditionDefault
+            - .google.protobuf.FieldOptions.FeatureSupport
+            - .google.protobuf.FieldOptions.OptionRetention
+            - .google.protobuf.FieldOptions.OptionTargetType
+            - .google.protobuf.DescriptorProto.oneof_decl
+            - .google.protobuf.FieldDescriptorProto.oneof_index
+            - .google.protobuf.FieldDescriptorProto.proto3_optional
+            - .google.protobuf.ExtensionRangeOptions.declaration
+            - .google.protobuf.ExtensionRangeOptions.features
+            - .google.protobuf.ExtensionRangeOptions.verification
+            - .google.protobuf.MessageOptions.deprecated_legacy_json_field_conflicts
+            - .google.protobuf.MessageOptions.features
+            - .google.protobuf.FieldOptions.debug_redact
+            - .google.protobuf.FieldOptions.edition_defaults
+            - .google.protobuf.FieldOptions.feature_support
+            - .google.protobuf.FieldOptions.features
+            - .google.protobuf.FieldOptions.retention
+            - .google.protobuf.FieldOptions.targets
+            - .google.protobuf.FieldOptions.unverified_lazy
+            - .google.protobuf.EnumOptions.deprecated_legacy_json_field_conflicts
+            - .google.protobuf.EnumOptions.features
+            - .google.protobuf.EnumValueOptions.debug_redact
+            - .google.protobuf.EnumValueOptions.feature_support
+            - .google.protobuf.EnumValueOptions.features
+            - .google.protobuf.UninterpretedOption
+            - .google.protobuf.ExtensionRangeOptions.uninterpreted_option
+            - .google.protobuf.MessageOptions.uninterpreted_option
+            - .google.protobuf.FieldOptions.uninterpreted_option
+            - .google.protobuf.EnumOptions.uninterpreted_option
+            - .google.protobuf.EnumValueOptions.uninterpreted_option
+          api_path: google/protobuf
+          template: convert-prost
         - module_path: google_cloud_rpc::model
           output: src/gax-internal/src/generated/convert/rpc
           skipped_ids:
