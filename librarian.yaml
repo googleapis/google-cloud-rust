@@ -764,6 +764,17 @@ libraries:
   - name: google-cloud-deploy-v1
     version: 1.15.0
     copyright_year: "2025"
+  - name: google-cloud-designcenter-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust:
+      package_dependencies:
+        - name: google-cloud-apphub-v1
+          package: google-cloud-apphub-v1
+          source: google.cloud.apphub.v1
+        - name: google-cloud-config-v1
+          package: google-cloud-config-v1
+          source: google.cloud.config.v1
   - name: google-cloud-developerconnect-v1
     version: 1.16.0
     copyright_year: "2025"
