@@ -2447,6 +2447,9 @@ impl serde::ser::Serialize for super::BigQueryTableReferences {
         if !self.property_graph_references.is_empty() {
             state.serialize_entry("propertyGraphReferences", &self.property_graph_references)?;
         }
+        if self.search_scope.is_some() {
+            state.serialize_entry("searchScope", &self.search_scope)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2477,6 +2480,56 @@ impl serde::ser::Serialize for super::BigQueryTableReference {
         }
         if self.schema.is_some() {
             state.serialize_entry("schema", &self.schema)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BigQueryDatasetReference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.project_id.is_empty() {
+            state.serialize_entry("projectId", &self.project_id)?;
+        }
+        if !self.dataset_id.is_empty() {
+            state.serialize_entry("datasetId", &self.dataset_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SearchScope {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.include_project_ids.is_empty() {
+            state.serialize_entry("includeProjectIds", &self.include_project_ids)?;
+        }
+        if !self.include_dataset_references.is_empty() {
+            state.serialize_entry("includeDatasetReferences", &self.include_dataset_references)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

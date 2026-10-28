@@ -768,6 +768,20 @@ where
             self.inner.move_section_item(req, options));
         pending.await
     }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn replace_message_cards(
+        &self,
+        req: crate::model::ReplaceMessageCardsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReplaceMessageCardsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ChatService::replace_message_cards",
+            self.inner.replace_message_cards(req, options));
+        pending.await
+    }
 }
 
 pub(crate) mod info {

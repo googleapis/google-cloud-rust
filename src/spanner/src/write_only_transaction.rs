@@ -14,7 +14,6 @@
 
 use crate::channel_pool::TransactionAffinity;
 use crate::client::{DatabaseClient, amend_request_options_for_lar};
-use crate::model::commit_response::MultiplexedSessionRetry;
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::{
@@ -22,7 +21,9 @@ use crate::model::{
     Mutation as ProtoMutation, RequestOptions, TransactionOptions,
 };
 use crate::mutation::Mutation;
-use crate::precommit::PrecommitTokenTracker;
+use crate::precommit::{
+    PrecommitTokenTracker, commit_with_precommit_retry, create_retry_commit_request,
+};
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
@@ -478,32 +479,25 @@ impl WriteOnlyTransaction {
                         return_commit_stats,
                     );
 
-                    let response = client
-                        .commit(commit_request, commit_gax_options.clone(), &affinity)
-                        .await?;
-
-                    // If a commit_response with a precommit_token is returned, then we need to
-                    // retry the commit with the new precommit_token and without any mutations.
-                    if let Some(MultiplexedSessionRetry::PrecommitToken(new_token)) =
-                        response.multiplexed_session_retry
-                    {
-                        precommit_token_tracker.update(Some(*new_token));
-                        let retry_commit_request = create_commit_request(
-                            session_name.clone(),
-                            transaction.id,
-                            Vec::new(),
-                            precommit_token_tracker.get(),
-                            Some(req_options),
-                            max_commit_delay,
-                            return_commit_stats,
-                        );
-
-                        client
-                            .commit(retry_commit_request, commit_gax_options, &affinity)
-                            .await
-                    } else {
-                        Ok(response)
-                    }
+                    commit_with_precommit_retry(
+                        &client,
+                        commit_request,
+                        commit_gax_options,
+                        Some(&affinity),
+                        &precommit_token_tracker,
+                        |_| {},
+                        |token| {
+                            create_retry_commit_request(
+                                session_name,
+                                transaction.id,
+                                token,
+                                Some(req_options),
+                                max_commit_delay,
+                                return_commit_stats,
+                            )
+                        },
+                    )
+                    .await
                 }
                 .await;
                 affinity.release_rw_guard();
@@ -1889,6 +1883,120 @@ mod tests {
         assert!(
             response.commit_timestamp.is_some(),
             "Expected commit timestamp in CommitResponse"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn commit_retry_fails_on_subsequent_precommit_token() -> Result<(), crate::Error> {
+        use crate::key::KeySet;
+        use mockall::Sequence;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken;
+        use spanner_grpc_mock::google::spanner::v1::commit_response::MultiplexedSessionRetry as MockMultiplexedSessionRetry;
+
+        let mut mock = MockSpanner::new();
+        let mut sequence = Sequence::new();
+
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(Session {
+                    name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(Transaction {
+                    id: vec![42],
+                    precommit_token: Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // First commit: initial attempt with mutations, returns precommit token 2
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert!(
+                    !request.mutations.is_empty(),
+                    "First CommitRequest must include mutations"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    }),
+                    "First CommitRequest must include initial precommit_token"
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MockMultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![2],
+                            seq_num: 2,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        // Second commit: retry with empty mutations and precommit token 2, unexpectedly returns another precommit token 3
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert!(
+                    request.mutations.is_empty(),
+                    "Retry CommitRequest must have empty mutations"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![2],
+                        seq_num: 2,
+                    }),
+                    "Second CommitRequest must include precommit_token 2"
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MockMultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![3],
+                            seq_num: 3,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let mutation = Mutation::delete("Users", KeySet::all());
+        let result = database_client
+            .write_only_transaction()
+            .build()
+            .write(vec![mutation])
+            .await;
+
+        let error = result.expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("received an unexpected subsequent precommit token"),
+            "Error message must indicate unexpected subsequent precommit token: {error}"
         );
 
         Ok(())
