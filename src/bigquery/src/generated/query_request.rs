@@ -256,14 +256,6 @@ pub struct QueryRequest {
     /// append actions occur as one atomic update upon job completion.
     pub write_disposition: std::string::String,
 
-    /// Results serialization options for `query_results_format` other than
-    /// `STRUCT_ENCODING`.
-    ///
-    /// This feature is not yet available.
-    pub results_format_serialization_options: std::option::Option<
-        google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions,
-    >,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -738,52 +730,6 @@ impl QueryRequest {
         self.write_disposition = v.into();
         self
     }
-
-    /// Sets the value of [results_format_serialization_options][crate::model_ext::QueryRequest::results_format_serialization_options].
-    ///
-    /// Note that all the setters affecting `results_format_serialization_options` are mutually
-    /// exclusive.
-    pub fn set_results_format_serialization_options<T: std::convert::Into<std::option::Option<google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions>>>(mut self, v: T) -> Self
-{
-        self.results_format_serialization_options = v.into();
-        self
-    }
-
-    /// The value of [results_format_serialization_options][crate::model_ext::QueryRequest::results_format_serialization_options]
-    /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn arrow_serialization_options(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<google_cloud_bigquery_v2::model::ArrowSerializationOptions>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.results_format_serialization_options.as_ref().and_then(|v| match v {
-            google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [results_format_serialization_options][crate::model_ext::QueryRequest::results_format_serialization_options]
-    /// to hold a `ArrowSerializationOptions`.
-    ///
-    /// Note that all the setters affecting `results_format_serialization_options` are
-    /// mutually exclusive.
-    pub fn set_arrow_serialization_options<
-        T: std::convert::Into<
-                std::boxed::Box<google_cloud_bigquery_v2::model::ArrowSerializationOptions>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.results_format_serialization_options = std::option::Option::Some(
-            google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
-                v.into()
-            )
-        );
-        self
-    }
 }
 
 mod debug {
@@ -833,10 +779,6 @@ mod debug {
                 &self.user_defined_function_resources,
             );
             debug_struct.field("write_disposition", &self.write_disposition);
-            debug_struct.field(
-                "results_format_serialization_options",
-                &self.results_format_serialization_options,
-            );
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -877,15 +819,14 @@ impl std::convert::From<QueryRequest> for google_cloud_bigquery_v2::model::Query
         out.job_timeout_ms = req.job_timeout_ms;
         out.labels = req.labels;
         out.location = req.location;
+        out.max_results = req.page_size;
         out.max_slots = req.max_slots;
         out.maximum_bytes_billed = req.maximum_bytes_billed;
-        out.max_results = req.page_size;
         out.parameter_mode = req.parameter_mode;
         out.query = req.query;
         out.query_parameters = req.query_parameters;
         out.query_results_format = req.query_results_format;
         out.reservation = req.reservation;
-        out.results_format_serialization_options = req.results_format_serialization_options;
         out.timeout_ms = req.timeout_ms;
         out.use_legacy_sql = req.use_legacy_sql;
         out.use_query_cache = req.use_query_cache;

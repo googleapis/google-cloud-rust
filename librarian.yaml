@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.49.0
+version: v0.50.1-0.20261029102508-c9629b60a8ee
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: b147ddc71bba82f2b697aa295b46af81ebe9261d
-    sha256: a53714974808ed42d631c5cbd74c39ea17d938b29030deae888226a6404bd39b
+    commit: 066be1f69428ada35e5c58dd37897671c34a4f1d
+    sha256: 53e6b0307a3648563a29c5ff466a63f780068ea5fb6118d227a9b1a37e3f0ace
   googleapis:
-    commit: 14a161a98ef045be80c12ab69d924504a756f109
-    sha256: ce3cee2da77fbdff0e269bc520dc61e8b32efcdec7628b39b9e474a02bc951f6
+    commit: 646596e286b464ca2c2cca6f4c767e7c19046489
+    sha256: 88ab7d781bc96677cd51dc4754ade6550b9a5c2b5cf813f54955d0b60bee91ec
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -511,8 +511,6 @@ libraries:
       modules:
         - module_path: crate::write::generated::gapic_storage::model
           output: src/bigquery/src/write/generated/convert/storage
-          skipped_ids:
-            - .google.cloud.bigquery.storage.v1.ProtoSchema
           api_path: google/cloud/bigquery/storage/v1
           template: convert-prost
         - extend_grpc_transport: true
@@ -536,6 +534,7 @@ libraries:
             - .google.cloud.bigquery.v2.JobConfiguration.load
             - .google.cloud.bigquery.v2.JobConfiguration.extract
             - .google.cloud.bigquery.v2.QueryRequest.format_options
+            - .google.cloud.bigquery.v2.QueryRequest.arrow_serialization_options
             - .google.cloud.bigquery.v2.GetQueryResultsRequest.format_options
             - .google.cloud.bigquery.v2.QueryRequest.request_id
             - .google.cloud.bigquery.v2.JobConfigurationQuery.continuous
@@ -764,6 +763,17 @@ libraries:
   - name: google-cloud-deploy-v1
     version: 1.15.0
     copyright_year: "2025"
+  - name: google-cloud-designcenter-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust:
+      package_dependencies:
+        - name: google-cloud-apphub-v1
+          package: google-cloud-apphub-v1
+          source: google.cloud.apphub.v1
+        - name: google-cloud-config-v1
+          package: google-cloud-config-v1
+          source: google.cloud.config.v1
   - name: google-cloud-developerconnect-v1
     version: 1.16.0
     copyright_year: "2025"
@@ -948,8 +958,64 @@ libraries:
     version: 0.7.21
     copyright_year: "2025"
     output: src/gax-internal
+    roots:
+      - googleapis
+      - protobuf-src
     rust:
       modules:
+        - include_list:
+            - descriptor.proto
+          module_path: wkt
+          output: src/gax-internal/src/generated/convert/protobuf
+          skipped_ids:
+            - .google.protobuf.Edition
+            - .google.protobuf.FileDescriptorSet
+            - .google.protobuf.FileDescriptorProto
+            - .google.protobuf.OneofDescriptorProto
+            - .google.protobuf.ServiceDescriptorProto
+            - .google.protobuf.MethodDescriptorProto
+            - .google.protobuf.FileOptions
+            - .google.protobuf.OneofOptions
+            - .google.protobuf.ServiceOptions
+            - .google.protobuf.MethodOptions
+            - .google.protobuf.FeatureSet
+            - .google.protobuf.FeatureSetDefaults
+            - .google.protobuf.SourceCodeInfo
+            - .google.protobuf.GeneratedCodeInfo
+            - .google.protobuf.ExtensionRangeOptions.Declaration
+            - .google.protobuf.ExtensionRangeOptions.VerificationState
+            - .google.protobuf.FieldOptions.EditionDefault
+            - .google.protobuf.FieldOptions.FeatureSupport
+            - .google.protobuf.FieldOptions.OptionRetention
+            - .google.protobuf.FieldOptions.OptionTargetType
+            - .google.protobuf.DescriptorProto.oneof_decl
+            - .google.protobuf.FieldDescriptorProto.oneof_index
+            - .google.protobuf.FieldDescriptorProto.proto3_optional
+            - .google.protobuf.ExtensionRangeOptions.declaration
+            - .google.protobuf.ExtensionRangeOptions.features
+            - .google.protobuf.ExtensionRangeOptions.verification
+            - .google.protobuf.MessageOptions.deprecated_legacy_json_field_conflicts
+            - .google.protobuf.MessageOptions.features
+            - .google.protobuf.FieldOptions.debug_redact
+            - .google.protobuf.FieldOptions.edition_defaults
+            - .google.protobuf.FieldOptions.feature_support
+            - .google.protobuf.FieldOptions.features
+            - .google.protobuf.FieldOptions.retention
+            - .google.protobuf.FieldOptions.targets
+            - .google.protobuf.FieldOptions.unverified_lazy
+            - .google.protobuf.EnumOptions.deprecated_legacy_json_field_conflicts
+            - .google.protobuf.EnumOptions.features
+            - .google.protobuf.EnumValueOptions.debug_redact
+            - .google.protobuf.EnumValueOptions.feature_support
+            - .google.protobuf.EnumValueOptions.features
+            - .google.protobuf.UninterpretedOption
+            - .google.protobuf.ExtensionRangeOptions.uninterpreted_option
+            - .google.protobuf.MessageOptions.uninterpreted_option
+            - .google.protobuf.FieldOptions.uninterpreted_option
+            - .google.protobuf.EnumOptions.uninterpreted_option
+            - .google.protobuf.EnumValueOptions.uninterpreted_option
+          api_path: google/protobuf
+          template: convert-prost
         - module_path: google_cloud_rpc::model
           output: src/gax-internal/src/generated/convert/rpc
           skipped_ids:

@@ -250,18 +250,8 @@ impl RetryContext {
                 QueryResultsFormat, ResultsFormatSerializationOptions,
             };
 
-            // If Arrow options were configured but format wasn't explicitly set, default format to Arrow.
-            if query_request.results_format_serialization_options.is_some()
-                && query_request.query_results_format == QueryResultsFormat::default()
-            {
-                query_request = query_request.set_query_results_format(QueryResultsFormat::Arrow);
-            }
-
-            // If query results format was set to Arrow but no serialization options were configured,
-            // provide a good default (Zstd compression).
-            if query_request.query_results_format == QueryResultsFormat::Arrow
-                && query_request.results_format_serialization_options.is_none()
-            {
+            // If query results format was set to Arrow, default serialization options to Zstd compression.
+            if query_request.query_results_format == QueryResultsFormat::Arrow {
                 query_request = query_request.set_results_format_serialization_options(
                     ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
                         ArrowSerializationOptions::new()

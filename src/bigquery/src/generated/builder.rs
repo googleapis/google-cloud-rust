@@ -429,39 +429,4 @@ impl Query {
         self.request.write_disposition = v.into();
         self
     }
-
-    /// Sets the value of [request.results_format_serialization_options][crate::builder::bigquery::QueryRequest::results_format_serialization_options].
-    ///
-    /// Note that all the setters affecting `request.results_format_serialization_options` are mutually
-    /// exclusive.
-    pub fn set_results_format_serialization_options<T: std::convert::Into<std::option::Option<google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions>>>(mut self, v: T) -> Self
-    {
-        self.request.results_format_serialization_options = v.into();
-        self
-    }
-
-    /// The value of [request.results_format_serialization_options][crate::builder::bigquery::QueryRequest::request.results_format_serialization_options]
-    /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn arrow_serialization_options(&self) -> std::option::Option<&std::boxed::Box<google_cloud_bigquery_v2::model::ArrowSerializationOptions>> {
-        #[allow(unreachable_patterns)]
-        self.request.results_format_serialization_options.as_ref().and_then(|v| match v {
-            google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [request.results_format_serialization_options][crate::builder::bigquery::QueryRequest::request.results_format_serialization_options]
-    /// to hold a `ArrowSerializationOptions`.
-    ///
-    /// Note that all the setters affecting `request.results_format_serialization_options` are
-    /// mutually exclusive.
-    pub fn set_arrow_serialization_options<T: std::convert::Into<std::boxed::Box<google_cloud_bigquery_v2::model::ArrowSerializationOptions>>>(mut self, v: T) -> Self {
-        self.request.results_format_serialization_options = std::option::Option::Some(
-            google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
-                v.into()
-            )
-        );
-        self
-    }
 }
