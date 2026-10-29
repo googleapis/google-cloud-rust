@@ -50,7 +50,6 @@ pub(crate) enum SqlValueInner {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
-    #[cfg_attr(not(test), allow(dead_code))]
     Arrow(ArrowCell),
 }
 
@@ -197,11 +196,72 @@ impl FromSql for wkt::Value {
                 google_cloud_unstable_bigquery_arrow,
                 google_cloud_unstable_bigquery_storage_read
             ))]
-            SqlValueInner::Arrow(_) => {
-                // TODO(#7032): Implement wkt::Value conversion for Arrow cells.
-                return Err(ConvertError::Convert(
-                    "Arrow to wkt::Value conversion is not yet implemented".into(),
-                ));
+            SqlValueInner::Arrow(cell) => {
+                if cell.is_null() {
+                    return Ok(wkt::Value::Null);
+                }
+                use arrow::datatypes::DataType;
+                match cell.data_type() {
+                    DataType::Null => wkt::Value::Null,
+                    DataType::Boolean => wkt::Value::Bool(cell.as_bool()?),
+                    DataType::Int64 => wkt::Value::Number(serde_json::Number::from(cell.as_i64()?)),
+                    DataType::Float64 => {
+                        let val = cell.as_f64()?;
+                        if let Some(n) = serde_json::Number::from_f64(val) {
+                            wkt::Value::Number(n)
+                        } else {
+                            let s = if val.is_nan() {
+                                "NaN"
+                            } else if val.is_sign_positive() {
+                                "Infinity"
+                            } else {
+                                "-Infinity"
+                            };
+                            wkt::Value::String(s.to_string())
+                        }
+                    }
+                    DataType::Utf8
+                    | DataType::LargeUtf8
+                    | DataType::Binary
+                    | DataType::LargeBinary
+                    | DataType::Date32
+                    | DataType::Time64(
+                        arrow::datatypes::TimeUnit::Microsecond
+                        | arrow::datatypes::TimeUnit::Nanosecond,
+                    )
+                    | DataType::Timestamp(_, _)
+                    | DataType::Decimal128(_, _)
+                    | DataType::Decimal256(_, _)
+                    | DataType::Interval(arrow::datatypes::IntervalUnit::MonthDayNano) => {
+                        wkt::Value::String(cell.to_sql_string()?)
+                    }
+                    DataType::Struct(fields) => {
+                        let s = fields
+                            .iter()
+                            .enumerate()
+                            .map(|(idx, f)| {
+                                let child = cell.struct_field_cell(&idx)?;
+                                let val = wkt::Value::from_value(SqlValue::from_inner(
+                                    SqlValueInner::Arrow(child),
+                                ))?;
+                                Ok((f.name().to_string(), val))
+                            })
+                            .collect::<Result<wkt::Struct, ConvertError>>()?;
+                        wkt::Value::Object(s)
+                    }
+                    DataType::List(_) | DataType::LargeList(_) => {
+                        let v = Vec::<wkt::Value>::from_value(SqlValue::from_inner(
+                            SqlValueInner::Arrow(cell),
+                        ))?;
+                        wkt::Value::Array(v)
+                    }
+                    _ => {
+                        return Err(ConvertError::type_mismatch(
+                            "supported arrow value",
+                            &SqlValueInner::Arrow(cell),
+                        ));
+                    }
+                }
             }
         })
     }
@@ -216,7 +276,7 @@ impl FromSql for String {
                 google_cloud_unstable_bigquery_arrow,
                 google_cloud_unstable_bigquery_storage_read
             ))]
-            SqlValueInner::Arrow(cell) => cell.as_str().map(str::to_owned),
+            SqlValueInner::Arrow(cell) => cell.to_sql_string(),
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -344,6 +404,19 @@ impl<T: FromSql> FromSql for Vec<T> {
                 .map(|v| T::from_value(SqlValue::from_inner(v)))
                 .collect(),
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let value_arr = cell.list_array_ref()?;
+                (0..value_arr.len())
+                    .map(|i| {
+                        let elem_cell = ArrowCell::new(value_arr.clone(), i);
+                        T::from_value(SqlValue::from_inner(SqlValueInner::Arrow(elem_cell)))
+                    })
+                    .collect()
+            }
             other => Err(ConvertError::type_mismatch("array", &other)),
         }
     }
@@ -360,6 +433,14 @@ impl FromSql for wkt::Struct {
                 serde_json::from_str(&s).map_err(|e| ConvertError::Convert(Box::new(e)))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            SqlValueInner::Arrow(cell) => {
+                let s = cell.as_str()?;
+                serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
             other => Err(ConvertError::type_mismatch("object or string", &other)),
         }
     }
@@ -1090,16 +1171,43 @@ mod tests {
         use super::*;
         use arrow::array::{
             ArrayRef, BinaryArray, BooleanArray, Date32Array, Decimal128Array, Decimal256Array,
-            Float32Array, Float64Array, Int32Array, Int64Array, LargeBinaryArray, LargeStringArray,
-            StringArray, Time64MicrosecondArray, Time64NanosecondArray, TimestampMicrosecondArray,
-            TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray,
+            Float32Array, Float64Array, Int32Array, Int64Array, IntervalMonthDayNanoArray,
+            IntervalYearMonthArray, LargeBinaryArray, LargeListArray, LargeStringArray, ListArray,
+            NullArray, StringArray, StructArray, Time64MicrosecondArray, Time64NanosecondArray,
+            TimestampMicrosecondArray, TimestampMillisecondArray, TimestampNanosecondArray,
+            TimestampSecondArray,
         };
-        use arrow::datatypes::i256;
+        use arrow::buffer::{NullBuffer, OffsetBuffer};
+        use arrow::datatypes::{DataType, Field, Fields, IntervalMonthDayNano, i256};
         use std::sync::Arc;
         use test_case::test_case;
 
         fn arrow_val(arr: ArrayRef, row_idx: usize) -> SqlValue {
             SqlValue::from_inner(SqlValueInner::Arrow(ArrowCell::new(arr, row_idx)))
+        }
+
+        fn sample_list_i64(values: Vec<Option<i64>>, nulls: Option<NullBuffer>) -> ArrayRef {
+            let len = values.len();
+            let val_arr: ArrayRef = Arc::new(Int64Array::from(values));
+            let offsets = OffsetBuffer::from_lengths(vec![len]);
+            Arc::new(ListArray::new(
+                Arc::new(Field::new("item", DataType::Int64, true)),
+                offsets,
+                val_arr,
+                nulls,
+            ))
+        }
+
+        fn sample_large_list_i64(values: Vec<Option<i64>>) -> ArrayRef {
+            let len = values.len();
+            let val_arr: ArrayRef = Arc::new(Int64Array::from(values));
+            let offsets = OffsetBuffer::from_lengths(vec![len]);
+            Arc::new(LargeListArray::new(
+                Arc::new(Field::new("item", DataType::Int64, true)),
+                offsets,
+                val_arr,
+                None,
+            ))
         }
 
         fn decimal128_array(values: Vec<Option<i128>>, precision: u8, scale: i8) -> ArrayRef {
@@ -1133,13 +1241,47 @@ mod tests {
             val.type_name()
         }
 
-        // TODO(#7032): Remove this test once wkt::Value conversion for Arrow cells is implemented.
-        #[test]
-        fn test_from_sql_value_arrow_not_implemented() {
-            let arr: ArrayRef = Arc::new(Int64Array::from(vec![42]));
-            let err = wkt::Value::from_value(arrow_val(arr, 0)).unwrap_err();
-            assert!(matches!(err, ConvertError::Convert(_)));
-            assert!(err.to_string().contains("not yet implemented"), "{err}");
+        #[test_case(Arc::new(NullArray::new(1)) => Ok(wkt::Value::Null) ; "value from NullArray")]
+        #[test_case(Arc::new(Int64Array::from(vec![None])) => Ok(wkt::Value::Null) ; "value from null cell")]
+        #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Ok(wkt::Value::Bool(true)) ; "value from BooleanArray")]
+        #[test_case(Arc::new(Int64Array::from(vec![Some(42)])) => Ok(wkt::Value::Number(42.into())) ; "value from Int64Array")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(3.25)])) => Ok(wkt::Value::Number(serde_json::Number::from_f64(3.25).unwrap())) ; "value from Float64Array")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(f64::NAN)])) => Ok(wkt::Value::String("NaN".to_string())) ; "value from Float64Array NaN")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(f64::INFINITY)])) => Ok(wkt::Value::String("Infinity".to_string())) ; "value from Float64Array Infinity")]
+        #[test_case(Arc::new(Float64Array::from(vec![Some(f64::NEG_INFINITY)])) => Ok(wkt::Value::String("-Infinity".to_string())) ; "value from Float64Array negative Infinity")]
+        #[test_case(Arc::new(StringArray::from(vec![Some("hello")])) => Ok(wkt::Value::String("hello".to_string())) ; "value from StringArray")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])) => Ok(wkt::Value::String("world".to_string())) ; "value from LargeStringArray")]
+        #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])) => Ok(wkt::Value::String("AQID".to_string())) ; "value from BinaryArray")]
+        #[test_case(Arc::new(LargeBinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])) => Ok(wkt::Value::String("AQID".to_string())) ; "value from LargeBinaryArray")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Ok(wkt::Value::String("2026-05-28".to_string())) ; "value from Date32Array")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])) => Ok(wkt::Value::String("15:30:00".to_string())) ; "value from Time64MicrosecondArray zero nanos")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_123_456)])) => Ok(wkt::Value::String("15:30:00.123456".to_string())) ; "value from Time64MicrosecondArray fractional")]
+        #[test_case(Arc::new(Time64NanosecondArray::from(vec![Some(55_800_123_456_789)])) => Ok(wkt::Value::String("15:30:00.123456".to_string())) ; "value from Time64NanosecondArray")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)]).with_timezone("UTC")) => Ok(wkt::Value::String("1779982200123456".to_string())) ; "value from TimestampMicrosecondArray with tz")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])) => Ok(wkt::Value::String("2026-05-28T15:30:00".to_string())) ; "value from TimestampMicrosecondArray without tz zero nanos")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok(wkt::Value::String("2026-05-28T15:30:00.123456".to_string())) ; "value from TimestampMicrosecondArray without tz fractional")]
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(42_500_000_000)], 38, 9) => Ok(wkt::Value::String("42.5".to_string())) ; "value from Decimal128Array trailing fractional zeros")]
+        #[test_case(decimal128_array(vec![Some(42_000_000_000)], 38, 9) => Ok(wkt::Value::String("42".to_string())) ; "value from Decimal128Array whole integer")]
+        #[test_case(decimal256_array(vec![Some(i256::from_i128(123_456))], 20, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal256Array")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38) => Ok(wkt::Value::String("42.5".to_string())) ; "value from Decimal256Array scale 38")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 1, 9_045_000_000_000))])) => Ok(wkt::Value::String("0-0 1 2:30:45".to_string())) ; "value from IntervalMonthDayNanoArray zero nanos")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_789_000_000))])) => Ok(wkt::Value::String("1-2 3 4:5:6.789".to_string())) ; "value from IntervalMonthDayNanoArray millis")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 0, 123_456_000))])) => Ok(wkt::Value::String("0-0 0 0:0:0.123456".to_string())) ; "value from IntervalMonthDayNanoArray micros")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok(wkt::Value::String("1-2 3 4:5:6.000000789".to_string())) ; "value from IntervalMonthDayNanoArray nanos")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-14, -3, -14_706_000_000_789))])) => Ok(wkt::Value::String("-1-2 -3 -4:5:6.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-2, 0, -789))])) => Ok(wkt::Value::String("-0-2 0 -0:0:0.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative months and nanos")]
+        #[test_case(sample_test_struct_array(None) => Ok(wkt::Value::Object(wkt::Struct::from_iter([
+            ("name".to_string(), wkt::Value::String("James".to_string())),
+            ("custom_int".to_string(), wkt::Value::Number(272_793.into())),
+            ("some_bool".to_string(), wkt::Value::Bool(true)),
+        ]))) ; "value from StructArray")]
+        #[test_case(sample_list_i64(vec![Some(10), Some(20)], None) => Ok(wkt::Value::Array(vec![wkt::Value::Number(10.into()), wkt::Value::Number(20.into())])) ; "value from ListArray")]
+        #[test_case(sample_large_list_i64(vec![Some(30), None]) => Ok(wkt::Value::Array(vec![wkt::Value::Number(30.into()), wkt::Value::Null])) ; "value from LargeListArray")]
+        #[test_case(Arc::new(Int32Array::from(vec![Some(1)])) => Err(TestConvertError::type_mismatch("supported arrow value")) ; "value from unsupported Int32Array")]
+        #[test_case(Arc::new(IntervalYearMonthArray::from(vec![Some(12)])) => Err(TestConvertError::type_mismatch("supported arrow value")) ; "value from unsupported IntervalYearMonthArray")]
+        fn test_from_sql_arrow_value(arr: ArrayRef) -> Result<wkt::Value, TestConvertError> {
+            wkt::Value::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }
 
         #[test_case(Arc::new(BooleanArray::from(vec![Some(true)])) => Ok(true) ; "bool true")]
@@ -1183,6 +1325,20 @@ mod tests {
 
         #[test_case(Arc::new(StringArray::from(vec![Some("hello")])) => Ok("hello".to_string()) ; "string from StringArray")]
         #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])) => Ok("world".to_string()) ; "string from LargeStringArray")]
+        #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])) => Ok("AQID".to_string()) ; "string from BinaryArray")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Ok("2026-05-28".to_string()) ; "string from Date32Array")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])) => Ok("15:30:00".to_string()) ; "string from Time64MicrosecondArray")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)]).with_timezone("UTC")) => Ok("1779982200123456".to_string()) ; "string from TimestampMicrosecondArray with tz")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])) => Ok("2026-05-28T15:30:00".to_string()) ; "string from TimestampMicrosecondArray without tz zero nanos")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok("2026-05-28T15:30:00.123456".to_string()) ; "string from TimestampMicrosecondArray without tz fractional")]
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok("123.456".to_string()) ; "string from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(42_500_000_000)], 38, 9) => Ok("42.5".to_string()) ; "string from Decimal128Array trailing fractional zeros")]
+        #[test_case(decimal128_array(vec![Some(42_000_000_000)], 38, 9) => Ok("42".to_string()) ; "string from Decimal128Array whole integer")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38) => Ok("42.5".to_string()) ; "string from Decimal256Array scale 38")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 1, 9_045_000_000_000))])) => Ok("0-0 1 2:30:45".to_string()) ; "string from IntervalMonthDayNanoArray zero nanos")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_789_000_000))])) => Ok("1-2 3 4:5:6.789".to_string()) ; "string from IntervalMonthDayNanoArray millis")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 0, 123_456_000))])) => Ok("0-0 0 0:0:0.123456".to_string()) ; "string from IntervalMonthDayNanoArray micros")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok("1-2 3 4:5:6.000000789".to_string()) ; "string from IntervalMonthDayNanoArray nanos")]
         #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "string null")]
         #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "string type mismatch")]
         fn test_from_sql_arrow_string(arr: ArrayRef) -> Result<String, TestConvertError> {
@@ -1309,6 +1465,135 @@ mod tests {
         ) -> Result<google_cloud_type::model::DateTime, TestConvertError> {
             google_cloud_type::model::DateTime::from_value(arrow_val(arr, 0))
                 .map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_list_i64(vec![Some(10), Some(20), Some(30)], None) => Ok(vec![10, 20, 30]) ; "vec from ListArray")]
+        #[test_case(sample_large_list_i64(vec![Some(40), Some(50)]) => Ok(vec![40, 50]) ; "vec from LargeListArray")]
+        #[test_case(sample_list_i64(vec![], None) => Ok(vec![]) ; "vec empty ListArray")]
+        #[test_case(sample_list_i64(vec![Some(10)], Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "vec null ListArray")]
+        #[test_case(sample_list_i64(vec![Some(10), None], None) => Err(TestConvertError::NotNull) ; "vec null element in non-optional Vec")]
+        #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("ListArray or LargeListArray")) ; "vec type mismatch")]
+        fn test_from_sql_arrow_vec_i64(arr: ArrayRef) -> Result<Vec<i64>, TestConvertError> {
+            Vec::<i64>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_list_i64(vec![Some(10), None, Some(30)], None) => Ok(vec![Some(10), None, Some(30)]) ; "vec option i64 with null element")]
+        fn test_from_sql_arrow_vec_option_i64(
+            arr: ArrayRef,
+        ) -> Result<Vec<Option<i64>>, TestConvertError> {
+            Vec::<Option<i64>>::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test]
+        fn test_sql_value_take_arrow_list_by_index() -> anyhow::Result<()> {
+            let mut list_val = arrow_val(sample_list_i64(vec![Some(10), Some(20)], None), 0);
+            assert_eq!(list_val.take::<i64, _>(0)?, 10);
+            assert_eq!(list_val.take::<i64, _>(1)?, 20);
+            assert!(matches!(
+                list_val.take::<i64, _>(2),
+                Err(ConvertError::MissingField(ref f)) if f == "2"
+            ));
+
+            Ok(())
+        }
+
+        fn sample_test_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("name", DataType::Utf8, false),
+                Field::new("custom_int", DataType::Int64, false),
+                Field::new("some_bool", DataType::Boolean, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(StringArray::from(vec!["James"])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![272_793])) as ArrayRef,
+                    Arc::new(BooleanArray::from(vec![true])) as ArrayRef,
+                ],
+                nulls,
+            ))
+        }
+
+        fn sample_missing_field_struct_array() -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("name", DataType::Utf8, false),
+                Field::new("some_bool", DataType::Boolean, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(StringArray::from(vec!["James"])) as ArrayRef,
+                    Arc::new(BooleanArray::from(vec![true])) as ArrayRef,
+                ],
+                None,
+            ))
+        }
+
+        fn sample_tuple_struct_array(nulls: Option<NullBuffer>) -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("", DataType::Int64, false),
+                Field::new("", DataType::Int64, true),
+                Field::new("", DataType::Utf8, false),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(Int64Array::from(vec![Some(100)])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![None])) as ArrayRef,
+                    Arc::new(StringArray::from(vec!["world"])) as ArrayRef,
+                ],
+                nulls,
+            ))
+        }
+
+        fn sample_short_tuple_struct_array() -> ArrayRef {
+            let fields = Fields::from(vec![
+                Field::new("", DataType::Int64, false),
+                Field::new("", DataType::Int64, true),
+            ]);
+            Arc::new(StructArray::new(
+                fields,
+                vec![
+                    Arc::new(Int64Array::from(vec![Some(100)])) as ArrayRef,
+                    Arc::new(Int64Array::from(vec![None])) as ArrayRef,
+                ],
+                None,
+            ))
+        }
+
+        #[test_case(sample_test_struct_array(None) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec![r#"{"name": "James", "custom_int": 272793, "some_bool": true}"#])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from StringArray json")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![r#"{"name": "James", "custom_int": 272793, "some_bool": true}"#])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272_793, some_bool: true }) ; "struct from LargeStringArray json")]
+        #[test_case(sample_missing_field_struct_array() => Err(TestConvertError::MissingField("custom_int".to_string())) ; "struct missing field")]
+        #[test_case(sample_test_struct_array(Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "struct null StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec!["invalid"])) => Err(TestConvertError::Convert) ; "struct invalid json string")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("object or string")) ; "struct type mismatch")]
+        fn test_derive_from_sql_arrow_named_struct(
+            arr: ArrayRef,
+        ) -> Result<TestSqlStruct, TestConvertError> {
+            TestSqlStruct::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
+        }
+
+        #[test_case(sample_tuple_struct_array(None) => Ok(GenericTupleSql(100, None, "world".to_string())) ; "tuple struct from StructArray")]
+        #[test_case(Arc::new(StringArray::from(vec![r#"[100, null, "world"]"#])) => Ok(GenericTupleSql(100, None, "world".to_string())) ; "tuple struct from StringArray json")]
+        #[test_case(sample_short_tuple_struct_array() => Err(TestConvertError::MissingField("2".to_string())) ; "tuple struct missing field")]
+        #[test_case(sample_tuple_struct_array(Some(NullBuffer::from(vec![false]))) => Err(TestConvertError::NotNull) ; "tuple struct null StructArray")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("struct, array, or string")) ; "tuple struct type mismatch")]
+        fn test_derive_from_sql_arrow_tuple_struct(
+            arr: ArrayRef,
+        ) -> Result<GenericTupleSql<i64, String>, TestConvertError> {
+            GenericTupleSql::<i64, String>::from_value(arrow_val(arr, 0))
+                .map_err(TestConvertError::from)
+        }
+
+        #[test_case(Arc::new(StringArray::from(vec![Some(r#"{"a": 1}"#)])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "wkt struct from StringArray")]
+        #[test_case(Arc::new(LargeStringArray::from(vec![Some(r#"{"a": 1}"#)])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "wkt struct from LargeStringArray")]
+        #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "wkt struct null")]
+        #[test_case(Arc::new(StringArray::from(vec![Some("invalid")])) => Err(TestConvertError::Convert) ; "wkt struct invalid json")]
+        #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "wkt struct type mismatch")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "wkt struct date32 type mismatch")]
+        fn test_from_sql_arrow_wkt_struct(arr: ArrayRef) -> Result<wkt::Struct, TestConvertError> {
+            wkt::Struct::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }
     }
 }

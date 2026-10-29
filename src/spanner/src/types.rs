@@ -150,6 +150,15 @@ impl Type {
     }
 
     /// Returns the fully qualified name of the proto or enum type, or an empty string if not applicable.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_spanner::types::proto;
+    ///
+    /// let proto_type = proto("examples.shipping.Address");
+    /// assert_eq!(proto_type.proto_type_fqn(), "examples.shipping.Address");
+    /// ```
     pub fn proto_type_fqn(&self) -> &str {
         &self.0.proto_type_fqn
     }
@@ -272,18 +281,59 @@ pub fn array(element_type: Type) -> Type {
     t
 }
 
-/// Returns a `Type` representing `ENUM` (GoogleSQL) with the given fully qualified proto type name.
-pub fn enum_type(proto_type_fqn: impl Into<String>) -> Type {
-    let mut t = create_type(TypeCode::Enum);
-    t.0.proto_type_fqn = proto_type_fqn.into();
-    t
+/// Returns a `Type` representing `PROTO` (GoogleSQL) with the given fully qualified proto type name.
+///
+/// Spanner uses the fully qualified proto type name to resolve the message schema from the
+/// database's proto bundle when binding query parameters.
+///
+/// # Example
+///
+/// ```
+/// use google_cloud_spanner::statement::Statement;
+/// use google_cloud_spanner::types::proto;
+///
+/// // Protobuf message serialized to bytes (e.g. from `address_proto.encode_to_vec()`)
+/// let address_payload = b"serialized-proto-address".to_vec();
+///
+/// let statement = Statement::builder(
+///     "SELECT OrderId, ShippingAddress.city FROM Orders WHERE ShippingAddress = @address",
+/// )
+/// .add_typed_param("address", address_payload, proto("examples.shipping.Address"))
+/// .build();
+/// ```
+pub fn proto(proto_type_fqn: impl Into<String>) -> Type {
+    let mut proto_type = create_type(TypeCode::Proto);
+    proto_type.0.proto_type_fqn = proto_type_fqn.into();
+    proto_type
 }
 
-/// Returns a `Type` representing `PROTO` (GoogleSQL) with the given fully qualified proto type name.
-pub fn proto_type(proto_type_fqn: impl Into<String>) -> Type {
-    let mut t = create_type(TypeCode::Proto);
-    t.0.proto_type_fqn = proto_type_fqn.into();
-    t
+/// Returns a `Type` representing `ENUM` (GoogleSQL) with the given fully qualified proto type name.
+///
+/// Spanner stores protobuf enum values as integers corresponding to their tag numbers in the
+/// proto definition. When binding enum parameters, provide the integer value and specify the
+/// fully qualified enum type name.
+///
+/// # Example
+///
+/// ```
+/// use google_cloud_spanner::statement::Statement;
+/// use google_cloud_spanner::types::proto_enum;
+///
+/// // Enum value corresponding to the protobuf tag number (e.g. `OrderStatus::Shipped as i32 as i64`)
+/// const STATUS_SHIPPED: i64 = 2;
+///
+/// let statement = Statement::builder("SELECT OrderId FROM Orders WHERE Status = @status")
+///     .add_typed_param(
+///         "status",
+///         STATUS_SHIPPED,
+///         proto_enum("examples.shipping.OrderStatus"),
+///     )
+///     .build();
+/// ```
+pub fn proto_enum(proto_type_fqn: impl Into<String>) -> Type {
+    let mut enum_type = create_type(TypeCode::Enum);
+    enum_type.0.proto_type_fqn = proto_type_fqn.into();
+    enum_type
 }
 
 pub(crate) fn create_type(code: TypeCode) -> Type {
@@ -497,11 +547,11 @@ mod tests {
 
     #[test]
     fn proto_and_enum_types() {
-        let proto_column = proto_type("google.example.Customer");
+        let proto_column = proto("google.example.Customer");
         assert_eq!(
             proto_column.code(),
             TypeCode::Proto,
-            "expected TypeCode::Proto for proto_type"
+            "expected TypeCode::Proto for proto"
         );
         assert_eq!(
             proto_column.proto_type_fqn(),
@@ -509,11 +559,11 @@ mod tests {
             "expected fully qualified proto type name"
         );
 
-        let enum_column = enum_type("google.example.CustomerStatus");
+        let enum_column = proto_enum("google.example.CustomerStatus");
         assert_eq!(
             enum_column.code(),
             TypeCode::Enum,
-            "expected TypeCode::Enum for enum_type"
+            "expected TypeCode::Enum for proto_enum"
         );
         assert_eq!(
             enum_column.proto_type_fqn(),

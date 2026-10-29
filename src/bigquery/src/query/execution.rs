@@ -226,6 +226,7 @@ impl RetryContext {
             job,
             Some(self),
             page_size,
+            self.template.read_client.clone(),
             options.clone(),
         ))
     }
@@ -241,6 +242,22 @@ impl RetryContext {
         let query_request = query_request
             .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true))
             .set_request_id(query_request_id);
+        #[cfg(google_cloud_unstable_bigquery_arrow)]
+        let query_request = {
+            use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+            use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+            use google_cloud_bigquery_v2::model::query_request::{
+                QueryResultsFormat, ResultsFormatSerializationOptions,
+            };
+            query_request
+                .set_query_results_format(QueryResultsFormat::Arrow)
+                .set_results_format_serialization_options(
+                    ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                        ArrowSerializationOptions::new()
+                            .set_buffer_compression(CompressionCodec::Zstd),
+                    )),
+                )
+        };
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
             .set_query_request(query_request);
@@ -279,6 +296,7 @@ impl RetryContext {
                     check_job_status(existing_job)?,
                     Some(self),
                     page_size,
+                    self.template.read_client.clone(),
                     options.clone(),
                 ));
             }
@@ -290,6 +308,7 @@ impl RetryContext {
             res,
             Some(self),
             page_size,
+            self.template.read_client.clone(),
             options.clone(),
         ))
     }
@@ -367,7 +386,8 @@ fn parse_job_name(name: &str) -> Option<JobReference> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::query::tests::{MockJobService, create_job_service};
+    use crate::query::tests::{MockJobService, create_job_service, create_read_client};
+    use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
     use google_cloud_bigquery_v2::model::{
         ErrorProto, Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus,
         QueryResponse,
@@ -419,6 +439,7 @@ mod tests {
         let query = QueryHandle::from_query_response(
             job_service,
             res,
+            None,
             None,
             None,
             RequestOptions::default(),
@@ -577,7 +598,14 @@ mod tests {
         let req = InsertJobRequest::new().set_job(job);
         let executor = InsertJobExecutor::new(job_service.clone(), req, RequestOptions::default());
         let job = executor.execute().await?;
-        let query = QueryHandle::from_job(job_service, job, None, None, RequestOptions::default());
+        let query = QueryHandle::from_job(
+            job_service,
+            job,
+            None,
+            None,
+            None,
+            RequestOptions::default(),
+        );
 
         assert_eq!(query.completed, completed);
         assert_eq!(query.metadata.job_reference, Some(job_ref));
@@ -596,7 +624,7 @@ mod tests {
         mock.expect_query().never();
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(true);
 
@@ -614,6 +642,30 @@ mod tests {
         mock.expect_query().returning(|req, _| {
             let query_req = req.query_request.as_ref().unwrap();
             assert!(!query_req.dry_run);
+            #[cfg(google_cloud_unstable_bigquery_arrow)]
+            {
+                use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+                use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+                use google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions;
+                assert_eq!(query_req.query_results_format, QueryResultsFormat::Arrow);
+                assert_eq!(
+                    query_req.results_format_serialization_options,
+                    Some(
+                        ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                            ArrowSerializationOptions::new()
+                                .set_buffer_compression(CompressionCodec::Zstd)
+                        ))
+                    )
+                );
+            }
+            #[cfg(not(google_cloud_unstable_bigquery_arrow))]
+            {
+                assert_eq!(
+                    query_req.query_results_format,
+                    QueryResultsFormat::default()
+                );
+                assert_eq!(query_req.results_format_serialization_options, None);
+            }
             let res =
                 QueryResponse::new().set_job_reference(JobReference::new().set_job_id("query-job"));
             Ok(Response::from(res))
@@ -621,7 +673,7 @@ mod tests {
         mock.expect_insert_job().never();
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(false);
 
@@ -655,14 +707,14 @@ mod tests {
 
         let job_service = create_job_service(mock);
 
-        let query = Query::new(job_service.clone(), "SELECT 1".to_string())
+        let query = Query::new(job_service.clone(), None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(false);
         let handle = RetryContext::new(query).execute_once("my-project").await?;
         assert!(handle.completed);
         assert!(handle.retry_context.is_none());
 
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(true);
         let handle = RetryContext::new(query).execute_once("my-project").await?;
@@ -692,7 +744,9 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let read_client = create_read_client();
+        let query = Query::new(job_service, Some(read_client), "SELECT 1".to_string())
+            .with_project_id("my-project");
 
         let retry_ctx = RetryContext::new(query);
         assert!(!retry_ctx.force_job_path(), "must use the jobs.query path");
@@ -705,6 +759,7 @@ mod tests {
         assert_eq!(job_ref.location.as_deref(), Some("US"));
         assert_eq!(job_ref.job_id, "job_123");
         assert!(!handle.completed, "the adopted job is still running");
+        assert!(handle.read_client.is_some());
         assert_eq!(
             handle.options.quota_project().as_deref(),
             Some("my-project")
@@ -725,7 +780,8 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let query =
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
 
         let err = RetryContext::new(query)
             .execute_once("my-project")
@@ -820,7 +876,8 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let read_client = create_read_client();
+        let query = Query::new(job_service, Some(read_client), "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_location("us-central1")
             .set_priority("BATCH");
@@ -837,6 +894,7 @@ mod tests {
         assert_eq!(job_ref, inserted, "{job_ref:?}");
         assert_eq!(job_ref.location.as_deref(), Some("us-central1"));
         assert!(!handle.completed, "the recovered job is still running");
+        assert!(handle.read_client.is_some());
         assert_eq!(
             handle.options.quota_project().as_deref(),
             Some("my-project")
@@ -859,7 +917,7 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_priority("BATCH");
 
@@ -896,7 +954,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
 
-        let query = Query::new(job_service.clone(), "SELECT 1".to_string())
+        let query = Query::new(job_service.clone(), None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(false);
         RetryContext::new(query)
@@ -904,7 +962,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_dry_run(true);
         RetryContext::new(query)
@@ -926,7 +984,8 @@ mod tests {
             ))
         });
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let query =
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         let retry_ctx = RetryContext::new(query);
         let err = retry_ctx.execute().await.unwrap_err();
         match err {
@@ -974,7 +1033,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
         let mut query =
-            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         query.job_retry_policy = Arc::new(RecordingPolicy {
             counts: attempt_counts_clone,
         });
@@ -998,7 +1057,8 @@ mod tests {
             .times(1)
             .returning(|_, _| Ok(Response::from(QueryResponse::new().set_query_id("q1"))));
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let query =
+            Query::new(job_service, None, "SELECT 1".to_string()).with_project_id("my-project");
         let retry_ctx = RetryContext::new(query);
         let handle = retry_ctx.execute().await?;
         assert_eq!(handle.retry_context.unwrap().state.attempt_count, 1);
@@ -1027,7 +1087,7 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .with_user_agent("my-app/1.2.3");
 
@@ -1059,7 +1119,7 @@ mod tests {
         });
 
         let job_service = create_job_service(mock);
-        let query = Query::new(job_service, "SELECT 1".to_string())
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_priority("BATCH")
             .with_user_agent("my-app/1.2.3");

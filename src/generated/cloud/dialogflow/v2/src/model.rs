@@ -4831,6 +4831,10 @@ pub struct InputAudioConfig {
     /// If unset, this setting is inherited from the ConversationProfile.
     pub use_gemini_asr: std::option::Option<bool>,
 
+    /// Optional. Disables emission of interim input transcriptions when set to
+    /// `true`.
+    pub disable_interim_input_transcripts: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5109,6 +5113,40 @@ impl InputAudioConfig {
         T: std::convert::Into<bool>,
     {
         self.use_gemini_asr = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [disable_interim_input_transcripts][crate::model::InputAudioConfig::disable_interim_input_transcripts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::InputAudioConfig;
+    /// let x = InputAudioConfig::new().set_disable_interim_input_transcripts(true);
+    /// ```
+    pub fn set_disable_interim_input_transcripts<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disable_interim_input_transcripts = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disable_interim_input_transcripts][crate::model::InputAudioConfig::disable_interim_input_transcripts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::InputAudioConfig;
+    /// let x = InputAudioConfig::new().set_or_clear_disable_interim_input_transcripts(Some(false));
+    /// let x = InputAudioConfig::new().set_or_clear_disable_interim_input_transcripts(None::<bool>);
+    /// ```
+    pub fn set_or_clear_disable_interim_input_transcripts<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disable_interim_input_transcripts = v.map(|x| x.into());
         self
     }
 }
@@ -5946,6 +5984,10 @@ pub struct SpeechToTextConfig {
     /// Cloud Speech-to-Text.
     pub use_gemini_asr: bool,
 
+    /// Optional. Disables emission of interim input transcriptions when set to
+    /// `true`.
+    pub disable_interim_input_transcripts: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6118,6 +6160,40 @@ impl SpeechToTextConfig {
         self.use_gemini_asr = v.into();
         self
     }
+
+    /// Sets the value of [disable_interim_input_transcripts][crate::model::SpeechToTextConfig::disable_interim_input_transcripts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SpeechToTextConfig;
+    /// let x = SpeechToTextConfig::new().set_disable_interim_input_transcripts(true);
+    /// ```
+    pub fn set_disable_interim_input_transcripts<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disable_interim_input_transcripts = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disable_interim_input_transcripts][crate::model::SpeechToTextConfig::disable_interim_input_transcripts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SpeechToTextConfig;
+    /// let x = SpeechToTextConfig::new().set_or_clear_disable_interim_input_transcripts(Some(false));
+    /// let x = SpeechToTextConfig::new().set_or_clear_disable_interim_input_transcripts(None::<bool>);
+    /// ```
+    pub fn set_or_clear_disable_interim_input_transcripts<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disable_interim_input_transcripts = v.map(|x| x.into());
+        self
+    }
 }
 
 #[cfg(any(
@@ -6155,11 +6231,6 @@ pub mod speech_to_text_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GeminiAsrConfig {
-        /// Optional. The Gemini ASR model ID used for transcription.
-        /// This value overrides the default model ID configured on the server.
-        /// Example: "gemini-3-flash-lite-asr-preview"
-        pub model_id: std::string::String,
-
         /// Optional. The required duration of detected silence (or non-speech)
         /// before end-of-speech is committed.
         pub silence_duration_ms: i32,
@@ -6189,18 +6260,6 @@ pub mod speech_to_text_config {
         /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
-        }
-
-        /// Sets the value of [model_id][crate::model::speech_to_text_config::GeminiAsrConfig::model_id].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_dialogflow_v2::model::speech_to_text_config::GeminiAsrConfig;
-        /// let x = GeminiAsrConfig::new().set_model_id("example");
-        /// ```
-        pub fn set_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.model_id = v.into();
-            self
         }
 
         /// Sets the value of [silence_duration_ms][crate::model::speech_to_text_config::GeminiAsrConfig::silence_duration_ms].
@@ -22708,9 +22767,10 @@ pub mod human_agent_assistant_config {
                 /// "N/A" otherwise.
                 /// Section name: "reason_for_cancellation".
                 ReasonForCancellation,
-                /// "Unsatisfied" or "Satisfied" depending on the customer's feelings at
-                /// the end of the conversation.
-                /// Section name: "customer_satisfaction".
+                /// Customer satisfaction derived from the text transcript only (not
+                /// audio). Categorized based on customer statements by the end of the
+                /// conversation. `D` for dissatisfied and `N` for neutral or satisfied
+                /// (default). Section name: `customer_satisfaction`.
                 CustomerSatisfaction,
                 /// Key entities extracted from the conversation, such as ticket number,
                 /// order number, dollar amount, etc.
@@ -32422,9 +32482,10 @@ pub mod summarization_section {
         /// "N/A" otherwise.
         /// Section name: "reason_for_cancellation".
         ReasonForCancellation,
-        /// "Unsatisfied" or "Satisfied" depending on the customer's feelings at
-        /// the end of the conversation.
-        /// Section name: "customer_satisfaction".
+        /// Customer satisfaction derived from the text transcript only (not audio).
+        /// Categorized based on customer statements by the end of the conversation.
+        /// `D` for dissatisfied and `N` for neutral or satisfied (default).
+        /// Section name: `customer_satisfaction`.
         CustomerSatisfaction,
         /// Key entities extracted from the conversation, such as ticket number,
         /// order number, dollar amount, etc.
@@ -47622,6 +47683,9 @@ pub struct Message {
     /// Only one of `content` and `companion_query` should be set - not both.
     pub content: std::string::String,
 
+    /// Optional. Automated agent responses.
+    pub response_messages: std::vec::Vec<crate::model::ResponseMessage>,
+
     /// Optional. The message language.
     /// This should be a [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt)
     /// language tag. Example: "en-US".
@@ -47680,6 +47744,28 @@ impl Message {
     /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
+        self
+    }
+
+    /// Sets the value of [response_messages][crate::model::Message::response_messages].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Message;
+    /// use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// let x = Message::new()
+    ///     .set_response_messages([
+    ///         ResponseMessage::default()/* use setters */,
+    ///         ResponseMessage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_response_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ResponseMessage>,
+    {
+        use std::iter::Iterator;
+        self.response_messages = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -51624,6 +51710,30 @@ pub struct AutomatedAgentReply {
     /// [google.cloud.dialogflow.v2.Sessions.DetectIntent]: crate::client::Sessions::detect_intent
     pub detect_intent_response: std::option::Option<crate::model::DetectIntentResponse>,
 
+    /// Response messages from the automated agent.
+    pub response_messages: std::vec::Vec<crate::model::ResponseMessage>,
+
+    /// Name of the intent if an intent is matched for the query.
+    /// For a V2 query, the value format is `projects/<Project ID>/locations/
+    /// <Location ID>/agent/intents/<Intent ID>`.
+    /// For a V3 query, the value format is `projects/<Project ID>/locations/
+    /// <Location ID>/agents/<Agent ID>/intents/<Intent ID>`.
+    pub intent: std::string::String,
+
+    /// Event name if an event is triggered for the query.
+    pub event: std::string::String,
+
+    /// The confidence of the match. Values range from 0.0 (completely uncertain)
+    /// to 1.0 (completely certain).
+    /// This value is for informational purpose only and is only used to help match
+    /// the best intent within the classification threshold. This value may change
+    /// for the same end-user expression at any time due to a model retraining or
+    /// change in implementation.
+    pub match_confidence: f32,
+
+    /// The collection of current parameters at the time of this response.
+    pub parameters: std::option::Option<wkt::Struct>,
+
     /// AutomatedAgentReply type.
     pub automated_agent_reply_type: crate::model::automated_agent_reply::AutomatedAgentReplyType,
 
@@ -51636,6 +51746,9 @@ pub struct AutomatedAgentReply {
     /// Format: `projects/<Project ID>/locations/<Location ID>/agents/<Agent
     /// ID>/flows/<Flow ID>/pages/<Page ID>`.
     pub cx_current_page: std::string::String,
+
+    /// The auth code for accessing Call Companion UI.
+    pub call_companion_auth_code: ::bytes::Bytes,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -51680,6 +51793,99 @@ impl AutomatedAgentReply {
         self
     }
 
+    /// Sets the value of [response_messages][crate::model::AutomatedAgentReply::response_messages].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AutomatedAgentReply;
+    /// use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// let x = AutomatedAgentReply::new()
+    ///     .set_response_messages([
+    ///         ResponseMessage::default()/* use setters */,
+    ///         ResponseMessage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_response_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ResponseMessage>,
+    {
+        use std::iter::Iterator;
+        self.response_messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [intent][crate::model::AutomatedAgentReply::intent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AutomatedAgentReply;
+    /// # let project_id = "project_id";
+    /// # let intent_id = "intent_id";
+    /// let x = AutomatedAgentReply::new().set_intent(format!("projects/{project_id}/agent/intents/{intent_id}"));
+    /// ```
+    pub fn set_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.intent = v.into();
+        self
+    }
+
+    /// Sets the value of [event][crate::model::AutomatedAgentReply::event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AutomatedAgentReply;
+    /// let x = AutomatedAgentReply::new().set_event("example");
+    /// ```
+    pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.event = v.into();
+        self
+    }
+
+    /// Sets the value of [match_confidence][crate::model::AutomatedAgentReply::match_confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AutomatedAgentReply;
+    /// let x = AutomatedAgentReply::new().set_match_confidence(42.0);
+    /// ```
+    pub fn set_match_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.match_confidence = v.into();
+        self
+    }
+
+    /// Sets the value of [parameters][crate::model::AutomatedAgentReply::parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AutomatedAgentReply;
+    /// use wkt::Struct;
+    /// let x = AutomatedAgentReply::new().set_parameters(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parameters][crate::model::AutomatedAgentReply::parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AutomatedAgentReply;
+    /// use wkt::Struct;
+    /// let x = AutomatedAgentReply::new().set_or_clear_parameters(Some(Struct::default()/* use setters */));
+    /// let x = AutomatedAgentReply::new().set_or_clear_parameters(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.parameters = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [automated_agent_reply_type][crate::model::AutomatedAgentReply::automated_agent_reply_type].
     ///
     /// # Example
@@ -51720,6 +51926,21 @@ impl AutomatedAgentReply {
     /// ```
     pub fn set_cx_current_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cx_current_page = v.into();
+        self
+    }
+
+    /// Sets the value of [call_companion_auth_code][crate::model::AutomatedAgentReply::call_companion_auth_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AutomatedAgentReply;
+    /// let x = AutomatedAgentReply::new().set_call_companion_auth_code(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_call_companion_auth_code<T: std::convert::Into<::bytes::Bytes>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.call_companion_auth_code = v.into();
         self
     }
 }
@@ -53493,6 +53714,841 @@ impl AssistQueryParameters {
 impl wkt::message::Message for AssistQueryParameters {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.AssistQueryParameters"
+    }
+}
+
+/// Response messages from an automated agent.
+#[cfg(any(feature = "conversations", feature = "participants",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ResponseMessage {
+    /// Required. The rich response message.
+    pub message: std::option::Option<crate::model::response_message::Message>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl ResponseMessage {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [message][crate::model::ResponseMessage::message].
+    ///
+    /// Note that all the setters affecting `message` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// use google_cloud_dialogflow_v2::model::response_message::Text;
+    /// let x = ResponseMessage::new().set_message(Some(
+    ///     google_cloud_dialogflow_v2::model::response_message::Message::Text(Text::default().into())));
+    /// ```
+    pub fn set_message<
+        T: std::convert::Into<std::option::Option<crate::model::response_message::Message>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message = v.into();
+        self
+    }
+
+    /// The value of [message][crate::model::ResponseMessage::message]
+    /// if it holds a `Text`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::Text>> {
+        #[allow(unreachable_patterns)]
+        self.message.as_ref().and_then(|v| match v {
+            crate::model::response_message::Message::Text(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [message][crate::model::ResponseMessage::message]
+    /// to hold a `Text`.
+    ///
+    /// Note that all the setters affecting `message` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// use google_cloud_dialogflow_v2::model::response_message::Text;
+    /// let x = ResponseMessage::new().set_text(Text::default()/* use setters */);
+    /// assert!(x.text().is_some());
+    /// assert!(x.payload().is_none());
+    /// assert!(x.live_agent_handoff().is_none());
+    /// assert!(x.end_interaction().is_none());
+    /// assert!(x.mixed_audio().is_none());
+    /// assert!(x.telephony_transfer_call().is_none());
+    /// ```
+    pub fn set_text<
+        T: std::convert::Into<std::boxed::Box<crate::model::response_message::Text>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message =
+            std::option::Option::Some(crate::model::response_message::Message::Text(v.into()));
+        self
+    }
+
+    /// The value of [message][crate::model::ResponseMessage::message]
+    /// if it holds a `Payload`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+        #[allow(unreachable_patterns)]
+        self.message.as_ref().and_then(|v| match v {
+            crate::model::response_message::Message::Payload(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [message][crate::model::ResponseMessage::message]
+    /// to hold a `Payload`.
+    ///
+    /// Note that all the setters affecting `message` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// use wkt::Struct;
+    /// let x = ResponseMessage::new().set_payload(Struct::default()/* use setters */);
+    /// assert!(x.payload().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.live_agent_handoff().is_none());
+    /// assert!(x.end_interaction().is_none());
+    /// assert!(x.mixed_audio().is_none());
+    /// assert!(x.telephony_transfer_call().is_none());
+    /// ```
+    pub fn set_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message =
+            std::option::Option::Some(crate::model::response_message::Message::Payload(v.into()));
+        self
+    }
+
+    /// The value of [message][crate::model::ResponseMessage::message]
+    /// if it holds a `LiveAgentHandoff`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn live_agent_handoff(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::LiveAgentHandoff>>
+    {
+        #[allow(unreachable_patterns)]
+        self.message.as_ref().and_then(|v| match v {
+            crate::model::response_message::Message::LiveAgentHandoff(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [message][crate::model::ResponseMessage::message]
+    /// to hold a `LiveAgentHandoff`.
+    ///
+    /// Note that all the setters affecting `message` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// use google_cloud_dialogflow_v2::model::response_message::LiveAgentHandoff;
+    /// let x = ResponseMessage::new().set_live_agent_handoff(LiveAgentHandoff::default()/* use setters */);
+    /// assert!(x.live_agent_handoff().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.payload().is_none());
+    /// assert!(x.end_interaction().is_none());
+    /// assert!(x.mixed_audio().is_none());
+    /// assert!(x.telephony_transfer_call().is_none());
+    /// ```
+    pub fn set_live_agent_handoff<
+        T: std::convert::Into<std::boxed::Box<crate::model::response_message::LiveAgentHandoff>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message = std::option::Option::Some(
+            crate::model::response_message::Message::LiveAgentHandoff(v.into()),
+        );
+        self
+    }
+
+    /// The value of [message][crate::model::ResponseMessage::message]
+    /// if it holds a `EndInteraction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn end_interaction(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::EndInteraction>> {
+        #[allow(unreachable_patterns)]
+        self.message.as_ref().and_then(|v| match v {
+            crate::model::response_message::Message::EndInteraction(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [message][crate::model::ResponseMessage::message]
+    /// to hold a `EndInteraction`.
+    ///
+    /// Note that all the setters affecting `message` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// use google_cloud_dialogflow_v2::model::response_message::EndInteraction;
+    /// let x = ResponseMessage::new().set_end_interaction(EndInteraction::default()/* use setters */);
+    /// assert!(x.end_interaction().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.payload().is_none());
+    /// assert!(x.live_agent_handoff().is_none());
+    /// assert!(x.mixed_audio().is_none());
+    /// assert!(x.telephony_transfer_call().is_none());
+    /// ```
+    pub fn set_end_interaction<
+        T: std::convert::Into<std::boxed::Box<crate::model::response_message::EndInteraction>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message = std::option::Option::Some(
+            crate::model::response_message::Message::EndInteraction(v.into()),
+        );
+        self
+    }
+
+    /// The value of [message][crate::model::ResponseMessage::message]
+    /// if it holds a `MixedAudio`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mixed_audio(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::MixedAudio>> {
+        #[allow(unreachable_patterns)]
+        self.message.as_ref().and_then(|v| match v {
+            crate::model::response_message::Message::MixedAudio(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [message][crate::model::ResponseMessage::message]
+    /// to hold a `MixedAudio`.
+    ///
+    /// Note that all the setters affecting `message` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// use google_cloud_dialogflow_v2::model::response_message::MixedAudio;
+    /// let x = ResponseMessage::new().set_mixed_audio(MixedAudio::default()/* use setters */);
+    /// assert!(x.mixed_audio().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.payload().is_none());
+    /// assert!(x.live_agent_handoff().is_none());
+    /// assert!(x.end_interaction().is_none());
+    /// assert!(x.telephony_transfer_call().is_none());
+    /// ```
+    pub fn set_mixed_audio<
+        T: std::convert::Into<std::boxed::Box<crate::model::response_message::MixedAudio>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message = std::option::Option::Some(
+            crate::model::response_message::Message::MixedAudio(v.into()),
+        );
+        self
+    }
+
+    /// The value of [message][crate::model::ResponseMessage::message]
+    /// if it holds a `TelephonyTransferCall`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn telephony_transfer_call(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::TelephonyTransferCall>>
+    {
+        #[allow(unreachable_patterns)]
+        self.message.as_ref().and_then(|v| match v {
+            crate::model::response_message::Message::TelephonyTransferCall(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [message][crate::model::ResponseMessage::message]
+    /// to hold a `TelephonyTransferCall`.
+    ///
+    /// Note that all the setters affecting `message` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ResponseMessage;
+    /// use google_cloud_dialogflow_v2::model::response_message::TelephonyTransferCall;
+    /// let x = ResponseMessage::new().set_telephony_transfer_call(TelephonyTransferCall::default()/* use setters */);
+    /// assert!(x.telephony_transfer_call().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.payload().is_none());
+    /// assert!(x.live_agent_handoff().is_none());
+    /// assert!(x.end_interaction().is_none());
+    /// assert!(x.mixed_audio().is_none());
+    /// ```
+    pub fn set_telephony_transfer_call<
+        T: std::convert::Into<std::boxed::Box<crate::model::response_message::TelephonyTransferCall>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message = std::option::Option::Some(
+            crate::model::response_message::Message::TelephonyTransferCall(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl wkt::message::Message for ResponseMessage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage"
+    }
+}
+
+/// Defines additional types related to [ResponseMessage].
+#[cfg(any(feature = "conversations", feature = "participants",))]
+pub mod response_message {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The text response message.
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Text {
+        /// A collection of text response variants. If multiple variants are
+        /// defined, only one text response variant is returned at runtime.
+        pub text: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl Text {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [text][crate::model::response_message::Text::text].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::response_message::Text;
+        /// let x = Text::new().set_text(["a", "b", "c"]);
+        /// ```
+        pub fn set_text<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.text = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl wkt::message::Message for Text {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.Text"
+        }
+    }
+
+    /// Indicates that the conversation should be handed off to a human agent.
+    ///
+    /// Dialogflow only uses this to determine which conversations were handed off
+    /// to a human agent for measurement purposes. What else to do with this signal
+    /// is up to you and your handoff procedures.
+    ///
+    /// You may set this, for example:
+    ///
+    /// * In the entry fulfillment of a CX Page if entering the page indicates
+    ///   something went extremely wrong in the conversation.
+    /// * In a webhook response when you determine that the customer issue can only
+    ///   be handled by a human.
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct LiveAgentHandoff {
+        /// Custom metadata for your handoff procedure. Dialogflow doesn't impose
+        /// any structure on this.
+        pub metadata: std::option::Option<wkt::Struct>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl LiveAgentHandoff {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [metadata][crate::model::response_message::LiveAgentHandoff::metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::response_message::LiveAgentHandoff;
+        /// use wkt::Struct;
+        /// let x = LiveAgentHandoff::new().set_metadata(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata][crate::model::response_message::LiveAgentHandoff::metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::response_message::LiveAgentHandoff;
+        /// use wkt::Struct;
+        /// let x = LiveAgentHandoff::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
+        /// let x = LiveAgentHandoff::new().set_or_clear_metadata(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.metadata = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl wkt::message::Message for LiveAgentHandoff {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.LiveAgentHandoff"
+        }
+    }
+
+    /// Indicates that interaction with the Dialogflow agent has ended.
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EndInteraction {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl EndInteraction {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl wkt::message::Message for EndInteraction {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.EndInteraction"
+        }
+    }
+
+    /// Represents an audio message that is composed of both segments
+    /// synthesized from the Dialogflow agent prompts and ones hosted externally
+    /// at the specified URIs.
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MixedAudio {
+        /// Segments this audio response is composed of.
+        pub segments: std::vec::Vec<crate::model::response_message::mixed_audio::Segment>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl MixedAudio {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [segments][crate::model::response_message::MixedAudio::segments].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::response_message::MixedAudio;
+        /// use google_cloud_dialogflow_v2::model::response_message::mixed_audio::Segment;
+        /// let x = MixedAudio::new()
+        ///     .set_segments([
+        ///         Segment::default()/* use setters */,
+        ///         Segment::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_segments<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::response_message::mixed_audio::Segment>,
+        {
+            use std::iter::Iterator;
+            self.segments = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl wkt::message::Message for MixedAudio {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.MixedAudio"
+        }
+    }
+
+    /// Defines additional types related to [MixedAudio].
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    pub mod mixed_audio {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents one segment of audio.
+        #[cfg(any(feature = "conversations", feature = "participants",))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Segment {
+            /// Whether the playback of this segment can be interrupted by the end
+            /// user's speech and the client should then start the next Dialogflow
+            /// request.
+            pub allow_playback_interruption: bool,
+
+            /// Content of the segment.
+            pub content:
+                std::option::Option<crate::model::response_message::mixed_audio::segment::Content>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(feature = "conversations", feature = "participants",))]
+        impl Segment {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [allow_playback_interruption][crate::model::response_message::mixed_audio::Segment::allow_playback_interruption].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::response_message::mixed_audio::Segment;
+            /// let x = Segment::new().set_allow_playback_interruption(true);
+            /// ```
+            pub fn set_allow_playback_interruption<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.allow_playback_interruption = v.into();
+                self
+            }
+
+            /// Sets the value of [content][crate::model::response_message::mixed_audio::Segment::content].
+            ///
+            /// Note that all the setters affecting `content` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::response_message::mixed_audio::Segment;
+            /// use google_cloud_dialogflow_v2::model::response_message::mixed_audio::segment::Content;
+            /// let x = Segment::new().set_content(Some(Content::Audio(bytes::Bytes::from_static(b"example"))));
+            /// ```
+            pub fn set_content<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::response_message::mixed_audio::segment::Content,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.content = v.into();
+                self
+            }
+
+            /// The value of [content][crate::model::response_message::mixed_audio::Segment::content]
+            /// if it holds a `Audio`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn audio(&self) -> std::option::Option<&::bytes::Bytes> {
+                #[allow(unreachable_patterns)]
+                self.content.as_ref().and_then(|v| match v {
+                    crate::model::response_message::mixed_audio::segment::Content::Audio(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [content][crate::model::response_message::mixed_audio::Segment::content]
+            /// to hold a `Audio`.
+            ///
+            /// Note that all the setters affecting `content` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::response_message::mixed_audio::Segment;
+            /// let x = Segment::new().set_audio(bytes::Bytes::from_static(b"example"));
+            /// assert!(x.audio().is_some());
+            /// assert!(x.uri().is_none());
+            /// ```
+            pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+                self.content = std::option::Option::Some(
+                    crate::model::response_message::mixed_audio::segment::Content::Audio(v.into()),
+                );
+                self
+            }
+
+            /// The value of [content][crate::model::response_message::mixed_audio::Segment::content]
+            /// if it holds a `Uri`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn uri(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.content.as_ref().and_then(|v| match v {
+                    crate::model::response_message::mixed_audio::segment::Content::Uri(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [content][crate::model::response_message::mixed_audio::Segment::content]
+            /// to hold a `Uri`.
+            ///
+            /// Note that all the setters affecting `content` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::response_message::mixed_audio::Segment;
+            /// let x = Segment::new().set_uri("example");
+            /// assert!(x.uri().is_some());
+            /// assert!(x.audio().is_none());
+            /// ```
+            pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.content = std::option::Option::Some(
+                    crate::model::response_message::mixed_audio::segment::Content::Uri(v.into()),
+                );
+                self
+            }
+        }
+
+        #[cfg(any(feature = "conversations", feature = "participants",))]
+        impl wkt::message::Message for Segment {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.MixedAudio.Segment"
+            }
+        }
+
+        /// Defines additional types related to [Segment].
+        #[cfg(any(feature = "conversations", feature = "participants",))]
+        pub mod segment {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Content of the segment.
+            #[cfg(any(feature = "conversations", feature = "participants",))]
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Content {
+                /// Raw audio synthesized from the Dialogflow agent's response using
+                /// the output config specified in the request.
+                Audio(::bytes::Bytes),
+                /// Client-specific URI that points to an audio clip accessible to the
+                /// client.
+                Uri(std::string::String),
+            }
+        }
+    }
+
+    /// Represents the signal that telles the client to transfer the phone call
+    /// connected to the agent to a third-party endpoint.
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TelephonyTransferCall {
+        /// Endpoint to transfer the call to.
+        pub endpoint:
+            std::option::Option<crate::model::response_message::telephony_transfer_call::Endpoint>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl TelephonyTransferCall {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [endpoint][crate::model::response_message::TelephonyTransferCall::endpoint].
+        ///
+        /// Note that all the setters affecting `endpoint` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::response_message::TelephonyTransferCall;
+        /// use google_cloud_dialogflow_v2::model::response_message::telephony_transfer_call::Endpoint;
+        /// let x = TelephonyTransferCall::new().set_endpoint(Some(Endpoint::PhoneNumber("example".to_string())));
+        /// ```
+        pub fn set_endpoint<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::response_message::telephony_transfer_call::Endpoint,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.endpoint = v.into();
+            self
+        }
+
+        /// The value of [endpoint][crate::model::response_message::TelephonyTransferCall::endpoint]
+        /// if it holds a `PhoneNumber`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn phone_number(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.endpoint.as_ref().and_then(|v| match v {
+                crate::model::response_message::telephony_transfer_call::Endpoint::PhoneNumber(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [endpoint][crate::model::response_message::TelephonyTransferCall::endpoint]
+        /// to hold a `PhoneNumber`.
+        ///
+        /// Note that all the setters affecting `endpoint` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::response_message::TelephonyTransferCall;
+        /// let x = TelephonyTransferCall::new().set_phone_number("example");
+        /// assert!(x.phone_number().is_some());
+        /// assert!(x.sip_uri().is_none());
+        /// ```
+        pub fn set_phone_number<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.endpoint = std::option::Option::Some(
+                crate::model::response_message::telephony_transfer_call::Endpoint::PhoneNumber(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [endpoint][crate::model::response_message::TelephonyTransferCall::endpoint]
+        /// if it holds a `SipUri`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sip_uri(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.endpoint.as_ref().and_then(|v| match v {
+                crate::model::response_message::telephony_transfer_call::Endpoint::SipUri(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [endpoint][crate::model::response_message::TelephonyTransferCall::endpoint]
+        /// to hold a `SipUri`.
+        ///
+        /// Note that all the setters affecting `endpoint` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::response_message::TelephonyTransferCall;
+        /// let x = TelephonyTransferCall::new().set_sip_uri("example");
+        /// assert!(x.sip_uri().is_some());
+        /// assert!(x.phone_number().is_none());
+        /// ```
+        pub fn set_sip_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.endpoint = std::option::Option::Some(
+                crate::model::response_message::telephony_transfer_call::Endpoint::SipUri(v.into()),
+            );
+            self
+        }
+    }
+
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    impl wkt::message::Message for TelephonyTransferCall {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ResponseMessage.TelephonyTransferCall"
+        }
+    }
+
+    /// Defines additional types related to [TelephonyTransferCall].
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    pub mod telephony_transfer_call {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Endpoint to transfer the call to.
+        #[cfg(any(feature = "conversations", feature = "participants",))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Endpoint {
+            /// Transfer the call to a phone number
+            /// in [E.164 format](https://en.wikipedia.org/wiki/E.164).
+            PhoneNumber(std::string::String),
+            /// Transfer the call to a SIP endpoint.
+            SipUri(std::string::String),
+        }
+    }
+
+    /// Required. The rich response message.
+    #[cfg(any(feature = "conversations", feature = "participants",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Message {
+        /// Returns a text response.
+        Text(std::boxed::Box<crate::model::response_message::Text>),
+        /// Returns a response containing a custom, platform-specific payload.
+        Payload(std::boxed::Box<wkt::Struct>),
+        /// Hands off conversation to a live agent.
+        LiveAgentHandoff(std::boxed::Box<crate::model::response_message::LiveAgentHandoff>),
+        /// A signal that indicates the interaction with the Dialogflow agent has
+        /// ended.
+        EndInteraction(std::boxed::Box<crate::model::response_message::EndInteraction>),
+        /// An audio response message composed of both the synthesized Dialogflow
+        /// agent responses and the audios hosted in places known to the client.
+        MixedAudio(std::boxed::Box<crate::model::response_message::MixedAudio>),
+        /// A signal that the client should transfer the phone call connected to
+        /// this agent to a third-party endpoint.
+        TelephonyTransferCall(
+            std::boxed::Box<crate::model::response_message::TelephonyTransferCall>,
+        ),
     }
 }
 
@@ -57414,6 +58470,10 @@ pub mod bidi_streaming_analyze_content_request {
             /// If unset, this setting is inherited from the ConversationProfile.
             pub use_gemini_asr: std::option::Option<bool>,
 
+            /// Optional. Disables emission of interim input transcriptions when set to
+            /// `true`.
+            pub disable_interim_input_transcripts: std::option::Option<bool>,
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -57583,6 +58643,40 @@ pub mod bidi_streaming_analyze_content_request {
                 T: std::convert::Into<bool>,
             {
                 self.use_gemini_asr = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [disable_interim_input_transcripts][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::disable_interim_input_transcripts].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// let x = VoiceSessionConfig::new().set_disable_interim_input_transcripts(true);
+            /// ```
+            pub fn set_disable_interim_input_transcripts<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.disable_interim_input_transcripts = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [disable_interim_input_transcripts][crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig::disable_interim_input_transcripts].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig;
+            /// let x = VoiceSessionConfig::new().set_or_clear_disable_interim_input_transcripts(Some(false));
+            /// let x = VoiceSessionConfig::new().set_or_clear_disable_interim_input_transcripts(None::<bool>);
+            /// ```
+            pub fn set_or_clear_disable_interim_input_transcripts<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.disable_interim_input_transcripts = v.map(|x| x.into());
                 self
             }
         }
@@ -61480,6 +62574,11 @@ pub struct SentimentAnalysisResult {
     /// The sentiment analysis result for `query_text`.
     pub query_text_sentiment: std::option::Option<crate::model::Sentiment>,
 
+    /// Output only. The status of the sentiment analysis operation.
+    /// If the operation failed, this field will contain the error details.
+    /// For example, it might indicate a quota issue (RESOURCE_EXHAUSTED).
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -61525,6 +62624,39 @@ impl SentimentAnalysisResult {
         T: std::convert::Into<crate::model::Sentiment>,
     {
         self.query_text_sentiment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::SentimentAnalysisResult::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SentimentAnalysisResult;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = SentimentAnalysisResult::new().set_status(Status::default()/* use setters */);
+    /// ```
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::SentimentAnalysisResult::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SentimentAnalysisResult;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = SentimentAnalysisResult::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = SentimentAnalysisResult::new().set_or_clear_status(None::<Status>);
+    /// ```
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 }

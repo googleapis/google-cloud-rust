@@ -530,7 +530,7 @@ impl TransactionRunnerBuilder {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_retry_policy<P: TransactionRetryPolicy + 'static>(mut self, policy: P) -> Self {
+    pub fn with_retry_policy(mut self, policy: impl TransactionRetryPolicy + 'static) -> Self {
         self.retry_policy = Box::new(policy);
         self
     }
@@ -793,6 +793,7 @@ impl TransactionRunner {
         // The server already released locks, so do not roll back.
         // Inherit wound-wait priority by carrying transaction_id into retry.
         if let Some(info) = transaction.aborted_info() {
+            transaction.disarm_rollback();
             let retry_delay = info.retry_delay.or_else(|| extract_retry_delay(&error));
             let spanner_error = if self.is_aborted_error(&error) {
                 error
@@ -832,6 +833,7 @@ impl TransactionRunner {
         transaction: &ReadWriteTransaction,
         error: Error,
     ) -> AttemptError {
+        transaction.disarm_rollback();
         if !self.is_aborted_error(&error) {
             return AttemptError::NonAborted(error);
         }
@@ -998,7 +1000,9 @@ mod tests {
     use crate::key::KeySet;
     use crate::mutation::Mutation;
     use crate::read::ReadRequest;
-    use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
+    use crate::read_only_transaction::tests::{
+        create_session_mock, setup_db_client, setup_select1,
+    };
     use crate::result_set::tests::adapt;
     use crate::statement::Statement;
     use crate::transaction_retry_policy::is_aborted;
@@ -1033,17 +1037,23 @@ mod tests {
         StructType, Transaction as ProtoTransaction, TransactionSelector, Type,
     };
     use std::fmt::Debug;
+    use std::future::{pending, poll_fn};
     use std::net::SocketAddr;
+    use std::panic::{AssertUnwindSafe, catch_unwind};
+    use std::pin::pin;
     use std::result::Result;
+    use std::sync::Arc;
     use std::sync::Mutex;
     use std::sync::atomic::{AtomicU32, AtomicUsize, Ordering};
     use std::sync::mpsc::channel as std_channel;
+    use std::task::Poll;
     use std::time::Duration as StdDuration;
     use tokio::spawn;
     use tokio::sync::Notify;
     use tokio::sync::mpsc::channel;
     use tokio::sync::oneshot::channel as oneshot_channel;
     use tokio::task::{JoinHandle, yield_now};
+    use tokio::time::timeout;
 
     fn parse_grpc_timeout(metadata: &MetadataMap) -> Option<StdDuration> {
         let timeout_header = metadata.get("grpc-timeout")?.to_str().ok()?;
@@ -11196,6 +11206,1059 @@ mod tests {
             attempts, 2,
             "runner must retry after precommit retry commit aborts"
         );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn commit_retry_fails_on_subsequent_precommit_token() -> Result<(), crate::Error> {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // Initial statement with InlineBegin
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_inline_begin_selector(request.transaction.as_ref(), None);
+                Ok(Response::new(ProtoResultSet {
+                    metadata: Some(ResultSetMetadata {
+                        transaction: Some(ProtoTransaction {
+                            id: vec![10, 10],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    precommit_token: Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Commit 1: returns precommit token 2
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    })
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![2],
+                            seq_num: 2,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        // Commit 2: retry with precommit token 2, unexpectedly returns another precommit token 3
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                assert!(
+                    request.mutations.is_empty(),
+                    "retry commit must have empty mutations"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![2],
+                        seq_num: 2,
+                    })
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![3],
+                            seq_num: 3,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let result = runner
+            .run(async |transaction| {
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(count)
+            })
+            .await;
+
+        let error = result.expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("received an unexpected subsequent precommit token"),
+            "Error message must indicate unexpected subsequent precommit token: {error}"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn commit_retry_fails_on_subsequent_precommit_token_explicit() -> Result<(), crate::Error>
+    {
+        let mut mock = create_session_mock();
+        let mut sequence = Sequence::new();
+
+        // 1. BeginTransaction RPC returns precommit token 1
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.session,
+                    "projects/p/instances/i/databases/d/sessions/123"
+                );
+                Ok(Response::new(ProtoTransaction {
+                    id: vec![10, 10],
+                    precommit_token: Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 2. ExecuteUpdate RPC
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(TransactionSelector {
+                        selector: Some(ProtoSelector::Id(vec![10, 10])),
+                    })
+                );
+                Ok(Response::new(ProtoResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Commit 1: returns precommit token 2
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![1],
+                        seq_num: 1,
+                    })
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![2],
+                            seq_num: 2,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        // 4. Commit 2: retry with precommit token 2, unexpectedly returns another precommit token 3
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.transaction,
+                    Some(CommitTransaction::TransactionId(vec![10, 10]))
+                );
+                assert!(
+                    request.mutations.is_empty(),
+                    "retry commit must have empty mutations"
+                );
+                assert_eq!(
+                    request.precommit_token,
+                    Some(MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![2],
+                        seq_num: 2,
+                    })
+                );
+                Ok(Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![3],
+                            seq_num: 3,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build();
+
+        let result = runner
+            .run(async |transaction| {
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                Ok(count)
+            })
+            .await;
+
+        let error = result.expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("received an unexpected subsequent precommit token"),
+            "Error message must indicate unexpected subsequent precommit token: {error}"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_cancelled_mid_execution_rolls_back_active_transaction()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![101, 102];
+        let transaction_id_for_query = transaction_id.clone();
+        let transaction_id_for_rollback = transaction_id.clone();
+
+        mock.expect_execute_sql().once().returning(move |request| {
+            let request = request.into_inner();
+            let transaction = request
+                .transaction
+                .as_ref()
+                .expect("transaction options required for inline begin");
+            let selector = transaction.selector.as_ref().expect("selector required");
+            assert!(
+                matches!(selector, v1::transaction_selector::Selector::Begin(_)),
+                "Expected Selector::Begin on first statement"
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    transaction: Some(v1::Transaction {
+                        id: transaction_id_for_query.clone(),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let request = request.into_inner();
+            let _ = rollback_sender.try_send(request.transaction_id);
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let started_notify = Arc::new(Notify::new());
+        let started_notify_clone = Arc::clone(&started_notify);
+        {
+            let run_future = runner.run(async |transaction| {
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                assert_eq!(count, 1, "update should succeed");
+                started_notify_clone.notify_one();
+                pending::<()>().await;
+                Ok(())
+            });
+            tokio::pin!(run_future);
+
+            tokio::select! {
+                _ = &mut run_future => {
+                    panic!("runner should not finish normally");
+                }
+                _ = started_notify.notified() => {
+                    // Exiting block cancels and drops run_future
+                }
+            }
+        }
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id_for_rollback,
+            "drop guard must rollback the active transaction ID when runner is cancelled mid-execution"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_cancelled_before_statement_does_not_rollback_unstarted_transaction()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_rollback().never();
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let started_notify = Arc::new(Notify::new());
+        let started_notify_clone = Arc::clone(&started_notify);
+        {
+            let run_future = runner.run(async |_transaction| {
+                started_notify_clone.notify_one();
+                pending::<()>().await;
+                Ok(())
+            });
+            tokio::pin!(run_future);
+
+            tokio::select! {
+                _ = &mut run_future => {
+                    panic!("runner should not finish normally");
+                }
+                _ = started_notify.notified() => {
+                    // Exiting block cancels and drops run_future
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_explicit_begin_cancelled_before_closure_rolls_back()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![201, 202];
+        let transaction_id_for_begin = transaction_id.clone();
+        let transaction_id_for_rollback = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(Response::new(v1::Transaction {
+                    id: transaction_id_for_begin.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let request = request.into_inner();
+            let _ = rollback_sender.try_send(request.transaction_id);
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build();
+
+        let started_notify = Arc::new(Notify::new());
+        let started_notify_clone = Arc::clone(&started_notify);
+        {
+            let run_future = runner.run(async |_transaction| {
+                started_notify_clone.notify_one();
+                pending::<()>().await;
+                Ok(())
+            });
+            tokio::pin!(run_future);
+
+            tokio::select! {
+                _ = &mut run_future => {
+                    panic!("runner should not finish normally");
+                }
+                _ = started_notify.notified() => {
+                    // Exiting block cancels and drops run_future
+                }
+            }
+        }
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id_for_rollback,
+            "drop guard must rollback the explicit transaction ID when runner is cancelled"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_explicit_begin_cancelled_mid_execution_rolls_back()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![203, 204];
+        let transaction_id_for_begin = transaction_id.clone();
+        let transaction_id_for_update = transaction_id.clone();
+        let transaction_id_for_rollback = transaction_id.clone();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |_request| {
+                Ok(Response::new(v1::Transaction {
+                    id: transaction_id_for_begin.clone(),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql().once().returning(move |request| {
+            let request = request.into_inner();
+            let transaction = request
+                .transaction
+                .as_ref()
+                .expect("transaction selector required");
+            assert_eq!(
+                transaction.selector,
+                Some(v1::transaction_selector::Selector::Id(
+                    transaction_id_for_update.clone()
+                )),
+                "Expected explicit transaction ID on execute_sql"
+            );
+            Ok(Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let request = request.into_inner();
+            let _ = rollback_sender.try_send(request.transaction_id);
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build();
+
+        let started_notify = Arc::new(Notify::new());
+        let started_notify_clone = Arc::clone(&started_notify);
+        {
+            let run_future = runner.run(async |transaction| {
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                assert_eq!(count, 1, "update should succeed");
+                started_notify_clone.notify_one();
+                pending::<()>().await;
+                Ok(())
+            });
+            tokio::pin!(run_future);
+
+            tokio::select! {
+                _ = &mut run_future => {
+                    panic!("runner should not finish normally");
+                }
+                _ = started_notify.notified() => {
+                    // Exiting block cancels and drops run_future
+                }
+            }
+        }
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id_for_rollback,
+            "drop guard must rollback the explicit transaction ID when runner is cancelled mid-execution"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_inline_begin_cancelled_while_statement_in_flight_does_not_rollback()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_rollback().never();
+
+        let in_flight = Arc::new(Notify::new());
+        let in_flight_clone = Arc::clone(&in_flight);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |_request| {
+                in_flight_clone.notify_one();
+                let (_sender, receiver) = channel(1);
+                Ok(Response::from(receiver))
+            });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        {
+            let run_future = runner.run(async |transaction| {
+                let mut result_set = transaction
+                    .execute_query(Statement::builder("SELECT 1").build())
+                    .await?;
+                let _ = result_set.next().await;
+                Ok(())
+            });
+            tokio::pin!(run_future);
+
+            tokio::select! {
+                _ = &mut run_future => {
+                    panic!("runner should not finish normally");
+                }
+                _ = in_flight.notified() => {
+                    // Cancel while execute_streaming_sql is in flight and transaction ID has not been returned
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_commit_success_never_rolls_back() -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![205, 206];
+        let transaction_id_for_query = transaction_id.clone();
+        let transaction_id_for_commit = transaction_id.clone();
+
+        mock.expect_execute_sql().once().returning(move |_request| {
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    transaction: Some(v1::Transaction {
+                        id: transaction_id_for_query.clone(),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(move |request| {
+            let request = request.into_inner();
+            assert_eq!(
+                request.transaction,
+                Some(CommitTransaction::TransactionId(
+                    transaction_id_for_commit.clone()
+                )),
+                "Expected commit with transaction ID"
+            );
+            commit_response()
+        });
+
+        mock.expect_rollback().never();
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let result = runner
+            .run(async |transaction| {
+                let count = transaction
+                    .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                    .await?;
+                assert_eq!(count, 1, "update should succeed");
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(result.result, (), "transaction should commit successfully");
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_inline_begin_cancelled_mid_stream_rolls_back_active_transaction()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![210, 211];
+        let transaction_id_for_query = transaction_id.clone();
+        let (stream_sender, stream_receiver) = channel(2);
+        let mut stream_receiver = Some(stream_receiver);
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |_request| {
+                let receiver = stream_receiver
+                    .take()
+                    .expect("stream_receiver must be present on first call");
+                Ok(Response::from(receiver))
+            });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
+        });
+
+        // Send chunk 1 with metadata, transaction ID, and a resume token
+        let mut partial_result_set = setup_select1();
+        partial_result_set.last = false;
+        partial_result_set.resume_token = b"resume_token_1".to_vec();
+        let metadata = partial_result_set
+            .metadata
+            .as_mut()
+            .expect("metadata present");
+        metadata.transaction = Some(v1::Transaction {
+            id: transaction_id_for_query,
+            ..Default::default()
+        });
+        stream_sender
+            .send(Ok(partial_result_set))
+            .await
+            .expect("send chunk 1");
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let row_received = Arc::new(Notify::new());
+        let row_received_clone = Arc::clone(&row_received);
+
+        {
+            let run_future = runner.run(async |transaction| {
+                let mut result_set = transaction
+                    .execute_query(Statement::builder("SELECT 1").build())
+                    .await?;
+                // Read row from chunk 1 (establishes transaction ID)
+                let row = result_set.next().await;
+                assert!(row.is_some(), "first row should be received");
+                row_received_clone.notify_one();
+                // Await row 2 (which is pending on stream_sender)
+                let _ = result_set.next().await;
+                Ok(())
+            });
+            tokio::pin!(run_future);
+
+            tokio::select! {
+                _ = &mut run_future => {
+                    panic!("runner should not finish normally");
+                }
+                _ = row_received.notified() => {
+                    // Cancel runner while awaiting chunk 2 of stream
+                }
+            }
+        }
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must rollback the transaction ID received in chunk 1"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_closure_panic_triggers_rollback_on_drop() -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![212, 213];
+        let transaction_id_for_query = transaction_id.clone();
+
+        mock.expect_execute_sql().once().returning(move |_request| {
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    transaction: Some(v1::Transaction {
+                        id: transaction_id_for_query.clone(),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let mut run_future = pin!(runner.run(async |transaction| {
+            let count = transaction
+                .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                .await?;
+            assert_eq!(count, 1, "update count should be 1");
+            panic!("simulated closure panic");
+            #[allow(unreachable_code)]
+            Ok::<(), crate::Error>(())
+        }));
+
+        let panic_result =
+            poll_fn(
+                |cx| match catch_unwind(AssertUnwindSafe(|| run_future.as_mut().poll(cx))) {
+                    Ok(Poll::Ready(result)) => Poll::Ready(Ok(result)),
+                    Ok(Poll::Pending) => Poll::Pending,
+                    Err(payload) => Poll::Ready(Err(payload)),
+                },
+            )
+            .await;
+
+        assert!(
+            panic_result.is_err(),
+            "runner must propagate the closure panic unwind"
+        );
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must rollback the transaction when closure panics"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_cancelled_while_rollback_in_flight_spawns_background_rollback()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![214, 215];
+        let transaction_id_for_begin = transaction_id.clone();
+
+        mock.expect_begin_transaction().once().returning(move |_| {
+            Ok(Response::new(v1::Transaction {
+                id: transaction_id_for_begin.clone(),
+                ..Default::default()
+            }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        // Simulate cancelling an explicit rollback (e.g., via tokio::select! or timeout)
+        // before it completes. Because the explicit rollback never finished, the drop guard
+        // must remain armed as a fallback so that dropping the transaction still dispatches
+        // a background rollback to prevent leaking server-side pessimistic locks.
+        let rollback_future = transaction.rollback();
+        drop(rollback_future);
+        drop(transaction);
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("background rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must dispatch background rollback when explicit rollback cancelled in flight"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_aborted_attempt_does_not_rollback_but_subsequent_cancelled_attempt_rolls_back()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id_attempt1 = vec![111, 112];
+        let transaction_id_attempt2 = vec![222, 223];
+        let tx1_clone = transaction_id_attempt1.clone();
+        let tx2_clone = transaction_id_attempt2.clone();
+
+        let mut sequence = Sequence::new();
+
+        // Attempt 1: ExecuteSql returns transaction ID 1
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_request| {
+                Ok(Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        transaction: Some(v1::Transaction {
+                            id: tx1_clone.clone(),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: Next statement fails with Aborted
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_request| Err(create_aborted_status(StdDuration::from_millis(1))));
+
+        // Attempt 2: ExecuteSql returns transaction ID 2
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(move |_request| {
+                Ok(Response::new(v1::ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        transaction: Some(v1::Transaction {
+                            id: tx2_clone.clone(),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // Rollback should be invoked ONCE, specifically for Attempt 2's transaction ID.
+        // Attempt 1 was aborted and must NOT be rolled back.
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let request = request.into_inner();
+            let _ = rollback_sender.try_send(request.transaction_id);
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let attempt_count = Arc::new(AtomicU32::new(0));
+        let attempt_count_clone = Arc::clone(&attempt_count);
+        let attempt_2_started = Arc::new(Notify::new());
+        let attempt_2_started_clone = Arc::clone(&attempt_2_started);
+
+        {
+            let run_future = runner.run(async |transaction| {
+                let current_attempt = attempt_count_clone.fetch_add(1, Ordering::SeqCst);
+                if current_attempt == 0 {
+                    // Attempt 1: First statement establishes transaction ID
+                    let _ = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                        .await?;
+                    // Second statement encounters Aborted error
+                    let _ = transaction
+                        .execute_update("UPDATE Users SET active = false WHERE id = 2")
+                        .await?;
+                    Ok(())
+                } else {
+                    // Attempt 2: First statement establishes new transaction ID
+                    let _ = transaction
+                        .execute_update("UPDATE Users SET active = true WHERE id = 1")
+                        .await?;
+                    attempt_2_started_clone.notify_one();
+                    // Suspend indefinitely so the runner is cancelled while Attempt 2 is in-flight
+                    pending::<()>().await;
+                    Ok(())
+                }
+            });
+            tokio::pin!(run_future);
+
+            tokio::select! {
+                _ = &mut run_future => {
+                    panic!("runner should not finish normally");
+                }
+                _ = attempt_2_started.notified() => {
+                    // Cancel runner while Attempt 2 is in flight
+                }
+            }
+        }
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id_attempt2,
+            "drop guard must rollback attempt 2's transaction ID, not attempt 1"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_concurrent_clone_starting_when_work_fails_triggers_rollback_on_drop()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        let transaction_id = vec![230, 231];
+        let transaction_id_clone = transaction_id.clone();
+
+        let (stream_sender, stream_receiver) = channel(2);
+        let mut stream_receiver = Some(stream_receiver);
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |_request| {
+                let receiver = stream_receiver
+                    .take()
+                    .expect("stream_receiver must be present on first call");
+                Ok(Response::from(receiver))
+            });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build();
+
+        let (task_done_sender, mut task_done_receiver) = channel(1);
+
+        let run_result = runner
+            .run(async |transaction| {
+                let transaction_clone = transaction.clone();
+                let task_done_sender = task_done_sender.clone();
+                spawn(async move {
+                    let _result_set = transaction_clone
+                        .execute_query(Statement::builder("SELECT 1").build())
+                        .await;
+                    let _ = task_done_sender.send(()).await;
+                });
+
+                // Yield to allow the spawned task to initiate execute_query and enter Starting state
+                while !transaction.is_starting() {
+                    yield_now().await;
+                }
+
+                // Return a non-aborted closure error while the concurrent clone is still Starting
+                Err::<(), _>(crate::error::internal_error("simulated closure failure"))
+            })
+            .await;
+
+        assert!(
+            run_result.is_err(),
+            "runner must propagate the closure error"
+        );
+
+        // Now provide chunk 1 with the transaction ID to complete execute_query in the background task
+        let mut partial_result_set = setup_select1();
+        partial_result_set.last = true;
+        let metadata = partial_result_set
+            .metadata
+            .as_mut()
+            .expect("metadata present");
+        metadata.transaction = Some(v1::Transaction {
+            id: transaction_id_clone,
+            ..Default::default()
+        });
+        stream_sender
+            .send(Ok(partial_result_set))
+            .await
+            .expect("send chunk 1");
+
+        // Wait for the background task to complete and drop the transaction clone
+        task_done_receiver
+            .recv()
+            .await
+            .expect("background task completion");
+
+        // The drop guard on the clone must observe the transaction ID acquired upon statement completion
+        // and trigger background rollback.
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id,
+            "drop guard on concurrent clone must rollback the active transaction ID"
+        );
+
         Ok(())
     }
 }

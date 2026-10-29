@@ -173,7 +173,7 @@ impl ConvertError {
     ///     }
     /// }
     /// ```
-    pub fn message<T: Into<String>>(message: T) -> Self {
+    pub fn message(message: impl Into<String>) -> Self {
         Self::Convert(Arc::new(MessageError(message.into())))
     }
 
@@ -1177,7 +1177,7 @@ mod tests {
         assert_eq!(int32_value, 42);
 
         // Enum support
-        let enum_type = types::enum_type("customer.Priority");
+        let enum_type = types::proto_enum("customer.Priority");
         let enum_value = 7i64.to_value();
         let int64_enum = i64::from_value(&enum_value, &enum_type).expect("valid i64 from ENUM");
         assert_eq!(int64_enum, 7);
@@ -1893,7 +1893,7 @@ mod tests {
         assert_eq!(result_null_numeric, None);
 
         // Option<i64> and Option<i32> accept NULL on ENUM columns
-        let enum_type = types::enum_type("customer.Priority");
+        let enum_type = types::proto_enum("customer.Priority");
         let result_null_enum_i64 = Option::<i64>::from_value(&null_value, &enum_type)
             .expect("Option<i64> accepts NULL on ENUM column");
         assert_eq!(result_null_enum_i64, None);
@@ -3837,9 +3837,685 @@ mod tests {
     }
 
     #[test]
+    fn from_value_string_from_numeric() -> Result<(), ConvertError> {
+        let max_spanner_numeric = "99999999999999999999999999999.999999999";
+        let min_spanner_numeric = "-99999999999999999999999999999.999999999";
+        let pg_extreme_numeric =
+            "12345678901234567890123456789012345678901234567890.1234567890123456789";
+        let pg_negative_extreme_numeric =
+            "-12345678901234567890123456789012345678901234567890.1234567890123456789";
+
+        let test_cases = [
+            (types::numeric(), "123.456", "standard GoogleSQL NUMERIC"),
+            (types::numeric(), "-123.456", "negative GoogleSQL NUMERIC"),
+            (
+                types::numeric(),
+                max_spanner_numeric,
+                "38-digit max GoogleSQL NUMERIC exceeding 96-bit Decimal mantissa",
+            ),
+            (
+                types::numeric(),
+                min_spanner_numeric,
+                "38-digit negative max GoogleSQL NUMERIC",
+            ),
+            (
+                types::numeric(),
+                "100000000000000000000000000000",
+                "30-digit integer NUMERIC exceeding Decimal limit",
+            ),
+            (types::numeric(), "0", "zero NUMERIC"),
+            (types::numeric(), "0.000000000", "zero NUMERIC with scale"),
+            (types::numeric(), "-0", "negative zero NUMERIC"),
+            (types::numeric(), "1.5e3", "scientific notation NUMERIC"),
+            (
+                types::numeric(),
+                "-1.5e-3",
+                "negative scientific notation NUMERIC",
+            ),
+            (
+                types::pg_numeric(),
+                "NaN",
+                "PostgreSQL dialect PG_NUMERIC NaN",
+            ),
+            (
+                types::pg_numeric(),
+                pg_extreme_numeric,
+                "extreme arbitrary precision PG_NUMERIC",
+            ),
+            (
+                types::pg_numeric(),
+                pg_negative_extreme_numeric,
+                "negative extreme arbitrary precision PG_NUMERIC",
+            ),
+            (types::pg_numeric(), "42.5", "standard PostgreSQL numeric"),
+            (types::pg_numeric(), "-42.5", "negative PostgreSQL numeric"),
+            (
+                types::pg_numeric(),
+                ".123",
+                "PostgreSQL numeric without leading zero",
+            ),
+            (
+                types::pg_numeric(),
+                "42.",
+                "PostgreSQL numeric with trailing decimal",
+            ),
+            (
+                types::pg_numeric(),
+                "+123.456",
+                "PostgreSQL numeric with explicit positive sign",
+            ),
+            (
+                types::pg_numeric(),
+                "1.5E-3",
+                "PostgreSQL numeric scientific notation with capital E",
+            ),
+            (
+                types::pg_numeric(),
+                "0.00000000000000000000000000000000000000000000000001",
+                "extreme scale PG_NUMERIC",
+            ),
+        ];
+
+        for (column_type, text_content, description) in test_cases {
+            // Borrowed conversion: from_value (using borrowed string slice directly)
+            let value = text_content.to_value();
+            let parsed_string = String::from_value(&value, &column_type)?;
+            assert_eq!(
+                parsed_string, text_content,
+                "mismatch in borrowed String::from_value for {description}"
+            );
+
+            // Owned zero-copy conversion: from_owned_value
+            let owned_value = text_content.to_string().to_value();
+            let owned_parsed_string = String::from_owned_value(owned_value, &column_type)?;
+            assert_eq!(
+                owned_parsed_string, text_content,
+                "mismatch in owned String::from_owned_value for {description}"
+            );
+
+            // Option<String> conversion
+            let optional_parsed_string = Option::<String>::from_value(&value, &column_type)?;
+            assert_eq!(
+                optional_parsed_string,
+                Some(text_content.to_string()),
+                "mismatch in Option::<String>::from_value for {description}"
+            );
+        }
+
+        // Null Option<String> handling across NUMERIC and PG_NUMERIC
+        let null_cases = [
+            (types::numeric(), "null NUMERIC"),
+            (types::pg_numeric(), "null PG_NUMERIC"),
+        ];
+
+        for (column_type, description) in null_cases {
+            let null_value = Value::default();
+            let null_result = Option::<String>::from_value(&null_value, &column_type)?;
+            assert_eq!(
+                null_result, None,
+                "expected None for Option::<String> on {description}"
+            );
+
+            let not_null_error = String::from_value(&null_value, &column_type)
+                .expect_err("non-optional String must reject null value");
+            assert!(
+                matches!(not_null_error, ConvertError::NotNull),
+                "expected ConvertError::NotNull for {description}"
+            );
+        }
+
+        // Decimal conversion behavior on PG_NUMERIC
+        let valid_pg_decimal = "42.5".to_value();
+        let decimal = Decimal::from_value(&valid_pg_decimal, &types::pg_numeric())
+            .expect("standard PG_NUMERIC must convert to Decimal");
+        assert_eq!(
+            decimal,
+            Decimal::from_str_exact("42.5").expect("valid decimal"),
+            "expected parsed Decimal from PG_NUMERIC"
+        );
+
+        let nan_pg = "NaN".to_value();
+        let nan_error = Decimal::from_value(&nan_pg, &types::pg_numeric())
+            .expect_err("Decimal must reject NaN PG_NUMERIC");
+        assert!(
+            matches!(nan_error, ConvertError::Convert(_)),
+            "expected ConvertError::Convert for NaN PG_NUMERIC"
+        );
+
+        let extreme_pg = pg_extreme_numeric.to_value();
+        let extreme_error = Decimal::from_value(&extreme_pg, &types::pg_numeric())
+            .expect_err("Decimal must reject extreme PG_NUMERIC exceeding 96 bits");
+        assert!(
+            matches!(extreme_error, ConvertError::Convert(_)),
+            "expected ConvertError::Convert for extreme PG_NUMERIC"
+        );
+
+        // GoogleSQL ARRAY<NUMERIC> into Vec<String>
+        let numeric_array_type = types::array(types::numeric());
+        let numeric_list = vec!["123.456", max_spanner_numeric].to_value();
+        let parsed_numeric_vec = Vec::<String>::from_value(&numeric_list, &numeric_array_type)?;
+        assert_eq!(
+            parsed_numeric_vec,
+            vec!["123.456".to_string(), max_spanner_numeric.to_string()],
+            "mismatch in decoded ARRAY<NUMERIC>"
+        );
+
+        // PostgreSQL ARRAY<PG_NUMERIC> into Vec<Option<String>>
+        let pg_numeric_array_type = types::array(types::pg_numeric());
+        let pg_numeric_list = vec![
+            Some("NaN".to_string()),
+            None,
+            Some(pg_extreme_numeric.to_string()),
+        ]
+        .to_value();
+
+        let parsed_pg_numeric_vec =
+            Vec::<Option<String>>::from_value(&pg_numeric_list, &pg_numeric_array_type)?;
+        assert_eq!(
+            parsed_pg_numeric_vec,
+            vec![
+                Some("NaN".to_string()),
+                None,
+                Some(pg_extreme_numeric.to_string()),
+            ],
+            "mismatch in decoded ARRAY<PG_NUMERIC>"
+        );
+
+        // Non-optional Vec<String> rejects null elements in numeric arrays
+        let null_element_error =
+            Vec::<String>::from_value(&pg_numeric_list, &pg_numeric_array_type)
+                .expect_err("Vec::<String> must reject array containing null element");
+        assert!(
+            matches!(null_element_error, ConvertError::NotNull),
+            "expected ConvertError::NotNull for null array element"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn from_value_string_from_interval() -> Result<(), ConvertError> {
+        let test_cases = [
+            ("P1Y2M3D", "standard INTERVAL duration"),
+            (
+                "P1Y2M10DT2H30M15.5S",
+                "detailed date-time INTERVAL duration",
+            ),
+            ("P0Y0M0DT0H0M0S", "full zero INTERVAL"),
+            (
+                "P-1Y2M-3DT-4H5M6.78912345S",
+                "mixed sign INTERVAL components",
+            ),
+            ("P-1Y-2M-3DT-12H-12M-6S", "all negative INTERVAL components"),
+            ("-P1Y2M3D", "negative prefixed ISO duration"),
+            ("PT12H30M15S", "time-only INTERVAL"),
+            ("PT0.000000001S", "subsecond nanosecond precision INTERVAL"),
+            (
+                "P1Y2M3DT12H12M6.789000123S",
+                "full 9-digit fractional second INTERVAL",
+            ),
+            ("P2W", "weeks only INTERVAL"),
+        ];
+
+        let interval_type = types::interval();
+
+        for (text_content, description) in test_cases {
+            // Borrowed conversion: from_value (using borrowed string slice directly)
+            let value = text_content.to_value();
+            let parsed_string = String::from_value(&value, &interval_type)?;
+            assert_eq!(
+                parsed_string, text_content,
+                "mismatch in borrowed String::from_value for {description}"
+            );
+
+            // Owned zero-copy conversion: from_owned_value
+            let owned_value = text_content.to_string().to_value();
+            let owned_parsed_string = String::from_owned_value(owned_value, &interval_type)?;
+            assert_eq!(
+                owned_parsed_string, text_content,
+                "mismatch in owned String::from_owned_value for {description}"
+            );
+
+            // Option<String> conversion
+            let optional_parsed_string = Option::<String>::from_value(&value, &interval_type)?;
+            assert_eq!(
+                optional_parsed_string,
+                Some(text_content.to_string()),
+                "mismatch in Option::<String>::from_value for {description}"
+            );
+        }
+
+        // Null Option<String> handling for INTERVAL
+        let null_value = Value::default();
+        let null_result = Option::<String>::from_value(&null_value, &interval_type)?;
+        assert_eq!(
+            null_result, None,
+            "expected None for Option::<String> on null INTERVAL"
+        );
+
+        let not_null_error = String::from_value(&null_value, &interval_type)
+            .expect_err("non-optional String must reject null value");
+        assert!(
+            matches!(not_null_error, ConvertError::NotNull),
+            "expected ConvertError::NotNull for null INTERVAL"
+        );
+
+        // Non-string types reject INTERVAL columns with TypeMismatch
+        let interval_value = "P1Y2M3D".to_value();
+        let int64_error =
+            i64::from_value(&interval_value, &interval_type).expect_err("i64 must reject INTERVAL");
+        assert_eq!(
+            int64_error.to_string(),
+            "type mismatch, expected Int64, got Interval",
+            "expected TypeMismatch for i64 on INTERVAL"
+        );
+
+        let decimal_error = Decimal::from_value(&interval_value, &interval_type)
+            .expect_err("Decimal must reject INTERVAL");
+        assert_eq!(
+            decimal_error.to_string(),
+            "type mismatch, expected Numeric, got Interval",
+            "expected TypeMismatch for Decimal on INTERVAL"
+        );
+
+        let float64_error =
+            f64::from_value(&interval_value, &interval_type).expect_err("f64 must reject INTERVAL");
+        assert_eq!(
+            float64_error.to_string(),
+            "type mismatch, expected Float64, got Interval",
+            "expected TypeMismatch for f64 on INTERVAL"
+        );
+
+        let bool_error = bool::from_value(&interval_value, &interval_type)
+            .expect_err("bool must reject INTERVAL");
+        assert_eq!(
+            bool_error.to_string(),
+            "type mismatch, expected Bool, got Interval",
+            "expected TypeMismatch for bool on INTERVAL"
+        );
+
+        // ARRAY<INTERVAL> into Vec<String>
+        let interval_array_type = types::array(types::interval());
+        let interval_list = vec!["P1Y2M3D", "P2Y"].to_value();
+        let parsed_interval_vec = Vec::<String>::from_value(&interval_list, &interval_array_type)?;
+        assert_eq!(
+            parsed_interval_vec,
+            vec!["P1Y2M3D".to_string(), "P2Y".to_string()],
+            "mismatch in decoded ARRAY<INTERVAL>"
+        );
+
+        // ARRAY<INTERVAL> into Vec<Option<String>> with nulls
+        let interval_nullable_list = vec![Some("P1Y2M3D"), None, Some("PT5M")].to_value();
+        let parsed_nullable_vec =
+            Vec::<Option<String>>::from_value(&interval_nullable_list, &interval_array_type)?;
+        assert_eq!(
+            parsed_nullable_vec,
+            vec![Some("P1Y2M3D".to_string()), None, Some("PT5M".to_string())],
+            "mismatch in decoded nullable ARRAY<INTERVAL>"
+        );
+
+        // Vec<String> rejects null elements in ARRAY<INTERVAL>
+        let null_element_error =
+            Vec::<String>::from_value(&interval_nullable_list, &interval_array_type)
+                .expect_err("Vec::<String> must reject ARRAY<INTERVAL> with null element");
+        assert!(
+            matches!(null_element_error, ConvertError::NotNull),
+            "expected ConvertError::NotNull for null INTERVAL array element"
+        );
+        Ok(())
+    }
+
+    use prost::{Enumeration, Message};
+
+    #[derive(Clone, PartialEq, Message)]
+    struct TestAddress {
+        #[prost(string, tag = "1")]
+        street: String,
+        #[prost(string, tag = "2")]
+        city: String,
+    }
+
+    impl FromValue for TestAddress {
+        fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+            let bytes = Vec::<u8>::from_value(value, spanner_type)?;
+            Self::decode(bytes.as_slice()).map_err(ConvertError::custom)
+        }
+    }
+
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Enumeration)]
+    #[repr(i32)]
+    enum TestOrderStatus {
+        Unspecified = 0,
+        Pending = 1,
+        Shipped = 2,
+        Delivered = 3,
+    }
+
+    impl FromValue for TestOrderStatus {
+        fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
+            let raw_value = i32::from_value(value, spanner_type)?;
+            Self::try_from(raw_value).map_err(ConvertError::custom)
+        }
+    }
+
+    #[test]
+    fn from_value_proto() {
+        let sample_address = TestAddress {
+            street: "1600 Amphitheatre Pkwy".to_string(),
+            city: "Mountain View".to_string(),
+        };
+        let raw_payload = sample_address.encode_to_vec();
+        let proto_type = types::proto("examples.shipping.Address");
+        let encoded_string = BASE64_STANDARD.encode(&raw_payload);
+        let proto_value = Value::from(encoded_string);
+
+        // Borrowed deserialization
+        let decoded_bytes = Vec::<u8>::from_value(&proto_value, &proto_type)
+            .expect("borrowed Vec<u8> from_value should succeed for proto type");
+        let decoded_address = TestAddress::decode(decoded_bytes.as_slice())
+            .expect("decode TestAddress from borrowed bytes");
+        assert_eq!(
+            decoded_address, sample_address,
+            "decoded proto message must match original struct"
+        );
+
+        // Custom type FromValue direct deserialization
+        let direct_address = TestAddress::from_value(&proto_value, &proto_type)
+            .expect("direct TestAddress from_value should succeed");
+        assert_eq!(
+            direct_address, sample_address,
+            "direct TestAddress must match original struct"
+        );
+
+        // Owned deserialization
+        let decoded_owned = Vec::<u8>::from_owned_value(proto_value.clone(), &proto_type)
+            .expect("owned Vec<u8> from_owned_value should succeed for proto type");
+        let decoded_address_owned = TestAddress::decode(decoded_owned.as_slice())
+            .expect("decode TestAddress from owned bytes");
+        assert_eq!(
+            decoded_address_owned, sample_address,
+            "decoded proto message from owned bytes must match original struct"
+        );
+
+        // Option<Vec<u8>> with value
+        let some_proto = Option::<Vec<u8>>::from_value(&proto_value, &proto_type)
+            .expect("present Option<Vec<u8>> should succeed for proto type");
+        assert_eq!(
+            some_proto,
+            Some(raw_payload.to_vec()),
+            "expected Some(payload) for proto type"
+        );
+
+        // Option<Vec<u8>> with null
+        let null_proto = Option::<Vec<u8>>::from_value(&Value::null(), &proto_type)
+            .expect("null Option<Vec<u8>> should succeed for proto type");
+        assert_eq!(
+            null_proto, None,
+            "expected None for null Option<Vec<u8>> on proto type"
+        );
+
+        // Array of proto
+        let array_proto_type = types::array(proto_type.clone());
+        let address_1 = TestAddress {
+            street: "1 Market St".to_string(),
+            city: "San Francisco".to_string(),
+        };
+        let address_2 = TestAddress {
+            street: "111 8th Ave".to_string(),
+            city: "New York".to_string(),
+        };
+        let list_value = Value::from(vec![
+            Value::from(BASE64_STANDARD.encode(address_1.encode_to_vec())),
+            Value::from(BASE64_STANDARD.encode(address_2.encode_to_vec())),
+        ]);
+        let decoded_list = Vec::<Vec<u8>>::from_value(&list_value, &array_proto_type)
+            .expect("Vec<Vec<u8>> should succeed for ARRAY<PROTO>");
+        let decoded_addresses: Vec<TestAddress> = decoded_list
+            .iter()
+            .map(|bytes| {
+                TestAddress::decode(bytes.as_slice()).expect("decode TestAddress from list element")
+            })
+            .collect();
+        assert_eq!(
+            decoded_addresses,
+            vec![address_1.clone(), address_2],
+            "expected decoded list of proto addresses"
+        );
+
+        // Array of proto containing NULL elements
+        let nullable_list_value = Value::from(vec![
+            Value::from(BASE64_STANDARD.encode(address_1.encode_to_vec())),
+            Value::null(),
+        ]);
+        let decoded_nullable_list =
+            Vec::<Option<Vec<u8>>>::from_value(&nullable_list_value, &array_proto_type)
+                .expect("Vec<Option<Vec<u8>>> should succeed for ARRAY<PROTO> with nulls");
+        assert_eq!(
+            decoded_nullable_list.len(),
+            2,
+            "decoded_nullable_list length must be 2"
+        );
+        assert_eq!(
+            TestAddress::decode(
+                decoded_nullable_list[0]
+                    .as_ref()
+                    .expect("element 0 must exist")
+                    .as_slice()
+            )
+            .expect("decode element 0"),
+            address_1,
+            "element 0 must match address_1"
+        );
+        assert!(
+            decoded_nullable_list[1].is_none(),
+            "expected element 1 in nullable list to be None"
+        );
+
+        // Error: non-nullable null
+        let null_error = Vec::<u8>::from_value(&Value::null(), &proto_type)
+            .expect_err("null value for non-optional Vec<u8> must return NotNull");
+        assert!(
+            matches!(null_error, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+
+        // Error: invalid base64
+        let invalid_base64_value = Value::from("not-valid-base64!!!");
+        let base64_error = Vec::<u8>::from_value(&invalid_base64_value, &proto_type)
+            .expect_err("invalid base64 must return Convert error");
+        assert!(
+            matches!(base64_error, ConvertError::Convert(_)),
+            "expected Convert error for invalid base64"
+        );
+
+        // Error: type mismatch (e.g. String type instead of Proto)
+        let type_mismatch_error = Vec::<u8>::from_value(&proto_value, &types::string())
+            .expect_err("String type for Vec<u8> must return TypeMismatch");
+        assert!(
+            matches!(
+                type_mismatch_error,
+                ConvertError::TypeMismatch {
+                    want: TypeCode::Bytes,
+                    got: TypeCode::String,
+                }
+            ),
+            "expected TypeMismatch error"
+        );
+
+        // Error: kind mismatch (e.g. boolean value)
+        let kind_mismatch_error = Vec::<u8>::from_value(&true.to_value(), &proto_type)
+            .expect_err("boolean value for Vec<u8> must return KindMismatch");
+        assert!(
+            matches!(
+                kind_mismatch_error,
+                ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: Kind::Bool,
+                }
+            ),
+            "expected KindMismatch error"
+        );
+
+        // Error: invalid proto decode for custom FromValue struct
+        let malformed_proto_value = Value::from(BASE64_STANDARD.encode([0xFF, 0xFF, 0xFF]));
+        let decode_error = TestAddress::from_value(&malformed_proto_value, &proto_type)
+            .expect_err("malformed proto bytes must return Convert error for TestAddress");
+        assert!(
+            matches!(decode_error, ConvertError::Convert(_)),
+            "expected Convert error for malformed proto bytes"
+        );
+    }
+
+    #[test]
+    fn from_value_proto_enum() {
+        let enum_type = types::proto_enum("examples.shipping.OrderStatus");
+        let enum_value = Value::from("2");
+
+        // i64 borrowed & owned
+        let int64_borrowed = i64::from_value(&enum_value, &enum_type)
+            .expect("borrowed i64 from_value should succeed for enum type");
+        assert_eq!(int64_borrowed, 2_i64, "expected enum int64 value 2");
+        let order_status = TestOrderStatus::try_from(int64_borrowed as i32)
+            .expect("convert i64 to TestOrderStatus");
+        assert_eq!(
+            order_status,
+            TestOrderStatus::Shipped,
+            "expected Shipped enum variant"
+        );
+
+        // Custom type FromValue direct deserialization
+        let direct_status = TestOrderStatus::from_value(&enum_value, &enum_type)
+            .expect("direct TestOrderStatus from_value should succeed");
+        assert_eq!(
+            direct_status,
+            TestOrderStatus::Shipped,
+            "expected direct Shipped enum variant"
+        );
+
+        let int64_owned = i64::from_owned_value(enum_value.clone(), &enum_type)
+            .expect("owned i64 from_owned_value should succeed for enum type");
+        assert_eq!(int64_owned, 2_i64, "expected owned enum int64 value 2");
+
+        // i32 borrowed & owned
+        let int32_borrowed = i32::from_value(&enum_value, &enum_type)
+            .expect("borrowed i32 from_value should succeed for enum type");
+        assert_eq!(int32_borrowed, 2_i32, "expected enum int32 value 2");
+        let order_status_32 =
+            TestOrderStatus::try_from(int32_borrowed).expect("convert i32 to TestOrderStatus");
+        assert_eq!(
+            order_status_32,
+            TestOrderStatus::Shipped,
+            "expected Shipped enum variant"
+        );
+
+        let int32_owned = i32::from_owned_value(enum_value.clone(), &enum_type)
+            .expect("owned i32 from_owned_value should succeed for enum type");
+        assert_eq!(int32_owned, 2_i32, "expected owned enum int32 value 2");
+
+        // Option<i64> with value & null
+        let some_enum = Option::<i64>::from_value(&enum_value, &enum_type)
+            .expect("present Option<i64> should succeed for enum type");
+        assert_eq!(some_enum, Some(2_i64), "expected Some(2) for enum type");
+
+        let null_enum = Option::<i64>::from_value(&Value::null(), &enum_type)
+            .expect("null Option<i64> should succeed for enum type");
+        assert_eq!(
+            null_enum, None,
+            "expected None for null Option<i64> on enum type"
+        );
+
+        // Array of enums
+        let array_enum_type = types::array(enum_type.clone());
+        let list_value = Value::from(vec![Value::from("1"), Value::from("3")]);
+        let decoded_list = Vec::<i64>::from_value(&list_value, &array_enum_type)
+            .expect("Vec<i64> should succeed for ARRAY<ENUM>");
+        assert_eq!(
+            decoded_list,
+            vec![1_i64, 3_i64],
+            "expected decoded list of enum integers"
+        );
+        let decoded_statuses: Vec<TestOrderStatus> = decoded_list
+            .iter()
+            .map(|&val| {
+                TestOrderStatus::try_from(val as i32)
+                    .expect("convert array element to TestOrderStatus")
+            })
+            .collect();
+        assert_eq!(
+            decoded_statuses,
+            vec![TestOrderStatus::Pending, TestOrderStatus::Delivered],
+            "expected decoded enum statuses"
+        );
+
+        // Array of enums containing NULL elements
+        let nullable_list_value = Value::from(vec![Value::from("1"), Value::null()]);
+        let decoded_nullable_list =
+            Vec::<Option<i64>>::from_value(&nullable_list_value, &array_enum_type)
+                .expect("Vec<Option<i64>> should succeed for ARRAY<ENUM> with nulls");
+        assert_eq!(
+            decoded_nullable_list,
+            vec![Some(1_i64), None],
+            "expected decoded nullable enum list with Some(1) and None"
+        );
+
+        // Error: non-nullable null
+        let null_error = i64::from_value(&Value::null(), &enum_type)
+            .expect_err("null value for non-optional i64 must return NotNull");
+        assert!(
+            matches!(null_error, ConvertError::NotNull),
+            "expected NotNull error"
+        );
+
+        // Error: non-numeric string
+        let invalid_enum_value = Value::from("PENDING");
+        let parse_error = i64::from_value(&invalid_enum_value, &enum_type)
+            .expect_err("non-numeric string for enum must return Convert error");
+        assert!(
+            matches!(parse_error, ConvertError::Convert(_)),
+            "expected parse error for non-numeric enum string"
+        );
+
+        // Error: type mismatch (e.g. String type instead of Enum)
+        let type_mismatch_error = i64::from_value(&enum_value, &types::string())
+            .expect_err("String type for i64 must return TypeMismatch");
+        assert!(
+            matches!(
+                type_mismatch_error,
+                ConvertError::TypeMismatch {
+                    want: TypeCode::Int64,
+                    got: TypeCode::String,
+                }
+            ),
+            "expected TypeMismatch error"
+        );
+
+        // Error: kind mismatch (e.g. boolean value)
+        let kind_mismatch_error = i64::from_value(&true.to_value(), &enum_type)
+            .expect_err("boolean value for i64 must return KindMismatch");
+        assert!(
+            matches!(
+                kind_mismatch_error,
+                ConvertError::KindMismatch {
+                    want: Kind::String,
+                    got: Kind::Bool,
+                }
+            ),
+            "expected KindMismatch error"
+        );
+
+        // Error: invalid enum variant integer
+        let invalid_variant_value = Value::from("99");
+        let invalid_variant_error = TestOrderStatus::from_value(&invalid_variant_value, &enum_type)
+            .expect_err("unknown enum integer must return Convert error for TestOrderStatus");
+        assert!(
+            matches!(invalid_variant_error, ConvertError::Convert(_)),
+            "expected Convert error for invalid enum variant"
+        );
+    }
+
+    #[test]
     fn from_value_bytes_crate() {
         let bytes_type = types::bytes();
-        let proto_type = types::proto_type("com.example.CustomerProto");
+        let proto_type = types::proto("com.example.CustomerProto");
         let raw_bytes = b"hello binary world";
         let encoded_value = raw_bytes.to_vec().to_value();
 

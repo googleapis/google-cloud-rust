@@ -646,22 +646,26 @@ impl EndpointLifecycleManager {
     /// a strictly monotonic sequence across the manager's lifetime, preventing an older task
     /// from accidentally removing a newer task if it completes late.
     pub(crate) fn clear(&self) {
-        let mut state = self.write_state();
-        let connection_tasks = take(&mut state.connection_tasks);
-        // Abort in-flight tasks and evict connections for untracked endpoints.
-        for (address, (_task_id, abort_handle)) in connection_tasks {
-            abort_handle.abort();
-            if !state.endpoints.contains_key(&address) {
-                self.evict_connection(&address, EvictionReason::Shutdown);
+        let addresses = {
+            let mut state = self.write_state();
+            let connection_tasks = take(&mut state.connection_tasks);
+            let mut addresses = Vec::new();
+            for (address, (_task_id, abort_handle)) in connection_tasks {
+                abort_handle.abort();
+                if !state.endpoints.contains_key(&address) {
+                    addresses.push(address);
+                }
             }
-        }
-        for address in state.endpoints.keys() {
+            addresses.extend(state.endpoints.drain().map(|(address, _)| address));
+            state.transient_failure_evicted.clear();
+            state.active_addresses_per_source.clear();
+            self.transient_failure_count.store(0, Ordering::Release);
+            addresses
+        };
+
+        for address in &addresses {
             self.evict_connection(address, EvictionReason::Shutdown);
         }
-        state.endpoints.clear();
-        state.transient_failure_evicted.clear();
-        state.active_addresses_per_source.clear();
-        self.transient_failure_count.store(0, Ordering::Release);
     }
 }
 
@@ -1931,11 +1935,43 @@ mod tests {
 
     #[test]
     fn lifecycle_manager_clear() {
-        let (manager, _cache) = make_test_manager();
+        let (manager, cache) = make_test_manager();
         let mut addresses = HashSet::new();
         addresses.insert("10.0.0.1:15000".to_string());
+        addresses.insert("10.0.0.2:15000".to_string());
         manager.update_active_addresses("database-1", addresses);
-        assert_eq!(manager.len(), 1, "manager should contain 1 endpoint");
+        assert_eq!(manager.len(), 2, "manager should contain 2 endpoints");
+
+        {
+            let mut state = manager.write_state();
+            state
+                .transient_failure_evicted
+                .insert("10.0.0.3:15000".to_string());
+            manager.transient_failure_count.store(1, Ordering::Release);
+        }
+
+        let runtime = Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("runtime build failed");
+        runtime.block_on(async {
+            cache
+                .get("10.0.0.1:15000", &test_client_config())
+                .await
+                .expect("connection 1 create failed");
+            cache
+                .get("10.0.0.2:15000", &test_client_config())
+                .await
+                .expect("connection 2 create failed");
+        });
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_some(),
+            "connection 1 must be in cache before clear"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_some(),
+            "connection 2 must be in cache before clear"
+        );
 
         manager.clear();
         assert_eq!(manager.len(), 0, "manager len should be 0 after clear");
@@ -1949,6 +1985,37 @@ mod tests {
             manager.next_task_id(),
             0,
             "next task ID should be 0 when no task was spawned"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_none(),
+            "connection 1 must be evicted from cache on clear"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_none(),
+            "connection 2 must be evicted from cache on clear"
+        );
+
+        let state = manager.read_state();
+        assert!(
+            state.endpoints.is_empty(),
+            "endpoints must be empty after clear"
+        );
+        assert!(
+            state.connection_tasks.is_empty(),
+            "connection_tasks must be empty after clear"
+        );
+        assert!(
+            state.transient_failure_evicted.is_empty(),
+            "transient_failure_evicted must be empty after clear"
+        );
+        assert!(
+            state.active_addresses_per_source.is_empty(),
+            "active_addresses_per_source must be empty after clear"
+        );
+        assert_eq!(
+            manager.transient_failure_count.load(Ordering::Acquire),
+            0,
+            "transient_failure_count must be 0 after clear"
         );
     }
 
@@ -2077,11 +2144,22 @@ mod tests {
     #[test]
     fn lifecycle_manager_drop_evicts_connections_from_cache() {
         let (manager, cache) = make_test_manager();
+        let state_handle = Arc::clone(&manager.state);
+        let failure_count_handle = Arc::clone(&manager.transient_failure_count);
         let now = Instant::now();
 
         let mut active = HashSet::new();
         active.insert("10.0.0.1:15000".to_string());
+        active.insert("10.0.0.2:15000".to_string());
         manager.update_active_addresses_at("database-1", active, now);
+
+        {
+            let mut state = manager.write_state();
+            state
+                .transient_failure_evicted
+                .insert("10.0.0.3:15000".to_string());
+            manager.transient_failure_count.store(1, Ordering::Release);
+        }
 
         let runtime = Builder::new_current_thread()
             .enable_all()
@@ -2091,19 +2169,58 @@ mod tests {
             cache
                 .get("10.0.0.1:15000", &test_client_config())
                 .await
-                .expect("connection create failed");
+                .expect("connection 1 create failed");
+            cache
+                .get("10.0.0.2:15000", &test_client_config())
+                .await
+                .expect("connection 2 create failed");
         });
 
         assert!(
             cache.get_if_present("10.0.0.1:15000").is_some(),
-            "connection must be in cache before drop"
+            "connection 1 must be in cache before drop"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_some(),
+            "connection 2 must be in cache before drop"
         );
 
         drop(manager);
 
         assert!(
             cache.get_if_present("10.0.0.1:15000").is_none(),
-            "connection must be evicted from cache on manager drop"
+            "connection 1 must be evicted from cache on manager drop"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_none(),
+            "connection 2 must be evicted from cache on manager drop"
+        );
+
+        let state = state_handle.read().expect("state lock read should succeed");
+        assert!(
+            state.endpoints.is_empty(),
+            "endpoints must be empty after drop"
+        );
+        assert!(
+            state.connection_tasks.is_empty(),
+            "connection_tasks must be empty after drop"
+        );
+        assert!(
+            state.transient_failure_evicted.is_empty(),
+            "transient_failure_evicted must be empty after drop"
+        );
+        assert!(
+            state.active_addresses_per_source.is_empty(),
+            "active_addresses_per_source must be empty after drop"
+        );
+        assert!(
+            state.maintenance_task.is_none(),
+            "maintenance_task must be None after drop"
+        );
+        assert_eq!(
+            failure_count_handle.load(Ordering::Acquire),
+            0,
+            "transient_failure_count must be 0 after drop"
         );
     }
 

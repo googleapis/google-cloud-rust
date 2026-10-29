@@ -292,6 +292,17 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::CertificateManager::update_certificate_issuance_config].
+    fn update_certificate_issuance_config(
+        &self,
+        _req: crate::model::UpdateCertificateIssuanceConfigRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::CertificateManager::delete_certificate_issuance_config].
     fn delete_certificate_issuance_config(
         &self,

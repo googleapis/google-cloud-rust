@@ -326,6 +326,16 @@ impl ChannelPool {
     }
 
     /// Sets the multiplexed session name used for scale-up channel priming and signals the worker.
+    ///
+    /// Channel priming executes a lightweight query (`SELECT 1`) on newly dialed gRPC channels
+    /// to establish the underlying physical TCP connection and complete TLS negotiation before
+    /// publishing the channel to the active pool.
+    ///
+    /// Once a physical transport channel is primed, it can service requests for any database on
+    /// Spanner. Multiplexed sessions maintain a 28-day lifetime on Spanner and remain valid on
+    /// the server even if a specific client handle is dropped. Updating this field whenever a
+    /// session is created or rotated ensures the channel pool always warms newly established
+    /// channels with the freshest active session token known to the client.
     pub(crate) fn set_prime_session(&self, session_name: String) {
         {
             let mut prime = self.inner.write_prime_session();
@@ -379,6 +389,13 @@ pub(crate) struct ChannelPoolInner {
     pub(crate) shutdown_sender: WatchSender<()>,
     pub(crate) last_scale_up_time: Mutex<Option<Instant>>,
     pub(crate) consecutive_low_load_checks: AtomicUsize,
+    /// Multiplexed session resource name used to prime newly dialed gRPC channels.
+    ///
+    /// Priming executes a `SELECT 1` query to establish physical transport connections before
+    /// channels are published to the active pool. Once warmed, physical transport connections
+    /// serve any database using the same authentication. Multiplexed sessions have a 28-day
+    /// server-side lifetime; storing the most recently created or rotated session ensures newly
+    /// scaled channels are primed using the freshest active session token.
     pub(crate) prime_session: RwLock<Option<String>>,
     pub(crate) selector: PowerOfTwoSelector,
 }
@@ -528,6 +545,7 @@ mod tests {
     use crate::channel_pool::entry::ChannelState;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::model::{CreateSessionRequest, Session};
+    use crate::test::test_client_config;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use std::collections::HashSet;
@@ -573,7 +591,7 @@ mod tests {
 
     #[test]
     fn p2c_selection_avoids_loaded_channels_and_distributes_traffic() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channels = vec![
             create_mock_channel(),
             create_mock_channel(),
@@ -626,7 +644,7 @@ mod tests {
 
     #[test]
     fn affinity_resolution_and_reset() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channels = vec![create_mock_channel(), create_mock_channel()];
         let pool = ChannelPool::new_static(
             channels,
@@ -674,7 +692,7 @@ mod tests {
 
     #[test]
     fn affinity_resolution_preserves_draining_channel_for_read_write() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
 
@@ -764,7 +782,7 @@ mod tests {
 
     #[test]
     fn affinity_resolution_soft_stickiness_sheds_draining_channel_for_read_only() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
 
@@ -834,7 +852,7 @@ mod tests {
 
     #[tokio::test]
     async fn scale_up_trigger_and_session_registration() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channels = vec![create_mock_channel(), create_mock_channel()];
         let pool = ChannelPool::new_dynamic(
             channels,
@@ -887,7 +905,7 @@ mod tests {
                 create_mock_channel(),
             ],
             StaticChannelPoolConfig { num_channels: 3 },
-            ClientConfig::default(),
+            test_client_config(),
         );
         *pool.inner.write_active_entries() = vec![channel_1, channel_2, channel_3];
 
@@ -922,7 +940,7 @@ mod tests {
 
     #[test]
     fn channel_pool_accounting_and_empty_edge_cases() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channels = vec![create_mock_channel(), create_mock_channel()];
         let pool = ChannelPool::new_static(
             channels,
@@ -982,7 +1000,7 @@ mod tests {
 
     #[test]
     fn affinity_resolution_edge_cases_and_fallbacks() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
         channel_2.set_state(ChannelState::Closed);
@@ -1030,7 +1048,7 @@ mod tests {
 
     #[test]
     fn resolve_cas_conflict_winner_in_active_candidates() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
 
@@ -1055,7 +1073,7 @@ mod tests {
 
     #[test]
     fn resolve_cas_conflict_read_write_winner_in_draining_entries() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
         channel_2.set_state(ChannelState::Draining);
@@ -1082,7 +1100,7 @@ mod tests {
 
     #[test]
     fn resolve_cas_conflict_read_write_winner_closed_or_unknown() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
         channel_2.set_state(ChannelState::Closed);
@@ -1118,7 +1136,7 @@ mod tests {
 
     #[test]
     fn resolve_cas_conflict_read_only_winner_not_active() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
         channel_2.set_state(ChannelState::Draining);
@@ -1154,7 +1172,7 @@ mod tests {
 
     #[test]
     fn resolve_cas_conflict_cas_failure_loops_and_resolves_with_new_winner() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
         channel_2.set_state(ChannelState::Closed);
@@ -1200,7 +1218,7 @@ mod tests {
         // Static configuration: no error penalty applied
         let static_inner = ChannelPoolInner {
             config: ChannelPoolConfig::Static(StaticChannelPoolConfig::default()),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&entry)]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -1229,7 +1247,7 @@ mod tests {
                 max_rpc_per_channel: 30.0,
                 ..Default::default()
             }),
-            client_config: ClientConfig::default(),
+            client_config: test_client_config(),
             active_entries: RwLock::new(vec![Arc::clone(&entry)]),
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
@@ -1261,7 +1279,7 @@ mod tests {
         let pool = ChannelPool::new_static(
             channels,
             StaticChannelPoolConfig { num_channels: 3 },
-            ClientConfig::default(),
+            test_client_config(),
         );
 
         assert_eq!(
@@ -1286,7 +1304,7 @@ mod tests {
         let empty_pool = ChannelPool::new_static(
             Vec::new(),
             StaticChannelPoolConfig { num_channels: 0 },
-            ClientConfig::default(),
+            test_client_config(),
         );
         assert!(
             empty_pool.default_channel().is_none(),
@@ -1300,7 +1318,7 @@ mod tests {
         let pool = ChannelPool::new_static(
             channels,
             StaticChannelPoolConfig { num_channels: 2 },
-            ClientConfig::default(),
+            test_client_config(),
         );
 
         let debug_output = format!("{pool:?}");
@@ -1324,7 +1342,7 @@ mod tests {
 
     #[test]
     fn affinity_resolution_read_only_happy_path() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channels = vec![create_mock_channel(), create_mock_channel()];
         let pool = ChannelPool::new_static(
             channels,
@@ -1362,7 +1380,7 @@ mod tests {
 
     #[test]
     fn resolve_affinity_cas_conflict_resolution() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
 
@@ -1403,7 +1421,7 @@ mod tests {
     }
     #[test]
     fn empty_pool_pick_channel_for_target() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let pool = ChannelPool::new_static(
             vec![],
             StaticChannelPoolConfig { num_channels: 0 },
@@ -1428,7 +1446,7 @@ mod tests {
 
     #[test]
     fn pick_channel_for_target_variants() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel = Arc::new(ChannelEntry::new(10, 3, create_mock_channel()));
         let pool = ChannelPool::new_static(
             vec![],
@@ -1470,7 +1488,7 @@ mod tests {
 
     #[tokio::test]
     async fn pick_channel_triggers_scale_up_request_on_saturation() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channels = vec![create_mock_channel()];
         let pool = ChannelPool::new_dynamic(
             channels,
@@ -1503,7 +1521,7 @@ mod tests {
 
     #[test]
     fn channel_pool_recovers_from_poisoned_active_entries_lock() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channels = vec![create_mock_channel(), create_mock_channel()];
         let pool = ChannelPool::new_static(
             channels,
@@ -1600,7 +1618,7 @@ mod tests {
 
     #[test]
     fn channel_pool_recovers_from_poisoned_draining_entries_lock() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
         let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
         channel_2.set_state(ChannelState::Draining);
@@ -1679,7 +1697,7 @@ mod tests {
 
     #[test]
     fn channel_pool_recovers_from_poisoned_prime_session_lock() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let pool = ChannelPool::new_static(
             vec![create_mock_channel()],
             StaticChannelPoolConfig { num_channels: 1 },
@@ -1726,7 +1744,7 @@ mod tests {
 
     #[test]
     fn channel_pool_recovers_from_poisoned_last_scale_up_time_lock() {
-        let client_config = ClientConfig::default();
+        let client_config = test_client_config();
         let pool = ChannelPool::new_static(
             vec![create_mock_channel()],
             StaticChannelPoolConfig { num_channels: 1 },

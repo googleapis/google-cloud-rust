@@ -31,7 +31,6 @@ use crate::model::ResultSet as ProtoResultSet;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
-use crate::model::commit_response::MultiplexedSessionRetry;
 use crate::model::execute_batch_dml_request::Statement as ExecuteBatchDmlStatement;
 use crate::model::request_options::Priority;
 use crate::model::result_set_stats::RowCount;
@@ -41,10 +40,13 @@ use crate::model::transaction_options::ReadWrite;
 use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::model::transaction_selector::Selector;
 use crate::mutation::Mutation;
-use crate::precommit::PrecommitTokenTracker;
+use crate::precommit::{
+    PrecommitTokenTracker, commit_with_precommit_retry, create_retry_commit_request,
+};
+use crate::read::ReadRequest;
 use crate::read_only_transaction::{
-    AbortedInfo, AbortedState, BeginTransactionOption, LazyTransactionStartGuard, ReadContext,
-    ReadContextTransactionSelector, TransactionState, execute_begin_transaction,
+    AbortedInfo, AbortedState, BeginTransactionOption, CommitAction, LazyTransactionStartGuard,
+    ReadContext, ReadContextTransactionSelector, TransactionState, execute_begin_transaction,
 };
 use crate::result_set::ResultSet;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -60,10 +62,13 @@ use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::cmp::min;
 use std::mem::take;
-use std::sync::atomic::{AtomicI64, Ordering};
+use std::panic::{AssertUnwindSafe, catch_unwind};
+use std::sync::atomic::{AtomicBool, AtomicI64, Ordering};
 use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::Duration;
+use tokio::runtime::Handle;
 use tokio::time::Instant;
+use tracing::debug;
 
 /// A builder for [ReadWriteTransaction].
 #[derive(Clone, Debug)]
@@ -228,9 +233,14 @@ impl ReadWriteTransactionBuilder {
             )),
         };
 
-        let _location_routing_drop_guard = Arc::new(LocationRoutingDropGuard::new(
+        let tokio_handle = Handle::try_current().ok();
+        let drop_guard = Arc::new(ReadWriteTransactionDropGuard::new(
             self.client.clone(),
+            self.session_name.clone(),
             transaction_selector.clone(),
+            affinity.as_ref().map(Arc::clone),
+            self.rollback_gax_options,
+            tokio_handle,
         ));
 
         Ok(ReadWriteTransaction {
@@ -252,8 +262,7 @@ impl ReadWriteTransactionBuilder {
             mutations: Arc::new(Mutex::new(Vec::new())),
             begin_gax_options: self.begin_gax_options,
             commit_gax_options: self.commit_gax_options,
-            rollback_gax_options: self.rollback_gax_options,
-            _location_routing_drop_guard,
+            drop_guard,
         })
     }
 
@@ -375,9 +384,17 @@ macro_rules! execute_with_retry {
     }};
 }
 
-/// RAII guard ensuring that any uncommitted, un-rolled-back location-aware routing
-/// affinity (stored in [`LocationRouter`]) is cleaned up when all handles to a
-/// [`ReadWriteTransaction`] are dropped.
+/// RAII drop guard for read-write transactions.
+///
+/// When a [`ReadWriteTransaction`] is dropped without being committed or rolled back
+/// (for example, due to async cancellation via `tokio::time::timeout`, task abortion,
+/// early return, or panic), this guard releases held resources:
+/// 1. Synchronously releases client-side channel pool active RW guard accounting, allowing
+///    draining channels to close while preserving the pinned channel for routing.
+/// 2. Cleans up the transaction ID entry in [`LocationRouter`]'s affinity table.
+/// 3. Spawns a best-effort background task on the Tokio runtime to issue a [`RollbackRequest`]
+///    to Cloud Spanner, releasing server-side pessimistic locks immediately instead of holding
+///    them until Spanner's lock wait timeout expires (10 seconds).
 ///
 /// # Two Kinds of Affinity in Cloud Spanner Client
 /// The Spanner client utilizes the term "affinity" in two completely distinct mechanisms
@@ -388,8 +405,8 @@ macro_rules! execute_with_retry {
 ///    - **Purpose**: Pins all gRPC requests of a transaction to the exact same physical HTTP/2 connection.
 ///    - **Lifecycle**: Managed by `RwTransactionAffinityGuard`. Automatically decremented when the guard
 ///      drops, or explicitly via `release_rw_guard()` on commit/rollback. In
-///      [`TransactionRunner`][crate::transaction_runner::TransactionRunner], the same channel pool
-///      affinity is reused across all retry attempts.
+///      [`TransactionRunner`][crate::transaction_runner::TransactionRunner], each retry attempt
+///      creates a fresh channel pool affinity handle to allow retries to avoid degraded channels.
 ///
 /// 2. **Location-Aware Routing Affinity** ([`LocationRouter`]):
 ///    - **Scope**: Remote Spanner backend server topology.
@@ -399,28 +416,115 @@ macro_rules! execute_with_retry {
 ///    - **Lifecycle**: Recorded when the transaction begins on a specific tablet. Cleared when the transaction
 ///      completes (commit, rollback, abort, or drop). Each retry attempt gets a new transaction ID from Spanner,
 ///      so location routing affinity is strictly scoped to a single transaction ID.
-///
-/// This guard handles **Location-Aware Routing Affinity**. It guarantees that if a [`ReadWriteTransaction`]
-/// is dropped without calling `commit()` or `rollback()` (for example, due to an application error, early
-/// return, or panic), the transaction ID entry in [`LocationRouter`]'s affinity table is cleaned up immediately.
 #[derive(Debug)]
-struct LocationRoutingDropGuard {
+struct ReadWriteTransactionDropGuard {
     client: DatabaseClient,
+    session_name: String,
     selector: ReadContextTransactionSelector,
+    affinity: Option<Arc<TransactionAffinity>>,
+    rollback_gax_options: Option<RequestOptions>,
+    tokio_handle: Option<Handle>,
+    disarmed: AtomicBool,
 }
 
-impl LocationRoutingDropGuard {
-    fn new(client: DatabaseClient, selector: ReadContextTransactionSelector) -> Self {
-        Self { client, selector }
+impl ReadWriteTransactionDropGuard {
+    fn new(
+        client: DatabaseClient,
+        session_name: String,
+        selector: ReadContextTransactionSelector,
+        affinity: Option<Arc<TransactionAffinity>>,
+        rollback_gax_options: Option<RequestOptions>,
+        tokio_handle: Option<Handle>,
+    ) -> Self {
+        Self {
+            client,
+            session_name,
+            selector,
+            affinity,
+            rollback_gax_options,
+            tokio_handle,
+            disarmed: AtomicBool::new(false),
+        }
+    }
+
+    fn disarm(&self) {
+        self.disarmed.store(true, Ordering::Release);
     }
 }
 
-impl Drop for LocationRoutingDropGuard {
+struct AffinityCleanupGuard {
+    client: DatabaseClient,
+    transaction_id: Bytes,
+}
+
+impl Drop for AffinityCleanupGuard {
     fn drop(&mut self) {
-        if let Ok(Some(transaction_id)) = self.selector.get_id_no_wait() {
+        self.client
+            .clear_transaction_affinity_routing(Some(self.transaction_id.as_ref()));
+    }
+}
+
+impl Drop for ReadWriteTransactionDropGuard {
+    fn drop(&mut self) {
+        // Synchronously release client-side channel pool active RW guard accounting,
+        // allowing draining channels to close while preserving the pinned entry ID for routing.
+        // This runs unconditionally, even if the transaction never established a transaction ID
+        // (for example, if the initial statement failed or was cancelled before returning an ID).
+        if let Some(affinity) = &self.affinity {
+            affinity.release_rw_guard();
+        }
+
+        let Ok(Some(transaction_id)) = self.selector.get_id_no_wait() else {
+            return;
+        };
+
+        if *self.disarmed.get_mut() {
+            // Rollback was disarmed (e.g. committed, explicitly rolled back, or aborted).
+            // Location router affinity is cleaned up here if not already cleared.
             self.client
                 .clear_transaction_affinity_routing(Some(transaction_id.as_ref()));
+            return;
         }
+
+        // We only reach this point if the transaction was not committed,
+        // rolled back, or aborted.
+        let handle = self
+            .tokio_handle
+            .take()
+            .or_else(|| Handle::try_current().ok());
+        let Some(handle) = handle else {
+            self.client
+                .clear_transaction_affinity_routing(Some(transaction_id.as_ref()));
+            return;
+        };
+
+        let client = self.client.clone();
+        let session_name = take(&mut self.session_name);
+        let affinity = self.affinity.take();
+        let mut gax_options = self.rollback_gax_options.take().unwrap_or_default();
+        amend_gax_options_for_rollback(client.leader_aware_routing_enabled, &mut gax_options);
+
+        let cleanup_guard = AffinityCleanupGuard {
+            client: client.clone(),
+            transaction_id,
+        };
+
+        let _ = catch_unwind(AssertUnwindSafe(move || {
+            handle.spawn(async move {
+                let _cleanup_guard = cleanup_guard;
+                let request = RollbackRequest::default()
+                    .set_session(session_name)
+                    .set_transaction_id(_cleanup_guard.transaction_id.clone());
+                // When location-aware routing is enabled, client.rollback calls pre_route_rollback
+                // (which routes to the tablet holding the locks using the transaction affinity)
+                // and post_route_rollback (which clears the transaction affinity upon completion).
+                // Channel pool affinity ensures routing over the same pinned channel.
+                let target = affinity.as_deref();
+                if let Err(error) = client.rollback(request, gax_options, target).await {
+                    debug!(%error, "Background rollback on drop failed");
+                }
+            });
+        }));
     }
 }
 
@@ -436,8 +540,7 @@ pub struct ReadWriteTransaction {
     mutations: Arc<Mutex<Vec<ProtoMutation>>>,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
-    rollback_gax_options: Option<RequestOptions>,
-    _location_routing_drop_guard: Arc<LocationRoutingDropGuard>,
+    drop_guard: Arc<ReadWriteTransactionDropGuard>,
 }
 
 impl ReadWriteTransaction {
@@ -460,10 +563,7 @@ impl ReadWriteTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn buffer<I>(&self, mutations: I) -> crate::Result<()>
-    where
-        I: IntoIterator<Item = Mutation>,
-    {
+    pub fn buffer(&self, mutations: impl IntoIterator<Item = Mutation>) -> Result<()> {
         let mut guard = self.lock_mutations();
         for mutation in mutations {
             guard.push(mutation.build_proto());
@@ -472,10 +572,7 @@ impl ReadWriteTransaction {
     }
 
     /// Executes a query using this transaction.
-    pub async fn execute_query<T: Into<Statement>>(
-        &self,
-        statement: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_query(&self, statement: impl Into<Statement>) -> Result<ResultSet> {
         let stmt = statement.into();
         let mut gax_options = stmt.gax_options().clone();
         self.amend_gax_options(&mut gax_options);
@@ -485,17 +582,14 @@ impl ReadWriteTransaction {
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
-    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
-        &self,
-        read: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_read(&self, read: impl Into<ReadRequest>) -> Result<ResultSet> {
         let mut req = read.into();
         self.amend_gax_options(&mut req.gax_options);
         self.context.execute_read(req).await
     }
 
     /// Executes an update using this transaction.
-    pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
+    pub async fn execute_update(&self, statement: impl Into<Statement>) -> Result<i64> {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
@@ -604,10 +698,7 @@ impl ReadWriteTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_batch_update<T: Into<BatchDml>>(
-        &self,
-        batch: T,
-    ) -> crate::Result<Vec<i64>> {
+    pub async fn execute_batch_update(&self, batch: impl Into<BatchDml>) -> Result<Vec<i64>> {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
@@ -618,7 +709,7 @@ impl ReadWriteTransaction {
         let statements: Vec<ExecuteBatchDmlStatement> = batch
             .statements
             .into_iter()
-            .map(|stmt: crate::statement::Statement| stmt.into_batch_statement())
+            .map(Statement::into_batch_statement)
             .collect();
 
         let selector = self.context.selector().await?;
@@ -650,21 +741,6 @@ impl ReadWriteTransaction {
         process_response(response).inspect_err(|error| {
             self.context.record_if_aborted(error);
         })
-    }
-
-    pub(crate) async fn begin_explicitly_if_not_started(
-        &self,
-        mutation_key: Option<crate::model::Mutation>,
-    ) -> crate::Result<bool> {
-        let mut begin_options = self.begin_gax_options.clone().unwrap_or_default();
-        self.amend_gax_options(&mut begin_options);
-        self.context
-            .begin_explicitly_if_not_started(begin_options, mutation_key)
-            .await
-    }
-
-    pub(crate) fn is_starting(&self) -> bool {
-        self.context.transaction_selector.is_starting()
     }
 
     pub(crate) fn aborted_info(&self) -> Option<&AbortedInfo> {
@@ -714,6 +790,26 @@ impl ReadWriteTransaction {
         )
     }
 
+    fn build_retry_commit_request(
+        &self,
+        transaction_id: Bytes,
+        precommit_token: Option<MultiplexedSessionPrecommitToken>,
+    ) -> CommitRequest {
+        create_retry_commit_request(
+            self.context.session_name.clone(),
+            transaction_id,
+            precommit_token,
+            self.commit_request_options(),
+            self.max_commit_delay,
+            self.return_commit_stats,
+        )
+    }
+
+    /// Disarms the automatic rollback-on-drop guard.
+    pub(crate) fn disarm_rollback(&self) {
+        self.drop_guard.disarm();
+    }
+
     /// Commits the transaction.
     pub(crate) async fn commit(&self) -> Result<CommitResponse> {
         let result = self.commit_internal().await;
@@ -730,22 +826,23 @@ impl ReadWriteTransaction {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
-        self.context.transaction_selector.check_failed()?;
-        let mutations = take(&mut *self.lock_mutations());
-        let mut id = self.context.transaction_selector.get_id_no_wait()?;
-        if id.is_none() {
-            if self.is_starting() {
+        let transaction_id = match self.context.transaction_selector.prepare_for_commit()? {
+            CommitAction::Ready(transaction_id) => transaction_id,
+            CommitAction::Starting => {
                 return Err(internal_error(
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
             }
-            let mutation_key = Mutation::select_mutation_key(&mutations);
-            if self.begin_explicitly_if_not_started(mutation_key).await? {
-                self.context.transaction_selector.check_failed()?;
-                id = self.context.transaction_selector.get_id_no_wait()?;
+            CommitAction::Begin(options, notify) => {
+                let mutation_key = Mutation::select_mutation_key(&self.lock_mutations());
+                let mut begin_options = self.begin_gax_options.clone().unwrap_or_default();
+                self.amend_gax_options(&mut begin_options);
+                self.context
+                    .begin_explicitly_for_commit(options, notify, begin_options, mutation_key)
+                    .await?
             }
-        }
-        let transaction_id = id.ok_or_else(|| internal_error("Transaction ID is missing"))?;
+        };
+        let mutations = take(&mut *self.lock_mutations());
         let precommit_token = self.context.precommit_token_tracker.get();
 
         let request = self.build_commit_request(transaction_id.clone(), mutations, precommit_token);
@@ -753,38 +850,20 @@ impl ReadWriteTransaction {
         let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
         self.amend_gax_options(&mut gax_options);
 
-        let response = self
-            .context
-            .client
-            .commit(request, gax_options, self.affinity())
-            .await
-            .inspect_err(|error| self.context.record_if_aborted(error))?;
+        // Disarm rollback immediately before sending the commit RPC.
+        // Once commit is dispatched, the transaction must not be rolled back.
+        self.disarm_rollback();
 
-        let response = if let Some(MultiplexedSessionRetry::PrecommitToken(new_precommit_token)) =
-            response.multiplexed_session_retry
-        {
-            self.context
-                .precommit_token_tracker
-                .update(Some(*new_precommit_token));
-            let retry_commit_req = self.build_commit_request(
-                transaction_id,
-                Vec::new(), // mutations are never re-sent in retry requests
-                self.context.precommit_token_tracker.get(),
-            );
-
-            let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
-            self.amend_gax_options(&mut gax_options);
-
-            self.context
-                .client
-                .commit(retry_commit_req, gax_options, self.affinity())
-                .await
-                .inspect_err(|error| self.context.record_if_aborted(error))?
-        } else {
-            response
-        };
-
-        Ok(response)
+        commit_with_precommit_retry(
+            &self.context.client,
+            request,
+            gax_options,
+            self.affinity(),
+            &self.context.precommit_token_tracker,
+            |error| self.context.record_if_aborted(error),
+            |token| self.build_retry_commit_request(transaction_id, token),
+        )
+        .await
     }
 
     /// Rolls back the transaction.
@@ -804,11 +883,18 @@ impl ReadWriteTransaction {
             return Ok(());
         };
 
+        // Disarm rollback once a transaction ID has been observed and rollback is dispatched.
+        self.disarm_rollback();
+
         let request = RollbackRequest::default()
             .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id);
 
-        let mut gax_options = self.rollback_gax_options.clone().unwrap_or_default();
+        let mut gax_options = self
+            .drop_guard
+            .rollback_gax_options
+            .clone()
+            .unwrap_or_default();
         amend_gax_options_for_rollback(
             self.context.client.leader_aware_routing_enabled,
             &mut gax_options,
@@ -918,6 +1004,16 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
     }
 }
 
+/// Test-only helper methods on [`ReadWriteTransaction`] used by crate-internal
+/// integration tests (such as `transaction_runner::tests`) that cannot access
+/// private context fields directly.
+#[cfg(test)]
+impl ReadWriteTransaction {
+    pub(crate) fn is_starting(&self) -> bool {
+        self.context.transaction_selector.is_starting()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -960,8 +1056,9 @@ mod tests {
     use std::sync::Mutex;
     use std::sync::atomic::{AtomicU32, Ordering};
     use std::time::Duration as StdDuration;
+    use tokio::sync::Notify;
     use tokio::sync::mpsc::Receiver;
-    use tokio::task::JoinHandle;
+    use tokio::task::{JoinHandle, spawn, yield_now};
 
     impl ReadWriteTransaction {
         /// Returns `true` if this transaction encountered an `Aborted` error from Spanner.
@@ -2229,18 +2326,24 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn read_write_transaction_commit_retry_exactly_once_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry_exactly_once(BeginTransactionOption::ExplicitBegin)
-            .await
+    async fn read_write_transaction_commit_retry_fails_on_subsequent_precommit_token_explicit()
+    -> anyhow::Result<()> {
+        run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
+            BeginTransactionOption::ExplicitBegin,
+        )
+        .await
     }
 
     #[tokio_test_no_panics]
-    async fn read_write_transaction_commit_retry_exactly_once_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry_exactly_once(BeginTransactionOption::InlineBegin)
-            .await
+    async fn read_write_transaction_commit_retry_fails_on_subsequent_precommit_token_inline()
+    -> anyhow::Result<()> {
+        run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
+            BeginTransactionOption::InlineBegin,
+        )
+        .await
     }
 
-    async fn run_read_write_transaction_commit_retry_exactly_once(
+    async fn run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
         begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
@@ -2311,14 +2414,15 @@ mod tests {
             });
 
         // Retry commit returns another retry token (seq 3).
-        // The library should not retry multiple times.
+        // The library should not retry multiple times, and must fail fast on subsequent precommit token.
         mock.expect_commit()
             .once()
             .in_sequence(&mut seq)
-            .returning(|req| {
-                let req = req.into_inner();
+            .returning(|request| {
+                let request = request.into_inner();
                 assert_eq!(
-                    req.precommit_token
+                    request
+                        .precommit_token
                         .as_ref()
                         .expect("Missing precommit token in retry req")
                         .seq_num,
@@ -2326,10 +2430,7 @@ mod tests {
                 );
 
                 Ok(tonic::Response::new(v1::CommitResponse {
-                    commit_timestamp: Some(prost_types::Timestamp {
-                        seconds: 9999,
-                        nanos: 0,
-                    }),
+                    commit_timestamp: None,
                     multiplexed_session_retry: Some(
                         v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
                             v1::MultiplexedSessionPrecommitToken {
@@ -2353,13 +2454,14 @@ mod tests {
                 .await?;
         }
 
-        let ts = tx.commit().await.expect("Failed to commit transaction");
-        assert_eq!(
-            ts.commit_timestamp
-                .as_ref()
-                .expect("timestamp should be present")
-                .seconds(),
-            9999
+        let error = tx.commit().await.expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("received an unexpected subsequent precommit token"),
+            "Error message must indicate unexpected subsequent precommit token: {error}"
         );
         Ok(())
     }
@@ -3130,6 +3232,448 @@ mod tests {
                 .seconds(),
             5000
         );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_begin_transaction_fails()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Err(TonicStatus::new(
+                TonicCode::InvalidArgument,
+                "invalid argument",
+            ))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let commit_result = transaction.commit().await;
+        assert!(
+            commit_result.is_err(),
+            "commit should fail when BeginTransaction RPC fails"
+        );
+        let error = commit_result.expect_err("commit must return error");
+        assert_eq!(
+            error.status().map(|status| status.code),
+            Some(Code::InvalidArgument),
+            "error code must match the BeginTransaction RPC failure code"
+        );
+
+        // Subsequent selector calls return the failure error
+        assert!(
+            matches!(
+                transaction.context.selector().await,
+                Err(error) if error.status().map(|status| status.code) == Some(Code::InvalidArgument)
+            ),
+            "selector state must transition to Failed on begin RPC failure"
+        );
+
+        // Buffered mutations must not be drained when commit fails during ID resolution
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when commit fails during ID resolution"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_begin_transaction_aborted_records_aborted()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let commit_result = transaction.commit().await;
+        assert!(
+            commit_result.is_err(),
+            "commit should fail when BeginTransaction RPC is aborted"
+        );
+        let error = commit_result.expect_err("commit must return error");
+        assert_eq!(
+            error.status().map(|status| status.code),
+            Some(Code::Aborted),
+            "error code must be Aborted"
+        );
+
+        // Transaction must record the aborted status
+        assert!(
+            transaction.is_aborted(),
+            "transaction must record aborted status"
+        );
+
+        // Buffered mutations must not be drained when commit fails during ID resolution
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when commit fails during ID resolution"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_empty_transaction_id_fails()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(v1::Transaction {
+                id: vec![],
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let commit_result = transaction.commit().await;
+        assert!(
+            commit_result.is_err(),
+            "commit should fail when Spanner returns empty transaction ID"
+        );
+        let error = commit_result.expect_err("commit must return error");
+        assert!(
+            error
+                .to_string()
+                .contains("Transaction ID was not returned by Spanner"),
+            "error message should indicate missing transaction ID from Spanner"
+        );
+
+        // Selector state must transition to Failed
+        assert!(
+            matches!(
+                transaction.context.selector().await,
+                Err(error) if error.to_string().contains("Transaction ID was not returned by Spanner")
+            ),
+            "selector state must transition to Failed on empty transaction ID"
+        );
+
+        // Buffered mutations must not be drained
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved when commit fails"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_cancelled_transitions_to_first_statement_failed()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let rpc_received = Arc::new(Notify::new());
+        let rpc_received_clone = Arc::clone(&rpc_received);
+
+        // Returning Unavailable causes GAX to enter retry backoff sleep while holding LazyTransactionStartGuard.
+        // Dropping the commit future during backoff sleep simulates in-flight cancellation.
+        mock.expect_begin_transaction().once().returning(move |_| {
+            rpc_received_clone.notify_one();
+            Err(TonicStatus::unavailable("retry later"))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        {
+            let commit_future = transaction.commit();
+            tokio::pin!(commit_future);
+
+            tokio::select! {
+                _ = &mut commit_future => {
+                    panic!("commit should not finish before cancellation");
+                }
+                _ = rpc_received.notified() => {
+                    // Future is dropped upon leaving block, simulating cancellation while RPC in-flight
+                }
+            }
+        }
+
+        // Selector must transition to FirstStatementFailed via LazyTransactionStartGuard drop
+        assert!(
+            transaction
+                .context
+                .transaction_selector
+                .is_first_statement_failed(),
+            "cancelling commit during BeginTransaction must transition selector to FirstStatementFailed"
+        );
+
+        // Subsequent commit attempt should fail fast with aborted due to failed initial statement
+        let subsequent_result = transaction.commit().await;
+        assert!(subsequent_result.is_err(), "subsequent commit should fail");
+        let error = subsequent_result.expect_err("subsequent commit must return error");
+        assert!(
+            error
+                .to_string()
+                .contains("Aborted due to failed initial statement"),
+            "error must indicate aborted due to failed initial statement: {error}"
+        );
+
+        // Buffered mutations must still be preserved
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when cancelled"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_resolves_id_when_already_started() -> anyhow::Result<()>
+    {
+        let mut mock = create_session_mock();
+
+        // Expect commit directly using the pre-established transaction ID; no BeginTransaction RPC
+        mock.expect_commit().once().returning(|request| {
+            let request = request.into_inner();
+            assert_eq!(
+                request.session, "projects/p/instances/i/databases/d/sessions/123",
+                "request session must match expected session path"
+            );
+            assert_eq!(
+                request.transaction,
+                Some(CommitTransaction::TransactionId(vec![9, 9, 9])),
+                "request transaction must use the started transaction ID"
+            );
+            assert_eq!(
+                request.mutations.len(),
+                1,
+                "request must contain exactly one buffered mutation"
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 6000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        // Manually update the state to Started, simulating an inlined begin that completed
+        transaction
+            .context
+            .transaction_selector
+            .update(Bytes::from_static(&[9, 9, 9]), None)?;
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let response = transaction.commit().await.expect("Commit should succeed");
+        assert_eq!(
+            response
+                .commit_timestamp
+                .expect("timestamp present")
+                .seconds(),
+            6000,
+            "commit response timestamp seconds must match 6000"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_fails_fast_when_starting() -> anyhow::Result<()> {
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        // Set state to Starting to simulate an asynchronous in-flight statement starting the transaction
+        if let ReadContextTransactionSelector::Lazy(state) =
+            &transaction.context.transaction_selector
+        {
+            let mut guard = state.lock().expect("lock state");
+            *guard =
+                TransactionState::Starting(TransactionOptions::default(), Arc::new(Notify::new()));
+        }
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let result = transaction.commit().await;
+        assert!(
+            result.is_err(),
+            "commit must fail when an asynchronous statement is still starting the transaction"
+        );
+        let error = result.expect_err("expected error");
+        assert!(
+            error
+                .to_string()
+                .contains("asynchronous statement is still starting the transaction"),
+            "error message must describe asynchronous statement still starting, got: {error}"
+        );
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when commit fails fast"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_cancelled_wakes_concurrent_waiter()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let rpc_received = Arc::new(Notify::new());
+        let rpc_received_clone = Arc::clone(&rpc_received);
+
+        // Returning Unavailable causes GAX to enter retry backoff sleep while holding LazyTransactionStartGuard.
+        mock.expect_begin_transaction().once().returning(move |_| {
+            rpc_received_clone.notify_one();
+            Err(TonicStatus::unavailable("retry later"))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let transaction_leader = transaction.clone();
+        let leader_handle = spawn(async move { transaction_leader.commit().await });
+
+        // Wait until leader has dispatched BeginTransaction RPC and is sleeping in retry backoff
+        rpc_received.notified().await;
+        assert!(
+            transaction.is_starting(),
+            "transaction must be in Starting state while BeginTransaction is in flight"
+        );
+
+        let notify = if let ReadContextTransactionSelector::Lazy(state) =
+            &transaction.context.transaction_selector
+        {
+            let guard = state.lock().expect("lock must not be poisoned");
+            if let TransactionState::Starting(_, notify) = &*guard {
+                Some(Arc::clone(notify))
+            } else {
+                None
+            }
+        } else {
+            None
+        }
+        .expect("transaction must be in Starting state with notify handle");
+
+        // A concurrent task calls selector() while the transaction is Starting.
+        let context_follower = transaction.context.clone();
+        let follower_handle = spawn(async move { context_follower.selector().await });
+
+        // Wait until the follower has entered selector() and registered on notify (bumping strong_count to 3)
+        while Arc::strong_count(&notify) < 3 {
+            yield_now().await;
+        }
+
+        // Cancel the leader during backoff, triggering LazyTransactionStartGuard drop
+        leader_handle.abort();
+        let _ = leader_handle.await;
+
+        // Follower MUST NOT hang; it should be woken up and return synthetic Aborted
+        let follower_result = follower_handle.await.expect("follower task must not panic");
+        assert!(
+            follower_result.is_err(),
+            "follower selector must fail when leader is cancelled"
+        );
+        let error = follower_result.expect_err("expected error");
+        assert!(
+            error
+                .to_string()
+                .contains("Aborted due to failed initial statement"),
+            "follower error must indicate aborted due to failed initial statement: {error}"
+        );
+
+        // Buffered mutations must still be preserved in the transaction
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when cancelled"
+        );
+
         Ok(())
     }
 
@@ -4982,6 +5526,7 @@ mod tests {
     #[tokio_test_no_panics]
     async fn read_write_transaction_releases_rw_guard_on_commit_rollback_and_drop()
     -> anyhow::Result<()> {
+        use crate::channel_pool::affinity::ChannelTarget;
         use crate::client::Spanner;
         use crate::read_only_transaction::tests::setup_select1_with_transaction_id;
         use crate::result_set::tests::adapt;
@@ -5125,6 +5670,46 @@ mod tests {
                 pinned_entry.active_rw_count(),
                 0,
                 "pinned entry active_rw_count must drop to 0 when uncommitted transaction is dropped"
+            );
+        }
+
+        // 4. Dropping a transaction before a transaction ID is established also releases the active R/W guard
+        {
+            let pinned_entry;
+            {
+                let affinity = Arc::new(TransactionAffinity::new_read_write());
+                let pinned_id = entries.first().expect("at least one active entry").id;
+                affinity
+                    .compare_and_set_entry_id(0, pinned_id)
+                    .expect("pin entry");
+                let target = ChannelTarget::from(&affinity);
+                let lease = spanner.pick_channel_for_target(&target);
+                affinity.ensure_rw_guard(&lease);
+
+                pinned_entry = entries
+                    .iter()
+                    .find(|entry| entry.id == pinned_id)
+                    .cloned()
+                    .expect("pinned entry must exist");
+                assert_eq!(
+                    pinned_entry.active_rw_count(),
+                    1,
+                    "pinned entry active_rw_count must be 1 with active guard"
+                );
+
+                let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                    .with_affinity(affinity)
+                    .build(None)
+                    .await?;
+
+                // Dropping transaction without ever starting a statement (no transaction ID)
+                drop(transaction);
+            }
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                0,
+                "pinned entry active_rw_count must drop to 0 when transaction without ID is dropped"
             );
         }
 
@@ -5762,10 +6347,12 @@ mod tests {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
         use spanner_grpc_mock::google::spanner::v1::Transaction;
         use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
 
         let mut mock = create_session_mock();
         mock.expect_fetch_cache_update().returning(|_| {
-            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            let (_sender, receiver) = channel(1);
             Ok(tonic::Response::from(receiver))
         });
         mock.expect_begin_transaction().returning(|_| {
@@ -5774,6 +6361,12 @@ mod tests {
                 read_timestamp: None,
                 ..Default::default()
             }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
         });
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
@@ -5817,15 +6410,412 @@ mod tests {
         // Dropping transaction without commit or rollback must trigger RAII drop guard.
         drop(transaction);
 
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
         assert_eq!(
-            router.get_transaction_affinity(&transaction_id),
-            None,
-            "LocationRoutingDropGuard must clear location router affinity when dropped"
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must rollback the active transaction ID"
+        );
+
+        let mut affinity_cleared = false;
+        for _ in 0..100 {
+            tokio::task::yield_now().await;
+            if router.get_transaction_affinity(&transaction_id).is_none() {
+                affinity_cleared = true;
+                break;
+            }
+        }
+        assert!(
+            affinity_cleared,
+            "ReadWriteTransactionDropGuard must clear location router affinity after rollback completes"
         );
         assert_eq!(
             router.affinity_count(),
             0,
             "location router affinity count must be 0 after drop"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_drop_clears_location_router_affinity_when_disarmed()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![53, 53],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+        mock.expect_rollback().never();
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![53, 53];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should be 1"
+        );
+
+        // Disarm rollback (as happens during commit or explicit rollback)
+        transaction.disarm_rollback();
+
+        // Dropping transaction must still clear location routing affinity immediately
+        drop(transaction);
+
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "location router affinity must be cleared on drop even when rollback is disarmed"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after drop"
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn read_write_transaction_drop_guard_outside_tokio_runtime_does_not_panic() {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+        use std::thread;
+        use tokio::runtime::Builder as RuntimeBuilder;
+        use tokio::sync::mpsc::channel;
+
+        let runtime = RuntimeBuilder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("build runtime");
+        let (database_client, transaction) = runtime.block_on(async {
+            let mut mock = create_session_mock();
+            mock.expect_fetch_cache_update().returning(|_| {
+                let (_sender, receiver) = channel(1);
+                Ok(tonic::Response::from(receiver))
+            });
+            mock.expect_begin_transaction().once().returning(|_| {
+                Ok(Response::new(Transaction {
+                    id: vec![77, 78],
+                    ..Default::default()
+                }))
+            });
+            let (address, _server) = start("127.0.0.1:0", mock).await.expect("start mock");
+            let client = Spanner::builder()
+                .with_endpoint(address)
+                .with_instance_type(InstanceType::Omni)
+                .with_credentials(Anonymous::new().build())
+                .build()
+                .await
+                .expect("build client");
+            let database_client = client
+                .database_client("projects/p/instances/i/databases/d")
+                .with_location_aware_routing(true)
+                .build()
+                .await
+                .expect("build db client");
+            let router = database_client
+                .location_router()
+                .expect("location router must be present");
+            let transaction_id = vec![77, 78];
+            router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+
+            let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+                .build(None)
+                .await
+                .expect("build transaction");
+            (database_client, transaction)
+        });
+        // Shut down the runtime completely.
+        drop(runtime);
+
+        // Dropping the transaction after the runtime has shut down must NOT panic,
+        // and must reliably clear LocationRouter affinity via AffinityCleanupGuard.
+        let join_result = thread::spawn(move || {
+            drop(transaction);
+        })
+        .join();
+
+        assert!(
+            join_result.is_ok(),
+            "dropping transaction after runtime shutdown must not panic"
+        );
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present");
+        assert_eq!(
+            router.get_transaction_affinity(&[77, 78]),
+            None,
+            "location router affinity must be cleared when transaction is dropped after runtime shutdown"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "affinity count must be 0 after drop"
+        );
+    }
+
+    #[test]
+    fn read_write_transaction_drop_guard_without_handle_outside_runtime_clears_affinity_safely() {
+        use crate::model::TransactionSelector;
+        use bytes::Bytes;
+        use std::thread;
+        use tokio::runtime::Builder as RuntimeBuilder;
+
+        let runtime = RuntimeBuilder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect("build runtime");
+        let (database_client, selector, affinity) = runtime.block_on(async {
+            let mock = create_session_mock();
+            let (database_client, _server) = setup_db_client(mock).await;
+            let transaction_id = Bytes::from_static(b"drop-no-handle-test");
+            let selector = ReadContextTransactionSelector::Fixed(
+                TransactionSelector::new().set_id(transaction_id),
+                None,
+            );
+            let affinity = Arc::new(TransactionAffinity::new_read_write());
+            (database_client, selector, affinity)
+        });
+        drop(runtime);
+
+        // Construct guard with tokio_handle: None on a thread without Tokio runtime.
+        let join_result = thread::spawn(move || {
+            let guard = ReadWriteTransactionDropGuard::new(
+                database_client,
+                "test-session".to_string(),
+                selector,
+                Some(affinity),
+                None,
+                None,
+            );
+            drop(guard);
+        })
+        .join();
+
+        assert!(
+            join_result.is_ok(),
+            "dropping guard without handle outside Tokio runtime must not panic"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_background_rollback_on_drop_handles_rpc_failure()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![88, 89],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Err(tonic::Status::permission_denied(
+                "simulated background rollback permission failure",
+            ))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![88, 89];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+
+        // Dropping transaction triggers background rollback which encounters RPC error.
+        drop(transaction);
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
+        assert_eq!(
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must attempt to rollback the active transaction ID"
+        );
+
+        let mut affinity_cleared = false;
+        for _ in 0..100 {
+            tokio::task::yield_now().await;
+            if router.get_transaction_affinity(&transaction_id).is_none() {
+                affinity_cleared = true;
+                break;
+            }
+        }
+        assert!(
+            affinity_cleared,
+            "location router affinity must be cleared even when rollback RPC fails"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after failed rollback"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_drop_guard_preserves_custom_rollback_gax_options()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+        use std::time::Duration as StdDuration;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![91, 92],
+                ..Default::default()
+            }))
+        });
+
+        let (timeout_sender, mut timeout_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let timeout_header = request
+                .metadata()
+                .get("grpc-timeout")
+                .and_then(|header_value| header_value.to_str().ok())
+                .map(|header_str| header_str.to_string());
+            let _ = timeout_sender.try_send(timeout_header);
+            Ok(Response::new(()))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let custom_timeout = StdDuration::from_secs(12);
+        let mut custom_options = RequestOptions::default();
+        custom_options.set_attempt_timeout(custom_timeout);
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .with_rollback_request_options(Some(custom_options))
+            .build(None)
+            .await?;
+
+        // Dropping transaction triggers background rollback with custom options
+        drop(transaction);
+
+        let timeout_header = timeout(StdDuration::from_secs(2), timeout_receiver.recv())
+            .await
+            .expect("rollback must complete within timeout")
+            .expect("timeout receiver must receive header");
+
+        assert!(
+            timeout_header.is_some(),
+            "grpc-timeout header must be sent on background rollback RPC"
+        );
+        let header_str = timeout_header.expect("header present");
+        assert!(
+            header_str == "12000000u" || header_str.ends_with('u') || header_str.ends_with('S'),
+            "grpc-timeout header must reflect the 12s attempt timeout: {header_str}"
         );
 
         Ok(())
@@ -6006,6 +6996,7 @@ mod tests {
         });
         mock.expect_commit()
             .returning(|_| Err(tonic::Status::invalid_argument("simulated commit failure")));
+        mock.expect_rollback().never();
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
         let client = Spanner::builder()
@@ -6078,10 +7069,12 @@ mod tests {
             ResultSet, ResultSetMetadata, ResultSetStats, StructType, Transaction,
         };
         use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
 
         let mut mock = create_session_mock();
         mock.expect_fetch_cache_update().returning(|_| {
-            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            let (_sender, receiver) = channel(1);
             Ok(tonic::Response::from(receiver))
         });
 
@@ -6105,6 +7098,12 @@ mod tests {
                 }),
                 ..Default::default()
             }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
         });
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
@@ -6150,13 +7149,30 @@ mod tests {
             "location router affinity count should be 1"
         );
 
-        // Dropping inline transaction after starting must clear the affinity
+        // Dropping inline transaction after starting must clear the affinity and rollback
         drop(transaction);
 
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
         assert_eq!(
-            router.get_transaction_affinity(&transaction_id),
-            None,
-            "LocationRoutingDropGuard must clear location router affinity when inline transaction is dropped"
+            rolled_back_transaction_id, transaction_id,
+            "drop guard must rollback the inline begin transaction ID"
+        );
+
+        let mut affinity_cleared = false;
+        for _ in 0..100 {
+            tokio::task::yield_now().await;
+            if router.get_transaction_affinity(&transaction_id).is_none() {
+                affinity_cleared = true;
+                break;
+            }
+        }
+        assert!(
+            affinity_cleared,
+            "ReadWriteTransactionDropGuard must clear location router affinity after rollback completes"
         );
         assert_eq!(
             router.affinity_count(),
@@ -6178,6 +7194,7 @@ mod tests {
             let (_sender, receiver) = tokio::sync::mpsc::channel(1);
             Ok(tonic::Response::from(receiver))
         });
+        mock.expect_rollback().never();
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
         let client = Spanner::builder()
@@ -6222,10 +7239,12 @@ mod tests {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
         use spanner_grpc_mock::google::spanner::v1::Transaction;
         use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel;
+        use tokio::time::timeout;
 
         let mut mock = create_session_mock();
         mock.expect_fetch_cache_update().returning(|_| {
-            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            let (_sender, receiver) = channel(1);
             Ok(tonic::Response::from(receiver))
         });
         mock.expect_begin_transaction().returning(|_| {
@@ -6234,6 +7253,12 @@ mod tests {
                 read_timestamp: None,
                 ..Default::default()
             }))
+        });
+
+        let (rollback_sender, mut rollback_receiver) = channel(1);
+        mock.expect_rollback().once().returning(move |request| {
+            let _ = rollback_sender.try_send(request.into_inner().transaction_id);
+            Ok(Response::new(()))
         });
 
         let (address, _server) = start("127.0.0.1:0", mock).await?;
@@ -6289,6 +7314,10 @@ mod tests {
             1,
             "location router affinity count should still be 1"
         );
+        assert!(
+            rollback_receiver.try_recv().is_err(),
+            "rollback must not be dispatched while clones exist"
+        );
 
         // Dropping the first clone should not clear affinity
         drop(clone_first);
@@ -6302,13 +7331,35 @@ mod tests {
             1,
             "location router affinity count should still be 1"
         );
+        assert!(
+            rollback_receiver.try_recv().is_err(),
+            "rollback must not be dispatched while one clone remains"
+        );
 
         // Dropping the final clone must invoke drop guard cleanup and clear affinity
         drop(clone_second);
+
+        let rolled_back_transaction_id =
+            timeout(StdDuration::from_secs(2), rollback_receiver.recv())
+                .await
+                .expect("rollback must complete within timeout")
+                .expect("rollback receiver must receive transaction ID");
         assert_eq!(
-            router.get_transaction_affinity(&transaction_id),
-            None,
-            "drop guard on final clone must clear location router affinity"
+            rolled_back_transaction_id, transaction_id,
+            "drop guard on final clone must rollback the active transaction ID"
+        );
+
+        let mut affinity_cleared = false;
+        for _ in 0..100 {
+            tokio::task::yield_now().await;
+            if router.get_transaction_affinity(&transaction_id).is_none() {
+                affinity_cleared = true;
+                break;
+            }
+        }
+        assert!(
+            affinity_cleared,
+            "drop guard on final clone must clear location router affinity after rollback"
         );
         assert_eq!(
             router.affinity_count(),

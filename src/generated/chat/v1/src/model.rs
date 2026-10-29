@@ -10599,6 +10599,9 @@ pub struct CardWithId {
     /// A card. Maximum size is 32 KB.
     pub card: std::option::Option<google_apps_card_v1::model::Card>,
 
+    /// Output only. The app that owns the card.
+    pub owner_user: std::option::Option<crate::model::User>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10652,11 +10655,132 @@ impl CardWithId {
         self.card = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [owner_user][crate::model::CardWithId::owner_user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CardWithId;
+    /// use google_chat_v1::model::User;
+    /// let x = CardWithId::new().set_owner_user(User::default()/* use setters */);
+    /// ```
+    pub fn set_owner_user<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::User>,
+    {
+        self.owner_user = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [owner_user][crate::model::CardWithId::owner_user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CardWithId;
+    /// use google_chat_v1::model::User;
+    /// let x = CardWithId::new().set_or_clear_owner_user(Some(User::default()/* use setters */));
+    /// let x = CardWithId::new().set_or_clear_owner_user(None::<User>);
+    /// ```
+    pub fn set_or_clear_owner_user<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::User>,
+    {
+        self.owner_user = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for CardWithId {
     fn typename() -> &'static str {
         "type.googleapis.com/google.chat.v1.CardWithId"
+    }
+}
+
+/// Request message for ReplaceMessageCards API method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ReplaceMessageCardsRequest {
+    /// Required. The resource name of the message.
+    ///
+    /// Format: `spaces/{space}/messages/{message}`
+    pub name: std::string::String,
+
+    /// Optional. An array of
+    /// [cards](https://developers.google.com/workspace/chat/api/reference/rest/v1/cards)
+    /// to be included in the message. These cards will replace the existing cards
+    /// of the message. If empty, the original cards included in the message will
+    /// be cleared.
+    pub cards_v2: std::vec::Vec<crate::model::CardWithId>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ReplaceMessageCardsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ReplaceMessageCardsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ReplaceMessageCardsRequest;
+    /// # let space_id = "space_id";
+    /// # let message_id = "message_id";
+    /// let x = ReplaceMessageCardsRequest::new().set_name(format!("spaces/{space_id}/messages/{message_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [cards_v2][crate::model::ReplaceMessageCardsRequest::cards_v2].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ReplaceMessageCardsRequest;
+    /// use google_chat_v1::model::CardWithId;
+    /// let x = ReplaceMessageCardsRequest::new()
+    ///     .set_cards_v2([
+    ///         CardWithId::default()/* use setters */,
+    ///         CardWithId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_cards_v2<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CardWithId>,
+    {
+        use std::iter::Iterator;
+        self.cards_v2 = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ReplaceMessageCardsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.ReplaceMessageCardsRequest"
+    }
+}
+
+/// Response message for ReplaceMessageCards API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ReplaceMessageCardsResponse {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ReplaceMessageCardsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for ReplaceMessageCardsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.ReplaceMessageCardsResponse"
     }
 }
 
