@@ -21,9 +21,8 @@ mod tests {
     use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
     use google_cloud_gax::polling_state::PollingState;
     use google_cloud_gax::retry_result::RetryResult;
-    use grpc_server::{builder, start_echo_server};
-
-    type TestResult = Result<(), Box<dyn std::error::Error>>;
+    use grpc_server::transport::{EchoTransport, transport_builder};
+    use grpc_server::{both_transports, start_echo_server};
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -51,15 +50,20 @@ mod tests {
         }
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn default_polling_policies() -> TestResult {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        default_polling_policies
+    );
+    async fn default_polling_policies<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
-
         let options = RequestOptions::default();
+
+        // Act & Assert
         // Verify the functions are callable from outside the crate.
         let _ = client.get_polling_error_policy(&options);
         let _ = client.get_polling_backoff_policy(&options);
@@ -67,10 +71,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn client_config_polling_policies() -> TestResult {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        client_config_polling_policies
+    );
+    async fn client_config_polling_policies<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
             .with_polling_error_policy(TestErrorPolicy {
                 _name: "client-polling-error".to_string(),
             })
@@ -79,22 +88,29 @@ mod tests {
             })
             .build()
             .await?;
-
         let options = RequestOptions::default();
+
+        // Act
         let polling = client.get_polling_error_policy(&options);
+        let backoff = client.get_polling_backoff_policy(&options);
+
+        // Assert
         let fmt = format!("{polling:?}");
         assert!(fmt.contains("client-polling-error"), "{polling:?}");
-        let backoff = client.get_polling_backoff_policy(&options);
         let fmt = format!("{backoff:?}");
         assert!(fmt.contains("client-polling-backoff"), "{backoff:?}");
 
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn request_options_polling_policies() -> TestResult {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        request_options_polling_policies
+    );
+    async fn request_options_polling_policies<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .with_polling_error_policy(TestErrorPolicy {
                 _name: "client-polling-error".to_string(),
@@ -112,10 +128,14 @@ mod tests {
         options.set_polling_backoff_policy(TestBackoffPolicy {
             _name: "request-options-polling-backoff".to_string(),
         });
+
+        // Act
         let polling = client.get_polling_error_policy(&options);
+        let backoff = client.get_polling_backoff_policy(&options);
+
+        // Assert
         let fmt = format!("{polling:?}");
         assert!(fmt.contains("request-options-polling-error"), "{polling:?}");
-        let backoff = client.get_polling_backoff_policy(&options);
         let fmt = format!("{backoff:?}");
         assert!(
             fmt.contains("request-options-polling-backoff"),

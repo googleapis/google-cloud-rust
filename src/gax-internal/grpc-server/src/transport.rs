@@ -25,8 +25,11 @@ use google_cloud_gax::client_builder::ClientBuilder;
 use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::client_builder::internal::{ClientFactory, new_builder};
 use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
+use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use std::future::Future;
 use std::marker::PhantomData;
+use std::sync::Arc;
 
 pub use gaxi::grpc::Client;
 #[cfg(google_cloud_unstable_grpc_rust)]
@@ -51,6 +54,13 @@ pub trait EchoTransport: Clone + Send + Sync + 'static {
         options: RequestOptions,
         request_params: &str,
     ) -> impl Future<Output = google_cloud_gax::Result<tonic::Response<EchoResponse>>> + Send;
+
+    /// Returns the polling error policy for `options`.
+    fn get_polling_error_policy(&self, options: &RequestOptions) -> Arc<dyn PollingErrorPolicy>;
+
+    /// Returns the polling backoff policy for `options`.
+    fn get_polling_backoff_policy(&self, options: &RequestOptions)
+    -> Arc<dyn PollingBackoffPolicy>;
 }
 
 /// Implements [`EchoTransport`] with the inherent methods that every client
@@ -82,6 +92,22 @@ macro_rules! impl_echo_transport {
                     request_params,
                 )
                 .await
+            }
+
+            // Inherent methods take precedence over trait methods, so these
+            // calls forward to the client's own methods.
+            fn get_polling_error_policy(
+                &self,
+                options: &RequestOptions,
+            ) -> Arc<dyn PollingErrorPolicy> {
+                self.get_polling_error_policy(options)
+            }
+
+            fn get_polling_backoff_policy(
+                &self,
+                options: &RequestOptions,
+            ) -> Arc<dyn PollingBackoffPolicy> {
+                self.get_polling_backoff_policy(options)
             }
         }
     };

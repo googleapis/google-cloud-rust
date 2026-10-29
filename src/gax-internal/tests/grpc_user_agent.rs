@@ -17,27 +17,34 @@ mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax::Result;
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax_internal::grpc;
-    use grpc_server::{builder, google, start_echo_server};
+    use grpc_server::transport::{EchoTransport, transport_builder};
+    use grpc_server::{both_transports, google, start_echo_server};
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_user_agent() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        test_user_agent
+    );
+    async fn test_user_agent<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
-
         let options = {
             let mut o = RequestOptions::default();
             o.set_user_agent("custom-user-agent/v1.2.3");
             o
         };
+
+        // Act
         let response = send_request(client, options).await?;
+
+        // Assert
         let user_agent = response
             .metadata
             .get(http::header::USER_AGENT.as_str())
@@ -51,31 +58,16 @@ mod tests {
         Ok(())
     }
 
-    async fn send_request(
-        client: grpc::Client,
+    async fn send_request<C: EchoTransport>(
+        client: C,
         options: RequestOptions,
     ) -> Result<google::test::v1::EchoResponse> {
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
         let request = google::test::v1::EchoRequest {
             message: "message".into(),
             ..google::test::v1::EchoRequest::default()
         };
         client
-            .execute(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                request,
-                options,
-                "test-only-api-client/1.0",
-                "",
-            )
+            .echo(request, options, "")
             .await
             .map(tonic::Response::into_inner)
     }
