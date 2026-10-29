@@ -530,7 +530,7 @@ impl TransactionRunnerBuilder {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn with_retry_policy<P: TransactionRetryPolicy + 'static>(mut self, policy: P) -> Self {
+    pub fn with_retry_policy(mut self, policy: impl TransactionRetryPolicy + 'static) -> Self {
         self.retry_policy = Box::new(policy);
         self
     }
