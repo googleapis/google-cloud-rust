@@ -22,8 +22,10 @@ use google_cloud_test_utils::runtime_config::project_id;
 use google_cloud_type::model::Decimal;
 use rust_decimal::Decimal as RustDecimal;
 
-pub const QUERY_FORMATS: [QueryResultsFormat; 2] =
-    [QueryResultsFormat::Unspecified, QueryResultsFormat::Arrow];
+pub const QUERY_FORMATS: [QueryResultsFormat; 2] = [
+    QueryResultsFormat::StructEncoding,
+    QueryResultsFormat::Arrow,
+];
 
 pub async fn query_client(format: QueryResultsFormat) -> Result<()> {
     let project_id = project_id()?;

@@ -22,6 +22,8 @@ use crate::query::{CompleteQuery, Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::JobReference;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
+#[cfg(not(google_cloud_unstable_bigquery_arrow))]
+use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
 use std::sync::Arc;
 use uuid::Uuid;
 
@@ -207,6 +209,10 @@ impl Query {
     /// # }
     /// ```
     pub async fn until_done(self) -> Result<CompleteQuery> {
+        #[cfg(not(google_cloud_unstable_bigquery_arrow))]
+        if self.request.query_results_format == QueryResultsFormat::Arrow {
+            return Err(QueryError::UnsupportedQueryResultsFormat);
+        }
         if self.request.dry_run {
             return Err(QueryError::DryRun);
         }

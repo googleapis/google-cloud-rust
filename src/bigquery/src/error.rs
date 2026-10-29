@@ -27,6 +27,13 @@ pub enum QueryError {
     #[error("cannot convert dry run query to complete query")]
     DryRun,
 
+    /// Arrow query results format is not supported without the
+    /// `google_cloud_unstable_bigquery_arrow` feature flag.
+    #[error(
+        "arrow query results format is not supported without the 'google_cloud_unstable_bigquery_arrow' flag"
+    )]
+    UnsupportedQueryResultsFormat,
+
     /// The query job failed on the BigQuery service side.
     /// Includes the list of error protocols returned by the service.
     #[non_exhaustive]
@@ -151,6 +158,15 @@ mod tests {
         assert_eq!(
             err.to_string(),
             "cannot convert dry run query to complete query"
+        );
+    }
+
+    #[test]
+    fn test_unsupported_query_results_format_display() {
+        let err = QueryError::UnsupportedQueryResultsFormat;
+        assert_eq!(
+            err.to_string(),
+            "arrow query results format is not supported without the 'google_cloud_unstable_bigquery_arrow' flag"
         );
     }
 

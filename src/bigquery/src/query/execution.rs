@@ -168,6 +168,13 @@ impl RetryContext {
     }
 
     async fn execute_once(&self, project_id: &str) -> Result<QueryHandle> {
+        #[cfg(not(google_cloud_unstable_bigquery_arrow))]
+        if self.template.request.query_results_format
+            == google_cloud_bigquery_v2::model::query_request::QueryResultsFormat::Arrow
+        {
+            return Err(QueryError::UnsupportedQueryResultsFormat);
+        }
+
         if self.force_job_path() {
             self.execute_jobs_insert(project_id).await
         } else {
@@ -644,30 +651,11 @@ mod tests {
         mock.expect_query().returning(|req, _| {
             let query_req = req.query_request.as_ref().unwrap();
             assert!(!query_req.dry_run);
-            #[cfg(google_cloud_unstable_bigquery_arrow)]
-            {
-                use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
-                use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
-                use google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions;
-                assert_eq!(query_req.query_results_format, QueryResultsFormat::Arrow);
-                assert_eq!(
-                    query_req.results_format_serialization_options,
-                    Some(
-                        ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
-                            ArrowSerializationOptions::new()
-                                .set_buffer_compression(CompressionCodec::Zstd)
-                        ))
-                    )
-                );
-            }
-            #[cfg(not(google_cloud_unstable_bigquery_arrow))]
-            {
-                assert_eq!(
-                    query_req.query_results_format,
-                    QueryResultsFormat::default()
-                );
-                assert_eq!(query_req.results_format_serialization_options, None);
-            }
+            assert_eq!(
+                query_req.query_results_format,
+                QueryResultsFormat::default()
+            );
+            assert_eq!(query_req.results_format_serialization_options, None);
             let res =
                 QueryResponse::new().set_job_reference(JobReference::new().set_job_id("query-job"));
             Ok(Response::from(res))
@@ -688,6 +676,64 @@ mod tests {
         let handle = retry_ctx.execute_once("my-project").await?;
         assert_eq!(handle.metadata.job_reference.unwrap().job_id, "query-job");
         assert!(handle.retry_context.is_some());
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_bigquery_arrow)]
+    #[tokio::test]
+    async fn test_arrow_format_sets_serialization_options() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().returning(|req, _| {
+            let query_req = req.query_request.as_ref().unwrap();
+            use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+            use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+            use google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions;
+            assert_eq!(query_req.query_results_format, QueryResultsFormat::Arrow);
+            assert_eq!(
+                query_req.results_format_serialization_options,
+                Some(
+                    ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                        ArrowSerializationOptions::new()
+                            .set_buffer_compression(CompressionCodec::Zstd)
+                    ))
+                )
+            );
+            let res =
+                QueryResponse::new().set_job_reference(JobReference::new().set_job_id("query-job"));
+            Ok(Response::from(res))
+        });
+        mock.expect_insert_job().never();
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, None, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_query_results_format(QueryResultsFormat::Arrow);
+
+        let retry_ctx = RetryContext::new(query);
+        let handle = retry_ctx.execute_once("my-project").await?;
+        assert_eq!(handle.metadata.job_reference.unwrap().job_id, "query-job");
+        Ok(())
+    }
+
+    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
+    #[tokio::test]
+    async fn test_arrow_format_without_flag_returns_error() -> TestResult {
+        let mock = MockJobService::new();
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service.clone(), None, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_query_results_format(QueryResultsFormat::Arrow);
+
+        let retry_ctx = RetryContext::new(query.clone());
+        let err = retry_ctx.execute_once("my-project").await.unwrap_err();
+        assert!(matches!(err, QueryError::UnsupportedQueryResultsFormat));
+
+        let err = query.clone().send().await.unwrap_err();
+        assert!(matches!(err, QueryError::UnsupportedQueryResultsFormat));
+
+        let err = query.until_done().await.unwrap_err();
+        assert!(matches!(err, QueryError::UnsupportedQueryResultsFormat));
+
         Ok(())
     }
 
