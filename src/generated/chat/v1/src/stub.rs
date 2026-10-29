@@ -577,4 +577,15 @@ pub trait ChatService: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::ChatService::replace_message_cards].
+    fn replace_message_cards(
+        &self,
+        _req: crate::model::ReplaceMessageCardsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ReplaceMessageCardsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
