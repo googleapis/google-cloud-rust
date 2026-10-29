@@ -23,7 +23,17 @@ use google_cloud_bigquery_v2::model::JobReference;
 use google_cloud_gax::streaming::ResponseStream;
 use std::sync::Arc;
 
-#[allow(dead_code)]
+/// Default threshold below which queries stick to REST pagination.
+pub(crate) const DEFAULT_REST_ROW_THRESHOLD: u64 = 10_000;
+
+// TODO(#7038): remove environment variable override once benchmarks establish the optimal threshold.
+pub(crate) fn rest_row_threshold() -> u64 {
+    std::env::var("GOOGLE_CLOUD_RUST_BIGQUERY_REST_THRESHOLD")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(DEFAULT_REST_ROW_THRESHOLD)
+}
+
 #[derive(Debug)]
 pub(crate) enum ReaderState {
     Unopened,
@@ -43,7 +53,6 @@ pub(crate) struct StorageReader {
 }
 
 impl StorageReader {
-    #[allow(dead_code)]
     pub(crate) fn new(read_client: Arc<ReadClient>, job_ref: JobReference) -> Self {
         Self {
             read_client,
