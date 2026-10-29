@@ -168,13 +168,6 @@ impl RetryContext {
     }
 
     async fn execute_once(&self, project_id: &str) -> Result<QueryHandle> {
-        #[cfg(not(google_cloud_unstable_bigquery_arrow))]
-        if self.template.request.query_results_format
-            == google_cloud_bigquery_v2::model::query_request::QueryResultsFormat::Arrow
-        {
-            return Err(QueryError::UnsupportedQueryResultsFormat);
-        }
-
         if self.force_job_path() {
             self.execute_jobs_insert(project_id).await
         } else {
@@ -249,7 +242,6 @@ impl RetryContext {
         query_request = query_request
             .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true))
             .set_request_id(query_request_id);
-        #[cfg(google_cloud_unstable_bigquery_arrow)]
         {
             use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
             use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
@@ -679,7 +671,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_bigquery_arrow)]
     #[tokio::test]
     async fn test_arrow_format_sets_serialization_options() -> TestResult {
         let mut mock = MockJobService::new();
@@ -712,28 +703,6 @@ mod tests {
         let retry_ctx = RetryContext::new(query);
         let handle = retry_ctx.execute_once("my-project").await?;
         assert_eq!(handle.metadata.job_reference.unwrap().job_id, "query-job");
-        Ok(())
-    }
-
-    #[cfg(not(google_cloud_unstable_bigquery_arrow))]
-    #[tokio::test]
-    async fn test_arrow_format_without_flag_returns_error() -> TestResult {
-        let mock = MockJobService::new();
-        let job_service = create_job_service(mock);
-        let query = Query::new(job_service.clone(), None, "SELECT 1".to_string())
-            .with_project_id("my-project")
-            .set_query_results_format(QueryResultsFormat::Arrow);
-
-        let retry_ctx = RetryContext::new(query.clone());
-        let err = retry_ctx.execute_once("my-project").await.unwrap_err();
-        assert!(matches!(err, QueryError::UnsupportedQueryResultsFormat));
-
-        let err = query.clone().send().await.unwrap_err();
-        assert!(matches!(err, QueryError::UnsupportedQueryResultsFormat));
-
-        let err = query.until_done().await.unwrap_err();
-        assert!(matches!(err, QueryError::UnsupportedQueryResultsFormat));
-
         Ok(())
     }
 
