@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::Spanner;
+use crate::client::{Spanner, attach_route_to_leader_header};
 use crate::model::{CreateSessionRequest, Session};
 use crate::observability::Observability;
 use crate::{RequestOptions, Result};
@@ -85,8 +85,10 @@ impl ManagedSessionMaintainer {
         database_name: String,
         database_role: String,
         options: RequestOptions,
+        leader_aware_routing_enabled: bool,
         o11y: Arc<Observability>,
     ) -> Result<Arc<Self>> {
+        let options = Self::amend_options_for_lar(options, leader_aware_routing_enabled);
         let session =
             Self::create_session(&spanner, &database_name, &database_role, &options, &o11y).await?;
         spanner.set_prime_session(session.name.clone());
@@ -118,6 +120,16 @@ impl ManagedSessionMaintainer {
         });
 
         Ok(maintainer)
+    }
+
+    fn amend_options_for_lar(
+        options: RequestOptions,
+        leader_aware_routing_enabled: bool,
+    ) -> RequestOptions {
+        if !leader_aware_routing_enabled {
+            return options;
+        }
+        attach_route_to_leader_header(options)
     }
 
     async fn check_and_replace_session(&self, age: Duration) -> Result<()> {
@@ -214,9 +226,12 @@ impl Drop for ManagedSessionMaintainer {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::client::{ROUTE_TO_LEADER_HEADER, ROUTE_TO_LEADER_VALUE};
     use gaxi::grpc::tonic::Response;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use http::HeaderMap;
     use spanner_grpc_mock::google::spanner::v1::Session as GrpcSession;
     use spanner_grpc_mock::{MockSpanner, start};
     use std::panic::{AssertUnwindSafe, catch_unwind};
@@ -229,7 +244,15 @@ mod tests {
         mock.expect_create_session()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_| {
+            .returning(|request| {
+                assert_eq!(
+                    request
+                        .metadata()
+                        .get("x-goog-spanner-route-to-leader")
+                        .and_then(|value| value.to_str().ok()),
+                    Some("true"),
+                    "Initial CreateSession request must include route-to-leader header when LAR is enabled"
+                );
                 Ok(Response::new(GrpcSession {
                     name:
                         "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
@@ -242,7 +265,15 @@ mod tests {
         mock.expect_create_session()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_| {
+            .returning(|request| {
+                assert_eq!(
+                    request
+                        .metadata()
+                        .get("x-goog-spanner-route-to-leader")
+                        .and_then(|value| value.to_str().ok()),
+                    Some("true"),
+                    "Replacement CreateSession request must include route-to-leader header when LAR is enabled"
+                );
                 Ok(Response::new(GrpcSession {
                     name:
                         "projects/test-project/instances/test-instance/databases/test-db/sessions/2"
@@ -267,6 +298,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            true,
             Arc::new(Observability::disabled()),
         )
         .await
@@ -348,6 +380,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            true,
             Arc::new(Observability::disabled()),
         )
         .await
@@ -394,6 +427,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            true,
             Arc::new(Observability::disabled()),
         )
         .await
@@ -455,6 +489,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            true,
             Arc::new(Observability::disabled()),
         )
         .await
@@ -694,6 +729,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            true,
             Arc::new(Observability::disabled()),
         )
         .await
@@ -785,6 +821,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            true,
             Arc::new(Observability::disabled()),
         )
         .await
@@ -872,5 +909,80 @@ mod tests {
             abort_handle.is_finished(),
             "Maintenance task must be aborted once the last DatabaseClient is dropped"
         );
+    }
+
+    #[test]
+    fn amend_options_for_lar_enabled_and_disabled() {
+        let options = RequestOptions::default();
+        let options = ManagedSessionMaintainer::amend_options_for_lar(options, true);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "LAR enabled must attach route-to-leader header"
+        );
+
+        let options = ManagedSessionMaintainer::amend_options_for_lar(options, true);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "Calling amend_options_for_lar multiple times must not duplicate header"
+        );
+
+        let options =
+            ManagedSessionMaintainer::amend_options_for_lar(RequestOptions::default(), false);
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "LAR disabled must not attach route-to-leader header"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn session_maintenance_lar_disabled_mock_verification() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|request| {
+            assert!(
+                request
+                    .metadata()
+                    .get("x-goog-spanner-route-to-leader")
+                    .is_none(),
+                "CreateSession request must not include route-to-leader header when LAR is disabled"
+            );
+            Ok(Response::new(GrpcSession {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
+                    .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let _maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
+            spanner,
+            "projects/test-project/instances/test-instance/databases/test-db".to_string(),
+            "test-role".to_string(),
+            RequestOptions::default(),
+            false,
+            Arc::new(Observability::disabled()),
+        )
+        .await
+        .expect("Failed to create ManagedSessionMaintainer");
     }
 }

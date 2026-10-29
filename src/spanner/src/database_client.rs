@@ -15,7 +15,7 @@
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::channel_pool::ChannelTarget;
-use crate::client::Spanner;
+use crate::client::{RouteToLeader, Spanner, attach_route_to_leader_header};
 use crate::model::transaction_options::Mode;
 use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
@@ -55,6 +55,7 @@ use crate::write_only_transaction::WriteOnlyTransactionBuilder;
 use crate::{Error, RequestOptions, Result};
 use bytes::Bytes;
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use std::env;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -108,6 +109,7 @@ macro_rules! define_db_rpc {
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> Result<$response_type> {
             let channel_target = channel_target.into();
+            let options = self.attach_route_to_leader(&request, options);
             let (connection, routing_context) = $pre_route(self, &mut request);
             let lease = connection
                 .is_none()
@@ -149,6 +151,7 @@ macro_rules! define_db_streaming_rpc {
             options: RequestOptions,
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> $builder_type {
+            let options = self.attach_route_to_leader(&request, options);
             let channel_target = channel_target.into();
             let lease = self.spanner.pick_channel_for_target(&channel_target);
             let builder = self.spanner.$method(request, options, lease.channel());
@@ -162,6 +165,7 @@ macro_rules! define_db_streaming_rpc {
             options: RequestOptions,
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> $builder_type {
+            let options = self.attach_route_to_leader(&request, options);
             let channel_target = channel_target.into();
             let is_read_write_begin = is_read_write_begin(request.transaction.as_ref());
             // Step 1: When location-aware routing is disabled (standard Cloud Spanner),
@@ -1146,6 +1150,29 @@ impl DatabaseClient {
             .location_router
             .clear_transaction_affinity(transaction_id);
     }
+
+    /// Attaches the `x-goog-spanner-route-to-leader` header to `options` if leader-aware routing
+    /// is enabled and the request should route to the leader.
+    ///
+    /// The request routes to leader if it carries the internal [`RouteToLeader`] extension
+    /// or if [`RpcRouteToLeader::default_route_to_leader`] returns `true`.
+    pub(crate) fn attach_route_to_leader(
+        &self,
+        request: &impl RpcRouteToLeader,
+        options: RequestOptions,
+    ) -> RequestOptions {
+        if !self.leader_aware_routing_enabled {
+            return options;
+        }
+
+        let should_route =
+            options.get_extension::<RouteToLeader>().is_some() || request.default_route_to_leader();
+        if !should_route {
+            return options;
+        }
+
+        attach_route_to_leader_header(options)
+    }
 }
 
 fn routing_context_from_selector<'a>(
@@ -1200,6 +1227,16 @@ fn is_read_write_options(options: Option<&TransactionOptions>) -> bool {
         return false;
     };
     matches!(&options.mode, Some(Mode::ReadWrite(_)))
+}
+
+fn is_route_to_leader_options(options: Option<&TransactionOptions>) -> bool {
+    let Some(options) = options else {
+        return false;
+    };
+    matches!(
+        &options.mode,
+        Some(Mode::ReadWrite(_)) | Some(Mode::PartitionedDml(_))
+    )
 }
 
 fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
@@ -1366,6 +1403,7 @@ impl DatabaseClientBuilder {
             database_name,
             self.database_role.unwrap_or_default(),
             self.options.unwrap_or_default(),
+            self.leader_aware_routing_enabled,
             Arc::clone(&o11y),
         )
         .await?;
@@ -1632,11 +1670,61 @@ impl RequestRoutingGroupUid for PartitionReadRequest {
     }
 }
 
+/// Trait for determining default route-to-leader behavior for Spanner RPC requests.
+///
+/// Write RPCs ([`CommitRequest`], [`RollbackRequest`], [`ExecuteBatchDmlRequest`], [`BatchWriteRequest`])
+/// default to routing to leader (`true`).
+/// [`BeginTransactionRequest`] inspects its transaction options, routing to leader
+/// for read-write and partitioned DML transactions. [`ExecuteSqlRequest`] and [`ReadRequest`] inspect their
+/// transaction selector, routing to leader when beginning an inline read-write transaction.
+/// Partition requests default to `false`.
+pub(crate) trait RpcRouteToLeader {
+    fn default_route_to_leader(&self) -> bool {
+        true
+    }
+}
+
+impl RpcRouteToLeader for CommitRequest {}
+impl RpcRouteToLeader for RollbackRequest {}
+impl RpcRouteToLeader for ExecuteBatchDmlRequest {}
+impl RpcRouteToLeader for BatchWriteRequest {}
+
+impl RpcRouteToLeader for BeginTransactionRequest {
+    fn default_route_to_leader(&self) -> bool {
+        is_route_to_leader_options(self.options.as_ref())
+    }
+}
+
+impl RpcRouteToLeader for ExecuteSqlRequest {
+    fn default_route_to_leader(&self) -> bool {
+        is_read_write_begin(self.transaction.as_ref())
+    }
+}
+
+impl RpcRouteToLeader for ReadRequest {
+    fn default_route_to_leader(&self) -> bool {
+        is_read_write_begin(self.transaction.as_ref())
+    }
+}
+
+impl RpcRouteToLeader for PartitionQueryRequest {
+    fn default_route_to_leader(&self) -> bool {
+        false
+    }
+}
+
+impl RpcRouteToLeader for PartitionReadRequest {
+    fn default_route_to_leader(&self) -> bool {
+        false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::channel_pool::TransactionAffinity;
     use crate::client::SpannerBuilderExt;
+    use crate::client::{ROUTE_TO_LEADER_HEADER, ROUTE_TO_LEADER_VALUE};
     use crate::error::internal_error;
     use crate::model::key_recipe::Part;
     use crate::model::key_recipe::part::{NullOrder, Order};
@@ -1657,6 +1745,7 @@ mod tests {
     use gaxi::grpc::tonic::{MetadataMap, Response};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use http::HeaderMap;
     use mockall::Sequence;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
@@ -6107,5 +6196,573 @@ mod tests {
         // 3. No-op when transaction ID is None or empty
         database_client.post_route_commit(None, None, &success_commit);
         database_client.post_route_commit(Some(Bytes::new()), None, &success_commit);
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_route_to_leader_when_leader_aware_routing_disabled() {
+        let mock = create_test_mock();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_leader_aware_routing(false)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        // 1. Requests that default to routing to leader do not get the header
+        let options = database_client
+            .attach_route_to_leader(&CommitRequest::default(), RequestOptions::default());
+        let headers = options.get_extension::<HeaderMap>();
+        assert!(
+            headers
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "CommitRequest must not include route-to-leader header when LAR is disabled"
+        );
+
+        let options = database_client
+            .attach_route_to_leader(&RollbackRequest::default(), RequestOptions::default());
+        let headers = options.get_extension::<HeaderMap>();
+        assert!(
+            headers
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "RollbackRequest must not include route-to-leader header when LAR is disabled"
+        );
+
+        let options = database_client.attach_route_to_leader(
+            &ExecuteBatchDmlRequest::default(),
+            RequestOptions::default(),
+        );
+        let headers = options.get_extension::<HeaderMap>();
+        assert!(
+            headers
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "ExecuteBatchDmlRequest must not include route-to-leader header when LAR is disabled"
+        );
+
+        let options = database_client
+            .attach_route_to_leader(&BatchWriteRequest::default(), RequestOptions::default());
+        let headers = options.get_extension::<HeaderMap>();
+        assert!(
+            headers
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "BatchWriteRequest must not include route-to-leader header when LAR is disabled"
+        );
+
+        let read_write_begin = BeginTransactionRequest::default()
+            .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()));
+        let options =
+            database_client.attach_route_to_leader(&read_write_begin, RequestOptions::default());
+        let headers = options.get_extension::<HeaderMap>();
+        assert!(
+            headers
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "BeginTransactionRequest must not include route-to-leader header when LAR is disabled"
+        );
+
+        // 2. Options with explicit RouteToLeader do not get the header
+        let options = RequestOptions::default().insert_extension(RouteToLeader);
+        let options =
+            database_client.attach_route_to_leader(&ExecuteSqlRequest::default(), options);
+        let headers = options.get_extension::<HeaderMap>();
+        assert!(
+            headers
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "Explicit RouteToLeader must not attach header when LAR is disabled"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_route_to_leader_when_leader_aware_routing_enabled() {
+        let mock = create_test_mock();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_leader_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        // 1. Write RPCs default to routing to leader
+        for (name, options) in [
+            (
+                "BatchWriteRequest",
+                database_client.attach_route_to_leader(
+                    &BatchWriteRequest::default(),
+                    RequestOptions::default(),
+                ),
+            ),
+            (
+                "CommitRequest",
+                database_client
+                    .attach_route_to_leader(&CommitRequest::default(), RequestOptions::default()),
+            ),
+            (
+                "RollbackRequest",
+                database_client
+                    .attach_route_to_leader(&RollbackRequest::default(), RequestOptions::default()),
+            ),
+            (
+                "ExecuteBatchDmlRequest",
+                database_client.attach_route_to_leader(
+                    &ExecuteBatchDmlRequest::default(),
+                    RequestOptions::default(),
+                ),
+            ),
+        ] {
+            let headers = options
+                .get_extension::<HeaderMap>()
+                .expect("HeaderMap must exist");
+            assert_eq!(
+                headers.get(&ROUTE_TO_LEADER_HEADER),
+                Some(&ROUTE_TO_LEADER_VALUE),
+                "{name} must attach route-to-leader header when LAR is enabled"
+            );
+        }
+
+        // 2. BeginTransactionRequest: read-write defaults to true, read-only defaults to false
+        let read_write_begin = BeginTransactionRequest::default()
+            .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()));
+        let options =
+            database_client.attach_route_to_leader(&read_write_begin, RequestOptions::default());
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "Read-write BeginTransactionRequest must attach route-to-leader header"
+        );
+
+        let read_only_begin = BeginTransactionRequest::default()
+            .set_options(TransactionOptions::default().set_read_only(ReadOnly::default()));
+        let options =
+            database_client.attach_route_to_leader(&read_only_begin, RequestOptions::default());
+        let headers = options.get_extension::<HeaderMap>();
+        assert!(
+            headers
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "Read-only BeginTransactionRequest must not attach route-to-leader header"
+        );
+
+        let partitioned_dml_begin = BeginTransactionRequest::default().set_options(
+            TransactionOptions::default().set_partitioned_dml(PartitionedDml::default()),
+        );
+        let options = database_client
+            .attach_route_to_leader(&partitioned_dml_begin, RequestOptions::default());
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "PartitionedDml BeginTransactionRequest must attach route-to-leader header"
+        );
+
+        // Edge case: BeginTransactionRequest with no options or no mode defaults to false
+        let options_none_begin = BeginTransactionRequest::default();
+        let options =
+            database_client.attach_route_to_leader(&options_none_begin, RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "BeginTransactionRequest with options: None must not attach route-to-leader header"
+        );
+
+        let mode_none_begin =
+            BeginTransactionRequest::default().set_options(TransactionOptions::default());
+        let options =
+            database_client.attach_route_to_leader(&mode_none_begin, RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "BeginTransactionRequest with mode: None must not attach route-to-leader header"
+        );
+
+        // 3. ExecuteSqlRequest / ReadRequest:
+        // Defaults to false for ordinary read/query
+        let options = database_client
+            .attach_route_to_leader(&ExecuteSqlRequest::default(), RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "Default ExecuteSqlRequest must not attach route-to-leader header"
+        );
+
+        let options = database_client
+            .attach_route_to_leader(&ReadRequest::default(), RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "Default ReadRequest must not attach route-to-leader header"
+        );
+
+        // Inline read-write begin attaches header
+        let inline_read_write_sql = ExecuteSqlRequest::default().set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        );
+        let options = database_client
+            .attach_route_to_leader(&inline_read_write_sql, RequestOptions::default());
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "ExecuteSqlRequest with inline read-write begin must attach route-to-leader header"
+        );
+
+        let inline_read_write_read = ReadRequest::default().set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        );
+        let options = database_client
+            .attach_route_to_leader(&inline_read_write_read, RequestOptions::default());
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "ReadRequest with inline read-write begin must attach route-to-leader header"
+        );
+
+        // Inline read-only begin must NOT attach header
+        let inline_read_only_sql = ExecuteSqlRequest::default().set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_only(ReadOnly::default())),
+        );
+        let options = database_client
+            .attach_route_to_leader(&inline_read_only_sql, RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "ExecuteSqlRequest with inline read-only begin must not attach route-to-leader header"
+        );
+
+        let inline_read_only_read = ReadRequest::default().set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_only(ReadOnly::default())),
+        );
+        let options = database_client
+            .attach_route_to_leader(&inline_read_only_read, RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "ReadRequest with inline read-only begin must not attach route-to-leader header"
+        );
+
+        // Second and further statements in read/write transactions:
+        // ReadWriteTransaction attaches RouteToLeader on all statements
+        let read_write_second_sql = ExecuteSqlRequest::default()
+            .set_transaction(TransactionSelector::default().set_id(vec![1, 2, 3]));
+        let options = RequestOptions::default().insert_extension(RouteToLeader);
+        let options = database_client.attach_route_to_leader(&read_write_second_sql, options);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "Second statement in read-write transaction with RouteToLeader must attach header"
+        );
+
+        let read_write_second_read = ReadRequest::default()
+            .set_transaction(TransactionSelector::default().set_id(vec![1, 2, 3]));
+        let options = RequestOptions::default().insert_extension(RouteToLeader);
+        let options = database_client.attach_route_to_leader(&read_write_second_read, options);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "Second read in read-write transaction with RouteToLeader must attach header"
+        );
+
+        // Second and further statements in read-only transactions:
+        // ReadOnlyTransaction uses TransactionSelector::Id without RouteToLeader extension
+        let read_only_second_sql = ExecuteSqlRequest::default()
+            .set_transaction(TransactionSelector::default().set_id(vec![1, 2, 3]));
+        let options = database_client
+            .attach_route_to_leader(&read_only_second_sql, RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "Second statement in read-only transaction must not attach route-to-leader header"
+        );
+
+        let read_only_second_read = ReadRequest::default()
+            .set_transaction(TransactionSelector::default().set_id(vec![1, 2, 3]));
+        let options = database_client
+            .attach_route_to_leader(&read_only_second_read, RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "Second read in read-only transaction must not attach route-to-leader header"
+        );
+
+        // 4. Partition requests default to false
+        let options = database_client
+            .attach_route_to_leader(&PartitionQueryRequest::default(), RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "PartitionQueryRequest must not attach route-to-leader header"
+        );
+
+        let options = database_client
+            .attach_route_to_leader(&PartitionReadRequest::default(), RequestOptions::default());
+        assert!(
+            options
+                .get_extension::<HeaderMap>()
+                .and_then(|headers| headers.get(&ROUTE_TO_LEADER_HEADER))
+                .is_none(),
+            "PartitionReadRequest must not attach route-to-leader header"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_route_to_leader_is_idempotent() {
+        let mock = create_test_mock();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_leader_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let options = database_client
+            .attach_route_to_leader(&CommitRequest::default(), RequestOptions::default());
+        let options = database_client.attach_route_to_leader(&CommitRequest::default(), options);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap must exist");
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "Calling attach_route_to_leader multiple times must not duplicate header"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn batch_write_route_to_leader_header_mock_verification() {
+        let captured_metadata = Arc::new(Mutex::new(Vec::new()));
+        let mut mock = create_test_mock();
+
+        let captured_clone = Arc::clone(&captured_metadata);
+        mock.expect_batch_write().returning(move |request| {
+            captured_clone
+                .lock()
+                .expect("lock should succeed")
+                .push(request.metadata().clone());
+            let stream = adapt([Ok(mock_v1::BatchWriteResponse::default())]);
+            Ok(Response::from(stream))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        // Case 1: LAR enabled sends route-to-leader header
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_leader_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let request = BatchWriteRequest::default()
+            .set_session("projects/p/instances/i/databases/d/sessions/s");
+        let mut stream = database_client
+            .batch_write(request, RequestOptions::default(), None)
+            .send()
+            .await
+            .expect("batch_write call should succeed");
+
+        let response = stream
+            .next_message()
+            .await
+            .expect("stream should return a response");
+        assert!(response.is_ok(), "response should be ok");
+
+        let metadata = captured_metadata
+            .lock()
+            .expect("lock should succeed")
+            .pop()
+            .expect("one batch write request should be captured");
+        let route_to_leader = metadata
+            .get("x-goog-spanner-route-to-leader")
+            .and_then(|value| value.to_str().ok());
+        assert_eq!(
+            route_to_leader,
+            Some("true"),
+            "batch_write must send x-goog-spanner-route-to-leader: true when LAR is enabled"
+        );
+
+        // Case 2: LAR disabled does not send route-to-leader header
+        let database_client_disabled = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_leader_aware_routing(false)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let request = BatchWriteRequest::default()
+            .set_session("projects/p/instances/i/databases/d/sessions/s");
+        let mut stream = database_client_disabled
+            .batch_write(request, RequestOptions::default(), None)
+            .send()
+            .await
+            .expect("batch_write call should succeed");
+
+        let response = stream
+            .next_message()
+            .await
+            .expect("stream should return a response");
+        assert!(response.is_ok(), "response should be ok");
+
+        let metadata = captured_metadata
+            .lock()
+            .expect("lock should succeed")
+            .pop()
+            .expect("one batch write request should be captured");
+        let route_to_leader = metadata.get("x-goog-spanner-route-to-leader");
+        assert!(
+            route_to_leader.is_none(),
+            "batch_write must not send x-goog-spanner-route-to-leader header when LAR is disabled"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn create_session_route_to_leader_header_mock_verification() {
+        let captured_metadata = Arc::new(Mutex::new(Vec::new()));
+        let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = mpsc::channel(1);
+            Ok(Response::from(receiver))
+        });
+
+        let captured_clone = Arc::clone(&captured_metadata);
+        mock.expect_create_session().returning(move |request| {
+            captured_clone
+                .lock()
+                .expect("lock should succeed")
+                .push(request.metadata().clone());
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/s".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        // Case 1: LAR enabled (default) sends route-to-leader header on session creation
+        let _database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_leader_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let metadata = captured_metadata
+            .lock()
+            .expect("lock should succeed")
+            .pop()
+            .expect("one create session request should be captured");
+        let route_to_leader = metadata
+            .get("x-goog-spanner-route-to-leader")
+            .and_then(|value| value.to_str().ok());
+        assert_eq!(
+            route_to_leader,
+            Some("true"),
+            "create_session must send x-goog-spanner-route-to-leader: true when LAR is enabled"
+        );
+
+        // Case 2: LAR disabled does not send route-to-leader header
+        let _database_client_disabled = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_leader_aware_routing(false)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let metadata = captured_metadata
+            .lock()
+            .expect("lock should succeed")
+            .pop()
+            .expect("one create session request should be captured");
+        let route_to_leader = metadata.get("x-goog-spanner-route-to-leader");
+        assert!(
+            route_to_leader.is_none(),
+            "create_session must not send x-goog-spanner-route-to-leader header when LAR is disabled"
+        );
     }
 }
