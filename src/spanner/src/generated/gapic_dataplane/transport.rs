@@ -70,10 +70,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::CreateSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Session>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -113,7 +110,10 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::CreateSessionRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -127,10 +127,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::BatchCreateSessionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BatchCreateSessionsResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -171,7 +168,7 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::BatchCreateSessionsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -185,10 +182,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::GetSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Session>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -225,7 +219,10 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::GetSessionRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -239,10 +236,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::ListSessionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -279,7 +273,10 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::ListSessionsRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -293,10 +290,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::DeleteSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -336,7 +330,10 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::DeleteSessionRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -350,10 +347,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ResultSet>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -390,7 +384,10 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::ExecuteSqlRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -444,10 +441,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::ExecuteBatchDmlRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ExecuteBatchDmlResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -488,7 +482,7 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::ExecuteBatchDmlRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -502,10 +496,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::ReadRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ResultSet>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -542,7 +533,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::ReadRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -595,10 +587,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::BeginTransactionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Transaction>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -639,7 +628,7 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::BeginTransactionRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -653,10 +642,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::CommitRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CommitResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -693,7 +679,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::CommitRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -707,10 +694,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::RollbackRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -747,7 +731,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::RollbackRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -761,10 +746,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::PartitionQueryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PartitionResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -805,7 +787,7 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::PartitionQueryRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -819,10 +801,7 @@ impl super::stub::Spanner for Spanner {
         req: crate::model::PartitionReadRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PartitionResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -862,7 +841,10 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::spanner::v1::PartitionReadRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

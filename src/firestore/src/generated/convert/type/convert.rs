@@ -18,18 +18,18 @@ impl gaxi::prost::ToProto<LatLng> for google_cloud_type::model::LatLng {
     type Output = LatLng;
     fn to_proto(self) -> std::result::Result<LatLng, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            latitude: self.latitude.to_proto()?,
-            longitude: self.longitude.to_proto()?,
+            latitude: gaxi::prost::ToProto::<f64>::to_proto(self.latitude)?,
+            longitude: gaxi::prost::ToProto::<f64>::to_proto(self.longitude)?,
         })
     }
 }
 
 impl gaxi::prost::FromProto<google_cloud_type::model::LatLng> for LatLng {
-    fn cnv(self) -> std::result::Result<google_cloud_type::model::LatLng, gaxi::prost::ConvertError> {
-        Ok(
-            google_cloud_type::model::LatLng::new()
-                .set_latitude(self.latitude)
-                .set_longitude(self.longitude)
-        )
+    fn cnv(
+        self,
+    ) -> std::result::Result<google_cloud_type::model::LatLng, gaxi::prost::ConvertError> {
+        Ok(google_cloud_type::model::LatLng::new()
+            .set_latitude(self.latitude)
+            .set_longitude(self.longitude))
     }
 }

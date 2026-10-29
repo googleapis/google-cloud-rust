@@ -70,10 +70,7 @@ impl super::stub::Publisher for Publisher {
         req: crate::model::PublishRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PublishResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -110,7 +107,8 @@ impl super::stub::Publisher for Publisher {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::pubsub::v1::PublishRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -156,10 +154,7 @@ impl super::stub::Subscriber for Subscriber {
         req: crate::model::ModifyAckDeadlineRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -200,7 +195,7 @@ impl super::stub::Subscriber for Subscriber {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::pubsub::v1::ModifyAckDeadlineRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -214,10 +209,7 @@ impl super::stub::Subscriber for Subscriber {
         req: crate::model::AcknowledgeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -257,7 +249,10 @@ impl super::stub::Subscriber for Subscriber {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::pubsub::v1::AcknowledgeRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

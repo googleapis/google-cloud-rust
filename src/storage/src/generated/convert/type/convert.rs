@@ -18,21 +18,19 @@ impl gaxi::prost::ToProto<Date> for google_cloud_type::model::Date {
     type Output = Date;
     fn to_proto(self) -> std::result::Result<Date, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            year: self.year.to_proto()?,
-            month: self.month.to_proto()?,
-            day: self.day.to_proto()?,
+            year: gaxi::prost::ToProto::<i32>::to_proto(self.year)?,
+            month: gaxi::prost::ToProto::<i32>::to_proto(self.month)?,
+            day: gaxi::prost::ToProto::<i32>::to_proto(self.day)?,
         })
     }
 }
 
 impl gaxi::prost::FromProto<google_cloud_type::model::Date> for Date {
     fn cnv(self) -> std::result::Result<google_cloud_type::model::Date, gaxi::prost::ConvertError> {
-        Ok(
-            google_cloud_type::model::Date::new()
-                .set_year(self.year)
-                .set_month(self.month)
-                .set_day(self.day)
-        )
+        Ok(google_cloud_type::model::Date::new()
+            .set_year(self.year)
+            .set_month(self.month)
+            .set_day(self.day))
     }
 }
 
@@ -40,23 +38,21 @@ impl gaxi::prost::ToProto<Expr> for google_cloud_type::model::Expr {
     type Output = Expr;
     fn to_proto(self) -> std::result::Result<Expr, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            expression: self.expression.to_proto()?,
-            title: self.title.to_proto()?,
-            description: self.description.to_proto()?,
-            location: self.location.to_proto()?,
+            expression: gaxi::prost::ToProto::<std::string::String>::to_proto(self.expression)?,
+            title: gaxi::prost::ToProto::<std::string::String>::to_proto(self.title)?,
+            description: gaxi::prost::ToProto::<std::string::String>::to_proto(self.description)?,
+            location: gaxi::prost::ToProto::<std::string::String>::to_proto(self.location)?,
         })
     }
 }
 
 impl gaxi::prost::FromProto<google_cloud_type::model::Expr> for Expr {
     fn cnv(self) -> std::result::Result<google_cloud_type::model::Expr, gaxi::prost::ConvertError> {
-        Ok(
-            google_cloud_type::model::Expr::new()
-                .set_expression(self.expression)
-                .set_title(self.title)
-                .set_description(self.description)
-                .set_location(self.location)
-        )
+        Ok(google_cloud_type::model::Expr::new()
+            .set_expression(self.expression)
+            .set_title(self.title)
+            .set_description(self.description)
+            .set_location(self.location))
     }
 }
 
@@ -64,18 +60,24 @@ impl gaxi::prost::ToProto<Interval> for google_cloud_type::model::Interval {
     type Output = Interval;
     fn to_proto(self) -> std::result::Result<Interval, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start_time: self.start_time.map(|v| v.to_proto()).transpose()?,
-            end_time: self.end_time.map(|v| v.to_proto()).transpose()?,
+            start_time: self
+                .start_time
+                .map(|v| gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(v))
+                .transpose()?,
+            end_time: self
+                .end_time
+                .map(|v| gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto(v))
+                .transpose()?,
         })
     }
 }
 
 impl gaxi::prost::FromProto<google_cloud_type::model::Interval> for Interval {
-    fn cnv(self) -> std::result::Result<google_cloud_type::model::Interval, gaxi::prost::ConvertError> {
-        Ok(
-            google_cloud_type::model::Interval::new()
-                .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_end_time(self.end_time.map(|v| v.cnv()).transpose()?)
-        )
+    fn cnv(
+        self,
+    ) -> std::result::Result<google_cloud_type::model::Interval, gaxi::prost::ConvertError> {
+        Ok(google_cloud_type::model::Interval::new()
+            .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_end_time(self.end_time.map(|v| v.cnv()).transpose()?))
     }
 }

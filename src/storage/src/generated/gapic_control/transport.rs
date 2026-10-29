@@ -70,10 +70,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::CreateFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Folder>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -140,7 +137,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::CreateFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -154,10 +151,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DeleteFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -235,7 +229,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::DeleteFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -249,10 +243,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Folder>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -330,7 +321,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::GetFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -344,10 +335,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListFoldersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFoldersResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -414,7 +402,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::ListFoldersRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -428,10 +416,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::RenameFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -509,7 +494,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::RenameFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -523,10 +508,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DeleteFolderRecursiveRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -604,7 +586,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::DeleteFolderRecursiveRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -618,10 +603,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetStorageLayoutRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::StorageLayout>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -699,7 +681,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::GetStorageLayoutRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -713,10 +695,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::CreateManagedFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ManagedFolder>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -772,7 +751,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::CreateManagedFolderRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -786,10 +768,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DeleteManagedFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -856,7 +835,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::DeleteManagedFolderRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -870,10 +852,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetManagedFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ManagedFolder>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -940,7 +919,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::GetManagedFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -954,10 +933,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListManagedFoldersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListManagedFoldersResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1013,7 +989,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::ListManagedFoldersRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1027,10 +1006,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateManagedFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ManagedFolder>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1103,7 +1079,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::UpdateManagedFolderRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1117,10 +1096,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::CreateAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1176,7 +1152,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::CreateAnywhereCacheRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1190,10 +1169,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1266,7 +1242,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::UpdateAnywhereCacheRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1280,10 +1259,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DisableAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnywhereCache>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1350,7 +1326,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::DisableAnywhereCacheRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1364,10 +1343,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::PauseAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnywhereCache>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1434,7 +1410,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::PauseAnywhereCacheRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1448,10 +1427,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ResumeAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnywhereCache>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1518,7 +1494,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::ResumeAnywhereCacheRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1532,10 +1511,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnywhereCache>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1602,7 +1578,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::GetAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1616,10 +1592,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListAnywhereCachesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAnywhereCachesResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1675,7 +1648,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::ListAnywhereCachesRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1689,10 +1665,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::CreateRapidCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1748,7 +1721,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::CreateRapidCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1762,10 +1735,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateRapidCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1838,7 +1808,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::UpdateRapidCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1852,10 +1822,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DisableRapidCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -1922,7 +1889,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::DisableRapidCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1936,10 +1903,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetRapidCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RapidCache>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2006,7 +1970,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::GetRapidCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2020,10 +1984,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListRapidCachesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRapidCachesResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2079,7 +2040,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::ListRapidCachesRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2093,10 +2054,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetProjectIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2140,7 +2098,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::GetProjectIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2154,10 +2115,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateProjectIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2205,7 +2163,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::UpdateProjectIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2219,10 +2180,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetFolderIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2266,7 +2224,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::GetFolderIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2280,10 +2241,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateFolderIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2331,7 +2289,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::UpdateFolderIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2345,10 +2306,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetOrganizationIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2392,7 +2350,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::GetOrganizationIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2406,10 +2367,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2457,7 +2415,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::storage::control::v2::UpdateOrganizationIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2471,10 +2429,7 @@ impl super::stub::StorageControl for StorageControl {
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -2559,7 +2514,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::iam::v1::GetIamPolicyRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2573,10 +2529,7 @@ impl super::stub::StorageControl for StorageControl {
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -2661,7 +2614,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::iam::v1::SetIamPolicyRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2675,10 +2629,7 @@ impl super::stub::StorageControl for StorageControl {
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -2797,18 +2748,13 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::iam::v1::TestIamPermissionsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    google_cloud_iam_v1::model::TestIamPermissionsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_iam_v1::model::TestIamPermissionsResponse>)
     }
 
     async fn get_intelligence_finding(
@@ -2816,10 +2762,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetIntelligenceFindingRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceFinding>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2861,7 +2804,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::GetIntelligenceFindingRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2875,10 +2821,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListIntelligenceFindingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIntelligenceFindingsResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2922,7 +2865,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::ListIntelligenceFindingsRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2938,10 +2884,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::SummarizeIntelligenceFindingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SummarizeIntelligenceFindingsResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -2985,7 +2928,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::SummarizeIntelligenceFindingsRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3004,10 +2950,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetIntelligenceFindingRevisionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceFindingRevision>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -3051,7 +2994,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::GetIntelligenceFindingRevisionRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3065,10 +3011,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListIntelligenceFindingRevisionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIntelligenceFindingRevisionsResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -3112,7 +3055,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::ListIntelligenceFindingRevisionsRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3131,10 +3077,7 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ViewObjectFullContextRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ObjectFullContext>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -3212,7 +3155,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<
+                    crate::google::storage::control::v2::ViewObjectFullContextRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3226,10 +3172,7 @@ impl super::stub::StorageControl for StorageControl {
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -3270,7 +3213,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::longrunning::GetOperationRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3294,7 +3240,7 @@ impl super::stub::StorageControl for StorageControl {
     }
 }
 
-use gaxi::prost::{ConvertError, FromProto, ToProto};
+use gaxi::prost::{ConvertError, FromProto};
 /// Convert from our `wkt::Any` to a `prost_types::Any`
 ///
 /// The encoded types considered for conversion are either metadata or result
@@ -3304,80 +3250,91 @@ pub(crate) fn lro_any_to_prost(
 ) -> std::result::Result<prost_types::Any, ConvertError> {
     match value.type_url().unwrap_or_default() {
         "" => Ok(prost_types::Any::default()),
-        "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
-            .to_msg::<crate::model::RenameFolderMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => gaxi::prost::ToProto::<crate::google::storage::control::v2::RenameFolderMetadata>::to_proto(
+            value
+                .to_msg::<crate::model::RenameFolderMetadata>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.Folder" => value
-            .to_msg::<crate::model::Folder>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.Folder" => gaxi::prost::ToProto::<crate::google::storage::control::v2::Folder>::to_proto(
+            value
+                .to_msg::<crate::model::Folder>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata" => value
-            .to_msg::<crate::model::DeleteFolderRecursiveMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata" => gaxi::prost::ToProto::<crate::google::storage::control::v2::DeleteFolderRecursiveMetadata>::to_proto(
+            value
+                .to_msg::<crate::model::DeleteFolderRecursiveMetadata>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.protobuf.Empty" => value
-            .to_msg::<wkt::Empty>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.protobuf.Empty" => gaxi::prost::ToProto::<crate::google::protobuf::Empty>::to_proto(
+            value
+                .to_msg::<wkt::Empty>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
-            .to_msg::<crate::model::CreateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => gaxi::prost::ToProto::<crate::google::storage::control::v2::CreateAnywhereCacheMetadata>::to_proto(
+            value
+                .to_msg::<crate::model::CreateAnywhereCacheMetadata>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
-            .to_msg::<crate::model::AnywhereCache>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.AnywhereCache" => gaxi::prost::ToProto::<crate::google::storage::control::v2::AnywhereCache>::to_proto(
+            value
+                .to_msg::<crate::model::AnywhereCache>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
-            .to_msg::<crate::model::UpdateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => gaxi::prost::ToProto::<crate::google::storage::control::v2::UpdateAnywhereCacheMetadata>::to_proto(
+            value
+                .to_msg::<crate::model::UpdateAnywhereCacheMetadata>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata" => value
-            .to_msg::<crate::model::CreateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata" => gaxi::prost::ToProto::<crate::google::storage::control::v2::CreateRapidCacheMetadata>::to_proto(
+            value
+                .to_msg::<crate::model::CreateRapidCacheMetadata>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.RapidCache" => value
-            .to_msg::<crate::model::RapidCache>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.RapidCache" => gaxi::prost::ToProto::<crate::google::storage::control::v2::RapidCache>::to_proto(
+            value
+                .to_msg::<crate::model::RapidCache>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata" => value
-            .to_msg::<crate::model::UpdateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata" => gaxi::prost::ToProto::<crate::google::storage::control::v2::UpdateRapidCacheMetadata>::to_proto(
+            value
+                .to_msg::<crate::model::UpdateRapidCacheMetadata>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
-        "type.googleapis.com/google.storage.control.v2.DisableRapidCacheMetadata" => value
-            .to_msg::<crate::model::DisableRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+        "type.googleapis.com/google.storage.control.v2.DisableRapidCacheMetadata" => gaxi::prost::ToProto::<crate::google::storage::control::v2::DisableRapidCacheMetadata>::to_proto(
+            value
+                .to_msg::<crate::model::DisableRapidCacheMetadata>()
+                .map_err(ConvertError::other)?,
+        )
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),

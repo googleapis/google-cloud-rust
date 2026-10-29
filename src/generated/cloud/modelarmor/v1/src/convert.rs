@@ -100,13 +100,19 @@ impl gaxi::prost::ToProto<SanitizeUserPromptRequest> for crate::model::SanitizeU
     type Output = SanitizeUserPromptRequest;
     fn to_proto(self) -> std::result::Result<SanitizeUserPromptRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            user_prompt_data: self.user_prompt_data.map(|v| v.to_proto()).transpose()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            user_prompt_data: self
+                .user_prompt_data
+                .map(|v| gaxi::prost::ToProto::<DataItem>::to_proto(v))
+                .transpose()?,
             multi_language_detection_metadata: self
                 .multi_language_detection_metadata
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MultiLanguageDetectionMetadata>::to_proto(v))
                 .transpose()?,
-            streaming_mode: self.streaming_mode.map(|v| v.to_proto()).transpose()?,
+            streaming_mode: self
+                .streaming_mode
+                .map(|v| gaxi::prost::ToProto::<StreamingMode>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -136,14 +142,20 @@ impl gaxi::prost::ToProto<SanitizeModelResponseRequest>
         self,
     ) -> std::result::Result<SanitizeModelResponseRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            model_response_data: self.model_response_data.map(|v| v.to_proto()).transpose()?,
-            user_prompt: self.user_prompt.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            model_response_data: self
+                .model_response_data
+                .map(|v| gaxi::prost::ToProto::<DataItem>::to_proto(v))
+                .transpose()?,
+            user_prompt: gaxi::prost::ToProto::<std::string::String>::to_proto(self.user_prompt)?,
             multi_language_detection_metadata: self
                 .multi_language_detection_metadata
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MultiLanguageDetectionMetadata>::to_proto(v))
                 .transpose()?,
-            streaming_mode: self.streaming_mode.map(|v| v.to_proto()).transpose()?,
+            streaming_mode: self
+                .streaming_mode
+                .map(|v| gaxi::prost::ToProto::<StreamingMode>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -176,7 +188,10 @@ impl gaxi::prost::ToProto<SanitizeUserPromptResponse> for crate::model::Sanitize
         self,
     ) -> std::result::Result<SanitizeUserPromptResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            sanitization_result: self.sanitization_result.map(|v| v.to_proto()).transpose()?,
+            sanitization_result: self
+                .sanitization_result
+                .map(|v| gaxi::prost::ToProto::<SanitizationResult>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -204,7 +219,10 @@ impl gaxi::prost::ToProto<SanitizeModelResponseResponse>
         self,
     ) -> std::result::Result<SanitizeModelResponseResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            sanitization_result: self.sanitization_result.map(|v| v.to_proto()).transpose()?,
+            sanitization_result: self
+                .sanitization_result
+                .map(|v| gaxi::prost::ToProto::<SanitizationResult>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -228,20 +246,25 @@ impl gaxi::prost::ToProto<FilterVersionConfig> for crate::model::FilterVersionCo
     type Output = FilterVersionConfig;
     fn to_proto(self) -> std::result::Result<FilterVersionConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            filter_version: self.filter_version.to_proto()?,
+            filter_version: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.filter_version,
+            )?,
             filter_version_alias: self
                 .filter_version_alias
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<FilterVersionAlias>::to_proto(v))
                 .transpose()?,
-            release_date: self.release_date.map(|v| v.to_proto()).transpose()?,
+            release_date: self
+                .release_date
+                .map(|v| gaxi::prost::ToProto::<super::prost::google::r#type::Date>::to_proto(v))
+                .transpose()?,
             projected_deprecation_date: self
                 .projected_deprecation_date
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<super::prost::google::r#type::Date>::to_proto(v))
                 .transpose()?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -280,18 +303,20 @@ impl gaxi::prost::ToProto<sanitization_result::SanitizationMetadata>
     ) -> std::result::Result<sanitization_result::SanitizationMetadata, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            error_code: self.error_code.to_proto()?,
-            error_message: self.error_message.to_proto()?,
-            ignore_partial_invocation_failures: self
-                .ignore_partial_invocation_failures
-                .to_proto()?,
+            error_code: gaxi::prost::ToProto::<i64>::to_proto(self.error_code)?,
+            error_message: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.error_message,
+            )?,
+            ignore_partial_invocation_failures: gaxi::prost::ToProto::<bool>::to_proto(
+                self.ignore_partial_invocation_failures,
+            )?,
             stream_chunk_processed: self
                 .stream_chunk_processed
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<DataItem>::to_proto(v))
                 .transpose()?,
             filter_version_config: self
                 .filter_version_config
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<FilterVersionConfig>::to_proto(v))
                 .transpose()?,
         })
     }
@@ -325,16 +350,27 @@ impl gaxi::prost::ToProto<SanitizationResult> for crate::model::SanitizationResu
     type Output = SanitizationResult;
     fn to_proto(self) -> std::result::Result<SanitizationResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            filter_match_state: self.filter_match_state.to_proto()?,
+            filter_match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(
+                self.filter_match_state,
+            )?,
             filter_results: self
                 .filter_results
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<FilterResult>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            invocation_result: self.invocation_result.to_proto()?,
+            invocation_result: gaxi::prost::ToProto::<InvocationResult>::to_proto(
+                self.invocation_result,
+            )?,
             sanitization_metadata: self
                 .sanitization_metadata
-                .map(|v| v.to_proto())
+                .map(|v| {
+                    gaxi::prost::ToProto::<sanitization_result::SanitizationMetadata>::to_proto(v)
+                })
                 .transpose()?,
         })
     }
@@ -367,8 +403,12 @@ impl gaxi::prost::ToProto<MultiLanguageDetectionMetadata>
         self,
     ) -> std::result::Result<MultiLanguageDetectionMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            source_language: self.source_language.to_proto()?,
-            enable_multi_language_detection: self.enable_multi_language_detection.to_proto()?,
+            source_language: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.source_language,
+            )?,
+            enable_multi_language_detection: gaxi::prost::ToProto::<bool>::to_proto(
+                self.enable_multi_language_detection,
+            )?,
         })
     }
 }
@@ -392,19 +432,31 @@ impl gaxi::prost::ToProto<filter_result::FilterResult>
     type Output = filter_result::FilterResult;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::RaiFilterResult(v) => Ok(Self::Output::RaiFilterResult((*v).to_proto()?)),
-            Self::SdpFilterResult(v) => Ok(Self::Output::SdpFilterResult((*v).to_proto()?)),
-            Self::PiAndJailbreakFilterResult(v) => {
-                Ok(Self::Output::PiAndJailbreakFilterResult((*v).to_proto()?))
-            }
-            Self::MaliciousUriFilterResult(v) => {
-                Ok(Self::Output::MaliciousUriFilterResult((*v).to_proto()?))
-            }
-            Self::CsamFilterFilterResult(v) => {
-                Ok(Self::Output::CsamFilterFilterResult((*v).to_proto()?))
-            }
+            Self::RaiFilterResult(v) => Ok(Self::Output::RaiFilterResult(gaxi::prost::ToProto::<
+                RaiFilterResult,
+            >::to_proto(
+                *v
+            )?)),
+            Self::SdpFilterResult(v) => Ok(Self::Output::SdpFilterResult(gaxi::prost::ToProto::<
+                SdpFilterResult,
+            >::to_proto(
+                *v
+            )?)),
+            Self::PiAndJailbreakFilterResult(v) => Ok(Self::Output::PiAndJailbreakFilterResult(
+                gaxi::prost::ToProto::<PiAndJailbreakFilterResult>::to_proto(*v)?,
+            )),
+            Self::MaliciousUriFilterResult(v) => Ok(Self::Output::MaliciousUriFilterResult(
+                gaxi::prost::ToProto::<MaliciousUriFilterResult>::to_proto(*v)?,
+            )),
+            Self::CsamFilterFilterResult(v) => Ok(Self::Output::CsamFilterFilterResult(
+                gaxi::prost::ToProto::<CsamFilterResult>::to_proto(*v)?,
+            )),
             Self::VirusScanFilterResult(v) => {
-                Ok(Self::Output::VirusScanFilterResult((*v).to_proto()?))
+                Ok(Self::Output::VirusScanFilterResult(gaxi::prost::ToProto::<
+                    VirusScanFilterResult,
+                >::to_proto(
+                    *v
+                )?))
             }
         }
     }
@@ -441,7 +493,10 @@ impl gaxi::prost::ToProto<FilterResult> for crate::model::FilterResult {
     type Output = FilterResult;
     fn to_proto(self) -> std::result::Result<FilterResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            filter_result: self.filter_result.map(|v| v.to_proto()).transpose()?,
+            filter_result: self
+                .filter_result
+                .map(|v| gaxi::prost::ToProto::<filter_result::FilterResult>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -462,9 +517,11 @@ impl gaxi::prost::ToProto<rai_filter_result::RaiFilterTypeResult>
     ) -> std::result::Result<rai_filter_result::RaiFilterTypeResult, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            filter_type: self.filter_type.to_proto()?,
-            confidence_level: self.confidence_level.to_proto()?,
-            match_state: self.match_state.to_proto()?,
+            filter_type: gaxi::prost::ToProto::<RaiFilterType>::to_proto(self.filter_type)?,
+            confidence_level: gaxi::prost::ToProto::<DetectionConfidenceLevel>::to_proto(
+                self.confidence_level,
+            )?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
         })
     }
 }
@@ -489,17 +546,24 @@ impl gaxi::prost::ToProto<RaiFilterResult> for crate::model::RaiFilterResult {
     type Output = RaiFilterResult;
     fn to_proto(self) -> std::result::Result<RaiFilterResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            execution_state: self.execution_state.to_proto()?,
+            execution_state: gaxi::prost::ToProto::<FilterExecutionState>::to_proto(
+                self.execution_state,
+            )?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            match_state: self.match_state.to_proto()?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
             rai_filter_type_results: self
                 .rai_filter_type_results
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<rai_filter_result::RaiFilterTypeResult>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
@@ -529,9 +593,19 @@ impl gaxi::prost::ToProto<sdp_filter_result::Result> for crate::model::sdp_filte
     type Output = sdp_filter_result::Result;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::InspectResult(v) => Ok(Self::Output::InspectResult((*v).to_proto()?)),
-            Self::DeidentifyResult(v) => Ok(Self::Output::DeidentifyResult((*v).to_proto()?)),
-            Self::RedactResult(v) => Ok(Self::Output::RedactResult((*v).to_proto()?)),
+            Self::InspectResult(v) => Ok(Self::Output::InspectResult(gaxi::prost::ToProto::<
+                SdpInspectResult,
+            >::to_proto(*v)?)),
+            Self::DeidentifyResult(v) => {
+                Ok(Self::Output::DeidentifyResult(gaxi::prost::ToProto::<
+                    SdpDeidentifyResult,
+                >::to_proto(
+                    *v
+                )?))
+            }
+            Self::RedactResult(v) => Ok(Self::Output::RedactResult(gaxi::prost::ToProto::<
+                SdpRedactResult,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -554,7 +628,10 @@ impl gaxi::prost::ToProto<SdpFilterResult> for crate::model::SdpFilterResult {
     type Output = SdpFilterResult;
     fn to_proto(self) -> std::result::Result<SdpFilterResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            result: self.result.map(|v| v.to_proto()).transpose()?,
+            result: self
+                .result
+                .map(|v| gaxi::prost::ToProto::<sdp_filter_result::Result>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -570,20 +647,24 @@ impl gaxi::prost::ToProto<SdpInspectResult> for crate::model::SdpInspectResult {
     type Output = SdpInspectResult;
     fn to_proto(self) -> std::result::Result<SdpInspectResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            execution_state: self.execution_state.to_proto()?,
+            execution_state: gaxi::prost::ToProto::<FilterExecutionState>::to_proto(
+                self.execution_state,
+            )?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            match_state: self.match_state.to_proto()?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
             findings: self
                 .findings
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<SdpFinding>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            findings_truncated: self.findings_truncated.to_proto()?,
-            extracted_image_text: self.extracted_image_text.to_proto()?,
+            findings_truncated: gaxi::prost::ToProto::<bool>::to_proto(self.findings_truncated)?,
+            extracted_image_text: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.extracted_image_text,
+            )?,
         })
     }
 }
@@ -614,8 +695,12 @@ impl gaxi::prost::ToProto<data_item::DataItem> for crate::model::data_item::Data
     type Output = data_item::DataItem;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Text(v) => Ok(Self::Output::Text(v.to_proto()?)),
-            Self::ByteItem(v) => Ok(Self::Output::ByteItem((*v).to_proto()?)),
+            Self::Text(v) => Ok(Self::Output::Text(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::ByteItem(v) => Ok(Self::Output::ByteItem(
+                gaxi::prost::ToProto::<ByteDataItem>::to_proto(*v)?,
+            )),
         }
     }
 }
@@ -636,7 +721,10 @@ impl gaxi::prost::ToProto<DataItem> for crate::model::DataItem {
     type Output = DataItem;
     fn to_proto(self) -> std::result::Result<DataItem, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            data_item: self.data_item.map(|v| v.to_proto()).transpose()?,
+            data_item: self
+                .data_item
+                .map(|v| gaxi::prost::ToProto::<data_item::DataItem>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -664,9 +752,11 @@ impl gaxi::prost::ToProto<ByteDataItem> for crate::model::ByteDataItem {
     type Output = ByteDataItem;
     fn to_proto(self) -> std::result::Result<ByteDataItem, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            byte_data_type: self.byte_data_type.to_proto()?,
-            byte_data: self.byte_data.to_proto()?,
-            file_label: self.file_label.to_proto()?,
+            byte_data_type: gaxi::prost::ToProto::<byte_data_item::ByteItemType>::to_proto(
+                self.byte_data_type,
+            )?,
+            byte_data: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.byte_data)?,
+            file_label: gaxi::prost::ToProto::<std::string::String>::to_proto(self.file_label)?,
         })
     }
 }
@@ -684,19 +774,24 @@ impl gaxi::prost::ToProto<SdpDeidentifyResult> for crate::model::SdpDeidentifyRe
     type Output = SdpDeidentifyResult;
     fn to_proto(self) -> std::result::Result<SdpDeidentifyResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            execution_state: self.execution_state.to_proto()?,
+            execution_state: gaxi::prost::ToProto::<FilterExecutionState>::to_proto(
+                self.execution_state,
+            )?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            match_state: self.match_state.to_proto()?,
-            data: self.data.map(|v| v.to_proto()).transpose()?,
-            transformed_bytes: self.transformed_bytes.to_proto()?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
+            data: self
+                .data
+                .map(|v| gaxi::prost::ToProto::<DataItem>::to_proto(v))
+                .transpose()?,
+            transformed_bytes: gaxi::prost::ToProto::<i64>::to_proto(self.transformed_bytes)?,
             info_types: self
                 .info_types
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<std::string::String>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -735,10 +830,10 @@ impl gaxi::prost::ToProto<sdp_image_finding_location::SdpBoundingBox>
     ) -> std::result::Result<sdp_image_finding_location::SdpBoundingBox, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            top: self.top.to_proto()?,
-            left: self.left.to_proto()?,
-            width: self.width.to_proto()?,
-            height: self.height.to_proto()?,
+            top: gaxi::prost::ToProto::<i32>::to_proto(self.top)?,
+            left: gaxi::prost::ToProto::<i32>::to_proto(self.left)?,
+            width: gaxi::prost::ToProto::<i32>::to_proto(self.width)?,
+            height: gaxi::prost::ToProto::<i32>::to_proto(self.height)?,
         })
     }
 }
@@ -769,7 +864,9 @@ impl gaxi::prost::ToProto<SdpImageFindingLocation> for crate::model::SdpImageFin
             bounding_boxes: self
                 .bounding_boxes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| {
+                    gaxi::prost::ToProto::<sdp_image_finding_location::SdpBoundingBox>::to_proto(v)
+                })
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -797,7 +894,11 @@ impl gaxi::prost::ToProto<sdp_content_location::Location>
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::ImageFindingLocation(v) => {
-                Ok(Self::Output::ImageFindingLocation((*v).to_proto()?))
+                Ok(Self::Output::ImageFindingLocation(gaxi::prost::ToProto::<
+                    SdpImageFindingLocation,
+                >::to_proto(
+                    *v
+                )?))
             }
         }
     }
@@ -823,8 +924,13 @@ impl gaxi::prost::ToProto<SdpContentLocation> for crate::model::SdpContentLocati
     type Output = SdpContentLocation;
     fn to_proto(self) -> std::result::Result<SdpContentLocation, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            container_name: self.container_name.to_proto()?,
-            location: self.location.map(|v| v.to_proto()).transpose()?,
+            container_name: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.container_name,
+            )?,
+            location: self
+                .location
+                .map(|v| gaxi::prost::ToProto::<sdp_content_location::Location>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -847,12 +953,18 @@ impl gaxi::prost::ToProto<sdp_finding::SdpFindingLocation>
         self,
     ) -> std::result::Result<sdp_finding::SdpFindingLocation, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            byte_range: self.byte_range.map(|v| v.to_proto()).transpose()?,
-            codepoint_range: self.codepoint_range.map(|v| v.to_proto()).transpose()?,
+            byte_range: self
+                .byte_range
+                .map(|v| gaxi::prost::ToProto::<RangeInfo>::to_proto(v))
+                .transpose()?,
+            codepoint_range: self
+                .codepoint_range
+                .map(|v| gaxi::prost::ToProto::<RangeInfo>::to_proto(v))
+                .transpose()?,
             content_locations: self
                 .content_locations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<SdpContentLocation>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -881,9 +993,12 @@ impl gaxi::prost::ToProto<SdpFinding> for crate::model::SdpFinding {
     type Output = SdpFinding;
     fn to_proto(self) -> std::result::Result<SdpFinding, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            info_type: self.info_type.to_proto()?,
-            likelihood: self.likelihood.to_proto()?,
-            location: self.location.map(|v| v.to_proto()).transpose()?,
+            info_type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.info_type)?,
+            likelihood: gaxi::prost::ToProto::<SdpFindingLikelihood>::to_proto(self.likelihood)?,
+            location: self
+                .location
+                .map(|v| gaxi::prost::ToProto::<sdp_finding::SdpFindingLocation>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -901,20 +1016,24 @@ impl gaxi::prost::ToProto<SdpRedactResult> for crate::model::SdpRedactResult {
     type Output = SdpRedactResult;
     fn to_proto(self) -> std::result::Result<SdpRedactResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            execution_state: self.execution_state.to_proto()?,
+            execution_state: gaxi::prost::ToProto::<FilterExecutionState>::to_proto(
+                self.execution_state,
+            )?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            match_state: self.match_state.to_proto()?,
-            redacted_image: self.redacted_image.to_proto()?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
+            redacted_image: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.redacted_image)?,
             findings: self
                 .findings
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<SdpFinding>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            extracted_image_text: self.extracted_image_text.to_proto()?,
+            extracted_image_text: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.extracted_image_text,
+            )?,
         })
     }
 }
@@ -947,14 +1066,18 @@ impl gaxi::prost::ToProto<PiAndJailbreakFilterResult> for crate::model::PiAndJai
         self,
     ) -> std::result::Result<PiAndJailbreakFilterResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            execution_state: self.execution_state.to_proto()?,
+            execution_state: gaxi::prost::ToProto::<FilterExecutionState>::to_proto(
+                self.execution_state,
+            )?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            match_state: self.match_state.to_proto()?,
-            confidence_level: self.confidence_level.to_proto()?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
+            confidence_level: gaxi::prost::ToProto::<DetectionConfidenceLevel>::to_proto(
+                self.confidence_level,
+            )?,
         })
     }
 }
@@ -990,11 +1113,11 @@ impl gaxi::prost::ToProto<malicious_uri_filter_result::MaliciousUriMatchedItem>
         gaxi::prost::ConvertError,
     > {
         Ok(Self::Output {
-            uri: self.uri.to_proto()?,
+            uri: gaxi::prost::ToProto::<std::string::String>::to_proto(self.uri)?,
             locations: self
                 .locations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<RangeInfo>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1026,17 +1149,23 @@ impl gaxi::prost::ToProto<MaliciousUriFilterResult> for crate::model::MaliciousU
     type Output = MaliciousUriFilterResult;
     fn to_proto(self) -> std::result::Result<MaliciousUriFilterResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            execution_state: self.execution_state.to_proto()?,
+            execution_state: gaxi::prost::ToProto::<FilterExecutionState>::to_proto(
+                self.execution_state,
+            )?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            match_state: self.match_state.to_proto()?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
             malicious_uri_matched_items: self
                 .malicious_uri_matched_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| {
+                    gaxi::prost::ToProto::<
+                                malicious_uri_filter_result::MaliciousUriMatchedItem,
+                            >::to_proto(v)
+                })
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1081,19 +1210,26 @@ impl gaxi::prost::ToProto<VirusScanFilterResult> for crate::model::VirusScanFilt
     type Output = VirusScanFilterResult;
     fn to_proto(self) -> std::result::Result<VirusScanFilterResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            execution_state: self.execution_state.to_proto()?,
+            execution_state: gaxi::prost::ToProto::<FilterExecutionState>::to_proto(
+                self.execution_state,
+            )?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            match_state: self.match_state.to_proto()?,
-            scanned_content_type: self.scanned_content_type.to_proto()?,
-            scanned_size: self.scanned_size.map(|v| v.to_proto()).transpose()?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
+            scanned_content_type: gaxi::prost::ToProto::<
+                virus_scan_filter_result::ScannedContentType,
+            >::to_proto(self.scanned_content_type)?,
+            scanned_size: self
+                .scanned_size
+                .map(|v| gaxi::prost::ToProto::<i64>::to_proto(v))
+                .transpose()?,
             virus_details: self
                 .virus_details
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<VirusDetail>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -1137,13 +1273,15 @@ impl gaxi::prost::ToProto<VirusDetail> for crate::model::VirusDetail {
     type Output = VirusDetail;
     fn to_proto(self) -> std::result::Result<VirusDetail, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            vendor: self.vendor.to_proto()?,
+            vendor: gaxi::prost::ToProto::<std::string::String>::to_proto(self.vendor)?,
             names: self
                 .names
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<std::string::String>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            threat_type: self.threat_type.to_proto()?,
+            threat_type: gaxi::prost::ToProto::<virus_detail::ThreatType>::to_proto(
+                self.threat_type,
+            )?,
         })
     }
 }
@@ -1166,13 +1304,15 @@ impl gaxi::prost::ToProto<CsamFilterResult> for crate::model::CsamFilterResult {
     type Output = CsamFilterResult;
     fn to_proto(self) -> std::result::Result<CsamFilterResult, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            execution_state: self.execution_state.to_proto()?,
+            execution_state: gaxi::prost::ToProto::<FilterExecutionState>::to_proto(
+                self.execution_state,
+            )?,
             message_items: self
                 .message_items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(|v| gaxi::prost::ToProto::<MessageItem>::to_proto(v))
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            match_state: self.match_state.to_proto()?,
+            match_state: gaxi::prost::ToProto::<FilterMatchState>::to_proto(self.match_state)?,
         })
     }
 }
@@ -1205,8 +1345,10 @@ impl gaxi::prost::ToProto<MessageItem> for crate::model::MessageItem {
     type Output = MessageItem;
     fn to_proto(self) -> std::result::Result<MessageItem, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            message_type: self.message_type.to_proto()?,
-            message: self.message.to_proto()?,
+            message_type: gaxi::prost::ToProto::<message_item::MessageType>::to_proto(
+                self.message_type,
+            )?,
+            message: gaxi::prost::ToProto::<std::string::String>::to_proto(self.message)?,
         })
     }
 }
@@ -1223,8 +1365,14 @@ impl gaxi::prost::ToProto<RangeInfo> for crate::model::RangeInfo {
     type Output = RangeInfo;
     fn to_proto(self) -> std::result::Result<RangeInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start: self.start.map(|v| v.to_proto()).transpose()?,
-            end: self.end.map(|v| v.to_proto()).transpose()?,
+            start: self
+                .start
+                .map(|v| gaxi::prost::ToProto::<i64>::to_proto(v))
+                .transpose()?,
+            end: self
+                .end
+                .map(|v| gaxi::prost::ToProto::<i64>::to_proto(v))
+                .transpose()?,
         })
     }
 }
@@ -1243,9 +1391,9 @@ impl gaxi::prost::ToProto<super::prost::google::r#type::Date> for google_cloud_t
         self,
     ) -> std::result::Result<super::prost::google::r#type::Date, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            year: self.year.to_proto()?,
-            month: self.month.to_proto()?,
-            day: self.day.to_proto()?,
+            year: gaxi::prost::ToProto::<i32>::to_proto(self.year)?,
+            month: gaxi::prost::ToProto::<i32>::to_proto(self.month)?,
+            day: gaxi::prost::ToProto::<i32>::to_proto(self.day)?,
         })
     }
 }

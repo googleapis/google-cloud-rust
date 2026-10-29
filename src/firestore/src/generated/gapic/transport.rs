@@ -70,10 +70,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::GetDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Document>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -103,7 +100,10 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::GetDocumentRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -117,10 +117,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::ListDocumentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDocumentsResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -156,7 +153,7 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::ListDocumentsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -170,10 +167,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::UpdateDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Document>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -204,7 +198,7 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::UpdateDocumentRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -218,10 +212,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::DeleteDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
@@ -251,7 +242,7 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::DeleteDocumentRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -307,10 +298,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::BeginTransactionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BeginTransactionResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -340,7 +328,7 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::BeginTransactionRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -354,10 +342,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::CommitRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CommitResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -383,7 +368,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::CommitRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -397,10 +383,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::RollbackRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -426,7 +409,10 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::RollbackRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -522,10 +508,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::PartitionQueryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PartitionQueryResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -555,7 +538,7 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::PartitionQueryRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -637,10 +620,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::ListCollectionIdsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCollectionIdsResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -671,7 +651,7 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::ListCollectionIdsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -685,10 +665,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::BatchWriteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BatchWriteResponse>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -718,7 +695,10 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::BatchWriteRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -732,10 +712,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::CreateDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Document>> {
-        use gaxi::{
-            grpc::tonic::{Extensions, GrpcMethod},
-            prost::ToProto,
-        };
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = Extensions::new();
@@ -771,7 +748,7 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                gaxi::prost::ToProto::<crate::google::firestore::v1::CreateDocumentRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

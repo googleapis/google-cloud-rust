@@ -32,52 +32,52 @@ pub fn any_to_prost(value: wkt::Any) -> Option<prost_types::Any> {
         "type.googleapis.com/google.rpc.BadRequest" => value
             .to_msg::<BadRequest>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::BadRequest>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.DebugInfo" => value
             .to_msg::<DebugInfo>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::DebugInfo>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ErrorInfo" => value
             .to_msg::<ErrorInfo>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::ErrorInfo>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.Help" => value
             .to_msg::<Help>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::Help>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.LocalizedMessage" => value
             .to_msg::<LocalizedMessage>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::LocalizedMessage>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.PreconditionFailure" => value
             .to_msg::<PreconditionFailure>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::PreconditionFailure>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.QuotaFailure" => value
             .to_msg::<QuotaFailure>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::QuotaFailure>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RequestInfo" => value
             .to_msg::<RequestInfo>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::RequestInfo>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ResourceInfo" => value
             .to_msg::<ResourceInfo>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::ResourceInfo>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RetryInfo" => value
             .to_msg::<RetryInfo>()
             .ok()
-            .and_then(|v| v.to_proto().ok())
+            .and_then(|v| ToProto::<google::rpc::RetryInfo>::to_proto(v).ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         _ => None,
     });

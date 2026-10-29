@@ -79,3 +79,40 @@ pub(crate) mod google {
         include!("generated/convert/rpc/convert.rs");
     }
 }
+
+#[cfg(all(test, feature = "_internal-grpc-client"))]
+mod to_proto_compatibility_tests {
+    use super::google::rpc;
+    use crate::prost::ToProto;
+
+    #[test]
+    fn external_model_conversions_remain_unambiguous() {
+        let _: std::result::Result<i32, _> = google_cloud_rpc::model::Code::default().to_proto();
+        let _: std::result::Result<rpc::ErrorInfo, _> =
+            google_cloud_rpc::model::ErrorInfo::default().to_proto();
+        let _: std::result::Result<rpc::RetryInfo, _> =
+            google_cloud_rpc::model::RetryInfo::default().to_proto();
+        let _: std::result::Result<rpc::DebugInfo, _> =
+            google_cloud_rpc::model::DebugInfo::default().to_proto();
+        let _: std::result::Result<rpc::QuotaFailure, _> =
+            google_cloud_rpc::model::QuotaFailure::default().to_proto();
+        let _: std::result::Result<rpc::PreconditionFailure, _> =
+            google_cloud_rpc::model::PreconditionFailure::default().to_proto();
+        let _: std::result::Result<rpc::BadRequest, _> =
+            google_cloud_rpc::model::BadRequest::default().to_proto();
+        let _: std::result::Result<rpc::RequestInfo, _> =
+            google_cloud_rpc::model::RequestInfo::default().to_proto();
+        let _: std::result::Result<rpc::ResourceInfo, _> =
+            google_cloud_rpc::model::ResourceInfo::default().to_proto();
+        let _: std::result::Result<rpc::Help, _> =
+            google_cloud_rpc::model::Help::default().to_proto();
+        let _: std::result::Result<rpc::LocalizedMessage, _> =
+            google_cloud_rpc::model::LocalizedMessage::default().to_proto();
+        let _: std::result::Result<rpc::HttpRequest, _> =
+            google_cloud_rpc::model::HttpRequest::default().to_proto();
+        let _: std::result::Result<rpc::HttpResponse, _> =
+            google_cloud_rpc::model::HttpResponse::default().to_proto();
+        let _: std::result::Result<rpc::HttpHeader, _> =
+            google_cloud_rpc::model::HttpHeader::default().to_proto();
+    }
+}
