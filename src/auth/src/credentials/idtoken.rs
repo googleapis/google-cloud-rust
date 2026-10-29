@@ -283,7 +283,7 @@ fn build_id_token_credentials_internal(
                     };
                     Ok(IDTokenBuilder::Impersonated(builder))
                 }
-                "external_account" => {
+                "external_account" | "external_account_authorized_user" => {
                     // never gonna be supported for id tokens
                     Err(BuilderError::not_supported(cred_type))
                 }
@@ -404,6 +404,13 @@ pub(crate) mod tests {
     }
 
     pub(crate) fn generate_test_id_token_es256(audience: &str) -> String {
+        generate_test_id_token_es256_with_claims(audience, HashMap::new())
+    }
+
+    pub(crate) fn generate_test_id_token_es256_with_claims(
+        audience: &str,
+        claims_to_add: HashMap<&str, Value>,
+    ) -> String {
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
         let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
         let header = JwsHeader {
@@ -416,6 +423,10 @@ pub(crate) mod tests {
         claims.insert("iss", "accounts.google.com".into());
         claims.insert("exp", then.as_secs().into());
         claims.insert("iat", now.as_secs().into());
+
+        for (k, v) in claims_to_add {
+            claims.insert(k, v);
+        }
 
         let private_key = crate::credentials::tests::ES256_PRIVATE_KEY.clone();
         let key = SigningKey::from(private_key);
@@ -502,6 +513,26 @@ pub(crate) mod tests {
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
         assert!(err.to_string().contains("external_account"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_credentials_external_account_authorized_user_not_supported()
+    -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = serde_json::json!({
+            "type": "external_account_authorized_user",
+            "client_id": "test_client_id",
+            "client_secret": "test_client_secret",
+            "refresh_token": "test_refresh_token",
+        });
+
+        let result = build_id_token_credentials(audience, false, Some(json));
+        assert!(result.is_err(), "{result:?}");
+        let err = result.unwrap_err();
+        assert!(err.is_not_supported());
+        assert!(err.to_string().contains("external_account_authorized_user"));
         Ok(())
     }
 

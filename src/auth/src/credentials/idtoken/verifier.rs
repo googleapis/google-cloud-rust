@@ -44,6 +44,19 @@ pub use serde_json::Map;
 pub use serde_json::Value;
 use std::time::Duration;
 
+/// Issuers accepted in Google-issued ID tokens.
+///
+/// Identity-Aware Proxy (IAP) signs its JWTs with ES256 and uses the
+/// `https://cloud.google.com/iap` issuer. See the [IAP signed headers]
+/// documentation for details.
+///
+/// [IAP signed headers]: https://cloud.google.com/iap/docs/signed-headers-howto
+const ID_TOKEN_ISSUERS: &[&str] = &[
+    "https://accounts.google.com",
+    "accounts.google.com",
+    "https://cloud.google.com/iap",
+];
+
 /// Builder is used construct a [Verifier] of id tokens.
 pub struct Builder {
     audiences: Vec<String>,
@@ -174,7 +187,7 @@ impl Verifier {
         let mut validation = Validation::new(header.alg);
         validation.leeway = self.clock_skew.as_secs();
         // TODO(#3591): Support TPC/REP that can have different issuers
-        validation.set_issuer(&["https://accounts.google.com", "accounts.google.com"]);
+        validation.set_issuer(ID_TOKEN_ISSUERS);
         validation.set_audience(&self.audiences);
 
         let expected_email = self.email.clone();
@@ -295,7 +308,8 @@ enum ErrorKind {
 pub(crate) mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::{
-        generate_test_id_token, generate_test_id_token_es256, generate_test_id_token_with_claims,
+        generate_test_id_token, generate_test_id_token_es256,
+        generate_test_id_token_es256_with_claims, generate_test_id_token_with_claims,
     };
     use crate::credentials::internal::jwk_client::tests::{
         create_es256_jwk_set_response, create_rsa256_jwk_set_response,
@@ -627,6 +641,32 @@ pub(crate) mod tests {
 
         let claims = verifier.verify(&token).await?;
         assert!(!claims.is_empty(), "{token:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_iap_issuer_success() -> TestResult {
+        let server = Server::run();
+        let response = create_es256_jwk_set_response();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(response.clone())),
+        );
+
+        let audience = "https://example.com";
+        let mut claims = HashMap::new();
+        claims.insert("iss", "https://cloud.google.com/iap".into());
+        let token = generate_test_id_token_es256_with_claims(audience, claims);
+
+        let verifier = Builder::new([audience])
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .build();
+
+        let claims = verifier.verify(&token).await?;
+        assert!(!claims.is_empty(), "{token:?}");
+        assert_eq!(claims["iss"].as_str(), Some("https://cloud.google.com/iap"));
 
         Ok(())
     }

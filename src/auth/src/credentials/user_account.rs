@@ -458,7 +458,7 @@ impl TokenProvider for UserTokenProvider {
             client_id: self.client_id.clone(),
             client_secret: self.client_secret.clone(),
             refresh_token: self.refresh_token.clone(),
-            scopes: self.scopes.clone(),
+            scope: self.scopes.clone(),
         };
         let header = HeaderValue::from_static("application/json");
         let builder = client
@@ -566,7 +566,8 @@ pub(crate) struct Oauth2RefreshRequest {
     pub(crate) client_id: String,
     pub(crate) client_secret: String,
     pub(crate) refresh_token: String,
-    scopes: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    scope: Option<String>,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -601,6 +602,7 @@ mod tests {
     use httptest::matchers::{all_of, json_decoded, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
@@ -894,24 +896,27 @@ mod tests {
         Ok(())
     }
 
-    #[test]
-    fn oauth2_request_serde() {
+    #[test_case(None; "without_scopes")]
+    #[test_case(Some("scope1 scope2"); "with_scopes")]
+    fn oauth2_request_serde(scope: Option<&str>) {
         let request = Oauth2RefreshRequest {
             grant_type: RefreshGrantType::RefreshToken,
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
-            scopes: Some("scope1 scope2".to_string()),
+            scope: scope.map(str::to_string),
         };
 
         let json = serde_json::to_value(&request).unwrap();
-        let expected = serde_json::json!({
+        let mut expected = serde_json::json!({
             "grant_type": "refresh_token",
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
-            "scopes": "scope1 scope2",
         });
+        if let Some(scope) = scope {
+            expected["scope"] = Value::String(scope.to_string());
+        }
         assert_eq!(json, expected);
         let roundtrip = serde_json::from_value::<Oauth2RefreshRequest>(json).unwrap();
         assert_eq!(request, roundtrip);
@@ -967,7 +972,7 @@ mod tests {
             && request.client_secret == "test-client-secret"
             && request.refresh_token == "test-refresh-token"
             && request.grant_type == RefreshGrantType::RefreshToken
-            && request.scopes == expected_scopes
+            && request.scope == expected_scopes
     }
 
     #[tokio::test(start_paused = true)]

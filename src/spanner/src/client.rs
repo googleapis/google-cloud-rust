@@ -49,9 +49,11 @@ use http::{
     HeaderMap,
     header::{HeaderName, HeaderValue},
 };
+use std::borrow::Cow;
 use std::env;
 use std::sync::Arc;
 use tokio::task::JoinSet;
+use url::Url;
 
 pub use crate::database_client::DatabaseClient;
 #[cfg(feature = "_internal-metrics")]
@@ -184,7 +186,7 @@ pub trait SpannerBuilderExt: sealed::SpannerBuilderExt {
     /// By default, the client uses a dynamic channel pool ([`DynamicChannelPoolConfig`])
     /// starting with 4 channels and scaling up to 256 channels based on RPC concurrency and error feedback.
     /// When connecting to the Spanner emulator, the client defaults to a static pool with 1 channel.
-    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self;
+    fn with_channel_pool(self, pool_config: impl Into<ChannelPoolConfig>) -> Self;
 
     /// Sets the target [`InstanceType`] (`Cloud` vs `Omni`) for the Spanner client.
     ///
@@ -354,7 +356,7 @@ struct ExportBuiltinMetricsToCloudMonitoring(bool);
 struct ExportBuiltinMetricsToCustomProvider(bool);
 
 impl SpannerBuilderExt for ClientBuilder {
-    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self {
+    fn with_channel_pool(self, pool_config: impl Into<ChannelPoolConfig>) -> Self {
         self.with_extension(pool_config.into())
     }
 
@@ -383,51 +385,65 @@ impl SpannerBuilderExt for ClientBuilder {
     }
 }
 
-fn parse_emulator_endpoint(endpoint: &str) -> String {
-    match url::Url::parse(endpoint) {
-        Ok(url) if url.has_host() => endpoint.to_string(),
-        _ => format!("http://{}", endpoint),
+fn parse_emulator_endpoint(endpoint: &str) -> Cow<'_, str> {
+    let endpoint =
+        endpoint.trim_matches(|character: char| character.is_whitespace() || character == '/');
+    if endpoint.is_empty() {
+        return Cow::Borrowed("");
+    }
+    if Url::parse(endpoint).is_ok_and(|url| url.has_host()) {
+        return Cow::Borrowed(endpoint);
+    }
+    Cow::Owned(format!("http://{endpoint}"))
+}
+
+fn trim_configured_endpoint(config: &mut ClientConfig) {
+    let Some(endpoint) = config.endpoint.as_mut() else {
+        return;
+    };
+    let trimmed =
+        endpoint.trim_matches(|character: char| character.is_whitespace() || character == '/');
+    if trimmed.len() == endpoint.len() {
+        return;
+    }
+    if endpoint.starts_with(trimmed) {
+        endpoint.truncate(trimmed.len());
+    } else {
+        *endpoint = trimmed.to_string();
     }
 }
 
 fn detect_and_configure_emulator(config: &mut ClientConfig) -> bool {
     let Ok(endpoint) = env::var("SPANNER_EMULATOR_HOST") else {
+        trim_configured_endpoint(config);
         return false;
     };
     detect_and_configure_emulator_from_host(config, &endpoint)
 }
 
 fn detect_and_configure_emulator_from_host(config: &mut ClientConfig, emulator_host: &str) -> bool {
-    if emulator_host.is_empty() {
+    trim_configured_endpoint(config);
+
+    let emulator_endpoint = parse_emulator_endpoint(emulator_host);
+    if emulator_endpoint.is_empty() {
         return false;
     }
 
-    let emulator_endpoint = parse_emulator_endpoint(emulator_host);
-    let is_emulator = match config.endpoint.as_deref() {
-        // If no endpoint was explicitly set on the client config, adopt the emulator host.
-        None => {
-            config.endpoint = Some(emulator_endpoint);
-            true
+    if let Some(configured_endpoint) = config.endpoint.as_deref() {
+        if parse_emulator_endpoint(configured_endpoint) != emulator_endpoint {
+            return false;
         }
-        // If an explicit endpoint was specified, only treat the client as connecting to the
-        // emulator if that endpoint actually points to the emulator host (either raw or parsed URL).
-        Some(configured_endpoint)
-            if configured_endpoint == emulator_host || configured_endpoint == emulator_endpoint =>
-        {
-            true
-        }
-        // An explicit endpoint pointing to another host (e.g. a mock server, Omni, or Cloud Spanner)
-        // is not considered an emulator connection.
-        Some(_) => false,
-    };
+    } else {
+        config.endpoint = Some(emulator_endpoint.into_owned());
+    }
 
     // The emulator does not require authentication; default to anonymous credentials
     // if none were provided.
-    if is_emulator && config.cred.is_none() {
+    if config.cred.is_none() {
         config.cred = Some(anonymous::Builder::new().build());
     }
 
-    is_emulator
+    true
 }
 
 fn resolve_pool_config(
@@ -624,12 +640,17 @@ pub(crate) fn amend_request_options_for_lar(
     options
 }
 
-fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> String {
-    let mut ep = endpoint.trim_end_matches('/').to_string();
-    if is_emulator && ep.ends_with(":9010") {
-        ep = ep.replace(":9010", ":9020");
+fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> Cow<'_, str> {
+    if !is_emulator {
+        return Cow::Borrowed(
+            endpoint.trim_matches(|character: char| character.is_whitespace() || character == '/'),
+        );
     }
-    ep
+    let parsed = parse_emulator_endpoint(endpoint);
+    if let Some(prefix) = parsed.strip_suffix(":9010") {
+        return Cow::Owned(format!("{prefix}:9020"));
+    }
+    parsed
 }
 
 impl Spanner {
@@ -1106,6 +1127,12 @@ mod tests {
         assert_eq!(
             map_emulator_admin_endpoint("http://localhost:9010", false),
             "http://localhost:9010"
+        );
+
+        // 5. Test emulator endpoint with whitespace (should be trimmed and mapped)
+        assert_eq!(
+            map_emulator_admin_endpoint("  http://127.0.0.1:9010/  ", true),
+            "http://127.0.0.1:9020"
         );
     }
 
@@ -2427,27 +2454,27 @@ mod tests {
     #[test]
     fn test_parse_emulator_endpoint() {
         assert_eq!(
-            super::parse_emulator_endpoint("localhost:9010"),
+            parse_emulator_endpoint("localhost:9010"),
             "http://localhost:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("spanner-emulator:9010"),
+            parse_emulator_endpoint("spanner-emulator:9010"),
             "http://spanner-emulator:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("http://localhost:9010"),
+            parse_emulator_endpoint("http://localhost:9010"),
             "http://localhost:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("https://localhost:9010"),
+            parse_emulator_endpoint("https://localhost:9010"),
             "https://localhost:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("grpc://localhost:9010"),
+            parse_emulator_endpoint("grpc://localhost:9010"),
             "grpc://localhost:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("http_localhost:9010"),
+            parse_emulator_endpoint("http_localhost:9010"),
             "http://http_localhost:9010"
         );
     }
@@ -2855,7 +2882,7 @@ mod tests {
     #[test]
     fn detect_and_configure_emulator_empty_host() {
         let mut config = ClientConfig::default();
-        let is_emulator = super::detect_and_configure_emulator_from_host(&mut config, "");
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "");
         assert!(
             !is_emulator,
             "empty emulator host should not be detected as emulator"
@@ -2867,8 +2894,7 @@ mod tests {
     #[test]
     fn detect_and_configure_emulator_default_endpoint_and_credentials() {
         let mut config = ClientConfig::default();
-        let is_emulator =
-            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
         assert!(is_emulator, "emulator host should be detected as emulator");
         assert_eq!(
             config.endpoint.as_deref(),
@@ -2885,8 +2911,7 @@ mod tests {
     fn detect_and_configure_emulator_distinct_endpoint_not_emulator() {
         let mut config = ClientConfig::default();
         config.endpoint = Some("0.0.0.0:12345".to_string());
-        let is_emulator =
-            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
         assert!(
             !is_emulator,
             "distinct endpoint should not be marked as emulator"
@@ -2906,8 +2931,7 @@ mod tests {
     fn detect_and_configure_emulator_matching_explicit_endpoint() {
         let mut config = ClientConfig::default();
         config.endpoint = Some("localhost:9010".to_string());
-        let is_emulator =
-            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
         assert!(
             is_emulator,
             "matching explicit endpoint should be marked as emulator"
@@ -2920,6 +2944,381 @@ mod tests {
         assert!(
             config.cred.is_some(),
             "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_host() {
+        let mut config = ClientConfig::default();
+        let is_emulator =
+            detect_and_configure_emulator_from_host(&mut config, "  localhost:9010  ");
+        assert!(
+            is_emulator,
+            "whitespace-padded emulator host should be detected as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "endpoint should be trimmed and populated with emulator URL"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_only_host() {
+        let mut config = ClientConfig::default();
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "   \t\r\n  ");
+        assert!(
+            !is_emulator,
+            "whitespace-only emulator host should not be detected as emulator"
+        );
+        assert!(config.endpoint.is_none(), "endpoint should remain None");
+        assert!(config.cred.is_none(), "credentials should remain None");
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_in_explicit_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  localhost:9010  ".to_string());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            is_emulator,
+            "explicit endpoint with whitespace should match emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("localhost:9010"),
+            "explicit endpoint should be trimmed of whitespace"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_in_both_host_and_explicit_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  http://localhost:9010  ".to_string());
+        let is_emulator =
+            detect_and_configure_emulator_from_host(&mut config, "  localhost:9010  ");
+        assert!(
+            is_emulator,
+            "matching endpoints with whitespace in both should be detected as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "explicit endpoint should be trimmed"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_distinct_endpoint_with_whitespace() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  0.0.0.0:12345  ".to_string());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            !is_emulator,
+            "distinct endpoint should not be marked as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("0.0.0.0:12345"),
+            "distinct endpoint should be trimmed of whitespace"
+        );
+        assert!(
+            config.cred.is_none(),
+            "credentials should not be set for non-emulator endpoint"
+        );
+    }
+
+    #[test]
+    fn parse_emulator_endpoint_table() {
+        let test_cases = [
+            ("localhost:9010", "http://localhost:9010"),
+            ("  localhost:9010  ", "http://localhost:9010"),
+            ("spanner-emulator:9010", "http://spanner-emulator:9010"),
+            ("  spanner-emulator:9010  ", "http://spanner-emulator:9010"),
+            ("http://localhost:9010", "http://localhost:9010"),
+            ("  http://localhost:9010  ", "http://localhost:9010"),
+            ("https://localhost:9010", "https://localhost:9010"),
+            ("  https://localhost:9010  ", "https://localhost:9010"),
+            ("grpc://localhost:9010", "grpc://localhost:9010"),
+            ("  grpc://localhost:9010  ", "grpc://localhost:9010"),
+            ("http_localhost:9010", "http://http_localhost:9010"),
+            ("  http_localhost:9010  ", "http://http_localhost:9010"),
+            ("localhost:9010/", "http://localhost:9010"),
+            ("  localhost:9010/  ", "http://localhost:9010"),
+            ("http://localhost:9010/", "http://localhost:9010"),
+            ("  http://localhost:9010/  ", "http://localhost:9010"),
+            ("https://localhost:9010/", "https://localhost:9010"),
+            ("  https://localhost:9010/  ", "https://localhost:9010"),
+            ("", ""),
+            ("   ", ""),
+            ("/", ""),
+            ("  ///  ", ""),
+            ("data:text/plain", "http://data:text/plain"),
+            ("mailto:user@example.com", "http://mailto:user@example.com"),
+        ];
+
+        for (input, expected) in test_cases {
+            assert_eq!(
+                parse_emulator_endpoint(input),
+                expected,
+                "mismatch for endpoint input '{input}'"
+            );
+        }
+    }
+
+    #[test]
+    fn trim_configured_endpoint_cases() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  https://spanner.googleapis.com/  ".to_string());
+        trim_configured_endpoint(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "configured endpoint should be trimmed in place of whitespace and trailing slash"
+        );
+
+        let mut config_none = ClientConfig::default();
+        trim_configured_endpoint(&mut config_none);
+        assert!(
+            config_none.endpoint.is_none(),
+            "none endpoint should remain none"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_asymmetric_schemes() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("localhost:9010".to_string());
+        let is_emulator =
+            detect_and_configure_emulator_from_host(&mut config, "http://localhost:9010");
+        assert!(
+            is_emulator,
+            "raw endpoint should match emulator host with scheme"
+        );
+
+        let mut config_with_slash_and_scheme = ClientConfig::default();
+        config_with_slash_and_scheme.endpoint = Some("http://localhost:9010/".to_string());
+        let is_emulator_with_scheme = detect_and_configure_emulator_from_host(
+            &mut config_with_slash_and_scheme,
+            "localhost:9010",
+        );
+        assert!(
+            is_emulator_with_scheme,
+            "endpoint with trailing slash and scheme should match raw emulator host"
+        );
+        assert_eq!(
+            config_with_slash_and_scheme.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "configured endpoint trailing slash should be trimmed in place"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_trailing_slash_in_host() {
+        let mut config = ClientConfig::default();
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010/");
+        assert!(
+            is_emulator,
+            "emulator host with trailing slash should be recognized"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "endpoint should be populated without trailing slash"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_slash_only_host() {
+        let slash_hosts = ["/", "///", "   /   ", "   ///   "];
+        for slash_host in slash_hosts {
+            let mut config = ClientConfig::default();
+            let is_emulator = detect_and_configure_emulator_from_host(&mut config, slash_host);
+            assert!(
+                !is_emulator,
+                "slash-only emulator host '{slash_host}' should not be detected as emulator"
+            );
+            assert!(
+                config.endpoint.is_none(),
+                "endpoint should remain None for slash-only host '{slash_host}'"
+            );
+            assert!(
+                config.cred.is_none(),
+                "credentials should remain None for slash-only host '{slash_host}'"
+            );
+        }
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_only_explicit_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("   ".to_string());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            !is_emulator,
+            "whitespace-only endpoint should not match emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some(""),
+            "whitespace-only endpoint should be trimmed in place"
+        );
+        assert!(
+            config.cred.is_none(),
+            "credentials should remain none for non-matching endpoint"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_preserves_explicit_credentials() {
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(is_emulator, "emulator should be detected");
+        assert!(
+            config.cred.is_some(),
+            "explicit credentials should be preserved"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_unset_env_trims_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  https://spanner.googleapis.com/  ".to_string());
+        let _ = detect_and_configure_emulator(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "configured endpoint should be trimmed of whitespace and trailing slash"
+        );
+    }
+
+    #[test]
+    fn trim_configured_endpoint_already_trimmed() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("https://spanner.googleapis.com".to_string());
+        trim_configured_endpoint(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "already trimmed endpoint should remain unchanged"
+        );
+    }
+
+    #[test]
+    fn map_emulator_admin_endpoint_edge_cases() {
+        assert_eq!(
+            map_emulator_admin_endpoint("  https://spanner.googleapis.com/  ", false),
+            "https://spanner.googleapis.com",
+            "whitespace and trailing slash should be trimmed when is_emulator is false"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("  http://127.0.0.1:8080/  ", true),
+            "http://127.0.0.1:8080",
+            "non-9010 port should not be rewritten even with is_emulator true"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("", false),
+            "",
+            "empty string should remain empty"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("   ", false),
+            "",
+            "whitespace-only string should remain empty"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("", true),
+            "",
+            "empty string should remain empty when is_emulator is true"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("   ", true),
+            "",
+            "whitespace-only string should remain empty when is_emulator is true"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("http://[2001:db8::9010]:9010", true),
+            "http://[2001:db8::9010]:9020",
+            "ipv6 address containing 9010 in host should not have host portion rewritten"
+        );
+    }
+
+    #[test]
+    fn map_emulator_admin_endpoint_schemeless_input() {
+        assert_eq!(
+            map_emulator_admin_endpoint("localhost:9010", true),
+            "http://localhost:9020",
+            "schemeless emulator endpoint should be mapped to http:// URI for REST admin client"
+        );
+    }
+
+    #[test]
+    fn trim_configured_endpoint_whitespace_preceding_slash() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("http://localhost:9010 /".to_string());
+        trim_configured_endpoint(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "trailing whitespace preceding slash should be trimmed"
+        );
+    }
+
+    #[test]
+    fn trim_configured_endpoint_trailing_only() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("https://spanner.googleapis.com/".to_string());
+        trim_configured_endpoint(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "trailing slash only should be trimmed in place"
+        );
+
+        let mut config_trailing_spaces = ClientConfig::default();
+        config_trailing_spaces.endpoint = Some("https://spanner.googleapis.com   ".to_string());
+        trim_configured_endpoint(&mut config_trailing_spaces);
+        assert_eq!(
+            config_trailing_spaces.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "trailing spaces only should be trimmed in place"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_slash_only_configured_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("/".to_string());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            !is_emulator,
+            "slash-only configured endpoint should not match emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some(""),
+            "slash-only endpoint should be trimmed in place to empty"
+        );
+        assert!(
+            config.cred.is_none(),
+            "anonymous credentials should not be configured for non-matching endpoint"
         );
     }
 

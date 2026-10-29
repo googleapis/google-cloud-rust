@@ -337,6 +337,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceConfig {
             __reconciling,
             __state,
             __free_instance_availability,
+            __allowed_processing_units,
             __quorum_type,
             __storage_limit_per_processing_unit,
             Unknown(std::string::String),
@@ -380,6 +381,10 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceConfig {
                             }
                             "free_instance_availability" => {
                                 Ok(__FieldTag::__free_instance_availability)
+                            }
+                            "allowedProcessingUnits" => Ok(__FieldTag::__allowed_processing_units),
+                            "allowed_processing_units" => {
+                                Ok(__FieldTag::__allowed_processing_units)
                             }
                             "quorumType" => Ok(__FieldTag::__quorum_type),
                             "quorum_type" => Ok(__FieldTag::__quorum_type),
@@ -531,6 +536,20 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceConfig {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__allowed_processing_units => {
+                            if !fields.insert(__FieldTag::__allowed_processing_units) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allowed_processing_units",
+                                ));
+                            }
+                            result.allowed_processing_units = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::instance_config::AllowedProcessingUnits,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__quorum_type => {
                             if !fields.insert(__FieldTag::__quorum_type) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -557,6 +576,147 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceConfig {
                                 }
                             }
                             result.storage_limit_per_processing_unit =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::instance_config::AllowedProcessingUnits {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __min_processing_units,
+            __max_processing_units,
+            __processing_unit_increment,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AllowedProcessingUnits")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "minProcessingUnits" => Ok(__FieldTag::__min_processing_units),
+                            "min_processing_units" => Ok(__FieldTag::__min_processing_units),
+                            "maxProcessingUnits" => Ok(__FieldTag::__max_processing_units),
+                            "max_processing_units" => Ok(__FieldTag::__max_processing_units),
+                            "processingUnitIncrement" => {
+                                Ok(__FieldTag::__processing_unit_increment)
+                            }
+                            "processing_unit_increment" => {
+                                Ok(__FieldTag::__processing_unit_increment)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::instance_config::AllowedProcessingUnits;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AllowedProcessingUnits")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__min_processing_units => {
+                            if !fields.insert(__FieldTag::__min_processing_units) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for min_processing_units",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.min_processing_units =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__max_processing_units => {
+                            if !fields.insert(__FieldTag::__max_processing_units) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_processing_units",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_processing_units =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__processing_unit_increment => {
+                            if !fields.insert(__FieldTag::__processing_unit_increment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for processing_unit_increment",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.processing_unit_increment =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

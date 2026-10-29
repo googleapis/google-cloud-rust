@@ -1057,6 +1057,7 @@ impl std::fmt::Debug for super::BigQueryTableReferences {
         let mut debug_struct = f.debug_struct("BigQueryTableReferences");
         debug_struct.field("table_references", &self.table_references);
         debug_struct.field("property_graph_references", &self.property_graph_references);
+        debug_struct.field("search_scope", &self.search_scope);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1071,6 +1072,33 @@ impl std::fmt::Debug for super::BigQueryTableReference {
         debug_struct.field("dataset_id", &self.dataset_id);
         debug_struct.field("table_id", &self.table_id);
         debug_struct.field("schema", &self.schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BigQueryDatasetReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryDatasetReference");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("dataset_id", &self.dataset_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SearchScope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchScope");
+        debug_struct.field("include_project_ids", &self.include_project_ids);
+        debug_struct.field(
+            "include_dataset_references",
+            &self.include_dataset_references,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

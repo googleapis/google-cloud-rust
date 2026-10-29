@@ -15,6 +15,7 @@
 use super::{Result, read_all};
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::{KeyAes256, ReadRange};
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
     let client = Storage::builder().build().await?;
@@ -36,8 +37,13 @@ pub async fn customer_supplied_encryption(client: &Storage, bucket_name: &str) -
     tracing::info!("testing insert_object() with key");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let key = vec![b'a'; 32];
+    let object_name = format!(
+        "csek/{}/quick.text",
+        LowercaseAlphanumeric.random_string(16)
+    );
     let insert = client
-        .write_object(bucket_name, "csek/quick.text", CONTENTS)
+        .write_object(bucket_name, object_name, CONTENTS)
+        .set_if_generation_match(0)
         .set_key(KeyAes256::new(&key)?)
         .send_unbuffered()
         .await?;
@@ -62,19 +68,24 @@ pub async fn customer_supplied_encryption(client: &Storage, bucket_name: &str) -
 
 pub async fn large_file(client: &Storage, bucket_name: &str) -> Result<()> {
     // Create a large enough file that will require multiple chunks to download.
-    const BLOCK_SIZE: usize = 500;
+    const BLOCK_SIZE: usize = 64 * 1024;
     let mut contents = Vec::new();
     for i in 0..16 {
         contents.extend_from_slice(&[i as u8; BLOCK_SIZE]);
     }
 
     tracing::info!("testing insert_object()");
+    let object_name = format!(
+        "large_file/{}/quick.text",
+        LowercaseAlphanumeric.random_string(16)
+    );
     let insert = client
         .write_object(
             bucket_name,
-            "large_file/quick.text",
+            object_name,
             bytes::Bytes::from_owner(contents.clone()),
         )
+        .set_if_generation_match(0)
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -90,7 +101,11 @@ pub async fn large_file(client: &Storage, bucket_name: &str) -> Result<()> {
         count += 1;
     }
     assert_eq!(got, contents);
-    assert!(count > 1, "{count:?}");
+    assert!(
+        count > 1,
+        "expected multiple chunks for {}B object, got {count}",
+        contents.len()
+    );
     tracing::info!("success with large contents");
 
     // Use futures::StreamExt for the download.
@@ -108,10 +123,14 @@ pub async fn large_file(client: &Storage, bucket_name: &str) -> Result<()> {
     let mut iteration = 0;
     while let Some((i, chunk)) = stream.next().await {
         got.extend_from_slice(&chunk?);
-        iteration = i;
+        iteration = i + 1;
     }
     assert_eq!(got, contents);
-    assert!(iteration > 1, "{iteration:?}");
+    assert!(
+        iteration > 1,
+        "expected multiple chunks for {}B object via into_stream(), got {iteration}",
+        contents.len()
+    );
     tracing::info!("success with into_stream() large contents");
 
     Ok(())
@@ -207,12 +226,17 @@ async fn read_gzip(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
     let compressed = e.finish()?;
 
     tracing::info!("Uploading compressed object");
+    let object_name = format!(
+        "gzip/{}/address.txt.gz",
+        LowercaseAlphanumeric.random_string(16)
+    );
     let object = client
         .write_object(
             bucket_name,
-            "address.txt.gz",
+            object_name,
             bytes::Bytes::from_owner(compressed.clone()),
         )
+        .set_if_generation_match(0)
         .set_content_encoding("gzip")
         .set_content_type("text/plain")
         .send_unbuffered()

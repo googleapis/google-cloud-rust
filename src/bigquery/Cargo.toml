@@ -25,6 +25,10 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+# NOTE: when google-cloud-bigquery takes a breaking version bump, also take a
+# breaking version bump of google-cloud-bigquery-derive (below), and vice versa
+# when the derives change the input they accept. See the "Compatibility"
+# section in src/bigquery-derive/src/lib.rs.
 [dependencies]
 arc-swap.workspace           = true
 async-trait.workspace        = true
@@ -53,7 +57,7 @@ rust_decimal.workspace       = true
 uuid.workspace               = true
 
 [target.'cfg(any(google_cloud_unstable_bigquery_arrow, google_cloud_unstable_bigquery_storage_read))'.dependencies]
-arrow = { workspace = true, features = ["ipc"] }
+arrow = { workspace = true, features = ["ipc", "ipc_compression"] }
 
 [dev-dependencies]
 anyhow.workspace            = true

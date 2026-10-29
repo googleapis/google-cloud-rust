@@ -7022,6 +7022,314 @@ async fn replay_protected_write_only_transaction_preserves_affinity_across_preco
 }
 
 #[tokio_test_no_panics]
+async fn replay_protected_write_only_transaction_clears_affinity_on_subsequent_precommit_token_failure()
+-> anyhow::Result<()> {
+    use mock_v1::MultiplexedSessionPrecommitToken;
+    use mock_v1::commit_request::Transaction as CommitTransaction;
+    use mock_v1::commit_response::MultiplexedSessionRetry;
+
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let transaction_id = Bytes::from_static(b"tx-write-only-subsequent-precommit-token");
+    let transaction_id_for_begin = transaction_id.clone();
+    mock_tablet.expect_begin_transaction().returning(move |_| {
+        Ok(Response::new(mock_v1::Transaction {
+            id: transaction_id_for_begin.to_vec(),
+            ..Default::default()
+        }))
+    });
+
+    let mut sequence = Sequence::new();
+    let expected_transaction_id = transaction_id.clone();
+    let expected_transaction_id_retry = transaction_id.clone();
+
+    // First commit attempt returns precommit token 1
+    mock_tablet
+        .expect_commit()
+        .once()
+        .in_sequence(&mut sequence)
+        .returning(move |request| {
+            assert_eq!(
+                request.get_ref().transaction,
+                Some(CommitTransaction::TransactionId(
+                    expected_transaction_id.to_vec(),
+                )),
+                "commit request must carry the transaction id returned by begin_transaction"
+            );
+            Ok(Response::new(mock_v1::CommitResponse {
+                multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                    MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![101, 102],
+                        seq_num: 1,
+                    },
+                )),
+                ..Default::default()
+            }))
+        });
+
+    // Second commit attempt (retry) unexpectedly returns another precommit token 2
+    mock_tablet
+        .expect_commit()
+        .once()
+        .in_sequence(&mut sequence)
+        .returning(move |request| {
+            assert_eq!(
+                request.get_ref().transaction,
+                Some(CommitTransaction::TransactionId(
+                    expected_transaction_id_retry.to_vec(),
+                )),
+                "retry commit request must carry the transaction id returned by begin_transaction"
+            );
+            assert!(
+                request.get_ref().mutations.is_empty(),
+                "retry commit must have empty mutations"
+            );
+            assert_eq!(
+                request.get_ref().precommit_token,
+                Some(MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![101, 102],
+                    seq_num: 1,
+                }),
+                "retry commit must carry precommit token 1"
+            );
+            Ok(Response::new(mock_v1::CommitResponse {
+                multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                    MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![103, 104],
+                        seq_num: 2,
+                    },
+                )),
+                ..Default::default()
+            }))
+        });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(10201, 8003, &tablet_address, &tablet_address);
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8003,
+        split_id: 8003,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present when location-aware routing is enabled");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let mutation = Mutation::new_insert_builder("Singers")
+        .set("SingerId")
+        .to(201i64)
+        .set("Name")
+        .to("Henry")
+        .build();
+
+    let transaction = database_client.write_only_transaction().build();
+    let error = transaction.write(vec![mutation]).await.expect_err(
+        "commit must fail when receiving an unexpected subsequent precommit token on retry",
+    );
+
+    assert!(
+        error
+            .to_string()
+            .contains("received an unexpected subsequent precommit token"),
+        "Error message must indicate unexpected subsequent precommit token: {error}"
+    );
+
+    assert_eq!(
+        router.get_transaction_affinity(&transaction_id),
+        None,
+        "location router must clear transaction affinity even when commit retry fails"
+    );
+    assert_eq!(
+        router.affinity_count(),
+        0,
+        "location router affinity count must return to 0 after failed commit retry"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn replay_protected_read_write_transaction_clears_affinity_on_subsequent_precommit_token_failure()
+-> anyhow::Result<()> {
+    use mock_v1::MultiplexedSessionPrecommitToken;
+    use mock_v1::commit_request::Transaction as CommitTransaction;
+    use mock_v1::commit_response::MultiplexedSessionRetry;
+
+    let mut mock_gateway = create_base_mock();
+    let transaction_id = b"tx-read-write-subsequent-precommit-token";
+
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_| single_row_streaming_response_with_transaction(transaction_id));
+
+    let mut sequence = Sequence::new();
+    let expected_transaction_id = transaction_id.to_vec();
+    let expected_transaction_id_retry = transaction_id.to_vec();
+
+    // First commit attempt returns precommit token 1
+    mock_gateway
+        .expect_commit()
+        .once()
+        .in_sequence(&mut sequence)
+        .returning(move |request| {
+            assert_eq!(
+                request.get_ref().transaction,
+                Some(CommitTransaction::TransactionId(
+                    expected_transaction_id.clone(),
+                )),
+                "commit request must carry the transaction id returned by inline begin"
+            );
+            Ok(Response::new(mock_v1::CommitResponse {
+                multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                    MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![101, 102],
+                        seq_num: 1,
+                    },
+                )),
+                ..Default::default()
+            }))
+        });
+
+    // Second commit attempt (retry) unexpectedly returns another precommit token 2
+    mock_gateway
+        .expect_commit()
+        .once()
+        .in_sequence(&mut sequence)
+        .returning(move |request| {
+            assert_eq!(
+                request.get_ref().transaction,
+                Some(CommitTransaction::TransactionId(
+                    expected_transaction_id_retry.clone(),
+                )),
+                "retry commit request must carry the transaction id returned by inline begin"
+            );
+            assert!(
+                request.get_ref().mutations.is_empty(),
+                "retry commit must have empty mutations"
+            );
+            assert_eq!(
+                request.get_ref().precommit_token,
+                Some(MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![101, 102],
+                    seq_num: 1,
+                }),
+                "retry commit must carry precommit token 1"
+            );
+            Ok(Response::new(mock_v1::CommitResponse {
+                multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                    MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![103, 104],
+                        seq_num: 2,
+                    },
+                )),
+                ..Default::default()
+            }))
+        });
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present when location-aware routing is enabled");
+
+    let affinity_verified_inside_runner = Arc::new(AtomicBool::new(false));
+    let affinity_verified_inside_runner_clone = Arc::clone(&affinity_verified_inside_runner);
+    let router_clone = Arc::clone(router);
+    let gateway_address_clone = gateway_address.clone();
+
+    let runner = database_client.read_write_transaction().build();
+
+    let error = runner
+        .run(|transaction: ReadWriteTransaction| {
+            let router_clone = Arc::clone(&router_clone);
+            let gateway_address_clone = gateway_address_clone.clone();
+            let affinity_verified = Arc::clone(&affinity_verified_inside_runner_clone);
+            async move {
+                let mut result_set = transaction.execute_query("SELECT 1").await?;
+                let row = result_set.next().await;
+                assert!(row.is_some(), "result set should yield a row");
+
+                assert_eq!(
+                    router_clone.get_transaction_affinity(transaction_id),
+                    Some(Arc::from(gateway_address_clone.as_str())),
+                    "affinity must be recorded during inline begin query execution"
+                );
+                affinity_verified.store(true, Ordering::SeqCst);
+                Ok(())
+            }
+        })
+        .await
+        .expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+
+    assert!(
+        affinity_verified_inside_runner.load(Ordering::SeqCst),
+        "affinity must be verified inside the transaction closure"
+    );
+
+    assert!(
+        error
+            .to_string()
+            .contains("received an unexpected subsequent precommit token"),
+        "Error message must indicate unexpected subsequent precommit token: {error}"
+    );
+
+    assert_eq!(
+        router.get_transaction_affinity(transaction_id),
+        None,
+        "location router must clear transaction affinity even when commit retry fails"
+    );
+    assert_eq!(
+        router.affinity_count(),
+        0,
+        "location router affinity count must return to 0 after failed commit retry"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
 async fn streaming_rpc_feedback_success_records_latency_and_repairs_cooldown() -> anyhow::Result<()>
 {
     let mut mock_gateway = create_base_mock();

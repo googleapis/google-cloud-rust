@@ -746,6 +746,15 @@
       "Product": "Cloud Deploy API"
     }
   ],
+  "google-cloud-designcenter-v1": [
+    {
+      "PkgName": "google-cloud-designcenter-v1",
+      "Language": "Rust",
+      "DocsURL": "https://docs.rs/google-cloud-designcenter-v1/latest",
+      "APIShortname": "designcenter",
+      "Product": "Design Center API"
+    }
+  ],
   "google-cloud-developerconnect-v1": [
     {
       "PkgName": "google-cloud-developerconnect-v1",

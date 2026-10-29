@@ -139,7 +139,6 @@ impl AppendableObjectWriterTransport {
         Self::start_worker(connector, initial, connection, generation, None)
     }
 
-    // TODO(#5716): Consider refactoring to pass in a struct.
     fn start_worker<T>(
         connector: Connector<T>,
         initial: BidiWriteObjectResponse,

@@ -2985,6 +2985,86 @@ impl std::fmt::Debug for super::ListMinorVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for super::OdbDnsZone {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OdbDnsZone");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateOdbDnsZoneRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateOdbDnsZoneRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("odb_dns_zone_id", &self.odb_dns_zone_id);
+        debug_struct.field("odb_dns_zone", &self.odb_dns_zone);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteOdbDnsZoneRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteOdbDnsZoneRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListOdbDnsZonesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOdbDnsZonesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListOdbDnsZonesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOdbDnsZonesResponse");
+        debug_struct.field("odb_dns_zones", &self.odb_dns_zones);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetOdbDnsZoneRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOdbDnsZoneRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::OdbNetwork {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OdbNetwork");
@@ -3958,6 +4038,7 @@ impl std::fmt::Debug for super::CloudVmCluster {
         debug_struct.field("odb_network", &self.odb_network);
         debug_struct.field("odb_subnet", &self.odb_subnet);
         debug_struct.field("backup_odb_subnet", &self.backup_odb_subnet);
+        debug_struct.field("odb_dns_zone", &self.odb_dns_zone);
         debug_struct.field("identity_connector", &self.identity_connector);
         debug_struct.field("exascale_db_storage_vault", &self.exascale_db_storage_vault);
         if !self._unknown_fields.is_empty() {
