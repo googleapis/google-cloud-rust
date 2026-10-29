@@ -64,7 +64,7 @@ pub mod stub;
 ///    location_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = Memorystore::builder().build().await?;
-///     let mut list = client.list_instances()
+///     let mut list = client.list_acl_policies()
 ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {

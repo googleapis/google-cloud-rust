@@ -173,7 +173,7 @@ impl ConvertError {
     ///     }
     /// }
     /// ```
-    pub fn message<T: Into<String>>(message: T) -> Self {
+    pub fn message(message: impl Into<String>) -> Self {
         Self::Convert(Arc::new(MessageError(message.into())))
     }
 
@@ -761,7 +761,7 @@ impl FromValue for i32 {
 /// If a Spanner numeric value exceeds the 96-bit limit of [`Decimal`], or if a PostgreSQL
 /// dialect database returns `"NaN"`, converting to [`Decimal`] will return a
 /// [`ConvertError::Convert`]. For values that exceed 96 bits or for PostgreSQL `"NaN"`,
-/// callers should read the column as a [`String`] instead (e.g., `row.try_get::<String, _>()`).
+/// callers should read the column as a [`String`] instead (e.g., `let value: String = row.get(...)?;`).
 impl FromValue for Decimal {
     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
         if spanner_type.code() != TypeCode::Numeric {

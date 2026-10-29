@@ -328,6 +328,12 @@ pub trait ChatService: std::fmt::Debug + Send + Sync {
         req: crate::model::MoveSectionItemRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::MoveSectionItemResponse>>;
+
+    async fn replace_message_cards(
+        &self,
+        req: crate::model::ReplaceMessageCardsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReplaceMessageCardsResponse>>;
 }
 
 /// All implementations of [super::ChatService] also implement [ChatService].
@@ -799,5 +805,14 @@ impl<T: super::ChatService> ChatService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::MoveSectionItemResponse>> {
         T::move_section_item(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn replace_message_cards(
+        &self,
+        req: crate::model::ReplaceMessageCardsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReplaceMessageCardsResponse>> {
+        T::replace_message_cards(self, req, options).await
     }
 }

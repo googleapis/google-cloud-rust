@@ -107,6 +107,10 @@ impl ArrowResponseReader {
 
 impl RecordBatchSource for ArrowResponseReader {
     async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        if self.batch_buf.is_empty() {
+            self.decoder.finish()?;
+            return Ok(None);
+        }
         if let Some(schema_bytes) = self.schema_bytes.take() {
             self.decoder.set_schema_bytes(schema_bytes)?;
         }
@@ -1062,15 +1066,30 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn arrow_response_reader_empty_record_batch() -> anyhow::Result<()> {
+        let schema_bytes = create_test_arrow_schema_bytes();
+
+        let mut reader =
+            ArrowReader::Response(ArrowResponseReader::new(schema_bytes, bytes::Bytes::new()));
+        assert!(reader.next_record_batch().await?.is_none());
+        Ok(())
+    }
+
     #[test_case(
-        bytes::Bytes::from_static(b"invalid arrow schema bytes"),
-        bytes::Bytes::new();
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_schema"),
+        bytes::Bytes::from_static(b"batch");
         "malformed schema"
     )]
     #[test_case(
         create_test_arrow_schema_bytes(),
-        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00corrupted_batch_header");
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_batch");
         "malformed record batch"
+    )]
+    #[test_case(
+        create_test_arrow_schema_bytes(),
+        bytes::Bytes::from_static(b"\xff\xff\xff\xff\x10\x00\x00\x00truncated");
+        "truncated stream"
     )]
     #[tokio::test]
     async fn arrow_response_reader_malformed_ipc(

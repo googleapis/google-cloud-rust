@@ -1592,7 +1592,9 @@ mod tests {
                     Arc::new(Int64Array::from(vec![Some(30), None])),
                 ],
             )?);
-            let schema = Arc::new(Schema::from_arrow_schema(&arrow_schema));
+            let mut schema_bytes = Vec::new();
+            let _ = arrow::ipc::writer::StreamWriter::try_new(&mut schema_bytes, &arrow_schema)?;
+            let schema = Arc::new(Schema::from_arrow_schema(&schema_bytes)?);
             Ok((batch, schema))
         }
 

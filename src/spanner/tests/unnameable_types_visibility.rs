@@ -18,9 +18,10 @@
 
 use google_cloud_spanner::Error;
 use google_cloud_spanner::builder::SpannerBuilder;
-use google_cloud_spanner::client::{ClientBuilder, Factory, Spanner};
+use google_cloud_spanner::client::{ClientBuilder, Factory, Spanner, SpannerBuilderExt};
 use google_cloud_spanner::error::{ConvertError, RowError, SharedError, TlsError};
 use google_cloud_spanner::model::CommitResponse;
+use google_cloud_spanner::omni::{InstanceType, TlsConfig, TlsError as OmniTlsError};
 use google_cloud_spanner::result::{
     ColumnIndex, RowError as ResultRowError, TransactionResult as ResultTransactionResult,
 };
@@ -317,5 +318,39 @@ fn external_can_name_and_debug_format_factory_and_client_builder() {
     assert!(
         reexported_builder_debug.contains("ClientBuilder"),
         "SpannerBuilder Debug format should contain 'ClientBuilder'"
+    );
+}
+
+#[test]
+fn external_can_name_and_construct_omni_types() {
+    let instance_type: InstanceType = InstanceType::Cloud;
+    assert_eq!(
+        instance_type,
+        InstanceType::Cloud,
+        "default instance type should be Cloud"
+    );
+    assert_eq!(
+        InstanceType::default(),
+        InstanceType::Cloud,
+        "InstanceType::default() should equal InstanceType::Cloud"
+    );
+    assert_eq!(
+        InstanceType::Omni,
+        InstanceType::Omni,
+        "InstanceType::Omni should equal itself"
+    );
+
+    let client_builder: ClientBuilder = Spanner::builder().with_instance_type(InstanceType::Omni);
+    let _ = client_builder;
+
+    let tls_config: TlsConfig = TlsConfig::new();
+    assert!(
+        !tls_config.has_custom_certificates(),
+        "default TLS config should have no custom certificates"
+    );
+    let omni_tls_error: OmniTlsError = OmniTlsError::MissingClientKey;
+    assert!(
+        matches!(omni_tls_error, OmniTlsError::MissingClientKey),
+        "OmniTlsError should match MissingClientKey"
     );
 }

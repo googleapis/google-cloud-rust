@@ -1255,6 +1255,114 @@ impl OracleDatabase {
         super::builder::oracle_database::DeleteOdbSubnet::new(self.inner.clone())
     }
 
+    /// Lists all the ODB DNS Zones in a given ODB Network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_odb_dns_zones()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_odb_dns_zones(&self) -> super::builder::oracle_database::ListOdbDnsZones {
+        super::builder::oracle_database::ListOdbDnsZones::new(self.inner.clone())
+    }
+
+    /// Gets details of a single ODB DNS Zone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str, odb_dns_zone_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_odb_dns_zone()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbDnsZones/{odb_dns_zone_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_odb_dns_zone(&self) -> super::builder::oracle_database::GetOdbDnsZone {
+        super::builder::oracle_database::GetOdbDnsZone::new(self.inner.clone())
+    }
+
+    /// Creates a new ODB DNS Zone in a given ODB Network.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_odb_dns_zone()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"))
+    ///         .set_odb_dns_zone(
+    ///             OdbDnsZone::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_odb_dns_zone(&self) -> super::builder::oracle_database::CreateOdbDnsZone {
+        super::builder::oracle_database::CreateOdbDnsZone::new(self.inner.clone())
+    }
+
+    /// Deletes a single ODB DNS Zone.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str, odb_dns_zone_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_odb_dns_zone()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbDnsZones/{odb_dns_zone_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_odb_dns_zone(&self) -> super::builder::oracle_database::DeleteOdbDnsZone {
+        super::builder::oracle_database::DeleteOdbDnsZone::new(self.inner.clone())
+    }
+
     /// Lists all the Exadb (Exascale) VM Clusters for the given project and
     /// location.
     ///
