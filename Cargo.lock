@@ -5384,7 +5384,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-spanner"
-version = "0.34.8-preview"
+version = "0.35.0"
 dependencies = [
  "anyhow",
  "async-trait",
