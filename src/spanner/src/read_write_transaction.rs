@@ -43,6 +43,7 @@ use crate::mutation::Mutation;
 use crate::precommit::{
     PrecommitTokenTracker, commit_with_precommit_retry, create_retry_commit_request,
 };
+use crate::read::ReadRequest;
 use crate::read_only_transaction::{
     AbortedInfo, AbortedState, BeginTransactionOption, CommitAction, LazyTransactionStartGuard,
     ReadContext, ReadContextTransactionSelector, TransactionState, execute_begin_transaction,
@@ -562,10 +563,7 @@ impl ReadWriteTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn buffer<I>(&self, mutations: I) -> crate::Result<()>
-    where
-        I: IntoIterator<Item = Mutation>,
-    {
+    pub fn buffer(&self, mutations: impl IntoIterator<Item = Mutation>) -> Result<()> {
         let mut guard = self.lock_mutations();
         for mutation in mutations {
             guard.push(mutation.build_proto());
@@ -574,10 +572,7 @@ impl ReadWriteTransaction {
     }
 
     /// Executes a query using this transaction.
-    pub async fn execute_query<T: Into<Statement>>(
-        &self,
-        statement: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_query(&self, statement: impl Into<Statement>) -> Result<ResultSet> {
         let stmt = statement.into();
         let mut gax_options = stmt.gax_options().clone();
         self.amend_gax_options(&mut gax_options);
@@ -587,17 +582,14 @@ impl ReadWriteTransaction {
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
-    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
-        &self,
-        read: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_read(&self, read: impl Into<ReadRequest>) -> Result<ResultSet> {
         let mut req = read.into();
         self.amend_gax_options(&mut req.gax_options);
         self.context.execute_read(req).await
     }
 
     /// Executes an update using this transaction.
-    pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
+    pub async fn execute_update(&self, statement: impl Into<Statement>) -> Result<i64> {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
@@ -706,10 +698,7 @@ impl ReadWriteTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_batch_update<T: Into<BatchDml>>(
-        &self,
-        batch: T,
-    ) -> crate::Result<Vec<i64>> {
+    pub async fn execute_batch_update(&self, batch: impl Into<BatchDml>) -> Result<Vec<i64>> {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
@@ -720,7 +709,7 @@ impl ReadWriteTransaction {
         let statements: Vec<ExecuteBatchDmlStatement> = batch
             .statements
             .into_iter()
-            .map(|stmt: crate::statement::Statement| stmt.into_batch_statement())
+            .map(Statement::into_batch_statement)
             .collect();
 
         let selector = self.context.selector().await?;

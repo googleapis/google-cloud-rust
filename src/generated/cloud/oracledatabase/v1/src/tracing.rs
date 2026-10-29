@@ -602,6 +602,62 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_odb_dns_zones(
+        &self,
+        req: crate::model::ListOdbDnsZonesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOdbDnsZonesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::list_odb_dns_zones",
+            self.inner.list_odb_dns_zones(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_odb_dns_zone(
+        &self,
+        req: crate::model::GetOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OdbDnsZone>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::get_odb_dns_zone",
+            self.inner.get_odb_dns_zone(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_odb_dns_zone(
+        &self,
+        req: crate::model::CreateOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::create_odb_dns_zone",
+            self.inner.create_odb_dns_zone(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_odb_dns_zone(
+        &self,
+        req: crate::model::DeleteOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::delete_odb_dns_zone",
+            self.inner.delete_odb_dns_zone(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_exadb_vm_clusters(
         &self,
         req: crate::model::ListExadbVmClustersRequest,
