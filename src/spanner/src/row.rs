@@ -797,6 +797,352 @@ mod tests {
     }
 
     #[test]
+    fn row_take_f32_from_float64_succeeds_and_nulls_slot() {
+        let column_names = vec![
+            "col_float64_a".to_string(),
+            "col_float64_b".to_string(),
+            "col_float64_inf".to_string(),
+            "col_float64_neginf".to_string(),
+            "col_float64_nan".to_string(),
+        ];
+        let column_types = vec![
+            types::float64(),
+            types::float64(),
+            types::float64(),
+            types::float64(),
+            types::float64(),
+        ];
+        let values = vec![
+            42.5_f64.to_value(),
+            100.25_f64.to_value(),
+            f64::INFINITY.to_value(),
+            f64::NEG_INFINITY.to_value(),
+            f64::NAN.to_value(),
+        ];
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Finite values via get and take by index and name
+        assert_eq!(
+            row.get::<f32>(0)
+                .expect("get f32 from FLOAT64 column by index must succeed"),
+            42.5_f32,
+            "expected get f32 value by index to match 42.5"
+        );
+        assert_eq!(
+            row.get::<f32>("col_float64_a")
+                .expect("get f32 from FLOAT64 column by name must succeed"),
+            42.5_f32,
+            "expected get f32 value by name to match 42.5"
+        );
+
+        let taken_by_index = row
+            .take::<f32>(0)
+            .expect("take f32 from FLOAT64 column by index must succeed");
+        assert_eq!(
+            taken_by_index, 42.5_f32,
+            "expected taken f32 value by index to match 42.5"
+        );
+        assert!(
+            row.is_null(0).expect("is_null after take by index"),
+            "column at index 0 must be null after take"
+        );
+
+        let taken_by_name = row
+            .take::<f32>("col_float64_b")
+            .expect("take f32 from FLOAT64 column by name must succeed");
+        assert_eq!(
+            taken_by_name, 100.25_f32,
+            "expected taken f32 value by name to match 100.25"
+        );
+        assert!(
+            row.is_null("col_float64_b")
+                .expect("is_null after take by name"),
+            "column 'col_float64_b' must be null after take"
+        );
+
+        // Non-finite values via get and take
+        assert_eq!(
+            row.get::<f32>("col_float64_inf")
+                .expect("get f32 Infinity from FLOAT64"),
+            f32::INFINITY,
+            "expected Infinity from FLOAT64 column"
+        );
+        let taken_infinity = row
+            .take::<f32>("col_float64_inf")
+            .expect("take f32 Infinity from FLOAT64");
+        assert_eq!(
+            taken_infinity,
+            f32::INFINITY,
+            "expected taken Infinity from FLOAT64 column"
+        );
+        assert!(
+            row.is_null("col_float64_inf")
+                .expect("is_null after take infinity"),
+            "column 'col_float64_inf' must be null after take"
+        );
+
+        assert_eq!(
+            row.get::<f32>("col_float64_neginf")
+                .expect("get f32 -Infinity from FLOAT64"),
+            f32::NEG_INFINITY,
+            "expected -Infinity from FLOAT64 column"
+        );
+        let taken_negative_infinity = row
+            .take::<f32>("col_float64_neginf")
+            .expect("take f32 -Infinity from FLOAT64");
+        assert_eq!(
+            taken_negative_infinity,
+            f32::NEG_INFINITY,
+            "expected taken -Infinity from FLOAT64 column"
+        );
+        assert!(
+            row.is_null("col_float64_neginf")
+                .expect("is_null after take negative infinity"),
+            "column 'col_float64_neginf' must be null after take"
+        );
+
+        assert!(
+            row.get::<f32>("col_float64_nan")
+                .expect("get f32 NaN from FLOAT64")
+                .is_nan(),
+            "expected NaN from FLOAT64 column"
+        );
+        let taken_nan = row
+            .take::<f32>("col_float64_nan")
+            .expect("take f32 NaN from FLOAT64");
+        assert!(taken_nan.is_nan(), "expected taken NaN from FLOAT64 column");
+        assert!(
+            row.is_null("col_float64_nan")
+                .expect("is_null after take nan"),
+            "column 'col_float64_nan' must be null after take"
+        );
+    }
+
+    #[test]
+    fn row_get_and_take_f32_overflow_returns_type_conversion_error() {
+        let column_names = vec![
+            "overflow_float64".to_string(),
+            "negative_overflow_float64".to_string(),
+        ];
+        let column_types = vec![types::float64(), types::float64()];
+        let values = vec![1e300_f64.to_value(), (-1e300_f64).to_value()];
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Positive overflow
+        let get_error = row
+            .get::<f32>("overflow_float64")
+            .expect_err("reading 1e300 as f32 must fail");
+        let convert_error_get = ConvertError::extract(&get_error)
+            .expect("should extract ConvertError from RowError::TypeConversion");
+        assert!(
+            convert_error_get.to_string().contains("exceeds f32 range"),
+            "expected 'exceeds f32 range' in error message, got: {convert_error_get}"
+        );
+
+        let take_error = row
+            .take::<f32>("overflow_float64")
+            .expect_err("taking 1e300 as f32 must fail");
+        let convert_error_take = ConvertError::extract(&take_error)
+            .expect("should extract ConvertError from RowError::TypeConversion");
+        assert!(
+            convert_error_take.to_string().contains("exceeds f32 range"),
+            "expected 'exceeds f32 range' in error message, got: {convert_error_take}"
+        );
+
+        // Negative overflow
+        let negative_get_error = row
+            .get::<f32>("negative_overflow_float64")
+            .expect_err("reading -1e300 as f32 must fail");
+        let convert_error_negative_get = ConvertError::extract(&negative_get_error)
+            .expect("should extract ConvertError from RowError::TypeConversion");
+        assert!(
+            convert_error_negative_get
+                .to_string()
+                .contains("exceeds f32 range"),
+            "expected 'exceeds f32 range' in error message, got: {convert_error_negative_get}"
+        );
+
+        let negative_take_error = row
+            .take::<f32>("negative_overflow_float64")
+            .expect_err("taking -1e300 as f32 must fail");
+        let convert_error_negative_take = ConvertError::extract(&negative_take_error)
+            .expect("should extract ConvertError from RowError::TypeConversion");
+        assert!(
+            convert_error_negative_take
+                .to_string()
+                .contains("exceeds f32 range"),
+            "expected 'exceeds f32 range' in error message, got: {convert_error_negative_take}"
+        );
+    }
+
+    #[test]
+    fn row_get_and_take_f32_null_and_option() {
+        let column_names = vec!["col_null".to_string(), "col_value".to_string()];
+        let column_types = vec![types::float64(), types::float64()];
+        let values = vec![Value::null(), 42.5_f64.to_value()];
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Non-optional f32 on NULL column returns TypeConversion wrapping NotNull
+        let get_null_error = row
+            .get::<f32>("col_null")
+            .expect_err("reading NULL as f32 must fail");
+        let row_error_get_null =
+            RowError::extract(&get_null_error).expect("error chain must contain RowError");
+        assert!(
+            matches!(row_error_get_null, RowError::TypeConversion { column, .. } if column == "col_null"),
+            "expected TypeConversion on column 'col_null', got: {row_error_get_null:?}"
+        );
+        let convert_error_get_null =
+            ConvertError::extract(&get_null_error).expect("error chain must contain ConvertError");
+        assert!(
+            matches!(convert_error_get_null, ConvertError::NotNull),
+            "expected ConvertError::NotNull, got: {convert_error_get_null:?}"
+        );
+
+        let take_null_error = row
+            .take::<f32>("col_null")
+            .expect_err("taking NULL as f32 must fail");
+        let row_error_take_null =
+            RowError::extract(&take_null_error).expect("error chain must contain RowError");
+        assert!(
+            matches!(row_error_take_null, RowError::TypeConversion { column, .. } if column == "col_null"),
+            "expected TypeConversion on taking column 'col_null', got: {row_error_take_null:?}"
+        );
+        let convert_error_take_null =
+            ConvertError::extract(&take_null_error).expect("error chain must contain ConvertError");
+        assert!(
+            matches!(convert_error_take_null, ConvertError::NotNull),
+            "expected ConvertError::NotNull, got: {convert_error_take_null:?}"
+        );
+
+        // Option<f32> on NULL returns Ok(None)
+        let get_optional_null = row
+            .get::<Option<f32>>("col_null")
+            .expect("reading NULL as Option<f32> must succeed");
+        assert_eq!(
+            get_optional_null, None,
+            "expected None for NULL Option<f32>"
+        );
+
+        let take_optional_null = row
+            .take::<Option<f32>>("col_null")
+            .expect("taking NULL as Option<f32> must succeed");
+        assert_eq!(
+            take_optional_null, None,
+            "expected None for taken NULL Option<f32>"
+        );
+
+        // Option<f32> on 42.5 returns Ok(Some(42.5))
+        let get_optional_value = row
+            .get::<Option<f32>>("col_value")
+            .expect("reading 42.5 as Option<f32> must succeed");
+        assert_eq!(
+            get_optional_value,
+            Some(42.5_f32),
+            "expected Some(42.5) for Option<f32>"
+        );
+
+        let take_optional_value = row
+            .take::<Option<f32>>("col_value")
+            .expect("taking 42.5 as Option<f32> must succeed");
+        assert_eq!(
+            take_optional_value,
+            Some(42.5_f32),
+            "expected Some(42.5) for taken Option<f32>"
+        );
+        assert!(
+            row.is_null("col_value").expect("is_null after take"),
+            "column 'col_value' must be null after take"
+        );
+    }
+
+    #[test]
+    fn row_get_and_take_f32_vec_from_float64_array() {
+        let column_names = vec!["valid_array".to_string(), "overflow_array".to_string()];
+        let column_types = vec![
+            types::array(types::float64()),
+            types::array(types::float64()),
+        ];
+        let values = vec![
+            vec![1.5_f64, 2.5_f64].to_value(),
+            vec![1.0_f64, 1e300_f64].to_value(),
+        ];
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Happy path get & take
+        let get_vector = row
+            .get::<Vec<f32>>("valid_array")
+            .expect("reading Vec<f32> from ARRAY<FLOAT64> must succeed");
+        assert_eq!(
+            get_vector,
+            vec![1.5_f32, 2.5_f32],
+            "expected matching Vec<f32> elements"
+        );
+
+        let take_vector = row
+            .take::<Vec<f32>>("valid_array")
+            .expect("taking Vec<f32> from ARRAY<FLOAT64> must succeed");
+        assert_eq!(
+            take_vector,
+            vec![1.5_f32, 2.5_f32],
+            "expected matching taken Vec<f32> elements"
+        );
+        assert!(
+            row.is_null("valid_array").expect("is_null after take"),
+            "column 'valid_array' must be null after take"
+        );
+
+        // Overflow path get & take
+        let get_overflow_error = row
+            .get::<Vec<f32>>("overflow_array")
+            .expect_err("reading overflowing ARRAY<FLOAT64> as Vec<f32> must fail");
+        let row_error_get_overflow =
+            RowError::extract(&get_overflow_error).expect("error chain must contain RowError");
+        assert!(
+            matches!(row_error_get_overflow, RowError::TypeConversion { column, .. } if column == "overflow_array"),
+            "expected TypeConversion error on column 'overflow_array', got: {row_error_get_overflow:?}"
+        );
+
+        let take_overflow_error = row
+            .take::<Vec<f32>>("overflow_array")
+            .expect_err("taking overflowing ARRAY<FLOAT64> as Vec<f32> must fail");
+        let row_error_take_overflow =
+            RowError::extract(&take_overflow_error).expect("error chain must contain RowError");
+        assert!(
+            matches!(row_error_take_overflow, RowError::TypeConversion { column, .. } if column == "overflow_array"),
+            "expected TypeConversion error on taking column 'overflow_array', got: {row_error_take_overflow:?}"
+        );
+    }
+
+    #[test]
     fn row_get_enum() {
         let column_names = vec!["col_enum".to_string()];
         let column_types = vec![types::proto_enum("customer.Priority")];
@@ -2127,6 +2473,74 @@ mod tests {
             "expected matching age from into_record turbofish"
         );
         Ok(())
+    }
+
+    #[test]
+    fn row_into_record_f32_from_float64() -> Result<()> {
+        let row = Row {
+            values: vec![
+                42.5_f64.to_value(),
+                Value::null(),
+                vec![1.5_f64, 2.5_f64].to_value(),
+            ],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![
+                    "float_col".to_string(),
+                    "null_col".to_string(),
+                    "array_col".to_string(),
+                ]),
+                column_types: Arc::new(vec![
+                    types::float64(),
+                    types::float64(),
+                    types::array(types::float64()),
+                ]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let (parsed_float, parsed_optional, parsed_vector): (f32, Option<f32>, Vec<f32>) =
+            row.into_record()?;
+        assert_eq!(
+            parsed_float, 42.5_f32,
+            "expected matching f32 value from into_record on FLOAT64 column"
+        );
+        assert_eq!(
+            parsed_optional, None,
+            "expected None for Option<f32> from NULL FLOAT64"
+        );
+        assert_eq!(
+            parsed_vector,
+            vec![1.5_f32, 2.5_f32],
+            "expected matching Vec<f32> from ARRAY<FLOAT64>"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn row_into_record_f32_overflow_from_float64() {
+        let row = Row {
+            values: vec![1e300_f64.to_value()],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec!["float_col".to_string()]),
+                column_types: Arc::new(vec![types::float64()]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        let error = row
+            .into_record::<(f32,)>()
+            .expect_err("into_record must fail when f32 overflows FLOAT64 range");
+        let row_error = RowError::extract(&error).expect("error chain must contain a RowError");
+        assert!(
+            matches!(row_error, RowError::TypeConversion { column, .. } if column == "float_col"),
+            "expected RowError::TypeConversion on column 'float_col', got: {row_error:?}"
+        );
+        let convert_error =
+            ConvertError::extract(&error).expect("error chain must contain ConvertError");
+        assert!(
+            convert_error.to_string().contains("exceeds f32 range"),
+            "expected 'exceeds f32 range' in error, got: {convert_error}"
+        );
     }
 
     #[test]
