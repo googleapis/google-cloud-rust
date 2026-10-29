@@ -31,7 +31,6 @@ use crate::model::ResultSet as ProtoResultSet;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
-use crate::model::commit_response::MultiplexedSessionRetry;
 use crate::model::execute_batch_dml_request::Statement as ExecuteBatchDmlStatement;
 use crate::model::request_options::Priority;
 use crate::model::result_set_stats::RowCount;
@@ -41,10 +40,13 @@ use crate::model::transaction_options::ReadWrite;
 use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::model::transaction_selector::Selector;
 use crate::mutation::Mutation;
-use crate::precommit::PrecommitTokenTracker;
+use crate::precommit::{
+    PrecommitTokenTracker, commit_with_precommit_retry, create_retry_commit_request,
+};
+use crate::read::ReadRequest;
 use crate::read_only_transaction::{
-    AbortedInfo, AbortedState, BeginTransactionOption, LazyTransactionStartGuard, ReadContext,
-    ReadContextTransactionSelector, TransactionState, execute_begin_transaction,
+    AbortedInfo, AbortedState, BeginTransactionOption, CommitAction, LazyTransactionStartGuard,
+    ReadContext, ReadContextTransactionSelector, TransactionState, execute_begin_transaction,
 };
 use crate::result_set::ResultSet;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -558,10 +560,7 @@ impl ReadWriteTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn buffer<I>(&self, mutations: I) -> crate::Result<()>
-    where
-        I: IntoIterator<Item = Mutation>,
-    {
+    pub fn buffer(&self, mutations: impl IntoIterator<Item = Mutation>) -> Result<()> {
         let mut guard = self.lock_mutations();
         for mutation in mutations {
             guard.push(mutation.build_proto());
@@ -570,10 +569,7 @@ impl ReadWriteTransaction {
     }
 
     /// Executes a query using this transaction.
-    pub async fn execute_query<T: Into<Statement>>(
-        &self,
-        statement: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_query(&self, statement: impl Into<Statement>) -> Result<ResultSet> {
         let stmt = statement.into();
         let mut gax_options = stmt.gax_options().clone();
         self.amend_gax_options(&mut gax_options);
@@ -583,17 +579,14 @@ impl ReadWriteTransaction {
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
-    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
-        &self,
-        read: T,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute_read(&self, read: impl Into<ReadRequest>) -> Result<ResultSet> {
         let mut req = read.into();
         self.amend_gax_options(&mut req.gax_options);
         self.context.execute_read(req).await
     }
 
     /// Executes an update using this transaction.
-    pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
+    pub async fn execute_update(&self, statement: impl Into<Statement>) -> Result<i64> {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
@@ -702,10 +695,7 @@ impl ReadWriteTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_batch_update<T: Into<BatchDml>>(
-        &self,
-        batch: T,
-    ) -> crate::Result<Vec<i64>> {
+    pub async fn execute_batch_update(&self, batch: impl Into<BatchDml>) -> Result<Vec<i64>> {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
@@ -716,7 +706,7 @@ impl ReadWriteTransaction {
         let statements: Vec<ExecuteBatchDmlStatement> = batch
             .statements
             .into_iter()
-            .map(|stmt: crate::statement::Statement| stmt.into_batch_statement())
+            .map(Statement::into_batch_statement)
             .collect();
 
         let selector = self.context.selector().await?;
@@ -748,21 +738,6 @@ impl ReadWriteTransaction {
         process_response(response).inspect_err(|error| {
             self.context.record_if_aborted(error);
         })
-    }
-
-    pub(crate) async fn begin_explicitly_if_not_started(
-        &self,
-        mutation_key: Option<crate::model::Mutation>,
-    ) -> crate::Result<bool> {
-        let mut begin_options = self.begin_gax_options.clone().unwrap_or_default();
-        self.amend_gax_options(&mut begin_options);
-        self.context
-            .begin_explicitly_if_not_started(begin_options, mutation_key)
-            .await
-    }
-
-    pub(crate) fn is_starting(&self) -> bool {
-        self.context.transaction_selector.is_starting()
     }
 
     pub(crate) fn aborted_info(&self) -> Option<&AbortedInfo> {
@@ -812,6 +787,21 @@ impl ReadWriteTransaction {
         )
     }
 
+    fn build_retry_commit_request(
+        &self,
+        transaction_id: Bytes,
+        precommit_token: Option<MultiplexedSessionPrecommitToken>,
+    ) -> CommitRequest {
+        create_retry_commit_request(
+            self.context.session_name.clone(),
+            transaction_id,
+            precommit_token,
+            self.commit_request_options(),
+            self.max_commit_delay,
+            self.return_commit_stats,
+        )
+    }
+
     /// Disarms the automatic rollback-on-drop guard.
     pub(crate) fn disarm_rollback(&self) {
         self.drop_guard.disarm();
@@ -833,22 +823,23 @@ impl ReadWriteTransaction {
         if let Some(info) = self.aborted_info() {
             return Err(info.to_error());
         }
-        self.context.transaction_selector.check_failed()?;
-        let mutations = take(&mut *self.lock_mutations());
-        let mut id = self.context.transaction_selector.get_id_no_wait()?;
-        if id.is_none() {
-            if self.is_starting() {
+        let transaction_id = match self.context.transaction_selector.prepare_for_commit()? {
+            CommitAction::Ready(transaction_id) => transaction_id,
+            CommitAction::Starting => {
                 return Err(internal_error(
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
             }
-            let mutation_key = Mutation::select_mutation_key(&mutations);
-            if self.begin_explicitly_if_not_started(mutation_key).await? {
-                self.context.transaction_selector.check_failed()?;
-                id = self.context.transaction_selector.get_id_no_wait()?;
+            CommitAction::Begin(options, notify) => {
+                let mutation_key = Mutation::select_mutation_key(&self.lock_mutations());
+                let mut begin_options = self.begin_gax_options.clone().unwrap_or_default();
+                self.amend_gax_options(&mut begin_options);
+                self.context
+                    .begin_explicitly_for_commit(options, notify, begin_options, mutation_key)
+                    .await?
             }
-        }
-        let transaction_id = id.ok_or_else(|| internal_error("Transaction ID is missing"))?;
+        };
+        let mutations = take(&mut *self.lock_mutations());
         let precommit_token = self.context.precommit_token_tracker.get();
 
         let request = self.build_commit_request(transaction_id.clone(), mutations, precommit_token);
@@ -860,38 +851,16 @@ impl ReadWriteTransaction {
         // Once commit is dispatched, the transaction must not be rolled back.
         self.disarm_rollback();
 
-        let response = self
-            .context
-            .client
-            .commit(request, gax_options, self.affinity())
-            .await
-            .inspect_err(|error| self.context.record_if_aborted(error))?;
-
-        let response = if let Some(MultiplexedSessionRetry::PrecommitToken(new_precommit_token)) =
-            response.multiplexed_session_retry
-        {
-            self.context
-                .precommit_token_tracker
-                .update(Some(*new_precommit_token));
-            let retry_commit_req = self.build_commit_request(
-                transaction_id,
-                Vec::new(), // mutations are never re-sent in retry requests
-                self.context.precommit_token_tracker.get(),
-            );
-
-            let mut gax_options = self.commit_gax_options.clone().unwrap_or_default();
-            self.amend_gax_options(&mut gax_options);
-
-            self.context
-                .client
-                .commit(retry_commit_req, gax_options, self.affinity())
-                .await
-                .inspect_err(|error| self.context.record_if_aborted(error))?
-        } else {
-            response
-        };
-
-        Ok(response)
+        commit_with_precommit_retry(
+            &self.context.client,
+            request,
+            gax_options,
+            self.affinity(),
+            &self.context.precommit_token_tracker,
+            |error| self.context.record_if_aborted(error),
+            |token| self.build_retry_commit_request(transaction_id, token),
+        )
+        .await
     }
 
     /// Rolls back the transaction.
@@ -1014,6 +983,16 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
     }
 }
 
+/// Test-only helper methods on [`ReadWriteTransaction`] used by crate-internal
+/// integration tests (such as `transaction_runner::tests`) that cannot access
+/// private context fields directly.
+#[cfg(test)]
+impl ReadWriteTransaction {
+    pub(crate) fn is_starting(&self) -> bool {
+        self.context.transaction_selector.is_starting()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1055,8 +1034,9 @@ mod tests {
     use std::sync::Mutex;
     use std::sync::atomic::{AtomicU32, Ordering};
     use std::time::Duration as StdDuration;
+    use tokio::sync::Notify;
     use tokio::sync::mpsc::Receiver;
-    use tokio::task::JoinHandle;
+    use tokio::task::{JoinHandle, spawn, yield_now};
 
     impl ReadWriteTransaction {
         /// Returns `true` if this transaction encountered an `Aborted` error from Spanner.
@@ -2324,18 +2304,24 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn read_write_transaction_commit_retry_exactly_once_explicit() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry_exactly_once(BeginTransactionOption::ExplicitBegin)
-            .await
+    async fn read_write_transaction_commit_retry_fails_on_subsequent_precommit_token_explicit()
+    -> anyhow::Result<()> {
+        run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
+            BeginTransactionOption::ExplicitBegin,
+        )
+        .await
     }
 
     #[tokio_test_no_panics]
-    async fn read_write_transaction_commit_retry_exactly_once_inline() -> anyhow::Result<()> {
-        run_read_write_transaction_commit_retry_exactly_once(BeginTransactionOption::InlineBegin)
-            .await
+    async fn read_write_transaction_commit_retry_fails_on_subsequent_precommit_token_inline()
+    -> anyhow::Result<()> {
+        run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
+            BeginTransactionOption::InlineBegin,
+        )
+        .await
     }
 
-    async fn run_read_write_transaction_commit_retry_exactly_once(
+    async fn run_read_write_transaction_commit_retry_fails_on_subsequent_precommit_token(
         begin_transaction_option: BeginTransactionOption,
     ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
@@ -2406,14 +2392,15 @@ mod tests {
             });
 
         // Retry commit returns another retry token (seq 3).
-        // The library should not retry multiple times.
+        // The library should not retry multiple times, and must fail fast on subsequent precommit token.
         mock.expect_commit()
             .once()
             .in_sequence(&mut seq)
-            .returning(|req| {
-                let req = req.into_inner();
+            .returning(|request| {
+                let request = request.into_inner();
                 assert_eq!(
-                    req.precommit_token
+                    request
+                        .precommit_token
                         .as_ref()
                         .expect("Missing precommit token in retry req")
                         .seq_num,
@@ -2421,10 +2408,7 @@ mod tests {
                 );
 
                 Ok(tonic::Response::new(v1::CommitResponse {
-                    commit_timestamp: Some(prost_types::Timestamp {
-                        seconds: 9999,
-                        nanos: 0,
-                    }),
+                    commit_timestamp: None,
                     multiplexed_session_retry: Some(
                         v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
                             v1::MultiplexedSessionPrecommitToken {
@@ -2448,13 +2432,14 @@ mod tests {
                 .await?;
         }
 
-        let ts = tx.commit().await.expect("Failed to commit transaction");
-        assert_eq!(
-            ts.commit_timestamp
-                .as_ref()
-                .expect("timestamp should be present")
-                .seconds(),
-            9999
+        let error = tx.commit().await.expect_err(
+            "commit must fail when receiving an unexpected subsequent precommit token on retry",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("received an unexpected subsequent precommit token"),
+            "Error message must indicate unexpected subsequent precommit token: {error}"
         );
         Ok(())
     }
@@ -3225,6 +3210,448 @@ mod tests {
                 .seconds(),
             5000
         );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_begin_transaction_fails()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Err(TonicStatus::new(
+                TonicCode::InvalidArgument,
+                "invalid argument",
+            ))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let commit_result = transaction.commit().await;
+        assert!(
+            commit_result.is_err(),
+            "commit should fail when BeginTransaction RPC fails"
+        );
+        let error = commit_result.expect_err("commit must return error");
+        assert_eq!(
+            error.status().map(|status| status.code),
+            Some(Code::InvalidArgument),
+            "error code must match the BeginTransaction RPC failure code"
+        );
+
+        // Subsequent selector calls return the failure error
+        assert!(
+            matches!(
+                transaction.context.selector().await,
+                Err(error) if error.status().map(|status| status.code) == Some(Code::InvalidArgument)
+            ),
+            "selector state must transition to Failed on begin RPC failure"
+        );
+
+        // Buffered mutations must not be drained when commit fails during ID resolution
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when commit fails during ID resolution"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_begin_transaction_aborted_records_aborted()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(|_| Err(create_aborted_status(StdDuration::from_nanos(1))));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let commit_result = transaction.commit().await;
+        assert!(
+            commit_result.is_err(),
+            "commit should fail when BeginTransaction RPC is aborted"
+        );
+        let error = commit_result.expect_err("commit must return error");
+        assert_eq!(
+            error.status().map(|status| status.code),
+            Some(Code::Aborted),
+            "error code must be Aborted"
+        );
+
+        // Transaction must record the aborted status
+        assert!(
+            transaction.is_aborted(),
+            "transaction must record aborted status"
+        );
+
+        // Buffered mutations must not be drained when commit fails during ID resolution
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when commit fails during ID resolution"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_empty_transaction_id_fails()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(v1::Transaction {
+                id: vec![],
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let commit_result = transaction.commit().await;
+        assert!(
+            commit_result.is_err(),
+            "commit should fail when Spanner returns empty transaction ID"
+        );
+        let error = commit_result.expect_err("commit must return error");
+        assert!(
+            error
+                .to_string()
+                .contains("Transaction ID was not returned by Spanner"),
+            "error message should indicate missing transaction ID from Spanner"
+        );
+
+        // Selector state must transition to Failed
+        assert!(
+            matches!(
+                transaction.context.selector().await,
+                Err(error) if error.to_string().contains("Transaction ID was not returned by Spanner")
+            ),
+            "selector state must transition to Failed on empty transaction ID"
+        );
+
+        // Buffered mutations must not be drained
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved when commit fails"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_cancelled_transitions_to_first_statement_failed()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let rpc_received = Arc::new(Notify::new());
+        let rpc_received_clone = Arc::clone(&rpc_received);
+
+        // Returning Unavailable causes GAX to enter retry backoff sleep while holding LazyTransactionStartGuard.
+        // Dropping the commit future during backoff sleep simulates in-flight cancellation.
+        mock.expect_begin_transaction().once().returning(move |_| {
+            rpc_received_clone.notify_one();
+            Err(TonicStatus::unavailable("retry later"))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        {
+            let commit_future = transaction.commit();
+            tokio::pin!(commit_future);
+
+            tokio::select! {
+                _ = &mut commit_future => {
+                    panic!("commit should not finish before cancellation");
+                }
+                _ = rpc_received.notified() => {
+                    // Future is dropped upon leaving block, simulating cancellation while RPC in-flight
+                }
+            }
+        }
+
+        // Selector must transition to FirstStatementFailed via LazyTransactionStartGuard drop
+        assert!(
+            transaction
+                .context
+                .transaction_selector
+                .is_first_statement_failed(),
+            "cancelling commit during BeginTransaction must transition selector to FirstStatementFailed"
+        );
+
+        // Subsequent commit attempt should fail fast with aborted due to failed initial statement
+        let subsequent_result = transaction.commit().await;
+        assert!(subsequent_result.is_err(), "subsequent commit should fail");
+        let error = subsequent_result.expect_err("subsequent commit must return error");
+        assert!(
+            error
+                .to_string()
+                .contains("Aborted due to failed initial statement"),
+            "error must indicate aborted due to failed initial statement: {error}"
+        );
+
+        // Buffered mutations must still be preserved
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when cancelled"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_resolves_id_when_already_started() -> anyhow::Result<()>
+    {
+        let mut mock = create_session_mock();
+
+        // Expect commit directly using the pre-established transaction ID; no BeginTransaction RPC
+        mock.expect_commit().once().returning(|request| {
+            let request = request.into_inner();
+            assert_eq!(
+                request.session, "projects/p/instances/i/databases/d/sessions/123",
+                "request session must match expected session path"
+            );
+            assert_eq!(
+                request.transaction,
+                Some(CommitTransaction::TransactionId(vec![9, 9, 9])),
+                "request transaction must use the started transaction ID"
+            );
+            assert_eq!(
+                request.mutations.len(),
+                1,
+                "request must contain exactly one buffered mutation"
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 6000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        // Manually update the state to Started, simulating an inlined begin that completed
+        transaction
+            .context
+            .transaction_selector
+            .update(Bytes::from_static(&[9, 9, 9]), None)?;
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let response = transaction.commit().await.expect("Commit should succeed");
+        assert_eq!(
+            response
+                .commit_timestamp
+                .expect("timestamp present")
+                .seconds(),
+            6000,
+            "commit response timestamp seconds must match 6000"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_fails_fast_when_starting() -> anyhow::Result<()> {
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(db_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        // Set state to Starting to simulate an asynchronous in-flight statement starting the transaction
+        if let ReadContextTransactionSelector::Lazy(state) =
+            &transaction.context.transaction_selector
+        {
+            let mut guard = state.lock().expect("lock state");
+            *guard =
+                TransactionState::Starting(TransactionOptions::default(), Arc::new(Notify::new()));
+        }
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let result = transaction.commit().await;
+        assert!(
+            result.is_err(),
+            "commit must fail when an asynchronous statement is still starting the transaction"
+        );
+        let error = result.expect_err("expected error");
+        assert!(
+            error
+                .to_string()
+                .contains("asynchronous statement is still starting the transaction"),
+            "error message must describe asynchronous statement still starting, got: {error}"
+        );
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when commit fails fast"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_mutation_only_commit_cancelled_wakes_concurrent_waiter()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let rpc_received = Arc::new(Notify::new());
+        let rpc_received_clone = Arc::clone(&rpc_received);
+
+        // Returning Unavailable causes GAX to enter retry backoff sleep while holding LazyTransactionStartGuard.
+        mock.expect_begin_transaction().once().returning(move |_| {
+            rpc_received_clone.notify_one();
+            Err(TonicStatus::unavailable("retry later"))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await
+            .expect("Transaction build should succeed");
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        transaction
+            .buffer([mutation])
+            .expect("Buffer should succeed");
+
+        let transaction_leader = transaction.clone();
+        let leader_handle = spawn(async move { transaction_leader.commit().await });
+
+        // Wait until leader has dispatched BeginTransaction RPC and is sleeping in retry backoff
+        rpc_received.notified().await;
+        assert!(
+            transaction.is_starting(),
+            "transaction must be in Starting state while BeginTransaction is in flight"
+        );
+
+        let notify = if let ReadContextTransactionSelector::Lazy(state) =
+            &transaction.context.transaction_selector
+        {
+            let guard = state.lock().expect("lock must not be poisoned");
+            if let TransactionState::Starting(_, notify) = &*guard {
+                Some(Arc::clone(notify))
+            } else {
+                None
+            }
+        } else {
+            None
+        }
+        .expect("transaction must be in Starting state with notify handle");
+
+        // A concurrent task calls selector() while the transaction is Starting.
+        let context_follower = transaction.context.clone();
+        let follower_handle = spawn(async move { context_follower.selector().await });
+
+        // Wait until the follower has entered selector() and registered on notify (bumping strong_count to 3)
+        while Arc::strong_count(&notify) < 3 {
+            yield_now().await;
+        }
+
+        // Cancel the leader during backoff, triggering LazyTransactionStartGuard drop
+        leader_handle.abort();
+        let _ = leader_handle.await;
+
+        // Follower MUST NOT hang; it should be woken up and return synthetic Aborted
+        let follower_result = follower_handle.await.expect("follower task must not panic");
+        assert!(
+            follower_result.is_err(),
+            "follower selector must fail when leader is cancelled"
+        );
+        let error = follower_result.expect_err("expected error");
+        assert!(
+            error
+                .to_string()
+                .contains("Aborted due to failed initial statement"),
+            "follower error must indicate aborted due to failed initial statement: {error}"
+        );
+
+        // Buffered mutations must still be preserved in the transaction
+        assert_eq!(
+            transaction.lock_mutations().len(),
+            1,
+            "buffered mutations must be preserved in the transaction when cancelled"
+        );
+
         Ok(())
     }
 

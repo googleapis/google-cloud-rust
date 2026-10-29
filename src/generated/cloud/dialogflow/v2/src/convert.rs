@@ -400,6 +400,10 @@ impl gaxi::prost::ToProto<InputAudioConfig> for crate::model::InputAudioConfig {
             opt_out_conformer_model_migration: self.opt_out_conformer_model_migration.to_proto()?,
             gemini_asr_config: self.gemini_asr_config.map(|v| v.to_proto()).transpose()?,
             use_gemini_asr: self.use_gemini_asr.map(|v| v.to_proto()).transpose()?,
+            disable_interim_input_transcripts: self
+                .disable_interim_input_transcripts
+                .map(|v| v.to_proto())
+                .transpose()?,
         })
     }
 }
@@ -438,7 +442,12 @@ impl gaxi::prost::FromProto<crate::model::InputAudioConfig> for InputAudioConfig
             )
             .set_opt_out_conformer_model_migration(self.opt_out_conformer_model_migration)
             .set_or_clear_gemini_asr_config(self.gemini_asr_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_use_gemini_asr(self.use_gemini_asr.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_use_gemini_asr(self.use_gemini_asr.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_disable_interim_input_transcripts(
+                self.disable_interim_input_transcripts
+                    .map(|v| v.cnv())
+                    .transpose()?,
+            ))
     }
 }
 
@@ -699,7 +708,6 @@ impl gaxi::prost::ToProto<speech_to_text_config::GeminiAsrConfig>
     ) -> std::result::Result<speech_to_text_config::GeminiAsrConfig, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            model_id: self.model_id.to_proto()?,
             silence_duration_ms: self.silence_duration_ms.to_proto()?,
             prefix_padding_ms: self.prefix_padding_ms.to_proto()?,
             start_of_speech_sensitivity: self.start_of_speech_sensitivity.to_proto()?,
@@ -724,7 +732,6 @@ impl gaxi::prost::FromProto<crate::model::speech_to_text_config::GeminiAsrConfig
         gaxi::prost::ConvertError,
     > {
         Ok(crate::model::speech_to_text_config::GeminiAsrConfig::new()
-            .set_model_id(self.model_id)
             .set_silence_duration_ms(self.silence_duration_ms)
             .set_prefix_padding_ms(self.prefix_padding_ms)
             .set_start_of_speech_sensitivity(self.start_of_speech_sensitivity)
@@ -756,6 +763,10 @@ impl gaxi::prost::ToProto<SpeechToTextConfig> for crate::model::SpeechToTextConf
             use_timeout_based_endpointing: self.use_timeout_based_endpointing.to_proto()?,
             gemini_asr_config: self.gemini_asr_config.map(|v| v.to_proto()).transpose()?,
             use_gemini_asr: self.use_gemini_asr.to_proto()?,
+            disable_interim_input_transcripts: self
+                .disable_interim_input_transcripts
+                .map(|v| v.to_proto())
+                .transpose()?,
         })
     }
 }
@@ -785,7 +796,12 @@ impl gaxi::prost::FromProto<crate::model::SpeechToTextConfig> for SpeechToTextCo
             .set_enable_word_info(self.enable_word_info)
             .set_use_timeout_based_endpointing(self.use_timeout_based_endpointing)
             .set_or_clear_gemini_asr_config(self.gemini_asr_config.map(|v| v.cnv()).transpose()?)
-            .set_use_gemini_asr(self.use_gemini_asr))
+            .set_use_gemini_asr(self.use_gemini_asr)
+            .set_or_clear_disable_interim_input_transcripts(
+                self.disable_interim_input_transcripts
+                    .map(|v| v.cnv())
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4042,6 +4058,11 @@ impl gaxi::prost::ToProto<Message> for crate::model::Message {
         Ok(Self::Output {
             name: self.name.to_proto()?,
             content: self.content.to_proto()?,
+            response_messages: self
+                .response_messages
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             language_code: self.language_code.to_proto()?,
             participant: self.participant.to_proto()?,
             participant_role: self.participant_role.to_proto()?,
@@ -4059,6 +4080,12 @@ impl gaxi::prost::FromProto<crate::model::Message> for Message {
         Ok(crate::model::Message::new()
             .set_name(self.name)
             .set_content(self.content)
+            .set_response_messages(
+                self.response_messages
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
             .set_language_code(self.language_code)
             .set_participant(self.participant)
             .set_participant_role(self.participant_role)
@@ -4780,9 +4807,19 @@ impl gaxi::prost::ToProto<AutomatedAgentReply> for crate::model::AutomatedAgentR
                 .detect_intent_response
                 .map(|v| v.to_proto())
                 .transpose()?,
+            response_messages: self
+                .response_messages
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            intent: self.intent.to_proto()?,
+            event: self.event.to_proto()?,
+            match_confidence: self.match_confidence.to_proto()?,
+            parameters: self.parameters.map(|v| v.to_proto()).transpose()?,
             automated_agent_reply_type: self.automated_agent_reply_type.to_proto()?,
             allow_cancellation: self.allow_cancellation.to_proto()?,
             cx_current_page: self.cx_current_page.to_proto()?,
+            call_companion_auth_code: self.call_companion_auth_code.to_proto()?,
         })
     }
 }
@@ -4796,9 +4833,20 @@ impl gaxi::prost::FromProto<crate::model::AutomatedAgentReply> for AutomatedAgen
             .set_or_clear_detect_intent_response(
                 self.detect_intent_response.map(|v| v.cnv()).transpose()?,
             )
+            .set_response_messages(
+                self.response_messages
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_intent(self.intent)
+            .set_event(self.event)
+            .set_match_confidence(self.match_confidence)
+            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?)
             .set_automated_agent_reply_type(self.automated_agent_reply_type)
             .set_allow_cancellation(self.allow_cancellation)
-            .set_cx_current_page(self.cx_current_page))
+            .set_cx_current_page(self.cx_current_page)
+            .set_call_companion_auth_code(self.call_companion_auth_code))
     }
 }
 
@@ -5124,6 +5172,305 @@ impl gaxi::prost::FromProto<crate::model::AssistQueryParameters> for AssistQuery
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             ),
         )
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::Text> for crate::model::response_message::Text {
+    type Output = response_message::Text;
+    fn to_proto(self) -> std::result::Result<response_message::Text, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            text: self
+                .text
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::Text> for response_message::Text {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::response_message::Text, gaxi::prost::ConvertError> {
+        Ok(crate::model::response_message::Text::new().set_text(
+            self.text
+                .into_iter()
+                .map(|v| v.cnv())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        ))
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::LiveAgentHandoff>
+    for crate::model::response_message::LiveAgentHandoff
+{
+    type Output = response_message::LiveAgentHandoff;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<response_message::LiveAgentHandoff, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            metadata: self.metadata.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::LiveAgentHandoff>
+    for response_message::LiveAgentHandoff
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::response_message::LiveAgentHandoff,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::response_message::LiveAgentHandoff::new()
+            .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::EndInteraction>
+    for crate::model::response_message::EndInteraction
+{
+    type Output = response_message::EndInteraction;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<response_message::EndInteraction, gaxi::prost::ConvertError> {
+        Ok(Self::Output {})
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::EndInteraction>
+    for response_message::EndInteraction
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::response_message::EndInteraction,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::response_message::EndInteraction::new())
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::mixed_audio::segment::Content>
+    for crate::model::response_message::mixed_audio::segment::Content
+{
+    type Output = response_message::mixed_audio::segment::Content;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Audio(v) => Ok(Self::Output::Audio(v.to_proto()?)),
+            Self::Uri(v) => Ok(Self::Output::Uri(v.to_proto()?)),
+        }
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::mixed_audio::segment::Content>
+    for response_message::mixed_audio::segment::Content
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::response_message::mixed_audio::segment::Content,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::response_message::mixed_audio::segment::Content as T;
+        match self {
+            Self::Audio(v) => Ok(T::Audio(v.cnv()?)),
+            Self::Uri(v) => Ok(T::Uri(v.cnv()?)),
+        }
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::mixed_audio::Segment>
+    for crate::model::response_message::mixed_audio::Segment
+{
+    type Output = response_message::mixed_audio::Segment;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<response_message::mixed_audio::Segment, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            allow_playback_interruption: self.allow_playback_interruption.to_proto()?,
+            content: self.content.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::mixed_audio::Segment>
+    for response_message::mixed_audio::Segment
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::response_message::mixed_audio::Segment,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::response_message::mixed_audio::Segment::new()
+            .set_allow_playback_interruption(self.allow_playback_interruption)
+            .set_content(self.content.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::MixedAudio>
+    for crate::model::response_message::MixedAudio
+{
+    type Output = response_message::MixedAudio;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<response_message::MixedAudio, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            segments: self
+                .segments
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::MixedAudio>
+    for response_message::MixedAudio
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::response_message::MixedAudio, gaxi::prost::ConvertError>
+    {
+        Ok(
+            crate::model::response_message::MixedAudio::new().set_segments(
+                self.segments
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ),
+        )
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::telephony_transfer_call::Endpoint>
+    for crate::model::response_message::telephony_transfer_call::Endpoint
+{
+    type Output = response_message::telephony_transfer_call::Endpoint;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::PhoneNumber(v) => Ok(Self::Output::PhoneNumber(v.to_proto()?)),
+            Self::SipUri(v) => Ok(Self::Output::SipUri(v.to_proto()?)),
+        }
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::telephony_transfer_call::Endpoint>
+    for response_message::telephony_transfer_call::Endpoint
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::response_message::telephony_transfer_call::Endpoint,
+        gaxi::prost::ConvertError,
+    > {
+        use crate::model::response_message::telephony_transfer_call::Endpoint as T;
+        match self {
+            Self::PhoneNumber(v) => Ok(T::PhoneNumber(v.cnv()?)),
+            Self::SipUri(v) => Ok(T::SipUri(v.cnv()?)),
+        }
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::TelephonyTransferCall>
+    for crate::model::response_message::TelephonyTransferCall
+{
+    type Output = response_message::TelephonyTransferCall;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<response_message::TelephonyTransferCall, gaxi::prost::ConvertError>
+    {
+        Ok(Self::Output {
+            endpoint: self.endpoint.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::TelephonyTransferCall>
+    for response_message::TelephonyTransferCall
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::response_message::TelephonyTransferCall,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::response_message::TelephonyTransferCall::new()
+            .set_endpoint(self.endpoint.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<response_message::Message> for crate::model::response_message::Message {
+    type Output = response_message::Message;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Text(v) => Ok(Self::Output::Text((*v).to_proto()?)),
+            Self::Payload(v) => Ok(Self::Output::Payload((*v).to_proto()?)),
+            Self::LiveAgentHandoff(v) => Ok(Self::Output::LiveAgentHandoff((*v).to_proto()?)),
+            Self::EndInteraction(v) => Ok(Self::Output::EndInteraction((*v).to_proto()?)),
+            Self::MixedAudio(v) => Ok(Self::Output::MixedAudio((*v).to_proto()?)),
+            Self::TelephonyTransferCall(v) => {
+                Ok(Self::Output::TelephonyTransferCall((*v).to_proto()?))
+            }
+        }
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::response_message::Message> for response_message::Message {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::response_message::Message, gaxi::prost::ConvertError>
+    {
+        use crate::model::response_message::Message as T;
+        match self {
+            Self::Text(v) => Ok(T::Text(std::boxed::Box::new(v.cnv()?))),
+            Self::Payload(v) => Ok(T::Payload(std::boxed::Box::new(v.cnv()?))),
+            Self::LiveAgentHandoff(v) => Ok(T::LiveAgentHandoff(std::boxed::Box::new(v.cnv()?))),
+            Self::EndInteraction(v) => Ok(T::EndInteraction(std::boxed::Box::new(v.cnv()?))),
+            Self::MixedAudio(v) => Ok(T::MixedAudio(std::boxed::Box::new(v.cnv()?))),
+            Self::TelephonyTransferCall(v) => {
+                Ok(T::TelephonyTransferCall(std::boxed::Box::new(v.cnv()?)))
+            }
+        }
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::ToProto<ResponseMessage> for crate::model::ResponseMessage {
+    type Output = ResponseMessage;
+    fn to_proto(self) -> std::result::Result<ResponseMessage, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            message: self.message.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(feature = "conversations", feature = "participants",))]
+impl gaxi::prost::FromProto<crate::model::ResponseMessage> for ResponseMessage {
+    fn cnv(self) -> std::result::Result<crate::model::ResponseMessage, gaxi::prost::ConvertError> {
+        Ok(crate::model::ResponseMessage::new()
+            .set_message(self.message.map(|v| v.cnv()).transpose()?))
     }
 }
 
@@ -6153,6 +6500,10 @@ impl gaxi::prost::ToProto<bidi_streaming_analyze_content_request::config::VoiceS
             enable_streaming_synthesize: self.enable_streaming_synthesize.to_proto()?,
             gemini_asr_config: self.gemini_asr_config.map(|v| v.to_proto()).transpose()?,
             use_gemini_asr: self.use_gemini_asr.map(|v| v.to_proto()).transpose()?,
+            disable_interim_input_transcripts: self
+                .disable_interim_input_transcripts
+                .map(|v| v.to_proto())
+                .transpose()?,
         })
     }
 }
@@ -6180,7 +6531,12 @@ impl
                 .set_or_clear_gemini_asr_config(
                     self.gemini_asr_config.map(|v| v.cnv()).transpose()?,
                 )
-                .set_or_clear_use_gemini_asr(self.use_gemini_asr.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_use_gemini_asr(self.use_gemini_asr.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_disable_interim_input_transcripts(
+                    self.disable_interim_input_transcripts
+                        .map(|v| v.cnv())
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -7192,6 +7548,7 @@ impl gaxi::prost::ToProto<SentimentAnalysisResult> for crate::model::SentimentAn
                 .query_text_sentiment
                 .map(|v| v.to_proto())
                 .transpose()?,
+            status: self.status.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -7206,11 +7563,11 @@ impl gaxi::prost::FromProto<crate::model::SentimentAnalysisResult> for Sentiment
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::SentimentAnalysisResult, gaxi::prost::ConvertError> {
-        Ok(
-            crate::model::SentimentAnalysisResult::new().set_or_clear_query_text_sentiment(
+        Ok(crate::model::SentimentAnalysisResult::new()
+            .set_or_clear_query_text_sentiment(
                 self.query_text_sentiment.map(|v| v.cnv()).transpose()?,
-            ),
-        )
+            )
+            .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?))
     }
 }
 

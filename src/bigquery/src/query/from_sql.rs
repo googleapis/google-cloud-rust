@@ -220,76 +220,20 @@ impl FromSql for wkt::Value {
                             wkt::Value::String(s.to_string())
                         }
                     }
-                    DataType::Utf8 | DataType::LargeUtf8 => {
-                        wkt::Value::String(cell.as_str()?.to_string())
-                    }
-                    DataType::Binary | DataType::LargeBinary => {
-                        wkt::Value::String(BASE64_STANDARD.encode(cell.as_bytes()?))
-                    }
-                    DataType::Date32 => {
-                        let d = google_cloud_type::model::Date::from_value(SqlValue::from_inner(
-                            SqlValueInner::Arrow(cell),
-                        ))?;
-                        wkt::Value::String(format!("{:04}-{:02}-{:02}", d.year, d.month, d.day))
-                    }
-                    DataType::Time64(
+                    DataType::Utf8
+                    | DataType::LargeUtf8
+                    | DataType::Binary
+                    | DataType::LargeBinary
+                    | DataType::Date32
+                    | DataType::Time64(
                         arrow::datatypes::TimeUnit::Microsecond
                         | arrow::datatypes::TimeUnit::Nanosecond,
-                    ) => {
-                        let t = google_cloud_type::model::TimeOfDay::from_value(
-                            SqlValue::from_inner(SqlValueInner::Arrow(cell)),
-                        )?;
-                        if t.nanos == 0 {
-                            wkt::Value::String(format!(
-                                "{:02}:{:02}:{:02}",
-                                t.hours, t.minutes, t.seconds
-                            ))
-                        } else {
-                            let subsec_micros = t.nanos / 1_000;
-                            wkt::Value::String(format!(
-                                "{:02}:{:02}:{:02}.{subsec_micros:06}",
-                                t.hours, t.minutes, t.seconds
-                            ))
-                        }
-                    }
-                    DataType::Timestamp(_, _) => {
-                        let micros = cell.as_timestamp_micros()?;
-                        wkt::Value::String(micros.to_string())
-                    }
-                    DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => {
-                        let s = cell.as_decimal_str()?;
-                        wkt::Value::String(s)
-                    }
-                    DataType::Interval(arrow::datatypes::IntervalUnit::MonthDayNano) => {
-                        let interval = crate::datatypes::Interval::from_value(
-                            SqlValue::from_inner(SqlValueInner::Arrow(cell)),
-                        )?;
-                        let ym_sign = if interval.years < 0 || interval.months < 0 {
-                            "-"
-                        } else {
-                            ""
-                        };
-                        let time_sign = if interval.hours < 0
-                            || interval.minutes < 0
-                            || interval.seconds < 0
-                            || interval.nanos < 0
-                        {
-                            "-"
-                        } else {
-                            ""
-                        };
-                        wkt::Value::String(format!(
-                            "{}{}-{} {} {}{:02}:{:02}:{:02}.{:09}",
-                            ym_sign,
-                            interval.years.abs(),
-                            interval.months.abs(),
-                            interval.days,
-                            time_sign,
-                            interval.hours.abs(),
-                            interval.minutes.abs(),
-                            interval.seconds.abs(),
-                            interval.nanos.abs()
-                        ))
+                    )
+                    | DataType::Timestamp(_, _)
+                    | DataType::Decimal128(_, _)
+                    | DataType::Decimal256(_, _)
+                    | DataType::Interval(arrow::datatypes::IntervalUnit::MonthDayNano) => {
+                        wkt::Value::String(cell.to_sql_string()?)
                     }
                     DataType::Struct(fields) => {
                         let s = fields
@@ -332,7 +276,7 @@ impl FromSql for String {
                 google_cloud_unstable_bigquery_arrow,
                 google_cloud_unstable_bigquery_storage_read
             ))]
-            SqlValueInner::Arrow(cell) => cell.as_str().map(str::to_owned),
+            SqlValueInner::Arrow(cell) => cell.to_sql_string(),
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -1313,12 +1257,20 @@ mod tests {
         #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])) => Ok(wkt::Value::String("15:30:00".to_string())) ; "value from Time64MicrosecondArray zero nanos")]
         #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_123_456)])) => Ok(wkt::Value::String("15:30:00.123456".to_string())) ; "value from Time64MicrosecondArray fractional")]
         #[test_case(Arc::new(Time64NanosecondArray::from(vec![Some(55_800_123_456_789)])) => Ok(wkt::Value::String("15:30:00.123456".to_string())) ; "value from Time64NanosecondArray")]
-        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok(wkt::Value::String("1779982200123456".to_string())) ; "value from TimestampMicrosecondArray")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)]).with_timezone("UTC")) => Ok(wkt::Value::String("1779982200123456".to_string())) ; "value from TimestampMicrosecondArray with tz")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])) => Ok(wkt::Value::String("2026-05-28T15:30:00".to_string())) ; "value from TimestampMicrosecondArray without tz zero nanos")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok(wkt::Value::String("2026-05-28T15:30:00.123456".to_string())) ; "value from TimestampMicrosecondArray without tz fractional")]
         #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(42_500_000_000)], 38, 9) => Ok(wkt::Value::String("42.5".to_string())) ; "value from Decimal128Array trailing fractional zeros")]
+        #[test_case(decimal128_array(vec![Some(42_000_000_000)], 38, 9) => Ok(wkt::Value::String("42".to_string())) ; "value from Decimal128Array whole integer")]
         #[test_case(decimal256_array(vec![Some(i256::from_i128(123_456))], 20, 3) => Ok(wkt::Value::String("123.456".to_string())) ; "value from Decimal256Array")]
-        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok(wkt::Value::String("1-2 3 04:05:06.000000789".to_string())) ; "value from IntervalMonthDayNanoArray")]
-        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-14, -3, -14_706_000_000_789))])) => Ok(wkt::Value::String("-1-2 -3 -04:05:06.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative")]
-        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-2, 0, -789))])) => Ok(wkt::Value::String("-0-2 0 -00:00:00.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative months and nanos")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38) => Ok(wkt::Value::String("42.5".to_string())) ; "value from Decimal256Array scale 38")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 1, 9_045_000_000_000))])) => Ok(wkt::Value::String("0-0 1 2:30:45".to_string())) ; "value from IntervalMonthDayNanoArray zero nanos")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_789_000_000))])) => Ok(wkt::Value::String("1-2 3 4:5:6.789".to_string())) ; "value from IntervalMonthDayNanoArray millis")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 0, 123_456_000))])) => Ok(wkt::Value::String("0-0 0 0:0:0.123456".to_string())) ; "value from IntervalMonthDayNanoArray micros")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok(wkt::Value::String("1-2 3 4:5:6.000000789".to_string())) ; "value from IntervalMonthDayNanoArray nanos")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-14, -3, -14_706_000_000_789))])) => Ok(wkt::Value::String("-1-2 -3 -4:5:6.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(-2, 0, -789))])) => Ok(wkt::Value::String("-0-2 0 -0:0:0.000000789".to_string())) ; "value from IntervalMonthDayNanoArray negative months and nanos")]
         #[test_case(sample_test_struct_array(None) => Ok(wkt::Value::Object(wkt::Struct::from_iter([
             ("name".to_string(), wkt::Value::String("James".to_string())),
             ("custom_int".to_string(), wkt::Value::Number(272_793.into())),
@@ -1373,6 +1325,20 @@ mod tests {
 
         #[test_case(Arc::new(StringArray::from(vec![Some("hello")])) => Ok("hello".to_string()) ; "string from StringArray")]
         #[test_case(Arc::new(LargeStringArray::from(vec![Some("world")])) => Ok("world".to_string()) ; "string from LargeStringArray")]
+        #[test_case(Arc::new(BinaryArray::from(vec![Some(&[1_u8, 2, 3][..])])) => Ok("AQID".to_string()) ; "string from BinaryArray")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Ok("2026-05-28".to_string()) ; "string from Date32Array")]
+        #[test_case(Arc::new(Time64MicrosecondArray::from(vec![Some(55_800_000_000)])) => Ok("15:30:00".to_string()) ; "string from Time64MicrosecondArray")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)]).with_timezone("UTC")) => Ok("1779982200123456".to_string()) ; "string from TimestampMicrosecondArray with tz")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_000_000)])) => Ok("2026-05-28T15:30:00".to_string()) ; "string from TimestampMicrosecondArray without tz zero nanos")]
+        #[test_case(Arc::new(TimestampMicrosecondArray::from(vec![Some(1_779_982_200_123_456)])) => Ok("2026-05-28T15:30:00.123456".to_string()) ; "string from TimestampMicrosecondArray without tz fractional")]
+        #[test_case(decimal128_array(vec![Some(123_456)], 10, 3) => Ok("123.456".to_string()) ; "string from Decimal128Array")]
+        #[test_case(decimal128_array(vec![Some(42_500_000_000)], 38, 9) => Ok("42.5".to_string()) ; "string from Decimal128Array trailing fractional zeros")]
+        #[test_case(decimal128_array(vec![Some(42_000_000_000)], 38, 9) => Ok("42".to_string()) ; "string from Decimal128Array whole integer")]
+        #[test_case(decimal256_array(vec![Some(i256::from_string("4250000000000000000000000000000000000000").unwrap())], 76, 38) => Ok("42.5".to_string()) ; "string from Decimal256Array scale 38")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 1, 9_045_000_000_000))])) => Ok("0-0 1 2:30:45".to_string()) ; "string from IntervalMonthDayNanoArray zero nanos")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_789_000_000))])) => Ok("1-2 3 4:5:6.789".to_string()) ; "string from IntervalMonthDayNanoArray millis")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(0, 0, 123_456_000))])) => Ok("0-0 0 0:0:0.123456".to_string()) ; "string from IntervalMonthDayNanoArray micros")]
+        #[test_case(Arc::new(IntervalMonthDayNanoArray::from(vec![Some(IntervalMonthDayNano::new(14, 3, 14_706_000_000_789))])) => Ok("1-2 3 4:5:6.000000789".to_string()) ; "string from IntervalMonthDayNanoArray nanos")]
         #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "string null")]
         #[test_case(Arc::new(Int64Array::from(vec![1])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "string type mismatch")]
         fn test_from_sql_arrow_string(arr: ArrayRef) -> Result<String, TestConvertError> {
@@ -1625,6 +1591,7 @@ mod tests {
         #[test_case(Arc::new(StringArray::from(vec![None::<&str>])) => Err(TestConvertError::NotNull) ; "wkt struct null")]
         #[test_case(Arc::new(StringArray::from(vec![Some("invalid")])) => Err(TestConvertError::Convert) ; "wkt struct invalid json")]
         #[test_case(Arc::new(BooleanArray::from(vec![true])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "wkt struct type mismatch")]
+        #[test_case(Arc::new(Date32Array::from(vec![Some(20_601)])) => Err(TestConvertError::type_mismatch("StringArray or LargeStringArray")) ; "wkt struct date32 type mismatch")]
         fn test_from_sql_arrow_wkt_struct(arr: ArrayRef) -> Result<wkt::Struct, TestConvertError> {
             wkt::Struct::from_value(arrow_val(arr, 0)).map_err(TestConvertError::from)
         }

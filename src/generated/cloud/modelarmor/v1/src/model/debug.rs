@@ -17,6 +17,17 @@
 #[allow(unused_imports)]
 use super::*;
 
+impl std::fmt::Debug for super::FilterVersionSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterVersionSelector");
+        debug_struct.field("version_spec", &self.version_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Template {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Template");
@@ -60,7 +71,9 @@ impl std::fmt::Debug for super::template::TemplateMetadata {
         debug_struct.field("log_sanitize_operations", &self.log_sanitize_operations);
         debug_struct.field("enforcement_type", &self.enforcement_type);
         debug_struct.field("multi_language_detection", &self.multi_language_detection);
+        debug_struct.field("filter_version_selector", &self.filter_version_selector);
         debug_struct.field("modalities", &self.modalities);
+        debug_struct.field("data_residency_compliant", &self.data_residency_compliant);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -96,6 +109,10 @@ impl std::fmt::Debug for super::FloorSetting {
         debug_struct.field("integrated_services", &self.integrated_services);
         debug_struct.field("ai_platform_floor_setting", &self.ai_platform_floor_setting);
         debug_struct.field("floor_setting_metadata", &self.floor_setting_metadata);
+        debug_struct.field(
+            "google_mcp_server_floor_setting",
+            &self.google_mcp_server_floor_setting,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -121,6 +138,18 @@ impl std::fmt::Debug for super::floor_setting::floor_setting_metadata::MultiLang
             "enable_multi_language_detection",
             &self.enable_multi_language_detection,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::McpServerFloorSetting {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("McpServerFloorSetting");
+        debug_struct.field("enable_cloud_logging", &self.enable_cloud_logging);
+        debug_struct.field("enforcement_type", &self.enforcement_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -254,6 +283,7 @@ impl std::fmt::Debug for super::FilterConfig {
             "malicious_uri_filter_settings",
             &self.malicious_uri_filter_settings,
         );
+        debug_struct.field("filter_rule_settings", &self.filter_rule_settings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -398,6 +428,24 @@ impl std::fmt::Debug for super::SanitizeModelResponseResponse {
     }
 }
 
+impl std::fmt::Debug for super::FilterVersionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterVersionConfig");
+        debug_struct.field("filter_version", &self.filter_version);
+        debug_struct.field("filter_version_alias", &self.filter_version_alias);
+        debug_struct.field("release_date", &self.release_date);
+        debug_struct.field(
+            "projected_deprecation_date",
+            &self.projected_deprecation_date,
+        );
+        debug_struct.field("message_items", &self.message_items);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SanitizationResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SanitizationResult");
@@ -422,6 +470,7 @@ impl std::fmt::Debug for super::sanitization_result::SanitizationMetadata {
             &self.ignore_partial_invocation_failures,
         );
         debug_struct.field("stream_chunk_processed", &self.stream_chunk_processed);
+        debug_struct.field("filter_version_config", &self.filter_version_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -525,6 +574,7 @@ impl std::fmt::Debug for super::ByteDataItem {
         let mut debug_struct = f.debug_struct("ByteDataItem");
         debug_struct.field("byte_data_type", &self.byte_data_type);
         debug_struct.field("byte_data", &self.byte_data);
+        debug_struct.field("file_label", &self.file_label);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -620,6 +670,85 @@ impl std::fmt::Debug for super::SdpRedactResult {
         debug_struct.field("redacted_image", &self.redacted_image);
         debug_struct.field("findings", &self.findings);
         debug_struct.field("extracted_image_text", &self.extracted_image_text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WordList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WordList");
+        debug_struct.field("words", &self.words);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Dictionary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Dictionary");
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Regex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Regex");
+        debug_struct.field("pattern", &self.pattern);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExclusionRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExclusionRule");
+        debug_struct.field("matching_scope", &self.matching_scope);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FilterRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterRule");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FilterRuleSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterRuleSet");
+        debug_struct.field("filter_types", &self.filter_types);
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FilterRuleSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterRuleSettings");
+        debug_struct.field("rule_sets", &self.rule_sets);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
