@@ -78,4 +78,11 @@ pub(crate) mod google {
         include!("generated/protos/rpc/google.rpc.rs");
         include!("generated/convert/rpc/convert.rs");
     }
+    // If this stops compiling after a protobuf update, skip the new ids in
+    // librarian.yaml. Skipped wkt-only fields make some struct updates redundant.
+    #[allow(clippy::needless_update)]
+    mod protobuf {
+        use prost_types::*;
+        include!("generated/convert/protobuf/convert.rs");
+    }
 }
