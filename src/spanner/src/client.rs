@@ -186,7 +186,7 @@ pub trait SpannerBuilderExt: sealed::SpannerBuilderExt {
     /// By default, the client uses a dynamic channel pool ([`DynamicChannelPoolConfig`])
     /// starting with 4 channels and scaling up to 256 channels based on RPC concurrency and error feedback.
     /// When connecting to the Spanner emulator, the client defaults to a static pool with 1 channel.
-    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self;
+    fn with_channel_pool(self, pool_config: impl Into<ChannelPoolConfig>) -> Self;
 
     /// Sets the target [`InstanceType`] (`Cloud` vs `Omni`) for the Spanner client.
     ///
@@ -356,7 +356,7 @@ struct ExportBuiltinMetricsToCloudMonitoring(bool);
 struct ExportBuiltinMetricsToCustomProvider(bool);
 
 impl SpannerBuilderExt for ClientBuilder {
-    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self {
+    fn with_channel_pool(self, pool_config: impl Into<ChannelPoolConfig>) -> Self {
         self.with_extension(pool_config.into())
     }
 

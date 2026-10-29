@@ -1068,6 +1068,8 @@ impl std::fmt::Debug for super::ZoneDistributionConfig {
         let mut debug_struct = f.debug_struct("ZoneDistributionConfig");
         debug_struct.field("mode", &self.mode);
         debug_struct.field("zone", &self.zone);
+        debug_struct.field("zones", &self.zones);
+        debug_struct.field("active_zones", &self.active_zones);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
