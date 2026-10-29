@@ -25,8 +25,10 @@ mod tests {
     use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::google::test::v1::EchoResponse;
-    use grpc_server::{builder, google, start_fixed_responses};
+    use grpc_server::transport::{EchoTransport, transport_builder};
+    use grpc_server::{both_transports, google, start_fixed_responses};
     use http::HeaderMap;
+    use pretty_assertions::assert_eq;
     use std::sync::{Arc, Mutex};
     use std::time::Instant;
 
@@ -34,72 +36,99 @@ mod tests {
         Anonymous::new().build()
     }
 
-    #[tokio::test]
-    async fn no_retry_immediate_success() -> anyhow::Result<()> {
+    both_transports!(no_retry_immediate_success);
+    async fn no_retry_immediate_success<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_fixed_responses(vec![success()]).await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
-        let _response = send_request(client, "no_retry_immediate_success").await?;
+
+        // Act
+        let response = send_request(client, "no_retry_immediate_success").await?;
+
+        // Assert
+        assert_eq!(response.message, "success!");
         Ok(())
     }
 
-    #[tokio::test]
-    async fn no_retry_immediate_error() -> anyhow::Result<()> {
-        let (endpoint, _server) = start_fixed_responses(vec![transient()]).await?;
-
-        let client = builder(endpoint)
+    both_transports!(no_retry_immediate_error);
+    async fn no_retry_immediate_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_fixed_responses(vec![permanent()]).await?;
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
+
+        // Act
         let response = send_request(client, "no_retry_immediate_error").await;
-        assert!(response.is_err(), "{response:?}");
+
+        // Assert
+        let err = response.expect_err("the permanent error should be returned");
+        assert_eq!(err.status().map(|s| s.code), Some(Code::PermissionDenied));
         Ok(())
     }
 
-    #[tokio::test]
-    async fn retry_then_success() -> anyhow::Result<()> {
+    both_transports!(retry_then_success);
+    async fn retry_then_success<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) =
             start_fixed_responses(vec![transient(), transient(), success()]).await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .with_backoff_policy(test_backoff())
             .build()
             .await?;
-        let _response = send_request(client, "retry_then_success").await?;
+
+        // Act
+        let response = send_request(client, "retry_then_success").await?;
+
+        // Assert
+        assert_eq!(response.message, "success!");
         Ok(())
     }
 
-    #[tokio::test]
-    async fn retry_then_error() -> anyhow::Result<()> {
+    both_transports!(retry_then_error);
+    async fn retry_then_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) =
             start_fixed_responses(vec![transient(), transient(), permanent()]).await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .with_backoff_policy(test_backoff())
             .build()
             .await?;
-        let response = send_request(client, "no_retry_immediate_error").await;
-        assert!(response.is_err(), "{response:?}");
+
+        // Act
+        let response = send_request(client, "retry_then_error").await;
+
+        // Assert
+        let err = response.expect_err("the permanent error should be returned");
+        assert_eq!(err.status().map(|s| s.code), Some(Code::PermissionDenied));
         Ok(())
     }
 
-    #[tokio::test]
-    async fn retry_policy_exhausted() -> anyhow::Result<()> {
+    both_transports!(retry_policy_exhausted);
+    async fn retry_policy_exhausted<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_fixed_responses((0..3).map(|_| transient())).await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .with_retry_policy(Aip194Strict.with_attempt_limit(3))
             .with_backoff_policy(test_backoff())
             .build()
             .await?;
-        let response = send_request(client, "no_retry_immediate_error").await;
-        assert!(response.is_err(), "{response:?}");
+
+        // Act
+        let response = send_request(client, "retry_policy_exhausted").await;
+
+        // Assert
+        let err = response.expect_err("the retry policy should be exhausted");
+        let status = err.status().expect("the error should have a status");
+        assert_eq!(status.code, Code::Unavailable);
+        assert_eq!(status.message, "try-again");
         Ok(())
     }
 
@@ -220,6 +249,7 @@ mod tests {
         Ok(())
     }
 
+    /// Returns a successful [`EchoResponse`].
     fn success() -> tonic::Result<tonic::Response<EchoResponse>> {
         Ok(tonic::Response::new(EchoResponse {
             message: "success!".into(),
@@ -228,10 +258,12 @@ mod tests {
         }))
     }
 
+    /// Returns a transient (`Unavailable`) gRPC error.
     fn transient() -> tonic::Result<tonic::Response<EchoResponse>> {
         Err(tonic::Status::unavailable("try-again"))
     }
 
+    /// Returns a permanent (`PermissionDenied`) gRPC error.
     fn permanent() -> tonic::Result<tonic::Response<EchoResponse>> {
         Err(tonic::Status::permission_denied("uh-oh"))
     }
@@ -245,18 +277,10 @@ mod tests {
             .expect("a valid backoff policy")
     }
 
-    pub async fn send_request(
-        client: grpc::Client,
+    async fn send_request<C: EchoTransport>(
+        client: C,
         msg: &str,
     ) -> google_cloud_gax::Result<EchoResponse> {
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
         let request = google::test::v1::EchoRequest {
             message: msg.into(),
             ..google::test::v1::EchoRequest::default()
@@ -267,14 +291,7 @@ mod tests {
             o
         };
         client
-            .execute(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                request,
-                request_options,
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
+            .echo(request, request_options, "name=test-only")
             .await
             .map(tonic::Response::into_inner)
     }
