@@ -171,9 +171,9 @@ async fn execute_single_use_query(
     // Iterate through the rows. Using `.transpose()?` cleanly handles both
     // stream completion (Option) and potential row errors (Result).
     while let Some(row) = result_set.next().await.transpose()? {
-        let singer_id: i64 = row.get("SingerId");
-        let first_name: String = row.get("FirstName");
-        let last_name: String = row.get("LastName");
+        let singer_id: i64 = row.get("SingerId")?;
+        let first_name: String = row.get("FirstName")?;
+        let last_name: String = row.get("LastName")?;
         println!("Singer {singer_id}: {first_name} {last_name}");
     }
 
@@ -240,8 +240,8 @@ async fn execute_multi_use_read_only(
     let mut first_result_set =
         transaction.execute_query(first_statement).await?;
     while let Some(row) = first_result_set.next().await.transpose()? {
-        let singer_id: i64 = row.get("SingerId");
-        let first_name: String = row.get("FirstName");
+        let singer_id: i64 = row.get("SingerId")?;
+        let first_name: String = row.get("FirstName")?;
         println!("Singer {singer_id}: {first_name}");
     }
 
@@ -253,8 +253,8 @@ async fn execute_multi_use_read_only(
     let mut second_result_set =
         transaction.execute_query(second_statement).await?;
     while let Some(row) = second_result_set.next().await.transpose()? {
-        let album_id: i64 = row.get("AlbumId");
-        let album_title: String = row.get("AlbumTitle");
+        let album_id: i64 = row.get("AlbumId")?;
+        let album_title: String = row.get("AlbumTitle")?;
         println!("Album {album_id}: {album_title}");
     }
 
@@ -291,7 +291,7 @@ async fn execute_stale_query(
     let mut result_set = transaction.execute_query(statement).await?;
 
     while let Some(row) = result_set.next().await.transpose()? {
-        let singer_id: i64 = row.get("SingerId");
+        let singer_id: i64 = row.get("SingerId")?;
         println!("Stale read SingerId: {singer_id}");
     }
 
@@ -394,13 +394,22 @@ code:
 
 ## Features
 
+- `builtin-metrics`: enabled by default. Automatically exports Spanner built-in
+  request and attempt latency metrics to Google Cloud Monitoring in the
+  background.
 - `default-rustls-provider`: enabled by default. Uses `aws-lc-rs` for TLS and
   authentication. Applications with specific cryptographic requirements (such as
   exclusively using the `ring` crate) should disable this default and call
   `rustls::crypto::CryptoProvider::install_default()`.
-- `unstable-stream`: enables the `.into_stream()` method on streaming types like
-  `ResultSet` and `ExecuteStreamingSql`, allowing them to be consumed as a
-  standard `futures::Stream`.
+- `unstable-metrics`: enables integration with a custom caller-supplied
+  OpenTelemetry `MeterProvider`. Because the `opentelemetry` crate has not yet
+  reached 1.0, this feature is considered unstable and is subject to
+  SemVer-incompatible changes across OpenTelemetry minor releases.
+- `unstable-stream`: enables the `.into_stream()` and `.into_stream_as()`
+  methods on streaming types like `ResultSet` and `BatchWriteResponseStream`,
+  allowing them to be consumed as a standard `futures::Stream`.
+- `unstable-time`: enables support for types from the `time` crate
+  (`time::OffsetDateTime` and `time::Date`).
 
 ## More Information
 

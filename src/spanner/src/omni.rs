@@ -21,8 +21,6 @@ use std::path::Path;
 use thiserror::Error;
 use url::Url;
 
-pub use crate::client::SpannerBuilderExt;
-
 /// Specifies the type of Spanner instance to connect to (`Cloud` or `Omni`).
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 #[non_exhaustive]
@@ -276,7 +274,7 @@ pub(crate) fn format_database_name(name: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::client::Spanner;
+    use crate::client::{Spanner, SpannerBuilderExt};
     use static_assertions::assert_impl_all;
     use std::env::temp_dir;
     use std::error::Error as StdError;
