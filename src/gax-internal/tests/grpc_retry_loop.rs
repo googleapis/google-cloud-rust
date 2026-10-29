@@ -277,7 +277,7 @@ mod tests {
             .expect("a valid backoff policy")
     }
 
-    pub async fn send_request<C: EchoTransport>(
+    async fn send_request<C: EchoTransport>(
         client: C,
         msg: &str,
     ) -> google_cloud_gax::Result<EchoResponse> {
