@@ -257,6 +257,30 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn list_odb_dns_zones(
+        &self,
+        req: crate::model::ListOdbDnsZonesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOdbDnsZonesResponse>>;
+
+    async fn get_odb_dns_zone(
+        &self,
+        req: crate::model::GetOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OdbDnsZone>>;
+
+    async fn create_odb_dns_zone(
+        &self,
+        req: crate::model::CreateOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_odb_dns_zone(
+        &self,
+        req: crate::model::DeleteOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_exadb_vm_clusters(
         &self,
         req: crate::model::ListExadbVmClustersRequest,
@@ -912,6 +936,42 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_odb_subnet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_odb_dns_zones(
+        &self,
+        req: crate::model::ListOdbDnsZonesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOdbDnsZonesResponse>> {
+        T::list_odb_dns_zones(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_odb_dns_zone(
+        &self,
+        req: crate::model::GetOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OdbDnsZone>> {
+        T::get_odb_dns_zone(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_odb_dns_zone(
+        &self,
+        req: crate::model::CreateOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_odb_dns_zone(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_odb_dns_zone(
+        &self,
+        req: crate::model::DeleteOdbDnsZoneRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_odb_dns_zone(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
