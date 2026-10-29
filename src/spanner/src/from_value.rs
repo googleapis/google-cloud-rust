@@ -173,7 +173,7 @@ impl ConvertError {
     ///     }
     /// }
     /// ```
-    pub fn message<T: Into<String>>(message: T) -> Self {
+    pub fn message(message: impl Into<String>) -> Self {
         Self::Convert(Arc::new(MessageError(message.into())))
     }
 

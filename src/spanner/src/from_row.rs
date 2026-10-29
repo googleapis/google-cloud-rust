@@ -51,8 +51,8 @@ use crate::row::Row;
 /// }
 ///
 /// # fn run(row: Row) -> Result<(), Error> {
-/// // A row can be converted into the record using `Row::try_into_record`:
-/// let user: UserRecord = row.try_into_record()?;
+/// // A row can be converted into the record using `Row::into_record`:
+/// let user: UserRecord = row.into_record()?;
 /// println!("User: {}, age: {}", user.id, user.age);
 /// # Ok(())
 /// # }
@@ -76,13 +76,13 @@ use crate::row::Row;
 /// # use google_cloud_spanner::result::Row;
 /// # fn run(row: Row) -> Result<(), Error> {
 /// // Multi-column positional query:
-/// let (name, age): (String, i64) = row.try_into_record()?;
+/// let (name, age): (String, i64) = row.into_record()?;
 /// println!("Name: {name}, Age: {age}");
 /// # Ok(())
 /// # }
 /// # fn scalar(row: Row) -> Result<(), Error> {
 /// // Single-column scalar query (e.g. `SELECT COUNT(*)`):
-/// let (count,): (i64,) = row.try_into_record()?;
+/// let (count,): (i64,) = row.into_record()?;
 /// println!("Count: {count}");
 /// # Ok(())
 /// # }
