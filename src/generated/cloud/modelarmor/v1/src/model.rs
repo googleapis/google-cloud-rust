@@ -24,6 +24,7 @@ extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_location;
+extern crate google_cloud_type;
 extern crate http;
 extern crate prost;
 extern crate prost_types;
@@ -37,6 +38,152 @@ extern crate wkt;
 mod debug;
 mod deserialize;
 mod serialize;
+
+/// Represents the configuration for selecting a Filter Version.
+/// Allows customers to choose to use either a specific version or a predefined
+/// alias.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FilterVersionSelector {
+    /// Specifies whether to use a specific version or an alias.
+    /// The 'oneof' ensures that only one of these fields can be set.
+    pub version_spec: std::option::Option<crate::model::filter_version_selector::VersionSpec>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FilterVersionSelector {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [version_spec][crate::model::FilterVersionSelector::version_spec].
+    ///
+    /// Note that all the setters affecting `version_spec` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionSelector;
+    /// use google_cloud_modelarmor_v1::model::filter_version_selector::VersionSpec;
+    /// let x = FilterVersionSelector::new().set_version_spec(Some(VersionSpec::Version("example".to_string())));
+    /// ```
+    pub fn set_version_spec<
+        T: std::convert::Into<std::option::Option<crate::model::filter_version_selector::VersionSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_spec = v.into();
+        self
+    }
+
+    /// The value of [version_spec][crate::model::FilterVersionSelector::version_spec]
+    /// if it holds a `Version`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn version(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.version_spec.as_ref().and_then(|v| match v {
+            crate::model::filter_version_selector::VersionSpec::Version(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [version_spec][crate::model::FilterVersionSelector::version_spec]
+    /// to hold a `Version`.
+    ///
+    /// Note that all the setters affecting `version_spec` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionSelector;
+    /// let x = FilterVersionSelector::new().set_version("example");
+    /// assert!(x.version().is_some());
+    /// assert!(x.alias().is_none());
+    /// ```
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version_spec = std::option::Option::Some(
+            crate::model::filter_version_selector::VersionSpec::Version(v.into()),
+        );
+        self
+    }
+
+    /// The value of [version_spec][crate::model::FilterVersionSelector::version_spec]
+    /// if it holds a `Alias`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn alias(&self) -> std::option::Option<&crate::model::FilterVersionAlias> {
+        #[allow(unreachable_patterns)]
+        self.version_spec.as_ref().and_then(|v| match v {
+            crate::model::filter_version_selector::VersionSpec::Alias(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [version_spec][crate::model::FilterVersionSelector::version_spec]
+    /// to hold a `Alias`.
+    ///
+    /// Note that all the setters affecting `version_spec` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionSelector;
+    /// use google_cloud_modelarmor_v1::model::FilterVersionAlias;
+    /// let x0 = FilterVersionSelector::new().set_alias(FilterVersionAlias::Stable);
+    /// let x1 = FilterVersionSelector::new().set_alias(FilterVersionAlias::Latest);
+    /// let x2 = FilterVersionSelector::new().set_alias(FilterVersionAlias::Legacy);
+    /// assert!(x0.alias().is_some());
+    /// assert!(x0.version().is_none());
+    /// assert!(x1.alias().is_some());
+    /// assert!(x1.version().is_none());
+    /// assert!(x2.alias().is_some());
+    /// assert!(x2.version().is_none());
+    /// ```
+    pub fn set_alias<T: std::convert::Into<crate::model::FilterVersionAlias>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_spec = std::option::Option::Some(
+            crate::model::filter_version_selector::VersionSpec::Alias(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for FilterVersionSelector {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.FilterVersionSelector"
+    }
+}
+
+/// Defines additional types related to [FilterVersionSelector].
+pub mod filter_version_selector {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specifies whether to use a specific version or an alias.
+    /// The 'oneof' ensures that only one of these fields can be set.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VersionSpec {
+        /// Allows customers to pin to a specific, immutable Filter Version.
+        /// This provides stability, as this will not change after a version upgrade.
+        /// Expected format is a case-sensitive string, e.g., "v1", "v2".
+        /// Requests providing an invalid or non-existent version string will be
+        /// rejected with an `INVALID_ARGUMENT` error.
+        Version(std::string::String),
+        /// Allows customers to use a predefined alias that dynamically
+        /// points to a specific version based on internal upgrades.
+        /// This offers flexibility and reduces the need for template updates.
+        Alias(crate::model::FilterVersionAlias),
+    }
+}
 
 /// Message describing Template resource
 #[derive(Clone, Default, PartialEq)]
@@ -286,9 +433,21 @@ pub mod template {
         pub multi_language_detection:
             std::option::Option<crate::model::template::template_metadata::MultiLanguageDetection>,
 
+        /// Optional. Specifies the configuration for the Filter version to be used.
+        /// If this field is populated, it takes precedence over any values set in
+        /// the deprecated `filter_version` fields within `RaiFilterSettings`,
+        /// `PiAndJailbreakFilterSettings`.
+        pub filter_version_selector: std::option::Option<crate::model::FilterVersionSelector>,
+
         /// Optional. Specifies the modalities to scan.
-        /// If empty, only text modality will be scanned.
+        /// If not specified or empty, only text modality will be scanned.
         pub modalities: std::vec::Vec<crate::model::Modality>,
+
+        /// Optional. Indicates whether the template is subject to data residency
+        /// compliance. If true (default for new templates), the template is subject
+        /// to data residency compliance. If false, the template bypasses data
+        /// residency compliance checks.
+        pub data_residency_compliant: std::option::Option<bool>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -458,6 +617,39 @@ pub mod template {
             self
         }
 
+        /// Sets the value of [filter_version_selector][crate::model::template::TemplateMetadata::filter_version_selector].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// use google_cloud_modelarmor_v1::model::FilterVersionSelector;
+        /// let x = TemplateMetadata::new().set_filter_version_selector(FilterVersionSelector::default()/* use setters */);
+        /// ```
+        pub fn set_filter_version_selector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FilterVersionSelector>,
+        {
+            self.filter_version_selector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter_version_selector][crate::model::template::TemplateMetadata::filter_version_selector].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// use google_cloud_modelarmor_v1::model::FilterVersionSelector;
+        /// let x = TemplateMetadata::new().set_or_clear_filter_version_selector(Some(FilterVersionSelector::default()/* use setters */));
+        /// let x = TemplateMetadata::new().set_or_clear_filter_version_selector(None::<FilterVersionSelector>);
+        /// ```
+        pub fn set_or_clear_filter_version_selector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FilterVersionSelector>,
+        {
+            self.filter_version_selector = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [modalities][crate::model::template::TemplateMetadata::modalities].
         ///
         /// # Example
@@ -476,6 +668,37 @@ pub mod template {
         {
             use std::iter::Iterator;
             self.modalities = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [data_residency_compliant][crate::model::template::TemplateMetadata::data_residency_compliant].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_data_residency_compliant(true);
+        /// ```
+        pub fn set_data_residency_compliant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.data_residency_compliant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_residency_compliant][crate::model::template::TemplateMetadata::data_residency_compliant].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_or_clear_data_residency_compliant(Some(false));
+        /// let x = TemplateMetadata::new().set_or_clear_data_residency_compliant(None::<bool>);
+        /// ```
+        pub fn set_or_clear_data_residency_compliant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.data_residency_compliant = v.map(|x| x.into());
             self
         }
     }
@@ -698,6 +921,9 @@ pub struct FloorSetting {
     pub floor_setting_metadata:
         std::option::Option<crate::model::floor_setting::FloorSettingMetadata>,
 
+    /// Optional. Google MCP Server floor setting.
+    pub google_mcp_server_floor_setting: std::option::Option<crate::model::McpServerFloorSetting>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -862,6 +1088,7 @@ impl FloorSetting {
     /// use google_cloud_modelarmor_v1::model::floor_setting::IntegratedService;
     /// let x = FloorSetting::new().set_integrated_services([
     ///     IntegratedService::AiPlatform,
+    ///     IntegratedService::GoogleMcpServer,
     /// ]);
     /// ```
     pub fn set_integrated_services<T, V>(mut self, v: T) -> Self
@@ -937,6 +1164,42 @@ impl FloorSetting {
         T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>,
     {
         self.floor_setting_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [google_mcp_server_floor_setting][crate::model::FloorSetting::google_mcp_server_floor_setting].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::McpServerFloorSetting;
+    /// let x = FloorSetting::new().set_google_mcp_server_floor_setting(McpServerFloorSetting::default()/* use setters */);
+    /// ```
+    pub fn set_google_mcp_server_floor_setting<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::McpServerFloorSetting>,
+    {
+        self.google_mcp_server_floor_setting = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [google_mcp_server_floor_setting][crate::model::FloorSetting::google_mcp_server_floor_setting].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::McpServerFloorSetting;
+    /// let x = FloorSetting::new().set_or_clear_google_mcp_server_floor_setting(Some(McpServerFloorSetting::default()/* use setters */));
+    /// let x = FloorSetting::new().set_or_clear_google_mcp_server_floor_setting(None::<McpServerFloorSetting>);
+    /// ```
+    pub fn set_or_clear_google_mcp_server_floor_setting<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::McpServerFloorSetting>,
+    {
+        self.google_mcp_server_floor_setting = v.map(|x| x.into());
         self
     }
 }
@@ -1080,6 +1343,8 @@ pub mod floor_setting {
         Unspecified,
         /// AI Platform.
         AiPlatform,
+        /// Google MCP Server (via Shim Service Extension)
+        GoogleMcpServer,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [IntegratedService::value] or
@@ -1104,6 +1369,7 @@ pub mod floor_setting {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::AiPlatform => std::option::Option::Some(1),
+                Self::GoogleMcpServer => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1116,6 +1382,7 @@ pub mod floor_setting {
             match self {
                 Self::Unspecified => std::option::Option::Some("INTEGRATED_SERVICE_UNSPECIFIED"),
                 Self::AiPlatform => std::option::Option::Some("AI_PLATFORM"),
+                Self::GoogleMcpServer => std::option::Option::Some("GOOGLE_MCP_SERVER"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1139,6 +1406,7 @@ pub mod floor_setting {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::AiPlatform,
+                2 => Self::GoogleMcpServer,
                 _ => Self::UnknownValue(integrated_service::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1152,6 +1420,7 @@ pub mod floor_setting {
             match value {
                 "INTEGRATED_SERVICE_UNSPECIFIED" => Self::Unspecified,
                 "AI_PLATFORM" => Self::AiPlatform,
+                "GOOGLE_MCP_SERVER" => Self::GoogleMcpServer,
                 _ => Self::UnknownValue(integrated_service::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1167,6 +1436,7 @@ pub mod floor_setting {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::AiPlatform => serializer.serialize_i32(1),
+                Self::GoogleMcpServer => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1181,6 +1451,152 @@ pub mod floor_setting {
                 ".google.cloud.modelarmor.v1.FloorSetting.IntegratedService",
             ))
         }
+    }
+}
+
+/// Message describing MCP Server Floor Setting.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct McpServerFloorSetting {
+    /// Optional. If true, log Model Armor filter results to Cloud Logging.
+    pub enable_cloud_logging: bool,
+
+    /// enforcement type for Model Armor filters.
+    pub enforcement_type:
+        std::option::Option<crate::model::mcp_server_floor_setting::EnforcementType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl McpServerFloorSetting {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enable_cloud_logging][crate::model::McpServerFloorSetting::enable_cloud_logging].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::McpServerFloorSetting;
+    /// let x = McpServerFloorSetting::new().set_enable_cloud_logging(true);
+    /// ```
+    pub fn set_enable_cloud_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_cloud_logging = v.into();
+        self
+    }
+
+    /// Sets the value of [enforcement_type][crate::model::McpServerFloorSetting::enforcement_type].
+    ///
+    /// Note that all the setters affecting `enforcement_type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::McpServerFloorSetting;
+    /// use google_cloud_modelarmor_v1::model::mcp_server_floor_setting::EnforcementType;
+    /// let x = McpServerFloorSetting::new().set_enforcement_type(Some(EnforcementType::InspectOnly(true)));
+    /// ```
+    pub fn set_enforcement_type<
+        T: std::convert::Into<
+                std::option::Option<crate::model::mcp_server_floor_setting::EnforcementType>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enforcement_type = v.into();
+        self
+    }
+
+    /// The value of [enforcement_type][crate::model::McpServerFloorSetting::enforcement_type]
+    /// if it holds a `InspectOnly`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inspect_only(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.enforcement_type.as_ref().and_then(|v| match v {
+            crate::model::mcp_server_floor_setting::EnforcementType::InspectOnly(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [enforcement_type][crate::model::McpServerFloorSetting::enforcement_type]
+    /// to hold a `InspectOnly`.
+    ///
+    /// Note that all the setters affecting `enforcement_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::McpServerFloorSetting;
+    /// let x = McpServerFloorSetting::new().set_inspect_only(true);
+    /// assert!(x.inspect_only().is_some());
+    /// assert!(x.inspect_and_block().is_none());
+    /// ```
+    pub fn set_inspect_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enforcement_type = std::option::Option::Some(
+            crate::model::mcp_server_floor_setting::EnforcementType::InspectOnly(v.into()),
+        );
+        self
+    }
+
+    /// The value of [enforcement_type][crate::model::McpServerFloorSetting::enforcement_type]
+    /// if it holds a `InspectAndBlock`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inspect_and_block(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.enforcement_type.as_ref().and_then(|v| match v {
+            crate::model::mcp_server_floor_setting::EnforcementType::InspectAndBlock(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [enforcement_type][crate::model::McpServerFloorSetting::enforcement_type]
+    /// to hold a `InspectAndBlock`.
+    ///
+    /// Note that all the setters affecting `enforcement_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::McpServerFloorSetting;
+    /// let x = McpServerFloorSetting::new().set_inspect_and_block(true);
+    /// assert!(x.inspect_and_block().is_some());
+    /// assert!(x.inspect_only().is_none());
+    /// ```
+    pub fn set_inspect_and_block<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enforcement_type = std::option::Option::Some(
+            crate::model::mcp_server_floor_setting::EnforcementType::InspectAndBlock(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for McpServerFloorSetting {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.McpServerFloorSetting"
+    }
+}
+
+/// Defines additional types related to [McpServerFloorSetting].
+pub mod mcp_server_floor_setting {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// enforcement type for Model Armor filters.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EnforcementType {
+        /// Optional. If true, Model Armor filters will be run in inspect only mode.
+        /// No action will be taken on the request.
+        InspectOnly(bool),
+        /// Optional. If true, Model Armor filters will be run in inspect and block
+        /// mode. Requests that trip Model Armor filters will be blocked.
+        InspectAndBlock(bool),
     }
 }
 
@@ -2017,6 +2433,11 @@ pub struct FilterConfig {
     pub malicious_uri_filter_settings:
         std::option::Option<crate::model::MaliciousUriFilterSettings>,
 
+    /// Optional. Settings for customizing filter rules.
+    /// Note: This field is not supported in FloorSetting and Streaming
+    /// Sanitization APIs.
+    pub filter_rule_settings: std::option::Option<crate::model::FilterRuleSettings>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2161,6 +2582,39 @@ impl FilterConfig {
         T: std::convert::Into<crate::model::MaliciousUriFilterSettings>,
     {
         self.malicious_uri_filter_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [filter_rule_settings][crate::model::FilterConfig::filter_rule_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::FilterRuleSettings;
+    /// let x = FilterConfig::new().set_filter_rule_settings(FilterRuleSettings::default()/* use setters */);
+    /// ```
+    pub fn set_filter_rule_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FilterRuleSettings>,
+    {
+        self.filter_rule_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [filter_rule_settings][crate::model::FilterConfig::filter_rule_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::FilterRuleSettings;
+    /// let x = FilterConfig::new().set_or_clear_filter_rule_settings(Some(FilterRuleSettings::default()/* use setters */));
+    /// let x = FilterConfig::new().set_or_clear_filter_rule_settings(None::<FilterRuleSettings>);
+    /// ```
+    pub fn set_or_clear_filter_rule_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FilterRuleSettings>,
+    {
+        self.filter_rule_settings = v.map(|x| x.into());
         self
     }
 }
@@ -3529,6 +3983,181 @@ impl wkt::message::Message for SanitizeModelResponseResponse {
     }
 }
 
+/// Message describing a Filter Version Configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FilterVersionConfig {
+    /// Output only. The identifier for this specific version.
+    pub filter_version: std::string::String,
+
+    /// Output only. The alias associated with this version, if any (e.g.,
+    /// "STABLE", "LATEST"). This will be populated if this version is currently
+    /// mapped to an alias.
+    pub filter_version_alias: std::option::Option<crate::model::FilterVersionAlias>,
+
+    /// Output only. The date when this version was released.
+    pub release_date: std::option::Option<google_cloud_type::model::Date>,
+
+    /// Output only. The estimated date when this version is projected to be
+    /// deprecated.
+    pub projected_deprecation_date: std::option::Option<google_cloud_type::model::Date>,
+
+    /// Output only. Extra information regarding this filter version
+    pub message_items: std::vec::Vec<crate::model::MessageItem>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FilterVersionConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [filter_version][crate::model::FilterVersionConfig::filter_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+    /// let x = FilterVersionConfig::new().set_filter_version("example");
+    /// ```
+    pub fn set_filter_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter_version = v.into();
+        self
+    }
+
+    /// Sets the value of [filter_version_alias][crate::model::FilterVersionConfig::filter_version_alias].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+    /// use google_cloud_modelarmor_v1::model::FilterVersionAlias;
+    /// let x0 = FilterVersionConfig::new().set_filter_version_alias(FilterVersionAlias::Stable);
+    /// let x1 = FilterVersionConfig::new().set_filter_version_alias(FilterVersionAlias::Latest);
+    /// let x2 = FilterVersionConfig::new().set_filter_version_alias(FilterVersionAlias::Legacy);
+    /// ```
+    pub fn set_filter_version_alias<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FilterVersionAlias>,
+    {
+        self.filter_version_alias = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [filter_version_alias][crate::model::FilterVersionConfig::filter_version_alias].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+    /// use google_cloud_modelarmor_v1::model::FilterVersionAlias;
+    /// let x0 = FilterVersionConfig::new().set_or_clear_filter_version_alias(Some(FilterVersionAlias::Stable));
+    /// let x1 = FilterVersionConfig::new().set_or_clear_filter_version_alias(Some(FilterVersionAlias::Latest));
+    /// let x2 = FilterVersionConfig::new().set_or_clear_filter_version_alias(Some(FilterVersionAlias::Legacy));
+    /// let x_none = FilterVersionConfig::new().set_or_clear_filter_version_alias(None::<FilterVersionAlias>);
+    /// ```
+    pub fn set_or_clear_filter_version_alias<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FilterVersionAlias>,
+    {
+        self.filter_version_alias = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [release_date][crate::model::FilterVersionConfig::release_date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+    /// use google_cloud_type::model::Date;
+    /// let x = FilterVersionConfig::new().set_release_date(Date::default()/* use setters */);
+    /// ```
+    pub fn set_release_date<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Date>,
+    {
+        self.release_date = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [release_date][crate::model::FilterVersionConfig::release_date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+    /// use google_cloud_type::model::Date;
+    /// let x = FilterVersionConfig::new().set_or_clear_release_date(Some(Date::default()/* use setters */));
+    /// let x = FilterVersionConfig::new().set_or_clear_release_date(None::<Date>);
+    /// ```
+    pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Date>,
+    {
+        self.release_date = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [projected_deprecation_date][crate::model::FilterVersionConfig::projected_deprecation_date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+    /// use google_cloud_type::model::Date;
+    /// let x = FilterVersionConfig::new().set_projected_deprecation_date(Date::default()/* use setters */);
+    /// ```
+    pub fn set_projected_deprecation_date<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Date>,
+    {
+        self.projected_deprecation_date = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [projected_deprecation_date][crate::model::FilterVersionConfig::projected_deprecation_date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+    /// use google_cloud_type::model::Date;
+    /// let x = FilterVersionConfig::new().set_or_clear_projected_deprecation_date(Some(Date::default()/* use setters */));
+    /// let x = FilterVersionConfig::new().set_or_clear_projected_deprecation_date(None::<Date>);
+    /// ```
+    pub fn set_or_clear_projected_deprecation_date<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Date>,
+    {
+        self.projected_deprecation_date = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [message_items][crate::model::FilterVersionConfig::message_items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = FilterVersionConfig::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_message_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MessageItem>,
+    {
+        use std::iter::Iterator;
+        self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FilterVersionConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.FilterVersionConfig"
+    }
+}
+
 /// Sanitization result after applying all the filters on input content.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3545,7 +4174,7 @@ pub struct SanitizationResult {
     pub filter_match_state: crate::model::FilterMatchState,
 
     /// Output only. Results for all filters where the key is the filter name -
-    /// either of "csam", "malicious_uris", "rai", "pi_and_jailbreak" ,"sdp".
+    /// either of "csam", "malicious_uris", "rai", "pi_and_jailbreak", "sdp".
     pub filter_results: std::collections::HashMap<std::string::String, crate::model::FilterResult>,
 
     /// Output only. A field indicating the outcome of the invocation, irrespective
@@ -3686,6 +4315,10 @@ pub mod sanitization_result {
         /// Output only. The stream chunk processed by the Sanitization service.
         pub stream_chunk_processed: std::option::Option<crate::model::DataItem>,
 
+        /// Output only. Provides details about the Filter Version configuration used
+        /// to sanitize this request.
+        pub filter_version_config: std::option::Option<crate::model::FilterVersionConfig>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3769,6 +4402,39 @@ pub mod sanitization_result {
             self.stream_chunk_processed = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [filter_version_config][crate::model::sanitization_result::SanitizationMetadata::filter_version_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+        /// use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+        /// let x = SanitizationMetadata::new().set_filter_version_config(FilterVersionConfig::default()/* use setters */);
+        /// ```
+        pub fn set_filter_version_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FilterVersionConfig>,
+        {
+            self.filter_version_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter_version_config][crate::model::sanitization_result::SanitizationMetadata::filter_version_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+        /// use google_cloud_modelarmor_v1::model::FilterVersionConfig;
+        /// let x = SanitizationMetadata::new().set_or_clear_filter_version_config(Some(FilterVersionConfig::default()/* use setters */));
+        /// let x = SanitizationMetadata::new().set_or_clear_filter_version_config(None::<FilterVersionConfig>);
+        /// ```
+        pub fn set_or_clear_filter_version_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FilterVersionConfig>,
+        {
+            self.filter_version_config = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for SanitizationMetadata {
@@ -3784,8 +4450,18 @@ pub mod sanitization_result {
 pub struct MultiLanguageDetectionMetadata {
     /// Optional. Optional Source language of the user prompt.
     ///
-    /// If multi-language detection is enabled but language is not set in that case
-    /// we would automatically detect the source language.
+    /// If multi-language detection is enabled and this field is not set, the
+    /// source language will be automatically detected. When a source language is
+    /// provided, Model Armor uses it to sanitize the input. In that case the
+    /// system does not perform auto-detection and relies solely on the specified
+    /// language.
+    ///
+    /// This string field accepts a language code from the ISO-639 standard.
+    /// For a list of languages supported by Model Armor, see
+    /// [Model Armor supported languages]
+    /// (<https://cloud.google.com/security-command-center/docs/model-armor-overview#languages-supported>).
+    /// For a comprehensive list of language codes, see
+    /// [ISO-639](https://cloud.google.com/translate/docs/languages#nmt).
     pub source_language: std::string::String,
 
     /// Optional. Enable detection of multi-language prompts and responses.
@@ -4196,9 +4872,9 @@ pub struct RaiFilterResult {
     /// equal to or higher than the confidence level defined in configuration.
     pub match_state: crate::model::FilterMatchState,
 
-    /// The map of RAI filter results where key is RAI filter type - either of
-    /// "sexually_explicit", "hate_speech", "harassment", "dangerous", "violence",
-    /// "sexually_suggestive".
+    /// The map of RAI filter results where the key is the RAI filter type and the
+    /// value is the RAI filter's result. Allowed keys are "sexually_explicit",
+    /// "hate_speech", "harassment", and "dangerous".
     pub rai_filter_type_results: std::collections::HashMap<
         std::string::String,
         crate::model::rai_filter_result::RaiFilterTypeResult,
@@ -4866,6 +5542,10 @@ pub struct ByteDataItem {
     /// Required. Bytes Data
     pub byte_data: ::bytes::Bytes,
 
+    /// Optional. Label of the file. This is used to identify the file in the
+    /// response.
+    pub file_label: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4902,6 +5582,18 @@ impl ByteDataItem {
     /// ```
     pub fn set_byte_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.byte_data = v.into();
+        self
+    }
+
+    /// Sets the value of [file_label][crate::model::ByteDataItem::file_label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::ByteDataItem;
+    /// let x = ByteDataItem::new().set_file_label("example");
+    /// ```
+    pub fn set_file_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.file_label = v.into();
         self
     }
 }
@@ -5883,6 +6575,572 @@ impl SdpRedactResult {
 impl wkt::message::Message for SdpRedactResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.modelarmor.v1.SdpRedactResult"
+    }
+}
+
+/// Message defining a list of words or phrases.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WordList {
+    /// Required. Words or phrases defining the dictionary. The dictionary must
+    /// contain at least one phrase and every phrase must contain at least two
+    /// characters that are letters or digits.
+    pub words: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WordList {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [words][crate::model::WordList::words].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::WordList;
+    /// let x = WordList::new().set_words(["a", "b", "c"]);
+    /// ```
+    pub fn set_words<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.words = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for WordList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.WordList"
+    }
+}
+
+/// Message defining a custom dictionary of words or phrases for syntactic match.
+///
+/// Dictionary words are case-insensitive and all characters other than letters
+/// and digits in the unicode [Basic Multilingual
+/// Plane](https://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane)
+/// will be replaced with whitespace when scanning for matches. For example, the
+/// dictionary phrase `Sam Johnson` will match all three phrases `sam johnson`,
+/// `Sam, Johnson`, and `Sam (Johnson)`. Additionally, the characters
+/// surrounding any match must be of a different type than the adjacent
+/// characters within the word, so letters must be next to non-letters and
+/// digits must be next to non-digits. For example, the dictionary word `jen`
+/// will match the first three letters of the text `jen123` but will return no
+/// matches for `jennifer`.
+///
+/// Dictionary words containing a large number of characters that are not
+/// letters or digits may result in unexpected matches because such characters
+/// are treated as whitespace. For details about the size limits of dictionaries,
+/// see [Quotas and
+/// limits](https://docs.cloud.google.com/model-armor/quotas).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Dictionary {
+    /// Source of the dictionary.
+    pub source: std::option::Option<crate::model::dictionary::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Dictionary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source][crate::model::Dictionary::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::Dictionary;
+    /// use google_cloud_modelarmor_v1::model::WordList;
+    /// let x = Dictionary::new().set_source(Some(
+    ///     google_cloud_modelarmor_v1::model::dictionary::Source::WordList(WordList::default().into())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::dictionary::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::Dictionary::source]
+    /// if it holds a `WordList`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn word_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::WordList>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::dictionary::Source::WordList(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::Dictionary::source]
+    /// to hold a `WordList`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::Dictionary;
+    /// use google_cloud_modelarmor_v1::model::WordList;
+    /// let x = Dictionary::new().set_word_list(WordList::default()/* use setters */);
+    /// assert!(x.word_list().is_some());
+    /// ```
+    pub fn set_word_list<T: std::convert::Into<std::boxed::Box<crate::model::WordList>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source =
+            std::option::Option::Some(crate::model::dictionary::Source::WordList(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for Dictionary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.Dictionary"
+    }
+}
+
+/// Defines additional types related to [Dictionary].
+pub mod dictionary {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Source of the dictionary.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Message defining a list of words or phrases.
+        WordList(std::boxed::Box<crate::model::WordList>),
+    }
+}
+
+/// Message defining a custom regular expression.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Regex {
+    /// Required. The regular expression pattern.
+    pub pattern: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Regex {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [pattern][crate::model::Regex::pattern].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::Regex;
+    /// let x = Regex::new().set_pattern("example");
+    /// ```
+    pub fn set_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pattern = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Regex {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.Regex"
+    }
+}
+
+/// The rule that specifies conditions when filter detections are excluded from
+/// results.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExclusionRule {
+    /// Optional. Specifies the scope of the input that should be matched against
+    /// the exclusion rule. If unspecified, defaults to
+    /// MATCHING_SCOPE_PARTIAL_MATCH.
+    pub matching_scope: std::option::Option<crate::model::MatchingScope>,
+
+    /// Exclusion rule types.
+    pub r#type: std::option::Option<crate::model::exclusion_rule::Type>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExclusionRule {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [matching_scope][crate::model::ExclusionRule::matching_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::ExclusionRule;
+    /// use google_cloud_modelarmor_v1::model::MatchingScope;
+    /// let x0 = ExclusionRule::new().set_matching_scope(MatchingScope::FullMatch);
+    /// let x1 = ExclusionRule::new().set_matching_scope(MatchingScope::PartialMatch);
+    /// ```
+    pub fn set_matching_scope<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MatchingScope>,
+    {
+        self.matching_scope = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [matching_scope][crate::model::ExclusionRule::matching_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::ExclusionRule;
+    /// use google_cloud_modelarmor_v1::model::MatchingScope;
+    /// let x0 = ExclusionRule::new().set_or_clear_matching_scope(Some(MatchingScope::FullMatch));
+    /// let x1 = ExclusionRule::new().set_or_clear_matching_scope(Some(MatchingScope::PartialMatch));
+    /// let x_none = ExclusionRule::new().set_or_clear_matching_scope(None::<MatchingScope>);
+    /// ```
+    pub fn set_or_clear_matching_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MatchingScope>,
+    {
+        self.matching_scope = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::ExclusionRule::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::ExclusionRule;
+    /// use google_cloud_modelarmor_v1::model::Dictionary;
+    /// let x = ExclusionRule::new().set_type(Some(
+    ///     google_cloud_modelarmor_v1::model::exclusion_rule::Type::Dictionary(Dictionary::default().into())));
+    /// ```
+    pub fn set_type<
+        T: std::convert::Into<std::option::Option<crate::model::exclusion_rule::Type>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// The value of [r#type][crate::model::ExclusionRule::r#type]
+    /// if it holds a `Dictionary`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dictionary(&self) -> std::option::Option<&std::boxed::Box<crate::model::Dictionary>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::exclusion_rule::Type::Dictionary(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::ExclusionRule::r#type]
+    /// to hold a `Dictionary`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::ExclusionRule;
+    /// use google_cloud_modelarmor_v1::model::Dictionary;
+    /// let x = ExclusionRule::new().set_dictionary(Dictionary::default()/* use setters */);
+    /// assert!(x.dictionary().is_some());
+    /// assert!(x.regex().is_none());
+    /// ```
+    pub fn set_dictionary<T: std::convert::Into<std::boxed::Box<crate::model::Dictionary>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::exclusion_rule::Type::Dictionary(v.into()));
+        self
+    }
+
+    /// The value of [r#type][crate::model::ExclusionRule::r#type]
+    /// if it holds a `Regex`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn regex(&self) -> std::option::Option<&std::boxed::Box<crate::model::Regex>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::exclusion_rule::Type::Regex(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::ExclusionRule::r#type]
+    /// to hold a `Regex`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::ExclusionRule;
+    /// use google_cloud_modelarmor_v1::model::Regex;
+    /// let x = ExclusionRule::new().set_regex(Regex::default()/* use setters */);
+    /// assert!(x.regex().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// ```
+    pub fn set_regex<T: std::convert::Into<std::boxed::Box<crate::model::Regex>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::exclusion_rule::Type::Regex(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for ExclusionRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.ExclusionRule"
+    }
+}
+
+/// Defines additional types related to [ExclusionRule].
+pub mod exclusion_rule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Exclusion rule types.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Dictionary which defines the rule.
+        Dictionary(std::boxed::Box<crate::model::Dictionary>),
+        /// Regular expression which defines the rule.
+        Regex(std::boxed::Box<crate::model::Regex>),
+    }
+}
+
+/// A single rule to be applied to filters, specified in `FilterRuleSet`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FilterRule {
+    /// Rule types.
+    pub r#type: std::option::Option<crate::model::filter_rule::Type>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FilterRule {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::FilterRule::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterRule;
+    /// use google_cloud_modelarmor_v1::model::ExclusionRule;
+    /// let x = FilterRule::new().set_type(Some(
+    ///     google_cloud_modelarmor_v1::model::filter_rule::Type::ExclusionRule(ExclusionRule::default().into())));
+    /// ```
+    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::filter_rule::Type>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// The value of [r#type][crate::model::FilterRule::r#type]
+    /// if it holds a `ExclusionRule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn exclusion_rule(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ExclusionRule>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::filter_rule::Type::ExclusionRule(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::FilterRule::r#type]
+    /// to hold a `ExclusionRule`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterRule;
+    /// use google_cloud_modelarmor_v1::model::ExclusionRule;
+    /// let x = FilterRule::new().set_exclusion_rule(ExclusionRule::default()/* use setters */);
+    /// assert!(x.exclusion_rule().is_some());
+    /// ```
+    pub fn set_exclusion_rule<
+        T: std::convert::Into<std::boxed::Box<crate::model::ExclusionRule>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::filter_rule::Type::ExclusionRule(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for FilterRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.FilterRule"
+    }
+}
+
+/// Defines additional types related to [FilterRule].
+pub mod filter_rule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Rule types.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Exclusion rule.
+        ExclusionRule(std::boxed::Box<crate::model::ExclusionRule>),
+    }
+}
+
+/// A set of rules that modifies the behavior of specific filters based on the
+/// rules defined within the set.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FilterRuleSet {
+    /// Required. List of filters this rule set is applied to.
+    pub filter_types: std::vec::Vec<crate::model::RuleFilterType>,
+
+    /// Required. Set of rules to be applied to filterTypes.
+    pub rules: std::vec::Vec<crate::model::FilterRule>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FilterRuleSet {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [filter_types][crate::model::FilterRuleSet::filter_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterRuleSet;
+    /// use google_cloud_modelarmor_v1::model::RuleFilterType;
+    /// let x = FilterRuleSet::new().set_filter_types([
+    ///     RuleFilterType::PromptInjectionAndJailbreak,
+    ///     RuleFilterType::ResponsibleAi,
+    /// ]);
+    /// ```
+    pub fn set_filter_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RuleFilterType>,
+    {
+        use std::iter::Iterator;
+        self.filter_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::FilterRuleSet::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterRuleSet;
+    /// use google_cloud_modelarmor_v1::model::FilterRule;
+    /// let x = FilterRuleSet::new()
+    ///     .set_rules([
+    ///         FilterRule::default()/* use setters */,
+    ///         FilterRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FilterRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FilterRuleSet {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.FilterRuleSet"
+    }
+}
+
+/// Settings for customizing filter rules.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FilterRuleSettings {
+    /// Optional. List of rule sets to be applied to filters.
+    pub rule_sets: std::vec::Vec<crate::model::FilterRuleSet>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FilterRuleSettings {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rule_sets][crate::model::FilterRuleSettings::rule_sets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::FilterRuleSettings;
+    /// use google_cloud_modelarmor_v1::model::FilterRuleSet;
+    /// let x = FilterRuleSettings::new()
+    ///     .set_rule_sets([
+    ///         FilterRuleSet::default()/* use setters */,
+    ///         FilterRuleSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rule_sets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FilterRuleSet>,
+    {
+        use std::iter::Iterator;
+        self.rule_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FilterRuleSettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.FilterRuleSettings"
     }
 }
 
@@ -8098,8 +9356,8 @@ impl<'de> serde::de::Deserialize<'de> for StreamingMode {
     }
 }
 
-/// This enum is used in the TemplateMetadata message to indicate the modality
-/// supported for sanitize API calls.
+/// This enum is used in the TemplateMetadata and FloorSettingMetadata messages
+/// to indicate the modality supported for sanitize API calls.
 ///
 /// # Working with unknown values
 ///
@@ -8231,6 +9489,439 @@ impl<'de> serde::de::Deserialize<'de> for Modality {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Modality>::new(
             ".google.cloud.modelarmor.v1.Modality",
+        ))
+    }
+}
+
+/// Enum for Filter Version Aliases.
+/// These aliases provide a way to always point to a specific track
+/// without needing to update the version in templates.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FilterVersionAlias {
+    /// The default value. If used, it will resolve to the `STABLE` alias.
+    Unspecified,
+    /// `STABLE` alias points to the most recent stable model version.
+    /// Using this alias means no code changes are required when a new model
+    /// becomes the stable version.
+    Stable,
+    /// `LATEST` alias points to the newest model version available.
+    /// This version is subject to frequent revisions and offers SLO guarantees
+    /// but does not assure stability, providing the most current security
+    /// protections.
+    Latest,
+    /// `LEGACY` alias could be used for sanitization operations for a
+    /// transition period. New templates cannot be created with this version.
+    Legacy,
+    /// `RETIRED` alias could be used for versions that are no longer available
+    /// to be used. While new templates cannot be created with this alias, any
+    /// existing template or request using `RETIRED` version will fall back to
+    /// the current `STABLE` version for sanitization operations.
+    Retired,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FilterVersionAlias::value] or
+    /// [FilterVersionAlias::name].
+    UnknownValue(filter_version_alias::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod filter_version_alias {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FilterVersionAlias {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Stable => std::option::Option::Some(1),
+            Self::Latest => std::option::Option::Some(2),
+            Self::Legacy => std::option::Option::Some(3),
+            Self::Retired => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FILTER_VERSION_ALIAS_UNSPECIFIED"),
+            Self::Stable => std::option::Option::Some("FILTER_VERSION_ALIAS_STABLE"),
+            Self::Latest => std::option::Option::Some("FILTER_VERSION_ALIAS_LATEST"),
+            Self::Legacy => std::option::Option::Some("FILTER_VERSION_ALIAS_LEGACY"),
+            Self::Retired => std::option::Option::Some("FILTER_VERSION_ALIAS_RETIRED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FilterVersionAlias {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FilterVersionAlias {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FilterVersionAlias {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Stable,
+            2 => Self::Latest,
+            3 => Self::Legacy,
+            4 => Self::Retired,
+            _ => Self::UnknownValue(filter_version_alias::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FilterVersionAlias {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FILTER_VERSION_ALIAS_UNSPECIFIED" => Self::Unspecified,
+            "FILTER_VERSION_ALIAS_STABLE" => Self::Stable,
+            "FILTER_VERSION_ALIAS_LATEST" => Self::Latest,
+            "FILTER_VERSION_ALIAS_LEGACY" => Self::Legacy,
+            "FILTER_VERSION_ALIAS_RETIRED" => Self::Retired,
+            _ => Self::UnknownValue(filter_version_alias::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FilterVersionAlias {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Stable => serializer.serialize_i32(1),
+            Self::Latest => serializer.serialize_i32(2),
+            Self::Legacy => serializer.serialize_i32(3),
+            Self::Retired => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FilterVersionAlias {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FilterVersionAlias>::new(
+            ".google.cloud.modelarmor.v1.FilterVersionAlias",
+        ))
+    }
+}
+
+/// Defines the scope of the match for a rule.
+///
+/// Additional values may be added to this enum in the future.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum MatchingScope {
+    /// Unspecified matching scope.
+    Unspecified,
+    /// Full match.
+    ///
+    /// - Dictionary: the dictionary match covers the entire input content
+    /// - Regular expression: the regular expression pattern matches the entire
+    ///   input content
+    FullMatch,
+    /// Partial match.
+    ///
+    /// - Dictionary: at least one of the tokens in the input content matches
+    /// - Regular expression: substring of the input content matches the regular
+    ///   expression pattern
+    PartialMatch,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [MatchingScope::value] or
+    /// [MatchingScope::name].
+    UnknownValue(matching_scope::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod matching_scope {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl MatchingScope {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::FullMatch => std::option::Option::Some(1),
+            Self::PartialMatch => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("MATCHING_SCOPE_UNSPECIFIED"),
+            Self::FullMatch => std::option::Option::Some("MATCHING_SCOPE_FULL_MATCH"),
+            Self::PartialMatch => std::option::Option::Some("MATCHING_SCOPE_PARTIAL_MATCH"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for MatchingScope {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for MatchingScope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for MatchingScope {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::FullMatch,
+            2 => Self::PartialMatch,
+            _ => Self::UnknownValue(matching_scope::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for MatchingScope {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "MATCHING_SCOPE_UNSPECIFIED" => Self::Unspecified,
+            "MATCHING_SCOPE_FULL_MATCH" => Self::FullMatch,
+            "MATCHING_SCOPE_PARTIAL_MATCH" => Self::PartialMatch,
+            _ => Self::UnknownValue(matching_scope::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for MatchingScope {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::FullMatch => serializer.serialize_i32(1),
+            Self::PartialMatch => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for MatchingScope {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<MatchingScope>::new(
+            ".google.cloud.modelarmor.v1.MatchingScope",
+        ))
+    }
+}
+
+/// Model Armor Filter types supported for rules.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum RuleFilterType {
+    /// Unspecified filter type.
+    Unspecified,
+    /// Prompt injection and jailbreak filter.
+    PromptInjectionAndJailbreak,
+    /// Responsible AI filter.
+    ResponsibleAi,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [RuleFilterType::value] or
+    /// [RuleFilterType::name].
+    UnknownValue(rule_filter_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod rule_filter_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl RuleFilterType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::PromptInjectionAndJailbreak => std::option::Option::Some(1),
+            Self::ResponsibleAi => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("RULE_FILTER_TYPE_UNSPECIFIED"),
+            Self::PromptInjectionAndJailbreak => {
+                std::option::Option::Some("PROMPT_INJECTION_AND_JAILBREAK")
+            }
+            Self::ResponsibleAi => std::option::Option::Some("RESPONSIBLE_AI"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for RuleFilterType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for RuleFilterType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for RuleFilterType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::PromptInjectionAndJailbreak,
+            2 => Self::ResponsibleAi,
+            _ => Self::UnknownValue(rule_filter_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for RuleFilterType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "RULE_FILTER_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "PROMPT_INJECTION_AND_JAILBREAK" => Self::PromptInjectionAndJailbreak,
+            "RESPONSIBLE_AI" => Self::ResponsibleAi,
+            _ => Self::UnknownValue(rule_filter_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for RuleFilterType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::PromptInjectionAndJailbreak => serializer.serialize_i32(1),
+            Self::ResponsibleAi => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RuleFilterType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<RuleFilterType>::new(
+            ".google.cloud.modelarmor.v1.RuleFilterType",
         ))
     }
 }

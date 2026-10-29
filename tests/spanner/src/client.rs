@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::proto::DESCRIPTOR_BYTES;
 use anyhow::Result;
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_lro::Poller;
@@ -25,6 +26,7 @@ use google_cloud_spanner_admin_instance_v1::model::Instance;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_wkt::Timestamp;
 use http::StatusCode;
+use prost::bytes::Bytes;
 use reqwest::Client;
 use spanner_grpc_mock::google::spanner::v1::spanner_server::Spanner as MockSpannerTrait;
 use std::env::var;
@@ -39,7 +41,8 @@ use tracing::{info, warn};
 const EMULATOR_PROJECT_ID: &str = "test-project";
 const EMULATOR_INSTANCE_ID: &str = "test-instance";
 
-const EXTRA_STATEMENTS: [&str; 2] = [
+const EXTRA_STATEMENTS: [&str; 3] = [
+    "CREATE PROTO BUNDLE (test.SingerInfo, test.Genre)",
     "CREATE TABLE AllTypes ( \
         Id STRING(MAX) NOT NULL, \
         ColBool BOOL, \
@@ -53,6 +56,8 @@ const EXTRA_STATEMENTS: [&str; 2] = [
         ColTimestamp TIMESTAMP, \
         ColJson JSON, \
         ColUuid UUID, \
+        ColProto test.SingerInfo, \
+        ColProtoEnum test.Genre, \
         ColArrayBool ARRAY<BOOL>, \
         ColArrayInt64 ARRAY<INT64>, \
         ColArrayFloat32 ARRAY<FLOAT32>, \
@@ -63,7 +68,9 @@ const EXTRA_STATEMENTS: [&str; 2] = [
         ColArrayDate ARRAY<DATE>, \
         ColArrayTimestamp ARRAY<TIMESTAMP>, \
         ColArrayJson ARRAY<JSON>, \
-        ColArrayUuid ARRAY<UUID> \
+        ColArrayUuid ARRAY<UUID>, \
+        ColArrayProto ARRAY<test.SingerInfo>, \
+        ColArrayProtoEnum ARRAY<test.Genre> \
      ) PRIMARY KEY (Id)",
     "CREATE INDEX Idx_AllTypes_ColString ON AllTypes (ColString)",
 ];
@@ -226,6 +233,7 @@ async fn create_database_and_tables(
         .set_parent(parent)
         .set_create_statement(create_statement)
         .set_extra_statements(extra_statements.iter().map(|s| s.to_string()))
+        .set_proto_descriptors(Bytes::from_static(DESCRIPTOR_BYTES))
         .poller()
         .until_done()
         .await?;

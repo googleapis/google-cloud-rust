@@ -408,7 +408,7 @@ impl Row {
     ///     .await?;
     ///
     /// if let Some(row) = result_set.next().await {
-    ///     let (id, age): (String, i64) = row?.try_into_record()?;
+    ///     let (id, age): (String, i64) = row?.into_record()?;
     ///     println!("User: {id}, age: {age}");
     /// }
     /// # Ok(())
@@ -423,44 +423,8 @@ impl Row {
     /// * A required column name or positional index is missing from the row.
     /// * A column value cannot be converted into the target field type.
     /// * A column is `NULL` but the target field is not an [`Option`].
-    pub fn try_into_record<T: FromRow>(self) -> Result<T> {
+    pub fn into_record<T: FromRow>(self) -> Result<T> {
         T::from_row(self)
-    }
-
-    /// Converts this row into a typed record implementing [`FromRow`], panicking on error.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::statement::Statement;
-    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
-    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = database_client.single_use().build();
-    /// let mut result_set = transaction
-    ///     .execute_query(Statement::builder("SELECT 'user-1', 42").build())
-    ///     .await?;
-    ///
-    /// if let Some(row) = result_set.next().await {
-    ///     let (id, age): (String, i64) = row?.into_record();
-    ///     println!("User: {id}, age: {age}");
-    /// }
-    /// # Ok(())
-    /// # }
-    /// ```
-    ///
-    /// This is a convenience wrapper around [`try_into_record`](Row::try_into_record).
-    ///
-    /// # Panics
-    ///
-    /// Panics if:
-    /// * A required column name or positional index is missing from the row.
-    /// * A column value cannot be converted into the target field type.
-    /// * A column is `NULL` but the target field is not an [`Option`].
-    pub fn into_record<T: FromRow>(self) -> T {
-        match self.try_into_record() {
-            Ok(record) => record,
-            Err(error) => panic!("failed to convert row into record: {error}"),
-        }
     }
 
     fn get_value(&self, index: impl ColumnIndex) -> Result<(usize, &Value)> {
@@ -509,6 +473,8 @@ mod tests {
     use crate::to_value::ToValue;
     use crate::types;
     use crate::value::Date;
+    use base64::Engine;
+    use base64::prelude::BASE64_STANDARD;
     use bytes::Bytes;
     use rust_decimal::Decimal;
     use serde_json::{Value as JsonValue, json};
@@ -833,7 +799,7 @@ mod tests {
     #[test]
     fn row_get_enum() {
         let column_names = vec!["col_enum".to_string()];
-        let column_types = vec![types::enum_type("customer.Priority")];
+        let column_types = vec![types::proto_enum("customer.Priority")];
         let values = vec![3_i64.to_value()];
         let row = Row {
             values,
@@ -889,7 +855,7 @@ mod tests {
             values: vec![Value::null()],
             metadata: ResultSetMetadata {
                 column_names: Arc::new(vec!["col_enum".to_string()]),
-                column_types: Arc::new(vec![types::enum_type("customer.Priority")]),
+                column_types: Arc::new(vec![types::proto_enum("customer.Priority")]),
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
@@ -1852,6 +1818,154 @@ mod tests {
     }
 
     #[test]
+    fn proto_and_proto_enum_columns() {
+        let proto_payload = b"test-proto-address";
+        let proto_base64 = BASE64_STANDARD.encode(proto_payload);
+
+        let mut row = Row {
+            values: vec![
+                Value::from(proto_base64.clone()),
+                Value::from("3"),
+                Value::null(),
+                Value::null(),
+                Value::from(vec![Value::from(proto_base64.clone())]),
+                Value::from(vec![Value::from("1"), Value::from("2")]),
+                Value::from(vec![Value::from(proto_base64), Value::null()]),
+                Value::from(vec![Value::from("1"), Value::null()]),
+            ],
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(vec![
+                    "address".to_string(),
+                    "status".to_string(),
+                    "null_address".to_string(),
+                    "null_status".to_string(),
+                    "address_list".to_string(),
+                    "status_list".to_string(),
+                    "nullable_address_list".to_string(),
+                    "nullable_status_list".to_string(),
+                ]),
+                column_types: Arc::new(vec![
+                    types::proto("examples.shipping.Address"),
+                    types::proto_enum("examples.shipping.OrderStatus"),
+                    types::proto("examples.shipping.Address"),
+                    types::proto_enum("examples.shipping.OrderStatus"),
+                    types::array(types::proto("examples.shipping.Address")),
+                    types::array(types::proto_enum("examples.shipping.OrderStatus")),
+                    types::array(types::proto("examples.shipping.Address")),
+                    types::array(types::proto_enum("examples.shipping.OrderStatus")),
+                ]),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Get single values
+        assert_eq!(
+            row.get::<Vec<u8>>("address").expect("get proto address"),
+            proto_payload,
+            "expected proto payload bytes"
+        );
+        assert_eq!(
+            row.get::<i64>("status").expect("get enum status as i64"),
+            3_i64,
+            "expected enum status 3 as i64"
+        );
+        assert_eq!(
+            row.get::<i32>("status").expect("get enum status as i32"),
+            3_i32,
+            "expected enum status 3 as i32"
+        );
+
+        // Null columns
+        assert!(
+            row.is_null("null_address").expect("is_null null_address"),
+            "expected null_address to be null"
+        );
+        assert_eq!(
+            row.get::<Option<Vec<u8>>>("null_address")
+                .expect("get null_address"),
+            None,
+            "expected None for null proto column"
+        );
+        assert!(
+            row.is_null("null_status").expect("is_null null_status"),
+            "expected null_status to be null"
+        );
+        assert_eq!(
+            row.get::<Option<i64>>("null_status")
+                .expect("get null_status"),
+            None,
+            "expected None for null enum column"
+        );
+
+        // Arrays
+        assert_eq!(
+            row.get::<Vec<Vec<u8>>>("address_list")
+                .expect("get address_list"),
+            vec![proto_payload.to_vec()],
+            "expected array of proto bytes"
+        );
+        assert_eq!(
+            row.get::<Vec<i64>>("status_list").expect("get status_list"),
+            vec![1_i64, 2_i64],
+            "expected array of enum integers"
+        );
+        assert_eq!(
+            row.get::<Vec<Option<Vec<u8>>>>("nullable_address_list")
+                .expect("get nullable_address_list"),
+            vec![Some(proto_payload.to_vec()), None],
+            "expected nullable array of proto bytes"
+        );
+        assert_eq!(
+            row.get::<Vec<Option<i64>>>("nullable_status_list")
+                .expect("get nullable_status_list"),
+            vec![Some(1_i64), None],
+            "expected nullable array of enum integers"
+        );
+
+        // Take single values
+        let taken_address = row.take::<Vec<u8>>("address").expect("take address");
+        assert_eq!(taken_address, proto_payload, "expected taken proto payload");
+        assert!(
+            row.is_null("address").expect("is_null address"),
+            "address column must be null after take"
+        );
+
+        let taken_status = row.take::<i64>("status").expect("take status");
+        assert_eq!(taken_status, 3_i64, "expected taken enum status");
+        assert!(
+            row.is_null("status").expect("is_null status"),
+            "status column must be null after take"
+        );
+
+        // Take array values
+        let taken_address_list = row
+            .take::<Vec<Vec<u8>>>("address_list")
+            .expect("take address_list");
+        assert_eq!(
+            taken_address_list,
+            vec![proto_payload.to_vec()],
+            "expected taken address list"
+        );
+        assert!(
+            row.is_null("address_list").expect("is_null address_list"),
+            "address_list column must be null after take"
+        );
+
+        let taken_status_list = row
+            .take::<Vec<i64>>("status_list")
+            .expect("take status_list");
+        assert_eq!(
+            taken_status_list,
+            vec![1_i64, 2_i64],
+            "expected taken status list"
+        );
+        assert!(
+            row.is_null("status_list").expect("is_null status_list"),
+            "status_list column must be null after take"
+        );
+    }
+
+    #[test]
     fn row_get_and_take_bytes_and_uuid() {
         let raw_bytes = b"sample binary payload";
         let uuid_string = "123e4567-e89b-12d3-a456-426614174000";
@@ -1976,7 +2090,7 @@ mod tests {
     }
 
     #[test]
-    fn row_try_into_record() -> Result<()> {
+    fn row_into_record() -> Result<()> {
         let row = Row {
             values: vec!["alice".to_string().to_value(), 42_i64.to_value()],
             metadata: ResultSetMetadata {
@@ -1986,14 +2100,14 @@ mod tests {
             },
         };
 
-        let (name, age): (String, i64) = row.try_into_record()?;
-        assert_eq!(name, "alice", "expected matching name from try_into_record");
-        assert_eq!(age, 42, "expected matching age from try_into_record");
+        let (name, age): (String, i64) = row.into_record()?;
+        assert_eq!(name, "alice", "expected matching name from into_record");
+        assert_eq!(age, 42, "expected matching age from into_record");
         Ok(())
     }
 
     #[test]
-    fn row_into_record() {
+    fn row_into_record_turbofish() -> Result<()> {
         let row = Row {
             values: vec!["bob".to_string().to_value(), 30_i64.to_value()],
             metadata: ResultSetMetadata {
@@ -2003,13 +2117,20 @@ mod tests {
             },
         };
 
-        let (name, age): (String, i64) = row.into_record();
-        assert_eq!(name, "bob", "expected matching name from into_record");
-        assert_eq!(age, 30, "expected matching age from into_record");
+        let record = row.into_record::<(String, i64)>()?;
+        assert_eq!(
+            record.0, "bob",
+            "expected matching name from into_record turbofish"
+        );
+        assert_eq!(
+            record.1, 30,
+            "expected matching age from into_record turbofish"
+        );
+        Ok(())
     }
 
     #[test]
-    fn row_try_into_record_error() {
+    fn row_into_record_error() {
         let row = Row {
             values: vec!["not-a-number".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -2020,8 +2141,8 @@ mod tests {
         };
 
         let error = row
-            .try_into_record::<(i64,)>()
-            .expect_err("try_into_record must fail when type conversion fails");
+            .into_record::<(i64,)>()
+            .expect_err("into_record must fail when type conversion fails");
         let row_error = RowError::extract(&error).expect("error chain must contain a RowError");
         match row_error {
             RowError::TypeConversion { column, .. } => {
@@ -2032,17 +2153,202 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected = "failed to convert row into record")]
-    fn row_into_record_panics() {
-        let row = Row {
-            values: vec!["not-a-number".to_string().to_value()],
+    fn row_get_string_from_numeric() -> Result<()> {
+        let max_spanner_numeric = "99999999999999999999999999999.999999999";
+        let pg_extreme_numeric = "12345678901234567890123456789012345678901234567890.123456789";
+
+        let column_names = vec![
+            "col_numeric".to_string(),
+            "col_pg_numeric_nan".to_string(),
+            "col_pg_numeric_extreme".to_string(),
+            "col_null_numeric".to_string(),
+        ];
+        let column_types = vec![
+            types::numeric(),
+            types::pg_numeric(),
+            types::pg_numeric(),
+            types::numeric(),
+        ];
+        let values = vec![
+            max_spanner_numeric.to_value(),
+            "NaN".to_value(),
+            pg_extreme_numeric.to_value(),
+            Value::default(),
+        ];
+
+        let mut row = Row {
+            values,
             metadata: ResultSetMetadata {
-                column_names: Arc::new(vec!["age".to_string()]),
-                column_types: Arc::new(vec![types::string()]),
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
                 undeclared_parameters: Arc::new(BTreeMap::new()),
             },
         };
 
-        let (_age,): (i64,) = row.into_record();
+        // Borrowed get by name and index
+        assert_eq!(
+            row.get::<String>("col_numeric")?,
+            max_spanner_numeric,
+            "expected 38-digit NUMERIC string by name"
+        );
+        assert_eq!(
+            row.get::<String>(0)?,
+            max_spanner_numeric,
+            "expected 38-digit NUMERIC string by index"
+        );
+
+        assert_eq!(
+            row.get::<String>("col_pg_numeric_nan")?,
+            "NaN",
+            "expected PG_NUMERIC NaN by name"
+        );
+        assert_eq!(
+            row.get::<String>(1)?,
+            "NaN",
+            "expected PG_NUMERIC NaN by index"
+        );
+
+        assert_eq!(
+            row.get::<String>("col_pg_numeric_extreme")?,
+            pg_extreme_numeric,
+            "expected extreme PG_NUMERIC by name"
+        );
+        assert_eq!(
+            row.get::<String>(2)?,
+            pg_extreme_numeric,
+            "expected extreme PG_NUMERIC by index"
+        );
+
+        assert_eq!(
+            row.get::<Option<String>>("col_null_numeric")?,
+            None,
+            "expected None for null numeric column by name"
+        );
+        assert_eq!(
+            row.get::<Option<String>>(3)?,
+            None,
+            "expected None for null numeric column by index"
+        );
+
+        // Non-optional get rejects null column
+        let null_error = row
+            .get::<String>("col_null_numeric")
+            .expect_err("non-optional get must fail on null column");
+        let row_error = RowError::extract(&null_error).expect("should extract RowError");
+        assert!(
+            matches!(
+                row_error,
+                RowError::TypeConversion {
+                    column: _,
+                    type_code: _,
+                    source,
+                } if matches!(source, ConvertError::NotNull)
+            ),
+            "expected RowError::TypeConversion wrapping ConvertError::NotNull, got {row_error:?}"
+        );
+
+        // Verify is_null is false before take
+        assert!(
+            !row.is_null("col_pg_numeric_nan")?,
+            "column must not be null before take"
+        );
+        assert!(
+            !row.is_null(1)?,
+            "column must not be null before take by index"
+        );
+
+        // Owned take by name and index
+        let taken_nan = row.take::<String>("col_pg_numeric_nan")?;
+        assert_eq!(taken_nan, "NaN", "expected taken NaN string");
+        assert!(
+            row.is_null("col_pg_numeric_nan")?,
+            "column must be null after take"
+        );
+        assert_eq!(
+            row.get::<Option<String>>("col_pg_numeric_nan")?,
+            None,
+            "column must be None after take"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn row_get_string_from_interval() -> Result<()> {
+        let column_names = vec!["col_interval".to_string(), "col_null_interval".to_string()];
+        let column_types = vec![types::interval(), types::interval()];
+        let values = vec!["P1Y2M3D".to_value(), Value::default()];
+
+        let mut row = Row {
+            values,
+            metadata: ResultSetMetadata {
+                column_names: Arc::new(column_names),
+                column_types: Arc::new(column_types),
+                undeclared_parameters: Arc::new(BTreeMap::new()),
+            },
+        };
+
+        // Borrowed get by name and index
+        assert_eq!(
+            row.get::<String>("col_interval")?,
+            "P1Y2M3D",
+            "expected INTERVAL string by name"
+        );
+        assert_eq!(
+            row.get::<String>(0)?,
+            "P1Y2M3D",
+            "expected INTERVAL string by index"
+        );
+
+        assert_eq!(
+            row.get::<Option<String>>("col_null_interval")?,
+            None,
+            "expected None for null interval column by name"
+        );
+        assert_eq!(
+            row.get::<Option<String>>(1)?,
+            None,
+            "expected None for null interval column by index"
+        );
+
+        // Non-optional get rejects null interval column
+        let null_error = row
+            .get::<String>("col_null_interval")
+            .expect_err("non-optional get must fail on null interval column");
+        let row_error = RowError::extract(&null_error).expect("should extract RowError");
+        assert!(
+            matches!(
+                row_error,
+                RowError::TypeConversion {
+                    column: _,
+                    type_code: _,
+                    source,
+                } if matches!(source, ConvertError::NotNull)
+            ),
+            "expected RowError::TypeConversion wrapping ConvertError::NotNull, got {row_error:?}"
+        );
+
+        // Verify is_null is false before take
+        assert!(
+            !row.is_null("col_interval")?,
+            "column must not be null before take"
+        );
+        assert!(
+            !row.is_null(0)?,
+            "column must not be null before take by index"
+        );
+
+        // Owned take by name and index
+        let taken_interval = row.take::<String>("col_interval")?;
+        assert_eq!(taken_interval, "P1Y2M3D", "expected taken INTERVAL string");
+        assert!(
+            row.is_null("col_interval")?,
+            "column must be null after take"
+        );
+        assert_eq!(
+            row.get::<Option<String>>("col_interval")?,
+            None,
+            "column must be None after take"
+        );
+        Ok(())
     }
 }

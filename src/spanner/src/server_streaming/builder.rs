@@ -16,6 +16,8 @@ use crate::Error;
 use crate::RequestBuilder;
 use crate::RequestOptions;
 use crate::Result;
+use crate::client::Channel;
+use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::model::BatchWriteRequest;
 use crate::model::ExecuteSqlRequest;
 use crate::model::FetchCacheUpdateRequest;
@@ -26,17 +28,23 @@ use crate::server_streaming::stream::PartialResultSetStream;
 use crate::server_streaming::stream::SpannerServerStream;
 use crate::server_streaming::stream::StreamLifetimeGuard;
 use crate::server_streaming::stream::TransactionIdCallback;
+use gaxi::api_header::{GCCL, XGoogApiClient};
+use gaxi::grpc::Client as GrpcClient;
 use gaxi::grpc::tonic::Extensions;
 use gaxi::grpc::tonic::GrpcMethod;
 use gaxi::prost::ToProto;
+use google_cloud_gax::streaming::ResponseStream;
+use http::HeaderMap;
 use prost::Message;
+use std::future::Future;
+use std::sync::Arc;
 use std::sync::LazyLock;
 use std::time::Instant;
 
 /// The request builder for [SpannerImpl::execute_streaming_sql][crate::client::SpannerImpl::execute_streaming_sql] calls.
 #[derive(Debug)]
 pub(crate) struct ExecuteStreamingSql {
-    grpc_client: gaxi::grpc::Client,
+    target: StreamingTarget,
     request: ExecuteSqlRequest,
     options: RequestOptions,
     lifetime_guard: Option<StreamLifetimeGuard>,
@@ -44,9 +52,9 @@ pub(crate) struct ExecuteStreamingSql {
 }
 
 impl ExecuteStreamingSql {
-    pub(crate) fn new(grpc_client: gaxi::grpc::Client) -> Self {
+    pub(crate) fn new(target: impl Into<StreamingTarget>) -> Self {
         Self {
-            grpc_client,
+            target: target.into(),
             request: ExecuteSqlRequest::default(),
             options: RequestOptions::default(),
             lifetime_guard: None,
@@ -88,19 +96,35 @@ impl ExecuteStreamingSql {
 
     /// Start the server streaming request and receive the stream.
     pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
-        let request_params = format!("session={}", self.request.session);
-        let request = self.request.to_proto().map_err(Error::deser)?;
-        let stream = make_server_streaming_request(
-            &self.grpc_client,
-            request,
-            self.options,
-            "ExecuteStreamingSql",
-            "/google.spanner.v1.Spanner/ExecuteStreamingSql",
-            &request_params,
-            self.lifetime_guard,
-        )
-        .await?;
-        Ok(stream.with_transaction_id_callback(self.on_first_transaction_id))
+        match self.target {
+            StreamingTarget::Grpc(grpc_client) => {
+                let request_params = format!("session={}", self.request.session);
+                let request = self.request.to_proto().map_err(Error::deser)?;
+                let stream = make_server_streaming_request(
+                    &grpc_client,
+                    request,
+                    self.options,
+                    "ExecuteStreamingSql",
+                    "/google.spanner.v1.Spanner/ExecuteStreamingSql",
+                    &request_params,
+                    self.lifetime_guard,
+                )
+                .await?;
+                Ok(stream.with_transaction_id_callback(self.on_first_transaction_id))
+            }
+            StreamingTarget::Stub(gapic_spanner) => {
+                let stream = dispatch_stub_stream(
+                    gapic_spanner
+                        .execute_streaming_sql()
+                        .with_request(self.request)
+                        .with_options(self.options)
+                        .send(),
+                    self.lifetime_guard,
+                )
+                .await?;
+                Ok(stream.with_transaction_id_callback(self.on_first_transaction_id))
+            }
+        }
     }
 }
 
@@ -113,7 +137,7 @@ impl RequestBuilder for ExecuteStreamingSql {
 /// The request builder for [SpannerImpl::streaming_read][crate::client::SpannerImpl::streaming_read] calls.
 #[derive(Debug)]
 pub(crate) struct StreamingRead {
-    grpc_client: gaxi::grpc::Client,
+    target: StreamingTarget,
     request: ReadRequest,
     options: RequestOptions,
     lifetime_guard: Option<StreamLifetimeGuard>,
@@ -121,9 +145,9 @@ pub(crate) struct StreamingRead {
 }
 
 impl StreamingRead {
-    pub(crate) fn new(grpc_client: gaxi::grpc::Client) -> Self {
+    pub(crate) fn new(target: impl Into<StreamingTarget>) -> Self {
         Self {
-            grpc_client,
+            target: target.into(),
             request: ReadRequest::default(),
             options: RequestOptions::default(),
             lifetime_guard: None,
@@ -165,19 +189,35 @@ impl StreamingRead {
 
     /// Start the server streaming request and receive the stream.
     pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
-        let request_params = format!("session={}", self.request.session);
-        let request = self.request.to_proto().map_err(Error::deser)?;
-        let stream = make_server_streaming_request(
-            &self.grpc_client,
-            request,
-            self.options,
-            "StreamingRead",
-            "/google.spanner.v1.Spanner/StreamingRead",
-            &request_params,
-            self.lifetime_guard,
-        )
-        .await?;
-        Ok(stream.with_transaction_id_callback(self.on_first_transaction_id))
+        match self.target {
+            StreamingTarget::Grpc(grpc_client) => {
+                let request_params = format!("session={}", self.request.session);
+                let request = self.request.to_proto().map_err(Error::deser)?;
+                let stream = make_server_streaming_request(
+                    &grpc_client,
+                    request,
+                    self.options,
+                    "StreamingRead",
+                    "/google.spanner.v1.Spanner/StreamingRead",
+                    &request_params,
+                    self.lifetime_guard,
+                )
+                .await?;
+                Ok(stream.with_transaction_id_callback(self.on_first_transaction_id))
+            }
+            StreamingTarget::Stub(gapic_spanner) => {
+                let stream = dispatch_stub_stream(
+                    gapic_spanner
+                        .streaming_read()
+                        .with_request(self.request)
+                        .with_options(self.options)
+                        .send(),
+                    self.lifetime_guard,
+                )
+                .await?;
+                Ok(stream.with_transaction_id_callback(self.on_first_transaction_id))
+            }
+        }
     }
 }
 
@@ -190,16 +230,16 @@ impl RequestBuilder for StreamingRead {
 /// The request builder for [SpannerImpl::batch_write][crate::client::SpannerImpl::batch_write] calls.
 #[derive(Clone, Debug)]
 pub(crate) struct BatchWrite {
-    grpc_client: gaxi::grpc::Client,
+    target: StreamingTarget,
     request: BatchWriteRequest,
     options: RequestOptions,
     lifetime_guard: Option<StreamLifetimeGuard>,
 }
 
 impl BatchWrite {
-    pub(crate) fn new(grpc_client: gaxi::grpc::Client) -> Self {
+    pub(crate) fn new(target: impl Into<StreamingTarget>) -> Self {
         Self {
-            grpc_client,
+            target: target.into(),
             request: BatchWriteRequest::default(),
             options: RequestOptions::default(),
             lifetime_guard: None,
@@ -232,18 +272,33 @@ impl BatchWrite {
 
     /// Start the server streaming request and receive the stream.
     pub(crate) async fn send(self) -> Result<BatchWriteStream> {
-        let request_params = format!("session={}", self.request.session);
-        let request = self.request.to_proto().map_err(Error::deser)?;
-        make_server_streaming_request(
-            &self.grpc_client,
-            request,
-            self.options,
-            "BatchWrite",
-            "/google.spanner.v1.Spanner/BatchWrite",
-            &request_params,
-            self.lifetime_guard,
-        )
-        .await
+        match self.target {
+            StreamingTarget::Grpc(grpc_client) => {
+                let request_params = format!("session={}", self.request.session);
+                let request = self.request.to_proto().map_err(Error::deser)?;
+                make_server_streaming_request(
+                    &grpc_client,
+                    request,
+                    self.options,
+                    "BatchWrite",
+                    "/google.spanner.v1.Spanner/BatchWrite",
+                    &request_params,
+                    self.lifetime_guard,
+                )
+                .await
+            }
+            StreamingTarget::Stub(gapic_spanner) => {
+                dispatch_stub_stream(
+                    gapic_spanner
+                        .batch_write()
+                        .with_request(self.request)
+                        .with_options(self.options)
+                        .send(),
+                    self.lifetime_guard,
+                )
+                .await
+            }
+        }
     }
 }
 
@@ -256,16 +311,16 @@ impl RequestBuilder for BatchWrite {
 /// The request builder for `FetchCacheUpdate` calls.
 #[derive(Clone, Debug)]
 pub(crate) struct FetchCacheUpdate {
-    grpc_client: gaxi::grpc::Client,
+    target: StreamingTarget,
     request: FetchCacheUpdateRequest,
     options: RequestOptions,
     lifetime_guard: Option<StreamLifetimeGuard>,
 }
 
 impl FetchCacheUpdate {
-    pub(crate) fn new(grpc_client: gaxi::grpc::Client) -> Self {
+    pub(crate) fn new(target: impl Into<StreamingTarget>) -> Self {
         Self {
-            grpc_client,
+            target: target.into(),
             request: FetchCacheUpdateRequest::default(),
             options: RequestOptions::default(),
             lifetime_guard: None,
@@ -292,18 +347,33 @@ impl FetchCacheUpdate {
 
     /// Start the server streaming request and receive the stream.
     pub(crate) async fn send(self) -> Result<CacheUpdateStream> {
-        let request_params = format!("database={}", self.request.database);
-        let request = self.request.to_proto().map_err(Error::deser)?;
-        make_server_streaming_request(
-            &self.grpc_client,
-            request,
-            self.options,
-            "FetchCacheUpdate",
-            "/google.spanner.v1.Spanner/FetchCacheUpdate",
-            &request_params,
-            self.lifetime_guard,
-        )
-        .await
+        match self.target {
+            StreamingTarget::Grpc(grpc_client) => {
+                let request_params = format!("database={}", self.request.database);
+                let request = self.request.to_proto().map_err(Error::deser)?;
+                make_server_streaming_request(
+                    &grpc_client,
+                    request,
+                    self.options,
+                    "FetchCacheUpdate",
+                    "/google.spanner.v1.Spanner/FetchCacheUpdate",
+                    &request_params,
+                    self.lifetime_guard,
+                )
+                .await
+            }
+            StreamingTarget::Stub(gapic_spanner) => {
+                dispatch_stub_stream(
+                    gapic_spanner
+                        .fetch_cache_update()
+                        .with_request(self.request)
+                        .with_options(self.options)
+                        .send(),
+                    self.lifetime_guard,
+                )
+                .await
+            }
+        }
     }
 }
 
@@ -313,17 +383,82 @@ impl RequestBuilder for FetchCacheUpdate {
     }
 }
 
+/// The underlying transport or stub client target for server streaming operations.
+#[derive(Clone, Debug)]
+pub(crate) enum StreamingTarget {
+    Grpc(Box<GrpcClient>),
+    Stub(GapicSpanner),
+}
+
+impl From<GrpcClient> for StreamingTarget {
+    fn from(client: GrpcClient) -> Self {
+        Self::Grpc(Box::new(client))
+    }
+}
+
+impl From<GapicSpanner> for StreamingTarget {
+    fn from(spanner: GapicSpanner) -> Self {
+        Self::Stub(spanner)
+    }
+}
+
+impl From<&Channel> for StreamingTarget {
+    fn from(channel: &Channel) -> Self {
+        match &channel.grpc_client {
+            Some(grpc) => Self::Grpc(Box::new(grpc.clone())),
+            None => Self::Stub(channel.inner.clone()),
+        }
+    }
+}
+
+impl From<&Arc<Channel>> for StreamingTarget {
+    fn from(channel: &Arc<Channel>) -> Self {
+        Self::from(&**channel)
+    }
+}
+
+async fn dispatch_stub_stream<Message, ProtoMessage, Fut>(
+    stream_future: Fut,
+    lifetime_guard: Option<StreamLifetimeGuard>,
+) -> Result<SpannerServerStream<ProtoMessage>>
+where
+    Fut: Future<Output = Result<ResponseStream<Message>>>,
+    Message: ToProto<ProtoMessage, Output = ProtoMessage> + Send + 'static,
+    ProtoMessage: Send + 'static,
+{
+    let start_time = Instant::now();
+    let response_stream = match stream_future.await {
+        Ok(response) => {
+            if let Some(guard) = &lifetime_guard {
+                guard.record_first_response(start_time.elapsed());
+            }
+            response
+        }
+        Err(error) => {
+            if let Some(guard) = lifetime_guard {
+                guard.record_error(&error);
+            }
+            return Err(error);
+        }
+    };
+    Ok(SpannerServerStream::from_response_stream(
+        response_stream,
+        HeaderMap::new(),
+        lifetime_guard,
+    ))
+}
+
 static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
-    let ac = gaxi::api_header::XGoogApiClient {
+    let ac = XGoogApiClient {
         name: env!("CARGO_PKG_NAME"),
         version: env!("CARGO_PKG_VERSION"),
-        library_type: gaxi::api_header::GCCL,
+        library_type: GCCL,
     };
     ac.grpc_header_value()
 });
 
 async fn make_server_streaming_request<Req, Res>(
-    grpc_client: &gaxi::grpc::Client,
+    grpc_client: &GrpcClient,
     request: Req,
     options: RequestOptions,
     method_name: &'static str,
@@ -377,6 +512,8 @@ where
 mod tests {
     use super::*;
     use crate::client::Spanner;
+    use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
+    use crate::model::{BatchWriteResponse, CacheUpdate, PartialResultSet};
     use crate::server_streaming::stream::StreamGuard;
     use gaxi::grpc::tonic::Response;
     use gaxi::grpc::tonic::Status;
@@ -387,6 +524,7 @@ mod tests {
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::fmt::Debug;
+    use std::future::ready;
     use std::sync::Arc;
     use std::sync::Mutex;
     use std::time::Duration;
@@ -412,9 +550,7 @@ mod tests {
         }
     }
 
-    async fn create_test_grpc_client_with_mock(
-        mock: MockSpanner,
-    ) -> (gaxi::grpc::Client, JoinHandle<()>) {
+    async fn create_test_grpc_client_with_mock(mock: MockSpanner) -> (GrpcClient, JoinHandle<()>) {
         let (address, server) = spanner_grpc_mock::start("0.0.0.0:0", mock)
             .await
             .expect("mock server should start");
@@ -434,7 +570,7 @@ mod tests {
         (grpc_client, server)
     }
 
-    async fn create_test_grpc_client() -> (gaxi::grpc::Client, JoinHandle<()>) {
+    async fn create_test_grpc_client() -> (GrpcClient, JoinHandle<()>) {
         create_test_grpc_client_with_mock(MockSpanner::new()).await
     }
 
@@ -754,5 +890,250 @@ mod tests {
             latency.is_some(),
             "first response latency must be recorded on successful connection"
         );
+    }
+
+    #[derive(Debug, Default)]
+    struct MockStreamingStub;
+
+    impl SpannerStub for MockStreamingStub {
+        fn execute_streaming_sql(
+            &self,
+            _request: ExecuteSqlRequest,
+            _options: RequestOptions,
+        ) -> impl Future<Output = Result<ResponseStream<PartialResultSet>>> + Send {
+            let (sender, receiver) = channel(1);
+            let _ = sender.try_send(Ok(PartialResultSet::default()));
+            ready(Ok(receiver.into()))
+        }
+
+        fn streaming_read(
+            &self,
+            _request: ReadRequest,
+            _options: RequestOptions,
+        ) -> impl Future<Output = Result<ResponseStream<PartialResultSet>>> + Send {
+            let (sender, receiver) = channel(1);
+            let _ = sender.try_send(Ok(PartialResultSet::default()));
+            ready(Ok(receiver.into()))
+        }
+
+        fn batch_write(
+            &self,
+            _request: BatchWriteRequest,
+            _options: RequestOptions,
+        ) -> impl Future<Output = Result<ResponseStream<BatchWriteResponse>>> + Send {
+            let (sender, receiver) = channel(1);
+            let _ = sender.try_send(Ok(BatchWriteResponse::default()));
+            ready(Ok(receiver.into()))
+        }
+
+        fn fetch_cache_update(
+            &self,
+            _request: FetchCacheUpdateRequest,
+            _options: RequestOptions,
+        ) -> impl Future<Output = Result<ResponseStream<CacheUpdate>>> + Send {
+            let (sender, receiver) = channel(1);
+            let _ = sender.try_send(Ok(CacheUpdate::default()));
+            ready(Ok(receiver.into()))
+        }
+    }
+
+    #[derive(Debug, Default)]
+    struct MockFailingStreamingStub;
+
+    impl SpannerStub for MockFailingStreamingStub {
+        fn execute_streaming_sql(
+            &self,
+            _request: ExecuteSqlRequest,
+            _options: RequestOptions,
+        ) -> impl Future<Output = Result<ResponseStream<PartialResultSet>>> + Send {
+            ready(Err(Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(Code::Unavailable)
+                    .set_message("stub failed"),
+            )))
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_sql_with_stub_target_succeeds() -> anyhow::Result<()> {
+        let channel = Channel::new_for_test(MockStreamingStub);
+        let recorded_latency = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestLatencyGuard {
+            recorded_latency: Arc::clone(&recorded_latency),
+        });
+
+        let mut stream = ExecuteStreamingSql::new(&channel)
+            .with_request(
+                ExecuteSqlRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s")
+                    .set_sql("SELECT 1"),
+            )
+            .with_lifetime_guard(guard)
+            .send()
+            .await?;
+
+        let first = stream.next_message().await;
+        assert!(first.is_some(), "expected message from stub stream");
+        let message = first.expect("message present")?;
+        assert_eq!(
+            message.values.len(),
+            0,
+            "expected empty values in partial result set"
+        );
+        let latency = *recorded_latency.lock().expect("lock poisoned");
+        assert!(
+            latency.is_some(),
+            "first response latency must be recorded for stub stream"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_read_with_stub_target_succeeds() -> anyhow::Result<()> {
+        let channel = Channel::new_for_test(MockStreamingStub);
+        let mut stream = StreamingRead::new(&channel)
+            .with_request(
+                ReadRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s")
+                    .set_table("Singers"),
+            )
+            .send()
+            .await?;
+
+        let first = stream.next_message().await;
+        assert!(first.is_some(), "expected message from stub stream");
+        let message = first.expect("message present")?;
+        assert_eq!(
+            message.values.len(),
+            0,
+            "expected empty values in partial result set"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn batch_write_with_stub_target_succeeds() -> anyhow::Result<()> {
+        let channel = Channel::new_for_test(MockStreamingStub);
+        let mut stream = BatchWrite::new(&channel)
+            .with_request(
+                BatchWriteRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s"),
+            )
+            .send()
+            .await?;
+
+        let first = stream.next_message().await;
+        assert!(first.is_some(), "expected message from stub stream");
+        first.expect("message present")?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn fetch_cache_update_with_stub_target_succeeds() -> anyhow::Result<()> {
+        let channel = Channel::new_for_test(MockStreamingStub);
+        let mut stream = FetchCacheUpdate::new(&channel)
+            .with_request(
+                FetchCacheUpdateRequest::default()
+                    .set_database("projects/p/instances/i/databases/d"),
+            )
+            .send()
+            .await?;
+
+        let first = stream.next_message().await;
+        assert!(first.is_some(), "expected message from stub stream");
+        first.expect("message present")?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_sql_with_stub_target_records_error_code_on_failure() {
+        let channel = Channel::new_for_test(MockFailingStreamingStub);
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::clone(&recorded_code),
+        });
+
+        let result = ExecuteStreamingSql::new(&channel)
+            .with_request(
+                ExecuteSqlRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s")
+                    .set_sql("SELECT 1"),
+            )
+            .with_lifetime_guard(guard)
+            .send()
+            .await;
+
+        assert!(result.is_err(), "stub error must result in Err");
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            Some(Code::Unavailable),
+            "guard must record Code::Unavailable on stub failure"
+        );
+    }
+
+    #[test]
+    fn streaming_target_from_conversions() {
+        let gapic_spanner = GapicSpanner::from_stub(MockStreamingStub);
+        let target_from_gapic = StreamingTarget::from(gapic_spanner);
+        assert!(
+            matches!(target_from_gapic, StreamingTarget::Stub(_)),
+            "expected Stub target from GapicSpanner"
+        );
+
+        let channel = Arc::new(Channel::new_for_test(MockStreamingStub));
+        let target_from_arc = StreamingTarget::from(&channel);
+        assert!(
+            matches!(target_from_arc, StreamingTarget::Stub(_)),
+            "expected Stub target from &Arc<Channel>"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn batch_write_with_grpc_target_succeeds() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_batch_write().returning(|_| {
+            let (sender, receiver) = channel(1);
+            let _ = sender.try_send(Ok(mock_v1::BatchWriteResponse::default()));
+            Ok(Response::from(receiver))
+        });
+        let (grpc_client, _server) = create_test_grpc_client_with_mock(mock).await;
+        let mut stream = BatchWrite::new(grpc_client)
+            .with_request(
+                BatchWriteRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s"),
+            )
+            .send()
+            .await?;
+
+        let first = stream.next_message().await;
+        assert!(first.is_some(), "expected message from batch write stream");
+        first.expect("message present")?;
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn fetch_cache_update_with_grpc_target_succeeds() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (sender, receiver) = channel(1);
+            let _ = sender.try_send(Ok(mock_v1::CacheUpdate::default()));
+            Ok(Response::from(receiver))
+        });
+        let (grpc_client, _server) = create_test_grpc_client_with_mock(mock).await;
+        let mut stream = FetchCacheUpdate::new(grpc_client)
+            .with_request(
+                FetchCacheUpdateRequest::default()
+                    .set_database("projects/p/instances/i/databases/d"),
+            )
+            .send()
+            .await?;
+
+        let first = stream.next_message().await;
+        assert!(
+            first.is_some(),
+            "expected message from fetch cache update stream"
+        );
+        first.expect("message present")?;
+        Ok(())
     }
 }

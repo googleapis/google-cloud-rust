@@ -3266,6 +3266,172 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
+    async fn routing_hint_retained_on_key_range_cache_miss() {
+        let mock = create_test_mock();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        // Seed database_id and key recipe in CacheUpdater, but NO range in KeyRangeCache (cache miss).
+        let recipe = KeyRecipe::new().set_table_name("Users").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let cache_update = CacheUpdate::new().set_database_id(42u64).set_key_recipes(
+            RecipeList::new()
+                .set_schema_generation(Bytes::from_static(b"schema-v1"))
+                .set_recipe(vec![recipe]),
+        );
+        database_client.observe_cache_update(Some(cache_update));
+
+        let user_mutation = Mutation::new_insert_builder("Users")
+            .set("id")
+            .to("user123")
+            .build();
+
+        let recipe_cache = database_client
+            .key_recipe_cache()
+            .expect("recipe cache present");
+        let extracted_key =
+            extract_mutation_routing_key(recipe_cache, &user_mutation.clone().build_proto())
+                .expect("mutation routing key should be extracted from cached recipe");
+
+        // 1. resolve_request_route: on cache miss with routing key, returns None connection
+        //    (falls back to gateway channel pool) and Some(hint) retaining the search key.
+        let (connection, hint) = database_client.resolve_request_route(
+            None,
+            None,
+            100,
+            Some(extracted_key.as_slice()),
+            false,
+        );
+        assert!(
+            connection.is_none(),
+            "connection must fall back to gateway (None) on cache miss"
+        );
+        let hint = hint.expect("routing hint must be retained on cache miss");
+        assert_eq!(
+            hint.key.as_ref(),
+            extracted_key.as_slice(),
+            "routing hint must retain the extracted routing key"
+        );
+        assert_eq!(
+            hint.operation_uid, 100,
+            "operation_uid must match requested"
+        );
+        assert_eq!(hint.database_id, 42, "database_id must match active epoch");
+        assert_eq!(hint.group_uid, 0, "group_uid must be 0 on cache miss");
+        assert_eq!(hint.split_id, 0, "split_id must be 0 on cache miss");
+        assert_eq!(hint.tablet_uid, 0, "tablet_uid must be 0 on cache miss");
+        assert!(
+            hint.skipped_tablet_uid.is_empty(),
+            "skipped_tablet_uid must be empty on cache miss"
+        );
+
+        // 2. route_and_attach_hint: attaches the resolved hint to request.routing_hint
+        let mut attached_hint = None;
+        let connection = database_client.route_and_attach_hint(
+            None,
+            None,
+            100,
+            Some(extracted_key.as_slice()),
+            &mut attached_hint,
+            false,
+        );
+        assert!(
+            connection.is_none(),
+            "route_and_attach_hint must return None connection on cache miss"
+        );
+        let attached = attached_hint.expect("attached_hint must be populated on cache miss");
+        assert_eq!(
+            attached.key.as_ref(),
+            extracted_key.as_slice(),
+            "attached hint must contain the search key"
+        );
+        assert_eq!(
+            attached.operation_uid, 100,
+            "attached hint must contain the operation_uid"
+        );
+        assert_eq!(
+            attached.database_id, 42,
+            "attached hint must contain the database_id"
+        );
+
+        // 3. pre_route_begin_transaction: attaches routing hint with key on cache miss
+        let mut begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutation_key(user_mutation.clone().build_proto());
+        let (begin_connection, is_read_write) =
+            database_client.pre_route_begin_transaction(&mut begin_request);
+        assert!(
+            begin_connection.is_none(),
+            "pre_route_begin_transaction must return None connection on cache miss"
+        );
+        assert!(is_read_write, "is_read_write must be true for ReadWrite");
+        let begin_hint = begin_request
+            .routing_hint
+            .expect("begin_request must attach routing hint on cache miss");
+        assert_eq!(
+            begin_hint.key.as_ref(),
+            extracted_key.as_slice(),
+            "begin_request routing hint must retain extracted key"
+        );
+        assert_eq!(
+            begin_hint.database_id, 42,
+            "begin_request routing hint must retain database_id"
+        );
+        assert_eq!(
+            begin_hint.group_uid, 0,
+            "begin_request group_uid must be 0 on cache miss"
+        );
+
+        // 4. pre_route_commit: attaches routing hint with key on cache miss
+        let mut commit_request = CommitRequest::new()
+            .set_single_use_transaction(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutations(vec![user_mutation.build_proto()]);
+        let (commit_connection, _transaction_id) =
+            database_client.pre_route_commit(&mut commit_request);
+        assert!(
+            commit_connection.is_none(),
+            "pre_route_commit must return None connection on cache miss"
+        );
+        let commit_hint = commit_request
+            .routing_hint
+            .expect("commit_request must attach routing hint on cache miss");
+        assert_eq!(
+            commit_hint.key.as_ref(),
+            extracted_key.as_slice(),
+            "commit_request routing hint must retain extracted key"
+        );
+        assert_eq!(
+            commit_hint.database_id, 42,
+            "commit_request routing hint must retain database_id"
+        );
+        assert_eq!(
+            commit_hint.group_uid, 0,
+            "commit_request group_uid must be 0 on cache miss"
+        );
+    }
+
+    #[tokio_test_no_panics]
     async fn transaction_affinity_gateway_fallback_preserves_channel_affinity_across_statements() {
         use std::sync::Mutex;
 

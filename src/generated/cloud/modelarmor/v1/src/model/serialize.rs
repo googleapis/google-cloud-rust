@@ -18,6 +18,31 @@
 use super::*;
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::FilterVersionSelector {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.version() {
+            state.serialize_entry("version", value)?;
+        }
+        if let Some(value) = self.alias() {
+            state.serialize_entry("alias", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::Template {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -124,8 +149,14 @@ impl serde::ser::Serialize for super::template::TemplateMetadata {
         if self.multi_language_detection.is_some() {
             state.serialize_entry("multiLanguageDetection", &self.multi_language_detection)?;
         }
+        if self.filter_version_selector.is_some() {
+            state.serialize_entry("filterVersionSelector", &self.filter_version_selector)?;
+        }
         if !self.modalities.is_empty() {
             state.serialize_entry("modalities", &self.modalities)?;
+        }
+        if self.data_residency_compliant.is_some() {
+            state.serialize_entry("dataResidencyCompliant", &self.data_residency_compliant)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -198,6 +229,12 @@ impl serde::ser::Serialize for super::FloorSetting {
         if self.floor_setting_metadata.is_some() {
             state.serialize_entry("floorSettingMetadata", &self.floor_setting_metadata)?;
         }
+        if self.google_mcp_server_floor_setting.is_some() {
+            state.serialize_entry(
+                "googleMcpServerFloorSetting",
+                &self.google_mcp_server_floor_setting,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -246,6 +283,34 @@ impl serde::ser::Serialize
                 "enableMultiLanguageDetection",
                 &self.enable_multi_language_detection,
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::McpServerFloorSetting {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.inspect_only() {
+            state.serialize_entry("inspectOnly", value)?;
+        }
+        if let Some(value) = self.inspect_and_block() {
+            state.serialize_entry("inspectAndBlock", value)?;
+        }
+        if !wkt::internal::is_default(&self.enable_cloud_logging) {
+            state.serialize_entry("enableCloudLogging", &self.enable_cloud_logging)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -535,6 +600,9 @@ impl serde::ser::Serialize for super::FilterConfig {
                 "maliciousUriFilterSettings",
                 &self.malicious_uri_filter_settings,
             )?;
+        }
+        if self.filter_rule_settings.is_some() {
+            state.serialize_entry("filterRuleSettings", &self.filter_rule_settings)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -827,6 +895,40 @@ impl serde::ser::Serialize for super::SanitizeModelResponseResponse {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::FilterVersionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.filter_version.is_empty() {
+            state.serialize_entry("filterVersion", &self.filter_version)?;
+        }
+        if self.filter_version_alias.is_some() {
+            state.serialize_entry("filterVersionAlias", &self.filter_version_alias)?;
+        }
+        if self.release_date.is_some() {
+            state.serialize_entry("releaseDate", &self.release_date)?;
+        }
+        if self.projected_deprecation_date.is_some() {
+            state.serialize_entry("projectedDeprecationDate", &self.projected_deprecation_date)?;
+        }
+        if !self.message_items.is_empty() {
+            state.serialize_entry("messageItems", &self.message_items)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::SanitizationResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -890,6 +992,9 @@ impl serde::ser::Serialize for super::sanitization_result::SanitizationMetadata 
         }
         if self.stream_chunk_processed.is_some() {
             state.serialize_entry("streamChunkProcessed", &self.stream_chunk_processed)?;
+        }
+        if self.filter_version_config.is_some() {
+            state.serialize_entry("filterVersionConfig", &self.filter_version_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1138,6 +1243,9 @@ impl serde::ser::Serialize for super::ByteDataItem {
                 }
             }
             state.serialize_entry("byteData", &__With(&self.byte_data))?;
+        }
+        if !self.file_label.is_empty() {
+            state.serialize_entry("fileLabel", &self.file_label)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1400,6 +1508,169 @@ impl serde::ser::Serialize for super::SdpRedactResult {
         }
         if !self.extracted_image_text.is_empty() {
             state.serialize_entry("extractedImageText", &self.extracted_image_text)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::WordList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.words.is_empty() {
+            state.serialize_entry("words", &self.words)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Dictionary {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.word_list() {
+            state.serialize_entry("wordList", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Regex {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.pattern.is_empty() {
+            state.serialize_entry("pattern", &self.pattern)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ExclusionRule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.dictionary() {
+            state.serialize_entry("dictionary", value)?;
+        }
+        if let Some(value) = self.regex() {
+            state.serialize_entry("regex", value)?;
+        }
+        if self.matching_scope.is_some() {
+            state.serialize_entry("matchingScope", &self.matching_scope)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FilterRule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.exclusion_rule() {
+            state.serialize_entry("exclusionRule", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FilterRuleSet {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.filter_types.is_empty() {
+            state.serialize_entry("filterTypes", &self.filter_types)?;
+        }
+        if !self.rules.is_empty() {
+            state.serialize_entry("rules", &self.rules)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FilterRuleSettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.rule_sets.is_empty() {
+            state.serialize_entry("ruleSets", &self.rule_sets)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -67,10 +67,10 @@ impl super::stub::AccountLimitsService for AccountLimitsService {
                         Segment::SingleWildcard,
                     ],
                 )?;
-                let path = format!("/accounts/v1/{}", var_name,);
-                let path_template = "/accounts/v1/{name}";
+                let path = format!("/quota/v1/{}", var_name,);
+                let path_template = "/quota/v1/{name}";
 
-                let resource_name = format!("//merchantapi.googleapis.com/accounts/{}", var_name,);
+                let resource_name = format!("//merchantapi.googleapis.com/quota/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
@@ -132,11 +132,10 @@ impl super::stub::AccountLimitsService for AccountLimitsService {
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("accounts/"), Segment::SingleWildcard],
                 )?;
-                let path = format!("/accounts/v1/{}/limits", var_parent,);
-                let path_template = "/accounts/v1/{parent}/limits";
+                let path = format!("/quota/v1/{}/limits", var_parent,);
+                let path_template = "/quota/v1/{parent}/limits";
 
-                let resource_name =
-                    format!("//merchantapi.googleapis.com/accounts/{}", var_parent,);
+                let resource_name = format!("//merchantapi.googleapis.com/quota/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);

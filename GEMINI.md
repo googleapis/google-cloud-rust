@@ -200,6 +200,24 @@ cargo fmt -p google-cloud-storage
   the service definitions. See
   `doc/contributor/howto-guide-generated-code-maintenance.md` for details.
 
+### Proc-macro Crates
+
+`cargo-semver-checks` cannot verify proc-macro crates such as
+`src/bigquery-derive`. See the "Compatibility" section in
+`src/bigquery-derive/src/lib.rs` for the full policy.
+
+- Published proc-macro crates have compile-only contract tests in
+  `src/*/tests/<name>_contract/`, where `<name>` is the package name without
+  `google-cloud-` and with `-` replaced by `_` (e.g.
+  `src/bigquery/tests/bigquery_derive_contract/`). For new accepted input, add a
+  new case file and a `mod` line in its `main.rs`.
+- Never modify, rename, or delete an existing case file. CI fails unless the
+  pull request has the `rust: proc-macro-contract-change` label.
+- If you need that label because accepted input changed, it is very likely a
+  breaking change: take a breaking version bump of both the proc-macro crate and
+  `google-cloud-bigquery`, by hand (librarian defaults to non-breaking bumps).
+  Comment-only or formatting edits need the label but no bump.
+
 ### Asynchronous Programming
 
 All remote procedure calls (RPCs) are asynchronous and are designed to work with

@@ -86,6 +86,16 @@ impl gaxi::prost::ToProto<StreamingMode> for crate::model::StreamingMode {
     }
 }
 
+impl gaxi::prost::ToProto<FilterVersionAlias> for crate::model::FilterVersionAlias {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value()
+            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
+                "crate::model::FilterVersionAlias",
+            ))
+    }
+}
+
 impl gaxi::prost::ToProto<SanitizeUserPromptRequest> for crate::model::SanitizeUserPromptRequest {
     type Output = SanitizeUserPromptRequest;
     fn to_proto(self) -> std::result::Result<SanitizeUserPromptRequest, gaxi::prost::ConvertError> {
@@ -214,6 +224,53 @@ impl gaxi::prost::FromProto<crate::model::SanitizeModelResponseResponse>
     }
 }
 
+impl gaxi::prost::ToProto<FilterVersionConfig> for crate::model::FilterVersionConfig {
+    type Output = FilterVersionConfig;
+    fn to_proto(self) -> std::result::Result<FilterVersionConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            filter_version: self.filter_version.to_proto()?,
+            filter_version_alias: self
+                .filter_version_alias
+                .map(|v| v.to_proto())
+                .transpose()?,
+            release_date: self.release_date.map(|v| v.to_proto()).transpose()?,
+            projected_deprecation_date: self
+                .projected_deprecation_date
+                .map(|v| v.to_proto())
+                .transpose()?,
+            message_items: self
+                .message_items
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::model::FilterVersionConfig> for FilterVersionConfig {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::FilterVersionConfig, gaxi::prost::ConvertError> {
+        Ok(crate::model::FilterVersionConfig::new()
+            .set_filter_version(self.filter_version)
+            .set_or_clear_filter_version_alias(
+                self.filter_version_alias.map(|v| v.cnv()).transpose()?,
+            )
+            .set_or_clear_release_date(self.release_date.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_projected_deprecation_date(
+                self.projected_deprecation_date
+                    .map(|v| v.cnv())
+                    .transpose()?,
+            )
+            .set_message_items(
+                self.message_items
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ))
+    }
+}
+
 impl gaxi::prost::ToProto<sanitization_result::SanitizationMetadata>
     for crate::model::sanitization_result::SanitizationMetadata
 {
@@ -230,6 +287,10 @@ impl gaxi::prost::ToProto<sanitization_result::SanitizationMetadata>
                 .to_proto()?,
             stream_chunk_processed: self
                 .stream_chunk_processed
+                .map(|v| v.to_proto())
+                .transpose()?,
+            filter_version_config: self
+                .filter_version_config
                 .map(|v| v.to_proto())
                 .transpose()?,
         })
@@ -252,6 +313,9 @@ impl gaxi::prost::FromProto<crate::model::sanitization_result::SanitizationMetad
                 .set_ignore_partial_invocation_failures(self.ignore_partial_invocation_failures)
                 .set_or_clear_stream_chunk_processed(
                     self.stream_chunk_processed.map(|v| v.cnv()).transpose()?,
+                )
+                .set_or_clear_filter_version_config(
+                    self.filter_version_config.map(|v| v.cnv()).transpose()?,
                 ),
         )
     }
@@ -602,6 +666,7 @@ impl gaxi::prost::ToProto<ByteDataItem> for crate::model::ByteDataItem {
         Ok(Self::Output {
             byte_data_type: self.byte_data_type.to_proto()?,
             byte_data: self.byte_data.to_proto()?,
+            file_label: self.file_label.to_proto()?,
         })
     }
 }
@@ -610,7 +675,8 @@ impl gaxi::prost::FromProto<crate::model::ByteDataItem> for ByteDataItem {
     fn cnv(self) -> std::result::Result<crate::model::ByteDataItem, gaxi::prost::ConvertError> {
         Ok(crate::model::ByteDataItem::new()
             .set_byte_data_type(self.byte_data_type)
-            .set_byte_data(self.byte_data))
+            .set_byte_data(self.byte_data)
+            .set_file_label(self.file_label))
     }
 }
 
@@ -1168,5 +1234,27 @@ impl gaxi::prost::FromProto<crate::model::RangeInfo> for RangeInfo {
         Ok(crate::model::RangeInfo::new()
             .set_or_clear_start(self.start.map(|v| v.cnv()).transpose()?)
             .set_or_clear_end(self.end.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+impl gaxi::prost::ToProto<super::prost::google::r#type::Date> for google_cloud_type::model::Date {
+    type Output = super::prost::google::r#type::Date;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<super::prost::google::r#type::Date, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            year: self.year.to_proto()?,
+            month: self.month.to_proto()?,
+            day: self.day.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<google_cloud_type::model::Date> for super::prost::google::r#type::Date {
+    fn cnv(self) -> std::result::Result<google_cloud_type::model::Date, gaxi::prost::ConvertError> {
+        Ok(google_cloud_type::model::Date::new()
+            .set_year(self.year)
+            .set_month(self.month)
+            .set_day(self.day))
     }
 }

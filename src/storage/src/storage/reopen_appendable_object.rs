@@ -30,7 +30,7 @@ use std::time::Duration;
 ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
 ///     .send()
 ///     .await?;
-/// writer.append(bytes::Bytes::from("hello")).await?;
+/// writer.append("hello").await?;
 /// writer.finalize().await?;
 /// # Ok(()) }
 /// ```
@@ -55,7 +55,7 @@ where
     ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
     ///     .send()
     ///     .await?;
-    /// writer.append(bytes::Bytes::from("world")).await?;
+    /// writer.append("world").await?;
     /// writer.finalize().await?;
     /// # Ok(()) }
     /// ```
@@ -313,10 +313,7 @@ impl<S> ReopenAppendableObject<S> {
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_user_agent<V>(mut self, user_agent: V) -> Self
-    where
-        V: Into<String>,
-    {
+    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
         self.options.user_agent = Some(user_agent.into());
         self
     }
@@ -340,10 +337,7 @@ impl<S> ReopenAppendableObject<S> {
     /// ```
     ///
     /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
-    pub fn with_quota_project<V>(mut self, project: V) -> Self
-    where
-        V: Into<String>,
-    {
+    pub fn with_quota_project(mut self, project: impl Into<String>) -> Self {
         self.options.set_quota_project(project);
         self
     }

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Result;
 use crate::channel_pool::TransactionAffinity;
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
@@ -131,7 +132,7 @@ impl PartitionedDmlTransactionBuilder {
     /// errors (`Code::Unavailable`) are handled separately at the RPC level by resuming the
     /// stream; stream-level retry and backoff policies can be configured on the [Statement]
     /// passed to [PartitionedDmlTransaction::execute_update].
-    pub fn with_retry_policy<P: TransactionRetryPolicy + 'static>(mut self, policy: P) -> Self {
+    pub fn with_retry_policy(mut self, policy: impl TransactionRetryPolicy + 'static) -> Self {
         self.retry_policy = Box::new(policy);
         self
     }
@@ -199,7 +200,7 @@ impl PartitionedDmlTransaction {
     /// executed multiple times.
     ///
     /// See also: <https://docs.cloud.google.com/spanner/docs/dml-partitioned>
-    pub async fn execute_update<T: Into<Statement>>(self, statement: T) -> crate::Result<i64> {
+    pub async fn execute_update(self, statement: impl Into<Statement>) -> Result<i64> {
         let statement = statement.into();
         let mut gax_options = statement.gax_options().clone();
         self.amend_gax_options(&mut gax_options);

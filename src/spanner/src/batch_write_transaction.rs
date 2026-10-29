@@ -274,10 +274,10 @@ impl BatchWriteTransaction {
     /// Transient network or server errors during stream creation or iteration are automatically retried
     /// according to the configured retry and backoff policies. Upon retry, already-processed mutation groups
     /// are not resent, and returned response indices always refer to the caller's original input slice.
-    pub async fn execute_streaming<I>(self, mutation_groups: I) -> Result<BatchWriteResponseStream>
-    where
-        I: IntoIterator<Item = MutationGroup>,
-    {
+    pub async fn execute_streaming(
+        self,
+        mutation_groups: impl IntoIterator<Item = MutationGroup>,
+    ) -> Result<BatchWriteResponseStream> {
         let original_groups = mutation_groups
             .into_iter()
             .map(|group| Some(group.build_proto()))
