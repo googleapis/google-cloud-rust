@@ -16,7 +16,7 @@ use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
 use std::collections::HashMap;
 
 /// Schema of a table.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub(crate) struct Schema {
     schema: TableSchema,
     field_indices: HashMap<String, usize>,
@@ -40,8 +40,14 @@ impl Schema {
         google_cloud_unstable_bigquery_arrow,
         google_cloud_unstable_bigquery_storage_read
     ))]
-    pub(crate) fn from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> Self {
-        Self::new(table_schema_from_arrow_schema(arrow_schema))
+    pub(crate) fn from_arrow_schema(schema_bytes: &[u8]) -> Result<Self, crate::error::RowError> {
+        let reader =
+            arrow::ipc::reader::StreamReader::try_new(schema_bytes, None).map_err(|e| {
+                crate::error::RowError::InvalidRowFormat(format!(
+                    "failed to decode arrow schema: {e}"
+                ))
+            })?;
+        Ok(Self::new(table_schema_from_arrow_schema(&reader.schema())))
     }
 
     pub(crate) fn get_field_index_by_name(&self, name: &str) -> Option<usize> {
@@ -201,7 +207,11 @@ mod tests {
             ),
         ]);
 
-        let schema = Schema::from_arrow_schema(&arrow_schema);
+        let mut schema_bytes = Vec::new();
+        let _ = arrow::ipc::writer::StreamWriter::try_new(&mut schema_bytes, &arrow_schema)
+            .expect("valid test arrow schema");
+
+        let schema = Schema::from_arrow_schema(&schema_bytes).expect("valid arrow schema");
         assert_eq!(schema.len(), 18);
         assert_eq!(schema.fields().len(), 18);
         assert_eq!(schema.get_field_index_by_name("name"), Some(0));
