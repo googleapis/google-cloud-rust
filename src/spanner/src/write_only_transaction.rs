@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Result;
 use crate::channel_pool::TransactionAffinity;
 use crate::client::{DatabaseClient, amend_request_options_for_lar};
 use crate::model::request_options::Priority;
@@ -210,7 +211,7 @@ impl WriteOnlyTransactionBuilder {
     /// The client will retry the transaction if it is aborted by Spanner.
     /// This policy can be used to customize whether a transaction should be retried
     /// or not. The default is to retry indefinitely until the transaction succeeds.
-    pub fn with_retry_policy<P: TransactionRetryPolicy + 'static>(mut self, policy: P) -> Self {
+    pub fn with_retry_policy(mut self, policy: impl TransactionRetryPolicy + 'static) -> Self {
         self.retry_policy = Box::new(policy);
         self
     }
@@ -404,10 +405,10 @@ impl WriteOnlyTransaction {
     /// any failures in the underlying network. Note that if the call is cancelled or reaches
     /// deadline, it is not possible to know whether the mutations were applied without performing
     /// a subsequent database operation, but the mutations will have been applied at most once.
-    pub async fn write<I>(self, mutations: I) -> crate::Result<CommitResponse>
-    where
-        I: IntoIterator<Item = Mutation>,
-    {
+    pub async fn write(
+        self,
+        mutations: impl IntoIterator<Item = Mutation>,
+    ) -> Result<CommitResponse> {
         let begin_gax_options = self.begin_gax_options();
         let commit_gax_options = self.commit_gax_options();
         let req_options = RequestOptions::default()
@@ -541,10 +542,10 @@ impl WriteOnlyTransaction {
     /// However, `write_at_least_once` requires only a single RPC, whereas replay-protected
     /// writes require two RPCs. Thus, this method may be appropriate for latency sensitive
     /// and/or high throughput blind writing.
-    pub async fn write_at_least_once<I>(self, mutations: I) -> crate::Result<CommitResponse>
-    where
-        I: IntoIterator<Item = Mutation>,
-    {
+    pub async fn write_at_least_once(
+        self,
+        mutations: impl IntoIterator<Item = Mutation>,
+    ) -> Result<CommitResponse> {
         let commit_gax_options = self.commit_gax_options();
         let single_use = TransactionOptions::new()
             .set_read_write(Box::new(ReadWrite::new()))
@@ -1889,7 +1890,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn commit_retry_fails_on_subsequent_precommit_token() -> Result<(), crate::Error> {
+    async fn commit_retry_fails_on_subsequent_precommit_token() -> Result<()> {
         use crate::key::KeySet;
         use mockall::Sequence;
         use spanner_grpc_mock::MockSpanner;

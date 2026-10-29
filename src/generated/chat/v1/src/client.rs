@@ -2316,4 +2316,37 @@ impl ChatService {
     pub fn move_section_item(&self) -> super::builder::chat_service::MoveSectionItem {
         super::builder::chat_service::MoveSectionItem::new(self.inner.clone())
     }
+
+    /// Replaces the cards included in a message.
+    ///
+    /// A Chat app can only replace cards on a human-created message if the message
+    /// already contains cards, and the cards were created by the app.
+    ///
+    /// If the app replaces the cards with an empty list, the cards are removed.
+    /// After removing the cards, the app cannot add cards back to the message.
+    ///
+    /// Requires [app
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-app)
+    /// with the [authorization
+    /// scope](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.bot>`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::client::ChatService;
+    /// use google_chat_v1::Result;
+    /// async fn sample(
+    ///    client: &ChatService
+    /// ) -> Result<()> {
+    ///     let response = client.replace_message_cards()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn replace_message_cards(&self) -> super::builder::chat_service::ReplaceMessageCards {
+        super::builder::chat_service::ReplaceMessageCards::new(self.inner.clone())
+    }
 }
