@@ -293,14 +293,23 @@ impl TryFrom<&str> for Duration {
         let (sign, digits) = if let Some(stripped) = digits.strip_prefix('-') {
             (-1, stripped)
         } else {
-            (1, &digits[0..])
+            // Like the Go ProtoJSON parser, accept an optional `+`.
+            (1, digits.strip_prefix('+').unwrap_or(digits))
         };
         let mut split = digits.splitn(2, '.');
         let (seconds, nanos) = (split.next(), split.next());
         let seconds = seconds
-            .map(str::parse::<i64>)
-            .transpose()
-            .map_err(|e| DurationError::Deserialize(e.into()))?
+            .map(|s| {
+                // `str::parse()` accepts a sign, but the sign was consumed above.
+                if s.is_empty() || !s.chars().all(|c| c.is_ascii_digit()) {
+                    return Err(DurationError::Deserialize(
+                        format!("seconds are not a number [{s}]").into(),
+                    ));
+                }
+                s.parse::<i64>()
+                    .map_err(|e| DurationError::Deserialize(e.into()))
+            })
+            .transpose()?
             .unwrap_or(0);
         let nanos = nanos
             .map(|s| {
@@ -322,6 +331,7 @@ impl TryFrom<&str> for Duration {
             .transpose()?
             .unwrap_or(0);
 
+        // `seconds` has no sign, so `sign * seconds` cannot overflow.
         Duration::new(sign * seconds, sign as i32 * nanos)
     }
 }
@@ -690,6 +700,13 @@ mod tests {
     #[test_case("1.0as" ; "nanos are not a number [0a]")]
     #[test_case("1.1234567890as" ; "nanos with trailing chars [1234567890a]")]
     #[test_case("1.s" ; "empty nanos")]
+    #[test_case("--1s" ; "repeated minus sign")]
+    #[test_case("-+1s" ; "minus then plus sign")]
+    #[test_case("+-1s" ; "plus then minus sign")]
+    #[test_case("++1s" ; "repeated plus sign")]
+    #[test_case("--1.5s" ; "repeated minus sign with nanos")]
+    #[test_case("--9223372036854775808s" ; "repeated minus sign with i64 min")]
+    #[test_case("-9223372036854775808s" ; "seconds do not fit in i64")]
     fn parse_detect_bad_input(input: &str) -> Result {
         let got = Duration::try_from(input);
         assert!(got.is_err(), "{got:?}");
@@ -698,6 +715,15 @@ mod tests {
             matches!(err, DurationError::Deserialize(_)),
             "unexpected error {err:?}"
         );
+        Ok(())
+    }
+
+    #[test_case("+1s", 1, 0 ; "plus sign")]
+    #[test_case("+1.5s", 1, 500_000_000 ; "plus sign with nanos")]
+    #[test_case("-0.5s", 0, -500_000_000 ; "minus sign with zero seconds")]
+    fn parse_sign(input: &str, seconds: i64, nanos: i32) -> Result {
+        let got = Duration::try_from(input)?;
+        assert_eq!(got, Duration::new(seconds, nanos)?);
         Ok(())
     }
 
