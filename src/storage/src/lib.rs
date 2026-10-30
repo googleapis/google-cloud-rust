@@ -170,6 +170,12 @@ pub(crate) mod google {
         pub mod v2 {
             include!("generated/protos/storage/google.storage.v2.rs");
             include!("generated/convert/storage/convert.rs");
+            mod upload_protos {
+                use super::*;
+                include!("storage/parallel_upload/google.storage.v2.upload.rs");
+            }
+            #[allow(ambiguous_glob_reexports, unused_imports)]
+            pub(crate) use upload_protos::*;
         }
         pub mod control {
             pub mod v2 {
