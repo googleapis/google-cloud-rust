@@ -91,26 +91,83 @@ impl RowIterator {
             google_cloud_unstable_bigquery_arrow,
             google_cloud_unstable_bigquery_storage_read
         ))]
-        let (rows, schema, arrow_reader) = match q.cached_data {
-            CachedData::Rows(rows) => {
-                // DDL/DML queries may have no TableSchema in metadata.
-                let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
-                (rows, schema, None)
-            }
-            CachedData::Arrow {
-                serialized_record_batch,
-                serialized_schema,
-            } => {
-                let schema =
-                    Arc::new(Schema::from_arrow_schema(&serialized_schema).unwrap_or_default());
-                (
-                    VecDeque::new(),
-                    schema,
-                    Some(ArrowReader::Response(ArrowResponseReader::new(
-                        serialized_schema,
+        let (rows, schema, page_token, arrow_reader) = {
+            let metadata_schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
+
+            #[cfg(google_cloud_unstable_bigquery_storage_read)]
+            let storage_reader = {
+                let has_cached = match &q.cached_data {
+                    CachedData::Rows(rows) => !rows.is_empty(),
+                    CachedData::Arrow {
                         serialized_record_batch,
-                    ))),
-                )
+                        ..
+                    } => !serialized_record_batch.is_empty(),
+                };
+                let has_remaining_rows = q.page_token.is_some()
+                    || (!has_cached && q.metadata.total_rows.unwrap_or(0) > 0);
+                let exceeds_rest_threshold = q
+                    .metadata
+                    .total_rows
+                    .is_none_or(|r| r > crate::query::storage_reader::rest_row_threshold());
+
+                if let (Some(read_client), Some(job_ref)) = (q.read_client, q.job_ref.clone()) {
+                    if has_remaining_rows && exceeds_rest_threshold {
+                        Some(crate::query::storage_reader::StorageReader::new(
+                            read_client,
+                            job_ref,
+                        ))
+                    } else {
+                        None
+                    }
+                } else {
+                    None
+                }
+            };
+
+            #[cfg(google_cloud_unstable_bigquery_storage_read)]
+            let maybe_storage = storage_reader.map(|r| {
+                let schema = match &q.cached_data {
+                    CachedData::Arrow {
+                        serialized_schema, ..
+                    } if !serialized_schema.is_empty() => {
+                        Arc::new(Schema::from_arrow_schema(serialized_schema).unwrap_or_default())
+                    }
+                    _ => metadata_schema.clone(),
+                };
+                (VecDeque::new(), schema, None, Some(ArrowReader::Storage(r)))
+            });
+
+            #[cfg(not(google_cloud_unstable_bigquery_storage_read))]
+            let maybe_storage: Option<(
+                VecDeque<wkt::Struct>,
+                Arc<Schema>,
+                Option<String>,
+                Option<ArrowReader>,
+            )> = None;
+
+            if let Some(res) = maybe_storage {
+                res
+            } else {
+                match q.cached_data {
+                    CachedData::Rows(rows) => (rows, metadata_schema, q.page_token, None),
+                    CachedData::Arrow {
+                        serialized_record_batch,
+                        serialized_schema,
+                    } => {
+                        let schema = Arc::new(
+                            Schema::from_arrow_schema(&serialized_schema).unwrap_or_default(),
+                        );
+                        (
+                            VecDeque::new(),
+                            schema,
+                            q.page_token,
+                            Some(ArrowReader::Response(ArrowResponseReader::new(
+                                serialized_schema,
+                                serialized_record_batch,
+                            ))),
+                        )
+                    }
+                }
             }
         };
         #[cfg(not(any(
@@ -131,6 +188,15 @@ impl RowIterator {
             job_service: q.job_service,
             job_ref: q.job_ref,
             schema,
+            #[cfg(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            ))]
+            page_token,
+            #[cfg(not(any(
+                google_cloud_unstable_bigquery_arrow,
+                google_cloud_unstable_bigquery_storage_read
+            )))]
             page_token: q.page_token,
             #[cfg(any(
                 google_cloud_unstable_bigquery_arrow,
@@ -915,5 +981,221 @@ mod tests {
             assert_send(iter.next());
         }
         let _ = check;
+    }
+
+    #[cfg(google_cloud_unstable_bigquery_storage_read)]
+    #[tokio::test]
+    async fn test_row_iterator_storage_read_success() -> TestResult {
+        use crate::model::{ArrowRecordBatch, ArrowSchema};
+        use crate::query::tests::MockRead;
+        use arrow::array::Int64Array;
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchemaDef};
+        use arrow::ipc::writer::StreamWriter;
+        use google_cloud_gax::streaming::ResponseStream;
+        use tokio::sync::mpsc;
+
+        let arrow_schema = Arc::new(ArrowSchemaDef::new(vec![Field::new(
+            "col",
+            DataType::Int64,
+            false,
+        )]));
+        let mut schema_buf = Vec::new();
+        let _ = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
+
+        let batch1 = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![Arc::new(Int64Array::from(vec![10, 20]))],
+        )?;
+        let mut batch_buf1 = Vec::new();
+        let mut writer1 = StreamWriter::try_new(&mut batch_buf1, &arrow_schema)?;
+        writer1.write(&batch1)?;
+        let batch_buf1 = batch_buf1[schema_buf.len()..].to_vec();
+
+        let batch2 = RecordBatch::try_new(
+            arrow_schema.clone(),
+            vec![Arc::new(Int64Array::from(vec![30]))],
+        )?;
+        let mut batch_buf2 = Vec::new();
+        let mut writer2 = StreamWriter::try_new(&mut batch_buf2, &arrow_schema)?;
+        writer2.write(&batch2)?;
+        let batch_buf2 = batch_buf2[schema_buf.len()..].to_vec();
+
+        let (tx, rx) = mpsc::channel(3);
+        tx.send(Ok(crate::model::ReadRowsResponse::default().set_schema(
+            crate::model::read_rows_response::Schema::ArrowSchema(Box::new(
+                ArrowSchema::default().set_serialized_schema(bytes::Bytes::from(schema_buf)),
+            )),
+        )))
+        .await?;
+        tx.send(Ok(crate::model::ReadRowsResponse::default().set_rows(
+            crate::model::read_rows_response::Rows::ArrowRecordBatch(Box::new(
+                ArrowRecordBatch::default()
+                    .set_serialized_record_batch(bytes::Bytes::from(batch_buf1)),
+            )),
+        )))
+        .await?;
+        tx.send(Ok(crate::model::ReadRowsResponse::default().set_rows(
+            crate::model::read_rows_response::Rows::ArrowRecordBatch(Box::new(
+                ArrowRecordBatch::default()
+                    .set_serialized_record_batch(bytes::Bytes::from(batch_buf2)),
+            )),
+        )))
+        .await?;
+        drop(tx);
+
+        let mut mock_job = MockJobService::new();
+        mock_job.expect_get_query_results().never();
+
+        let mut mock_read = MockRead::new();
+        mock_read.expect_read_rows().times(1).return_once(|req, _| {
+            assert_eq!(
+                req.read_stream,
+                "projects/test_project/locations/US/jobs/test_job/streams/_default"
+            );
+            Ok(ResponseStream::from(rx))
+        });
+
+        let job_service = create_job_service(mock_job);
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+
+        let mut q = create_test_complete_query(
+            job_service,
+            Some(create_test_job_ref()),
+            vec![create_test_row("cached_rest_row")],
+            Some("rest_page_token".to_string()),
+        );
+        q.read_client = Some(read_client);
+        q.metadata.total_rows = Some(20_000);
+
+        let mut iter = q.read();
+        let row1 = iter.next().await.expect("row 1")?;
+        assert_eq!(row1.get::<i64>("col")?, 10);
+        let row2 = iter.next().await.expect("row 2")?;
+        assert_eq!(row2.get::<i64>("col")?, 20);
+        let row3 = iter.next().await.expect("row 3")?;
+        assert_eq!(row3.get::<i64>("col")?, 30);
+        assert!(iter.next().await.is_none(), "{iter:?}");
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_bigquery_storage_read)]
+    #[tokio::test]
+    async fn test_row_iterator_empty_query_with_storage_read_does_not_open_stream() -> TestResult {
+        use crate::query::tests::MockRead;
+
+        for total_rows in [None, Some(0)] {
+            let mut mock_job = MockJobService::new();
+            mock_job.expect_get_query_results().never();
+
+            let mut mock_read = MockRead::new();
+            mock_read.expect_read_rows().never();
+            mock_read.expect_create_read_session().never();
+
+            let job_service = create_job_service(mock_job);
+            let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+
+            let mut q =
+                create_test_complete_query(job_service, Some(create_test_job_ref()), vec![], None);
+            q.read_client = Some(read_client);
+            q.metadata.total_rows = total_rows;
+
+            let mut iter = q.read();
+            assert!(iter.next().await.is_none(), "{iter:?}");
+        }
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_bigquery_storage_read)]
+    #[tokio::test]
+    async fn test_row_iterator_storage_read_error_surfaces_without_fallback() -> TestResult {
+        use crate::query::tests::MockRead;
+        use google_cloud_gax::error::Error as GaxError;
+        use google_cloud_gax::error::rpc::{Code, Status};
+
+        let mut mock_job = MockJobService::new();
+        mock_job.expect_get_query_results().never();
+
+        let mut mock_read = MockRead::new();
+        mock_read.expect_read_rows().times(1).returning(|req, _| {
+            assert_eq!(
+                req.read_stream,
+                "projects/test_project/locations/US/jobs/test_job/streams/_default"
+            );
+            let status = Status::default()
+                .set_code(Code::PermissionDenied)
+                .set_message("storage read permission denied");
+            Err(GaxError::service(status))
+        });
+
+        let job_service = create_job_service(mock_job);
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+
+        let mut q = create_test_complete_query(
+            job_service,
+            Some(create_test_job_ref()),
+            vec![create_test_row("cached_rest_row")],
+            Some("rest_page_token".to_string()),
+        );
+        q.read_client = Some(read_client);
+        q.metadata.total_rows = Some(20_000);
+
+        let mut iter = q.read();
+        let err = iter
+            .next()
+            .await
+            .expect("should return an item")
+            .unwrap_err();
+        assert!(matches!(err, RowError::Rpc { .. }), "{err:?}");
+        assert!(
+            err.to_string().contains("storage read permission denied"),
+            "{err:?}"
+        );
+        assert!(iter.next().await.is_none(), "{iter:?}");
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_bigquery_storage_read)]
+    #[tokio::test]
+    async fn test_row_iterator_storage_read_under_threshold_uses_rest() -> TestResult {
+        use crate::query::tests::MockRead;
+
+        let mut mock_job = MockJobService::new();
+        mock_job
+            .expect_get_query_results()
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "rest_token_1");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("from_json_rest")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let mut mock_read = MockRead::new();
+        mock_read.expect_read_rows().never();
+
+        let job_service = create_job_service(mock_job);
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+
+        let mut q = create_test_complete_query(
+            job_service,
+            Some(create_test_job_ref()),
+            vec![create_test_row("cached_rest_row")],
+            Some("rest_token_1".to_string()),
+        );
+        q.read_client = Some(read_client);
+        q.metadata.total_rows = Some(5_000); // under 10,000 threshold
+
+        let mut iter = q.read();
+        let row1 = iter.next().await.expect("row 1")?;
+        assert_eq!(row1.get::<String>("col")?, "cached_rest_row");
+        let row2 = iter.next().await.expect("row 2")?;
+        assert_eq!(row2.get::<String>("col")?, "from_json_rest");
+        assert!(iter.next().await.is_none(), "{iter:?}");
+
+        Ok(())
     }
 }

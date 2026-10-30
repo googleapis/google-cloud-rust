@@ -131,7 +131,6 @@ impl RecordBatchSource for ArrowResponseReader {
 pub(crate) enum ArrowReader {
     Response(ArrowResponseReader),
     #[cfg(google_cloud_unstable_bigquery_storage_read)]
-    #[allow(dead_code)]
     Storage(crate::query::storage_reader::StorageReader),
 }
 
