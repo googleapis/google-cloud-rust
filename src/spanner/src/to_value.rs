@@ -23,6 +23,7 @@ use google_cloud_type::model::Date;
 use prost_types::Value as ProtoValue;
 use prost_types::value::Kind as ProtoKind;
 use rust_decimal::Decimal;
+use serde_json::Value as JsonValue;
 use std::time::SystemTime;
 #[cfg(feature = "unstable-time")]
 use time::Date as TimeDate;
@@ -435,6 +436,38 @@ impl From<Uuid> for Value {
     }
 }
 
+/// Encodes a [`serde_json::Value`] as a Spanner [`Value`].
+///
+/// Formats the JSON document as a standard RFC 7159 JSON string wrapped in a protobuf
+/// string value (`string_value`), matching the wire encoding expected by Cloud Spanner
+/// for `JSON` and `PG_JSONB` columns.
+///
+/// # SQL NULL vs. JSON null
+///
+/// Cloud Spanner distinguishes between a SQL `NULL` and a JSON `null` literal (`JSON 'null'`):
+/// - A JSON `null` document is represented by `serde_json::Value::Null` and serializes to the
+///   string `"null"` (`SELECT JSON 'null' IS NULL` evaluates to `false`).
+/// - A SQL `NULL` is represented by `Option::<serde_json::Value>::None`, which converts to
+///   [`Value::null`].
+impl ToValue for JsonValue {
+    fn to_value(&self) -> Value {
+        Value(ProtoValue {
+            kind: Some(ProtoKind::StringValue(self.to_string())),
+        })
+    }
+}
+
+/// Converts a [`serde_json::Value`] into a Spanner [`Value`].
+///
+/// Formats the JSON document as a standard RFC 7159 JSON string wrapped in a protobuf
+/// string value (`string_value`), matching the wire encoding expected by Cloud Spanner
+/// for `JSON` and `PG_JSONB` columns.
+impl From<JsonValue> for Value {
+    fn from(json: JsonValue) -> Self {
+        json.to_value()
+    }
+}
+
 impl<T> ToValue for Vec<T>
 where
     T: ToValue,
@@ -496,7 +529,13 @@ impl<T: ToValue + ?Sized> From<&mut T> for Value {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::from_value::{ConvertError, FromValue};
+    use crate::key;
+    use crate::mutation::Mutation;
+    use crate::statement::Statement;
+    use crate::types;
     use crate::value::Kind;
+    use serde_json::json;
     use static_assertions::assert_impl_all;
     use std::str::FromStr;
     use std::time::Duration;
@@ -730,6 +769,13 @@ mod tests {
         assert_impl_all!(&Timestamp: ToValue);
         assert_impl_all!(&Date: ToValue);
         assert_impl_all!(&Uuid: ToValue);
+        assert_impl_all!(JsonValue: ToValue);
+        assert_impl_all!(&JsonValue: ToValue);
+        assert_impl_all!(&mut JsonValue: ToValue);
+        assert_impl_all!(Option<JsonValue>: ToValue);
+        assert_impl_all!(Option<&JsonValue>: ToValue);
+        assert_impl_all!(Vec<JsonValue>: ToValue);
+        assert_impl_all!(Vec<&JsonValue>: ToValue);
         assert_impl_all!(&Option<i64>: ToValue);
         assert_impl_all!(Option<&str>: ToValue);
 
@@ -1412,5 +1458,562 @@ mod tests {
         let f32_finite_value = 12.5f32.to_value();
         assert_eq!(f32_finite_value.kind(), Kind::Number);
         assert_eq!(f32_finite_value.as_f64(), Some(12.5));
+    }
+
+    #[test]
+    fn to_value_json() {
+        let object_json = json!({"color": "red", "value": "#f00"});
+        let object_value = object_json.to_value();
+        assert_eq!(
+            object_value.kind(),
+            Kind::String,
+            "json object must encode as string"
+        );
+        assert_eq!(
+            object_value.as_str(),
+            Some(r##"{"color":"red","value":"#f00"}"##),
+            "serialized json object string must match"
+        );
+
+        let array_json = json!([1, 2, 3]);
+        let array_value = array_json.to_value();
+        assert_eq!(
+            array_value.kind(),
+            Kind::String,
+            "json array must encode as string"
+        );
+        assert_eq!(
+            array_value.as_str(),
+            Some("[1,2,3]"),
+            "serialized json array string must match"
+        );
+
+        let string_json = json!("hello world");
+        let string_value = string_json.to_value();
+        assert_eq!(
+            string_value.kind(),
+            Kind::String,
+            "json string must encode as string"
+        );
+        assert_eq!(
+            string_value.as_str(),
+            Some(r#""hello world""#),
+            "serialized json string must match"
+        );
+
+        let number_json = json!(42);
+        let number_value = number_json.to_value();
+        assert_eq!(
+            number_value.kind(),
+            Kind::String,
+            "json number must encode as string"
+        );
+        assert_eq!(
+            number_value.as_str(),
+            Some("42"),
+            "serialized json number string must match"
+        );
+
+        let bool_json = json!(true);
+        let bool_value = bool_json.to_value();
+        assert_eq!(
+            bool_value.kind(),
+            Kind::String,
+            "json boolean must encode as string"
+        );
+        assert_eq!(
+            bool_value.as_str(),
+            Some("true"),
+            "serialized json boolean string must match"
+        );
+
+        let null_json = json!(null);
+        let null_json_value = null_json.to_value();
+        assert_eq!(
+            null_json_value.kind(),
+            Kind::String,
+            "json null literal must encode as string 'null'"
+        );
+        assert_eq!(
+            null_json_value.as_str(),
+            Some("null"),
+            "json null literal string must be 'null'"
+        );
+
+        let borrowed_json: &JsonValue = &object_json;
+        let borrowed_object_value = Value::from(borrowed_json);
+        assert_eq!(
+            borrowed_object_value, object_value,
+            "borrowed json reference must encode identically to owned json"
+        );
+
+        let mut mutable_object_json = json!({"mutable": true});
+        let mutable_ref_value = Value::from(&mut mutable_object_json);
+        assert_eq!(
+            mutable_ref_value.as_str(),
+            Some(r#"{"mutable":true}"#),
+            "mutable json reference must encode correctly"
+        );
+
+        let none_json: Option<JsonValue> = None;
+        let none_value = none_json.to_value();
+        assert_eq!(
+            none_value.kind(),
+            Kind::Null,
+            "Option::<JsonValue>::None must encode as SQL null"
+        );
+        assert!(none_value.is_null(), "None must be null");
+
+        let some_null_json = Some(json!(null)).to_value();
+        assert_eq!(
+            some_null_json.kind(),
+            Kind::String,
+            "Some(json!(null)) must encode as JSON null string"
+        );
+        assert_eq!(
+            some_null_json.as_str(),
+            Some("null"),
+            "Some(json!(null)) string must be 'null'"
+        );
+
+        let some_object_json = Some(json!({"x": 1})).to_value();
+        assert_eq!(
+            some_object_json.kind(),
+            Kind::String,
+            "Some(json!(...)) must encode as JSON string"
+        );
+        assert_eq!(
+            some_object_json.as_str(),
+            Some(r#"{"x":1}"#),
+            "Some(json!(...)) string must match"
+        );
+    }
+
+    #[test]
+    fn from_json_for_value() {
+        let payload = json!({"id": "item-123", "tags": ["a", "b"]});
+
+        let owned_value: Value = payload.clone().into();
+        assert_eq!(
+            owned_value.kind(),
+            Kind::String,
+            "From<JsonValue> must produce a String value"
+        );
+        assert_eq!(
+            owned_value.as_str(),
+            Some(r#"{"id":"item-123","tags":["a","b"]}"#),
+            "owned json string must match"
+        );
+
+        let borrowed_value: Value = (&payload).into();
+        assert_eq!(
+            borrowed_value, owned_value,
+            "From<&JsonValue> must produce identical value to owned"
+        );
+
+        let mut mutable_payload = payload.clone();
+        let mutable_value: Value = (&mut mutable_payload).into();
+        assert_eq!(
+            mutable_value, owned_value,
+            "From<&mut JsonValue> must produce identical value to owned"
+        );
+
+        let none_value: Value = Option::<JsonValue>::None.into();
+        assert_eq!(
+            none_value.kind(),
+            Kind::Null,
+            "From<Option::None> must produce SQL null"
+        );
+
+        let some_value: Value = Some(payload.clone()).into();
+        assert_eq!(
+            some_value, owned_value,
+            "From<Option::Some> must produce JSON value"
+        );
+
+        let array_payload = vec![json!({"x": 1}), json!({"y": 2})];
+        let list_value: Value = array_payload.into();
+        assert_eq!(
+            list_value.kind(),
+            Kind::List,
+            "From<Vec<JsonValue>> must produce a List value"
+        );
+        let list = list_value.as_list().expect("list should be present");
+        assert_eq!(list.len(), 2, "array list must contain 2 elements");
+        assert_eq!(
+            list.get(0).expect("element 0 should exist").as_str(),
+            Some(r#"{"x":1}"#),
+            "first element must be serialized json string"
+        );
+        assert_eq!(
+            list.get(1).expect("element 1 should exist").as_str(),
+            Some(r#"{"y":2}"#),
+            "second element must be serialized json string"
+        );
+    }
+
+    #[test]
+    fn json_in_statements_mutations_and_keys() {
+        let profile = json!({"user": "alice", "roles": ["admin"]});
+
+        // 1. Statement add_param with borrowed and owned JsonValue
+        let borrowed_statement = Statement::builder("SELECT * FROM users WHERE profile = @profile")
+            .add_param("profile", &profile)
+            .build();
+        assert_eq!(
+            borrowed_statement.params.get("profile"),
+            Some(&Value::from(&profile)),
+            "statement params must contain profile parameter from borrowed json"
+        );
+
+        let owned_statement = Statement::builder("SELECT * FROM users WHERE profile = @profile")
+            .add_param("profile", profile.clone())
+            .build();
+        assert_eq!(
+            owned_statement.params.get("profile"),
+            Some(&Value::from(&profile)),
+            "statement params must contain profile parameter from owned json"
+        );
+
+        // 2. Statement add_typed_param with JsonValue and types::json()
+        let typed_statement = Statement::builder("SELECT * FROM users WHERE profile = @profile")
+            .add_typed_param("profile", &profile, types::json())
+            .build();
+        assert_eq!(
+            typed_statement.params.get("profile"),
+            Some(&Value::from(&profile)),
+            "typed statement params must contain profile"
+        );
+        assert_eq!(
+            typed_statement.param_types.get("profile"),
+            Some(&types::json()),
+            "typed statement param_types must contain TypeCode::Json"
+        );
+
+        // 3. Mutation ValueBinder::to with borrowed and owned JsonValue
+        let borrowed_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1i64)
+            .set("Profile")
+            .to(&profile)
+            .build();
+        let owned_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1i64)
+            .set("Profile")
+            .to(profile.clone())
+            .build();
+        assert_eq!(
+            borrowed_mutation, owned_mutation,
+            "borrowed and owned mutations with json must be identical"
+        );
+
+        // 4. key! macro with borrowed and owned JsonValue
+        let owned_key = key![profile.clone()];
+        let borrowed_key = key![&profile];
+        assert_eq!(
+            owned_key, borrowed_key,
+            "owned and borrowed key macro expansions with json must match"
+        );
+        assert_eq!(
+            owned_key.values,
+            vec![Value::from(&profile)],
+            "key values must match json value"
+        );
+    }
+
+    #[test]
+    fn to_value_json_all_permutations() {
+        let test_cases = [
+            // Booleans
+            json!(true),
+            json!(false),
+            // Integers
+            json!(0),
+            json!(42),
+            json!(-42),
+            json!(i64::MIN),
+            json!(i64::MAX),
+            // Floating-point numbers
+            json!(0.0),
+            json!(123.456),
+            json!(-99.99),
+            // Strings
+            json!(""),
+            json!("hello world"),
+            json!("quotes \" and \n and \t and \\"),
+            json!("unicode: こんにちは 🌍"),
+            // Arrays
+            json!([]),
+            json!([1, 2, 3]),
+            json!([1, "two", true, null, [2], {"k": "v"}]),
+            json!([[1, 2], [3, 4]]),
+            // Objects
+            json!({}),
+            json!({"color": "red", "value": "#f00"}),
+            json!({"nested": {"id": 1, "items": ["a", "b"]}}),
+            json!({"field_with_null": null}),
+            json!({"キー": "値"}),
+            // Null literal
+            json!(null),
+        ];
+
+        let json_type = types::json();
+
+        for original_json in test_cases {
+            let encoded_value = original_json.to_value();
+            assert_eq!(
+                encoded_value.kind(),
+                Kind::String,
+                "encoded JSON must have Kind::String for: {original_json}"
+            );
+            assert_eq!(
+                encoded_value.as_str(),
+                Some(original_json.to_string().as_str()),
+                "encoded string must match to_string() for: {original_json}"
+            );
+
+            // From owned JsonValue
+            let from_owned_value = Value::from(original_json.clone());
+            assert_eq!(
+                from_owned_value, encoded_value,
+                "Value::from(owned) must match to_value() for: {original_json}"
+            );
+
+            // From borrowed &JsonValue
+            let from_borrowed_value = Value::from(&original_json);
+            assert_eq!(
+                from_borrowed_value, encoded_value,
+                "Value::from(&borrowed) must match to_value() for: {original_json}"
+            );
+
+            // Round-trip deserialization via borrowed Value
+            let roundtripped_borrowed = JsonValue::from_value(&encoded_value, &json_type)
+                .expect("borrowed roundtrip deserialization must succeed");
+            assert_eq!(
+                roundtripped_borrowed, original_json,
+                "borrowed roundtrip must preserve exact JSON structure for: {original_json}"
+            );
+
+            // Round-trip deserialization via owned Value
+            let roundtripped_owned = JsonValue::from_owned_value(encoded_value, &json_type)
+                .expect("owned roundtrip deserialization must succeed");
+            assert_eq!(
+                roundtripped_owned, original_json,
+                "owned roundtrip must preserve exact JSON structure for: {original_json}"
+            );
+        }
+    }
+
+    #[test]
+    fn to_value_json_container_permutations() {
+        let json_type = types::json();
+
+        // 1. Option<JsonValue>
+        let none_json: Option<JsonValue> = None;
+        let none_value = none_json.to_value();
+        assert_eq!(
+            none_value.kind(),
+            Kind::Null,
+            "Option::<JsonValue>::None must encode as SQL null"
+        );
+        let roundtrip_none = <Option<JsonValue>>::from_value(&none_value, &json_type)
+            .expect("Option::from_value for SQL null must succeed");
+        assert_eq!(roundtrip_none, None, "SQL null must deserialize as None");
+
+        let some_null_json = Some(json!(null));
+        let some_null_value = some_null_json.to_value();
+        assert_eq!(
+            some_null_value.kind(),
+            Kind::String,
+            "Some(json!(null)) must encode as JSON null string"
+        );
+        let roundtrip_some_null = <Option<JsonValue>>::from_value(&some_null_value, &json_type)
+            .expect("Option::from_value for JSON null must succeed");
+        assert_eq!(
+            roundtrip_some_null,
+            Some(JsonValue::Null),
+            "JSON null must deserialize as Some(JsonValue::Null)"
+        );
+
+        let some_object_json = Some(json!({"id": 100}));
+        let some_object_value = some_object_json.to_value();
+        let roundtrip_some_object = <Option<JsonValue>>::from_value(&some_object_value, &json_type)
+            .expect("Option::from_value for JSON object must succeed");
+        assert_eq!(
+            roundtrip_some_object,
+            Some(json!({"id": 100})),
+            "JSON object must deserialize as Some(object)"
+        );
+
+        // 2. Option<&JsonValue>
+        let payload = json!({"key": "value"});
+        let none_ref: Option<&JsonValue> = None;
+        assert_eq!(
+            none_ref.to_value().kind(),
+            Kind::Null,
+            "Option::<&JsonValue>::None must encode as SQL null"
+        );
+        let some_ref: Option<&JsonValue> = Some(&payload);
+        assert_eq!(
+            some_ref.to_value().as_str(),
+            Some(r#"{"key":"value"}"#),
+            "Option::<&JsonValue>::Some must encode as JSON string"
+        );
+
+        // 3. Empty Vec<JsonValue> (ARRAY<JSON>)
+        let empty_vec: Vec<JsonValue> = Vec::new();
+        let empty_list_value = empty_vec.to_value();
+        assert_eq!(
+            empty_list_value.kind(),
+            Kind::List,
+            "empty Vec<JsonValue> must encode as Kind::List"
+        );
+        let empty_list = empty_list_value
+            .as_list()
+            .expect("empty list must be present");
+        assert_eq!(empty_list.len(), 0, "empty list must have length 0");
+
+        // 4. Vec<&JsonValue>
+        let json_a = json!({"a": 1});
+        let json_b = json!({"b": 2});
+        let borrowed_vec: Vec<&JsonValue> = vec![&json_a, &json_b];
+        let borrowed_list_value = borrowed_vec.to_value();
+        assert_eq!(
+            borrowed_list_value.kind(),
+            Kind::List,
+            "Vec<&JsonValue> must encode as Kind::List"
+        );
+        let borrowed_list = borrowed_list_value
+            .as_list()
+            .expect("borrowed list must be present");
+        assert_eq!(borrowed_list.len(), 2, "borrowed list must have 2 elements");
+
+        // 5. Vec<Option<JsonValue>>: Testing array with SQL NULL and JSON null elements
+        let array_with_nulls: Vec<Option<JsonValue>> =
+            vec![Some(json!({"x": 1})), None, Some(json!(null))];
+        let array_with_nulls_value = array_with_nulls.to_value();
+        assert_eq!(
+            array_with_nulls_value.kind(),
+            Kind::List,
+            "Vec<Option<JsonValue>> must encode as Kind::List"
+        );
+        let list_with_nulls = array_with_nulls_value
+            .as_list()
+            .expect("list with nulls must be present");
+        assert_eq!(
+            list_with_nulls.len(),
+            3,
+            "list with nulls must have 3 elements"
+        );
+        assert_eq!(
+            list_with_nulls
+                .get(0)
+                .expect("element 0 should exist")
+                .kind(),
+            Kind::String,
+            "element 0 must be Kind::String"
+        );
+        assert_eq!(
+            list_with_nulls
+                .get(0)
+                .expect("element 0 should exist")
+                .as_str(),
+            Some(r#"{"x":1}"#),
+            "element 0 string must match"
+        );
+        assert_eq!(
+            list_with_nulls
+                .get(1)
+                .expect("element 1 should exist")
+                .kind(),
+            Kind::Null,
+            "element 1 must be SQL NULL (Kind::Null)"
+        );
+        assert_eq!(
+            list_with_nulls
+                .get(2)
+                .expect("element 2 should exist")
+                .kind(),
+            Kind::String,
+            "element 2 must be JSON null (Kind::String)"
+        );
+        assert_eq!(
+            list_with_nulls
+                .get(2)
+                .expect("element 2 should exist")
+                .as_str(),
+            Some("null"),
+            "element 2 string must be 'null'"
+        );
+    }
+
+    #[test]
+    fn from_json_unhappy_paths() {
+        let json_type = types::json();
+
+        // 1. Malformed JSON string
+        let malformed_value = Value::from("{not valid json");
+        let malformed_error = JsonValue::from_value(&malformed_value, &json_type)
+            .expect_err("malformed JSON string must fail to deserialize");
+        assert!(
+            matches!(malformed_error, ConvertError::Convert(_)),
+            "expected ConvertError::Convert for malformed JSON string"
+        );
+
+        // 2. Unterminated JSON string
+        let unterminated_value = Value::from("{\"key\":");
+        let unterminated_error = JsonValue::from_value(&unterminated_value, &json_type)
+            .expect_err("unterminated JSON must fail to deserialize");
+        assert!(
+            matches!(unterminated_error, ConvertError::Convert(_)),
+            "expected ConvertError::Convert for unterminated JSON"
+        );
+
+        // 3. Empty string on a JSON column (empty string is not valid JSON)
+        let empty_str_value = Value::from("");
+        let empty_str_error = JsonValue::from_value(&empty_str_value, &json_type)
+            .expect_err("empty string must fail to deserialize as JSON");
+        assert!(
+            matches!(empty_str_error, ConvertError::Convert(_)),
+            "expected ConvertError::Convert for empty string"
+        );
+
+        // 4. Protobuf StructValue on wire (Spanner never accepts or sends StructValue)
+        let struct_wire_value = Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::StructValue(
+                prost_types::Struct::default(),
+            )),
+        });
+        let struct_wire_error = JsonValue::from_value(&struct_wire_value, &json_type)
+            .expect_err("unexpected StructValue on wire must be rejected");
+        assert!(
+            matches!(
+                &struct_wire_error,
+                ConvertError::Convert(source_error)
+                    if source_error.to_string().contains("unexpected protobuf StructValue")
+            ),
+            "expected ConvertError::Convert mentioning 'unexpected protobuf StructValue', got: {struct_wire_error:?}"
+        );
+
+        // 5. Incompatible wire type inside an array
+        let bad_array_value = Value(prost_types::Value {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue(
+                            "{invalid".to_string(),
+                        )),
+                    }],
+                },
+            )),
+        });
+        let array_type = types::array(types::json());
+        let bad_array_error = <Vec<JsonValue>>::from_value(&bad_array_value, &array_type)
+            .expect_err("array with invalid JSON element must fail");
+        assert!(
+            matches!(bad_array_error, ConvertError::Convert(_)),
+            "expected ConvertError::Convert for bad element in array"
+        );
     }
 }
