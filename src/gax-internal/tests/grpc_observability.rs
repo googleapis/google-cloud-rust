@@ -32,6 +32,7 @@ mod tests {
     use std::sync::LazyLock;
     use tokio_stream::StreamExt;
     use tracing::Instrument;
+    use tracing::instrument::WithSubscriber;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -60,15 +61,19 @@ mod tests {
         BTreeMap::from_iter(span.attributes.clone())
     }
 
-    /// Installs a subscriber that bridges `tracing` spans to OpenTelemetry,
+    /// Returns a dispatcher that bridges `tracing` spans to OpenTelemetry,
     /// so the clients have a trace context to propagate.
-    fn otel_guard() -> tracing::subscriber::DefaultGuard {
+    ///
+    /// Tests make it the default only while creating the parent span and
+    /// polling the request, since `TestLayer::initialize()` already sets the
+    /// global default.
+    fn otel_dispatch() -> tracing::Dispatch {
         use tracing_subscriber::layer::SubscriberExt;
         let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
         let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
         let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
         let subscriber = tracing_subscriber::registry().with(telemetry);
-        tracing::subscriber::set_default(subscriber)
+        tracing::Dispatch::new(subscriber)
     }
 
     #[track_caller]
@@ -680,17 +685,19 @@ mod tests {
         config.tracing = true;
         config.cred = Some(test_credentials());
         let client = C::connect(config, &endpoint).await?;
-        let _guard = otel_guard();
+        let dispatch = otel_dispatch();
         let request = google::test::v1::EchoRequest {
             message: "test message".into(),
             ..Default::default()
         };
 
         // Act
-        let span = tracing::info_span!("parent_span");
+        let span =
+            tracing::dispatcher::with_default(&dispatch, || tracing::info_span!("parent_span"));
         let response = client
             .echo(request, RequestOptions::default(), "")
             .instrument(span.clone())
+            .with_subscriber(dispatch)
             .await?;
 
         // Assert
@@ -711,7 +718,7 @@ mod tests {
         config.tracing = true;
         config.cred = Some(test_credentials());
         let client = C::connect(config, &endpoint).await?;
-        let _guard = otel_guard();
+        let dispatch = otel_dispatch();
 
         // Prepare the bidi message stream.
         let (tx, rx) = tokio::sync::mpsc::channel(4);
@@ -723,10 +730,12 @@ mod tests {
 
         // Act
         // Open the bidi stream inside a span so its trace ID is injected into headers.
-        let span = tracing::info_span!("parent_span");
+        let span =
+            tracing::dispatcher::with_default(&dispatch, || tracing::info_span!("parent_span"));
         let mut response_stream = client
             .chat(request_stream, RequestOptions::default(), "name=test-only")
             .instrument(span.clone())
+            .with_subscriber(dispatch)
             .await?
             .into_inner();
         tx.send(request).await?;
@@ -750,7 +759,7 @@ mod tests {
         config.tracing = true;
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
-        let _guard = otel_guard();
+        let dispatch = otel_dispatch();
 
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -765,7 +774,8 @@ mod tests {
             ..Default::default()
         };
 
-        let span = tracing::info_span!("parent_span");
+        let span =
+            tracing::dispatcher::with_default(&dispatch, || tracing::info_span!("parent_span"));
         let mut response_stream = client
             .server_streaming::<_, google::test::v1::EchoResponse>(
                 extensions,
@@ -776,6 +786,7 @@ mod tests {
                 "name=test-only",
             )
             .instrument(span.clone())
+            .with_subscriber(dispatch)
             .await?
             .into_inner();
 
