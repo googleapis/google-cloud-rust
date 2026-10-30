@@ -33,6 +33,7 @@ use crate::observability::metrics::SpannerMetricsInterceptor;
 use crate::omni::{InstanceType, TlsConfig, TlsError, is_plaintext_endpoint};
 use crate::request_id::RequestIdCreator;
 use crate::request_id_interceptor::{REQUEST_ID_HEADER, SpannerRequestIdInterceptor};
+use crate::resource_prefix_interceptor::SpannerResourcePrefixInterceptor;
 use crate::server_streaming::builder;
 use gaxi::attempt_interceptor::AttemptInterceptor;
 use gaxi::options::{ClientConfig, Credentials};
@@ -995,15 +996,19 @@ impl Channel {
             crate::generated::gapic_dataplane::transport::Spanner::new(config).await?;
         let request_id_interceptor: Arc<dyn AttemptInterceptor> =
             Arc::new(SpannerRequestIdInterceptor);
+        let resource_prefix_interceptor: Arc<dyn AttemptInterceptor> =
+            Arc::new(SpannerResourcePrefixInterceptor);
 
         #[cfg(feature = "_internal-metrics")]
         let interceptor: Arc<dyn AttemptInterceptor> = Arc::new(vec![
             request_id_interceptor,
+            resource_prefix_interceptor,
             Arc::new(SpannerMetricsInterceptor),
         ]);
 
         #[cfg(not(feature = "_internal-metrics"))]
-        let interceptor: Arc<dyn AttemptInterceptor> = request_id_interceptor;
+        let interceptor: Arc<dyn AttemptInterceptor> =
+            Arc::new(vec![request_id_interceptor, resource_prefix_interceptor]);
 
         transport.inner.set_attempt_interceptor(interceptor);
         let grpc_client = transport.inner.clone();
