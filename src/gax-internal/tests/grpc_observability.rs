@@ -24,12 +24,15 @@ mod tests {
     use google_cloud_gax_internal::observability::{ClientRequestAttributes, RequestRecorder};
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, TestLayerGuard};
-    use grpc_server::{google, start_echo_server};
+    use grpc_server::transport::{EchoStream, EchoTransport};
+    use grpc_server::{both_transports, google, start_echo_server};
     use pretty_assertions::assert_eq;
     use std::collections::BTreeMap;
     use std::sync::Arc;
     use std::sync::LazyLock;
     use tokio_stream::StreamExt;
+    use tracing::Instrument;
+    use tracing::instrument::WithSubscriber;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -56,6 +59,38 @@ mod tests {
             _ => panic!("should capture one `grpc.request` span, captured: {captured:?}"),
         };
         BTreeMap::from_iter(span.attributes.clone())
+    }
+
+    /// Returns a dispatcher that bridges `tracing` spans to OpenTelemetry,
+    /// so the clients have a trace context to propagate.
+    ///
+    /// Tests make it the default only while creating the parent span and
+    /// polling the request, since `TestLayer::initialize()` already sets the
+    /// global default.
+    fn otel_dispatch() -> tracing::Dispatch {
+        use tracing_subscriber::layer::SubscriberExt;
+        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
+        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
+        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
+        let subscriber = tracing_subscriber::registry().with(telemetry);
+        tracing::Dispatch::new(subscriber)
+    }
+
+    #[track_caller]
+    fn assert_traceparent_matches_span(
+        metadata: &std::collections::HashMap<String, String>,
+        span: &tracing::Span,
+    ) {
+        use opentelemetry::trace::TraceContextExt as _;
+        use tracing_opentelemetry::OpenTelemetrySpanExt as _;
+        let trace_id = span.context().span().span_context().trace_id().to_string();
+        let traceparent = metadata
+            .get("traceparent")
+            .unwrap_or_else(|| panic!("metadata should contain traceparent: {metadata:?}"));
+        assert!(
+            traceparent.contains(&trace_id),
+            "traceparent {traceparent:?} should contain span trace ID {trace_id:?}",
+        );
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
@@ -639,137 +674,51 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn propagate_trace_context() -> anyhow::Result<()> {
-        let (endpoint, _server) = start_echo_server().await?;
-
-        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
-        config.tracing = true;
-        config.cred = Some(test_credentials());
-        let client = grpc::Client::new(config, &endpoint).await?;
-
-        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
-        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
-        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
-        use tracing_subscriber::layer::SubscriberExt;
-        let subscriber = tracing_subscriber::registry().with(telemetry);
-        let _guard = tracing::subscriber::set_default(subscriber);
-
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
-        let request = google::test::v1::EchoRequest {
-            message: "test message".into(),
-            ..Default::default()
-        };
-
-        use tracing::Instrument;
-        let span = tracing::info_span!("parent_span");
-        let response = client
-            .execute::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                request,
-                RequestOptions::default(),
-                "test-client",
-                "",
-            )
-            .instrument(span)
-            .await?;
-
-        let inner = response.into_inner();
-        assert!(
-            inner.metadata.contains_key("traceparent"),
-            "Metadata should contain traceparent. Metadata: {:?}",
-            inner.metadata
-        );
-
-        Ok(())
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn propagate_trace_context_bidi_streaming() -> anyhow::Result<()> {
-        let (endpoint, _server) = start_echo_server().await?;
-
-        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
-        config.tracing = true;
-        config.cred = Some(test_credentials());
-        let client = grpc::Client::new(config, &endpoint).await?;
-
-        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
-        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
-        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
-        use tracing_subscriber::layer::SubscriberExt;
-        let subscriber = tracing_subscriber::registry().with(telemetry);
-        let _guard = tracing::subscriber::set_default(subscriber);
-
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Chat",
-            ));
-            e
-        };
-        let (tx, rx) = tokio::sync::mpsc::channel(4);
-        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
-
-        use tracing::Instrument;
-        let span = tracing::info_span!("parent_span");
-        let mut response_stream = client
-            .bidi_stream::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                request_stream,
-                RequestOptions::default(),
-                "test-client",
-                "name=test-only",
-            )
-            .instrument(span)
-            .await?
-            .into_inner();
-
-        let request = google::test::v1::EchoRequest {
-            message: "test message".into(),
-            ..Default::default()
-        };
-        tx.send(request).await?;
-
-        let response = response_stream.next().await.expect("stream closed")?;
-        drop(tx);
-
-        assert!(
-            response.metadata.contains_key("traceparent"),
-            "Metadata should contain traceparent. Metadata: {:?}",
-            response.metadata
-        );
-
-        Ok(())
-    }
-
-    #[cfg(google_cloud_unstable_grpc_rust)]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn propagate_trace_context_bidi_streaming_grpc_rust() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        propagate_trace_context
+    );
+    async fn propagate_trace_context<C: EchoTransport>() -> anyhow::Result<()> {
         // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-
-        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        let mut config = ClientConfig::default();
         config.tracing = true;
         config.cred = Some(test_credentials());
-        let client = grpc::GrpcRustClient::new(config, &endpoint).await?;
+        let client = C::connect(config, &endpoint).await?;
+        let dispatch = otel_dispatch();
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
 
-        // Wire up OpenTelemetry so spans get a valid trace ID to propagate.
-        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
-        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
-        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
-        use tracing_subscriber::layer::SubscriberExt;
-        let subscriber = tracing_subscriber::registry().with(telemetry);
-        let _guard = tracing::subscriber::set_default(subscriber);
+        // Act
+        let span =
+            tracing::dispatcher::with_default(&dispatch, || tracing::info_span!("parent_span"));
+        let response = client
+            .echo(request, RequestOptions::default(), "")
+            .instrument(span.clone())
+            .with_subscriber(dispatch)
+            .await?;
+
+        // Assert
+        let inner = response.into_inner();
+        assert_traceparent_matches_span(&inner.metadata, &span);
+
+        Ok(())
+    }
+
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        propagate_trace_context_bidi_streaming
+    );
+    async fn propagate_trace_context_bidi_streaming<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let mut config = ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(test_credentials());
+        let client = C::connect(config, &endpoint).await?;
+        let dispatch = otel_dispatch();
 
         // Prepare the bidi message stream.
         let (tx, rx) = tokio::sync::mpsc::channel(4);
@@ -781,18 +730,12 @@ mod tests {
 
         // Act
         // Open the bidi stream inside a span so its trace ID is injected into headers.
-        use tracing::Instrument;
-        let span = tracing::info_span!("parent_span");
+        let span =
+            tracing::dispatcher::with_default(&dispatch, || tracing::info_span!("parent_span"));
         let mut response_stream = client
-            .bidi_stream::<_, google::test::v1::EchoResponse>(
-                tonic::Extensions::new(),
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                request_stream,
-                RequestOptions::default(),
-                "test-client",
-                "name=test-only",
-            )
-            .instrument(span)
+            .chat(request_stream, RequestOptions::default(), "name=test-only")
+            .instrument(span.clone())
+            .with_subscriber(dispatch)
             .await?
             .into_inner();
         tx.send(request).await?;
@@ -803,11 +746,7 @@ mod tests {
         drop(tx);
 
         // Assert
-        assert!(
-            response.metadata.contains_key("traceparent"),
-            "Metadata should contain traceparent. Metadata: {:?}",
-            response.metadata
-        );
+        assert_traceparent_matches_span(&response.metadata, &span);
 
         Ok(())
     }
@@ -820,13 +759,7 @@ mod tests {
         config.tracing = true;
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
-
-        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
-        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
-        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
-        use tracing_subscriber::layer::SubscriberExt;
-        let subscriber = tracing_subscriber::registry().with(telemetry);
-        let _guard = tracing::subscriber::set_default(subscriber);
+        let dispatch = otel_dispatch();
 
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -841,8 +774,8 @@ mod tests {
             ..Default::default()
         };
 
-        use tracing::Instrument;
-        let span = tracing::info_span!("parent_span");
+        let span =
+            tracing::dispatcher::with_default(&dispatch, || tracing::info_span!("parent_span"));
         let mut response_stream = client
             .server_streaming::<_, google::test::v1::EchoResponse>(
                 extensions,
@@ -852,17 +785,14 @@ mod tests {
                 "test-client",
                 "name=test-only",
             )
-            .instrument(span)
+            .instrument(span.clone())
+            .with_subscriber(dispatch)
             .await?
             .into_inner();
 
         let response = response_stream.next().await.expect("stream closed")?;
 
-        assert!(
-            response.metadata.contains_key("traceparent"),
-            "Metadata should contain traceparent. Metadata: {:?}",
-            response.metadata
-        );
+        assert_traceparent_matches_span(&response.metadata, &span);
 
         Ok(())
     }

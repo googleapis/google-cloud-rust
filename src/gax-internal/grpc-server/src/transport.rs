@@ -33,13 +33,19 @@ use std::sync::Arc;
 
 pub use gaxi::grpc::Client;
 #[cfg(google_cloud_unstable_grpc_rust)]
-pub use gaxi::grpc::GrpcRustClient;
+pub use gaxi::grpc::{GrpcRustClient, GrpcRustStreaming};
+
+/// The API client header sent by every request.
+const API_CLIENT_HEADER: &str = "test-only-api-client/1.0";
 
 /// The echo service calls made by the integration tests.
 ///
 /// Every transport implements this trait the same way, so a generic test
 /// sends the same requests through each of them.
 pub trait EchoTransport: Clone + Send + Sync + 'static {
+    /// The response stream returned by [`chat`](Self::chat).
+    type Stream: EchoStream;
+
     /// Creates a client that sends requests to `default_endpoint`, unless
     /// `config.endpoint` overrides it.
     fn connect(
@@ -55,6 +61,27 @@ pub trait EchoTransport: Clone + Send + Sync + 'static {
         request_params: &str,
     ) -> impl Future<Output = google_cloud_gax::Result<tonic::Response<EchoResponse>>> + Send;
 
+    /// Opens a `google.test.v1.EchoService/Chat` stream that sends `requests`.
+    fn chat<S>(
+        &self,
+        requests: S,
+        options: RequestOptions,
+        request_params: &str,
+    ) -> impl Future<Output = google_cloud_gax::Result<tonic::Response<Self::Stream>>> + Send
+    where
+        S: tokio_stream::Stream<Item = EchoRequest> + Send + 'static;
+
+    /// Like [`chat`](Self::chat), but returns RPC errors as a `tonic::Status`.
+    fn chat_with_status<S>(
+        &self,
+        requests: S,
+        options: RequestOptions,
+        request_params: &str,
+    ) -> impl Future<Output = google_cloud_gax::Result<tonic::Result<tonic::Response<Self::Stream>>>>
+    + Send
+    where
+        S: tokio_stream::Stream<Item = EchoRequest> + Send + 'static;
+
     /// Returns the polling error policy for `options`.
     fn get_polling_error_policy(&self, options: &RequestOptions) -> Arc<dyn PollingErrorPolicy>;
 
@@ -63,11 +90,39 @@ pub trait EchoTransport: Clone + Send + Sync + 'static {
     -> Arc<dyn PollingBackoffPolicy>;
 }
 
+/// The response stream of [`EchoTransport::chat`].
+pub trait EchoStream: Send + 'static {
+    /// Returns the next response, or `None` when the stream ends.
+    fn message(&mut self) -> impl Future<Output = tonic::Result<Option<EchoResponse>>> + Send;
+}
+
+impl EchoStream for tonic::Streaming<EchoResponse> {
+    async fn message(&mut self) -> tonic::Result<Option<EchoResponse>> {
+        tonic::Streaming::message(self).await
+    }
+}
+
+#[cfg(google_cloud_unstable_grpc_rust)]
+impl EchoStream for GrpcRustStreaming<EchoResponse> {
+    async fn message(&mut self) -> tonic::Result<Option<EchoResponse>> {
+        GrpcRustStreaming::message(self).await
+    }
+}
+
+/// Returns the extensions for a call to the echo service `method`.
+fn extensions(method: &'static str) -> tonic::Extensions {
+    let mut extensions = tonic::Extensions::new();
+    extensions.insert(tonic::GrpcMethod::new("google.test.v1.EchoService", method));
+    extensions
+}
+
 /// Implements [`EchoTransport`] with the inherent methods that every client
 /// provides.
 macro_rules! impl_echo_transport {
-    ($client:ty) => {
+    ($client:ty, $stream:ty) => {
         impl EchoTransport for $client {
+            type Stream = $stream;
+
             async fn connect(
                 config: ClientConfig,
                 default_endpoint: &str,
@@ -81,14 +136,52 @@ macro_rules! impl_echo_transport {
                 options: RequestOptions,
                 request_params: &str,
             ) -> google_cloud_gax::Result<tonic::Response<EchoResponse>> {
-                let mut extensions = tonic::Extensions::new();
-                extensions.insert(tonic::GrpcMethod::new("google.test.v1.EchoService", "Echo"));
                 self.execute(
-                    extensions,
+                    extensions("Echo"),
                     http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
                     request,
                     options,
-                    "test-only-api-client/1.0",
+                    API_CLIENT_HEADER,
+                    request_params,
+                )
+                .await
+            }
+
+            async fn chat<S>(
+                &self,
+                requests: S,
+                options: RequestOptions,
+                request_params: &str,
+            ) -> google_cloud_gax::Result<tonic::Response<Self::Stream>>
+            where
+                S: tokio_stream::Stream<Item = EchoRequest> + Send + 'static,
+            {
+                self.bidi_stream(
+                    extensions("Chat"),
+                    http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                    requests,
+                    options,
+                    API_CLIENT_HEADER,
+                    request_params,
+                )
+                .await
+            }
+
+            async fn chat_with_status<S>(
+                &self,
+                requests: S,
+                options: RequestOptions,
+                request_params: &str,
+            ) -> google_cloud_gax::Result<tonic::Result<tonic::Response<Self::Stream>>>
+            where
+                S: tokio_stream::Stream<Item = EchoRequest> + Send + 'static,
+            {
+                self.bidi_stream_with_status(
+                    extensions("Chat"),
+                    http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                    requests,
+                    options,
+                    API_CLIENT_HEADER,
                     request_params,
                 )
                 .await
@@ -113,9 +206,9 @@ macro_rules! impl_echo_transport {
     };
 }
 
-impl_echo_transport!(Client);
+impl_echo_transport!(Client, tonic::Streaming<EchoResponse>);
 #[cfg(google_cloud_unstable_grpc_rust)]
-impl_echo_transport!(GrpcRustClient);
+impl_echo_transport!(GrpcRustClient, GrpcRustStreaming<EchoResponse>);
 
 /// A [`ClientFactory`] for `C` clients, see [`transport_builder`].
 pub struct TransportFactory<C> {
