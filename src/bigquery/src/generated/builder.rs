@@ -284,6 +284,12 @@ impl Query {
         self
     }
 
+    /// Sets the value of [request.query_results_format][crate::builder::bigquery::QueryRequest::query_results_format].
+    pub fn set_query_results_format<T: std::convert::Into<google_cloud_bigquery_v2::model::query_request::QueryResultsFormat>>(mut self, v: T) -> Self {
+        self.request.query_results_format = v.into();
+        self
+    }
+
     /// Sets the value of [request.range_partitioning][crate::builder::bigquery::QueryRequest::range_partitioning].
     pub fn set_range_partitioning<T>(mut self, v: T) -> Self
     where T: std::convert::Into<google_cloud_bigquery_v2::model::RangePartitioning>

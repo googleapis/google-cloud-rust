@@ -160,6 +160,20 @@ pub struct QueryRequest {
     /// Query parameters for GoogleSQL queries.
     pub query_parameters: std::vec::Vec<google_cloud_bigquery_v2::model::QueryParameter>,
 
+    /// Optional. The query results format.
+    /// If the value is anything other than `STRUCT_ENCODING` or unspecified:
+    ///
+    /// * The schema of the results will be provided in
+    ///   `QueryResponse.results_schema` field.
+    /// * The results of the first page will be provided in
+    ///   `QueryResponse.results` field.
+    /// * The `QueryResponse.rows` will not be populated.
+    /// * The `QueryResponse.schema` for `QueryResponse.rows` will also not be
+    ///   populated since it is the schema of the `QueryResponse.rows`.
+    ///
+    /// This feature is not yet available.
+    pub query_results_format: google_cloud_bigquery_v2::model::query_request::QueryResultsFormat,
+
     /// Range partitioning specification for the destination table.
     /// Only one of timePartitioning and rangePartitioning should be specified.
     pub range_partitioning: std::option::Option<google_cloud_bigquery_v2::model::RangePartitioning>,
@@ -549,6 +563,17 @@ impl QueryRequest {
         self
     }
 
+    /// Sets the value of [query_results_format][crate::model_ext::QueryRequest::query_results_format].
+    pub fn set_query_results_format<
+        T: std::convert::Into<google_cloud_bigquery_v2::model::query_request::QueryResultsFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_results_format = v.into();
+        self
+    }
+
     /// Sets the value of [range_partitioning][crate::model_ext::QueryRequest::range_partitioning].
     pub fn set_range_partitioning<T>(mut self, v: T) -> Self
     where
@@ -740,6 +765,7 @@ mod debug {
             debug_struct.field("priority", &self.priority);
             debug_struct.field("query", &self.query);
             debug_struct.field("query_parameters", &self.query_parameters);
+            debug_struct.field("query_results_format", &self.query_results_format);
             debug_struct.field("range_partitioning", &self.range_partitioning);
             debug_struct.field("reservation", &self.reservation);
             debug_struct.field("schema_update_options", &self.schema_update_options);
@@ -799,6 +825,7 @@ impl std::convert::From<QueryRequest> for google_cloud_bigquery_v2::model::Query
         out.parameter_mode = req.parameter_mode;
         out.query = req.query;
         out.query_parameters = req.query_parameters;
+        out.query_results_format = req.query_results_format;
         out.reservation = req.reservation;
         out.timeout_ms = req.timeout_ms;
         out.use_legacy_sql = req.use_legacy_sql;
