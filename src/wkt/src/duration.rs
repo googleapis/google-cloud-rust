@@ -301,7 +301,7 @@ impl TryFrom<&str> for Duration {
         let seconds = seconds
             .map(|s| {
                 // `str::parse()` accepts a sign, but the sign was consumed above.
-                if s.is_empty() || !s.chars().all(|c| c.is_ascii_digit()) {
+                if s.is_empty() || !s.bytes().all(|b| b.is_ascii_digit()) {
                     return Err(DurationError::Deserialize(
                         format!("seconds are not a number [{s}]").into(),
                     ));
