@@ -1815,6 +1815,70 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
+    async fn sends_resource_prefix_header() {
+        const DATABASE: &str = "projects/test-project/instances/test-instance/databases/test-db";
+        fn resource_prefix(metadata: &MetadataMap) -> Option<String> {
+            metadata
+                .get("google-cloud-resource-prefix")
+                .and_then(|value| value.to_str().ok())
+                .map(str::to_string)
+        }
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            assert_eq!(resource_prefix(req.metadata()).as_deref(), Some(DATABASE));
+            Ok(Response::new(mock_v1::Session {
+                name: format!("{DATABASE}/sessions/s1"),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = mpsc::channel(1);
+            Ok(Response::from(receiver))
+        });
+        let streaming_prefix = Arc::new(std::sync::Mutex::new(None));
+        let captured = Arc::clone(&streaming_prefix);
+        mock.expect_execute_streaming_sql().returning(move |req| {
+            *captured.lock().expect("lock should succeed") = resource_prefix(req.metadata());
+            Ok(Response::from(adapt([])))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+        let db_client = spanner
+            .database_client(DATABASE)
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        // The mock returns an empty stream, so the outcome of the query is irrelevant here.
+        if let Ok(mut rs) = db_client
+            .single_use()
+            .build()
+            .execute_query("SELECT 1")
+            .await
+        {
+            while let Some(Ok(_)) = rs.next().await {}
+        }
+
+        assert_eq!(
+            streaming_prefix
+                .lock()
+                .expect("lock should succeed")
+                .as_deref(),
+            Some(DATABASE)
+        );
+    }
+
+    #[tokio_test_no_panics]
     async fn test_database_client_builder_with_options() {
         let mut mock = MockSpanner::new();
         let mut seq = Sequence::new();
