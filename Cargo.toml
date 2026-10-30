@@ -480,6 +480,7 @@ toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.34" }
 tracing-subscriber    = { default-features = false, version = "0.3.23" }
+typeid                = { default-features = false, version = "1.0.3" }
 url                   = { default-features = false, version = "2.4" }
 uuid                  = { default-features = false, version = "1.23", features = ["v4"] }
 
@@ -593,7 +594,7 @@ google-cloud-storage                 = { default-features = false, path = "src/s
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
 google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.19.0" }
-google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.2.0" }
+google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.2.1" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "1.1.0" }
 google-cloud-bigtable-admin-v2       = { default-features = false, path = "src/generated/bigtable/admin/v2" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }

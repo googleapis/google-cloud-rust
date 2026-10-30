@@ -2451,6 +2451,7 @@ dependencies = [
  "tokio",
  "tokio-stream",
  "tracing",
+ "typeid",
  "uuid",
 ]
 
@@ -2544,7 +2545,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-derive"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -7281,6 +7282,7 @@ dependencies = [
  "google-cloud-wkt",
  "rand 0.10.3",
  "rust_decimal",
+ "serde_json",
  "tokio",
 ]
 
@@ -10349,6 +10351,12 @@ name = "twox-hash"
 version = "2.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "86a801b3cea342a06d468c8710662aa29e5e05e4f5c0d62f00bbb7f2ad7941c2"
+
+[[package]]
+name = "typeid"
+version = "1.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc7d623258602320d5c55d1bc22793b57daff0ec7efc270ea7d55ce1d5f5471c"
 
 [[package]]
 name = "typenum"
