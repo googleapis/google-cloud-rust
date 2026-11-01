@@ -52,7 +52,7 @@ use futures::Stream;
 /// per-request tags apply only to queries and reads, and are ignored by the
 /// `BatchWrite` RPC. Use [set_transaction_tag][BatchWriteTransactionBuilder::set_transaction_tag]
 /// to tag the transactions of a batch write.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct BatchWriteTransactionBuilder {
     client: DatabaseClient,
     transaction_tag: Option<String>,
@@ -668,9 +668,49 @@ mod tests {
 
     #[test]
     fn traits() {
-        static_assertions::assert_impl_all!(BatchWriteTransactionBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(BatchWriteTransactionBuilder: Debug, Send, Sync, Clone);
         static_assertions::assert_impl_all!(BatchWriteTransaction: Debug, Send, Sync);
         static_assertions::assert_impl_all!(BatchWriteResponseStream: Debug, Send, Sync);
+    }
+
+    #[tokio_test_no_panics]
+    async fn batch_write_transaction_builder_clone() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let builder = database_client
+            .batch_write_transaction()
+            .set_transaction_tag("batch-tag")
+            .set_priority(Priority::Low);
+        let cloned_builder = builder.clone();
+        assert_eq!(
+            cloned_builder.transaction_tag.as_deref(),
+            Some("batch-tag"),
+            "cloned builder should retain transaction tag"
+        );
+        assert_eq!(
+            cloned_builder.priority,
+            Priority::Low,
+            "cloned builder should retain priority"
+        );
+
+        let transaction = cloned_builder.build();
+        assert_eq!(
+            transaction.transaction_tag.as_deref(),
+            Some("batch-tag"),
+            "transaction built from cloned builder should retain transaction tag"
+        );
+        assert_eq!(
+            transaction.priority,
+            Priority::Low,
+            "transaction built from cloned builder should retain priority"
+        );
     }
 
     pub(crate) async fn setup_db_client(

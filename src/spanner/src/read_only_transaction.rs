@@ -56,7 +56,7 @@ use tokio::sync::futures::OwnedNotified;
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct SingleUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
@@ -253,7 +253,7 @@ pub enum BeginTransactionOption {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct MultiUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
@@ -532,7 +532,7 @@ impl MultiUseReadOnlyTransactionBuilder {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct MultiUseReadOnlyTransaction {
     pub(crate) context: ReadContext,
 }
@@ -1502,11 +1502,11 @@ pub(crate) mod tests {
     #[test]
     fn auto_traits() {
         use std::fmt::Debug;
-        static_assertions::assert_impl_all!(SingleUseReadOnlyTransactionBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(SingleUseReadOnlyTransactionBuilder: Debug, Send, Sync, Clone);
         static_assertions::assert_impl_all!(SingleUseReadOnlyTransaction: Debug, Send, Sync);
-        static_assertions::assert_impl_all!(MultiUseReadOnlyTransactionBuilder: Debug, Send, Sync);
-        static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Debug, Send, Sync);
-        static_assertions::assert_impl_all!(ReadContext: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(MultiUseReadOnlyTransactionBuilder: Debug, Send, Sync, Clone);
+        static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Debug, Send, Sync, Clone);
+        static_assertions::assert_impl_all!(ReadContext: Debug, Send, Sync, Clone);
         static_assertions::assert_impl_all!(
             BeginTransactionOption: Send,
             Sync,
@@ -1517,6 +1517,72 @@ pub(crate) mod tests {
             PartialEq,
             Eq
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn single_use_builder_clone() {
+        let mock = create_session_mock();
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let builder = database_client
+            .single_use()
+            .set_timestamp_bound(TimestampBound::strong());
+        let cloned_builder = builder.clone();
+        assert!(
+            cloned_builder.timestamp_bound.is_some(),
+            "cloned builder should retain timestamp bound"
+        );
+
+        let transaction = cloned_builder.build();
+        assert_eq!(
+            transaction.context.session_name, "projects/p/instances/i/databases/d/sessions/123",
+            "transaction built from cloned builder should retain session name"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn multi_use_transaction_and_builder_clone() {
+        let mock = create_session_mock();
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let builder = database_client
+            .read_only_transaction()
+            .set_timestamp_bound(TimestampBound::strong())
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin);
+        let cloned_builder = builder.clone();
+        assert!(
+            cloned_builder.timestamp_bound.is_some(),
+            "cloned builder should retain timestamp bound"
+        );
+        assert_eq!(
+            cloned_builder.begin_transaction_option,
+            BeginTransactionOption::InlineBegin,
+            "cloned builder should retain begin transaction option"
+        );
+
+        let transaction = builder
+            .build()
+            .await
+            .expect("failed to build multi-use transaction");
+        let cloned_transaction = transaction.clone();
+        assert_eq!(
+            cloned_transaction.context.session_name, transaction.context.session_name,
+            "cloned transaction should retain session name"
+        );
+        if let (
+            ReadContextTransactionSelector::Lazy(original_state),
+            ReadContextTransactionSelector::Lazy(cloned_state),
+        ) = (
+            &transaction.context.transaction_selector,
+            &cloned_transaction.context.transaction_selector,
+        ) {
+            assert!(
+                Arc::ptr_eq(original_state, cloned_state),
+                "cloned transaction must share the same underlying transaction state Arc"
+            );
+        } else {
+            panic!("expected Lazy transaction selector variant");
+        }
     }
 
     pub(crate) fn create_session_mock() -> MockSpanner {
