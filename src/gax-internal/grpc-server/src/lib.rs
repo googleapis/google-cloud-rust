@@ -18,12 +18,36 @@ use google_cloud_gax::client_builder::ClientBuilder;
 use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::client_builder::internal::{ClientFactory, new_builder};
 use std::collections::{HashMap, VecDeque};
-use std::sync::{Arc, Mutex};
+use std::sync::{
+    Arc, Mutex,
+    atomic::{AtomicUsize, Ordering},
+};
 use tokio::task::JoinHandle;
 use tonic::metadata::MetadataMap;
 use tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
 
 type EchoResult = tonic::Result<tonic::Response<EchoResponse>>;
+
+/// Guard that tracks when an echo handler is sleeping in `tokio::time::sleep`.
+///
+/// In `#[tokio::test(start_paused = true)]` tests, Tokio auto-advances the
+/// virtual clock whenever the runtime run queue is empty and `epoll_wait(..., 0)`
+/// returns no ready events. Over a real OS loopback TCP socket (`127.0.0.1`),
+/// the kernel may defer loopback packet delivery to `ksoftirqd`, causing
+/// `epoll_wait(..., 0)` to return 0 while TCP segments are in flight.
+///
+/// When `start_echo_server_with_paused_time` is used, the server loop yields
+/// (`tokio::task::yield_now()`) whenever no handler is actively sleeping
+/// (`active_sleeps == 0`), keeping the Tokio run queue non-empty during TCP
+/// handshake and request/response I/O so virtual time only advances during the
+/// handler's intentional `delay_ms` sleep.
+struct ActiveSleepGuard(Arc<AtomicUsize>);
+
+impl Drop for ActiveSleepGuard {
+    fn drop(&mut self) {
+        self.0.fetch_sub(1, Ordering::SeqCst);
+    }
+}
 
 pub mod google {
     pub mod test {
@@ -37,23 +61,44 @@ pub async fn start_echo_server() -> anyhow::Result<(String, JoinHandle<()>)> {
     start_echo_server_with_address("127.0.0.1:0").await
 }
 
+pub async fn start_echo_server_with_paused_time() -> anyhow::Result<(String, JoinHandle<()>)> {
+    start_echo_server_internal("127.0.0.1:0", true).await
+}
+
 pub async fn start_echo_server_with_address(
     address: &str,
+) -> anyhow::Result<(String, JoinHandle<()>)> {
+    start_echo_server_internal(address, false).await
+}
+
+async fn start_echo_server_internal(
+    address: &str,
+    paused_time: bool,
 ) -> anyhow::Result<(String, JoinHandle<()>)> {
     let listener = tokio::net::TcpListener::bind(address).await?;
     let addr = listener.local_addr()?;
 
-    let server = tokio::spawn(async {
-        let echo = Echo;
+    let active_sleeps = Arc::new(AtomicUsize::new(0));
+    let server = tokio::spawn(async move {
+        let echo = Echo {
+            active_sleeps: active_sleeps.clone(),
+        };
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
-        let _ = Server::builder()
-            .add_service(
-                google::test::v1::echo_service_server::EchoServiceServer::new(echo)
-                    .max_decoding_message_size(usize::MAX),
-            )
-            .serve_with_incoming(stream)
-            .await;
+        let mut serve = std::pin::pin!(
+            Server::builder()
+                .add_service(
+                    google::test::v1::echo_service_server::EchoServiceServer::new(echo)
+                        .max_decoding_message_size(usize::MAX),
+                )
+                .serve_with_incoming(stream)
+        );
+        loop {
+            tokio::select! {
+                _ = &mut serve => break,
+                _ = tokio::task::yield_now(), if paused_time && active_sleeps.load(Ordering::SeqCst) == 0 => {}
+            }
+        }
     });
 
     let uri = if addr.is_ipv6() {
@@ -74,7 +119,7 @@ pub async fn start_echo_server_with_tls(
         Server::builder().tls_config(ServerTlsConfig::new().identity(identity))?;
 
     let server = tokio::spawn(async move {
-        let echo = Echo;
+        let echo = Echo::default();
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
         let _ = server_builder
@@ -99,7 +144,7 @@ pub async fn start_echo_server_with_mtls(
     )?;
 
     let server = tokio::spawn(async move {
-        let echo = Echo;
+        let echo = Echo::default();
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
         let _ = server_builder
@@ -145,8 +190,10 @@ impl ClientFactory for Factory {
     }
 }
 
-#[derive(Debug)]
-struct Echo;
+#[derive(Debug, Default)]
+struct Echo {
+    active_sleeps: Arc<AtomicUsize>,
+}
 
 #[async_trait::async_trait]
 impl google::test::v1::echo_service_server::EchoService for Echo {
@@ -169,6 +216,8 @@ impl google::test::v1::echo_service_server::EchoService for Echo {
         }
 
         if let Some(delay) = request.delay_ms.map(tokio::time::Duration::from_millis) {
+            self.active_sleeps.fetch_add(1, Ordering::SeqCst);
+            let _guard = ActiveSleepGuard(self.active_sleeps.clone());
             tokio::time::sleep(delay).await;
         }
 
