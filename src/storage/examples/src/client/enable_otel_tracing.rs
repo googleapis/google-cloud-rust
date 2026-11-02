@@ -31,10 +31,11 @@ pub async fn sample(bucket_id: &str) -> anyhow::Result<()> {
         .build();
     let tracer = provider.tracer("storage-quickstart");
 
-    // Create a tracing layer and register the subscriber globally.
+    // Create a tracing layer and register the subscriber for the current scope.
+    // In an application's `main`, use `tracing::subscriber::set_global_default` instead.
     let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
     let subscriber = Registry::default().with(telemetry);
-    tracing::subscriber::set_global_default(subscriber)?;
+    let _guard = tracing::subscriber::set_default(subscriber);
 
     // Build a Storage client with client-side tracing enabled.
     let client = Storage::builder().with_tracing().build().await?;
