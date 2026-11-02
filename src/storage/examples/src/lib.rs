@@ -70,6 +70,96 @@ pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::R
     Ok(())
 }
 
+pub async fn run_rapid_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
+    use google_cloud_test_utils::runtime_config::zone_id;
+    let _guard = enable_info_tracing();
+
+    // Rapid Cache requires a regional, HNS-enabled bucket in the same region
+    // as the cache zone.
+    let zone = zone_id();
+    let region = zone
+        .rsplit_once('-')
+        .map(|(region, _)| region)
+        .unwrap_or(zone.as_str());
+    tracing::info!("Create bucket for rapid cache examples in {region}");
+    let (client, bucket) = create_test_hns_bucket_in_location(region).await?;
+    let id = bucket
+        .name
+        .strip_prefix("projects/_/buckets/")
+        .expect("bucket name has prefix");
+    buckets.push(id.to_string());
+
+    tracing::info!("running control_create_rapid_cache");
+    control::create_rapid_cache::sample(&client, id, &zone).await?;
+
+    // The cache id is assigned by the service; find it using the zone. If
+    // this lookup fails, the bucket cleanup still disables the cache.
+    let mut caches = client
+        .list_rapid_caches()
+        .set_parent(&bucket.name)
+        .by_item();
+    let mut cache_name = None;
+    while let Some(cache) = caches.next().await {
+        let cache = cache?;
+        if cache.zone == zone {
+            cache_name = Some(cache.name);
+            break;
+        }
+    }
+    let cache_name = cache_name
+        .ok_or_else(|| anyhow::anyhow!("cannot find rapid cache in zone {zone} for {id}"))?;
+    let cache_id = cache_name
+        .rsplit_once("/rapidCaches/")
+        .map(|(_, cache_id)| cache_id.to_string())
+        .ok_or_else(|| anyhow::anyhow!("unexpected rapid cache name {cache_name}"))?;
+
+    let result = async {
+        tracing::info!("running control_get_rapid_cache");
+        control::get_rapid_cache::sample(&client, id, &cache_id).await?;
+        tracing::info!("running control_list_rapid_caches");
+        control::list_rapid_caches::sample(&client, id).await?;
+        tracing::info!("running control_update_rapid_cache");
+        control::update_rapid_cache::sample(&client, id, &cache_id).await?;
+        let updated = client
+            .get_rapid_cache()
+            .set_name(&cache_name)
+            .send()
+            .await?;
+        anyhow::ensure!(
+            updated.ttl == Some(google_cloud_wkt::Duration::clamp(172800, 0)),
+            "unexpected ttl after update: {updated:?}"
+        );
+        anyhow::Ok(())
+    }
+    .await;
+
+    // Always disable the cache, even if the previous samples failed.
+    tracing::info!("running control_disable_rapid_cache");
+    let disable = control::disable_rapid_cache::sample(&client, id, &cache_id).await;
+    if let (Err(_), Err(e)) = (&result, &disable) {
+        tracing::error!("error disabling rapid cache {cache_name}: {e:?}");
+    }
+    result?;
+    disable?;
+
+    // The disable operation can take a long time to complete, but the cache
+    // enters the "disabled" state within seconds.
+    let mut state = String::new();
+    for _ in 0..12 {
+        let cache = client
+            .get_rapid_cache()
+            .set_name(&cache_name)
+            .send()
+            .await?;
+        state = cache.state;
+        if state.eq_ignore_ascii_case("disabled") {
+            return Ok(());
+        }
+        tokio::time::sleep(Duration::from_secs(10)).await;
+    }
+    anyhow::bail!("rapid cache {cache_name} did not reach the disabled state, last state: {state}")
+}
+
 pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
     let _guard = enable_info_tracing();
 
@@ -828,6 +918,12 @@ pub async fn create_test_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
 }
 
 pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
+    create_test_hns_bucket_in_location("us-central1").await
+}
+
+pub async fn create_test_hns_bucket_in_location(
+    location: &str,
+) -> anyhow::Result<(StorageControl, Bucket)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = client_for_create_bucket().await?;
     cleanup_stale_buckets(&client, &project_id).await;
@@ -841,7 +937,7 @@ pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)
         .set_bucket(
             Bucket::new()
                 .set_project(format!("projects/{project_id}"))
-                .set_location("us-central1")
+                .set_location(location)
                 .set_labels([("integration-test", "true")])
                 .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
                 .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
@@ -1024,9 +1120,9 @@ pub async fn cleanup_bucket(
     delete_bucket_with_error_backoff(&client, &name).await
 }
 
-/// List and remove objects, managed folders, folders, and anywhere caches so
-/// the bucket can be deleted. Per-resource deletes are still parallelized with
-/// `join_all` inside this bucket.
+/// List and remove objects, managed folders, folders, anywhere caches, and
+/// rapid caches so the bucket can be deleted. Per-resource deletes are still
+/// parallelized with `join_all` inside this bucket.
 async fn empty_bucket_contents(
     client: &StorageControl,
     name: &str,
@@ -1109,7 +1205,11 @@ async fn empty_bucket_contents(
         tracing::error!("Error cleaning up objects in bucket {name}: {e:?}");
     }
 
-    if current.hierarchical_namespace.is_some_and(|h| h.enabled) {
+    if current
+        .hierarchical_namespace
+        .as_ref()
+        .is_some_and(|h| h.enabled)
+    {
         let mut pending = Vec::new();
         let mut folders = client.list_managed_folders().set_parent(name).by_item();
         while let Some(item) = folders.next().await {
@@ -1157,6 +1257,35 @@ async fn empty_bucket_contents(
         .collect::<GaxResult<Vec<_>>>()
     {
         tracing::error!("Error cleaning up caches in bucket {name}: {e:?}");
+    }
+
+    // Rapid caches are not removed immediately after they are disabled. Until
+    // they are, deleting the bucket fails with `409 Conflict`. Disable them
+    // here (best-effort), and let the stale bucket cleanup delete the bucket
+    // later if needed. Rapid caches require HNS-enabled buckets.
+    if current
+        .hierarchical_namespace
+        .as_ref()
+        .is_some_and(|h| h.enabled)
+    {
+        let mut pending = Vec::new();
+        let mut caches = client.list_rapid_caches().set_parent(name).by_item();
+        while let Some(item) = caches.next().await {
+            let Ok(cache) = item else {
+                continue;
+            };
+            if cache.state.eq_ignore_ascii_case("disabled") {
+                continue;
+            }
+            pending.push(client.disable_rapid_cache().set_name(cache.name).send());
+        }
+        if let Err(e) = futures::future::join_all(pending)
+            .await
+            .into_iter()
+            .collect::<GaxResult<Vec<_>>>()
+        {
+            tracing::error!("Error cleaning up rapid caches in bucket {name}: {e:?}");
+        }
     }
 
     Ok(())
