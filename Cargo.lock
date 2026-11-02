@@ -9673,10 +9673,14 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "http",
+ "opentelemetry",
+ "opentelemetry-otlp",
+ "opentelemetry_sdk",
  "rand 0.10.3",
  "tempfile",
  "tokio",
  "tracing",
+ "tracing-opentelemetry",
  "tracing-subscriber",
 ]
 
