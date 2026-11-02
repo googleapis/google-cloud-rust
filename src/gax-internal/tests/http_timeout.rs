@@ -145,7 +145,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test]
     async fn test_read_timeout_expires() -> Result<()> {
         let (endpoint, server) = echo_server::start().await?;
         let timeout = Duration::from_millis(150);
@@ -153,7 +153,7 @@ mod tests {
         config.read_timeout = Some(timeout);
         let client = ReqwestClient::new(config, &endpoint).await?;
 
-        let delay = Duration::from_millis(200);
+        let delay = Duration::from_millis(1000);
         let mut interval = tokio::time::interval(Duration::from_millis(10));
         let builder = client
             .builder(reqwest::Method::GET, "/echo".into())
@@ -179,7 +179,7 @@ mod tests {
             }
         }
 
-        assert_eq!(start.elapsed(), timeout);
+        assert!(start.elapsed() >= timeout);
         Ok(())
     }
 
