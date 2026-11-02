@@ -13,6 +13,7 @@
 // limitations under the License.
 
 // [START storage_control_disable_rapid_cache]
+use google_cloud_lro::Poller;
 use google_cloud_storage::client::StorageControl;
 
 pub async fn sample(
@@ -20,15 +21,18 @@ pub async fn sample(
     bucket_id: &str,
     cache_id: &str,
 ) -> anyhow::Result<()> {
-    let name = format!("projects/_/buckets/{bucket_id}/rapidCaches/{cache_id}");
-    // Disabling a Rapid Cache starts a long-running operation. The cache moves
-    // to the "disabled" state within seconds, but the operation only completes
-    // once the cache has been fully removed, which can take more than 30
-    // minutes. This sample does not wait for the operation to complete; use
-    // `get_rapid_cache()` to check the cache state.
-    let operation = client.disable_rapid_cache().set_name(&name).send().await?;
-    println!("Disabling Rapid Cache: {name}");
-    println!("Operation: {}", operation.name);
+    // Disabling a Rapid Cache starts a long-running operation. This waits
+    // until the operation completes and returns the disabled cache.
+    let cache = client
+        .disable_rapid_cache()
+        .set_name(format!(
+            "projects/_/buckets/{bucket_id}/rapidCaches/{cache_id}"
+        ))
+        .poller()
+        .until_done()
+        .await?;
+    println!("Disabled Rapid Cache: {}", cache.name);
+    println!("State: {}", cache.state);
     Ok(())
 }
 // [END storage_control_disable_rapid_cache]
