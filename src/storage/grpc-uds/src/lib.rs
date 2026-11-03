@@ -14,15 +14,17 @@
 
 //! Google Cloud Storage Rust core exposed as a gRPC server over a Unix Domain Socket (UDS).
 //!
-//! Supports both deployment topologies specified in the GCS SDK Consolidation architecture:
+//! Supports all three deployment topologies specified in the GCS SDK Consolidation architecture:
 //! 1. **Multi-process shared sidecar daemon (`gcs-core-server`):** A single per-UID daemon process
 //!    listening on a `0600` Unix Domain Socket with `SO_PEERCRED` peer-UID authentication,
 //!    per-caller OAuth2 token-lending sessions bound to `(uid, pid)`, active-connection reference
-//!    counting, idle timeout eviction, stale-socket recovery, and an optional Linux `memfd` +
-//!    `SCM_RIGHTS` shared-memory zero-copy read data plane.
-//! 2. **In-process background server (`start_inproc` / `gcs_core_start_inproc`):** Spawns the
-//!    identical `GcsCore` tonic server inside the caller's OS process on a background Tokio
-//!    runtime thread.
+//!    counting (`TrackedUnixStream`), dead-PID session/handle reaping, idle timeout eviction,
+//!    stale-socket recovery, and an optional Linux `memfd` + `SCM_RIGHTS` shared-memory zero-copy
+//!    read data plane.
+//! 2. **Per-process `1:1` child sidecar (`--pdeathsig=true`):** Requests `PR_SET_PDEATHSIG(SIGTERM)`
+//!    on Linux so the sidecar terminates immediately if its spawning parent process exits.
+//! 3. **In-process background server (`gcs_core_start_inproc`):** Spawns the identical `GcsCore`
+//!    tonic server inside the caller's OS process on a background Tokio runtime thread.
 
 pub mod service;
 pub mod session;
@@ -95,7 +97,7 @@ impl Drop for TrackedUnixStream {
 
 #[allow(missing_docs, clippy::all)]
 pub mod pb {
-    tonic::include_proto!("gcscore.v1");
+    include!("generated/protos/gcscore.v1.rs");
 }
 
 /// Configuration parameters for the `gcs-core-server` gRPC-over-UDS daemon.
@@ -172,18 +174,19 @@ pub struct Shared {
     pub rpcs: AtomicU64,
     pub active_conns: AtomicUsize,
     pub started: Instant,
-    pub shutdown: tokio::sync::Notify,
+    shutdown_tx: tokio::sync::watch::Sender<bool>,
 }
 
 impl Shared {
     /// Creates a new `Shared` state tracker initialized to the current timestamp.
     pub fn new() -> Arc<Self> {
+        let (shutdown_tx, _) = tokio::sync::watch::channel(false);
         Arc::new(Self {
             last_rpc: AtomicI64::new(now_ms()),
             rpcs: AtomicU64::new(0),
             active_conns: AtomicUsize::new(0),
             started: Instant::now(),
-            shutdown: tokio::sync::Notify::new(),
+            shutdown_tx,
         })
     }
 
@@ -191,6 +194,17 @@ impl Shared {
     pub fn touch(&self) {
         self.rpcs.fetch_add(1, Ordering::Relaxed);
         self.last_rpc.store(now_ms(), Ordering::Relaxed);
+    }
+
+    /// Signals all server tasks to initiate graceful shutdown.
+    pub fn trigger_shutdown(&self) {
+        let _ = self.shutdown_tx.send(true);
+    }
+
+    /// Waits until graceful shutdown has been triggered.
+    pub async fn wait_shutdown(&self) {
+        let mut rx = self.shutdown_tx.subscribe();
+        let _ = rx.wait_for(|&done| done).await;
     }
 }
 
@@ -223,7 +237,14 @@ pub fn bind_uds_listener(
         }
     } else {
         let p = PathBuf::from(sock);
-        if p.exists() {
+        if let Ok(meta) = std::fs::symlink_metadata(&p) {
+            #[cfg(unix)]
+            {
+                use std::os::unix::fs::FileTypeExt;
+                if !meta.file_type().is_socket() {
+                    return Err(format!("refusing to remove non-socket file {sock}").into());
+                }
+            }
             match std::os::unix::net::UnixStream::connect(&p) {
                 Ok(_) => {
                     return Err(format!("another server is already listening on {sock}").into());
@@ -252,14 +273,30 @@ pub fn bind_uds_listener(
 /// Runs the `GcsCore` gRPC server until triggered by `Shutdown` RPC, idle timeout, or OS signal.
 pub async fn run(args: Args) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let listener = bind_uds_listener(&args.socket)?;
-    let sock = args.socket.clone();
+    let shared = Shared::new();
+    #[cfg(unix)]
+    {
+        let s = shared.clone();
+        tokio::spawn(async move {
+            if let Ok(mut term) =
+                tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
+            {
+                tokio::select! {
+                    _ = term.recv() => {},
+                    _ = tokio::signal::ctrl_c() => {},
+                    _ = s.wait_shutdown() => return,
+                }
+                s.trigger_shutdown();
+            }
+        });
+    }
     eprintln!(
         "gcs-core-server pid={} listening on {}",
         std::process::id(),
-        sock
+        args.socket
     );
-    println!("READY {}", sock);
-    serve_with_listener(args, listener, Shared::new()).await
+    println!("READY {}", args.socket);
+    serve_with_listener(args, listener, shared).await
 }
 
 /// Serves `GcsCore` on an already-bound `UnixListener`. Used directly by integration tests
@@ -274,20 +311,28 @@ pub async fn serve_with_listener(
         let r = shm.clone();
         let p = format!("{}.shm", args.socket);
         let shm_size = args.shm_size;
+        let peer_uid_check = args.peer_uid_check;
+        let shm_shared = shared.clone();
         if let Some(dir) = PathBuf::from(&p).parent()
             && !dir.as_os_str().is_empty()
         {
             std::fs::create_dir_all(dir)?;
         }
         tokio::spawn(async move {
-            if let Err(e) = r.serve(p, shm_size).await {
-                tracing::error!("shm side channel: {e}");
+            tokio::select! {
+                res = r.serve(p, shm_size, peer_uid_check) => {
+                    if let Err(e) = res {
+                        tracing::error!("shm side channel: {e}");
+                    }
+                }
+                _ = shm_shared.wait_shutdown() => {}
             }
         });
     }
 
     let svc = service::GcsCoreService::new(&args, shared.clone(), shm).await?;
     let reaper_sessions = svc.sessions();
+    let reaper_handles = svc.handles();
     let my_uid = unsafe { libc::getuid() };
     let peer_check = args.peer_uid_check;
 
@@ -319,10 +364,18 @@ pub async fn serve_with_listener(
         let idle = (args.idle_secs as i64) * 1000;
         tokio::spawn(async move {
             loop {
-                tokio::time::sleep(Duration::from_secs(1)).await;
-                let reaped = reaper_sessions.reap_dead_pids().await;
-                if reaped > 0 {
-                    tracing::info!(reaped, "reaped sessions from exited client processes");
+                tokio::select! {
+                    _ = tokio::time::sleep(Duration::from_secs(1)) => {}
+                    _ = s.wait_shutdown() => return,
+                }
+                let reaped_sessions = reaper_sessions.reap_dead_pids().await;
+                let reaped_handles = service::reap_dead_handles(&reaper_handles);
+                if reaped_sessions > 0 || reaped_handles > 0 {
+                    tracing::info!(
+                        reaped_sessions,
+                        reaped_handles,
+                        "reaped resources from exited client processes"
+                    );
                 }
                 if idle <= 0 {
                     continue;
@@ -336,7 +389,7 @@ pub async fn serve_with_listener(
                         "idle for {}s with 0 active connections, exiting",
                         idle / 1000
                     );
-                    s.shutdown.notify_waiters();
+                    s.trigger_shutdown();
                     return;
                 }
             }
@@ -383,10 +436,9 @@ pub async fn serve_with_listener(
         .initial_connection_window_size(256 * 1024 * 1024)
         .max_frame_size(4 * 1024 * 1024)
         .add_service(uds_grpc)
-        .serve_with_incoming_shutdown(
-            incoming,
-            async move { uds_shared.shutdown.notified().await },
-        );
+        .serve_with_incoming_shutdown(incoming, async move {
+            uds_shared.wait_shutdown().await;
+        });
 
     if let Some(tcp) = args.tcp.clone() {
         let tcp_shared = shared.clone();
@@ -396,7 +448,9 @@ pub async fn serve_with_listener(
             .initial_connection_window_size(256 * 1024 * 1024)
             .max_frame_size(4 * 1024 * 1024)
             .add_service(grpc)
-            .serve_with_shutdown(addr, async move { tcp_shared.shutdown.notified().await });
+            .serve_with_shutdown(addr, async move {
+                tcp_shared.wait_shutdown().await;
+            });
         let (a, b) = tokio::join!(uds, tcp_srv);
         a?;
         b?;
@@ -419,42 +473,45 @@ pub async fn serve_with_listener(
 /// `socket_path` must be a valid, non-null, NUL-terminated C string pointer.
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i32 {
-    if socket_path.is_null() {
-        return -1;
-    }
-    let sock = match unsafe { CStr::from_ptr(socket_path) }.to_str() {
-        Ok(s) => s.to_owned(),
-        Err(_) => return -1,
-    };
-    let (tx, rx) = std::sync::mpsc::sync_channel::<i32>(1);
-    std::thread::spawn(move || {
-        let rt = match tokio::runtime::Builder::new_multi_thread()
-            .enable_all()
-            .thread_name("gcs-core-inproc")
-            .build()
-        {
-            Ok(rt) => rt,
-            Err(_) => {
-                let _ = tx.send(-1);
-                return;
-            }
+    std::panic::catch_unwind(|| {
+        if socket_path.is_null() {
+            return -1;
+        }
+        let sock = match unsafe { CStr::from_ptr(socket_path) }.to_str() {
+            Ok(s) => s.to_owned(),
+            Err(_) => return -1,
         };
-        rt.block_on(async move {
-            let args = Args {
-                socket: sock,
-                idle_secs: 0,
-                ..Default::default()
-            };
-            let listener = match bind_uds_listener(&args.socket) {
-                Ok(l) => l,
+        let (tx, rx) = std::sync::mpsc::sync_channel::<i32>(1);
+        std::thread::spawn(move || {
+            let rt = match tokio::runtime::Builder::new_multi_thread()
+                .enable_all()
+                .thread_name("gcs-core-inproc")
+                .build()
+            {
+                Ok(rt) => rt,
                 Err(_) => {
                     let _ = tx.send(-1);
                     return;
                 }
             };
-            let _ = tx.send(0);
-            let _ = serve_with_listener(args, listener, Shared::new()).await;
+            rt.block_on(async move {
+                let args = Args {
+                    socket: sock,
+                    idle_secs: 0,
+                    ..Default::default()
+                };
+                let listener = match bind_uds_listener(&args.socket) {
+                    Ok(l) => l,
+                    Err(_) => {
+                        let _ = tx.send(-1);
+                        return;
+                    }
+                };
+                let _ = tx.send(0);
+                let _ = serve_with_listener(args, listener, Shared::new()).await;
+            });
         });
-    });
-    rx.recv().unwrap_or(-1)
+        rx.recv().unwrap_or(-1)
+    })
+    .unwrap_or(-1)
 }

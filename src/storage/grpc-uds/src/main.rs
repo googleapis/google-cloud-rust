@@ -40,28 +40,5 @@ fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         .enable_all()
         .thread_name("gcs-core")
         .build()?;
-    rt.block_on(async move {
-        let listener = storage_grpc_uds::bind_uds_listener(&args.socket)?;
-        let shared = storage_grpc_uds::Shared::new();
-        {
-            let s = shared.clone();
-            tokio::spawn(async move {
-                let mut term =
-                    tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
-                        .expect("SIGTERM handler");
-                tokio::select! {
-                    _ = term.recv() => {},
-                    _ = tokio::signal::ctrl_c() => {},
-                }
-                s.shutdown.notify_waiters();
-            });
-        }
-        eprintln!(
-            "gcs-core-server pid={} listening on {}",
-            std::process::id(),
-            args.socket
-        );
-        println!("READY {}", args.socket);
-        storage_grpc_uds::serve_with_listener(args, listener, shared).await
-    })
+    rt.block_on(storage_grpc_uds::run(args))
 }

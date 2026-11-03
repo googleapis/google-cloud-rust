@@ -121,12 +121,22 @@ pub struct Sessions {
     subchannels: usize,
 }
 
-fn random_id() -> String {
+fn random_id() -> Result<String, String> {
     let mut b = [0u8; 32];
-    std::fs::File::open("/dev/urandom")
-        .and_then(|mut f| std::io::Read::read_exact(&mut f, &mut b))
-        .expect("urandom");
-    b.iter().map(|x| format!("{x:02x}")).collect()
+    #[cfg(target_os = "linux")]
+    {
+        let rc = unsafe { libc::getrandom(b.as_mut_ptr() as *mut libc::c_void, b.len(), 0) };
+        if rc != b.len() as isize {
+            return Err(std::io::Error::last_os_error().to_string());
+        }
+    }
+    #[cfg(not(target_os = "linux"))]
+    {
+        std::fs::File::open("/dev/urandom")
+            .and_then(|mut f| std::io::Read::read_exact(&mut f, &mut b))
+            .map_err(|e| e.to_string())?;
+    }
+    Ok(b.iter().map(|x| format!("{x:02x}")).collect())
 }
 
 impl Sessions {
@@ -161,7 +171,7 @@ impl Sessions {
         let storage = sb.build().await.map_err(|e| e.to_string())?;
         let control = cb.build().await.map_err(|e| e.to_string())?;
         let s = Arc::new(Session {
-            id: random_id(),
+            id: random_id()?,
             peer_uid: uid,
             peer_pid: pid,
             token: lent,
@@ -187,6 +197,21 @@ impl Sessions {
             ));
         }
         Ok(s)
+    }
+
+    /// Removes a session by ID after verifying that the caller's `(uid, pid)` matches the owner.
+    pub async fn close(&self, id: &str, uid: u32, pid: i32) -> Result<(), tonic::Status> {
+        let mut guard = self.map.lock().await;
+        let s = guard
+            .get(id)
+            .ok_or_else(|| tonic::Status::unauthenticated("unknown session"))?;
+        if s.peer_uid != uid || s.peer_pid != pid {
+            return Err(tonic::Status::permission_denied(
+                "session is bound to another process",
+            ));
+        }
+        guard.remove(id);
+        Ok(())
     }
 
     /// Removes a session by ID.

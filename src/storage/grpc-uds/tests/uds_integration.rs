@@ -18,6 +18,12 @@ use bytes::Bytes;
 use httptest::{Expectation, Server as HttpServer, matchers::*, responders::*};
 use hyper_util::rt::TokioIo;
 use std::path::PathBuf;
+use std::sync::atomic::Ordering;
+use storage_grpc_mock::google::storage::v2::{
+    BidiReadObjectResponse, ChecksummedData, Object as ProtoObject, ObjectRangeData,
+    ReadRange as ProtoRange,
+};
+use storage_grpc_mock::{MockStorage, start as start_grpc_mock};
 use storage_grpc_uds::pb::gcs_core_client::GcsCoreClient;
 use storage_grpc_uds::pb::*;
 use storage_grpc_uds::{Args, Shared, bind_uds_listener, serve_with_listener};
@@ -39,10 +45,19 @@ async fn connect_uds(sock: PathBuf) -> anyhow::Result<GcsCoreClient<Channel>> {
 }
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn ping_stats_and_stale_socket_recovery() -> anyhow::Result<()> {
+async fn ping_stats_active_conns_and_stale_socket_recovery() -> anyhow::Result<()> {
     let dir = tempfile::tempdir()?;
     let sock_path = dir.path().join("gcs-core.sock");
     let sock_str = sock_path.to_string_lossy().to_string();
+
+    // Verify bind_uds_listener refuses to remove a regular non-socket file.
+    let regular_file = dir.path().join("not-a-socket.txt");
+    std::fs::write(&regular_file, b"keep-me")?;
+    assert!(
+        bind_uds_listener(&regular_file.to_string_lossy()).is_err(),
+        "bind_uds_listener must refuse to delete a regular file"
+    );
+    assert!(regular_file.exists());
 
     // Create a stale socket file by binding and immediately dropping a raw UnixListener.
     {
@@ -77,25 +92,45 @@ async fn ping_stats_and_stale_socket_recovery() -> anyhow::Result<()> {
         let _ = serve_with_listener(args, listener, srv_shared).await;
     });
 
+    {
+        let mut client = connect_uds(sock_path.clone()).await?;
+        let payload = Bytes::from_static(b"hello-uds-core");
+        let resp = client
+            .ping(PingRequest {
+                payload: payload.clone(),
+            })
+            .await?
+            .into_inner();
+        assert_eq!(resp.payload, payload);
+        assert!(
+            shared.active_conns.load(Ordering::Relaxed) >= 1,
+            "TrackedUnixStream must increment active_conns while connected"
+        );
+
+        let stats = client
+            .stats(StatsRequest {
+                reset_peak_rss: false,
+            })
+            .await?
+            .into_inner();
+        assert!(stats.rpcs_served >= 1);
+        assert_eq!(stats.pid as u32, std::process::id());
+    }
+
+    // Wait briefly for the dropped client connection to close and decrement active_conns.
+    for _ in 0..50 {
+        if shared.active_conns.load(Ordering::Relaxed) == 0 {
+            break;
+        }
+        tokio::time::sleep(std::time::Duration::from_millis(10)).await;
+    }
+    assert_eq!(
+        shared.active_conns.load(Ordering::Relaxed),
+        0,
+        "TrackedUnixStream Drop must decrement active_conns to 0"
+    );
+
     let mut client = connect_uds(sock_path.clone()).await?;
-    let payload = Bytes::from_static(b"hello-uds-core");
-    let resp = client
-        .ping(PingRequest {
-            payload: payload.clone(),
-        })
-        .await?
-        .into_inner();
-    assert_eq!(resp.payload, payload);
-
-    let stats = client
-        .stats(StatsRequest {
-            reset_peak_rss: false,
-        })
-        .await?
-        .into_inner();
-    assert!(stats.rpcs_served >= 1);
-    assert_eq!(stats.pid as u32, std::process::id());
-
     client.shutdown(Empty {}).await?;
     srv_handle.await?;
     assert!(
@@ -106,7 +141,7 @@ async fn ping_stats_and_stale_socket_recovery() -> anyhow::Result<()> {
 }
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn session_lifecycle_and_peer_isolation() -> anyhow::Result<()> {
+async fn session_lifecycle_expiry_and_peer_isolation() -> anyhow::Result<()> {
     let dir = tempfile::tempdir()?;
     let sock_path = dir.path().join("session.sock");
 
@@ -151,14 +186,37 @@ async fn session_lifecycle_and_peer_isolation() -> anyhow::Result<()> {
         .into_inner();
     assert_eq!(sess.session_id.len(), 64);
 
-    // Rotate token via UpdateToken.
+    // Reject empty access_token on UpdateToken with INVALID_ARGUMENT.
+    let empty_err = client
+        .update_token(UpdateTokenRequest {
+            session_id: sess.session_id.clone(),
+            access_token: String::new(),
+            expiry_unix_secs: now_secs + 120,
+        })
+        .await
+        .expect_err("empty access_token should be rejected");
+    assert_eq!(empty_err.code(), tonic::Code::InvalidArgument);
+
+    // Rotate to an already-expired token and verify a data RPC returns UNAUTHENTICATED.
     client
         .update_token(UpdateTokenRequest {
             session_id: sess.session_id.clone(),
-            access_token: "test-bearer-rotated-token".to_string(),
-            expiry_unix_secs: now_secs + 120,
+            access_token: "test-bearer-expired-token".to_string(),
+            expiry_unix_secs: 1, // expired in 1970
         })
         .await?;
+    let mut expired_req = tonic::Request::new(ListObjectsRequest {
+        bucket: "b".to_string(),
+        ..Default::default()
+    });
+    expired_req
+        .metadata_mut()
+        .insert("x-session", sess.session_id.parse()?);
+    let expired_err = client
+        .list_objects(expired_req)
+        .await
+        .expect_err("expired lent token must fail with UNAUTHENTICATED");
+    assert_eq!(expired_err.code(), tonic::Code::Unauthenticated);
 
     // Close session and confirm subsequent UpdateToken returns UNAUTHENTICATED.
     client
@@ -241,15 +299,15 @@ async fn shm_memfd_scm_rights_and_zero_copy_read() -> anyhow::Result<()> {
     }
     assert!(shm_sock_path.exists(), ".shm socket should be bound");
 
-    // Connect to `<socket>.shm` and receive the 8-byte region_id + memfd via SCM_RIGHTS.
+    // Connect to `<socket>.shm` and receive the 16-byte (region_id, region_size) header + memfd via SCM_RIGHTS.
     // Keep `_shm_stream` alive while using the region so the server retains the mapping.
     let (_shm_stream, region_id, fd, mapped_len) = {
         use std::os::unix::io::AsRawFd;
         let stream = std::os::unix::net::UnixStream::connect(&shm_sock_path)?;
-        let mut id_buf = [0u8; 8];
+        let mut hdr_buf = [0u8; 16];
         let mut iov = libc::iovec {
-            iov_base: id_buf.as_mut_ptr() as *mut libc::c_void,
-            iov_len: id_buf.len(),
+            iov_base: hdr_buf.as_mut_ptr() as *mut libc::c_void,
+            iov_len: hdr_buf.len(),
         };
         let mut cmsg_space =
             [0u8; unsafe { libc::CMSG_SPACE(std::mem::size_of::<libc::c_int>() as u32) as usize }];
@@ -260,7 +318,7 @@ async fn shm_memfd_scm_rights_and_zero_copy_read() -> anyhow::Result<()> {
         msg.msg_controllen = cmsg_space.len();
 
         let n = unsafe { libc::recvmsg(stream.as_raw_fd(), &mut msg, 0) };
-        assert_eq!(n, 8, "expected 8-byte region_id from .shm");
+        assert_eq!(n, 16, "expected 16-byte (region_id, size) header from .shm");
         let cmsg = unsafe { libc::CMSG_FIRSTHDR(&msg) };
         assert!(!cmsg.is_null(), "expected SCM_RIGHTS control message");
         let mut recv_fd: libc::c_int = -1;
@@ -272,12 +330,10 @@ async fn shm_memfd_scm_rights_and_zero_copy_read() -> anyhow::Result<()> {
             );
         }
         assert!(recv_fd >= 0, "valid memfd expected");
-        (
-            stream,
-            u64::from_le_bytes(id_buf),
-            recv_fd,
-            4 * 1024 * 1024usize,
-        )
+        let rid = u64::from_le_bytes(hdr_buf[..8].try_into().unwrap());
+        let rsize = u64::from_le_bytes(hdr_buf[8..16].try_into().unwrap()) as usize;
+        assert_eq!(rsize, 4 * 1024 * 1024);
+        (stream, rid, recv_fd, rsize)
     };
 
     let mut client = connect_uds(sock_path.clone()).await?;
@@ -289,6 +345,31 @@ async fn shm_memfd_scm_rights_and_zero_copy_read() -> anyhow::Result<()> {
         })
         .await?
         .into_inner();
+
+    // Verify out-of-bounds base_offset + capacity > region_size returns OUT_OF_RANGE.
+    let mut oob_req = tonic::Request::new(ReadObjectShmRequest {
+        read: Some(ReadObjectRequest {
+            bucket: "test-bucket".to_string(),
+            object: "test-obj".to_string(),
+            offset: 0,
+            length: -1,
+            generation: 0,
+            if_generation_match: -1,
+            transport: Transport::Json as i32,
+            chunk_size: 0,
+        }),
+        region: region_id,
+        base_offset: mapped_len as u64,
+        capacity: 1024,
+    });
+    oob_req
+        .metadata_mut()
+        .insert("x-session", sess.session_id.parse()?);
+    let oob_err = client
+        .read_object_shm(oob_req)
+        .await
+        .expect_err("out-of-bounds shm capacity must fail");
+    assert_eq!(oob_err.code(), tonic::Code::OutOfRange);
 
     let mut req = tonic::Request::new(ReadObjectShmRequest {
         read: Some(ReadObjectRequest {
@@ -348,9 +429,10 @@ async fn shm_memfd_scm_rights_and_zero_copy_read() -> anyhow::Result<()> {
 }
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn read_object_over_uds_via_httptest() -> anyhow::Result<()> {
+async fn read_write_and_list_over_uds_via_httptest() -> anyhow::Result<()> {
     let body_bytes = vec![b'R'; 256 * 1024];
     let http_srv = HttpServer::run();
+    // 1. Non-empty object read
     http_srv.expect(
         Expectation::matching(all_of![
             request::method_path("GET", "/storage/v1/b/my-bucket/o/my-object"),
@@ -363,9 +445,42 @@ async fn read_object_over_uds_via_httptest() -> anyhow::Result<()> {
                 .body(body_bytes.clone()),
         ),
     );
+    // 2. 0-byte empty object read (must still deliver ObjectMeta on first chunk)
+    http_srv.expect(
+        Expectation::matching(all_of![
+            request::method_path("GET", "/storage/v1/b/my-bucket/o/empty-object"),
+            request::query(url_decoded(contains(("alt", "media")))),
+        ])
+        .respond_with(
+            status_code(200)
+                .append_header("x-goog-generation", "42")
+                .append_header("content-type", "text/plain")
+                .body(Vec::<u8>::new()),
+        ),
+    );
+    // 3. WriteObject multipart upload (known_size >= 0)
+    http_srv.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/my-bucket/o"),
+            request::query(url_decoded(contains(("uploadType", "multipart")))),
+        ])
+        .respond_with(
+            status_code(200)
+                .append_header("content-type", "application/json")
+                .body(
+                    serde_json::json!({
+                        "name": "uploaded.bin",
+                        "bucket": "my-bucket",
+                        "size": "11",
+                        "generation": "999"
+                    })
+                    .to_string(),
+                ),
+        ),
+    );
 
     let dir = tempfile::tempdir()?;
-    let sock_path = dir.path().join("read-test.sock");
+    let sock_path = dir.path().join("read-write-test.sock");
     let endpoint_url = format!("http://{}", http_srv.addr());
 
     let args = Args {
@@ -395,6 +510,7 @@ async fn read_object_over_uds_via_httptest() -> anyhow::Result<()> {
         .await?
         .into_inner();
 
+    // Test 1: 256 KiB streamed read
     let mut req = tonic::Request::new(ReadObjectRequest {
         bucket: "my-bucket".to_string(),
         object: "my-object".to_string(),
@@ -425,6 +541,206 @@ async fn read_object_over_uds_via_httptest() -> anyhow::Result<()> {
     assert_eq!(first_gen, 12345);
     assert_eq!(received.len(), body_bytes.len());
     assert_eq!(received, body_bytes);
+
+    // Test 2: 0-byte empty object read still emits 1 ReadChunk carrying ObjectMeta
+    let mut empty_req = tonic::Request::new(ReadObjectRequest {
+        bucket: "my-bucket".to_string(),
+        object: "empty-object".to_string(),
+        offset: 0,
+        length: -1,
+        generation: 0,
+        if_generation_match: -1,
+        transport: Transport::Json as i32,
+        chunk_size: 64 * 1024,
+    });
+    empty_req
+        .metadata_mut()
+        .insert("x-session", sess.session_id.parse()?);
+    let mut empty_stream = client.read_object(empty_req).await?.into_inner();
+    let first_chunk = empty_stream
+        .next()
+        .await
+        .expect("0-byte object must emit metadata chunk")?;
+    assert!(first_chunk.data.is_empty());
+    assert_eq!(first_chunk.meta.unwrap().generation, 42);
+    assert!(empty_stream.next().await.is_none());
+
+    // Test 3: WriteObject streaming upload (Header + 2 Data frames)
+    let frames = vec![
+        WriteRequest {
+            msg: Some(write_request::Msg::Header(WriteHeader {
+                bucket: "my-bucket".to_string(),
+                object: "uploaded.bin".to_string(),
+                content_type: "application/octet-stream".to_string(),
+                if_generation_match: -1,
+                known_size: 11,
+                chunk_size: 0,
+                transport: Transport::Json as i32,
+            })),
+        },
+        WriteRequest {
+            msg: Some(write_request::Msg::Data(Bytes::from_static(b"hello "))),
+        },
+        WriteRequest {
+            msg: Some(write_request::Msg::Data(Bytes::from_static(b"world"))),
+        },
+    ];
+    let mut write_req = tonic::Request::new(tokio_stream::iter(frames));
+    write_req
+        .metadata_mut()
+        .insert("x-session", sess.session_id.parse()?);
+    let write_resp = client.write_object(write_req).await?.into_inner();
+    assert_eq!(write_resp.size, 11);
+    assert_eq!(write_resp.generation, 999);
+
+    // Test 4: WriteObject without initial WriteHeader returns INVALID_ARGUMENT
+    let bad_frames = vec![WriteRequest {
+        msg: Some(write_request::Msg::Data(Bytes::from_static(b"no-header"))),
+    }];
+    let mut bad_req = tonic::Request::new(tokio_stream::iter(bad_frames));
+    bad_req
+        .metadata_mut()
+        .insert("x-session", sess.session_id.parse()?);
+    let bad_err = client
+        .write_object(bad_req)
+        .await
+        .expect_err("WriteObject without header must fail");
+    assert_eq!(bad_err.code(), tonic::Code::InvalidArgument);
+
+    client.shutdown(Empty {}).await?;
+    srv_handle.await?;
+    Ok(())
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn open_object_read_range_and_close_via_grpc_mock() -> anyhow::Result<()> {
+    let mut mock = MockStorage::new();
+    mock.expect_bidi_read_object().return_once(move |request| {
+        let (_, _, mut requests) = request.into_parts();
+        let (tx, rx) = tokio::sync::mpsc::channel(4);
+        tokio::spawn(async move {
+            // First message opens the object
+            if let Some(Ok(_first)) = requests.recv().await {
+                let _ = tx
+                    .send(Ok(BidiReadObjectResponse {
+                        metadata: Some(ProtoObject {
+                            name: "bidi-obj".to_string(),
+                            bucket: "projects/_/buckets/bidi-bucket".to_string(),
+                            generation: 555,
+                            size: 16,
+                            ..ProtoObject::default()
+                        }),
+                        ..BidiReadObjectResponse::default()
+                    }))
+                    .await;
+            }
+            // Subsequent message requests a byte range
+            while let Some(Ok(req)) = requests.recv().await {
+                for r in req.read_ranges {
+                    let _ = tx
+                        .send(Ok(BidiReadObjectResponse {
+                            object_data_ranges: vec![ObjectRangeData {
+                                checksummed_data: Some(ChecksummedData {
+                                    content: b"0123456789abcdef".to_vec(),
+                                    crc32c: None,
+                                }),
+                                read_range: Some(ProtoRange {
+                                    read_offset: r.read_offset,
+                                    read_length: 16,
+                                    read_id: r.read_id,
+                                }),
+                                range_end: true,
+                            }],
+                            ..BidiReadObjectResponse::default()
+                        }))
+                        .await;
+                }
+            }
+        });
+        Ok(tonic::Response::from(rx))
+    });
+
+    let (mock_endpoint, _mock_srv) = start_grpc_mock("127.0.0.1:0", mock).await?;
+    let dir = tempfile::tempdir()?;
+    let sock_path = dir.path().join("grpc-mock.sock");
+
+    let args = Args {
+        socket: sock_path.to_string_lossy().to_string(),
+        idle_secs: 0,
+        shm_size: 0,
+        endpoint: Some(mock_endpoint),
+        ..Default::default()
+    };
+
+    let listener = bind_uds_listener(&args.socket)
+        .map_err(|e| anyhow::anyhow!("bind_uds_listener failed: {e}"))?;
+    let shared = Shared::new();
+    let srv_shared = shared.clone();
+    let srv_handle = tokio::spawn(async move {
+        let _ = serve_with_listener(args, listener, srv_shared).await;
+    });
+
+    let mut client = connect_uds(sock_path.clone()).await?;
+    let sess = client
+        .create_session(CreateSessionRequest {
+            access_token: "test-bearer-grpc-mock".to_string(),
+            expiry_unix_secs: 0,
+            quota_project: String::new(),
+        })
+        .await?
+        .into_inner();
+
+    let mut open_req = tonic::Request::new(OpenObjectRequest {
+        bucket: "bidi-bucket".to_string(),
+        object: "bidi-obj".to_string(),
+        generation: 0,
+    });
+    open_req
+        .metadata_mut()
+        .insert("x-session", sess.session_id.parse()?);
+    let opened = client.open_object(open_req).await?.into_inner();
+    assert!(opened.handle >= 1);
+    assert_eq!(opened.meta.unwrap().generation, 555);
+
+    let mut range_stream = client
+        .read_range(ReadRangeRequest {
+            handle: opened.handle,
+            offset: 0,
+            length: 16,
+            chunk_size: 64 * 1024,
+        })
+        .await?
+        .into_inner();
+    let mut range_bytes = Vec::new();
+    while let Some(chunk) = range_stream.next().await {
+        let chunk = chunk?;
+        assert!(
+            chunk.meta.is_none(),
+            "ReadRange chunks must not repeat ObjectMeta"
+        );
+        for slice in &chunk.data {
+            range_bytes.extend_from_slice(slice);
+        }
+    }
+    assert_eq!(range_bytes, b"0123456789abcdef");
+
+    client
+        .close_object(CloseObjectRequest {
+            handle: opened.handle,
+        })
+        .await?;
+
+    // Subsequent ReadRange on closed handle must return NOT_FOUND.
+    let closed_err = client
+        .read_range(ReadRangeRequest {
+            handle: opened.handle,
+            offset: 0,
+            length: 16,
+            chunk_size: 0,
+        })
+        .await
+        .expect_err("closed handle should return NOT_FOUND");
+    assert_eq!(closed_err.code(), tonic::Code::NotFound);
 
     client.shutdown(Empty {}).await?;
     srv_handle.await?;

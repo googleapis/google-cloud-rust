@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("cargo:rerun-if-changed=proto/gcscore.proto");
-    tonic_prost_build::configure()
-        .build_server(true)
-        .build_client(true)
-        .bytes(".gcscore.v1.ReadChunk.data")
-        .bytes(".gcscore.v1.WriteRequest.data")
-        .bytes(".gcscore.v1.PingRequest.payload")
-        .bytes(".gcscore.v1.PingResponse.payload")
-        .compile_protos(&["proto/gcscore.proto"], &["proto"])?;
-    Ok(())
+fn main() {
+    #[cfg(google_cloud_generate_protos)]
+    {
+        tonic_prost_build::configure()
+            .build_server(true)
+            .build_client(true)
+            .out_dir("src/generated/protos")
+            .bytes(".gcscore.v1.ReadChunk.data")
+            .bytes(".gcscore.v1.WriteRequest.data")
+            .bytes(".gcscore.v1.PingRequest.payload")
+            .bytes(".gcscore.v1.PingResponse.payload")
+            .compile_protos(&["proto/gcscore.proto"], &["proto"])
+            .expect("error compiling protos");
+    }
 }

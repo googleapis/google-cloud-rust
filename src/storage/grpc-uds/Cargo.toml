@@ -13,16 +13,18 @@
 # limitations under the License.
 
 [package]
-name                 = "storage-grpc-uds"
-description          = "Google Cloud Storage Rust core exposed as a gRPC server over a Unix Domain Socket (UDS)"
-version              = "0.0.0"
-publish              = false
-edition.workspace    = true
-authors.workspace    = true
-license.workspace    = true
-repository.workspace = true
-keywords.workspace   = true
-categories.workspace = true
+name                   = "storage-grpc-uds"
+description            = "Google Cloud Storage Rust core exposed as a gRPC server over a Unix Domain Socket (UDS)"
+version                = "0.0.0"
+build                  = "build.rs"
+publish                = false
+edition.workspace      = true
+authors.workspace      = true
+license.workspace      = true
+repository.workspace   = true
+keywords.workspace     = true
+categories.workspace   = true
+rust-version.workspace = true
 
 [lib]
 name = "storage_grpc_uds"
@@ -38,14 +40,13 @@ workspace = true
 [dependencies]
 bytes.workspace              = true
 clap                         = { workspace = true, features = ["derive", "help", "std", "usage"] }
-futures.workspace            = true
 google-cloud-auth.workspace  = true
 google-cloud-gax.workspace   = true
 google-cloud-storage         = { workspace = true, features = ["default-rustls-provider"] }
 http.workspace               = true
 libc                         = { workspace = true, default-features = true }
 prost                        = { workspace = true, default-features = true }
-tokio                        = { workspace = true, features = ["macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
+tokio                        = { workspace = true, features = ["io-util", "macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
 tokio-stream                 = { workspace = true, features = ["net"] }
 tonic                        = { workspace = true, features = ["codegen", "router", "server", "transport"] }
 tonic-prost.workspace        = true
@@ -56,11 +57,11 @@ tracing-subscriber           = { workspace = true, features = ["env-filter", "fm
 tonic-prost-build = { workspace = true }
 
 [dev-dependencies]
-anyhow.workspace          = true
-httptest.workspace        = true
-hyper-util                = { version = "0.1", features = ["tokio"] }
-serde_json.workspace      = true
-storage-grpc-mock         = { path = "../grpc-mock" }
-tempfile.workspace        = true
-tokio                     = { workspace = true, features = ["test-util"] }
-tower.workspace           = true
+anyhow.workspace            = true
+httptest.workspace          = true
+hyper-util                  = { workspace = true, features = ["tokio"] }
+serde_json.workspace        = true
+storage-grpc-mock.workspace = true
+tempfile.workspace          = true
+tokio                       = { workspace = true, features = ["test-util"] }
+tower.workspace             = true

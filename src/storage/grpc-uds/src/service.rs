@@ -34,6 +34,30 @@ use tonic::{Request, Response, Status, Streaming};
 
 type RespStream<T> = Pin<Box<dyn Stream<Item = Result<T, Status>> + Send + 'static>>;
 
+/// An open `BidiReadObject` descriptor bound to the owning client's `(uid, pid)`.
+pub struct OpenHandle {
+    pub uid: u32,
+    pub pid: i32,
+    pub desc: Arc<ObjectDescriptor>,
+}
+
+/// Reaps any open `ObjectDescriptor` handles whose owning client process (`pid`) has exited.
+pub fn reap_dead_handles(handles: &RwLock<HashMap<u64, OpenHandle>>) -> usize {
+    let mut guard = handles.write().unwrap();
+    let before = guard.len();
+    guard.retain(|_, h| {
+        if h.pid <= 0 {
+            return true;
+        }
+        let rc = unsafe { libc::kill(h.pid, 0) };
+        if rc == 0 {
+            return true;
+        }
+        std::io::Error::last_os_error().raw_os_error() != Some(libc::ESRCH)
+    });
+    before - guard.len()
+}
+
 /// The `GcsCore` service bridging local gRPC-over-UDS requests to `google-cloud-storage`.
 pub struct GcsCoreService {
     shm: Arc<crate::shm::Registry>,
@@ -44,7 +68,7 @@ pub struct GcsCoreService {
     shared: Arc<Shared>,
     default_grpc: bool,
     chunk_size: usize,
-    handles: RwLock<HashMap<u64, Arc<ObjectDescriptor>>>,
+    handles: Arc<RwLock<HashMap<u64, OpenHandle>>>,
     next_handle: AtomicU64,
 }
 
@@ -77,7 +101,7 @@ impl GcsCoreService {
             shared,
             default_grpc: args.default_transport.eq_ignore_ascii_case("grpc"),
             chunk_size: args.chunk_size,
-            handles: RwLock::new(HashMap::new()),
+            handles: Arc::new(RwLock::new(HashMap::new())),
             next_handle: AtomicU64::new(1),
         })
     }
@@ -85,6 +109,11 @@ impl GcsCoreService {
     /// Returns a reference to the per-caller `Sessions` registry.
     pub fn sessions(&self) -> Arc<Sessions> {
         self.sessions.clone()
+    }
+
+    /// Returns a reference to the open `ObjectDescriptor` handle table.
+    pub fn handles(&self) -> Arc<RwLock<HashMap<u64, OpenHandle>>> {
+        self.handles.clone()
     }
 
     fn peer<T>(req: &Request<T>) -> (u32, i32) {
@@ -139,53 +168,65 @@ fn bucket_name(b: &str) -> String {
     }
 }
 
-fn to_status<E: std::fmt::Display + std::fmt::Debug + 'static>(err: E) -> Status {
-    let any: &dyn std::any::Any = &err;
-    if let Some(e) = any.downcast_ref::<google_cloud_storage::Error>() {
-        if let Some(s) = e.status() {
-            use google_cloud_gax::error::rpc::Code;
-            let msg = format!("{e}");
-            return match s.code {
-                Code::NotFound => Status::not_found(msg),
-                Code::AlreadyExists => Status::already_exists(msg),
-                Code::PermissionDenied => Status::permission_denied(msg),
-                Code::Unauthenticated => Status::unauthenticated(msg),
-                Code::FailedPrecondition => Status::failed_precondition(msg),
-                Code::InvalidArgument => Status::invalid_argument(msg),
-                Code::OutOfRange => Status::out_of_range(msg),
-                Code::Unimplemented => Status::unimplemented(msg),
-                Code::Unavailable => Status::unavailable(msg),
-                Code::ResourceExhausted => Status::resource_exhausted(msg),
-                Code::DeadlineExceeded => Status::deadline_exceeded(msg),
-                Code::Aborted => Status::aborted(msg),
-                _ => Status::internal(msg),
-            };
-        }
-        match e.http_status_code() {
-            Some(404) => return Status::not_found(format!("{e}")),
-            Some(412) => return Status::failed_precondition(format!("{e}")),
-            Some(401) => return Status::unauthenticated(format!("{e}")),
-            Some(403) => return Status::permission_denied(format!("{e}")),
-            Some(400) => return Status::invalid_argument(format!("{e}")),
-            Some(429) => return Status::resource_exhausted(format!("{e}")),
-            Some(503) => return Status::unavailable(format!("{e}")),
-            _ => {}
-        }
-        let s = format!("{e:?}");
-        if s.contains("status_code: Some(401)") || s.contains("Invalid Credentials") {
-            return Status::unauthenticated(format!("{e}"));
-        }
-        if s.contains("status_code: Some(403)") {
-            return Status::permission_denied(format!("{e}"));
-        }
-        if s.contains("status_code: Some(404)") {
-            return Status::not_found(format!("{e}"));
-        }
-        if s.contains("status_code: Some(412)") {
-            return Status::failed_precondition(format!("{e}"));
-        }
+fn to_status(e: google_cloud_storage::Error) -> Status {
+    let msg = format!("{e}");
+    if let Some(s) = e.status() {
+        use google_cloud_gax::error::rpc::Code;
+        return match s.code {
+            Code::Cancelled => Status::cancelled(msg),
+            Code::Unknown => Status::unknown(msg),
+            Code::InvalidArgument => Status::invalid_argument(msg),
+            Code::DeadlineExceeded => Status::deadline_exceeded(msg),
+            Code::NotFound => Status::not_found(msg),
+            Code::AlreadyExists => Status::already_exists(msg),
+            Code::PermissionDenied => Status::permission_denied(msg),
+            Code::ResourceExhausted => Status::resource_exhausted(msg),
+            Code::FailedPrecondition => Status::failed_precondition(msg),
+            Code::Aborted => Status::aborted(msg),
+            Code::OutOfRange => Status::out_of_range(msg),
+            Code::Unimplemented => Status::unimplemented(msg),
+            Code::Internal => Status::internal(msg),
+            Code::Unavailable => Status::unavailable(msg),
+            Code::DataLoss => Status::data_loss(msg),
+            Code::Unauthenticated => Status::unauthenticated(msg),
+            _ => Status::unknown(msg),
+        };
     }
-    Status::internal(format!("{err}"))
+    match e.http_status_code() {
+        Some(400) => return Status::invalid_argument(msg),
+        Some(401) => return Status::unauthenticated(msg),
+        Some(403) => return Status::permission_denied(msg),
+        Some(404) => return Status::not_found(msg),
+        Some(408) | Some(504) => return Status::deadline_exceeded(msg),
+        Some(409) => return Status::aborted(msg),
+        Some(412) => return Status::failed_precondition(msg),
+        Some(416) => return Status::out_of_range(msg),
+        Some(429) => return Status::resource_exhausted(msg),
+        Some(499) => return Status::cancelled(msg),
+        Some(501) => return Status::unimplemented(msg),
+        Some(502) | Some(503) => return Status::unavailable(msg),
+        _ => {}
+    }
+    if e.is_authentication() {
+        return Status::unauthenticated(msg);
+    }
+    let dbg = format!("{e:?}");
+    if dbg.contains("status_code: Some(401)")
+        || dbg.contains("Invalid Credentials")
+        || dbg.contains("lent token expired")
+    {
+        return Status::unauthenticated(msg);
+    }
+    if dbg.contains("status_code: Some(403)") {
+        return Status::permission_denied(msg);
+    }
+    if dbg.contains("status_code: Some(404)") {
+        return Status::not_found(msg);
+    }
+    if dbg.contains("status_code: Some(412)") {
+        return Status::failed_precondition(msg);
+    }
+    Status::internal(msg)
 }
 
 fn read_range(offset: i64, length: i64) -> Option<ReadRange> {
@@ -306,6 +347,7 @@ impl GcsCore for GcsCoreService {
         req: Request<pb::ReadObjectShmRequest>,
     ) -> Result<Response<Self::ReadObjectShmStream>, Status> {
         self.shared.touch();
+        let (uid, pid) = Self::peer(&req);
         let (storage, _) = self.pick(&req).await?;
         let outer = req.into_inner();
         let r = outer
@@ -316,6 +358,14 @@ impl GcsCore for GcsCoreService {
             .get(outer.region)
             .await
             .ok_or_else(|| Status::not_found("unknown shm region"))?;
+        if uid != u32::MAX && (reg.peer_uid != uid || (reg.peer_pid > 0 && reg.peer_pid != pid)) {
+            return Err(Status::permission_denied(
+                "shm region is bound to another process",
+            ));
+        }
+        let write_guard = reg.try_lock_write().ok_or_else(|| {
+            Status::failed_precondition("shm region is already in use by an active read")
+        })?;
         let base = outer.base_offset as usize;
         let cap = outer.capacity as usize;
         if base.saturating_add(cap) > reg.size {
@@ -349,7 +399,7 @@ impl GcsCore for GcsCoreService {
                                     .await;
                                 return;
                             }
-                            if let Err(e) = reg.write_at(cur, &b) {
+                            if let Err(e) = write_guard.write_at(cur, &b) {
                                 let _ = tx.send(Err(Status::internal(e))).await;
                                 return;
                             }
@@ -393,7 +443,7 @@ impl GcsCore for GcsCoreService {
                                     .await;
                                 return;
                             }
-                            if let Err(e) = reg.write_at(cur, &b) {
+                            if let Err(e) = write_guard.write_at(cur, &b) {
                                 let _ = tx.send(Err(Status::internal(e))).await;
                                 return;
                             }
@@ -466,6 +516,7 @@ impl GcsCore for GcsCoreService {
         req: Request<pb::OpenObjectRequest>,
     ) -> Result<Response<pb::OpenObjectResponse>, Status> {
         self.shared.touch();
+        let (uid, pid) = Self::peer(&req);
         let (storage, _) = self.pick(&req).await?;
         let r = req.into_inner();
         let mut open = storage.open_object(bucket_name(&r.bucket), r.object);
@@ -475,7 +526,14 @@ impl GcsCore for GcsCoreService {
         let desc = open.send().await.map_err(to_status)?;
         let meta = meta_from_object(&desc.object());
         let h = self.next_handle.fetch_add(1, Ordering::Relaxed);
-        self.handles.write().unwrap().insert(h, Arc::new(desc));
+        self.handles.write().unwrap().insert(
+            h,
+            OpenHandle {
+                uid,
+                pid,
+                desc: Arc::new(desc),
+            },
+        );
         Ok(Response::new(pb::OpenObjectResponse {
             handle: h,
             meta: Some(meta),
@@ -487,14 +545,20 @@ impl GcsCore for GcsCoreService {
         req: Request<pb::ReadRangeRequest>,
     ) -> Result<Response<Self::ReadRangeStream>, Status> {
         self.shared.touch();
+        let (uid, pid) = Self::peer(&req);
         let r = req.into_inner();
-        let desc = self
-            .handles
-            .read()
-            .unwrap()
-            .get(&r.handle)
-            .cloned()
-            .ok_or_else(|| Status::not_found("unknown handle"))?;
+        let desc = {
+            let guard = self.handles.read().unwrap();
+            let entry = guard
+                .get(&r.handle)
+                .ok_or_else(|| Status::not_found("unknown handle"))?;
+            if entry.uid != uid || entry.pid != pid {
+                return Err(Status::permission_denied(
+                    "handle is bound to another process",
+                ));
+            }
+            entry.desc.clone()
+        };
         let chunk = self.chunk(r.chunk_size);
         let (tx, rx) = mpsc::channel(16);
         let range = read_range(r.offset, r.length).unwrap_or_else(|| ReadRange::offset(0));
@@ -510,10 +574,19 @@ impl GcsCore for GcsCoreService {
         req: Request<pb::CloseObjectRequest>,
     ) -> Result<Response<pb::Empty>, Status> {
         self.shared.touch();
-        self.handles
-            .write()
-            .unwrap()
-            .remove(&req.into_inner().handle);
+        let (uid, pid) = Self::peer(&req);
+        let handle = req.into_inner().handle;
+        {
+            let mut guard = self.handles.write().unwrap();
+            if let Some(entry) = guard.get(&handle)
+                && (entry.uid != uid || entry.pid != pid)
+            {
+                return Err(Status::permission_denied(
+                    "handle is bound to another process",
+                ));
+            }
+            guard.remove(&handle);
+        }
         Ok(Response::new(pb::Empty {}))
     }
 
@@ -764,6 +837,9 @@ impl GcsCore for GcsCoreService {
         self.shared.touch();
         let (uid, pid) = Self::peer(&req);
         let r = req.into_inner();
+        if r.access_token.is_empty() {
+            return Err(Status::invalid_argument("access_token required"));
+        }
         let s = self.sessions.get(&r.session_id, uid, pid).await?;
         s.token.set(r.access_token, r.expiry_unix_secs);
         Ok(Response::new(pb::Empty {}))
@@ -773,15 +849,15 @@ impl GcsCore for GcsCoreService {
         &self,
         req: Request<pb::SessionRef>,
     ) -> Result<Response<pb::Empty>, Status> {
+        self.shared.touch();
         let (uid, pid) = Self::peer(&req);
         let r = req.into_inner();
-        let _ = self.sessions.get(&r.session_id, uid, pid).await?;
-        self.sessions.remove(&r.session_id).await;
+        self.sessions.close(&r.session_id, uid, pid).await?;
         Ok(Response::new(pb::Empty {}))
     }
 
     async fn shutdown(&self, _req: Request<pb::Empty>) -> Result<Response<pb::Empty>, Status> {
-        self.shared.shutdown.notify_waiters();
+        self.shared.trigger_shutdown();
         Ok(Response::new(pb::Empty {}))
     }
 }
