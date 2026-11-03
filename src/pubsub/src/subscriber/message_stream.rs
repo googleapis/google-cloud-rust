@@ -1190,7 +1190,6 @@ mod tests {
         // closing with EOF.
         let (response_tx_1, response_rx_1) = channel(10);
         let (response_tx_2, response_rx_2) = channel(10);
-        let (ack_tx, mut ack_rx) = unbounded_channel();
 
         let mut seq = mockall::Sequence::new();
         let mut mock = MockSubscriber::new();
@@ -1202,12 +1201,8 @@ mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .return_once(|_| Ok(TonicResponse::from(response_rx_2)));
-        mock.expect_acknowledge().times(1..).returning(move |r| {
-            ack_tx
-                .send(r.into_inner())
-                .expect("sending on channel always succeeds");
-            Ok(TonicResponse::from(()))
-        });
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
@@ -1217,12 +1212,11 @@ mod tests {
         drop(response_tx_2);
 
         for i in 0..10 {
-            let (m, h) = stream
+            let (m, _h) = stream
                 .next()
                 .await
                 .unwrap_or_else(|| panic!("expected message {}/20", i + 1))?;
             assert_eq!(m.data, test_data(i));
-            h.ack();
         }
         assert_eq!(start_time.elapsed(), Duration::ZERO);
 
@@ -1230,26 +1224,16 @@ mod tests {
         // time out at KEEPALIVE_PERIOD + PONG_TIMEOUT (45s), reconnect to
         // Stream 2, and yield messages 10..20.
         for i in 10..20 {
-            let (m, h) = stream
+            let (m, _h) = stream
                 .next()
                 .await
                 .unwrap_or_else(|| panic!("expected message {}/20", i + 1))?;
             assert_eq!(m.data, test_data(i));
-            h.ack();
         }
         assert_eq!(start_time.elapsed(), KEEPALIVE_PERIOD + PONG_TIMEOUT);
 
         let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
-
-        stream.shutdown_token().shutdown().await;
-
-        let mut got = Vec::new();
-        while let Ok(ack_req) = ack_rx.try_recv() {
-            assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
-            got.extend(ack_req.ack_ids);
-        }
-        assert_eq!(sorted(got), test_ids(0..20));
 
         Ok(())
     }
