@@ -28,10 +28,7 @@ use google_cloud_gax::error::rpc::{Code, Status, StatusDetails};
 use google_cloud_rpc::model::{BadRequest, bad_request::FieldViolation};
 use serde_json::json;
 use std::collections::HashMap;
-use std::sync::{
-    Arc,
-    atomic::{AtomicUsize, Ordering},
-};
+use tokio::sync::watch;
 use tokio::task::JoinHandle;
 
 /// Guard that tracks when an echo handler is sleeping in `tokio::time::sleep`.
@@ -47,11 +44,18 @@ use tokio::task::JoinHandle;
 /// (`active_sleeps == 0`), keeping the Tokio run queue non-empty during TCP
 /// handshake and request/response I/O so virtual time only advances during the
 /// handler's intentional `delay_ms` sleep.
-struct ActiveSleepGuard(Arc<AtomicUsize>);
+struct ActiveSleepGuard(watch::Sender<usize>);
+
+impl ActiveSleepGuard {
+    fn enter(tx: &watch::Sender<usize>) -> Self {
+        tx.send_modify(|n| *n += 1);
+        Self(tx.clone())
+    }
+}
 
 impl Drop for ActiveSleepGuard {
     fn drop(&mut self) {
-        self.0.fetch_sub(1, Ordering::SeqCst);
+        self.0.send_modify(|n| *n -= 1);
     }
 }
 
@@ -64,11 +68,11 @@ pub async fn start_with_paused_time() -> anyhow::Result<(String, JoinHandle<()>)
 }
 
 async fn start_internal(paused_time: bool) -> anyhow::Result<(String, JoinHandle<()>)> {
-    let active_sleeps = Arc::new(AtomicUsize::new(0));
+    let (active_sleeps_tx, mut active_sleeps_rx) = watch::channel(0usize);
     let app = axum::Router::new()
         .route("/echo", axum::routing::get(echo))
         .route("/error", axum::routing::get(error))
-        .with_state(active_sleeps.clone());
+        .with_state(active_sleeps_tx);
     let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
     let addr = listener.local_addr()?;
     let server = tokio::spawn(async move {
@@ -79,7 +83,13 @@ async fn start_internal(paused_time: bool) -> anyhow::Result<(String, JoinHandle
                     r.unwrap();
                     break;
                 }
-                _ = tokio::task::yield_now(), if paused_time && active_sleeps.load(Ordering::SeqCst) == 0 => {}
+                _ = async {
+                    if *active_sleeps_rx.borrow_and_update() == 0 {
+                        tokio::task::yield_now().await;
+                    } else {
+                        let _ = active_sleeps_rx.changed().await;
+                    }
+                }, if paused_time => {}
             }
         }
     });
@@ -108,7 +118,7 @@ pub fn make_status() -> anyhow::Result<Status> {
 }
 
 async fn echo(
-    axum::extract::State(active_sleeps): axum::extract::State<Arc<AtomicUsize>>,
+    axum::extract::State(active_sleeps): axum::extract::State<watch::Sender<usize>>,
     Query(query): Query<HashMap<String, String>>,
     headers: HeaderMap,
 ) -> (StatusCode, String) {
@@ -120,7 +130,7 @@ async fn echo(
 }
 
 async fn echo_impl(
-    active_sleeps: Arc<AtomicUsize>,
+    active_sleeps: watch::Sender<usize>,
     query: HashMap<String, String>,
     headers: HeaderMap,
 ) -> anyhow::Result<String> {
@@ -130,8 +140,7 @@ async fn echo_impl(
         .transpose()?
         .map(tokio::time::Duration::from_millis)
     {
-        active_sleeps.fetch_add(1, Ordering::SeqCst);
-        let _guard = ActiveSleepGuard(active_sleeps);
+        let _guard = ActiveSleepGuard::enter(&active_sleeps);
         tokio::time::sleep(delay).await;
     }
     let query = serde_json::Value::Object(
