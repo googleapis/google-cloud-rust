@@ -242,6 +242,11 @@ impl RetryContext {
         query_request = query_request
             .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true))
             .set_request_id(query_request_id);
+
+        if let Some(ref format) = self.template.query_results_format {
+            query_request = query_request.set_query_results_format(format.clone());
+        }
+
         #[cfg(google_cloud_unstable_bigquery_arrow)]
         {
             use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
@@ -249,10 +254,6 @@ impl RetryContext {
             use google_cloud_bigquery_v2::model::query_request::{
                 QueryResultsFormat, ResultsFormatSerializationOptions,
             };
-
-            if let Some(ref format) = self.template.query_results_format {
-                query_request = query_request.set_query_results_format(format.clone());
-            }
 
             // If query results format was set to Arrow, default serialization options to Zstd compression.
             if query_request.query_results_format == QueryResultsFormat::Arrow {
