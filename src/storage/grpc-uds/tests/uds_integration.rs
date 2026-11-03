@@ -354,7 +354,7 @@ async fn shm_memfd_scm_rights_and_zero_copy_read() -> anyhow::Result<()> {
             offset: 0,
             length: -1,
             generation: 0,
-            if_generation_match: -1,
+            if_generation_match: None,
             transport: Transport::Json as i32,
             chunk_size: 0,
         }),
@@ -378,7 +378,7 @@ async fn shm_memfd_scm_rights_and_zero_copy_read() -> anyhow::Result<()> {
             offset: 0,
             length: -1,
             generation: 0,
-            if_generation_match: -1,
+            if_generation_match: None,
             transport: Transport::Json as i32,
             chunk_size: 0,
         }),
@@ -517,7 +517,7 @@ async fn read_write_and_list_over_uds_via_httptest() -> anyhow::Result<()> {
         offset: 0,
         length: -1,
         generation: 0,
-        if_generation_match: -1,
+        if_generation_match: None,
         transport: Transport::Json as i32,
         chunk_size: 64 * 1024,
     });
@@ -549,7 +549,7 @@ async fn read_write_and_list_over_uds_via_httptest() -> anyhow::Result<()> {
         offset: 0,
         length: -1,
         generation: 0,
-        if_generation_match: -1,
+        if_generation_match: None,
         transport: Transport::Json as i32,
         chunk_size: 64 * 1024,
     });
@@ -572,8 +572,8 @@ async fn read_write_and_list_over_uds_via_httptest() -> anyhow::Result<()> {
                 bucket: "my-bucket".to_string(),
                 object: "uploaded.bin".to_string(),
                 content_type: "application/octet-stream".to_string(),
-                if_generation_match: -1,
-                known_size: 11,
+                if_generation_match: None,
+                known_size: Some(11),
                 chunk_size: 0,
                 transport: Transport::Json as i32,
             })),
@@ -592,6 +592,7 @@ async fn read_write_and_list_over_uds_via_httptest() -> anyhow::Result<()> {
     let write_resp = client.write_object(write_req).await?.into_inner();
     assert_eq!(write_resp.size, 11);
     assert_eq!(write_resp.generation, 999);
+    assert_eq!(write_resp.transport_used, Transport::Json as i32);
 
     // Test 4: WriteObject without initial WriteHeader returns INVALID_ARGUMENT
     let bad_frames = vec![WriteRequest {
@@ -744,5 +745,164 @@ async fn open_object_read_range_and_close_via_grpc_mock() -> anyhow::Result<()> 
 
     client.shutdown(Empty {}).await?;
     srv_handle.await?;
+    Ok(())
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn json_404_and_412_status_mapping_and_inproc_lifecycle() -> anyhow::Result<()> {
+    let http_srv = HttpServer::run();
+    // 1. GCS JSON 404 error envelope (without gRPC `status` string field)
+    http_srv.expect(
+        Expectation::matching(all_of![
+            request::method_path("GET", "/storage/v1/b/my-bucket/o/missing-object"),
+            request::query(url_decoded(contains(("alt", "media")))),
+        ])
+        .respond_with(
+            status_code(404)
+                .append_header("content-type", "application/json")
+                .body(
+                    serde_json::json!({
+                        "error": {
+                            "code": 404,
+                            "message": "No such object: my-bucket/missing-object"
+                        }
+                    })
+                    .to_string(),
+                ),
+        ),
+    );
+    // 2. GCS JSON 412 precondition failed envelope
+    http_srv.expect(
+        Expectation::matching(all_of![
+            request::method_path("GET", "/storage/v1/b/my-bucket/o/precond-object"),
+            request::query(url_decoded(contains(("alt", "media")))),
+            request::query(url_decoded(contains(("ifGenerationMatch", "0")))),
+        ])
+        .respond_with(
+            status_code(412)
+                .append_header("content-type", "application/json")
+                .body(
+                    serde_json::json!({
+                        "error": {
+                            "code": 412,
+                            "message": "At least one of the pre-conditions you specified did not hold."
+                        }
+                    })
+                    .to_string(),
+                ),
+        ),
+    );
+
+    let dir = tempfile::tempdir()?;
+    let sock_path = dir.path().join("json-err-test.sock");
+    let tcp_listener = std::net::TcpListener::bind("127.0.0.1:0")?;
+    let tcp_addr = tcp_listener.local_addr()?;
+    drop(tcp_listener);
+
+    let args = Args {
+        socket: sock_path.to_string_lossy().to_string(),
+        idle_secs: 0,
+        shm_size: 0,
+        tcp: Some(tcp_addr.to_string()),
+        peer_uid_check: true,
+        endpoint: Some(format!("http://{}", http_srv.addr())),
+        ..Default::default()
+    };
+
+    let listener = bind_uds_listener(&args.socket)
+        .map_err(|e| anyhow::anyhow!("bind_uds_listener failed: {e}"))?;
+    let shared = Shared::new();
+    let srv_shared = shared.clone();
+    let srv_handle = tokio::spawn(async move {
+        let _ = serve_with_listener(args, listener, srv_shared).await;
+    });
+
+    let mut client = connect_uds(sock_path.clone()).await?;
+    let sess = client
+        .create_session(CreateSessionRequest {
+            access_token: "test-bearer-err-test".to_string(),
+            expiry_unix_secs: 0,
+            quota_project: String::new(),
+        })
+        .await?
+        .into_inner();
+
+    // Verify JSON 404 maps to tonic::Code::NotFound (not Code::Unknown)
+    let mut req_404 = tonic::Request::new(ReadObjectRequest {
+        bucket: "my-bucket".to_string(),
+        object: "missing-object".to_string(),
+        offset: 0,
+        length: -1,
+        generation: 0,
+        if_generation_match: None,
+        transport: Transport::Json as i32,
+        chunk_size: 0,
+    });
+    req_404
+        .metadata_mut()
+        .insert("x-session", sess.session_id.parse()?);
+    let err_404 = client
+        .read_object(req_404)
+        .await
+        .expect_err("404 JSON response must fail with NOT_FOUND");
+    assert_eq!(err_404.code(), tonic::Code::NotFound);
+
+    // Verify JSON 412 with optional if_generation_match = Some(0) maps to FailedPrecondition
+    let mut req_412 = tonic::Request::new(ReadObjectRequest {
+        bucket: "my-bucket".to_string(),
+        object: "precond-object".to_string(),
+        offset: 0,
+        length: -1,
+        generation: 0,
+        if_generation_match: Some(0),
+        transport: Transport::Json as i32,
+        chunk_size: 0,
+    });
+    req_412
+        .metadata_mut()
+        .insert("x-session", sess.session_id.parse()?);
+    let err_412 = client
+        .read_object(req_412)
+        .await
+        .expect_err("412 JSON response must fail with FAILED_PRECONDITION");
+    assert_eq!(err_412.code(), tonic::Code::FailedPrecondition);
+
+    // Verify TCP connection is rejected when --peer-uid-check=true
+    let tcp_channel = Endpoint::try_from(format!("http://{tcp_addr}"))?
+        .connect()
+        .await?;
+    let mut tcp_client = GcsCoreClient::new(tcp_channel);
+    let tcp_err = tcp_client
+        .ping(PingRequest {
+            payload: Bytes::from_static(b"tcp-ping"),
+        })
+        .await
+        .expect_err("TCP call must be rejected when --peer-uid-check=true");
+    assert_eq!(tcp_err.code(), tonic::Code::PermissionDenied);
+
+    client.shutdown(Empty {}).await?;
+    srv_handle.await?;
+
+    // Verify gcs_core_start_inproc and gcs_core_stop_inproc C-FFI lifecycle
+    let inproc_sock = dir.path().join("inproc.sock");
+    let c_sock = std::ffi::CString::new(inproc_sock.to_string_lossy().as_bytes())?;
+    let start_rc = unsafe { storage_grpc_uds::gcs_core_start_inproc(c_sock.as_ptr()) };
+    assert_eq!(start_rc, 0, "gcs_core_start_inproc must return 0");
+    {
+        let mut inproc_client = connect_uds(inproc_sock.clone()).await?;
+        let pong = inproc_client
+            .ping(PingRequest {
+                payload: Bytes::from_static(b"inproc-ok"),
+            })
+            .await?
+            .into_inner();
+        assert_eq!(pong.payload, Bytes::from_static(b"inproc-ok"));
+    }
+    let stop_rc = unsafe { storage_grpc_uds::gcs_core_stop_inproc(c_sock.as_ptr()) };
+    assert_eq!(stop_rc, 0, "gcs_core_stop_inproc must return 0");
+    assert!(
+        !inproc_sock.exists(),
+        "inproc socket should be removed after gcs_core_stop_inproc"
+    );
     Ok(())
 }

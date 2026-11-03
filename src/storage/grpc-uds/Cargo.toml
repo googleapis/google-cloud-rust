@@ -27,8 +27,9 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [lib]
-name = "storage_grpc_uds"
-path = "src/lib.rs"
+name       = "storage_grpc_uds"
+path       = "src/lib.rs"
+crate-type = ["rlib", "staticlib", "cdylib"]
 
 [[bin]]
 name = "gcs-core-server"

@@ -27,7 +27,8 @@ Thin language veneers (Go, Python, Java, C++, Node.js) connect to `gcs-core-serv
 | :--- | :--- |
 | [`proto/gcscore.proto`](proto/gcscore.proto) | `gcscore.v1.GcsCore` protobuf contract between thin clients and the Rust server. |
 | [`src/main.rs`](src/main.rs) | CLI entry point (`gcs-core-server`) with opt-in Linux `PR_SET_PDEATHSIG(SIGTERM)`. |
-| [`src/lib.rs`](src/lib.rs) | UDS listener setup (`0600` mode, stale-socket recovery, `@` abstract sockets), `SO_PEERCRED` UID interceptor, `TrackedUnixStream` connection ref-counting, dead-PID session/handle reaper, and `gcs_core_start_inproc` C-FFI entry point. |
+| [`src/lib.rs`](src/lib.rs) | UDS listener setup (`0600` mode, stale-socket recovery, `@` abstract sockets), `SO_PEERCRED` UID interceptor, `TrackedUnixStream` connection ref-counting, dead-PID session/handle reaper, and `gcs_core_start_inproc` / `gcs_core_stop_inproc` C-FFI entry points. |
+| [`include/gcs_core_uds.h`](include/gcs_core_uds.h) | C/C++ header declaring `gcs_core_start_inproc` and `gcs_core_stop_inproc` for linking `libstorage_grpc_uds.{a,so}`. |
 | [`src/service.rs`](src/service.rs) | `GcsCore` RPC implementation bridging UDS streams to `Storage` and `StorageControl`. |
 | [`src/session.rs`](src/session.rs) | Per-caller OAuth2 token-lending registry (`Sessions`) bound to `(uid, pid)` with dead-PID reaping. |
 | [`src/shm.rs`](src/shm.rs) | Linux `memfd_create` + `F_ADD_SEALS` + `SCM_RIGHTS` FD-passing server on `<socket>.shm`. |
@@ -43,7 +44,7 @@ Thin language veneers (Go, Python, Java, C++, Node.js) connect to `gcs-core-serv
 | :--- | :--- | :--- |
 | **1. `N:1` Shared Host Daemon** *(Default)* | `gcs-core-server --socket /run/user/$UID/gcs-core.sock --idle-secs 300` | Multiple thin-client processes share one daemon and one warm GCS gRPC subchannel pool. `TrackedUnixStream` tracks active UDS connections (`active_conns`), and the daemon exits only after `--idle-secs` with `0` active connections. |
 | **2. `1:1` Per-Process Child Sidecar** | `gcs-core-server --socket /tmp/gcs-$PID.sock --pdeathsig true --idle-secs 0` | Dedicated child process per application. On Linux, `--pdeathsig true` sets `prctl(PR_SET_PDEATHSIG, SIGTERM)` (with immediate `getppid() == 1` TOCTOU verification) so the sidecar terminates immediately if its parent crashes (`SIGKILL`). |
-| **3. Single-Process (In-Process UDS)** | Call `gcs_core_start_inproc(socket_path)` via C-FFI once at startup | Runs the Tonic UDS server on a background Tokio thread inside the host process. All data RPCs still flow over standard UDS sockets (avoiding per-RPC FFI/`cgo` transitions). |
+| **3. Single-Process (In-Process UDS)** | Call `gcs_core_start_inproc(socket_path)` / `gcs_core_stop_inproc(socket_path)` via C-FFI ([`include/gcs_core_uds.h`](include/gcs_core_uds.h)) | Runs the Tonic UDS server on a background Tokio thread inside the host process. All data RPCs still flow over standard UDS sockets (avoiding per-RPC FFI/`cgo` transitions). |
 
 ---
 
@@ -57,7 +58,7 @@ Instead of proxying `google.storage.v2.Storage` 1:1 over UDS, [`proto/gcscore.pr
 | `ReadObject` | Server-streaming | Streams object contents in `--chunk-size` slices (`2 MiB` default) over `Transport::JSON` or `Transport::GRPC` (`BidiReadObject`). First `ReadChunk` carries `ObjectMeta`. |
 | `OpenObject` / `ReadRange` / `CloseObject` | Unary + Server-streaming | Opens a persistent `BidiReadObject` `ObjectDescriptor` stored under a `(uid, pid)`-bound `uint64` handle in a lock-free `RwLock` table, enabling concurrent multi-range reads (`ReadRange`) over one upstream stream. |
 | `ReadObjectShm` | Server-streaming | **Linux Zero-Copy Read:** Clients connect to `<socket>.shm` to receive a 16-byte little-endian header `[region_id: u64, region_size: u64]` + sealed `memfd` via `SCM_RIGHTS`. `ReadObjectShm` writes payload directly into the client's `memfd` and returns a `ShmChunk` `(offset, len, meta)` descriptor. |
-| `WriteObject` | Client-streaming | First message carries `WriteHeader` (bucket, object, content-type, preconditions, transport); subsequent messages stream `bytes data`. Uses `open_appendable_object` (`BidiWriteObject`) when built with `--cfg google_cloud_unstable_storage_bidi` (falling back to buffered `write_object` if a regional bucket returns `UNIMPLEMENTED`). |
+| `WriteObject` | Client-streaming | First message carries `WriteHeader` (bucket, object, content-type, optional preconditions/known size, transport); subsequent messages stream `bytes data`. Uses `open_appendable_object` (`BidiWriteObject`) when built with `--cfg google_cloud_unstable_storage_bidi` (falling back to buffered `write_object` if a regional bucket returns `UNIMPLEMENTED`) and reports the actual transport used in `WriteObjectResponse.transport_used`. |
 | `ListObjects` / `ListBuckets` | Unary | Single-page control-plane listing via `StorageControl`, matching thin-client page iterators. |
 | `CreateSession` / `UpdateToken` / `CloseSession` | Unary | Per-caller OAuth2 bearer token lending bound to kernel-verified `(uid, pid)`. |
 | `Stats` / `Shutdown` | Unary | Returns process CPU (`getrusage`) and RSS/VmHWM (`/proc/self/status`) telemetry, or triggers graceful shutdown. |

@@ -88,12 +88,12 @@ message ObjectMeta {
 message ReadObjectRequest {
   string bucket = 1;
   string object = 2;
-  int64 offset = 3;               // Range start offset (< 0 for suffix range)
-  int64 length = 4;               // -1 reads to end of object
-  int64 generation = 5;           // 0 = latest generation
-  int64 if_generation_match = 6;  // -1 = unset
+  int64 offset = 3;                        // Range start offset (< 0 for suffix range)
+  int64 length = 4;                        // -1 reads to end of object
+  int64 generation = 5;                    // 0 = latest generation
+  optional int64 if_generation_match = 6;  // Unset or < 0 = no precondition; 0 = DoesNotExist
   Transport transport = 7;
-  uint32 chunk_size = 8;          // Target bytes per ReadChunk; 0 = server default
+  uint32 chunk_size = 8;                   // Target bytes per ReadChunk; 0 = server default
 }
 
 message ReadChunk {
@@ -140,9 +140,9 @@ message WriteHeader {
   string bucket = 1;
   string object = 2;
   string content_type = 3;
-  int64 if_generation_match = 4;  // -1 = unset; 0 = DoesNotExist
-  int64 known_size = 5;           // >= 0 enables single-shot upload on JSON path
-  uint32 chunk_size = 6;          // Resumable upload flush size; 0 = default
+  optional int64 if_generation_match = 4;  // Unset or < 0 = no precondition; 0 = DoesNotExist
+  optional int64 known_size = 5;           // >= 0 enables single-shot upload on JSON path
+  uint32 chunk_size = 6;                   // Resumable upload flush size; 0 = default
   Transport transport = 7;
 }
 
@@ -157,6 +157,7 @@ message WriteObjectResponse {
   int64 size = 1;
   int64 generation = 2;
   uint32 crc32c = 3;
+  Transport transport_used = 4;
 }
 
 message ListObjectsRequest {
