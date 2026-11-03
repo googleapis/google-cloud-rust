@@ -1355,9 +1355,6 @@ pub(crate) mod tests {
                 Ok(Some("0x123".to_string()))
             });
 
-        #[cfg(google_cloud_unstable_trust_boundaries)]
-        let access_boundary = AccessBoundary::new(mock_provider);
-        #[cfg(not(google_cloud_unstable_trust_boundaries))]
         let access_boundary = AccessBoundary::new_with_mock_provider(mock_provider);
 
         tokio::task::yield_now().await;
