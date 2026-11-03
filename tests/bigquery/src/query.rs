@@ -614,28 +614,14 @@ pub async fn query_client_nested_types(format: QueryResultsFormat) -> Result<()>
 
     println!("STARTING NESTED TYPES INTEGRATION TEST ({format:?})");
 
-    let is_arrow = format == QueryResultsFormat::Arrow;
-
-    // TODO(#7034): Anonymous struct fields and duplicate struct field names are
-    // skipped for Arrow format due to a service-side limitation. Remove this
-    // branch once the fix is deployed to production.
-    let sql = if is_arrow {
-        "SELECT \
-             STRUCT('Alice' AS name, 25 AS age) AS user, \
-             ARRAY[1, 2, 3] AS numbers, \
-             ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
-             STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
-             STRUCT(1 AS z, 2 AS a) AS pair"
-    } else {
-        "SELECT \
-             STRUCT('Alice' AS name, 25 AS age) AS user, \
-             ARRAY[1, 2, 3] AS numbers, \
-             ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
-             STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
-             STRUCT(10, 'hello', true) AS anon, \
-             STRUCT(1 AS z, 2 AS a) AS pair, \
-             STRUCT(100 AS id, 200 AS id) AS dup"
-    };
+    let sql = "SELECT \
+         STRUCT('Alice' AS name, 25 AS age) AS user, \
+         ARRAY[1, 2, 3] AS numbers, \
+         ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
+         STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
+         STRUCT(10, 'hello', true) AS anon, \
+         STRUCT(1 AS z, 2 AS a) AS pair, \
+         STRUCT(100 AS id, 200 AS id) AS dup";
 
     let query = bq
         .query(sql)
@@ -653,19 +639,17 @@ pub async fn query_client_nested_types(format: QueryResultsFormat) -> Result<()>
     let pair_by_pos: PositionalPair = row.get("pair")?;
     assert_eq!(pair_by_pos, PositionalPair(1, 2));
 
-    if !is_arrow {
-        // Verify positional extraction on `dup` accesses both duplicate `id` fields (100, 200)
-        let dup_by_pos: PositionalPair = row.get("dup")?;
-        assert_eq!(dup_by_pos, PositionalPair(100, 200));
+    // Verify positional extraction on `dup` accesses both duplicate `id` fields (100, 200)
+    let dup_by_pos: PositionalPair = row.get("dup")?;
+    assert_eq!(dup_by_pos, PositionalPair(100, 200));
 
-        // verify anonymous struct preserves all unnamed fields
-        let anon: AnonTriple = row.get("anon")?;
-        assert_eq!(anon, AnonTriple(10, "hello".to_string(), true));
+    // verify anonymous struct preserves all unnamed fields
+    let anon: AnonTriple = row.get("anon")?;
+    assert_eq!(anon, AnonTriple(10, "hello".to_string(), true));
 
-        // verify named extraction on `dup` returns the first `id` field
-        let dup: DupIdNamed = row.get("dup")?;
-        assert_eq!(dup, DupIdNamed { id: 100 });
-    }
+    // verify named extraction on `dup` returns the first `id` field
+    let dup: DupIdNamed = row.get("dup")?;
+    assert_eq!(dup, DupIdNamed { id: 100 });
 
     // Deserialize the common nested fields as user defined struct
     let data: RowData = row.try_into()?;
