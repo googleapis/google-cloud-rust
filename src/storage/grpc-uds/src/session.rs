@@ -203,6 +203,25 @@ impl Sessions {
     pub async fn is_empty(&self) -> bool {
         self.map.lock().await.is_empty()
     }
+
+    /// Reaps any registered sessions whose owning client process (`peer_pid`) has exited
+    /// (`kill(pid, 0) == -1 && errno == ESRCH`), freeing its pooled `Storage` / `StorageControl`
+    /// instances even if the client crashed (`SIGKILL`) without calling `CloseSession`.
+    pub async fn reap_dead_pids(&self) -> usize {
+        let mut guard = self.map.lock().await;
+        let before = guard.len();
+        guard.retain(|_, s| {
+            if s.peer_pid <= 0 {
+                return true;
+            }
+            let rc = unsafe { libc::kill(s.peer_pid, 0) };
+            if rc == 0 {
+                return true;
+            }
+            std::io::Error::last_os_error().raw_os_error() != Some(libc::ESRCH)
+        });
+        before - guard.len()
+    }
 }
 
 #[derive(Debug)]

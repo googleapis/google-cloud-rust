@@ -82,6 +82,11 @@ impl GcsCoreService {
         })
     }
 
+    /// Returns a reference to the per-caller `Sessions` registry.
+    pub fn sessions(&self) -> Arc<Sessions> {
+        self.sessions.clone()
+    }
+
     fn peer<T>(req: &Request<T>) -> (u32, i32) {
         match req
             .extensions()

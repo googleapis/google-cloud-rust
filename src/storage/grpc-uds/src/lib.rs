@@ -31,14 +31,67 @@ pub mod shm;
 use clap::Parser;
 use std::ffi::{CStr, c_char};
 use std::path::PathBuf;
+use std::pin::Pin;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI64, AtomicU64, AtomicUsize, Ordering};
+use std::task::{Context, Poll};
 use std::time::{Duration, Instant};
-use tokio::net::UnixListener;
+use tokio::io::{AsyncRead, AsyncWrite, ReadBuf};
+use tokio::net::{UnixListener, UnixStream};
 use tokio_stream::StreamExt;
 use tokio_stream::wrappers::UnixListenerStream;
 use tonic::transport::Server;
-use tonic::transport::server::UdsConnectInfo;
+use tonic::transport::server::{Connected, UdsConnectInfo};
+
+/// Wrapper around `tokio::net::UnixStream` that decrements `Shared::active_conns`
+/// and refreshes `Shared::last_rpc` when a client UDS connection closes (including on `SIGKILL`).
+pub struct TrackedUnixStream {
+    inner: UnixStream,
+    shared: Arc<Shared>,
+}
+
+impl Connected for TrackedUnixStream {
+    type ConnectInfo = UdsConnectInfo;
+
+    fn connect_info(&self) -> Self::ConnectInfo {
+        self.inner.connect_info()
+    }
+}
+
+impl AsyncRead for TrackedUnixStream {
+    fn poll_read(
+        mut self: Pin<&mut Self>,
+        cx: &mut Context<'_>,
+        buf: &mut ReadBuf<'_>,
+    ) -> Poll<std::io::Result<()>> {
+        Pin::new(&mut self.inner).poll_read(cx, buf)
+    }
+}
+
+impl AsyncWrite for TrackedUnixStream {
+    fn poll_write(
+        mut self: Pin<&mut Self>,
+        cx: &mut Context<'_>,
+        buf: &[u8],
+    ) -> Poll<std::io::Result<usize>> {
+        Pin::new(&mut self.inner).poll_write(cx, buf)
+    }
+
+    fn poll_flush(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<std::io::Result<()>> {
+        Pin::new(&mut self.inner).poll_flush(cx)
+    }
+
+    fn poll_shutdown(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<std::io::Result<()>> {
+        Pin::new(&mut self.inner).poll_shutdown(cx)
+    }
+}
+
+impl Drop for TrackedUnixStream {
+    fn drop(&mut self) {
+        self.shared.active_conns.fetch_sub(1, Ordering::Relaxed);
+        self.shared.last_rpc.store(now_ms(), Ordering::Relaxed);
+    }
+}
 
 #[allow(missing_docs, clippy::all)]
 pub mod pb {
@@ -234,6 +287,7 @@ pub async fn serve_with_listener(
     }
 
     let svc = service::GcsCoreService::new(&args, shared.clone(), shm).await?;
+    let reaper_sessions = svc.sessions();
     let my_uid = unsafe { libc::getuid() };
     let peer_check = args.peer_uid_check;
 
@@ -260,12 +314,19 @@ pub async fn serve_with_listener(
         .max_encoding_message_size(64 * 1024 * 1024);
     let grpc = tonic::service::interceptor::InterceptedService::new(inner, auth);
 
-    if args.idle_secs > 0 {
+    {
         let s = shared.clone();
-        let idle = args.idle_secs as i64 * 1000;
+        let idle = (args.idle_secs as i64) * 1000;
         tokio::spawn(async move {
             loop {
                 tokio::time::sleep(Duration::from_secs(1)).await;
+                let reaped = reaper_sessions.reap_dead_pids().await;
+                if reaped > 0 {
+                    tracing::info!(reaped, "reaped sessions from exited client processes");
+                }
+                if idle <= 0 {
+                    continue;
+                }
                 if s.active_conns.load(Ordering::Relaxed) > 0 {
                     s.last_rpc.store(now_ms(), Ordering::Relaxed);
                     continue;
@@ -287,7 +348,7 @@ pub async fn serve_with_listener(
     let conn_shared = shared.clone();
     let uds_grpc = grpc.clone();
     let incoming = UnixListenerStream::new(listener).map(move |res| {
-        if let Ok(ref s) = res {
+        res.map(|s| {
             conn_shared.active_conns.fetch_add(1, Ordering::Relaxed);
             conn_shared.last_rpc.store(now_ms(), Ordering::Relaxed);
             #[cfg(unix)]
@@ -310,8 +371,11 @@ pub async fn serve_with_listener(
                     std::mem::size_of_val(&sz) as libc::socklen_t,
                 );
             }
-        }
-        res
+            TrackedUnixStream {
+                inner: s,
+                shared: conn_shared.clone(),
+            }
+        })
     });
 
     let uds = Server::builder()
