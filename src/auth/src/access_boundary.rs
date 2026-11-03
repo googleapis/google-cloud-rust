@@ -31,7 +31,7 @@ use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::clone::Clone;
 use std::fmt::Debug;
-use std::sync::{Arc, OnceLock};
+use std::sync::{Arc, OnceLock, Weak};
 use tokio::sync::{Mutex, watch};
 use tokio::time::{Duration, Instant, sleep};
 
@@ -51,6 +51,15 @@ struct AccessBoundary {
     /// - `Some(...)`: We successfully talked to the IAM service or have a customer provided override.
     ///   These values come with a TTL so we know how long to keep them around.
     rx_header: watch::Receiver<(Option<BoundaryValue>, EntityTag)>,
+    refresh_task: Option<tokio::task::AbortHandle>,
+}
+
+impl Drop for AccessBoundary {
+    fn drop(&mut self) {
+        if let Some(handle) = &self.refresh_task {
+            handle.abort();
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -77,18 +86,30 @@ impl AccessBoundary {
     where
         T: AccessBoundaryProvider + 'static,
     {
-        let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
-
-        if Self::is_enabled() {
-            tokio::spawn(refresh_task(provider, tx_header));
+        if !Self::is_enabled() {
+            return Self::new_no_op();
         }
+        Self::new_enabled(provider)
+    }
 
-        Self { rx_header }
+    fn new_enabled<T>(provider: T) -> Self
+    where
+        T: AccessBoundaryProvider + 'static,
+    {
+        let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
+        let handle = tokio::spawn(refresh_task(provider, tx_header)).abort_handle();
+        Self {
+            rx_header,
+            refresh_task: Some(handle),
+        }
     }
 
     pub(crate) fn new_no_op() -> Self {
         let (_, rx_header) = watch::channel((None, EntityTag::new()));
-        Self { rx_header }
+        Self {
+            rx_header,
+            refresh_task: None,
+        }
     }
     fn is_enabled() -> bool {
         #[cfg(google_cloud_unstable_trust_boundaries)]
@@ -117,8 +138,8 @@ pub(crate) struct CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    credentials: Arc<T>,
     access_boundary: Arc<AccessBoundary>,
+    credentials: Arc<T>,
     cache: Arc<Mutex<EntityTagCache>>,
 }
 
@@ -220,7 +241,7 @@ where
         let credentials = Arc::new(credentials);
 
         let provider = IAMAccessBoundaryProvider {
-            credentials: credentials.clone(),
+            credentials: Arc::downgrade(&credentials),
             url: access_boundary_url,
         };
         let access_boundary = Arc::new(AccessBoundary::new(provider));
@@ -238,7 +259,7 @@ where
     ) -> Self {
         let credentials = Arc::new(credentials);
         let provider = MDSAccessBoundaryProvider {
-            credentials: credentials.clone(),
+            credentials: Arc::downgrade(&credentials),
             mds_client,
             iam_endpoint_override,
             url: OnceLock::new(),
@@ -383,7 +404,7 @@ struct IAMAccessBoundaryProvider<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    credentials: Arc<T>,
+    credentials: Weak<T>,
     url: Option<String>,
 }
 
@@ -393,17 +414,18 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
-        let universe_domain = self.credentials.universe_domain().await;
+        let Some(credentials) = self.credentials.upgrade() else {
+            return Err(errors::non_retryable_from_str("credentials dropped"));
+        };
+        let universe_domain = credentials.universe_domain().await;
         if !is_default_universe_domain(universe_domain.as_deref()) {
             return Ok(None);
         }
-        match self.url.as_ref() {
-            Some(url) => {
-                let client = AccessBoundaryClient::new(self.credentials.clone(), url.clone());
-                client.fetch().await
-            }
-            None => Ok(None), // No URL means no access boundary
-        }
+        let Some(url) = self.url.as_ref() else {
+            return Ok(None); // No URL means no access boundary
+        };
+        let client = AccessBoundaryClient::new(credentials, url.clone());
+        client.fetch().await
     }
 }
 
@@ -413,7 +435,7 @@ struct MDSAccessBoundaryProvider<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    credentials: Arc<T>,
+    credentials: Weak<T>,
     mds_client: MDSClient,
     iam_endpoint_override: Option<String>,
     url: OnceLock<String>,
@@ -425,7 +447,10 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
-        let universe_domain = self.credentials.universe_domain().await;
+        let Some(credentials) = self.credentials.upgrade() else {
+            return Err(errors::non_retryable_from_str("credentials dropped"));
+        };
+        let universe_domain = credentials.universe_domain().await;
         if !is_default_universe_domain(universe_domain.as_deref()) {
             return Ok(None);
         }
@@ -440,7 +465,7 @@ where
         }
 
         let url = self.url.get().unwrap().to_string();
-        let client = AccessBoundaryClient::new(self.credentials.clone(), url);
+        let client = AccessBoundaryClient::new(credentials, url);
         client.fetch().await
     }
 }
@@ -568,6 +593,9 @@ where
     T: AccessBoundaryProvider,
 {
     loop {
+        if tx_header.receiver_count() == 0 {
+            return;
+        }
         match provider.fetch_access_boundary().await {
             Ok(val) => {
                 let _ = tx_header.send((Some(BoundaryValue::new(val)), EntityTag::new()));
@@ -668,9 +696,7 @@ pub(crate) mod tests {
         where
             T: AccessBoundaryProvider + 'static,
         {
-            let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
-            tokio::spawn(refresh_task(provider, tx_header));
-            Self { rx_header }
+            Self::new_enabled(provider)
         }
 
         fn header_value(&self) -> Option<String> {
@@ -933,7 +959,10 @@ pub(crate) mod tests {
     #[parallel]
     async fn test_access_boundary_header_value_no_op() {
         let (tx, rx_header) = watch::channel((None, EntityTag::new()));
-        let access_boundary = AccessBoundary { rx_header };
+        let access_boundary = AccessBoundary {
+            rx_header,
+            refresh_task: None,
+        };
 
         let _ = tx.send((
             Some(BoundaryValue::new(Some("0x123".to_string()))),
@@ -1005,7 +1034,10 @@ pub(crate) mod tests {
     #[parallel]
     async fn expired_access_boundary_returns_none() {
         let (tx, rx_header) = watch::channel((None, EntityTag::new()));
-        let access_boundary = AccessBoundary { rx_header };
+        let access_boundary = AccessBoundary {
+            rx_header,
+            refresh_task: None,
+        };
 
         let ttl = Duration::from_secs(10);
         let expires_at = Instant::now() + ttl;
@@ -1288,11 +1320,12 @@ pub(crate) mod tests {
         let mut mock = MockCredentials::new();
         mock.expect_universe_domain()
             .returning(|| Some("my-universe-domain.com".to_string()));
+        let mock = Arc::new(mock);
 
         let mds_client = MDSClient::new(None);
 
         let provider = MDSAccessBoundaryProvider {
-            credentials: Arc::new(mock),
+            credentials: Arc::downgrade(&mock),
             mds_client,
             iam_endpoint_override: None,
             url: OnceLock::new(),
@@ -1302,6 +1335,141 @@ pub(crate) mod tests {
         assert!(
             val.is_none(),
             "Expected None for non-default universe domain: {val:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[parallel]
+    async fn dropping_access_boundary_stops_refresh_task() {
+        let sentinel = Arc::new(());
+        let weak_sentinel = Arc::downgrade(&sentinel);
+
+        let mut mock_provider = MockAccessBoundaryProvider::new();
+        mock_provider
+            .expect_fetch_access_boundary()
+            .times(1)
+            .returning(move || {
+                let _keep_alive = &sentinel;
+                Ok(Some("0x123".to_string()))
+            });
+
+        #[cfg(google_cloud_unstable_trust_boundaries)]
+        let access_boundary = AccessBoundary::new(mock_provider);
+        #[cfg(not(google_cloud_unstable_trust_boundaries))]
+        let access_boundary = AccessBoundary::new_with_mock_provider(mock_provider);
+
+        tokio::task::yield_now().await;
+        assert_eq!(access_boundary.header_value().as_deref(), Some("0x123"));
+        assert!(weak_sentinel.upgrade().is_some());
+
+        drop(access_boundary);
+        tokio::task::yield_now().await;
+        assert!(
+            weak_sentinel.upgrade().is_none(),
+            "access boundary refresh task should be aborted and drop its provider immediately"
+        );
+
+        // Advancing past DEFAULT_TTL must not trigger another fetch (enforced by .times(1)).
+        tokio::time::advance(2 * DEFAULT_TTL).await;
+        tokio::task::yield_now().await;
+    }
+
+    #[test_case(false; "iam")]
+    #[test_case(true; "mds")]
+    #[tokio::test]
+    async fn provider_returns_error_when_credentials_dropped(use_mds: bool) {
+        let creds = Arc::new(MockCredentials::new());
+        let weak_creds = Arc::downgrade(&creds);
+        drop(creds);
+
+        let result = if use_mds {
+            let provider = MDSAccessBoundaryProvider {
+                credentials: weak_creds,
+                mds_client: MDSClient::new(None),
+                iam_endpoint_override: None,
+                url: OnceLock::new(),
+            };
+            provider.fetch_access_boundary().await
+        } else {
+            let provider = IAMAccessBoundaryProvider {
+                credentials: weak_creds,
+                url: Some("http://localhost".to_string()),
+            };
+            provider.fetch_access_boundary().await
+        };
+
+        let err = result.expect_err("expected error when credentials have been dropped");
+        assert!(!err.is_transient(), "{err:?}");
+    }
+
+    #[test_case(false; "iam")]
+    #[test_case(true; "mds")]
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_trust_boundaries)]
+    async fn dropping_credentials_with_access_boundary_releases_inner_credentials(
+        use_mds: bool,
+    ) -> TestResult {
+        use crate::mds::MDS_DEFAULT_URI;
+
+        let server = Server::run();
+        let allowed_locations_path = if use_mds {
+            server.expect(
+                Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/email")))
+                    .times(1)
+                    .respond_with(status_code(200).body("some-client-email")),
+            );
+            "/v1/projects/-/serviceAccounts/some-client-email/allowedLocations"
+        } else {
+            "/allowedLocations"
+        };
+        server.expect(
+            Expectation::matching(request::method_path("GET", allowed_locations_path))
+                .times(1)
+                .respond_with(json_encoded(json!({
+                    "encodedLocations": "0x123",
+                    "locations": ["us-east1"]
+                }))),
+        );
+
+        let sentinel = Arc::new(());
+        let weak_sentinel = Arc::downgrade(&sentinel);
+
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().returning(move |_extensions| {
+            let _keep_alive = &sentinel;
+            let headers = HeaderMap::from_iter([(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer test-token"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
+            })
+        });
+        mock.expect_universe_domain().returning(|| None);
+
+        let creds = if use_mds {
+            let endpoint = server
+                .url("/")
+                .to_string()
+                .trim_end_matches('/')
+                .to_string();
+            let mds_client = MDSClient::new(Some(endpoint.clone()));
+            CredentialsWithAccessBoundary::new_for_mds(mock, mds_client, Some(endpoint))
+        } else {
+            let url = server.url(allowed_locations_path).to_string();
+            CredentialsWithAccessBoundary::new(mock, Some(url))
+        };
+        creds.wait_for_boundary().await;
+        assert!(weak_sentinel.upgrade().is_some());
+
+        drop(creds);
+        tokio::task::yield_now().await;
+        assert!(
+            weak_sentinel.upgrade().is_none(),
+            "dropping CredentialsWithAccessBoundary should immediately release inner credentials"
         );
 
         Ok(())
