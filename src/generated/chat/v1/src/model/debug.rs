@@ -1005,6 +1005,29 @@ impl std::fmt::Debug for super::CardWithId {
         let mut debug_struct = f.debug_struct("CardWithId");
         debug_struct.field("card_id", &self.card_id);
         debug_struct.field("card", &self.card);
+        debug_struct.field("owner_user", &self.owner_user);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ReplaceMessageCardsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceMessageCardsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("cards_v2", &self.cards_v2);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ReplaceMessageCardsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceMessageCardsResponse");
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

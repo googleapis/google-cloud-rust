@@ -4181,7 +4181,10 @@ pub struct DataAgent {
     /// `bigquery_agent_analytics_table` is set. On a BigQuery agent, enabling
     /// this without a table has no effect: no table is created for the agent
     /// and no rows are written. On an agent whose datasource is not BigQuery,
-    /// `CreateDataAgent` rejects either field with `INVALID_ARGUMENT`.
+    /// `CreateDataAgent` and `UpdateDataAgent` reject setting this field to
+    /// `true` or setting `bigquery_agent_analytics_table` with
+    /// `INVALID_ARGUMENT`. See `bigquery_agent_analytics_table` for when this
+    /// is checked.
     ///
     /// This setting is independent of the project-level BigQuery Agent Analytics
     /// setting configured through `SetAgentOpsObservability`. An agent does not
@@ -4193,17 +4196,26 @@ pub struct DataAgent {
     /// `true`. The Preview enrollment described on that field applies here too.
     ///
     /// The trace table is validated when it is set on `CreateDataAgent`, or when
-    /// it is included in the `update_mask` of an `UpdateDataAgent` call. The
+    /// an `UpdateDataAgent` call writes a table to it. An `UpdateDataAgent` call
+    /// writes a field if the field is in `update_mask` or, when `update_mask` is
+    /// omitted, if the field is present in the request, even if its value is
+    /// unchanged. An update that only clears this field is not validated. The
     /// following are rejected with `INVALID_ARGUMENT`:
     ///
     /// * The table must belong to the same project as the agent.
     /// * The agent's datasource must be BigQuery. BigQuery Agent Analytics is not
     ///   supported for Looker, Looker Studio or AlloyDB agents.
     ///
-    /// These are validated against the agent as sent in the request. An agent
-    /// that carries no datasource is not validated, and an agent switched to a
-    /// non-BigQuery datasource is not re-validated; in the latter case no trace
-    /// rows are written.
+    /// On `CreateDataAgent`, the datasource is validated against the agent in
+    /// the request. On `UpdateDataAgent`, it is validated against the stored
+    /// agent after applying the update whenever the call writes a table to this
+    /// field or writes `true` to `bigquery_agent_analytics_enabled`. For example,
+    /// an `UpdateDataAgent` call without `update_mask` that carries an unchanged
+    /// `bigquery_agent_analytics_enabled = true` is rejected on an agent whose
+    /// datasource is not BigQuery. An agent that carries no datasource is not
+    /// validated, and an agent switched to a non-BigQuery datasource by an update
+    /// that does neither is not re-validated; in the latter case no trace rows
+    /// are written.
     ///
     /// The destination dataset must already exist and must grant write access to
     /// the project's Gemini Data Analytics service agent, whose address is
@@ -6893,8 +6905,8 @@ pub mod chat_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ThinkingMode {
-        /// Unspecified thinking mode, agent will use THINKING mode by default except
-        /// for BigQuery user defaulting to FAST mode by default.
+        /// The default value. For BigQuery and Looker data sources, the agent uses
+        /// FAST. For all other data sources, the agent uses THINKING.
         Unspecified,
         /// Fast mode, answers quickly.
         Fast,
@@ -10693,6 +10705,21 @@ pub struct BigQueryTableReferences {
     /// refer to the same resource.
     pub property_graph_references: std::vec::Vec<crate::model::BigQueryPropertyGraphReference>,
 
+    /// Optional. Search over BigQuery resources to discover most relevant tables
+    /// to the query.
+    ///
+    /// When set, at least one of `include_project_ids` or
+    /// `include_dataset_references` must be populated with non-blank identifiers.
+    /// Matches from the two fields are unioned (OR-ed).
+    ///
+    /// Note: `search_scope` is only supported for standalone conversations
+    /// (`ChatRequest.inline_context` or
+    /// `ClientManagedResourceContext.inline_context`) and is not supported in
+    /// [DataAgent][google.cloud.geminidataanalytics.v1.DataAgent].
+    ///
+    /// [google.cloud.geminidataanalytics.v1.DataAgent]: crate::model::DataAgent
+    pub search_scope: std::option::Option<crate::model::SearchScope>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10743,6 +10770,39 @@ impl BigQueryTableReferences {
     {
         use std::iter::Iterator;
         self.property_graph_references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [search_scope][crate::model::BigQueryTableReferences::search_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryTableReferences;
+    /// use google_cloud_geminidataanalytics_v1::model::SearchScope;
+    /// let x = BigQueryTableReferences::new().set_search_scope(SearchScope::default()/* use setters */);
+    /// ```
+    pub fn set_search_scope<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SearchScope>,
+    {
+        self.search_scope = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [search_scope][crate::model::BigQueryTableReferences::search_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryTableReferences;
+    /// use google_cloud_geminidataanalytics_v1::model::SearchScope;
+    /// let x = BigQueryTableReferences::new().set_or_clear_search_scope(Some(SearchScope::default()/* use setters */));
+    /// let x = BigQueryTableReferences::new().set_or_clear_search_scope(None::<SearchScope>);
+    /// ```
+    pub fn set_or_clear_search_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SearchScope>,
+    {
+        self.search_scope = v.map(|x| x.into());
         self
     }
 }
@@ -10851,6 +10911,132 @@ impl BigQueryTableReference {
 impl wkt::message::Message for BigQueryTableReference {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.geminidataanalytics.v1.BigQueryTableReference"
+    }
+}
+
+/// Message representing a reference to a single BigQuery dataset.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BigQueryDatasetReference {
+    /// Required. The project ID that the dataset belongs to.
+    pub project_id: std::string::String,
+
+    /// Required. The dataset ID.
+    pub dataset_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BigQueryDatasetReference {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::BigQueryDatasetReference::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryDatasetReference;
+    /// let x = BigQueryDatasetReference::new().set_project_id("example");
+    /// ```
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [dataset_id][crate::model::BigQueryDatasetReference::dataset_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryDatasetReference;
+    /// let x = BigQueryDatasetReference::new().set_dataset_id("example");
+    /// ```
+    pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dataset_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BigQueryDatasetReference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.BigQueryDatasetReference"
+    }
+}
+
+/// Message representing filters to apply to search over BigQuery tables.
+///
+/// At least one of `include_project_ids` or `include_dataset_references` must be
+/// populated with non-blank identifiers. Tables matching either field are
+/// included, so the two fields are unioned (OR-ed) rather than intersected.
+///
+/// Note: `SearchScope` is only supported for standalone conversations
+/// (`ChatRequest.inline_context` or
+/// `ClientManagedResourceContext.inline_context`) and is not supported in
+/// [DataAgent][google.cloud.geminidataanalytics.v1.DataAgent].
+///
+/// [google.cloud.geminidataanalytics.v1.DataAgent]: crate::model::DataAgent
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchScope {
+    /// Optional. The BigQuery project ids to search over.
+    pub include_project_ids: std::vec::Vec<std::string::String>,
+
+    /// Optional. The BigQuery dataset references to search over.
+    pub include_dataset_references: std::vec::Vec<crate::model::BigQueryDatasetReference>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchScope {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [include_project_ids][crate::model::SearchScope::include_project_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::SearchScope;
+    /// let x = SearchScope::new().set_include_project_ids(["a", "b", "c"]);
+    /// ```
+    pub fn set_include_project_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.include_project_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [include_dataset_references][crate::model::SearchScope::include_dataset_references].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::SearchScope;
+    /// use google_cloud_geminidataanalytics_v1::model::BigQueryDatasetReference;
+    /// let x = SearchScope::new()
+    ///     .set_include_dataset_references([
+    ///         BigQueryDatasetReference::default()/* use setters */,
+    ///         BigQueryDatasetReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_include_dataset_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BigQueryDatasetReference>,
+    {
+        use std::iter::Iterator;
+        self.include_dataset_references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchScope {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.SearchScope"
     }
 }
 

@@ -42,6 +42,20 @@ where
     T: super::stub::Memorystore + std::fmt::Debug + Send + Sync,
 {
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_acl_policies(
+        &self,
+        req: crate::model::ListAclPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAclPoliciesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::list_acl_policies",
+            self.inner.list_acl_policies(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -52,6 +66,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Memorystore::list_instances",
             self.inner.list_instances(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_acl_policy(
+        &self,
+        req: crate::model::GetAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::get_acl_policy",
+            self.inner.get_acl_policy(req, options));
         pending.await
     }
 
@@ -70,6 +98,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_acl_policy(
+        &self,
+        req: crate::model::CreateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::create_acl_policy",
+            self.inner.create_acl_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
@@ -84,6 +126,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_acl_policy(
+        &self,
+        req: crate::model::UpdateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::update_acl_policy",
+            self.inner.update_acl_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_instance(
         &self,
         req: crate::model::UpdateInstanceRequest,
@@ -94,6 +150,48 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Memorystore::update_instance",
             self.inner.update_instance(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_acl_policy(
+        &self,
+        req: crate::model::DeleteAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::delete_acl_policy",
+            self.inner.delete_acl_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_acl_policy_revision(
+        &self,
+        req: crate::model::GetAclPolicyRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AclPolicyRevision>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::get_acl_policy_revision",
+            self.inner.get_acl_policy_revision(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_acl_policy_revisions(
+        &self,
+        req: crate::model::ListAclPolicyRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::list_acl_policy_revisions",
+            self.inner.list_acl_policy_revisions(req, options));
         pending.await
     }
 

@@ -49,6 +49,7 @@ pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
         .write_object(bucket_name, format!("{prefix}/quick.text"), CONTENTS)
+        .set_if_generation_match(0)
         .set_metadata([("verify-metadata-works", "yes")])
         .set_content_type("text/plain")
         .set_content_language("en")
@@ -108,6 +109,7 @@ pub async fn signed_urls(
         .set_content_type("text/plain")
         .set_content_language("en")
         .set_storage_class("STANDARD")
+        .with_idempotency(true)
         .send_unbuffered()
         .await?;
 

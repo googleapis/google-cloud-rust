@@ -42520,6 +42520,715 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListMinorVersio
     }
 }
 
+/// Represents OdbDnsZone resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OdbDnsZone {
+    /// Identifier. The name of the OdbDnsZone resource in the following format:
+    /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbDnsZones/{odb_dns_zone}
+    pub name: std::string::String,
+
+    /// Required. Immutable. The DNS suffix for the zone.
+    /// Ex: abc.example.com.
+    pub domain: std::string::String,
+
+    /// Optional. Labels or tags associated with the resource.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. State of the OdbDnsZone.
+    pub state: crate::model::odb_dns_zone::State,
+
+    /// Output only. The date and time that the OdbDnsZone was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OdbDnsZone {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::OdbDnsZone::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_dns_zone_id = "odb_dns_zone_id";
+    /// let x = OdbDnsZone::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbDnsZones/{odb_dns_zone_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [domain][crate::model::OdbDnsZone::domain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// let x = OdbDnsZone::new().set_domain("example");
+    /// ```
+    pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.domain = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::OdbDnsZone::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// let x = OdbDnsZone::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::OdbDnsZone::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// use google_cloud_oracledatabase_v1::model::odb_dns_zone::State;
+    /// let x0 = OdbDnsZone::new().set_state(State::Provisioning);
+    /// let x1 = OdbDnsZone::new().set_state(State::Available);
+    /// let x2 = OdbDnsZone::new().set_state(State::Inactive);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::odb_dns_zone::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::OdbDnsZone::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// use wkt::Timestamp;
+    /// let x = OdbDnsZone::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OdbDnsZone::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// use wkt::Timestamp;
+    /// let x = OdbDnsZone::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OdbDnsZone::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for OdbDnsZone {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.OdbDnsZone"
+    }
+}
+
+/// Defines additional types related to [OdbDnsZone].
+pub mod odb_dns_zone {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The various lifecycle states of the OdbDnsZone.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default unspecified value.
+        Unspecified,
+        /// Indicates that the resource is in a provisioning state.
+        Provisioning,
+        /// Indicates that the resource is in an available state.
+        Available,
+        /// Indicates that the resource is available but inactive.
+        Inactive,
+        /// Indicates that the resource is in a terminating state.
+        Terminating,
+        /// Indicates that the resource is in a failed state.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Provisioning => std::option::Option::Some(1),
+                Self::Available => std::option::Option::Some(2),
+                Self::Inactive => std::option::Option::Some(3),
+                Self::Terminating => std::option::Option::Some(4),
+                Self::Failed => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Provisioning => std::option::Option::Some("PROVISIONING"),
+                Self::Available => std::option::Option::Some("AVAILABLE"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Terminating => std::option::Option::Some("TERMINATING"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Provisioning,
+                2 => Self::Available,
+                3 => Self::Inactive,
+                4 => Self::Terminating,
+                5 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PROVISIONING" => Self::Provisioning,
+                "AVAILABLE" => Self::Available,
+                "INACTIVE" => Self::Inactive,
+                "TERMINATING" => Self::Terminating,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Provisioning => serializer.serialize_i32(1),
+                Self::Available => serializer.serialize_i32(2),
+                Self::Inactive => serializer.serialize_i32(3),
+                Self::Terminating => serializer.serialize_i32(4),
+                Self::Failed => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.oracledatabase.v1.OdbDnsZone.State",
+            ))
+        }
+    }
+}
+
+/// The request for `OdbDnsZone.Create`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateOdbDnsZoneRequest {
+    /// Required. The parent value for the OdbDnsZone in the following format:
+    /// projects/{project}/locations/{location}/odbNetworks/{odb_network}.
+    pub parent: std::string::String,
+
+    /// Required. The ID of the OdbDnsZone to create. This value is restricted
+    /// to (^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$) and must be a maximum of 63
+    /// characters in length. The value must start with a letter and end with
+    /// a letter or a number.
+    pub odb_dns_zone_id: std::string::String,
+
+    /// Required. Details of the OdbDnsZone instance to create.
+    pub odb_dns_zone: std::option::Option<crate::model::OdbDnsZone>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateOdbDnsZoneRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateOdbDnsZoneRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateOdbDnsZoneRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = CreateOdbDnsZoneRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [odb_dns_zone_id][crate::model::CreateOdbDnsZoneRequest::odb_dns_zone_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateOdbDnsZoneRequest;
+    /// let x = CreateOdbDnsZoneRequest::new().set_odb_dns_zone_id("example");
+    /// ```
+    pub fn set_odb_dns_zone_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.odb_dns_zone_id = v.into();
+        self
+    }
+
+    /// Sets the value of [odb_dns_zone][crate::model::CreateOdbDnsZoneRequest::odb_dns_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateOdbDnsZoneRequest;
+    /// use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// let x = CreateOdbDnsZoneRequest::new().set_odb_dns_zone(OdbDnsZone::default()/* use setters */);
+    /// ```
+    pub fn set_odb_dns_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OdbDnsZone>,
+    {
+        self.odb_dns_zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [odb_dns_zone][crate::model::CreateOdbDnsZoneRequest::odb_dns_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateOdbDnsZoneRequest;
+    /// use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// let x = CreateOdbDnsZoneRequest::new().set_or_clear_odb_dns_zone(Some(OdbDnsZone::default()/* use setters */));
+    /// let x = CreateOdbDnsZoneRequest::new().set_or_clear_odb_dns_zone(None::<OdbDnsZone>);
+    /// ```
+    pub fn set_or_clear_odb_dns_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OdbDnsZone>,
+    {
+        self.odb_dns_zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateOdbDnsZoneRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateOdbDnsZoneRequest;
+    /// let x = CreateOdbDnsZoneRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateOdbDnsZoneRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.CreateOdbDnsZoneRequest"
+    }
+}
+
+/// The request for `OdbDnsZone.Delete`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteOdbDnsZoneRequest {
+    /// Required. The name of the resource in the following format:
+    /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbDnsZones/{odb_dns_zone}.
+    pub name: std::string::String,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteOdbDnsZoneRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteOdbDnsZoneRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DeleteOdbDnsZoneRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_dns_zone_id = "odb_dns_zone_id";
+    /// let x = DeleteOdbDnsZoneRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbDnsZones/{odb_dns_zone_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteOdbDnsZoneRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DeleteOdbDnsZoneRequest;
+    /// let x = DeleteOdbDnsZoneRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteOdbDnsZoneRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.DeleteOdbDnsZoneRequest"
+    }
+}
+
+/// The request for `OdbDnsZone.List`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListOdbDnsZonesRequest {
+    /// Required. The parent value for the OdbDnsZone in the following format:
+    /// projects/{project}/locations/{location}/odbNetworks/{odb_network}.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    /// If unspecified, at most 50 OdbDnsZones will be returned.
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. An expression for filtering the results of the request.
+    pub filter: std::string::String,
+
+    /// Optional. An expression for ordering the results of the request.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListOdbDnsZonesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListOdbDnsZonesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListOdbDnsZonesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = ListOdbDnsZonesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListOdbDnsZonesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListOdbDnsZonesRequest;
+    /// let x = ListOdbDnsZonesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListOdbDnsZonesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListOdbDnsZonesRequest;
+    /// let x = ListOdbDnsZonesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListOdbDnsZonesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListOdbDnsZonesRequest;
+    /// let x = ListOdbDnsZonesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListOdbDnsZonesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListOdbDnsZonesRequest;
+    /// let x = ListOdbDnsZonesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListOdbDnsZonesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ListOdbDnsZonesRequest"
+    }
+}
+
+/// The response for `OdbDnsZone.List`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListOdbDnsZonesResponse {
+    /// The list of OdbDnsZones.
+    pub odb_dns_zones: std::vec::Vec<crate::model::OdbDnsZone>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Unreachable locations when listing resources across all locations using
+    /// wildcard location '-'.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListOdbDnsZonesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [odb_dns_zones][crate::model::ListOdbDnsZonesResponse::odb_dns_zones].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListOdbDnsZonesResponse;
+    /// use google_cloud_oracledatabase_v1::model::OdbDnsZone;
+    /// let x = ListOdbDnsZonesResponse::new()
+    ///     .set_odb_dns_zones([
+    ///         OdbDnsZone::default()/* use setters */,
+    ///         OdbDnsZone::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_odb_dns_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::OdbDnsZone>,
+    {
+        use std::iter::Iterator;
+        self.odb_dns_zones = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOdbDnsZonesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListOdbDnsZonesResponse;
+    /// let x = ListOdbDnsZonesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListOdbDnsZonesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListOdbDnsZonesResponse;
+    /// let x = ListOdbDnsZonesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListOdbDnsZonesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ListOdbDnsZonesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListOdbDnsZonesResponse {
+    type PageItem = crate::model::OdbDnsZone;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.odb_dns_zones
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request for `OdbDnsZone.Get`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetOdbDnsZoneRequest {
+    /// Required. The name of the OdbDnsZone in the following format:
+    /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbDnsZones/{odb_dns_zone}.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetOdbDnsZoneRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetOdbDnsZoneRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::GetOdbDnsZoneRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_dns_zone_id = "odb_dns_zone_id";
+    /// let x = GetOdbDnsZoneRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbDnsZones/{odb_dns_zone_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetOdbDnsZoneRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.GetOdbDnsZoneRequest"
+    }
+}
+
 /// Represents OdbNetwork resource.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -49939,6 +50648,11 @@ pub struct CloudVmCluster {
     /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbSubnets/{odb_subnet}
     pub backup_odb_subnet: std::string::String,
 
+    /// Optional. Immutable. The name of the OdbDnsZone for using custom domain
+    /// name for the VM Cluster. Format:
+    /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbDnsZones/{odb_dns_zone}
+    pub odb_dns_zone: std::string::String,
+
     /// Output only. The identity connector details which will allow OCI to
     /// securely access the resources in the customer project.
     pub identity_connector: std::option::Option<crate::model::IdentityConnector>,
@@ -50187,6 +50901,22 @@ impl CloudVmCluster {
         v: T,
     ) -> Self {
         self.backup_odb_subnet = v.into();
+        self
+    }
+
+    /// Sets the value of [odb_dns_zone][crate::model::CloudVmCluster::odb_dns_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// # let odb_dns_zone_id = "odb_dns_zone_id";
+    /// let x = CloudVmCluster::new().set_odb_dns_zone(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbDnsZones/{odb_dns_zone_id}"));
+    /// ```
+    pub fn set_odb_dns_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.odb_dns_zone = v.into();
         self
     }
 

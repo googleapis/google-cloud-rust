@@ -17,11 +17,23 @@
 /// A dyn-compatible, crate-private version of [super::Memorystore].
 #[async_trait::async_trait]
 pub trait Memorystore: std::fmt::Debug + Send + Sync {
+    async fn list_acl_policies(
+        &self,
+        req: crate::model::ListAclPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclPoliciesResponse>>;
+
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListInstancesResponse>>;
+
+    async fn get_acl_policy(
+        &self,
+        req: crate::model::GetAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicy>>;
 
     async fn get_instance(
         &self,
@@ -29,9 +41,21 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Instance>>;
 
+    async fn create_acl_policy(
+        &self,
+        req: crate::model::CreateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicy>>;
+
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_acl_policy(
+        &self,
+        req: crate::model::UpdateAclPolicyRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
@@ -40,6 +64,24 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateInstanceRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_acl_policy(
+        &self,
+        req: crate::model::DeleteAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_acl_policy_revision(
+        &self,
+        req: crate::model::GetAclPolicyRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicyRevision>>;
+
+    async fn list_acl_policy_revisions(
+        &self,
+        req: crate::model::ListAclPolicyRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>>;
 
     async fn delete_instance(
         &self,
@@ -223,12 +265,30 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
 #[async_trait::async_trait]
 impl<T: super::Memorystore> Memorystore for T {
     /// Forwards the call to the implementation provided by `T`.
+    async fn list_acl_policies(
+        &self,
+        req: crate::model::ListAclPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclPoliciesResponse>> {
+        T::list_acl_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListInstancesResponse>> {
         T::list_instances(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_acl_policy(
+        &self,
+        req: crate::model::GetAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicy>> {
+        T::get_acl_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -241,6 +301,15 @@ impl<T: super::Memorystore> Memorystore for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn create_acl_policy(
+        &self,
+        req: crate::model::CreateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicy>> {
+        T::create_acl_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
@@ -250,12 +319,48 @@ impl<T: super::Memorystore> Memorystore for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_acl_policy(
+        &self,
+        req: crate::model::UpdateAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_acl_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn update_instance(
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_acl_policy(
+        &self,
+        req: crate::model::DeleteAclPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_acl_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_acl_policy_revision(
+        &self,
+        req: crate::model::GetAclPolicyRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AclPolicyRevision>> {
+        T::get_acl_policy_revision(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_acl_policy_revisions(
+        &self,
+        req: crate::model::ListAclPolicyRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>> {
+        T::list_acl_policy_revisions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

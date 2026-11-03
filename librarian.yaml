@@ -1530,7 +1530,7 @@ libraries:
       - googleapis
     skip_release: true
   - name: google-cloud-spanner
-    version: 0.34.8-preview
+    version: 0.35.0
     copyright_year: "2026"
     output: src/spanner
     rust:

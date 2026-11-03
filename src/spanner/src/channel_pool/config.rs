@@ -274,90 +274,135 @@ impl DynamicChannelPoolConfig {
     }
 
     /// Sets the number of channels created eagerly at startup.
+    ///
+    /// Defaults to 4. Must be between `min_channels` and `max_channels`.
     pub fn with_initial_channels(mut self, channels: usize) -> Self {
         self.initial_channels = channels;
         self
     }
 
     /// Sets the minimum number of channels retained during scale-down.
+    ///
+    /// Defaults to 4. Must be at least 1 and cannot exceed `max_channels`.
     pub fn with_min_channels(mut self, channels: usize) -> Self {
         self.min_channels = channels;
         self
     }
 
     /// Sets the maximum number of channels allowed during scale-up.
+    ///
+    /// Defaults to 256 (maximum supported limit: 256). Must be greater than or equal to `min_channels`.
     pub fn with_max_channels(mut self, channels: usize) -> Self {
         self.max_channels = channels;
         self
     }
 
-    /// Sets the low-load threshold (per channel) triggering scale-down evaluation.
+    /// Sets the low-load threshold (in active RPCs per channel) triggering scale-down evaluation.
+    ///
+    /// Defaults to 2.0. When average load across all channels drops below this value for
+    /// consecutive checks, the pool initiates scale-down. Must be a finite positive number
+    /// less than `max_rpc_per_channel`.
     pub fn with_min_rpc_per_channel(mut self, min_rpc: f64) -> Self {
         self.min_rpc_per_channel = min_rpc;
         self
     }
 
-    /// Sets the high-load threshold (per channel) triggering scale-up.
+    /// Sets the high-load threshold (in active RPCs per channel) triggering scale-up.
+    ///
+    /// Defaults to 8.0. When load on any channel or average pool load exceeds this value,
+    /// the pool triggers scale-up. Must be a finite positive number strictly greater than
+    /// `min_rpc_per_channel`.
     pub fn with_max_rpc_per_channel(mut self, max_rpc: f64) -> Self {
         self.max_rpc_per_channel = max_rpc;
         self
     }
 
     /// Sets the synthetic picker load added per qualifying transport error.
+    ///
+    /// Defaults to 2. When a channel encounters a transport error, synthetic picker load is added
+    /// to steer traffic away from the problematic channel. Cannot exceed `ceil(max_rpc_per_channel)`.
     pub fn with_error_penalty_step(mut self, step: u32) -> Self {
         self.error_penalty_step = step;
         self
     }
 
     /// Sets the sliding window duration for active error penalties.
+    ///
+    /// Defaults to 5 seconds. Each qualifying transport error resets the duration. When the
+    /// duration elapses without further errors, accumulated error penalties decay to zero.
     pub fn with_error_penalty_duration(mut self, duration: Duration) -> Self {
         self.error_penalty_duration = duration;
         self
     }
 
     /// Sets the interval between periodic scale-down evaluations.
+    ///
+    /// Defaults to 60 seconds (1 minute). A background worker inspects channel utilization at this
+    /// interval. Must be greater than zero.
     pub fn with_scale_down_check_interval(mut self, interval: Duration) -> Self {
         self.scale_down_check_interval = interval;
         self
     }
 
     /// Sets the cooldown period between consecutive scale-up bursts.
+    ///
+    /// Defaults to 1 second. Prevents repeated scale-up bursts from stampeding connection allocations
+    /// before newly created channels can initialize and prime.
     pub fn with_scale_up_cooldown(mut self, cooldown: Duration) -> Self {
         self.scale_up_cooldown = cooldown;
         self
     }
 
     /// Sets the number of consecutive low-load checks required before scale-down.
+    ///
+    /// Defaults to 3 checks (debouncing scale-down over 3 check intervals). Prevents rapid pool
+    /// oscillation during intermittent traffic drops. Must be at least 1.
     pub fn with_consecutive_low_load_checks(mut self, checks: usize) -> Self {
         self.consecutive_low_load_checks = checks;
         self
     }
 
     /// Sets the maximum percentage of current pool size added per scale-up event.
+    ///
+    /// Defaults to 100% (with an internal minimum of 2 channels). Caps the rate of channel expansion
+    /// to avoid connection storms against backend endpoints. Must be between 1 and 100.
     pub fn with_max_scale_up_percent(mut self, percent: u32) -> Self {
         self.max_scale_up_percent = percent;
         self
     }
 
     /// Sets the maximum number of channels marked draining per scale-down cycle.
+    ///
+    /// Defaults to 4 channels. Limits how aggressively channels are phased out in a single
+    /// scale-down pass. Must be at least 1.
     pub fn with_max_remove_channels(mut self, max_channels: usize) -> Self {
         self.max_remove_channels = max_channels;
         self
     }
 
     /// Sets the idle grace duration a draining channel is kept alive after load drops to zero.
+    ///
+    /// Defaults to 60 seconds (1 minute). Ensures in-flight transactions with think time between
+    /// statements have sufficient buffer to complete before the channel is terminated.
     pub fn with_drain_idle_grace(mut self, grace: Duration) -> Self {
         self.drain_idle_grace = grace;
         self
     }
 
     /// Sets the timeout for executing `SELECT 1` priming on a new scaled-up channel.
+    ///
+    /// Defaults to 5 seconds. Before a newly scaled-up channel is published to the active pool,
+    /// it is warmed up with a `SELECT 1` query. If priming times out, the channel is discarded
+    /// and scale-up will be re-attempted. Must be greater than zero.
     pub fn with_prime_timeout(mut self, timeout: Duration) -> Self {
         self.prime_timeout = timeout;
         self
     }
 
     /// Sets the maximum retry attempts for `SELECT 1` priming.
+    ///
+    /// Defaults to 3 attempts. Bounds priming retries before abandoning the scaled-up channel.
+    /// Must be at least 1.
     pub fn with_prime_max_attempts(mut self, attempts: usize) -> Self {
         self.prime_max_attempts = attempts;
         self

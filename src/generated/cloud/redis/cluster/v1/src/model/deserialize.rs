@@ -8673,6 +8673,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ZoneDistributionConfig {
         enum __FieldTag {
             __mode,
             __zone,
+            __zones,
+            __active_zones,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8695,6 +8697,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ZoneDistributionConfig {
                         match value {
                             "mode" => Ok(__FieldTag::__mode),
                             "zone" => Ok(__FieldTag::__zone),
+                            "zones" => Ok(__FieldTag::__zones),
+                            "activeZones" => Ok(__FieldTag::__active_zones),
+                            "active_zones" => Ok(__FieldTag::__active_zones),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8741,6 +8746,22 @@ impl<'de> serde::de::Deserialize<'de> for super::ZoneDistributionConfig {
                             result.zone = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__zones => {
+                            if !fields.insert(__FieldTag::__zones) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for zones",
+                                ));
+                            }
+                            result.zones = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__active_zones => {
+                            if !fields.insert(__FieldTag::__active_zones) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for active_zones",
+                                ));
+                            }
+                            result.active_zones = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

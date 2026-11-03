@@ -37486,6 +37486,8 @@ pub mod user {
         CloudIamWorkforceIdentity,
         /// Microsoft Entra ID user.
         EntraidUser,
+        /// Active Directory user.
+        ActiveDirectoryUser,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [SqlUserType::value] or
@@ -37516,6 +37518,7 @@ pub mod user {
                 Self::CloudIamGroupServiceAccount => std::option::Option::Some(5),
                 Self::CloudIamWorkforceIdentity => std::option::Option::Some(6),
                 Self::EntraidUser => std::option::Option::Some(7),
+                Self::ActiveDirectoryUser => std::option::Option::Some(8),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -37540,6 +37543,7 @@ pub mod user {
                     std::option::Option::Some("CLOUD_IAM_WORKFORCE_IDENTITY")
                 }
                 Self::EntraidUser => std::option::Option::Some("ENTRAID_USER"),
+                Self::ActiveDirectoryUser => std::option::Option::Some("ACTIVE_DIRECTORY_USER"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -37569,6 +37573,7 @@ pub mod user {
                 5 => Self::CloudIamGroupServiceAccount,
                 6 => Self::CloudIamWorkforceIdentity,
                 7 => Self::EntraidUser,
+                8 => Self::ActiveDirectoryUser,
                 _ => Self::UnknownValue(sql_user_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -37588,6 +37593,7 @@ pub mod user {
                 "CLOUD_IAM_GROUP_SERVICE_ACCOUNT" => Self::CloudIamGroupServiceAccount,
                 "CLOUD_IAM_WORKFORCE_IDENTITY" => Self::CloudIamWorkforceIdentity,
                 "ENTRAID_USER" => Self::EntraidUser,
+                "ACTIVE_DIRECTORY_USER" => Self::ActiveDirectoryUser,
                 _ => Self::UnknownValue(sql_user_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -37609,6 +37615,7 @@ pub mod user {
                 Self::CloudIamGroupServiceAccount => serializer.serialize_i32(5),
                 Self::CloudIamWorkforceIdentity => serializer.serialize_i32(6),
                 Self::EntraidUser => serializer.serialize_i32(7),
+                Self::ActiveDirectoryUser => serializer.serialize_i32(8),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

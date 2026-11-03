@@ -2475,6 +2475,12 @@ impl serde::ser::Serialize for super::ZoneDistributionConfig {
         if !self.zone.is_empty() {
             state.serialize_entry("zone", &self.zone)?;
         }
+        if !self.zones.is_empty() {
+            state.serialize_entry("zones", &self.zones)?;
+        }
+        if !self.active_zones.is_empty() {
+            state.serialize_entry("activeZones", &self.active_zones)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

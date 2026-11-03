@@ -4662,4 +4662,80 @@ pub mod chat_service {
             &mut self.0.options
         }
     }
+
+    /// The request builder for [ChatService::replace_message_cards][crate::client::ChatService::replace_message_cards] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::builder::chat_service::ReplaceMessageCards;
+    /// # async fn sample() -> google_chat_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ReplaceMessageCards {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ReplaceMessageCards(RequestBuilder<crate::model::ReplaceMessageCardsRequest>);
+
+    impl ReplaceMessageCards {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ChatService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ReplaceMessageCardsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ReplaceMessageCardsResponse> {
+            (*self.0.stub)
+                .replace_message_cards(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ReplaceMessageCardsRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [cards_v2][crate::model::ReplaceMessageCardsRequest::cards_v2].
+        pub fn set_cards_v2<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::CardWithId>,
+        {
+            use std::iter::Iterator;
+            self.0.request.cards_v2 = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ReplaceMessageCards {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }

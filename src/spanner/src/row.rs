@@ -408,7 +408,7 @@ impl Row {
     ///     .await?;
     ///
     /// if let Some(row) = result_set.next().await {
-    ///     let (id, age): (String, i64) = row?.try_into_record()?;
+    ///     let (id, age): (String, i64) = row?.into_record()?;
     ///     println!("User: {id}, age: {age}");
     /// }
     /// # Ok(())
@@ -423,44 +423,8 @@ impl Row {
     /// * A required column name or positional index is missing from the row.
     /// * A column value cannot be converted into the target field type.
     /// * A column is `NULL` but the target field is not an [`Option`].
-    pub fn try_into_record<T: FromRow>(self) -> Result<T> {
+    pub fn into_record<T: FromRow>(self) -> Result<T> {
         T::from_row(self)
-    }
-
-    /// Converts this row into a typed record implementing [`FromRow`], panicking on error.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::statement::Statement;
-    /// # async fn example(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
-    /// let database_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = database_client.single_use().build();
-    /// let mut result_set = transaction
-    ///     .execute_query(Statement::builder("SELECT 'user-1', 42").build())
-    ///     .await?;
-    ///
-    /// if let Some(row) = result_set.next().await {
-    ///     let (id, age): (String, i64) = row?.into_record();
-    ///     println!("User: {id}, age: {age}");
-    /// }
-    /// # Ok(())
-    /// # }
-    /// ```
-    ///
-    /// This is a convenience wrapper around [`try_into_record`](Row::try_into_record).
-    ///
-    /// # Panics
-    ///
-    /// Panics if:
-    /// * A required column name or positional index is missing from the row.
-    /// * A column value cannot be converted into the target field type.
-    /// * A column is `NULL` but the target field is not an [`Option`].
-    pub fn into_record<T: FromRow>(self) -> T {
-        match self.try_into_record() {
-            Ok(record) => record,
-            Err(error) => panic!("failed to convert row into record: {error}"),
-        }
     }
 
     fn get_value(&self, index: impl ColumnIndex) -> Result<(usize, &Value)> {
@@ -2126,7 +2090,7 @@ mod tests {
     }
 
     #[test]
-    fn row_try_into_record() -> Result<()> {
+    fn row_into_record() -> Result<()> {
         let row = Row {
             values: vec!["alice".to_string().to_value(), 42_i64.to_value()],
             metadata: ResultSetMetadata {
@@ -2136,14 +2100,14 @@ mod tests {
             },
         };
 
-        let (name, age): (String, i64) = row.try_into_record()?;
-        assert_eq!(name, "alice", "expected matching name from try_into_record");
-        assert_eq!(age, 42, "expected matching age from try_into_record");
+        let (name, age): (String, i64) = row.into_record()?;
+        assert_eq!(name, "alice", "expected matching name from into_record");
+        assert_eq!(age, 42, "expected matching age from into_record");
         Ok(())
     }
 
     #[test]
-    fn row_into_record() {
+    fn row_into_record_turbofish() -> Result<()> {
         let row = Row {
             values: vec!["bob".to_string().to_value(), 30_i64.to_value()],
             metadata: ResultSetMetadata {
@@ -2153,13 +2117,20 @@ mod tests {
             },
         };
 
-        let (name, age): (String, i64) = row.into_record();
-        assert_eq!(name, "bob", "expected matching name from into_record");
-        assert_eq!(age, 30, "expected matching age from into_record");
+        let record = row.into_record::<(String, i64)>()?;
+        assert_eq!(
+            record.0, "bob",
+            "expected matching name from into_record turbofish"
+        );
+        assert_eq!(
+            record.1, 30,
+            "expected matching age from into_record turbofish"
+        );
+        Ok(())
     }
 
     #[test]
-    fn row_try_into_record_error() {
+    fn row_into_record_error() {
         let row = Row {
             values: vec!["not-a-number".to_string().to_value()],
             metadata: ResultSetMetadata {
@@ -2170,8 +2141,8 @@ mod tests {
         };
 
         let error = row
-            .try_into_record::<(i64,)>()
-            .expect_err("try_into_record must fail when type conversion fails");
+            .into_record::<(i64,)>()
+            .expect_err("into_record must fail when type conversion fails");
         let row_error = RowError::extract(&error).expect("error chain must contain a RowError");
         match row_error {
             RowError::TypeConversion { column, .. } => {
@@ -2179,21 +2150,6 @@ mod tests {
             }
             other => panic!("expected RowError::TypeConversion, got: {other:?}"),
         }
-    }
-
-    #[test]
-    #[should_panic(expected = "failed to convert row into record")]
-    fn row_into_record_panics() {
-        let row = Row {
-            values: vec!["not-a-number".to_string().to_value()],
-            metadata: ResultSetMetadata {
-                column_names: Arc::new(vec!["age".to_string()]),
-                column_types: Arc::new(vec![types::string()]),
-                undeclared_parameters: Arc::new(BTreeMap::new()),
-            },
-        };
-
-        let (_age,): (i64,) = row.into_record();
     }
 
     #[test]

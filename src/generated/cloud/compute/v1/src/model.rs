@@ -30604,6 +30604,9 @@ pub struct BackendServiceHAPolicy {
     ///
     /// - DISABLED: Fast IP Move is disabled. You can only use the
     ///   haPolicy.leader API to update the leader.
+    /// - HA_CONTROLLER: The Backend Service is managed by a High Availability
+    ///   Controller. Failover and leader election are exclusively managed by the
+    ///   HA Controller service.
     ///
     /// GARP_RA: Provides a method to very quickly define a new network
     /// endpoint as the leader. This method is faster than updating the leader
@@ -38173,7 +38176,12 @@ pub struct BulkInsertInstanceResource {
     /// The maximum number of instances to create.
     pub count: std::option::Option<i64>,
 
-    /// A flexible specification of machine type of instances to create.
+    /// A specification of alternative machine types to use when creating
+    /// instances. A single bulkInsert request can create instances with multiple
+    /// different machine types based on capacity and quota availability. This
+    /// field is supported only for regional bulkInsert requests. For more
+    /// information, see About
+    /// instance flexibility for VMs created in bulk.
     pub instance_flexibility_policy: std::option::Option<crate::model::InstanceFlexibilityPolicy>,
 
     /// The instance properties defining the VM instances to be created. Required
@@ -40386,7 +40394,9 @@ pub struct CacheInvalidationRule {
     pub cache_tags: std::vec::Vec<std::string::String>,
 
     /// If set, this invalidation rule will only apply to requests with a Host
-    /// header matching host.
+    /// header matching host. This field also accepts wildcards (*) to replace the
+    /// leftmost (or first) label of a hostname. For example, *.example.com will
+    /// match www.example.com, but not sub1.dev.example.com.
     pub host: std::option::Option<std::string::String>,
 
     #[allow(missing_docs)]
@@ -45951,6 +45961,10 @@ pub mod commitment {
         MemoryOptimizedM3,
         #[allow(missing_docs)]
         MemoryOptimizedM4,
+        /// CUD bucket for M4N machines with less than 6TB of memory.
+        MemoryOptimizedM4N,
+        /// CUD bucket for M4N machines with 6TB of memory.
+        MemoryOptimizedM4N6Tb,
         #[allow(missing_docs)]
         MemoryOptimizedM46Tb,
         /// CUD bucket for X4 machine with 1440 vCPUs and 24TB of memory.
@@ -46054,6 +46068,10 @@ pub mod commitment {
                 Self::MemoryOptimized => std::option::Option::Some("MEMORY_OPTIMIZED"),
                 Self::MemoryOptimizedM3 => std::option::Option::Some("MEMORY_OPTIMIZED_M3"),
                 Self::MemoryOptimizedM4 => std::option::Option::Some("MEMORY_OPTIMIZED_M4"),
+                Self::MemoryOptimizedM4N => std::option::Option::Some("MEMORY_OPTIMIZED_M4N"),
+                Self::MemoryOptimizedM4N6Tb => {
+                    std::option::Option::Some("MEMORY_OPTIMIZED_M4N_6TB")
+                }
                 Self::MemoryOptimizedM46Tb => std::option::Option::Some("MEMORY_OPTIMIZED_M4_6TB"),
                 Self::MemoryOptimizedX4144024T => {
                     std::option::Option::Some("MEMORY_OPTIMIZED_X4_1440_24T")
@@ -46138,6 +46156,8 @@ pub mod commitment {
                 "MEMORY_OPTIMIZED" => Self::MemoryOptimized,
                 "MEMORY_OPTIMIZED_M3" => Self::MemoryOptimizedM3,
                 "MEMORY_OPTIMIZED_M4" => Self::MemoryOptimizedM4,
+                "MEMORY_OPTIMIZED_M4N" => Self::MemoryOptimizedM4N,
+                "MEMORY_OPTIMIZED_M4N_6TB" => Self::MemoryOptimizedM4N6Tb,
                 "MEMORY_OPTIMIZED_M4_6TB" => Self::MemoryOptimizedM46Tb,
                 "MEMORY_OPTIMIZED_X4_1440_24T" => Self::MemoryOptimizedX4144024T,
                 "MEMORY_OPTIMIZED_X4_16TB" => Self::MemoryOptimizedX416Tb,
@@ -46213,6 +46233,8 @@ pub mod commitment {
                 Self::MemoryOptimized => serializer.serialize_str("MEMORY_OPTIMIZED"),
                 Self::MemoryOptimizedM3 => serializer.serialize_str("MEMORY_OPTIMIZED_M3"),
                 Self::MemoryOptimizedM4 => serializer.serialize_str("MEMORY_OPTIMIZED_M4"),
+                Self::MemoryOptimizedM4N => serializer.serialize_str("MEMORY_OPTIMIZED_M4N"),
+                Self::MemoryOptimizedM4N6Tb => serializer.serialize_str("MEMORY_OPTIMIZED_M4N_6TB"),
                 Self::MemoryOptimizedM46Tb => serializer.serialize_str("MEMORY_OPTIMIZED_M4_6TB"),
                 Self::MemoryOptimizedX4144024T => {
                     serializer.serialize_str("MEMORY_OPTIMIZED_X4_1440_24T")
@@ -131730,18 +131752,10 @@ impl wkt::message::Message for InstanceConsumptionInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceFlexibilityPolicy {
-    /// Specification of alternative, flexible instance subsets.
-    /// One of them will be selected to create the instances
-    /// based on various criteria, like:
-    ///
-    /// - ranks,
-    /// - location policy,
-    /// - current capacity,
-    /// - available reservations (you can specify affinity in
-    ///   InstanceProperties),
-    /// - SWAN/GOOSE limitations.
-    ///   Key is an arbitrary, unique RFC1035 string that identifies the instance
-    ///   selection.
+    /// Specifies named instance selections that define properties for instances
+    /// created in bulk.
+    /// Key is an arbitrary, unique RFC1035 string that identifies the instance
+    /// selection.
     pub instance_selections: std::collections::HashMap<
         std::string::String,
         crate::model::InstanceFlexibilityPolicyInstanceSelection,
@@ -329236,7 +329250,10 @@ pub struct Scheduling {
     /// Specifies the provisioning model of the instance.
     pub provisioning_model: std::option::Option<crate::model::scheduling::ProvisioningModel>,
 
-    /// Default is false and there will be 120 seconds between GCE ACPI G2 Soft
+    /// Defines whether GCE ACPI G2 Soft
+    /// Off signal should be skipped during shutdown operation of VM.
+    ///
+    /// Default is false, meaning there will be 120 seconds between GCE ACPI G2 Soft
     /// Off and ACPI G3 Mechanical
     /// Off for Standard VMs and 30 seconds for Spot VMs.
     pub skip_guest_os_shutdown: std::option::Option<bool>,
@@ -416435,10 +416452,10 @@ pub mod vpn_tunnel_aggregated_list {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpnTunnelCipherSuite {
-    #[allow(missing_docs)]
+    /// Cipher algorithms for IKE phase 1.
     pub phase1: std::option::Option<crate::model::VpnTunnelPhase1Algorithms>,
 
-    #[allow(missing_docs)]
+    /// Cipher algorithms for IKE phase 2.
     pub phase2: std::option::Option<crate::model::VpnTunnelPhase2Algorithms>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -417411,16 +417428,16 @@ impl wkt::message::Message for VpnTunnelParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpnTunnelPhase1Algorithms {
-    #[allow(missing_docs)]
+    /// Diffie-Hellman groups for IKE phase 1.
     pub dh: std::vec::Vec<std::string::String>,
 
-    #[allow(missing_docs)]
+    /// Encryption algorithms for IKE phase 1.
     pub encryption: std::vec::Vec<std::string::String>,
 
-    #[allow(missing_docs)]
+    /// Integrity algorithms for IKE phase 1.
     pub integrity: std::vec::Vec<std::string::String>,
 
-    #[allow(missing_docs)]
+    /// Pseudo-random functions (PRF) for IKE phase 1.
     pub prf: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -417514,13 +417531,13 @@ impl wkt::message::Message for VpnTunnelPhase1Algorithms {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpnTunnelPhase2Algorithms {
-    #[allow(missing_docs)]
+    /// Encryption algorithms for IKE phase 2.
     pub encryption: std::vec::Vec<std::string::String>,
 
-    #[allow(missing_docs)]
+    /// Integrity algorithms for IKE phase 2.
     pub integrity: std::vec::Vec<std::string::String>,
 
-    #[allow(missing_docs)]
+    /// Perfect Forward Secrecy (PFS) groups for IKE phase 2.
     pub pfs: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

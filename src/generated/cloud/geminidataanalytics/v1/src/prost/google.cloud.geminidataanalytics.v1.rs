@@ -35,6 +35,8 @@ pub struct BigQueryTableReferences {
     pub property_graph_references: ::prost::alloc::vec::Vec<
         BigQueryPropertyGraphReference,
     >,
+    #[prost(message, optional, tag = "3")]
+    pub search_scope: ::core::option::Option<SearchScope>,
 }
 impl ::prost::Name for BigQueryTableReferences {
     const NAME: &'static str = "BigQueryTableReferences";
@@ -67,6 +69,41 @@ impl ::prost::Name for BigQueryTableReference {
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.cloud.geminidataanalytics.v1.BigQueryTableReference"
             .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct BigQueryDatasetReference {
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for BigQueryDatasetReference {
+    const NAME: &'static str = "BigQueryDatasetReference";
+    const PACKAGE: &'static str = "google.cloud.geminidataanalytics.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.geminidataanalytics.v1.BigQueryDatasetReference".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.BigQueryDatasetReference"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SearchScope {
+    #[prost(string, repeated, tag = "1")]
+    pub include_project_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(message, repeated, tag = "2")]
+    pub include_dataset_references: ::prost::alloc::vec::Vec<BigQueryDatasetReference>,
+}
+impl ::prost::Name for SearchScope {
+    const NAME: &'static str = "SearchScope";
+    const PACKAGE: &'static str = "google.cloud.geminidataanalytics.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.geminidataanalytics.v1.SearchScope".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.SearchScope".into()
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]

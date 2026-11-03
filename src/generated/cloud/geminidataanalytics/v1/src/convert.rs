@@ -1887,6 +1887,7 @@ impl gaxi::prost::ToProto<BigQueryTableReferences> for crate::model::BigQueryTab
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            search_scope: self.search_scope.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1907,7 +1908,8 @@ impl gaxi::prost::FromProto<crate::model::BigQueryTableReferences> for BigQueryT
                     .into_iter()
                     .map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+            )
+            .set_or_clear_search_scope(self.search_scope.map(|v| v.cnv()).transpose()?))
     }
 }
 
@@ -1932,6 +1934,63 @@ impl gaxi::prost::FromProto<crate::model::BigQueryTableReference> for BigQueryTa
             .set_dataset_id(self.dataset_id)
             .set_table_id(self.table_id)
             .set_or_clear_schema(self.schema.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+impl gaxi::prost::ToProto<BigQueryDatasetReference> for crate::model::BigQueryDatasetReference {
+    type Output = BigQueryDatasetReference;
+    fn to_proto(self) -> std::result::Result<BigQueryDatasetReference, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            project_id: self.project_id.to_proto()?,
+            dataset_id: self.dataset_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::model::BigQueryDatasetReference> for BigQueryDatasetReference {
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::BigQueryDatasetReference, gaxi::prost::ConvertError>
+    {
+        Ok(crate::model::BigQueryDatasetReference::new()
+            .set_project_id(self.project_id)
+            .set_dataset_id(self.dataset_id))
+    }
+}
+
+impl gaxi::prost::ToProto<SearchScope> for crate::model::SearchScope {
+    type Output = SearchScope;
+    fn to_proto(self) -> std::result::Result<SearchScope, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            include_project_ids: self
+                .include_project_ids
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            include_dataset_references: self
+                .include_dataset_references
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::model::SearchScope> for SearchScope {
+    fn cnv(self) -> std::result::Result<crate::model::SearchScope, gaxi::prost::ConvertError> {
+        Ok(crate::model::SearchScope::new()
+            .set_include_project_ids(
+                self.include_project_ids
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_include_dataset_references(
+                self.include_dataset_references
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ))
     }
 }
 

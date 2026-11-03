@@ -33,8 +33,6 @@ pub struct BenchmarkReport<'a> {
     /// Number of measured iterations.
     pub measured_iterations: usize,
     /// Number of error occurrences recorded.
-    // TODO(#5716): Record detailed error messages/types alongside the error count for
-    // diagnostic reporting.
     pub errors: usize,
     /// Calculated latency metrics (if any iterations succeeded).
     pub metrics: Option<Metrics>,
