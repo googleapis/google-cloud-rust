@@ -93,8 +93,12 @@ mod tests {
         );
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn basic_span() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        basic_span
+    );
+    async fn basic_span<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -103,17 +107,7 @@ mod tests {
         config.tracing = true;
         config.cred = Some(test_credentials());
 
-        let client = grpc::Client::new_with_instrumentation(config, &endpoint, &TEST_INFO).await?;
-
-        // Send a request
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
+        let client = C::connect_with_instrumentation(config, &endpoint, &TEST_INFO).await?;
         let request = google::test::v1::EchoRequest {
             message: "test message".into(),
             ..Default::default()
@@ -122,21 +116,13 @@ mod tests {
         recorder.on_client_request(
             ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Echo"),
         );
+
+        // Act
         let _ = recorder
-            .scope(async {
-                client
-                    .execute::<_, google::test::v1::EchoResponse>(
-                        extensions,
-                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                        request,
-                        RequestOptions::default(),
-                        "test-only-api-client/1.0",
-                        "name=test-only",
-                    )
-                    .await
-            })
+            .scope(client.echo(request, RequestOptions::default(), "name=test-only"))
             .await?;
 
+        // Assert
         let attrs = grpc_request_attributes(&guard);
 
         // Parse the endpoint to get expected values
@@ -168,8 +154,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn custom_endpoint() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        custom_endpoint
+    );
+    async fn custom_endpoint<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -182,17 +172,7 @@ mod tests {
         // Here we want to test parsing logic, so we set config.endpoint.
         config.endpoint = Some(endpoint.clone());
 
-        let client = grpc::Client::new(config, "http://unused.default.com").await?;
-
-        // Send a request
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
+        let client = C::connect(config, "http://unused.default.com").await?;
         let request = google::test::v1::EchoRequest {
             message: "test message".into(),
             ..Default::default()
@@ -201,21 +181,13 @@ mod tests {
         recorder.on_client_request(
             ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Echo"),
         );
+
+        // Act
         let _ = recorder
-            .scope(async {
-                client
-                    .execute::<_, google::test::v1::EchoResponse>(
-                        extensions,
-                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                        request,
-                        RequestOptions::default(),
-                        "test-only-api-client/1.0",
-                        "name=test-only",
-                    )
-                    .await
-            })
+            .scope(client.echo(request, RequestOptions::default(), "name=test-only"))
             .await?;
 
+        // Assert
         let attrs = grpc_request_attributes(&guard);
 
         // Verify parsing of the custom endpoint
@@ -244,8 +216,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn regional_endpoint() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        regional_endpoint
+    );
+    async fn regional_endpoint<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let guard = TestLayer::initialize();
 
         let mut config = google_cloud_gax_internal::options::ClientConfig::default();
@@ -257,31 +233,20 @@ mod tests {
 
         // We don't need a real server, just need the client to attempt a request.
         // The request will fail, but the span should be created.
-        let client = grpc::Client::new(config, "https://foo.googleapis.com").await?;
-
-        let extensions = tonic::Extensions::new();
+        let client = C::connect(config, "https://foo.googleapis.com").await?;
         let request = google::test::v1::EchoRequest::default();
-
-        // This will fail, but we just want to capture the span
         let recorder = RequestRecorder::new(*TEST_INFO);
         recorder.on_client_request(
             ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Echo"),
         );
+
+        // Act
+        // This will fail, but we just want to capture the span
         let _ = recorder
-            .scope(async {
-                client
-                    .execute::<_, google::test::v1::EchoResponse>(
-                        extensions,
-                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                        request,
-                        RequestOptions::default(),
-                        "test-client",
-                        "",
-                    )
-                    .await
-            })
+            .scope(client.echo(request, RequestOptions::default(), ""))
             .await;
 
+        // Assert
         let attrs = grpc_request_attributes(&guard);
 
         let expected_attributes: BTreeMap<String, AttributeValue> = [
@@ -304,8 +269,13 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn error_status() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        error_status
+    );
+    async fn error_status<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        const PATH: &str = "/google.test.v1.EchoService/NonExistentMethod";
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -313,42 +283,18 @@ mod tests {
         config.tracing = true;
         config.cred = Some(test_credentials());
 
-        let client = grpc::Client::new(config, &endpoint).await?;
-
-        // Send a request to a non-existent method
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "NonExistentMethod",
-            ));
-            e
-        };
+        let client = C::connect(config, &endpoint).await?;
         let request = google::test::v1::EchoRequest::default();
-
-        // Expect an error
         let recorder = RequestRecorder::new(*TEST_INFO);
-        recorder.on_client_request(
-            ClientRequestAttributes::default()
-                .set_url_template("/google.test.v1.EchoService/NonExistentMethod"),
-        );
+        recorder.on_client_request(ClientRequestAttributes::default().set_url_template(PATH));
+
+        // Act
+        // Send a request to a non-existent method and expect an error
         let _ = recorder
-            .scope(async {
-                client
-                    .execute::<_, google::test::v1::EchoResponse>(
-                        extensions,
-                        http::uri::PathAndQuery::from_static(
-                            "/google.test.v1.EchoService/NonExistentMethod",
-                        ),
-                        request,
-                        RequestOptions::default(),
-                        "test-client",
-                        "",
-                    )
-                    .await
-            })
+            .scope(client.unary(PATH, request, RequestOptions::default(), ""))
             .await;
 
+        // Assert
         let attrs = grpc_request_attributes(&guard);
 
         // Parse the endpoint to get expected values
@@ -545,8 +491,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn cancellation() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        cancellation
+    );
+    async fn cancellation<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         use std::time::Duration;
 
         let guard = TestLayer::initialize();
@@ -558,16 +508,7 @@ mod tests {
         // Use a a real but non-existent address to ensure the request hangs and stays Pending,
         // allowing us to drop it and trigger cancellation.
         let blackhole_endpoint = "http://192.0.2.1:1234";
-        let client = grpc::Client::new(config, blackhole_endpoint).await?;
-
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
+        let client = C::connect(config, blackhole_endpoint).await?;
         let request = google::test::v1::EchoRequest {
             message: "test message".into(),
             ..Default::default()
@@ -577,16 +518,10 @@ mod tests {
         recorder.on_client_request(
             ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Echo"),
         );
-        let future = client.execute::<_, google::test::v1::EchoResponse>(
-            extensions,
-            http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-            request,
-            RequestOptions::default(),
-            "test-client",
-            "",
-        );
+        let future = client.echo(request, RequestOptions::default(), "");
         let scoped_future = recorder.scope(future);
 
+        // Act
         // Poll the future once to ensure the span is created and entered, then drop it
         // We use `tokio::time::timeout` with a very short duration to force a drop
         let _ = tokio::time::timeout(Duration::from_micros(1), scoped_future).await;
@@ -594,6 +529,7 @@ mod tests {
         // Wait a bit for the span to be processed (though drop should happen immediately)
         tokio::time::sleep(Duration::from_millis(10)).await;
 
+        // Assert
         let attrs = grpc_request_attributes(&guard);
 
         let expected_attributes: BTreeMap<String, AttributeValue> = [
@@ -616,51 +552,38 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn resource_name_in_span() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        resource_name_in_span
+    );
+    async fn resource_name_in_span<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
         let mut config = google_cloud_gax_internal::options::ClientConfig::default();
         config.tracing = true;
         config.cred = Some(test_credentials());
-        let client = grpc::Client::new(config, &endpoint).await?;
+        let client = C::connect(config, &endpoint).await?;
 
         let options = RequestOptions::default().insert_extension(ResourceName(
             "projects/p/locations/l/resources/r".to_string(),
         ));
-
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new("google.test.v1.EchoService", "Echo"));
-            e
-        };
         let request = google::test::v1::EchoRequest {
             message: "test message".into(),
             ..Default::default()
         };
-
         let recorder = RequestRecorder::new(*TEST_INFO);
         recorder.on_client_request(
             ClientRequestAttributes::default()
                 .set_url_template("/google.test.v1.EchoService/Echo")
                 .set_resource_name("projects/p/locations/l/resources/r".to_string()),
         );
-        let _ = recorder
-            .scope(async {
-                client
-                    .execute::<_, google::test::v1::EchoResponse>(
-                        extensions,
-                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                        request,
-                        options,
-                        "test-client",
-                        "",
-                    )
-                    .await
-            })
-            .await?;
 
+        // Act
+        let _ = recorder.scope(client.echo(request, options, "")).await?;
+
+        // Assert
         let attrs = grpc_request_attributes(&guard);
 
         assert_eq!(
