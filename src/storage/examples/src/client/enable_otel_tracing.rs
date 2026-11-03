@@ -22,7 +22,7 @@ pub async fn sample(bucket_id: &str) -> anyhow::Result<()> {
     const NAME: &str = "enable-otel-tracing.txt";
 
     // Create an OTLP exporter to send spans to an OpenTelemetry Collector
-    // running on localhost.
+    // running on localhost (the default).
     let exporter = opentelemetry_otlp::SpanExporter::builder()
         .with_tonic()
         .build()?;
