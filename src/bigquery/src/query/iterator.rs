@@ -91,113 +91,51 @@ impl RowIterator {
             google_cloud_unstable_bigquery_arrow,
             google_cloud_unstable_bigquery_storage_read
         ))]
-        let (rows, schema, page_token, arrow_reader) = {
-            let metadata_schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
-
-            #[cfg(google_cloud_unstable_bigquery_storage_read)]
-            let storage_reader = {
-                let has_cached = match &q.cached_data {
-                    CachedData::Rows(rows) => !rows.is_empty(),
-                    CachedData::Arrow {
-                        serialized_record_batch,
-                        ..
-                    } => !serialized_record_batch.is_empty(),
-                };
-                let has_remaining_rows = q.page_token.is_some()
-                    || (!has_cached && q.metadata.total_rows.unwrap_or(0) > 0);
-                let exceeds_rest_threshold = q
-                    .metadata
-                    .total_rows
-                    .is_none_or(|r| r > crate::query::storage_reader::rest_row_threshold());
-
-                if let (Some(read_client), Some(job_ref)) = (q.read_client, q.job_ref.clone()) {
-                    if has_remaining_rows && exceeds_rest_threshold {
-                        Some(crate::query::storage_reader::StorageReader::new(
-                            read_client,
-                            job_ref,
-                        ))
-                    } else {
-                        None
-                    }
-                } else {
-                    None
-                }
-            };
-
-            #[cfg(google_cloud_unstable_bigquery_storage_read)]
-            let maybe_storage = storage_reader.map(|r| {
-                let schema = match &q.cached_data {
-                    CachedData::Arrow {
-                        serialized_schema, ..
-                    } if !serialized_schema.is_empty() => {
-                        Arc::new(Schema::from_arrow_schema(serialized_schema).unwrap_or_default())
-                    }
-                    _ => metadata_schema.clone(),
-                };
-                (VecDeque::new(), schema, None, Some(ArrowReader::Storage(r)))
-            });
-
-            #[cfg(not(google_cloud_unstable_bigquery_storage_read))]
-            let maybe_storage: Option<(
-                VecDeque<wkt::Struct>,
-                Arc<Schema>,
-                Option<String>,
-                Option<ArrowReader>,
-            )> = None;
-
-            if let Some(res) = maybe_storage {
-                res
-            } else {
+        let (rows, schema, page_token, arrow_reader) = match Self::make_storage_reader(&q) {
+            Some(reader) => (
+                VecDeque::new(),
+                Self::extract_schema(&q),
+                None,
+                Some(reader),
+            ),
+            None => {
+                let schema = Self::extract_schema(&q);
                 match q.cached_data {
-                    CachedData::Rows(rows) => (rows, metadata_schema, q.page_token, None),
+                    CachedData::Rows(rows) => (rows, schema, q.page_token, None),
                     CachedData::Arrow {
                         serialized_record_batch,
                         serialized_schema,
                     } => {
-                        let schema = Arc::new(
-                            Schema::from_arrow_schema(&serialized_schema).unwrap_or_default(),
-                        );
-                        (
-                            VecDeque::new(),
-                            schema,
-                            q.page_token,
-                            Some(ArrowReader::Response(ArrowResponseReader::new(
-                                serialized_schema,
-                                serialized_record_batch,
-                            ))),
-                        )
+                        let reader = ArrowReader::Response(ArrowResponseReader::new(
+                            serialized_schema,
+                            serialized_record_batch,
+                        ));
+                        (VecDeque::new(), schema, q.page_token, Some(reader))
                     }
                 }
             }
         };
+
         #[cfg(not(any(
             google_cloud_unstable_bigquery_arrow,
             google_cloud_unstable_bigquery_storage_read
         )))]
-        let (rows, schema) = match q.cached_data {
+        let (rows, schema, page_token) = match q.cached_data {
             CachedData::Rows(rows) => {
                 let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
-                (rows, schema)
+                (rows, schema, q.page_token)
             }
             // TODO(#7035): remove once google_cloud_unstable_bigquery_arrow is stabilized
             CachedData::Arrow { .. } => {
                 unimplemented!("Arrow IPC decoding is not yet implemented (#7035)")
             }
         };
+
         Self {
             job_service: q.job_service,
             job_ref: q.job_ref,
             schema,
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             page_token,
-            #[cfg(not(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            )))]
-            page_token: q.page_token,
             #[cfg(any(
                 google_cloud_unstable_bigquery_arrow,
                 google_cloud_unstable_bigquery_storage_read
@@ -217,6 +155,56 @@ impl RowIterator {
             ))]
             arrow_reader,
         }
+    }
+
+    #[cfg(any(
+        google_cloud_unstable_bigquery_arrow,
+        google_cloud_unstable_bigquery_storage_read
+    ))]
+    fn extract_schema(q: &CompleteQuery) -> Arc<Schema> {
+        let schema = match &q.cached_data {
+            CachedData::Arrow {
+                serialized_schema, ..
+            } if !serialized_schema.is_empty() => {
+                Schema::from_arrow_schema(serialized_schema).unwrap_or_default()
+            }
+            _ => Schema::new(q.metadata.schema.clone().unwrap_or_default()),
+        };
+        Arc::new(schema)
+    }
+
+    #[cfg(google_cloud_unstable_bigquery_storage_read)]
+    fn make_storage_reader(q: &CompleteQuery) -> Option<ArrowReader> {
+        let (read_client, job_ref) = q.read_client.as_ref().zip(q.job_ref.as_ref())?;
+
+        let has_cached = match &q.cached_data {
+            CachedData::Rows(rows) => !rows.is_empty(),
+            CachedData::Arrow {
+                serialized_record_batch,
+                ..
+            } => !serialized_record_batch.is_empty(),
+        };
+        let has_remaining_rows =
+            q.page_token.is_some() || (!has_cached && q.metadata.total_rows.unwrap_or(0) > 0);
+        let exceeds_rest_threshold = q
+            .metadata
+            .total_rows
+            .is_none_or(|r| r > crate::query::storage_reader::rest_row_threshold());
+
+        (has_remaining_rows && exceeds_rest_threshold).then(|| {
+            ArrowReader::Storage(crate::query::storage_reader::StorageReader::new(
+                read_client.clone(),
+                job_ref.clone(),
+            ))
+        })
+    }
+
+    #[cfg(all(
+        google_cloud_unstable_bigquery_arrow,
+        not(google_cloud_unstable_bigquery_storage_read)
+    ))]
+    fn make_storage_reader(_q: &CompleteQuery) -> Option<ArrowReader> {
+        None
     }
 
     /// Sets the maximum number of rows to buffer in memory.
