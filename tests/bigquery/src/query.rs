@@ -14,6 +14,7 @@
 
 use super::INSTANCE_LABEL;
 use anyhow::Result;
+use google_cloud_bigquery::builder::bigquery::Query;
 use google_cloud_bigquery::client::BigQuery;
 use google_cloud_bigquery::datatypes::{Interval, Range};
 use google_cloud_bigquery::query::{FromRow, FromSql};
@@ -22,10 +23,33 @@ use google_cloud_test_utils::runtime_config::project_id;
 use google_cloud_type::model::Decimal;
 use rust_decimal::Decimal as RustDecimal;
 
+#[cfg(google_cloud_unstable_bigquery_arrow)]
 pub const QUERY_FORMATS: [QueryResultsFormat; 2] = [
     QueryResultsFormat::StructEncoding,
     QueryResultsFormat::Arrow,
 ];
+
+#[cfg(not(google_cloud_unstable_bigquery_arrow))]
+pub const QUERY_FORMATS: [QueryResultsFormat; 1] = [QueryResultsFormat::StructEncoding];
+
+trait QueryFormatExt {
+    fn with_format(self, format: QueryResultsFormat) -> Self;
+}
+
+impl QueryFormatExt for Query {
+    #[inline]
+    fn with_format(self, format: QueryResultsFormat) -> Self {
+        #[cfg(google_cloud_unstable_bigquery_arrow)]
+        {
+            self.set_query_results_format(format)
+        }
+        #[cfg(not(google_cloud_unstable_bigquery_arrow))]
+        {
+            let _ = format;
+            self
+        }
+    }
+}
 
 pub async fn query_client(format: QueryResultsFormat) -> Result<()> {
     let project_id = project_id()?;
@@ -34,7 +58,7 @@ pub async fn query_client(format: QueryResultsFormat) -> Result<()> {
     let query = bq
         .query("SELECT 1 as one")
         .with_project_id(&project_id)
-        .set_query_results_format(format.clone())
+        .with_format(format.clone())
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .send()
         .await?;
@@ -56,7 +80,7 @@ pub async fn query_client(format: QueryResultsFormat) -> Result<()> {
     let empty_query = bq
         .query("SELECT x AS one FROM UNNEST([1]) AS x WHERE FALSE")
         .with_project_id(project_id)
-        .set_query_results_format(format)
+        .with_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
@@ -116,7 +140,7 @@ pub async fn query_client_datatypes(format: QueryResultsFormat) -> Result<()> {
                  JSON '{"role": "admin", "level": 5}' AS json_val"#,
         )
         .with_project_id(project_id)
-        .set_query_results_format(format)
+        .with_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
@@ -268,7 +292,7 @@ pub async fn query_client_numeric_limits(format: QueryResultsFormat) -> Result<(
                  CAST('1234567890.1234567890' AS BIGNUMERIC) AS standard_bignumeric",
         )
         .with_project_id(project_id)
-        .set_query_results_format(format)
+        .with_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
@@ -315,7 +339,7 @@ pub async fn query_client_multi_page(format: QueryResultsFormat) -> Result<()> {
     let query = bq
         .query("SELECT * FROM UNNEST(GENERATE_ARRAY(1, 10000)) AS val")
         .set_page_size(1000_u32)
-        .set_query_results_format(format)
+        .with_format(format)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
@@ -616,7 +640,7 @@ pub async fn query_client_nested_types(format: QueryResultsFormat) -> Result<()>
     let query = bq
         .query(sql)
         .with_project_id(project_id)
-        .set_query_results_format(format)
+        .with_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;
@@ -689,7 +713,7 @@ pub async fn query_client_collation(format: QueryResultsFormat) -> Result<()> {
     let query = bq
         .query(sql)
         .with_project_id(project_id)
-        .set_query_results_format(format)
+        .with_format(format)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()
         .await?;

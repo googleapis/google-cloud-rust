@@ -64,6 +64,9 @@ pub struct Query {
     pub(crate) project_id: Option<String>,
     pub(crate) job_retry_policy: Arc<dyn JobRetryPolicy>,
     pub(crate) options: RequestOptions,
+    #[cfg(google_cloud_unstable_bigquery_arrow)]
+    pub(crate) query_results_format:
+        Option<google_cloud_bigquery_v2::model::query_request::QueryResultsFormat>,
 }
 
 impl Query {
@@ -83,6 +86,8 @@ impl Query {
             project_id: None,
             job_retry_policy: default_job_retry_policy(),
             options: RequestOptions::default(),
+            #[cfg(google_cloud_unstable_bigquery_arrow)]
+            query_results_format: None,
         }
     }
 
@@ -135,6 +140,20 @@ impl Query {
     /// ```
     pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
         self.options.set_user_agent(user_agent);
+        self
+    }
+
+    /// Sets the query results format.
+    ///
+    /// This method is only available with the `google_cloud_unstable_bigquery_arrow` feature flag.
+    #[cfg(google_cloud_unstable_bigquery_arrow)]
+    pub fn set_query_results_format<
+        T: Into<google_cloud_bigquery_v2::model::query_request::QueryResultsFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_results_format = Some(v.into());
         self
     }
 
