@@ -70,7 +70,6 @@ pub struct Query {
 #[derive(Clone, Debug)]
 pub(crate) enum CachedData {
     Rows(VecDeque<wkt::Struct>),
-    #[allow(dead_code)]
     Arrow {
         serialized_record_batch: Bytes,
         serialized_schema: Bytes,
@@ -328,7 +327,6 @@ impl Query {
 #[derive(Clone, Debug)]
 pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
-    #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) read_client: Option<Arc<Read>>,
     pub(crate) job_ref: Option<JobReference>,
     pub(crate) cached_data: CachedData,
