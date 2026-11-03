@@ -274,6 +274,15 @@ pub struct CreateSessionRequest {
     pub expiry_unix_secs: i64,
     #[prost(string, tag = "3")]
     pub quota_project: ::prost::alloc::string::String,
+    /// v2 additive fields (tags 1-3 unchanged). When `anonymous` is set or
+    /// `access_token` is empty and any of these fields is present, the session
+    /// shares one cached `Storage` per (endpoint, universe_domain, anonymous).
+    #[prost(string, optional, tag = "4")]
+    pub endpoint: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "5")]
+    pub universe_domain: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(bool, optional, tag = "6")]
+    pub anonymous: ::core::option::Option<bool>,
 }
 #[allow(clippy::all)]
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
@@ -324,6 +333,406 @@ pub struct StatsResponse {
     pub uptime_ms: i64,
     #[prost(int64, tag = "8")]
     pub rpcs_served: i64,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ServerInfo {
+    /// storage-grpc-uds version
+    #[prost(string, tag = "1")]
+    pub server_version: ::prost::alloc::string::String,
+    /// linked google-cloud-storage version
+    #[prost(string, tag = "2")]
+    pub storage_crate_version: ::prost::alloc::string::String,
+    /// "bidi-read-shm", "bidi-write-shm", "memfd", "posix-shm", "inline"
+    #[prost(string, repeated, tag = "3")]
+    pub features: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// 1000
+    #[prost(uint32, tag = "4")]
+    pub max_ranges_per_request: u32,
+    /// bytes per <socket>.shm region
+    #[prost(uint64, tag = "5")]
+    pub shm_region_size: u64,
+    /// 2 MiB (== Rust MAX_WRITE_CHUNK_SIZE)
+    #[prost(uint32, tag = "6")]
+    pub shm_slot_size: u32,
+    #[prost(int32, tag = "7")]
+    pub pid: i32,
+    #[prost(uint32, tag = "8")]
+    pub uid: u32,
+}
+#[allow(clippy::all)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ShmSlotRef {
+    /// from the <socket>.shm SCM_RIGHTS handshake (16-byte LE header)
+    #[prost(uint64, tag = "1")]
+    pub region_id: u64,
+    /// byte offset = slot * shm_slot_size
+    #[prost(uint32, tag = "2")]
+    pub slot: u32,
+    /// valid bytes, 0 < length <= shm_slot_size
+    #[prost(uint32, tag = "3")]
+    pub length: u32,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ObjectResource {
+    #[prost(string, tag = "1")]
+    pub bucket: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(int64, tag = "3")]
+    pub generation: i64,
+    #[prost(int64, tag = "4")]
+    pub metageneration: i64,
+    #[prost(int64, tag = "5")]
+    pub size: i64,
+    #[prost(string, tag = "6")]
+    pub storage_class: ::prost::alloc::string::String,
+    #[prost(string, tag = "7")]
+    pub etag: ::prost::alloc::string::String,
+    #[prost(string, tag = "8")]
+    pub content_type: ::prost::alloc::string::String,
+    #[prost(string, tag = "9")]
+    pub content_encoding: ::prost::alloc::string::String,
+    /// model::Object.finalize_time.is_some()
+    #[prost(bool, tag = "10")]
+    pub finalized: bool,
+    /// model::Object.checksums.crc32c
+    #[prost(uint32, optional, tag = "11")]
+    pub crc32c: ::core::option::Option<u32>,
+    #[prost(bytes = "vec", tag = "12")]
+    pub md5_hash: ::prost::alloc::vec::Vec<u8>,
+    #[prost(map = "string, string", tag = "13")]
+    pub metadata: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    #[prost(string, tag = "14")]
+    pub kms_key: ::prost::alloc::string::String,
+    /// serde_json of model::Object: proto3-JSON of google.storage.v2.Object (UTF-8)
+    #[prost(string, tag = "15")]
+    pub object_json: ::prost::alloc::string::String,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ObjectAttrs {
+    #[prost(string, tag = "1")]
+    pub storage_class: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub content_type: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub content_encoding: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub content_language: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub content_disposition: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub cache_control: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "7")]
+    pub metadata: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    #[prost(string, tag = "8")]
+    pub kms_key: ::prost::alloc::string::String,
+    /// -> wkt::Timestamp::clamp(secs, nanos)
+    #[prost(int64, optional, tag = "9")]
+    pub custom_time_secs: ::core::option::Option<i64>,
+    /// model::ObjectContexts as proto3 JSON (optional)
+    #[prost(bytes = "vec", tag = "10")]
+    pub contexts_json: ::prost::alloc::vec::Vec<u8>,
+    #[prost(int32, optional, tag = "11")]
+    pub custom_time_nanos: ::core::option::Option<i32>,
+}
+/// ---------------- BidiReads ----------------
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BidiReadObjectRequest {
+    #[prost(oneof = "bidi_read_object_request::Op", tags = "1, 2, 3, 4")]
+    pub op: ::core::option::Option<bidi_read_object_request::Op>,
+}
+/// Nested message and enum types in `BidiReadObjectRequest`.
+pub mod bidi_read_object_request {
+    #[allow(clippy::all)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Op {
+        #[prost(message, tag = "1")]
+        Open(super::OpenReadSpec),
+        #[prost(message, tag = "2")]
+        Read(super::ReadRanges),
+        #[prost(message, tag = "3")]
+        Release(super::ReleaseSlots),
+        #[prost(message, tag = "4")]
+        Cancel(super::CancelRanges),
+    }
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct OpenReadSpec {
+    /// "b" or "projects/_/buckets/b"
+    #[prost(string, tag = "1")]
+    pub bucket: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub object: ::prost::alloc::string::String,
+    /// 0 = latest
+    #[prost(int64, tag = "3")]
+    pub generation: i64,
+    #[prost(int64, optional, tag = "4")]
+    pub if_generation_match: ::core::option::Option<i64>,
+    #[prost(int64, optional, tag = "5")]
+    pub if_generation_not_match: ::core::option::Option<i64>,
+    #[prost(int64, optional, tag = "6")]
+    pub if_metageneration_match: ::core::option::Option<i64>,
+    #[prost(int64, optional, tag = "7")]
+    pub if_metageneration_not_match: ::core::option::Option<i64>,
+    /// 0 => inline_data fallback
+    #[prost(uint64, tag = "8")]
+    pub read_region_id: u64,
+    /// OpenObject::compute_crc32c
+    #[prost(bool, tag = "9")]
+    pub compute_full_crc32c: bool,
+    /// accepted for forward-compat; ignored by the unmodified SDK
+    #[prost(bytes = "vec", tag = "10")]
+    pub read_handle: ::prost::alloc::vec::Vec<u8>,
+    /// OpenObject::with_quota_project
+    #[prost(string, tag = "11")]
+    pub quota_project: ::prost::alloc::string::String,
+    /// OpenObject::with_user_agent
+    #[prost(string, tag = "12")]
+    pub user_agent: ::prost::alloc::string::String,
+}
+#[allow(clippy::all)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct RangeSpec {
+    /// client-chosen, unique per session
+    #[prost(int64, tag = "1")]
+    pub range_id: i64,
+    /// >= 0; < 0 => ReadRange::tail(-offset)
+    #[prost(int64, tag = "2")]
+    pub offset: i64,
+    /// 0 => ReadRange::offset(offset) (to EOF, unknown size OK)
+    #[prost(int64, tag = "3")]
+    pub length: i64,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReadRanges {
+    #[prost(message, repeated, tag = "1")]
+    pub ranges: ::prost::alloc::vec::Vec<RangeSpec>,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ReleaseSlots {
+    #[prost(uint32, repeated, tag = "1")]
+    pub slots: ::prost::alloc::vec::Vec<u32>,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct CancelRanges {
+    #[prost(int64, repeated, tag = "1")]
+    pub range_ids: ::prost::alloc::vec::Vec<i64>,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BidiReadObjectResponse {
+    #[prost(oneof = "bidi_read_object_response::Msg", tags = "1, 2, 3")]
+    pub msg: ::core::option::Option<bidi_read_object_response::Msg>,
+}
+/// Nested message and enum types in `BidiReadObjectResponse`.
+pub mod bidi_read_object_response {
+    #[allow(clippy::all)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Msg {
+        #[prost(message, tag = "1")]
+        Opened(super::ReadOpened),
+        #[prost(message, tag = "2")]
+        Data(super::RangeData),
+        /// per-range failure; the session stays usable
+        #[prost(message, tag = "3")]
+        RangeError(super::RangeError),
+    }
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReadOpened {
+    #[prost(message, optional, tag = "1")]
+    pub object: ::core::option::Option<ObjectResource>,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct RangeData {
+    #[prost(int64, tag = "1")]
+    pub range_id: i64,
+    /// absolute object offset of this piece
+    #[prost(int64, tag = "2")]
+    pub range_offset: i64,
+    /// zero-copy payload (Linux/macOS)
+    #[prost(message, optional, tag = "3")]
+    pub slot: ::core::option::Option<ShmSlotRef>,
+    /// fallback when read_region_id == 0
+    #[prost(bytes = "bytes", tag = "4")]
+    pub inline_data: ::prost::bytes::Bytes,
+    /// last piece of the range (may carry 0 bytes)
+    #[prost(bool, tag = "5")]
+    pub range_end: bool,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct RangeError {
+    #[prost(int64, tag = "1")]
+    pub range_id: i64,
+    /// google.rpc.Code
+    #[prost(int32, tag = "2")]
+    pub code: i32,
+    #[prost(string, tag = "3")]
+    pub message: ::prost::alloc::string::String,
+    /// ReadError::ChecksumMismatch -> Python DataCorruption
+    #[prost(bool, tag = "4")]
+    pub checksum_mismatch: bool,
+}
+/// ---------------- BidiWrites ----------------
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BidiWriteObjectRequest {
+    /// echoed on Flushed/Closed/Finalized
+    #[prost(uint64, tag = "15")]
+    pub op_id: u64,
+    #[prost(oneof = "bidi_write_object_request::Op", tags = "1, 2, 3, 4, 5")]
+    pub op: ::core::option::Option<bidi_write_object_request::Op>,
+}
+/// Nested message and enum types in `BidiWriteObjectRequest`.
+pub mod bidi_write_object_request {
+    #[allow(clippy::all)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Op {
+        #[prost(message, tag = "1")]
+        Open(super::OpenAppendSpec),
+        #[prost(message, tag = "2")]
+        Append(super::Append),
+        #[prost(message, tag = "3")]
+        Flush(super::Flush),
+        #[prost(message, tag = "4")]
+        Close(super::Close),
+        #[prost(message, tag = "5")]
+        Finalize(super::Finalize),
+    }
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct OpenAppendSpec {
+    #[prost(string, tag = "1")]
+    pub bucket: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub object: ::prost::alloc::string::String,
+    /// unset => open_appendable_object; set => reopen_appendable_object(b, o, g)
+    #[prost(int64, optional, tag = "3")]
+    pub reopen_generation: ::core::option::Option<i64>,
+    /// Python generation == 0 => 0 (DoesNotExist)
+    #[prost(int64, optional, tag = "4")]
+    pub if_generation_match: ::core::option::Option<i64>,
+    #[prost(int64, optional, tag = "5")]
+    pub if_metageneration_match: ::core::option::Option<i64>,
+    #[prost(int64, optional, tag = "6")]
+    pub if_metageneration_not_match: ::core::option::Option<i64>,
+    /// BidiWriteHandle.handle -> ReopenAppendableObject::set_write_handle
+    #[prost(bytes = "vec", tag = "7")]
+    pub write_handle: ::prost::alloc::vec::Vec<u8>,
+    /// -> ReopenAppendableObject::set_routing_token
+    #[prost(string, tag = "8")]
+    pub routing_token: ::prost::alloc::string::String,
+    /// create only
+    #[prost(message, optional, tag = "9")]
+    pub attrs: ::core::option::Option<ObjectAttrs>,
+    /// 0 => inline_data fallback
+    #[prost(uint64, tag = "10")]
+    pub write_region_id: u64,
+    #[prost(string, tag = "11")]
+    pub quota_project: ::prost::alloc::string::String,
+    /// OpenAppendableObject::set_if_generation_not_match
+    #[prost(int64, optional, tag = "12")]
+    pub if_generation_not_match: ::core::option::Option<i64>,
+    /// with_user_agent
+    #[prost(string, tag = "13")]
+    pub user_agent: ::prost::alloc::string::String,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Append {
+    #[prost(message, optional, tag = "1")]
+    pub slot: ::core::option::Option<ShmSlotRef>,
+    /// fallback only
+    #[prost(bytes = "bytes", tag = "2")]
+    pub inline_data: ::prost::bytes::Bytes,
+}
+#[allow(clippy::all)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Flush {}
+#[allow(clippy::all)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Close {}
+#[allow(clippy::all)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Finalize {
+    #[prost(uint32, optional, tag = "1")]
+    pub full_object_crc32c: ::core::option::Option<u32>,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BidiWriteObjectResponse {
+    #[prost(uint64, tag = "15")]
+    pub op_id: u64,
+    #[prost(oneof = "bidi_write_object_response::Msg", tags = "1, 2, 3, 4, 5")]
+    pub msg: ::core::option::Option<bidi_write_object_response::Msg>,
+}
+/// Nested message and enum types in `BidiWriteObjectResponse`.
+pub mod bidi_write_object_response {
+    #[allow(clippy::all)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Msg {
+        #[prost(message, tag = "1")]
+        Opened(super::WriteOpened),
+        /// emitted when SlotLease owners drop (replay ack / tail copy)
+        #[prost(message, tag = "2")]
+        Released(super::SlotsReleased),
+        #[prost(message, tag = "3")]
+        Flushed(super::Flushed),
+        #[prost(message, tag = "4")]
+        Closed(super::Closed),
+        #[prost(message, tag = "5")]
+        Finalized(super::Finalized),
+    }
+}
+#[allow(clippy::all)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct WriteOpened {
+    #[prost(int64, tag = "1")]
+    pub generation: i64,
+    #[prost(int64, tag = "2")]
+    pub persisted_size: i64,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct SlotsReleased {
+    #[prost(uint32, repeated, tag = "1")]
+    pub slots: ::prost::alloc::vec::Vec<u32>,
+}
+#[allow(clippy::all)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Flushed {
+    #[prost(int64, tag = "1")]
+    pub persisted_size: i64,
+}
+#[allow(clippy::all)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Closed {
+    #[prost(int64, tag = "1")]
+    pub persisted_size: i64,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Finalized {
+    #[prost(message, optional, tag = "1")]
+    pub object: ::core::option::Option<ObjectResource>,
 }
 #[allow(clippy::all)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -767,6 +1176,86 @@ pub mod gcs_core_client {
                 .insert(GrpcMethod::new("gcscore.v1.GcsCore", "Shutdown"));
             self.inner.unary(req, path, codec).await
         }
+        /// Capability/version negotiation; thin clients call once per channel.
+        pub async fn get_server_info(
+            &mut self,
+            request: impl tonic::IntoRequest<super::Empty>,
+        ) -> std::result::Result<tonic::Response<super::ServerInfo>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::unknown(
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic_prost::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/gcscore.v1.GcsCore/GetServerInfo",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("gcscore.v1.GcsCore", "GetServerInfo"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// One stream == one google_cloud_storage::object_descriptor::ObjectDescriptor.
+        /// The first request MUST be `open`. Payload bytes are delivered in SHM slots
+        /// of the caller's read region (`read_region_id == 0` selects inline bytes).
+        pub async fn bidi_read_object(
+            &mut self,
+            request: impl tonic::IntoStreamingRequest<
+                Message = super::BidiReadObjectRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<tonic::codec::Streaming<super::BidiReadObjectResponse>>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::unknown(
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic_prost::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/gcscore.v1.GcsCore/BidiReadObject",
+            );
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("gcscore.v1.GcsCore", "BidiReadObject"));
+            self.inner.streaming(req, path, codec).await
+        }
+        /// One stream == one google_cloud_storage::appendable_object_writer::AppendableObjectWriter.
+        /// The first request MUST be `open`. Append payload is referenced by SHM slot
+        /// of the caller's write region (`write_region_id == 0` selects inline bytes).
+        pub async fn bidi_write_object(
+            &mut self,
+            request: impl tonic::IntoStreamingRequest<
+                Message = super::BidiWriteObjectRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<tonic::codec::Streaming<super::BidiWriteObjectResponse>>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::unknown(
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic_prost::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/gcscore.v1.GcsCore/BidiWriteObject",
+            );
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("gcscore.v1.GcsCore", "BidiWriteObject"));
+            self.inner.streaming(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -892,6 +1381,43 @@ pub mod gcs_core_server {
             &self,
             request: tonic::Request<super::Empty>,
         ) -> std::result::Result<tonic::Response<super::Empty>, tonic::Status>;
+        /// Capability/version negotiation; thin clients call once per channel.
+        async fn get_server_info(
+            &self,
+            request: tonic::Request<super::Empty>,
+        ) -> std::result::Result<tonic::Response<super::ServerInfo>, tonic::Status>;
+        /// Server streaming response type for the BidiReadObject method.
+        type BidiReadObjectStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::BidiReadObjectResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// One stream == one google_cloud_storage::object_descriptor::ObjectDescriptor.
+        /// The first request MUST be `open`. Payload bytes are delivered in SHM slots
+        /// of the caller's read region (`read_region_id == 0` selects inline bytes).
+        async fn bidi_read_object(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::BidiReadObjectRequest>>,
+        ) -> std::result::Result<
+            tonic::Response<Self::BidiReadObjectStream>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the BidiWriteObject method.
+        type BidiWriteObjectStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::BidiWriteObjectResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// One stream == one google_cloud_storage::appendable_object_writer::AppendableObjectWriter.
+        /// The first request MUST be `open`. Append payload is referenced by SHM slot
+        /// of the caller's write region (`write_region_id == 0` selects inline bytes).
+        async fn bidi_write_object(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::BidiWriteObjectRequest>>,
+        ) -> std::result::Result<
+            tonic::Response<Self::BidiWriteObjectStream>,
+            tonic::Status,
+        >;
     }
     #[derive(Debug)]
     pub struct GcsCoreServer<T> {
@@ -1592,6 +2118,145 @@ pub mod gcs_core_server {
                                 max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/gcscore.v1.GcsCore/GetServerInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServerInfoSvc<T: GcsCore>(pub Arc<T>);
+                    impl<T: GcsCore> tonic::server::UnaryService<super::Empty>
+                    for GetServerInfoSvc<T> {
+                        type Response = super::ServerInfo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::Empty>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GcsCore>::get_server_info(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServerInfoSvc(inner);
+                        let codec = tonic_prost::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/gcscore.v1.GcsCore/BidiReadObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct BidiReadObjectSvc<T: GcsCore>(pub Arc<T>);
+                    impl<
+                        T: GcsCore,
+                    > tonic::server::StreamingService<super::BidiReadObjectRequest>
+                    for BidiReadObjectSvc<T> {
+                        type Response = super::BidiReadObjectResponse;
+                        type ResponseStream = T::BidiReadObjectStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::BidiReadObjectRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GcsCore>::bidi_read_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BidiReadObjectSvc(inner);
+                        let codec = tonic_prost::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/gcscore.v1.GcsCore/BidiWriteObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct BidiWriteObjectSvc<T: GcsCore>(pub Arc<T>);
+                    impl<
+                        T: GcsCore,
+                    > tonic::server::StreamingService<super::BidiWriteObjectRequest>
+                    for BidiWriteObjectSvc<T> {
+                        type Response = super::BidiWriteObjectResponse;
+                        type ResponseStream = T::BidiWriteObjectStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::BidiWriteObjectRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GcsCore>::bidi_write_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BidiWriteObjectSvc(inner);
+                        let codec = tonic_prost::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
                         Ok(res)
                     };
                     Box::pin(fut)

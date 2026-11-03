@@ -33,6 +33,12 @@ Thin language veneers (Go, Python, Java, C++, Node.js) connect to `gcs-core-serv
 | [`src/session.rs`](src/session.rs) | Per-caller OAuth2 token-lending registry (`Sessions`) bound to `(uid, pid)` with dead-PID reaping. |
 | [`src/shm.rs`](src/shm.rs) | Linux `memfd_create` + `F_ADD_SEALS` + `SCM_RIGHTS` FD-passing server on `<socket>.shm`. |
 | [`tests/uds_integration.rs`](tests/uds_integration.rs) | End-to-end integration tests over real UDS sockets, `httptest`, and `storage-grpc-mock`. |
+| [`src/slots.rs`](src/slots.rs) | v2 SHM slot arenas: server-owned read ring (`FREE→SERVER_WRITING→CLIENT_READING→FREE`) and client-owned write slots wrapped in `Bytes::from_owner(SlotLease)` (`FREE→LEASED→FREE`). |
+| [`src/bidi_read.rs`](src/bidi_read.rs) | v2 `BidiReadObject` session: one stream == one `ObjectDescriptor`; per-range tasks copy CRC32C-validated chunks into SHM slots. |
+| [`src/bidi_write.rs`](src/bidi_write.rs) | v2 `BidiWriteObject` session: one stream == one `AppendableObjectWriter`; zero-copy appends, running CRC32C, `SlotsReleased` forwarding. |
+| [`src/object_meta.rs`](src/object_meta.rs) | `model::Object` → `ObjectResource` (typed hot fields + proto3-JSON `object_json`). |
+| [`tests/bidi_shm_integration.rs`](tests/bidi_shm_integration.rs) | v2 end-to-end tests: memfd slots, release/cancel, checksum + short-read detection, lease-until-ack, takeover, CRC pre-check. |
+| [`python/`](python/) | `maturin` (`bindings = "bin"`) companion wheel / sdist `google-cloud-storage-core` shipping `gcs-core-server` + `binary_path()` locator. |
 
 ---
 
@@ -62,6 +68,72 @@ Instead of proxying `google.storage.v2.Storage` 1:1 over UDS, [`proto/gcscore.pr
 | `ListObjects` / `ListBuckets` | Unary | Single-page control-plane listing via `StorageControl`, matching thin-client page iterators. |
 | `CreateSession` / `UpdateToken` / `CloseSession` | Unary | Per-caller OAuth2 bearer token lending bound to kernel-verified `(uid, pid)`. |
 | `Stats` / `Shutdown` | Unary | Returns process CPU (`getrusage`) and RSS/VmHWM (`/proc/self/status`) telemetry, or triggers graceful shutdown. |
+
+---
+
+## v2: Zero-Copy Shared-Memory `BidiReadObject` / `BidiWriteObject` Sessions
+
+v2 extends `gcscore.v1.GcsCore` **additively** (no existing RPC, message or field number
+changes; old clients stay wire-compatible) and only calls public APIs of the
+**unmodified** `google-cloud-storage` crate (built with
+`--cfg google_cloud_unstable_storage_bidi`).
+
+| RPC | Type | Description |
+| :--- | :--- | :--- |
+| `GetServerInfo` | Unary | Versions + capability negotiation (`bidi-read`, `bidi-write`, `bidi-read-shm`, `bidi-write-shm`, `memfd`/`posix-shm`, `inline`), region/slot sizes, `max_ranges_per_request` (1000). |
+| `BidiReadObject` | Bidi-streaming | First request `open` (`OpenReadSpec`) opens one `ObjectDescriptor` (`ReadOpened{ObjectResource}`); then `ReadRanges` (≤ 1000, client-chosen `range_id`s), `ReleaseSlots`, `CancelRanges`. Responses: `RangeData{range_id, slot \| inline_data, range_end}` and per-range `RangeError` (the session stays usable). |
+| `BidiWriteObject` | Bidi-streaming | First request `open` (`OpenAppendSpec`: create/overwrite, `if_generation_match`, or takeover via `reopen_generation` + `write_handle`/`routing_token`, `ObjectAttrs`); then `Append{slot \| inline_data}`, `Flush`, `Close`, `Finalize{full_object_crc32c}`. Responses: `WriteOpened`, `SlotsReleased`, `Flushed`, `Closed`, `Finalized` (echoing `op_id`). |
+
+`CreateSessionRequest` gains optional `endpoint` / `universe_domain` / `anonymous`
+(tags 4–6): anonymous or daemon-ADC sessions share one cached `Storage` per
+`(endpoint, universe_domain, anonymous)`.
+
+**Slot protocol.** A `<socket>.shm` region (sealed memfd, 16-byte `(region_id, size)`
+header + `SCM_RIGHTS`) is divided into `--shm-slot-size` slots (2 MiB = the SDK's
+`MAX_WRITE_CHUNK_SIZE`). Slot state lives only in private Rust memory and is changed with
+`compare_exchange(AcqRel)`:
+
+- *Reads (server allocates, client releases):* a per-range task awaits a free slot (fair
+  semaphore; back-pressure when the client is slow), `memcpy`s one validated SDK chunk
+  piece into it, issues a `Release` fence and sends `RangeData{slot}`. The client copies the
+  slot into the user's buffer and sends `ReleaseSlots`. Double release, foreign slots or a
+  slot never published to the session abort the session (`FAILED_PRECONDITION`).
+  Ranges on finalized objects are validated/clamped against the fixed size (an
+  out-of-bounds range yields `RangeError{OUT_OF_RANGE}` without tearing down the shared
+  descriptor) and a range that ends short without an SDK error is reported as
+  `DATA_LOSS` (never as a silently truncated success).
+- *Writes (client allocates, server releases):* `Append{slot}` validates region ownership
+  (`(uid, pid)`), bounds and `FREE→LEASED`, then hands the SDK
+  `Bytes::from_owner(SlotLease)`. `SlotLease::drop` runs when the **last** clone/slice is
+  dropped from the SDK's coalescing / 32 MiB replay buffers (after GCS acks the bytes),
+  flips `LEASED→FREE` and queues the slot id; releases are forwarded as `SlotsReleased`
+  even while an SDK `append()` is back-pressured. `Close`/`Finalize` drain outstanding
+  leases before replying so the client can reuse the region. `--write-copy-mode=copy`
+  copies at append time (for untrusted multi-tenant daemons).
+- *Finalize CRC32C:* the server keeps a running CRC32C over appended bytes (new objects /
+  takeovers at `persisted_size == 0`); on mismatch it `close()`s the writer (object stays
+  unfinalized, data persisted) and returns `INVALID_ARGUMENT "... crc32c mismatch ..."`.
+  Takeovers with `persisted_size > 0` compare post-hoc with the finalized object.
+
+**Copy count (Linux, per byte).** Reads: GCS → SDK `Bytes` (TLS) → **1 memcpy into SHM** →
+1 copy into the user's buffer (required by the Python API); 0 IPC/protobuf payload copies.
+Writes: user bytes → **1 copy into SHM** → 0 copies into Rust (`Bytes` view) → HTTP/2 framing.
+
+**New flags:** `--shm-slot-size` (2 MiB), `--write-copy-mode {zero-copy,copy}`,
+`--max-regions-per-pid` (16); `MAX_ACTIVE_REGIONS` is 1024. Pages are demand-faulted (no
+`MAP_POPULATE`), preserving first-touch cgroup attribution. macOS uses an unlinked,
+size-once POSIX `shm_open` object instead of memfd.
+
+**Lifecycle (thin clients).** Attach to `GOOGLE_CLOUD_STORAGE_UDS_SOCKET` if set; otherwise
+`<runtime_dir>/gcs-core-<hash>.sock` (0700 dir, hash of binary + endpoint + credential
+config), verify the server's uid via `SO_PEERCRED`, and `flock`-spawn one shared N:1 daemon
+(`--idle-secs 300`) on the first bidi open. Shared daemons are never killed by clients.
+
+| Platform | Transport | Peer creds | SHM |
+| :--- | :--- | :--- | :--- |
+| Linux | `unix://` | `SO_PEERCRED` both ways | sealed memfd + `SCM_RIGHTS` |
+| macOS (experimental) | `unix://` (≤ 104-byte paths) | `LOCAL_PEERCRED` | unlinked `shm_open` + `SCM_RIGHTS` |
+| Windows | — (clients keep their native path) | — | — |
 
 ---
 
@@ -109,6 +181,17 @@ RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi" \
   --grpc-subchannels 16 \
   --idle-secs 300
 
-# Run unit & end-to-end integration tests
-cargo test -p storage-grpc-uds
+# Run unit & end-to-end integration tests (v2 bidi tests need the cfg)
+RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi" cargo test -p storage-grpc-uds
+
+# Companion Python wheel + sdist (google-cloud-storage-core)
+(cd src/storage/grpc-uds/python && maturin build --release && maturin sdist)
+```
+
+Regenerating `src/generated/protos/gcscore.v1.rs` (checked in; `build.rs` needs no
+`protoc` otherwise):
+
+```bash
+PROTOC=/path/to/protoc RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi --cfg google_cloud_generate_protos" \
+  cargo build -p storage-grpc-uds
 ```

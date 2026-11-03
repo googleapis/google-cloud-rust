@@ -71,6 +71,9 @@ pub struct GcsCoreService {
     chunk_size: usize,
     handles: Arc<RwLock<HashMap<u64, OpenHandle>>>,
     next_handle: AtomicU64,
+    shm_size: usize,
+    slot_size: usize,
+    copy_mode: crate::slots::WriteCopyMode,
 }
 
 impl GcsCoreService {
@@ -93,6 +96,14 @@ impl GcsCoreService {
             sb = sb.with_endpoint(e.clone());
             cb = cb.with_endpoint(e.clone());
         }
+        let copy_mode = args
+            .write_copy_mode
+            .parse::<crate::slots::WriteCopyMode>()
+            .map_err(|e| -> Box<dyn std::error::Error + Send + Sync> { e.into() })?;
+        if args.shm_slot_size == 0 {
+            return Err("--shm-slot-size must be > 0".into());
+        }
+        shm.set_max_regions_per_pid(args.max_regions_per_pid);
         Ok(Self {
             shm,
             sessions: Arc::new(Sessions::new(args.endpoint.clone(), subchannels)),
@@ -104,6 +115,9 @@ impl GcsCoreService {
             chunk_size: args.chunk_size,
             handles: Arc::new(RwLock::new(HashMap::new())),
             next_handle: AtomicU64::new(1),
+            shm_size: args.shm_size,
+            slot_size: args.shm_slot_size,
+            copy_mode,
         })
     }
 
@@ -161,7 +175,7 @@ impl GcsCoreService {
     }
 }
 
-fn bucket_name(b: &str) -> String {
+pub(crate) fn bucket_name(b: &str) -> String {
     if b.starts_with("projects/") {
         b.to_string()
     } else {
@@ -169,8 +183,56 @@ fn bucket_name(b: &str) -> String {
     }
 }
 
-fn to_status(e: google_cloud_storage::Error) -> Status {
+/// Returns `true` if `e` (or any error in its source chain) is a read checksum mismatch.
+pub(crate) fn is_checksum_mismatch(e: &google_cloud_storage::Error) -> bool {
+    use google_cloud_storage::error::ReadError;
+    let mut cur: Option<&(dyn std::error::Error + 'static)> = std::error::Error::source(e);
+    while let Some(err) = cur {
+        if let Some(ReadError::ChecksumMismatch(_)) = err.downcast_ref::<ReadError>() {
+            return true;
+        }
+        cur = err.source();
+    }
+    false
+}
+
+/// Finds the innermost-first storage/gax error carrying a service status in `e`'s source
+/// chain (e.g. a bidi range read wraps the stream's `OUT_OF_RANGE` status inside a
+/// `ReadError::UnrecoverableBidiReadInterrupt`).
+fn inner_service_error(e: &google_cloud_storage::Error) -> Option<&google_cloud_storage::Error> {
+    let has_status =
+        |x: &google_cloud_storage::Error| x.status().is_some() || x.http_status_code().is_some();
+    let mut cur: Option<&(dyn std::error::Error + 'static)> = std::error::Error::source(e);
+    while let Some(err) = cur {
+        if let Some(inner) = err.downcast_ref::<google_cloud_storage::Error>()
+            && has_status(inner)
+        {
+            return Some(inner);
+        }
+        if let Some(inner) = err.downcast_ref::<Arc<google_cloud_storage::Error>>()
+            && has_status(inner)
+        {
+            return Some(inner.as_ref());
+        }
+        cur = err.source();
+    }
+    None
+}
+
+pub(crate) fn to_status(e: google_cloud_storage::Error) -> Status {
     let msg = format!("{e}");
+    if is_checksum_mismatch(&e) {
+        return Status::data_loss(msg);
+    }
+    let target = if e.status().is_none() && e.http_status_code().is_none() {
+        inner_service_error(&e).unwrap_or(&e)
+    } else {
+        &e
+    };
+    status_from(target, msg)
+}
+
+fn status_from(e: &google_cloud_storage::Error, msg: String) -> Status {
     if let Some(s) = e.status() {
         use google_cloud_gax::error::rpc::Code;
         // GCS JSON error envelopes (`{"error": {"code": 404, "message": "..."}}`) often omit a
@@ -339,6 +401,89 @@ impl GcsCore for GcsCoreService {
     type ReadObjectStream = RespStream<pb::ReadChunk>;
     type ReadRangeStream = RespStream<pb::ReadChunk>;
     type ReadObjectShmStream = RespStream<pb::ShmChunk>;
+    type BidiReadObjectStream = RespStream<pb::BidiReadObjectResponse>;
+    type BidiWriteObjectStream = RespStream<pb::BidiWriteObjectResponse>;
+
+    async fn get_server_info(
+        &self,
+        _req: Request<pb::Empty>,
+    ) -> Result<Response<pb::ServerInfo>, Status> {
+        self.shared.touch();
+        let mut features = vec!["bidi-read".to_string(), "inline".to_string()];
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        features.push("bidi-write".to_string());
+        let shm_capable = cfg!(any(target_os = "linux", target_os = "macos"))
+            && self.shm_size > 0
+            && self.shm_size >= self.slot_size;
+        if shm_capable {
+            features.push("bidi-read-shm".to_string());
+            #[cfg(google_cloud_unstable_storage_bidi)]
+            features.push("bidi-write-shm".to_string());
+            features.push(
+                if cfg!(target_os = "linux") {
+                    "memfd"
+                } else {
+                    "posix-shm"
+                }
+                .to_string(),
+            );
+        }
+        // SAFETY: `getuid()` is always safe to call and cannot fail.
+        let my_uid = unsafe { libc::getuid() };
+        Ok(Response::new(pb::ServerInfo {
+            server_version: env!("CARGO_PKG_VERSION").to_string(),
+            storage_crate_version: crate::STORAGE_CRATE_VERSION.to_string(),
+            features,
+            max_ranges_per_request: crate::bidi_read::MAX_RANGES_PER_REQUEST as u32,
+            shm_region_size: if shm_capable { self.shm_size as u64 } else { 0 },
+            shm_slot_size: self.slot_size as u32,
+            pid: std::process::id() as i32,
+            uid: my_uid,
+        }))
+    }
+
+    async fn bidi_read_object(
+        &self,
+        req: Request<Streaming<pb::BidiReadObjectRequest>>,
+    ) -> Result<Response<Self::BidiReadObjectStream>, Status> {
+        self.shared.touch();
+        let peer = Self::peer(&req);
+        let (storage, _) = self.pick(&req).await?;
+        let inbound = req.into_inner();
+        let (tx, rx) = mpsc::channel(64);
+        tokio::spawn(crate::bidi_read::run_read_session(
+            storage,
+            self.shm.clone(),
+            peer,
+            inbound,
+            tx,
+            self.slot_size,
+        ));
+        Ok(Response::new(Box::pin(ReceiverStream::new(rx))))
+    }
+
+    async fn bidi_write_object(
+        &self,
+        req: Request<Streaming<pb::BidiWriteObjectRequest>>,
+    ) -> Result<Response<Self::BidiWriteObjectStream>, Status> {
+        self.shared.touch();
+        let peer = Self::peer(&req);
+        let (storage, _) = self.pick(&req).await?;
+        let inbound = req.into_inner();
+        let (tx, rx) = mpsc::channel(64);
+        tokio::spawn(crate::bidi_write::run_write_session(
+            storage,
+            self.shm.clone(),
+            peer,
+            inbound,
+            tx,
+            crate::bidi_write::WriteSessionConfig {
+                slot_size: self.slot_size,
+                copy_mode: self.copy_mode,
+            },
+        ));
+        Ok(Response::new(Box::pin(ReceiverStream::new(rx))))
+    }
 
     async fn ping(
         &self,
@@ -833,19 +978,38 @@ impl GcsCore for GcsCoreService {
             ));
         }
         let r = req.into_inner();
-        if r.access_token.is_empty() {
-            return Err(Status::invalid_argument("access_token required"));
-        }
-        let qp = if r.quota_project.is_empty() {
-            None
+        let endpoint = r.endpoint.filter(|e| !e.is_empty());
+        let universe = r.universe_domain.filter(|u| !u.is_empty());
+        let anonymous = r.anonymous.unwrap_or(false);
+        let v2_fields = endpoint.is_some() || universe.is_some() || r.anonymous.is_some();
+        let s = if anonymous || (r.access_token.is_empty() && v2_fields) {
+            // v2: anonymous or daemon-ADC session sharing one cached client per key.
+            self.sessions
+                .create_shared((endpoint, universe, anonymous), uid, pid)
+                .await
+                .map_err(|e| Status::internal(format!("session client: {e}")))?
         } else {
-            Some(r.quota_project)
+            if r.access_token.is_empty() {
+                return Err(Status::invalid_argument("access_token required"));
+            }
+            let qp = if r.quota_project.is_empty() {
+                None
+            } else {
+                Some(r.quota_project)
+            };
+            self.sessions
+                .create_with_endpoint(
+                    r.access_token,
+                    r.expiry_unix_secs,
+                    qp,
+                    endpoint,
+                    universe,
+                    uid,
+                    pid,
+                )
+                .await
+                .map_err(|e| Status::internal(format!("session client: {e}")))?
         };
-        let s = self
-            .sessions
-            .create(r.access_token, r.expiry_unix_secs, qp, uid, pid)
-            .await
-            .map_err(|e| Status::internal(format!("session client: {e}")))?;
         let n = self.sessions.len().await;
         tracing::info!(sessions = n, pid, "session created");
         Ok(Response::new(pb::CreateSessionResponse {

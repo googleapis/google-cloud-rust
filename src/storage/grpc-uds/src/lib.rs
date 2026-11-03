@@ -25,10 +25,22 @@
 //!    on Linux so the sidecar terminates immediately if its spawning parent process exits.
 //! 3. **In-process background server (`gcs_core_start_inproc`):** Spawns the identical `GcsCore`
 //!    tonic server inside the caller's OS process on a background Tokio runtime thread.
+//!
+//! v2 adds zero-copy shared-memory `BidiReadObject` / `BidiWriteObject` sessions
+//! ([`bidi_read`], [`bidi_write`]) over slot arenas ([`slots`]) carved out of the same
+//! sealed `memfd` regions, plus `GetServerInfo` capability negotiation. All of it uses
+//! only public APIs of the unmodified `google-cloud-storage` crate.
 
+pub mod bidi_read;
+pub mod bidi_write;
+pub mod object_meta;
 pub mod service;
 pub mod session;
 pub mod shm;
+pub mod slots;
+
+/// Version of the linked `google-cloud-storage` crate (reported by `GetServerInfo`).
+pub const STORAGE_CRATE_VERSION: &str = "1.21.0";
 
 use clap::Parser;
 use std::ffi::{CStr, c_char};
@@ -148,6 +160,19 @@ pub struct Args {
     /// Per-client shared-memory region size served on `<socket>.shm` via `SCM_RIGHTS` (0 = disabled).
     #[arg(long, default_value_t = 256 * 1024 * 1024)]
     pub shm_size: usize,
+
+    /// Slot size used by v2 `BidiReadObject` / `BidiWriteObject` sessions inside SHM regions.
+    #[arg(long, default_value_t = slots::DEFAULT_SLOT_SIZE)]
+    pub shm_slot_size: usize,
+
+    /// How appended SHM slots are handed to the SDK: `zero-copy` (`Bytes::from_owner`) or
+    /// `copy` (memcpy into heap `Bytes`, for untrusted multi-tenant daemons).
+    #[arg(long, default_value = "zero-copy")]
+    pub write_copy_mode: String,
+
+    /// Maximum number of concurrent SHM regions per client `(uid, pid)` (0 = unlimited).
+    #[arg(long, default_value_t = shm::DEFAULT_MAX_REGIONS_PER_PID)]
+    pub max_regions_per_pid: usize,
 }
 
 impl Default for Args {
@@ -164,6 +189,9 @@ impl Default for Args {
             tcp: None,
             require_session: false,
             shm_size: 256 * 1024 * 1024,
+            shm_slot_size: slots::DEFAULT_SLOT_SIZE,
+            write_copy_mode: "zero-copy".to_string(),
+            max_regions_per_pid: shm::DEFAULT_MAX_REGIONS_PER_PID,
         }
     }
 }

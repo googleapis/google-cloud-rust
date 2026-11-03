@@ -181,6 +181,7 @@ async fn session_lifecycle_expiry_and_peer_isolation() -> anyhow::Result<()> {
             access_token: "test-bearer-initial-token".to_string(),
             expiry_unix_secs: now_secs + 60,
             quota_project: "test-quota-proj".to_string(),
+            ..Default::default()
         })
         .await?
         .into_inner();
@@ -342,6 +343,7 @@ async fn shm_memfd_scm_rights_and_zero_copy_read() -> anyhow::Result<()> {
             access_token: "test-bearer-shm-test".to_string(),
             expiry_unix_secs: 0,
             quota_project: String::new(),
+            ..Default::default()
         })
         .await?
         .into_inner();
@@ -506,6 +508,7 @@ async fn read_write_and_list_over_uds_via_httptest() -> anyhow::Result<()> {
             access_token: "test-bearer-read-test".to_string(),
             expiry_unix_secs: 0,
             quota_project: String::new(),
+            ..Default::default()
         })
         .await?
         .into_inner();
@@ -687,6 +690,7 @@ async fn open_object_read_range_and_close_via_grpc_mock() -> anyhow::Result<()> 
             access_token: "test-bearer-grpc-mock".to_string(),
             expiry_unix_secs: 0,
             quota_project: String::new(),
+            ..Default::default()
         })
         .await?
         .into_inner();
@@ -823,6 +827,7 @@ async fn json_404_and_412_status_mapping_and_inproc_lifecycle() -> anyhow::Resul
             access_token: "test-bearer-err-test".to_string(),
             expiry_unix_secs: 0,
             quota_project: String::new(),
+            ..Default::default()
         })
         .await?
         .into_inner();

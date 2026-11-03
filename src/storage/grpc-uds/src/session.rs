@@ -19,6 +19,11 @@
 //! `StorageControl` client per session backed by a dynamic `CredentialsProvider`
 //! (`LentToken`) and binds the session ID to the caller's kernel-verified `(uid, pid)`
 //! obtained via `SO_PEERCRED`.
+//!
+//! v2 adds (additively) shared sessions: when a caller asks for anonymous access or for
+//! the daemon's own Application Default Credentials against a specific endpoint /
+//! universe domain, all such sessions share ONE cached `Storage` per
+//! `(endpoint, universe_domain, anonymous)` key (one warm gRPC subchannel pool).
 
 use google_cloud_auth::credentials::{
     CacheableResource, Credentials, CredentialsProvider, EntityTag,
@@ -114,11 +119,15 @@ pub struct Session {
     pub control: StorageControl,
 }
 
+/// Cache key for shared (non-token-lending) clients: `(endpoint, universe_domain, anonymous)`.
+pub type SharedKey = (Option<String>, Option<String>, bool);
+
 /// Registry of active caller sessions.
 pub struct Sessions {
     map: Mutex<HashMap<String, Arc<Session>>>,
     endpoint: Option<String>,
     subchannels: usize,
+    shared: Mutex<HashMap<SharedKey, (Storage, StorageControl)>>,
 }
 
 fn random_id() -> Result<String, String> {
@@ -147,7 +156,59 @@ impl Sessions {
             map: Mutex::new(HashMap::new()),
             endpoint,
             subchannels,
+            shared: Mutex::new(HashMap::new()),
         }
+    }
+
+    /// Returns (building on first use) the shared clients for `key`.
+    pub async fn shared_clients(
+        &self,
+        key: &SharedKey,
+    ) -> Result<(Storage, StorageControl), String> {
+        let mut cache = self.shared.lock().await;
+        if let Some(c) = cache.get(key) {
+            return Ok(c.clone());
+        }
+        let (endpoint, universe, anonymous) = key;
+        let mut sb = Storage::builder().with_grpc_subchannel_count(self.subchannels);
+        let mut cb = StorageControl::builder();
+        if *anonymous {
+            let creds = google_cloud_auth::credentials::anonymous::Builder::new().build();
+            sb = sb.with_credentials(creds.clone());
+            cb = cb.with_credentials(creds);
+        }
+        if let Some(e) = endpoint.as_ref().or(self.endpoint.as_ref()) {
+            sb = sb.with_endpoint(e.clone());
+            cb = cb.with_endpoint(e.clone());
+        }
+        if let Some(u) = universe {
+            sb = sb.with_universe_domain(u.clone());
+        }
+        let storage = sb.build().await.map_err(|e| e.to_string())?;
+        let control = cb.build().await.map_err(|e| e.to_string())?;
+        cache.insert(key.clone(), (storage.clone(), control.clone()));
+        Ok((storage, control))
+    }
+
+    /// Registers a shared session (anonymous or daemon ADC for a given endpoint/universe)
+    /// bound to `(uid, pid)`; the underlying clients are shared via [`Self::shared_clients`].
+    pub async fn create_shared(
+        &self,
+        key: SharedKey,
+        uid: u32,
+        pid: i32,
+    ) -> Result<Arc<Session>, String> {
+        let (storage, control) = self.shared_clients(&key).await?;
+        let s = Arc::new(Session {
+            id: random_id()?,
+            peer_uid: uid,
+            peer_pid: pid,
+            token: Arc::new(LentToken::new(String::new(), 0, None)),
+            storage,
+            control,
+        });
+        self.map.lock().await.insert(s.id.clone(), s.clone());
+        Ok(s)
     }
 
     /// Registers a new session bound to `(uid, pid)` and initializes its GCS clients.
@@ -159,15 +220,34 @@ impl Sessions {
         uid: u32,
         pid: i32,
     ) -> Result<Arc<Session>, String> {
+        self.create_with_endpoint(token, expiry, quota_project, None, None, uid, pid)
+            .await
+    }
+
+    /// Like [`Self::create`], optionally overriding the endpoint / universe domain.
+    #[allow(clippy::too_many_arguments)]
+    pub async fn create_with_endpoint(
+        &self,
+        token: String,
+        expiry: i64,
+        quota_project: Option<String>,
+        endpoint: Option<String>,
+        universe_domain: Option<String>,
+        uid: u32,
+        pid: i32,
+    ) -> Result<Arc<Session>, String> {
         let lent = Arc::new(LentToken::new(token, expiry, quota_project));
         let creds: Credentials = SharedProvider(lent.clone()).into();
         let mut sb = Storage::builder()
             .with_credentials(creds.clone())
             .with_grpc_subchannel_count(self.subchannels);
         let mut cb = StorageControl::builder().with_credentials(creds);
-        if let Some(e) = &self.endpoint {
+        if let Some(e) = endpoint.as_ref().or(self.endpoint.as_ref()) {
             sb = sb.with_endpoint(e.clone());
             cb = cb.with_endpoint(e.clone());
+        }
+        if let Some(u) = universe_domain {
+            sb = sb.with_universe_domain(u);
         }
         let storage = sb.build().await.map_err(|e| e.to_string())?;
         let control = cb.build().await.map_err(|e| e.to_string())?;

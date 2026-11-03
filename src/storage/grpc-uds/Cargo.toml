@@ -41,12 +41,15 @@ workspace = true
 [dependencies]
 bytes.workspace              = true
 clap                         = { workspace = true, features = ["derive", "help", "std", "usage"] }
+crc32c.workspace             = true
 google-cloud-auth.workspace  = true
 google-cloud-gax.workspace   = true
 google-cloud-storage         = { workspace = true, features = ["default-rustls-provider"] }
+google-cloud-wkt.workspace   = true
 http.workspace               = true
 libc                         = { workspace = true, default-features = true }
 prost                        = { workspace = true, default-features = true }
+serde_json.workspace         = true
 tokio                        = { workspace = true, features = ["io-util", "macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
 tokio-stream                 = { workspace = true, features = ["net"] }
 tonic                        = { workspace = true, features = ["codegen", "router", "server", "transport"] }
@@ -61,6 +64,7 @@ tonic-prost-build = { workspace = true }
 anyhow.workspace            = true
 httptest.workspace          = true
 hyper-util                  = { workspace = true, features = ["tokio"] }
+prost-types                 = { workspace = true, default-features = true }
 serde_json.workspace        = true
 storage-grpc-mock.workspace = true
 tempfile.workspace          = true

@@ -23,6 +23,8 @@ fn main() {
             .bytes(".gcscore.v1.WriteRequest.data")
             .bytes(".gcscore.v1.PingRequest.payload")
             .bytes(".gcscore.v1.PingResponse.payload")
+            .bytes(".gcscore.v1.RangeData.inline_data")
+            .bytes(".gcscore.v1.Append.inline_data")
             .compile_protos(&["proto/gcscore.proto"], &["proto"])
             .expect("error compiling protos");
     }
