@@ -1,0 +1,67 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[package]
+name = "gcs_core"
+version = "0.3.0"
+edition = "2024"
+description = "Language-neutral C ABI over the google-cloud-storage crate: one Rust core that serves every Cloud Storage operation for the Go SDK."
+license = "Apache-2.0"
+publish = false
+
+[lib]
+# Linked into Go binaries by cgo (one self-contained binary).
+crate-type = ["staticlib"]
+
+# Standalone package: kept out of this repository's workspace (like examples/cpp-wrapper-poc). It
+# pins the published google-cloud-storage 1.20 crates, the versions the POC was tested with.
+[workspace]
+
+[features]
+# Crypto provider for rustls. `ring` is the default because it needs no cmake/C toolchain and
+# avoids aws-lc's glibc>=2.38 symbol coupling (`__isoc23_*`), so one prebuilt archive links on
+# old distros. `aws-lc` is kept for teams that need its FIPS-validated variant.
+default = ["crypto-ring"]
+crypto-ring = ["dep:rustls", "rustls/ring"]
+crypto-aws-lc = ["google-cloud-storage/default-rustls-provider"]
+
+[dependencies]
+bytes = "1"
+futures = "0.3"
+# Pin the exact SDK version: every language binding is version-locked to one Rust core build.
+google-cloud-storage = { version = "=1.20.0", default-features = false }
+google-cloud-auth = { version = "=1.17.0", default-features = false }
+google-cloud-gax = { version = "=1.15.0", default-features = false }
+# Request/response types of the IAM RPCs (GetIamPolicy, SetIamPolicy, TestIamPermissions).
+google-cloud-iam-v1 = { version = "=1.13.0", default-features = false }
+google-cloud-wkt = { version = "=1.9.0", default-features = false }
+http = "1"
+# Already in the dependency graph (through tokio); used to block SIGPIPE on the core's threads.
+libc = "0.2"
+# Already in the dependency graph (through the SDK); used directly for JSON API calls the SDK
+# does not offer (listing over HTTP/JSON).
+reqwest = { version = "=0.13.5", default-features = false, features = ["json", "query"] }
+rustls = { version = "0.23", default-features = false, features = ["std", "tls12", "logging"], optional = true }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "sync", "time", "macros"] }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = "debuginfo"
+# Keep unwinding so every FFI entry point can turn a panic into an error instead of aborting the
+# host process. (panic = "abort" would shrink the binary but makes any panic fatal to the host.)
+panic = "unwind"

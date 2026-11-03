@@ -1,0 +1,2 @@
+# Rust build output of the core and the static library the build installs.
+/gcs_core/target/
