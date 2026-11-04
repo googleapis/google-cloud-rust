@@ -109,12 +109,7 @@ mod tests {
         );
         let mock = MockCredentials::new();
         let creds = Credentials::from(mock);
-        let endpoint = server
-            .url("/")
-            .to_string()
-            .trim_end_matches('/')
-            .to_string();
-        let client = MDSClient::new(Some(endpoint));
+        let client = MDSClient::new(Some(format!("http://{}", server.addr())));
         let signer = MDSSigner::new(client, creds);
 
         let client_email = signer.client_email().await?;
