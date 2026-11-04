@@ -23,6 +23,7 @@ edition = "2021"
 
 [output.html.redirect]
 "/binding_errors.html"                          = "https://docs.cloud.google.com/rust/docs/error-handling#resolve-binding-errors"
+"/compute.html"                                 = "https://docs.cloud.google.com/rust/docs/quickstart-compute"
 "/configuring_polling_policies.html"            = "https://docs.cloud.google.com/rust/docs/configure-polling-policies"
 "/configuring_retry_policies.html"              = "https://docs.cloud.google.com/rust/docs/configure-retry-policies"
 "/credentials.html"                             = "https://docs.cloud.google.com/rust/docs/override-default-authentication"
