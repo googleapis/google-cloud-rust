@@ -18,14 +18,15 @@ use super::stub::{Stub, TonicStreaming};
 use crate::RequestOptions;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::{Error, Result};
-use gaxi::grpc::tonic::Result as TonicResult;
+use gaxi::grpc::from_status::to_gax_error;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use google_cloud_gax::retry_loop_internal::retry_loop;
 use google_cloud_gax::retry_throttler::CircuitBreaker;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use tokio::sync::mpsc;
+use tokio::sync::{mpsc, watch};
+use tokio::time::Instant;
 use tokio_util::sync::{CancellationToken, DropGuard};
 
 pub(super) const INITIAL_DELAY: Duration = Duration::from_millis(100);
@@ -42,17 +43,61 @@ where
     /// have a custom `impl Drop for Stream`.
     _keepalive_guard: DropGuard,
 
+    /// Sender used to clear the pending keepalive pong deadline when a server
+    /// response is received.
+    pong_deadline_tx: watch::Sender<Option<Instant>>,
+
+    /// Receiver used to await an unanswered keepalive pong deadline.
+    pong_deadline_rx: watch::Receiver<Option<Instant>>,
+
     /// The stream.
     pub(super) stream: <T as Stub>::Stream,
 }
 
-impl<T> TonicStreaming for Stream<T>
+impl<T> Stream<T>
 where
-    T: Stub + 'static,
+    T: Stub,
     <T as Stub>::Stream: TonicStreaming,
 {
-    async fn next_message(&mut self) -> TonicResult<Option<StreamingPullResponse>> {
-        self.stream.next_message().await
+    /// Reads the next response from the stream.
+    ///
+    /// Fails with [keepalive_timeout] if a keepalive ping receives no response
+    /// within `PONG_TIMEOUT`.
+    pub(super) async fn next_message(&mut self) -> Result<Option<StreamingPullResponse>> {
+        tokio::select! {
+            // Poll `self.stream` before `pong_timeout` so that if the
+            // application spent > 45s draining `MessageStream`'s message pool,
+            // any buffered pong response on the stream is read and clears the
+            // expired deadline before `pong_timeout` is checked.
+            biased;
+            msg = self.stream.next_message() => {
+                if matches!(msg, Ok(Some(_))) {
+                    self.pong_deadline_tx.send_replace(None);
+                }
+                msg.map_err(to_gax_error)
+            }
+            _ = pong_timeout(&mut self.pong_deadline_rx) => Err(keepalive_timeout()),
+        }
+    }
+}
+
+/// The error returned when a keepalive ping receives no response within
+/// `PONG_TIMEOUT`, indicating the stream silently stopped responding.
+fn keepalive_timeout() -> Error {
+    Error::io("keepalive ping timed out")
+}
+
+/// Waits until an unanswered keepalive ping's pong deadline expires.
+async fn pong_timeout(pong_deadline_rx: &mut watch::Receiver<Option<Instant>>) {
+    loop {
+        let deadline = *pong_deadline_rx.borrow_and_update();
+        if let Some(d) = deadline {
+            tokio::time::sleep_until(d).await;
+            return;
+        }
+        if pong_deadline_rx.changed().await.is_err() {
+            std::future::pending::<()>().await;
+        }
     }
 }
 
@@ -116,15 +161,21 @@ where
     // [^1]: https://github.com/hyperium/tonic/issues/515
     let shutdown = CancellationToken::new();
     let keepalive_guard = shutdown.clone().drop_guard();
-    keepalive::spawn(request_tx, shutdown);
+    let (pong_deadline_tx, mut pong_deadline_rx) = watch::channel(None);
+    keepalive::spawn(request_tx, pong_deadline_tx.clone(), shutdown);
 
-    let stream = inner
-        .streaming_pull(&request_params, request_rx, RequestOptions::default())
-        .await?
-        .into_inner();
+    let stream = tokio::select! {
+        biased;
+        res = inner.streaming_pull(&request_params, request_rx, RequestOptions::default()) => res?,
+        _ = pong_timeout(&mut pong_deadline_rx) => return Err(keepalive_timeout()),
+    }
+    .into_inner();
+    pong_deadline_tx.send_replace(None);
 
     Ok(Stream {
         _keepalive_guard: keepalive_guard,
+        pong_deadline_tx,
+        pong_deadline_rx,
         stream,
     })
 }
@@ -154,12 +205,12 @@ fn default_backoff_policy() -> Arc<ExponentialBackoff> {
 
 #[cfg(test)]
 mod tests {
-    use super::super::keepalive::KEEPALIVE_PERIOD;
+    use super::super::keepalive::{KEEPALIVE_PERIOD, PONG_TIMEOUT};
     use super::super::lease_state::tests::test_ids;
     use super::super::stub::tests::MockStub;
     use super::*;
     use crate::google::pubsub::v1::{ReceivedMessage, StreamingPullResponse};
-    use gaxi::grpc::tonic::Response as TonicResponse;
+    use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::retry_state::RetryState;
@@ -252,6 +303,17 @@ mod tests {
         StreamingPullRequest::default()
     }
 
+    #[track_caller]
+    fn assert_keepalive_timeout(err: &Error) {
+        use std::error::Error as _;
+        assert!(err.is_io(), "{err:?}");
+        assert_eq!(
+            err.source().map(ToString::to_string).as_deref(),
+            Some("keepalive ping timed out"),
+            "{err:?}"
+        );
+    }
+
     #[tokio_test_no_panics(start_paused = true)]
     async fn success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
@@ -337,6 +399,88 @@ mod tests {
         tokio::time::advance(KEEPALIVE_PERIOD).await;
 
         assert_eq!(requests.recv().await, None);
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn keepalive_pong_timeout_during_open() -> anyhow::Result<()> {
+        let start = Instant::now();
+        let (request_tx, request_rx) = oneshot::channel();
+        let stub = PendingStub {
+            request_tx: Mutex::new(Some(request_tx)),
+        };
+
+        let open = tokio::spawn(open_stream(Arc::new(stub), initial_request()));
+        let mut requests = request_rx.await?;
+        assert_eq!(requests.recv().await, Some(initial_request()));
+        assert_eq!(requests.recv().await, Some(keepalive_request()));
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD);
+
+        let err = open.await?.expect_err("open_stream should time out");
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD + PONG_TIMEOUT);
+        assert_keepalive_timeout(&err);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn keepalive_pong_timeout_midstream() -> anyhow::Result<()> {
+        let start = Instant::now();
+        let (_response_tx, response_rx) = mpsc::channel(10);
+
+        let mut mock = MockStub::new();
+        mock.expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
+            .times(1)
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
+
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
+        let err = stream
+            .next_message()
+            .await
+            .expect_err("next_message should time out");
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD + PONG_TIMEOUT);
+        assert_keepalive_timeout(&err);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn keepalive_pong_resets_timeout() -> anyhow::Result<()> {
+        let start = Instant::now();
+        let (response_tx, response_rx) = mpsc::channel(10);
+
+        let mut mock = MockStub::new();
+        mock.expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
+            .times(1)
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
+
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
+
+        // Sleep past the first keepalive ping (30s), but before the pong timeout (45s).
+        tokio::time::sleep(KEEPALIVE_PERIOD + Duration::from_secs(10)).await;
+        response_tx
+            .send(Ok(StreamingPullResponse::default()))
+            .await?;
+        assert_eq!(
+            stream.next_message().await?,
+            Some(StreamingPullResponse::default())
+        );
+
+        // Sleep past the original 45s deadline (to 50s); the stream should still be healthy.
+        tokio::time::sleep(Duration::from_secs(10)).await;
+        response_tx.send(Ok(test_response(1..10))).await?;
+        assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
+
+        // If the second ping (at 60s) receives no response, the stream times out at 75s.
+        let err = stream
+            .next_message()
+            .await
+            .expect_err("next_message should time out after second unanswered ping");
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD * 2 + PONG_TIMEOUT);
+        assert_keepalive_timeout(&err);
+
         Ok(())
     }
 
