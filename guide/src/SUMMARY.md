@@ -17,7 +17,6 @@ limitations under the License.
 # Summary
 
 - [Introduction](introduction.md)
-- [Generate text using the Vertex AI Gemini API](generate_text_using_the_vertex_ai_gemini_api.md)
 - [Using Google Cloud Storage](storage.md)
   - [Push data on object writes](storage/queue.md)
   - [Rewriting objects](storage/rewrite_object.md)
