@@ -136,13 +136,10 @@ impl RowIterator {
             .is_none_or(|r| r > crate::query::storage_reader::rest_row_threshold());
 
         (has_remaining_rows && exceeds_rest_threshold).then(|| {
-            ArrowReader::Storage(Box::new(crate::query::storage_reader::StorageReader::new(
+            ArrowReader::Storage(crate::query::storage_reader::StorageReader::new(
                 read_client.clone(),
                 job_ref.clone(),
-                Some(q.job_service.clone()),
-                q.metadata.total_rows,
-                q.options.clone(),
-            )))
+            ))
         })
     }
 
@@ -1093,83 +1090,6 @@ mod tests {
         assert_eq!(row2.get::<String>("col")?, "from_json_rest");
         assert!(iter.next().await.is_none(), "{iter:?}");
 
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_row_iterator_storage_read_multi_stream_session() -> TestResult {
-        use crate::model::{ReadSession, ReadStream};
-        use crate::query::storage_reader::DEFAULT_MULTI_STREAM_THRESHOLD;
-        use crate::query::storage_reader::tests::{
-            batch_response, encode_named_int64_ipc, job_with_dest_table, response_stream,
-        };
-        use crate::query::tests::MockRead;
-        use arrow::ipc::CompressionType;
-
-        let (schema_bytes, batch0) =
-            encode_named_int64_ipc("col", &[100], Some(CompressionType::LZ4_FRAME))?;
-        let (_, batch1) = encode_named_int64_ipc("col", &[200], Some(CompressionType::LZ4_FRAME))?;
-
-        let mut mock_job = MockJobService::new();
-        mock_job.expect_get_query_results().never();
-        mock_job.expect_get_job().times(1).returning(|req, opts| {
-            assert_eq!(req.project_id, "test_project");
-            assert_eq!(req.job_id, "test_job");
-            assert_eq!(opts.user_agent().as_deref(), Some("test-agent/1.0"));
-            Ok(Response::from(job_with_dest_table(
-                "dest_proj",
-                "dest_ds",
-                "dest_tbl",
-            )))
-        });
-
-        let mut mock_read = MockRead::new();
-        mock_read
-            .expect_create_read_session()
-            .times(1)
-            .return_once(|req, opts| {
-                assert_eq!(req.parent, "projects/test_project");
-                assert_eq!(opts.user_agent().as_deref(), Some("test-agent/1.0"));
-                Ok(Response::from(ReadSession::new().set_streams([
-                    ReadStream::new().set_name("s/0"),
-                    ReadStream::new().set_name("s/1"),
-                ])))
-            });
-
-        let r0 = batch_response(Some(schema_bytes.clone()), batch0);
-        let r1 = batch_response(Some(schema_bytes), batch1);
-        let mut seq = mockall::Sequence::new();
-        mock_read
-            .expect_read_rows()
-            .times(1)
-            .in_sequence(&mut seq)
-            .return_once(move |req, _| {
-                assert_eq!(req.read_stream, "s/0");
-                Ok(response_stream([r0]))
-            });
-        mock_read
-            .expect_read_rows()
-            .times(1)
-            .in_sequence(&mut seq)
-            .return_once(move |req, _| {
-                assert_eq!(req.read_stream, "s/1");
-                Ok(response_stream([r1]))
-            });
-
-        let mut q = create_test_complete_query(
-            create_job_service(mock_job),
-            Some(create_test_job_ref()),
-            vec![create_test_row("cached_rest_row")],
-            Some("rest_page_token".to_string()),
-        );
-        q.read_client = Some(Arc::new(crate::client::Read::from_stub(mock_read)));
-        q.metadata.total_rows = Some(DEFAULT_MULTI_STREAM_THRESHOLD + 1);
-        q.options.set_user_agent("test-agent/1.0");
-
-        let mut iter = q.read();
-        assert_eq!(iter.next().await.expect("row 1")?.get::<i64>("col")?, 100);
-        assert_eq!(iter.next().await.expect("row 2")?.get::<i64>("col")?, 200);
-        assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }
 }

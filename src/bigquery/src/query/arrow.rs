@@ -129,7 +129,7 @@ impl RecordBatchSource for ArrowResponseReader {
 #[derive(Debug)]
 pub(crate) enum ArrowReader {
     Response(ArrowResponseReader),
-    Storage(Box<crate::query::storage_reader::StorageReader>),
+    Storage(crate::query::storage_reader::StorageReader),
 }
 
 impl RecordBatchSource for ArrowReader {
