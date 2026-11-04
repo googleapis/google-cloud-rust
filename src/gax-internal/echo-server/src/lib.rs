@@ -33,7 +33,8 @@ use tokio::task::JoinHandle;
 pub async fn start() -> anyhow::Result<(String, JoinHandle<()>)> {
     let app = axum::Router::new()
         .route("/echo", axum::routing::get(echo))
-        .route("/error", axum::routing::get(error));
+        .route("/error", axum::routing::get(error))
+        .route("/stream", axum::routing::get(stream));
     let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
     let addr = listener.local_addr()?;
     let server = tokio::spawn(async {
@@ -96,6 +97,33 @@ async fn echo_impl(query: HashMap<String, String>, headers: HeaderMap) -> anyhow
     });
     let body = serde_json::to_string(&object)?;
     Ok(body)
+}
+
+/// Streams `chunks` chunks, sleeping `interval_ms` between them.
+async fn stream(Query(query): Query<HashMap<String, String>>) -> axum::body::Body {
+    let get = |k: &str| {
+        query
+            .get(k)
+            .and_then(|v| v.parse::<u64>().ok())
+            .unwrap_or(0)
+    };
+    let (chunks, interval) = (
+        get("chunks"),
+        tokio::time::Duration::from_millis(get("interval_ms")),
+    );
+    let stream = futures::stream::unfold(0, move |i| async move {
+        if i >= chunks {
+            return None;
+        }
+        if i > 0 {
+            tokio::time::sleep(interval).await;
+        }
+        Some((
+            Ok::<_, std::convert::Infallible>(format!("chunk-{i}\n")),
+            i + 1,
+        ))
+    });
+    axum::body::Body::from_stream(stream)
 }
 
 async fn error(

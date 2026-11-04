@@ -1148,6 +1148,7 @@ dependencies = [
  "anyhow",
  "axum",
  "bytes",
+ "futures",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",

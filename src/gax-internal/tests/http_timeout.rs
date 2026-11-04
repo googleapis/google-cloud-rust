@@ -183,6 +183,78 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn test_read_timeout_streaming_body() -> Result<()> {
+        let (endpoint, _server) = echo_server::start().await?;
+        let timeout = Duration::from_millis(200);
+        let mut config = test_config();
+        config.read_timeout = Some(timeout);
+        let client = ReqwestClient::new(config, &endpoint).await?;
+
+        // Each read completes within the read timeout, but the whole body does not.
+        let start = tokio::time::Instant::now();
+        let body = client
+            .builder(reqwest::Method::GET, "/stream".into())
+            .query(&[("chunks", "10"), ("interval_ms", "50")])
+            .send()
+            .await?
+            .text()
+            .await?;
+        assert!(start.elapsed() > timeout);
+        assert_eq!(body.lines().count(), 10, "{body}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_timeout_stalled_body() -> Result<()> {
+        let (endpoint, _server) = echo_server::start().await?;
+        let timeout = Duration::from_millis(150);
+        let mut config = test_config();
+        config.read_timeout = Some(timeout);
+        let client = ReqwestClient::new(config, &endpoint).await?;
+
+        let mut response = client
+            .builder(reqwest::Method::GET, "/stream".into())
+            .query(&[("chunks", "2"), ("interval_ms", "5000")])
+            .send()
+            .await?;
+        let first = response.chunk().await?;
+        assert_eq!(first.as_deref(), Some(b"chunk-0\n".as_slice()));
+
+        let start = tokio::time::Instant::now();
+        let err = response.chunk().await.expect_err("expected a read timeout");
+        assert!(err.is_timeout(), "{err:?}");
+        assert!(start.elapsed() >= timeout);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_connect_timeout_expires() -> Result<()> {
+        // Accept TCP connections but never complete the TLS handshake.
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+        let endpoint = format!("https://{}", listener.local_addr()?);
+        let _server = tokio::spawn(async move {
+            let mut sockets = Vec::new();
+            while let Ok((socket, _)) = listener.accept().await {
+                sockets.push(socket);
+            }
+        });
+
+        let timeout = Duration::from_millis(150);
+        let mut config = test_config();
+        config.connect_timeout = Some(timeout);
+        let client = ReqwestClient::new(config, &endpoint).await?;
+
+        let start = tokio::time::Instant::now();
+        let send = client.builder(reqwest::Method::GET, "/".into()).send();
+        let err = tokio::time::timeout(Duration::from_secs(5), send)
+            .await?
+            .expect_err("expected a connect timeout");
+        assert!(err.is_connect() && err.is_timeout(), "{err:?}");
+        assert!(start.elapsed() >= timeout);
+        Ok(())
+    }
+
     #[tokio::test(start_paused = true)]
     async fn test_effective_timeout() -> Result<()> {
         let (endpoint, server) = echo_server::start().await?;
