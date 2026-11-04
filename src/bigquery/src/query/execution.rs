@@ -21,9 +21,13 @@ use crate::query::query_handle::build_get_job;
 use crate::query::retry_policy::{JobRetryResult, is_duplicate_job_error};
 use crate::query::{Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+use google_cloud_bigquery_v2::model::query_request::{
+    QueryResultsFormat, ResultsFormatSerializationOptions,
+};
 use google_cloud_bigquery_v2::model::{
-    DataFormatOptions, InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest,
-    QueryRequest, QueryResponse,
+    ArrowSerializationOptions, DataFormatOptions, InsertJobRequest, Job, JobConfiguration,
+    JobReference, PostQueryRequest, QueryRequest, QueryResponse,
 };
 use google_cloud_gax::options::RequestOptionsBuilder as _;
 use google_cloud_gax::retry_state::RetryState;
@@ -247,23 +251,13 @@ impl RetryContext {
             query_request = query_request.set_query_results_format(format.clone());
         }
 
-        #[cfg(google_cloud_unstable_bigquery_arrow)]
-        {
-            use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
-            use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
-            use google_cloud_bigquery_v2::model::query_request::{
-                QueryResultsFormat, ResultsFormatSerializationOptions,
-            };
-
-            // If query results format was set to Arrow, default serialization options to Zstd compression.
-            if query_request.query_results_format == QueryResultsFormat::Arrow {
-                query_request = query_request.set_results_format_serialization_options(
-                    ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
-                        ArrowSerializationOptions::new()
-                            .set_buffer_compression(CompressionCodec::Zstd),
-                    )),
-                );
-            }
+        // If query results format was set to Arrow, default serialization options to Zstd compression.
+        if query_request.query_results_format == QueryResultsFormat::Arrow {
+            query_request = query_request.set_results_format_serialization_options(
+                ResultsFormatSerializationOptions::ArrowSerializationOptions(Box::new(
+                    ArrowSerializationOptions::new().set_buffer_compression(CompressionCodec::Zstd),
+                )),
+            );
         }
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
