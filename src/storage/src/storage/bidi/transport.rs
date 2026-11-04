@@ -312,6 +312,68 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn read_range_after_unexpected_close() -> anyhow::Result<()> {
+        use std::error::Error as _;
+        const LEN: i64 = 42;
+
+        let (connector, test_context) = BidiTestContext::new();
+        test_context.connect_tx.send(Ok(base_response())).await?;
+        let (transport, _) = ObjectDescriptorTransport::new(connector, Vec::new()).await?;
+        let mut connect_rx = test_context.take_receiver();
+        let request = connect_rx.recv().await.expect("the initial request");
+        assert!(request.read_object_spec.is_some(), "{request:?}");
+
+        // 1. Start a read and wait until the worker sends its request.
+        let mut existing = transport.read_range(ReadRange::segment(100, 200)).await;
+        let request = connect_rx.recv().await.expect("the read request");
+        let range_request = request.read_ranges.first();
+        assert_eq!(range_request, Some(&proto_range(100, 200)), "{request:?}");
+
+        // 2. Send part of the range, then close the stream with `OK`.
+        let content = bytes::Bytes::from_owner(String::from_iter((0..LEN).map(|_| 'x')));
+        let response = BidiReadObjectResponse {
+            object_data_ranges: vec![ObjectRangeData {
+                checksummed_data: Some(ChecksummedData {
+                    content: content.clone(),
+                    ..ChecksummedData::default()
+                }),
+                read_range: Some(proto_range_id(100, LEN, 0)),
+                range_end: false,
+            }],
+            ..BidiReadObjectResponse::default()
+        };
+        test_context.connect_tx.send(Ok(response)).await?;
+        drop(test_context.connect_tx);
+
+        // 3. The read in progress should fail instead of ending early.
+        let got = existing.next().await.transpose()?;
+        assert_eq!(got, Some(content));
+        let err = existing.next().await.transpose().unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(ReadError::UnrecoverableBidiReadInterrupt(e)) if e.is_io()),
+            "{err:?}"
+        );
+        let got = existing.next().await;
+        assert!(got.is_none(), "{got:?}");
+
+        // 4. Later `read_range()` calls should fail instead of panicking.
+        let mut reader = transport.read_range(ReadRange::segment(300, 100)).await;
+        let err = reader.next().await.transpose().unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(ReadError::UnrecoverableBidiReadInterrupt(e)) if e.is_io()),
+            "{err:?}"
+        );
+        let got = reader.next().await;
+        assert!(got.is_none(), "{got:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn connect_error() -> anyhow::Result<()> {
         let mut mock = MockTestClient::new();
         mock.expect_start()
