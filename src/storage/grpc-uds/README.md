@@ -102,11 +102,13 @@ To prevent HTTP/2 window stalls and kernel socket buffer contention under high c
 RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi" \
   cargo build --release -p storage-grpc-uds --bin gcs-core-server
 
-# Run server (prints "READY <socket>" on stdout once listening)
+# Run server (prints "READY <socket>" on stdout once listening).
+# --worker-threads caps the Tokio runtime (default: one worker per CPU).
 ./target/release/gcs-core-server \
   --socket /tmp/gcs-core.sock \
   --default-transport json \
   --grpc-subchannels 16 \
+  --worker-threads 8 \
   --idle-secs 300
 
 # Run unit & end-to-end integration tests

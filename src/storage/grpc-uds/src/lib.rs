@@ -148,6 +148,10 @@ pub struct Args {
     /// Per-client shared-memory region size served on `<socket>.shm` via `SCM_RIGHTS` (0 = disabled).
     #[arg(long, default_value_t = 256 * 1024 * 1024)]
     pub shm_size: usize,
+
+    /// Tokio worker threads serving the core (0 = one per available CPU, Tokio's default).
+    #[arg(long, default_value_t = 0)]
+    pub worker_threads: usize,
 }
 
 impl Default for Args {
@@ -164,8 +168,19 @@ impl Default for Args {
             tcp: None,
             require_session: false,
             shm_size: 256 * 1024 * 1024,
+            worker_threads: 0,
         }
     }
+}
+
+/// Builds the multi-threaded Tokio runtime that serves the core, sized by `--worker-threads`.
+pub fn build_runtime(args: &Args, thread_name: &str) -> std::io::Result<tokio::runtime::Runtime> {
+    let mut builder = tokio::runtime::Builder::new_multi_thread();
+    builder.enable_all().thread_name(thread_name);
+    if args.worker_threads > 0 {
+        builder.worker_threads(args.worker_threads);
+    }
+    builder.build()
 }
 
 /// Shared server state for activity tracking, connection reference counting, and shutdown coordination.
@@ -498,14 +513,14 @@ pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i3
         };
         let shared = Shared::new();
         let srv_shared = shared.clone();
-        let srv_sock = sock.clone();
+        let args = Args {
+            socket: sock.clone(),
+            idle_secs: 0,
+            ..Default::default()
+        };
         let (tx, rx) = std::sync::mpsc::sync_channel::<i32>(1);
         let join = std::thread::spawn(move || {
-            let rt = match tokio::runtime::Builder::new_multi_thread()
-                .enable_all()
-                .thread_name("gcs-core-inproc")
-                .build()
-            {
+            let rt = match build_runtime(&args, "gcs-core-inproc") {
                 Ok(rt) => rt,
                 Err(_) => {
                     let _ = tx.send(-1);
@@ -513,11 +528,6 @@ pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i3
                 }
             };
             rt.block_on(async move {
-                let args = Args {
-                    socket: srv_sock,
-                    idle_secs: 0,
-                    ..Default::default()
-                };
                 let listener = match bind_uds_listener(&args.socket) {
                     Ok(l) => l,
                     Err(_) => {

@@ -26,7 +26,7 @@ use storage_grpc_mock::google::storage::v2::{
 use storage_grpc_mock::{MockStorage, start as start_grpc_mock};
 use storage_grpc_uds::pb::gcs_core_client::GcsCoreClient;
 use storage_grpc_uds::pb::*;
-use storage_grpc_uds::{Args, Shared, bind_uds_listener, serve_with_listener};
+use storage_grpc_uds::{Args, Shared, bind_uds_listener, build_runtime, serve_with_listener};
 use tokio::net::UnixStream;
 use tokio_stream::StreamExt;
 use tonic::transport::{Channel, Endpoint, Uri};
@@ -904,5 +904,30 @@ async fn json_404_and_412_status_mapping_and_inproc_lifecycle() -> anyhow::Resul
         !inproc_sock.exists(),
         "inproc socket should be removed after gcs_core_stop_inproc"
     );
+    Ok(())
+}
+
+/// `--worker-threads N` sizes the runtime that serves the core, so the server's thread count is a
+/// controlled variable on large hosts; `0` (the default) keeps Tokio's one-worker-per-CPU sizing.
+#[test]
+fn worker_threads_sizes_the_runtime() -> anyhow::Result<()> {
+    use clap::Parser;
+    let args = Args::try_parse_from(["gcs-core-server", "--worker-threads", "3"])?;
+    assert_eq!(args.worker_threads, 3);
+    let rt = build_runtime(&args, "test-core")?;
+    assert_eq!(rt.metrics().num_workers(), 3);
+
+    let defaults = Args::try_parse_from(["gcs-core-server"])?;
+    assert_eq!(defaults.worker_threads, 0);
+    assert_eq!(Args::default().worker_threads, 0);
+    // Tokio honours TOKIO_WORKER_THREADS for its default; only check the CPU-count default
+    // when the environment does not override it.
+    if std::env::var_os("TOKIO_WORKER_THREADS").is_none() {
+        let default_rt = build_runtime(&defaults, "test-core")?;
+        assert_eq!(
+            default_rt.metrics().num_workers(),
+            std::thread::available_parallelism()?.get()
+        );
+    }
     Ok(())
 }
